@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `resource-sharing_update_share_resource_request`.
  */
-export const resource_sharing_update_share_resource_request: JsonSchema = {
+export const resource$$sharing_update_share_resource_request: JsonSchema = {
   "properties": {
     "meta": {
       "$ref": "#/$defs/resource-sharing_resource_meta",

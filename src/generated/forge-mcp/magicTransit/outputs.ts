@@ -7,7 +7,7 @@ import type { JsonSchema } from "../_/tool.js";
  * The schema of `advanced-ddos-protection_api-response-collection` in
  * responses.
  */
-export const advanced_ddos_protection_api_response_collection_output: JsonSchema = {
+export const advanced$$ddos$$protection_api$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/advanced-ddos-protection_api-response-common"
@@ -43,7 +43,7 @@ export const advanced_ddos_protection_api_response_collection_output: JsonSchema
 /**
  * The schema of `advanced-ddos-protection_api-response-common` in responses.
  */
-export const advanced_ddos_protection_api_response_common_output: JsonSchema = {
+export const advanced$$ddos$$protection_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/advanced-ddos-protection_messages"
@@ -70,7 +70,7 @@ export const advanced_ddos_protection_api_response_common_output: JsonSchema = {
  * The schema of `advanced-ddos-protection_api-response-common-failure` in
  * responses.
  */
-export const advanced_ddos_protection_api_response_common_failure_output: JsonSchema = {
+export const advanced$$ddos$$protection_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/advanced-ddos-protection_messages"
@@ -100,7 +100,7 @@ export const advanced_ddos_protection_api_response_common_failure_output: JsonSc
 /**
  * The schema of `advanced-ddos-protection_messages` in responses.
  */
-export const advanced_ddos_protection_messages_output: JsonSchema = {
+export const advanced$$ddos$$protection_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -131,16 +131,9 @@ export const advanced_ddos_protection_messages_output: JsonSchema = {
 };
 
 /**
- * The schema of `magic_account_app_id` in responses.
- */
-export const magic_account_app_id_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `magic_api-response-common` in responses.
  */
-export const magic_api_response_common_output: JsonSchema = {
+export const magic_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/magic_messages"
@@ -183,7 +176,7 @@ export const magic_api_response_common_output: JsonSchema = {
 /**
  * The schema of `magic_api-response-common-failure` in responses.
  */
-export const magic_api_response_common_failure_output: JsonSchema = {
+export const magic_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/magic_messages"
@@ -213,7 +206,7 @@ export const magic_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `magic_api-response-single` in responses.
  */
-export const magic_api_response_single_output: JsonSchema = {
+export const magic_api$$response$$single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-common"
@@ -242,7 +235,7 @@ export const magic_api_response_single_output: JsonSchema = {
 /**
  * The schema of `magic_apps-response-array` in responses.
  */
-export const magic_apps_response_array_output: JsonSchema = {
+export const magic_apps$$response$$array: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/magic_messages"
@@ -282,7 +275,7 @@ export const magic_apps_response_array_output: JsonSchema = {
 /**
  * The schema of `magic_apps-response-object` in responses.
  */
-export const magic_apps_response_object_output: JsonSchema = {
+export const magic_apps$$response$$object: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/magic_messages"
@@ -317,16 +310,9 @@ export const magic_apps_response_object_output: JsonSchema = {
 };
 
 /**
- * The schema of `magic_automatic_return_routing` in responses.
- */
-export const magic_automatic_return_routing_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `magic_bgp_config` in responses.
  */
-export const magic_bgp_config_output: JsonSchema = {
+export const magic_bgp_config: JsonSchema = {
   "properties": {
     "customer_asn": {
       "type": "integer"
@@ -356,7 +342,7 @@ export const magic_bgp_config_output: JsonSchema = {
 /**
  * The schema of `magic_bgp_status_with_state` in responses.
  */
-export const magic_bgp_status_with_state_output: JsonSchema = {
+export const magic_bgp_status_with_state: JsonSchema = {
   "properties": {
     "bgp_state": {
       "type": "string"
@@ -398,16 +384,9 @@ export const magic_bgp_status_with_state_output: JsonSchema = {
 };
 
 /**
- * The schema of `magic_cidr` in responses.
- */
-export const magic_cidr_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `magic_health_check_base` in responses.
  */
-export const magic_health_check_base_output: JsonSchema = {
+export const magic_health_check_base: JsonSchema = {
   "properties": {
     "enabled": {
       "type": "boolean"
@@ -444,7 +423,7 @@ export const magic_health_check_base_output: JsonSchema = {
 /**
  * The schema of `magic_health_check_target` in responses.
  */
-export const magic_health_check_target_output: JsonSchema = {
+export const magic_health_check_target: JsonSchema = {
   "properties": {
     "effective": {
       "type": "string"
@@ -457,37 +436,9 @@ export const magic_health_check_target_output: JsonSchema = {
 };
 
 /**
- * The schema of `magic_identifier` in responses.
- */
-export const magic_identifier_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `magic_interface_address` in responses.
- */
-export const magic_interface_address_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `magic_interface_address6` in responses.
- */
-export const magic_interface_address6_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `magic_managed_app_id` in responses.
- */
-export const magic_managed_app_id_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `magic_messages` in responses.
  */
-export const magic_messages_output: JsonSchema = {
+export const magic_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -507,32 +458,9 @@ export const magic_messages_output: JsonSchema = {
 };
 
 /**
- * The schema of `magic_schemas-created_on` in responses.
- */
-export const magic_schemas_created_on_output: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `magic_schemas-identifier` in responses.
- */
-export const magic_schemas_identifier_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `magic_schemas-modified_on` in responses.
- */
-export const magic_schemas_modified_on_output: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
  * The schema of `magic_tunnel_health_check` in responses.
  */
-export const magic_tunnel_health_check_output: JsonSchema = {
+export const magic_tunnel_health_check: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_health_check_base"

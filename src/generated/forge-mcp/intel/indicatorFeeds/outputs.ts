@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `custom-indicator-feeds_api-response-common` in responses.
  */
-export const custom_indicator_feeds_api_response_common_output: JsonSchema = {
+export const custom$$indicator$$feeds_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/custom-indicator-feeds_messages-2"
@@ -32,7 +32,7 @@ export const custom_indicator_feeds_api_response_common_output: JsonSchema = {
 /**
  * The schema of `custom-indicator-feeds_api-response-single` in responses.
  */
-export const custom_indicator_feeds_api_response_single_output: JsonSchema = {
+export const custom$$indicator$$feeds_api$$response$$single: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/custom-indicator-feeds_messages-2"
@@ -59,7 +59,7 @@ export const custom_indicator_feeds_api_response_single_output: JsonSchema = {
  * The schema of `custom-indicator-feeds_api_response_common_failure` in
  * responses.
  */
-export const custom_indicator_feeds_api_response_common_failure_output: JsonSchema = {
+export const custom$$indicator$$feeds_api_response_common_failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/custom-indicator-feeds_messages"
@@ -89,7 +89,7 @@ export const custom_indicator_feeds_api_response_common_failure_output: JsonSche
 /**
  * The schema of `custom-indicator-feeds_create_feed_response` in responses.
  */
-export const custom_indicator_feeds_create_feed_response_output: JsonSchema = {
+export const custom$$indicator$$feeds_create_feed_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/custom-indicator-feeds_api-response-single"
@@ -106,56 +106,35 @@ export const custom_indicator_feeds_create_feed_response_output: JsonSchema = {
 };
 
 /**
- * The schema of `custom-indicator-feeds_description` in responses.
- */
-export const custom_indicator_feeds_description_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `custom-indicator-feeds_feed_id` in responses.
- */
-export const custom_indicator_feeds_feed_id_output: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `custom-indicator-feeds_id` in responses.
- */
-export const custom_indicator_feeds_id_output: JsonSchema = {
-  "type": "integer"
-};
-
-/**
  * The schema of `custom-indicator-feeds_indicator_feed_item` in responses.
  */
-export const custom_indicator_feeds_indicator_feed_item_output: JsonSchema = {
+export const custom$$indicator$$feeds_indicator_feed_item: JsonSchema = {
   "properties": {
     "created_on": {
       "format": "date-time",
       "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/custom-indicator-feeds_description"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/custom-indicator-feeds_id"
+      "type": "integer"
     },
     "is_attributable": {
-      "$ref": "#/$defs/custom-indicator-feeds_is_attributable"
+      "type": "boolean"
     },
     "is_downloadable": {
-      "$ref": "#/$defs/custom-indicator-feeds_is_downloadable"
+      "type": "boolean"
     },
     "is_public": {
-      "$ref": "#/$defs/custom-indicator-feeds_is_public"
+      "type": "boolean"
     },
     "modified_on": {
       "format": "date-time",
       "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/custom-indicator-feeds_name"
+      "type": "string"
     }
   },
   "type": "object"
@@ -164,26 +143,26 @@ export const custom_indicator_feeds_indicator_feed_item_output: JsonSchema = {
 /**
  * The schema of `custom-indicator-feeds_indicator_feed_metadata` in responses.
  */
-export const custom_indicator_feeds_indicator_feed_metadata_output: JsonSchema = {
+export const custom$$indicator$$feeds_indicator_feed_metadata: JsonSchema = {
   "properties": {
     "created_on": {
       "format": "date-time",
       "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/custom-indicator-feeds_description"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/custom-indicator-feeds_id"
+      "type": "integer"
     },
     "is_attributable": {
-      "$ref": "#/$defs/custom-indicator-feeds_is_attributable"
+      "type": "boolean"
     },
     "is_downloadable": {
-      "$ref": "#/$defs/custom-indicator-feeds_is_downloadable"
+      "type": "boolean"
     },
     "is_public": {
-      "$ref": "#/$defs/custom-indicator-feeds_is_public"
+      "type": "boolean"
     },
     "last_upload_summary": {
       "$ref": "#/$defs/custom-indicator-feeds_last_upload_summary"
@@ -207,13 +186,13 @@ export const custom_indicator_feeds_indicator_feed_metadata_output: JsonSchema =
       "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/custom-indicator-feeds_name"
+      "type": "string"
     },
     "provider_id": {
-      "$ref": "#/$defs/custom-indicator-feeds_provider_id"
+      "type": "integer"
     },
     "provider_name": {
-      "$ref": "#/$defs/custom-indicator-feeds_provider_name"
+      "type": "string"
     }
   },
   "type": "object"
@@ -223,7 +202,7 @@ export const custom_indicator_feeds_indicator_feed_metadata_output: JsonSchema =
  * The schema of `custom-indicator-feeds_indicator_feed_metadata_response` in
  * responses.
  */
-export const custom_indicator_feeds_indicator_feed_metadata_response_output: JsonSchema = {
+export const custom$$indicator$$feeds_indicator_feed_metadata_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/custom-indicator-feeds_api-response-single"
@@ -242,7 +221,7 @@ export const custom_indicator_feeds_indicator_feed_metadata_response_output: Jso
 /**
  * The schema of `custom-indicator-feeds_indicator_feed_response` in responses.
  */
-export const custom_indicator_feeds_indicator_feed_response_output: JsonSchema = {
+export const custom$$indicator$$feeds_indicator_feed_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/custom-indicator-feeds_api-response-common"
@@ -262,30 +241,9 @@ export const custom_indicator_feeds_indicator_feed_response_output: JsonSchema =
 };
 
 /**
- * The schema of `custom-indicator-feeds_is_attributable` in responses.
- */
-export const custom_indicator_feeds_is_attributable_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `custom-indicator-feeds_is_downloadable` in responses.
- */
-export const custom_indicator_feeds_is_downloadable_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `custom-indicator-feeds_is_public` in responses.
- */
-export const custom_indicator_feeds_is_public_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `custom-indicator-feeds_last_upload_summary` in responses.
  */
-export const custom_indicator_feeds_last_upload_summary_output: JsonSchema = {
+export const custom$$indicator$$feeds_last_upload_summary: JsonSchema = {
   "properties": {
     "persisted": {
       "properties": {
@@ -345,7 +303,7 @@ export const custom_indicator_feeds_last_upload_summary_output: JsonSchema = {
 /**
  * The schema of `custom-indicator-feeds_messages` in responses.
  */
-export const custom_indicator_feeds_messages_output: JsonSchema = {
+export const custom$$indicator$$feeds_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -367,7 +325,7 @@ export const custom_indicator_feeds_messages_output: JsonSchema = {
 /**
  * The schema of `custom-indicator-feeds_messages-2` in responses.
  */
-export const custom_indicator_feeds_messages_2_output: JsonSchema = {
+export const custom$$indicator$$feeds_messages$$2: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -398,30 +356,9 @@ export const custom_indicator_feeds_messages_2_output: JsonSchema = {
 };
 
 /**
- * The schema of `custom-indicator-feeds_name` in responses.
- */
-export const custom_indicator_feeds_name_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `custom-indicator-feeds_provider_id` in responses.
- */
-export const custom_indicator_feeds_provider_id_output: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `custom-indicator-feeds_provider_name` in responses.
- */
-export const custom_indicator_feeds_provider_name_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `custom-indicator-feeds_update_feed` in responses.
  */
-export const custom_indicator_feeds_update_feed_output: JsonSchema = {
+export const custom$$indicator$$feeds_update_feed: JsonSchema = {
   "properties": {
     "file_id": {
       "type": "integer"
@@ -445,7 +382,7 @@ export const custom_indicator_feeds_update_feed_output: JsonSchema = {
 /**
  * The schema of `custom-indicator-feeds_update_feed_response` in responses.
  */
-export const custom_indicator_feeds_update_feed_response_output: JsonSchema = {
+export const custom$$indicator$$feeds_update_feed_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/custom-indicator-feeds_api-response-single"
@@ -465,7 +402,7 @@ export const custom_indicator_feeds_update_feed_response_output: JsonSchema = {
  * The schema of `custom-indicator-feeds_update_public_field_response` in
  * responses.
  */
-export const custom_indicator_feeds_update_public_field_response_output: JsonSchema = {
+export const custom$$indicator$$feeds_update_public_field_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/custom-indicator-feeds_api-response-single"

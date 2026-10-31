@@ -4,14 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `smartshield_address`.
- */
-export const smartshield_address: JsonSchema = {
-  "description": "The hostname or IP address of the origin server to run health checks on.",
-  "type": "string"
-};
-
-/**
  * The schema of `smartshield_check_regions`.
  */
 export const smartshield_check_regions: JsonSchema = {
@@ -46,92 +38,68 @@ export const smartshield_check_regions: JsonSchema = {
 };
 
 /**
- * The schema of `smartshield_consecutive_fails`.
- */
-export const smartshield_consecutive_fails: JsonSchema = {
-  "description": "The number of consecutive fails required from a health check before changing the health to unhealthy.",
-  "type": "integer"
-};
-
-/**
- * The schema of `smartshield_consecutive_successes`.
- */
-export const smartshield_consecutive_successes: JsonSchema = {
-  "description": "The number of consecutive successes required from a health check before changing the health to healthy.",
-  "type": "integer"
-};
-
-/**
- * The schema of `smartshield_description`.
- */
-export const smartshield_description: JsonSchema = {
-  "description": "A human-readable description of the health check.",
-  "type": "string"
-};
-
-/**
  * The schema of `smartshield_healthchecks`.
  */
 export const smartshield_healthchecks: JsonSchema = {
   "properties": {
     "address": {
-      "$ref": "#/$defs/smartshield_address",
-      "description": "The hostname or IP address of the origin server to run health checks on."
+      "description": "The hostname or IP address of the origin server to run health checks on.",
+      "type": "string"
     },
     "check_regions": {
       "$ref": "#/$defs/smartshield_check_regions",
       "description": "A list of regions from which to run health checks. Null means Cloudflare will pick a default region."
     },
     "consecutive_fails": {
-      "$ref": "#/$defs/smartshield_consecutive_fails",
       "default": 1,
-      "description": "The number of consecutive fails required from a health check before changing the health to unhealthy."
+      "description": "The number of consecutive fails required from a health check before changing the health to unhealthy.",
+      "type": "integer"
     },
     "consecutive_successes": {
-      "$ref": "#/$defs/smartshield_consecutive_successes",
       "default": 1,
-      "description": "The number of consecutive successes required from a health check before changing the health to healthy."
+      "description": "The number of consecutive successes required from a health check before changing the health to healthy.",
+      "type": "integer"
     },
     "description": {
-      "$ref": "#/$defs/smartshield_description",
-      "description": "A human-readable description of the health check."
+      "description": "A human-readable description of the health check.",
+      "type": "string"
     },
     "http_config": {
       "$ref": "#/$defs/smartshield_http_config",
       "description": "Parameters specific to an HTTP or HTTPS health check."
     },
     "interval": {
-      "$ref": "#/$defs/smartshield_interval",
       "default": 60,
-      "description": "The interval between each health check. Shorter intervals may give quicker notifications if the origin status changes, but will increase load on the origin as we check from multiple locations."
+      "description": "The interval between each health check. Shorter intervals may give quicker notifications if the origin status changes, but will increase load on the origin as we check from multiple locations.",
+      "type": "integer"
     },
     "name": {
-      "$ref": "#/$defs/smartshield_name",
-      "description": "A short name to identify the health check. Only alphanumeric characters, hyphens and underscores are allowed."
+      "description": "A short name to identify the health check. Only alphanumeric characters, hyphens and underscores are allowed.",
+      "type": "string"
     },
     "retries": {
-      "$ref": "#/$defs/smartshield_retries",
       "default": 2,
-      "description": "The number of retries to attempt in case of a timeout before marking the origin as unhealthy. Retries are attempted immediately."
+      "description": "The number of retries to attempt in case of a timeout before marking the origin as unhealthy. Retries are attempted immediately.",
+      "type": "integer"
     },
     "suspended": {
-      "$ref": "#/$defs/smartshield_suspended",
       "default": false,
-      "description": "If suspended, no health checks are sent to the origin."
+      "description": "If suspended, no health checks are sent to the origin.",
+      "type": "boolean"
     },
     "tcp_config": {
       "$ref": "#/$defs/smartshield_tcp_config",
       "description": "Parameters specific to TCP health check."
     },
     "timeout": {
-      "$ref": "#/$defs/smartshield_timeout",
       "default": 5,
-      "description": "The timeout (in seconds) before marking the health check as failed."
+      "description": "The timeout (in seconds) before marking the health check as failed.",
+      "type": "integer"
     },
     "type": {
-      "$ref": "#/$defs/smartshield_type",
       "default": "HTTP",
-      "description": "The protocol to use for the health check. Currently supported protocols are 'HTTP', 'HTTPS' and 'TCP'."
+      "description": "The protocol to use for the health check. Currently supported protocols are 'HTTP', 'HTTPS' and 'TCP'.",
+      "type": "string"
     }
   },
   "type": "object"
@@ -222,84 +190,68 @@ export const smartshield_http_config: JsonSchema = {
 };
 
 /**
- * The schema of `smartshield_interval`.
- */
-export const smartshield_interval: JsonSchema = {
-  "description": "The interval between each health check. Shorter intervals may give quicker notifications if the origin status changes, but will increase load on the origin as we check from multiple locations.",
-  "type": "integer"
-};
-
-/**
- * The schema of `smartshield_name`.
- */
-export const smartshield_name: JsonSchema = {
-  "description": "A short name to identify the health check. Only alphanumeric characters, hyphens and underscores are allowed.",
-  "type": "string"
-};
-
-/**
  * The schema of `smartshield_query_healthcheck`.
  */
 export const smartshield_query_healthcheck: JsonSchema = {
   "properties": {
     "address": {
-      "$ref": "#/$defs/smartshield_address",
-      "description": "The hostname or IP address of the origin server to run health checks on."
+      "description": "The hostname or IP address of the origin server to run health checks on.",
+      "type": "string"
     },
     "check_regions": {
       "$ref": "#/$defs/smartshield_check_regions",
       "description": "A list of regions from which to run health checks. Null means Cloudflare will pick a default region."
     },
     "consecutive_fails": {
-      "$ref": "#/$defs/smartshield_consecutive_fails",
       "default": 1,
-      "description": "The number of consecutive fails required from a health check before changing the health to unhealthy."
+      "description": "The number of consecutive fails required from a health check before changing the health to unhealthy.",
+      "type": "integer"
     },
     "consecutive_successes": {
-      "$ref": "#/$defs/smartshield_consecutive_successes",
       "default": 1,
-      "description": "The number of consecutive successes required from a health check before changing the health to healthy."
+      "description": "The number of consecutive successes required from a health check before changing the health to healthy.",
+      "type": "integer"
     },
     "description": {
-      "$ref": "#/$defs/smartshield_description",
-      "description": "A human-readable description of the health check."
+      "description": "A human-readable description of the health check.",
+      "type": "string"
     },
     "http_config": {
       "$ref": "#/$defs/smartshield_http_config",
       "description": "Parameters specific to an HTTP or HTTPS health check."
     },
     "interval": {
-      "$ref": "#/$defs/smartshield_interval",
       "default": 60,
-      "description": "The interval between each health check. Shorter intervals may give quicker notifications if the origin status changes, but will increase load on the origin as we check from multiple locations."
+      "description": "The interval between each health check. Shorter intervals may give quicker notifications if the origin status changes, but will increase load on the origin as we check from multiple locations.",
+      "type": "integer"
     },
     "name": {
-      "$ref": "#/$defs/smartshield_name",
-      "description": "A short name to identify the health check. Only alphanumeric characters, hyphens and underscores are allowed."
+      "description": "A short name to identify the health check. Only alphanumeric characters, hyphens and underscores are allowed.",
+      "type": "string"
     },
     "retries": {
-      "$ref": "#/$defs/smartshield_retries",
       "default": 2,
-      "description": "The number of retries to attempt in case of a timeout before marking the origin as unhealthy. Retries are attempted immediately."
+      "description": "The number of retries to attempt in case of a timeout before marking the origin as unhealthy. Retries are attempted immediately.",
+      "type": "integer"
     },
     "suspended": {
-      "$ref": "#/$defs/smartshield_suspended",
       "default": false,
-      "description": "If suspended, no health checks are sent to the origin."
+      "description": "If suspended, no health checks are sent to the origin.",
+      "type": "boolean"
     },
     "tcp_config": {
       "$ref": "#/$defs/smartshield_tcp_config",
       "description": "Parameters specific to TCP health check."
     },
     "timeout": {
-      "$ref": "#/$defs/smartshield_timeout",
       "default": 5,
-      "description": "The timeout (in seconds) before marking the health check as failed."
+      "description": "The timeout (in seconds) before marking the health check as failed.",
+      "type": "integer"
     },
     "type": {
-      "$ref": "#/$defs/smartshield_type",
       "default": "HTTP",
-      "description": "The protocol to use for the health check. Currently supported protocols are 'HTTP', 'HTTPS' and 'TCP'."
+      "description": "The protocol to use for the health check. Currently supported protocols are 'HTTP', 'HTTPS' and 'TCP'.",
+      "type": "string"
     }
   },
   "required": [
@@ -307,14 +259,6 @@ export const smartshield_query_healthcheck: JsonSchema = {
     "name"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `smartshield_retries`.
- */
-export const smartshield_retries: JsonSchema = {
-  "description": "The number of retries to attempt in case of a timeout before marking the origin as unhealthy. Retries are attempted immediately.",
-  "type": "integer"
 };
 
 /**
@@ -334,14 +278,6 @@ export const smartshield_single_hc_response: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `smartshield_suspended`.
- */
-export const smartshield_suspended: JsonSchema = {
-  "description": "If suspended, no health checks are sent to the origin.",
-  "type": "boolean"
 };
 
 /**
@@ -372,20 +308,4 @@ export const smartshield_tcp_config: JsonSchema = {
       "type": "null"
     }
   ]
-};
-
-/**
- * The schema of `smartshield_timeout`.
- */
-export const smartshield_timeout: JsonSchema = {
-  "description": "The timeout (in seconds) before marking the health check as failed.",
-  "type": "integer"
-};
-
-/**
- * The schema of `smartshield_type`.
- */
-export const smartshield_type: JsonSchema = {
-  "description": "The protocol to use for the health check. Currently supported protocols are 'HTTP', 'HTTPS' and 'TCP'.",
-  "type": "string"
 };

@@ -92,7 +92,7 @@ describe('direct-tool response schema checks', () => {
         'd1_list', // the generated tool whose schema was used
         '200',
         'type',
-        '#/components/schemas/d1_database-identifier/type',
+        '#/components/schemas/d1_database-response/properties/uuid/type',
         '/result/*/uuid',
         source.release
       ],
@@ -133,7 +133,7 @@ describe('direct-tool response schema checks', () => {
       'd1_list',
       '200',
       'type',
-      '#/components/schemas/d1_database-identifier/type'
+      '#/components/schemas/d1_database-response/properties/uuid/type'
     ])
   })
 
@@ -146,13 +146,13 @@ describe('direct-tool response schema checks', () => {
     const writeSpy = vi.spyOn(env.MCP_METRICS, 'writeDataPoint')
     vi.spyOn(console, 'warn').mockImplementation(() => {})
 
-    await forgeTool('zero_trust_access_applications_list', { account_or_zone: 'accounts' })
+    await forgeTool('zeroTrust_access_applications_list', { path: { account_or_zone: 'accounts' } })
 
     await vi.waitFor(() => expect(mismatches(writeSpy)).toHaveLength(1))
     expect(mismatches(writeSpy)[0].blobs?.slice(5, 12)).toEqual([
       '/{account_or_zone}/{account_or_zone_id}/access/apps',
       'access',
-      'zero_trust_access_applications_list',
+      'zeroTrust_access_applications_list',
       '200',
       'type',
       '#/components/schemas/access_response_collection-8/allOf/1/properties/result/type',

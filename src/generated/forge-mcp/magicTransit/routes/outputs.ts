@@ -4,35 +4,21 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `magic_colo_name` in responses.
- */
-export const magic_colo_name_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `magic_colo_names` in responses.
  */
-export const magic_colo_names_output: JsonSchema = {
+export const magic_colo_names: JsonSchema = {
   "items": {
-    "$ref": "#/$defs/magic_colo_name"
+    "type": "string"
   },
   "type": "array"
 };
 
 /**
- * The schema of `magic_colo_region` in responses.
- */
-export const magic_colo_region_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `magic_colo_regions` in responses.
  */
-export const magic_colo_regions_output: JsonSchema = {
+export const magic_colo_regions: JsonSchema = {
   "items": {
-    "$ref": "#/$defs/magic_colo_region"
+    "type": "string"
   },
   "type": "array"
 };
@@ -40,7 +26,7 @@ export const magic_colo_regions_output: JsonSchema = {
 /**
  * The schema of `magic_create_route_response` in responses.
  */
-export const magic_create_route_response_output: JsonSchema = {
+export const magic_create_route_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"
@@ -57,32 +43,9 @@ export const magic_create_route_response_output: JsonSchema = {
 };
 
 /**
- * The schema of `magic_created_on` in responses.
- */
-export const magic_created_on_output: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `magic_description` in responses.
- */
-export const magic_description_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `magic_modified_on` in responses.
- */
-export const magic_modified_on_output: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
  * The schema of `magic_multiple_route_delete_response` in responses.
  */
-export const magic_multiple_route_delete_response_output: JsonSchema = {
+export const magic_multiple_route_delete_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"
@@ -112,7 +75,7 @@ export const magic_multiple_route_delete_response_output: JsonSchema = {
 /**
  * The schema of `magic_multiple_route_modified_response` in responses.
  */
-export const magic_multiple_route_modified_response_output: JsonSchema = {
+export const magic_multiple_route_modified_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"
@@ -140,57 +103,38 @@ export const magic_multiple_route_modified_response_output: JsonSchema = {
 };
 
 /**
- * The schema of `magic_nexthop` in responses.
- */
-export const magic_nexthop_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `magic_prefix` in responses.
- */
-export const magic_prefix_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `magic_priority` in responses.
- */
-export const magic_priority_output: JsonSchema = {
-  "type": "integer"
-};
-
-/**
  * The schema of `magic_route` in responses.
  */
-export const magic_route_output: JsonSchema = {
+export const magic_route: JsonSchema = {
   "properties": {
     "created_on": {
-      "$ref": "#/$defs/magic_created_on"
+      "format": "date-time",
+      "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/magic_description"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/magic_identifier"
+      "type": "string"
     },
     "modified_on": {
-      "$ref": "#/$defs/magic_modified_on"
+      "format": "date-time",
+      "type": "string"
     },
     "nexthop": {
-      "$ref": "#/$defs/magic_nexthop"
+      "type": "string"
     },
     "prefix": {
-      "$ref": "#/$defs/magic_prefix"
+      "type": "string"
     },
     "priority": {
-      "$ref": "#/$defs/magic_priority"
+      "type": "integer"
     },
     "scope": {
       "$ref": "#/$defs/magic_scope"
     },
     "weight": {
-      "$ref": "#/$defs/magic_weight"
+      "type": "integer"
     }
   },
   "required": [
@@ -205,7 +149,7 @@ export const magic_route_output: JsonSchema = {
 /**
  * The schema of `magic_route_deleted_response` in responses.
  */
-export const magic_route_deleted_response_output: JsonSchema = {
+export const magic_route_deleted_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"
@@ -232,7 +176,7 @@ export const magic_route_deleted_response_output: JsonSchema = {
 /**
  * The schema of `magic_route_modified_response` in responses.
  */
-export const magic_route_modified_response_output: JsonSchema = {
+export const magic_route_modified_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"
@@ -259,7 +203,7 @@ export const magic_route_modified_response_output: JsonSchema = {
 /**
  * The schema of `magic_route_single_response` in responses.
  */
-export const magic_route_single_response_output: JsonSchema = {
+export const magic_route_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"
@@ -283,7 +227,7 @@ export const magic_route_single_response_output: JsonSchema = {
 /**
  * The schema of `magic_routes_collection_response` in responses.
  */
-export const magic_routes_collection_response_output: JsonSchema = {
+export const magic_routes_collection_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"
@@ -310,7 +254,7 @@ export const magic_routes_collection_response_output: JsonSchema = {
 /**
  * The schema of `magic_scope` in responses.
  */
-export const magic_scope_output: JsonSchema = {
+export const magic_scope: JsonSchema = {
   "properties": {
     "colo_names": {
       "$ref": "#/$defs/magic_colo_names"
@@ -320,11 +264,4 @@ export const magic_scope_output: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `magic_weight` in responses.
- */
-export const magic_weight_output: JsonSchema = {
-  "type": "integer"
 };

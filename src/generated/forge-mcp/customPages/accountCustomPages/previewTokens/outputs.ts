@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `custom-pages_preview_token` in responses.
  */
-export const custom_pages_preview_token_output: JsonSchema = {
+export const custom$$pages_preview_token: JsonSchema = {
   "properties": {
     "cep_jwt": {
       "type": "string"
@@ -21,7 +21,7 @@ export const custom_pages_preview_token_output: JsonSchema = {
 /**
  * The schema of `custom-pages_preview_token_result` in responses.
  */
-export const custom_pages_preview_token_result_output: JsonSchema = {
+export const custom$$pages_preview_token_result: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/custom-pages_api-response-single"

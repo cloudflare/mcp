@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `brapi_SerializedAXNode` in responses.
  */
-export const brapi_SerializedAXNode_output: JsonSchema = {
+export const brapi_SerializedAXNode: JsonSchema = {
   "properties": {
     "autocomplete": {
       "type": "string"

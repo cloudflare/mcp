@@ -7,26 +7,31 @@ import type { JsonSchema } from "../../_/tool.js";
  * The schema of `cc_ContainersCreateImageRegistryRequestBody`.
  */
 export const cc_ContainersCreateImageRegistryRequestBody: JsonSchema = {
-  "description": "Configuration for connecting Containers to a supported private external image\nregistry. See [Image management](https://developers.cloudflare.com/containers/platform-details/image-management/)\nfor supported providers and credential setup instructions.\n",
+  "description": "Configuration for connecting Containers to a supported private external image\nregistry. See [Image management](https://developers.cloudflare.com/containers/platform-details/image-management/)\nfor supported providers and credential setup instructions.",
   "properties": {
     "auth": {
       "$ref": "#/$defs/cc_ContainersImageRegistryAuth",
-      "description": "Credentials for authenticating to a private external image registry. Store the\nprivate credential in [Secrets Store](https://developers.cloudflare.com/secrets-store/)\nbefore calling the API. Refer to [Image management](https://developers.cloudflare.com/containers/platform-details/image-management/)\nfor the credential required by each supported registry provider.\n"
+      "description": "Credentials for authenticating to a private external image registry. Store the\nprivate credential in [Secrets Store](https://developers.cloudflare.com/secrets-store/)\nbefore calling the API. Refer to [Image management](https://developers.cloudflare.com/containers/platform-details/image-management/)\nfor the credential required by each supported registry provider."
     },
     "domain": {
-      "description": "Hostname of the private registry, without a scheme or image path. Supported\nhostnames are `docker.io`, AWS ECR hostnames, and Google Artifact Registry\n`*-docker.pkg.dev` hostnames.\n",
+      "description": "Hostname of the private registry, without a scheme or image path. Supported\nhostnames are `docker.io`, AWS ECR hostnames, and Google Artifact Registry\n`*-docker.pkg.dev` hostnames.",
       "type": "string"
     },
     "is_public": {
-      "description": "Omit this field or set it to `false`. Public Docker Hub images do not require\nregistry configuration and cannot be added with this endpoint.\n",
+      "description": "Omit this field or set it to `false`. Public Docker Hub images do not require\nregistry configuration and cannot be added with this endpoint.",
       "enum": [
         false
       ],
       "type": "boolean"
     },
     "kind": {
-      "$ref": "#/$defs/cc_ExternalRegistryKind",
-      "description": "Registry provider. This must match `domain`: `DockerHub` for `docker.io`,\n`ECR` for AWS ECR, or `GAR` for Google Artifact Registry.\n"
+      "description": "Registry provider. This must match `domain`: `DockerHub` for `docker.io`,\n`ECR` for AWS ECR, or `GAR` for Google Artifact Registry.",
+      "enum": [
+        "ECR",
+        "DockerHub",
+        "GAR"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -41,14 +46,14 @@ export const cc_ContainersCreateImageRegistryRequestBody: JsonSchema = {
  * The schema of `cc_ContainersImageRegistryAuth`.
  */
 export const cc_ContainersImageRegistryAuth: JsonSchema = {
-  "description": "Credentials for authenticating to a private external image registry. Store the\nprivate credential in [Secrets Store](https://developers.cloudflare.com/secrets-store/)\nbefore calling the API. Refer to [Image management](https://developers.cloudflare.com/containers/platform-details/image-management/)\nfor the credential required by each supported registry provider.\n",
+  "description": "Credentials for authenticating to a private external image registry. Store the\nprivate credential in [Secrets Store](https://developers.cloudflare.com/secrets-store/)\nbefore calling the API. Refer to [Image management](https://developers.cloudflare.com/containers/platform-details/image-management/)\nfor the credential required by each supported registry provider.",
   "properties": {
     "private_credential": {
       "$ref": "#/$defs/cc_SecretsStoreRef",
-      "description": "A reference to the private registry credential in Secrets Store. The referenced\nsecret must have the `containers` scope. Raw secret values are not accepted.\n"
+      "description": "A reference to the private registry credential in Secrets Store. The referenced\nsecret must have the `containers` scope. Raw secret values are not accepted."
     },
     "public_credential": {
-      "description": "The non-secret part of the registry credential: an AWS access key ID for ECR,\na username for Docker Hub, or a service account email for Google Artifact Registry.\n",
+      "description": "The non-secret part of the registry credential: an AWS access key ID for ECR,\na username for Docker Hub, or a service account email for Google Artifact Registry.",
       "type": "string"
     }
   },
@@ -60,23 +65,10 @@ export const cc_ContainersImageRegistryAuth: JsonSchema = {
 };
 
 /**
- * The schema of `cc_ExternalRegistryKind`.
- */
-export const cc_ExternalRegistryKind: JsonSchema = {
-  "description": "The type of external registry that is being configured.",
-  "enum": [
-    "ECR",
-    "DockerHub",
-    "GAR"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `cc_SecretsStoreRef`.
  */
 export const cc_SecretsStoreRef: JsonSchema = {
-  "description": "Identifies an existing secret in [Secrets Store](https://developers.cloudflare.com/secrets-store/).\nThis reference does not contain or upload the secret value.\n",
+  "description": "Identifies an existing secret in [Secrets Store](https://developers.cloudflare.com/secrets-store/).\nThis reference does not contain or upload the secret value.",
   "properties": {
     "secret_name": {
       "description": "Name of the secret within the store.",

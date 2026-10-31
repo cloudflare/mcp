@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `email-auth_api-response-common-failure` in responses.
  */
-export const email_auth_api_response_common_failure_output: JsonSchema = {
+export const email$$auth_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/email-auth_messages"
@@ -36,7 +36,7 @@ export const email_auth_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `email-auth_api-response-single` in responses.
  */
-export const email_auth_api_response_single_output: JsonSchema = {
+export const email$$auth_api$$response$$single: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/email-auth_messages"
@@ -62,7 +62,7 @@ export const email_auth_api_response_single_output: JsonSchema = {
 /**
  * The schema of `email-auth_messages` in responses.
  */
-export const email_auth_messages_output: JsonSchema = {
+export const email$$auth_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {

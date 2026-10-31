@@ -3,43 +3,49 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
-  security_center_api_response_common_failure_output,
-  security_center_api_response_common_output,
-  security_center_api_response_single_output,
-  security_center_messages_output,
+  security$$center_api$$response$$common,
+  security$$center_api$$response$$common$$failure,
+  security$$center_api$$response$$single,
+  security$$center_messages,
 } from "../outputs.js";
-import { security_center_identifier } from "../schemas.js";
-import { security_center_securityTxt_output } from "./outputs.js";
-import { security_center_securityTxt } from "./schemas.js";
+import { security$$center_securityTxt } from "./outputs.js";
+import { security$$center_securityTxt as security$$center_securityTxt$ } from "./schemas.js";
 
 /**
- * The tools of `security_txt`.
+ * The tools of `securityTxt`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "security_txt_delete",
+    name: "securityTxt_delete",
     title: "Deletes security.txt",
-    description: "Removes the security.txt file configuration for a zone. The /.well-known/security.txt endpoint will no longer be served.",
+    description: "Removes the security.txt file configuration for a zone. The /.well-known/security.txt endpoint will no longer be served.\n\nDELETE /zones/{zone_id}/security-center/securitytxt",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/security-center_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
-      $defs: {
-        "security-center_identifier": security_center_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/security-center_api-response-single",
       $defs: {
-        "security-center_api-response-single": security_center_api_response_single_output,
-        "security-center_messages": security_center_messages_output,
+        "security-center_api-response-single": security$$center_api$$response$$single,
+        "security-center_messages": security$$center_messages,
       },
     },
     annotations: {
@@ -66,9 +72,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "security-center_api-response-common-failure": security_center_api_response_common_failure_output,
-        "security-center_api-response-single": security_center_api_response_single_output,
-        "security-center_messages": security_center_messages_output,
+        "security-center_api-response-common-failure": security$$center_api$$response$$common$$failure,
+        "security-center_api-response-single": security$$center_api$$response$$single,
+        "security-center_messages": security$$center_messages,
       },
     },
     request: (args) => ({
@@ -76,23 +82,30 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "security_txt_get",
+    name: "securityTxt_get",
     title: "Retrieves security.txt",
-    description: "Retrieves the current security.txt file configuration for a zone, used for security vulnerability reporting.",
+    description: "Retrieves the current security.txt file configuration for a zone, used for security vulnerability reporting.\n\nGET /zones/{zone_id}/security-center/securitytxt",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/security-center_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
-      $defs: {
-        "security-center_identifier": security_center_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -109,9 +122,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "security-center_api-response-common": security_center_api_response_common_output,
-        "security-center_messages": security_center_messages_output,
-        "security-center_securityTxt": security_center_securityTxt_output,
+        "security-center_api-response-common": security$$center_api$$response$$common,
+        "security-center_messages": security$$center_messages,
+        "security-center_securityTxt": security$$center_securityTxt,
       },
     },
     annotations: {
@@ -151,10 +164,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "security-center_api-response-common": security_center_api_response_common_output,
-        "security-center_api-response-common-failure": security_center_api_response_common_failure_output,
-        "security-center_messages": security_center_messages_output,
-        "security-center_securityTxt": security_center_securityTxt_output,
+        "security-center_api-response-common": security$$center_api$$response$$common,
+        "security-center_api-response-common-failure": security$$center_api$$response$$common$$failure,
+        "security-center_messages": security$$center_messages,
+        "security-center_securityTxt": security$$center_securityTxt,
       },
     },
     request: (args) => ({
@@ -162,34 +175,43 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "security_txt_update",
+    name: "securityTxt_update",
     title: "Updates security.txt",
-    description: "Updates the security.txt file configuration for a zone, which provides security researchers with vulnerability reporting information.",
+    description: "Updates the security.txt file configuration for a zone, which provides security researchers with vulnerability reporting information.\n\nPUT /zones/{zone_id}/security-center/securitytxt",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "$ref": "#/$defs/security-center_securityTxt"
         },
-        "zone_id": {
-          "$ref": "#/$defs/security-center_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "security-center_identifier": security_center_identifier,
-        "security-center_securityTxt": security_center_securityTxt,
+        "security-center_securityTxt": security$$center_securityTxt$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/security-center_api-response-single",
       $defs: {
-        "security-center_api-response-single": security_center_api_response_single_output,
-        "security-center_messages": security_center_messages_output,
+        "security-center_api-response-single": security$$center_api$$response$$single,
+        "security-center_messages": security$$center_messages,
       },
     },
     annotations: {
@@ -216,9 +238,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "security-center_api-response-common-failure": security_center_api_response_common_failure_output,
-        "security-center_api-response-single": security_center_api_response_single_output,
-        "security-center_messages": security_center_messages_output,
+        "security-center_api-response-common-failure": security$$center_api$$response$$common$$failure,
+        "security-center_api-response-single": security$$center_api$$response$$single,
+        "security-center_messages": security$$center_messages,
       },
     },
     request: (args) => ({

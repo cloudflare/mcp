@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `speed_cloudflare_speed_brain_response` in responses.
  */
-export const speed_cloudflare_speed_brain_response_output: JsonSchema = {
+export const speed_cloudflare_speed_brain_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/speed_base"

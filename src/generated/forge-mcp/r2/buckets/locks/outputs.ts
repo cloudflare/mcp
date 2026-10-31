@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `r2_bucket-lock-rule` in responses.
  */
-export const r2_bucket_lock_rule_output: JsonSchema = {
+export const r2_bucket$$lock$$rule: JsonSchema = {
   "properties": {
     "condition": {
       "oneOf": [
@@ -42,7 +42,7 @@ export const r2_bucket_lock_rule_output: JsonSchema = {
 /**
  * The schema of `r2_bucket-lock-rule-config` in responses.
  */
-export const r2_bucket_lock_rule_config_output: JsonSchema = {
+export const r2_bucket$$lock$$rule$$config: JsonSchema = {
   "properties": {
     "rules": {
       "items": {
@@ -57,7 +57,7 @@ export const r2_bucket_lock_rule_config_output: JsonSchema = {
 /**
  * The schema of `r2_lock-rule-age-condition` in responses.
  */
-export const r2_lock_rule_age_condition_output: JsonSchema = {
+export const r2_lock$$rule$$age$$condition: JsonSchema = {
   "properties": {
     "maxAgeSeconds": {
       "type": "integer"
@@ -79,7 +79,7 @@ export const r2_lock_rule_age_condition_output: JsonSchema = {
 /**
  * The schema of `r2_lock-rule-date-condition` in responses.
  */
-export const r2_lock_rule_date_condition_output: JsonSchema = {
+export const r2_lock$$rule$$date$$condition: JsonSchema = {
   "properties": {
     "date": {
       "format": "date-time",
@@ -102,7 +102,7 @@ export const r2_lock_rule_date_condition_output: JsonSchema = {
 /**
  * The schema of `r2_lock-rule-indefinite-condition` in responses.
  */
-export const r2_lock_rule_indefinite_condition_output: JsonSchema = {
+export const r2_lock$$rule$$indefinite$$condition: JsonSchema = {
   "properties": {
     "type": {
       "enum": [

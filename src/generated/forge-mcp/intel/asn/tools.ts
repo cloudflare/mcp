@@ -3,17 +3,12 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  intel_api_response_common_failure_output,
-  intel_api_response_single_output,
-  intel_messages_output,
-  intel_schemas_messages_output,
+  intel_api$$response$$common$$failure,
+  intel_api$$response$$single,
+  intel_messages,
+  intel_schemas$$messages,
 } from "../outputs.js";
-import { intel_identifier } from "../schemas.js";
-import {
-  intel_asn_components_schemas_response_output,
-  intel_asn_output,
-} from "./outputs.js";
-import { intel_asn } from "./schemas.js";
+import { intel_asn_components$$schemas$$response } from "./outputs.js";
 
 /**
  * The tools of `intel.asn`.
@@ -22,34 +17,39 @@ export const tools: readonly Tool[] = [
   {
     name: "intel_asn_get",
     title: "Get ASN Overview.",
-    description: "Gets an overview of the Autonomous System Number (ASN) and a list of subnets for it.",
+    description: "Gets an overview of the Autonomous System Number (ASN) and a list of subnets for it.\n\nGET /accounts/{account_id}/intel/asn/{asn}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/intel_identifier",
-          "description": "Identifier."
-        },
-        "asn": {
-          "$ref": "#/$defs/intel_asn"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            },
+            "asn": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "account_id",
+            "asn"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "asn"
+        "path"
       ],
-      $defs: {
-        "intel_asn": intel_asn,
-        "intel_identifier": intel_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/intel_asn_components-schemas-response",
       $defs: {
-        "intel_api-response-single": intel_api_response_single_output,
-        "intel_asn": intel_asn_output,
-        "intel_asn_components-schemas-response": intel_asn_components_schemas_response_output,
-        "intel_schemas-messages": intel_schemas_messages_output,
+        "intel_api-response-single": intel_api$$response$$single,
+        "intel_asn_components-schemas-response": intel_asn_components$$schemas$$response,
+        "intel_schemas-messages": intel_schemas$$messages,
       },
     },
     annotations: {
@@ -84,12 +84,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "intel_api-response-common-failure": intel_api_response_common_failure_output,
-        "intel_api-response-single": intel_api_response_single_output,
-        "intel_asn": intel_asn_output,
-        "intel_asn_components-schemas-response": intel_asn_components_schemas_response_output,
-        "intel_messages": intel_messages_output,
-        "intel_schemas-messages": intel_schemas_messages_output,
+        "intel_api-response-common-failure": intel_api$$response$$common$$failure,
+        "intel_api-response-single": intel_api$$response$$single,
+        "intel_asn_components-schemas-response": intel_asn_components$$schemas$$response,
+        "intel_messages": intel_messages,
+        "intel_schemas-messages": intel_schemas$$messages,
       },
     },
     request: (args) => ({

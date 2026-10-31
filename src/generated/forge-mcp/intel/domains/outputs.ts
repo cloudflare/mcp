@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `intel_additional_information` in responses.
  */
-export const intel_additional_information_output: JsonSchema = {
+export const intel_additional_information: JsonSchema = {
   "properties": {
     "suspected_malware_family": {
       "type": "string"
@@ -18,7 +18,7 @@ export const intel_additional_information_output: JsonSchema = {
 /**
  * The schema of `intel_application` in responses.
  */
-export const intel_application_output: JsonSchema = {
+export const intel_application: JsonSchema = {
   "properties": {
     "id": {
       "type": "integer"
@@ -34,7 +34,7 @@ export const intel_application_output: JsonSchema = {
  * The schema of `intel_categories_with_super_category_ids_example_empty` in
  * responses.
  */
-export const intel_categories_with_super_category_ids_example_empty_output: JsonSchema = {
+export const intel_categories_with_super_category_ids_example_empty: JsonSchema = {
   "items": {
     "$ref": "#/$defs/intel_category_with_super_category_id"
   },
@@ -44,7 +44,7 @@ export const intel_categories_with_super_category_ids_example_empty_output: Json
 /**
  * The schema of `intel_category_with_super_category_id` in responses.
  */
-export const intel_category_with_super_category_id_output: JsonSchema = {
+export const intel_category_with_super_category_id: JsonSchema = {
   "properties": {
     "id": {
       "type": "integer"
@@ -62,7 +62,7 @@ export const intel_category_with_super_category_id_output: JsonSchema = {
 /**
  * The schema of `intel_content_categories` in responses.
  */
-export const intel_content_categories_output: JsonSchema = {
+export const intel_content_categories: JsonSchema = {
   "items": {
     "properties": {
       "id": {
@@ -83,7 +83,7 @@ export const intel_content_categories_output: JsonSchema = {
 /**
  * The schema of `intel_domain` in responses.
  */
-export const intel_domain_output: JsonSchema = {
+export const intel_domain: JsonSchema = {
   "properties": {
     "additional_information": {
       "$ref": "#/$defs/intel_additional_information"
@@ -95,25 +95,25 @@ export const intel_domain_output: JsonSchema = {
       "$ref": "#/$defs/intel_content_categories"
     },
     "domain": {
-      "$ref": "#/$defs/intel_domain_name"
+      "type": "string"
     },
     "inherited_content_categories": {
       "$ref": "#/$defs/intel_categories_with_super_category_ids_example_empty"
     },
     "inherited_from": {
-      "$ref": "#/$defs/intel_inherited_from"
+      "type": "string"
     },
     "inherited_risk_types": {
       "$ref": "#/$defs/intel_categories_with_super_category_ids_example_empty"
     },
     "popularity_rank": {
-      "$ref": "#/$defs/intel_popularity_rank"
+      "type": "integer"
     },
     "resolves_to_refs": {
       "$ref": "#/$defs/intel_resolves_to_refs"
     },
     "risk_score": {
-      "$ref": "#/$defs/intel_risk_score"
+      "type": "number"
     },
     "risk_types": {
       "$ref": "#/$defs/intel_categories_with_super_category_ids_example_empty"
@@ -123,26 +123,12 @@ export const intel_domain_output: JsonSchema = {
 };
 
 /**
- * The schema of `intel_inherited_from` in responses.
- */
-export const intel_inherited_from_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `intel_popularity_rank` in responses.
- */
-export const intel_popularity_rank_output: JsonSchema = {
-  "type": "integer"
-};
-
-/**
  * The schema of `intel_resolves_to_ref` in responses.
  */
-export const intel_resolves_to_ref_output: JsonSchema = {
+export const intel_resolves_to_ref: JsonSchema = {
   "properties": {
     "id": {
-      "$ref": "#/$defs/intel_stix_identifier"
+      "type": "string"
     },
     "value": {
       "type": "string"
@@ -154,7 +140,7 @@ export const intel_resolves_to_ref_output: JsonSchema = {
 /**
  * The schema of `intel_resolves_to_refs` in responses.
  */
-export const intel_resolves_to_refs_output: JsonSchema = {
+export const intel_resolves_to_refs: JsonSchema = {
   "items": {
     "$ref": "#/$defs/intel_resolves_to_ref"
   },
@@ -162,16 +148,9 @@ export const intel_resolves_to_refs_output: JsonSchema = {
 };
 
 /**
- * The schema of `intel_risk_score` in responses.
- */
-export const intel_risk_score_output: JsonSchema = {
-  "type": "number"
-};
-
-/**
  * The schema of `intel_single_response` in responses.
  */
-export const intel_single_response_output: JsonSchema = {
+export const intel_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/intel_api-response-single"
@@ -185,11 +164,4 @@ export const intel_single_response_output: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `intel_stix_identifier` in responses.
- */
-export const intel_stix_identifier_output: JsonSchema = {
-  "type": "string"
 };

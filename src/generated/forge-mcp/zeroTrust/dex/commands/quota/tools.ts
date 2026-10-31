@@ -3,36 +3,42 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  digital_experience_monitoring_api_response_collection_output,
-  digital_experience_monitoring_api_response_common_failure_output,
-  digital_experience_monitoring_api_response_common_output,
-  digital_experience_monitoring_messages_output,
+  digital$$experience$$monitoring_api$$response$$collection,
+  digital$$experience$$monitoring_api$$response$$common,
+  digital$$experience$$monitoring_api$$response$$common$$failure,
+  digital$$experience$$monitoring_messages,
 } from "../../outputs.js";
-import { digital_experience_monitoring_account_identifier } from "../../schemas.js";
-import { digital_experience_monitoring_get_commands_quota_response_output } from "./outputs.js";
+import { digital$$experience$$monitoring_get_commands_quota_response } from "./outputs.js";
 
 /**
- * The tools of `zero_trust.dex.commands.quota`.
+ * The tools of `zeroTrust.dex.commands.quota`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zero_trust_dex_commands_quota_get",
+    name: "zeroTrust_dex_commands_quota_get",
     title: "Returns account commands usage, quota, and reset time",
-    description: "Retrieves the current quota usage and limits for device commands within a specific account, including the time when the quota will reset",
+    description: "Retrieves the current quota usage and limits for device commands within a specific account, including the time when the quota will reset\n\nGET /accounts/{account_id}/dex/commands/quota",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
-          "description": "Unique Cloudflare account ID."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Unique Cloudflare account ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
-      $defs: {
-        "digital-experience-monitoring_account_identifier": digital_experience_monitoring_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -49,10 +55,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "digital-experience-monitoring_api-response-collection": digital_experience_monitoring_api_response_collection_output,
-        "digital-experience-monitoring_api-response-common": digital_experience_monitoring_api_response_common_output,
-        "digital-experience-monitoring_get_commands_quota_response": digital_experience_monitoring_get_commands_quota_response_output,
-        "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
+        "digital-experience-monitoring_api-response-collection": digital$$experience$$monitoring_api$$response$$collection,
+        "digital-experience-monitoring_api-response-common": digital$$experience$$monitoring_api$$response$$common,
+        "digital-experience-monitoring_get_commands_quota_response": digital$$experience$$monitoring_get_commands_quota_response,
+        "digital-experience-monitoring_messages": digital$$experience$$monitoring_messages,
       },
     },
     annotations: {
@@ -94,11 +100,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "digital-experience-monitoring_api-response-collection": digital_experience_monitoring_api_response_collection_output,
-        "digital-experience-monitoring_api-response-common": digital_experience_monitoring_api_response_common_output,
-        "digital-experience-monitoring_api-response-common-failure": digital_experience_monitoring_api_response_common_failure_output,
-        "digital-experience-monitoring_get_commands_quota_response": digital_experience_monitoring_get_commands_quota_response_output,
-        "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
+        "digital-experience-monitoring_api-response-collection": digital$$experience$$monitoring_api$$response$$collection,
+        "digital-experience-monitoring_api-response-common": digital$$experience$$monitoring_api$$response$$common,
+        "digital-experience-monitoring_api-response-common-failure": digital$$experience$$monitoring_api$$response$$common$$failure,
+        "digital-experience-monitoring_get_commands_quota_response": digital$$experience$$monitoring_get_commands_quota_response,
+        "digital-experience-monitoring_messages": digital$$experience$$monitoring_messages,
       },
     },
     request: (args) => ({

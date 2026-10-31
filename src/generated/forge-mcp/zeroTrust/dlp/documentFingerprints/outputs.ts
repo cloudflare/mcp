@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `dlp_DocumentFingerprint` in responses.
  */
-export const dlp_DocumentFingerprint_output: JsonSchema = {
+export const dlp_DocumentFingerprint: JsonSchema = {
   "properties": {
     "created_at": {
       "format": "date-time",
@@ -40,7 +40,15 @@ export const dlp_DocumentFingerprint_output: JsonSchema = {
       "type": "string"
     },
     "status": {
-      "$ref": "#/$defs/dlp_DatasetUploadStatus"
+      "enum": [
+        "empty",
+        "uploading",
+        "pending",
+        "processing",
+        "failed",
+        "complete"
+      ],
+      "type": "string"
     },
     "updated_at": {
       "format": "date-time",
@@ -73,7 +81,7 @@ export const dlp_DocumentFingerprint_output: JsonSchema = {
 /**
  * The schema of `dlp_DocumentFingerprintArray` in responses.
  */
-export const dlp_DocumentFingerprintArray_output: JsonSchema = {
+export const dlp_DocumentFingerprintArray: JsonSchema = {
   "items": {
     "$ref": "#/$defs/dlp_DocumentFingerprint"
   },

@@ -4,74 +4,108 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `magic-visibility-mnm_mnm_rule_automatic_advertisement`.
- */
-export const magic_visibility_mnm_mnm_rule_automatic_advertisement: JsonSchema = {
-  "description": "Toggle on if you would like Cloudflare to automatically advertise the IP Prefixes within the rule via Magic Transit when the rule is triggered. Only available for users of Magic Transit.",
-  "oneOf": [
-    {
-      "type": "boolean"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `magic-visibility-mnm_mnm_rule_bandwidth_threshold`.
- */
-export const magic_visibility_mnm_mnm_rule_bandwidth_threshold: JsonSchema = {
-  "description": "The number of bits per second for the rule. When this value is exceeded for the set duration, an alert notification is sent. Minimum of 1 and no maximum.",
-  "type": "number"
-};
-
-/**
  * The schema of `magic-visibility-mnm_mnm_rule_create`.
  */
-export const magic_visibility_mnm_mnm_rule_create: JsonSchema = {
+export const magic$$visibility$$mnm_mnm_rule_create: JsonSchema = {
   "oneOf": [
     {
       "properties": {
         "automatic_advertisement": {
-          "$ref": "#/$defs/magic-visibility-mnm_mnm_rule_automatic_advertisement",
-          "description": "Toggle on if you would like Cloudflare to automatically advertise the IP Prefixes within the rule via Magic Transit when the rule is triggered. Only available for users of Magic Transit."
+          "description": "Toggle on if you would like Cloudflare to automatically advertise the IP Prefixes within the rule via Magic Transit when the rule is triggered. Only available for users of Magic Transit.",
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "bandwidth_threshold": {
-          "$ref": "#/$defs/magic-visibility-mnm_mnm_rule_bandwidth_threshold",
-          "description": "The number of bits per second for the rule. When this value is exceeded for the set duration, an alert notification is sent. Minimum of 1 and no maximum."
+          "description": "The number of bits per second for the rule. When this value is exceeded for the set duration, an alert notification is sent. Minimum of 1 and no maximum.",
+          "type": "number"
         },
         "duration": {
-          "$ref": "#/$defs/magic-visibility-mnm_mnm_rule_duration",
           "default": "1m",
-          "description": "The amount of time that the rule threshold must be exceeded to send an alert notification. The final value must be equivalent to one of the following 8 values [\"1m\",\"5m\",\"10m\",\"15m\",\"20m\",\"30m\",\"45m\",\"60m\"]."
+          "description": "The amount of time that the rule threshold must be exceeded to send an alert notification. The final value must be equivalent to one of the following 8 values [\"1m\",\"5m\",\"10m\",\"15m\",\"20m\",\"30m\",\"45m\",\"60m\"].",
+          "enum": [
+            "1m",
+            "5m",
+            "10m",
+            "15m",
+            "20m",
+            "30m",
+            "45m",
+            "60m"
+          ],
+          "type": "string"
         },
         "name": {
-          "$ref": "#/$defs/magic-visibility-mnm_mnm_rule_name",
-          "description": "The name of the rule. Must be unique. Supports characters A-Z, a-z, 0-9, underscore (_), dash (-), period (.), and tilde (~). You can’t have a space in the rule name. Max 256 characters."
+          "description": "The name of the rule. Must be unique. Supports characters A-Z, a-z, 0-9, underscore (_), dash (-), period (.), and tilde (~). You can’t have a space in the rule name. Max 256 characters.",
+          "type": "string"
         },
         "packet_threshold": {
-          "$ref": "#/$defs/magic-visibility-mnm_mnm_rule_packet_threshold",
-          "description": "The number of packets per second for the rule. When this value is exceeded for the set duration, an alert notification is sent. Minimum of 1 and no maximum."
+          "description": "The number of packets per second for the rule. When this value is exceeded for the set duration, an alert notification is sent. Minimum of 1 and no maximum.",
+          "type": "number"
         },
         "prefix_match": {
-          "$ref": "#/$defs/magic-visibility-mnm_mnm_rule_prefix_match",
-          "description": "Prefix match type to be applied for a prefix auto advertisement when using an advanced_ddos rule."
+          "description": "Prefix match type to be applied for a prefix auto advertisement when using an advanced_ddos rule.",
+          "oneOf": [
+            {
+              "enum": [
+                "exact",
+                "subnet",
+                "supernet"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "prefixes": {
           "$ref": "#/$defs/magic-visibility-mnm_mnm_rule_ip_prefixes"
         },
         "type": {
-          "$ref": "#/$defs/magic-visibility-mnm_mnm_rule_type",
-          "description": "MNM rule type."
+          "description": "MNM rule type.",
+          "enum": [
+            "threshold",
+            "zscore",
+            "advanced_ddos"
+          ],
+          "type": "string"
         },
         "zscore_sensitivity": {
-          "$ref": "#/$defs/magic-visibility-mnm_mnm_rule_zscore_sensitivity",
-          "description": "Level of sensitivity set for zscore rules."
+          "description": "Level of sensitivity set for zscore rules.",
+          "oneOf": [
+            {
+              "enum": [
+                "low",
+                "medium",
+                "high"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "zscore_target": {
-          "$ref": "#/$defs/magic-visibility-mnm_mnm_rule_zscore_target",
-          "description": "Target of the zscore rule analysis."
+          "description": "Target of the zscore rule analysis.",
+          "oneOf": [
+            {
+              "enum": [
+                "bits",
+                "packets"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
       },
       "required": [
@@ -89,133 +123,12 @@ export const magic_visibility_mnm_mnm_rule_create: JsonSchema = {
 };
 
 /**
- * The schema of `magic-visibility-mnm_mnm_rule_duration`.
- */
-export const magic_visibility_mnm_mnm_rule_duration: JsonSchema = {
-  "description": "The amount of time that the rule threshold must be exceeded to send an alert notification. The final value must be equivalent to one of the following 8 values [\"1m\",\"5m\",\"10m\",\"15m\",\"20m\",\"30m\",\"45m\",\"60m\"].",
-  "enum": [
-    "1m",
-    "5m",
-    "10m",
-    "15m",
-    "20m",
-    "30m",
-    "45m",
-    "60m"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `magic-visibility-mnm_mnm_rule_ip_prefix`.
- */
-export const magic_visibility_mnm_mnm_rule_ip_prefix: JsonSchema = {
-  "description": "The IP prefixes that are monitored for this rule. Must be a CIDR range like 203.0.113.0/24. Max 5000 different CIDR ranges.",
-  "type": "string"
-};
-
-/**
  * The schema of `magic-visibility-mnm_mnm_rule_ip_prefixes`.
  */
-export const magic_visibility_mnm_mnm_rule_ip_prefixes: JsonSchema = {
+export const magic$$visibility$$mnm_mnm_rule_ip_prefixes: JsonSchema = {
   "items": {
-    "$ref": "#/$defs/magic-visibility-mnm_mnm_rule_ip_prefix"
+    "description": "The IP prefixes that are monitored for this rule. Must be a CIDR range like 203.0.113.0/24. Max 5000 different CIDR ranges.",
+    "type": "string"
   },
   "type": "array"
-};
-
-/**
- * The schema of `magic-visibility-mnm_mnm_rule_name`.
- */
-export const magic_visibility_mnm_mnm_rule_name: JsonSchema = {
-  "description": "The name of the rule. Must be unique. Supports characters A-Z, a-z, 0-9, underscore (_), dash (-), period (.), and tilde (~). You can’t have a space in the rule name. Max 256 characters.",
-  "type": "string"
-};
-
-/**
- * The schema of `magic-visibility-mnm_mnm_rule_packet_threshold`.
- */
-export const magic_visibility_mnm_mnm_rule_packet_threshold: JsonSchema = {
-  "description": "The number of packets per second for the rule. When this value is exceeded for the set duration, an alert notification is sent. Minimum of 1 and no maximum.",
-  "type": "number"
-};
-
-/**
- * The schema of `magic-visibility-mnm_mnm_rule_prefix_match`.
- */
-export const magic_visibility_mnm_mnm_rule_prefix_match: JsonSchema = {
-  "description": "Prefix match type to be applied for a prefix auto advertisement when using an advanced_ddos rule.",
-  "oneOf": [
-    {
-      "enum": [
-        "exact",
-        "subnet",
-        "supernet"
-      ],
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `magic-visibility-mnm_mnm_rule_type`.
- */
-export const magic_visibility_mnm_mnm_rule_type: JsonSchema = {
-  "description": "MNM rule type.",
-  "enum": [
-    "threshold",
-    "zscore",
-    "advanced_ddos"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `magic-visibility-mnm_mnm_rule_zscore_sensitivity`.
- */
-export const magic_visibility_mnm_mnm_rule_zscore_sensitivity: JsonSchema = {
-  "description": "Level of sensitivity set for zscore rules.",
-  "oneOf": [
-    {
-      "enum": [
-        "low",
-        "medium",
-        "high"
-      ],
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `magic-visibility-mnm_mnm_rule_zscore_target`.
- */
-export const magic_visibility_mnm_mnm_rule_zscore_target: JsonSchema = {
-  "description": "Target of the zscore rule analysis.",
-  "oneOf": [
-    {
-      "enum": [
-        "bits",
-        "packets"
-      ],
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `magic-visibility-mnm_rule_identifier`.
- */
-export const magic_visibility_mnm_rule_identifier: JsonSchema = {
-  "description": "The id of the rule. Must be unique.",
-  "type": "string"
 };

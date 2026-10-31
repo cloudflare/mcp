@@ -3,52 +3,62 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  pay_per_crawl_ErrorSource_output,
-  pay_per_crawl_Msg_output,
-  pay_per_crawl_RESTError_output,
-  pay_per_crawl_ResultInfo_output,
-  pay_per_crawl_Source_output,
-  pay_per_crawl_apiErrorResponse_output,
+  pay$$per$$crawl_ErrorSource,
+  pay$$per$$crawl_Msg,
+  pay$$per$$crawl_RESTError,
+  pay$$per$$crawl_ResultInfo,
+  pay$$per$$crawl_Source,
+  pay$$per$$crawl_apiErrorResponse,
 } from "../../outputs.js";
 import {
-  pay_per_crawl_PPUOperatorConfigurationResponse_output,
-  pay_per_crawl_PPUOperatorConfigurationResultResponse_output,
-  pay_per_crawl_PPUOperatorConfigurationResult_output,
-  pay_per_crawl_PPUOperatorConfiguration_output,
+  pay$$per$$crawl_PPUOperatorConfiguration,
+  pay$$per$$crawl_PPUOperatorConfigurationResponse,
+  pay$$per$$crawl_PPUOperatorConfigurationResult,
+  pay$$per$$crawl_PPUOperatorConfigurationResultResponse,
 } from "./outputs.js";
 import {
-  pay_per_crawl_PPUOperatorConfiguration,
-  pay_per_crawl_PPUOperatorConfigurationUpdate,
+  pay$$per$$crawl_PPUOperatorConfiguration as pay$$per$$crawl_PPUOperatorConfiguration$,
+  pay$$per$$crawl_PPUOperatorConfigurationUpdate,
 } from "./schemas.js";
 
 /**
- * The tools of `pay_per_use.operator`.
+ * The tools of `payPerUse.operator`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "pay_per_use_operator_get_configuration",
+    name: "payPerUse_operator_getConfiguration",
     title: "Get pay-per-use operator configuration",
-    description: "Gets the pay-per-use operator configuration for an account, including its read-only non-billable classification timestamp.",
+    description: "Gets the pay-per-use operator configuration for an account, including its read-only non-billable classification timestamp.\n\nGET /accounts/{account_id}/pay-per-use/operator/configuration",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "account id",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "account id",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/pay-per-crawl_PPUOperatorConfigurationResultResponse",
       $defs: {
-        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
-        "pay-per-crawl_PPUOperatorConfigurationResult": pay_per_crawl_PPUOperatorConfigurationResult_output,
-        "pay-per-crawl_PPUOperatorConfigurationResultResponse": pay_per_crawl_PPUOperatorConfigurationResultResponse_output,
-        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
-        "pay-per-crawl_Source": pay_per_crawl_Source_output,
+        "pay-per-crawl_Msg": pay$$per$$crawl_Msg,
+        "pay-per-crawl_PPUOperatorConfigurationResult": pay$$per$$crawl_PPUOperatorConfigurationResult,
+        "pay-per-crawl_PPUOperatorConfigurationResultResponse": pay$$per$$crawl_PPUOperatorConfigurationResultResponse,
+        "pay-per-crawl_ResultInfo": pay$$per$$crawl_ResultInfo,
+        "pay-per-crawl_Source": pay$$per$$crawl_Source,
       },
     },
     annotations: {
@@ -73,14 +83,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
-        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
-        "pay-per-crawl_PPUOperatorConfigurationResult": pay_per_crawl_PPUOperatorConfigurationResult_output,
-        "pay-per-crawl_PPUOperatorConfigurationResultResponse": pay_per_crawl_PPUOperatorConfigurationResultResponse_output,
-        "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
-        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
-        "pay-per-crawl_Source": pay_per_crawl_Source_output,
-        "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
+        "pay-per-crawl_ErrorSource": pay$$per$$crawl_ErrorSource,
+        "pay-per-crawl_Msg": pay$$per$$crawl_Msg,
+        "pay-per-crawl_PPUOperatorConfigurationResult": pay$$per$$crawl_PPUOperatorConfigurationResult,
+        "pay-per-crawl_PPUOperatorConfigurationResultResponse": pay$$per$$crawl_PPUOperatorConfigurationResultResponse,
+        "pay-per-crawl_RESTError": pay$$per$$crawl_RESTError,
+        "pay-per-crawl_ResultInfo": pay$$per$$crawl_ResultInfo,
+        "pay-per-crawl_Source": pay$$per$$crawl_Source,
+        "pay-per-crawl_apiErrorResponse": pay$$per$$crawl_apiErrorResponse,
       },
     },
     request: (args) => ({
@@ -88,37 +98,47 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "pay_per_use_operator_set_configuration",
+    name: "payPerUse_operator_setConfiguration",
     title: "Set pay-per-use operator configuration",
-    description: "Creates or updates the pay-per-use operator configuration for an account. Creating an enabled configuration or re-enabling a disabled billable operator requires completed Stripe onboarding, while non-billable operators do not; an already-enabled operator is not affected by later Stripe status changes. A Cloudflare-verified operator's name and default price cannot be changed.",
+    description: "Creates or updates the pay-per-use operator configuration for an account. Creating an enabled configuration or re-enabling a disabled billable operator requires completed Stripe onboarding, while non-billable operators do not; an already-enabled operator is not affected by later Stripe status changes. A Cloudflare-verified operator's name and default price cannot be changed.\n\nPUT /accounts/{account_id}/pay-per-use/operator/configuration",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "account id",
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/pay-per-crawl_PPUOperatorConfiguration",
           "description": "Pay-per-use operator configuration"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "account id",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "pay-per-crawl_PPUOperatorConfiguration": pay_per_crawl_PPUOperatorConfiguration,
+        "pay-per-crawl_PPUOperatorConfiguration": pay$$per$$crawl_PPUOperatorConfiguration$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/pay-per-crawl_PPUOperatorConfigurationResponse",
       $defs: {
-        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
-        "pay-per-crawl_PPUOperatorConfiguration": pay_per_crawl_PPUOperatorConfiguration_output,
-        "pay-per-crawl_PPUOperatorConfigurationResponse": pay_per_crawl_PPUOperatorConfigurationResponse_output,
-        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
-        "pay-per-crawl_Source": pay_per_crawl_Source_output,
+        "pay-per-crawl_Msg": pay$$per$$crawl_Msg,
+        "pay-per-crawl_PPUOperatorConfiguration": pay$$per$$crawl_PPUOperatorConfiguration,
+        "pay-per-crawl_PPUOperatorConfigurationResponse": pay$$per$$crawl_PPUOperatorConfigurationResponse,
+        "pay-per-crawl_ResultInfo": pay$$per$$crawl_ResultInfo,
+        "pay-per-crawl_Source": pay$$per$$crawl_Source,
       },
     },
     annotations: {
@@ -146,14 +166,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
-        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
-        "pay-per-crawl_PPUOperatorConfiguration": pay_per_crawl_PPUOperatorConfiguration_output,
-        "pay-per-crawl_PPUOperatorConfigurationResponse": pay_per_crawl_PPUOperatorConfigurationResponse_output,
-        "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
-        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
-        "pay-per-crawl_Source": pay_per_crawl_Source_output,
-        "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
+        "pay-per-crawl_ErrorSource": pay$$per$$crawl_ErrorSource,
+        "pay-per-crawl_Msg": pay$$per$$crawl_Msg,
+        "pay-per-crawl_PPUOperatorConfiguration": pay$$per$$crawl_PPUOperatorConfiguration,
+        "pay-per-crawl_PPUOperatorConfigurationResponse": pay$$per$$crawl_PPUOperatorConfigurationResponse,
+        "pay-per-crawl_RESTError": pay$$per$$crawl_RESTError,
+        "pay-per-crawl_ResultInfo": pay$$per$$crawl_ResultInfo,
+        "pay-per-crawl_Source": pay$$per$$crawl_Source,
+        "pay-per-crawl_apiErrorResponse": pay$$per$$crawl_apiErrorResponse,
       },
     },
     request: (args) => ({
@@ -162,37 +182,47 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "pay_per_use_operator_update_configuration",
+    name: "payPerUse_operator_updateConfiguration",
     title: "Update pay-per-use operator configuration",
-    description: "Updates one or more fields of an existing pay-per-use operator configuration. Re-enabling a disabled billable operator requires completed Stripe onboarding, while non-billable operators do not; an already-enabled operator is not affected by later Stripe status changes. A Cloudflare-verified operator's name and default price cannot be changed.",
+    description: "Updates one or more fields of an existing pay-per-use operator configuration. Re-enabling a disabled billable operator requires completed Stripe onboarding, while non-billable operators do not; an already-enabled operator is not affected by later Stripe status changes. A Cloudflare-verified operator's name and default price cannot be changed.\n\nPATCH /accounts/{account_id}/pay-per-use/operator/configuration",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "account id",
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/pay-per-crawl_PPUOperatorConfigurationUpdate",
           "description": "Pay-per-use operator configuration update"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "account id",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "pay-per-crawl_PPUOperatorConfigurationUpdate": pay_per_crawl_PPUOperatorConfigurationUpdate,
+        "pay-per-crawl_PPUOperatorConfigurationUpdate": pay$$per$$crawl_PPUOperatorConfigurationUpdate,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/pay-per-crawl_PPUOperatorConfigurationResponse",
       $defs: {
-        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
-        "pay-per-crawl_PPUOperatorConfiguration": pay_per_crawl_PPUOperatorConfiguration_output,
-        "pay-per-crawl_PPUOperatorConfigurationResponse": pay_per_crawl_PPUOperatorConfigurationResponse_output,
-        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
-        "pay-per-crawl_Source": pay_per_crawl_Source_output,
+        "pay-per-crawl_Msg": pay$$per$$crawl_Msg,
+        "pay-per-crawl_PPUOperatorConfiguration": pay$$per$$crawl_PPUOperatorConfiguration,
+        "pay-per-crawl_PPUOperatorConfigurationResponse": pay$$per$$crawl_PPUOperatorConfigurationResponse,
+        "pay-per-crawl_ResultInfo": pay$$per$$crawl_ResultInfo,
+        "pay-per-crawl_Source": pay$$per$$crawl_Source,
       },
     },
     annotations: {
@@ -223,14 +253,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
-        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
-        "pay-per-crawl_PPUOperatorConfiguration": pay_per_crawl_PPUOperatorConfiguration_output,
-        "pay-per-crawl_PPUOperatorConfigurationResponse": pay_per_crawl_PPUOperatorConfigurationResponse_output,
-        "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
-        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
-        "pay-per-crawl_Source": pay_per_crawl_Source_output,
-        "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
+        "pay-per-crawl_ErrorSource": pay$$per$$crawl_ErrorSource,
+        "pay-per-crawl_Msg": pay$$per$$crawl_Msg,
+        "pay-per-crawl_PPUOperatorConfiguration": pay$$per$$crawl_PPUOperatorConfiguration,
+        "pay-per-crawl_PPUOperatorConfigurationResponse": pay$$per$$crawl_PPUOperatorConfigurationResponse,
+        "pay-per-crawl_RESTError": pay$$per$$crawl_RESTError,
+        "pay-per-crawl_ResultInfo": pay$$per$$crawl_ResultInfo,
+        "pay-per-crawl_Source": pay$$per$$crawl_Source,
+        "pay-per-crawl_apiErrorResponse": pay$$per$$crawl_apiErrorResponse,
       },
     },
     request: (args) => ({

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `logpush_logpush_job_response_single` in responses.
  */
-export const logpush_logpush_job_response_single_output: JsonSchema = {
+export const logpush_logpush_job_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/logpush_api-response-single"

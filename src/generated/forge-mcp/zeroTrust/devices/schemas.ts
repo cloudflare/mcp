@@ -4,16 +4,9 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `teams-devices_identifier`.
- */
-export const teams_devices_identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `teams-devices_physical_device_update_request`.
  */
-export const teams_devices_physical_device_update_request: JsonSchema = {
+export const teams$$devices_physical_device_update_request: JsonSchema = {
   "properties": {
     "tags": {
       "additionalProperties": {
@@ -24,24 +17,4 @@ export const teams_devices_physical_device_update_request: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `teams-devices_registration_type`.
- */
-export const teams_devices_registration_type: JsonSchema = {
-  "description": "The registration client type, derived from device_type.",
-  "enum": [
-    "warp",
-    "browser_extension"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `teams-devices_uuid`.
- */
-export const teams_devices_uuid: JsonSchema = {
-  "description": "API UUID.",
-  "type": "string"
 };

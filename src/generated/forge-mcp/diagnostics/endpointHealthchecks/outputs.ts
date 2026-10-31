@@ -4,22 +4,15 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `magic-transit_check_type` in responses.
- */
-export const magic_transit_check_type_output: JsonSchema = {
-  "enum": [
-    "icmp"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `magic-transit_endpoint_health_check` in responses.
  */
-export const magic_transit_endpoint_health_check_output: JsonSchema = {
+export const magic$$transit_endpoint_health_check: JsonSchema = {
   "properties": {
     "check_type": {
-      "$ref": "#/$defs/magic-transit_check_type"
+      "enum": [
+        "icmp"
+      ],
+      "type": "string"
     },
     "endpoint": {
       "type": "string"
@@ -38,7 +31,7 @@ export const magic_transit_endpoint_health_check_output: JsonSchema = {
 /**
  * The schema of `magic-transit_endpoint_health_check_response` in responses.
  */
-export const magic_transit_endpoint_health_check_response_output: JsonSchema = {
+export const magic$$transit_endpoint_health_check_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic-transit_endpoint_health_check"
@@ -46,7 +39,7 @@ export const magic_transit_endpoint_health_check_response_output: JsonSchema = {
     {
       "properties": {
         "id": {
-          "$ref": "#/$defs/magic-transit_uuid"
+          "type": "string"
         }
       },
       "type": "object"
@@ -58,7 +51,7 @@ export const magic_transit_endpoint_health_check_response_output: JsonSchema = {
  * The schema of `magic-transit_endpoint_health_check_response_collection` in
  * responses.
  */
-export const magic_transit_endpoint_health_check_response_collection_output: JsonSchema = {
+export const magic$$transit_endpoint_health_check_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic-transit_api-response-common"
@@ -81,7 +74,7 @@ export const magic_transit_endpoint_health_check_response_collection_output: Jso
  * The schema of `magic-transit_endpoint_health_check_response_single` in
  * responses.
  */
-export const magic_transit_endpoint_health_check_response_single_output: JsonSchema = {
+export const magic$$transit_endpoint_health_check_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic-transit_api-response-common"
@@ -95,11 +88,4 @@ export const magic_transit_endpoint_health_check_response_single_output: JsonSch
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `magic-transit_uuid` in responses.
- */
-export const magic_transit_uuid_output: JsonSchema = {
-  "type": "string"
 };

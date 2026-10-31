@@ -6,14 +6,14 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `mq_event-destination` in responses.
  */
-export const mq_event_destination_output: JsonSchema = {
+export const mq_event$$destination: JsonSchema = {
   "$ref": "#/$defs/mq_event-destination-queue"
 };
 
 /**
  * The schema of `mq_event-destination-queue` in responses.
  */
-export const mq_event_destination_queue_output: JsonSchema = {
+export const mq_event$$destination$$queue: JsonSchema = {
   "properties": {
     "queue_id": {
       "type": "string"
@@ -35,7 +35,7 @@ export const mq_event_destination_queue_output: JsonSchema = {
 /**
  * The schema of `mq_event-source` in responses.
  */
-export const mq_event_source_output: JsonSchema = {
+export const mq_event$$source: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/mq_event-source-images"
@@ -70,7 +70,7 @@ export const mq_event_source_output: JsonSchema = {
 /**
  * The schema of `mq_event-source-images` in responses.
  */
-export const mq_event_source_images_output: JsonSchema = {
+export const mq_event$$source$$images: JsonSchema = {
   "properties": {
     "type": {
       "enum": [
@@ -85,7 +85,7 @@ export const mq_event_source_images_output: JsonSchema = {
 /**
  * The schema of `mq_event-source-kv` in responses.
  */
-export const mq_event_source_kv_output: JsonSchema = {
+export const mq_event$$source$$kv: JsonSchema = {
   "properties": {
     "type": {
       "enum": [
@@ -100,7 +100,7 @@ export const mq_event_source_kv_output: JsonSchema = {
 /**
  * The schema of `mq_event-source-r2` in responses.
  */
-export const mq_event_source_r2_output: JsonSchema = {
+export const mq_event$$source$$r2: JsonSchema = {
   "properties": {
     "type": {
       "enum": [
@@ -115,7 +115,7 @@ export const mq_event_source_r2_output: JsonSchema = {
 /**
  * The schema of `mq_event-source-super-slurper` in responses.
  */
-export const mq_event_source_super_slurper_output: JsonSchema = {
+export const mq_event$$source$$super$$slurper: JsonSchema = {
   "properties": {
     "type": {
       "enum": [
@@ -130,7 +130,7 @@ export const mq_event_source_super_slurper_output: JsonSchema = {
 /**
  * The schema of `mq_event-source-vectorize` in responses.
  */
-export const mq_event_source_vectorize_output: JsonSchema = {
+export const mq_event$$source$$vectorize: JsonSchema = {
   "properties": {
     "type": {
       "enum": [
@@ -145,7 +145,7 @@ export const mq_event_source_vectorize_output: JsonSchema = {
 /**
  * The schema of `mq_event-source-workers-ai-model` in responses.
  */
-export const mq_event_source_workers_ai_model_output: JsonSchema = {
+export const mq_event$$source$$workers$$ai$$model: JsonSchema = {
   "properties": {
     "model_name": {
       "type": "string"
@@ -163,7 +163,7 @@ export const mq_event_source_workers_ai_model_output: JsonSchema = {
 /**
  * The schema of `mq_event-source-workers-builds-worker` in responses.
  */
-export const mq_event_source_workers_builds_worker_output: JsonSchema = {
+export const mq_event$$source$$workers$$builds$$worker: JsonSchema = {
   "properties": {
     "type": {
       "enum": [
@@ -181,7 +181,7 @@ export const mq_event_source_workers_builds_worker_output: JsonSchema = {
 /**
  * The schema of `mq_event-source-workers-script` in responses.
  */
-export const mq_event_source_workers_script_output: JsonSchema = {
+export const mq_event$$source$$workers$$script: JsonSchema = {
   "properties": {
     "script_tag": {
       "type": "string"
@@ -199,7 +199,7 @@ export const mq_event_source_workers_script_output: JsonSchema = {
 /**
  * The schema of `mq_event-source-workflows-workflow` in responses.
  */
-export const mq_event_source_workflows_workflow_output: JsonSchema = {
+export const mq_event$$source$$workflows$$workflow: JsonSchema = {
   "properties": {
     "type": {
       "enum": [
@@ -217,7 +217,7 @@ export const mq_event_source_workflows_workflow_output: JsonSchema = {
 /**
  * The schema of `mq_event-subscription` in responses.
  */
-export const mq_event_subscription_output: JsonSchema = {
+export const mq_event$$subscription: JsonSchema = {
   "properties": {
     "created_at": {
       "format": "date-time",

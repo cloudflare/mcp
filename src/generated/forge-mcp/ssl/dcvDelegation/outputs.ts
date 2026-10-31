@@ -7,7 +7,7 @@ import type { JsonSchema } from "../../_/tool.js";
  * The schema of `tls-certificates-and-hostnames_dcv_delegation_response` in
  * responses.
  */
-export const tls_certificates_and_hostnames_dcv_delegation_response_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_dcv_delegation_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-single"
@@ -24,19 +24,12 @@ export const tls_certificates_and_hostnames_dcv_delegation_response_output: Json
 };
 
 /**
- * The schema of `tls-certificates-and-hostnames_uuid` in responses.
- */
-export const tls_certificates_and_hostnames_uuid_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `tls-certificates-and-hostnames_uuidObject` in responses.
  */
-export const tls_certificates_and_hostnames_uuidObject_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_uuidObject: JsonSchema = {
   "properties": {
     "uuid": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_uuid"
+      "type": "string"
     }
   },
   "type": "object"

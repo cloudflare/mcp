@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `email-security_BlockedSender` in responses.
  */
-export const email_security_BlockedSender_output: JsonSchema = {
+export const email$$security_BlockedSender: JsonSchema = {
   "properties": {
     "comments": {
       "oneOf": [
@@ -19,7 +19,8 @@ export const email_security_BlockedSender_output: JsonSchema = {
       ]
     },
     "created_at": {
-      "$ref": "#/$defs/email-security_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "expires_at": {
       "oneOf": [
@@ -33,39 +34,40 @@ export const email_security_BlockedSender_output: JsonSchema = {
       ]
     },
     "id": {
-      "$ref": "#/$defs/email-security_BlockedSenderId"
+      "format": "uuid",
+      "type": "string"
     },
     "is_regex": {
       "type": "boolean"
     },
     "last_modified": {
-      "$ref": "#/$defs/email-security_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "modified_at": {
-      "$ref": "#/$defs/email-security_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "pattern": {
       "type": "string"
     },
     "pattern_type": {
-      "$ref": "#/$defs/email-security_PatternType"
+      "enum": [
+        "EMAIL",
+        "DOMAIN",
+        "IP",
+        "UNKNOWN"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
 };
 
 /**
- * The schema of `email-security_BlockedSenderId` in responses.
- */
-export const email_security_BlockedSenderId_output: JsonSchema = {
-  "format": "uuid",
-  "type": "string"
-};
-
-/**
  * The schema of `email-security_BlockedSenderList` in responses.
  */
-export const email_security_BlockedSenderList_output: JsonSchema = {
+export const email$$security_BlockedSenderList: JsonSchema = {
   "items": {
     "$ref": "#/$defs/email-security_BlockedSender"
   },
@@ -75,10 +77,11 @@ export const email_security_BlockedSenderList_output: JsonSchema = {
 /**
  * The schema of `email-security_DeletedBlockedSender` in responses.
  */
-export const email_security_DeletedBlockedSender_output: JsonSchema = {
+export const email$$security_DeletedBlockedSender: JsonSchema = {
   "properties": {
     "id": {
-      "$ref": "#/$defs/email-security_BlockedSenderId"
+      "format": "uuid",
+      "type": "string"
     }
   },
   "required": [

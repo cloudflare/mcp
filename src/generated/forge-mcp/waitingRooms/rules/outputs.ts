@@ -4,84 +4,43 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `waitingroom_rule_action` in responses.
- */
-export const waitingroom_rule_action_output: JsonSchema = {
-  "enum": [
-    "bypass_waiting_room"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `waitingroom_rule_description` in responses.
- */
-export const waitingroom_rule_description_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `waitingroom_rule_enabled` in responses.
- */
-export const waitingroom_rule_enabled_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `waitingroom_rule_expression` in responses.
- */
-export const waitingroom_rule_expression_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `waitingroom_rule_id` in responses.
- */
-export const waitingroom_rule_id_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `waitingroom_rule_result` in responses.
  */
-export const waitingroom_rule_result_output: JsonSchema = {
+export const waitingroom_rule_result: JsonSchema = {
   "properties": {
     "action": {
-      "$ref": "#/$defs/waitingroom_rule_action"
+      "enum": [
+        "bypass_waiting_room"
+      ],
+      "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/waitingroom_rule_description"
+      "type": "string"
     },
     "enabled": {
-      "$ref": "#/$defs/waitingroom_rule_enabled"
+      "type": "boolean"
     },
     "expression": {
-      "$ref": "#/$defs/waitingroom_rule_expression"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/waitingroom_rule_id"
+      "type": "string"
     },
     "last_updated": {
-      "$ref": "#/$defs/waitingroom_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "version": {
-      "$ref": "#/$defs/waitingroom_rule_version"
+      "type": "string"
     }
   },
   "type": "object"
 };
 
 /**
- * The schema of `waitingroom_rule_version` in responses.
- */
-export const waitingroom_rule_version_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `waitingroom_rules_response_collection` in responses.
  */
-export const waitingroom_rules_response_collection_output: JsonSchema = {
+export const waitingroom_rules_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/waitingroom_api-response-collection"

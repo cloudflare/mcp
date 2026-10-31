@@ -4,22 +4,9 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `dlp_Confidence` in responses.
- */
-export const dlp_Confidence_output: JsonSchema = {
-  "enum": [
-    "low",
-    "medium",
-    "high",
-    "very_high"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `dlp_ContextAwareness` in responses.
  */
-export const dlp_ContextAwareness_output: JsonSchema = {
+export const dlp_ContextAwareness: JsonSchema = {
   "properties": {
     "enabled": {
       "type": "boolean"
@@ -38,7 +25,7 @@ export const dlp_ContextAwareness_output: JsonSchema = {
 /**
  * The schema of `dlp_CustomProfile` in responses.
  */
-export const dlp_CustomProfile_output: JsonSchema = {
+export const dlp_CustomProfile: JsonSchema = {
   "properties": {
     "ai_context_enabled": {
       "type": "boolean"
@@ -47,7 +34,13 @@ export const dlp_CustomProfile_output: JsonSchema = {
       "type": "integer"
     },
     "confidence_threshold": {
-      "$ref": "#/$defs/dlp_Confidence"
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "very_high"
+      ],
+      "type": "string"
     },
     "context_awareness": {
       "$ref": "#/$defs/dlp_ContextAwareness"
@@ -127,7 +120,7 @@ export const dlp_CustomProfile_output: JsonSchema = {
 /**
  * The schema of `dlp_IntegrationProfile` in responses.
  */
-export const dlp_IntegrationProfile_output: JsonSchema = {
+export const dlp_IntegrationProfile: JsonSchema = {
   "properties": {
     "created_at": {
       "format": "date-time",
@@ -186,7 +179,7 @@ export const dlp_IntegrationProfile_output: JsonSchema = {
 /**
  * The schema of `dlp_PredefinedProfile` in responses.
  */
-export const dlp_PredefinedProfile_output: JsonSchema = {
+export const dlp_PredefinedProfile: JsonSchema = {
   "properties": {
     "ai_context_enabled": {
       "type": "boolean"
@@ -195,7 +188,13 @@ export const dlp_PredefinedProfile_output: JsonSchema = {
       "type": "integer"
     },
     "confidence_threshold": {
-      "$ref": "#/$defs/dlp_Confidence"
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "very_high"
+      ],
+      "type": "string"
     },
     "context_awareness": {
       "$ref": "#/$defs/dlp_ContextAwareness"
@@ -232,7 +231,7 @@ export const dlp_PredefinedProfile_output: JsonSchema = {
 /**
  * The schema of `dlp_Profile` in responses.
  */
-export const dlp_Profile_output: JsonSchema = {
+export const dlp_Profile: JsonSchema = {
   "oneOf": [
     {
       "allOf": [
@@ -303,7 +302,7 @@ export const dlp_Profile_output: JsonSchema = {
 /**
  * The schema of `dlp_ProfileArray` in responses.
  */
-export const dlp_ProfileArray_output: JsonSchema = {
+export const dlp_ProfileArray: JsonSchema = {
   "items": {
     "$ref": "#/$defs/dlp_Profile"
   },
@@ -313,7 +312,7 @@ export const dlp_ProfileArray_output: JsonSchema = {
 /**
  * The schema of `dlp_SkipConfig` in responses.
  */
-export const dlp_SkipConfig_output: JsonSchema = {
+export const dlp_SkipConfig: JsonSchema = {
   "properties": {
     "files": {
       "type": "boolean"

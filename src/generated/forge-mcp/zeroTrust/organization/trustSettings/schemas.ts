@@ -4,14 +4,6 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `access_grant_trust_to_all_accounts_in_org`.
- */
-export const access_grant_trust_to_all_accounts_in_org: JsonSchema = {
-  "description": "Whether all accounts in the organization are trusted to use this account's cross-account Access resources.",
-  "type": "boolean"
-};
-
-/**
  * The schema of `access_trusting_accounts`.
  */
 export const access_trusting_accounts: JsonSchema = {

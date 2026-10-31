@@ -4,62 +4,6 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `access_allow_all_headers`.
- */
-export const access_allow_all_headers: JsonSchema = {
-  "description": "Allows all HTTP request headers.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `access_allow_all_methods`.
- */
-export const access_allow_all_methods: JsonSchema = {
-  "description": "Allows all HTTP request methods.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `access_allow_all_origins`.
- */
-export const access_allow_all_origins: JsonSchema = {
-  "description": "Allows all origins.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `access_allow_authenticate_via_warp-2`.
- */
-export const access_allow_authenticate_via_warp_2: JsonSchema = {
-  "description": "When set to true, users can authenticate to this application using their WARP session.  When set to false this application will always require direct IdP authentication. This setting always overrides the organization setting for WARP authentication.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `access_allow_credentials`.
- */
-export const access_allow_credentials: JsonSchema = {
-  "description": "When set to `true`, includes credentials (cookies, authorization headers, or TLS client certificates) with requests.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `access_allow_email_alias`.
- */
-export const access_allow_email_alias: JsonSchema = {
-  "description": "Enables using Identity Provider email alias as SSH username.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `access_allow_iframe`.
- */
-export const access_allow_iframe: JsonSchema = {
-  "description": "Enables loading application content in an iFrame.",
-  "type": "boolean"
-};
-
-/**
  * The schema of `access_allowed_headers`.
  */
 export const access_allowed_headers: JsonSchema = {
@@ -115,28 +59,6 @@ export const access_allowed_origins: JsonSchema = {
 };
 
 /**
- * The schema of `access_app_id`.
- */
-export const access_app_id: JsonSchema = {
-  "oneOf": [
-    {
-      "$ref": "#/$defs/access_identifier"
-    },
-    {
-      "$ref": "#/$defs/access_uuid"
-    }
-  ]
-};
-
-/**
- * The schema of `access_app_launcher_logo_url`.
- */
-export const access_app_launcher_logo_url: JsonSchema = {
-  "description": "The image URL of the logo shown in the App Launcher header.",
-  "type": "string"
-};
-
-/**
  * The schema of `access_app_launcher_props`.
  */
 export const access_app_launcher_props: JsonSchema = {
@@ -147,34 +69,52 @@ export const access_app_launcher_props: JsonSchema = {
     {
       "properties": {
         "app_launcher_logo_url": {
-          "$ref": "#/$defs/access_app_launcher_logo_url",
-          "description": "The image URL of the logo shown in the App Launcher header."
+          "description": "The image URL of the logo shown in the App Launcher header.",
+          "type": "string"
         },
         "bg_color": {
-          "$ref": "#/$defs/access_bg_color",
-          "description": "The background color of the App Launcher page."
+          "description": "The background color of the App Launcher page.",
+          "type": "string"
         },
         "footer_links": {
           "$ref": "#/$defs/access_footer_links",
           "description": "The links in the App Launcher footer."
         },
         "header_bg_color": {
-          "$ref": "#/$defs/access_header_bg_color",
-          "description": "The background color of the App Launcher header."
+          "description": "The background color of the App Launcher header.",
+          "type": "string"
         },
         "landing_page_design": {
           "$ref": "#/$defs/access_landing_page_design",
           "description": "The design of the App Launcher landing page shown to users when they log in."
         },
         "skip_app_launcher_login_page": {
-          "$ref": "#/$defs/access_skip_app_launcher_login_page",
           "default": false,
-          "description": "Determines when to skip the App Launcher landing page."
+          "description": "Determines when to skip the App Launcher landing page.",
+          "type": "boolean"
         },
         "type": {
           "allOf": [
             {
-              "$ref": "#/$defs/access_type"
+              "description": "The application type.",
+              "enum": [
+                "self_hosted",
+                "end_user",
+                "saas",
+                "ssh",
+                "vnc",
+                "app_launcher",
+                "warp",
+                "biso",
+                "bookmark",
+                "dash_sso",
+                "infrastructure",
+                "rdp",
+                "mcp",
+                "mcp_portal",
+                "proxy_endpoint"
+              ],
+              "type": "string"
             },
             {
               "type": "string"
@@ -188,30 +128,22 @@ export const access_app_launcher_props: JsonSchema = {
 };
 
 /**
- * The schema of `access_app_launcher_visible`.
- */
-export const access_app_launcher_visible: JsonSchema = {
-  "description": "Displays the application in the App Launcher.",
-  "type": "boolean"
-};
-
-/**
  * The schema of `access_app_policy_link`.
  */
 export const access_app_policy_link: JsonSchema = {
   "description": "A JSON that links a reusable policy to an application.",
   "properties": {
     "account_id": {
-      "$ref": "#/$defs/access_identifier",
-      "description": "Identifier."
+      "description": "Identifier.",
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/access_uuid-2",
-      "description": "The UUID of the policy"
+      "description": "The UUID of the policy",
+      "type": "string"
     },
     "precedence": {
-      "$ref": "#/$defs/access_precedence",
-      "description": "The order of execution for this policy. Must be unique for each policy within an app.\n"
+      "description": "The order of execution for this policy. Must be unique for each policy within an app.",
+      "type": "integer"
     }
   },
   "type": "object"
@@ -225,8 +157,8 @@ export const access_app_policy_request: JsonSchema = {
     {
       "properties": {
         "precedence": {
-          "$ref": "#/$defs/access_precedence",
-          "description": "The order of execution for this policy. Must be unique for each policy within an app.\n"
+          "description": "The order of execution for this policy. Must be unique for each policy within an app.",
+          "type": "integer"
         }
       },
       "type": "object"
@@ -255,7 +187,8 @@ export const access_app_req_embedded_policies: JsonSchema = {
                 "type": "string"
               },
               {
-                "$ref": "#/$defs/access_uuid-2"
+                "description": "The UUID of the policy",
+                "type": "string"
               }
             ]
           },
@@ -264,8 +197,8 @@ export const access_app_req_embedded_policies: JsonSchema = {
               {
                 "properties": {
                   "id": {
-                    "$ref": "#/$defs/access_uuid-2",
-                    "description": "The UUID of the policy"
+                    "description": "The UUID of the policy",
+                    "type": "string"
                   }
                 },
                 "type": "object"
@@ -482,22 +415,6 @@ export const access_app_resp_embedded_target_criteria_self_hosted: JsonSchema = 
 };
 
 /**
- * The schema of `access_auto_redirect_to_identity-2`.
- */
-export const access_auto_redirect_to_identity_2: JsonSchema = {
-  "description": "When set to `true`, users skip the identity provider selection step during login. You must specify only one identity provider in allowed_idps.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `access_bg_color`.
- */
-export const access_bg_color: JsonSchema = {
-  "description": "The background color of the App Launcher page.",
-  "type": "string"
-};
-
-/**
  * The schema of `access_biso_props`.
  */
 export const access_biso_props: JsonSchema = {
@@ -510,7 +427,25 @@ export const access_biso_props: JsonSchema = {
         "type": {
           "allOf": [
             {
-              "$ref": "#/$defs/access_type"
+              "description": "The application type.",
+              "enum": [
+                "self_hosted",
+                "end_user",
+                "saas",
+                "ssh",
+                "vnc",
+                "app_launcher",
+                "warp",
+                "biso",
+                "bookmark",
+                "dash_sso",
+                "infrastructure",
+                "rdp",
+                "mcp",
+                "mcp_portal",
+                "proxy_endpoint"
+              ],
+              "type": "string"
             },
             {
               "type": "string"
@@ -530,21 +465,21 @@ export const access_bookmark_props: JsonSchema = {
   "description": "Bookmark application",
   "properties": {
     "app_launcher_visible": {
-      "$ref": "#/$defs/access_app_launcher_visible",
       "default": true,
-      "description": "Displays the application in the App Launcher."
+      "description": "Displays the application in the App Launcher.",
+      "type": "boolean"
     },
     "domain": {
       "description": "The URL or domain of the bookmark.",
       "type": "string"
     },
     "logo_url": {
-      "$ref": "#/$defs/access_logo_url",
-      "description": "The image URL for the logo shown in the App Launcher dashboard."
+      "description": "The image URL for the logo shown in the App Launcher dashboard.",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/access_name-8",
-      "description": "The name of the application."
+      "description": "The name of the application.",
+      "type": "string"
     },
     "tags": {
       "$ref": "#/$defs/access_tags-2",
@@ -554,7 +489,25 @@ export const access_bookmark_props: JsonSchema = {
     "type": {
       "allOf": [
         {
-          "$ref": "#/$defs/access_type"
+          "description": "The application type.",
+          "enum": [
+            "self_hosted",
+            "end_user",
+            "saas",
+            "ssh",
+            "vnc",
+            "app_launcher",
+            "warp",
+            "biso",
+            "bookmark",
+            "dash_sso",
+            "infrastructure",
+            "rdp",
+            "mcp",
+            "mcp_portal",
+            "proxy_endpoint"
+          ],
+          "type": "string"
         },
         {
           "type": "string"
@@ -563,22 +516,6 @@ export const access_bookmark_props: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `access_button_color`.
- */
-export const access_button_color: JsonSchema = {
-  "description": "The background color of the log in button on the landing page.",
-  "type": "string"
-};
-
-/**
- * The schema of `access_button_text_color`.
- */
-export const access_button_text_color: JsonSchema = {
-  "description": "The color of the text in the log in button on the landing page.",
-  "type": "string"
 };
 
 /**
@@ -602,8 +539,8 @@ export const access_connection_rules_ssh: JsonSchema = {
   "description": "The SSH-specific rules that define how users may connect to the targets secured by your application.",
   "properties": {
     "allow_email_alias": {
-      "$ref": "#/$defs/access_allow_email_alias",
-      "description": "Enables using Identity Provider email alias as SSH username."
+      "description": "Enables using Identity Provider email alias as SSH username.",
+      "type": "boolean"
     },
     "usernames": {
       "$ref": "#/$defs/access_usernames",
@@ -622,20 +559,20 @@ export const access_connection_rules_ssh: JsonSchema = {
 export const access_cors_headers: JsonSchema = {
   "properties": {
     "allow_all_headers": {
-      "$ref": "#/$defs/access_allow_all_headers",
-      "description": "Allows all HTTP request headers."
+      "description": "Allows all HTTP request headers.",
+      "type": "boolean"
     },
     "allow_all_methods": {
-      "$ref": "#/$defs/access_allow_all_methods",
-      "description": "Allows all HTTP request methods."
+      "description": "Allows all HTTP request methods.",
+      "type": "boolean"
     },
     "allow_all_origins": {
-      "$ref": "#/$defs/access_allow_all_origins",
-      "description": "Allows all origins."
+      "description": "Allows all origins.",
+      "type": "boolean"
     },
     "allow_credentials": {
-      "$ref": "#/$defs/access_allow_credentials",
-      "description": "When set to `true`, includes credentials (cookies, authorization headers, or TLS client certificates) with requests."
+      "description": "When set to `true`, includes credentials (cookies, authorization headers, or TLS client certificates) with requests.",
+      "type": "boolean"
     },
     "allowed_headers": {
       "$ref": "#/$defs/access_allowed_headers",
@@ -650,41 +587,17 @@ export const access_cors_headers: JsonSchema = {
       "description": "Allowed origins."
     },
     "max_age": {
-      "$ref": "#/$defs/access_max_age",
-      "description": "The maximum number of seconds the results of a preflight request can be cached."
+      "description": "The maximum number of seconds the results of a preflight request can be cached.",
+      "type": "number"
     }
   },
   "type": "object"
 };
 
 /**
- * The schema of `access_custom_deny_message`.
- */
-export const access_custom_deny_message: JsonSchema = {
-  "description": "The custom error message shown to a user when they are denied access to the application.",
-  "type": "string"
-};
-
-/**
- * The schema of `access_custom_deny_url`.
- */
-export const access_custom_deny_url: JsonSchema = {
-  "description": "The custom URL a user is redirected to when they are denied access to the application when failing identity-based rules.",
-  "type": "string"
-};
-
-/**
- * The schema of `access_custom_non_identity_deny_url`.
- */
-export const access_custom_non_identity_deny_url: JsonSchema = {
-  "description": "The custom URL a user is redirected to when they are denied access to the application when failing non-identity rules.",
-  "type": "string"
-};
-
-/**
  * The schema of `access_custom_pages-2`.
  */
-export const access_custom_pages_2: JsonSchema = {
+export const access_custom_pages$$2: JsonSchema = {
   "description": "The custom pages that will be displayed when applicable for this application",
   "items": {
     "type": "string"
@@ -696,7 +609,7 @@ export const access_custom_pages_2: JsonSchema = {
  * The schema of `access_destination_overrides`.
  */
 export const access_destination_overrides: JsonSchema = {
-  "description": "Rules that override how Access handles requests to this destination. Each rule can make a matching path public, bypassing Access authentication. Overrides are supported for public destinations and Worker destinations.\n",
+  "description": "Rules that override how Access handles requests to this destination. Each rule can make a matching path public, bypassing Access authentication. Overrides are supported for public destinations and Worker destinations.",
   "items": {
     "properties": {
       "behavior": {
@@ -707,7 +620,7 @@ export const access_destination_overrides: JsonSchema = {
         "type": "string"
       },
       "path_pattern": {
-        "description": "The request path pattern to match. Wildcards (`*`) are supported, but each path segment may have at most one wildcard. Unlike the `uri` in public destinations, override path patterns do not implicitly cover subpaths; to do that, use a wildcard.\n",
+        "description": "The request path pattern to match. Wildcards (`*`) are supported, but each path segment may have at most one wildcard. Unlike the `uri` in public destinations, override path patterns do not implicitly cover subpaths; to do that, use a wildcard.",
         "type": "string"
       }
     },
@@ -725,14 +638,14 @@ export const access_destination_overrides: JsonSchema = {
  * The schema of `access_destinations`.
  */
 export const access_destinations: JsonSchema = {
-  "description": "List of destinations secured by Access. This supersedes `self_hosted_domains` to allow for more flexibility in defining different types of domains. If `destinations` are provided, then `self_hosted_domains` will be ignored.\n",
+  "description": "List of destinations secured by Access. This supersedes `self_hosted_domains` to allow for more flexibility in defining different types of domains. If `destinations` are provided, then `self_hosted_domains` will be ignored.",
   "items": {
     "oneOf": [
       {
         "properties": {
           "overrides": {
             "$ref": "#/$defs/access_destination_overrides",
-            "description": "Rules that override how Access handles requests to this destination. Each rule can make a matching path public, bypassing Access authentication. Overrides are supported for public destinations and Worker destinations.\n"
+            "description": "Rules that override how Access handles requests to this destination. Each rule can make a matching path public, bypassing Access authentication. Overrides are supported for public destinations and Worker destinations."
           },
           "type": {
             "enum": [
@@ -741,7 +654,7 @@ export const access_destinations: JsonSchema = {
             "type": "string"
           },
           "uri": {
-            "description": "The URI of the destination. Public destinations' URIs can include a domain and path with [wildcards](https://developers.cloudflare.com/cloudflare-one/policies/access/app-paths/).\n",
+            "description": "The URI of the destination. Public destinations' URIs can include a domain and path with [wildcards](https://developers.cloudflare.com/cloudflare-one/policies/access/app-paths/).",
             "type": "string"
           }
         },
@@ -766,7 +679,7 @@ export const access_destinations: JsonSchema = {
             "type": "string"
           },
           "port_range": {
-            "description": "The port range of the destination. Can be a single port or a range of ports. When omitted, all ports will match.\n",
+            "description": "The port range of the destination. Can be a single port or a range of ports. When omitted, all ports will match.",
             "type": "string"
           },
           "type": {
@@ -801,7 +714,7 @@ export const access_destinations: JsonSchema = {
         "properties": {
           "overrides": {
             "$ref": "#/$defs/access_destination_overrides",
-            "description": "Rules that override how Access handles requests to this destination. Each rule can make a matching path public, bypassing Access authentication. Overrides are supported for public destinations and Worker destinations.\n"
+            "description": "Rules that override how Access handles requests to this destination. Each rule can make a matching path public, bypassing Access authentication. Overrides are supported for public destinations and Worker destinations."
           },
           "type": {
             "enum": [
@@ -824,7 +737,7 @@ export const access_destinations: JsonSchema = {
         "properties": {
           "overrides": {
             "$ref": "#/$defs/access_destination_overrides",
-            "description": "Rules that override how Access handles requests to this destination. Each rule can make a matching path public, bypassing Access authentication. Overrides are supported for public destinations and Worker destinations.\n"
+            "description": "Rules that override how Access handles requests to this destination. Each rule can make a matching path public, bypassing Access authentication. Overrides are supported for public destinations and Worker destinations."
           },
           "type": {
             "enum": [
@@ -847,7 +760,7 @@ export const access_destinations: JsonSchema = {
         "properties": {
           "overrides": {
             "$ref": "#/$defs/access_destination_overrides",
-            "description": "Rules that override how Access handles requests to this destination. Each rule can make a matching path public, bypassing Access authentication. Overrides are supported for public destinations and Worker destinations.\n"
+            "description": "Rules that override how Access handles requests to this destination. Each rule can make a matching path public, bypassing Access authentication. Overrides are supported for public destinations and Worker destinations."
           },
           "type": {
             "enum": [
@@ -865,7 +778,7 @@ export const access_destinations: JsonSchema = {
         "properties": {
           "overrides": {
             "$ref": "#/$defs/access_destination_overrides",
-            "description": "Rules that override how Access handles requests to this destination. Each rule can make a matching path public, bypassing Access authentication. Overrides are supported for public destinations and Worker destinations.\n"
+            "description": "Rules that override how Access handles requests to this destination. Each rule can make a matching path public, bypassing Access authentication. Overrides are supported for public destinations and Worker destinations."
           },
           "type": {
             "enum": [
@@ -885,37 +798,13 @@ export const access_destinations: JsonSchema = {
 };
 
 /**
- * The schema of `access_domain`.
- */
-export const access_domain: JsonSchema = {
-  "description": "The primary hostname and path secured by Access. This domain will be displayed if the app is visible in the App Launcher.",
-  "type": "string"
-};
-
-/**
- * The schema of `access_eager_redirect_cookie_setting`.
- */
-export const access_eager_redirect_cookie_setting: JsonSchema = {
-  "description": "Preemptively sets the Access session cookie on every hostname in a multi-hostname self-hosted application during the initial redirect chain, rather than setting it lazily on first visit. Defaults to true. Set to false to disable the eager redirect cookie behavior.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `access_enable_binding_cookie`.
- */
-export const access_enable_binding_cookie: JsonSchema = {
-  "description": "Enables the binding cookie, which increases security against compromised authorization tokens and CSRF attacks.",
-  "type": "boolean"
-};
-
-/**
  * The schema of `access_end_user_all_preview_workers_destination`.
  */
 export const access_end_user_all_preview_workers_destination: JsonSchema = {
   "properties": {
     "overrides": {
       "$ref": "#/$defs/access_destination_overrides",
-      "description": "Rules that override how Access handles requests to this destination. Each rule can make a matching path public, bypassing Access authentication. Overrides are supported for public destinations and Worker destinations.\n"
+      "description": "Rules that override how Access handles requests to this destination. Each rule can make a matching path public, bypassing Access authentication. Overrides are supported for public destinations and Worker destinations."
     },
     "type": {
       "enum": [
@@ -937,7 +826,7 @@ export const access_end_user_all_workers_destination: JsonSchema = {
   "properties": {
     "overrides": {
       "$ref": "#/$defs/access_destination_overrides",
-      "description": "Rules that override how Access handles requests to this destination. Each rule can make a matching path public, bypassing Access authentication. Overrides are supported for public destinations and Worker destinations.\n"
+      "description": "Rules that override how Access handles requests to this destination. Each rule can make a matching path public, bypassing Access authentication. Overrides are supported for public destinations and Worker destinations."
     },
     "type": {
       "enum": [
@@ -1010,7 +899,7 @@ export const access_end_user_preview_worker_destination: JsonSchema = {
   "properties": {
     "overrides": {
       "$ref": "#/$defs/access_destination_overrides",
-      "description": "Rules that override how Access handles requests to this destination. Each rule can make a matching path public, bypassing Access authentication. Overrides are supported for public destinations and Worker destinations.\n"
+      "description": "Rules that override how Access handles requests to this destination. Each rule can make a matching path public, bypassing Access authentication. Overrides are supported for public destinations and Worker destinations."
     },
     "type": {
       "enum": [
@@ -1034,7 +923,7 @@ export const access_end_user_preview_worker_destination: JsonSchema = {
  * The schema of `access_end_user_props`.
  */
 export const access_end_user_props: JsonSchema = {
-  "description": "An end user application is a public self-hosted application backed by exactly one organization-owned user population. End user applications use a canonical allow-everyone policy and do not support custom policies, SCIM configuration, MFA configuration, or private destinations.\n",
+  "description": "An end user application is a public self-hosted application backed by exactly one organization-owned user population. End user applications use a canonical allow-everyone policy and do not support custom policies, SCIM configuration, MFA configuration, or private destinations.",
   "properties": {
     "allowed_idps": {
       "$ref": "#/$defs/access_allowed_idps",
@@ -1045,12 +934,12 @@ export const access_end_user_props: JsonSchema = {
       "description": "Public hostname and Workers destinations secured by Access."
     },
     "domain": {
-      "$ref": "#/$defs/access_domain",
-      "description": "The primary hostname and path secured by Access. This domain will be displayed if the app is visible in the App Launcher."
+      "description": "The primary hostname and path secured by Access. This domain will be displayed if the app is visible in the App Launcher.",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/access_name-8",
-      "description": "The name of the application."
+      "description": "The name of the application.",
+      "type": "string"
     },
     "oauth_configuration": {
       "$ref": "#/$defs/access_end_user_oauth_configuration"
@@ -1058,12 +947,30 @@ export const access_end_user_props: JsonSchema = {
     "self_hosted_domains": {
       "$ref": "#/$defs/access_self_hosted_domains",
       "default": [],
-      "description": "List of public domains that Access will secure. This field is deprecated in favor of `destinations` and will be supported until **November 21, 2025.** If `destinations` are provided, then `self_hosted_domains` will be ignored.\n"
+      "description": "List of public domains that Access will secure. This field is deprecated in favor of `destinations` and will be supported until **November 21, 2025.** If `destinations` are provided, then `self_hosted_domains` will be ignored."
     },
     "type": {
       "allOf": [
         {
-          "$ref": "#/$defs/access_type"
+          "description": "The application type.",
+          "enum": [
+            "self_hosted",
+            "end_user",
+            "saas",
+            "ssh",
+            "vnc",
+            "app_launcher",
+            "warp",
+            "biso",
+            "bookmark",
+            "dash_sso",
+            "infrastructure",
+            "rdp",
+            "mcp",
+            "mcp_portal",
+            "proxy_endpoint"
+          ],
+          "type": "string"
         },
         {
           "enum": [
@@ -1076,7 +983,8 @@ export const access_end_user_props: JsonSchema = {
     "user_populations": {
       "description": "The single user population associated with this application.",
       "items": {
-        "$ref": "#/$defs/access_uuid"
+        "description": "UUID.",
+        "type": "string"
       },
       "maxItems": 1,
       "minItems": 1,
@@ -1098,7 +1006,7 @@ export const access_end_user_public_destination: JsonSchema = {
   "properties": {
     "overrides": {
       "$ref": "#/$defs/access_destination_overrides",
-      "description": "Rules that override how Access handles requests to this destination. Each rule can make a matching path public, bypassing Access authentication. Overrides are supported for public destinations and Worker destinations.\n"
+      "description": "Rules that override how Access handles requests to this destination. Each rule can make a matching path public, bypassing Access authentication. Overrides are supported for public destinations and Worker destinations."
     },
     "type": {
       "enum": [
@@ -1124,7 +1032,7 @@ export const access_end_user_worker_destination: JsonSchema = {
   "properties": {
     "overrides": {
       "$ref": "#/$defs/access_destination_overrides",
-      "description": "Rules that override how Access handles requests to this destination. Each rule can make a matching path public, bypassing Access authentication. Overrides are supported for public destinations and Worker destinations.\n"
+      "description": "Rules that override how Access handles requests to this destination. Each rule can make a matching path public, bypassing Access authentication. Overrides are supported for public destinations and Worker destinations."
     },
     "type": {
       "enum": [
@@ -1154,38 +1062,55 @@ export const access_feature_app_props: JsonSchema = {
       "description": "The identity providers your users can select when connecting to this application. Defaults to all IdPs configured in your account."
     },
     "auto_redirect_to_identity": {
-      "$ref": "#/$defs/access_auto_redirect_to_identity-2",
       "default": false,
-      "description": "When set to `true`, users skip the identity provider selection step during login. You must specify only one identity provider in allowed_idps."
+      "description": "When set to `true`, users skip the identity provider selection step during login. You must specify only one identity provider in allowed_idps.",
+      "type": "boolean"
     },
     "custom_deny_url": {
-      "$ref": "#/$defs/access_custom_deny_url",
-      "description": "The custom URL a user is redirected to when they are denied access to the application when failing identity-based rules."
+      "description": "The custom URL a user is redirected to when they are denied access to the application when failing identity-based rules.",
+      "type": "string"
     },
     "custom_non_identity_deny_url": {
-      "$ref": "#/$defs/access_custom_non_identity_deny_url",
-      "description": "The custom URL a user is redirected to when they are denied access to the application when failing non-identity rules."
+      "description": "The custom URL a user is redirected to when they are denied access to the application when failing non-identity rules.",
+      "type": "string"
     },
     "custom_pages": {
       "$ref": "#/$defs/access_custom_pages-2",
       "description": "The custom pages that will be displayed when applicable for this application"
     },
     "domain": {
-      "$ref": "#/$defs/access_domain",
-      "description": "The primary hostname and path secured by Access. This domain will be displayed if the app is visible in the App Launcher."
+      "description": "The primary hostname and path secured by Access. This domain will be displayed if the app is visible in the App Launcher.",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/access_name-8",
-      "description": "The name of the application."
+      "description": "The name of the application.",
+      "type": "string"
     },
     "session_duration": {
-      "$ref": "#/$defs/access_session_duration-2",
       "default": "24h",
-      "description": "The amount of time that tokens issued for this application will be valid. Must be in the format `300ms` or `2h45m`. Valid time units are: ns, us (or µs), ms, s, m, h."
+      "description": "The amount of time that tokens issued for this application will be valid. Must be in the format `300ms` or `2h45m`. Valid time units are: ns, us (or µs), ms, s, m, h.",
+      "type": "string"
     },
     "type": {
-      "$ref": "#/$defs/access_type",
-      "description": "The application type."
+      "description": "The application type.",
+      "enum": [
+        "self_hosted",
+        "end_user",
+        "saas",
+        "ssh",
+        "vnc",
+        "app_launcher",
+        "warp",
+        "biso",
+        "bookmark",
+        "dash_sso",
+        "infrastructure",
+        "rdp",
+        "mcp",
+        "mcp_portal",
+        "proxy_endpoint"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -1217,30 +1142,6 @@ export const access_footer_links: JsonSchema = {
     "type": "object"
   },
   "type": "array"
-};
-
-/**
- * The schema of `access_header_bg_color`.
- */
-export const access_header_bg_color: JsonSchema = {
-  "description": "The background color of the App Launcher header.",
-  "type": "string"
-};
-
-/**
- * The schema of `access_http_only_cookie_attribute`.
- */
-export const access_http_only_cookie_attribute: JsonSchema = {
-  "description": "Enables the HttpOnly cookie attribute, which increases security against XSS attacks.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `access_image_url`.
- */
-export const access_image_url: JsonSchema = {
-  "description": "The URL of the image shown on the landing page.",
-  "type": "string"
 };
 
 /**
@@ -1324,8 +1225,8 @@ export const access_infra_props: JsonSchema = {
           "description": "Configures multi-factor authentication (MFA) settings for infrastructure applications."
         },
         "name": {
-          "$ref": "#/$defs/access_name-8",
-          "description": "The name of the application."
+          "description": "The name of the application.",
+          "type": "string"
         },
         "session_duration": {
           "default": "24h",
@@ -1335,7 +1236,25 @@ export const access_infra_props: JsonSchema = {
         "type": {
           "allOf": [
             {
-              "$ref": "#/$defs/access_type"
+              "description": "The application type.",
+              "enum": [
+                "self_hosted",
+                "end_user",
+                "saas",
+                "ssh",
+                "vnc",
+                "app_launcher",
+                "warp",
+                "biso",
+                "bookmark",
+                "dash_sso",
+                "infrastructure",
+                "rdp",
+                "mcp",
+                "mcp_portal",
+                "proxy_endpoint"
+              ],
+              "type": "string"
             },
             {
               "type": "string"
@@ -1359,44 +1278,28 @@ export const access_landing_page_design: JsonSchema = {
   "description": "The design of the App Launcher landing page shown to users when they log in.",
   "properties": {
     "button_color": {
-      "$ref": "#/$defs/access_button_color",
-      "description": "The background color of the log in button on the landing page."
+      "description": "The background color of the log in button on the landing page.",
+      "type": "string"
     },
     "button_text_color": {
-      "$ref": "#/$defs/access_button_text_color",
-      "description": "The color of the text in the log in button on the landing page."
+      "description": "The color of the text in the log in button on the landing page.",
+      "type": "string"
     },
     "image_url": {
-      "$ref": "#/$defs/access_image_url",
-      "description": "The URL of the image shown on the landing page."
+      "description": "The URL of the image shown on the landing page.",
+      "type": "string"
     },
     "message": {
-      "$ref": "#/$defs/access_message",
-      "description": "The message shown on the landing page."
+      "description": "The message shown on the landing page.",
+      "type": "string"
     },
     "title": {
-      "$ref": "#/$defs/access_title",
       "default": "Welcome!",
-      "description": "The title shown on the landing page."
+      "description": "The title shown on the landing page.",
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `access_logo_url`.
- */
-export const access_logo_url: JsonSchema = {
-  "description": "The image URL for the logo shown in the App Launcher dashboard.",
-  "type": "string"
-};
-
-/**
- * The schema of `access_max_age`.
- */
-export const access_max_age: JsonSchema = {
-  "description": "The maximum number of seconds the results of a preflight request can be cached.",
-  "type": "number"
 };
 
 /**
@@ -1406,29 +1309,29 @@ export const access_mcp_portal_props: JsonSchema = {
   "description": "MCP Server Portal Application",
   "properties": {
     "allow_authenticate_via_warp": {
-      "$ref": "#/$defs/access_allow_authenticate_via_warp-2",
-      "description": "When set to true, users can authenticate to this application using their WARP session.  When set to false this application will always require direct IdP authentication. This setting always overrides the organization setting for WARP authentication."
+      "description": "When set to true, users can authenticate to this application using their WARP session.  When set to false this application will always require direct IdP authentication. This setting always overrides the organization setting for WARP authentication.",
+      "type": "boolean"
     },
     "allowed_idps": {
       "$ref": "#/$defs/access_allowed_idps",
       "description": "The identity providers your users can select when connecting to this application. Defaults to all IdPs configured in your account."
     },
     "auto_redirect_to_identity": {
-      "$ref": "#/$defs/access_auto_redirect_to_identity-2",
       "default": false,
-      "description": "When set to `true`, users skip the identity provider selection step during login. You must specify only one identity provider in allowed_idps."
+      "description": "When set to `true`, users skip the identity provider selection step during login. You must specify only one identity provider in allowed_idps.",
+      "type": "boolean"
     },
     "custom_deny_message": {
-      "$ref": "#/$defs/access_custom_deny_message",
-      "description": "The custom error message shown to a user when they are denied access to the application."
+      "description": "The custom error message shown to a user when they are denied access to the application.",
+      "type": "string"
     },
     "custom_deny_url": {
-      "$ref": "#/$defs/access_custom_deny_url",
-      "description": "The custom URL a user is redirected to when they are denied access to the application when failing identity-based rules."
+      "description": "The custom URL a user is redirected to when they are denied access to the application when failing identity-based rules.",
+      "type": "string"
     },
     "custom_non_identity_deny_url": {
-      "$ref": "#/$defs/access_custom_non_identity_deny_url",
-      "description": "The custom URL a user is redirected to when they are denied access to the application when failing non-identity rules."
+      "description": "The custom URL a user is redirected to when they are denied access to the application when failing non-identity rules.",
+      "type": "string"
     },
     "custom_pages": {
       "$ref": "#/$defs/access_custom_pages-2",
@@ -1437,45 +1340,45 @@ export const access_mcp_portal_props: JsonSchema = {
     "destinations": {
       "$ref": "#/$defs/access_destinations",
       "default": [],
-      "description": "List of destinations secured by Access. This supersedes `self_hosted_domains` to allow for more flexibility in defining different types of domains. If `destinations` are provided, then `self_hosted_domains` will be ignored.\n"
+      "description": "List of destinations secured by Access. This supersedes `self_hosted_domains` to allow for more flexibility in defining different types of domains. If `destinations` are provided, then `self_hosted_domains` will be ignored."
     },
     "domain": {
-      "$ref": "#/$defs/access_domain",
-      "description": "The primary hostname and path secured by Access. This domain will be displayed if the app is visible in the App Launcher."
+      "description": "The primary hostname and path secured by Access. This domain will be displayed if the app is visible in the App Launcher.",
+      "type": "string"
     },
     "http_only_cookie_attribute": {
-      "$ref": "#/$defs/access_http_only_cookie_attribute",
       "default": true,
-      "description": "Enables the HttpOnly cookie attribute, which increases security against XSS attacks."
+      "description": "Enables the HttpOnly cookie attribute, which increases security against XSS attacks.",
+      "type": "boolean"
     },
     "logo_url": {
-      "$ref": "#/$defs/access_logo_url",
-      "description": "The image URL for the logo shown in the App Launcher dashboard."
+      "description": "The image URL for the logo shown in the App Launcher dashboard.",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/access_name-8",
-      "description": "The name of the application."
+      "description": "The name of the application.",
+      "type": "string"
     },
     "oauth_configuration": {
       "$ref": "#/$defs/access_oauth_configuration",
-      "description": "**Beta:** Optional configuration for managing an OAuth authorization flow controlled by Access. When set, Access will act as the OAuth authorization server for this application. Only compatible with OAuth clients that support [RFC 8707](https://datatracker.ietf.org/doc/html/rfc8707) (Resource Indicators for OAuth 2.0). This feature is currently in beta.\n"
+      "description": "**Beta:** Optional configuration for managing an OAuth authorization flow controlled by Access. When set, Access will act as the OAuth authorization server for this application. Only compatible with OAuth clients that support [RFC 8707](https://datatracker.ietf.org/doc/html/rfc8707) (Resource Indicators for OAuth 2.0). This feature is currently in beta."
     },
     "options_preflight_bypass": {
-      "$ref": "#/$defs/access_options_preflight_bypass",
-      "description": "Allows options preflight requests to bypass Access authentication and go directly to the origin. Cannot turn on if cors_headers is set."
+      "description": "Allows options preflight requests to bypass Access authentication and go directly to the origin. Cannot turn on if cors_headers is set.",
+      "type": "boolean"
     },
     "same_site_cookie_attribute": {
-      "$ref": "#/$defs/access_same_site_cookie_attribute",
-      "description": "Sets the SameSite cookie setting, which provides increased security against CSRF attacks."
+      "description": "Sets the SameSite cookie setting, which provides increased security against CSRF attacks.",
+      "type": "string"
     },
     "scim_config": {
       "$ref": "#/$defs/access_scim_config",
       "description": "Configuration for provisioning to this application via SCIM. This is currently in closed beta."
     },
     "session_duration": {
-      "$ref": "#/$defs/access_session_duration-2",
       "default": "24h",
-      "description": "The amount of time that tokens issued for this application will be valid. Must be in the format `300ms` or `2h45m`. Valid time units are: ns, us (or µs), ms, s, m, h."
+      "description": "The amount of time that tokens issued for this application will be valid. Must be in the format `300ms` or `2h45m`. Valid time units are: ns, us (or µs), ms, s, m, h.",
+      "type": "string"
     },
     "tags": {
       "$ref": "#/$defs/access_tags-2",
@@ -1485,7 +1388,25 @@ export const access_mcp_portal_props: JsonSchema = {
     "type": {
       "allOf": [
         {
-          "$ref": "#/$defs/access_type"
+          "description": "The application type.",
+          "enum": [
+            "self_hosted",
+            "end_user",
+            "saas",
+            "ssh",
+            "vnc",
+            "app_launcher",
+            "warp",
+            "biso",
+            "bookmark",
+            "dash_sso",
+            "infrastructure",
+            "rdp",
+            "mcp",
+            "mcp_portal",
+            "proxy_endpoint"
+          ],
+          "type": "string"
         },
         {
           "type": "string"
@@ -1506,29 +1427,29 @@ export const access_mcp_props: JsonSchema = {
   "description": "MCP Server Application",
   "properties": {
     "allow_authenticate_via_warp": {
-      "$ref": "#/$defs/access_allow_authenticate_via_warp-2",
-      "description": "When set to true, users can authenticate to this application using their WARP session.  When set to false this application will always require direct IdP authentication. This setting always overrides the organization setting for WARP authentication."
+      "description": "When set to true, users can authenticate to this application using their WARP session.  When set to false this application will always require direct IdP authentication. This setting always overrides the organization setting for WARP authentication.",
+      "type": "boolean"
     },
     "allowed_idps": {
       "$ref": "#/$defs/access_allowed_idps",
       "description": "The identity providers your users can select when connecting to this application. Defaults to all IdPs configured in your account."
     },
     "auto_redirect_to_identity": {
-      "$ref": "#/$defs/access_auto_redirect_to_identity-2",
       "default": false,
-      "description": "When set to `true`, users skip the identity provider selection step during login. You must specify only one identity provider in allowed_idps."
+      "description": "When set to `true`, users skip the identity provider selection step during login. You must specify only one identity provider in allowed_idps.",
+      "type": "boolean"
     },
     "custom_deny_message": {
-      "$ref": "#/$defs/access_custom_deny_message",
-      "description": "The custom error message shown to a user when they are denied access to the application."
+      "description": "The custom error message shown to a user when they are denied access to the application.",
+      "type": "string"
     },
     "custom_deny_url": {
-      "$ref": "#/$defs/access_custom_deny_url",
-      "description": "The custom URL a user is redirected to when they are denied access to the application when failing identity-based rules."
+      "description": "The custom URL a user is redirected to when they are denied access to the application when failing identity-based rules.",
+      "type": "string"
     },
     "custom_non_identity_deny_url": {
-      "$ref": "#/$defs/access_custom_non_identity_deny_url",
-      "description": "The custom URL a user is redirected to when they are denied access to the application when failing non-identity rules."
+      "description": "The custom URL a user is redirected to when they are denied access to the application when failing non-identity rules.",
+      "type": "string"
     },
     "custom_pages": {
       "$ref": "#/$defs/access_custom_pages-2",
@@ -1537,41 +1458,41 @@ export const access_mcp_props: JsonSchema = {
     "destinations": {
       "$ref": "#/$defs/access_destinations",
       "default": [],
-      "description": "List of destinations secured by Access. This supersedes `self_hosted_domains` to allow for more flexibility in defining different types of domains. If `destinations` are provided, then `self_hosted_domains` will be ignored.\n"
+      "description": "List of destinations secured by Access. This supersedes `self_hosted_domains` to allow for more flexibility in defining different types of domains. If `destinations` are provided, then `self_hosted_domains` will be ignored."
     },
     "http_only_cookie_attribute": {
-      "$ref": "#/$defs/access_http_only_cookie_attribute",
       "default": true,
-      "description": "Enables the HttpOnly cookie attribute, which increases security against XSS attacks."
+      "description": "Enables the HttpOnly cookie attribute, which increases security against XSS attacks.",
+      "type": "boolean"
     },
     "logo_url": {
-      "$ref": "#/$defs/access_logo_url",
-      "description": "The image URL for the logo shown in the App Launcher dashboard."
+      "description": "The image URL for the logo shown in the App Launcher dashboard.",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/access_name-8",
-      "description": "The name of the application."
+      "description": "The name of the application.",
+      "type": "string"
     },
     "oauth_configuration": {
       "$ref": "#/$defs/access_oauth_configuration",
-      "description": "**Beta:** Optional configuration for managing an OAuth authorization flow controlled by Access. When set, Access will act as the OAuth authorization server for this application. Only compatible with OAuth clients that support [RFC 8707](https://datatracker.ietf.org/doc/html/rfc8707) (Resource Indicators for OAuth 2.0). This feature is currently in beta.\n"
+      "description": "**Beta:** Optional configuration for managing an OAuth authorization flow controlled by Access. When set, Access will act as the OAuth authorization server for this application. Only compatible with OAuth clients that support [RFC 8707](https://datatracker.ietf.org/doc/html/rfc8707) (Resource Indicators for OAuth 2.0). This feature is currently in beta."
     },
     "options_preflight_bypass": {
-      "$ref": "#/$defs/access_options_preflight_bypass",
-      "description": "Allows options preflight requests to bypass Access authentication and go directly to the origin. Cannot turn on if cors_headers is set."
+      "description": "Allows options preflight requests to bypass Access authentication and go directly to the origin. Cannot turn on if cors_headers is set.",
+      "type": "boolean"
     },
     "same_site_cookie_attribute": {
-      "$ref": "#/$defs/access_same_site_cookie_attribute",
-      "description": "Sets the SameSite cookie setting, which provides increased security against CSRF attacks."
+      "description": "Sets the SameSite cookie setting, which provides increased security against CSRF attacks.",
+      "type": "string"
     },
     "scim_config": {
       "$ref": "#/$defs/access_scim_config",
       "description": "Configuration for provisioning to this application via SCIM. This is currently in closed beta."
     },
     "session_duration": {
-      "$ref": "#/$defs/access_session_duration-2",
       "default": "24h",
-      "description": "The amount of time that tokens issued for this application will be valid. Must be in the format `300ms` or `2h45m`. Valid time units are: ns, us (or µs), ms, s, m, h."
+      "description": "The amount of time that tokens issued for this application will be valid. Must be in the format `300ms` or `2h45m`. Valid time units are: ns, us (or µs), ms, s, m, h.",
+      "type": "string"
     },
     "tags": {
       "$ref": "#/$defs/access_tags-2",
@@ -1581,7 +1502,25 @@ export const access_mcp_props: JsonSchema = {
     "type": {
       "allOf": [
         {
-          "$ref": "#/$defs/access_type"
+          "description": "The application type.",
+          "enum": [
+            "self_hosted",
+            "end_user",
+            "saas",
+            "ssh",
+            "vnc",
+            "app_launcher",
+            "warp",
+            "biso",
+            "bookmark",
+            "dash_sso",
+            "infrastructure",
+            "rdp",
+            "mcp",
+            "mcp_portal",
+            "proxy_endpoint"
+          ],
+          "type": "string"
         },
         {
           "type": "string"
@@ -1596,26 +1535,10 @@ export const access_mcp_props: JsonSchema = {
 };
 
 /**
- * The schema of `access_message`.
- */
-export const access_message: JsonSchema = {
-  "description": "The message shown on the landing page.",
-  "type": "string"
-};
-
-/**
- * The schema of `access_name-8`.
- */
-export const access_name_8: JsonSchema = {
-  "description": "The name of the application.",
-  "type": "string"
-};
-
-/**
  * The schema of `access_oauth_configuration`.
  */
 export const access_oauth_configuration: JsonSchema = {
-  "description": "**Beta:** Optional configuration for managing an OAuth authorization flow controlled by Access. When set, Access will act as the OAuth authorization server for this application. Only compatible with OAuth clients that support [RFC 8707](https://datatracker.ietf.org/doc/html/rfc8707) (Resource Indicators for OAuth 2.0). This feature is currently in beta.\n",
+  "description": "**Beta:** Optional configuration for managing an OAuth authorization flow controlled by Access. When set, Access will act as the OAuth authorization server for this application. Only compatible with OAuth clients that support [RFC 8707](https://datatracker.ietf.org/doc/html/rfc8707) (Resource Indicators for OAuth 2.0). This feature is currently in beta.",
   "properties": {
     "dynamic_client_registration": {
       "description": "Settings for OAuth dynamic client registration.",
@@ -1629,7 +1552,7 @@ export const access_oauth_configuration: JsonSchema = {
           "type": "boolean"
         },
         "allowed_uris": {
-          "description": "The URIs that are allowed as redirect URIs for dynamically registered clients. HTTP and HTTPS paths may end in `/*` to match all sub-paths. Custom-scheme URIs must be explicitly configured and match exactly.\n",
+          "description": "The URIs that are allowed as redirect URIs for dynamically registered clients. HTTP and HTTPS paths may end in `/*` to match all sub-paths. Custom-scheme URIs must be explicitly configured and match exactly.",
           "items": {
             "type": "string"
           },
@@ -1644,7 +1567,7 @@ export const access_oauth_configuration: JsonSchema = {
     },
     "enabled": {
       "default": true,
-      "description": "Whether the OAuth configuration is enabled for this application. When set to `false`, Access will not handle OAuth for this application. Defaults to `true` if omitted.\n",
+      "description": "Whether the OAuth configuration is enabled for this application. When set to `false`, Access will not handle OAuth for this application. Defaults to `true` if omitted.",
       "type": "boolean"
     },
     "grant": {
@@ -1700,7 +1623,15 @@ export const access_oidc_saas_app: JsonSchema = {
       "type": "string"
     },
     "created_at": {
-      "$ref": "#/$defs/access_created_at"
+      "allOf": [
+        {
+          "type": "string"
+        },
+        {
+          "format": "date-time",
+          "type": "string"
+        }
+      ]
     },
     "custom_claims": {
       "items": {
@@ -1809,64 +1740,18 @@ export const access_oidc_saas_app: JsonSchema = {
       "type": "array"
     },
     "updated_at": {
-      "$ref": "#/$defs/access_updated_at"
+      "allOf": [
+        {
+          "type": "string"
+        },
+        {
+          "format": "date-time",
+          "type": "string"
+        }
+      ]
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `access_options_preflight_bypass`.
- */
-export const access_options_preflight_bypass: JsonSchema = {
-  "description": "Allows options preflight requests to bypass Access authentication and go directly to the origin. Cannot turn on if cors_headers is set.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `access_path_cookie_attribute`.
- */
-export const access_path_cookie_attribute: JsonSchema = {
-  "description": "Enables cookie paths to scope an application's JWT to the application path. If disabled, the JWT will scope to the hostname by default",
-  "type": "boolean"
-};
-
-/**
- * The schema of `access_port`.
- */
-export const access_port: JsonSchema = {
-  "description": "The port that the targets use for the chosen communication protocol. A port cannot be assigned to multiple protocols.",
-  "type": "integer"
-};
-
-/**
- * The schema of `access_precedence`.
- */
-export const access_precedence: JsonSchema = {
-  "description": "The order of execution for this policy. Must be unique for each policy within an app.\n",
-  "type": "integer"
-};
-
-/**
- * The schema of `access_protocol_infra_app`.
- */
-export const access_protocol_infra_app: JsonSchema = {
-  "description": "The communication protocol your application secures.",
-  "enum": [
-    "SSH"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `access_protocol_self_hosted_app`.
- */
-export const access_protocol_self_hosted_app: JsonSchema = {
-  "description": "The communication protocol your application secures.",
-  "enum": [
-    "RDP"
-  ],
-  "type": "string"
 };
 
 /**
@@ -1890,7 +1775,25 @@ export const access_proxy_endpoint_props: JsonSchema = {
         "type": {
           "allOf": [
             {
-              "$ref": "#/$defs/access_type"
+              "description": "The application type.",
+              "enum": [
+                "self_hosted",
+                "end_user",
+                "saas",
+                "ssh",
+                "vnc",
+                "app_launcher",
+                "warp",
+                "biso",
+                "bookmark",
+                "dash_sso",
+                "infrastructure",
+                "rdp",
+                "mcp",
+                "mcp_portal",
+                "proxy_endpoint"
+              ],
+              "type": "string"
             },
             {
               "type": "string"
@@ -1919,7 +1822,25 @@ export const access_rdp_props: JsonSchema = {
         "type": {
           "allOf": [
             {
-              "$ref": "#/$defs/access_type"
+              "description": "The application type.",
+              "enum": [
+                "self_hosted",
+                "end_user",
+                "saas",
+                "ssh",
+                "vnc",
+                "app_launcher",
+                "warp",
+                "biso",
+                "bookmark",
+                "dash_sso",
+                "infrastructure",
+                "rdp",
+                "mcp",
+                "mcp_portal",
+                "proxy_endpoint"
+              ],
+              "type": "string"
             },
             {
               "type": "string"
@@ -1933,14 +1854,6 @@ export const access_rdp_props: JsonSchema = {
 };
 
 /**
- * The schema of `access_read_service_tokens_from_header`.
- */
-export const access_read_service_tokens_from_header: JsonSchema = {
-  "description": "Allows matching Access Service Tokens passed HTTP in a single header with this name.\nThis works as an alternative to the (CF-Access-Client-Id, CF-Access-Client-Secret) pair of headers.\nThe header value will be interpreted as a json object similar to:\n  {\n    \"cf-access-client-id\": \"88bf3b6d86161464f6509f7219099e57.access.example.com\",\n    \"cf-access-client-secret\": \"bdd31cbc4dec990953e39163fbbb194c93313ca9f0a6e420346af9d326b1d2a5\"\n  }\n",
-  "type": "string"
-};
-
-/**
  * The schema of `access_saas_props`.
  */
 export const access_saas_props: JsonSchema = {
@@ -1951,26 +1864,26 @@ export const access_saas_props: JsonSchema = {
       "description": "The identity providers your users can select when connecting to this application. Defaults to all IdPs configured in your account."
     },
     "app_launcher_visible": {
-      "$ref": "#/$defs/access_app_launcher_visible",
       "default": true,
-      "description": "Displays the application in the App Launcher."
+      "description": "Displays the application in the App Launcher.",
+      "type": "boolean"
     },
     "auto_redirect_to_identity": {
-      "$ref": "#/$defs/access_auto_redirect_to_identity-2",
       "default": false,
-      "description": "When set to `true`, users skip the identity provider selection step during login. You must specify only one identity provider in allowed_idps."
+      "description": "When set to `true`, users skip the identity provider selection step during login. You must specify only one identity provider in allowed_idps.",
+      "type": "boolean"
     },
     "custom_pages": {
       "$ref": "#/$defs/access_custom_pages-2",
       "description": "The custom pages that will be displayed when applicable for this application"
     },
     "logo_url": {
-      "$ref": "#/$defs/access_logo_url",
-      "description": "The image URL for the logo shown in the App Launcher dashboard."
+      "description": "The image URL for the logo shown in the App Launcher dashboard.",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/access_name-8",
-      "description": "The name of the application."
+      "description": "The name of the application.",
+      "type": "string"
     },
     "saas_app": {
       "oneOf": [
@@ -1994,7 +1907,25 @@ export const access_saas_props: JsonSchema = {
     "type": {
       "allOf": [
         {
-          "$ref": "#/$defs/access_type"
+          "description": "The application type.",
+          "enum": [
+            "self_hosted",
+            "end_user",
+            "saas",
+            "ssh",
+            "vnc",
+            "app_launcher",
+            "warp",
+            "biso",
+            "bookmark",
+            "dash_sso",
+            "infrastructure",
+            "rdp",
+            "mcp",
+            "mcp_portal",
+            "proxy_endpoint"
+          ],
+          "type": "string"
         },
         {
           "type": "string"
@@ -2003,14 +1934,6 @@ export const access_saas_props: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `access_same_site_cookie_attribute`.
- */
-export const access_same_site_cookie_attribute: JsonSchema = {
-  "description": "Sets the SameSite cookie setting, which provides increased security against CSRF attacks.",
-  "type": "string"
 };
 
 /**
@@ -2032,7 +1955,15 @@ export const access_saml_saas_app: JsonSchema = {
       "type": "string"
     },
     "created_at": {
-      "$ref": "#/$defs/access_created_at"
+      "allOf": [
+        {
+          "type": "string"
+        },
+        {
+          "format": "date-time",
+          "type": "string"
+        }
+      ]
     },
     "custom_attributes": {
       "items": {
@@ -2106,7 +2037,7 @@ export const access_saml_saas_app: JsonSchema = {
       "type": "string"
     },
     "name_id_transform_jsonata": {
-      "description": "A [JSONata](https://jsonata.org/) expression that transforms an application's user identities into a NameID value for its SAML assertion. This expression should evaluate to a singular string. The output of this expression can override the `name_id_format` setting.\n",
+      "description": "A [JSONata](https://jsonata.org/) expression that transforms an application's user identities into a NameID value for its SAML assertion. This expression should evaluate to a singular string. The output of this expression can override the `name_id_format` setting.",
       "type": "string"
     },
     "public_key": {
@@ -2114,7 +2045,7 @@ export const access_saml_saas_app: JsonSchema = {
       "type": "string"
     },
     "saml_attribute_transform_jsonata": {
-      "description": "A [JSONata] (https://jsonata.org/) expression that transforms an application's user identities into attribute assertions in the SAML response. The expression can transform id, email, name, and groups values. It can also transform fields listed in the saml_attributes or oidc_fields of the identity provider used to authenticate. The output of this expression must be a JSON object.\n",
+      "description": "A [JSONata] (https://jsonata.org/) expression that transforms an application's user identities into attribute assertions in the SAML response. The expression can transform id, email, name, and groups values. It can also transform fields listed in the saml_attributes or oidc_fields of the identity provider used to authenticate. The output of this expression must be a JSON object.",
       "type": "string"
     },
     "sp_entity_id": {
@@ -2126,7 +2057,15 @@ export const access_saml_saas_app: JsonSchema = {
       "type": "string"
     },
     "updated_at": {
-      "$ref": "#/$defs/access_updated_at"
+      "allOf": [
+        {
+          "type": "string"
+        },
+        {
+          "format": "date-time",
+          "type": "string"
+        }
+      ]
     }
   },
   "type": "object"
@@ -2402,7 +2341,7 @@ export const access_scim_config_single_authentication: JsonSchema = {
  */
 export const access_self_hosted_domains: JsonSchema = {
   "deprecated": true,
-  "description": "List of public domains that Access will secure. This field is deprecated in favor of `destinations` and will be supported until **November 21, 2025.** If `destinations` are provided, then `self_hosted_domains` will be ignored.\n",
+  "description": "List of public domains that Access will secure. This field is deprecated in favor of `destinations` and will be supported until **November 21, 2025.** If `destinations` are provided, then `self_hosted_domains` will be ignored.",
   "items": {
     "type": "string"
   },
@@ -2416,41 +2355,41 @@ export const access_self_hosted_props: JsonSchema = {
   "description": "Self Hosted Application",
   "properties": {
     "allow_authenticate_via_warp": {
-      "$ref": "#/$defs/access_allow_authenticate_via_warp-2",
-      "description": "When set to true, users can authenticate to this application using their WARP session.  When set to false this application will always require direct IdP authentication. This setting always overrides the organization setting for WARP authentication."
+      "description": "When set to true, users can authenticate to this application using their WARP session.  When set to false this application will always require direct IdP authentication. This setting always overrides the organization setting for WARP authentication.",
+      "type": "boolean"
     },
     "allow_iframe": {
-      "$ref": "#/$defs/access_allow_iframe",
-      "description": "Enables loading application content in an iFrame."
+      "description": "Enables loading application content in an iFrame.",
+      "type": "boolean"
     },
     "allowed_idps": {
       "$ref": "#/$defs/access_allowed_idps",
       "description": "The identity providers your users can select when connecting to this application. Defaults to all IdPs configured in your account."
     },
     "app_launcher_visible": {
-      "$ref": "#/$defs/access_app_launcher_visible",
       "default": true,
-      "description": "Displays the application in the App Launcher."
+      "description": "Displays the application in the App Launcher.",
+      "type": "boolean"
     },
     "auto_redirect_to_identity": {
-      "$ref": "#/$defs/access_auto_redirect_to_identity-2",
       "default": false,
-      "description": "When set to `true`, users skip the identity provider selection step during login. You must specify only one identity provider in allowed_idps."
+      "description": "When set to `true`, users skip the identity provider selection step during login. You must specify only one identity provider in allowed_idps.",
+      "type": "boolean"
     },
     "cors_headers": {
       "$ref": "#/$defs/access_cors_headers"
     },
     "custom_deny_message": {
-      "$ref": "#/$defs/access_custom_deny_message",
-      "description": "The custom error message shown to a user when they are denied access to the application."
+      "description": "The custom error message shown to a user when they are denied access to the application.",
+      "type": "string"
     },
     "custom_deny_url": {
-      "$ref": "#/$defs/access_custom_deny_url",
-      "description": "The custom URL a user is redirected to when they are denied access to the application when failing identity-based rules."
+      "description": "The custom URL a user is redirected to when they are denied access to the application when failing identity-based rules.",
+      "type": "string"
     },
     "custom_non_identity_deny_url": {
-      "$ref": "#/$defs/access_custom_non_identity_deny_url",
-      "description": "The custom URL a user is redirected to when they are denied access to the application when failing non-identity rules."
+      "description": "The custom URL a user is redirected to when they are denied access to the application when failing non-identity rules.",
+      "type": "string"
     },
     "custom_pages": {
       "$ref": "#/$defs/access_custom_pages-2",
@@ -2459,59 +2398,59 @@ export const access_self_hosted_props: JsonSchema = {
     "destinations": {
       "$ref": "#/$defs/access_destinations",
       "default": [],
-      "description": "List of destinations secured by Access. This supersedes `self_hosted_domains` to allow for more flexibility in defining different types of domains. If `destinations` are provided, then `self_hosted_domains` will be ignored.\n"
+      "description": "List of destinations secured by Access. This supersedes `self_hosted_domains` to allow for more flexibility in defining different types of domains. If `destinations` are provided, then `self_hosted_domains` will be ignored."
     },
     "domain": {
-      "$ref": "#/$defs/access_domain",
-      "description": "The primary hostname and path secured by Access. This domain will be displayed if the app is visible in the App Launcher."
+      "description": "The primary hostname and path secured by Access. This domain will be displayed if the app is visible in the App Launcher.",
+      "type": "string"
     },
     "eager_redirect_cookie_setting": {
-      "$ref": "#/$defs/access_eager_redirect_cookie_setting",
       "default": true,
-      "description": "Preemptively sets the Access session cookie on every hostname in a multi-hostname self-hosted application during the initial redirect chain, rather than setting it lazily on first visit. Defaults to true. Set to false to disable the eager redirect cookie behavior."
+      "description": "Preemptively sets the Access session cookie on every hostname in a multi-hostname self-hosted application during the initial redirect chain, rather than setting it lazily on first visit. Defaults to true. Set to false to disable the eager redirect cookie behavior.",
+      "type": "boolean"
     },
     "enable_binding_cookie": {
-      "$ref": "#/$defs/access_enable_binding_cookie",
       "default": false,
-      "description": "Enables the binding cookie, which increases security against compromised authorization tokens and CSRF attacks."
+      "description": "Enables the binding cookie, which increases security against compromised authorization tokens and CSRF attacks.",
+      "type": "boolean"
     },
     "http_only_cookie_attribute": {
-      "$ref": "#/$defs/access_http_only_cookie_attribute",
       "default": true,
-      "description": "Enables the HttpOnly cookie attribute, which increases security against XSS attacks."
+      "description": "Enables the HttpOnly cookie attribute, which increases security against XSS attacks.",
+      "type": "boolean"
     },
     "logo_url": {
-      "$ref": "#/$defs/access_logo_url",
-      "description": "The image URL for the logo shown in the App Launcher dashboard."
+      "description": "The image URL for the logo shown in the App Launcher dashboard.",
+      "type": "string"
     },
     "mfa_config": {
       "$ref": "#/$defs/access_mfa_config",
       "description": "Configures multi-factor authentication (MFA) settings."
     },
     "name": {
-      "$ref": "#/$defs/access_name-8",
-      "description": "The name of the application."
+      "description": "The name of the application.",
+      "type": "string"
     },
     "oauth_configuration": {
       "$ref": "#/$defs/access_oauth_configuration",
-      "description": "**Beta:** Optional configuration for managing an OAuth authorization flow controlled by Access. When set, Access will act as the OAuth authorization server for this application. Only compatible with OAuth clients that support [RFC 8707](https://datatracker.ietf.org/doc/html/rfc8707) (Resource Indicators for OAuth 2.0). This feature is currently in beta.\n"
+      "description": "**Beta:** Optional configuration for managing an OAuth authorization flow controlled by Access. When set, Access will act as the OAuth authorization server for this application. Only compatible with OAuth clients that support [RFC 8707](https://datatracker.ietf.org/doc/html/rfc8707) (Resource Indicators for OAuth 2.0). This feature is currently in beta."
     },
     "options_preflight_bypass": {
-      "$ref": "#/$defs/access_options_preflight_bypass",
-      "description": "Allows options preflight requests to bypass Access authentication and go directly to the origin. Cannot turn on if cors_headers is set."
+      "description": "Allows options preflight requests to bypass Access authentication and go directly to the origin. Cannot turn on if cors_headers is set.",
+      "type": "boolean"
     },
     "path_cookie_attribute": {
-      "$ref": "#/$defs/access_path_cookie_attribute",
       "default": false,
-      "description": "Enables cookie paths to scope an application's JWT to the application path. If disabled, the JWT will scope to the hostname by default"
+      "description": "Enables cookie paths to scope an application's JWT to the application path. If disabled, the JWT will scope to the hostname by default",
+      "type": "boolean"
     },
     "read_service_tokens_from_header": {
-      "$ref": "#/$defs/access_read_service_tokens_from_header",
-      "description": "Allows matching Access Service Tokens passed HTTP in a single header with this name.\nThis works as an alternative to the (CF-Access-Client-Id, CF-Access-Client-Secret) pair of headers.\nThe header value will be interpreted as a json object similar to:\n  {\n    \"cf-access-client-id\": \"88bf3b6d86161464f6509f7219099e57.access.example.com\",\n    \"cf-access-client-secret\": \"bdd31cbc4dec990953e39163fbbb194c93313ca9f0a6e420346af9d326b1d2a5\"\n  }\n"
+      "description": "Allows matching Access Service Tokens passed HTTP in a single header with this name.\nThis works as an alternative to the (CF-Access-Client-Id, CF-Access-Client-Secret) pair of headers.\nThe header value will be interpreted as a json object similar to:\n  {\n    \"cf-access-client-id\": \"88bf3b6d86161464f6509f7219099e57.access.example.com\",\n    \"cf-access-client-secret\": \"bdd31cbc4dec990953e39163fbbb194c93313ca9f0a6e420346af9d326b1d2a5\"\n  }",
+      "type": "string"
     },
     "same_site_cookie_attribute": {
-      "$ref": "#/$defs/access_same_site_cookie_attribute",
-      "description": "Sets the SameSite cookie setting, which provides increased security against CSRF attacks."
+      "description": "Sets the SameSite cookie setting, which provides increased security against CSRF attacks.",
+      "type": "string"
     },
     "scim_config": {
       "$ref": "#/$defs/access_scim_config",
@@ -2520,20 +2459,20 @@ export const access_self_hosted_props: JsonSchema = {
     "self_hosted_domains": {
       "$ref": "#/$defs/access_self_hosted_domains",
       "default": [],
-      "description": "List of public domains that Access will secure. This field is deprecated in favor of `destinations` and will be supported until **November 21, 2025.** If `destinations` are provided, then `self_hosted_domains` will be ignored.\n"
+      "description": "List of public domains that Access will secure. This field is deprecated in favor of `destinations` and will be supported until **November 21, 2025.** If `destinations` are provided, then `self_hosted_domains` will be ignored."
     },
     "service_auth_401_redirect": {
-      "$ref": "#/$defs/access_service_auth_401_redirect",
-      "description": "Returns a 401 status code when the request is blocked by a Service Auth policy."
+      "description": "Returns a 401 status code when the request is blocked by a Service Auth policy.",
+      "type": "boolean"
     },
     "session_duration": {
-      "$ref": "#/$defs/access_session_duration-2",
       "default": "24h",
-      "description": "The amount of time that tokens issued for this application will be valid. Must be in the format `300ms` or `2h45m`. Valid time units are: ns, us (or µs), ms, s, m, h."
+      "description": "The amount of time that tokens issued for this application will be valid. Must be in the format `300ms` or `2h45m`. Valid time units are: ns, us (or µs), ms, s, m, h.",
+      "type": "string"
     },
     "skip_interstitial": {
-      "$ref": "#/$defs/access_skip_interstitial",
-      "description": "Enables automatic authentication through cloudflared."
+      "description": "Enables automatic authentication through cloudflared.",
+      "type": "boolean"
     },
     "tags": {
       "$ref": "#/$defs/access_tags-2",
@@ -2543,7 +2482,25 @@ export const access_self_hosted_props: JsonSchema = {
     "type": {
       "allOf": [
         {
-          "$ref": "#/$defs/access_type"
+          "description": "The application type.",
+          "enum": [
+            "self_hosted",
+            "end_user",
+            "saas",
+            "ssh",
+            "vnc",
+            "app_launcher",
+            "warp",
+            "biso",
+            "bookmark",
+            "dash_sso",
+            "infrastructure",
+            "rdp",
+            "mcp",
+            "mcp_portal",
+            "proxy_endpoint"
+          ],
+          "type": "string"
         },
         {
           "type": "string"
@@ -2551,9 +2508,9 @@ export const access_self_hosted_props: JsonSchema = {
       ]
     },
     "use_clientless_isolation_app_launcher_url": {
-      "$ref": "#/$defs/access_use_clientless_isolation_app_launcher_url",
       "default": false,
-      "description": "Determines if users can access this application via a clientless browser isolation URL.\nThis allows users to access private domains without connecting to Gateway. The option requires\nClientless Browser Isolation to be set up with policies that allow users of this application.\n"
+      "description": "Determines if users can access this application via a clientless browser isolation URL.\nThis allows users to access private domains without connecting to Gateway. The option requires\nClientless Browser Isolation to be set up with policies that allow users of this application.",
+      "type": "boolean"
     }
   },
   "required": [
@@ -2561,38 +2518,6 @@ export const access_self_hosted_props: JsonSchema = {
     "type"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `access_service_auth_401_redirect`.
- */
-export const access_service_auth_401_redirect: JsonSchema = {
-  "description": "Returns a 401 status code when the request is blocked by a Service Auth policy.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `access_session_duration-2`.
- */
-export const access_session_duration_2: JsonSchema = {
-  "description": "The amount of time that tokens issued for this application will be valid. Must be in the format `300ms` or `2h45m`. Valid time units are: ns, us (or µs), ms, s, m, h.",
-  "type": "string"
-};
-
-/**
- * The schema of `access_skip_app_launcher_login_page`.
- */
-export const access_skip_app_launcher_login_page: JsonSchema = {
-  "description": "Determines when to skip the App Launcher landing page.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `access_skip_interstitial`.
- */
-export const access_skip_interstitial: JsonSchema = {
-  "description": "Enables automatic authentication through cloudflared.",
-  "type": "boolean"
 };
 
 /**
@@ -2608,7 +2533,25 @@ export const access_ssh_props: JsonSchema = {
         "type": {
           "allOf": [
             {
-              "$ref": "#/$defs/access_type"
+              "description": "The application type.",
+              "enum": [
+                "self_hosted",
+                "end_user",
+                "saas",
+                "ssh",
+                "vnc",
+                "app_launcher",
+                "warp",
+                "biso",
+                "bookmark",
+                "dash_sso",
+                "infrastructure",
+                "rdp",
+                "mcp",
+                "mcp_portal",
+                "proxy_endpoint"
+              ],
+              "type": "string"
             },
             {
               "type": "string"
@@ -2624,7 +2567,7 @@ export const access_ssh_props: JsonSchema = {
 /**
  * The schema of `access_tags-2`.
  */
-export const access_tags_2: JsonSchema = {
+export const access_tags$$2: JsonSchema = {
   "description": "The tags you want assigned to an application. Tags are used to filter applications in the App Launcher dashboard.",
   "items": {
     "type": "string"
@@ -2662,7 +2605,8 @@ export const access_target_criteria_base: JsonSchema = {
       "description": "Target matches when any selector in this rule matches."
     },
     "port": {
-      "$ref": "#/$defs/access_port"
+      "description": "The port that the targets use for the chosen communication protocol. A port cannot be assigned to multiple protocols.",
+      "type": "integer"
     },
     "require": {
       "$ref": "#/$defs/access_target_rule",
@@ -2689,7 +2633,11 @@ export const access_target_criteria_infra_app: JsonSchema = {
     {
       "properties": {
         "protocol": {
-          "$ref": "#/$defs/access_protocol_infra_app"
+          "description": "The communication protocol your application secures.",
+          "enum": [
+            "SSH"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
@@ -2708,7 +2656,11 @@ export const access_target_criteria_self_hosted_app: JsonSchema = {
     {
       "properties": {
         "protocol": {
-          "$ref": "#/$defs/access_protocol_self_hosted_app"
+          "description": "The communication protocol your application secures.",
+          "enum": [
+            "RDP"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
@@ -2760,47 +2712,6 @@ export const access_target_rule_attributes: JsonSchema = {
 };
 
 /**
- * The schema of `access_title`.
- */
-export const access_title: JsonSchema = {
-  "description": "The title shown on the landing page.",
-  "type": "string"
-};
-
-/**
- * The schema of `access_type`.
- */
-export const access_type: JsonSchema = {
-  "description": "The application type.",
-  "enum": [
-    "self_hosted",
-    "end_user",
-    "saas",
-    "ssh",
-    "vnc",
-    "app_launcher",
-    "warp",
-    "biso",
-    "bookmark",
-    "dash_sso",
-    "infrastructure",
-    "rdp",
-    "mcp",
-    "mcp_portal",
-    "proxy_endpoint"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `access_use_clientless_isolation_app_launcher_url`.
- */
-export const access_use_clientless_isolation_app_launcher_url: JsonSchema = {
-  "description": "Determines if users can access this application via a clientless browser isolation URL.\nThis allows users to access private domains without connecting to Gateway. The option requires\nClientless Browser Isolation to be set up with policies that allow users of this application.\n",
-  "type": "boolean"
-};
-
-/**
  * The schema of `access_usernames`.
  */
 export const access_usernames: JsonSchema = {
@@ -2824,7 +2735,25 @@ export const access_vnc_props: JsonSchema = {
         "type": {
           "allOf": [
             {
-              "$ref": "#/$defs/access_type"
+              "description": "The application type.",
+              "enum": [
+                "self_hosted",
+                "end_user",
+                "saas",
+                "ssh",
+                "vnc",
+                "app_launcher",
+                "warp",
+                "biso",
+                "bookmark",
+                "dash_sso",
+                "infrastructure",
+                "rdp",
+                "mcp",
+                "mcp_portal",
+                "proxy_endpoint"
+              ],
+              "type": "string"
             },
             {
               "type": "string"
@@ -2850,7 +2779,25 @@ export const access_warp_props: JsonSchema = {
         "type": {
           "allOf": [
             {
-              "$ref": "#/$defs/access_type"
+              "description": "The application type.",
+              "enum": [
+                "self_hosted",
+                "end_user",
+                "saas",
+                "ssh",
+                "vnc",
+                "app_launcher",
+                "warp",
+                "biso",
+                "bookmark",
+                "dash_sso",
+                "infrastructure",
+                "rdp",
+                "mcp",
+                "mcp_portal",
+                "proxy_endpoint"
+              ],
+              "type": "string"
             },
             {
               "type": "string"

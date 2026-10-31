@@ -7,7 +7,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
  * The schema of `workers_namespace-script-and-version-settings-item` in
  * responses.
  */
-export const workers_namespace_script_and_version_settings_item_output: JsonSchema = {
+export const workers_namespace$$script$$and$$version$$settings$$item: JsonSchema = {
   "properties": {
     "bindings": {
       "allOf": [
@@ -28,7 +28,7 @@ export const workers_namespace_script_and_version_settings_item_output: JsonSche
     "compatibility_date": {
       "allOf": [
         {
-          "$ref": "#/$defs/workers_compatibility_date"
+          "type": "string"
         },
         {
           "type": "string"
@@ -58,7 +58,7 @@ export const workers_namespace_script_and_version_settings_item_output: JsonSche
       "$ref": "#/$defs/workers_limits"
     },
     "logpush": {
-      "$ref": "#/$defs/workers_logpush"
+      "type": "boolean"
     },
     "migrations": {
       "oneOf": [
@@ -103,7 +103,12 @@ export const workers_namespace_script_and_version_settings_item_output: JsonSche
       ]
     },
     "usage_model": {
-      "$ref": "#/$defs/workers_usage_model"
+      "enum": [
+        "standard",
+        "bundled",
+        "unbound"
+      ],
+      "type": "string"
     }
   },
   "type": "object"

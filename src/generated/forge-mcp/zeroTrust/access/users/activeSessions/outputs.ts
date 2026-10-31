@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `access_active_session_response` in responses.
  */
-export const access_active_session_response_output: JsonSchema = {
+export const access_active_session_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-single"
@@ -37,7 +37,7 @@ export const access_active_session_response_output: JsonSchema = {
 /**
  * The schema of `access_active_sessions_response` in responses.
  */
-export const access_active_sessions_response_output: JsonSchema = {
+export const access_active_sessions_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-collection"

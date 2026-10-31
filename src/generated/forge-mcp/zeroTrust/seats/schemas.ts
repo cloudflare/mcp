@@ -4,51 +4,21 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `access_access_seat`.
- */
-export const access_access_seat: JsonSchema = {
-  "description": "True if the seat is part of Access.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `access_gateway_seat`.
- */
-export const access_gateway_seat: JsonSchema = {
-  "description": "True if the seat is part of Gateway.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `access_identifier-2`.
- */
-export const access_identifier_2: JsonSchema = {
-  "allOf": [
-    {
-      "$ref": "#/$defs/access_identifier"
-    },
-    {
-      "type": "string"
-    }
-  ]
-};
-
-/**
  * The schema of `access_seat`.
  */
 export const access_seat: JsonSchema = {
   "properties": {
     "access_seat": {
-      "$ref": "#/$defs/access_access_seat",
-      "description": "True if the seat is part of Access."
+      "description": "True if the seat is part of Access.",
+      "type": "boolean"
     },
     "gateway_seat": {
-      "$ref": "#/$defs/access_gateway_seat",
-      "description": "True if the seat is part of Gateway."
+      "description": "True if the seat is part of Gateway.",
+      "type": "boolean"
     },
     "seat_uid": {
-      "$ref": "#/$defs/access_seat_uid",
-      "description": "The unique API identifier for the Zero Trust seat."
+      "description": "The unique API identifier for the Zero Trust seat.",
+      "type": "string"
     }
   },
   "required": [
@@ -57,14 +27,6 @@ export const access_seat: JsonSchema = {
     "seat_uid"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `access_seat_uid`.
- */
-export const access_seat_uid: JsonSchema = {
-  "description": "The unique API identifier for the Zero Trust seat.",
-  "type": "string"
 };
 
 /**

@@ -4,22 +4,15 @@
 import type { JsonSchema } from "../../../../_/tool.js";
 
 /**
- * The schema of `web3_content_list_action` in responses.
- */
-export const web3_content_list_action_output: JsonSchema = {
-  "enum": [
-    "block"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `web3_content_list_details` in responses.
  */
-export const web3_content_list_details_output: JsonSchema = {
+export const web3_content_list_details: JsonSchema = {
   "properties": {
     "action": {
-      "$ref": "#/$defs/web3_content_list_action"
+      "enum": [
+        "block"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
@@ -28,7 +21,7 @@ export const web3_content_list_details_output: JsonSchema = {
 /**
  * The schema of `web3_content_list_details_response` in responses.
  */
-export const web3_content_list_details_response_output: JsonSchema = {
+export const web3_content_list_details_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/web3_api-response-single"
@@ -47,7 +40,7 @@ export const web3_content_list_details_response_output: JsonSchema = {
 /**
  * The schema of `web3_content_list_entries` in responses.
  */
-export const web3_content_list_entries_output: JsonSchema = {
+export const web3_content_list_entries: JsonSchema = {
   "items": {
     "$ref": "#/$defs/web3_content_list_entry"
   },
@@ -57,51 +50,32 @@ export const web3_content_list_entries_output: JsonSchema = {
 /**
  * The schema of `web3_content_list_entry` in responses.
  */
-export const web3_content_list_entry_output: JsonSchema = {
+export const web3_content_list_entry: JsonSchema = {
   "properties": {
     "content": {
-      "$ref": "#/$defs/web3_content_list_entry_content"
+      "type": "string"
     },
     "created_on": {
-      "$ref": "#/$defs/web3_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/web3_content_list_entry_description"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/web3_identifier"
+      "type": "string"
     },
     "modified_on": {
-      "$ref": "#/$defs/web3_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "type": {
-      "$ref": "#/$defs/web3_content_list_entry_type"
+      "enum": [
+        "cid",
+        "content_path"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `web3_content_list_entry_content` in responses.
- */
-export const web3_content_list_entry_content_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `web3_content_list_entry_description` in responses.
- */
-export const web3_content_list_entry_description_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `web3_content_list_entry_type` in responses.
- */
-export const web3_content_list_entry_type_output: JsonSchema = {
-  "enum": [
-    "cid",
-    "content_path"
-  ],
-  "type": "string"
 };

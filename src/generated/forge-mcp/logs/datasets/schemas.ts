@@ -13,18 +13,18 @@ export const lex_CreateDatasetRequest: JsonSchema = {
       "type": "string"
     },
     "fields": {
-      "description": "Controls which fields the API ingests. Defaults to all available\nfields when absent.\n",
+      "description": "Controls which fields the API ingests. Defaults to all available\nfields when absent.",
       "items": {
         "$ref": "#/$defs/lex_LogField"
       },
       "type": "array"
     },
     "filter": {
-      "description": "Optional Logpush filter predicate to restrict which events are ingested.\nSee [Logpush filters](https://developers.cloudflare.com/logs/reference/filters/)\nfor syntax and examples.\n",
+      "description": "Optional Logpush filter predicate to restrict which events are ingested.\nSee [Logpush filters](https://developers.cloudflare.com/logs/reference/filters/)\nfor syntax and examples.",
       "type": "string"
     },
     "filter_attack_traffic": {
-      "description": "Whether to filter attack traffic from the Logpush job. Defaults to\n`true` for supported datasets when omitted. Supported datasets are\n`http_requests`, `firewall_events`, and `network_analytics_logs`.\n",
+      "description": "Whether to filter attack traffic from the Logpush job. Defaults to\n`true` for supported datasets when omitted. Supported datasets are\n`http_requests`, `firewall_events`, and `network_analytics_logs`.",
       "type": "boolean"
     }
   },
@@ -69,14 +69,14 @@ export const lex_UpdateDatasetRequest: JsonSchema = {
       "type": "boolean"
     },
     "fields": {
-      "description": "Controls which fields the API ingests after the update. Defaults\nto all available fields when absent.\n",
+      "description": "Controls which fields the API ingests after the update. Defaults\nto all available fields when absent.",
       "items": {
         "$ref": "#/$defs/lex_LogField"
       },
       "type": "array"
     },
     "filter": {
-      "description": "Optional Logpush filter predicate to restrict which events are\ningested. If omitted, the existing filter is left unchanged. Set\nto an empty string (`\"\"`) to clear the filter. Otherwise,\nreplaces the dataset's filter entirely.\nSee [Logpush filters](https://developers.cloudflare.com/logs/reference/filters/)\nfor syntax and examples.\n",
+      "description": "Optional Logpush filter predicate to restrict which events are\ningested. If omitted, the existing filter is left unchanged. Set\nto an empty string (`\"\"`) to clear the filter. Otherwise,\nreplaces the dataset's filter entirely.\nSee [Logpush filters](https://developers.cloudflare.com/logs/reference/filters/)\nfor syntax and examples.",
       "oneOf": [
         {
           "type": "string"
@@ -87,7 +87,7 @@ export const lex_UpdateDatasetRequest: JsonSchema = {
       ]
     },
     "filter_attack_traffic": {
-      "description": "Whether to filter attack traffic from the Logpush job. If omitted,\nthe existing setting is left unchanged. Supported datasets are\n`http_requests`, `firewall_events`, and `network_analytics_logs`.\n",
+      "description": "Whether to filter attack traffic from the Logpush job. If omitted,\nthe existing setting is left unchanged. Supported datasets are\n`http_requests`, `firewall_events`, and `network_analytics_logs`.",
       "type": "boolean"
     }
   },

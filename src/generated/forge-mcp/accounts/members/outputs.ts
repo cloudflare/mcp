@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `iam_collection_member_response_with_policies` in responses.
  */
-export const iam_collection_member_response_with_policies_output: JsonSchema = {
+export const iam_collection_member_response_with_policies: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/iam_api-response-collection"
@@ -28,13 +28,13 @@ export const iam_collection_member_response_with_policies_output: JsonSchema = {
 /**
  * The schema of `iam_member_with_policies` in responses.
  */
-export const iam_member_with_policies_output: JsonSchema = {
+export const iam_member_with_policies: JsonSchema = {
   "properties": {
     "email": {
-      "$ref": "#/$defs/iam_email"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/iam_membership_components-schemas-identifier"
+      "type": "string"
     },
     "policies": {
       "items": {
@@ -58,19 +58,33 @@ export const iam_member_with_policies_output: JsonSchema = {
     "user": {
       "properties": {
         "email": {
-          "$ref": "#/$defs/iam_email"
+          "type": "string"
         },
         "first_name": {
-          "$ref": "#/$defs/iam_first_name"
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "id": {
-          "$ref": "#/$defs/iam_common_components-schemas-identifier"
+          "type": "string"
         },
         "last_name": {
-          "$ref": "#/$defs/iam_last_name"
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "two_factor_authentication_enabled": {
-          "$ref": "#/$defs/iam_two_factor_authentication_enabled"
+          "type": "boolean"
         }
       },
       "required": [
@@ -85,7 +99,7 @@ export const iam_member_with_policies_output: JsonSchema = {
 /**
  * The schema of `iam_single_member_response_with_policies` in responses.
  */
-export const iam_single_member_response_with_policies_output: JsonSchema = {
+export const iam_single_member_response_with_policies: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/iam_api-response-single"

@@ -3,41 +3,47 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  load_balancing_api_response_common_failure_output,
-  load_balancing_api_response_common_output,
-  load_balancing_messages_output,
-  load_balancing_monitor_references_response_output,
+  load$$balancing_api$$response$$common,
+  load$$balancing_api$$response$$common$$failure,
+  load$$balancing_messages,
+  load$$balancing_monitor$$references$$response,
 } from "../../../../outputs.js";
-import { load_balancing_identifier } from "../../../../schemas.js";
 
 /**
- * The tools of `user.load_balancers.monitors.references`.
+ * The tools of `user.loadBalancers.monitors.references`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "user_load_balancers_monitors_references_list",
+    name: "user_loadBalancers_monitors_references_list",
     title: "List Monitor References",
-    description: "Get the list of resources that reference the provided monitor.",
+    description: "Get the list of resources that reference the provided monitor.\n\nGET /user/load_balancers/monitors/{monitor_id}/references",
     inputSchema: {
       type: "object",
       properties: {
-        "monitor_id": {
-          "$ref": "#/$defs/load-balancing_identifier"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "monitor_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "monitor_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "monitor_id"
+        "path"
       ],
-      $defs: {
-        "load-balancing_identifier": load_balancing_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/load-balancing_monitor-references-response",
       $defs: {
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_messages": load_balancing_messages_output,
-        "load-balancing_monitor-references-response": load_balancing_monitor_references_response_output,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_messages": load$$balancing_messages,
+        "load-balancing_monitor-references-response": load$$balancing_monitor$$references$$response,
       },
     },
     annotations: {
@@ -65,10 +71,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
-        "load-balancing_messages": load_balancing_messages_output,
-        "load-balancing_monitor-references-response": load_balancing_monitor_references_response_output,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_api-response-common-failure": load$$balancing_api$$response$$common$$failure,
+        "load-balancing_messages": load$$balancing_messages,
+        "load-balancing_monitor-references-response": load$$balancing_monitor$$references$$response,
       },
     },
     request: (args) => ({

@@ -3,52 +3,54 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  cache_settings_api_response_common_failure_output,
-  cache_settings_api_response_common_output,
-  cache_settings_base_output,
-  cache_settings_editable_output,
-  cache_settings_messages_output,
-  cache_settings_modified_on_output,
-  cache_settings_result_object_output,
-  cache_settings_setting_id_output,
-  cache_settings_setting_value_output,
-  cache_settings_zone_cache_settings_response_single_output,
+  cache$$settings_api$$response$$common,
+  cache$$settings_api$$response$$common$$failure,
+  cache$$settings_base,
+  cache$$settings_messages,
+  cache$$settings_result$$object,
+  cache$$settings_zone_cache_settings_response_single,
 } from "../../outputs.js";
-import { cache_settings_identifier } from "../../schemas.js";
 import {
-  cache_settings_tiered_cache_output,
-  cache_settings_tiered_cache_response_value_output,
-  cache_settings_tiered_cache_value_output,
+  cache$$settings_tiered_cache,
+  cache$$settings_tiered_cache_response_value,
 } from "./outputs.js";
-import { cache_settings_patch, cache_settings_value } from "./schemas.js";
+import { cache$$settings_patch } from "./schemas.js";
 
 /**
- * The tools of `argo.tiered_caching`.
+ * The tools of `argo.tieredCaching`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "argo_tiered_caching_edit",
+    name: "argo_tieredCaching_edit",
     title: "Patch Tiered Caching setting",
-    description: "Tiered Cache works by dividing Cloudflare's data centers into a hierarchy of lower-tiers and upper-tiers. If content is not cached in lower-tier data centers (generally the ones closest to a visitor), the lower-tier must ask an upper-tier to see if it has the content. If the upper-tier does not have the content, only the upper-tier can ask the origin for content. This practice improves bandwidth efficiency by limiting the number of data centers that can ask the origin for content, which reduces origin load and makes websites more cost-effective to operate. Additionally, Tiered Cache concentrates connections to origin servers so they come from a small number of data centers rather than the full set of network locations. This results in fewer open connections using server resources.",
+    description: "Tiered Cache works by dividing Cloudflare's data centers into a hierarchy of lower-tiers and upper-tiers. If content is not cached in lower-tier data centers (generally the ones closest to a visitor), the lower-tier must ask an upper-tier to see if it has the content. If the upper-tier does not have the content, only the upper-tier can ask the origin for content. This practice improves bandwidth efficiency by limiting the number of data centers that can ask the origin for content, which reduces origin load and makes websites more cost-effective to operate. Additionally, Tiered Cache concentrates connections to origin servers so they come from a small number of data centers rather than the full set of network locations. This results in fewer open connections using server resources.\n\nPATCH /zones/{zone_id}/argo/tiered_caching",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "$ref": "#/$defs/cache-settings_patch"
         },
-        "zone_id": {
-          "$ref": "#/$defs/cache-settings_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "cache-settings_identifier": cache_settings_identifier,
-        "cache-settings_patch": cache_settings_patch,
-        "cache-settings_value": cache_settings_value,
+        "cache-settings_patch": cache$$settings_patch,
       },
     },
     outputSchema: {
@@ -61,18 +63,13 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "cache-settings_api-response-common": cache_settings_api_response_common_output,
-        "cache-settings_base": cache_settings_base_output,
-        "cache-settings_editable": cache_settings_editable_output,
-        "cache-settings_messages": cache_settings_messages_output,
-        "cache-settings_modified_on": cache_settings_modified_on_output,
-        "cache-settings_result-object": cache_settings_result_object_output,
-        "cache-settings_setting_id": cache_settings_setting_id_output,
-        "cache-settings_setting_value": cache_settings_setting_value_output,
-        "cache-settings_tiered_cache": cache_settings_tiered_cache_output,
-        "cache-settings_tiered_cache_response_value": cache_settings_tiered_cache_response_value_output,
-        "cache-settings_tiered_cache_value": cache_settings_tiered_cache_value_output,
-        "cache-settings_zone_cache_settings_response_single": cache_settings_zone_cache_settings_response_single_output,
+        "cache-settings_api-response-common": cache$$settings_api$$response$$common,
+        "cache-settings_base": cache$$settings_base,
+        "cache-settings_messages": cache$$settings_messages,
+        "cache-settings_result-object": cache$$settings_result$$object,
+        "cache-settings_tiered_cache": cache$$settings_tiered_cache,
+        "cache-settings_tiered_cache_response_value": cache$$settings_tiered_cache_response_value,
+        "cache-settings_zone_cache_settings_response_single": cache$$settings_zone_cache_settings_response_single,
       },
     },
     annotations: {
@@ -109,19 +106,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cache-settings_api-response-common": cache_settings_api_response_common_output,
-        "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
-        "cache-settings_base": cache_settings_base_output,
-        "cache-settings_editable": cache_settings_editable_output,
-        "cache-settings_messages": cache_settings_messages_output,
-        "cache-settings_modified_on": cache_settings_modified_on_output,
-        "cache-settings_result-object": cache_settings_result_object_output,
-        "cache-settings_setting_id": cache_settings_setting_id_output,
-        "cache-settings_setting_value": cache_settings_setting_value_output,
-        "cache-settings_tiered_cache": cache_settings_tiered_cache_output,
-        "cache-settings_tiered_cache_response_value": cache_settings_tiered_cache_response_value_output,
-        "cache-settings_tiered_cache_value": cache_settings_tiered_cache_value_output,
-        "cache-settings_zone_cache_settings_response_single": cache_settings_zone_cache_settings_response_single_output,
+        "cache-settings_api-response-common": cache$$settings_api$$response$$common,
+        "cache-settings_api-response-common-failure": cache$$settings_api$$response$$common$$failure,
+        "cache-settings_base": cache$$settings_base,
+        "cache-settings_messages": cache$$settings_messages,
+        "cache-settings_result-object": cache$$settings_result$$object,
+        "cache-settings_tiered_cache": cache$$settings_tiered_cache,
+        "cache-settings_tiered_cache_response_value": cache$$settings_tiered_cache_response_value,
+        "cache-settings_zone_cache_settings_response_single": cache$$settings_zone_cache_settings_response_single,
       },
     },
     request: (args) => ({
@@ -130,23 +122,30 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "argo_tiered_caching_get",
+    name: "argo_tieredCaching_get",
     title: "Get Tiered Caching setting",
-    description: "Tiered Cache works by dividing Cloudflare's data centers into a hierarchy of lower-tiers and upper-tiers. If content is not cached in lower-tier data centers (generally the ones closest to a visitor), the lower-tier must ask an upper-tier to see if it has the content. If the upper-tier does not have the content, only the upper-tier can ask the origin for content. This practice improves bandwidth efficiency by limiting the number of data centers that can ask the origin for content, which reduces origin load and makes websites more cost-effective to operate. Additionally, Tiered Cache concentrates connections to origin servers so they come from a small number of data centers rather than the full set of network locations. This results in fewer open connections using server resources.",
+    description: "Tiered Cache works by dividing Cloudflare's data centers into a hierarchy of lower-tiers and upper-tiers. If content is not cached in lower-tier data centers (generally the ones closest to a visitor), the lower-tier must ask an upper-tier to see if it has the content. If the upper-tier does not have the content, only the upper-tier can ask the origin for content. This practice improves bandwidth efficiency by limiting the number of data centers that can ask the origin for content, which reduces origin load and makes websites more cost-effective to operate. Additionally, Tiered Cache concentrates connections to origin servers so they come from a small number of data centers rather than the full set of network locations. This results in fewer open connections using server resources.\n\nGET /zones/{zone_id}/argo/tiered_caching",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/cache-settings_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
-      $defs: {
-        "cache-settings_identifier": cache_settings_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -158,18 +157,13 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "cache-settings_api-response-common": cache_settings_api_response_common_output,
-        "cache-settings_base": cache_settings_base_output,
-        "cache-settings_editable": cache_settings_editable_output,
-        "cache-settings_messages": cache_settings_messages_output,
-        "cache-settings_modified_on": cache_settings_modified_on_output,
-        "cache-settings_result-object": cache_settings_result_object_output,
-        "cache-settings_setting_id": cache_settings_setting_id_output,
-        "cache-settings_setting_value": cache_settings_setting_value_output,
-        "cache-settings_tiered_cache": cache_settings_tiered_cache_output,
-        "cache-settings_tiered_cache_response_value": cache_settings_tiered_cache_response_value_output,
-        "cache-settings_tiered_cache_value": cache_settings_tiered_cache_value_output,
-        "cache-settings_zone_cache_settings_response_single": cache_settings_zone_cache_settings_response_single_output,
+        "cache-settings_api-response-common": cache$$settings_api$$response$$common,
+        "cache-settings_base": cache$$settings_base,
+        "cache-settings_messages": cache$$settings_messages,
+        "cache-settings_result-object": cache$$settings_result$$object,
+        "cache-settings_tiered_cache": cache$$settings_tiered_cache,
+        "cache-settings_tiered_cache_response_value": cache$$settings_tiered_cache_response_value,
+        "cache-settings_zone_cache_settings_response_single": cache$$settings_zone_cache_settings_response_single,
       },
     },
     annotations: {
@@ -206,19 +200,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cache-settings_api-response-common": cache_settings_api_response_common_output,
-        "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
-        "cache-settings_base": cache_settings_base_output,
-        "cache-settings_editable": cache_settings_editable_output,
-        "cache-settings_messages": cache_settings_messages_output,
-        "cache-settings_modified_on": cache_settings_modified_on_output,
-        "cache-settings_result-object": cache_settings_result_object_output,
-        "cache-settings_setting_id": cache_settings_setting_id_output,
-        "cache-settings_setting_value": cache_settings_setting_value_output,
-        "cache-settings_tiered_cache": cache_settings_tiered_cache_output,
-        "cache-settings_tiered_cache_response_value": cache_settings_tiered_cache_response_value_output,
-        "cache-settings_tiered_cache_value": cache_settings_tiered_cache_value_output,
-        "cache-settings_zone_cache_settings_response_single": cache_settings_zone_cache_settings_response_single_output,
+        "cache-settings_api-response-common": cache$$settings_api$$response$$common,
+        "cache-settings_api-response-common-failure": cache$$settings_api$$response$$common$$failure,
+        "cache-settings_base": cache$$settings_base,
+        "cache-settings_messages": cache$$settings_messages,
+        "cache-settings_result-object": cache$$settings_result$$object,
+        "cache-settings_tiered_cache": cache$$settings_tiered_cache,
+        "cache-settings_tiered_cache_response_value": cache$$settings_tiered_cache_response_value,
+        "cache-settings_zone_cache_settings_response_single": cache$$settings_zone_cache_settings_response_single,
       },
     },
     request: (args) => ({

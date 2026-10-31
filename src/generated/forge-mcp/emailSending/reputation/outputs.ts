@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `email_ReputationPolicy` in responses.
  */
-export const email_ReputationPolicy_output: JsonSchema = {
+export const email_ReputationPolicy: JsonSchema = {
   "properties": {
     "complaint": {
       "$ref": "#/$defs/email_ReputationThreshold"
@@ -33,7 +33,7 @@ export const email_ReputationPolicy_output: JsonSchema = {
 /**
  * The schema of `email_ReputationThreshold` in responses.
  */
-export const email_ReputationThreshold_output: JsonSchema = {
+export const email_ReputationThreshold: JsonSchema = {
   "properties": {
     "at_risk_at": {
       "type": "number"
@@ -56,7 +56,7 @@ export const email_ReputationThreshold_output: JsonSchema = {
 /**
  * The schema of `email_sending_reputation_properties` in responses.
  */
-export const email_sending_reputation_properties_output: JsonSchema = {
+export const email_sending_reputation_properties: JsonSchema = {
   "properties": {
     "active_policy": {
       "$ref": "#/$defs/email_ReputationPolicy"
@@ -117,7 +117,7 @@ export const email_sending_reputation_properties_output: JsonSchema = {
 /**
  * The schema of `email_sending_reputation_response_single` in responses.
  */
-export const email_sending_reputation_response_single_output: JsonSchema = {
+export const email_sending_reputation_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/email_api-response-single"

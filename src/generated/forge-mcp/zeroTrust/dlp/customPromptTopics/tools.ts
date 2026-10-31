@@ -3,40 +3,50 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  dlp_Empty_output,
-  dlp_api_response_common_failure_output,
-  dlp_api_response_single_output,
-  dlp_messages_output,
+  dlp_Empty,
+  dlp_api$$response$$common$$failure,
+  dlp_api$$response$$single,
+  dlp_messages,
 } from "../../outputs.js";
-import { dlp_CustomPromptTopic_output } from "./outputs.js";
+import { dlp_CustomPromptTopic } from "./outputs.js";
 import {
   dlp_CustomPromptTopicUpdate,
   dlp_NewCustomPromptTopic,
 } from "./schemas.js";
 
 /**
- * The tools of `zero_trust.dlp.custom_prompt_topics`.
+ * The tools of `zeroTrust.dlp.customPromptTopics`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zero_trust_dlp_custom_prompt_topics_create",
+    name: "zeroTrust_dlp_customPromptTopics_create",
     title: "Create custom prompt topic",
-    description: "Creates a DLP custom prompt topic entry.",
+    description: "Creates a DLP custom prompt topic entry.\n\nPOST /accounts/{account_id}/dlp/custom_prompt_topics",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/dlp_NewCustomPromptTopic",
           "description": "A new custom prompt topic to create."
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dlp_NewCustomPromptTopic": dlp_NewCustomPromptTopic,
       },
@@ -56,9 +66,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_CustomPromptTopic": dlp_CustomPromptTopic_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_CustomPromptTopic": dlp_CustomPromptTopic,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -100,10 +110,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_CustomPromptTopic": dlp_CustomPromptTopic_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_CustomPromptTopic": dlp_CustomPromptTopic,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -112,24 +122,34 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_dlp_custom_prompt_topics_delete",
+    name: "zeroTrust_dlp_customPromptTopics_delete",
     title: "Delete custom prompt topic",
-    description: "Deletes a DLP custom prompt topic entry.",
+    description: "Deletes a DLP custom prompt topic entry.\n\nDELETE /accounts/{account_id}/dlp/custom_prompt_topics/{entry_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
-        "entry_id": {
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "entry_id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "entry_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "entry_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -146,9 +166,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_Empty": dlp_Empty_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_Empty": dlp_Empty,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -190,10 +210,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_Empty": dlp_Empty_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_Empty": dlp_Empty,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -201,24 +221,34 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_dlp_custom_prompt_topics_get",
+    name: "zeroTrust_dlp_customPromptTopics_get",
     title: "Get custom prompt topic",
-    description: "Fetches a DLP custom prompt topic entry by ID.",
+    description: "Fetches a DLP custom prompt topic entry by ID.\n\nGET /accounts/{account_id}/dlp/custom_prompt_topics/{entry_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
-        "entry_id": {
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "entry_id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "entry_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "entry_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -235,9 +265,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_CustomPromptTopic": dlp_CustomPromptTopic_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_CustomPromptTopic": dlp_CustomPromptTopic,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -277,10 +307,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_CustomPromptTopic": dlp_CustomPromptTopic_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_CustomPromptTopic": dlp_CustomPromptTopic,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -288,19 +318,29 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_dlp_custom_prompt_topics_list",
+    name: "zeroTrust_dlp_customPromptTopics_list",
     title: "List custom prompt topics",
-    description: "Lists all DLP custom prompt topic entries in an account.",
+    description: "Lists all DLP custom prompt topic entries in an account.\n\nGET /accounts/{account_id}/dlp/custom_prompt_topics",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -320,9 +360,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_CustomPromptTopic": dlp_CustomPromptTopic_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_CustomPromptTopic": dlp_CustomPromptTopic,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -365,10 +405,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_CustomPromptTopic": dlp_CustomPromptTopic_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_CustomPromptTopic": dlp_CustomPromptTopic,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -376,29 +416,39 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_dlp_custom_prompt_topics_update",
+    name: "zeroTrust_dlp_customPromptTopics_update",
     title: "Update custom prompt topic",
-    description: "Updates a DLP custom prompt topic entry.",
+    description: "Updates a DLP custom prompt topic entry.\n\nPUT /accounts/{account_id}/dlp/custom_prompt_topics/{entry_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/dlp_CustomPromptTopicUpdate",
           "description": "Update to be applied to the custom prompt topic."
         },
-        "entry_id": {
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "entry_id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "entry_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "entry_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dlp_CustomPromptTopicUpdate": dlp_CustomPromptTopicUpdate,
       },
@@ -418,9 +468,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_CustomPromptTopic": dlp_CustomPromptTopic_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_CustomPromptTopic": dlp_CustomPromptTopic,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -462,10 +512,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_CustomPromptTopic": dlp_CustomPromptTopic_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_CustomPromptTopic": dlp_CustomPromptTopic,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({

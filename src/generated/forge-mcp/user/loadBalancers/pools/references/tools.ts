@@ -3,41 +3,47 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  load_balancing_api_response_common_failure_output,
-  load_balancing_api_response_common_output,
-  load_balancing_messages_output,
-  load_balancing_pools_references_response_output,
+  load$$balancing_api$$response$$common,
+  load$$balancing_api$$response$$common$$failure,
+  load$$balancing_messages,
+  load$$balancing_pools$$references$$response,
 } from "../../../../outputs.js";
-import { load_balancing_schemas_identifier } from "../../../../schemas.js";
 
 /**
- * The tools of `user.load_balancers.pools.references`.
+ * The tools of `user.loadBalancers.pools.references`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "user_load_balancers_pools_references_list",
+    name: "user_loadBalancers_pools_references_list",
     title: "List Pool References",
-    description: "Get the list of resources that reference the provided pool.",
+    description: "Get the list of resources that reference the provided pool.\n\nGET /user/load_balancers/pools/{pool_id}/references",
     inputSchema: {
       type: "object",
       properties: {
-        "pool_id": {
-          "$ref": "#/$defs/load-balancing_schemas-identifier"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "pool_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "pool_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "pool_id"
+        "path"
       ],
-      $defs: {
-        "load-balancing_schemas-identifier": load_balancing_schemas_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/load-balancing_pools-references-response",
       $defs: {
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_messages": load_balancing_messages_output,
-        "load-balancing_pools-references-response": load_balancing_pools_references_response_output,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_messages": load$$balancing_messages,
+        "load-balancing_pools-references-response": load$$balancing_pools$$references$$response,
       },
     },
     annotations: {
@@ -65,10 +71,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
-        "load-balancing_messages": load_balancing_messages_output,
-        "load-balancing_pools-references-response": load_balancing_pools_references_response_output,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_api-response-common-failure": load$$balancing_api$$response$$common$$failure,
+        "load-balancing_messages": load$$balancing_messages,
+        "load-balancing_pools-references-response": load$$balancing_pools$$references$$response,
       },
     },
     request: (args) => ({

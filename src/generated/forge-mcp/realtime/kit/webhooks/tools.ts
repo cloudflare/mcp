@@ -2,15 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
-import { realtimekit_ErrorResponse_output } from "../outputs.js";
+import { realtimekit_ErrorResponse } from "../outputs.js";
 import {
-  realtimekit_account_identifier,
-  realtimekit_app_id,
-} from "../schemas.js";
-import {
-  realtimekit_WebhookSuccessResponse_output,
-  realtimekit_Webhook_output,
-  realtimekit_WebhooksListSuccessResponse_output,
+  realtimekit_Webhook,
+  realtimekit_WebhookSuccessResponse,
+  realtimekit_WebhooksListSuccessResponse,
 } from "./outputs.js";
 import {
   realtimekit_PatchWebhookRequest,
@@ -24,38 +20,46 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_webhooks_create",
     title: "Add a webhook",
-    description: "Adds a new webhook to an App.\n\nThis method is beta.",
+    description: "Adds a new webhook to an App.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/realtime/kit/{app_id}/webhooks",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/realtimekit_account_identifier",
-          "description": "The account identifier tag."
-        },
-        "app_id": {
-          "$ref": "#/$defs/realtimekit_app_id",
-          "description": "The app identifier tag."
-        },
         "body": {
           "$ref": "#/$defs/realtimekit_WebhookRequest"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "The account identifier tag.",
+              "type": "string"
+            },
+            "app_id": {
+              "description": "The app identifier tag.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "app_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "app_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "realtimekit_WebhookRequest": realtimekit_WebhookRequest,
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/realtimekit_WebhookSuccessResponse",
       $defs: {
-        "realtimekit_Webhook": realtimekit_Webhook_output,
-        "realtimekit_WebhookSuccessResponse": realtimekit_WebhookSuccessResponse_output,
+        "realtimekit_Webhook": realtimekit_Webhook,
+        "realtimekit_WebhookSuccessResponse": realtimekit_WebhookSuccessResponse,
       },
     },
     annotations: {
@@ -84,9 +88,9 @@ export const tools: readonly Tool[] = [
         "401": {}
       },
       $defs: {
-        "realtimekit_ErrorResponse": realtimekit_ErrorResponse_output,
-        "realtimekit_Webhook": realtimekit_Webhook_output,
-        "realtimekit_WebhookSuccessResponse": realtimekit_WebhookSuccessResponse_output,
+        "realtimekit_ErrorResponse": realtimekit_ErrorResponse,
+        "realtimekit_Webhook": realtimekit_Webhook,
+        "realtimekit_WebhookSuccessResponse": realtimekit_WebhookSuccessResponse,
       },
     },
     request: (args) => ({
@@ -97,39 +101,45 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_webhooks_delete",
     title: "Delete a webhook",
-    description: "Removes a webhook for the given webhook ID.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation deletes the webhook. Event delivery to it will stop.",
+    description: "Removes a webhook for the given webhook ID.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation deletes the webhook. Event delivery to it will stop.\n\nDELETE /accounts/{account_id}/realtime/kit/{app_id}/webhooks/{webhook_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/realtimekit_account_identifier",
-          "description": "The account identifier tag."
-        },
-        "app_id": {
-          "$ref": "#/$defs/realtimekit_app_id",
-          "description": "The app identifier tag."
-        },
-        "webhook_id": {
-          "description": "ID of the webhook",
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "The account identifier tag.",
+              "type": "string"
+            },
+            "app_id": {
+              "description": "The app identifier tag.",
+              "type": "string"
+            },
+            "webhook_id": {
+              "description": "ID of the webhook",
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "app_id",
+            "webhook_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "app_id",
-        "webhook_id"
+        "path"
       ],
-      $defs: {
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/realtimekit_WebhookSuccessResponse",
       $defs: {
-        "realtimekit_Webhook": realtimekit_Webhook_output,
-        "realtimekit_WebhookSuccessResponse": realtimekit_WebhookSuccessResponse_output,
+        "realtimekit_Webhook": realtimekit_Webhook,
+        "realtimekit_WebhookSuccessResponse": realtimekit_WebhookSuccessResponse,
       },
     },
     annotations: {
@@ -159,9 +169,9 @@ export const tools: readonly Tool[] = [
         "401": {}
       },
       $defs: {
-        "realtimekit_ErrorResponse": realtimekit_ErrorResponse_output,
-        "realtimekit_Webhook": realtimekit_Webhook_output,
-        "realtimekit_WebhookSuccessResponse": realtimekit_WebhookSuccessResponse_output,
+        "realtimekit_ErrorResponse": realtimekit_ErrorResponse,
+        "realtimekit_Webhook": realtimekit_Webhook,
+        "realtimekit_WebhookSuccessResponse": realtimekit_WebhookSuccessResponse,
       },
     },
     request: (args) => ({
@@ -171,39 +181,45 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_webhooks_get",
     title: "Fetch details of a webhook",
-    description: "Returns webhook details for the given webhook ID.\n\nThis method is beta.",
+    description: "Returns webhook details for the given webhook ID.\n\nThis method is beta.\n\nGET /accounts/{account_id}/realtime/kit/{app_id}/webhooks/{webhook_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/realtimekit_account_identifier",
-          "description": "The account identifier tag."
-        },
-        "app_id": {
-          "$ref": "#/$defs/realtimekit_app_id",
-          "description": "The app identifier tag."
-        },
-        "webhook_id": {
-          "description": "ID of the webhook",
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "The account identifier tag.",
+              "type": "string"
+            },
+            "app_id": {
+              "description": "The app identifier tag.",
+              "type": "string"
+            },
+            "webhook_id": {
+              "description": "ID of the webhook",
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "app_id",
+            "webhook_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "app_id",
-        "webhook_id"
+        "path"
       ],
-      $defs: {
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/realtimekit_WebhookSuccessResponse",
       $defs: {
-        "realtimekit_Webhook": realtimekit_Webhook_output,
-        "realtimekit_WebhookSuccessResponse": realtimekit_WebhookSuccessResponse_output,
+        "realtimekit_Webhook": realtimekit_Webhook,
+        "realtimekit_WebhookSuccessResponse": realtimekit_WebhookSuccessResponse,
       },
     },
     annotations: {
@@ -233,9 +249,9 @@ export const tools: readonly Tool[] = [
         "401": {}
       },
       $defs: {
-        "realtimekit_ErrorResponse": realtimekit_ErrorResponse_output,
-        "realtimekit_Webhook": realtimekit_Webhook_output,
-        "realtimekit_WebhookSuccessResponse": realtimekit_WebhookSuccessResponse_output,
+        "realtimekit_ErrorResponse": realtimekit_ErrorResponse,
+        "realtimekit_Webhook": realtimekit_Webhook,
+        "realtimekit_WebhookSuccessResponse": realtimekit_WebhookSuccessResponse,
       },
     },
     request: (args) => ({
@@ -245,33 +261,39 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_webhooks_list",
     title: "Fetch all webhooks details",
-    description: "Returns details of all webhooks for an App.\n\nThis method is beta.",
+    description: "Returns details of all webhooks for an App.\n\nThis method is beta.\n\nGET /accounts/{account_id}/realtime/kit/{app_id}/webhooks",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/realtimekit_account_identifier",
-          "description": "The account identifier tag."
-        },
-        "app_id": {
-          "$ref": "#/$defs/realtimekit_app_id",
-          "description": "The app identifier tag."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "The account identifier tag.",
+              "type": "string"
+            },
+            "app_id": {
+              "description": "The app identifier tag.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "app_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "app_id"
+        "path"
       ],
-      $defs: {
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/realtimekit_WebhooksListSuccessResponse",
       $defs: {
-        "realtimekit_Webhook": realtimekit_Webhook_output,
-        "realtimekit_WebhooksListSuccessResponse": realtimekit_WebhooksListSuccessResponse_output,
+        "realtimekit_Webhook": realtimekit_Webhook,
+        "realtimekit_WebhooksListSuccessResponse": realtimekit_WebhooksListSuccessResponse,
       },
     },
     annotations: {
@@ -297,8 +319,8 @@ export const tools: readonly Tool[] = [
         "401": {}
       },
       $defs: {
-        "realtimekit_Webhook": realtimekit_Webhook_output,
-        "realtimekit_WebhooksListSuccessResponse": realtimekit_WebhooksListSuccessResponse_output,
+        "realtimekit_Webhook": realtimekit_Webhook,
+        "realtimekit_WebhooksListSuccessResponse": realtimekit_WebhooksListSuccessResponse,
       },
     },
     request: (args) => ({
@@ -308,44 +330,52 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_webhooks_replace",
     title: "Replace a webhook",
-    description: "Replace all details for the given webhook ID.\n\nThis method is beta.",
+    description: "Replace all details for the given webhook ID.\n\nThis method is beta.\n\nPUT /accounts/{account_id}/realtime/kit/{app_id}/webhooks/{webhook_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/realtimekit_account_identifier",
-          "description": "The account identifier tag."
-        },
-        "app_id": {
-          "$ref": "#/$defs/realtimekit_app_id",
-          "description": "The app identifier tag."
-        },
         "body": {
           "$ref": "#/$defs/realtimekit_WebhookRequest"
         },
-        "webhook_id": {
-          "description": "ID of the webhook",
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "The account identifier tag.",
+              "type": "string"
+            },
+            "app_id": {
+              "description": "The app identifier tag.",
+              "type": "string"
+            },
+            "webhook_id": {
+              "description": "ID of the webhook",
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "app_id",
+            "webhook_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "app_id",
-        "webhook_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "realtimekit_WebhookRequest": realtimekit_WebhookRequest,
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/realtimekit_WebhookSuccessResponse",
       $defs: {
-        "realtimekit_Webhook": realtimekit_Webhook_output,
-        "realtimekit_WebhookSuccessResponse": realtimekit_WebhookSuccessResponse_output,
+        "realtimekit_Webhook": realtimekit_Webhook,
+        "realtimekit_WebhookSuccessResponse": realtimekit_WebhookSuccessResponse,
       },
     },
     annotations: {
@@ -375,9 +405,9 @@ export const tools: readonly Tool[] = [
         "401": {}
       },
       $defs: {
-        "realtimekit_ErrorResponse": realtimekit_ErrorResponse_output,
-        "realtimekit_Webhook": realtimekit_Webhook_output,
-        "realtimekit_WebhookSuccessResponse": realtimekit_WebhookSuccessResponse_output,
+        "realtimekit_ErrorResponse": realtimekit_ErrorResponse,
+        "realtimekit_Webhook": realtimekit_Webhook,
+        "realtimekit_WebhookSuccessResponse": realtimekit_WebhookSuccessResponse,
       },
     },
     request: (args) => ({
@@ -388,44 +418,52 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_webhooks_update",
     title: "Edit a webhook",
-    description: "Edits the webhook details for the given webhook ID.\n\nThis method is beta.",
+    description: "Edits the webhook details for the given webhook ID.\n\nThis method is beta.\n\nPATCH /accounts/{account_id}/realtime/kit/{app_id}/webhooks/{webhook_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/realtimekit_account_identifier",
-          "description": "The account identifier tag."
-        },
-        "app_id": {
-          "$ref": "#/$defs/realtimekit_app_id",
-          "description": "The app identifier tag."
-        },
         "body": {
           "$ref": "#/$defs/realtimekit_PatchWebhookRequest"
         },
-        "webhook_id": {
-          "description": "ID of the webhook",
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "The account identifier tag.",
+              "type": "string"
+            },
+            "app_id": {
+              "description": "The app identifier tag.",
+              "type": "string"
+            },
+            "webhook_id": {
+              "description": "ID of the webhook",
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "app_id",
+            "webhook_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "app_id",
-        "webhook_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "realtimekit_PatchWebhookRequest": realtimekit_PatchWebhookRequest,
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/realtimekit_WebhookSuccessResponse",
       $defs: {
-        "realtimekit_Webhook": realtimekit_Webhook_output,
-        "realtimekit_WebhookSuccessResponse": realtimekit_WebhookSuccessResponse_output,
+        "realtimekit_Webhook": realtimekit_Webhook,
+        "realtimekit_WebhookSuccessResponse": realtimekit_WebhookSuccessResponse,
       },
     },
     annotations: {
@@ -455,9 +493,9 @@ export const tools: readonly Tool[] = [
         "401": {}
       },
       $defs: {
-        "realtimekit_ErrorResponse": realtimekit_ErrorResponse_output,
-        "realtimekit_Webhook": realtimekit_Webhook_output,
-        "realtimekit_WebhookSuccessResponse": realtimekit_WebhookSuccessResponse_output,
+        "realtimekit_ErrorResponse": realtimekit_ErrorResponse,
+        "realtimekit_Webhook": realtimekit_Webhook,
+        "realtimekit_WebhookSuccessResponse": realtimekit_WebhookSuccessResponse,
       },
     },
     request: (args) => ({

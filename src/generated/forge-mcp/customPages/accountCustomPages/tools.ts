@@ -3,75 +3,81 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  custom_pages_api_response_collection_output,
-  custom_pages_api_response_common_failure_output,
-  custom_pages_api_response_common_output,
-  custom_pages_api_response_single_output,
-  custom_pages_messages_output,
-  custom_pages_timestamp_output,
+  custom$$pages_api$$response$$collection,
+  custom$$pages_api$$response$$common,
+  custom$$pages_api$$response$$common$$failure,
+  custom$$pages_api$$response$$single,
+  custom$$pages_messages,
 } from "../outputs.js";
-import { custom_pages_identifier } from "../schemas.js";
 import {
-  custom_pages_custom_page_output,
-  custom_pages_custom_page_result_list_output,
-  custom_pages_custom_page_result_output,
-  custom_pages_state_output,
-  custom_pages_url_output,
+  custom$$pages_custom_page,
+  custom$$pages_custom_page_result,
+  custom$$pages_custom_page_result_list,
 } from "./outputs.js";
-import {
-  custom_pages_error_page_type,
-  custom_pages_state,
-  custom_pages_url,
-} from "./schemas.js";
 
 /**
- * The tools of `custom_pages.account_custom_pages`.
+ * The tools of `customPages.accountCustomPages`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "custom_pages_account_custom_pages_get",
+    name: "customPages_accountCustomPages_get",
     title: "Get a custom page",
-    description: "Returns the configuration for a custom page type.",
+    description: "Returns the configuration for a custom page type.\n\nGET /{account_or_zone}/{account_or_zone_id}/custom_pages/{identifier}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_or_zone": {
-          "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
-          "enum": [
-            "accounts",
-            "zones"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_or_zone": {
+              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "enum": [
+                "accounts",
+                "zones"
+              ],
+              "type": "string"
+            },
+            "account_or_zone_id": {
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
+            },
+            "identifier": {
+              "description": "Custom page type.",
+              "enum": [
+                "1000_errors",
+                "500_errors",
+                "basic_challenge",
+                "country_challenge",
+                "ip_block",
+                "managed_challenge",
+                "ratelimit_block",
+                "under_attack",
+                "waf_block",
+                "waf_challenge"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_or_zone",
+            "account_or_zone_id",
+            "identifier"
           ],
-          "type": "string"
-        },
-        "account_or_zone_id": {
-          "$ref": "#/$defs/custom-pages_identifier",
-          "description": "The account ID or zone ID, as selected by account_or_zone."
-        },
-        "identifier": {
-          "$ref": "#/$defs/custom-pages_error_page_type",
-          "description": "Custom page type."
+          "type": "object"
         }
       },
       required: [
-        "account_or_zone",
-        "account_or_zone_id",
-        "identifier"
+        "path"
       ],
-      $defs: {
-        "custom-pages_error_page_type": custom_pages_error_page_type,
-        "custom-pages_identifier": custom_pages_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/custom-pages_custom_page_result",
       $defs: {
-        "custom-pages_api-response-single": custom_pages_api_response_single_output,
-        "custom-pages_custom_page": custom_pages_custom_page_output,
-        "custom-pages_custom_page_result": custom_pages_custom_page_result_output,
-        "custom-pages_messages": custom_pages_messages_output,
-        "custom-pages_state": custom_pages_state_output,
-        "custom-pages_timestamp": custom_pages_timestamp_output,
-        "custom-pages_url": custom_pages_url_output,
+        "custom-pages_api-response-single": custom$$pages_api$$response$$single,
+        "custom-pages_custom_page": custom$$pages_custom_page,
+        "custom-pages_custom_page_result": custom$$pages_custom_page_result,
+        "custom-pages_messages": custom$$pages_messages,
       },
     },
     annotations: {
@@ -108,14 +114,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "custom-pages_api-response-common-failure": custom_pages_api_response_common_failure_output,
-        "custom-pages_api-response-single": custom_pages_api_response_single_output,
-        "custom-pages_custom_page": custom_pages_custom_page_output,
-        "custom-pages_custom_page_result": custom_pages_custom_page_result_output,
-        "custom-pages_messages": custom_pages_messages_output,
-        "custom-pages_state": custom_pages_state_output,
-        "custom-pages_timestamp": custom_pages_timestamp_output,
-        "custom-pages_url": custom_pages_url_output,
+        "custom-pages_api-response-common-failure": custom$$pages_api$$response$$common$$failure,
+        "custom-pages_api-response-single": custom$$pages_api$$response$$single,
+        "custom-pages_custom_page": custom$$pages_custom_page,
+        "custom-pages_custom_page_result": custom$$pages_custom_page_result,
+        "custom-pages_messages": custom$$pages_messages,
       },
     },
     request: (args) => ({
@@ -123,44 +126,48 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "custom_pages_account_custom_pages_list",
+    name: "customPages_accountCustomPages_list",
     title: "List custom pages",
-    description: "Lists all custom page configurations for an account or zone.",
+    description: "Lists all custom page configurations for an account or zone.\n\nGET /{account_or_zone}/{account_or_zone_id}/custom_pages",
     inputSchema: {
       type: "object",
       properties: {
-        "account_or_zone": {
-          "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
-          "enum": [
-            "accounts",
-            "zones"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_or_zone": {
+              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "enum": [
+                "accounts",
+                "zones"
+              ],
+              "type": "string"
+            },
+            "account_or_zone_id": {
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_or_zone",
+            "account_or_zone_id"
           ],
-          "type": "string"
-        },
-        "account_or_zone_id": {
-          "$ref": "#/$defs/custom-pages_identifier",
-          "description": "The account ID or zone ID, as selected by account_or_zone."
+          "type": "object"
         }
       },
       required: [
-        "account_or_zone",
-        "account_or_zone_id"
+        "path"
       ],
-      $defs: {
-        "custom-pages_identifier": custom_pages_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/custom-pages_custom_page_result_list",
       $defs: {
-        "custom-pages_api-response-collection": custom_pages_api_response_collection_output,
-        "custom-pages_api-response-common": custom_pages_api_response_common_output,
-        "custom-pages_custom_page": custom_pages_custom_page_output,
-        "custom-pages_custom_page_result_list": custom_pages_custom_page_result_list_output,
-        "custom-pages_messages": custom_pages_messages_output,
-        "custom-pages_state": custom_pages_state_output,
-        "custom-pages_timestamp": custom_pages_timestamp_output,
-        "custom-pages_url": custom_pages_url_output,
+        "custom-pages_api-response-collection": custom$$pages_api$$response$$collection,
+        "custom-pages_api-response-common": custom$$pages_api$$response$$common,
+        "custom-pages_custom_page": custom$$pages_custom_page,
+        "custom-pages_custom_page_result_list": custom$$pages_custom_page_result_list,
+        "custom-pages_messages": custom$$pages_messages,
       },
     },
     annotations: {
@@ -202,15 +209,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "custom-pages_api-response-collection": custom_pages_api_response_collection_output,
-        "custom-pages_api-response-common": custom_pages_api_response_common_output,
-        "custom-pages_api-response-common-failure": custom_pages_api_response_common_failure_output,
-        "custom-pages_custom_page": custom_pages_custom_page_output,
-        "custom-pages_custom_page_result_list": custom_pages_custom_page_result_list_output,
-        "custom-pages_messages": custom_pages_messages_output,
-        "custom-pages_state": custom_pages_state_output,
-        "custom-pages_timestamp": custom_pages_timestamp_output,
-        "custom-pages_url": custom_pages_url_output,
+        "custom-pages_api-response-collection": custom$$pages_api$$response$$collection,
+        "custom-pages_api-response-common": custom$$pages_api$$response$$common,
+        "custom-pages_api-response-common-failure": custom$$pages_api$$response$$common$$failure,
+        "custom-pages_custom_page": custom$$pages_custom_page,
+        "custom-pages_custom_page_result_list": custom$$pages_custom_page_result_list,
+        "custom-pages_messages": custom$$pages_messages,
       },
     },
     request: (args) => ({
@@ -218,34 +222,26 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "custom_pages_account_custom_pages_update",
+    name: "customPages_accountCustomPages_update",
     title: "Update a custom page",
-    description: "Updates the configuration for a custom page type.",
+    description: "Updates the configuration for a custom page type.\n\nPUT /{account_or_zone}/{account_or_zone_id}/custom_pages/{identifier}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_or_zone": {
-          "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
-          "enum": [
-            "accounts",
-            "zones"
-          ],
-          "type": "string"
-        },
-        "account_or_zone_id": {
-          "$ref": "#/$defs/custom-pages_identifier",
-          "description": "The account ID or zone ID, as selected by account_or_zone."
-        },
         "body": {
           "properties": {
             "state": {
-              "$ref": "#/$defs/custom-pages_state",
-              "description": "The custom page state."
+              "description": "The custom page state.",
+              "enum": [
+                "default",
+                "customized"
+              ],
+              "type": "string"
             },
             "url": {
-              "$ref": "#/$defs/custom-pages_url",
               "default": "",
-              "description": "The URL associated with the custom page."
+              "description": "The URL associated with the custom page.",
+              "type": "string"
             }
           },
           "required": [
@@ -254,34 +250,59 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "identifier": {
-          "$ref": "#/$defs/custom-pages_error_page_type",
-          "description": "Custom page type."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_or_zone": {
+              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "enum": [
+                "accounts",
+                "zones"
+              ],
+              "type": "string"
+            },
+            "account_or_zone_id": {
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
+            },
+            "identifier": {
+              "description": "Custom page type.",
+              "enum": [
+                "1000_errors",
+                "500_errors",
+                "basic_challenge",
+                "country_challenge",
+                "ip_block",
+                "managed_challenge",
+                "ratelimit_block",
+                "under_attack",
+                "waf_block",
+                "waf_challenge"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_or_zone",
+            "account_or_zone_id",
+            "identifier"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_or_zone",
-        "account_or_zone_id",
-        "identifier",
+        "path",
         "body"
       ],
-      $defs: {
-        "custom-pages_error_page_type": custom_pages_error_page_type,
-        "custom-pages_identifier": custom_pages_identifier,
-        "custom-pages_state": custom_pages_state,
-        "custom-pages_url": custom_pages_url,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/custom-pages_custom_page_result",
       $defs: {
-        "custom-pages_api-response-single": custom_pages_api_response_single_output,
-        "custom-pages_custom_page": custom_pages_custom_page_output,
-        "custom-pages_custom_page_result": custom_pages_custom_page_result_output,
-        "custom-pages_messages": custom_pages_messages_output,
-        "custom-pages_state": custom_pages_state_output,
-        "custom-pages_timestamp": custom_pages_timestamp_output,
-        "custom-pages_url": custom_pages_url_output,
+        "custom-pages_api-response-single": custom$$pages_api$$response$$single,
+        "custom-pages_custom_page": custom$$pages_custom_page,
+        "custom-pages_custom_page_result": custom$$pages_custom_page_result,
+        "custom-pages_messages": custom$$pages_messages,
       },
     },
     annotations: {
@@ -315,14 +336,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "custom-pages_api-response-common-failure": custom_pages_api_response_common_failure_output,
-        "custom-pages_api-response-single": custom_pages_api_response_single_output,
-        "custom-pages_custom_page": custom_pages_custom_page_output,
-        "custom-pages_custom_page_result": custom_pages_custom_page_result_output,
-        "custom-pages_messages": custom_pages_messages_output,
-        "custom-pages_state": custom_pages_state_output,
-        "custom-pages_timestamp": custom_pages_timestamp_output,
-        "custom-pages_url": custom_pages_url_output,
+        "custom-pages_api-response-common-failure": custom$$pages_api$$response$$common$$failure,
+        "custom-pages_api-response-single": custom$$pages_api$$response$$single,
+        "custom-pages_custom_page": custom$$pages_custom_page,
+        "custom-pages_custom_page_result": custom$$pages_custom_page_result,
+        "custom-pages_messages": custom$$pages_messages,
       },
     },
     request: (args) => ({

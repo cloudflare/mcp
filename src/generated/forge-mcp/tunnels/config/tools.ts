@@ -3,27 +3,21 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  tunnel_api_response_common_failure_2_output,
-  tunnel_api_response_single_2_output,
-  tunnel_identifier_output,
-  tunnel_messages_2_output,
-  tunnel_tunnel_id_2_output,
+  tunnel_api$$response$$common$$failure$$2,
+  tunnel_api$$response$$single$$2,
+  tunnel_messages$$2,
 } from "../../outputs.js";
-import { tunnel_identifier, tunnel_tunnel_id_2 } from "../../schemas.js";
-import {
-  tunnel_config_output,
-  tunnel_config_src_2_output,
-  tunnel_config_version_2_output,
-  tunnel_configuration_output,
-  tunnel_configuration_response_output,
-  tunnel_ingressRule_output,
-  tunnel_originRequest_output,
-  tunnel_timestamp_output,
-} from "./outputs.js";
 import {
   tunnel_config,
+  tunnel_configuration,
+  tunnel_configuration_response,
   tunnel_ingressRule,
   tunnel_originRequest,
+} from "./outputs.js";
+import {
+  tunnel_config as tunnel_config$,
+  tunnel_ingressRule as tunnel_ingressRule$,
+  tunnel_originRequest as tunnel_originRequest$,
 } from "./schemas.js";
 
 /**
@@ -33,43 +27,45 @@ export const tools: readonly Tool[] = [
   {
     name: "tunnels_config_get",
     title: "Get Tunnel configuration",
-    description: "Retrieves the configuration for a remotely managed Cloudflare Tunnel.",
+    description: "Retrieves the configuration for a remotely managed Cloudflare Tunnel.\n\nGET /accounts/{account_id}/cfd_tunnel/{tunnel_id}/configurations",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/tunnel_identifier",
-          "description": "Identifier."
-        },
-        "tunnel_id": {
-          "$ref": "#/$defs/tunnel_tunnel_id-2",
-          "description": "UUID of the tunnel."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            },
+            "tunnel_id": {
+              "description": "UUID of the tunnel.",
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "tunnel_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "tunnel_id"
+        "path"
       ],
-      $defs: {
-        "tunnel_identifier": tunnel_identifier,
-        "tunnel_tunnel_id-2": tunnel_tunnel_id_2,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tunnel_configuration_response",
       $defs: {
-        "tunnel_api-response-single-2": tunnel_api_response_single_2_output,
-        "tunnel_config": tunnel_config_output,
-        "tunnel_config_src-2": tunnel_config_src_2_output,
-        "tunnel_config_version-2": tunnel_config_version_2_output,
-        "tunnel_configuration": tunnel_configuration_output,
-        "tunnel_configuration_response": tunnel_configuration_response_output,
-        "tunnel_identifier": tunnel_identifier_output,
-        "tunnel_ingressRule": tunnel_ingressRule_output,
-        "tunnel_messages-2": tunnel_messages_2_output,
-        "tunnel_originRequest": tunnel_originRequest_output,
-        "tunnel_timestamp": tunnel_timestamp_output,
-        "tunnel_tunnel_id-2": tunnel_tunnel_id_2_output,
+        "tunnel_api-response-single-2": tunnel_api$$response$$single$$2,
+        "tunnel_config": tunnel_config,
+        "tunnel_configuration": tunnel_configuration,
+        "tunnel_configuration_response": tunnel_configuration_response,
+        "tunnel_ingressRule": tunnel_ingressRule,
+        "tunnel_messages-2": tunnel_messages$$2,
+        "tunnel_originRequest": tunnel_originRequest,
       },
     },
     annotations: {
@@ -101,19 +97,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "tunnel_api-response-common-failure-2": tunnel_api_response_common_failure_2_output,
-        "tunnel_api-response-single-2": tunnel_api_response_single_2_output,
-        "tunnel_config": tunnel_config_output,
-        "tunnel_config_src-2": tunnel_config_src_2_output,
-        "tunnel_config_version-2": tunnel_config_version_2_output,
-        "tunnel_configuration": tunnel_configuration_output,
-        "tunnel_configuration_response": tunnel_configuration_response_output,
-        "tunnel_identifier": tunnel_identifier_output,
-        "tunnel_ingressRule": tunnel_ingressRule_output,
-        "tunnel_messages-2": tunnel_messages_2_output,
-        "tunnel_originRequest": tunnel_originRequest_output,
-        "tunnel_timestamp": tunnel_timestamp_output,
-        "tunnel_tunnel_id-2": tunnel_tunnel_id_2_output,
+        "tunnel_api-response-common-failure-2": tunnel_api$$response$$common$$failure$$2,
+        "tunnel_api-response-single-2": tunnel_api$$response$$single$$2,
+        "tunnel_config": tunnel_config,
+        "tunnel_configuration": tunnel_configuration,
+        "tunnel_configuration_response": tunnel_configuration_response,
+        "tunnel_ingressRule": tunnel_ingressRule,
+        "tunnel_messages-2": tunnel_messages$$2,
+        "tunnel_originRequest": tunnel_originRequest,
       },
     },
     request: (args) => ({
@@ -123,14 +114,10 @@ export const tools: readonly Tool[] = [
   {
     name: "tunnels_config_update",
     title: "Update Tunnel configuration",
-    description: "Replaces the configuration for a remotely managed Cloudflare Tunnel, including its ingress rules and origin request settings.",
+    description: "Replaces the configuration for a remotely managed Cloudflare Tunnel, including its ingress rules and origin request settings.\n\nPUT /accounts/{account_id}/cfd_tunnel/{tunnel_id}/configurations",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/tunnel_identifier",
-          "description": "Identifier."
-        },
         "body": {
           "properties": {
             "config": {
@@ -139,39 +126,47 @@ export const tools: readonly Tool[] = [
           },
           "type": "object"
         },
-        "tunnel_id": {
-          "$ref": "#/$defs/tunnel_tunnel_id-2",
-          "description": "UUID of the tunnel."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            },
+            "tunnel_id": {
+              "description": "UUID of the tunnel.",
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "tunnel_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "tunnel_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "tunnel_config": tunnel_config,
-        "tunnel_identifier": tunnel_identifier,
-        "tunnel_ingressRule": tunnel_ingressRule,
-        "tunnel_originRequest": tunnel_originRequest,
-        "tunnel_tunnel_id-2": tunnel_tunnel_id_2,
+        "tunnel_config": tunnel_config$,
+        "tunnel_ingressRule": tunnel_ingressRule$,
+        "tunnel_originRequest": tunnel_originRequest$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/tunnel_configuration_response",
       $defs: {
-        "tunnel_api-response-single-2": tunnel_api_response_single_2_output,
-        "tunnel_config": tunnel_config_output,
-        "tunnel_config_src-2": tunnel_config_src_2_output,
-        "tunnel_config_version-2": tunnel_config_version_2_output,
-        "tunnel_configuration": tunnel_configuration_output,
-        "tunnel_configuration_response": tunnel_configuration_response_output,
-        "tunnel_identifier": tunnel_identifier_output,
-        "tunnel_ingressRule": tunnel_ingressRule_output,
-        "tunnel_messages-2": tunnel_messages_2_output,
-        "tunnel_originRequest": tunnel_originRequest_output,
-        "tunnel_timestamp": tunnel_timestamp_output,
-        "tunnel_tunnel_id-2": tunnel_tunnel_id_2_output,
+        "tunnel_api-response-single-2": tunnel_api$$response$$single$$2,
+        "tunnel_config": tunnel_config,
+        "tunnel_configuration": tunnel_configuration,
+        "tunnel_configuration_response": tunnel_configuration_response,
+        "tunnel_ingressRule": tunnel_ingressRule,
+        "tunnel_messages-2": tunnel_messages$$2,
+        "tunnel_originRequest": tunnel_originRequest,
       },
     },
     annotations: {
@@ -200,19 +195,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "tunnel_api-response-common-failure-2": tunnel_api_response_common_failure_2_output,
-        "tunnel_api-response-single-2": tunnel_api_response_single_2_output,
-        "tunnel_config": tunnel_config_output,
-        "tunnel_config_src-2": tunnel_config_src_2_output,
-        "tunnel_config_version-2": tunnel_config_version_2_output,
-        "tunnel_configuration": tunnel_configuration_output,
-        "tunnel_configuration_response": tunnel_configuration_response_output,
-        "tunnel_identifier": tunnel_identifier_output,
-        "tunnel_ingressRule": tunnel_ingressRule_output,
-        "tunnel_messages-2": tunnel_messages_2_output,
-        "tunnel_originRequest": tunnel_originRequest_output,
-        "tunnel_timestamp": tunnel_timestamp_output,
-        "tunnel_tunnel_id-2": tunnel_tunnel_id_2_output,
+        "tunnel_api-response-common-failure-2": tunnel_api$$response$$common$$failure$$2,
+        "tunnel_api-response-single-2": tunnel_api$$response$$single$$2,
+        "tunnel_config": tunnel_config,
+        "tunnel_configuration": tunnel_configuration,
+        "tunnel_configuration_response": tunnel_configuration_response,
+        "tunnel_ingressRule": tunnel_ingressRule,
+        "tunnel_messages-2": tunnel_messages$$2,
+        "tunnel_originRequest": tunnel_originRequest,
       },
     },
     request: (args) => ({

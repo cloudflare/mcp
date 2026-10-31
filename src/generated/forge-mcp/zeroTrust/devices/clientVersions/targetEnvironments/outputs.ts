@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `teams-devices_target_environment_info` in responses.
  */
-export const teams_devices_target_environment_info_output: JsonSchema = {
+export const teams$$devices_target_environment_info: JsonSchema = {
   "properties": {
     "display_name": {
       "type": "string"

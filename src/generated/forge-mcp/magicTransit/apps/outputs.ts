@@ -6,10 +6,10 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `magic_account_app` in responses.
  */
-export const magic_account_app_output: JsonSchema = {
+export const magic_account_app: JsonSchema = {
   "properties": {
     "account_app_id": {
-      "$ref": "#/$defs/magic_account_app_id"
+      "type": "string"
     },
     "hostnames": {
       "$ref": "#/$defs/magic_app_hostnames"
@@ -18,13 +18,13 @@ export const magic_account_app_output: JsonSchema = {
       "$ref": "#/$defs/magic_app_subnets"
     },
     "name": {
-      "$ref": "#/$defs/magic_app_name"
+      "type": "string"
     },
     "source_subnets": {
       "$ref": "#/$defs/magic_app_source_subnets"
     },
     "type": {
-      "$ref": "#/$defs/magic_app_type"
+      "type": "string"
     }
   },
   "required": [
@@ -36,7 +36,7 @@ export const magic_account_app_output: JsonSchema = {
 /**
  * The schema of `magic_app` in responses.
  */
-export const magic_app_output: JsonSchema = {
+export const magic_app: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/magic_account_app"
@@ -50,7 +50,7 @@ export const magic_app_output: JsonSchema = {
 /**
  * The schema of `magic_app_hostnames` in responses.
  */
-export const magic_app_hostnames_output: JsonSchema = {
+export const magic_app_hostnames: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -58,16 +58,9 @@ export const magic_app_hostnames_output: JsonSchema = {
 };
 
 /**
- * The schema of `magic_app_name` in responses.
- */
-export const magic_app_name_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `magic_app_single_response` in responses.
  */
-export const magic_app_single_response_output: JsonSchema = {
+export const magic_app_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_apps-response-object"
@@ -86,11 +79,11 @@ export const magic_app_single_response_output: JsonSchema = {
 /**
  * The schema of `magic_app_source_subnets` in responses.
  */
-export const magic_app_source_subnets_output: JsonSchema = {
+export const magic_app_source_subnets: JsonSchema = {
   "items": {
     "allOf": [
       {
-        "$ref": "#/$defs/magic_cidr"
+        "type": "string"
       },
       {
         "type": "string"
@@ -103,11 +96,11 @@ export const magic_app_source_subnets_output: JsonSchema = {
 /**
  * The schema of `magic_app_subnets` in responses.
  */
-export const magic_app_subnets_output: JsonSchema = {
+export const magic_app_subnets: JsonSchema = {
   "items": {
     "allOf": [
       {
-        "$ref": "#/$defs/magic_cidr"
+        "type": "string"
       },
       {
         "type": "string"
@@ -118,16 +111,9 @@ export const magic_app_subnets_output: JsonSchema = {
 };
 
 /**
- * The schema of `magic_app_type` in responses.
- */
-export const magic_app_type_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `magic_apps_collection_response` in responses.
  */
-export const magic_apps_collection_response_output: JsonSchema = {
+export const magic_apps_collection_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_apps-response-array"
@@ -149,7 +135,7 @@ export const magic_apps_collection_response_output: JsonSchema = {
 /**
  * The schema of `magic_managed_app` in responses.
  */
-export const magic_managed_app_output: JsonSchema = {
+export const magic_managed_app: JsonSchema = {
   "properties": {
     "hostnames": {
       "$ref": "#/$defs/magic_app_hostnames"
@@ -158,16 +144,16 @@ export const magic_managed_app_output: JsonSchema = {
       "$ref": "#/$defs/magic_app_subnets"
     },
     "managed_app_id": {
-      "$ref": "#/$defs/magic_managed_app_id"
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/magic_app_name"
+      "type": "string"
     },
     "source_subnets": {
       "$ref": "#/$defs/magic_app_source_subnets"
     },
     "type": {
-      "$ref": "#/$defs/magic_app_type"
+      "type": "string"
     }
   },
   "required": [

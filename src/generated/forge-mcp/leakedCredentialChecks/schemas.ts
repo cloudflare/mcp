@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `waf-product-api-bundle_status`.
  */
-export const waf_product_api_bundle_status: JsonSchema = {
+export const waf$$product$$api$$bundle_status: JsonSchema = {
   "description": "Defines the overall status for Leaked Credential Checks.",
   "properties": {
     "enabled": {

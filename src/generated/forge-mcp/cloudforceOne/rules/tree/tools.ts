@@ -2,37 +2,47 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
-import { cloudforce_one_ErrorResponse_output } from "../outputs.js";
+import { cloudforce$$one_ErrorResponse } from "../outputs.js";
 import {
-  cloudforce_one_TreeNode_output,
-  cloudforce_one_TreeResponse_output,
+  cloudforce$$one_TreeNode,
+  cloudforce$$one_TreeResponse,
 } from "./outputs.js";
 
 /**
- * The tools of `cloudforce_one.rules.tree`.
+ * The tools of `cloudforceOne.rules.tree`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "cloudforce_one_rules_tree_get",
+    name: "cloudforceOne_rules_tree_get",
     title: "Get folder tree structure",
-    description: "Get the folder tree structure for rules navigation.",
+    description: "Get the folder tree structure for rules navigation.\n\nGET /accounts/{account_id}/cloudforce-one/rules/tree",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare account ID.",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cloudforce-one_TreeResponse",
       $defs: {
-        "cloudforce-one_TreeNode": cloudforce_one_TreeNode_output,
-        "cloudforce-one_TreeResponse": cloudforce_one_TreeResponse_output,
+        "cloudforce-one_TreeNode": cloudforce$$one_TreeNode,
+        "cloudforce-one_TreeResponse": cloudforce$$one_TreeResponse,
       },
     },
     annotations: {
@@ -54,9 +64,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cloudforce-one_ErrorResponse": cloudforce_one_ErrorResponse_output,
-        "cloudforce-one_TreeNode": cloudforce_one_TreeNode_output,
-        "cloudforce-one_TreeResponse": cloudforce_one_TreeResponse_output,
+        "cloudforce-one_ErrorResponse": cloudforce$$one_ErrorResponse,
+        "cloudforce-one_TreeNode": cloudforce$$one_TreeNode,
+        "cloudforce-one_TreeResponse": cloudforce$$one_TreeResponse,
       },
     },
     request: (args) => ({

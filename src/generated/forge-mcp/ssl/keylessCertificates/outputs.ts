@@ -6,27 +6,27 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `tls-certificates-and-hostnames_base` in responses.
  */
-export const tls_certificates_and_hostnames_base_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_base: JsonSchema = {
   "properties": {
     "created_on": {
       "format": "date-time",
       "type": "string"
     },
     "enabled": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_enabled"
+      "type": "boolean"
     },
     "host": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_host"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_keyless_certificate_identifier"
+      "type": "string"
     },
     "modified_on": {
       "format": "date-time",
       "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_name"
+      "type": "string"
     },
     "permissions": {
       "items": {
@@ -35,10 +35,14 @@ export const tls_certificates_and_hostnames_base_output: JsonSchema = {
       "type": "array"
     },
     "port": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_port"
+      "type": "number"
     },
     "status": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_status-2"
+      "enum": [
+        "active",
+        "deleted"
+      ],
+      "type": "string"
     },
     "tunnel": {
       "$ref": "#/$defs/tls-certificates-and-hostnames_keyless_tunnel"
@@ -62,7 +66,7 @@ export const tls_certificates_and_hostnames_base_output: JsonSchema = {
  * The schema of `tls-certificates-and-hostnames_keyless_response_collection` in
  * responses.
  */
-export const tls_certificates_and_hostnames_keyless_response_collection_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_keyless_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-collection"
@@ -85,7 +89,7 @@ export const tls_certificates_and_hostnames_keyless_response_collection_output: 
  * The schema of `tls-certificates-and-hostnames_keyless_response_single` in
  * responses.
  */
-export const tls_certificates_and_hostnames_keyless_response_single_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_keyless_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-single"
@@ -105,7 +109,7 @@ export const tls_certificates_and_hostnames_keyless_response_single_output: Json
  * The schema of `tls-certificates-and-hostnames_keyless_response_single_id` in
  * responses.
  */
-export const tls_certificates_and_hostnames_keyless_response_single_id_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_keyless_response_single_id: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-single"
@@ -115,7 +119,7 @@ export const tls_certificates_and_hostnames_keyless_response_single_id_output: J
         "result": {
           "properties": {
             "id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_keyless_certificate_identifier"
+              "type": "string"
             }
           },
           "type": "object"

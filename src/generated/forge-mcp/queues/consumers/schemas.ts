@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `mq_consumer-request`.
  */
-export const mq_consumer_request: JsonSchema = {
+export const mq_consumer$$request: JsonSchema = {
   "description": "Request body for creating or updating a consumer",
   "oneOf": [
     {
@@ -21,28 +21,28 @@ export const mq_consumer_request: JsonSchema = {
 /**
  * The schema of `mq_http-consumer-request`.
  */
-export const mq_http_consumer_request: JsonSchema = {
+export const mq_http$$consumer$$request: JsonSchema = {
   "properties": {
     "dead_letter_queue": {
-      "$ref": "#/$defs/mq_queue-name"
+      "type": "string"
     },
     "settings": {
       "properties": {
         "batch_size": {
-          "$ref": "#/$defs/mq_batch-size",
-          "description": "The maximum number of messages to include in a batch."
+          "description": "The maximum number of messages to include in a batch.",
+          "type": "number"
         },
         "max_retries": {
-          "$ref": "#/$defs/mq_max-retries",
-          "description": "The maximum number of retries"
+          "description": "The maximum number of retries",
+          "type": "number"
         },
         "retry_delay": {
-          "$ref": "#/$defs/mq_retry-delay",
-          "description": "The number of seconds to delay before making the message available for another attempt."
+          "description": "The number of seconds to delay before making the message available for another attempt.",
+          "type": "number"
         },
         "visibility_timeout_ms": {
-          "$ref": "#/$defs/mq_visibility-timeout",
-          "description": "The number of milliseconds that a message is exclusively leased. After the timeout, the message becomes available for another attempt."
+          "description": "The number of milliseconds that a message is exclusively leased. After the timeout, the message becomes available for another attempt.",
+          "type": "number"
         }
       },
       "type": "object"
@@ -63,36 +63,36 @@ export const mq_http_consumer_request: JsonSchema = {
 /**
  * The schema of `mq_worker-consumer-request`.
  */
-export const mq_worker_consumer_request: JsonSchema = {
+export const mq_worker$$consumer$$request: JsonSchema = {
   "properties": {
     "dead_letter_queue": {
-      "$ref": "#/$defs/mq_queue-name"
+      "type": "string"
     },
     "script_name": {
-      "$ref": "#/$defs/mq_script-name",
-      "description": "Name of a Worker"
+      "description": "Name of a Worker",
+      "type": "string"
     },
     "settings": {
       "properties": {
         "batch_size": {
-          "$ref": "#/$defs/mq_batch-size",
-          "description": "The maximum number of messages to include in a batch."
+          "description": "The maximum number of messages to include in a batch.",
+          "type": "number"
         },
         "max_concurrency": {
-          "$ref": "#/$defs/mq_max-concurrency",
-          "description": "Maximum number of concurrent consumers that may consume from this Queue. Set to `null` to automatically opt in to the platform's maximum (recommended)."
+          "description": "Maximum number of concurrent consumers that may consume from this Queue. Set to `null` to automatically opt in to the platform's maximum (recommended).",
+          "type": "number"
         },
         "max_retries": {
-          "$ref": "#/$defs/mq_max-retries",
-          "description": "The maximum number of retries"
+          "description": "The maximum number of retries",
+          "type": "number"
         },
         "max_wait_time_ms": {
-          "$ref": "#/$defs/mq_max-wait-time",
-          "description": "The number of milliseconds to wait for a batch to fill up before attempting to deliver it"
+          "description": "The number of milliseconds to wait for a batch to fill up before attempting to deliver it",
+          "type": "number"
         },
         "retry_delay": {
-          "$ref": "#/$defs/mq_retry-delay",
-          "description": "The number of seconds to delay before making the message available for another attempt."
+          "description": "The number of seconds to delay before making the message available for another attempt.",
+          "type": "number"
         }
       },
       "type": "object"

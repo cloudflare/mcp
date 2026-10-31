@@ -4,40 +4,12 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `magic_connector-id` in responses.
- */
-export const magic_connector_id_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `magic_ip-address` in responses.
- */
-export const magic_ip_address_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `magic_port` in responses.
- */
-export const magic_port_output: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `magic_secondary-connector-id` in responses.
- */
-export const magic_secondary_connector_id_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `magic_site` in responses.
  */
-export const magic_site_output: JsonSchema = {
+export const magic_site: JsonSchema = {
   "properties": {
     "connector_id": {
-      "$ref": "#/$defs/magic_connector-id"
+      "type": "string"
     },
     "description": {
       "type": "string"
@@ -46,16 +18,16 @@ export const magic_site_output: JsonSchema = {
       "type": "boolean"
     },
     "id": {
-      "$ref": "#/$defs/magic_identifier"
+      "type": "string"
     },
     "location": {
       "$ref": "#/$defs/magic_site-location"
     },
     "name": {
-      "$ref": "#/$defs/magic_site-name"
+      "type": "string"
     },
     "secondary_connector_id": {
-      "$ref": "#/$defs/magic_secondary-connector-id"
+      "type": "string"
     }
   },
   "type": "object"
@@ -64,7 +36,7 @@ export const magic_site_output: JsonSchema = {
 /**
  * The schema of `magic_site-location` in responses.
  */
-export const magic_site_location_output: JsonSchema = {
+export const magic_site$$location: JsonSchema = {
   "properties": {
     "lat": {
       "type": "string"
@@ -77,16 +49,9 @@ export const magic_site_location_output: JsonSchema = {
 };
 
 /**
- * The schema of `magic_site-name` in responses.
- */
-export const magic_site_name_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `magic_site_deleted_response` in responses.
  */
-export const magic_site_deleted_response_output: JsonSchema = {
+export const magic_site_deleted_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"
@@ -105,7 +70,7 @@ export const magic_site_deleted_response_output: JsonSchema = {
 /**
  * The schema of `magic_site_modified_response` in responses.
  */
-export const magic_site_modified_response_output: JsonSchema = {
+export const magic_site_modified_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"
@@ -124,7 +89,7 @@ export const magic_site_modified_response_output: JsonSchema = {
 /**
  * The schema of `magic_site_single_response` in responses.
  */
-export const magic_site_single_response_output: JsonSchema = {
+export const magic_site_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"
@@ -143,7 +108,7 @@ export const magic_site_single_response_output: JsonSchema = {
 /**
  * The schema of `magic_sites_collection_response` in responses.
  */
-export const magic_sites_collection_response_output: JsonSchema = {
+export const magic_sites_collection_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"
@@ -160,11 +125,4 @@ export const magic_sites_collection_response_output: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `magic_vlan_tag` in responses.
- */
-export const magic_vlan_tag_output: JsonSchema = {
-  "type": "integer"
 };

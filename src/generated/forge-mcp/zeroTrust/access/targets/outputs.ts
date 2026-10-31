@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `infra_IPInfo` in responses.
  */
-export const infra_IPInfo_output: JsonSchema = {
+export const infra_IPInfo: JsonSchema = {
   "properties": {
     "ipv4": {
       "properties": {
@@ -39,7 +39,7 @@ export const infra_IPInfo_output: JsonSchema = {
 /**
  * The schema of `infra_Target` in responses.
  */
-export const infra_Target_output: JsonSchema = {
+export const infra_Target: JsonSchema = {
   "properties": {
     "created_at": {
       "format": "date-time",
@@ -49,7 +49,8 @@ export const infra_Target_output: JsonSchema = {
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/infra_TargetId"
+      "format": "uuid",
+      "type": "string"
     },
     "ip": {
       "$ref": "#/$defs/infra_IPInfo"
@@ -85,17 +86,9 @@ export const infra_Target_output: JsonSchema = {
 /**
  * The schema of `infra_TargetArray` in responses.
  */
-export const infra_TargetArray_output: JsonSchema = {
+export const infra_TargetArray: JsonSchema = {
   "items": {
     "$ref": "#/$defs/infra_Target"
   },
   "type": "array"
-};
-
-/**
- * The schema of `infra_TargetId` in responses.
- */
-export const infra_TargetId_output: JsonSchema = {
-  "format": "uuid",
-  "type": "string"
 };

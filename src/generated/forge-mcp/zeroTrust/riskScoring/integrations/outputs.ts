@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `dlp_RiskScoreIntegration` in responses.
  */
-export const dlp_RiskScoreIntegration_output: JsonSchema = {
+export const dlp_RiskScoreIntegration: JsonSchema = {
   "properties": {
     "account_tag": {
       "type": "string"
@@ -23,7 +23,10 @@ export const dlp_RiskScoreIntegration_output: JsonSchema = {
       "type": "string"
     },
     "integration_type": {
-      "$ref": "#/$defs/dlp_RiskScoreIntegrationType"
+      "enum": [
+        "Okta"
+      ],
+      "type": "string"
     },
     "reference_id": {
       "type": "string"
@@ -51,19 +54,9 @@ export const dlp_RiskScoreIntegration_output: JsonSchema = {
 /**
  * The schema of `dlp_RiskScoreIntegrationArray` in responses.
  */
-export const dlp_RiskScoreIntegrationArray_output: JsonSchema = {
+export const dlp_RiskScoreIntegrationArray: JsonSchema = {
   "items": {
     "$ref": "#/$defs/dlp_RiskScoreIntegration"
   },
   "type": "array"
-};
-
-/**
- * The schema of `dlp_RiskScoreIntegrationType` in responses.
- */
-export const dlp_RiskScoreIntegrationType_output: JsonSchema = {
-  "enum": [
-    "Okta"
-  ],
-  "type": "string"
 };

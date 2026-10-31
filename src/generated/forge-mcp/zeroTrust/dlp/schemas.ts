@@ -91,7 +91,11 @@ export const dlp_Pattern: JsonSchema = {
       "type": "string"
     },
     "validation": {
-      "$ref": "#/$defs/dlp_Validation"
+      "deprecated": true,
+      "enum": [
+        "luhn"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -149,15 +153,4 @@ export const dlp_SensitivityLevelUpdate: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `dlp_Validation`.
- */
-export const dlp_Validation: JsonSchema = {
-  "deprecated": true,
-  "enum": [
-    "luhn"
-  ],
-  "type": "string"
 };

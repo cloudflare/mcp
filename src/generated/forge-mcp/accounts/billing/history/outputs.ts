@@ -7,7 +7,7 @@ import type { JsonSchema } from "../../../_/tool.js";
  * The schema of `bill-subs-api_account_billing_history_collection` in
  * responses.
  */
-export const bill_subs_api_account_billing_history_collection_output: JsonSchema = {
+export const bill$$subs$$api_account_billing_history_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/bill-subs-api_api-response-collection"

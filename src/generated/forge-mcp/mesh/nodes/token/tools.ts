@@ -3,13 +3,11 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  tunnel_api_response_common_failure_output,
-  tunnel_api_response_common_output,
-  tunnel_messages_output,
-  tunnel_tunnel_response_token_output,
-  tunnel_tunnel_token_output,
+  tunnel_api$$response$$common,
+  tunnel_api$$response$$common$$failure,
+  tunnel_messages,
+  tunnel_tunnel_response_token,
 } from "../../../outputs.js";
-import { tunnel_account_id, tunnel_tunnel_id } from "../../../schemas.js";
 
 /**
  * The tools of `mesh.nodes.token`.
@@ -18,35 +16,41 @@ export const tools: readonly Tool[] = [
   {
     name: "mesh_nodes_token_get",
     title: "Get a Mesh node token",
-    description: "Gets the token used to associate a WARP device with a specific Mesh node.",
+    description: "Gets the token used to associate a WARP device with a specific Mesh node.\n\nGET /accounts/{account_id}/warp_connector/{tunnel_id}/token",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/tunnel_account_id",
-          "description": "Cloudflare account ID"
-        },
-        "node_id": {
-          "$ref": "#/$defs/tunnel_tunnel_id",
-          "description": "UUID of the tunnel."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID",
+              "type": "string"
+            },
+            "tunnel_id": {
+              "description": "UUID of the tunnel.",
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "tunnel_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "node_id"
+        "path"
       ],
-      $defs: {
-        "tunnel_account_id": tunnel_account_id,
-        "tunnel_tunnel_id": tunnel_tunnel_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tunnel_tunnel_response_token",
       $defs: {
-        "tunnel_api-response-common": tunnel_api_response_common_output,
-        "tunnel_messages": tunnel_messages_output,
-        "tunnel_tunnel_response_token": tunnel_tunnel_response_token_output,
-        "tunnel_tunnel_token": tunnel_tunnel_token_output,
+        "tunnel_api-response-common": tunnel_api$$response$$common,
+        "tunnel_messages": tunnel_messages,
+        "tunnel_tunnel_response_token": tunnel_tunnel_response_token,
       },
     },
     annotations: {
@@ -82,15 +86,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "tunnel_api-response-common": tunnel_api_response_common_output,
-        "tunnel_api-response-common-failure": tunnel_api_response_common_failure_output,
-        "tunnel_messages": tunnel_messages_output,
-        "tunnel_tunnel_response_token": tunnel_tunnel_response_token_output,
-        "tunnel_tunnel_token": tunnel_tunnel_token_output,
+        "tunnel_api-response-common": tunnel_api$$response$$common,
+        "tunnel_api-response-common-failure": tunnel_api$$response$$common$$failure,
+        "tunnel_messages": tunnel_messages,
+        "tunnel_tunnel_response_token": tunnel_tunnel_response_token,
       },
     },
     request: (args) => ({
-      path: `/accounts/${pathParam(args, "account_id")}/warp_connector/${pathParam(args, "node_id")}/token`,
+      path: `/accounts/${pathParam(args, "account_id")}/warp_connector/${pathParam(args, "tunnel_id")}/token`,
     }),
   },
 ];

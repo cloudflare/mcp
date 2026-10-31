@@ -4,22 +4,15 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `workers-kv_cursor` in responses.
- */
-export const workers_kv_cursor_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `workers-kv_cursor_result_info` in responses.
  */
-export const workers_kv_cursor_result_info_output: JsonSchema = {
+export const workers$$kv_cursor_result_info: JsonSchema = {
   "properties": {
     "count": {
       "type": "number"
     },
     "cursor": {
-      "$ref": "#/$defs/workers-kv_cursor"
+      "type": "string"
     }
   },
   "type": "object"
@@ -28,7 +21,7 @@ export const workers_kv_cursor_result_info_output: JsonSchema = {
 /**
  * The schema of `workers-kv_key` in responses.
  */
-export const workers_kv_key_output: JsonSchema = {
+export const workers$$kv_key: JsonSchema = {
   "properties": {
     "expiration": {
       "type": "number"
@@ -37,7 +30,7 @@ export const workers_kv_key_output: JsonSchema = {
       "$ref": "#/$defs/workers-kv_list_metadata"
     },
     "name": {
-      "$ref": "#/$defs/workers-kv_key_name"
+      "type": "string"
     }
   },
   "required": [

@@ -4,21 +4,13 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
- * The schema of `alexandria_category_id`.
- */
-export const alexandria_category_id: JsonSchema = {
-  "description": "Numeric identifier for an application category.",
-  "type": "integer"
-};
-
-/**
  * The schema of `iam_account`.
  */
 export const iam_account: JsonSchema = {
   "properties": {
     "id": {
-      "$ref": "#/$defs/iam_common_components-schemas-identifier",
-      "description": "Identifier"
+      "description": "Identifier",
+      "type": "string"
     },
     "managed_by": {
       "description": "Parent container details",
@@ -44,7 +36,11 @@ export const iam_account: JsonSchema = {
       "type": "object"
     },
     "type": {
-      "$ref": "#/$defs/iam_account-type"
+      "enum": [
+        "standard",
+        "enterprise"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -58,7 +54,7 @@ export const iam_account: JsonSchema = {
 /**
  * The schema of `iam_components-schemas-account`.
  */
-export const iam_components_schemas_account: JsonSchema = {
+export const iam_components$$schemas$$account: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/iam_account"
@@ -78,7 +74,7 @@ export const iam_components_schemas_account: JsonSchema = {
 /**
  * The schema of `iam_create-account`.
  */
-export const iam_create_account: JsonSchema = {
+export const iam_create$$account: JsonSchema = {
   "description": "Create Account",
   "properties": {
     "name": {
@@ -93,7 +89,11 @@ export const iam_create_account: JsonSchema = {
       "type": "boolean"
     },
     "type": {
-      "$ref": "#/$defs/iam_account-type"
+      "enum": [
+        "standard",
+        "enterprise"
+      ],
+      "type": "string"
     },
     "unit": {
       "description": "Information related to the tenant unit. Provide its ID and omit `standalone` to create the Account within an Organization. See https://developers.cloudflare.com/tenant/how-to/manage-accounts/.",
@@ -118,8 +118,8 @@ export const iam_create_account: JsonSchema = {
 export const iam_role: JsonSchema = {
   "properties": {
     "id": {
-      "$ref": "#/$defs/iam_role_components-schemas-identifier",
-      "description": "Role identifier tag."
+      "description": "Role identifier tag.",
+      "type": "string"
     },
     "permissions": {
       "$ref": "#/$defs/iam_permissions"
@@ -130,12 +130,4 @@ export const iam_role: JsonSchema = {
     "permissions"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `iam_role_components-schemas-identifier`.
- */
-export const iam_role_components_schemas_identifier: JsonSchema = {
-  "description": "Role identifier tag.",
-  "type": "string"
 };

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `smartshield_base` in responses.
  */
-export const smartshield_base_output: JsonSchema = {
+export const smartshield_base: JsonSchema = {
   "properties": {
     "id": {
       "type": "string"
@@ -32,7 +32,7 @@ export const smartshield_base_output: JsonSchema = {
 /**
  * The schema of `smartshield_cache_reserve_clear` in responses.
  */
-export const smartshield_cache_reserve_clear_output: JsonSchema = {
+export const smartshield_cache_reserve_clear: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/smartshield_base"
@@ -52,17 +52,9 @@ export const smartshield_cache_reserve_clear_output: JsonSchema = {
 };
 
 /**
- * The schema of `smartshield_cache_reserve_clear_end_ts` in responses.
- */
-export const smartshield_cache_reserve_clear_end_ts_output: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
  * The schema of `smartshield_cache_reserve_clear_response_value` in responses.
  */
-export const smartshield_cache_reserve_clear_response_value_output: JsonSchema = {
+export const smartshield_cache_reserve_clear_response_value: JsonSchema = {
   "properties": {
     "result": {
       "allOf": [
@@ -72,13 +64,19 @@ export const smartshield_cache_reserve_clear_response_value_output: JsonSchema =
         {
           "properties": {
             "end_ts": {
-              "$ref": "#/$defs/smartshield_cache_reserve_clear_end_ts"
+              "format": "date-time",
+              "type": "string"
             },
             "start_ts": {
-              "$ref": "#/$defs/smartshield_cache_reserve_clear_start_ts"
+              "format": "date-time",
+              "type": "string"
             },
             "state": {
-              "$ref": "#/$defs/smartshield_cache_reserve_clear_state"
+              "enum": [
+                "In-progress",
+                "Completed"
+              ],
+              "type": "string"
             }
           },
           "required": [
@@ -91,23 +89,4 @@ export const smartshield_cache_reserve_clear_response_value_output: JsonSchema =
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `smartshield_cache_reserve_clear_start_ts` in responses.
- */
-export const smartshield_cache_reserve_clear_start_ts_output: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `smartshield_cache_reserve_clear_state` in responses.
- */
-export const smartshield_cache_reserve_clear_state_output: JsonSchema = {
-  "enum": [
-    "In-progress",
-    "Completed"
-  ],
-  "type": "string"
 };

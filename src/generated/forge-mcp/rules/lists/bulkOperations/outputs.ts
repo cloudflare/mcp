@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `lists_bulk-operation-response-single` in responses.
  */
-export const lists_bulk_operation_response_single_output: JsonSchema = {
+export const lists_bulk$$operation$$response$$single: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -25,13 +25,13 @@ export const lists_bulk_operation_response_single_output: JsonSchema = {
 /**
  * The schema of `lists_bulk_operation_completed` in responses.
  */
-export const lists_bulk_operation_completed_output: JsonSchema = {
+export const lists_bulk_operation_completed: JsonSchema = {
   "properties": {
     "completed": {
-      "$ref": "#/$defs/lists_completed"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/lists_operation_id"
+      "type": "string"
     },
     "status": {
       "enum": [
@@ -51,16 +51,16 @@ export const lists_bulk_operation_completed_output: JsonSchema = {
 /**
  * The schema of `lists_bulk_operation_failed` in responses.
  */
-export const lists_bulk_operation_failed_output: JsonSchema = {
+export const lists_bulk_operation_failed: JsonSchema = {
   "properties": {
     "completed": {
-      "$ref": "#/$defs/lists_completed"
+      "type": "string"
     },
     "error": {
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/lists_operation_id"
+      "type": "string"
     },
     "status": {
       "enum": [
@@ -81,10 +81,10 @@ export const lists_bulk_operation_failed_output: JsonSchema = {
 /**
  * The schema of `lists_bulk_operation_pending_or_running` in responses.
  */
-export const lists_bulk_operation_pending_or_running_output: JsonSchema = {
+export const lists_bulk_operation_pending_or_running: JsonSchema = {
   "properties": {
     "id": {
-      "$ref": "#/$defs/lists_operation_id"
+      "type": "string"
     },
     "status": {
       "enum": [
@@ -102,16 +102,9 @@ export const lists_bulk_operation_pending_or_running_output: JsonSchema = {
 };
 
 /**
- * The schema of `lists_completed` in responses.
- */
-export const lists_completed_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `lists_operation` in responses.
  */
-export const lists_operation_output: JsonSchema = {
+export const lists_operation: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/lists_bulk_operation_pending_or_running"

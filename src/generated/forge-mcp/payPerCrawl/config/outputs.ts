@@ -4,24 +4,17 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `pay-per-crawl_BotAccessMode` in responses.
- */
-export const pay_per_crawl_BotAccessMode_output: JsonSchema = {
-  "enum": [
-    "charge",
-    "bypass"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `pay-per-crawl_DaricConfig` in responses.
  */
-export const pay_per_crawl_DaricConfig_output: JsonSchema = {
+export const pay$$per$$crawl_DaricConfig: JsonSchema = {
   "properties": {
     "bot_overrides": {
       "additionalProperties": {
-        "$ref": "#/$defs/pay-per-crawl_BotAccessMode"
+        "enum": [
+          "charge",
+          "bypass"
+        ],
+        "type": "string"
       },
       "type": "object"
     },
@@ -38,7 +31,7 @@ export const pay_per_crawl_DaricConfig_output: JsonSchema = {
 /**
  * The schema of `pay-per-crawl_getConfigResponse` in responses.
  */
-export const pay_per_crawl_getConfigResponse_output: JsonSchema = {
+export const pay$$per$$crawl_getConfigResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {

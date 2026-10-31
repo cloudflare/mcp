@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `workers-kv_any`.
  */
-export const workers_kv_any: JsonSchema = {
+export const workers$$kv_any: JsonSchema = {
   "anyOf": [
     {
       "type": "string"
@@ -36,49 +36,9 @@ export const workers_kv_any: JsonSchema = {
 };
 
 /**
- * The schema of `workers-kv_expiration`.
- */
-export const workers_kv_expiration: JsonSchema = {
-  "description": "Expires the key at a certain time, measured in number of seconds since the UNIX epoch.",
-  "type": "number"
-};
-
-/**
- * The schema of `workers-kv_expiration_ttl`.
- */
-export const workers_kv_expiration_ttl: JsonSchema = {
-  "description": "Number of seconds until the key expires. Must be at least 60. Takes precedence over `expiration` when both are specified.",
-  "type": "number"
-};
-
-/**
- * The schema of `workers-kv_identifier`.
- */
-export const workers_kv_identifier: JsonSchema = {
-  "description": "ID of the Cloudflare account that owns the Workers KV namespaces.",
-  "type": "string"
-};
-
-/**
- * The schema of `workers-kv_key_name`.
- */
-export const workers_kv_key_name: JsonSchema = {
-  "description": "A key's name. The name may be at most 512 bytes. All printable, non-whitespace characters are valid. Use percent-encoding to define key names as part of a URL.",
-  "type": "string"
-};
-
-/**
  * The schema of `workers-kv_list_metadata`.
  */
-export const workers_kv_list_metadata: JsonSchema = {
+export const workers$$kv_list_metadata: JsonSchema = {
   "$ref": "#/$defs/workers-kv_any",
   "description": "Arbitrary JSON that is associated with a key."
-};
-
-/**
- * The schema of `workers-kv_namespace_identifier`.
- */
-export const workers_kv_namespace_identifier: JsonSchema = {
-  "description": "ID of the Workers KV namespace.",
-  "type": "string"
 };

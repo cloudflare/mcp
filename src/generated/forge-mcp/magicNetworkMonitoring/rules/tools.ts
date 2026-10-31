@@ -3,105 +3,70 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  magic_visibility_mnm_api_response_common_failure_output,
-  magic_visibility_mnm_api_response_common_output,
-  magic_visibility_mnm_api_response_single_output,
-  magic_visibility_mnm_messages_output,
+  magic$$visibility$$mnm_api$$response$$common,
+  magic$$visibility$$mnm_api$$response$$common$$failure,
+  magic$$visibility$$mnm_api$$response$$single,
+  magic$$visibility$$mnm_messages,
 } from "../outputs.js";
-import { magic_visibility_mnm_account_identifier } from "../schemas.js";
 import {
-  magic_visibility_mnm_api_response_collection_output,
-  magic_visibility_mnm_mnm_rule_automatic_advertisement_output,
-  magic_visibility_mnm_mnm_rule_bandwidth_threshold_output,
-  magic_visibility_mnm_mnm_rule_duration_output,
-  magic_visibility_mnm_mnm_rule_ip_prefix_output,
-  magic_visibility_mnm_mnm_rule_ip_prefixes_output,
-  magic_visibility_mnm_mnm_rule_name_output,
-  magic_visibility_mnm_mnm_rule_output,
-  magic_visibility_mnm_mnm_rule_packet_threshold_output,
-  magic_visibility_mnm_mnm_rule_prefix_match_output,
-  magic_visibility_mnm_mnm_rule_type_output,
-  magic_visibility_mnm_mnm_rule_zscore_sensitivity_output,
-  magic_visibility_mnm_mnm_rule_zscore_target_output,
-  magic_visibility_mnm_mnm_rules_collection_response_output,
-  magic_visibility_mnm_mnm_rules_single_response_output,
-  magic_visibility_mnm_result_info_output,
-  magic_visibility_mnm_rule_identifier_output,
+  magic$$visibility$$mnm_api$$response$$collection,
+  magic$$visibility$$mnm_mnm_rule,
+  magic$$visibility$$mnm_mnm_rule_ip_prefixes,
+  magic$$visibility$$mnm_mnm_rules_collection_response,
+  magic$$visibility$$mnm_mnm_rules_single_response,
+  magic$$visibility$$mnm_result_info,
 } from "./outputs.js";
 import {
-  magic_visibility_mnm_mnm_rule_automatic_advertisement,
-  magic_visibility_mnm_mnm_rule_bandwidth_threshold,
-  magic_visibility_mnm_mnm_rule_create,
-  magic_visibility_mnm_mnm_rule_duration,
-  magic_visibility_mnm_mnm_rule_ip_prefix,
-  magic_visibility_mnm_mnm_rule_ip_prefixes,
-  magic_visibility_mnm_mnm_rule_name,
-  magic_visibility_mnm_mnm_rule_packet_threshold,
-  magic_visibility_mnm_mnm_rule_prefix_match,
-  magic_visibility_mnm_mnm_rule_type,
-  magic_visibility_mnm_mnm_rule_zscore_sensitivity,
-  magic_visibility_mnm_mnm_rule_zscore_target,
-  magic_visibility_mnm_rule_identifier,
+  magic$$visibility$$mnm_mnm_rule_create,
+  magic$$visibility$$mnm_mnm_rule_ip_prefixes as magic$$visibility$$mnm_mnm_rule_ip_prefixes$,
 } from "./schemas.js";
 
 /**
- * The tools of `magic_network_monitoring.rules`.
+ * The tools of `magicNetworkMonitoring.rules`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "magic_network_monitoring_rules_create",
+    name: "magicNetworkMonitoring_rules_create",
     title: "Create rules",
-    description: "Create network monitoring rules for account. Currently only supports creating a single rule per API request.",
+    description: "Create network monitoring rules for account. Currently only supports creating a single rule per API request.\n\nPOST /accounts/{account_id}/mnm/rules",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/magic-visibility-mnm_account_identifier"
-        },
         "body": {
           "$ref": "#/$defs/magic-visibility-mnm_mnm_rule_create"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "magic-visibility-mnm_account_identifier": magic_visibility_mnm_account_identifier,
-        "magic-visibility-mnm_mnm_rule_automatic_advertisement": magic_visibility_mnm_mnm_rule_automatic_advertisement,
-        "magic-visibility-mnm_mnm_rule_bandwidth_threshold": magic_visibility_mnm_mnm_rule_bandwidth_threshold,
-        "magic-visibility-mnm_mnm_rule_create": magic_visibility_mnm_mnm_rule_create,
-        "magic-visibility-mnm_mnm_rule_duration": magic_visibility_mnm_mnm_rule_duration,
-        "magic-visibility-mnm_mnm_rule_ip_prefix": magic_visibility_mnm_mnm_rule_ip_prefix,
-        "magic-visibility-mnm_mnm_rule_ip_prefixes": magic_visibility_mnm_mnm_rule_ip_prefixes,
-        "magic-visibility-mnm_mnm_rule_name": magic_visibility_mnm_mnm_rule_name,
-        "magic-visibility-mnm_mnm_rule_packet_threshold": magic_visibility_mnm_mnm_rule_packet_threshold,
-        "magic-visibility-mnm_mnm_rule_prefix_match": magic_visibility_mnm_mnm_rule_prefix_match,
-        "magic-visibility-mnm_mnm_rule_type": magic_visibility_mnm_mnm_rule_type,
-        "magic-visibility-mnm_mnm_rule_zscore_sensitivity": magic_visibility_mnm_mnm_rule_zscore_sensitivity,
-        "magic-visibility-mnm_mnm_rule_zscore_target": magic_visibility_mnm_mnm_rule_zscore_target,
+        "magic-visibility-mnm_mnm_rule_create": magic$$visibility$$mnm_mnm_rule_create,
+        "magic-visibility-mnm_mnm_rule_ip_prefixes": magic$$visibility$$mnm_mnm_rule_ip_prefixes$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/magic-visibility-mnm_mnm_rules_single_response",
       $defs: {
-        "magic-visibility-mnm_api-response-common": magic_visibility_mnm_api_response_common_output,
-        "magic-visibility-mnm_api-response-single": magic_visibility_mnm_api_response_single_output,
-        "magic-visibility-mnm_messages": magic_visibility_mnm_messages_output,
-        "magic-visibility-mnm_mnm_rule": magic_visibility_mnm_mnm_rule_output,
-        "magic-visibility-mnm_mnm_rule_automatic_advertisement": magic_visibility_mnm_mnm_rule_automatic_advertisement_output,
-        "magic-visibility-mnm_mnm_rule_bandwidth_threshold": magic_visibility_mnm_mnm_rule_bandwidth_threshold_output,
-        "magic-visibility-mnm_mnm_rule_duration": magic_visibility_mnm_mnm_rule_duration_output,
-        "magic-visibility-mnm_mnm_rule_ip_prefix": magic_visibility_mnm_mnm_rule_ip_prefix_output,
-        "magic-visibility-mnm_mnm_rule_ip_prefixes": magic_visibility_mnm_mnm_rule_ip_prefixes_output,
-        "magic-visibility-mnm_mnm_rule_name": magic_visibility_mnm_mnm_rule_name_output,
-        "magic-visibility-mnm_mnm_rule_packet_threshold": magic_visibility_mnm_mnm_rule_packet_threshold_output,
-        "magic-visibility-mnm_mnm_rule_prefix_match": magic_visibility_mnm_mnm_rule_prefix_match_output,
-        "magic-visibility-mnm_mnm_rule_type": magic_visibility_mnm_mnm_rule_type_output,
-        "magic-visibility-mnm_mnm_rule_zscore_sensitivity": magic_visibility_mnm_mnm_rule_zscore_sensitivity_output,
-        "magic-visibility-mnm_mnm_rule_zscore_target": magic_visibility_mnm_mnm_rule_zscore_target_output,
-        "magic-visibility-mnm_mnm_rules_single_response": magic_visibility_mnm_mnm_rules_single_response_output,
-        "magic-visibility-mnm_rule_identifier": magic_visibility_mnm_rule_identifier_output,
+        "magic-visibility-mnm_api-response-common": magic$$visibility$$mnm_api$$response$$common,
+        "magic-visibility-mnm_api-response-single": magic$$visibility$$mnm_api$$response$$single,
+        "magic-visibility-mnm_messages": magic$$visibility$$mnm_messages,
+        "magic-visibility-mnm_mnm_rule": magic$$visibility$$mnm_mnm_rule,
+        "magic-visibility-mnm_mnm_rule_ip_prefixes": magic$$visibility$$mnm_mnm_rule_ip_prefixes,
+        "magic-visibility-mnm_mnm_rules_single_response": magic$$visibility$$mnm_mnm_rules_single_response,
       },
     },
     annotations: {
@@ -135,24 +100,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "magic-visibility-mnm_api-response-common": magic_visibility_mnm_api_response_common_output,
-        "magic-visibility-mnm_api-response-common-failure": magic_visibility_mnm_api_response_common_failure_output,
-        "magic-visibility-mnm_api-response-single": magic_visibility_mnm_api_response_single_output,
-        "magic-visibility-mnm_messages": magic_visibility_mnm_messages_output,
-        "magic-visibility-mnm_mnm_rule": magic_visibility_mnm_mnm_rule_output,
-        "magic-visibility-mnm_mnm_rule_automatic_advertisement": magic_visibility_mnm_mnm_rule_automatic_advertisement_output,
-        "magic-visibility-mnm_mnm_rule_bandwidth_threshold": magic_visibility_mnm_mnm_rule_bandwidth_threshold_output,
-        "magic-visibility-mnm_mnm_rule_duration": magic_visibility_mnm_mnm_rule_duration_output,
-        "magic-visibility-mnm_mnm_rule_ip_prefix": magic_visibility_mnm_mnm_rule_ip_prefix_output,
-        "magic-visibility-mnm_mnm_rule_ip_prefixes": magic_visibility_mnm_mnm_rule_ip_prefixes_output,
-        "magic-visibility-mnm_mnm_rule_name": magic_visibility_mnm_mnm_rule_name_output,
-        "magic-visibility-mnm_mnm_rule_packet_threshold": magic_visibility_mnm_mnm_rule_packet_threshold_output,
-        "magic-visibility-mnm_mnm_rule_prefix_match": magic_visibility_mnm_mnm_rule_prefix_match_output,
-        "magic-visibility-mnm_mnm_rule_type": magic_visibility_mnm_mnm_rule_type_output,
-        "magic-visibility-mnm_mnm_rule_zscore_sensitivity": magic_visibility_mnm_mnm_rule_zscore_sensitivity_output,
-        "magic-visibility-mnm_mnm_rule_zscore_target": magic_visibility_mnm_mnm_rule_zscore_target_output,
-        "magic-visibility-mnm_mnm_rules_single_response": magic_visibility_mnm_mnm_rules_single_response_output,
-        "magic-visibility-mnm_rule_identifier": magic_visibility_mnm_rule_identifier_output,
+        "magic-visibility-mnm_api-response-common": magic$$visibility$$mnm_api$$response$$common,
+        "magic-visibility-mnm_api-response-common-failure": magic$$visibility$$mnm_api$$response$$common$$failure,
+        "magic-visibility-mnm_api-response-single": magic$$visibility$$mnm_api$$response$$single,
+        "magic-visibility-mnm_messages": magic$$visibility$$mnm_messages,
+        "magic-visibility-mnm_mnm_rule": magic$$visibility$$mnm_mnm_rule,
+        "magic-visibility-mnm_mnm_rule_ip_prefixes": magic$$visibility$$mnm_mnm_rule_ip_prefixes,
+        "magic-visibility-mnm_mnm_rules_single_response": magic$$visibility$$mnm_mnm_rules_single_response,
       },
     },
     request: (args) => ({
@@ -161,49 +115,44 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "magic_network_monitoring_rules_delete",
+    name: "magicNetworkMonitoring_rules_delete",
     title: "Delete rule",
-    description: "Delete a network monitoring rule for account.",
+    description: "Delete a network monitoring rule for account.\n\nDELETE /accounts/{account_id}/mnm/rules/{rule_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/magic-visibility-mnm_account_identifier"
-        },
-        "rule_id": {
-          "$ref": "#/$defs/magic-visibility-mnm_rule_identifier",
-          "description": "The id of the rule. Must be unique."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "rule_id": {
+              "description": "The id of the rule. Must be unique.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "rule_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "rule_id"
+        "path"
       ],
-      $defs: {
-        "magic-visibility-mnm_account_identifier": magic_visibility_mnm_account_identifier,
-        "magic-visibility-mnm_rule_identifier": magic_visibility_mnm_rule_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/magic-visibility-mnm_mnm_rules_single_response",
       $defs: {
-        "magic-visibility-mnm_api-response-common": magic_visibility_mnm_api_response_common_output,
-        "magic-visibility-mnm_api-response-single": magic_visibility_mnm_api_response_single_output,
-        "magic-visibility-mnm_messages": magic_visibility_mnm_messages_output,
-        "magic-visibility-mnm_mnm_rule": magic_visibility_mnm_mnm_rule_output,
-        "magic-visibility-mnm_mnm_rule_automatic_advertisement": magic_visibility_mnm_mnm_rule_automatic_advertisement_output,
-        "magic-visibility-mnm_mnm_rule_bandwidth_threshold": magic_visibility_mnm_mnm_rule_bandwidth_threshold_output,
-        "magic-visibility-mnm_mnm_rule_duration": magic_visibility_mnm_mnm_rule_duration_output,
-        "magic-visibility-mnm_mnm_rule_ip_prefix": magic_visibility_mnm_mnm_rule_ip_prefix_output,
-        "magic-visibility-mnm_mnm_rule_ip_prefixes": magic_visibility_mnm_mnm_rule_ip_prefixes_output,
-        "magic-visibility-mnm_mnm_rule_name": magic_visibility_mnm_mnm_rule_name_output,
-        "magic-visibility-mnm_mnm_rule_packet_threshold": magic_visibility_mnm_mnm_rule_packet_threshold_output,
-        "magic-visibility-mnm_mnm_rule_prefix_match": magic_visibility_mnm_mnm_rule_prefix_match_output,
-        "magic-visibility-mnm_mnm_rule_type": magic_visibility_mnm_mnm_rule_type_output,
-        "magic-visibility-mnm_mnm_rule_zscore_sensitivity": magic_visibility_mnm_mnm_rule_zscore_sensitivity_output,
-        "magic-visibility-mnm_mnm_rule_zscore_target": magic_visibility_mnm_mnm_rule_zscore_target_output,
-        "magic-visibility-mnm_mnm_rules_single_response": magic_visibility_mnm_mnm_rules_single_response_output,
-        "magic-visibility-mnm_rule_identifier": magic_visibility_mnm_rule_identifier_output,
+        "magic-visibility-mnm_api-response-common": magic$$visibility$$mnm_api$$response$$common,
+        "magic-visibility-mnm_api-response-single": magic$$visibility$$mnm_api$$response$$single,
+        "magic-visibility-mnm_messages": magic$$visibility$$mnm_messages,
+        "magic-visibility-mnm_mnm_rule": magic$$visibility$$mnm_mnm_rule,
+        "magic-visibility-mnm_mnm_rule_ip_prefixes": magic$$visibility$$mnm_mnm_rule_ip_prefixes,
+        "magic-visibility-mnm_mnm_rules_single_response": magic$$visibility$$mnm_mnm_rules_single_response,
       },
     },
     annotations: {
@@ -237,24 +186,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "magic-visibility-mnm_api-response-common": magic_visibility_mnm_api_response_common_output,
-        "magic-visibility-mnm_api-response-common-failure": magic_visibility_mnm_api_response_common_failure_output,
-        "magic-visibility-mnm_api-response-single": magic_visibility_mnm_api_response_single_output,
-        "magic-visibility-mnm_messages": magic_visibility_mnm_messages_output,
-        "magic-visibility-mnm_mnm_rule": magic_visibility_mnm_mnm_rule_output,
-        "magic-visibility-mnm_mnm_rule_automatic_advertisement": magic_visibility_mnm_mnm_rule_automatic_advertisement_output,
-        "magic-visibility-mnm_mnm_rule_bandwidth_threshold": magic_visibility_mnm_mnm_rule_bandwidth_threshold_output,
-        "magic-visibility-mnm_mnm_rule_duration": magic_visibility_mnm_mnm_rule_duration_output,
-        "magic-visibility-mnm_mnm_rule_ip_prefix": magic_visibility_mnm_mnm_rule_ip_prefix_output,
-        "magic-visibility-mnm_mnm_rule_ip_prefixes": magic_visibility_mnm_mnm_rule_ip_prefixes_output,
-        "magic-visibility-mnm_mnm_rule_name": magic_visibility_mnm_mnm_rule_name_output,
-        "magic-visibility-mnm_mnm_rule_packet_threshold": magic_visibility_mnm_mnm_rule_packet_threshold_output,
-        "magic-visibility-mnm_mnm_rule_prefix_match": magic_visibility_mnm_mnm_rule_prefix_match_output,
-        "magic-visibility-mnm_mnm_rule_type": magic_visibility_mnm_mnm_rule_type_output,
-        "magic-visibility-mnm_mnm_rule_zscore_sensitivity": magic_visibility_mnm_mnm_rule_zscore_sensitivity_output,
-        "magic-visibility-mnm_mnm_rule_zscore_target": magic_visibility_mnm_mnm_rule_zscore_target_output,
-        "magic-visibility-mnm_mnm_rules_single_response": magic_visibility_mnm_mnm_rules_single_response_output,
-        "magic-visibility-mnm_rule_identifier": magic_visibility_mnm_rule_identifier_output,
+        "magic-visibility-mnm_api-response-common": magic$$visibility$$mnm_api$$response$$common,
+        "magic-visibility-mnm_api-response-common-failure": magic$$visibility$$mnm_api$$response$$common$$failure,
+        "magic-visibility-mnm_api-response-single": magic$$visibility$$mnm_api$$response$$single,
+        "magic-visibility-mnm_messages": magic$$visibility$$mnm_messages,
+        "magic-visibility-mnm_mnm_rule": magic$$visibility$$mnm_mnm_rule,
+        "magic-visibility-mnm_mnm_rule_ip_prefixes": magic$$visibility$$mnm_mnm_rule_ip_prefixes,
+        "magic-visibility-mnm_mnm_rules_single_response": magic$$visibility$$mnm_mnm_rules_single_response,
       },
     },
     request: (args) => ({
@@ -262,65 +200,52 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "magic_network_monitoring_rules_edit",
+    name: "magicNetworkMonitoring_rules_edit",
     title: "Update rule",
-    description: "Update a network monitoring rule for account.",
+    description: "Update a network monitoring rule for account.\n\nPATCH /accounts/{account_id}/mnm/rules/{rule_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/magic-visibility-mnm_account_identifier"
-        },
         "body": {
           "$ref": "#/$defs/magic-visibility-mnm_mnm_rule_create"
         },
-        "rule_id": {
-          "$ref": "#/$defs/magic-visibility-mnm_rule_identifier",
-          "description": "The id of the rule. Must be unique."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "rule_id": {
+              "description": "The id of the rule. Must be unique.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "rule_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "rule_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "magic-visibility-mnm_account_identifier": magic_visibility_mnm_account_identifier,
-        "magic-visibility-mnm_mnm_rule_automatic_advertisement": magic_visibility_mnm_mnm_rule_automatic_advertisement,
-        "magic-visibility-mnm_mnm_rule_bandwidth_threshold": magic_visibility_mnm_mnm_rule_bandwidth_threshold,
-        "magic-visibility-mnm_mnm_rule_create": magic_visibility_mnm_mnm_rule_create,
-        "magic-visibility-mnm_mnm_rule_duration": magic_visibility_mnm_mnm_rule_duration,
-        "magic-visibility-mnm_mnm_rule_ip_prefix": magic_visibility_mnm_mnm_rule_ip_prefix,
-        "magic-visibility-mnm_mnm_rule_ip_prefixes": magic_visibility_mnm_mnm_rule_ip_prefixes,
-        "magic-visibility-mnm_mnm_rule_name": magic_visibility_mnm_mnm_rule_name,
-        "magic-visibility-mnm_mnm_rule_packet_threshold": magic_visibility_mnm_mnm_rule_packet_threshold,
-        "magic-visibility-mnm_mnm_rule_prefix_match": magic_visibility_mnm_mnm_rule_prefix_match,
-        "magic-visibility-mnm_mnm_rule_type": magic_visibility_mnm_mnm_rule_type,
-        "magic-visibility-mnm_mnm_rule_zscore_sensitivity": magic_visibility_mnm_mnm_rule_zscore_sensitivity,
-        "magic-visibility-mnm_mnm_rule_zscore_target": magic_visibility_mnm_mnm_rule_zscore_target,
-        "magic-visibility-mnm_rule_identifier": magic_visibility_mnm_rule_identifier,
+        "magic-visibility-mnm_mnm_rule_create": magic$$visibility$$mnm_mnm_rule_create,
+        "magic-visibility-mnm_mnm_rule_ip_prefixes": magic$$visibility$$mnm_mnm_rule_ip_prefixes$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/magic-visibility-mnm_mnm_rules_single_response",
       $defs: {
-        "magic-visibility-mnm_api-response-common": magic_visibility_mnm_api_response_common_output,
-        "magic-visibility-mnm_api-response-single": magic_visibility_mnm_api_response_single_output,
-        "magic-visibility-mnm_messages": magic_visibility_mnm_messages_output,
-        "magic-visibility-mnm_mnm_rule": magic_visibility_mnm_mnm_rule_output,
-        "magic-visibility-mnm_mnm_rule_automatic_advertisement": magic_visibility_mnm_mnm_rule_automatic_advertisement_output,
-        "magic-visibility-mnm_mnm_rule_bandwidth_threshold": magic_visibility_mnm_mnm_rule_bandwidth_threshold_output,
-        "magic-visibility-mnm_mnm_rule_duration": magic_visibility_mnm_mnm_rule_duration_output,
-        "magic-visibility-mnm_mnm_rule_ip_prefix": magic_visibility_mnm_mnm_rule_ip_prefix_output,
-        "magic-visibility-mnm_mnm_rule_ip_prefixes": magic_visibility_mnm_mnm_rule_ip_prefixes_output,
-        "magic-visibility-mnm_mnm_rule_name": magic_visibility_mnm_mnm_rule_name_output,
-        "magic-visibility-mnm_mnm_rule_packet_threshold": magic_visibility_mnm_mnm_rule_packet_threshold_output,
-        "magic-visibility-mnm_mnm_rule_prefix_match": magic_visibility_mnm_mnm_rule_prefix_match_output,
-        "magic-visibility-mnm_mnm_rule_type": magic_visibility_mnm_mnm_rule_type_output,
-        "magic-visibility-mnm_mnm_rule_zscore_sensitivity": magic_visibility_mnm_mnm_rule_zscore_sensitivity_output,
-        "magic-visibility-mnm_mnm_rule_zscore_target": magic_visibility_mnm_mnm_rule_zscore_target_output,
-        "magic-visibility-mnm_mnm_rules_single_response": magic_visibility_mnm_mnm_rules_single_response_output,
-        "magic-visibility-mnm_rule_identifier": magic_visibility_mnm_rule_identifier_output,
+        "magic-visibility-mnm_api-response-common": magic$$visibility$$mnm_api$$response$$common,
+        "magic-visibility-mnm_api-response-single": magic$$visibility$$mnm_api$$response$$single,
+        "magic-visibility-mnm_messages": magic$$visibility$$mnm_messages,
+        "magic-visibility-mnm_mnm_rule": magic$$visibility$$mnm_mnm_rule,
+        "magic-visibility-mnm_mnm_rule_ip_prefixes": magic$$visibility$$mnm_mnm_rule_ip_prefixes,
+        "magic-visibility-mnm_mnm_rules_single_response": magic$$visibility$$mnm_mnm_rules_single_response,
       },
     },
     annotations: {
@@ -355,24 +280,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "magic-visibility-mnm_api-response-common": magic_visibility_mnm_api_response_common_output,
-        "magic-visibility-mnm_api-response-common-failure": magic_visibility_mnm_api_response_common_failure_output,
-        "magic-visibility-mnm_api-response-single": magic_visibility_mnm_api_response_single_output,
-        "magic-visibility-mnm_messages": magic_visibility_mnm_messages_output,
-        "magic-visibility-mnm_mnm_rule": magic_visibility_mnm_mnm_rule_output,
-        "magic-visibility-mnm_mnm_rule_automatic_advertisement": magic_visibility_mnm_mnm_rule_automatic_advertisement_output,
-        "magic-visibility-mnm_mnm_rule_bandwidth_threshold": magic_visibility_mnm_mnm_rule_bandwidth_threshold_output,
-        "magic-visibility-mnm_mnm_rule_duration": magic_visibility_mnm_mnm_rule_duration_output,
-        "magic-visibility-mnm_mnm_rule_ip_prefix": magic_visibility_mnm_mnm_rule_ip_prefix_output,
-        "magic-visibility-mnm_mnm_rule_ip_prefixes": magic_visibility_mnm_mnm_rule_ip_prefixes_output,
-        "magic-visibility-mnm_mnm_rule_name": magic_visibility_mnm_mnm_rule_name_output,
-        "magic-visibility-mnm_mnm_rule_packet_threshold": magic_visibility_mnm_mnm_rule_packet_threshold_output,
-        "magic-visibility-mnm_mnm_rule_prefix_match": magic_visibility_mnm_mnm_rule_prefix_match_output,
-        "magic-visibility-mnm_mnm_rule_type": magic_visibility_mnm_mnm_rule_type_output,
-        "magic-visibility-mnm_mnm_rule_zscore_sensitivity": magic_visibility_mnm_mnm_rule_zscore_sensitivity_output,
-        "magic-visibility-mnm_mnm_rule_zscore_target": magic_visibility_mnm_mnm_rule_zscore_target_output,
-        "magic-visibility-mnm_mnm_rules_single_response": magic_visibility_mnm_mnm_rules_single_response_output,
-        "magic-visibility-mnm_rule_identifier": magic_visibility_mnm_rule_identifier_output,
+        "magic-visibility-mnm_api-response-common": magic$$visibility$$mnm_api$$response$$common,
+        "magic-visibility-mnm_api-response-common-failure": magic$$visibility$$mnm_api$$response$$common$$failure,
+        "magic-visibility-mnm_api-response-single": magic$$visibility$$mnm_api$$response$$single,
+        "magic-visibility-mnm_messages": magic$$visibility$$mnm_messages,
+        "magic-visibility-mnm_mnm_rule": magic$$visibility$$mnm_mnm_rule,
+        "magic-visibility-mnm_mnm_rule_ip_prefixes": magic$$visibility$$mnm_mnm_rule_ip_prefixes,
+        "magic-visibility-mnm_mnm_rules_single_response": magic$$visibility$$mnm_mnm_rules_single_response,
       },
     },
     request: (args) => ({
@@ -381,49 +295,44 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "magic_network_monitoring_rules_get",
+    name: "magicNetworkMonitoring_rules_get",
     title: "Get rule",
-    description: "List a single network monitoring rule for account.",
+    description: "List a single network monitoring rule for account.\n\nGET /accounts/{account_id}/mnm/rules/{rule_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/magic-visibility-mnm_account_identifier"
-        },
-        "rule_id": {
-          "$ref": "#/$defs/magic-visibility-mnm_rule_identifier",
-          "description": "The id of the rule. Must be unique."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "rule_id": {
+              "description": "The id of the rule. Must be unique.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "rule_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "rule_id"
+        "path"
       ],
-      $defs: {
-        "magic-visibility-mnm_account_identifier": magic_visibility_mnm_account_identifier,
-        "magic-visibility-mnm_rule_identifier": magic_visibility_mnm_rule_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/magic-visibility-mnm_mnm_rules_single_response",
       $defs: {
-        "magic-visibility-mnm_api-response-common": magic_visibility_mnm_api_response_common_output,
-        "magic-visibility-mnm_api-response-single": magic_visibility_mnm_api_response_single_output,
-        "magic-visibility-mnm_messages": magic_visibility_mnm_messages_output,
-        "magic-visibility-mnm_mnm_rule": magic_visibility_mnm_mnm_rule_output,
-        "magic-visibility-mnm_mnm_rule_automatic_advertisement": magic_visibility_mnm_mnm_rule_automatic_advertisement_output,
-        "magic-visibility-mnm_mnm_rule_bandwidth_threshold": magic_visibility_mnm_mnm_rule_bandwidth_threshold_output,
-        "magic-visibility-mnm_mnm_rule_duration": magic_visibility_mnm_mnm_rule_duration_output,
-        "magic-visibility-mnm_mnm_rule_ip_prefix": magic_visibility_mnm_mnm_rule_ip_prefix_output,
-        "magic-visibility-mnm_mnm_rule_ip_prefixes": magic_visibility_mnm_mnm_rule_ip_prefixes_output,
-        "magic-visibility-mnm_mnm_rule_name": magic_visibility_mnm_mnm_rule_name_output,
-        "magic-visibility-mnm_mnm_rule_packet_threshold": magic_visibility_mnm_mnm_rule_packet_threshold_output,
-        "magic-visibility-mnm_mnm_rule_prefix_match": magic_visibility_mnm_mnm_rule_prefix_match_output,
-        "magic-visibility-mnm_mnm_rule_type": magic_visibility_mnm_mnm_rule_type_output,
-        "magic-visibility-mnm_mnm_rule_zscore_sensitivity": magic_visibility_mnm_mnm_rule_zscore_sensitivity_output,
-        "magic-visibility-mnm_mnm_rule_zscore_target": magic_visibility_mnm_mnm_rule_zscore_target_output,
-        "magic-visibility-mnm_mnm_rules_single_response": magic_visibility_mnm_mnm_rules_single_response_output,
-        "magic-visibility-mnm_rule_identifier": magic_visibility_mnm_rule_identifier_output,
+        "magic-visibility-mnm_api-response-common": magic$$visibility$$mnm_api$$response$$common,
+        "magic-visibility-mnm_api-response-single": magic$$visibility$$mnm_api$$response$$single,
+        "magic-visibility-mnm_messages": magic$$visibility$$mnm_messages,
+        "magic-visibility-mnm_mnm_rule": magic$$visibility$$mnm_mnm_rule,
+        "magic-visibility-mnm_mnm_rule_ip_prefixes": magic$$visibility$$mnm_mnm_rule_ip_prefixes,
+        "magic-visibility-mnm_mnm_rules_single_response": magic$$visibility$$mnm_mnm_rules_single_response,
       },
     },
     annotations: {
@@ -459,24 +368,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "magic-visibility-mnm_api-response-common": magic_visibility_mnm_api_response_common_output,
-        "magic-visibility-mnm_api-response-common-failure": magic_visibility_mnm_api_response_common_failure_output,
-        "magic-visibility-mnm_api-response-single": magic_visibility_mnm_api_response_single_output,
-        "magic-visibility-mnm_messages": magic_visibility_mnm_messages_output,
-        "magic-visibility-mnm_mnm_rule": magic_visibility_mnm_mnm_rule_output,
-        "magic-visibility-mnm_mnm_rule_automatic_advertisement": magic_visibility_mnm_mnm_rule_automatic_advertisement_output,
-        "magic-visibility-mnm_mnm_rule_bandwidth_threshold": magic_visibility_mnm_mnm_rule_bandwidth_threshold_output,
-        "magic-visibility-mnm_mnm_rule_duration": magic_visibility_mnm_mnm_rule_duration_output,
-        "magic-visibility-mnm_mnm_rule_ip_prefix": magic_visibility_mnm_mnm_rule_ip_prefix_output,
-        "magic-visibility-mnm_mnm_rule_ip_prefixes": magic_visibility_mnm_mnm_rule_ip_prefixes_output,
-        "magic-visibility-mnm_mnm_rule_name": magic_visibility_mnm_mnm_rule_name_output,
-        "magic-visibility-mnm_mnm_rule_packet_threshold": magic_visibility_mnm_mnm_rule_packet_threshold_output,
-        "magic-visibility-mnm_mnm_rule_prefix_match": magic_visibility_mnm_mnm_rule_prefix_match_output,
-        "magic-visibility-mnm_mnm_rule_type": magic_visibility_mnm_mnm_rule_type_output,
-        "magic-visibility-mnm_mnm_rule_zscore_sensitivity": magic_visibility_mnm_mnm_rule_zscore_sensitivity_output,
-        "magic-visibility-mnm_mnm_rule_zscore_target": magic_visibility_mnm_mnm_rule_zscore_target_output,
-        "magic-visibility-mnm_mnm_rules_single_response": magic_visibility_mnm_mnm_rules_single_response_output,
-        "magic-visibility-mnm_rule_identifier": magic_visibility_mnm_rule_identifier_output,
+        "magic-visibility-mnm_api-response-common": magic$$visibility$$mnm_api$$response$$common,
+        "magic-visibility-mnm_api-response-common-failure": magic$$visibility$$mnm_api$$response$$common$$failure,
+        "magic-visibility-mnm_api-response-single": magic$$visibility$$mnm_api$$response$$single,
+        "magic-visibility-mnm_messages": magic$$visibility$$mnm_messages,
+        "magic-visibility-mnm_mnm_rule": magic$$visibility$$mnm_mnm_rule,
+        "magic-visibility-mnm_mnm_rule_ip_prefixes": magic$$visibility$$mnm_mnm_rule_ip_prefixes,
+        "magic-visibility-mnm_mnm_rules_single_response": magic$$visibility$$mnm_mnm_rules_single_response,
       },
     },
     request: (args) => ({
@@ -484,44 +382,40 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "magic_network_monitoring_rules_list",
+    name: "magicNetworkMonitoring_rules_list",
     title: "List rules",
-    description: "Lists network monitoring rules for account.",
+    description: "Lists network monitoring rules for account.\n\nGET /accounts/{account_id}/mnm/rules",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/magic-visibility-mnm_account_identifier"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
-      $defs: {
-        "magic-visibility-mnm_account_identifier": magic_visibility_mnm_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/magic-visibility-mnm_mnm_rules_collection_response",
       $defs: {
-        "magic-visibility-mnm_api-response-collection": magic_visibility_mnm_api_response_collection_output,
-        "magic-visibility-mnm_api-response-common": magic_visibility_mnm_api_response_common_output,
-        "magic-visibility-mnm_messages": magic_visibility_mnm_messages_output,
-        "magic-visibility-mnm_mnm_rule": magic_visibility_mnm_mnm_rule_output,
-        "magic-visibility-mnm_mnm_rule_automatic_advertisement": magic_visibility_mnm_mnm_rule_automatic_advertisement_output,
-        "magic-visibility-mnm_mnm_rule_bandwidth_threshold": magic_visibility_mnm_mnm_rule_bandwidth_threshold_output,
-        "magic-visibility-mnm_mnm_rule_duration": magic_visibility_mnm_mnm_rule_duration_output,
-        "magic-visibility-mnm_mnm_rule_ip_prefix": magic_visibility_mnm_mnm_rule_ip_prefix_output,
-        "magic-visibility-mnm_mnm_rule_ip_prefixes": magic_visibility_mnm_mnm_rule_ip_prefixes_output,
-        "magic-visibility-mnm_mnm_rule_name": magic_visibility_mnm_mnm_rule_name_output,
-        "magic-visibility-mnm_mnm_rule_packet_threshold": magic_visibility_mnm_mnm_rule_packet_threshold_output,
-        "magic-visibility-mnm_mnm_rule_prefix_match": magic_visibility_mnm_mnm_rule_prefix_match_output,
-        "magic-visibility-mnm_mnm_rule_type": magic_visibility_mnm_mnm_rule_type_output,
-        "magic-visibility-mnm_mnm_rule_zscore_sensitivity": magic_visibility_mnm_mnm_rule_zscore_sensitivity_output,
-        "magic-visibility-mnm_mnm_rule_zscore_target": magic_visibility_mnm_mnm_rule_zscore_target_output,
-        "magic-visibility-mnm_mnm_rules_collection_response": magic_visibility_mnm_mnm_rules_collection_response_output,
-        "magic-visibility-mnm_result_info": magic_visibility_mnm_result_info_output,
-        "magic-visibility-mnm_rule_identifier": magic_visibility_mnm_rule_identifier_output,
+        "magic-visibility-mnm_api-response-collection": magic$$visibility$$mnm_api$$response$$collection,
+        "magic-visibility-mnm_api-response-common": magic$$visibility$$mnm_api$$response$$common,
+        "magic-visibility-mnm_messages": magic$$visibility$$mnm_messages,
+        "magic-visibility-mnm_mnm_rule": magic$$visibility$$mnm_mnm_rule,
+        "magic-visibility-mnm_mnm_rule_ip_prefixes": magic$$visibility$$mnm_mnm_rule_ip_prefixes,
+        "magic-visibility-mnm_mnm_rules_collection_response": magic$$visibility$$mnm_mnm_rules_collection_response,
+        "magic-visibility-mnm_result_info": magic$$visibility$$mnm_result_info,
       },
     },
     annotations: {
@@ -557,25 +451,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "magic-visibility-mnm_api-response-collection": magic_visibility_mnm_api_response_collection_output,
-        "magic-visibility-mnm_api-response-common": magic_visibility_mnm_api_response_common_output,
-        "magic-visibility-mnm_api-response-common-failure": magic_visibility_mnm_api_response_common_failure_output,
-        "magic-visibility-mnm_messages": magic_visibility_mnm_messages_output,
-        "magic-visibility-mnm_mnm_rule": magic_visibility_mnm_mnm_rule_output,
-        "magic-visibility-mnm_mnm_rule_automatic_advertisement": magic_visibility_mnm_mnm_rule_automatic_advertisement_output,
-        "magic-visibility-mnm_mnm_rule_bandwidth_threshold": magic_visibility_mnm_mnm_rule_bandwidth_threshold_output,
-        "magic-visibility-mnm_mnm_rule_duration": magic_visibility_mnm_mnm_rule_duration_output,
-        "magic-visibility-mnm_mnm_rule_ip_prefix": magic_visibility_mnm_mnm_rule_ip_prefix_output,
-        "magic-visibility-mnm_mnm_rule_ip_prefixes": magic_visibility_mnm_mnm_rule_ip_prefixes_output,
-        "magic-visibility-mnm_mnm_rule_name": magic_visibility_mnm_mnm_rule_name_output,
-        "magic-visibility-mnm_mnm_rule_packet_threshold": magic_visibility_mnm_mnm_rule_packet_threshold_output,
-        "magic-visibility-mnm_mnm_rule_prefix_match": magic_visibility_mnm_mnm_rule_prefix_match_output,
-        "magic-visibility-mnm_mnm_rule_type": magic_visibility_mnm_mnm_rule_type_output,
-        "magic-visibility-mnm_mnm_rule_zscore_sensitivity": magic_visibility_mnm_mnm_rule_zscore_sensitivity_output,
-        "magic-visibility-mnm_mnm_rule_zscore_target": magic_visibility_mnm_mnm_rule_zscore_target_output,
-        "magic-visibility-mnm_mnm_rules_collection_response": magic_visibility_mnm_mnm_rules_collection_response_output,
-        "magic-visibility-mnm_result_info": magic_visibility_mnm_result_info_output,
-        "magic-visibility-mnm_rule_identifier": magic_visibility_mnm_rule_identifier_output,
+        "magic-visibility-mnm_api-response-collection": magic$$visibility$$mnm_api$$response$$collection,
+        "magic-visibility-mnm_api-response-common": magic$$visibility$$mnm_api$$response$$common,
+        "magic-visibility-mnm_api-response-common-failure": magic$$visibility$$mnm_api$$response$$common$$failure,
+        "magic-visibility-mnm_messages": magic$$visibility$$mnm_messages,
+        "magic-visibility-mnm_mnm_rule": magic$$visibility$$mnm_mnm_rule,
+        "magic-visibility-mnm_mnm_rule_ip_prefixes": magic$$visibility$$mnm_mnm_rule_ip_prefixes,
+        "magic-visibility-mnm_mnm_rules_collection_response": magic$$visibility$$mnm_mnm_rules_collection_response,
+        "magic-visibility-mnm_result_info": magic$$visibility$$mnm_result_info,
       },
     },
     request: (args) => ({
@@ -583,59 +466,47 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "magic_network_monitoring_rules_update",
+    name: "magicNetworkMonitoring_rules_update",
     title: "Update rules",
-    description: "Update network monitoring rules for account.",
+    description: "Update network monitoring rules for account.\n\nPUT /accounts/{account_id}/mnm/rules",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/magic-visibility-mnm_account_identifier"
-        },
         "body": {
           "$ref": "#/$defs/magic-visibility-mnm_mnm_rule_create"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "magic-visibility-mnm_account_identifier": magic_visibility_mnm_account_identifier,
-        "magic-visibility-mnm_mnm_rule_automatic_advertisement": magic_visibility_mnm_mnm_rule_automatic_advertisement,
-        "magic-visibility-mnm_mnm_rule_bandwidth_threshold": magic_visibility_mnm_mnm_rule_bandwidth_threshold,
-        "magic-visibility-mnm_mnm_rule_create": magic_visibility_mnm_mnm_rule_create,
-        "magic-visibility-mnm_mnm_rule_duration": magic_visibility_mnm_mnm_rule_duration,
-        "magic-visibility-mnm_mnm_rule_ip_prefix": magic_visibility_mnm_mnm_rule_ip_prefix,
-        "magic-visibility-mnm_mnm_rule_ip_prefixes": magic_visibility_mnm_mnm_rule_ip_prefixes,
-        "magic-visibility-mnm_mnm_rule_name": magic_visibility_mnm_mnm_rule_name,
-        "magic-visibility-mnm_mnm_rule_packet_threshold": magic_visibility_mnm_mnm_rule_packet_threshold,
-        "magic-visibility-mnm_mnm_rule_prefix_match": magic_visibility_mnm_mnm_rule_prefix_match,
-        "magic-visibility-mnm_mnm_rule_type": magic_visibility_mnm_mnm_rule_type,
-        "magic-visibility-mnm_mnm_rule_zscore_sensitivity": magic_visibility_mnm_mnm_rule_zscore_sensitivity,
-        "magic-visibility-mnm_mnm_rule_zscore_target": magic_visibility_mnm_mnm_rule_zscore_target,
+        "magic-visibility-mnm_mnm_rule_create": magic$$visibility$$mnm_mnm_rule_create,
+        "magic-visibility-mnm_mnm_rule_ip_prefixes": magic$$visibility$$mnm_mnm_rule_ip_prefixes$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/magic-visibility-mnm_mnm_rules_single_response",
       $defs: {
-        "magic-visibility-mnm_api-response-common": magic_visibility_mnm_api_response_common_output,
-        "magic-visibility-mnm_api-response-single": magic_visibility_mnm_api_response_single_output,
-        "magic-visibility-mnm_messages": magic_visibility_mnm_messages_output,
-        "magic-visibility-mnm_mnm_rule": magic_visibility_mnm_mnm_rule_output,
-        "magic-visibility-mnm_mnm_rule_automatic_advertisement": magic_visibility_mnm_mnm_rule_automatic_advertisement_output,
-        "magic-visibility-mnm_mnm_rule_bandwidth_threshold": magic_visibility_mnm_mnm_rule_bandwidth_threshold_output,
-        "magic-visibility-mnm_mnm_rule_duration": magic_visibility_mnm_mnm_rule_duration_output,
-        "magic-visibility-mnm_mnm_rule_ip_prefix": magic_visibility_mnm_mnm_rule_ip_prefix_output,
-        "magic-visibility-mnm_mnm_rule_ip_prefixes": magic_visibility_mnm_mnm_rule_ip_prefixes_output,
-        "magic-visibility-mnm_mnm_rule_name": magic_visibility_mnm_mnm_rule_name_output,
-        "magic-visibility-mnm_mnm_rule_packet_threshold": magic_visibility_mnm_mnm_rule_packet_threshold_output,
-        "magic-visibility-mnm_mnm_rule_prefix_match": magic_visibility_mnm_mnm_rule_prefix_match_output,
-        "magic-visibility-mnm_mnm_rule_type": magic_visibility_mnm_mnm_rule_type_output,
-        "magic-visibility-mnm_mnm_rule_zscore_sensitivity": magic_visibility_mnm_mnm_rule_zscore_sensitivity_output,
-        "magic-visibility-mnm_mnm_rule_zscore_target": magic_visibility_mnm_mnm_rule_zscore_target_output,
-        "magic-visibility-mnm_mnm_rules_single_response": magic_visibility_mnm_mnm_rules_single_response_output,
-        "magic-visibility-mnm_rule_identifier": magic_visibility_mnm_rule_identifier_output,
+        "magic-visibility-mnm_api-response-common": magic$$visibility$$mnm_api$$response$$common,
+        "magic-visibility-mnm_api-response-single": magic$$visibility$$mnm_api$$response$$single,
+        "magic-visibility-mnm_messages": magic$$visibility$$mnm_messages,
+        "magic-visibility-mnm_mnm_rule": magic$$visibility$$mnm_mnm_rule,
+        "magic-visibility-mnm_mnm_rule_ip_prefixes": magic$$visibility$$mnm_mnm_rule_ip_prefixes,
+        "magic-visibility-mnm_mnm_rules_single_response": magic$$visibility$$mnm_mnm_rules_single_response,
       },
     },
     annotations: {
@@ -670,24 +541,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "magic-visibility-mnm_api-response-common": magic_visibility_mnm_api_response_common_output,
-        "magic-visibility-mnm_api-response-common-failure": magic_visibility_mnm_api_response_common_failure_output,
-        "magic-visibility-mnm_api-response-single": magic_visibility_mnm_api_response_single_output,
-        "magic-visibility-mnm_messages": magic_visibility_mnm_messages_output,
-        "magic-visibility-mnm_mnm_rule": magic_visibility_mnm_mnm_rule_output,
-        "magic-visibility-mnm_mnm_rule_automatic_advertisement": magic_visibility_mnm_mnm_rule_automatic_advertisement_output,
-        "magic-visibility-mnm_mnm_rule_bandwidth_threshold": magic_visibility_mnm_mnm_rule_bandwidth_threshold_output,
-        "magic-visibility-mnm_mnm_rule_duration": magic_visibility_mnm_mnm_rule_duration_output,
-        "magic-visibility-mnm_mnm_rule_ip_prefix": magic_visibility_mnm_mnm_rule_ip_prefix_output,
-        "magic-visibility-mnm_mnm_rule_ip_prefixes": magic_visibility_mnm_mnm_rule_ip_prefixes_output,
-        "magic-visibility-mnm_mnm_rule_name": magic_visibility_mnm_mnm_rule_name_output,
-        "magic-visibility-mnm_mnm_rule_packet_threshold": magic_visibility_mnm_mnm_rule_packet_threshold_output,
-        "magic-visibility-mnm_mnm_rule_prefix_match": magic_visibility_mnm_mnm_rule_prefix_match_output,
-        "magic-visibility-mnm_mnm_rule_type": magic_visibility_mnm_mnm_rule_type_output,
-        "magic-visibility-mnm_mnm_rule_zscore_sensitivity": magic_visibility_mnm_mnm_rule_zscore_sensitivity_output,
-        "magic-visibility-mnm_mnm_rule_zscore_target": magic_visibility_mnm_mnm_rule_zscore_target_output,
-        "magic-visibility-mnm_mnm_rules_single_response": magic_visibility_mnm_mnm_rules_single_response_output,
-        "magic-visibility-mnm_rule_identifier": magic_visibility_mnm_rule_identifier_output,
+        "magic-visibility-mnm_api-response-common": magic$$visibility$$mnm_api$$response$$common,
+        "magic-visibility-mnm_api-response-common-failure": magic$$visibility$$mnm_api$$response$$common$$failure,
+        "magic-visibility-mnm_api-response-single": magic$$visibility$$mnm_api$$response$$single,
+        "magic-visibility-mnm_messages": magic$$visibility$$mnm_messages,
+        "magic-visibility-mnm_mnm_rule": magic$$visibility$$mnm_mnm_rule,
+        "magic-visibility-mnm_mnm_rule_ip_prefixes": magic$$visibility$$mnm_mnm_rule_ip_prefixes,
+        "magic-visibility-mnm_mnm_rules_single_response": magic$$visibility$$mnm_mnm_rules_single_response,
       },
     },
     request: (args) => ({

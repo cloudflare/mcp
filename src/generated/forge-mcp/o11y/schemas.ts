@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `workers-observability_filter_leaf`.
  */
-export const workers_observability_filter_leaf: JsonSchema = {
+export const workers$$observability_filter_leaf: JsonSchema = {
   "description": "A filter condition applied to query results. Use the keys and values endpoints to discover available fields and their values before constructing filters.",
   "properties": {
     "key": {
@@ -91,7 +91,7 @@ export const workers_observability_filter_leaf: JsonSchema = {
 /**
  * The schema of `workers-observability_filter_node`.
  */
-export const workers_observability_filter_node: JsonSchema = {
+export const workers$$observability_filter_node: JsonSchema = {
   "anyOf": [
     {
       "properties": {

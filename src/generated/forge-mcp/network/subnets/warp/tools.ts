@@ -3,32 +3,16 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  tunnel_api_response_common_failure_output,
-  tunnel_api_response_common_output,
-  tunnel_created_at_output,
-  tunnel_deleted_at_output,
-  tunnel_messages_output,
+  tunnel_api$$response$$common,
+  tunnel_api$$response$$common$$failure,
+  tunnel_messages,
 } from "../../../outputs.js";
-import { tunnel_account_id } from "../../../schemas.js";
 import {
-  tunnel_subnet_capacity_output,
-  tunnel_subnet_comment_output,
-  tunnel_subnet_id_output,
-  tunnel_subnet_ip_network_output,
-  tunnel_subnet_is_default_network_output,
-  tunnel_subnet_name_output,
-  tunnel_subnet_output,
-  tunnel_subnet_response_single_output,
-  tunnel_subnet_type_output,
+  tunnel_subnet,
+  tunnel_subnet_capacity,
+  tunnel_subnet_response_single,
 } from "../outputs.js";
-import {
-  tunnel_subnet_comment,
-  tunnel_subnet_id,
-  tunnel_subnet_ip_network,
-  tunnel_subnet_is_default_network,
-  tunnel_subnet_name,
-} from "../schemas.js";
-import { tunnel_subnet_response_single_nullable_output } from "./outputs.js";
+import { tunnel_subnet_response_single_nullable } from "./outputs.js";
 
 /**
  * The tools of `network.subnets.warp`.
@@ -37,33 +21,29 @@ export const tools: readonly Tool[] = [
   {
     name: "network_subnets_warp_create",
     title: "Create WARP IP subnet",
-    description: "Create a WARP IP assignment subnet. Currently, only IPv4 subnets can be created.\n\n**Network constraints:**\n- The network must be within one of the following private IP ranges:\n  - `10.0.0.0/8` (RFC 1918)\n  - `172.16.0.0/12` (RFC 1918)\n  - `192.168.0.0/16` (RFC 1918)\n  - `100.64.0.0/10` (RFC 6598 - CGNAT)\n- The subnet must have a prefix length of `/24` or larger (e.g., `/16`, `/20`, `/24` are valid; `/25`, `/28` are not)",
+    description: "Create a WARP IP assignment subnet. Currently, only IPv4 subnets can be created.\n\n**Network constraints:**\n- The network must be within one of the following private IP ranges:\n  - `10.0.0.0/8` (RFC 1918)\n  - `172.16.0.0/12` (RFC 1918)\n  - `192.168.0.0/16` (RFC 1918)\n  - `100.64.0.0/10` (RFC 6598 - CGNAT)\n- The subnet must have a prefix length of `/24` or larger (e.g., `/16`, `/20`, `/24` are valid; `/25`, `/28` are not)\n\nPOST /accounts/{account_id}/zerotrust/subnets/warp",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/tunnel_account_id",
-          "description": "Cloudflare account ID"
-        },
         "body": {
           "properties": {
             "comment": {
-              "$ref": "#/$defs/tunnel_subnet_comment",
               "default": "",
-              "description": "An optional description of the subnet."
+              "description": "An optional description of the subnet.",
+              "type": "string"
             },
             "is_default_network": {
-              "$ref": "#/$defs/tunnel_subnet_is_default_network",
               "default": false,
-              "description": "If `true`, this is the default subnet for the account. There can only be one default subnet per account."
+              "description": "If `true`, this is the default subnet for the account. There can only be one default subnet per account.",
+              "type": "boolean"
             },
             "name": {
-              "$ref": "#/$defs/tunnel_subnet_name",
-              "description": "A user-friendly name for the subnet."
+              "description": "A user-friendly name for the subnet.",
+              "type": "string"
             },
             "network": {
-              "$ref": "#/$defs/tunnel_subnet_ip_network",
-              "description": "The private IPv4 or IPv6 range defining the subnet, in CIDR notation."
+              "description": "The private IPv4 or IPv6 range defining the subnet, in CIDR notation.",
+              "type": "string"
             }
           },
           "required": [
@@ -71,36 +51,35 @@ export const tools: readonly Tool[] = [
             "network"
           ],
           "type": "object"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
-      $defs: {
-        "tunnel_account_id": tunnel_account_id,
-        "tunnel_subnet_comment": tunnel_subnet_comment,
-        "tunnel_subnet_ip_network": tunnel_subnet_ip_network,
-        "tunnel_subnet_is_default_network": tunnel_subnet_is_default_network,
-        "tunnel_subnet_name": tunnel_subnet_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tunnel_subnet_response_single",
       $defs: {
-        "tunnel_api-response-common": tunnel_api_response_common_output,
-        "tunnel_created_at": tunnel_created_at_output,
-        "tunnel_deleted_at": tunnel_deleted_at_output,
-        "tunnel_messages": tunnel_messages_output,
-        "tunnel_subnet": tunnel_subnet_output,
-        "tunnel_subnet_capacity": tunnel_subnet_capacity_output,
-        "tunnel_subnet_comment": tunnel_subnet_comment_output,
-        "tunnel_subnet_id": tunnel_subnet_id_output,
-        "tunnel_subnet_ip_network": tunnel_subnet_ip_network_output,
-        "tunnel_subnet_is_default_network": tunnel_subnet_is_default_network_output,
-        "tunnel_subnet_name": tunnel_subnet_name_output,
-        "tunnel_subnet_response_single": tunnel_subnet_response_single_output,
-        "tunnel_subnet_type": tunnel_subnet_type_output,
+        "tunnel_api-response-common": tunnel_api$$response$$common,
+        "tunnel_messages": tunnel_messages,
+        "tunnel_subnet": tunnel_subnet,
+        "tunnel_subnet_capacity": tunnel_subnet_capacity,
+        "tunnel_subnet_response_single": tunnel_subnet_response_single,
       },
     },
     annotations: {
@@ -134,20 +113,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "tunnel_api-response-common": tunnel_api_response_common_output,
-        "tunnel_api-response-common-failure": tunnel_api_response_common_failure_output,
-        "tunnel_created_at": tunnel_created_at_output,
-        "tunnel_deleted_at": tunnel_deleted_at_output,
-        "tunnel_messages": tunnel_messages_output,
-        "tunnel_subnet": tunnel_subnet_output,
-        "tunnel_subnet_capacity": tunnel_subnet_capacity_output,
-        "tunnel_subnet_comment": tunnel_subnet_comment_output,
-        "tunnel_subnet_id": tunnel_subnet_id_output,
-        "tunnel_subnet_ip_network": tunnel_subnet_ip_network_output,
-        "tunnel_subnet_is_default_network": tunnel_subnet_is_default_network_output,
-        "tunnel_subnet_name": tunnel_subnet_name_output,
-        "tunnel_subnet_response_single": tunnel_subnet_response_single_output,
-        "tunnel_subnet_type": tunnel_subnet_type_output,
+        "tunnel_api-response-common": tunnel_api$$response$$common,
+        "tunnel_api-response-common-failure": tunnel_api$$response$$common$$failure,
+        "tunnel_messages": tunnel_messages,
+        "tunnel_subnet": tunnel_subnet,
+        "tunnel_subnet_capacity": tunnel_subnet_capacity,
+        "tunnel_subnet_response_single": tunnel_subnet_response_single,
       },
     },
     request: (args) => ({
@@ -158,43 +129,42 @@ export const tools: readonly Tool[] = [
   {
     name: "network_subnets_warp_delete",
     title: "Delete WARP IP subnet",
-    description: "Delete a WARP IP assignment subnet. This operation is idempotent - deleting an already-deleted or non-existent subnet will return success with a null result.\n\nConfirm with the user before calling this tool. This operation permanently deletes a WARP IP subnet.",
+    description: "Delete a WARP IP assignment subnet. This operation is idempotent - deleting an already-deleted or non-existent subnet will return success with a null result.\n\nConfirm with the user before calling this tool. This operation permanently deletes a WARP IP subnet.\n\nDELETE /accounts/{account_id}/zerotrust/subnets/warp/{subnet_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/tunnel_account_id",
-          "description": "Cloudflare account ID"
-        },
-        "subnet_id": {
-          "$ref": "#/$defs/tunnel_subnet_id",
-          "description": "The UUID of the subnet."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID",
+              "type": "string"
+            },
+            "subnet_id": {
+              "description": "The UUID of the subnet.",
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "subnet_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "subnet_id"
+        "path"
       ],
-      $defs: {
-        "tunnel_account_id": tunnel_account_id,
-        "tunnel_subnet_id": tunnel_subnet_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tunnel_subnet_response_single_nullable",
       $defs: {
-        "tunnel_api-response-common": tunnel_api_response_common_output,
-        "tunnel_created_at": tunnel_created_at_output,
-        "tunnel_deleted_at": tunnel_deleted_at_output,
-        "tunnel_messages": tunnel_messages_output,
-        "tunnel_subnet_capacity": tunnel_subnet_capacity_output,
-        "tunnel_subnet_comment": tunnel_subnet_comment_output,
-        "tunnel_subnet_id": tunnel_subnet_id_output,
-        "tunnel_subnet_ip_network": tunnel_subnet_ip_network_output,
-        "tunnel_subnet_is_default_network": tunnel_subnet_is_default_network_output,
-        "tunnel_subnet_name": tunnel_subnet_name_output,
-        "tunnel_subnet_response_single_nullable": tunnel_subnet_response_single_nullable_output,
-        "tunnel_subnet_type": tunnel_subnet_type_output,
+        "tunnel_api-response-common": tunnel_api$$response$$common,
+        "tunnel_messages": tunnel_messages,
+        "tunnel_subnet_capacity": tunnel_subnet_capacity,
+        "tunnel_subnet_response_single_nullable": tunnel_subnet_response_single_nullable,
       },
     },
     annotations: {
@@ -228,19 +198,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "tunnel_api-response-common": tunnel_api_response_common_output,
-        "tunnel_api-response-common-failure": tunnel_api_response_common_failure_output,
-        "tunnel_created_at": tunnel_created_at_output,
-        "tunnel_deleted_at": tunnel_deleted_at_output,
-        "tunnel_messages": tunnel_messages_output,
-        "tunnel_subnet_capacity": tunnel_subnet_capacity_output,
-        "tunnel_subnet_comment": tunnel_subnet_comment_output,
-        "tunnel_subnet_id": tunnel_subnet_id_output,
-        "tunnel_subnet_ip_network": tunnel_subnet_ip_network_output,
-        "tunnel_subnet_is_default_network": tunnel_subnet_is_default_network_output,
-        "tunnel_subnet_name": tunnel_subnet_name_output,
-        "tunnel_subnet_response_single_nullable": tunnel_subnet_response_single_nullable_output,
-        "tunnel_subnet_type": tunnel_subnet_type_output,
+        "tunnel_api-response-common": tunnel_api$$response$$common,
+        "tunnel_api-response-common-failure": tunnel_api$$response$$common$$failure,
+        "tunnel_messages": tunnel_messages,
+        "tunnel_subnet_capacity": tunnel_subnet_capacity,
+        "tunnel_subnet_response_single_nullable": tunnel_subnet_response_single_nullable,
       },
     },
     request: (args) => ({
@@ -250,72 +212,67 @@ export const tools: readonly Tool[] = [
   {
     name: "network_subnets_warp_edit",
     title: "Update WARP IP subnet",
-    description: "Updates a WARP IP assignment subnet.\n\n**Update constraints:**\n- The `network` field cannot be modified for WARP subnets. Only `name`, `comment`, and `is_default_network` can be updated.\n- IPv6 subnets cannot be updated",
+    description: "Updates a WARP IP assignment subnet.\n\n**Update constraints:**\n- The `network` field cannot be modified for WARP subnets. Only `name`, `comment`, and `is_default_network` can be updated.\n- IPv6 subnets cannot be updated\n\nPATCH /accounts/{account_id}/zerotrust/subnets/warp/{subnet_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/tunnel_account_id",
-          "description": "Cloudflare account ID"
-        },
         "body": {
           "properties": {
             "comment": {
-              "$ref": "#/$defs/tunnel_subnet_comment",
               "default": "",
-              "description": "An optional description of the subnet."
+              "description": "An optional description of the subnet.",
+              "type": "string"
             },
             "is_default_network": {
-              "$ref": "#/$defs/tunnel_subnet_is_default_network",
               "default": false,
-              "description": "If `true`, this is the default subnet for the account. There can only be one default subnet per account."
+              "description": "If `true`, this is the default subnet for the account. There can only be one default subnet per account.",
+              "type": "boolean"
             },
             "name": {
-              "$ref": "#/$defs/tunnel_subnet_name",
-              "description": "A user-friendly name for the subnet."
+              "description": "A user-friendly name for the subnet.",
+              "type": "string"
             },
             "network": {
-              "$ref": "#/$defs/tunnel_subnet_ip_network",
-              "description": "The private IPv4 or IPv6 range defining the subnet, in CIDR notation."
+              "description": "The private IPv4 or IPv6 range defining the subnet, in CIDR notation.",
+              "type": "string"
             }
           },
           "type": "object"
         },
-        "subnet_id": {
-          "$ref": "#/$defs/tunnel_subnet_id",
-          "description": "The UUID of the subnet."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID",
+              "type": "string"
+            },
+            "subnet_id": {
+              "description": "The UUID of the subnet.",
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "subnet_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "subnet_id",
+        "path",
         "body"
       ],
-      $defs: {
-        "tunnel_account_id": tunnel_account_id,
-        "tunnel_subnet_comment": tunnel_subnet_comment,
-        "tunnel_subnet_id": tunnel_subnet_id,
-        "tunnel_subnet_ip_network": tunnel_subnet_ip_network,
-        "tunnel_subnet_is_default_network": tunnel_subnet_is_default_network,
-        "tunnel_subnet_name": tunnel_subnet_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tunnel_subnet_response_single",
       $defs: {
-        "tunnel_api-response-common": tunnel_api_response_common_output,
-        "tunnel_created_at": tunnel_created_at_output,
-        "tunnel_deleted_at": tunnel_deleted_at_output,
-        "tunnel_messages": tunnel_messages_output,
-        "tunnel_subnet": tunnel_subnet_output,
-        "tunnel_subnet_capacity": tunnel_subnet_capacity_output,
-        "tunnel_subnet_comment": tunnel_subnet_comment_output,
-        "tunnel_subnet_id": tunnel_subnet_id_output,
-        "tunnel_subnet_ip_network": tunnel_subnet_ip_network_output,
-        "tunnel_subnet_is_default_network": tunnel_subnet_is_default_network_output,
-        "tunnel_subnet_name": tunnel_subnet_name_output,
-        "tunnel_subnet_response_single": tunnel_subnet_response_single_output,
-        "tunnel_subnet_type": tunnel_subnet_type_output,
+        "tunnel_api-response-common": tunnel_api$$response$$common,
+        "tunnel_messages": tunnel_messages,
+        "tunnel_subnet": tunnel_subnet,
+        "tunnel_subnet_capacity": tunnel_subnet_capacity,
+        "tunnel_subnet_response_single": tunnel_subnet_response_single,
       },
     },
     annotations: {
@@ -349,20 +306,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "tunnel_api-response-common": tunnel_api_response_common_output,
-        "tunnel_api-response-common-failure": tunnel_api_response_common_failure_output,
-        "tunnel_created_at": tunnel_created_at_output,
-        "tunnel_deleted_at": tunnel_deleted_at_output,
-        "tunnel_messages": tunnel_messages_output,
-        "tunnel_subnet": tunnel_subnet_output,
-        "tunnel_subnet_capacity": tunnel_subnet_capacity_output,
-        "tunnel_subnet_comment": tunnel_subnet_comment_output,
-        "tunnel_subnet_id": tunnel_subnet_id_output,
-        "tunnel_subnet_ip_network": tunnel_subnet_ip_network_output,
-        "tunnel_subnet_is_default_network": tunnel_subnet_is_default_network_output,
-        "tunnel_subnet_name": tunnel_subnet_name_output,
-        "tunnel_subnet_response_single": tunnel_subnet_response_single_output,
-        "tunnel_subnet_type": tunnel_subnet_type_output,
+        "tunnel_api-response-common": tunnel_api$$response$$common,
+        "tunnel_api-response-common-failure": tunnel_api$$response$$common$$failure,
+        "tunnel_messages": tunnel_messages,
+        "tunnel_subnet": tunnel_subnet,
+        "tunnel_subnet_capacity": tunnel_subnet_capacity,
+        "tunnel_subnet_response_single": tunnel_subnet_response_single,
       },
     },
     request: (args) => ({
@@ -373,44 +322,43 @@ export const tools: readonly Tool[] = [
   {
     name: "network_subnets_warp_get",
     title: "Get WARP IP subnet",
-    description: "Get a WARP IP assignment subnet.",
+    description: "Get a WARP IP assignment subnet.\n\nGET /accounts/{account_id}/zerotrust/subnets/warp/{subnet_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/tunnel_account_id",
-          "description": "Cloudflare account ID"
-        },
-        "subnet_id": {
-          "$ref": "#/$defs/tunnel_subnet_id",
-          "description": "The UUID of the subnet."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID",
+              "type": "string"
+            },
+            "subnet_id": {
+              "description": "The UUID of the subnet.",
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "subnet_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "subnet_id"
+        "path"
       ],
-      $defs: {
-        "tunnel_account_id": tunnel_account_id,
-        "tunnel_subnet_id": tunnel_subnet_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tunnel_subnet_response_single",
       $defs: {
-        "tunnel_api-response-common": tunnel_api_response_common_output,
-        "tunnel_created_at": tunnel_created_at_output,
-        "tunnel_deleted_at": tunnel_deleted_at_output,
-        "tunnel_messages": tunnel_messages_output,
-        "tunnel_subnet": tunnel_subnet_output,
-        "tunnel_subnet_capacity": tunnel_subnet_capacity_output,
-        "tunnel_subnet_comment": tunnel_subnet_comment_output,
-        "tunnel_subnet_id": tunnel_subnet_id_output,
-        "tunnel_subnet_ip_network": tunnel_subnet_ip_network_output,
-        "tunnel_subnet_is_default_network": tunnel_subnet_is_default_network_output,
-        "tunnel_subnet_name": tunnel_subnet_name_output,
-        "tunnel_subnet_response_single": tunnel_subnet_response_single_output,
-        "tunnel_subnet_type": tunnel_subnet_type_output,
+        "tunnel_api-response-common": tunnel_api$$response$$common,
+        "tunnel_messages": tunnel_messages,
+        "tunnel_subnet": tunnel_subnet,
+        "tunnel_subnet_capacity": tunnel_subnet_capacity,
+        "tunnel_subnet_response_single": tunnel_subnet_response_single,
       },
     },
     annotations: {
@@ -445,20 +393,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "tunnel_api-response-common": tunnel_api_response_common_output,
-        "tunnel_api-response-common-failure": tunnel_api_response_common_failure_output,
-        "tunnel_created_at": tunnel_created_at_output,
-        "tunnel_deleted_at": tunnel_deleted_at_output,
-        "tunnel_messages": tunnel_messages_output,
-        "tunnel_subnet": tunnel_subnet_output,
-        "tunnel_subnet_capacity": tunnel_subnet_capacity_output,
-        "tunnel_subnet_comment": tunnel_subnet_comment_output,
-        "tunnel_subnet_id": tunnel_subnet_id_output,
-        "tunnel_subnet_ip_network": tunnel_subnet_ip_network_output,
-        "tunnel_subnet_is_default_network": tunnel_subnet_is_default_network_output,
-        "tunnel_subnet_name": tunnel_subnet_name_output,
-        "tunnel_subnet_response_single": tunnel_subnet_response_single_output,
-        "tunnel_subnet_type": tunnel_subnet_type_output,
+        "tunnel_api-response-common": tunnel_api$$response$$common,
+        "tunnel_api-response-common-failure": tunnel_api$$response$$common$$failure,
+        "tunnel_messages": tunnel_messages,
+        "tunnel_subnet": tunnel_subnet,
+        "tunnel_subnet_capacity": tunnel_subnet_capacity,
+        "tunnel_subnet_response_single": tunnel_subnet_response_single,
       },
     },
     request: (args) => ({

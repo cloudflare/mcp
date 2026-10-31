@@ -3,45 +3,47 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  secondary_dns_api_response_common_failure_output,
-  secondary_dns_api_response_single_output,
-  secondary_dns_messages_output,
+  secondary$$dns_api$$response$$common$$failure,
+  secondary$$dns_api$$response$$single,
+  secondary$$dns_messages,
 } from "../../outputs.js";
-import { secondary_dns_identifier } from "../../schemas.js";
-import {
-  secondary_dns_enable_transfer_response_output,
-  secondary_dns_enable_transfer_result_output,
-} from "../outputs.js";
+import { secondary$$dns_enable_transfer_response } from "../outputs.js";
 
 /**
- * The tools of `dns.zone_transfers.outgoing.status`.
+ * The tools of `dns.zoneTransfers.outgoing.status`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "dns_zone_transfers_outgoing_status_get",
+    name: "dns_zoneTransfers_outgoing_status_get",
     title: "Get Outgoing Zone Transfer Status",
-    description: "Get primary zone transfer status.",
+    description: "Get primary zone transfer status.\n\nGET /zones/{zone_id}/secondary_dns/outgoing/status",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/secondary-dns_identifier"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
-      $defs: {
-        "secondary-dns_identifier": secondary_dns_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/secondary-dns_enable_transfer_response",
       $defs: {
-        "secondary-dns_api-response-single": secondary_dns_api_response_single_output,
-        "secondary-dns_enable_transfer_response": secondary_dns_enable_transfer_response_output,
-        "secondary-dns_enable_transfer_result": secondary_dns_enable_transfer_result_output,
-        "secondary-dns_messages": secondary_dns_messages_output,
+        "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
+        "secondary-dns_enable_transfer_response": secondary$$dns_enable_transfer_response,
+        "secondary-dns_messages": secondary$$dns_messages,
       },
     },
     annotations: {
@@ -85,11 +87,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "secondary-dns_api-response-common-failure": secondary_dns_api_response_common_failure_output,
-        "secondary-dns_api-response-single": secondary_dns_api_response_single_output,
-        "secondary-dns_enable_transfer_response": secondary_dns_enable_transfer_response_output,
-        "secondary-dns_enable_transfer_result": secondary_dns_enable_transfer_result_output,
-        "secondary-dns_messages": secondary_dns_messages_output,
+        "secondary-dns_api-response-common-failure": secondary$$dns_api$$response$$common$$failure,
+        "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
+        "secondary-dns_enable_transfer_response": secondary$$dns_enable_transfer_response,
+        "secondary-dns_messages": secondary$$dns_messages,
       },
     },
     request: (args) => ({

@@ -10,18 +10,28 @@ export const tools: readonly Tool[] = [
   {
     name: "o11y_tracing_settings_delete",
     title: "Reset zone tracing settings",
-    description: "Reset the zone-level Cloudflare Traces settings to their defaults while preserving the sampling rules.",
+    description: "Reset the zone-level Cloudflare Traces settings to their defaults while preserving the sampling rules.\n\nDELETE /zones/{zone_id}/observability/tracing/settings",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "description": "Specify the zone ID.",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Specify the zone ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -419,18 +429,28 @@ export const tools: readonly Tool[] = [
   {
     name: "o11y_tracing_settings_get",
     title: "View zone tracing settings",
-    description: "Retrieve the zone-level Cloudflare Traces settings.",
+    description: "Retrieve the zone-level Cloudflare Traces settings.\n\nGET /zones/{zone_id}/observability/tracing/settings",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "description": "Specify the zone ID.",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Specify the zone ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -828,7 +848,7 @@ export const tools: readonly Tool[] = [
   {
     name: "o11y_tracing_settings_update",
     title: "Update zone tracing settings",
-    description: "Update the zone-level Cloudflare Traces settings.",
+    description: "Update the zone-level Cloudflare Traces settings.\n\nPATCH /zones/{zone_id}/observability/tracing/settings",
     inputSchema: {
       type: "object",
       properties: {
@@ -871,15 +891,25 @@ export const tools: readonly Tool[] = [
           },
           "type": "object"
         },
-        "zone_id": {
-          "description": "Specify the zone ID.",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Specify the zone ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

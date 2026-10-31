@@ -2,11 +2,7 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../../_/tool.js";
-import {
-  realtimekit_account_identifier,
-  realtimekit_app_id,
-} from "../../../schemas.js";
-import { realtimekit_Poll_output } from "./outputs.js";
+import { realtimekit_Poll } from "./outputs.js";
 
 /**
  * The tools of `realtime.kit.meetings.active.polls`.
@@ -15,18 +11,10 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_meetings_active_polls_create",
     title: "Create a poll",
-    description: "Creates a new poll in an active session for the given meeting ID.\n\nThis method is beta.",
+    description: "Creates a new poll in an active session for the given meeting ID.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/realtime/kit/{app_id}/meetings/{meeting_id}/active-session/poll",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/realtimekit_account_identifier",
-          "description": "The account identifier tag."
-        },
-        "app_id": {
-          "$ref": "#/$defs/realtimekit_app_id",
-          "description": "The app identifier tag."
-        },
         "body": {
           "description": "Request body for creating a new poll",
           "properties": {
@@ -56,21 +44,35 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "meeting_id": {
-          "description": "ID of the meeting",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "The account identifier tag.",
+              "type": "string"
+            },
+            "app_id": {
+              "description": "The app identifier tag.",
+              "type": "string"
+            },
+            "meeting_id": {
+              "description": "ID of the meeting",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "app_id",
+            "meeting_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "app_id",
-        "meeting_id",
+        "path",
         "body"
       ],
-      $defs: {
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -91,7 +93,7 @@ export const tools: readonly Tool[] = [
       },
       "type": "object",
       $defs: {
-        "realtimekit_Poll": realtimekit_Poll_output,
+        "realtimekit_Poll": realtimekit_Poll,
       },
     },
     annotations: {
@@ -133,7 +135,7 @@ export const tools: readonly Tool[] = [
         "400": null
       },
       $defs: {
-        "realtimekit_Poll": realtimekit_Poll_output,
+        "realtimekit_Poll": realtimekit_Poll,
       },
     },
     request: (args) => ({

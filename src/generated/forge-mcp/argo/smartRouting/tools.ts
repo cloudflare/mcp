@@ -3,50 +3,49 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  argo_config_api_response_common_failure_output,
-  argo_config_api_response_single_output,
-  argo_config_count_zones_response_output,
-  argo_config_editable_output,
-  argo_config_messages_output,
-  argo_config_modified_on_output,
-  argo_config_result_object_output,
-  argo_config_setting_id_output,
-  argo_config_setting_value_output,
+  argo$$config_api_response_common_failure,
+  argo$$config_api_response_single,
+  argo$$config_count_zones_response,
+  argo$$config_messages,
+  argo$$config_result_object,
 } from "./outputs.js";
-import {
-  argo_config_identifier,
-  argo_config_patch,
-  argo_config_setting_value,
-} from "./schemas.js";
+import { argo$$config_patch } from "./schemas.js";
 
 /**
- * The tools of `argo.smart_routing`.
+ * The tools of `argo.smartRouting`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "argo_smart_routing_count_zones_enabled_for_account",
+    name: "argo_smartRouting_countZonesEnabledForAccount",
     title: "Get count of zones with Argo Smart Routing enabled for account",
-    description: "Returns the number of zones that have Argo Smart Routing enabled for the specified account.",
+    description: "Returns the number of zones that have Argo Smart Routing enabled for the specified account.\n\nGET /accounts/{account_id}/argo/count_zones_enabled",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/argo-config_identifier",
-          "description": "Identifier of the account."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier of the account.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
-      $defs: {
-        "argo-config_identifier": argo_config_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/argo-config_count_zones_response",
       $defs: {
-        "argo-config_count_zones_response": argo_config_count_zones_response_output,
-        "argo-config_messages": argo_config_messages_output,
+        "argo-config_count_zones_response": argo$$config_count_zones_response,
+        "argo-config_messages": argo$$config_messages,
       },
     },
     annotations: {
@@ -87,9 +86,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "argo-config_api_response_common_failure": argo_config_api_response_common_failure_output,
-        "argo-config_count_zones_response": argo_config_count_zones_response_output,
-        "argo-config_messages": argo_config_messages_output,
+        "argo-config_api_response_common_failure": argo$$config_api_response_common_failure,
+        "argo-config_count_zones_response": argo$$config_count_zones_response,
+        "argo-config_messages": argo$$config_messages,
       },
     },
     request: (args) => ({
@@ -97,18 +96,19 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "argo_smart_routing_count_zones_enabled_for_user",
+    name: "argo_smartRouting_countZonesEnabledForUser",
     title: "Get count of zones with Argo Smart Routing enabled for user",
-    description: "Returns the number of zones that have Argo Smart Routing enabled for the authenticated user.",
+    description: "Returns the number of zones that have Argo Smart Routing enabled for the authenticated user.\n\nGET /user/argo/count_zones_enabled",
     inputSchema: {
       type: "object",
       properties: {},
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/argo-config_count_zones_response",
       $defs: {
-        "argo-config_count_zones_response": argo_config_count_zones_response_output,
-        "argo-config_messages": argo_config_messages_output,
+        "argo-config_count_zones_response": argo$$config_count_zones_response,
+        "argo-config_messages": argo$$config_messages,
       },
     },
     annotations: {
@@ -149,9 +149,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "argo-config_api_response_common_failure": argo_config_api_response_common_failure_output,
-        "argo-config_count_zones_response": argo_config_count_zones_response_output,
-        "argo-config_messages": argo_config_messages_output,
+        "argo-config_api_response_common_failure": argo$$config_api_response_common_failure,
+        "argo-config_count_zones_response": argo$$config_count_zones_response,
+        "argo-config_messages": argo$$config_messages,
       },
     },
     request: (_args) => ({
@@ -159,40 +159,44 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "argo_smart_routing_edit",
+    name: "argo_smartRouting_edit",
     title: "Patch Argo Smart Routing setting",
-    description: "Configures the value of the Argo Smart Routing enablement setting.",
+    description: "Configures the value of the Argo Smart Routing enablement setting.\n\nPATCH /zones/{zone_id}/argo/smart_routing",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "$ref": "#/$defs/argo-config_patch"
         },
-        "zone_id": {
-          "$ref": "#/$defs/argo-config_identifier",
-          "description": "Specifies the zone associated with the API call."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Specifies the zone associated with the API call.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "argo-config_identifier": argo_config_identifier,
-        "argo-config_patch": argo_config_patch,
-        "argo-config_setting_value": argo_config_setting_value,
+        "argo-config_patch": argo$$config_patch,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/argo-config_api_response_single",
       $defs: {
-        "argo-config_api_response_single": argo_config_api_response_single_output,
-        "argo-config_editable": argo_config_editable_output,
-        "argo-config_messages": argo_config_messages_output,
-        "argo-config_modified_on": argo_config_modified_on_output,
-        "argo-config_result_object": argo_config_result_object_output,
-        "argo-config_setting_id": argo_config_setting_id_output,
-        "argo-config_setting_value": argo_config_setting_value_output,
+        "argo-config_api_response_single": argo$$config_api_response_single,
+        "argo-config_messages": argo$$config_messages,
+        "argo-config_result_object": argo$$config_result_object,
       },
     },
     annotations: {
@@ -231,14 +235,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "argo-config_api_response_common_failure": argo_config_api_response_common_failure_output,
-        "argo-config_api_response_single": argo_config_api_response_single_output,
-        "argo-config_editable": argo_config_editable_output,
-        "argo-config_messages": argo_config_messages_output,
-        "argo-config_modified_on": argo_config_modified_on_output,
-        "argo-config_result_object": argo_config_result_object_output,
-        "argo-config_setting_id": argo_config_setting_id_output,
-        "argo-config_setting_value": argo_config_setting_value_output,
+        "argo-config_api_response_common_failure": argo$$config_api_response_common_failure,
+        "argo-config_api_response_single": argo$$config_api_response_single,
+        "argo-config_messages": argo$$config_messages,
+        "argo-config_result_object": argo$$config_result_object,
       },
     },
     request: (args) => ({
@@ -247,34 +247,37 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "argo_smart_routing_get",
+    name: "argo_smartRouting_get",
     title: "Get Argo Smart Routing setting",
-    description: "Retrieves the value of Argo Smart Routing enablement setting.",
+    description: "Retrieves the value of Argo Smart Routing enablement setting.\n\nGET /zones/{zone_id}/argo/smart_routing",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/argo-config_identifier",
-          "description": "Specifies the zone associated with the API call."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Specifies the zone associated with the API call.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
-      $defs: {
-        "argo-config_identifier": argo_config_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/argo-config_api_response_single",
       $defs: {
-        "argo-config_api_response_single": argo_config_api_response_single_output,
-        "argo-config_editable": argo_config_editable_output,
-        "argo-config_messages": argo_config_messages_output,
-        "argo-config_modified_on": argo_config_modified_on_output,
-        "argo-config_result_object": argo_config_result_object_output,
-        "argo-config_setting_id": argo_config_setting_id_output,
-        "argo-config_setting_value": argo_config_setting_value_output,
+        "argo-config_api_response_single": argo$$config_api_response_single,
+        "argo-config_messages": argo$$config_messages,
+        "argo-config_result_object": argo$$config_result_object,
       },
     },
     annotations: {
@@ -313,14 +316,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "argo-config_api_response_common_failure": argo_config_api_response_common_failure_output,
-        "argo-config_api_response_single": argo_config_api_response_single_output,
-        "argo-config_editable": argo_config_editable_output,
-        "argo-config_messages": argo_config_messages_output,
-        "argo-config_modified_on": argo_config_modified_on_output,
-        "argo-config_result_object": argo_config_result_object_output,
-        "argo-config_setting_id": argo_config_setting_id_output,
-        "argo-config_setting_value": argo_config_setting_value_output,
+        "argo-config_api_response_common_failure": argo$$config_api_response_common_failure,
+        "argo-config_api_response_single": argo$$config_api_response_single,
+        "argo-config_messages": argo$$config_messages,
+        "argo-config_result_object": argo$$config_result_object,
       },
     },
     request: (args) => ({

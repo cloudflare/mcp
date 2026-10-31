@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `dlp_ProximityWordValidatorArray` in responses.
  */
-export const dlp_ProximityWordValidatorArray_output: JsonSchema = {
+export const dlp_ProximityWordValidatorArray: JsonSchema = {
   "items": {
     "$ref": "#/$defs/dlp_ProximityWordValidator"
   },

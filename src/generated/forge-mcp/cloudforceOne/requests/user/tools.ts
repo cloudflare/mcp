@@ -4,29 +4,39 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 
 /**
- * The tools of `cloudforce_one.requests.user`.
+ * The tools of `cloudforceOne.requests.user`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "cloudforce_one_requests_user_get",
+    name: "cloudforceOne_requests_user_get",
     title: "Get current user profile",
-    description: "Get the current user's profile in a specific RFI project.",
+    description: "Get the current user's profile in a specific RFI project.\n\nGET /accounts/{account_id}/cloudforce-one/v2/requests/{project_type}/user/me",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account ID",
-          "type": "string"
-        },
-        "project_type": {
-          "description": "RFI project type",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account ID",
+              "type": "string"
+            },
+            "project_type": {
+              "description": "RFI project type",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "project_type"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "project_type"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

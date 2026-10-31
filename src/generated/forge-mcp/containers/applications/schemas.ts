@@ -9,12 +9,13 @@ import type { JsonSchema } from "../../_/tool.js";
 export const cc_ApplicationConstraints: JsonSchema = {
   "properties": {
     "jurisdiction": {
-      "$ref": "#/$defs/cc_ApplicationJurisdiction",
-      "description": "Restricts placement to datacenters in the selected jurisdiction. Choose \"eu\", \"fedramp\", or \"us\". When combined with regions, EU supports EEUR and WEUR while FedRAMP and US support ENAM and WNAM."
+      "description": "Restricts placement to datacenters in the selected jurisdiction. Choose \"eu\", \"fedramp\", or \"us\". When combined with regions, EU supports EEUR and WEUR while FedRAMP and US support ENAM and WNAM.",
+      "type": "string"
     },
     "regions": {
       "items": {
-        "$ref": "#/$defs/cc_Region"
+        "description": "Represents a group of datacenters. Choose one of \"AFR\", \"APAC\", \"EEUR\", \"ENAM\", \"WNAM\", \"ME\", \"OC\", \"SAM\", or \"WEUR\".",
+        "type": "string"
       },
       "type": "array"
     }
@@ -23,34 +24,10 @@ export const cc_ApplicationConstraints: JsonSchema = {
 };
 
 /**
- * The schema of `cc_ApplicationID`.
- */
-export const cc_ApplicationID: JsonSchema = {
-  "description": "An Application ID represents an identifier of an application.",
-  "type": "string"
-};
-
-/**
- * The schema of `cc_ApplicationJurisdiction`.
- */
-export const cc_ApplicationJurisdiction: JsonSchema = {
-  "description": "Restricts placement to datacenters in the selected jurisdiction. Choose \"eu\", \"fedramp\", or \"us\". When combined with regions, EU supports EEUR and WEUR while FedRAMP and US support ENAM and WNAM.",
-  "type": "string"
-};
-
-/**
- * The schema of `cc_ApplicationName`.
- */
-export const cc_ApplicationName: JsonSchema = {
-  "description": "The application name.",
-  "type": "string"
-};
-
-/**
  * The schema of `cc_ApplicationObservability`.
  */
 export const cc_ApplicationObservability: JsonSchema = {
-  "description": "Settings for application observability such as logging. Supported fields depend\non the application's scheduling policy. Durable Object-managed applications\naccept only `logs.enabled`.\n",
+  "description": "Settings for application observability such as logging. Supported fields depend\non the application's scheduling policy. Durable Object-managed applications\naccept only `logs.enabled`.",
   "properties": {
     "logs": {
       "$ref": "#/$defs/cc_ObservabilityLogs",
@@ -61,20 +38,12 @@ export const cc_ApplicationObservability: JsonSchema = {
 };
 
 /**
- * The schema of `cc_ApplicationRolloutActiveGracePeriod`.
- */
-export const cc_ApplicationRolloutActiveGracePeriod: JsonSchema = {
-  "description": "Grace period for active instances to stay alive before becoming eligible for shutdown signal due to a rollout, in seconds.\nDefaults to 0.\n",
-  "type": "integer"
-};
-
-/**
  * The schema of `cc_Command`.
  */
 export const cc_Command: JsonSchema = {
-  "description": "The command that runs when the container starts, passed to the entrypoint.\nYou can override this at run-time. If you override only the command,\nit gets passed to the default entrypoint specified in the image.\n",
+  "description": "The command that runs when the container starts, passed to the entrypoint.\nYou can override this at run-time. If you override only the command,\nit gets passed to the default entrypoint specified in the image.",
   "items": {
-    "$ref": "#/$defs/cc_ExecFormParam"
+    "type": "string"
   },
   "type": "array"
 };
@@ -83,7 +52,7 @@ export const cc_Command: JsonSchema = {
  * The schema of `cc_ContainersCreateApplicationRequest`.
  */
 export const cc_ContainersCreateApplicationRequest: JsonSchema = {
-  "description": "Create a Containers application.\nSet `scheduling_policy` to `default` for a\nscheduler-backed application with deployment configuration, instance counts,\nconstraints, versions, and rollouts. Set it to `durable_object` for a\nDurable Object-managed application where each Durable Object creates and manages\nthe lifecycle of its container instance. For `durable_object` requests, supply\n`name`, `scheduling_policy`, and `durable_objects`, with optional `configuration`\nand top-level `observability` settings.\n",
+  "description": "Create a Containers application.\nSet `scheduling_policy` to `default` for a\nscheduler-backed application with deployment configuration, instance counts,\nconstraints, versions, and rollouts. Set it to `durable_object` for a\nDurable Object-managed application where each Durable Object creates and manages\nthe lifecycle of its container instance. For `durable_object` requests, supply\n`name`, `scheduling_policy`, and `durable_objects`, with optional `configuration`\nand top-level `observability` settings.",
   "oneOf": [
     {
       "$ref": "#/$defs/cc_ContainersCreateScheduledApplicationRequest"
@@ -98,7 +67,7 @@ export const cc_ContainersCreateApplicationRequest: JsonSchema = {
  * The schema of `cc_ContainersCreateDurableObjectApplicationRequest`.
  */
 export const cc_ContainersCreateDurableObjectApplicationRequest: JsonSchema = {
-  "description": "Create a Durable Object-managed Containers application. Each Durable Object\ncreates and manages the lifecycle of its container instance. Supply `name`,\n`scheduling_policy`, and `durable_objects`, with optional `configuration` and\ntop-level `observability` settings. `constraints.jurisdiction` selects the\njurisdiction of the application's primary control-plane object at creation time.\nDeployment configuration, instance counts, scaling, other placement constraints,\nversions, and rollouts do not apply.\n",
+  "description": "Create a Durable Object-managed Containers application. Each Durable Object\ncreates and manages the lifecycle of its container instance. Supply `name`,\n`scheduling_policy`, and `durable_objects`, with optional `configuration` and\ntop-level `observability` settings. `constraints.jurisdiction` selects the\njurisdiction of the application's primary control-plane object at creation time.\nDeployment configuration, instance counts, scaling, other placement constraints,\nversions, and rollouts do not apply.",
   "properties": {
     "configuration": {
       "$ref": "#/$defs/cc_DurableObjectApplicationConfiguration",
@@ -106,7 +75,7 @@ export const cc_ContainersCreateDurableObjectApplicationRequest: JsonSchema = {
     },
     "constraints": {
       "$ref": "#/$defs/cc_DurableObjectApplicationConstraints",
-      "description": "The jurisdiction of a Durable Object-managed application's primary control-plane object.\nSet this when creating the application; it cannot be changed afterwards.\nOther placement constraints are not supported by this scheduling policy.\n"
+      "description": "The jurisdiction of a Durable Object-managed application's primary control-plane object.\nSet this when creating the application; it cannot be changed afterwards.\nOther placement constraints are not supported by this scheduling policy."
     },
     "durable_objects": {
       "$ref": "#/$defs/cc_DurableObjectsConfiguration",
@@ -118,10 +87,14 @@ export const cc_ContainersCreateDurableObjectApplicationRequest: JsonSchema = {
     },
     "observability": {
       "$ref": "#/$defs/cc_DurableObjectApplicationObservability",
-      "description": "Application-wide logging settings for a Durable Object-managed application.\nThe application publishes these settings to its runtime metadata. Updating\nthem does not create a deployment or rollout.\n"
+      "description": "Application-wide logging settings for a Durable Object-managed application.\nThe application publishes these settings to its runtime metadata. Updating\nthem does not create a deployment or rollout."
     },
     "scheduling_policy": {
-      "$ref": "#/$defs/cc_DurableObjectApplicationSchedulingPolicy"
+      "description": "Selects a Durable Object-managed application. Each Durable Object creates and\nmanages the lifecycle of its container instance. Configure application-wide\nobservability settings here. Deployment configuration, scaling, placement\nconstraints, versions, and rollouts do not apply.",
+      "enum": [
+        "durable_object"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -136,11 +109,11 @@ export const cc_ContainersCreateDurableObjectApplicationRequest: JsonSchema = {
  * The schema of `cc_ContainersCreateScheduledApplicationRequest`.
  */
 export const cc_ContainersCreateScheduledApplicationRequest: JsonSchema = {
-  "description": "Create a scheduler-backed Containers application. The Containers scheduler\nmaintains the requested instance count and applies deployment configuration,\nplacement, scaling, versions, and rollouts.\n",
+  "description": "Create a scheduler-backed Containers application. The Containers scheduler\nmaintains the requested instance count and applies deployment configuration,\nplacement, scaling, versions, and rollouts.",
   "properties": {
     "configuration": {
       "$ref": "#/$defs/cc_UserDeploymentConfiguration",
-      "description": "Defines the deployment configuration for every deployment in this application.\n"
+      "description": "Defines the deployment configuration for every deployment in this application."
     },
     "constraints": {
       "$ref": "#/$defs/cc_ApplicationConstraints"
@@ -163,15 +136,19 @@ export const cc_ContainersCreateScheduledApplicationRequest: JsonSchema = {
     },
     "observability": {
       "$ref": "#/$defs/cc_ApplicationObservability",
-      "description": "Top-level observability settings for the application.\nThis field is mutually exclusive with configuration.observability.\n"
+      "description": "Top-level observability settings for the application.\nThis field is mutually exclusive with configuration.observability."
     },
     "rollout_active_grace_period": {
-      "$ref": "#/$defs/cc_ApplicationRolloutActiveGracePeriod",
       "default": 0,
-      "description": "Grace period for active instances to stay alive before becoming eligible for shutdown signal due to a rollout, in seconds.\nDefaults to 0.\n"
+      "description": "Grace period for active instances to stay alive before becoming eligible for shutdown signal due to a rollout, in seconds.\nDefaults to 0.",
+      "type": "integer"
     },
     "scheduling_policy": {
-      "$ref": "#/$defs/cc_ScheduledApplicationSchedulingPolicy"
+      "description": "Selects a scheduler-backed application. Use `default` when the Containers\nscheduler should maintain the requested number of instances and manage deployment\nconfiguration, placement, scaling, versions, and rollouts.",
+      "enum": [
+        "default"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -208,7 +185,7 @@ export const cc_ContainersModifyApplicationConfiguration: JsonSchema = {
  * The schema of `cc_ContainersModifyApplicationRequestBody`.
  */
 export const cc_ContainersModifyApplicationRequestBody: JsonSchema = {
-  "description": "Request body for modifying a Containers application without replacing its instances.\nDurable Object-managed applications support only top-level observability.logs.enabled.\nThe other fields apply to scheduler-backed applications, where deployment configuration\nchanges such as image, resource allocation, command, and environment variables require\nan application rollout.\n",
+  "description": "Request body for modifying a Containers application without replacing its instances.\nDurable Object-managed applications support only top-level observability.logs.enabled.\nThe other fields apply to scheduler-backed applications, where deployment configuration\nchanges such as image, resource allocation, command, and environment variables require\nan application rollout.",
   "properties": {
     "configuration": {
       "$ref": "#/$defs/cc_ContainersModifyApplicationConfiguration",
@@ -223,12 +200,12 @@ export const cc_ContainersModifyApplicationRequestBody: JsonSchema = {
     },
     "observability": {
       "$ref": "#/$defs/cc_ApplicationObservability",
-      "description": "Top-level application observability settings. Scheduler-backed applications\nhot-reload these settings across existing instances. An existing Durable\nObject-managed application accepts only `logs.enabled` and publishes these settings\nto runtime metadata without creating deployments or rollouts.\n"
+      "description": "Top-level application observability settings. Scheduler-backed applications\nhot-reload these settings across existing instances. An existing Durable\nObject-managed application accepts only `logs.enabled` and publishes these settings\nto runtime metadata without creating deployments or rollouts."
     },
     "rollout_active_grace_period": {
-      "$ref": "#/$defs/cc_ApplicationRolloutActiveGracePeriod",
       "default": 0,
-      "description": "Grace period for active instances to stay alive before becoming eligible for shutdown signal due to a rollout, in seconds.\nDefaults to 0.\n"
+      "description": "Grace period for active instances to stay alive before becoming eligible for shutdown signal due to a rollout, in seconds.\nDefaults to 0.",
+      "type": "integer"
     }
   },
   "type": "object"
@@ -272,7 +249,7 @@ export const cc_DurableObjectApplicationConfiguration: JsonSchema = {
  * The schema of `cc_DurableObjectApplicationConstraints`.
  */
 export const cc_DurableObjectApplicationConstraints: JsonSchema = {
-  "description": "The jurisdiction of a Durable Object-managed application's primary control-plane object.\nSet this when creating the application; it cannot be changed afterwards.\nOther placement constraints are not supported by this scheduling policy.\n",
+  "description": "The jurisdiction of a Durable Object-managed application's primary control-plane object.\nSet this when creating the application; it cannot be changed afterwards.\nOther placement constraints are not supported by this scheduling policy.",
   "properties": {
     "jurisdiction": {
       "enum": [
@@ -293,7 +270,7 @@ export const cc_DurableObjectApplicationConstraints: JsonSchema = {
  * The schema of `cc_DurableObjectApplicationObservability`.
  */
 export const cc_DurableObjectApplicationObservability: JsonSchema = {
-  "description": "Application-wide logging settings for a Durable Object-managed application.\nThe application publishes these settings to its runtime metadata. Updating\nthem does not create a deployment or rollout.\n",
+  "description": "Application-wide logging settings for a Durable Object-managed application.\nThe application publishes these settings to its runtime metadata. Updating\nthem does not create a deployment or rollout.",
   "properties": {
     "logs": {
       "description": "Application-wide logging settings.",
@@ -307,17 +284,6 @@ export const cc_DurableObjectApplicationObservability: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `cc_DurableObjectApplicationSchedulingPolicy`.
- */
-export const cc_DurableObjectApplicationSchedulingPolicy: JsonSchema = {
-  "description": "Selects a Durable Object-managed application. Each Durable Object creates and\nmanages the lifecycle of its container instance. Configure application-wide\nobservability settings here. Deployment configuration, scaling, placement\nconstraints, versions, and rollouts do not apply.\n",
-  "enum": [
-    "durable_object"
-  ],
-  "type": "string"
 };
 
 /**
@@ -378,9 +344,9 @@ export const cc_DurableObjectsConfigurationScriptAndClass: JsonSchema = {
  * The schema of `cc_Entrypoint`.
  */
 export const cc_Entrypoint: JsonSchema = {
-  "description": "The entry point for the container, specifying the executable to run when the container starts.\nYou can override this at run-time. If you do, the default command from the image is ignored.\nSpecify both entrypoint and command at run-time to completely replace the image defaults.\n",
+  "description": "The entry point for the container, specifying the executable to run when the container starts.\nYou can override this at run-time. If you do, the default command from the image is ignored.\nSpecify both entrypoint and command at run-time to completely replace the image defaults.",
   "items": {
-    "$ref": "#/$defs/cc_ExecFormParam"
+    "type": "string"
   },
   "type": "array"
 };
@@ -392,12 +358,12 @@ export const cc_EnvironmentVariable: JsonSchema = {
   "description": "An environment variable with a value set.",
   "properties": {
     "name": {
-      "$ref": "#/$defs/cc_EnvironmentVariableName",
-      "description": "An environment variable name."
+      "description": "An environment variable name.",
+      "type": "string"
     },
     "value": {
-      "$ref": "#/$defs/cc_EnvironmentVariableValue",
-      "description": "An environment variable value."
+      "description": "An environment variable value.",
+      "type": "string"
     }
   },
   "required": [
@@ -405,45 +371,6 @@ export const cc_EnvironmentVariable: JsonSchema = {
     "value"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `cc_EnvironmentVariableName`.
- */
-export const cc_EnvironmentVariableName: JsonSchema = {
-  "description": "An environment variable name.",
-  "type": "string"
-};
-
-/**
- * The schema of `cc_EnvironmentVariableValue`.
- */
-export const cc_EnvironmentVariableValue: JsonSchema = {
-  "description": "An environment variable value.",
-  "type": "string"
-};
-
-/**
- * The schema of `cc_ExecFormParam`.
- */
-export const cc_ExecFormParam: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `cc_InstanceType`.
- */
-export const cc_InstanceType: JsonSchema = {
-  "description": "The instance type configures vCPU, memory, and disk.\n\n- \"lite\": 1/16 vCPU, 256 MiB memory, 2 GB disk\n- \"basic\": 1/4 vCPU, 1 GiB memory, 4 GB disk\n- \"standard-1\": 1/2 vCPU, 4 GiB memory, 8 GB disk\n- \"standard-2\": 1 vCPU, 6 GiB memory, 12 GB disk\n- \"standard-3\": 2 vCPU, 8 GiB memory, 16 GB disk\n- \"standard-4\": 4 vCPU, 12 GiB memory, 20 GB disk\n",
-  "enum": [
-    "lite",
-    "basic",
-    "standard-1",
-    "standard-2",
-    "standard-3",
-    "standard-4"
-  ],
-  "type": "string"
 };
 
 /**
@@ -460,11 +387,11 @@ export const cc_ModifyUserDeploymentConfiguration: JsonSchema = {
     },
     "command": {
       "$ref": "#/$defs/cc_Command",
-      "description": "The command that runs when the container starts, passed to the entrypoint.\nYou can override this at run-time. If you override only the command,\nit gets passed to the default entrypoint specified in the image.\n"
+      "description": "The command that runs when the container starts, passed to the entrypoint.\nYou can override this at run-time. If you override only the command,\nit gets passed to the default entrypoint specified in the image."
     },
     "entrypoint": {
       "$ref": "#/$defs/cc_Entrypoint",
-      "description": "The entry point for the container, specifying the executable to run when the container starts.\nYou can override this at run-time. If you do, the default command from the image is ignored.\nSpecify both entrypoint and command at run-time to completely replace the image defaults.\n"
+      "description": "The entry point for the container, specifying the executable to run when the container starts.\nYou can override this at run-time. If you do, the default command from the image is ignored.\nSpecify both entrypoint and command at run-time to completely replace the image defaults."
     },
     "environment_variables": {
       "description": "Container environment variables.",
@@ -474,13 +401,21 @@ export const cc_ModifyUserDeploymentConfiguration: JsonSchema = {
       "type": "array"
     },
     "image": {
-      "$ref": "#/$defs/cc_Image",
-      "description": "Image url."
+      "description": "Image url.",
+      "type": "string"
     },
     "instance_type": {
-      "$ref": "#/$defs/cc_InstanceType",
       "default": "lite",
-      "description": "The instance type configures vCPU, memory, and disk.\n\n- \"lite\": 1/16 vCPU, 256 MiB memory, 2 GB disk\n- \"basic\": 1/4 vCPU, 1 GiB memory, 4 GB disk\n- \"standard-1\": 1/2 vCPU, 4 GiB memory, 8 GB disk\n- \"standard-2\": 1 vCPU, 6 GiB memory, 12 GB disk\n- \"standard-3\": 2 vCPU, 8 GiB memory, 16 GB disk\n- \"standard-4\": 4 vCPU, 12 GiB memory, 20 GB disk\n"
+      "description": "The instance type configures vCPU, memory, and disk.\n\n- \"lite\": 1/16 vCPU, 256 MiB memory, 2 GB disk\n- \"basic\": 1/4 vCPU, 1 GiB memory, 4 GB disk\n- \"standard-1\": 1/2 vCPU, 4 GiB memory, 8 GB disk\n- \"standard-2\": 1 vCPU, 6 GiB memory, 12 GB disk\n- \"standard-3\": 2 vCPU, 8 GiB memory, 16 GB disk\n- \"standard-4\": 4 vCPU, 12 GiB memory, 20 GB disk",
+      "enum": [
+        "lite",
+        "basic",
+        "standard-1",
+        "standard-2",
+        "standard-3",
+        "standard-4"
+      ],
+      "type": "string"
     },
     "observability": {
       "$ref": "#/$defs/cc_DeploymentObservability",
@@ -505,33 +440,6 @@ export const cc_ObservabilityLogs: JsonSchema = {
 };
 
 /**
- * The schema of `cc_Region`.
- */
-export const cc_Region: JsonSchema = {
-  "description": "Represents a group of datacenters. Choose one of \"AFR\", \"APAC\", \"EEUR\", \"ENAM\", \"WNAM\", \"ME\", \"OC\", \"SAM\", or \"WEUR\".\n",
-  "type": "string"
-};
-
-/**
- * The schema of `cc_SSHPublicKey`.
- */
-export const cc_SSHPublicKey: JsonSchema = {
-  "description": "An SSH public key.",
-  "type": "string"
-};
-
-/**
- * The schema of `cc_ScheduledApplicationSchedulingPolicy`.
- */
-export const cc_ScheduledApplicationSchedulingPolicy: JsonSchema = {
-  "description": "Selects a scheduler-backed application. Use `default` when the Containers\nscheduler should maintain the requested number of instances and manage deployment\nconfiguration, placement, scaling, versions, and rollouts.\n",
-  "enum": [
-    "default"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `cc_UserDeploymentConfiguration`.
  */
 export const cc_UserDeploymentConfiguration: JsonSchema = {
@@ -545,11 +453,11 @@ export const cc_UserDeploymentConfiguration: JsonSchema = {
     },
     "command": {
       "$ref": "#/$defs/cc_Command",
-      "description": "The command that runs when the container starts, passed to the entrypoint.\nYou can override this at run-time. If you override only the command,\nit gets passed to the default entrypoint specified in the image.\n"
+      "description": "The command that runs when the container starts, passed to the entrypoint.\nYou can override this at run-time. If you override only the command,\nit gets passed to the default entrypoint specified in the image."
     },
     "entrypoint": {
       "$ref": "#/$defs/cc_Entrypoint",
-      "description": "The entry point for the container, specifying the executable to run when the container starts.\nYou can override this at run-time. If you do, the default command from the image is ignored.\nSpecify both entrypoint and command at run-time to completely replace the image defaults.\n"
+      "description": "The entry point for the container, specifying the executable to run when the container starts.\nYou can override this at run-time. If you do, the default command from the image is ignored.\nSpecify both entrypoint and command at run-time to completely replace the image defaults."
     },
     "environment_variables": {
       "description": "Container environment variables.",
@@ -559,13 +467,21 @@ export const cc_UserDeploymentConfiguration: JsonSchema = {
       "type": "array"
     },
     "image": {
-      "$ref": "#/$defs/cc_Image",
-      "description": "Image url."
+      "description": "Image url.",
+      "type": "string"
     },
     "instance_type": {
-      "$ref": "#/$defs/cc_InstanceType",
       "default": "lite",
-      "description": "The instance type configures vCPU, memory, and disk.\n\n- \"lite\": 1/16 vCPU, 256 MiB memory, 2 GB disk\n- \"basic\": 1/4 vCPU, 1 GiB memory, 4 GB disk\n- \"standard-1\": 1/2 vCPU, 4 GiB memory, 8 GB disk\n- \"standard-2\": 1 vCPU, 6 GiB memory, 12 GB disk\n- \"standard-3\": 2 vCPU, 8 GiB memory, 16 GB disk\n- \"standard-4\": 4 vCPU, 12 GiB memory, 20 GB disk\n"
+      "description": "The instance type configures vCPU, memory, and disk.\n\n- \"lite\": 1/16 vCPU, 256 MiB memory, 2 GB disk\n- \"basic\": 1/4 vCPU, 1 GiB memory, 4 GB disk\n- \"standard-1\": 1/2 vCPU, 4 GiB memory, 8 GB disk\n- \"standard-2\": 1 vCPU, 6 GiB memory, 12 GB disk\n- \"standard-3\": 2 vCPU, 8 GiB memory, 16 GB disk\n- \"standard-4\": 4 vCPU, 12 GiB memory, 20 GB disk",
+      "enum": [
+        "lite",
+        "basic",
+        "standard-1",
+        "standard-2",
+        "standard-3",
+        "standard-4"
+      ],
+      "type": "string"
     },
     "observability": {
       "$ref": "#/$defs/cc_DeploymentObservability",
@@ -589,8 +505,8 @@ export const cc_UserSSHPublicKey: JsonSchema = {
       "type": "string"
     },
     "public_key": {
-      "$ref": "#/$defs/cc_SSHPublicKey",
-      "description": "An SSH public key."
+      "description": "An SSH public key.",
+      "type": "string"
     }
   },
   "required": [

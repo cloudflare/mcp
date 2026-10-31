@@ -7,7 +7,7 @@ import type { JsonSchema } from "../../_/tool.js";
  * The schema of `bill-subs-api_address_validation_response_single` in
  * responses.
  */
-export const bill_subs_api_address_validation_response_single_output: JsonSchema = {
+export const bill$$subs$$api_address_validation_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/bill-subs-api_api-response-single"
@@ -34,7 +34,7 @@ export const bill_subs_api_address_validation_response_single_output: JsonSchema
 /**
  * The schema of `bill-subs-api_validated_address` in responses.
  */
-export const bill_subs_api_validated_address_output: JsonSchema = {
+export const bill$$subs$$api_validated_address: JsonSchema = {
   "properties": {
     "address": {
       "type": "string"

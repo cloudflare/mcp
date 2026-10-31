@@ -4,16 +4,9 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `iam_dns_verification_code` in responses.
- */
-export const iam_dns_verification_code_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `iam_sso_connector` in responses.
  */
-export const iam_sso_connector_output: JsonSchema = {
+export const iam_sso_connector: JsonSchema = {
   "properties": {
     "created_on": {
       "format": "date-time",
@@ -26,14 +19,14 @@ export const iam_sso_connector_output: JsonSchema = {
       "type": "boolean"
     },
     "id": {
-      "$ref": "#/$defs/iam_sso_connector_identifier"
+      "type": "string"
     },
     "updated_on": {
       "format": "date-time",
       "type": "string"
     },
     "use_fedramp_language": {
-      "$ref": "#/$defs/iam_use_fedramp_language"
+      "type": "boolean"
     },
     "verification": {
       "$ref": "#/$defs/iam_sso_connector_verification_info"
@@ -45,7 +38,7 @@ export const iam_sso_connector_output: JsonSchema = {
 /**
  * The schema of `iam_sso_connector_collection_response` in responses.
  */
-export const iam_sso_connector_collection_response_output: JsonSchema = {
+export const iam_sso_connector_collection_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/iam_api-response-collection"
@@ -65,16 +58,9 @@ export const iam_sso_connector_collection_response_output: JsonSchema = {
 };
 
 /**
- * The schema of `iam_sso_connector_identifier` in responses.
- */
-export const iam_sso_connector_identifier_output: JsonSchema = {
-  "$ref": "#/$defs/iam_common_components-schemas-identifier"
-};
-
-/**
  * The schema of `iam_sso_connector_response` in responses.
  */
-export const iam_sso_connector_response_output: JsonSchema = {
+export const iam_sso_connector_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/iam_api-response-single"
@@ -93,10 +79,10 @@ export const iam_sso_connector_response_output: JsonSchema = {
 /**
  * The schema of `iam_sso_connector_verification_info` in responses.
  */
-export const iam_sso_connector_verification_info_output: JsonSchema = {
+export const iam_sso_connector_verification_info: JsonSchema = {
   "properties": {
     "code": {
-      "$ref": "#/$defs/iam_dns_verification_code"
+      "type": "string"
     },
     "status": {
       "enum": [
@@ -109,11 +95,4 @@ export const iam_sso_connector_verification_info_output: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `iam_use_fedramp_language` in responses.
- */
-export const iam_use_fedramp_language_output: JsonSchema = {
-  "type": "boolean"
 };

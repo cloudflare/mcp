@@ -4,22 +4,14 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `moq_account_identifier`.
- */
-export const moq_account_identifier: JsonSchema = {
-  "description": "Cloudflare account identifier.",
-  "type": "string"
-};
-
-/**
  * The schema of `moq_relay_config`.
  */
 export const moq_relay_config: JsonSchema = {
-  "description": "Relay configuration. All sub-objects use whole-object replacement when\npresent; omitted sub-objects preserve the existing value.\n",
+  "description": "Relay configuration. All sub-objects use whole-object replacement when\npresent; omitted sub-objects preserve the existing value.",
   "properties": {
     "upstreams": {
       "$ref": "#/$defs/moq_upstreams",
-      "description": "Upstreams are external MOQT server publishers that a relay falls back\nto when it has no local publisher for a requested namespace/track.\n"
+      "description": "Upstreams are external MOQT server publishers that a relay falls back\nto when it has no local publisher for a requested namespace/track."
     }
   },
   "type": "object"
@@ -32,7 +24,7 @@ export const moq_upstream: JsonSchema = {
   "description": "A single upstream MOQT server publisher.",
   "properties": {
     "url": {
-      "description": "Upstream MOQT server publisher URL. Must be an absolute URL with a\nhost and a scheme the relay can dial: moqt:// (raw QUIC) or https://\n(WebTransport). Validated on update (PUT); rejected with 21013.\n",
+      "description": "Upstream MOQT server publisher URL. Must be an absolute URL with a\nhost and a scheme the relay can dial: moqt:// (raw QUIC) or https://\n(WebTransport). Validated on update (PUT); rejected with 21013.",
       "type": "string"
     }
   },
@@ -46,7 +38,7 @@ export const moq_upstream: JsonSchema = {
  * The schema of `moq_upstreams`.
  */
 export const moq_upstreams: JsonSchema = {
-  "description": "Upstreams are external MOQT server publishers that a relay falls back\nto when it has no local publisher for a requested namespace/track.\n",
+  "description": "Upstreams are external MOQT server publishers that a relay falls back\nto when it has no local publisher for a requested namespace/track.",
   "properties": {
     "enabled": {
       "default": false,
@@ -54,7 +46,7 @@ export const moq_upstreams: JsonSchema = {
     },
     "upstreams": {
       "default": [],
-      "description": "Ordered list of upstream MOQT server publishers. Each entry is an\nobject (not a bare string) so per-upstream configuration can be\nadded in the future without another breaking change.\n",
+      "description": "Ordered list of upstream MOQT server publishers. Each entry is an\nobject (not a bare string) so per-upstream configuration can be\nadded in the future without another breaking change.",
       "items": {
         "$ref": "#/$defs/moq_upstream"
       },

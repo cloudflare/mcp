@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `registrar-api-sandbox_cursor_result_info` in responses.
  */
-export const registrar_api_sandbox_cursor_result_info_output: JsonSchema = {
+export const registrar$$api$$sandbox_cursor_result_info: JsonSchema = {
   "properties": {
     "count": {
       "type": "integer"
@@ -29,7 +29,7 @@ export const registrar_api_sandbox_cursor_result_info_output: JsonSchema = {
 /**
  * The schema of `registrar-api-sandbox_domain_check_response` in responses.
  */
-export const registrar_api_sandbox_domain_check_response_output: JsonSchema = {
+export const registrar$$api$$sandbox_domain_check_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/registrar-api-sandbox_api-response-common"
@@ -62,7 +62,7 @@ export const registrar_api_sandbox_domain_check_response_output: JsonSchema = {
 /**
  * The schema of `registrar-api-sandbox_domain_check_result` in responses.
  */
-export const registrar_api_sandbox_domain_check_result_output: JsonSchema = {
+export const registrar$$api$$sandbox_domain_check_result: JsonSchema = {
   "properties": {
     "name": {
       "type": "string"
@@ -99,16 +99,9 @@ export const registrar_api_sandbox_domain_check_result_output: JsonSchema = {
 };
 
 /**
- * The schema of `registrar-api-sandbox_domain_name` in responses.
- */
-export const registrar_api_sandbox_domain_name_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `registrar-api-sandbox_domain_search_response` in responses.
  */
-export const registrar_api_sandbox_domain_search_response_output: JsonSchema = {
+export const registrar$$api$$sandbox_domain_search_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/registrar-api-sandbox_api-response-common"
@@ -141,7 +134,7 @@ export const registrar_api_sandbox_domain_search_response_output: JsonSchema = {
 /**
  * The schema of `registrar-api-sandbox_domain_search_result` in responses.
  */
-export const registrar_api_sandbox_domain_search_result_output: JsonSchema = {
+export const registrar$$api$$sandbox_domain_search_result: JsonSchema = {
   "properties": {
     "name": {
       "type": "string"
@@ -180,7 +173,7 @@ export const registrar_api_sandbox_domain_search_result_output: JsonSchema = {
 /**
  * The schema of `registrar-api-sandbox_pricing_base` in responses.
  */
-export const registrar_api_sandbox_pricing_base_output: JsonSchema = {
+export const registrar$$api$$sandbox_pricing_base: JsonSchema = {
   "properties": {
     "currency": {
       "type": "string"
@@ -199,7 +192,7 @@ export const registrar_api_sandbox_pricing_base_output: JsonSchema = {
 /**
  * The schema of `registrar-api-sandbox_pricing_registration` in responses.
  */
-export const registrar_api_sandbox_pricing_registration_output: JsonSchema = {
+export const registrar$$api$$sandbox_pricing_registration: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/registrar-api-sandbox_pricing_base"
@@ -221,7 +214,7 @@ export const registrar_api_sandbox_pricing_registration_output: JsonSchema = {
 /**
  * The schema of `registrar-api-sandbox_registration` in responses.
  */
-export const registrar_api_sandbox_registration_output: JsonSchema = {
+export const registrar$$api$$sandbox_registration: JsonSchema = {
   "properties": {
     "auto_renew": {
       "type": "boolean"
@@ -231,7 +224,7 @@ export const registrar_api_sandbox_registration_output: JsonSchema = {
       "type": "string"
     },
     "domain_name": {
-      "$ref": "#/$defs/registrar-api-sandbox_domain_name"
+      "type": "string"
     },
     "expires_at": {
       "oneOf": [
@@ -283,7 +276,7 @@ export const registrar_api_sandbox_registration_output: JsonSchema = {
  * The schema of `registrar-api-sandbox_registration-response-collection` in
  * responses.
  */
-export const registrar_api_sandbox_registration_response_collection_output: JsonSchema = {
+export const registrar$$api$$sandbox_registration$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/registrar-api-sandbox_api-response-common"
@@ -313,7 +306,7 @@ export const registrar_api_sandbox_registration_response_collection_output: Json
  * The schema of `registrar-api-sandbox_registration-response-single` in
  * responses.
  */
-export const registrar_api_sandbox_registration_response_single_output: JsonSchema = {
+export const registrar$$api$$sandbox_registration$$response$$single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/registrar-api-sandbox_api-response-common"
@@ -333,7 +326,7 @@ export const registrar_api_sandbox_registration_response_single_output: JsonSche
  * The schema of `registrar-api-sandbox_workflow-status-response-single` in
  * responses.
  */
-export const registrar_api_sandbox_workflow_status_response_single_output: JsonSchema = {
+export const registrar$$api$$sandbox_workflow$$status$$response$$single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/registrar-api-sandbox_api-response-common"
@@ -352,7 +345,7 @@ export const registrar_api_sandbox_workflow_status_response_single_output: JsonS
 /**
  * The schema of `registrar-api-sandbox_workflow_error` in responses.
  */
-export const registrar_api_sandbox_workflow_error_output: JsonSchema = {
+export const registrar$$api$$sandbox_workflow_error: JsonSchema = {
   "properties": {
     "code": {
       "type": "string"
@@ -371,7 +364,7 @@ export const registrar_api_sandbox_workflow_error_output: JsonSchema = {
 /**
  * The schema of `registrar-api-sandbox_workflow_links` in responses.
  */
-export const registrar_api_sandbox_workflow_links_output: JsonSchema = {
+export const registrar$$api$$sandbox_workflow_links: JsonSchema = {
   "properties": {
     "resource": {
       "type": "string"
@@ -389,7 +382,7 @@ export const registrar_api_sandbox_workflow_links_output: JsonSchema = {
 /**
  * The schema of `registrar-api-sandbox_workflow_status` in responses.
  */
-export const registrar_api_sandbox_workflow_status_output: JsonSchema = {
+export const registrar$$api$$sandbox_workflow_status: JsonSchema = {
   "properties": {
     "completed": {
       "type": "boolean"

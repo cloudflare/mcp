@@ -3,129 +3,72 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  load_balancing_allow_insecure_output,
-  load_balancing_api_paginated_response_collection_output,
-  load_balancing_api_response_common_failure_output,
-  load_balancing_api_response_common_output,
-  load_balancing_api_response_single_output,
-  load_balancing_consecutive_down_output,
-  load_balancing_consecutive_up_output,
-  load_balancing_description_output,
-  load_balancing_expected_body_output,
-  load_balancing_expected_codes_output,
-  load_balancing_follow_redirects_output,
-  load_balancing_header_output,
-  load_balancing_id_response_output,
-  load_balancing_identifier_output,
-  load_balancing_interval_output,
-  load_balancing_messages_output,
-  load_balancing_method_output,
-  load_balancing_monitor_editable_output,
-  load_balancing_monitor_output,
-  load_balancing_monitor_response_collection_output,
-  load_balancing_monitor_response_single_output,
-  load_balancing_path_output,
-  load_balancing_port_output,
-  load_balancing_probe_zone_output,
-  load_balancing_result_info_output,
-  load_balancing_retries_output,
-  load_balancing_timeout_output,
-  load_balancing_timestamp_output,
-  load_balancing_type_output,
+  load$$balancing_api$$paginated$$response$$collection,
+  load$$balancing_api$$response$$common,
+  load$$balancing_api$$response$$common$$failure,
+  load$$balancing_api$$response$$single,
+  load$$balancing_header,
+  load$$balancing_id_response,
+  load$$balancing_messages,
+  load$$balancing_monitor,
+  load$$balancing_monitor$$editable,
+  load$$balancing_monitor$$response$$collection,
+  load$$balancing_monitor$$response$$single,
+  load$$balancing_result_info,
 } from "../../outputs.js";
 import {
-  load_balancing_allow_insecure,
-  load_balancing_consecutive_down,
-  load_balancing_consecutive_up,
-  load_balancing_description,
-  load_balancing_expected_body,
-  load_balancing_expected_codes,
-  load_balancing_follow_redirects,
-  load_balancing_header,
-  load_balancing_identifier,
-  load_balancing_interval,
-  load_balancing_method,
-  load_balancing_monitor_editable,
-  load_balancing_path,
-  load_balancing_port,
-  load_balancing_probe_zone,
-  load_balancing_retries,
-  load_balancing_timeout,
-  load_balancing_type,
+  load$$balancing_header as load$$balancing_header$,
+  load$$balancing_monitor$$editable as load$$balancing_monitor$$editable$,
 } from "../../schemas.js";
-import { load_balancing_components_schemas_identifier } from "../schemas.js";
 
 /**
- * The tools of `load_balancers.monitors`.
+ * The tools of `loadBalancers.monitors`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "load_balancers_monitors_create",
+    name: "loadBalancers_monitors_create",
     title: "Create Monitor",
-    description: "Create a configured monitor.",
+    description: "Create a configured monitor.\n\nPOST /accounts/{account_id}/load_balancers/monitors",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/load-balancing_components-schemas-identifier",
-          "description": "Identifier."
-        },
         "body": {
           "$ref": "#/$defs/load-balancing_monitor-editable"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "load-balancing_allow_insecure": load_balancing_allow_insecure,
-        "load-balancing_components-schemas-identifier": load_balancing_components_schemas_identifier,
-        "load-balancing_consecutive_down": load_balancing_consecutive_down,
-        "load-balancing_consecutive_up": load_balancing_consecutive_up,
-        "load-balancing_description": load_balancing_description,
-        "load-balancing_expected_body": load_balancing_expected_body,
-        "load-balancing_expected_codes": load_balancing_expected_codes,
-        "load-balancing_follow_redirects": load_balancing_follow_redirects,
-        "load-balancing_header": load_balancing_header,
-        "load-balancing_interval": load_balancing_interval,
-        "load-balancing_method": load_balancing_method,
-        "load-balancing_monitor-editable": load_balancing_monitor_editable,
-        "load-balancing_path": load_balancing_path,
-        "load-balancing_port": load_balancing_port,
-        "load-balancing_probe_zone": load_balancing_probe_zone,
-        "load-balancing_retries": load_balancing_retries,
-        "load-balancing_timeout": load_balancing_timeout,
-        "load-balancing_type": load_balancing_type,
+        "load-balancing_header": load$$balancing_header$,
+        "load-balancing_monitor-editable": load$$balancing_monitor$$editable$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/load-balancing_monitor-response-single",
       $defs: {
-        "load-balancing_allow_insecure": load_balancing_allow_insecure_output,
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_api-response-single": load_balancing_api_response_single_output,
-        "load-balancing_consecutive_down": load_balancing_consecutive_down_output,
-        "load-balancing_consecutive_up": load_balancing_consecutive_up_output,
-        "load-balancing_description": load_balancing_description_output,
-        "load-balancing_expected_body": load_balancing_expected_body_output,
-        "load-balancing_expected_codes": load_balancing_expected_codes_output,
-        "load-balancing_follow_redirects": load_balancing_follow_redirects_output,
-        "load-balancing_header": load_balancing_header_output,
-        "load-balancing_identifier": load_balancing_identifier_output,
-        "load-balancing_interval": load_balancing_interval_output,
-        "load-balancing_messages": load_balancing_messages_output,
-        "load-balancing_method": load_balancing_method_output,
-        "load-balancing_monitor": load_balancing_monitor_output,
-        "load-balancing_monitor-editable": load_balancing_monitor_editable_output,
-        "load-balancing_monitor-response-single": load_balancing_monitor_response_single_output,
-        "load-balancing_path": load_balancing_path_output,
-        "load-balancing_port": load_balancing_port_output,
-        "load-balancing_probe_zone": load_balancing_probe_zone_output,
-        "load-balancing_retries": load_balancing_retries_output,
-        "load-balancing_timeout": load_balancing_timeout_output,
-        "load-balancing_timestamp": load_balancing_timestamp_output,
-        "load-balancing_type": load_balancing_type_output,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_api-response-single": load$$balancing_api$$response$$single,
+        "load-balancing_header": load$$balancing_header,
+        "load-balancing_messages": load$$balancing_messages,
+        "load-balancing_monitor": load$$balancing_monitor,
+        "load-balancing_monitor-editable": load$$balancing_monitor$$editable,
+        "load-balancing_monitor-response-single": load$$balancing_monitor$$response$$single,
       },
     },
     annotations: {
@@ -152,31 +95,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "load-balancing_allow_insecure": load_balancing_allow_insecure_output,
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
-        "load-balancing_api-response-single": load_balancing_api_response_single_output,
-        "load-balancing_consecutive_down": load_balancing_consecutive_down_output,
-        "load-balancing_consecutive_up": load_balancing_consecutive_up_output,
-        "load-balancing_description": load_balancing_description_output,
-        "load-balancing_expected_body": load_balancing_expected_body_output,
-        "load-balancing_expected_codes": load_balancing_expected_codes_output,
-        "load-balancing_follow_redirects": load_balancing_follow_redirects_output,
-        "load-balancing_header": load_balancing_header_output,
-        "load-balancing_identifier": load_balancing_identifier_output,
-        "load-balancing_interval": load_balancing_interval_output,
-        "load-balancing_messages": load_balancing_messages_output,
-        "load-balancing_method": load_balancing_method_output,
-        "load-balancing_monitor": load_balancing_monitor_output,
-        "load-balancing_monitor-editable": load_balancing_monitor_editable_output,
-        "load-balancing_monitor-response-single": load_balancing_monitor_response_single_output,
-        "load-balancing_path": load_balancing_path_output,
-        "load-balancing_port": load_balancing_port_output,
-        "load-balancing_probe_zone": load_balancing_probe_zone_output,
-        "load-balancing_retries": load_balancing_retries_output,
-        "load-balancing_timeout": load_balancing_timeout_output,
-        "load-balancing_timestamp": load_balancing_timestamp_output,
-        "load-balancing_type": load_balancing_type_output,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_api-response-common-failure": load$$balancing_api$$response$$common$$failure,
+        "load-balancing_api-response-single": load$$balancing_api$$response$$single,
+        "load-balancing_header": load$$balancing_header,
+        "load-balancing_messages": load$$balancing_messages,
+        "load-balancing_monitor": load$$balancing_monitor,
+        "load-balancing_monitor-editable": load$$balancing_monitor$$editable,
+        "load-balancing_monitor-response-single": load$$balancing_monitor$$response$$single,
       },
     },
     request: (args) => ({
@@ -185,37 +111,42 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "load_balancers_monitors_delete",
+    name: "loadBalancers_monitors_delete",
     title: "Delete Monitor",
-    description: "Delete a configured monitor.",
+    description: "Delete a configured monitor.\n\nDELETE /accounts/{account_id}/load_balancers/monitors/{monitor_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/load-balancing_components-schemas-identifier",
-          "description": "Identifier."
-        },
-        "monitor_id": {
-          "$ref": "#/$defs/load-balancing_identifier"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            },
+            "monitor_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "monitor_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "monitor_id"
+        "path"
       ],
-      $defs: {
-        "load-balancing_components-schemas-identifier": load_balancing_components_schemas_identifier,
-        "load-balancing_identifier": load_balancing_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/load-balancing_id_response",
       $defs: {
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_api-response-single": load_balancing_api_response_single_output,
-        "load-balancing_id_response": load_balancing_id_response_output,
-        "load-balancing_identifier": load_balancing_identifier_output,
-        "load-balancing_messages": load_balancing_messages_output,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_api-response-single": load$$balancing_api$$response$$single,
+        "load-balancing_id_response": load$$balancing_id_response,
+        "load-balancing_messages": load$$balancing_messages,
       },
     },
     annotations: {
@@ -242,12 +173,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
-        "load-balancing_api-response-single": load_balancing_api_response_single_output,
-        "load-balancing_id_response": load_balancing_id_response_output,
-        "load-balancing_identifier": load_balancing_identifier_output,
-        "load-balancing_messages": load_balancing_messages_output,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_api-response-common-failure": load$$balancing_api$$response$$common$$failure,
+        "load-balancing_api-response-single": load$$balancing_api$$response$$single,
+        "load-balancing_id_response": load$$balancing_id_response,
+        "load-balancing_messages": load$$balancing_messages,
       },
     },
     request: (args) => ({
@@ -255,77 +185,53 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "load_balancers_monitors_edit",
+    name: "loadBalancers_monitors_edit",
     title: "Patch Monitor",
-    description: "Apply changes to an existing monitor, overwriting the supplied properties.",
+    description: "Apply changes to an existing monitor, overwriting the supplied properties.\n\nPATCH /accounts/{account_id}/load_balancers/monitors/{monitor_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/load-balancing_components-schemas-identifier",
-          "description": "Identifier."
-        },
         "body": {
           "$ref": "#/$defs/load-balancing_monitor-editable"
         },
-        "monitor_id": {
-          "$ref": "#/$defs/load-balancing_identifier"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            },
+            "monitor_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "monitor_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "monitor_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "load-balancing_allow_insecure": load_balancing_allow_insecure,
-        "load-balancing_components-schemas-identifier": load_balancing_components_schemas_identifier,
-        "load-balancing_consecutive_down": load_balancing_consecutive_down,
-        "load-balancing_consecutive_up": load_balancing_consecutive_up,
-        "load-balancing_description": load_balancing_description,
-        "load-balancing_expected_body": load_balancing_expected_body,
-        "load-balancing_expected_codes": load_balancing_expected_codes,
-        "load-balancing_follow_redirects": load_balancing_follow_redirects,
-        "load-balancing_header": load_balancing_header,
-        "load-balancing_identifier": load_balancing_identifier,
-        "load-balancing_interval": load_balancing_interval,
-        "load-balancing_method": load_balancing_method,
-        "load-balancing_monitor-editable": load_balancing_monitor_editable,
-        "load-balancing_path": load_balancing_path,
-        "load-balancing_port": load_balancing_port,
-        "load-balancing_probe_zone": load_balancing_probe_zone,
-        "load-balancing_retries": load_balancing_retries,
-        "load-balancing_timeout": load_balancing_timeout,
-        "load-balancing_type": load_balancing_type,
+        "load-balancing_header": load$$balancing_header$,
+        "load-balancing_monitor-editable": load$$balancing_monitor$$editable$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/load-balancing_monitor-response-single",
       $defs: {
-        "load-balancing_allow_insecure": load_balancing_allow_insecure_output,
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_api-response-single": load_balancing_api_response_single_output,
-        "load-balancing_consecutive_down": load_balancing_consecutive_down_output,
-        "load-balancing_consecutive_up": load_balancing_consecutive_up_output,
-        "load-balancing_description": load_balancing_description_output,
-        "load-balancing_expected_body": load_balancing_expected_body_output,
-        "load-balancing_expected_codes": load_balancing_expected_codes_output,
-        "load-balancing_follow_redirects": load_balancing_follow_redirects_output,
-        "load-balancing_header": load_balancing_header_output,
-        "load-balancing_identifier": load_balancing_identifier_output,
-        "load-balancing_interval": load_balancing_interval_output,
-        "load-balancing_messages": load_balancing_messages_output,
-        "load-balancing_method": load_balancing_method_output,
-        "load-balancing_monitor": load_balancing_monitor_output,
-        "load-balancing_monitor-editable": load_balancing_monitor_editable_output,
-        "load-balancing_monitor-response-single": load_balancing_monitor_response_single_output,
-        "load-balancing_path": load_balancing_path_output,
-        "load-balancing_port": load_balancing_port_output,
-        "load-balancing_probe_zone": load_balancing_probe_zone_output,
-        "load-balancing_retries": load_balancing_retries_output,
-        "load-balancing_timeout": load_balancing_timeout_output,
-        "load-balancing_timestamp": load_balancing_timestamp_output,
-        "load-balancing_type": load_balancing_type_output,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_api-response-single": load$$balancing_api$$response$$single,
+        "load-balancing_header": load$$balancing_header,
+        "load-balancing_messages": load$$balancing_messages,
+        "load-balancing_monitor": load$$balancing_monitor,
+        "load-balancing_monitor-editable": load$$balancing_monitor$$editable,
+        "load-balancing_monitor-response-single": load$$balancing_monitor$$response$$single,
       },
     },
     annotations: {
@@ -352,31 +258,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "load-balancing_allow_insecure": load_balancing_allow_insecure_output,
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
-        "load-balancing_api-response-single": load_balancing_api_response_single_output,
-        "load-balancing_consecutive_down": load_balancing_consecutive_down_output,
-        "load-balancing_consecutive_up": load_balancing_consecutive_up_output,
-        "load-balancing_description": load_balancing_description_output,
-        "load-balancing_expected_body": load_balancing_expected_body_output,
-        "load-balancing_expected_codes": load_balancing_expected_codes_output,
-        "load-balancing_follow_redirects": load_balancing_follow_redirects_output,
-        "load-balancing_header": load_balancing_header_output,
-        "load-balancing_identifier": load_balancing_identifier_output,
-        "load-balancing_interval": load_balancing_interval_output,
-        "load-balancing_messages": load_balancing_messages_output,
-        "load-balancing_method": load_balancing_method_output,
-        "load-balancing_monitor": load_balancing_monitor_output,
-        "load-balancing_monitor-editable": load_balancing_monitor_editable_output,
-        "load-balancing_monitor-response-single": load_balancing_monitor_response_single_output,
-        "load-balancing_path": load_balancing_path_output,
-        "load-balancing_port": load_balancing_port_output,
-        "load-balancing_probe_zone": load_balancing_probe_zone_output,
-        "load-balancing_retries": load_balancing_retries_output,
-        "load-balancing_timeout": load_balancing_timeout_output,
-        "load-balancing_timestamp": load_balancing_timestamp_output,
-        "load-balancing_type": load_balancing_type_output,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_api-response-common-failure": load$$balancing_api$$response$$common$$failure,
+        "load-balancing_api-response-single": load$$balancing_api$$response$$single,
+        "load-balancing_header": load$$balancing_header,
+        "load-balancing_messages": load$$balancing_messages,
+        "load-balancing_monitor": load$$balancing_monitor,
+        "load-balancing_monitor-editable": load$$balancing_monitor$$editable,
+        "load-balancing_monitor-response-single": load$$balancing_monitor$$response$$single,
       },
     },
     request: (args) => ({
@@ -385,56 +274,45 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "load_balancers_monitors_get",
+    name: "loadBalancers_monitors_get",
     title: "Monitor Details",
-    description: "Fetch a single configured monitor for an account.",
+    description: "Fetch a single configured monitor for an account.\n\nGET /accounts/{account_id}/load_balancers/monitors/{monitor_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/load-balancing_components-schemas-identifier",
-          "description": "Identifier."
-        },
-        "monitor_id": {
-          "$ref": "#/$defs/load-balancing_identifier"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            },
+            "monitor_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "monitor_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "monitor_id"
+        "path"
       ],
-      $defs: {
-        "load-balancing_components-schemas-identifier": load_balancing_components_schemas_identifier,
-        "load-balancing_identifier": load_balancing_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/load-balancing_monitor-response-single",
       $defs: {
-        "load-balancing_allow_insecure": load_balancing_allow_insecure_output,
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_api-response-single": load_balancing_api_response_single_output,
-        "load-balancing_consecutive_down": load_balancing_consecutive_down_output,
-        "load-balancing_consecutive_up": load_balancing_consecutive_up_output,
-        "load-balancing_description": load_balancing_description_output,
-        "load-balancing_expected_body": load_balancing_expected_body_output,
-        "load-balancing_expected_codes": load_balancing_expected_codes_output,
-        "load-balancing_follow_redirects": load_balancing_follow_redirects_output,
-        "load-balancing_header": load_balancing_header_output,
-        "load-balancing_identifier": load_balancing_identifier_output,
-        "load-balancing_interval": load_balancing_interval_output,
-        "load-balancing_messages": load_balancing_messages_output,
-        "load-balancing_method": load_balancing_method_output,
-        "load-balancing_monitor": load_balancing_monitor_output,
-        "load-balancing_monitor-editable": load_balancing_monitor_editable_output,
-        "load-balancing_monitor-response-single": load_balancing_monitor_response_single_output,
-        "load-balancing_path": load_balancing_path_output,
-        "load-balancing_port": load_balancing_port_output,
-        "load-balancing_probe_zone": load_balancing_probe_zone_output,
-        "load-balancing_retries": load_balancing_retries_output,
-        "load-balancing_timeout": load_balancing_timeout_output,
-        "load-balancing_timestamp": load_balancing_timestamp_output,
-        "load-balancing_type": load_balancing_type_output,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_api-response-single": load$$balancing_api$$response$$single,
+        "load-balancing_header": load$$balancing_header,
+        "load-balancing_messages": load$$balancing_messages,
+        "load-balancing_monitor": load$$balancing_monitor,
+        "load-balancing_monitor-editable": load$$balancing_monitor$$editable,
+        "load-balancing_monitor-response-single": load$$balancing_monitor$$response$$single,
       },
     },
     annotations: {
@@ -462,31 +340,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "load-balancing_allow_insecure": load_balancing_allow_insecure_output,
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
-        "load-balancing_api-response-single": load_balancing_api_response_single_output,
-        "load-balancing_consecutive_down": load_balancing_consecutive_down_output,
-        "load-balancing_consecutive_up": load_balancing_consecutive_up_output,
-        "load-balancing_description": load_balancing_description_output,
-        "load-balancing_expected_body": load_balancing_expected_body_output,
-        "load-balancing_expected_codes": load_balancing_expected_codes_output,
-        "load-balancing_follow_redirects": load_balancing_follow_redirects_output,
-        "load-balancing_header": load_balancing_header_output,
-        "load-balancing_identifier": load_balancing_identifier_output,
-        "load-balancing_interval": load_balancing_interval_output,
-        "load-balancing_messages": load_balancing_messages_output,
-        "load-balancing_method": load_balancing_method_output,
-        "load-balancing_monitor": load_balancing_monitor_output,
-        "load-balancing_monitor-editable": load_balancing_monitor_editable_output,
-        "load-balancing_monitor-response-single": load_balancing_monitor_response_single_output,
-        "load-balancing_path": load_balancing_path_output,
-        "load-balancing_port": load_balancing_port_output,
-        "load-balancing_probe_zone": load_balancing_probe_zone_output,
-        "load-balancing_retries": load_balancing_retries_output,
-        "load-balancing_timeout": load_balancing_timeout_output,
-        "load-balancing_timestamp": load_balancing_timestamp_output,
-        "load-balancing_type": load_balancing_type_output,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_api-response-common-failure": load$$balancing_api$$response$$common$$failure,
+        "load-balancing_api-response-single": load$$balancing_api$$response$$single,
+        "load-balancing_header": load$$balancing_header,
+        "load-balancing_messages": load$$balancing_messages,
+        "load-balancing_monitor": load$$balancing_monitor,
+        "load-balancing_monitor-editable": load$$balancing_monitor$$editable,
+        "load-balancing_monitor-response-single": load$$balancing_monitor$$response$$single,
       },
     },
     request: (args) => ({
@@ -494,52 +355,42 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "load_balancers_monitors_list",
+    name: "loadBalancers_monitors_list",
     title: "List Monitors",
-    description: "List configured monitors for an account.",
+    description: "List configured monitors for an account.\n\nGET /accounts/{account_id}/load_balancers/monitors",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/load-balancing_components-schemas-identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
-      $defs: {
-        "load-balancing_components-schemas-identifier": load_balancing_components_schemas_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/load-balancing_monitor-response-collection",
       $defs: {
-        "load-balancing_allow_insecure": load_balancing_allow_insecure_output,
-        "load-balancing_api-paginated-response-collection": load_balancing_api_paginated_response_collection_output,
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_consecutive_down": load_balancing_consecutive_down_output,
-        "load-balancing_consecutive_up": load_balancing_consecutive_up_output,
-        "load-balancing_description": load_balancing_description_output,
-        "load-balancing_expected_body": load_balancing_expected_body_output,
-        "load-balancing_expected_codes": load_balancing_expected_codes_output,
-        "load-balancing_follow_redirects": load_balancing_follow_redirects_output,
-        "load-balancing_header": load_balancing_header_output,
-        "load-balancing_identifier": load_balancing_identifier_output,
-        "load-balancing_interval": load_balancing_interval_output,
-        "load-balancing_messages": load_balancing_messages_output,
-        "load-balancing_method": load_balancing_method_output,
-        "load-balancing_monitor": load_balancing_monitor_output,
-        "load-balancing_monitor-editable": load_balancing_monitor_editable_output,
-        "load-balancing_monitor-response-collection": load_balancing_monitor_response_collection_output,
-        "load-balancing_path": load_balancing_path_output,
-        "load-balancing_port": load_balancing_port_output,
-        "load-balancing_probe_zone": load_balancing_probe_zone_output,
-        "load-balancing_result_info": load_balancing_result_info_output,
-        "load-balancing_retries": load_balancing_retries_output,
-        "load-balancing_timeout": load_balancing_timeout_output,
-        "load-balancing_timestamp": load_balancing_timestamp_output,
-        "load-balancing_type": load_balancing_type_output,
+        "load-balancing_api-paginated-response-collection": load$$balancing_api$$paginated$$response$$collection,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_header": load$$balancing_header,
+        "load-balancing_messages": load$$balancing_messages,
+        "load-balancing_monitor": load$$balancing_monitor,
+        "load-balancing_monitor-editable": load$$balancing_monitor$$editable,
+        "load-balancing_monitor-response-collection": load$$balancing_monitor$$response$$collection,
+        "load-balancing_result_info": load$$balancing_result_info,
       },
     },
     annotations: {
@@ -567,32 +418,15 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "load-balancing_allow_insecure": load_balancing_allow_insecure_output,
-        "load-balancing_api-paginated-response-collection": load_balancing_api_paginated_response_collection_output,
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
-        "load-balancing_consecutive_down": load_balancing_consecutive_down_output,
-        "load-balancing_consecutive_up": load_balancing_consecutive_up_output,
-        "load-balancing_description": load_balancing_description_output,
-        "load-balancing_expected_body": load_balancing_expected_body_output,
-        "load-balancing_expected_codes": load_balancing_expected_codes_output,
-        "load-balancing_follow_redirects": load_balancing_follow_redirects_output,
-        "load-balancing_header": load_balancing_header_output,
-        "load-balancing_identifier": load_balancing_identifier_output,
-        "load-balancing_interval": load_balancing_interval_output,
-        "load-balancing_messages": load_balancing_messages_output,
-        "load-balancing_method": load_balancing_method_output,
-        "load-balancing_monitor": load_balancing_monitor_output,
-        "load-balancing_monitor-editable": load_balancing_monitor_editable_output,
-        "load-balancing_monitor-response-collection": load_balancing_monitor_response_collection_output,
-        "load-balancing_path": load_balancing_path_output,
-        "load-balancing_port": load_balancing_port_output,
-        "load-balancing_probe_zone": load_balancing_probe_zone_output,
-        "load-balancing_result_info": load_balancing_result_info_output,
-        "load-balancing_retries": load_balancing_retries_output,
-        "load-balancing_timeout": load_balancing_timeout_output,
-        "load-balancing_timestamp": load_balancing_timestamp_output,
-        "load-balancing_type": load_balancing_type_output,
+        "load-balancing_api-paginated-response-collection": load$$balancing_api$$paginated$$response$$collection,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_api-response-common-failure": load$$balancing_api$$response$$common$$failure,
+        "load-balancing_header": load$$balancing_header,
+        "load-balancing_messages": load$$balancing_messages,
+        "load-balancing_monitor": load$$balancing_monitor,
+        "load-balancing_monitor-editable": load$$balancing_monitor$$editable,
+        "load-balancing_monitor-response-collection": load$$balancing_monitor$$response$$collection,
+        "load-balancing_result_info": load$$balancing_result_info,
       },
     },
     request: (args) => ({
@@ -600,77 +434,53 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "load_balancers_monitors_update",
+    name: "loadBalancers_monitors_update",
     title: "Update Monitor",
-    description: "Modify a configured monitor.",
+    description: "Modify a configured monitor.\n\nPUT /accounts/{account_id}/load_balancers/monitors/{monitor_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/load-balancing_components-schemas-identifier",
-          "description": "Identifier."
-        },
         "body": {
           "$ref": "#/$defs/load-balancing_monitor-editable"
         },
-        "monitor_id": {
-          "$ref": "#/$defs/load-balancing_identifier"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            },
+            "monitor_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "monitor_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "monitor_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "load-balancing_allow_insecure": load_balancing_allow_insecure,
-        "load-balancing_components-schemas-identifier": load_balancing_components_schemas_identifier,
-        "load-balancing_consecutive_down": load_balancing_consecutive_down,
-        "load-balancing_consecutive_up": load_balancing_consecutive_up,
-        "load-balancing_description": load_balancing_description,
-        "load-balancing_expected_body": load_balancing_expected_body,
-        "load-balancing_expected_codes": load_balancing_expected_codes,
-        "load-balancing_follow_redirects": load_balancing_follow_redirects,
-        "load-balancing_header": load_balancing_header,
-        "load-balancing_identifier": load_balancing_identifier,
-        "load-balancing_interval": load_balancing_interval,
-        "load-balancing_method": load_balancing_method,
-        "load-balancing_monitor-editable": load_balancing_monitor_editable,
-        "load-balancing_path": load_balancing_path,
-        "load-balancing_port": load_balancing_port,
-        "load-balancing_probe_zone": load_balancing_probe_zone,
-        "load-balancing_retries": load_balancing_retries,
-        "load-balancing_timeout": load_balancing_timeout,
-        "load-balancing_type": load_balancing_type,
+        "load-balancing_header": load$$balancing_header$,
+        "load-balancing_monitor-editable": load$$balancing_monitor$$editable$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/load-balancing_monitor-response-single",
       $defs: {
-        "load-balancing_allow_insecure": load_balancing_allow_insecure_output,
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_api-response-single": load_balancing_api_response_single_output,
-        "load-balancing_consecutive_down": load_balancing_consecutive_down_output,
-        "load-balancing_consecutive_up": load_balancing_consecutive_up_output,
-        "load-balancing_description": load_balancing_description_output,
-        "load-balancing_expected_body": load_balancing_expected_body_output,
-        "load-balancing_expected_codes": load_balancing_expected_codes_output,
-        "load-balancing_follow_redirects": load_balancing_follow_redirects_output,
-        "load-balancing_header": load_balancing_header_output,
-        "load-balancing_identifier": load_balancing_identifier_output,
-        "load-balancing_interval": load_balancing_interval_output,
-        "load-balancing_messages": load_balancing_messages_output,
-        "load-balancing_method": load_balancing_method_output,
-        "load-balancing_monitor": load_balancing_monitor_output,
-        "load-balancing_monitor-editable": load_balancing_monitor_editable_output,
-        "load-balancing_monitor-response-single": load_balancing_monitor_response_single_output,
-        "load-balancing_path": load_balancing_path_output,
-        "load-balancing_port": load_balancing_port_output,
-        "load-balancing_probe_zone": load_balancing_probe_zone_output,
-        "load-balancing_retries": load_balancing_retries_output,
-        "load-balancing_timeout": load_balancing_timeout_output,
-        "load-balancing_timestamp": load_balancing_timestamp_output,
-        "load-balancing_type": load_balancing_type_output,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_api-response-single": load$$balancing_api$$response$$single,
+        "load-balancing_header": load$$balancing_header,
+        "load-balancing_messages": load$$balancing_messages,
+        "load-balancing_monitor": load$$balancing_monitor,
+        "load-balancing_monitor-editable": load$$balancing_monitor$$editable,
+        "load-balancing_monitor-response-single": load$$balancing_monitor$$response$$single,
       },
     },
     annotations: {
@@ -697,31 +507,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "load-balancing_allow_insecure": load_balancing_allow_insecure_output,
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
-        "load-balancing_api-response-single": load_balancing_api_response_single_output,
-        "load-balancing_consecutive_down": load_balancing_consecutive_down_output,
-        "load-balancing_consecutive_up": load_balancing_consecutive_up_output,
-        "load-balancing_description": load_balancing_description_output,
-        "load-balancing_expected_body": load_balancing_expected_body_output,
-        "load-balancing_expected_codes": load_balancing_expected_codes_output,
-        "load-balancing_follow_redirects": load_balancing_follow_redirects_output,
-        "load-balancing_header": load_balancing_header_output,
-        "load-balancing_identifier": load_balancing_identifier_output,
-        "load-balancing_interval": load_balancing_interval_output,
-        "load-balancing_messages": load_balancing_messages_output,
-        "load-balancing_method": load_balancing_method_output,
-        "load-balancing_monitor": load_balancing_monitor_output,
-        "load-balancing_monitor-editable": load_balancing_monitor_editable_output,
-        "load-balancing_monitor-response-single": load_balancing_monitor_response_single_output,
-        "load-balancing_path": load_balancing_path_output,
-        "load-balancing_port": load_balancing_port_output,
-        "load-balancing_probe_zone": load_balancing_probe_zone_output,
-        "load-balancing_retries": load_balancing_retries_output,
-        "load-balancing_timeout": load_balancing_timeout_output,
-        "load-balancing_timestamp": load_balancing_timestamp_output,
-        "load-balancing_type": load_balancing_type_output,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_api-response-common-failure": load$$balancing_api$$response$$common$$failure,
+        "load-balancing_api-response-single": load$$balancing_api$$response$$single,
+        "load-balancing_header": load$$balancing_header,
+        "load-balancing_messages": load$$balancing_messages,
+        "load-balancing_monitor": load$$balancing_monitor,
+        "load-balancing_monitor-editable": load$$balancing_monitor$$editable,
+        "load-balancing_monitor-response-single": load$$balancing_monitor$$response$$single,
       },
     },
     request: (args) => ({

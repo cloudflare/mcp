@@ -3,54 +3,58 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  addressing_api_response_collection_output,
-  addressing_api_response_common_failure_output,
-  addressing_api_response_common_output,
-  addressing_messages_output,
+  addressing_api$$response$$collection,
+  addressing_api$$response$$common,
+  addressing_api$$response$$common$$failure,
+  addressing_messages,
 } from "../../outputs.js";
-import { addressing_account_identifier } from "../../schemas.js";
-import { addressing_address_map_identifier } from "../schemas.js";
 
 /**
- * The tools of `addressing.address_maps.accounts`.
+ * The tools of `addressing.addressMaps.accounts`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "addressing_address_maps_accounts_delete",
+    name: "addressing_addressMaps_accounts_delete",
     title: "Remove an account membership from an Address Map",
-    description: "Remove an account as a member of a particular address map.",
+    description: "Remove an account as a member of a particular address map.\n\nDELETE /accounts/{account_id}/addressing/address_maps/{address_map_id}/accounts/{member_account_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/addressing_account_identifier",
-          "description": "Identifier of a Cloudflare account."
-        },
-        "address_map_id": {
-          "$ref": "#/$defs/addressing_address_map_identifier",
-          "description": "Identifier of an Address Map."
-        },
-        "member_account_id": {
-          "$ref": "#/$defs/addressing_account_identifier",
-          "description": "Identifier of a Cloudflare account."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
+            },
+            "address_map_id": {
+              "description": "Identifier of an Address Map.",
+              "type": "string"
+            },
+            "member_account_id": {
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "address_map_id",
+            "member_account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "address_map_id",
-        "member_account_id"
+        "path"
       ],
-      $defs: {
-        "addressing_account_identifier": addressing_account_identifier,
-        "addressing_address_map_identifier": addressing_address_map_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/addressing_api-response-collection",
       $defs: {
-        "addressing_api-response-collection": addressing_api_response_collection_output,
-        "addressing_api-response-common": addressing_api_response_common_output,
-        "addressing_messages": addressing_messages_output,
+        "addressing_api-response-collection": addressing_api$$response$$collection,
+        "addressing_api-response-common": addressing_api$$response$$common,
+        "addressing_messages": addressing_messages,
       },
     },
     annotations: {
@@ -84,10 +88,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "addressing_api-response-collection": addressing_api_response_collection_output,
-        "addressing_api-response-common": addressing_api_response_common_output,
-        "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
-        "addressing_messages": addressing_messages_output,
+        "addressing_api-response-collection": addressing_api$$response$$collection,
+        "addressing_api-response-common": addressing_api$$response$$common,
+        "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
+        "addressing_messages": addressing_messages,
       },
     },
     request: (args) => ({
@@ -95,41 +99,47 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "addressing_address_maps_accounts_update",
+    name: "addressing_addressMaps_accounts_update",
     title: "Add an account membership to an Address Map",
-    description: "Add an account as a member of a particular address map.",
+    description: "Add an account as a member of a particular address map.\n\nPUT /accounts/{account_id}/addressing/address_maps/{address_map_id}/accounts/{member_account_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/addressing_account_identifier",
-          "description": "Identifier of a Cloudflare account."
-        },
-        "address_map_id": {
-          "$ref": "#/$defs/addressing_address_map_identifier",
-          "description": "Identifier of an Address Map."
-        },
-        "member_account_id": {
-          "$ref": "#/$defs/addressing_account_identifier",
-          "description": "Identifier of a Cloudflare account."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
+            },
+            "address_map_id": {
+              "description": "Identifier of an Address Map.",
+              "type": "string"
+            },
+            "member_account_id": {
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "address_map_id",
+            "member_account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "address_map_id",
-        "member_account_id"
+        "path"
       ],
-      $defs: {
-        "addressing_account_identifier": addressing_account_identifier,
-        "addressing_address_map_identifier": addressing_address_map_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/addressing_api-response-collection",
       $defs: {
-        "addressing_api-response-collection": addressing_api_response_collection_output,
-        "addressing_api-response-common": addressing_api_response_common_output,
-        "addressing_messages": addressing_messages_output,
+        "addressing_api-response-collection": addressing_api$$response$$collection,
+        "addressing_api-response-common": addressing_api$$response$$common,
+        "addressing_messages": addressing_messages,
       },
     },
     annotations: {
@@ -158,10 +168,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "addressing_api-response-collection": addressing_api_response_collection_output,
-        "addressing_api-response-common": addressing_api_response_common_output,
-        "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
-        "addressing_messages": addressing_messages_output,
+        "addressing_api-response-collection": addressing_api$$response$$collection,
+        "addressing_api-response-common": addressing_api$$response$$common,
+        "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
+        "addressing_messages": addressing_messages,
       },
     },
     request: (args) => ({

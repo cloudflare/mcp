@@ -3,15 +3,14 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  workers_api_response_common_failure_output,
-  workers_api_response_common_output,
-  workers_messages_output,
+  workers_api$$response$$common,
+  workers_api$$response$$common$$failure,
+  workers_messages,
 } from "../../../outputs.js";
-import { workers_identifier } from "../../../schemas.js";
 import {
-  workers_placement_provider_output,
-  workers_placement_region_output,
-  workers_placement_regions_response_output,
+  workers_placement$$provider,
+  workers_placement$$region,
+  workers_placement$$regions$$response,
 } from "./outputs.js";
 
 /**
@@ -21,21 +20,28 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_placement_regions_list",
     title: "List Workers Smart Placement Regions",
-    description: "Returns a list of available placement regions organized by cloud provider. These regions can be used to configure Smart Placement for Workers.",
+    description: "Returns a list of available placement regions organized by cloud provider. These regions can be used to configure Smart Placement for Workers.\n\nGET /accounts/{account_id}/workers/placement/regions",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/workers_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -55,11 +61,11 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_messages": workers_messages_output,
-        "workers_placement-provider": workers_placement_provider_output,
-        "workers_placement-region": workers_placement_region_output,
-        "workers_placement-regions-response": workers_placement_regions_response_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_messages": workers_messages,
+        "workers_placement-provider": workers_placement$$provider,
+        "workers_placement-region": workers_placement$$region,
+        "workers_placement-regions-response": workers_placement$$regions$$response,
       },
     },
     annotations: {
@@ -106,12 +112,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_api-response-common-failure": workers_api_response_common_failure_output,
-        "workers_messages": workers_messages_output,
-        "workers_placement-provider": workers_placement_provider_output,
-        "workers_placement-region": workers_placement_region_output,
-        "workers_placement-regions-response": workers_placement_regions_response_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_api-response-common-failure": workers_api$$response$$common$$failure,
+        "workers_messages": workers_messages,
+        "workers_placement-provider": workers_placement$$provider,
+        "workers_placement-region": workers_placement$$region,
+        "workers_placement-regions-response": workers_placement$$regions$$response,
       },
     },
     request: (args) => ({

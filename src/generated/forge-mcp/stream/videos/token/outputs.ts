@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `stream_signed_token_response` in responses.
  */
-export const stream_signed_token_response_output: JsonSchema = {
+export const stream_signed_token_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/stream_api-response-single"

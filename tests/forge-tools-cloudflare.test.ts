@@ -14,8 +14,14 @@ function generated(path: string, extensions?: Tool['extensions']): Tool {
     description: 'Example.',
     inputSchema: {
       type: 'object',
-      properties: Object.fromEntries(keys.map((key) => [key, { type: 'string' }])),
-      required: keys
+      properties: {
+        path: {
+          type: 'object',
+          properties: Object.fromEntries(keys.map((key) => [key, { type: 'string' }])),
+          required: keys
+        }
+      },
+      required: ['path']
     },
     annotations: {
       readOnlyHint: true,
@@ -30,29 +36,49 @@ function generated(path: string, extensions?: Tool['extensions']): Tool {
   }
 }
 
+/** The `path` argument of `tool`'s input schema. */
+function pathOf(tool: Tool): {
+  properties: Record<string, unknown>
+  required?: string[]
+} {
+  return tool.inputSchema.properties?.path as {
+    properties: Record<string, unknown>
+    required?: string[]
+  }
+}
+
 describe('the Cloudflare policy for generated tools', () => {
-  it('makes account_id optional with one description', () => {
+  it('makes path.account_id optional with one description', () => {
     const tool = cloudflareTool(generated('/accounts/{account_id}/workers/scripts/{script_name}'))
 
-    expect(tool.inputSchema.properties).toEqual({
-      account_id: { type: 'string', description: FORGE_ACCOUNT_ID_DESCRIPTION },
-      script_name: { type: 'string' }
+    expect(tool.inputSchema.properties?.path).toEqual({
+      type: 'object',
+      properties: {
+        account_id: { type: 'string', description: FORGE_ACCOUNT_ID_DESCRIPTION },
+        script_name: { type: 'string' }
+      },
+      required: ['script_name']
     })
-    expect(tool.inputSchema.required).toEqual(['script_name'])
+    expect(tool.inputSchema.required).toEqual(['path'])
+  })
+
+  it('makes path optional when the account was its only required parameter', () => {
+    const tool = cloudflareTool(generated('/accounts/{account_id}/d1/database'))
+
+    expect(tool.inputSchema.properties?.path).not.toHaveProperty('required')
+    expect(tool.inputSchema).not.toHaveProperty('required')
   })
 
   it('keeps a merged path’s account_or_zone and makes its account_or_zone_id optional', () => {
     const merged = generated('/{account_or_zone}/{account_or_zone_id}/access/apps')
-    const tool = cloudflareTool(merged)
+    const path = pathOf(cloudflareTool(merged))
 
-    expect(tool.inputSchema.properties?.account_or_zone).toBe(
-      merged.inputSchema.properties?.account_or_zone
-    )
-    expect(tool.inputSchema.properties?.account_or_zone_id).toEqual({
+    expect(path.properties.account_or_zone).toBe(pathOf(merged).properties.account_or_zone)
+    expect(path.properties.account_or_zone_id).toEqual({
       type: 'string',
       description: ACCOUNT_OR_ZONE_ID_DESCRIPTION
     })
-    expect(tool.inputSchema.required).toEqual(['account_or_zone'])
+    expect(path.required).toEqual(['account_or_zone'])
   })
 
   it('gets the two values of account_or_zone from the document (cloudflare/forge#59)', () => {
@@ -60,7 +86,7 @@ describe('the Cloudflare policy for generated tools', () => {
 
     expect(merged.length).toBeGreaterThan(0)
     for (const tool of merged) {
-      expect(tool.inputSchema.properties?.account_or_zone).toMatchObject({
+      expect(pathOf(tool).properties.account_or_zone).toMatchObject({
         type: 'string',
         enum: ['accounts', 'zones']
       })
@@ -87,7 +113,7 @@ describe('the Cloudflare policy for generated tools', () => {
     const requiring = tools
       .map(cloudflareTool)
       .filter((tool) =>
-        (tool.inputSchema.required ?? []).some(
+        (tool.inputSchema.properties?.path ? (pathOf(tool).required ?? []) : []).some(
           (key) => key === 'account_id' || key === 'account_or_zone_id'
         )
       )

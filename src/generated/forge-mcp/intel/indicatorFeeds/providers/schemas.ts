@@ -6,10 +6,10 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `custom-indicator-feeds_create_provider_request`.
  */
-export const custom_indicator_feeds_create_provider_request: JsonSchema = {
+export const custom$$indicator$$feeds_create_provider_request: JsonSchema = {
   "properties": {
     "account_id": {
-      "description": "The numeric account ID to create the provider for. Distinct from the\npath `account_id` parameter, which carries the account identifier\nstring used for routing.\n",
+      "description": "The numeric account ID to create the provider for. Distinct from the\npath `account_id` parameter, which carries the account identifier\nstring used for routing.",
       "type": "integer"
     },
     "name": {

@@ -4,44 +4,6 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
- * The schema of `zones_identifier`.
- */
-export const zones_identifier: JsonSchema = {
-  "description": "Identifier",
-  "type": "string"
-};
-
-/**
- * The schema of `zones_name`.
- */
-export const zones_name: JsonSchema = {
-  "description": "The domain name. Per [RFC 1035](https://datatracker.ietf.org/doc/html/rfc1035#section-2.3.4) the overall zone name can be up to 253 characters, with each segment (\"label\") not exceeding 63 characters.",
-  "type": "string"
-};
-
-/**
- * The schema of `zones_paused`.
- */
-export const zones_paused: JsonSchema = {
-  "description": "Indicates whether the zone is only using Cloudflare DNS services. A\ntrue value means the zone will not receive security or performance\nbenefits.\n",
-  "type": "boolean"
-};
-
-/**
- * The schema of `zones_type`.
- */
-export const zones_type: JsonSchema = {
-  "description": "A full zone implies that DNS is hosted with Cloudflare. A partial zone is\ntypically a partner-hosted zone or a CNAME setup.\n",
-  "enum": [
-    "full",
-    "partial",
-    "secondary",
-    "internal"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `zones_vanity_name_servers`.
  */
 export const zones_vanity_name_servers: JsonSchema = {

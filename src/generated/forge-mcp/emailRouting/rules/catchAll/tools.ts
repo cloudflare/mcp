@@ -3,76 +3,68 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  email_api_response_single_output,
-  email_messages_output,
+  email_api$$response$$single,
+  email_messages,
 } from "../../../outputs.js";
-import { email_identifier } from "../../../schemas.js";
 import {
-  email_rule_catchall_action_output,
-  email_rule_catchall_actions_output,
-  email_rule_catchall_matcher_output,
-  email_rule_catchall_matchers_output,
-  email_rule_enabled_output,
-  email_rule_identifier_output,
-  email_rule_name_output,
-  email_rule_source_output,
-  email_rule_tag_output,
+  email_rule_catchall$$action,
+  email_rule_catchall$$actions,
+  email_rule_catchall$$matcher,
+  email_rule_catchall$$matchers,
 } from "../outputs.js";
 import {
-  email_rule_catchall_action,
-  email_rule_catchall_actions,
-  email_rule_catchall_matcher,
-  email_rule_catchall_matchers,
-  email_rule_enabled,
-  email_rule_name,
-  email_rule_owner_worker_tag,
-  email_rule_source,
+  email_rule_catchall$$action as email_rule_catchall$$action$,
+  email_rule_catchall$$actions as email_rule_catchall$$actions$,
+  email_rule_catchall$$matcher as email_rule_catchall$$matcher$,
+  email_rule_catchall$$matchers as email_rule_catchall$$matchers$,
 } from "../schemas.js";
 import {
-  email_catch_all_rule_output,
-  email_catch_all_rule_response_single_output,
+  email_catch_all_rule,
+  email_catch_all_rule_response_single,
 } from "./outputs.js";
 import { email_update_catch_all_rule_properties } from "./schemas.js";
 
 /**
- * The tools of `email_routing.rules.catch_all`.
+ * The tools of `emailRouting.rules.catchAll`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "email_routing_rules_catch_all_get",
+    name: "emailRouting_rules_catchAll_get",
     title: "Get catch-all rule",
-    description: "Get information on the default catch-all routing rule.",
+    description: "Get information on the default catch-all routing rule.\n\nGET /zones/{zone_id}/email/routing/rules/catch_all",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/email_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
-      $defs: {
-        "email_identifier": email_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/email_catch_all_rule_response_single",
       $defs: {
-        "email_api-response-single": email_api_response_single_output,
-        "email_catch_all_rule": email_catch_all_rule_output,
-        "email_catch_all_rule_response_single": email_catch_all_rule_response_single_output,
-        "email_messages": email_messages_output,
-        "email_rule_catchall-action": email_rule_catchall_action_output,
-        "email_rule_catchall-actions": email_rule_catchall_actions_output,
-        "email_rule_catchall-matcher": email_rule_catchall_matcher_output,
-        "email_rule_catchall-matchers": email_rule_catchall_matchers_output,
-        "email_rule_enabled": email_rule_enabled_output,
-        "email_rule_identifier": email_rule_identifier_output,
-        "email_rule_name": email_rule_name_output,
-        "email_rule_source": email_rule_source_output,
-        "email_rule_tag": email_rule_tag_output,
+        "email_api-response-single": email_api$$response$$single,
+        "email_catch_all_rule": email_catch_all_rule,
+        "email_catch_all_rule_response_single": email_catch_all_rule_response_single,
+        "email_messages": email_messages,
+        "email_rule_catchall-action": email_rule_catchall$$action,
+        "email_rule_catchall-actions": email_rule_catchall$$actions,
+        "email_rule_catchall-matcher": email_rule_catchall$$matcher,
+        "email_rule_catchall-matchers": email_rule_catchall$$matchers,
       },
     },
     annotations: {
@@ -109,19 +101,14 @@ export const tools: readonly Tool[] = [
         "403": null
       },
       $defs: {
-        "email_api-response-single": email_api_response_single_output,
-        "email_catch_all_rule": email_catch_all_rule_output,
-        "email_catch_all_rule_response_single": email_catch_all_rule_response_single_output,
-        "email_messages": email_messages_output,
-        "email_rule_catchall-action": email_rule_catchall_action_output,
-        "email_rule_catchall-actions": email_rule_catchall_actions_output,
-        "email_rule_catchall-matcher": email_rule_catchall_matcher_output,
-        "email_rule_catchall-matchers": email_rule_catchall_matchers_output,
-        "email_rule_enabled": email_rule_enabled_output,
-        "email_rule_identifier": email_rule_identifier_output,
-        "email_rule_name": email_rule_name_output,
-        "email_rule_source": email_rule_source_output,
-        "email_rule_tag": email_rule_tag_output,
+        "email_api-response-single": email_api$$response$$single,
+        "email_catch_all_rule": email_catch_all_rule,
+        "email_catch_all_rule_response_single": email_catch_all_rule_response_single,
+        "email_messages": email_messages,
+        "email_rule_catchall-action": email_rule_catchall$$action,
+        "email_rule_catchall-actions": email_rule_catchall$$actions,
+        "email_rule_catchall-matcher": email_rule_catchall$$matcher,
+        "email_rule_catchall-matchers": email_rule_catchall$$matchers,
       },
     },
     request: (args) => ({
@@ -129,53 +116,53 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "email_routing_rules_catch_all_update",
+    name: "emailRouting_rules_catchAll_update",
     title: "Update catch-all rule",
-    description: "Enable or disable catch-all routing rule, or change action to forward to a specific destination address. Forward actions require exactly one verified destination address.",
+    description: "Enable or disable catch-all routing rule, or change action to forward to a specific destination address. Forward actions require exactly one verified destination address.\n\nPUT /zones/{zone_id}/email/routing/rules/catch_all",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "$ref": "#/$defs/email_update_catch_all_rule_properties"
         },
-        "zone_id": {
-          "$ref": "#/$defs/email_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "email_identifier": email_identifier,
-        "email_rule_catchall-action": email_rule_catchall_action,
-        "email_rule_catchall-actions": email_rule_catchall_actions,
-        "email_rule_catchall-matcher": email_rule_catchall_matcher,
-        "email_rule_catchall-matchers": email_rule_catchall_matchers,
-        "email_rule_enabled": email_rule_enabled,
-        "email_rule_name": email_rule_name,
-        "email_rule_owner_worker_tag": email_rule_owner_worker_tag,
-        "email_rule_source": email_rule_source,
+        "email_rule_catchall-action": email_rule_catchall$$action$,
+        "email_rule_catchall-actions": email_rule_catchall$$actions$,
+        "email_rule_catchall-matcher": email_rule_catchall$$matcher$,
+        "email_rule_catchall-matchers": email_rule_catchall$$matchers$,
         "email_update_catch_all_rule_properties": email_update_catch_all_rule_properties,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/email_catch_all_rule_response_single",
       $defs: {
-        "email_api-response-single": email_api_response_single_output,
-        "email_catch_all_rule": email_catch_all_rule_output,
-        "email_catch_all_rule_response_single": email_catch_all_rule_response_single_output,
-        "email_messages": email_messages_output,
-        "email_rule_catchall-action": email_rule_catchall_action_output,
-        "email_rule_catchall-actions": email_rule_catchall_actions_output,
-        "email_rule_catchall-matcher": email_rule_catchall_matcher_output,
-        "email_rule_catchall-matchers": email_rule_catchall_matchers_output,
-        "email_rule_enabled": email_rule_enabled_output,
-        "email_rule_identifier": email_rule_identifier_output,
-        "email_rule_name": email_rule_name_output,
-        "email_rule_source": email_rule_source_output,
-        "email_rule_tag": email_rule_tag_output,
+        "email_api-response-single": email_api$$response$$single,
+        "email_catch_all_rule": email_catch_all_rule,
+        "email_catch_all_rule_response_single": email_catch_all_rule_response_single,
+        "email_messages": email_messages,
+        "email_rule_catchall-action": email_rule_catchall$$action,
+        "email_rule_catchall-actions": email_rule_catchall$$actions,
+        "email_rule_catchall-matcher": email_rule_catchall$$matcher,
+        "email_rule_catchall-matchers": email_rule_catchall$$matchers,
       },
     },
     annotations: {
@@ -212,19 +199,14 @@ export const tools: readonly Tool[] = [
         "422": null
       },
       $defs: {
-        "email_api-response-single": email_api_response_single_output,
-        "email_catch_all_rule": email_catch_all_rule_output,
-        "email_catch_all_rule_response_single": email_catch_all_rule_response_single_output,
-        "email_messages": email_messages_output,
-        "email_rule_catchall-action": email_rule_catchall_action_output,
-        "email_rule_catchall-actions": email_rule_catchall_actions_output,
-        "email_rule_catchall-matcher": email_rule_catchall_matcher_output,
-        "email_rule_catchall-matchers": email_rule_catchall_matchers_output,
-        "email_rule_enabled": email_rule_enabled_output,
-        "email_rule_identifier": email_rule_identifier_output,
-        "email_rule_name": email_rule_name_output,
-        "email_rule_source": email_rule_source_output,
-        "email_rule_tag": email_rule_tag_output,
+        "email_api-response-single": email_api$$response$$single,
+        "email_catch_all_rule": email_catch_all_rule,
+        "email_catch_all_rule_response_single": email_catch_all_rule_response_single,
+        "email_messages": email_messages,
+        "email_rule_catchall-action": email_rule_catchall$$action,
+        "email_rule_catchall-actions": email_rule_catchall$$actions,
+        "email_rule_catchall-matcher": email_rule_catchall$$matcher,
+        "email_rule_catchall-matchers": email_rule_catchall$$matchers,
       },
     },
     request: (args) => ({

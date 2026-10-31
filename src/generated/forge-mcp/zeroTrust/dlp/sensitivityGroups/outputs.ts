@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `dlp_SensitivityGroup` in responses.
  */
-export const dlp_SensitivityGroup_output: JsonSchema = {
+export const dlp_SensitivityGroup: JsonSchema = {
   "properties": {
     "created_at": {
       "format": "date-time",
@@ -64,7 +64,7 @@ export const dlp_SensitivityGroup_output: JsonSchema = {
 /**
  * The schema of `dlp_SensitivityGroupArray` in responses.
  */
-export const dlp_SensitivityGroupArray_output: JsonSchema = {
+export const dlp_SensitivityGroupArray: JsonSchema = {
   "items": {
     "$ref": "#/$defs/dlp_SensitivityGroup"
   },
@@ -74,7 +74,7 @@ export const dlp_SensitivityGroupArray_output: JsonSchema = {
 /**
  * The schema of `dlp_SensitivityLevelOrder` in responses.
  */
-export const dlp_SensitivityLevelOrder_output: JsonSchema = {
+export const dlp_SensitivityLevelOrder: JsonSchema = {
   "properties": {
     "level_ids": {
       "items": {

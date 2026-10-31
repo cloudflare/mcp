@@ -4,20 +4,16 @@
 import { type Tool, pathParam } from "../../../../_/tool.js";
 
 /**
- * The tools of `cloudforce_one.threat_intel.events.queries`.
+ * The tools of `cloudforceOne.threatIntel.events.queries`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "cloudforce_one_threat_intel_events_queries_create",
+    name: "cloudforceOne_threatIntel_events_queries_create",
     title: "Create a saved event query",
-    description: "Saves an event query under a unique `name`. `query_json` holds the query parameters as a JSON string.",
+    description: "Saves an event query under a unique `name`. `query_json` holds the query parameters as a JSON string.\n\nPOST /accounts/{account_id}/cloudforce-one/events/queries/create",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account ID.",
-          "type": "string"
-        },
         "body": {
           "properties": {
             "alert_enabled": {
@@ -57,11 +53,25 @@ export const tools: readonly Tool[] = [
             "query_json"
           ],
           "type": "object"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -244,25 +254,35 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "cloudforce_one_threat_intel_events_queries_delete",
+    name: "cloudforceOne_threatIntel_events_queries_delete",
     title: "Delete a saved event query",
-    description: "Deletes a saved event query by its ID.",
+    description: "Deletes a saved event query by its ID.\n\nDELETE /accounts/{account_id}/cloudforce-one/events/queries/{query_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account ID.",
-          "type": "string"
-        },
-        "query_id": {
-          "description": "Event query ID",
-          "type": "integer"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account ID.",
+              "type": "string"
+            },
+            "query_id": {
+              "description": "Event query ID",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "account_id",
+            "query_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "query_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": true,
@@ -318,25 +338,35 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "cloudforce_one_threat_intel_events_queries_get",
+    name: "cloudforceOne_threatIntel_events_queries_get",
     title: "Get a saved event query",
-    description: "Returns a saved event query by its ID.",
+    description: "Returns a saved event query by its ID.\n\nGET /accounts/{account_id}/cloudforce-one/events/queries/{query_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account ID.",
-          "type": "string"
-        },
-        "query_id": {
-          "description": "Event query ID",
-          "type": "integer"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account ID.",
+              "type": "string"
+            },
+            "query_id": {
+              "description": "Event query ID",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "account_id",
+            "query_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "query_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -518,20 +548,30 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "cloudforce_one_threat_intel_events_queries_list",
+    name: "cloudforceOne_threatIntel_events_queries_list",
     title: "List saved event queries",
-    description: "Lists the account's saved event queries.",
+    description: "Lists the account's saved event queries.\n\nGET /accounts/{account_id}/cloudforce-one/events/queries",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account ID.",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "items": {
@@ -720,16 +760,12 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "cloudforce_one_threat_intel_events_queries_update",
+    name: "cloudforceOne_threatIntel_events_queries_update",
     title: "Update a saved event query",
-    description: "Updates the given fields of a saved event query.",
+    description: "Updates the given fields of a saved event query.\n\nPATCH /accounts/{account_id}/cloudforce-one/events/queries/{query_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account ID.",
-          "type": "string"
-        },
         "body": {
           "properties": {
             "alert_enabled": {
@@ -763,15 +799,29 @@ export const tools: readonly Tool[] = [
           },
           "type": "object"
         },
-        "query_id": {
-          "description": "Event query ID",
-          "type": "integer"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account ID.",
+              "type": "string"
+            },
+            "query_id": {
+              "description": "Event query ID",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "account_id",
+            "query_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "query_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

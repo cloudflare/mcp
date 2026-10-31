@@ -4,30 +4,15 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `magic_colo_name`.
- */
-export const magic_colo_name: JsonSchema = {
-  "description": "Scope colo name.",
-  "type": "string"
-};
-
-/**
  * The schema of `magic_colo_names`.
  */
 export const magic_colo_names: JsonSchema = {
   "description": "List of colo names for the ECMP scope.",
   "items": {
-    "$ref": "#/$defs/magic_colo_name"
+    "description": "Scope colo name.",
+    "type": "string"
   },
   "type": "array"
-};
-
-/**
- * The schema of `magic_colo_region`.
- */
-export const magic_colo_region: JsonSchema = {
-  "description": "Scope colo region.",
-  "type": "string"
 };
 
 /**
@@ -36,7 +21,8 @@ export const magic_colo_region: JsonSchema = {
 export const magic_colo_regions: JsonSchema = {
   "description": "List of colo regions for the ECMP scope.",
   "items": {
-    "$ref": "#/$defs/magic_colo_region"
+    "description": "Scope colo region.",
+    "type": "string"
   },
   "type": "array"
 };
@@ -47,28 +33,28 @@ export const magic_colo_regions: JsonSchema = {
 export const magic_create_route_request: JsonSchema = {
   "properties": {
     "description": {
-      "$ref": "#/$defs/magic_description",
-      "description": "An optional human provided description of the static route."
+      "description": "An optional human provided description of the static route.",
+      "type": "string"
     },
     "nexthop": {
-      "$ref": "#/$defs/magic_nexthop",
-      "description": "The next-hop IP Address for the static route."
+      "description": "The next-hop IP Address for the static route.",
+      "type": "string"
     },
     "prefix": {
-      "$ref": "#/$defs/magic_prefix",
-      "description": "IP Prefix in Classless Inter-Domain Routing format."
+      "description": "IP Prefix in Classless Inter-Domain Routing format.",
+      "type": "string"
     },
     "priority": {
-      "$ref": "#/$defs/magic_priority",
-      "description": "Priority of the static route."
+      "description": "Priority of the static route.",
+      "type": "integer"
     },
     "scope": {
       "$ref": "#/$defs/magic_scope",
       "description": "Used only for ECMP routes."
     },
     "weight": {
-      "$ref": "#/$defs/magic_weight",
-      "description": "Optional weight of the ECMP scope - if provided."
+      "description": "Optional weight of the ECMP scope - if provided.",
+      "type": "integer"
     }
   },
   "required": [
@@ -80,65 +66,33 @@ export const magic_create_route_request: JsonSchema = {
 };
 
 /**
- * The schema of `magic_description`.
- */
-export const magic_description: JsonSchema = {
-  "description": "An optional human provided description of the static route.",
-  "type": "string"
-};
-
-/**
- * The schema of `magic_nexthop`.
- */
-export const magic_nexthop: JsonSchema = {
-  "description": "The next-hop IP Address for the static route.",
-  "type": "string"
-};
-
-/**
- * The schema of `magic_prefix`.
- */
-export const magic_prefix: JsonSchema = {
-  "description": "IP Prefix in Classless Inter-Domain Routing format.",
-  "type": "string"
-};
-
-/**
- * The schema of `magic_priority`.
- */
-export const magic_priority: JsonSchema = {
-  "description": "Priority of the static route.",
-  "type": "integer"
-};
-
-/**
  * The schema of `magic_route_add_single_request`.
  */
 export const magic_route_add_single_request: JsonSchema = {
   "properties": {
     "description": {
-      "$ref": "#/$defs/magic_description",
-      "description": "An optional human provided description of the static route."
+      "description": "An optional human provided description of the static route.",
+      "type": "string"
     },
     "nexthop": {
-      "$ref": "#/$defs/magic_nexthop",
-      "description": "The next-hop IP Address for the static route."
+      "description": "The next-hop IP Address for the static route.",
+      "type": "string"
     },
     "prefix": {
-      "$ref": "#/$defs/magic_prefix",
-      "description": "IP Prefix in Classless Inter-Domain Routing format."
+      "description": "IP Prefix in Classless Inter-Domain Routing format.",
+      "type": "string"
     },
     "priority": {
-      "$ref": "#/$defs/magic_priority",
-      "description": "Priority of the static route."
+      "description": "Priority of the static route.",
+      "type": "integer"
     },
     "scope": {
       "$ref": "#/$defs/magic_scope",
       "description": "Used only for ECMP routes."
     },
     "weight": {
-      "$ref": "#/$defs/magic_weight",
-      "description": "Optional weight of the ECMP scope - if provided."
+      "description": "Optional weight of the ECMP scope - if provided.",
+      "type": "integer"
     }
   },
   "required": [
@@ -198,28 +152,28 @@ export const magic_route_update_many_request: JsonSchema = {
 export const magic_route_update_request: JsonSchema = {
   "properties": {
     "description": {
-      "$ref": "#/$defs/magic_description",
-      "description": "An optional human provided description of the static route."
+      "description": "An optional human provided description of the static route.",
+      "type": "string"
     },
     "nexthop": {
-      "$ref": "#/$defs/magic_nexthop",
-      "description": "The next-hop IP Address for the static route."
+      "description": "The next-hop IP Address for the static route.",
+      "type": "string"
     },
     "prefix": {
-      "$ref": "#/$defs/magic_prefix",
-      "description": "IP Prefix in Classless Inter-Domain Routing format."
+      "description": "IP Prefix in Classless Inter-Domain Routing format.",
+      "type": "string"
     },
     "priority": {
-      "$ref": "#/$defs/magic_priority",
-      "description": "Priority of the static route."
+      "description": "Priority of the static route.",
+      "type": "integer"
     },
     "scope": {
       "$ref": "#/$defs/magic_scope",
       "description": "Used only for ECMP routes."
     },
     "weight": {
-      "$ref": "#/$defs/magic_weight",
-      "description": "Optional weight of the ECMP scope - if provided."
+      "description": "Optional weight of the ECMP scope - if provided.",
+      "type": "integer"
     }
   },
   "required": [
@@ -260,12 +214,4 @@ export const magic_scope: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `magic_weight`.
- */
-export const magic_weight: JsonSchema = {
-  "description": "Optional weight of the ECMP scope - if provided.",
-  "type": "integer"
 };

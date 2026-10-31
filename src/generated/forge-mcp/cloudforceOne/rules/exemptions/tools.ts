@@ -2,44 +2,54 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
-import { cloudforce_one_ErrorResponse_output } from "../outputs.js";
-import { cloudforce_one_AccountExemptions_output } from "./outputs.js";
+import { cloudforce$$one_ErrorResponse } from "../outputs.js";
+import { cloudforce$$one_AccountExemptions } from "./outputs.js";
 import {
-  cloudforce_one_ExemptionUpdateEntry,
-  cloudforce_one_PartialAccountExemptions,
-  cloudforce_one_UpdateAccountExemptionsBody,
+  cloudforce$$one_ExemptionUpdateEntry,
+  cloudforce$$one_PartialAccountExemptions,
+  cloudforce$$one_UpdateAccountExemptionsBody,
 } from "./schemas.js";
 
 /**
- * The tools of `cloudforce_one.rules.exemptions`.
+ * The tools of `cloudforceOne.rules.exemptions`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "cloudforce_one_rules_exemptions_create",
+    name: "cloudforceOne_rules_exemptions_create",
     title: "Add patterns to exemption rules",
-    description: "Add regex patterns to per-account exemption rules (union semantics). Missing keys leave that type untouched; duplicates are silently deduped.",
+    description: "Add regex patterns to per-account exemption rules (union semantics). Missing keys leave that type untouched; duplicates are silently deduped.\n\nPOST /accounts/{account_id}/cloudforce-one/rules/exemptions",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare account ID.",
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/cloudforce-one_PartialAccountExemptions"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
+      additionalProperties: false,
       $defs: {
-        "cloudforce-one_PartialAccountExemptions": cloudforce_one_PartialAccountExemptions,
+        "cloudforce-one_PartialAccountExemptions": cloudforce$$one_PartialAccountExemptions,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/cloudforce-one_AccountExemptions",
       $defs: {
-        "cloudforce-one_AccountExemptions": cloudforce_one_AccountExemptions_output,
+        "cloudforce-one_AccountExemptions": cloudforce$$one_AccountExemptions,
       },
     },
     annotations: {
@@ -67,8 +77,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cloudforce-one_AccountExemptions": cloudforce_one_AccountExemptions_output,
-        "cloudforce-one_ErrorResponse": cloudforce_one_ErrorResponse_output,
+        "cloudforce-one_AccountExemptions": cloudforce$$one_AccountExemptions,
+        "cloudforce-one_ErrorResponse": cloudforce$$one_ErrorResponse,
       },
     },
     request: (args) => ({
@@ -77,31 +87,41 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "cloudforce_one_rules_exemptions_delete",
+    name: "cloudforceOne_rules_exemptions_delete",
     title: "Remove patterns from exemption rules",
-    description: "Remove regex patterns from per-account exemption rules. Missing keys leave that type untouched; non-existent patterns are silently skipped.",
+    description: "Remove regex patterns from per-account exemption rules. Missing keys leave that type untouched; non-existent patterns are silently skipped.\n\nDELETE /accounts/{account_id}/cloudforce-one/rules/exemptions",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare account ID.",
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/cloudforce-one_PartialAccountExemptions"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
+      additionalProperties: false,
       $defs: {
-        "cloudforce-one_PartialAccountExemptions": cloudforce_one_PartialAccountExemptions,
+        "cloudforce-one_PartialAccountExemptions": cloudforce$$one_PartialAccountExemptions,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/cloudforce-one_AccountExemptions",
       $defs: {
-        "cloudforce-one_AccountExemptions": cloudforce_one_AccountExemptions_output,
+        "cloudforce-one_AccountExemptions": cloudforce$$one_AccountExemptions,
       },
     },
     annotations: {
@@ -129,8 +149,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cloudforce-one_AccountExemptions": cloudforce_one_AccountExemptions_output,
-        "cloudforce-one_ErrorResponse": cloudforce_one_ErrorResponse_output,
+        "cloudforce-one_AccountExemptions": cloudforce$$one_AccountExemptions,
+        "cloudforce-one_ErrorResponse": cloudforce$$one_ErrorResponse,
       },
     },
     request: (args) => ({
@@ -139,25 +159,35 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "cloudforce_one_rules_exemptions_get",
+    name: "cloudforceOne_rules_exemptions_get",
     title: "Get exemption rules for an account",
-    description: "Get all exemption rule patterns for the account, grouped by type.",
+    description: "Get all exemption rule patterns for the account, grouped by type.\n\nGET /accounts/{account_id}/cloudforce-one/rules/exemptions",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare account ID.",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cloudforce-one_AccountExemptions",
       $defs: {
-        "cloudforce-one_AccountExemptions": cloudforce_one_AccountExemptions_output,
+        "cloudforce-one_AccountExemptions": cloudforce$$one_AccountExemptions,
       },
     },
     annotations: {
@@ -185,8 +215,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cloudforce-one_AccountExemptions": cloudforce_one_AccountExemptions_output,
-        "cloudforce-one_ErrorResponse": cloudforce_one_ErrorResponse_output,
+        "cloudforce-one_AccountExemptions": cloudforce$$one_AccountExemptions,
+        "cloudforce-one_ErrorResponse": cloudforce$$one_ErrorResponse,
       },
     },
     request: (args) => ({
@@ -194,32 +224,42 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "cloudforce_one_rules_exemptions_update",
+    name: "cloudforceOne_rules_exemptions_update",
     title: "Update exemption rule patterns",
-    description: "Replace existing exemption patterns with new values. Each key maps to an array of {old_pattern, new_pattern} entries. Missing keys leave that type untouched. Fails if any old pattern is not found or any new pattern already exists.",
+    description: "Replace existing exemption patterns with new values. Each key maps to an array of {old_pattern, new_pattern} entries. Missing keys leave that type untouched. Fails if any old pattern is not found or any new pattern already exists.\n\nPUT /accounts/{account_id}/cloudforce-one/rules/exemptions",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare account ID.",
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/cloudforce-one_UpdateAccountExemptionsBody"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
+      additionalProperties: false,
       $defs: {
-        "cloudforce-one_ExemptionUpdateEntry": cloudforce_one_ExemptionUpdateEntry,
-        "cloudforce-one_UpdateAccountExemptionsBody": cloudforce_one_UpdateAccountExemptionsBody,
+        "cloudforce-one_ExemptionUpdateEntry": cloudforce$$one_ExemptionUpdateEntry,
+        "cloudforce-one_UpdateAccountExemptionsBody": cloudforce$$one_UpdateAccountExemptionsBody,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/cloudforce-one_AccountExemptions",
       $defs: {
-        "cloudforce-one_AccountExemptions": cloudforce_one_AccountExemptions_output,
+        "cloudforce-one_AccountExemptions": cloudforce$$one_AccountExemptions,
       },
     },
     annotations: {
@@ -253,8 +293,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cloudforce-one_AccountExemptions": cloudforce_one_AccountExemptions_output,
-        "cloudforce-one_ErrorResponse": cloudforce_one_ErrorResponse_output,
+        "cloudforce-one_AccountExemptions": cloudforce$$one_AccountExemptions,
+        "cloudforce-one_ErrorResponse": cloudforce$$one_ErrorResponse,
       },
     },
     request: (args) => ({

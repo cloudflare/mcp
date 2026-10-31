@@ -3,13 +3,12 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  stream_api_response_common_failure_output,
-  stream_api_response_single_output,
-  stream_deleted_response_output,
-  stream_messages_output,
+  stream_api$$response$$common$$failure,
+  stream_api$$response$$single,
+  stream_deleted_response,
+  stream_messages,
 } from "../outputs.js";
-import { stream_account_identifier } from "../schemas.js";
-import { stream_webhook_response_single_output } from "./outputs.js";
+import { stream_webhook_response_single } from "./outputs.js";
 import { stream_webhook_request } from "./schemas.js";
 
 /**
@@ -19,28 +18,35 @@ export const tools: readonly Tool[] = [
   {
     name: "stream_webhooks_delete",
     title: "Delete webhooks",
-    description: "Deletes the on-demand video webhook.\n\nConfirm with the user before calling this tool. Delete this webhook? If recreated, the secret will change.",
+    description: "Deletes the on-demand video webhook.\n\nConfirm with the user before calling this tool. Delete this webhook? If recreated, the secret will change.\n\nDELETE /accounts/{account_id}/stream/webhook",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/stream_account_identifier",
-          "description": "The account identifier tag."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "The account identifier tag.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
-      $defs: {
-        "stream_account_identifier": stream_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/stream_deleted_response",
       $defs: {
-        "stream_api-response-single": stream_api_response_single_output,
-        "stream_deleted_response": stream_deleted_response_output,
-        "stream_messages": stream_messages_output,
+        "stream_api-response-single": stream_api$$response$$single,
+        "stream_deleted_response": stream_deleted_response,
+        "stream_messages": stream_messages,
       },
     },
     annotations: {
@@ -67,10 +73,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "stream_api-response-common-failure": stream_api_response_common_failure_output,
-        "stream_api-response-single": stream_api_response_single_output,
-        "stream_deleted_response": stream_deleted_response_output,
-        "stream_messages": stream_messages_output,
+        "stream_api-response-common-failure": stream_api$$response$$common$$failure,
+        "stream_api-response-single": stream_api$$response$$single,
+        "stream_deleted_response": stream_deleted_response,
+        "stream_messages": stream_messages,
       },
     },
     request: (args) => ({
@@ -80,28 +86,35 @@ export const tools: readonly Tool[] = [
   {
     name: "stream_webhooks_get",
     title: "View webhook",
-    description: "Retrieve current on-demand webhook information.",
+    description: "Retrieve current on-demand webhook information.\n\nGET /accounts/{account_id}/stream/webhook",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/stream_account_identifier",
-          "description": "The account identifier tag."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "The account identifier tag.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
-      $defs: {
-        "stream_account_identifier": stream_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/stream_webhook_response_single",
       $defs: {
-        "stream_api-response-single": stream_api_response_single_output,
-        "stream_messages": stream_messages_output,
-        "stream_webhook_response_single": stream_webhook_response_single_output,
+        "stream_api-response-single": stream_api$$response$$single,
+        "stream_messages": stream_messages,
+        "stream_webhook_response_single": stream_webhook_response_single,
       },
     },
     annotations: {
@@ -129,10 +142,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "stream_api-response-common-failure": stream_api_response_common_failure_output,
-        "stream_api-response-single": stream_api_response_single_output,
-        "stream_messages": stream_messages_output,
-        "stream_webhook_response_single": stream_webhook_response_single_output,
+        "stream_api-response-common-failure": stream_api$$response$$common$$failure,
+        "stream_api-response-single": stream_api$$response$$single,
+        "stream_messages": stream_messages,
+        "stream_webhook_response_single": stream_webhook_response_single,
       },
     },
     request: (args) => ({
@@ -142,33 +155,42 @@ export const tools: readonly Tool[] = [
   {
     name: "stream_webhooks_update",
     title: "Create VOD webhooks",
-    description: "Create a webhook for notifications about on-demand video uploads.\n\nConfirm with the user before calling this tool. Create a webhook for on-demand operations? Will replace previously configured webhook. Live input webhooks are handled via Notifications Service.",
+    description: "Create a webhook for notifications about on-demand video uploads.\n\nConfirm with the user before calling this tool. Create a webhook for on-demand operations? Will replace previously configured webhook. Live input webhooks are handled via Notifications Service.\n\nPUT /accounts/{account_id}/stream/webhook",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/stream_account_identifier",
-          "description": "The account identifier tag."
-        },
         "body": {
           "$ref": "#/$defs/stream_webhook_request"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "The account identifier tag.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "stream_account_identifier": stream_account_identifier,
         "stream_webhook_request": stream_webhook_request,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/stream_webhook_response_single",
       $defs: {
-        "stream_api-response-single": stream_api_response_single_output,
-        "stream_messages": stream_messages_output,
-        "stream_webhook_response_single": stream_webhook_response_single_output,
+        "stream_api-response-single": stream_api$$response$$single,
+        "stream_messages": stream_messages,
+        "stream_webhook_response_single": stream_webhook_response_single,
       },
     },
     annotations: {
@@ -195,10 +217,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "stream_api-response-common-failure": stream_api_response_common_failure_output,
-        "stream_api-response-single": stream_api_response_single_output,
-        "stream_messages": stream_messages_output,
-        "stream_webhook_response_single": stream_webhook_response_single_output,
+        "stream_api-response-common-failure": stream_api$$response$$common$$failure,
+        "stream_api-response-single": stream_api$$response$$single,
+        "stream_messages": stream_messages,
+        "stream_webhook_response_single": stream_webhook_response_single,
       },
     },
     request: (args) => ({

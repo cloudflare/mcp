@@ -4,20 +4,13 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `magic_app_breakout`.
- */
-export const magic_app_breakout: JsonSchema = {
-  "description": "Whether to breakout traffic to the app's endpoints directly. Null preserves default behavior.",
-  "type": "boolean"
-};
-
-/**
  * The schema of `magic_app_breakout_preferred_wans`.
  */
 export const magic_app_breakout_preferred_wans: JsonSchema = {
   "description": "WAN interfaces to prefer over default WANs, highest-priority first. Can only be specified for breakout rules (breakout must be true).",
   "items": {
-    "$ref": "#/$defs/magic_identifier"
+    "description": "Identifier",
+    "type": "string"
   },
   "type": "array"
 };
@@ -32,8 +25,8 @@ export const magic_app_config_add_single_request: JsonSchema = {
         {
           "properties": {
             "account_app_id": {
-              "$ref": "#/$defs/magic_account_app_id",
-              "description": "Magic account app ID."
+              "description": "Magic account app ID.",
+              "type": "string"
             }
           },
           "required": [
@@ -44,8 +37,8 @@ export const magic_app_config_add_single_request: JsonSchema = {
         {
           "properties": {
             "managed_app_id": {
-              "$ref": "#/$defs/magic_managed_app_id",
-              "description": "Managed app ID."
+              "description": "Managed app ID.",
+              "type": "string"
             }
           },
           "required": [
@@ -59,16 +52,16 @@ export const magic_app_config_add_single_request: JsonSchema = {
     {
       "properties": {
         "breakout": {
-          "$ref": "#/$defs/magic_app_breakout",
-          "description": "Whether to breakout traffic to the app's endpoints directly. Null preserves default behavior."
+          "description": "Whether to breakout traffic to the app's endpoints directly. Null preserves default behavior.",
+          "type": "boolean"
         },
         "preferred_wans": {
           "$ref": "#/$defs/magic_app_breakout_preferred_wans",
           "description": "WAN interfaces to prefer over default WANs, highest-priority first. Can only be specified for breakout rules (breakout must be true)."
         },
         "priority": {
-          "$ref": "#/$defs/magic_app_priority",
-          "description": "Priority of traffic. 0 is default, anything greater is prioritized. (Currently only 0 and 1 are supported)"
+          "description": "Priority of traffic. 0 is default, anything greater is prioritized. (Currently only 0 and 1 are supported)",
+          "type": "integer"
         }
       },
       "type": "object"
@@ -82,33 +75,25 @@ export const magic_app_config_add_single_request: JsonSchema = {
 export const magic_app_config_update_request: JsonSchema = {
   "properties": {
     "account_app_id": {
-      "$ref": "#/$defs/magic_account_app_id",
-      "description": "Magic account app ID."
+      "description": "Magic account app ID.",
+      "type": "string"
     },
     "breakout": {
-      "$ref": "#/$defs/magic_app_breakout",
-      "description": "Whether to breakout traffic to the app's endpoints directly. Null preserves default behavior."
+      "description": "Whether to breakout traffic to the app's endpoints directly. Null preserves default behavior.",
+      "type": "boolean"
     },
     "managed_app_id": {
-      "$ref": "#/$defs/magic_managed_app_id",
-      "description": "Managed app ID."
+      "description": "Managed app ID.",
+      "type": "string"
     },
     "preferred_wans": {
       "$ref": "#/$defs/magic_app_breakout_preferred_wans",
       "description": "WAN interfaces to prefer over default WANs, highest-priority first. Can only be specified for breakout rules (breakout must be true)."
     },
     "priority": {
-      "$ref": "#/$defs/magic_app_priority",
-      "description": "Priority of traffic. 0 is default, anything greater is prioritized. (Currently only 0 and 1 are supported)"
+      "description": "Priority of traffic. 0 is default, anything greater is prioritized. (Currently only 0 and 1 are supported)",
+      "type": "integer"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `magic_app_priority`.
- */
-export const magic_app_priority: JsonSchema = {
-  "description": "Priority of traffic. 0 is default, anything greater is prioritized. (Currently only 0 and 1 are supported)",
-  "type": "integer"
 };

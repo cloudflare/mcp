@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `art_DataSecurityFindingsTimeseriesResponse` in responses.
  */
-export const art_DataSecurityFindingsTimeseriesResponse_output: JsonSchema = {
+export const art_DataSecurityFindingsTimeseriesResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -39,7 +39,7 @@ export const art_DataSecurityFindingsTimeseriesResponse_output: JsonSchema = {
 /**
  * The schema of `art_DataSecurityFindingsTimeseriesResult` in responses.
  */
-export const art_DataSecurityFindingsTimeseriesResult_output: JsonSchema = {
+export const art_DataSecurityFindingsTimeseriesResult: JsonSchema = {
   "properties": {
     "resolution": {
       "oneOf": [

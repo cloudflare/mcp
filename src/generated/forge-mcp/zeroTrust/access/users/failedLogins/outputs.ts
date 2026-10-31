@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `access_failed_login_response` in responses.
  */
-export const access_failed_login_response_output: JsonSchema = {
+export const access_failed_login_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-collection"

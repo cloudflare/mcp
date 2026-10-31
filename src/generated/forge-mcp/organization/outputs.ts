@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `organizations-api_DeleteOrganizationResult` in responses.
  */
-export const organizations_api_DeleteOrganizationResult_output: JsonSchema = {
+export const organizations$$api_DeleteOrganizationResult: JsonSchema = {
   "properties": {
     "id": {
       "type": "string"
@@ -19,16 +19,9 @@ export const organizations_api_DeleteOrganizationResult_output: JsonSchema = {
 };
 
 /**
- * The schema of `organizations-api_MemberID` in responses.
- */
-export const organizations_api_MemberID_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `organizations-api_MemberSubjectUser` in responses.
  */
-export const organizations_api_MemberSubjectUser_output: JsonSchema = {
+export const organizations$$api_MemberSubjectUser: JsonSchema = {
   "properties": {
     "email": {
       "type": "string"
@@ -55,7 +48,7 @@ export const organizations_api_MemberSubjectUser_output: JsonSchema = {
 /**
  * The schema of `organizations-api_PageTokenResultInfo` in responses.
  */
-export const organizations_api_PageTokenResultInfo_output: JsonSchema = {
+export const organizations$$api_PageTokenResultInfo: JsonSchema = {
   "properties": {
     "next_page_token": {
       "type": "string"

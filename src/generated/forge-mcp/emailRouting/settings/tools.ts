@@ -2,70 +2,57 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import { email_api$$response$$single, email_messages } from "../../outputs.js";
 import {
-  email_api_response_single_output,
-  email_messages_output,
-} from "../../outputs.js";
-import { email_identifier } from "../../schemas.js";
-import {
-  email_email_setting_created_output,
-  email_email_setting_enabled_output,
-  email_email_setting_identifier_output,
-  email_email_setting_modified_output,
-  email_email_setting_name_output,
-  email_email_setting_skip_wizard_output,
-  email_email_setting_status_output,
-  email_email_setting_support_subaddress_output,
-  email_email_setting_tag_output,
-  email_email_settings_response_single_output,
-  email_settings_output,
+  email_email_settings_response_single,
+  email_settings,
 } from "../outputs.js";
 import { email_update_email_routing_settings_properties } from "./schemas.js";
 
 /**
- * The tools of `email_routing.settings`.
+ * The tools of `emailRouting.settings`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "email_routing_settings_apply",
+    name: "emailRouting_settings_apply",
     title: "Apply Email Routing settings",
-    description: "Apply the provided settings to your Email Routing zone. Omitted settings retain their current values, as with PATCH.",
+    description: "Apply the provided settings to your Email Routing zone. Omitted settings retain their current values, as with PATCH.\n\nPUT /zones/{zone_id}/email/routing",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "$ref": "#/$defs/email_update_email_routing_settings_properties"
         },
-        "zone_id": {
-          "$ref": "#/$defs/email_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "email_identifier": email_identifier,
         "email_update_email_routing_settings_properties": email_update_email_routing_settings_properties,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/email_email_settings_response_single",
       $defs: {
-        "email_api-response-single": email_api_response_single_output,
-        "email_email_setting_created": email_email_setting_created_output,
-        "email_email_setting_enabled": email_email_setting_enabled_output,
-        "email_email_setting_identifier": email_email_setting_identifier_output,
-        "email_email_setting_modified": email_email_setting_modified_output,
-        "email_email_setting_name": email_email_setting_name_output,
-        "email_email_setting_skip-wizard": email_email_setting_skip_wizard_output,
-        "email_email_setting_status": email_email_setting_status_output,
-        "email_email_setting_support_subaddress": email_email_setting_support_subaddress_output,
-        "email_email_setting_tag": email_email_setting_tag_output,
-        "email_email_settings_response_single": email_email_settings_response_single_output,
-        "email_messages": email_messages_output,
-        "email_settings": email_settings_output,
+        "email_api-response-single": email_api$$response$$single,
+        "email_email_settings_response_single": email_email_settings_response_single,
+        "email_messages": email_messages,
+        "email_settings": email_settings,
       },
     },
     annotations: {
@@ -101,19 +88,10 @@ export const tools: readonly Tool[] = [
         "403": null
       },
       $defs: {
-        "email_api-response-single": email_api_response_single_output,
-        "email_email_setting_created": email_email_setting_created_output,
-        "email_email_setting_enabled": email_email_setting_enabled_output,
-        "email_email_setting_identifier": email_email_setting_identifier_output,
-        "email_email_setting_modified": email_email_setting_modified_output,
-        "email_email_setting_name": email_email_setting_name_output,
-        "email_email_setting_skip-wizard": email_email_setting_skip_wizard_output,
-        "email_email_setting_status": email_email_setting_status_output,
-        "email_email_setting_support_subaddress": email_email_setting_support_subaddress_output,
-        "email_email_setting_tag": email_email_setting_tag_output,
-        "email_email_settings_response_single": email_email_settings_response_single_output,
-        "email_messages": email_messages_output,
-        "email_settings": email_settings_output,
+        "email_api-response-single": email_api$$response$$single,
+        "email_email_settings_response_single": email_email_settings_response_single,
+        "email_messages": email_messages,
+        "email_settings": email_settings,
       },
     },
     request: (args) => ({
@@ -122,40 +100,38 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "email_routing_settings_get",
+    name: "emailRouting_settings_get",
     title: "Get Email Routing settings",
-    description: "Get information about the settings for your Email Routing zone.",
+    description: "Get information about the settings for your Email Routing zone.\n\nGET /zones/{zone_id}/email/routing",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/email_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
-      $defs: {
-        "email_identifier": email_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/email_email_settings_response_single",
       $defs: {
-        "email_api-response-single": email_api_response_single_output,
-        "email_email_setting_created": email_email_setting_created_output,
-        "email_email_setting_enabled": email_email_setting_enabled_output,
-        "email_email_setting_identifier": email_email_setting_identifier_output,
-        "email_email_setting_modified": email_email_setting_modified_output,
-        "email_email_setting_name": email_email_setting_name_output,
-        "email_email_setting_skip-wizard": email_email_setting_skip_wizard_output,
-        "email_email_setting_status": email_email_setting_status_output,
-        "email_email_setting_support_subaddress": email_email_setting_support_subaddress_output,
-        "email_email_setting_tag": email_email_setting_tag_output,
-        "email_email_settings_response_single": email_email_settings_response_single_output,
-        "email_messages": email_messages_output,
-        "email_settings": email_settings_output,
+        "email_api-response-single": email_api$$response$$single,
+        "email_email_settings_response_single": email_email_settings_response_single,
+        "email_messages": email_messages,
+        "email_settings": email_settings,
       },
     },
     annotations: {
@@ -192,19 +168,10 @@ export const tools: readonly Tool[] = [
         "403": null
       },
       $defs: {
-        "email_api-response-single": email_api_response_single_output,
-        "email_email_setting_created": email_email_setting_created_output,
-        "email_email_setting_enabled": email_email_setting_enabled_output,
-        "email_email_setting_identifier": email_email_setting_identifier_output,
-        "email_email_setting_modified": email_email_setting_modified_output,
-        "email_email_setting_name": email_email_setting_name_output,
-        "email_email_setting_skip-wizard": email_email_setting_skip_wizard_output,
-        "email_email_setting_status": email_email_setting_status_output,
-        "email_email_setting_support_subaddress": email_email_setting_support_subaddress_output,
-        "email_email_setting_tag": email_email_setting_tag_output,
-        "email_email_settings_response_single": email_email_settings_response_single_output,
-        "email_messages": email_messages_output,
-        "email_settings": email_settings_output,
+        "email_api-response-single": email_api$$response$$single,
+        "email_email_settings_response_single": email_email_settings_response_single,
+        "email_messages": email_messages,
+        "email_settings": email_settings,
       },
     },
     request: (args) => ({
@@ -212,45 +179,45 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "email_routing_settings_update",
+    name: "emailRouting_settings_update",
     title: "Update Email Routing settings",
-    description: "Update the settings for your Email Routing zone.",
+    description: "Update the settings for your Email Routing zone.\n\nPATCH /zones/{zone_id}/email/routing",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "$ref": "#/$defs/email_update_email_routing_settings_properties"
         },
-        "zone_id": {
-          "$ref": "#/$defs/email_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "email_identifier": email_identifier,
         "email_update_email_routing_settings_properties": email_update_email_routing_settings_properties,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/email_email_settings_response_single",
       $defs: {
-        "email_api-response-single": email_api_response_single_output,
-        "email_email_setting_created": email_email_setting_created_output,
-        "email_email_setting_enabled": email_email_setting_enabled_output,
-        "email_email_setting_identifier": email_email_setting_identifier_output,
-        "email_email_setting_modified": email_email_setting_modified_output,
-        "email_email_setting_name": email_email_setting_name_output,
-        "email_email_setting_skip-wizard": email_email_setting_skip_wizard_output,
-        "email_email_setting_status": email_email_setting_status_output,
-        "email_email_setting_support_subaddress": email_email_setting_support_subaddress_output,
-        "email_email_setting_tag": email_email_setting_tag_output,
-        "email_email_settings_response_single": email_email_settings_response_single_output,
-        "email_messages": email_messages_output,
-        "email_settings": email_settings_output,
+        "email_api-response-single": email_api$$response$$single,
+        "email_email_settings_response_single": email_email_settings_response_single,
+        "email_messages": email_messages,
+        "email_settings": email_settings,
       },
     },
     annotations: {
@@ -286,19 +253,10 @@ export const tools: readonly Tool[] = [
         "403": null
       },
       $defs: {
-        "email_api-response-single": email_api_response_single_output,
-        "email_email_setting_created": email_email_setting_created_output,
-        "email_email_setting_enabled": email_email_setting_enabled_output,
-        "email_email_setting_identifier": email_email_setting_identifier_output,
-        "email_email_setting_modified": email_email_setting_modified_output,
-        "email_email_setting_name": email_email_setting_name_output,
-        "email_email_setting_skip-wizard": email_email_setting_skip_wizard_output,
-        "email_email_setting_status": email_email_setting_status_output,
-        "email_email_setting_support_subaddress": email_email_setting_support_subaddress_output,
-        "email_email_setting_tag": email_email_setting_tag_output,
-        "email_email_settings_response_single": email_email_settings_response_single_output,
-        "email_messages": email_messages_output,
-        "email_settings": email_settings_output,
+        "email_api-response-single": email_api$$response$$single,
+        "email_email_settings_response_single": email_email_settings_response_single,
+        "email_messages": email_messages,
+        "email_settings": email_settings,
       },
     },
     request: (args) => ({

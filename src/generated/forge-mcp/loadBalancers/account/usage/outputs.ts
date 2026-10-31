@@ -8,7 +8,7 @@ import type { JsonSchema } from "../../../_/tool.js";
  * `load-balancing_load-balancer_components-schemas-usage_response` in
  * responses.
  */
-export const load_balancing_load_balancer_components_schemas_usage_response_output: JsonSchema = {
+export const load$$balancing_load$$balancer_components$$schemas$$usage_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/load-balancing_api-response-single"

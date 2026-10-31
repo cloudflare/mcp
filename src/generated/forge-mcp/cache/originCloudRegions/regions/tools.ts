@@ -3,38 +3,44 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  cache_settings_api_response_common_failure_output,
-  cache_settings_api_response_common_output,
-  cache_settings_messages_output,
+  cache$$settings_api$$response$$common,
+  cache$$settings_api$$response$$common$$failure,
+  cache$$settings_messages,
 } from "../../../outputs.js";
-import { cache_settings_identifier } from "../../../schemas.js";
 import {
-  cache_settings_supported_cloud_region_output,
-  cache_settings_supported_cloud_regions_result_output,
+  cache$$settings_supported_cloud_region,
+  cache$$settings_supported_cloud_regions_result,
 } from "./outputs.js";
 
 /**
- * The tools of `cache.origin_cloud_regions.regions`.
+ * The tools of `cache.originCloudRegions.regions`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "cache_origin_cloud_regions_regions_list_supported",
+    name: "cache_originCloudRegions_regions_listSupported",
     title: "List supported cloud vendors and regions",
-    description: "Returns the cloud vendors and regions that are valid values for origin cloud region mappings. Each region includes the Tiered Cache upper-tier colocation codes that will be used for cache routing when a mapping targeting that region is active. Requires the zone to have Tiered Cache enabled.",
+    description: "Returns the cloud vendors and regions that are valid values for origin cloud region mappings. Each region includes the Tiered Cache upper-tier colocation codes that will be used for cache routing when a mapping targeting that region is active. Requires the zone to have Tiered Cache enabled.\n\nGET /zones/{zone_id}/origin/cloud_regions/supported_regions",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/cache-settings_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
-      $defs: {
-        "cache-settings_identifier": cache_settings_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -51,10 +57,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "cache-settings_api-response-common": cache_settings_api_response_common_output,
-        "cache-settings_messages": cache_settings_messages_output,
-        "cache-settings_supported_cloud_region": cache_settings_supported_cloud_region_output,
-        "cache-settings_supported_cloud_regions_result": cache_settings_supported_cloud_regions_result_output,
+        "cache-settings_api-response-common": cache$$settings_api$$response$$common,
+        "cache-settings_messages": cache$$settings_messages,
+        "cache-settings_supported_cloud_region": cache$$settings_supported_cloud_region,
+        "cache-settings_supported_cloud_regions_result": cache$$settings_supported_cloud_regions_result,
       },
     },
     annotations: {
@@ -96,11 +102,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cache-settings_api-response-common": cache_settings_api_response_common_output,
-        "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
-        "cache-settings_messages": cache_settings_messages_output,
-        "cache-settings_supported_cloud_region": cache_settings_supported_cloud_region_output,
-        "cache-settings_supported_cloud_regions_result": cache_settings_supported_cloud_regions_result_output,
+        "cache-settings_api-response-common": cache$$settings_api$$response$$common,
+        "cache-settings_api-response-common-failure": cache$$settings_api$$response$$common$$failure,
+        "cache-settings_messages": cache$$settings_messages,
+        "cache-settings_supported_cloud_region": cache$$settings_supported_cloud_region,
+        "cache-settings_supported_cloud_regions_result": cache$$settings_supported_cloud_regions_result,
       },
     },
     request: (args) => ({

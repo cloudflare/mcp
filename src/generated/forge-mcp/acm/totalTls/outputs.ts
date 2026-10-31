@@ -4,30 +4,10 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `tls-certificates-and-hostnames_certificate_authority-3` in
- * responses.
- */
-export const tls_certificates_and_hostnames_certificate_authority_3_output: JsonSchema = {
-  "enum": [
-    "google",
-    "lets_encrypt",
-    "ssl_com"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_enabled-3` in responses.
- */
-export const tls_certificates_and_hostnames_enabled_3_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `tls-certificates-and-hostnames_total_tls_settings_response` in
  * responses.
  */
-export const tls_certificates_and_hostnames_total_tls_settings_response_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_total_tls_settings_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-single"
@@ -37,13 +17,21 @@ export const tls_certificates_and_hostnames_total_tls_settings_response_output: 
         "result": {
           "properties": {
             "certificate_authority": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_authority-3"
+              "enum": [
+                "google",
+                "lets_encrypt",
+                "ssl_com"
+              ],
+              "type": "string"
             },
             "enabled": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_enabled-3"
+              "type": "boolean"
             },
             "validity_period": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_validity_period"
+              "enum": [
+                90
+              ],
+              "type": "integer"
             }
           },
           "type": "object"
@@ -52,14 +40,4 @@ export const tls_certificates_and_hostnames_total_tls_settings_response_output: 
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_validity_period` in responses.
- */
-export const tls_certificates_and_hostnames_validity_period_output: JsonSchema = {
-  "enum": [
-    90
-  ],
-  "type": "integer"
 };

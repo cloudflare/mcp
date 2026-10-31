@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `advanced-ddos-protection_InfraPrefix` in responses.
  */
-export const advanced_ddos_protection_InfraPrefix_output: JsonSchema = {
+export const advanced$$ddos$$protection_InfraPrefix: JsonSchema = {
   "properties": {
     "comment": {
       "type": "string"
@@ -44,7 +44,7 @@ export const advanced_ddos_protection_InfraPrefix_output: JsonSchema = {
  * The schema of `advanced-ddos-protection_infra-prefix-list-response` in
  * responses.
  */
-export const advanced_ddos_protection_infra_prefix_list_response_output: JsonSchema = {
+export const advanced$$ddos$$protection_infra$$prefix$$list$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/advanced-ddos-protection_api-response-collection"
@@ -66,7 +66,7 @@ export const advanced_ddos_protection_infra_prefix_list_response_output: JsonSch
 /**
  * The schema of `advanced-ddos-protection_infra-prefix-response` in responses.
  */
-export const advanced_ddos_protection_infra_prefix_response_output: JsonSchema = {
+export const advanced$$ddos$$protection_infra$$prefix$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/advanced-ddos-protection_api-response-common"

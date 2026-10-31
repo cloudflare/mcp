@@ -3,17 +3,17 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  art_APIError_output,
-  art_APIMessage_output,
-  art_ErrorResponse_output,
-  art_ResultValues_output,
-  art_SummaryResponse_output,
-  art_SummaryResult_output,
+  art_APIError,
+  art_APIMessage,
+  art_ErrorResponse,
+  art_ResultValues,
+  art_SummaryResponse,
+  art_SummaryResult,
 } from "../../outputs.js";
 import { art_Filter } from "../../schemas.js";
 import {
-  art_DataSecurityFindingsTimeseriesResponse_output,
-  art_DataSecurityFindingsTimeseriesResult_output,
+  art_DataSecurityFindingsTimeseriesResponse,
+  art_DataSecurityFindingsTimeseriesResult,
 } from "./outputs.js";
 import {
   art_DataSecurityFindingsSummaryQuery,
@@ -21,28 +21,38 @@ import {
 } from "./schemas.js";
 
 /**
- * The tools of `analytics.query.data_security.findings`.
+ * The tools of `analytics.query.dataSecurity.findings`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "analytics_query_data_security_findings_summary",
+    name: "analytics_query_dataSecurity_findings_summary",
     title: "Data security findings summary",
-    description: "Returns aggregate current-period and previous-period totals for CASB findings.\n\nThis method is beta.",
+    description: "Returns aggregate current-period and previous-period totals for CASB findings.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/analytics/query/data-security/findings/summary",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare account identifier.",
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/art_DataSecurityFindingsSummaryQuery"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "art_DataSecurityFindingsSummaryQuery": art_DataSecurityFindingsSummaryQuery,
         "art_Filter": art_Filter,
@@ -51,11 +61,11 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/art_SummaryResponse",
       $defs: {
-        "art_APIError": art_APIError_output,
-        "art_APIMessage": art_APIMessage_output,
-        "art_ResultValues": art_ResultValues_output,
-        "art_SummaryResponse": art_SummaryResponse_output,
-        "art_SummaryResult": art_SummaryResult_output,
+        "art_APIError": art_APIError,
+        "art_APIMessage": art_APIMessage,
+        "art_ResultValues": art_ResultValues,
+        "art_SummaryResponse": art_SummaryResponse,
+        "art_SummaryResult": art_SummaryResult,
       },
     },
     annotations: {
@@ -89,12 +99,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "art_APIError": art_APIError_output,
-        "art_APIMessage": art_APIMessage_output,
-        "art_ErrorResponse": art_ErrorResponse_output,
-        "art_ResultValues": art_ResultValues_output,
-        "art_SummaryResponse": art_SummaryResponse_output,
-        "art_SummaryResult": art_SummaryResult_output,
+        "art_APIError": art_APIError,
+        "art_APIMessage": art_APIMessage,
+        "art_ErrorResponse": art_ErrorResponse,
+        "art_ResultValues": art_ResultValues,
+        "art_SummaryResponse": art_SummaryResponse,
+        "art_SummaryResult": art_SummaryResult,
       },
     },
     request: (args) => ({
@@ -103,24 +113,34 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "analytics_query_data_security_findings_timeseries",
+    name: "analytics_query_dataSecurity_findings_timeseries",
     title: "Data security findings timeseries",
-    description: "Returns merged time-bucketed CASB findings.\n\nThis method is beta.",
+    description: "Returns merged time-bucketed CASB findings.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/analytics/query/data-security/findings/timeseries",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare account identifier.",
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/art_DataSecurityFindingsTimeseriesQuery"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "art_DataSecurityFindingsTimeseriesQuery": art_DataSecurityFindingsTimeseriesQuery,
         "art_Filter": art_Filter,
@@ -129,11 +149,11 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/art_DataSecurityFindingsTimeseriesResponse",
       $defs: {
-        "art_APIError": art_APIError_output,
-        "art_APIMessage": art_APIMessage_output,
-        "art_DataSecurityFindingsTimeseriesResponse": art_DataSecurityFindingsTimeseriesResponse_output,
-        "art_DataSecurityFindingsTimeseriesResult": art_DataSecurityFindingsTimeseriesResult_output,
-        "art_ResultValues": art_ResultValues_output,
+        "art_APIError": art_APIError,
+        "art_APIMessage": art_APIMessage,
+        "art_DataSecurityFindingsTimeseriesResponse": art_DataSecurityFindingsTimeseriesResponse,
+        "art_DataSecurityFindingsTimeseriesResult": art_DataSecurityFindingsTimeseriesResult,
+        "art_ResultValues": art_ResultValues,
       },
     },
     annotations: {
@@ -167,12 +187,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "art_APIError": art_APIError_output,
-        "art_APIMessage": art_APIMessage_output,
-        "art_DataSecurityFindingsTimeseriesResponse": art_DataSecurityFindingsTimeseriesResponse_output,
-        "art_DataSecurityFindingsTimeseriesResult": art_DataSecurityFindingsTimeseriesResult_output,
-        "art_ErrorResponse": art_ErrorResponse_output,
-        "art_ResultValues": art_ResultValues_output,
+        "art_APIError": art_APIError,
+        "art_APIMessage": art_APIMessage,
+        "art_DataSecurityFindingsTimeseriesResponse": art_DataSecurityFindingsTimeseriesResponse,
+        "art_DataSecurityFindingsTimeseriesResult": art_DataSecurityFindingsTimeseriesResult,
+        "art_ErrorResponse": art_ErrorResponse,
+        "art_ResultValues": art_ResultValues,
       },
     },
     request: (args) => ({

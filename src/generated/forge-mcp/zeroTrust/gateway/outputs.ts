@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `zero-trust-gateway_api-response-collection` in responses.
  */
-export const zero_trust_gateway_api_response_collection_output: JsonSchema = {
+export const zero$$trust$$gateway_api$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zero-trust-gateway_api-response-common"
@@ -25,7 +25,7 @@ export const zero_trust_gateway_api_response_collection_output: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_api-response-common` in responses.
  */
-export const zero_trust_gateway_api_response_common_output: JsonSchema = {
+export const zero$$trust$$gateway_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/zero-trust-gateway_messages"
@@ -49,16 +49,9 @@ export const zero_trust_gateway_api_response_common_output: JsonSchema = {
 };
 
 /**
- * The schema of `zero-trust-gateway_cf_account_id` in responses.
- */
-export const zero_trust_gateway_cf_account_id_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `zero-trust-gateway_empty_response` in responses.
  */
-export const zero_trust_gateway_empty_response_output: JsonSchema = {
+export const zero$$trust$$gateway_empty_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zero-trust-gateway_api-response-single"
@@ -77,7 +70,7 @@ export const zero_trust_gateway_empty_response_output: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_gateway_account` in responses.
  */
-export const zero_trust_gateway_gateway_account_output: JsonSchema = {
+export const zero$$trust$$gateway_gateway_account: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zero-trust-gateway_api-response-single"
@@ -87,13 +80,13 @@ export const zero_trust_gateway_gateway_account_output: JsonSchema = {
         "result": {
           "properties": {
             "gateway_tag": {
-              "$ref": "#/$defs/zero-trust-gateway_gateway_tag"
+              "type": "string"
             },
             "id": {
-              "$ref": "#/$defs/zero-trust-gateway_cf_account_id"
+              "type": "string"
             },
             "provider_name": {
-              "$ref": "#/$defs/zero-trust-gateway_provider_name"
+              "type": "string"
             }
           },
           "type": "object"
@@ -105,23 +98,9 @@ export const zero_trust_gateway_gateway_account_output: JsonSchema = {
 };
 
 /**
- * The schema of `zero-trust-gateway_gateway_tag` in responses.
- */
-export const zero_trust_gateway_gateway_tag_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `zero-trust-gateway_provider_name` in responses.
- */
-export const zero_trust_gateway_provider_name_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `zero-trust-gateway_result_info` in responses.
  */
-export const zero_trust_gateway_result_info_output: JsonSchema = {
+export const zero$$trust$$gateway_result_info: JsonSchema = {
   "properties": {
     "count": {
       "type": "number"
@@ -137,19 +116,4 @@ export const zero_trust_gateway_result_info_output: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `zero-trust-gateway_timestamp` in responses.
- */
-export const zero_trust_gateway_timestamp_output: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `zero-trust-gateway_uuid-3` in responses.
- */
-export const zero_trust_gateway_uuid_3_output: JsonSchema = {
-  "type": "string"
 };

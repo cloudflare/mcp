@@ -4,272 +4,145 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `waitingroom_event_custom_page_html`.
- */
-export const waitingroom_event_custom_page_html: JsonSchema = {
-  "description": "If set, the event will override the waiting room's `custom_page_html` property while it is active. If null, the event will inherit it.",
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `waitingroom_event_description`.
- */
-export const waitingroom_event_description: JsonSchema = {
-  "description": "A note that you can use to add more details about the event.",
-  "type": "string"
-};
-
-/**
- * The schema of `waitingroom_event_disable_session_renewal`.
- */
-export const waitingroom_event_disable_session_renewal: JsonSchema = {
-  "description": "If set, the event will override the waiting room's `disable_session_renewal` property while it is active. If null, the event will inherit it.",
-  "oneOf": [
-    {
-      "type": "boolean"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `waitingroom_event_end_time`.
- */
-export const waitingroom_event_end_time: JsonSchema = {
-  "description": "An ISO 8601 timestamp that marks the end of the event.",
-  "type": "string"
-};
-
-/**
- * The schema of `waitingroom_event_id`.
- */
-export const waitingroom_event_id: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `waitingroom_event_name`.
- */
-export const waitingroom_event_name: JsonSchema = {
-  "description": "A unique name to identify the event. Only alphanumeric characters, hyphens and underscores are allowed.",
-  "type": "string"
-};
-
-/**
- * The schema of `waitingroom_event_new_users_per_minute`.
- */
-export const waitingroom_event_new_users_per_minute: JsonSchema = {
-  "description": "If set, the event will override the waiting room's `new_users_per_minute` property while it is active. If null, the event will inherit it. This can only be set if the event's `total_active_users` property is also set.",
-  "oneOf": [
-    {
-      "type": "integer"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `waitingroom_event_prequeue_start_time`.
- */
-export const waitingroom_event_prequeue_start_time: JsonSchema = {
-  "description": "An ISO 8601 timestamp that marks when to begin queueing all users before the event starts. The prequeue must start at least five minutes before `event_start_time`.",
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `waitingroom_event_queueing_method`.
- */
-export const waitingroom_event_queueing_method: JsonSchema = {
-  "description": "If set, the event will override the waiting room's `queueing_method` property while it is active. If null, the event will inherit it.",
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `waitingroom_event_session_duration`.
- */
-export const waitingroom_event_session_duration: JsonSchema = {
-  "description": "If set, the event will override the waiting room's `session_duration` property while it is active. If null, the event will inherit it.",
-  "oneOf": [
-    {
-      "type": "integer"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `waitingroom_event_shuffle_at_event_start`.
- */
-export const waitingroom_event_shuffle_at_event_start: JsonSchema = {
-  "description": "If enabled, users in the prequeue will be shuffled randomly at the `event_start_time`. Requires that `prequeue_start_time` is not null. This is useful for situations when many users will join the event prequeue at the same time and you want to shuffle them to ensure fairness. Naturally, it makes the most sense to enable this feature when the `queueing_method` during the event respects ordering such as **fifo**, or else the shuffling may be unnecessary.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `waitingroom_event_start_time`.
- */
-export const waitingroom_event_start_time: JsonSchema = {
-  "description": "An ISO 8601 timestamp that marks the start of the event. At this time, queued users will be processed with the event's configuration. The start time must be at least one minute before `event_end_time`.",
-  "type": "string"
-};
-
-/**
- * The schema of `waitingroom_event_suspended`.
- */
-export const waitingroom_event_suspended: JsonSchema = {
-  "description": "Suspends or allows an event. If set to `true`, the event is ignored and traffic will be handled based on the waiting room configuration.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `waitingroom_event_total_active_users`.
- */
-export const waitingroom_event_total_active_users: JsonSchema = {
-  "description": "If set, the event will override the waiting room's `total_active_users` property while it is active. If null, the event will inherit it. This can only be set if the event's `new_users_per_minute` property is also set.",
-  "oneOf": [
-    {
-      "type": "integer"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `waitingroom_event_turnstile_action`.
- */
-export const waitingroom_event_turnstile_action: JsonSchema = {
-  "description": "If set, the event will override the waiting room's `turnstile_action` property while it is active. If null, the event will inherit it.",
-  "oneOf": [
-    {
-      "enum": [
-        "log",
-        "infinite_queue"
-      ],
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `waitingroom_event_turnstile_mode`.
- */
-export const waitingroom_event_turnstile_mode: JsonSchema = {
-  "description": "If set, the event will override the waiting room's `turnstile_mode` property while it is active. If null, the event will inherit it.",
-  "oneOf": [
-    {
-      "enum": [
-        "off",
-        "invisible",
-        "visible_non_interactive",
-        "visible_managed"
-      ],
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
  * The schema of `waitingroom_query_event`.
  */
 export const waitingroom_query_event: JsonSchema = {
   "properties": {
     "custom_page_html": {
-      "$ref": "#/$defs/waitingroom_event_custom_page_html",
-      "description": "If set, the event will override the waiting room's `custom_page_html` property while it is active. If null, the event will inherit it."
+      "description": "If set, the event will override the waiting room's `custom_page_html` property while it is active. If null, the event will inherit it.",
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "description": {
-      "$ref": "#/$defs/waitingroom_event_description",
       "default": "",
-      "description": "A note that you can use to add more details about the event."
+      "description": "A note that you can use to add more details about the event.",
+      "type": "string"
     },
     "disable_session_renewal": {
-      "$ref": "#/$defs/waitingroom_event_disable_session_renewal",
-      "description": "If set, the event will override the waiting room's `disable_session_renewal` property while it is active. If null, the event will inherit it."
+      "description": "If set, the event will override the waiting room's `disable_session_renewal` property while it is active. If null, the event will inherit it.",
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "event_end_time": {
-      "$ref": "#/$defs/waitingroom_event_end_time",
-      "description": "An ISO 8601 timestamp that marks the end of the event."
+      "description": "An ISO 8601 timestamp that marks the end of the event.",
+      "type": "string"
     },
     "event_start_time": {
-      "$ref": "#/$defs/waitingroom_event_start_time",
-      "description": "An ISO 8601 timestamp that marks the start of the event. At this time, queued users will be processed with the event's configuration. The start time must be at least one minute before `event_end_time`."
+      "description": "An ISO 8601 timestamp that marks the start of the event. At this time, queued users will be processed with the event's configuration. The start time must be at least one minute before `event_end_time`.",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/waitingroom_event_name",
-      "description": "A unique name to identify the event. Only alphanumeric characters, hyphens and underscores are allowed."
+      "description": "A unique name to identify the event. Only alphanumeric characters, hyphens and underscores are allowed.",
+      "type": "string"
     },
     "new_users_per_minute": {
-      "$ref": "#/$defs/waitingroom_event_new_users_per_minute",
-      "description": "If set, the event will override the waiting room's `new_users_per_minute` property while it is active. If null, the event will inherit it. This can only be set if the event's `total_active_users` property is also set."
+      "description": "If set, the event will override the waiting room's `new_users_per_minute` property while it is active. If null, the event will inherit it. This can only be set if the event's `total_active_users` property is also set.",
+      "oneOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "prequeue_start_time": {
-      "$ref": "#/$defs/waitingroom_event_prequeue_start_time",
-      "description": "An ISO 8601 timestamp that marks when to begin queueing all users before the event starts. The prequeue must start at least five minutes before `event_start_time`."
+      "description": "An ISO 8601 timestamp that marks when to begin queueing all users before the event starts. The prequeue must start at least five minutes before `event_start_time`.",
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "queueing_method": {
-      "$ref": "#/$defs/waitingroom_event_queueing_method",
-      "description": "If set, the event will override the waiting room's `queueing_method` property while it is active. If null, the event will inherit it."
+      "description": "If set, the event will override the waiting room's `queueing_method` property while it is active. If null, the event will inherit it.",
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "session_duration": {
-      "$ref": "#/$defs/waitingroom_event_session_duration",
-      "description": "If set, the event will override the waiting room's `session_duration` property while it is active. If null, the event will inherit it."
+      "description": "If set, the event will override the waiting room's `session_duration` property while it is active. If null, the event will inherit it.",
+      "oneOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "shuffle_at_event_start": {
-      "$ref": "#/$defs/waitingroom_event_shuffle_at_event_start",
       "default": false,
-      "description": "If enabled, users in the prequeue will be shuffled randomly at the `event_start_time`. Requires that `prequeue_start_time` is not null. This is useful for situations when many users will join the event prequeue at the same time and you want to shuffle them to ensure fairness. Naturally, it makes the most sense to enable this feature when the `queueing_method` during the event respects ordering such as **fifo**, or else the shuffling may be unnecessary."
+      "description": "If enabled, users in the prequeue will be shuffled randomly at the `event_start_time`. Requires that `prequeue_start_time` is not null. This is useful for situations when many users will join the event prequeue at the same time and you want to shuffle them to ensure fairness. Naturally, it makes the most sense to enable this feature when the `queueing_method` during the event respects ordering such as **fifo**, or else the shuffling may be unnecessary.",
+      "type": "boolean"
     },
     "suspended": {
-      "$ref": "#/$defs/waitingroom_event_suspended",
       "default": false,
-      "description": "Suspends or allows an event. If set to `true`, the event is ignored and traffic will be handled based on the waiting room configuration."
+      "description": "Suspends or allows an event. If set to `true`, the event is ignored and traffic will be handled based on the waiting room configuration.",
+      "type": "boolean"
     },
     "total_active_users": {
-      "$ref": "#/$defs/waitingroom_event_total_active_users",
-      "description": "If set, the event will override the waiting room's `total_active_users` property while it is active. If null, the event will inherit it. This can only be set if the event's `new_users_per_minute` property is also set."
+      "description": "If set, the event will override the waiting room's `total_active_users` property while it is active. If null, the event will inherit it. This can only be set if the event's `new_users_per_minute` property is also set.",
+      "oneOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "turnstile_action": {
-      "$ref": "#/$defs/waitingroom_event_turnstile_action",
-      "description": "If set, the event will override the waiting room's `turnstile_action` property while it is active. If null, the event will inherit it."
+      "description": "If set, the event will override the waiting room's `turnstile_action` property while it is active. If null, the event will inherit it.",
+      "oneOf": [
+        {
+          "enum": [
+            "log",
+            "infinite_queue"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "turnstile_mode": {
-      "$ref": "#/$defs/waitingroom_event_turnstile_mode",
-      "description": "If set, the event will override the waiting room's `turnstile_mode` property while it is active. If null, the event will inherit it."
+      "description": "If set, the event will override the waiting room's `turnstile_mode` property while it is active. If null, the event will inherit it.",
+      "oneOf": [
+        {
+          "enum": [
+            "off",
+            "invisible",
+            "visible_non_interactive",
+            "visible_managed"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     }
   },
   "required": [

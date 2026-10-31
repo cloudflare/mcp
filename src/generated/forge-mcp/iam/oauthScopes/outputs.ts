@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `iam_collection_oauth_scopes_response` in responses.
  */
-export const iam_collection_oauth_scopes_response_output: JsonSchema = {
+export const iam_collection_oauth_scopes_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/iam_api-response-collection"
@@ -28,7 +28,7 @@ export const iam_collection_oauth_scopes_response_output: JsonSchema = {
 /**
  * The schema of `iam_oauth_scope` in responses.
  */
-export const iam_oauth_scope_output: JsonSchema = {
+export const iam_oauth_scope: JsonSchema = {
   "properties": {
     "category": {
       "type": "string"

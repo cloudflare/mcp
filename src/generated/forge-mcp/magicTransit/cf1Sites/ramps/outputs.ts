@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `magic_cf1_site_managed_ramp` in responses.
  */
-export const magic_cf1_site_managed_ramp_output: JsonSchema = {
+export const magic_cf1_site_managed_ramp: JsonSchema = {
   "properties": {
     "managed_by": {
       "type": "string"
@@ -18,7 +18,7 @@ export const magic_cf1_site_managed_ramp_output: JsonSchema = {
 /**
  * The schema of `magic_cf1_site_ramp` in responses.
  */
-export const magic_cf1_site_ramp_output: JsonSchema = {
+export const magic_cf1_site_ramp: JsonSchema = {
   "properties": {
     "created_on": {
       "format": "date-time",
@@ -34,7 +34,7 @@ export const magic_cf1_site_ramp_output: JsonSchema = {
       "$ref": "#/$defs/magic_cf1_site_managed_ramp"
     },
     "id": {
-      "$ref": "#/$defs/magic_identifier"
+      "type": "string"
     },
     "ipsec": {
       "$ref": "#/$defs/magic_cf1_site_managed_ramp"
@@ -53,7 +53,14 @@ export const magic_cf1_site_ramp_output: JsonSchema = {
       "type": "string"
     },
     "type": {
-      "$ref": "#/$defs/magic_cf1_site_ramp_type"
+      "enum": [
+        "gre",
+        "gre_interconnect",
+        "mpls_interconnect",
+        "mconn",
+        "ipsec"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -69,7 +76,7 @@ export const magic_cf1_site_ramp_output: JsonSchema = {
 /**
  * The schema of `magic_cf1_site_ramp_single_response` in responses.
  */
-export const magic_cf1_site_ramp_single_response_output: JsonSchema = {
+export const magic_cf1_site_ramp_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"
@@ -86,23 +93,9 @@ export const magic_cf1_site_ramp_single_response_output: JsonSchema = {
 };
 
 /**
- * The schema of `magic_cf1_site_ramp_type` in responses.
- */
-export const magic_cf1_site_ramp_type_output: JsonSchema = {
-  "enum": [
-    "gre",
-    "gre_interconnect",
-    "mpls_interconnect",
-    "mconn",
-    "ipsec"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `magic_cf1_site_ramps_collection_response` in responses.
  */
-export const magic_cf1_site_ramps_collection_response_output: JsonSchema = {
+export const magic_cf1_site_ramps_collection_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"

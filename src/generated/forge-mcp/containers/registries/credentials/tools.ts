@@ -3,16 +3,12 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  cc_AccountID_output,
-  cc_Messages_output,
-  cc_V4BaseErrorResponse_output,
-  cc_V4BaseResponse_output,
+  cc_Messages,
+  cc_V4BaseErrorResponse,
+  cc_V4BaseResponse,
 } from "../../outputs.js";
-import { cc_ContainersAccountRegistryToken_output } from "./outputs.js";
-import {
-  cc_ImageRegistryCredentialsConfiguration,
-  cc_ImageRegistryPermissions,
-} from "./schemas.js";
+import { cc_ContainersAccountRegistryToken } from "./outputs.js";
+import { cc_ImageRegistryCredentialsConfiguration } from "./schemas.js";
 
 /**
  * The tools of `containers.registries.credentials`.
@@ -21,30 +17,39 @@ export const tools: readonly Tool[] = [
   {
     name: "containers_registries_credentials_generate",
     title: "Generate a JWT to interact with the specified image registry.",
-    description: "Generates credentials for accessing a configured container image registry.",
+    description: "Generates credentials for accessing a configured container image registry.\n\nPOST /accounts/{account_id}/containers/registries/{domain}/credentials",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account identifier.",
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/cc_ImageRegistryCredentialsConfiguration"
         },
-        "domain": {
-          "description": "The domain to get credentials for.",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account identifier.",
+              "type": "string"
+            },
+            "domain": {
+              "description": "The domain to get credentials for.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "domain"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "domain",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "cc_ImageRegistryCredentialsConfiguration": cc_ImageRegistryCredentialsConfiguration,
-        "cc_ImageRegistryPermissions": cc_ImageRegistryPermissions,
       },
     },
     outputSchema: {
@@ -65,10 +70,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "cc_AccountID": cc_AccountID_output,
-        "cc_ContainersAccountRegistryToken": cc_ContainersAccountRegistryToken_output,
-        "cc_Messages": cc_Messages_output,
-        "cc_V4BaseResponse": cc_V4BaseResponse_output,
+        "cc_ContainersAccountRegistryToken": cc_ContainersAccountRegistryToken,
+        "cc_Messages": cc_Messages,
+        "cc_V4BaseResponse": cc_V4BaseResponse,
       },
     },
     annotations: {
@@ -117,11 +121,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cc_AccountID": cc_AccountID_output,
-        "cc_ContainersAccountRegistryToken": cc_ContainersAccountRegistryToken_output,
-        "cc_Messages": cc_Messages_output,
-        "cc_V4BaseErrorResponse": cc_V4BaseErrorResponse_output,
-        "cc_V4BaseResponse": cc_V4BaseResponse_output,
+        "cc_ContainersAccountRegistryToken": cc_ContainersAccountRegistryToken,
+        "cc_Messages": cc_Messages,
+        "cc_V4BaseErrorResponse": cc_V4BaseErrorResponse,
+        "cc_V4BaseResponse": cc_V4BaseResponse,
       },
     },
     request: (args) => ({

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `workers_subdomain-2`.
  */
-export const workers_subdomain_2: JsonSchema = {
+export const workers_subdomain$$2: JsonSchema = {
   "properties": {
     "subdomain": {
       "type": "string"

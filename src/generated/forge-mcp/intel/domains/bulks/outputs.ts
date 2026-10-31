@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `intel_collection_response` in responses.
  */
-export const intel_collection_response_output: JsonSchema = {
+export const intel_collection_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/intel_api-response-collection"
@@ -26,22 +26,22 @@ export const intel_collection_response_output: JsonSchema = {
                 "$ref": "#/$defs/intel_content_categories"
               },
               "domain": {
-                "$ref": "#/$defs/intel_domain_name"
+                "type": "string"
               },
               "inherited_content_categories": {
                 "$ref": "#/$defs/intel_categories_with_super_category_ids_example_empty"
               },
               "inherited_from": {
-                "$ref": "#/$defs/intel_inherited_from"
+                "type": "string"
               },
               "inherited_risk_types": {
                 "$ref": "#/$defs/intel_categories_with_super_category_ids_example_empty"
               },
               "popularity_rank": {
-                "$ref": "#/$defs/intel_popularity_rank"
+                "type": "integer"
               },
               "risk_score": {
-                "$ref": "#/$defs/intel_risk_score"
+                "type": "number"
               },
               "risk_types": {
                 "$ref": "#/$defs/intel_categories_with_super_category_ids_example_empty"

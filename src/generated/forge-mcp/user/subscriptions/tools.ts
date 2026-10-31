@@ -3,41 +3,28 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  bill_subs_api_api_response_collection_output,
-  bill_subs_api_api_response_common_failure_output,
-  bill_subs_api_api_response_common_output,
-  bill_subs_api_api_response_single_output,
-  bill_subs_api_component_value_output,
-  bill_subs_api_component_values_output,
-  bill_subs_api_currency_output,
-  bill_subs_api_current_period_end_output,
-  bill_subs_api_current_period_start_output,
-  bill_subs_api_frequency_output,
-  bill_subs_api_identifier_output,
-  bill_subs_api_install_id_output,
-  bill_subs_api_messages_output,
-  bill_subs_api_name_output,
-  bill_subs_api_price_output,
-  bill_subs_api_rate_plan_output,
-  bill_subs_api_result_info_output,
-  bill_subs_api_schemas_identifier_output,
-  bill_subs_api_state_output,
-  bill_subs_api_subscription_output,
-  bill_subs_api_zone_output,
+  bill$$subs$$api_api$$response$$collection,
+  bill$$subs$$api_api$$response$$common,
+  bill$$subs$$api_api$$response$$common$$failure,
+  bill$$subs$$api_api$$response$$single,
+  bill$$subs$$api_component_value,
+  bill$$subs$$api_component_values,
+  bill$$subs$$api_messages,
+  bill$$subs$$api_rate_plan,
+  bill$$subs$$api_result_info,
+  bill$$subs$$api_subscription,
+  bill$$subs$$api_zone,
 } from "../../outputs.js";
 import {
-  bill_subs_api_component_value,
-  bill_subs_api_component_values,
-  bill_subs_api_frequency,
-  bill_subs_api_install_id,
-  bill_subs_api_rate_plan,
-  bill_subs_api_schemas_identifier,
-  bill_subs_api_subscription_v2,
-  bill_subs_api_zone,
+  bill$$subs$$api_component_value as bill$$subs$$api_component_value$,
+  bill$$subs$$api_component_values as bill$$subs$$api_component_values$,
+  bill$$subs$$api_rate_plan as bill$$subs$$api_rate_plan$,
+  bill$$subs$$api_subscription$$v2,
+  bill$$subs$$api_zone as bill$$subs$$api_zone$,
 } from "../../schemas.js";
 import {
-  bill_subs_api_user_subscription_response_collection_output,
-  bill_subs_api_user_subscription_response_single_output,
+  bill$$subs$$api_user_subscription_response_collection,
+  bill$$subs$$api_user_subscription_response_single,
 } from "./outputs.js";
 
 /**
@@ -47,32 +34,36 @@ export const tools: readonly Tool[] = [
   {
     name: "user_subscriptions_delete",
     title: "Delete User Subscription",
-    description: "Deletes a user's subscription.",
+    description: "Deletes a user's subscription.\n\nDELETE /user/subscriptions/{identifier}",
     inputSchema: {
       type: "object",
       properties: {
-        "identifier": {
-          "$ref": "#/$defs/bill-subs-api_schemas-identifier",
-          "description": "Subscription identifier tag."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "identifier": {
+              "description": "Subscription identifier tag.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "identifier"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "identifier"
+        "path"
       ],
-      $defs: {
-        "bill-subs-api_schemas-identifier": bill_subs_api_schemas_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
         "subscription_id": {
-          "$ref": "#/$defs/bill-subs-api_schemas-identifier"
+          "type": "string"
         }
       },
       "type": "object",
-      $defs: {
-        "bill-subs-api_schemas-identifier": bill_subs_api_schemas_identifier_output,
-      },
     },
     annotations: {
       "destructiveHint": true,
@@ -98,7 +89,7 @@ export const tools: readonly Tool[] = [
         "200": {
           "properties": {
             "subscription_id": {
-              "$ref": "#/$defs/bill-subs-api_schemas-identifier"
+              "type": "string"
             }
           },
           "type": "object"
@@ -108,9 +99,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
-        "bill-subs-api_messages": bill_subs_api_messages_output,
-        "bill-subs-api_schemas-identifier": bill_subs_api_schemas_identifier_output,
+        "bill-subs-api_api-response-common-failure": bill$$subs$$api_api$$response$$common$$failure,
+        "bill-subs-api_messages": bill$$subs$$api_messages,
       },
     },
     request: (args) => ({
@@ -120,34 +110,25 @@ export const tools: readonly Tool[] = [
   {
     name: "user_subscriptions_get",
     title: "Get User Subscriptions",
-    description: "Lists all of a user's subscriptions.",
+    description: "Lists all of a user's subscriptions.\n\nGET /user/subscriptions",
     inputSchema: {
       type: "object",
       properties: {},
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/bill-subs-api_user_subscription_response_collection",
       $defs: {
-        "bill-subs-api_api-response-collection": bill_subs_api_api_response_collection_output,
-        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
-        "bill-subs-api_component_value": bill_subs_api_component_value_output,
-        "bill-subs-api_component_values": bill_subs_api_component_values_output,
-        "bill-subs-api_currency": bill_subs_api_currency_output,
-        "bill-subs-api_current_period_end": bill_subs_api_current_period_end_output,
-        "bill-subs-api_current_period_start": bill_subs_api_current_period_start_output,
-        "bill-subs-api_frequency": bill_subs_api_frequency_output,
-        "bill-subs-api_identifier": bill_subs_api_identifier_output,
-        "bill-subs-api_install_id": bill_subs_api_install_id_output,
-        "bill-subs-api_messages": bill_subs_api_messages_output,
-        "bill-subs-api_name": bill_subs_api_name_output,
-        "bill-subs-api_price": bill_subs_api_price_output,
-        "bill-subs-api_rate_plan": bill_subs_api_rate_plan_output,
-        "bill-subs-api_result_info": bill_subs_api_result_info_output,
-        "bill-subs-api_schemas-identifier": bill_subs_api_schemas_identifier_output,
-        "bill-subs-api_state": bill_subs_api_state_output,
-        "bill-subs-api_subscription": bill_subs_api_subscription_output,
-        "bill-subs-api_user_subscription_response_collection": bill_subs_api_user_subscription_response_collection_output,
-        "bill-subs-api_zone": bill_subs_api_zone_output,
+        "bill-subs-api_api-response-collection": bill$$subs$$api_api$$response$$collection,
+        "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
+        "bill-subs-api_component_value": bill$$subs$$api_component_value,
+        "bill-subs-api_component_values": bill$$subs$$api_component_values,
+        "bill-subs-api_messages": bill$$subs$$api_messages,
+        "bill-subs-api_rate_plan": bill$$subs$$api_rate_plan,
+        "bill-subs-api_result_info": bill$$subs$$api_result_info,
+        "bill-subs-api_subscription": bill$$subs$$api_subscription,
+        "bill-subs-api_user_subscription_response_collection": bill$$subs$$api_user_subscription_response_collection,
+        "bill-subs-api_zone": bill$$subs$$api_zone,
       },
     },
     annotations: {
@@ -180,27 +161,17 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "bill-subs-api_api-response-collection": bill_subs_api_api_response_collection_output,
-        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
-        "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
-        "bill-subs-api_component_value": bill_subs_api_component_value_output,
-        "bill-subs-api_component_values": bill_subs_api_component_values_output,
-        "bill-subs-api_currency": bill_subs_api_currency_output,
-        "bill-subs-api_current_period_end": bill_subs_api_current_period_end_output,
-        "bill-subs-api_current_period_start": bill_subs_api_current_period_start_output,
-        "bill-subs-api_frequency": bill_subs_api_frequency_output,
-        "bill-subs-api_identifier": bill_subs_api_identifier_output,
-        "bill-subs-api_install_id": bill_subs_api_install_id_output,
-        "bill-subs-api_messages": bill_subs_api_messages_output,
-        "bill-subs-api_name": bill_subs_api_name_output,
-        "bill-subs-api_price": bill_subs_api_price_output,
-        "bill-subs-api_rate_plan": bill_subs_api_rate_plan_output,
-        "bill-subs-api_result_info": bill_subs_api_result_info_output,
-        "bill-subs-api_schemas-identifier": bill_subs_api_schemas_identifier_output,
-        "bill-subs-api_state": bill_subs_api_state_output,
-        "bill-subs-api_subscription": bill_subs_api_subscription_output,
-        "bill-subs-api_user_subscription_response_collection": bill_subs_api_user_subscription_response_collection_output,
-        "bill-subs-api_zone": bill_subs_api_zone_output,
+        "bill-subs-api_api-response-collection": bill$$subs$$api_api$$response$$collection,
+        "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
+        "bill-subs-api_api-response-common-failure": bill$$subs$$api_api$$response$$common$$failure,
+        "bill-subs-api_component_value": bill$$subs$$api_component_value,
+        "bill-subs-api_component_values": bill$$subs$$api_component_values,
+        "bill-subs-api_messages": bill$$subs$$api_messages,
+        "bill-subs-api_rate_plan": bill$$subs$$api_rate_plan,
+        "bill-subs-api_result_info": bill$$subs$$api_result_info,
+        "bill-subs-api_subscription": bill$$subs$$api_subscription,
+        "bill-subs-api_user_subscription_response_collection": bill$$subs$$api_user_subscription_response_collection,
+        "bill-subs-api_zone": bill$$subs$$api_zone,
       },
     },
     request: (_args) => ({
@@ -210,40 +181,47 @@ export const tools: readonly Tool[] = [
   {
     name: "user_subscriptions_update",
     title: "Update User Subscription",
-    description: "Updates a user's subscriptions.",
+    description: "Updates a user's subscriptions.\n\nPUT /user/subscriptions/{identifier}",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "$ref": "#/$defs/bill-subs-api_subscription-v2"
         },
-        "identifier": {
-          "$ref": "#/$defs/bill-subs-api_schemas-identifier",
-          "description": "Subscription identifier tag."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "identifier": {
+              "description": "Subscription identifier tag.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "identifier"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "identifier",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "bill-subs-api_component_value": bill_subs_api_component_value,
-        "bill-subs-api_component_values": bill_subs_api_component_values,
-        "bill-subs-api_frequency": bill_subs_api_frequency,
-        "bill-subs-api_install_id": bill_subs_api_install_id,
-        "bill-subs-api_rate_plan": bill_subs_api_rate_plan,
-        "bill-subs-api_schemas-identifier": bill_subs_api_schemas_identifier,
-        "bill-subs-api_subscription-v2": bill_subs_api_subscription_v2,
-        "bill-subs-api_zone": bill_subs_api_zone,
+        "bill-subs-api_component_value": bill$$subs$$api_component_value$,
+        "bill-subs-api_component_values": bill$$subs$$api_component_values$,
+        "bill-subs-api_rate_plan": bill$$subs$$api_rate_plan$,
+        "bill-subs-api_subscription-v2": bill$$subs$$api_subscription$$v2,
+        "bill-subs-api_zone": bill$$subs$$api_zone$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/bill-subs-api_user_subscription_response_single",
       $defs: {
-        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
-        "bill-subs-api_api-response-single": bill_subs_api_api_response_single_output,
-        "bill-subs-api_messages": bill_subs_api_messages_output,
-        "bill-subs-api_user_subscription_response_single": bill_subs_api_user_subscription_response_single_output,
+        "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
+        "bill-subs-api_api-response-single": bill$$subs$$api_api$$response$$single,
+        "bill-subs-api_messages": bill$$subs$$api_messages,
+        "bill-subs-api_user_subscription_response_single": bill$$subs$$api_user_subscription_response_single,
       },
     },
     annotations: {
@@ -282,11 +260,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
-        "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
-        "bill-subs-api_api-response-single": bill_subs_api_api_response_single_output,
-        "bill-subs-api_messages": bill_subs_api_messages_output,
-        "bill-subs-api_user_subscription_response_single": bill_subs_api_user_subscription_response_single_output,
+        "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
+        "bill-subs-api_api-response-common-failure": bill$$subs$$api_api$$response$$common$$failure,
+        "bill-subs-api_api-response-single": bill$$subs$$api_api$$response$$single,
+        "bill-subs-api_messages": bill$$subs$$api_messages,
+        "bill-subs-api_user_subscription_response_single": bill$$subs$$api_user_subscription_response_single,
       },
     },
     request: (args) => ({

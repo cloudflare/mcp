@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `security-center_shadowZone` in responses.
  */
-export const security_center_shadowZone_output: JsonSchema = {
+export const security$$center_shadowZone: JsonSchema = {
   "properties": {
     "discovered_at": {
       "format": "date-time",
@@ -30,7 +30,7 @@ export const security_center_shadowZone_output: JsonSchema = {
 /**
  * The schema of `security-center_shadowZonesResponse` in responses.
  */
-export const security_center_shadowZonesResponse_output: JsonSchema = {
+export const security$$center_shadowZonesResponse: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/security-center_api-response-common"
@@ -43,7 +43,11 @@ export const security_center_shadowZonesResponse_output: JsonSchema = {
               "type": "boolean"
             },
             "entitlement": {
-              "$ref": "#/$defs/security-center_partnerEntitlement"
+              "enum": [
+                "baseline",
+                "premium"
+              ],
+              "type": "string"
             },
             "items": {
               "items": {

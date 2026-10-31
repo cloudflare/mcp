@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `pay-per-crawl_EnabledDomain` in responses.
  */
-export const pay_per_crawl_EnabledDomain_output: JsonSchema = {
+export const pay$$per$$crawl_EnabledDomain: JsonSchema = {
   "properties": {
     "domain": {
       "type": "string"
@@ -57,7 +57,7 @@ export const pay_per_crawl_EnabledDomain_output: JsonSchema = {
 /**
  * The schema of `pay-per-crawl_EnabledDomainsResponse` in responses.
  */
-export const pay_per_crawl_EnabledDomainsResponse_output: JsonSchema = {
+export const pay$$per$$crawl_EnabledDomainsResponse: JsonSchema = {
   "properties": {
     "result": {
       "$ref": "#/$defs/pay-per-crawl_EnabledDomainsResult"
@@ -79,7 +79,7 @@ export const pay_per_crawl_EnabledDomainsResponse_output: JsonSchema = {
 /**
  * The schema of `pay-per-crawl_EnabledDomainsResult` in responses.
  */
-export const pay_per_crawl_EnabledDomainsResult_output: JsonSchema = {
+export const pay$$per$$crawl_EnabledDomainsResult: JsonSchema = {
   "properties": {
     "cursor": {
       "oneOf": [

@@ -3,49 +3,59 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  posture_api_api_response_common_output,
-  posture_api_error_response_output,
-  posture_api_messages_output,
+  posture$$api_api$$response$$common,
+  posture$$api_error$$response,
+  posture$$api_messages,
 } from "../outputs.js";
 import {
-  posture_api_EvaluateNewWebhookResponse_output,
-  posture_api_Webhook_output,
-  posture_api_webhook_list_response_output,
-  posture_api_webhook_response_output,
+  posture$$api_EvaluateNewWebhookResponse,
+  posture$$api_Webhook,
+  posture$$api_webhook$$list$$response,
+  posture$$api_webhook$$response,
 } from "./outputs.js";
 import {
-  posture_api_CreateWebhookRequest,
-  posture_api_EvaluateNewWebhookRequest,
-  posture_api_UpdateWebhookRequest,
-  posture_api_WebhookHeaderInput,
+  posture$$api_CreateWebhookRequest,
+  posture$$api_EvaluateNewWebhookRequest,
+  posture$$api_UpdateWebhookRequest,
+  posture$$api_WebhookHeaderInput,
 } from "./schemas.js";
 
 /**
- * The tools of `zero_trust.casb.webhooks`.
+ * The tools of `zeroTrust.casb.webhooks`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zero_trust_casb_webhooks_create",
+    name: "zeroTrust_casb_webhooks_create",
     title: "Create a new webhook configuration",
-    description: "Creates a new webhook configuration for sending finding notifications to external endpoints.",
+    description: "Creates a new webhook configuration for sending finding notifications to external endpoints.\n\nPOST /accounts/{account_id}/data-security/posture/webhooks",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare account ID for the user making the request.",
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/posture-api_CreateWebhookRequest"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID for the user making the request.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "posture-api_CreateWebhookRequest": posture_api_CreateWebhookRequest,
-        "posture-api_WebhookHeaderInput": posture_api_WebhookHeaderInput,
+        "posture-api_CreateWebhookRequest": posture$$api_CreateWebhookRequest,
+        "posture-api_WebhookHeaderInput": posture$$api_WebhookHeaderInput,
       },
     },
     outputSchema: {
@@ -63,9 +73,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "posture-api_Webhook": posture_api_Webhook_output,
-        "posture-api_api-response-common": posture_api_api_response_common_output,
-        "posture-api_messages": posture_api_messages_output,
+        "posture-api_Webhook": posture$$api_Webhook,
+        "posture-api_api-response-common": posture$$api_api$$response$$common,
+        "posture-api_messages": posture$$api_messages,
       },
     },
     annotations: {
@@ -116,10 +126,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "posture-api_Webhook": posture_api_Webhook_output,
-        "posture-api_api-response-common": posture_api_api_response_common_output,
-        "posture-api_error-response": posture_api_error_response_output,
-        "posture-api_messages": posture_api_messages_output,
+        "posture-api_Webhook": posture$$api_Webhook,
+        "posture-api_api-response-common": posture$$api_api$$response$$common,
+        "posture-api_error-response": posture$$api_error$$response,
+        "posture-api_messages": posture$$api_messages,
       },
     },
     request: (args) => ({
@@ -128,32 +138,42 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_casb_webhooks_delete",
+    name: "zeroTrust_casb_webhooks_delete",
     title: "Delete a webhook configuration",
-    description: "Soft deletes a webhook configuration by its unique identifier.\nThe webhook will be marked as deleted and will no longer be available for use.",
+    description: "Soft deletes a webhook configuration by its unique identifier.\nThe webhook will be marked as deleted and will no longer be available for use.\n\nDELETE /accounts/{account_id}/data-security/posture/webhooks/{webhook_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare account ID for the user making the request.",
-          "type": "string"
-        },
-        "webhook_id": {
-          "description": "A UUID identifying the webhook configuration.",
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID for the user making the request.",
+              "type": "string"
+            },
+            "webhook_id": {
+              "description": "A UUID identifying the webhook configuration.",
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "webhook_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "webhook_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/posture-api_api-response-common",
       $defs: {
-        "posture-api_api-response-common": posture_api_api_response_common_output,
-        "posture-api_messages": posture_api_messages_output,
+        "posture-api_api-response-common": posture$$api_api$$response$$common,
+        "posture-api_messages": posture$$api_messages,
       },
     },
     annotations: {
@@ -184,9 +204,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "posture-api_api-response-common": posture_api_api_response_common_output,
-        "posture-api_error-response": posture_api_error_response_output,
-        "posture-api_messages": posture_api_messages_output,
+        "posture-api_api-response-common": posture$$api_api$$response$$common,
+        "posture-api_error-response": posture$$api_error$$response,
+        "posture-api_messages": posture$$api_messages,
       },
     },
     request: (args) => ({
@@ -194,27 +214,37 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_casb_webhooks_evaluate",
+    name: "zeroTrust_casb_webhooks_evaluate",
     title: "Test a webhook configuration before creating it",
-    description: "Sends a test webhook event to the specified destination URL to verify the webhook endpoint \nis reachable and properly configured. This allows customers to validate their webhook \nconfiguration before creating the actual webhook resource.\n\nThe test payload includes:\n- event_type: \"webhook.test\"\n- timestamp: Current UTC timestamp\n- message: Test message indicating this is from Cloudflare CASB\n- data: Object with test: true",
+    description: "Sends a test webhook event to the specified destination URL to verify the webhook endpoint \nis reachable and properly configured. This allows customers to validate their webhook \nconfiguration before creating the actual webhook resource.\n\nThe test payload includes:\n- event_type: \"webhook.test\"\n- timestamp: Current UTC timestamp\n- message: Test message indicating this is from Cloudflare CASB\n- data: Object with test: true\n\nPOST /accounts/{account_id}/data-security/posture/webhooks/evaluate",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare account ID for the user making the request.",
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/posture-api_EvaluateNewWebhookRequest"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID for the user making the request.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "posture-api_EvaluateNewWebhookRequest": posture_api_EvaluateNewWebhookRequest,
-        "posture-api_WebhookHeaderInput": posture_api_WebhookHeaderInput,
+        "posture-api_EvaluateNewWebhookRequest": posture$$api_EvaluateNewWebhookRequest,
+        "posture-api_WebhookHeaderInput": posture$$api_WebhookHeaderInput,
       },
     },
     outputSchema: {
@@ -232,9 +262,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "posture-api_EvaluateNewWebhookResponse": posture_api_EvaluateNewWebhookResponse_output,
-        "posture-api_api-response-common": posture_api_api_response_common_output,
-        "posture-api_messages": posture_api_messages_output,
+        "posture-api_EvaluateNewWebhookResponse": posture$$api_EvaluateNewWebhookResponse,
+        "posture-api_api-response-common": posture$$api_api$$response$$common,
+        "posture-api_messages": posture$$api_messages,
       },
     },
     annotations: {
@@ -282,10 +312,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "posture-api_EvaluateNewWebhookResponse": posture_api_EvaluateNewWebhookResponse_output,
-        "posture-api_api-response-common": posture_api_api_response_common_output,
-        "posture-api_error-response": posture_api_error_response_output,
-        "posture-api_messages": posture_api_messages_output,
+        "posture-api_EvaluateNewWebhookResponse": posture$$api_EvaluateNewWebhookResponse,
+        "posture-api_api-response-common": posture$$api_api$$response$$common,
+        "posture-api_error-response": posture$$api_error$$response,
+        "posture-api_messages": posture$$api_messages,
       },
     },
     request: (args) => ({
@@ -294,26 +324,36 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_casb_webhooks_evaluate_existing",
+    name: "zeroTrust_casb_webhooks_evaluateExisting",
     title: "Test an existing webhook configuration",
-    description: "Sends a test webhook event using an existing webhook configuration.\nThis allows customers to verify their webhook endpoint is still reachable and properly \nconfigured after creating the webhook resource.\n\nThe test payload includes:\n- event_type: \"webhook.test\"\n- timestamp: Current UTC timestamp\n- message: Test message indicating this is from Cloudflare CASB\n- data: Object with test: true",
+    description: "Sends a test webhook event using an existing webhook configuration.\nThis allows customers to verify their webhook endpoint is still reachable and properly \nconfigured after creating the webhook resource.\n\nThe test payload includes:\n- event_type: \"webhook.test\"\n- timestamp: Current UTC timestamp\n- message: Test message indicating this is from Cloudflare CASB\n- data: Object with test: true\n\nPOST /accounts/{account_id}/data-security/posture/webhooks/{webhook_id}/evaluate",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare account ID for the user making the request.",
-          "type": "string"
-        },
-        "webhook_id": {
-          "description": "A UUID identifying the webhook configuration.",
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID for the user making the request.",
+              "type": "string"
+            },
+            "webhook_id": {
+              "description": "A UUID identifying the webhook configuration.",
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "webhook_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "webhook_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -330,9 +370,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "posture-api_EvaluateNewWebhookResponse": posture_api_EvaluateNewWebhookResponse_output,
-        "posture-api_api-response-common": posture_api_api_response_common_output,
-        "posture-api_messages": posture_api_messages_output,
+        "posture-api_EvaluateNewWebhookResponse": posture$$api_EvaluateNewWebhookResponse,
+        "posture-api_api-response-common": posture$$api_api$$response$$common,
+        "posture-api_messages": posture$$api_messages,
       },
     },
     annotations: {
@@ -383,10 +423,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "posture-api_EvaluateNewWebhookResponse": posture_api_EvaluateNewWebhookResponse_output,
-        "posture-api_api-response-common": posture_api_api_response_common_output,
-        "posture-api_error-response": posture_api_error_response_output,
-        "posture-api_messages": posture_api_messages_output,
+        "posture-api_EvaluateNewWebhookResponse": posture$$api_EvaluateNewWebhookResponse,
+        "posture-api_api-response-common": posture$$api_api$$response$$common,
+        "posture-api_error-response": posture$$api_error$$response,
+        "posture-api_messages": posture$$api_messages,
       },
     },
     request: (args) => ({
@@ -394,34 +434,44 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_casb_webhooks_get",
+    name: "zeroTrust_casb_webhooks_get",
     title: "Get webhook configuration by ID",
-    description: "Retrieves a specific webhook configuration by its unique identifier.",
+    description: "Retrieves a specific webhook configuration by its unique identifier.\n\nGET /accounts/{account_id}/data-security/posture/webhooks/{webhook_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare account ID for the user making the request.",
-          "type": "string"
-        },
-        "webhook_id": {
-          "description": "A UUID identifying the webhook configuration.",
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID for the user making the request.",
+              "type": "string"
+            },
+            "webhook_id": {
+              "description": "A UUID identifying the webhook configuration.",
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "webhook_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "webhook_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/posture-api_webhook-response",
       $defs: {
-        "posture-api_Webhook": posture_api_Webhook_output,
-        "posture-api_api-response-common": posture_api_api_response_common_output,
-        "posture-api_messages": posture_api_messages_output,
-        "posture-api_webhook-response": posture_api_webhook_response_output,
+        "posture-api_Webhook": posture$$api_Webhook,
+        "posture-api_api-response-common": posture$$api_api$$response$$common,
+        "posture-api_messages": posture$$api_messages,
+        "posture-api_webhook-response": posture$$api_webhook$$response,
       },
     },
     annotations: {
@@ -461,11 +511,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "posture-api_Webhook": posture_api_Webhook_output,
-        "posture-api_api-response-common": posture_api_api_response_common_output,
-        "posture-api_error-response": posture_api_error_response_output,
-        "posture-api_messages": posture_api_messages_output,
-        "posture-api_webhook-response": posture_api_webhook_response_output,
+        "posture-api_Webhook": posture$$api_Webhook,
+        "posture-api_api-response-common": posture$$api_api$$response$$common,
+        "posture-api_error-response": posture$$api_error$$response,
+        "posture-api_messages": posture$$api_messages,
+        "posture-api_webhook-response": posture$$api_webhook$$response,
       },
     },
     request: (args) => ({
@@ -473,28 +523,38 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_casb_webhooks_list",
+    name: "zeroTrust_casb_webhooks_list",
     title: "List webhook configurations",
-    description: "Retrieves all webhook configurations for the authenticated account.\nReturns an array of webhook configurations that can be used to send finding notifications.",
+    description: "Retrieves all webhook configurations for the authenticated account.\nReturns an array of webhook configurations that can be used to send finding notifications.\n\nGET /accounts/{account_id}/data-security/posture/webhooks",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare account ID for the user making the request.",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID for the user making the request.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/posture-api_webhook-list-response",
       $defs: {
-        "posture-api_Webhook": posture_api_Webhook_output,
-        "posture-api_api-response-common": posture_api_api_response_common_output,
-        "posture-api_messages": posture_api_messages_output,
-        "posture-api_webhook-list-response": posture_api_webhook_list_response_output,
+        "posture-api_Webhook": posture$$api_Webhook,
+        "posture-api_api-response-common": posture$$api_api$$response$$common,
+        "posture-api_messages": posture$$api_messages,
+        "posture-api_webhook-list-response": posture$$api_webhook$$list$$response,
       },
     },
     annotations: {
@@ -528,11 +588,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "posture-api_Webhook": posture_api_Webhook_output,
-        "posture-api_api-response-common": posture_api_api_response_common_output,
-        "posture-api_error-response": posture_api_error_response_output,
-        "posture-api_messages": posture_api_messages_output,
-        "posture-api_webhook-list-response": posture_api_webhook_list_response_output,
+        "posture-api_Webhook": posture$$api_Webhook,
+        "posture-api_api-response-common": posture$$api_api$$response$$common,
+        "posture-api_error-response": posture$$api_error$$response,
+        "posture-api_messages": posture$$api_messages,
+        "posture-api_webhook-list-response": posture$$api_webhook$$list$$response,
       },
     },
     request: (args) => ({
@@ -540,33 +600,43 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_casb_webhooks_update",
+    name: "zeroTrust_casb_webhooks_update",
     title: "Update an existing webhook configuration",
-    description: "Updates an existing webhook configuration with new settings.",
+    description: "Updates an existing webhook configuration with new settings.\n\nPUT /accounts/{account_id}/data-security/posture/webhooks/{webhook_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare account ID for the user making the request.",
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/posture-api_UpdateWebhookRequest"
         },
-        "webhook_id": {
-          "description": "A UUID identifying the webhook configuration.",
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID for the user making the request.",
+              "type": "string"
+            },
+            "webhook_id": {
+              "description": "A UUID identifying the webhook configuration.",
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "webhook_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "webhook_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "posture-api_UpdateWebhookRequest": posture_api_UpdateWebhookRequest,
-        "posture-api_WebhookHeaderInput": posture_api_WebhookHeaderInput,
+        "posture-api_UpdateWebhookRequest": posture$$api_UpdateWebhookRequest,
+        "posture-api_WebhookHeaderInput": posture$$api_WebhookHeaderInput,
       },
     },
     outputSchema: {
@@ -584,9 +654,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "posture-api_Webhook": posture_api_Webhook_output,
-        "posture-api_api-response-common": posture_api_api_response_common_output,
-        "posture-api_messages": posture_api_messages_output,
+        "posture-api_Webhook": posture$$api_Webhook,
+        "posture-api_api-response-common": posture$$api_api$$response$$common,
+        "posture-api_messages": posture$$api_messages,
       },
     },
     annotations: {
@@ -637,10 +707,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "posture-api_Webhook": posture_api_Webhook_output,
-        "posture-api_api-response-common": posture_api_api_response_common_output,
-        "posture-api_error-response": posture_api_error_response_output,
-        "posture-api_messages": posture_api_messages_output,
+        "posture-api_Webhook": posture$$api_Webhook,
+        "posture-api_api-response-common": posture$$api_api$$response$$common,
+        "posture-api_error-response": posture$$api_error$$response,
+        "posture-api_messages": posture$$api_messages,
       },
     },
     request: (args) => ({

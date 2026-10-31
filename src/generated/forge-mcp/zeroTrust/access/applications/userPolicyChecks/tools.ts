@@ -3,60 +3,70 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  access_api_response_common_failure_output,
-  access_api_response_single_output,
-  access_messages_output,
-  access_uuid_output,
+  access_api$$response$$common$$failure,
+  access_api$$response$$single,
+  access_messages,
 } from "../../../outputs.js";
-import { access_identifier, access_uuid } from "../../../schemas.js";
-import { access_app_id } from "../schemas.js";
-import { access_policy_check_response_output } from "./outputs.js";
+import { access_policy_check_response } from "./outputs.js";
 
 /**
- * The tools of `zero_trust.access.applications.user_policy_checks`.
+ * The tools of `zeroTrust.access.applications.userPolicyChecks`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zero_trust_access_applications_user_policy_checks_list",
+    name: "zeroTrust_access_applications_userPolicyChecks_list",
     title: "Test Access policies",
-    description: "Tests if a specific user has permission to access an application.",
+    description: "Tests if a specific user has permission to access an application.\n\nGET /{account_or_zone}/{account_or_zone_id}/access/apps/{app_id}/user_policy_checks",
     inputSchema: {
       type: "object",
       properties: {
-        "account_or_zone": {
-          "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
-          "enum": [
-            "accounts",
-            "zones"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_or_zone": {
+              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "enum": [
+                "accounts",
+                "zones"
+              ],
+              "type": "string"
+            },
+            "account_or_zone_id": {
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
+            },
+            "app_id": {
+              "oneOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "description": "UUID.",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "required": [
+            "account_or_zone",
+            "account_or_zone_id",
+            "app_id"
           ],
-          "type": "string"
-        },
-        "account_or_zone_id": {
-          "$ref": "#/$defs/access_identifier",
-          "description": "The account ID or zone ID, as selected by account_or_zone."
-        },
-        "app_id": {
-          "$ref": "#/$defs/access_app_id"
+          "type": "object"
         }
       },
       required: [
-        "account_or_zone",
-        "account_or_zone_id",
-        "app_id"
+        "path"
       ],
-      $defs: {
-        "access_app_id": access_app_id,
-        "access_identifier": access_identifier,
-        "access_uuid": access_uuid,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_policy_check_response",
       $defs: {
-        "access_api-response-single": access_api_response_single_output,
-        "access_messages": access_messages_output,
-        "access_policy_check_response": access_policy_check_response_output,
-        "access_uuid": access_uuid_output,
+        "access_api-response-single": access_api$$response$$single,
+        "access_messages": access_messages,
+        "access_policy_check_response": access_policy_check_response,
       },
     },
     annotations: {
@@ -84,11 +94,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "access_api-response-common-failure": access_api_response_common_failure_output,
-        "access_api-response-single": access_api_response_single_output,
-        "access_messages": access_messages_output,
-        "access_policy_check_response": access_policy_check_response_output,
-        "access_uuid": access_uuid_output,
+        "access_api-response-common-failure": access_api$$response$$common$$failure,
+        "access_api-response-single": access_api$$response$$single,
+        "access_messages": access_messages,
+        "access_policy_check_response": access_policy_check_response,
       },
     },
     request: (args) => ({

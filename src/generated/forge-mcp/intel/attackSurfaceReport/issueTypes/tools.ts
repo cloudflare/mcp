@@ -3,34 +3,40 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  security_center_api_response_common_failure_output,
-  security_center_api_response_common_output,
-  security_center_messages_output,
+  security$$center_api$$response$$common,
+  security$$center_api$$response$$common$$failure,
+  security$$center_messages,
 } from "../../../outputs.js";
-import { security_center_identifier } from "../../../schemas.js";
 
 /**
- * The tools of `intel.attack_surface_report.issue_types`.
+ * The tools of `intel.attackSurfaceReport.issueTypes`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "intel_attack_surface_report_issue_types_get",
+    name: "intel_attackSurfaceReport_issueTypes_get",
     title: "Retrieves Security Center Issues Types",
-    description: "Lists all available issue types in Security Center, describing categories of security issues.",
+    description: "Lists all available issue types in Security Center, describing categories of security issues.\n\nGET /accounts/{account_id}/intel/attack-surface-report/issue-types",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/security-center_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
-      $defs: {
-        "security-center_identifier": security_center_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -50,8 +56,8 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "security-center_api-response-common": security_center_api_response_common_output,
-        "security-center_messages": security_center_messages_output,
+        "security-center_api-response-common": security$$center_api$$response$$common,
+        "security-center_messages": security$$center_messages,
       },
     },
     annotations: {
@@ -94,9 +100,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "security-center_api-response-common": security_center_api_response_common_output,
-        "security-center_api-response-common-failure": security_center_api_response_common_failure_output,
-        "security-center_messages": security_center_messages_output,
+        "security-center_api-response-common": security$$center_api$$response$$common,
+        "security-center_api-response-common-failure": security$$center_api$$response$$common$$failure,
+        "security-center_messages": security$$center_messages,
       },
     },
     request: (args) => ({

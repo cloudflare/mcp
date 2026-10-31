@@ -6,10 +6,11 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `email-security_DeletedUrlIgnorePattern` in responses.
  */
-export const email_security_DeletedUrlIgnorePattern_output: JsonSchema = {
+export const email$$security_DeletedUrlIgnorePattern: JsonSchema = {
   "properties": {
     "id": {
-      "$ref": "#/$defs/email-security_UrlIgnorePatternId"
+      "format": "uuid",
+      "type": "string"
     }
   },
   "required": [
@@ -21,7 +22,7 @@ export const email_security_DeletedUrlIgnorePattern_output: JsonSchema = {
 /**
  * The schema of `email-security_UrlIgnorePattern` in responses.
  */
-export const email_security_UrlIgnorePattern_output: JsonSchema = {
+export const email$$security_UrlIgnorePattern: JsonSchema = {
   "properties": {
     "comments": {
       "oneOf": [
@@ -38,7 +39,8 @@ export const email_security_UrlIgnorePattern_output: JsonSchema = {
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/email-security_UrlIgnorePatternId"
+      "format": "uuid",
+      "type": "string"
     },
     "last_modified": {
       "format": "date-time",
@@ -58,12 +60,4 @@ export const email_security_UrlIgnorePattern_output: JsonSchema = {
     "pattern"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `email-security_UrlIgnorePatternId` in responses.
- */
-export const email_security_UrlIgnorePatternId_output: JsonSchema = {
-  "format": "uuid",
-  "type": "string"
 };

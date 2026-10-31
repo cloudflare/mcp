@@ -10,13 +10,10 @@ export const tools: readonly Tool[] = [
   {
     name: "workflows_settings_edit",
     title: "Update account settings",
-    description: "Updates only the account-level Workflows settings fields present in the request body.",
+    description: "Updates only the account-level Workflows settings fields present in the request body.\n\nPATCH /accounts/{account_id}/workflows/settings",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
         "body": {
           "properties": {
             "default_retention": {
@@ -49,12 +46,25 @@ export const tools: readonly Tool[] = [
             }
           },
           "type": "object"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -334,17 +344,27 @@ export const tools: readonly Tool[] = [
   {
     name: "workflows_settings_get",
     title: "Get account settings",
-    description: "Retrieves account-level Workflows settings, such as the default instance retention.",
+    description: "Retrieves account-level Workflows settings, such as the default instance retention.\n\nGET /accounts/{account_id}/workflows/settings",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

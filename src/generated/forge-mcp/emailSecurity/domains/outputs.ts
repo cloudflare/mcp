@@ -6,10 +6,11 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `email-security_DeletedDomain` in responses.
  */
-export const email_security_DeletedDomain_output: JsonSchema = {
+export const email$$security_DeletedDomain: JsonSchema = {
   "properties": {
     "id": {
-      "$ref": "#/$defs/email-security_DomainId"
+      "format": "uuid",
+      "type": "string"
     }
   },
   "required": [
@@ -19,46 +20,20 @@ export const email_security_DeletedDomain_output: JsonSchema = {
 };
 
 /**
- * The schema of `email-security_DeliveryMode` in responses.
- */
-export const email_security_DeliveryMode_output: JsonSchema = {
-  "enum": [
-    "DIRECT",
-    "BCC",
-    "JOURNAL",
-    "API",
-    "RETRO_SCAN"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `email-security_DmarcStatus` in responses.
- */
-export const email_security_DmarcStatus_output: JsonSchema = {
-  "oneOf": [
-    {
-      "enum": [
-        "none",
-        "good",
-        "invalid"
-      ],
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
  * The schema of `email-security_Domain` in responses.
  */
-export const email_security_Domain_output: JsonSchema = {
+export const email$$security_Domain: JsonSchema = {
   "properties": {
     "allowed_delivery_modes": {
       "items": {
-        "$ref": "#/$defs/email-security_DeliveryMode"
+        "enum": [
+          "DIRECT",
+          "BCC",
+          "JOURNAL",
+          "API",
+          "RETRO_SCAN"
+        ],
+        "type": "string"
       },
       "type": "array"
     },
@@ -73,17 +48,42 @@ export const email_security_Domain_output: JsonSchema = {
       ]
     },
     "created_at": {
-      "$ref": "#/$defs/email-security_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "dmarc_status": {
-      "$ref": "#/$defs/email-security_DmarcStatus"
+      "oneOf": [
+        {
+          "enum": [
+            "none",
+            "good",
+            "invalid"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "domain": {
       "type": "string"
     },
     "drop_dispositions": {
       "items": {
-        "$ref": "#/$defs/email-security_DispositionLabel"
+        "enum": [
+          "MALICIOUS",
+          "MALICIOUS-BEC",
+          "SUSPICIOUS",
+          "SPOOF",
+          "SPAM",
+          "BULK",
+          "ENCRYPTED",
+          "EXTERNAL",
+          "UNKNOWN",
+          "NONE"
+        ],
+        "type": "string"
       },
       "type": "array"
     },
@@ -98,10 +98,22 @@ export const email_security_Domain_output: JsonSchema = {
       ]
     },
     "folder": {
-      "$ref": "#/$defs/email-security_ScannableFolder"
+      "oneOf": [
+        {
+          "enum": [
+            "AllItems",
+            "Inbox"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "id": {
-      "$ref": "#/$defs/email-security_DomainId"
+      "format": "uuid",
+      "type": "string"
     },
     "inbox_provider": {
       "oneOf": [
@@ -135,13 +147,15 @@ export const email_security_Domain_output: JsonSchema = {
       "type": "array"
     },
     "last_modified": {
-      "$ref": "#/$defs/email-security_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "lookback_hops": {
       "type": "integer"
     },
     "modified_at": {
-      "$ref": "#/$defs/email-security_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "o365_tenant_id": {
       "oneOf": [
@@ -155,7 +169,14 @@ export const email_security_Domain_output: JsonSchema = {
     },
     "regions": {
       "items": {
-        "$ref": "#/$defs/email-security_Region"
+        "enum": [
+          "GLOBAL",
+          "AU",
+          "DE",
+          "IN",
+          "US"
+        ],
+        "type": "string"
       },
       "type": "array"
     },
@@ -180,10 +201,37 @@ export const email_security_Domain_output: JsonSchema = {
       ]
     },
     "spf_status": {
-      "$ref": "#/$defs/email-security_SpfStatus"
+      "oneOf": [
+        {
+          "enum": [
+            "none",
+            "good",
+            "neutral",
+            "open",
+            "invalid"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "status": {
-      "$ref": "#/$defs/email-security_DomainStatus"
+      "oneOf": [
+        {
+          "enum": [
+            "PENDING",
+            "ACTIVE",
+            "FAILED",
+            "TIMEOUT"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "transport": {
       "type": "string"
@@ -195,7 +243,7 @@ export const email_security_Domain_output: JsonSchema = {
 /**
  * The schema of `email-security_DomainAuthorization` in responses.
  */
-export const email_security_DomainAuthorization_output: JsonSchema = {
+export const email$$security_DomainAuthorization: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -230,17 +278,9 @@ export const email_security_DomainAuthorization_output: JsonSchema = {
 };
 
 /**
- * The schema of `email-security_DomainId` in responses.
- */
-export const email_security_DomainId_output: JsonSchema = {
-  "format": "uuid",
-  "type": "string"
-};
-
-/**
  * The schema of `email-security_DomainList` in responses.
  */
-export const email_security_DomainList_output: JsonSchema = {
+export const email$$security_DomainList: JsonSchema = {
   "items": {
     "$ref": "#/$defs/email-security_Domain"
   },
@@ -248,29 +288,9 @@ export const email_security_DomainList_output: JsonSchema = {
 };
 
 /**
- * The schema of `email-security_DomainStatus` in responses.
- */
-export const email_security_DomainStatus_output: JsonSchema = {
-  "oneOf": [
-    {
-      "enum": [
-        "PENDING",
-        "ACTIVE",
-        "FAILED",
-        "TIMEOUT"
-      ],
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
  * The schema of `email-security_EmailsProcessed` in responses.
  */
-export const email_security_EmailsProcessed_output: JsonSchema = {
+export const email$$security_EmailsProcessed: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -291,59 +311,6 @@ export const email_security_EmailsProcessed_output: JsonSchema = {
         "total_emails_processed_previous"
       ],
       "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `email-security_Region` in responses.
- */
-export const email_security_Region_output: JsonSchema = {
-  "enum": [
-    "GLOBAL",
-    "AU",
-    "DE",
-    "IN",
-    "US"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `email-security_ScannableFolder` in responses.
- */
-export const email_security_ScannableFolder_output: JsonSchema = {
-  "oneOf": [
-    {
-      "enum": [
-        "AllItems",
-        "Inbox"
-      ],
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `email-security_SpfStatus` in responses.
- */
-export const email_security_SpfStatus_output: JsonSchema = {
-  "oneOf": [
-    {
-      "enum": [
-        "none",
-        "good",
-        "neutral",
-        "open",
-        "invalid"
-      ],
-      "type": "string"
     },
     {
       "type": "null"

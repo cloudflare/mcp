@@ -13,26 +13,34 @@ export const email_update_catch_all_rule_properties: JsonSchema = {
       "description": "List actions for the catch-all routing rule."
     },
     "enabled": {
-      "$ref": "#/$defs/email_rule_enabled",
       "default": true,
-      "description": "Routing rule status."
+      "description": "Routing rule status.",
+      "enum": [
+        true,
+        false
+      ],
+      "type": "boolean"
     },
     "matchers": {
       "$ref": "#/$defs/email_rule_catchall-matchers",
       "description": "List of matchers for the catch-all routing rule."
     },
     "name": {
-      "$ref": "#/$defs/email_rule_name",
-      "description": "Routing rule name."
+      "description": "Routing rule name.",
+      "type": "string"
     },
     "owner_worker_tag": {
-      "$ref": "#/$defs/email_rule_owner_worker_tag",
-      "description": "Public tag (script_tag) of the Worker that owns this rule. Required when\n`source` is `wrangler`.\n"
+      "description": "Public tag (script_tag) of the Worker that owns this rule. Required when\n`source` is `wrangler`.",
+      "type": "string"
     },
     "source": {
-      "$ref": "#/$defs/email_rule_source",
       "default": "api",
-      "description": "Who manages the rule. `api` covers dashboard, generic API, and Terraform;\n`wrangler` means the rule is managed by a Worker's wrangler.jsonc. Defaults\nto `api` when omitted on write.\n"
+      "description": "Who manages the rule. `api` covers dashboard, generic API, and Terraform;\n`wrangler` means the rule is managed by a Worker's wrangler.jsonc. Defaults\nto `api` when omitted on write.",
+      "enum": [
+        "api",
+        "wrangler"
+      ],
+      "type": "string"
     }
   },
   "required": [

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `dlp_DataTagArray` in responses.
  */
-export const dlp_DataTagArray_output: JsonSchema = {
+export const dlp_DataTagArray: JsonSchema = {
   "items": {
     "$ref": "#/$defs/dlp_DataTag"
   },

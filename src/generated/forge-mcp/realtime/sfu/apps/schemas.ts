@@ -9,9 +9,9 @@ import type { JsonSchema } from "../../../_/tool.js";
 export const calls_app_editable_fields: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/calls_name",
       "default": "",
-      "description": "A short description of a Realtime SFU app, not shown to end users."
+      "description": "A short description of a Realtime SFU app, not shown to end users.",
+      "type": "string"
     }
   },
   "type": "object"

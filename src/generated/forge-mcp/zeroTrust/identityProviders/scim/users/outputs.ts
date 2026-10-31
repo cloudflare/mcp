@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `access_scim_user_response` in responses.
  */
-export const access_scim_user_response_output: JsonSchema = {
+export const access_scim_user_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-single"
@@ -25,7 +25,7 @@ export const access_scim_user_response_output: JsonSchema = {
 /**
  * The schema of `access_scim_users_response` in responses.
  */
-export const access_scim_users_response_output: JsonSchema = {
+export const access_scim_users_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-collection"
@@ -47,7 +47,7 @@ export const access_scim_users_response_output: JsonSchema = {
 /**
  * The schema of `access_users` in responses.
  */
-export const access_users_output: JsonSchema = {
+export const access_users: JsonSchema = {
   "properties": {
     "active": {
       "type": "boolean"
@@ -76,7 +76,7 @@ export const access_users_output: JsonSchema = {
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/access_id"
+      "type": "string"
     },
     "meta": {
       "$ref": "#/$defs/access_meta"

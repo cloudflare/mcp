@@ -3,27 +3,15 @@
 
 import type { Tool } from "../_/tool.js";
 import {
-  iam_api_response_common_failure_output,
-  iam_api_response_single_output,
-  iam_common_components_schemas_identifier_output,
-  iam_first_name_output,
-  iam_last_name_output,
-  iam_messages_2_output,
-  iam_two_factor_authentication_enabled_output,
+  iam_api$$response$$common$$failure,
+  iam_api$$response$$single,
+  iam_messages$$2,
 } from "../outputs.js";
-import { iam_first_name, iam_last_name } from "../schemas.js";
 import {
-  iam_components_schemas_status_output,
-  iam_country_output,
-  iam_organization_output,
-  iam_schemas_name_output,
-  iam_schemas_permissions_output,
-  iam_single_user_response_output,
-  iam_telephone_output,
-  iam_two_factor_authentication_locked_output,
-  iam_zipcode_output,
+  iam_organization,
+  iam_schemas$$permissions,
+  iam_single_user_response,
 } from "./outputs.js";
-import { iam_country, iam_telephone, iam_zipcode } from "./schemas.js";
 
 /**
  * The tools of `user`.
@@ -32,31 +20,66 @@ export const tools: readonly Tool[] = [
   {
     name: "user_edit",
     title: "Edit User",
-    description: "Edit part of your user details.",
+    description: "Edit part of your user details.\n\nPATCH /user",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "country": {
-              "$ref": "#/$defs/iam_country",
-              "description": "The country in which the user lives."
+              "description": "The country in which the user lives.",
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "first_name": {
-              "$ref": "#/$defs/iam_first_name",
-              "description": "User's first name"
+              "description": "User's first name",
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "last_name": {
-              "$ref": "#/$defs/iam_last_name",
-              "description": "User's last name"
+              "description": "User's last name",
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "telephone": {
-              "$ref": "#/$defs/iam_telephone",
-              "description": "User's telephone number"
+              "description": "User's telephone number",
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "zipcode": {
-              "$ref": "#/$defs/iam_zipcode",
-              "description": "The zipcode or postal code where the user lives."
+              "description": "The zipcode or postal code where the user lives.",
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             }
           },
           "type": "object"
@@ -65,32 +88,16 @@ export const tools: readonly Tool[] = [
       required: [
         "body"
       ],
-      $defs: {
-        "iam_country": iam_country,
-        "iam_first_name": iam_first_name,
-        "iam_last_name": iam_last_name,
-        "iam_telephone": iam_telephone,
-        "iam_zipcode": iam_zipcode,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/iam_single_user_response",
       $defs: {
-        "iam_api-response-single": iam_api_response_single_output,
-        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
-        "iam_components-schemas-status": iam_components_schemas_status_output,
-        "iam_country": iam_country_output,
-        "iam_first_name": iam_first_name_output,
-        "iam_last_name": iam_last_name_output,
-        "iam_messages-2": iam_messages_2_output,
-        "iam_organization": iam_organization_output,
-        "iam_schemas-name": iam_schemas_name_output,
-        "iam_schemas-permissions": iam_schemas_permissions_output,
-        "iam_single_user_response": iam_single_user_response_output,
-        "iam_telephone": iam_telephone_output,
-        "iam_two_factor_authentication_enabled": iam_two_factor_authentication_enabled_output,
-        "iam_two_factor_authentication_locked": iam_two_factor_authentication_locked_output,
-        "iam_zipcode": iam_zipcode_output,
+        "iam_api-response-single": iam_api$$response$$single,
+        "iam_messages-2": iam_messages$$2,
+        "iam_organization": iam_organization,
+        "iam_schemas-permissions": iam_schemas$$permissions,
+        "iam_single_user_response": iam_single_user_response,
       },
     },
     annotations: {
@@ -128,22 +135,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "iam_api-response-common-failure": iam_api_response_common_failure_output,
-        "iam_api-response-single": iam_api_response_single_output,
-        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
-        "iam_components-schemas-status": iam_components_schemas_status_output,
-        "iam_country": iam_country_output,
-        "iam_first_name": iam_first_name_output,
-        "iam_last_name": iam_last_name_output,
-        "iam_messages-2": iam_messages_2_output,
-        "iam_organization": iam_organization_output,
-        "iam_schemas-name": iam_schemas_name_output,
-        "iam_schemas-permissions": iam_schemas_permissions_output,
-        "iam_single_user_response": iam_single_user_response_output,
-        "iam_telephone": iam_telephone_output,
-        "iam_two_factor_authentication_enabled": iam_two_factor_authentication_enabled_output,
-        "iam_two_factor_authentication_locked": iam_two_factor_authentication_locked_output,
-        "iam_zipcode": iam_zipcode_output,
+        "iam_api-response-common-failure": iam_api$$response$$common$$failure,
+        "iam_api-response-single": iam_api$$response$$single,
+        "iam_messages-2": iam_messages$$2,
+        "iam_organization": iam_organization,
+        "iam_schemas-permissions": iam_schemas$$permissions,
+        "iam_single_user_response": iam_single_user_response,
       },
     },
     request: (args) => ({
@@ -154,29 +151,20 @@ export const tools: readonly Tool[] = [
   {
     name: "user_get",
     title: "User Details",
-    description: "Retrieves detailed information about the currently authenticated user, including email, name, and account memberships.",
+    description: "Retrieves detailed information about the currently authenticated user, including email, name, and account memberships.\n\nGET /user",
     inputSchema: {
       type: "object",
       properties: {},
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/iam_single_user_response",
       $defs: {
-        "iam_api-response-single": iam_api_response_single_output,
-        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
-        "iam_components-schemas-status": iam_components_schemas_status_output,
-        "iam_country": iam_country_output,
-        "iam_first_name": iam_first_name_output,
-        "iam_last_name": iam_last_name_output,
-        "iam_messages-2": iam_messages_2_output,
-        "iam_organization": iam_organization_output,
-        "iam_schemas-name": iam_schemas_name_output,
-        "iam_schemas-permissions": iam_schemas_permissions_output,
-        "iam_single_user_response": iam_single_user_response_output,
-        "iam_telephone": iam_telephone_output,
-        "iam_two_factor_authentication_enabled": iam_two_factor_authentication_enabled_output,
-        "iam_two_factor_authentication_locked": iam_two_factor_authentication_locked_output,
-        "iam_zipcode": iam_zipcode_output,
+        "iam_api-response-single": iam_api$$response$$single,
+        "iam_messages-2": iam_messages$$2,
+        "iam_organization": iam_organization,
+        "iam_schemas-permissions": iam_schemas$$permissions,
+        "iam_single_user_response": iam_single_user_response,
       },
     },
     annotations: {
@@ -215,22 +203,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "iam_api-response-common-failure": iam_api_response_common_failure_output,
-        "iam_api-response-single": iam_api_response_single_output,
-        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
-        "iam_components-schemas-status": iam_components_schemas_status_output,
-        "iam_country": iam_country_output,
-        "iam_first_name": iam_first_name_output,
-        "iam_last_name": iam_last_name_output,
-        "iam_messages-2": iam_messages_2_output,
-        "iam_organization": iam_organization_output,
-        "iam_schemas-name": iam_schemas_name_output,
-        "iam_schemas-permissions": iam_schemas_permissions_output,
-        "iam_single_user_response": iam_single_user_response_output,
-        "iam_telephone": iam_telephone_output,
-        "iam_two_factor_authentication_enabled": iam_two_factor_authentication_enabled_output,
-        "iam_two_factor_authentication_locked": iam_two_factor_authentication_locked_output,
-        "iam_zipcode": iam_zipcode_output,
+        "iam_api-response-common-failure": iam_api$$response$$common$$failure,
+        "iam_api-response-single": iam_api$$response$$single,
+        "iam_messages-2": iam_messages$$2,
+        "iam_organization": iam_organization,
+        "iam_schemas-permissions": iam_schemas$$permissions,
+        "iam_single_user_response": iam_single_user_response,
       },
     },
     request: (_args) => ({

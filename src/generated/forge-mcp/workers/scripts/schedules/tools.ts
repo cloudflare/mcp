@@ -3,13 +3,12 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  workers_api_response_common_failure_output,
-  workers_api_response_common_output,
-  workers_messages_output,
+  workers_api$$response$$common,
+  workers_api$$response$$common$$failure,
+  workers_messages,
 } from "../../../outputs.js";
-import { workers_identifier, workers_script_name } from "../../../schemas.js";
-import { workers_schedule_output } from "./outputs.js";
-import { workers_schedule } from "./schemas.js";
+import { workers_schedule } from "./outputs.js";
+import { workers_schedule as workers_schedule$ } from "./schemas.js";
 
 /**
  * The tools of `workers.scripts.schedules`.
@@ -18,27 +17,33 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_scripts_schedules_get",
     title: "Get Worker Script Schedules (Cron Triggers)",
-    description: "Get the schedules (Cron Triggers) for a Worker script.",
+    description: "Get the schedules (Cron Triggers) for a Worker script.\n\nGET /accounts/{account_id}/workers/scripts/{script_name}/schedules",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/workers_identifier",
-          "description": "Identifier."
-        },
-        "script_name": {
-          "$ref": "#/$defs/workers_script_name",
-          "description": "Name of the script."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            },
+            "script_name": {
+              "description": "Name of the script.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "script_name"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "script_name"
+        "path"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier,
-        "workers_script_name": workers_script_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -69,9 +74,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_messages": workers_messages_output,
-        "workers_schedule": workers_schedule_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_messages": workers_messages,
+        "workers_schedule": workers_schedule,
       },
     },
     annotations: {
@@ -136,10 +141,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_api-response-common-failure": workers_api_response_common_failure_output,
-        "workers_messages": workers_messages_output,
-        "workers_schedule": workers_schedule_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_api-response-common-failure": workers_api$$response$$common$$failure,
+        "workers_messages": workers_messages,
+        "workers_schedule": workers_schedule,
       },
     },
     request: (args) => ({
@@ -149,34 +154,42 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_scripts_schedules_update",
     title: "Update Worker Script Schedules (Cron Triggers)",
-    description: "Update the schedules (Cron Triggers) for a Worker script.",
+    description: "Update the schedules (Cron Triggers) for a Worker script.\n\nPUT /accounts/{account_id}/workers/scripts/{script_name}/schedules",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/workers_identifier",
-          "description": "Identifier."
-        },
         "body": {
           "items": {
             "$ref": "#/$defs/workers_schedule"
           },
           "type": "array"
         },
-        "script_name": {
-          "$ref": "#/$defs/workers_script_name",
-          "description": "Name of the script."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            },
+            "script_name": {
+              "description": "Name of the script.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "script_name"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "script_name",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "workers_identifier": workers_identifier,
-        "workers_schedule": workers_schedule,
-        "workers_script_name": workers_script_name,
+        "workers_schedule": workers_schedule$,
       },
     },
     outputSchema: {
@@ -208,9 +221,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_messages": workers_messages_output,
-        "workers_schedule": workers_schedule_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_messages": workers_messages,
+        "workers_schedule": workers_schedule,
       },
     },
     annotations: {
@@ -270,10 +283,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_api-response-common-failure": workers_api_response_common_failure_output,
-        "workers_messages": workers_messages_output,
-        "workers_schedule": workers_schedule_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_api-response-common-failure": workers_api$$response$$common$$failure,
+        "workers_messages": workers_messages,
+        "workers_schedule": workers_schedule,
       },
     },
     request: (args) => ({

@@ -3,51 +3,53 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  r2_data_catalog_api_response_common_failure_output,
-  r2_data_catalog_api_response_errors_output,
-  r2_data_catalog_api_response_messages_output,
-  r2_data_catalog_api_response_single_output,
-  r2_data_catalog_api_response_success_output,
-  r2_data_catalog_credential_probe_status_output,
+  r2$$data$$catalog_api$$response$$common$$failure,
+  r2$$data$$catalog_api$$response$$errors,
+  r2$$data$$catalog_api$$response$$messages,
+  r2$$data$$catalog_api$$response$$single,
 } from "../../outputs.js";
-import {
-  r2_data_catalog_account_id,
-  r2_data_catalog_bucket_name,
-  r2_data_catalog_catalog_credential_request,
-} from "../../schemas.js";
+import { r2$$data$$catalog_catalog$$credential$$request } from "../../schemas.js";
 
 /**
- * The tools of `basin_catalog.credentials`.
+ * The tools of `basinCatalog.credentials`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "basin_catalog_credentials_create",
+    name: "basinCatalog_credentials_create",
     title: "Store catalog credentials",
-    description: "Store authentication credentials for a catalog. These credentials are used\nto authenticate with R2 storage when performing catalog operations.",
+    description: "Store authentication credentials for a catalog. These credentials are used\nto authenticate with R2 storage when performing catalog operations.\n\nPOST /accounts/{account_id}/basin-catalog/{bucket_name}/credential",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/r2-data-catalog_account-id",
-          "description": "Identifies the account."
-        },
         "body": {
           "$ref": "#/$defs/r2-data-catalog_catalog-credential-request"
         },
-        "bucket_name": {
-          "$ref": "#/$defs/r2-data-catalog_bucket-name",
-          "description": "Specifies the R2 bucket name."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifies the account.",
+              "type": "string"
+            },
+            "bucket_name": {
+              "description": "Specifies the R2 bucket name.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "bucket_name"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "bucket_name",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "r2-data-catalog_account-id": r2_data_catalog_account_id,
-        "r2-data-catalog_bucket-name": r2_data_catalog_bucket_name,
-        "r2-data-catalog_catalog-credential-request": r2_data_catalog_catalog_credential_request,
+        "r2-data-catalog_catalog-credential-request": r2$$data$$catalog_catalog$$credential$$request,
       },
     },
     outputSchema: {
@@ -72,10 +74,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "r2-data-catalog_api-response-errors": r2_data_catalog_api_response_errors_output,
-        "r2-data-catalog_api-response-messages": r2_data_catalog_api_response_messages_output,
-        "r2-data-catalog_api-response-single": r2_data_catalog_api_response_single_output,
-        "r2-data-catalog_api-response-success": r2_data_catalog_api_response_success_output,
+        "r2-data-catalog_api-response-errors": r2$$data$$catalog_api$$response$$errors,
+        "r2-data-catalog_api-response-messages": r2$$data$$catalog_api$$response$$messages,
+        "r2-data-catalog_api-response-single": r2$$data$$catalog_api$$response$$single,
       },
     },
     annotations: {
@@ -133,11 +134,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "r2-data-catalog_api-response-common-failure": r2_data_catalog_api_response_common_failure_output,
-        "r2-data-catalog_api-response-errors": r2_data_catalog_api_response_errors_output,
-        "r2-data-catalog_api-response-messages": r2_data_catalog_api_response_messages_output,
-        "r2-data-catalog_api-response-single": r2_data_catalog_api_response_single_output,
-        "r2-data-catalog_api-response-success": r2_data_catalog_api_response_success_output,
+        "r2-data-catalog_api-response-common-failure": r2$$data$$catalog_api$$response$$common$$failure,
+        "r2-data-catalog_api-response-errors": r2$$data$$catalog_api$$response$$errors,
+        "r2-data-catalog_api-response-messages": r2$$data$$catalog_api$$response$$messages,
+        "r2-data-catalog_api-response-single": r2$$data$$catalog_api$$response$$single,
       },
     },
     request: (args) => ({
@@ -146,29 +146,35 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "basin_catalog_credentials_status",
+    name: "basinCatalog_credentials_status",
     title: "Get Basin Catalog credential status",
-    description: "Check whether the configured catalog credentials are valid, invalid,\nor absent by probing authentication against the catalog.",
+    description: "Check whether the configured catalog credentials are valid, invalid,\nor absent by probing authentication against the catalog.\n\nGET /accounts/{account_id}/basin-catalog/{bucket_name}/credential/status",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/r2-data-catalog_account-id",
-          "description": "Identifies the account."
-        },
-        "bucket_name": {
-          "$ref": "#/$defs/r2-data-catalog_bucket-name",
-          "description": "Specifies the R2 bucket name."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifies the account.",
+              "type": "string"
+            },
+            "bucket_name": {
+              "description": "Specifies the R2 bucket name.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "bucket_name"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "bucket_name"
+        "path"
       ],
-      $defs: {
-        "r2-data-catalog_account-id": r2_data_catalog_account_id,
-        "r2-data-catalog_bucket-name": r2_data_catalog_bucket_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -180,7 +186,12 @@ export const tools: readonly Tool[] = [
             "result": {
               "properties": {
                 "status": {
-                  "$ref": "#/$defs/r2-data-catalog_credential-probe-status"
+                  "enum": [
+                    "valid",
+                    "invalid",
+                    "absent"
+                  ],
+                  "type": "string"
                 }
               },
               "required": [
@@ -193,11 +204,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "r2-data-catalog_api-response-errors": r2_data_catalog_api_response_errors_output,
-        "r2-data-catalog_api-response-messages": r2_data_catalog_api_response_messages_output,
-        "r2-data-catalog_api-response-single": r2_data_catalog_api_response_single_output,
-        "r2-data-catalog_api-response-success": r2_data_catalog_api_response_success_output,
-        "r2-data-catalog_credential-probe-status": r2_data_catalog_credential_probe_status_output,
+        "r2-data-catalog_api-response-errors": r2$$data$$catalog_api$$response$$errors,
+        "r2-data-catalog_api-response-messages": r2$$data$$catalog_api$$response$$messages,
+        "r2-data-catalog_api-response-single": r2$$data$$catalog_api$$response$$single,
       },
     },
     annotations: {
@@ -227,7 +236,12 @@ export const tools: readonly Tool[] = [
                 "result": {
                   "properties": {
                     "status": {
-                      "$ref": "#/$defs/r2-data-catalog_credential-probe-status"
+                      "enum": [
+                        "valid",
+                        "invalid",
+                        "absent"
+                      ],
+                      "type": "string"
                     }
                   },
                   "required": [
@@ -257,12 +271,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "r2-data-catalog_api-response-common-failure": r2_data_catalog_api_response_common_failure_output,
-        "r2-data-catalog_api-response-errors": r2_data_catalog_api_response_errors_output,
-        "r2-data-catalog_api-response-messages": r2_data_catalog_api_response_messages_output,
-        "r2-data-catalog_api-response-single": r2_data_catalog_api_response_single_output,
-        "r2-data-catalog_api-response-success": r2_data_catalog_api_response_success_output,
-        "r2-data-catalog_credential-probe-status": r2_data_catalog_credential_probe_status_output,
+        "r2-data-catalog_api-response-common-failure": r2$$data$$catalog_api$$response$$common$$failure,
+        "r2-data-catalog_api-response-errors": r2$$data$$catalog_api$$response$$errors,
+        "r2-data-catalog_api-response-messages": r2$$data$$catalog_api$$response$$messages,
+        "r2-data-catalog_api-response-single": r2$$data$$catalog_api$$response$$single,
       },
     },
     request: (args) => ({

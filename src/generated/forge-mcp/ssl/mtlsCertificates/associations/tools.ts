@@ -3,59 +3,59 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  tls_certificates_and_hostnames_api_response_collection_output,
-  tls_certificates_and_hostnames_api_response_common_failure_output,
-  tls_certificates_and_hostnames_api_response_common_output,
-  tls_certificates_and_hostnames_messages_output,
+  tls$$certificates$$and$$hostnames_api$$response$$collection,
+  tls$$certificates$$and$$hostnames_api$$response$$common,
+  tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
+  tls$$certificates$$and$$hostnames_messages,
 } from "../../../outputs.js";
-import { tls_certificates_and_hostnames_identifier } from "../../../schemas.js";
-import { tls_certificates_and_hostnames_mtls_certificate_identifier } from "../schemas.js";
 import {
-  tls_certificates_and_hostnames_associationObject_output,
-  tls_certificates_and_hostnames_association_response_collection_output,
-  tls_certificates_and_hostnames_service_output,
-  tls_certificates_and_hostnames_status_10_output,
+  tls$$certificates$$and$$hostnames_associationObject,
+  tls$$certificates$$and$$hostnames_association_response_collection,
 } from "./outputs.js";
 
 /**
- * The tools of `ssl.mtls_certificates.associations`.
+ * The tools of `ssl.mtlsCertificates.associations`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "ssl_mtls_certificates_associations_get",
+    name: "ssl_mtlsCertificates_associations_get",
     title: "List mTLS certificate associations",
-    description: "Lists all active associations between the certificate and Cloudflare services.",
+    description: "Lists all active associations between the certificate and Cloudflare services.\n\nGET /accounts/{account_id}/mtls_certificates/{mtls_certificate_id}/associations",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
-          "description": "Identifier."
-        },
-        "mtls_certificate_id": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_mtls_certificate_identifier",
-          "description": "Certificate identifier tag."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            },
+            "mtls_certificate_id": {
+              "description": "Certificate identifier tag.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "mtls_certificate_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "mtls_certificate_id"
+        "path"
       ],
-      $defs: {
-        "tls-certificates-and-hostnames_identifier": tls_certificates_and_hostnames_identifier,
-        "tls-certificates-and-hostnames_mtls_certificate_identifier": tls_certificates_and_hostnames_mtls_certificate_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_association_response_collection",
       $defs: {
-        "tls-certificates-and-hostnames_api-response-collection": tls_certificates_and_hostnames_api_response_collection_output,
-        "tls-certificates-and-hostnames_api-response-common": tls_certificates_and_hostnames_api_response_common_output,
-        "tls-certificates-and-hostnames_associationObject": tls_certificates_and_hostnames_associationObject_output,
-        "tls-certificates-and-hostnames_association_response_collection": tls_certificates_and_hostnames_association_response_collection_output,
-        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
-        "tls-certificates-and-hostnames_service": tls_certificates_and_hostnames_service_output,
-        "tls-certificates-and-hostnames_status-10": tls_certificates_and_hostnames_status_10_output,
+        "tls-certificates-and-hostnames_api-response-collection": tls$$certificates$$and$$hostnames_api$$response$$collection,
+        "tls-certificates-and-hostnames_api-response-common": tls$$certificates$$and$$hostnames_api$$response$$common,
+        "tls-certificates-and-hostnames_associationObject": tls$$certificates$$and$$hostnames_associationObject,
+        "tls-certificates-and-hostnames_association_response_collection": tls$$certificates$$and$$hostnames_association_response_collection,
+        "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
       },
     },
     annotations: {
@@ -101,14 +101,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "tls-certificates-and-hostnames_api-response-collection": tls_certificates_and_hostnames_api_response_collection_output,
-        "tls-certificates-and-hostnames_api-response-common": tls_certificates_and_hostnames_api_response_common_output,
-        "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
-        "tls-certificates-and-hostnames_associationObject": tls_certificates_and_hostnames_associationObject_output,
-        "tls-certificates-and-hostnames_association_response_collection": tls_certificates_and_hostnames_association_response_collection_output,
-        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
-        "tls-certificates-and-hostnames_service": tls_certificates_and_hostnames_service_output,
-        "tls-certificates-and-hostnames_status-10": tls_certificates_and_hostnames_status_10_output,
+        "tls-certificates-and-hostnames_api-response-collection": tls$$certificates$$and$$hostnames_api$$response$$collection,
+        "tls-certificates-and-hostnames_api-response-common": tls$$certificates$$and$$hostnames_api$$response$$common,
+        "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
+        "tls-certificates-and-hostnames_associationObject": tls$$certificates$$and$$hostnames_associationObject,
+        "tls-certificates-and-hostnames_association_response_collection": tls$$certificates$$and$$hostnames_association_response_collection,
+        "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
       },
     },
     request: (args) => ({

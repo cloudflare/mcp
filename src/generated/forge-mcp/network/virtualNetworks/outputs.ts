@@ -4,34 +4,30 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `tunnel_is_default_network` in responses.
- */
-export const tunnel_is_default_network_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `tunnel_virtual-network` in responses.
  */
-export const tunnel_virtual_network_output: JsonSchema = {
+export const tunnel_virtual$$network: JsonSchema = {
   "properties": {
     "comment": {
-      "$ref": "#/$defs/tunnel_virtual_network_comment"
+      "type": "string"
     },
     "created_at": {
-      "$ref": "#/$defs/tunnel_created_at"
+      "format": "date-time",
+      "type": "string"
     },
     "deleted_at": {
-      "$ref": "#/$defs/tunnel_deleted_at"
+      "format": "date-time",
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/tunnel_virtual_network_id"
+      "format": "uuid",
+      "type": "string"
     },
     "is_default_network": {
-      "$ref": "#/$defs/tunnel_is_default_network"
+      "type": "boolean"
     },
     "name": {
-      "$ref": "#/$defs/tunnel_virtual_network_name"
+      "type": "string"
     }
   },
   "required": [
@@ -45,16 +41,9 @@ export const tunnel_virtual_network_output: JsonSchema = {
 };
 
 /**
- * The schema of `tunnel_virtual_network_comment` in responses.
- */
-export const tunnel_virtual_network_comment_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `tunnel_vnet_response_collection` in responses.
  */
-export const tunnel_vnet_response_collection_output: JsonSchema = {
+export const tunnel_vnet_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tunnel_api-response-collection"
@@ -76,7 +65,7 @@ export const tunnel_vnet_response_collection_output: JsonSchema = {
 /**
  * The schema of `tunnel_vnet_response_single` in responses.
  */
-export const tunnel_vnet_response_single_output: JsonSchema = {
+export const tunnel_vnet_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tunnel_api-response-common"

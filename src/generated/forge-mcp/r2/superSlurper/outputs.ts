@@ -4,22 +4,9 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `r2-slurper_Jurisdiction` in responses.
- */
-export const r2_slurper_Jurisdiction_output: JsonSchema = {
-  "enum": [
-    "default",
-    "eu",
-    "us",
-    "fedramp"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `r2-slurper_api-v4-error` in responses.
  */
-export const r2_slurper_api_v4_error_output: JsonSchema = {
+export const r2$$slurper_api$$v4$$error: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -41,7 +28,7 @@ export const r2_slurper_api_v4_error_output: JsonSchema = {
 /**
  * The schema of `r2-slurper_api-v4-failure` in responses.
  */
-export const r2_slurper_api_v4_failure_output: JsonSchema = {
+export const r2$$slurper_api$$v4$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/r2-slurper_api-v4-error"
@@ -62,7 +49,7 @@ export const r2_slurper_api_v4_failure_output: JsonSchema = {
 /**
  * The schema of `r2-slurper_api-v4-message` in responses.
  */
-export const r2_slurper_api_v4_message_output: JsonSchema = {
+export const r2$$slurper_api$$v4$$message: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -72,7 +59,7 @@ export const r2_slurper_api_v4_message_output: JsonSchema = {
 /**
  * The schema of `r2-slurper_api-v4-success` in responses.
  */
-export const r2_slurper_api_v4_success_output: JsonSchema = {
+export const r2$$slurper_api$$v4$$success: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/r2-slurper_api-v4-error"

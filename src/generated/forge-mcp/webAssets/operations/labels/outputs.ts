@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `api-shield_operation_with_labels_only` in responses.
  */
-export const api_shield_operation_with_labels_only_output: JsonSchema = {
+export const api$$shield_operation_with_labels_only: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/api-shield_standard_operation"

@@ -3,49 +3,59 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  pay_per_crawl_ErrorSource_output,
-  pay_per_crawl_Msg_output,
-  pay_per_crawl_RESTError_output,
-  pay_per_crawl_ResultInfo_output,
-  pay_per_crawl_Source_output,
-  pay_per_crawl_apiErrorResponse_output,
-  pay_per_crawl_apiNoResultResponse_output,
+  pay$$per$$crawl_ErrorSource,
+  pay$$per$$crawl_Msg,
+  pay$$per$$crawl_RESTError,
+  pay$$per$$crawl_ResultInfo,
+  pay$$per$$crawl_Source,
+  pay$$per$$crawl_apiErrorResponse,
+  pay$$per$$crawl_apiNoResultResponse,
 } from "../../../outputs.js";
 import {
-  pay_per_crawl_StripeConnectResp_output,
-  pay_per_crawl_StripeConnection_output,
-  pay_per_crawl_createStripeConfigResponse_output,
-  pay_per_crawl_getStripeConfigResponse_output,
+  pay$$per$$crawl_StripeConnectResp,
+  pay$$per$$crawl_StripeConnection,
+  pay$$per$$crawl_createStripeConfigResponse,
+  pay$$per$$crawl_getStripeConfigResponse,
 } from "../../outputs.js";
 
 /**
- * The tools of `pay_per_crawl.publisher.stripe`.
+ * The tools of `payPerCrawl.publisher.stripe`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "pay_per_crawl_publisher_stripe_create",
+    name: "payPerCrawl_publisher_stripe_create",
     title: "Creates the stripe config for a publisher",
-    description: "Creates the stripe config for a publisher.",
+    description: "Creates the stripe config for a publisher.\n\nPOST /accounts/{account_id}/pay-per-crawl/publisher/stripe",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "account id",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "account id",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/pay-per-crawl_createStripeConfigResponse",
       $defs: {
-        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
-        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
-        "pay-per-crawl_Source": pay_per_crawl_Source_output,
-        "pay-per-crawl_StripeConnectResp": pay_per_crawl_StripeConnectResp_output,
-        "pay-per-crawl_createStripeConfigResponse": pay_per_crawl_createStripeConfigResponse_output,
+        "pay-per-crawl_Msg": pay$$per$$crawl_Msg,
+        "pay-per-crawl_ResultInfo": pay$$per$$crawl_ResultInfo,
+        "pay-per-crawl_Source": pay$$per$$crawl_Source,
+        "pay-per-crawl_StripeConnectResp": pay$$per$$crawl_StripeConnectResp,
+        "pay-per-crawl_createStripeConfigResponse": pay$$per$$crawl_createStripeConfigResponse,
       },
     },
     annotations: {
@@ -72,14 +82,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
-        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
-        "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
-        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
-        "pay-per-crawl_Source": pay_per_crawl_Source_output,
-        "pay-per-crawl_StripeConnectResp": pay_per_crawl_StripeConnectResp_output,
-        "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
-        "pay-per-crawl_createStripeConfigResponse": pay_per_crawl_createStripeConfigResponse_output,
+        "pay-per-crawl_ErrorSource": pay$$per$$crawl_ErrorSource,
+        "pay-per-crawl_Msg": pay$$per$$crawl_Msg,
+        "pay-per-crawl_RESTError": pay$$per$$crawl_RESTError,
+        "pay-per-crawl_ResultInfo": pay$$per$$crawl_ResultInfo,
+        "pay-per-crawl_Source": pay$$per$$crawl_Source,
+        "pay-per-crawl_StripeConnectResp": pay$$per$$crawl_StripeConnectResp,
+        "pay-per-crawl_apiErrorResponse": pay$$per$$crawl_apiErrorResponse,
+        "pay-per-crawl_createStripeConfigResponse": pay$$per$$crawl_createStripeConfigResponse,
       },
     },
     request: (args) => ({
@@ -87,28 +97,38 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "pay_per_crawl_publisher_stripe_delete",
+    name: "payPerCrawl_publisher_stripe_delete",
     title: "Deletes the stripe config for a publisher",
-    description: "Deletes the stripe config for a publisher.",
+    description: "Deletes the stripe config for a publisher.\n\nDELETE /accounts/{account_id}/pay-per-crawl/publisher/stripe",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "account id",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "account id",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/pay-per-crawl_apiNoResultResponse",
       $defs: {
-        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
-        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
-        "pay-per-crawl_Source": pay_per_crawl_Source_output,
-        "pay-per-crawl_apiNoResultResponse": pay_per_crawl_apiNoResultResponse_output,
+        "pay-per-crawl_Msg": pay$$per$$crawl_Msg,
+        "pay-per-crawl_ResultInfo": pay$$per$$crawl_ResultInfo,
+        "pay-per-crawl_Source": pay$$per$$crawl_Source,
+        "pay-per-crawl_apiNoResultResponse": pay$$per$$crawl_apiNoResultResponse,
       },
     },
     annotations: {
@@ -135,13 +155,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
-        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
-        "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
-        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
-        "pay-per-crawl_Source": pay_per_crawl_Source_output,
-        "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
-        "pay-per-crawl_apiNoResultResponse": pay_per_crawl_apiNoResultResponse_output,
+        "pay-per-crawl_ErrorSource": pay$$per$$crawl_ErrorSource,
+        "pay-per-crawl_Msg": pay$$per$$crawl_Msg,
+        "pay-per-crawl_RESTError": pay$$per$$crawl_RESTError,
+        "pay-per-crawl_ResultInfo": pay$$per$$crawl_ResultInfo,
+        "pay-per-crawl_Source": pay$$per$$crawl_Source,
+        "pay-per-crawl_apiErrorResponse": pay$$per$$crawl_apiErrorResponse,
+        "pay-per-crawl_apiNoResultResponse": pay$$per$$crawl_apiNoResultResponse,
       },
     },
     request: (args) => ({
@@ -149,29 +169,39 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "pay_per_crawl_publisher_stripe_get",
+    name: "payPerCrawl_publisher_stripe_get",
     title: "Gets the stripe config for a publisher",
-    description: "Gets the stripe config for a publisher.",
+    description: "Gets the stripe config for a publisher.\n\nGET /accounts/{account_id}/pay-per-crawl/publisher/stripe",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "account id",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "account id",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/pay-per-crawl_getStripeConfigResponse",
       $defs: {
-        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
-        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
-        "pay-per-crawl_Source": pay_per_crawl_Source_output,
-        "pay-per-crawl_StripeConnection": pay_per_crawl_StripeConnection_output,
-        "pay-per-crawl_getStripeConfigResponse": pay_per_crawl_getStripeConfigResponse_output,
+        "pay-per-crawl_Msg": pay$$per$$crawl_Msg,
+        "pay-per-crawl_ResultInfo": pay$$per$$crawl_ResultInfo,
+        "pay-per-crawl_Source": pay$$per$$crawl_Source,
+        "pay-per-crawl_StripeConnection": pay$$per$$crawl_StripeConnection,
+        "pay-per-crawl_getStripeConfigResponse": pay$$per$$crawl_getStripeConfigResponse,
       },
     },
     annotations: {
@@ -226,14 +256,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
-        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
-        "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
-        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
-        "pay-per-crawl_Source": pay_per_crawl_Source_output,
-        "pay-per-crawl_StripeConnection": pay_per_crawl_StripeConnection_output,
-        "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
-        "pay-per-crawl_getStripeConfigResponse": pay_per_crawl_getStripeConfigResponse_output,
+        "pay-per-crawl_ErrorSource": pay$$per$$crawl_ErrorSource,
+        "pay-per-crawl_Msg": pay$$per$$crawl_Msg,
+        "pay-per-crawl_RESTError": pay$$per$$crawl_RESTError,
+        "pay-per-crawl_ResultInfo": pay$$per$$crawl_ResultInfo,
+        "pay-per-crawl_Source": pay$$per$$crawl_Source,
+        "pay-per-crawl_StripeConnection": pay$$per$$crawl_StripeConnection,
+        "pay-per-crawl_apiErrorResponse": pay$$per$$crawl_apiErrorResponse,
+        "pay-per-crawl_getStripeConfigResponse": pay$$per$$crawl_getStripeConfigResponse,
       },
     },
     request: (args) => ({

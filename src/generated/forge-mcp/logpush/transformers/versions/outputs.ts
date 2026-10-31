@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `logpush_transformer_version` in responses.
  */
-export const logpush_transformer_version_output: JsonSchema = {
+export const logpush_transformer_version: JsonSchema = {
   "properties": {
     "created_at": {
       "format": "date-time",
@@ -25,7 +25,7 @@ export const logpush_transformer_version_output: JsonSchema = {
 /**
  * The schema of `logpush_transformer_version_response_collection` in responses.
  */
-export const logpush_transformer_version_response_collection_output: JsonSchema = {
+export const logpush_transformer_version_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/logpush_api-response-common"

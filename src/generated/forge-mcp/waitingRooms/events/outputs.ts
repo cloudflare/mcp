@@ -4,58 +4,9 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `waitingroom_event_custom_page_html` in responses.
- */
-export const waitingroom_event_custom_page_html_output: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `waitingroom_event_description` in responses.
- */
-export const waitingroom_event_description_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `waitingroom_event_disable_session_renewal` in responses.
- */
-export const waitingroom_event_disable_session_renewal_output: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "boolean"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `waitingroom_event_end_time` in responses.
- */
-export const waitingroom_event_end_time_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `waitingroom_event_id` in responses.
- */
-export const waitingroom_event_id_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `waitingroom_event_id_response` in responses.
  */
-export const waitingroom_event_id_response_output: JsonSchema = {
+export const waitingroom_event_id_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/waitingroom_api-response-single"
@@ -65,7 +16,7 @@ export const waitingroom_event_id_response_output: JsonSchema = {
         "result": {
           "properties": {
             "id": {
-              "$ref": "#/$defs/waitingroom_event_id"
+              "type": "string"
             }
           },
           "type": "object"
@@ -77,58 +28,9 @@ export const waitingroom_event_id_response_output: JsonSchema = {
 };
 
 /**
- * The schema of `waitingroom_event_name` in responses.
- */
-export const waitingroom_event_name_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `waitingroom_event_new_users_per_minute` in responses.
- */
-export const waitingroom_event_new_users_per_minute_output: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "integer"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `waitingroom_event_prequeue_start_time` in responses.
- */
-export const waitingroom_event_prequeue_start_time_output: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `waitingroom_event_queueing_method` in responses.
- */
-export const waitingroom_event_queueing_method_output: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
  * The schema of `waitingroom_event_response` in responses.
  */
-export const waitingroom_event_response_output: JsonSchema = {
+export const waitingroom_event_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/waitingroom_api-response-single"
@@ -147,7 +49,7 @@ export const waitingroom_event_response_output: JsonSchema = {
 /**
  * The schema of `waitingroom_event_response_collection` in responses.
  */
-export const waitingroom_event_response_collection_output: JsonSchema = {
+export const waitingroom_event_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/waitingroom_api-response-collection"
@@ -169,149 +71,137 @@ export const waitingroom_event_response_collection_output: JsonSchema = {
 /**
  * The schema of `waitingroom_event_result` in responses.
  */
-export const waitingroom_event_result_output: JsonSchema = {
+export const waitingroom_event_result: JsonSchema = {
   "properties": {
     "created_on": {
-      "$ref": "#/$defs/waitingroom_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "custom_page_html": {
-      "$ref": "#/$defs/waitingroom_event_custom_page_html"
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "description": {
-      "$ref": "#/$defs/waitingroom_event_description"
+      "type": "string"
     },
     "disable_session_renewal": {
-      "$ref": "#/$defs/waitingroom_event_disable_session_renewal"
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "event_end_time": {
-      "$ref": "#/$defs/waitingroom_event_end_time"
+      "type": "string"
     },
     "event_start_time": {
-      "$ref": "#/$defs/waitingroom_event_start_time"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/waitingroom_event_id"
+      "type": "string"
     },
     "modified_on": {
-      "$ref": "#/$defs/waitingroom_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/waitingroom_event_name"
+      "type": "string"
     },
     "new_users_per_minute": {
-      "$ref": "#/$defs/waitingroom_event_new_users_per_minute"
+      "oneOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "prequeue_start_time": {
-      "$ref": "#/$defs/waitingroom_event_prequeue_start_time"
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "queueing_method": {
-      "$ref": "#/$defs/waitingroom_event_queueing_method"
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "session_duration": {
-      "$ref": "#/$defs/waitingroom_event_session_duration"
+      "oneOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "shuffle_at_event_start": {
-      "$ref": "#/$defs/waitingroom_event_shuffle_at_event_start"
+      "type": "boolean"
     },
     "suspended": {
-      "$ref": "#/$defs/waitingroom_event_suspended"
+      "type": "boolean"
     },
     "total_active_users": {
-      "$ref": "#/$defs/waitingroom_event_total_active_users"
+      "oneOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "turnstile_action": {
-      "$ref": "#/$defs/waitingroom_event_turnstile_action"
+      "oneOf": [
+        {
+          "enum": [
+            "log",
+            "infinite_queue"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "turnstile_mode": {
-      "$ref": "#/$defs/waitingroom_event_turnstile_mode"
+      "oneOf": [
+        {
+          "enum": [
+            "off",
+            "invisible",
+            "visible_non_interactive",
+            "visible_managed"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `waitingroom_event_session_duration` in responses.
- */
-export const waitingroom_event_session_duration_output: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "integer"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `waitingroom_event_shuffle_at_event_start` in responses.
- */
-export const waitingroom_event_shuffle_at_event_start_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `waitingroom_event_start_time` in responses.
- */
-export const waitingroom_event_start_time_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `waitingroom_event_suspended` in responses.
- */
-export const waitingroom_event_suspended_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `waitingroom_event_total_active_users` in responses.
- */
-export const waitingroom_event_total_active_users_output: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "integer"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `waitingroom_event_turnstile_action` in responses.
- */
-export const waitingroom_event_turnstile_action_output: JsonSchema = {
-  "oneOf": [
-    {
-      "enum": [
-        "log",
-        "infinite_queue"
-      ],
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `waitingroom_event_turnstile_mode` in responses.
- */
-export const waitingroom_event_turnstile_mode_output: JsonSchema = {
-  "oneOf": [
-    {
-      "enum": [
-        "off",
-        "invisible",
-        "visible_non_interactive",
-        "visible_managed"
-      ],
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
 };

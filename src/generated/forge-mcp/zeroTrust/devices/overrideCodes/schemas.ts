@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `teams-devices_override_code_create_request`.
  */
-export const teams_devices_override_code_create_request: JsonSchema = {
+export const teams$$devices_override_code_create_request: JsonSchema = {
   "properties": {
     "device_id": {
       "description": "Physical device ID. Required when scope is device and forbidden when scope is account.",

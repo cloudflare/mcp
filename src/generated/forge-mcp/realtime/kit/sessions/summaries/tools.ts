@@ -3,14 +3,10 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  realtimekit_GenericErrorResponse_output,
-  realtimekit_ValidationIssue_output,
+  realtimekit_GenericErrorResponse,
+  realtimekit_ValidationIssue,
 } from "../../outputs.js";
-import {
-  realtimekit_account_identifier,
-  realtimekit_app_id,
-} from "../../schemas.js";
-import { realtimekit_TranscriptSummary_output } from "./outputs.js";
+import { realtimekit_TranscriptSummary } from "./outputs.js";
 
 /**
  * The tools of `realtime.kit.sessions.summaries`.
@@ -19,32 +15,38 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_sessions_summaries_export",
     title: "Fetch summary of transcripts for a session",
-    description: "Returns a Summary URL to download the Summary of Transcripts for the session ID as plain text.\n\nThis method is beta.",
+    description: "Returns a Summary URL to download the Summary of Transcripts for the session ID as plain text.\n\nThis method is beta.\n\nGET /accounts/{account_id}/realtime/kit/{app_id}/sessions/{session_id}/summary",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/realtimekit_account_identifier",
-          "description": "The account identifier tag."
-        },
-        "app_id": {
-          "$ref": "#/$defs/realtimekit_app_id",
-          "description": "The app identifier tag."
-        },
-        "session_id": {
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "The account identifier tag.",
+              "type": "string"
+            },
+            "app_id": {
+              "description": "The app identifier tag.",
+              "type": "string"
+            },
+            "session_id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "app_id",
+            "session_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "app_id",
-        "session_id"
+        "path"
       ],
-      $defs: {
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -57,7 +59,7 @@ export const tools: readonly Tool[] = [
       },
       "type": "object",
       $defs: {
-        "realtimekit_TranscriptSummary": realtimekit_TranscriptSummary_output,
+        "realtimekit_TranscriptSummary": realtimekit_TranscriptSummary,
       },
     },
     annotations: {
@@ -93,9 +95,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
-        "realtimekit_TranscriptSummary": realtimekit_TranscriptSummary_output,
-        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse,
+        "realtimekit_TranscriptSummary": realtimekit_TranscriptSummary,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue,
       },
     },
     request: (args) => ({
@@ -105,32 +107,38 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_sessions_summaries_generate",
     title: "Generate summary of Transcripts for the session",
-    description: "Trigger Summary generation of Transcripts for the session ID.\n\nThis method is beta.",
+    description: "Trigger Summary generation of Transcripts for the session ID.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/realtime/kit/{app_id}/sessions/{session_id}/summary",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/realtimekit_account_identifier",
-          "description": "The account identifier tag."
-        },
-        "app_id": {
-          "$ref": "#/$defs/realtimekit_app_id",
-          "description": "The app identifier tag."
-        },
-        "session_id": {
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "The account identifier tag.",
+              "type": "string"
+            },
+            "app_id": {
+              "description": "The app identifier tag.",
+              "type": "string"
+            },
+            "session_id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "app_id",
+            "session_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "app_id",
-        "session_id"
+        "path"
       ],
-      $defs: {
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -194,8 +202,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
-        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue,
       },
     },
     request: (args) => ({

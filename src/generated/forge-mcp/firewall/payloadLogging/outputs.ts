@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `firewall_payload_logging_key` in responses.
  */
-export const firewall_payload_logging_key_output: JsonSchema = {
+export const firewall_payload_logging_key: JsonSchema = {
   "properties": {
     "public_key": {
       "type": "string"
@@ -21,7 +21,7 @@ export const firewall_payload_logging_key_output: JsonSchema = {
 /**
  * The schema of `firewall_payload_logging_key_response_single` in responses.
  */
-export const firewall_payload_logging_key_response_single_output: JsonSchema = {
+export const firewall_payload_logging_key_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/firewall_api-response-common"

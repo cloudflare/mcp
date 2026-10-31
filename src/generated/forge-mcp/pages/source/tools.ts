@@ -3,28 +3,21 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  pages_api_response_common_failure_output,
-  pages_api_response_common_output,
-  pages_build_config_output,
-  pages_deployment_config_values_output,
-  pages_deployment_output,
-  pages_env_vars_output,
-  pages_messages_output,
-  pages_plain_text_env_var_output,
-  pages_project_name_output,
-  pages_project_output,
-  pages_secret_text_env_var_output,
-  pages_source_config_output,
-  pages_source_output,
-  pages_source_type_output,
-  pages_stage_output,
-} from "../outputs.js";
-import {
-  pages_identifier,
-  pages_project_name,
+  pages_api$$response$$common,
+  pages_api$$response$$common$$failure,
+  pages_build_config,
+  pages_deployment,
+  pages_deployment_config_values,
+  pages_env_vars,
+  pages_messages,
+  pages_plain_text_env_var,
+  pages_project,
+  pages_secret_text_env_var,
+  pages_source,
   pages_source_config,
-  pages_source_type,
-} from "../schemas.js";
+  pages_stage,
+} from "../outputs.js";
+import { pages_source_config as pages_source_config$ } from "../schemas.js";
 import { pages_source_connect_request } from "./schemas.js";
 
 /**
@@ -34,33 +27,40 @@ export const tools: readonly Tool[] = [
   {
     name: "pages_source_connect",
     title: "Connect a Git repository",
-    description: "Connect a GitHub or GitLab repository to a Cloudflare Pages project to enable Git-based deployments.",
+    description: "Connect a GitHub or GitLab repository to a Cloudflare Pages project to enable Git-based deployments.\n\nPOST /accounts/{account_id}/pages/projects/{project_name}/source",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/pages_identifier",
-          "description": "Identifier."
-        },
         "body": {
           "$ref": "#/$defs/pages_source_connect_request"
         },
-        "project_name": {
-          "$ref": "#/$defs/pages_project_name",
-          "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            },
+            "project_name": {
+              "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "project_name"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "project_name",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "pages_identifier": pages_identifier,
-        "pages_project_name": pages_project_name,
-        "pages_source_config": pages_source_config,
+        "pages_source_config": pages_source_config$,
         "pages_source_connect_request": pages_source_connect_request,
-        "pages_source_type": pages_source_type,
       },
     },
     outputSchema: {
@@ -81,20 +81,18 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "pages_api-response-common": pages_api_response_common_output,
-        "pages_build_config": pages_build_config_output,
-        "pages_deployment": pages_deployment_output,
-        "pages_deployment_config_values": pages_deployment_config_values_output,
-        "pages_env_vars": pages_env_vars_output,
-        "pages_messages": pages_messages_output,
-        "pages_plain_text_env_var": pages_plain_text_env_var_output,
-        "pages_project": pages_project_output,
-        "pages_project_name": pages_project_name_output,
-        "pages_secret_text_env_var": pages_secret_text_env_var_output,
-        "pages_source": pages_source_output,
-        "pages_source_config": pages_source_config_output,
-        "pages_source_type": pages_source_type_output,
-        "pages_stage": pages_stage_output,
+        "pages_api-response-common": pages_api$$response$$common,
+        "pages_build_config": pages_build_config,
+        "pages_deployment": pages_deployment,
+        "pages_deployment_config_values": pages_deployment_config_values,
+        "pages_env_vars": pages_env_vars,
+        "pages_messages": pages_messages,
+        "pages_plain_text_env_var": pages_plain_text_env_var,
+        "pages_project": pages_project,
+        "pages_secret_text_env_var": pages_secret_text_env_var,
+        "pages_source": pages_source,
+        "pages_source_config": pages_source_config,
+        "pages_stage": pages_stage,
       },
     },
     annotations: {
@@ -136,21 +134,19 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "pages_api-response-common": pages_api_response_common_output,
-        "pages_api-response-common-failure": pages_api_response_common_failure_output,
-        "pages_build_config": pages_build_config_output,
-        "pages_deployment": pages_deployment_output,
-        "pages_deployment_config_values": pages_deployment_config_values_output,
-        "pages_env_vars": pages_env_vars_output,
-        "pages_messages": pages_messages_output,
-        "pages_plain_text_env_var": pages_plain_text_env_var_output,
-        "pages_project": pages_project_output,
-        "pages_project_name": pages_project_name_output,
-        "pages_secret_text_env_var": pages_secret_text_env_var_output,
-        "pages_source": pages_source_output,
-        "pages_source_config": pages_source_config_output,
-        "pages_source_type": pages_source_type_output,
-        "pages_stage": pages_stage_output,
+        "pages_api-response-common": pages_api$$response$$common,
+        "pages_api-response-common-failure": pages_api$$response$$common$$failure,
+        "pages_build_config": pages_build_config,
+        "pages_deployment": pages_deployment,
+        "pages_deployment_config_values": pages_deployment_config_values,
+        "pages_env_vars": pages_env_vars,
+        "pages_messages": pages_messages,
+        "pages_plain_text_env_var": pages_plain_text_env_var,
+        "pages_project": pages_project,
+        "pages_secret_text_env_var": pages_secret_text_env_var,
+        "pages_source": pages_source,
+        "pages_source_config": pages_source_config,
+        "pages_stage": pages_stage,
       },
     },
     request: (args) => ({
@@ -161,27 +157,33 @@ export const tools: readonly Tool[] = [
   {
     name: "pages_source_disconnect",
     title: "Disconnect a Git repository",
-    description: "Disconnect the Git repository from a Cloudflare Pages project to stop Git-based deployments.",
+    description: "Disconnect the Git repository from a Cloudflare Pages project to stop Git-based deployments.\n\nDELETE /accounts/{account_id}/pages/projects/{project_name}/source",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/pages_identifier",
-          "description": "Identifier."
-        },
-        "project_name": {
-          "$ref": "#/$defs/pages_project_name",
-          "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            },
+            "project_name": {
+              "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "project_name"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "project_name"
+        "path"
       ],
-      $defs: {
-        "pages_identifier": pages_identifier,
-        "pages_project_name": pages_project_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -201,20 +203,18 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "pages_api-response-common": pages_api_response_common_output,
-        "pages_build_config": pages_build_config_output,
-        "pages_deployment": pages_deployment_output,
-        "pages_deployment_config_values": pages_deployment_config_values_output,
-        "pages_env_vars": pages_env_vars_output,
-        "pages_messages": pages_messages_output,
-        "pages_plain_text_env_var": pages_plain_text_env_var_output,
-        "pages_project": pages_project_output,
-        "pages_project_name": pages_project_name_output,
-        "pages_secret_text_env_var": pages_secret_text_env_var_output,
-        "pages_source": pages_source_output,
-        "pages_source_config": pages_source_config_output,
-        "pages_source_type": pages_source_type_output,
-        "pages_stage": pages_stage_output,
+        "pages_api-response-common": pages_api$$response$$common,
+        "pages_build_config": pages_build_config,
+        "pages_deployment": pages_deployment,
+        "pages_deployment_config_values": pages_deployment_config_values,
+        "pages_env_vars": pages_env_vars,
+        "pages_messages": pages_messages,
+        "pages_plain_text_env_var": pages_plain_text_env_var,
+        "pages_project": pages_project,
+        "pages_secret_text_env_var": pages_secret_text_env_var,
+        "pages_source": pages_source,
+        "pages_source_config": pages_source_config,
+        "pages_stage": pages_stage,
       },
     },
     annotations: {
@@ -256,21 +256,19 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "pages_api-response-common": pages_api_response_common_output,
-        "pages_api-response-common-failure": pages_api_response_common_failure_output,
-        "pages_build_config": pages_build_config_output,
-        "pages_deployment": pages_deployment_output,
-        "pages_deployment_config_values": pages_deployment_config_values_output,
-        "pages_env_vars": pages_env_vars_output,
-        "pages_messages": pages_messages_output,
-        "pages_plain_text_env_var": pages_plain_text_env_var_output,
-        "pages_project": pages_project_output,
-        "pages_project_name": pages_project_name_output,
-        "pages_secret_text_env_var": pages_secret_text_env_var_output,
-        "pages_source": pages_source_output,
-        "pages_source_config": pages_source_config_output,
-        "pages_source_type": pages_source_type_output,
-        "pages_stage": pages_stage_output,
+        "pages_api-response-common": pages_api$$response$$common,
+        "pages_api-response-common-failure": pages_api$$response$$common$$failure,
+        "pages_build_config": pages_build_config,
+        "pages_deployment": pages_deployment,
+        "pages_deployment_config_values": pages_deployment_config_values,
+        "pages_env_vars": pages_env_vars,
+        "pages_messages": pages_messages,
+        "pages_plain_text_env_var": pages_plain_text_env_var,
+        "pages_project": pages_project,
+        "pages_secret_text_env_var": pages_secret_text_env_var,
+        "pages_source": pages_source,
+        "pages_source_config": pages_source_config,
+        "pages_stage": pages_stage,
       },
     },
     request: (args) => ({

@@ -6,13 +6,13 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `rulesets_ManagedTransform` in responses.
  */
-export const rulesets_ManagedTransform_output: JsonSchema = {
+export const rulesets_ManagedTransform: JsonSchema = {
   "properties": {
     "conflicts_with": {
       "items": {
         "allOf": [
           {
-            "$ref": "#/$defs/rulesets_ManagedTransformId"
+            "type": "string"
           },
           {
             "type": "string"
@@ -29,7 +29,7 @@ export const rulesets_ManagedTransform_output: JsonSchema = {
       "type": "boolean"
     },
     "id": {
-      "$ref": "#/$defs/rulesets_ManagedTransformId"
+      "type": "string"
     }
   },
   "required": [
@@ -41,16 +41,9 @@ export const rulesets_ManagedTransform_output: JsonSchema = {
 };
 
 /**
- * The schema of `rulesets_ManagedTransformId` in responses.
- */
-export const rulesets_ManagedTransformId_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `rulesets_ManagedTransforms` in responses.
  */
-export const rulesets_ManagedTransforms_output: JsonSchema = {
+export const rulesets_ManagedTransforms: JsonSchema = {
   "properties": {
     "managed_request_headers": {
       "items": {

@@ -3,15 +3,14 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  entitlements_allocation_output,
-  entitlements_api_error_output,
-  entitlements_api_message_output,
-  entitlements_api_response_failure_output,
-  entitlements_entitlement_output,
-  entitlements_entitlements_response_output,
-  entitlements_feature_output,
+  entitlements_allocation,
+  entitlements_api_error,
+  entitlements_api_message,
+  entitlements_api_response_failure,
+  entitlements_entitlement,
+  entitlements_entitlements_response,
+  entitlements_feature,
 } from "./outputs.js";
-import { entitlements_identifier } from "./schemas.js";
 
 /**
  * The tools of `accounts.entitlements`.
@@ -20,30 +19,37 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_entitlements_get",
     title: "Get account or zone Entitlements",
-    description: "Returns the list of entitlements (features and their allocations) for a given account or zone. Each entitlement describes a product feature the account or zone is permitted to use and the allocation value (boolean, count, range, enum, or string) that governs its behaviour.",
+    description: "Returns the list of entitlements (features and their allocations) for a given account or zone. Each entitlement describes a product feature the account or zone is permitted to use and the allocation value (boolean, count, range, enum, or string) that governs its behaviour.\n\nGET /{account_or_zone}/{account_or_zone_id}/entitlements",
     inputSchema: {
       type: "object",
       properties: {
-        "account_or_zone": {
-          "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
-          "enum": [
-            "accounts",
-            "zones"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_or_zone": {
+              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "enum": [
+                "accounts",
+                "zones"
+              ],
+              "type": "string"
+            },
+            "account_or_zone_id": {
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_or_zone",
+            "account_or_zone_id"
           ],
-          "type": "string"
-        },
-        "account_or_zone_id": {
-          "$ref": "#/$defs/entitlements_identifier",
-          "description": "The account ID or zone ID, as selected by account_or_zone."
+          "type": "object"
         }
       },
       required: [
-        "account_or_zone",
-        "account_or_zone_id"
+        "path"
       ],
-      $defs: {
-        "entitlements_identifier": entitlements_identifier,
-      },
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,
@@ -88,13 +94,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "entitlements_allocation": entitlements_allocation_output,
-        "entitlements_api_error": entitlements_api_error_output,
-        "entitlements_api_message": entitlements_api_message_output,
-        "entitlements_api_response_failure": entitlements_api_response_failure_output,
-        "entitlements_entitlement": entitlements_entitlement_output,
-        "entitlements_entitlements_response": entitlements_entitlements_response_output,
-        "entitlements_feature": entitlements_feature_output,
+        "entitlements_allocation": entitlements_allocation,
+        "entitlements_api_error": entitlements_api_error,
+        "entitlements_api_message": entitlements_api_message,
+        "entitlements_api_response_failure": entitlements_api_response_failure,
+        "entitlements_entitlement": entitlements_entitlement,
+        "entitlements_entitlements_response": entitlements_entitlements_response,
+        "entitlements_feature": entitlements_feature,
       },
     },
     request: (args) => ({

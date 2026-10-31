@@ -9,13 +9,13 @@ import type { JsonSchema } from "../../_/tool.js";
 export const builds_CreateBuildTokenRequest: JsonSchema = {
   "properties": {
     "build_token_name": {
-      "$ref": "#/$defs/builds_build_token_name"
+      "type": "string"
     },
     "build_token_secret": {
       "type": "string"
     },
     "cloudflare_token_id": {
-      "$ref": "#/$defs/builds_cloudflare_token_id"
+      "type": "string"
     }
   },
   "required": [
@@ -24,11 +24,4 @@ export const builds_CreateBuildTokenRequest: JsonSchema = {
     "cloudflare_token_id"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `builds_cloudflare_token_id`.
- */
-export const builds_cloudflare_token_id: JsonSchema = {
-  "type": "string"
 };

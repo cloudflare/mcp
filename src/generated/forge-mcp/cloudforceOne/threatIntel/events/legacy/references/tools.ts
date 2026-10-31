@@ -4,20 +4,16 @@
 import { type Tool, pathParam } from "../../../../../_/tool.js";
 
 /**
- * The tools of `cloudforce_one.threat_intel.events.legacy.references`.
+ * The tools of `cloudforceOne.threatIntel.events.legacy.references`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "cloudforce_one_threat_intel_events_legacy_references_create",
+    name: "cloudforceOne_threatIntel_events_legacy_references_create",
     title: "Add event references (legacy)",
-    description: "Legacy. Use `threat-intel events relationships create` (`POST /events/relationships/create`) instead.",
+    description: "Legacy. Use `threat-intel events relationships create` (`POST /events/relationships/create`) instead.\n\nPOST /accounts/{account_id}/cloudforce-one/events/relate/{event_id}/create",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account ID.",
-          "type": "string"
-        },
         "body": {
           "properties": {
             "events": {
@@ -32,15 +28,29 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "event_id": {
-          "description": "Event UUID.",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account ID.",
+              "type": "string"
+            },
+            "event_id": {
+              "description": "Event UUID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "event_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "event_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -143,16 +153,12 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "cloudforce_one_threat_intel_events_legacy_references_delete",
+    name: "cloudforceOne_threatIntel_events_legacy_references_delete",
     title: "Remove event references (legacy)",
-    description: "Legacy. Removes references created with `threat-intel events legacy references create`. Use `threat-intel events relationships` for new event links.",
+    description: "Legacy. Removes references created with `threat-intel events legacy references create`. Use `threat-intel events relationships` for new event links.\n\nDELETE /accounts/{account_id}/cloudforce-one/events/relate/{event_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account ID.",
-          "type": "string"
-        },
         "body": {
           "properties": {
             "events": {
@@ -167,15 +173,29 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "event_id": {
-          "description": "Event UUID.",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account ID.",
+              "type": "string"
+            },
+            "event_id": {
+              "description": "Event UUID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "event_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "event_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

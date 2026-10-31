@@ -3,12 +3,11 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  dns_records_api_response_common_failure_output,
-  dns_records_api_response_single_output,
-  dns_records_messages_output,
+  dns$$records_api$$response$$common$$failure,
+  dns$$records_api$$response$$single,
+  dns$$records_messages,
 } from "../../outputs.js";
-import { dns_records_identifier } from "../../schemas.js";
-import { dns_records_dns_response_account_usage_output } from "./outputs.js";
+import { dns$$records_dns_response_account_usage } from "./outputs.js";
 
 /**
  * The tools of `dns.usage.account`.
@@ -17,37 +16,44 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_usage_account_get",
     title: "Get DNS Record Usage for account or zone",
-    description: "Get the current DNS record usage and quota for an account or zone. May include internal DNS usage and quota.",
+    description: "Get the current DNS record usage and quota for an account or zone. May include internal DNS usage and quota.\n\nGET /{account_or_zone}/{account_or_zone_id}/dns_records/usage",
     inputSchema: {
       type: "object",
       properties: {
-        "account_or_zone": {
-          "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
-          "enum": [
-            "accounts",
-            "zones"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_or_zone": {
+              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "enum": [
+                "accounts",
+                "zones"
+              ],
+              "type": "string"
+            },
+            "account_or_zone_id": {
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_or_zone",
+            "account_or_zone_id"
           ],
-          "type": "string"
-        },
-        "account_or_zone_id": {
-          "$ref": "#/$defs/dns-records_identifier",
-          "description": "The account ID or zone ID, as selected by account_or_zone."
+          "type": "object"
         }
       },
       required: [
-        "account_or_zone",
-        "account_or_zone_id"
+        "path"
       ],
-      $defs: {
-        "dns-records_identifier": dns_records_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/dns-records_dns_response_account_usage",
       $defs: {
-        "dns-records_api-response-single": dns_records_api_response_single_output,
-        "dns-records_dns_response_account_usage": dns_records_dns_response_account_usage_output,
-        "dns-records_messages": dns_records_messages_output,
+        "dns-records_api-response-single": dns$$records_api$$response$$single,
+        "dns-records_dns_response_account_usage": dns$$records_dns_response_account_usage,
+        "dns-records_messages": dns$$records_messages,
       },
     },
     annotations: {
@@ -86,10 +92,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dns-records_api-response-common-failure": dns_records_api_response_common_failure_output,
-        "dns-records_api-response-single": dns_records_api_response_single_output,
-        "dns-records_dns_response_account_usage": dns_records_dns_response_account_usage_output,
-        "dns-records_messages": dns_records_messages_output,
+        "dns-records_api-response-common-failure": dns$$records_api$$response$$common$$failure,
+        "dns-records_api-response-single": dns$$records_api$$response$$single,
+        "dns-records_dns_response_account_usage": dns$$records_dns_response_account_usage,
+        "dns-records_messages": dns$$records_messages,
       },
     },
     request: (args) => ({

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `email-security_MoveResponseItem` in responses.
  */
-export const email_security_MoveResponseItem_output: JsonSchema = {
+export const email$$security_MoveResponseItem: JsonSchema = {
   "properties": {
     "completed_at": {
       "oneOf": [
@@ -89,7 +89,7 @@ export const email_security_MoveResponseItem_output: JsonSchema = {
 /**
  * The schema of `email-security_ReleaseResponse` in responses.
  */
-export const email_security_ReleaseResponse_output: JsonSchema = {
+export const email$$security_ReleaseResponse: JsonSchema = {
   "properties": {
     "delivered": {
       "oneOf": [
@@ -118,10 +118,10 @@ export const email_security_ReleaseResponse_output: JsonSchema = {
       ]
     },
     "id": {
-      "$ref": "#/$defs/email-security_InvestigateId"
+      "type": "string"
     },
     "postfix_id": {
-      "$ref": "#/$defs/email-security_PostfixId"
+      "type": "string"
     },
     "undelivered": {
       "oneOf": [

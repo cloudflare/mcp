@@ -4,19 +4,16 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 
 /**
- * The tools of `brand_protection.trial`.
+ * The tools of `brandProtection.trial`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "brand_protection_trial_create",
+    name: "brandProtection_trial_create",
     title: "Analyze domains for brand impersonation",
-    description: "Uses AI to scan all domains in the lookback table and identify potential phishing or impersonation attempts against the given brand string.",
+    description: "Uses AI to scan all domains in the lookback table and identify potential phishing or impersonation attempts against the given brand string.\n\nPOST /accounts/{account_id}/cloudforce-one/v2/brand-protection/domain/trial",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
         "body": {
           "properties": {
             "brand": {
@@ -27,11 +24,24 @@ export const tools: readonly Tool[] = [
             "brand"
           ],
           "type": "object"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

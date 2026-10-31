@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `flagship_DeleteFlagResult` in responses.
  */
-export const flagship_DeleteFlagResult_output: JsonSchema = {
+export const flagship_DeleteFlagResult: JsonSchema = {
   "properties": {
     "key": {
       "type": "string"
@@ -21,7 +21,7 @@ export const flagship_DeleteFlagResult_output: JsonSchema = {
 /**
  * The schema of `flagship_Flag` in responses.
  */
-export const flagship_Flag_output: JsonSchema = {
+export const flagship_Flag: JsonSchema = {
   "properties": {
     "default_variation": {
       "type": "string"
@@ -100,7 +100,7 @@ export const flagship_Flag_output: JsonSchema = {
 /**
  * The schema of `flagship_FlagsPage` in responses.
  */
-export const flagship_FlagsPage_output: JsonSchema = {
+export const flagship_FlagsPage: JsonSchema = {
   "items": {
     "$ref": "#/$defs/flagship_Flag"
   },
@@ -110,7 +110,7 @@ export const flagship_FlagsPage_output: JsonSchema = {
 /**
  * The schema of `flagship_ResultInfo` in responses.
  */
-export const flagship_ResultInfo_output: JsonSchema = {
+export const flagship_ResultInfo: JsonSchema = {
   "properties": {
     "count": {
       "type": "integer"
@@ -136,7 +136,7 @@ export const flagship_ResultInfo_output: JsonSchema = {
 /**
  * The schema of `flagship_Rule` in responses.
  */
-export const flagship_Rule_output: JsonSchema = {
+export const flagship_Rule: JsonSchema = {
   "properties": {
     "conditions": {
       "items": {

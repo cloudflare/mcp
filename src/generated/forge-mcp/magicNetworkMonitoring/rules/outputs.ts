@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `magic-visibility-mnm_api-response-collection` in responses.
  */
-export const magic_visibility_mnm_api_response_collection_output: JsonSchema = {
+export const magic$$visibility$$mnm_api$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic-visibility-mnm_api-response-common"
@@ -36,42 +36,99 @@ export const magic_visibility_mnm_api_response_collection_output: JsonSchema = {
 /**
  * The schema of `magic-visibility-mnm_mnm_rule` in responses.
  */
-export const magic_visibility_mnm_mnm_rule_output: JsonSchema = {
+export const magic$$visibility$$mnm_mnm_rule: JsonSchema = {
   "oneOf": [
     {
       "properties": {
         "automatic_advertisement": {
-          "$ref": "#/$defs/magic-visibility-mnm_mnm_rule_automatic_advertisement"
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "bandwidth_threshold": {
-          "$ref": "#/$defs/magic-visibility-mnm_mnm_rule_bandwidth_threshold"
+          "type": "number"
         },
         "duration": {
-          "$ref": "#/$defs/magic-visibility-mnm_mnm_rule_duration"
+          "enum": [
+            "1m",
+            "5m",
+            "10m",
+            "15m",
+            "20m",
+            "30m",
+            "45m",
+            "60m"
+          ],
+          "type": "string"
         },
         "id": {
-          "$ref": "#/$defs/magic-visibility-mnm_rule_identifier"
+          "type": "string"
         },
         "name": {
-          "$ref": "#/$defs/magic-visibility-mnm_mnm_rule_name"
+          "type": "string"
         },
         "packet_threshold": {
-          "$ref": "#/$defs/magic-visibility-mnm_mnm_rule_packet_threshold"
+          "type": "number"
         },
         "prefix_match": {
-          "$ref": "#/$defs/magic-visibility-mnm_mnm_rule_prefix_match"
+          "oneOf": [
+            {
+              "enum": [
+                "exact",
+                "subnet",
+                "supernet"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "prefixes": {
           "$ref": "#/$defs/magic-visibility-mnm_mnm_rule_ip_prefixes"
         },
         "type": {
-          "$ref": "#/$defs/magic-visibility-mnm_mnm_rule_type"
+          "enum": [
+            "threshold",
+            "zscore",
+            "advanced_ddos"
+          ],
+          "type": "string"
         },
         "zscore_sensitivity": {
-          "$ref": "#/$defs/magic-visibility-mnm_mnm_rule_zscore_sensitivity"
+          "oneOf": [
+            {
+              "enum": [
+                "low",
+                "medium",
+                "high"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "zscore_target": {
-          "$ref": "#/$defs/magic-visibility-mnm_mnm_rule_zscore_target"
+          "oneOf": [
+            {
+              "enum": [
+                "bits",
+                "packets"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
       },
       "required": [
@@ -90,150 +147,20 @@ export const magic_visibility_mnm_mnm_rule_output: JsonSchema = {
 };
 
 /**
- * The schema of `magic-visibility-mnm_mnm_rule_automatic_advertisement` in
- * responses.
- */
-export const magic_visibility_mnm_mnm_rule_automatic_advertisement_output: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "boolean"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `magic-visibility-mnm_mnm_rule_bandwidth_threshold` in
- * responses.
- */
-export const magic_visibility_mnm_mnm_rule_bandwidth_threshold_output: JsonSchema = {
-  "type": "number"
-};
-
-/**
- * The schema of `magic-visibility-mnm_mnm_rule_duration` in responses.
- */
-export const magic_visibility_mnm_mnm_rule_duration_output: JsonSchema = {
-  "enum": [
-    "1m",
-    "5m",
-    "10m",
-    "15m",
-    "20m",
-    "30m",
-    "45m",
-    "60m"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `magic-visibility-mnm_mnm_rule_ip_prefix` in responses.
- */
-export const magic_visibility_mnm_mnm_rule_ip_prefix_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `magic-visibility-mnm_mnm_rule_ip_prefixes` in responses.
  */
-export const magic_visibility_mnm_mnm_rule_ip_prefixes_output: JsonSchema = {
+export const magic$$visibility$$mnm_mnm_rule_ip_prefixes: JsonSchema = {
   "items": {
-    "$ref": "#/$defs/magic-visibility-mnm_mnm_rule_ip_prefix"
+    "type": "string"
   },
   "type": "array"
-};
-
-/**
- * The schema of `magic-visibility-mnm_mnm_rule_name` in responses.
- */
-export const magic_visibility_mnm_mnm_rule_name_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `magic-visibility-mnm_mnm_rule_packet_threshold` in responses.
- */
-export const magic_visibility_mnm_mnm_rule_packet_threshold_output: JsonSchema = {
-  "type": "number"
-};
-
-/**
- * The schema of `magic-visibility-mnm_mnm_rule_prefix_match` in responses.
- */
-export const magic_visibility_mnm_mnm_rule_prefix_match_output: JsonSchema = {
-  "oneOf": [
-    {
-      "enum": [
-        "exact",
-        "subnet",
-        "supernet"
-      ],
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `magic-visibility-mnm_mnm_rule_type` in responses.
- */
-export const magic_visibility_mnm_mnm_rule_type_output: JsonSchema = {
-  "enum": [
-    "threshold",
-    "zscore",
-    "advanced_ddos"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `magic-visibility-mnm_mnm_rule_zscore_sensitivity` in
- * responses.
- */
-export const magic_visibility_mnm_mnm_rule_zscore_sensitivity_output: JsonSchema = {
-  "oneOf": [
-    {
-      "enum": [
-        "low",
-        "medium",
-        "high"
-      ],
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `magic-visibility-mnm_mnm_rule_zscore_target` in responses.
- */
-export const magic_visibility_mnm_mnm_rule_zscore_target_output: JsonSchema = {
-  "oneOf": [
-    {
-      "enum": [
-        "bits",
-        "packets"
-      ],
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
 };
 
 /**
  * The schema of `magic-visibility-mnm_mnm_rules_collection_response` in
  * responses.
  */
-export const magic_visibility_mnm_mnm_rules_collection_response_output: JsonSchema = {
+export const magic$$visibility$$mnm_mnm_rules_collection_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic-visibility-mnm_api-response-collection"
@@ -262,7 +189,7 @@ export const magic_visibility_mnm_mnm_rules_collection_response_output: JsonSche
 /**
  * The schema of `magic-visibility-mnm_mnm_rules_single_response` in responses.
  */
-export const magic_visibility_mnm_mnm_rules_single_response_output: JsonSchema = {
+export const magic$$visibility$$mnm_mnm_rules_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic-visibility-mnm_api-response-single"
@@ -281,7 +208,7 @@ export const magic_visibility_mnm_mnm_rules_single_response_output: JsonSchema =
 /**
  * The schema of `magic-visibility-mnm_result_info` in responses.
  */
-export const magic_visibility_mnm_result_info_output: JsonSchema = {
+export const magic$$visibility$$mnm_result_info: JsonSchema = {
   "properties": {
     "count": {
       "type": "number"
@@ -297,11 +224,4 @@ export const magic_visibility_mnm_result_info_output: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `magic-visibility-mnm_rule_identifier` in responses.
- */
-export const magic_visibility_mnm_rule_identifier_output: JsonSchema = {
-  "type": "string"
 };

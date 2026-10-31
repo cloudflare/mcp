@@ -7,7 +7,7 @@ import type { JsonSchema } from "../../../_/tool.js";
  * The schema of `magic-visibility-mnm_mnm_vpc_flows_single_response` in
  * responses.
  */
-export const magic_visibility_mnm_mnm_vpc_flows_single_response_output: JsonSchema = {
+export const magic$$visibility$$mnm_mnm_vpc_flows_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic-visibility-mnm_api-response-single"
@@ -15,17 +15,10 @@ export const magic_visibility_mnm_mnm_vpc_flows_single_response_output: JsonSche
     {
       "properties": {
         "result": {
-          "$ref": "#/$defs/magic-visibility-mnm_mnm_vpc_flows_token"
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `magic-visibility-mnm_mnm_vpc_flows_token` in responses.
- */
-export const magic_visibility_mnm_mnm_vpc_flows_token_output: JsonSchema = {
-  "type": "string"
 };

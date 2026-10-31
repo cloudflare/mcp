@@ -6,14 +6,14 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `iam_user_group` in responses.
  */
-export const iam_user_group_output: JsonSchema = {
+export const iam_user_group: JsonSchema = {
   "properties": {
     "created_on": {
       "format": "date-time",
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/iam_user_group_identifier"
+      "type": "string"
     },
     "modified_on": {
       "format": "date-time",
@@ -26,10 +26,14 @@ export const iam_user_group_output: JsonSchema = {
       "items": {
         "properties": {
           "access": {
-            "$ref": "#/$defs/iam_access"
+            "enum": [
+              "allow",
+              "deny"
+            ],
+            "type": "string"
           },
           "id": {
-            "$ref": "#/$defs/iam_policy_identifier"
+            "type": "string"
           },
           "permission_groups": {
             "$ref": "#/$defs/iam_permission_groups"
@@ -53,16 +57,9 @@ export const iam_user_group_output: JsonSchema = {
 };
 
 /**
- * The schema of `iam_user_group_identifier` in responses.
- */
-export const iam_user_group_identifier_output: JsonSchema = {
-  "$ref": "#/$defs/iam_common_components-schemas-identifier"
-};
-
-/**
  * The schema of `iam_user_groups` in responses.
  */
-export const iam_user_groups_output: JsonSchema = {
+export const iam_user_groups: JsonSchema = {
   "items": {
     "$ref": "#/$defs/iam_user_group"
   },

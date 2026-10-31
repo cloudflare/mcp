@@ -4,40 +4,30 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `tunnel_ha_status` in responses.
- */
-export const tunnel_ha_status_output: JsonSchema = {
-  "enum": [
-    "offline",
-    "passive",
-    "active"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `tunnel_schemas-warp-connector-connection` in responses.
  */
-export const tunnel_schemas_warp_connector_connection_output: JsonSchema = {
+export const tunnel_schemas$$warp$$connector$$connection: JsonSchema = {
   "properties": {
     "client_id": {
-      "$ref": "#/$defs/tunnel_client_id"
+      "format": "uuid",
+      "type": "string"
     },
     "client_version": {
-      "$ref": "#/$defs/tunnel_version"
+      "type": "string"
     },
     "colo_name": {
-      "$ref": "#/$defs/tunnel_colo_name"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/tunnel_connection_id"
+      "format": "uuid",
+      "type": "string"
     },
     "opened_at": {
       "format": "date-time",
       "type": "string"
     },
     "origin_ip": {
-      "$ref": "#/$defs/tunnel_ip"
+      "type": "string"
     }
   },
   "type": "object"
@@ -46,10 +36,10 @@ export const tunnel_schemas_warp_connector_connection_output: JsonSchema = {
 /**
  * The schema of `tunnel_tunnel_warp_connector_client` in responses.
  */
-export const tunnel_tunnel_warp_connector_client_output: JsonSchema = {
+export const tunnel_tunnel_warp_connector_client: JsonSchema = {
   "properties": {
     "arch": {
-      "$ref": "#/$defs/tunnel_arch"
+      "type": "string"
     },
     "conns": {
       "$ref": "#/$defs/tunnel_warp_connector_connections"
@@ -58,16 +48,23 @@ export const tunnel_tunnel_warp_connector_client_output: JsonSchema = {
       "$ref": "#/$defs/tunnel_features"
     },
     "ha_status": {
-      "$ref": "#/$defs/tunnel_ha_status"
+      "enum": [
+        "offline",
+        "passive",
+        "active"
+      ],
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/tunnel_client_id"
+      "format": "uuid",
+      "type": "string"
     },
     "run_at": {
-      "$ref": "#/$defs/tunnel_run_at"
+      "format": "date-time",
+      "type": "string"
     },
     "version": {
-      "$ref": "#/$defs/tunnel_version"
+      "type": "string"
     }
   },
   "type": "object"
@@ -76,7 +73,7 @@ export const tunnel_tunnel_warp_connector_client_output: JsonSchema = {
 /**
  * The schema of `tunnel_warp-connector-response-collection` in responses.
  */
-export const tunnel_warp_connector_response_collection_output: JsonSchema = {
+export const tunnel_warp$$connector$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tunnel_api-response-collection"
@@ -98,7 +95,7 @@ export const tunnel_warp_connector_response_collection_output: JsonSchema = {
 /**
  * The schema of `tunnel_warp-connector-response-single` in responses.
  */
-export const tunnel_warp_connector_response_single_output: JsonSchema = {
+export const tunnel_warp$$connector$$response$$single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tunnel_api-response-common"
@@ -117,7 +114,7 @@ export const tunnel_warp_connector_response_single_output: JsonSchema = {
 /**
  * The schema of `tunnel_warp_connector_connections` in responses.
  */
-export const tunnel_warp_connector_connections_output: JsonSchema = {
+export const tunnel_warp_connector_connections: JsonSchema = {
   "items": {
     "$ref": "#/$defs/tunnel_schemas-warp-connector-connection"
   },

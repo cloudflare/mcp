@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `teams-devices_override_code` in responses.
  */
-export const teams_devices_override_code_output: JsonSchema = {
+export const teams$$devices_override_code: JsonSchema = {
   "properties": {
     "code": {
       "type": "string"

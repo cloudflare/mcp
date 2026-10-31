@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `teams-devices_registration` in responses.
  */
-export const teams_devices_registration_output: JsonSchema = {
+export const teams$$devices_registration: JsonSchema = {
   "properties": {
     "created_at": {
       "type": "string"
@@ -47,7 +47,11 @@ export const teams_devices_registration_output: JsonSchema = {
       "$ref": "#/$defs/teams-devices_policy_summary"
     },
     "registration_type": {
-      "$ref": "#/$defs/teams-devices_registration_type"
+      "enum": [
+        "warp",
+        "browser_extension"
+      ],
+      "type": "string"
     },
     "revoked_at": {
       "oneOf": [
@@ -111,7 +115,7 @@ export const teams_devices_registration_output: JsonSchema = {
 /**
  * The schema of `teams-devices_registration_device_details` in responses.
  */
-export const teams_devices_registration_device_details_output: JsonSchema = {
+export const teams$$devices_registration_device_details: JsonSchema = {
   "properties": {
     "client_version": {
       "type": "string"

@@ -4,47 +4,47 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `tls-certificates-and-hostnames_ca` in responses.
- */
-export const tls_certificates_and_hostnames_ca_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `tls-certificates-and-hostnames_certificateObject-3` in
  * responses.
  */
-export const tls_certificates_and_hostnames_certificateObject_3_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_certificateObject$$3: JsonSchema = {
   "properties": {
     "ca": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_ca"
+      "type": "boolean"
     },
     "certificates": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_certificates-2"
+      "type": "string"
     },
     "expires_on": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_expires_on-2"
+      "format": "date-time",
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_mtls_certificate_identifier"
+      "type": "string"
     },
     "issuer": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_issuer-2"
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_name-2"
+      "type": "string"
     },
     "serial_number": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_serial_number-2"
+      "type": "string"
     },
     "signature": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_signature"
+      "type": "string"
     },
     "type": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_type-3"
+      "enum": [
+        "custom",
+        "gateway_managed",
+        "access_managed"
+      ],
+      "type": "string"
     },
     "uploaded_on": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_uploaded_on-4"
+      "format": "date-time",
+      "type": "string"
     }
   },
   "type": "object"
@@ -54,40 +54,48 @@ export const tls_certificates_and_hostnames_certificateObject_3_output: JsonSche
  * The schema of `tls-certificates-and-hostnames_certificateObjectPost` in
  * responses.
  */
-export const tls_certificates_and_hostnames_certificateObjectPost_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_certificateObjectPost: JsonSchema = {
   "properties": {
     "ca": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_ca"
+      "type": "boolean"
     },
     "certificates": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_certificates-2"
+      "type": "string"
     },
     "expires_on": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_expires_on-2"
+      "format": "date-time",
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_mtls_certificate_identifier"
+      "type": "string"
     },
     "issuer": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_issuer-2"
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_name-2"
+      "type": "string"
     },
     "serial_number": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_serial_number-2"
+      "type": "string"
     },
     "signature": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_signature"
+      "type": "string"
     },
     "type": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_type-3"
+      "enum": [
+        "custom",
+        "gateway_managed",
+        "access_managed"
+      ],
+      "type": "string"
     },
     "updated_at": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_updated_at-4"
+      "format": "date-time",
+      "type": "string"
     },
     "uploaded_on": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_uploaded_on-4"
+      "format": "date-time",
+      "type": "string"
     }
   },
   "type": "object"
@@ -98,7 +106,7 @@ export const tls_certificates_and_hostnames_certificateObjectPost_output: JsonSc
  * `tls-certificates-and-hostnames_certificate_response_collection-5` in
  * responses.
  */
-export const tls_certificates_and_hostnames_certificate_response_collection_5_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_certificate_response_collection$$5: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-collection"
@@ -146,7 +154,7 @@ export const tls_certificates_and_hostnames_certificate_response_collection_5_ou
  * The schema of `tls-certificates-and-hostnames_certificate_response_single-5`
  * in responses.
  */
-export const tls_certificates_and_hostnames_certificate_response_single_5_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_certificate_response_single$$5: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-single"
@@ -167,7 +175,7 @@ export const tls_certificates_and_hostnames_certificate_response_single_5_output
  * `tls-certificates-and-hostnames_certificate_response_single_post` in
  * responses.
  */
-export const tls_certificates_and_hostnames_certificate_response_single_post_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_certificate_response_single_post: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-single"
@@ -181,68 +189,4 @@ export const tls_certificates_and_hostnames_certificate_response_single_post_out
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_certificates-2` in responses.
- */
-export const tls_certificates_and_hostnames_certificates_2_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_issuer-2` in responses.
- */
-export const tls_certificates_and_hostnames_issuer_2_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_mtls_certificate_identifier` in
- * responses.
- */
-export const tls_certificates_and_hostnames_mtls_certificate_identifier_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_name-2` in responses.
- */
-export const tls_certificates_and_hostnames_name_2_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_serial_number-2` in responses.
- */
-export const tls_certificates_and_hostnames_serial_number_2_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_type-3` in responses.
- */
-export const tls_certificates_and_hostnames_type_3_output: JsonSchema = {
-  "enum": [
-    "custom",
-    "gateway_managed",
-    "access_managed"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_updated_at-4` in responses.
- */
-export const tls_certificates_and_hostnames_updated_at_4_output: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_uploaded_on-4` in responses.
- */
-export const tls_certificates_and_hostnames_uploaded_on_4_output: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
 };

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `spectrum-analytics_query-response-aggregate` in responses.
  */
-export const spectrum_analytics_query_response_aggregate_output: JsonSchema = {
+export const spectrum$$analytics_query$$response$$aggregate: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/spectrum-analytics_api-response-single"
@@ -22,7 +22,7 @@ export const spectrum_analytics_query_response_aggregate_output: JsonSchema = {
                     "type": "string"
                   },
                   {
-                    "$ref": "#/$defs/spectrum-analytics_identifier"
+                    "type": "string"
                   }
                 ]
               },

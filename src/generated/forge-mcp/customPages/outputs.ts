@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `custom-pages_api-response-collection` in responses.
  */
-export const custom_pages_api_response_collection_output: JsonSchema = {
+export const custom$$pages_api$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/custom-pages_api-response-common"
@@ -42,7 +42,7 @@ export const custom_pages_api_response_collection_output: JsonSchema = {
 /**
  * The schema of `custom-pages_api-response-common` in responses.
  */
-export const custom_pages_api_response_common_output: JsonSchema = {
+export const custom$$pages_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/custom-pages_messages"
@@ -68,7 +68,7 @@ export const custom_pages_api_response_common_output: JsonSchema = {
 /**
  * The schema of `custom-pages_api-response-common-failure` in responses.
  */
-export const custom_pages_api_response_common_failure_output: JsonSchema = {
+export const custom$$pages_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/custom-pages_messages"
@@ -98,7 +98,7 @@ export const custom_pages_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `custom-pages_api-response-single` in responses.
  */
-export const custom_pages_api_response_single_output: JsonSchema = {
+export const custom$$pages_api$$response$$single: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/custom-pages_messages"
@@ -124,7 +124,7 @@ export const custom_pages_api_response_single_output: JsonSchema = {
 /**
  * The schema of `custom-pages_messages` in responses.
  */
-export const custom_pages_messages_output: JsonSchema = {
+export const custom$$pages_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -152,12 +152,4 @@ export const custom_pages_messages_output: JsonSchema = {
     "type": "object"
   },
   "type": "array"
-};
-
-/**
- * The schema of `custom-pages_timestamp` in responses.
- */
-export const custom_pages_timestamp_output: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
 };

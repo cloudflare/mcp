@@ -3,51 +3,56 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  access_api_response_collection_output,
-  access_api_response_common_failure_output,
-  access_api_response_common_output,
-  access_api_response_single_output,
-  access_id_response_output,
-  access_messages_output,
-  access_uuid_output,
+  access_api$$response$$collection,
+  access_api$$response$$common,
+  access_api$$response$$common$$failure,
+  access_api$$response$$single,
+  access_id_response,
+  access_messages,
 } from "../../../outputs.js";
-import { access_identifier, access_uuid } from "../../../schemas.js";
 import {
-  access_certificates_2_output,
-  access_response_collection_7_output,
-  access_single_response_8_output,
+  access_certificates$$2,
+  access_response_collection$$7,
+  access_single_response$$8,
 } from "./outputs.js";
 
 /**
- * The tools of `zero_trust.access.infrastructure.ssh_ca`.
+ * The tools of `zeroTrust.access.infrastructure.sshCa`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zero_trust_access_infrastructure_ssh_ca_create",
+    name: "zeroTrust_access_infrastructure_sshCa_create",
     title: "Add a new SSH Certificate Authority (CA)",
-    description: "Adds a new SSH Certificate Authority (CA).",
+    description: "Adds a new SSH Certificate Authority (CA).\n\nPOST /accounts/{account_id}/access/gateway_ca",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/access_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_single_response-8",
       $defs: {
-        "access_api-response-single": access_api_response_single_output,
-        "access_certificates-2": access_certificates_2_output,
-        "access_messages": access_messages_output,
-        "access_single_response-8": access_single_response_8_output,
+        "access_api-response-single": access_api$$response$$single,
+        "access_certificates-2": access_certificates$$2,
+        "access_messages": access_messages,
+        "access_single_response-8": access_single_response$$8,
       },
     },
     annotations: {
@@ -74,11 +79,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "access_api-response-common-failure": access_api_response_common_failure_output,
-        "access_api-response-single": access_api_response_single_output,
-        "access_certificates-2": access_certificates_2_output,
-        "access_messages": access_messages_output,
-        "access_single_response-8": access_single_response_8_output,
+        "access_api-response-common-failure": access_api$$response$$common$$failure,
+        "access_api-response-single": access_api$$response$$single,
+        "access_certificates-2": access_certificates$$2,
+        "access_messages": access_messages,
+        "access_single_response-8": access_single_response$$8,
       },
     },
     request: (args) => ({
@@ -86,37 +91,42 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_access_infrastructure_ssh_ca_delete",
+    name: "zeroTrust_access_infrastructure_sshCa_delete",
     title: "Delete an SSH Certificate Authority (CA)",
-    description: "Deletes an SSH Certificate Authority.",
+    description: "Deletes an SSH Certificate Authority.\n\nDELETE /accounts/{account_id}/access/gateway_ca/{certificate_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/access_identifier",
-          "description": "Identifier."
-        },
-        "certificate_id": {
-          "$ref": "#/$defs/access_uuid",
-          "description": "UUID."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            },
+            "certificate_id": {
+              "description": "UUID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "certificate_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "certificate_id"
+        "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-        "access_uuid": access_uuid,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_id_response",
       $defs: {
-        "access_api-response-single": access_api_response_single_output,
-        "access_id_response": access_id_response_output,
-        "access_messages": access_messages_output,
-        "access_uuid": access_uuid_output,
+        "access_api-response-single": access_api$$response$$single,
+        "access_id_response": access_id_response,
+        "access_messages": access_messages,
       },
     },
     annotations: {
@@ -143,11 +153,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "access_api-response-common-failure": access_api_response_common_failure_output,
-        "access_api-response-single": access_api_response_single_output,
-        "access_id_response": access_id_response_output,
-        "access_messages": access_messages_output,
-        "access_uuid": access_uuid_output,
+        "access_api-response-common-failure": access_api$$response$$common$$failure,
+        "access_api-response-single": access_api$$response$$single,
+        "access_id_response": access_id_response,
+        "access_messages": access_messages,
       },
     },
     request: (args) => ({
@@ -155,32 +164,39 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_access_infrastructure_ssh_ca_list",
+    name: "zeroTrust_access_infrastructure_sshCa_list",
     title: "List SSH Certificate Authorities (CA)",
-    description: "Lists SSH Certificate Authorities (CA).",
+    description: "Lists SSH Certificate Authorities (CA).\n\nGET /accounts/{account_id}/access/gateway_ca",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/access_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_response_collection-7",
       $defs: {
-        "access_api-response-collection": access_api_response_collection_output,
-        "access_api-response-common": access_api_response_common_output,
-        "access_certificates-2": access_certificates_2_output,
-        "access_messages": access_messages_output,
-        "access_response_collection-7": access_response_collection_7_output,
+        "access_api-response-collection": access_api$$response$$collection,
+        "access_api-response-common": access_api$$response$$common,
+        "access_certificates-2": access_certificates$$2,
+        "access_messages": access_messages,
+        "access_response_collection-7": access_response_collection$$7,
       },
     },
     annotations: {
@@ -208,12 +224,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "access_api-response-collection": access_api_response_collection_output,
-        "access_api-response-common": access_api_response_common_output,
-        "access_api-response-common-failure": access_api_response_common_failure_output,
-        "access_certificates-2": access_certificates_2_output,
-        "access_messages": access_messages_output,
-        "access_response_collection-7": access_response_collection_7_output,
+        "access_api-response-collection": access_api$$response$$collection,
+        "access_api-response-common": access_api$$response$$common,
+        "access_api-response-common-failure": access_api$$response$$common$$failure,
+        "access_certificates-2": access_certificates$$2,
+        "access_messages": access_messages,
+        "access_response_collection-7": access_response_collection$$7,
       },
     },
     request: (args) => ({

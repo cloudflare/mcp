@@ -6,14 +6,14 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `api-shield_openapi` in responses.
  */
-export const api_shield_openapi_output: JsonSchema = {
+export const api$$shield_openapi: JsonSchema = {
   "type": "object"
 };
 
 /**
  * The schema of `api-shield_schema_response_discovery` in responses.
  */
-export const api_shield_schema_response_discovery_output: JsonSchema = {
+export const api$$shield_schema_response_discovery: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/api-shield_api-response-common"
@@ -29,7 +29,15 @@ export const api_shield_schema_response_discovery_output: JsonSchema = {
               "type": "array"
             },
             "timestamp": {
-              "$ref": "#/$defs/api-shield_timestamp-2"
+              "allOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
             }
           },
           "required": [

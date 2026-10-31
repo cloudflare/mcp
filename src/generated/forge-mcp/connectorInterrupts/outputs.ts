@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `mconn_connector_interrupts_create_response` in responses.
  */
-export const mconn_connector_interrupts_create_response_output: JsonSchema = {
+export const mconn_connector_interrupts_create_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/mconn_good_response"
@@ -25,7 +25,7 @@ export const mconn_connector_interrupts_create_response_output: JsonSchema = {
 /**
  * The schema of `mconn_connector_interrupts_list_response` in responses.
  */
-export const mconn_connector_interrupts_list_response_output: JsonSchema = {
+export const mconn_connector_interrupts_list_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/mconn_good_response"
@@ -47,7 +47,7 @@ export const mconn_connector_interrupts_list_response_output: JsonSchema = {
 /**
  * The schema of `mconn_connector_interrupts_result` in responses.
  */
-export const mconn_connector_interrupts_result_output: JsonSchema = {
+export const mconn_connector_interrupts_result: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/mconn_interrupt"
@@ -72,7 +72,7 @@ export const mconn_connector_interrupts_result_output: JsonSchema = {
 /**
  * The schema of `mconn_interrupt` in responses.
  */
-export const mconn_interrupt_output: JsonSchema = {
+export const mconn_interrupt: JsonSchema = {
   "properties": {
     "reboot": {
       "properties": {

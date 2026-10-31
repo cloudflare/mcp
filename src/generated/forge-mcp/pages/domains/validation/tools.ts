@@ -3,13 +3,11 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  pages_api_response_common_failure_output,
-  pages_api_response_common_output,
-  pages_messages_output,
+  pages_api$$response$$common,
+  pages_api$$response$$common$$failure,
+  pages_messages,
 } from "../../outputs.js";
-import { pages_identifier, pages_project_name } from "../../schemas.js";
-import { pages_domain_name_output, pages_domain_output } from "../outputs.js";
-import { pages_domain_name } from "../schemas.js";
+import { pages_domain } from "../outputs.js";
 
 /**
  * The tools of `pages.domains.validation`.
@@ -18,33 +16,38 @@ export const tools: readonly Tool[] = [
   {
     name: "pages_domains_validation_retry",
     title: "Retry custom domain validation",
-    description: "Retry validation for a custom domain attached to a Cloudflare Pages project.",
+    description: "Retry validation for a custom domain attached to a Cloudflare Pages project.\n\nPATCH /accounts/{account_id}/pages/projects/{project_name}/domains/{domain_name}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/pages_identifier",
-          "description": "Identifier."
-        },
-        "domain_name": {
-          "$ref": "#/$defs/pages_domain_name",
-          "description": "Fully qualified domain name for the Pages project, such as `example.com`."
-        },
-        "project_name": {
-          "$ref": "#/$defs/pages_project_name",
-          "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            },
+            "domain_name": {
+              "description": "Fully qualified domain name for the Pages project, such as `example.com`.",
+              "type": "string"
+            },
+            "project_name": {
+              "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "project_name",
+            "domain_name"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "project_name",
-        "domain_name"
+        "path"
       ],
-      $defs: {
-        "pages_domain_name": pages_domain_name,
-        "pages_identifier": pages_identifier,
-        "pages_project_name": pages_project_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -64,10 +67,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "pages_api-response-common": pages_api_response_common_output,
-        "pages_domain": pages_domain_output,
-        "pages_domain_name": pages_domain_name_output,
-        "pages_messages": pages_messages_output,
+        "pages_api-response-common": pages_api$$response$$common,
+        "pages_domain": pages_domain,
+        "pages_messages": pages_messages,
       },
     },
     annotations: {
@@ -109,11 +111,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "pages_api-response-common": pages_api_response_common_output,
-        "pages_api-response-common-failure": pages_api_response_common_failure_output,
-        "pages_domain": pages_domain_output,
-        "pages_domain_name": pages_domain_name_output,
-        "pages_messages": pages_messages_output,
+        "pages_api-response-common": pages_api$$response$$common,
+        "pages_api-response-common-failure": pages_api$$response$$common$$failure,
+        "pages_domain": pages_domain,
+        "pages_messages": pages_messages,
       },
     },
     request: (args) => ({

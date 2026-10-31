@@ -4,23 +4,9 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
- * The schema of `tls-certificates-and-hostnames_certificate_authority`.
- */
-export const tls_certificates_and_hostnames_certificate_authority: JsonSchema = {
-  "description": "The Certificate Authority that will issue the certificate.",
-  "enum": [
-    "digicert",
-    "google",
-    "lets_encrypt",
-    "ssl_com"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `tls-certificates-and-hostnames_custom_cert_and_key`.
  */
-export const tls_certificates_and_hostnames_custom_cert_and_key: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_custom_cert_and_key: JsonSchema = {
   "properties": {
     "custom_certificate": {
       "description": "If a custom uploaded certificate is used.",
@@ -41,7 +27,7 @@ export const tls_certificates_and_hostnames_custom_cert_and_key: JsonSchema = {
 /**
  * The schema of `tls-certificates-and-hostnames_custom_cert_bundle`.
  */
-export const tls_certificates_and_hostnames_custom_cert_bundle: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_custom_cert_bundle: JsonSchema = {
   "description": "Array of custom certificate and key pairs (1 or 2 pairs allowed).",
   "items": {
     "$ref": "#/$defs/tls-certificates-and-hostnames_custom_cert_and_key"
@@ -52,17 +38,9 @@ export const tls_certificates_and_hostnames_custom_cert_bundle: JsonSchema = {
 };
 
 /**
- * The schema of `tls-certificates-and-hostnames_custom_hostname_identifier`.
- */
-export const tls_certificates_and_hostnames_custom_hostname_identifier: JsonSchema = {
-  "description": "Custom hostname identifier tag.",
-  "type": "string"
-};
-
-/**
  * The schema of `tls-certificates-and-hostnames_custom_metadata`.
  */
-export const tls_certificates_and_hostnames_custom_metadata: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_custom_metadata: JsonSchema = {
   "additionalProperties": {
     "type": "string"
   },
@@ -71,33 +49,9 @@ export const tls_certificates_and_hostnames_custom_metadata: JsonSchema = {
 };
 
 /**
- * The schema of `tls-certificates-and-hostnames_custom_origin_server`.
- */
-export const tls_certificates_and_hostnames_custom_origin_server: JsonSchema = {
-  "description": "a valid hostname that’s been added to your DNS zone as an A, AAAA, or CNAME record.",
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_custom_origin_sni`.
- */
-export const tls_certificates_and_hostnames_custom_origin_sni: JsonSchema = {
-  "description": "A hostname that will be sent to your custom origin server as SNI for TLS handshake. This can be a valid subdomain of the zone or custom origin server name or the string ':request_host_header:' which will cause the host header in the request to be used as SNI. Not configurable with default/fallback origin server.",
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_hostname_post`.
- */
-export const tls_certificates_and_hostnames_hostname_post: JsonSchema = {
-  "description": "The custom hostname that will point to your hostname via CNAME.",
-  "type": "string"
-};
-
-/**
  * The schema of `tls-certificates-and-hostnames_sslpost`.
  */
-export const tls_certificates_and_hostnames_sslpost: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_sslpost: JsonSchema = {
   "description": "SSL properties used when creating the custom hostname.",
   "properties": {
     "bundle_method": {
@@ -111,8 +65,14 @@ export const tls_certificates_and_hostnames_sslpost: JsonSchema = {
       "type": "string"
     },
     "certificate_authority": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_authority",
-      "description": "The Certificate Authority that will issue the certificate."
+      "description": "The Certificate Authority that will issue the certificate.",
+      "enum": [
+        "digicert",
+        "google",
+        "lets_encrypt",
+        "ssl_com"
+      ],
+      "type": "string"
     },
     "cloudflare_branding": {
       "description": "Whether or not to add Cloudflare Branding for the order.  This will add a subdomain of sni.cloudflaressl.com as the Common Name if set to true.",
@@ -165,7 +125,7 @@ export const tls_certificates_and_hostnames_sslpost: JsonSchema = {
 /**
  * The schema of `tls-certificates-and-hostnames_sslsettings`.
  */
-export const tls_certificates_and_hostnames_sslsettings: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_sslsettings: JsonSchema = {
   "description": "SSL specific settings.",
   "properties": {
     "ciphers": {

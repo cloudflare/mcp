@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `dlp_SensitivityLevelArray` in responses.
  */
-export const dlp_SensitivityLevelArray_output: JsonSchema = {
+export const dlp_SensitivityLevelArray: JsonSchema = {
   "items": {
     "$ref": "#/$defs/dlp_SensitivityLevel"
   },

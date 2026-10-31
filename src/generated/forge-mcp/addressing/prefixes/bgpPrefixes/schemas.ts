@@ -4,29 +4,13 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `addressing_asn_prepend_count`.
- */
-export const addressing_asn_prepend_count: JsonSchema = {
-  "description": "Number of times to prepend the Cloudflare ASN to the BGP AS-Path attribute",
-  "type": "integer"
-};
-
-/**
- * The schema of `addressing_auto_advertise_withdraw`.
- */
-export const addressing_auto_advertise_withdraw: JsonSchema = {
-  "description": "Determines if Cloudflare advertises a BYOIP BGP prefix even when there is no matching BGP prefix in the Magic routing table. When true, Cloudflare will automatically withdraw the BGP prefix when there are no matching BGP routes, and will resume advertising when there is at least one matching BGP route.",
-  "type": "boolean"
-};
-
-/**
  * The schema of `addressing_bgp_prefix_create`.
  */
 export const addressing_bgp_prefix_create: JsonSchema = {
   "properties": {
     "cidr": {
-      "$ref": "#/$defs/addressing_cidr",
-      "description": "IP Prefix in Classless Inter-Domain Routing format."
+      "description": "IP Prefix in Classless Inter-Domain Routing format.",
+      "type": "string"
     }
   },
   "required": [
@@ -36,27 +20,19 @@ export const addressing_bgp_prefix_create: JsonSchema = {
 };
 
 /**
- * The schema of `addressing_bgp_prefix_identifier`.
- */
-export const addressing_bgp_prefix_identifier: JsonSchema = {
-  "description": "Identifier of BGP Prefix.",
-  "type": "string"
-};
-
-/**
  * The schema of `addressing_bgp_prefix_update_advertisement`.
  */
 export const addressing_bgp_prefix_update_advertisement: JsonSchema = {
   "properties": {
     "asn_prepend_count": {
-      "$ref": "#/$defs/addressing_asn_prepend_count",
       "default": 0,
-      "description": "Number of times to prepend the Cloudflare ASN to the BGP AS-Path attribute"
+      "description": "Number of times to prepend the Cloudflare ASN to the BGP AS-Path attribute",
+      "type": "integer"
     },
     "auto_advertise_withdraw": {
-      "$ref": "#/$defs/addressing_auto_advertise_withdraw",
       "default": false,
-      "description": "Determines if Cloudflare advertises a BYOIP BGP prefix even when there is no matching BGP prefix in the Magic routing table. When true, Cloudflare will automatically withdraw the BGP prefix when there are no matching BGP routes, and will resume advertising when there is at least one matching BGP route."
+      "description": "Determines if Cloudflare advertises a BYOIP BGP prefix even when there is no matching BGP prefix in the Magic routing table. When true, Cloudflare will automatically withdraw the BGP prefix when there are no matching BGP routes, and will resume advertising when there is at least one matching BGP route.",
+      "type": "boolean"
     },
     "on_demand": {
       "properties": {

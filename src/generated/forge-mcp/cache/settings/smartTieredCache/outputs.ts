@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `cache-settings_smart_tiered_cache` in responses.
  */
-export const cache_settings_smart_tiered_cache_output: JsonSchema = {
+export const cache$$settings_smart_tiered_cache: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/cache-settings_base"
@@ -29,7 +29,7 @@ export const cache_settings_smart_tiered_cache_output: JsonSchema = {
  * The schema of `cache-settings_smart_tiered_cache_response_value` in
  * responses.
  */
-export const cache_settings_smart_tiered_cache_response_value_output: JsonSchema = {
+export const cache$$settings_smart_tiered_cache_response_value: JsonSchema = {
   "properties": {
     "result": {
       "allOf": [
@@ -39,7 +39,11 @@ export const cache_settings_smart_tiered_cache_response_value_output: JsonSchema
         {
           "properties": {
             "value": {
-              "$ref": "#/$defs/cache-settings_smart_tiered_cache_value"
+              "enum": [
+                "on",
+                "off"
+              ],
+              "type": "string"
             }
           },
           "required": [
@@ -51,15 +55,4 @@ export const cache_settings_smart_tiered_cache_response_value_output: JsonSchema
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `cache-settings_smart_tiered_cache_value` in responses.
- */
-export const cache_settings_smart_tiered_cache_value_output: JsonSchema = {
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
 };

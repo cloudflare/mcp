@@ -7,7 +7,7 @@ import type { JsonSchema } from "../../_/tool.js";
  * The schema of `cloudforce-one-whois_api-response-common-failure` in
  * responses.
  */
-export const cloudforce_one_whois_api_response_common_failure_output: JsonSchema = {
+export const cloudforce$$one$$whois_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/cloudforce-one-whois_messages"
@@ -37,7 +37,7 @@ export const cloudforce_one_whois_api_response_common_failure_output: JsonSchema
 /**
  * The schema of `cloudforce-one-whois_api-response-single` in responses.
  */
-export const cloudforce_one_whois_api_response_single_output: JsonSchema = {
+export const cloudforce$$one$$whois_api$$response$$single: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/cloudforce-one-whois_schemas-messages"
@@ -61,16 +61,9 @@ export const cloudforce_one_whois_api_response_single_output: JsonSchema = {
 };
 
 /**
- * The schema of `cloudforce-one-whois_domain_name` in responses.
- */
-export const cloudforce_one_whois_domain_name_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `cloudforce-one-whois_messages` in responses.
  */
-export const cloudforce_one_whois_messages_output: JsonSchema = {
+export const cloudforce$$one$$whois_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -92,7 +85,7 @@ export const cloudforce_one_whois_messages_output: JsonSchema = {
 /**
  * The schema of `cloudforce-one-whois_schemas-messages` in responses.
  */
-export const cloudforce_one_whois_schemas_messages_output: JsonSchema = {
+export const cloudforce$$one$$whois_schemas$$messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -125,7 +118,7 @@ export const cloudforce_one_whois_schemas_messages_output: JsonSchema = {
 /**
  * The schema of `cloudforce-one-whois_schemas-single_response` in responses.
  */
-export const cloudforce_one_whois_schemas_single_response_output: JsonSchema = {
+export const cloudforce$$one$$whois_schemas$$single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/cloudforce-one-whois_api-response-single"
@@ -144,7 +137,7 @@ export const cloudforce_one_whois_schemas_single_response_output: JsonSchema = {
 /**
  * The schema of `cloudforce-one-whois_whois` in responses.
  */
-export const cloudforce_one_whois_whois_output: JsonSchema = {
+export const cloudforce$$one$$whois_whois: JsonSchema = {
   "properties": {
     "administrative_city": {
       "type": "string"
@@ -241,7 +234,7 @@ export const cloudforce_one_whois_whois_output: JsonSchema = {
       "type": "boolean"
     },
     "domain": {
-      "$ref": "#/$defs/cloudforce-one-whois_domain_name"
+      "type": "string"
     },
     "expiration_date": {
       "format": "date-time",

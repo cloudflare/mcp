@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `bill-subs-api_payment_method`.
  */
-export const bill_subs_api_payment_method: JsonSchema = {
+export const bill$$subs$$api_payment_method: JsonSchema = {
   "properties": {
     "address": {
       "description": "Billing address line 1.",

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `security-center_partnerSettings`.
  */
-export const security_center_partnerSettings: JsonSchema = {
+export const security$$center_partnerSettings: JsonSchema = {
   "properties": {
     "enabled": {
       "description": "Whether the partner integration is enabled for the account.",

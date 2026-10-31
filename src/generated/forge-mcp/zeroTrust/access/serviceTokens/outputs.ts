@@ -4,16 +4,9 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `access_client_secret` in responses.
- */
-export const access_client_secret_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `access_create_response` in responses.
  */
-export const access_create_response_output: JsonSchema = {
+export const access_create_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-single"
@@ -23,31 +16,47 @@ export const access_create_response_output: JsonSchema = {
         "result": {
           "properties": {
             "client_id": {
-              "$ref": "#/$defs/access_client_id"
+              "type": "string"
             },
             "client_secret": {
-              "$ref": "#/$defs/access_client_secret"
+              "type": "string"
             },
             "created_at": {
-              "$ref": "#/$defs/access_created_at"
+              "allOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "format": "date-time",
+                  "type": "string"
+                }
+              ]
             },
             "duration": {
-              "$ref": "#/$defs/access_duration"
+              "type": "string"
             },
             "enabled": {
-              "$ref": "#/$defs/access_enabled"
+              "type": "boolean"
             },
             "id": {
               "type": "string"
             },
             "name": {
-              "$ref": "#/$defs/access_name-2"
+              "type": "string"
             },
             "tags": {
               "$ref": "#/$defs/access_tags"
             },
             "updated_at": {
-              "$ref": "#/$defs/access_updated_at"
+              "allOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "format": "date-time",
+                  "type": "string"
+                }
+              ]
             }
           },
           "type": "object"
@@ -61,7 +70,7 @@ export const access_create_response_output: JsonSchema = {
 /**
  * The schema of `access_response_collection-4` in responses.
  */
-export const access_response_collection_4_output: JsonSchema = {
+export const access_response_collection$$4: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-collection"

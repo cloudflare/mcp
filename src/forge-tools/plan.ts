@@ -1,6 +1,8 @@
 import {
   buildRequest,
+  checkArguments,
   InvalidArguments,
+  param,
   type Args,
   type HttpRequest,
   type Tool
@@ -25,8 +27,11 @@ export interface PlanOptions {
 export type CallPlan =
   | { readonly kind: 'unknown' }
   | { readonly kind: 'invalid'; readonly message: string }
-  /** The tool takes an account, the caller left it out, and the session has more than one. */
-  | { readonly kind: 'needs_account' }
+  /**
+   * The tool takes an account, the caller left it out, and the session has
+   * more than one. `argument` is where it goes, such as `path.account_id`.
+   */
+  | { readonly kind: 'needs_account'; readonly argument: string }
   | (HttpRequest & {
       readonly kind: 'request'
       /** The tool's path template, such as `/accounts/{account_id}/d1/database`. */
@@ -44,22 +49,24 @@ export type CallPlan =
  * as it is.
  */
 export function planCall(tool: Tool, given: Args, options: PlanOptions): CallPlan {
-  const key = accountKey(tool, given)
-  let args = given
-  if (key && given[key] === undefined) {
-    if (!options.sessionAccountId) return { kind: 'needs_account' }
-    args = { ...given, [key]: options.sessionAccountId }
-  }
-
   let request: HttpRequest
+  let accountId: string | undefined
   try {
+    // Before filling in the account, so a misplaced account_id is reported as such.
+    checkArguments(tool, given)
+    const key = accountKey(tool, given)
+    let args = given
+    if (key && param(given, 'path', key) === undefined) {
+      if (!options.sessionAccountId) return { kind: 'needs_account', argument: `path.${key}` }
+      args = withPathParam(given, key, options.sessionAccountId)
+    }
     request = buildRequest(tool, args, options.baseUrl)
+    accountId = accountIdOf(args)
   } catch (error) {
     if (error instanceof InvalidArguments) return { kind: 'invalid', message: error.message }
     throw error
   }
   const permissions = permissionsOf(tool)
-  const accountId = accountIdOf(args)
   return {
     kind: 'request',
     ...request,
@@ -69,16 +76,28 @@ export function planCall(tool: Tool, given: Args, options: PlanOptions): CallPla
   }
 }
 
-/** The argument that names the account, when the tool takes one for these arguments. */
+/** The path parameter that names the account, when the tool takes one for these arguments. */
 function accountKey(tool: Tool, args: Args): string | undefined {
   if (tool.path.includes('{account_id}')) return 'account_id'
-  if (tool.path.startsWith(ACCOUNT_OR_ZONE_PREFIX) && args.account_or_zone === 'accounts') {
+  if (
+    tool.path.startsWith(ACCOUNT_OR_ZONE_PREFIX) &&
+    param(args, 'path', 'account_or_zone') === 'accounts'
+  ) {
     return 'account_or_zone_id'
   }
   return undefined
 }
 
+/** Returns `args` with the path parameter `key` set to `value`. */
+function withPathParam(args: Args, key: string, value: string): Args {
+  const path = (args.path ?? {}) as Readonly<Record<string, unknown>>
+  return { ...args, path: { ...path, [key]: value } }
+}
+
 function accountIdOf(args: Args): string | undefined {
-  const id = args.account_or_zone === 'accounts' ? args.account_or_zone_id : args.account_id
+  const id =
+    param(args, 'path', 'account_or_zone') === 'accounts'
+      ? param(args, 'path', 'account_or_zone_id')
+      : param(args, 'path', 'account_id')
   return typeof id === 'string' ? id : undefined
 }

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `magic-transit_api-response-common` in responses.
  */
-export const magic_transit_api_response_common_output: JsonSchema = {
+export const magic$$transit_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/magic-transit_messages"
@@ -32,7 +32,7 @@ export const magic_transit_api_response_common_output: JsonSchema = {
 /**
  * The schema of `magic-transit_api-response-common-failure` in responses.
  */
-export const magic_transit_api_response_common_failure_output: JsonSchema = {
+export const magic$$transit_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/magic-transit_messages"
@@ -69,7 +69,7 @@ export const magic_transit_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `magic-transit_messages` in responses.
  */
-export const magic_transit_messages_output: JsonSchema = {
+export const magic$$transit_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {

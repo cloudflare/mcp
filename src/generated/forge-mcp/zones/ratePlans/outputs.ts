@@ -4,45 +4,24 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `bill-subs-api_components-schemas-name` in responses.
- */
-export const bill_subs_api_components_schemas_name_output: JsonSchema = {
-  "enum": [
-    "zones",
-    "page_rules",
-    "dedicated_certificates",
-    "dedicated_certificates_custom"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `bill-subs-api_default` in responses.
- */
-export const bill_subs_api_default_output: JsonSchema = {
-  "type": "number"
-};
-
-/**
- * The schema of `bill-subs-api_duration` in responses.
- */
-export const bill_subs_api_duration_output: JsonSchema = {
-  "type": "number"
-};
-
-/**
  * The schema of `bill-subs-api_plan_component_value` in responses.
  */
-export const bill_subs_api_plan_component_value_output: JsonSchema = {
+export const bill$$subs$$api_plan_component_value: JsonSchema = {
   "properties": {
     "default": {
-      "$ref": "#/$defs/bill-subs-api_default"
+      "type": "number"
     },
     "name": {
-      "$ref": "#/$defs/bill-subs-api_components-schemas-name"
+      "enum": [
+        "zones",
+        "page_rules",
+        "dedicated_certificates",
+        "dedicated_certificates_custom"
+      ],
+      "type": "string"
     },
     "unit_price": {
-      "$ref": "#/$defs/bill-subs-api_unit_price"
+      "type": "number"
     }
   },
   "type": "object"
@@ -51,7 +30,7 @@ export const bill_subs_api_plan_component_value_output: JsonSchema = {
 /**
  * The schema of `bill-subs-api_plan_response_collection` in responses.
  */
-export const bill_subs_api_plan_response_collection_output: JsonSchema = {
+export const bill$$subs$$api_plan_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/bill-subs-api_api-response-collection"
@@ -71,17 +50,9 @@ export const bill_subs_api_plan_response_collection_output: JsonSchema = {
 };
 
 /**
- * The schema of `bill-subs-api_rate-plan_components-schemas-identifier` in
- * responses.
- */
-export const bill_subs_api_rate_plan_components_schemas_identifier_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `bill-subs-api_schemas-component_values` in responses.
  */
-export const bill_subs_api_schemas_component_values_output: JsonSchema = {
+export const bill$$subs$$api_schemas$$component_values: JsonSchema = {
   "items": {
     "$ref": "#/$defs/bill-subs-api_plan_component_value"
   },
@@ -91,33 +62,32 @@ export const bill_subs_api_schemas_component_values_output: JsonSchema = {
 /**
  * The schema of `bill-subs-api_schemas-rate-plan` in responses.
  */
-export const bill_subs_api_schemas_rate_plan_output: JsonSchema = {
+export const bill$$subs$$api_schemas$$rate$$plan: JsonSchema = {
   "properties": {
     "components": {
       "$ref": "#/$defs/bill-subs-api_schemas-component_values"
     },
     "currency": {
-      "$ref": "#/$defs/bill-subs-api_currency"
+      "type": "string"
     },
     "duration": {
-      "$ref": "#/$defs/bill-subs-api_duration"
+      "type": "number"
     },
     "frequency": {
-      "$ref": "#/$defs/bill-subs-api_schemas-frequency"
+      "enum": [
+        "weekly",
+        "monthly",
+        "quarterly",
+        "yearly"
+      ],
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/bill-subs-api_rate-plan_components-schemas-identifier"
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/bill-subs-api_schemas-name"
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `bill-subs-api_unit_price` in responses.
- */
-export const bill_subs_api_unit_price_output: JsonSchema = {
-  "type": "number"
 };

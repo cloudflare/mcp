@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `cloudforce-one_ResubmitApprovalRequest`.
  */
-export const cloudforce_one_ResubmitApprovalRequest: JsonSchema = {
+export const cloudforce$$one_ResubmitApprovalRequest: JsonSchema = {
   "properties": {
     "commit_message": {
       "type": "string"

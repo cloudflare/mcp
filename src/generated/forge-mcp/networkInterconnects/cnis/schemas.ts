@@ -39,32 +39,24 @@ export const nsc_BgpControl: JsonSchema = {
 };
 
 /**
- * The schema of `nsc_BgpMode`.
- */
-export const nsc_BgpMode: JsonSchema = {
-  "description": "The BGP mode for a CNI.\nOne of the following:\n* `dynamic_route_exchange`\n* `advertise_only`",
-  "enum": [
-    "dynamic_route_exchange",
-    "advertise_only"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `nsc_Cni`.
  */
 export const nsc_Cni: JsonSchema = {
   "properties": {
     "account": {
-      "$ref": "#/$defs/nsc_AccountTag",
-      "description": "Customer account tag"
+      "description": "Customer account tag",
+      "type": "string"
     },
     "bgp": {
       "$ref": "#/$defs/nsc_BgpControl"
     },
     "bgp_mode": {
-      "$ref": "#/$defs/nsc_BgpMode",
-      "description": "The BGP mode for a CNI.\nOne of the following:\n* `dynamic_route_exchange`\n* `advertise_only`"
+      "description": "The BGP mode for a CNI.\nOne of the following:\n* `dynamic_route_exchange`\n* `advertise_only`",
+      "enum": [
+        "dynamic_route_exchange",
+        "advertise_only"
+      ],
+      "type": "string"
     },
     "cust_ip": {
       "description": "Customer end of the point-to-point link\n\nThis should always be inside the same prefix as `p2p_ip`.",
@@ -103,8 +95,8 @@ export const nsc_Cni: JsonSchema = {
 export const nsc_CniCreate: JsonSchema = {
   "properties": {
     "account": {
-      "$ref": "#/$defs/nsc_AccountTag",
-      "description": "Customer account tag"
+      "description": "Customer account tag",
+      "type": "string"
     },
     "bgp": {
       "$ref": "#/$defs/nsc_BgpControl"

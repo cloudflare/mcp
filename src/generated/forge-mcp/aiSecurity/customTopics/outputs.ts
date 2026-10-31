@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `waf-product-api-bundle_custom-topic` in responses.
  */
-export const waf_product_api_bundle_custom_topic_output: JsonSchema = {
+export const waf$$product$$api$$bundle_custom$$topic: JsonSchema = {
   "properties": {
     "label": {
       "type": "string"
@@ -25,7 +25,7 @@ export const waf_product_api_bundle_custom_topic_output: JsonSchema = {
 /**
  * The schema of `waf-product-api-bundle_custom-topics` in responses.
  */
-export const waf_product_api_bundle_custom_topics_output: JsonSchema = {
+export const waf$$product$$api$$bundle_custom$$topics: JsonSchema = {
   "properties": {
     "topics": {
       "items": {
@@ -41,7 +41,7 @@ export const waf_product_api_bundle_custom_topics_output: JsonSchema = {
 /**
  * The schema of `waf-product-api-bundle_response-custom-topics` in responses.
  */
-export const waf_product_api_bundle_response_custom_topics_output: JsonSchema = {
+export const waf$$product$$api$$bundle_response$$custom$$topics: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/waf-product-api-bundle_api-response-single"

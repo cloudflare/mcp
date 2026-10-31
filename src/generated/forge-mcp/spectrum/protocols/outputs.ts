@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `spectrum-config_app_protocol` in responses.
  */
-export const spectrum_config_app_protocol_output: JsonSchema = {
+export const spectrum$$config_app_protocol: JsonSchema = {
   "properties": {
     "description": {
       "type": "string"
@@ -36,7 +36,7 @@ export const spectrum_config_app_protocol_output: JsonSchema = {
 /**
  * The schema of `spectrum-config_protocol_collection` in responses.
  */
-export const spectrum_config_protocol_collection_output: JsonSchema = {
+export const spectrum$$config_protocol_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/spectrum-config_api-response-collection"

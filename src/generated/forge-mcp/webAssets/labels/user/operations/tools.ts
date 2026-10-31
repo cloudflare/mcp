@@ -3,70 +3,69 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  api_shield_api_response_common_failure_output,
-  api_shield_api_response_common_output,
-  api_shield_messages_output,
-  api_shield_timestamp_2_output,
-  api_shield_timestamp_output,
+  api$$shield_api$$response$$common,
+  api$$shield_api$$response$$common$$failure,
+  api$$shield_messages,
 } from "../../../../outputs.js";
 import {
-  api_shield_identifier,
-  api_shield_identifier_2,
-  api_shield_uuid,
-  api_shield_uuid_2,
-} from "../../../../schemas.js";
-import {
-  api_shield_label_description_output,
-  api_shield_label_metadata_output,
-  api_shield_label_name_output,
-  api_shield_label_output,
-  api_shield_label_source_output,
+  api$$shield_label,
+  api$$shield_label_metadata,
 } from "../../../outputs.js";
+import { api$$shield_operation_id_selector } from "../../../schemas.js";
 import {
-  api_shield_label_name,
-  api_shield_operation_id_selector,
-} from "../../../schemas.js";
-import {
-  api_shield_full_label_output,
-  api_shield_label_mapped_resources_output,
+  api$$shield_full_label,
+  api$$shield_label_mapped_resources,
 } from "../../outputs.js";
-import { api_shield_replace_operations_attached_to_label_request } from "../../schemas.js";
+import { api$$shield_replace_operations_attached_to_label_request } from "../../schemas.js";
 
 /**
- * The tools of `web_assets.labels.user.operations`.
+ * The tools of `webAssets.labels.user.operations`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "web_assets_labels_user_operations_update",
+    name: "webAssets_labels_user_operations_update",
     title: "Replace operations attached to a user-defined label",
-    description: "Replaces the complete set of web and API operations attached to the user-defined label.",
+    description: "Replaces the complete set of web and API operations attached to the user-defined label.\n\nPUT /zones/{zone_id}/api_gateway/labels/user/{name}/resources/operation",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "$ref": "#/$defs/api-shield_replace_operations_attached_to_label_request"
         },
-        "name": {
-          "$ref": "#/$defs/api-shield_label_name",
-          "description": "The label name"
-        },
-        "zone_id": {
-          "$ref": "#/$defs/api-shield_identifier-2"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "description": "The label name",
+              "type": "string"
+            },
+            "zone_id": {
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "required": [
+            "zone_id",
+            "name"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
-        "name",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "api-shield_identifier": api_shield_identifier,
-        "api-shield_identifier-2": api_shield_identifier_2,
-        "api-shield_label_name": api_shield_label_name,
-        "api-shield_operation_id_selector": api_shield_operation_id_selector,
-        "api-shield_replace_operations_attached_to_label_request": api_shield_replace_operations_attached_to_label_request,
-        "api-shield_uuid": api_shield_uuid,
-        "api-shield_uuid-2": api_shield_uuid_2,
+        "api-shield_operation_id_selector": api$$shield_operation_id_selector,
+        "api-shield_replace_operations_attached_to_label_request": api$$shield_replace_operations_attached_to_label_request,
       },
     },
     outputSchema: {
@@ -87,17 +86,12 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "api-shield_api-response-common": api_shield_api_response_common_output,
-        "api-shield_full_label": api_shield_full_label_output,
-        "api-shield_label": api_shield_label_output,
-        "api-shield_label_description": api_shield_label_description_output,
-        "api-shield_label_mapped_resources": api_shield_label_mapped_resources_output,
-        "api-shield_label_metadata": api_shield_label_metadata_output,
-        "api-shield_label_name": api_shield_label_name_output,
-        "api-shield_label_source": api_shield_label_source_output,
-        "api-shield_messages": api_shield_messages_output,
-        "api-shield_timestamp": api_shield_timestamp_output,
-        "api-shield_timestamp-2": api_shield_timestamp_2_output,
+        "api-shield_api-response-common": api$$shield_api$$response$$common,
+        "api-shield_full_label": api$$shield_full_label,
+        "api-shield_label": api$$shield_label,
+        "api-shield_label_mapped_resources": api$$shield_label_mapped_resources,
+        "api-shield_label_metadata": api$$shield_label_metadata,
+        "api-shield_messages": api$$shield_messages,
       },
     },
     annotations: {
@@ -140,18 +134,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "api-shield_api-response-common": api_shield_api_response_common_output,
-        "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
-        "api-shield_full_label": api_shield_full_label_output,
-        "api-shield_label": api_shield_label_output,
-        "api-shield_label_description": api_shield_label_description_output,
-        "api-shield_label_mapped_resources": api_shield_label_mapped_resources_output,
-        "api-shield_label_metadata": api_shield_label_metadata_output,
-        "api-shield_label_name": api_shield_label_name_output,
-        "api-shield_label_source": api_shield_label_source_output,
-        "api-shield_messages": api_shield_messages_output,
-        "api-shield_timestamp": api_shield_timestamp_output,
-        "api-shield_timestamp-2": api_shield_timestamp_2_output,
+        "api-shield_api-response-common": api$$shield_api$$response$$common,
+        "api-shield_api-response-common-failure": api$$shield_api$$response$$common$$failure,
+        "api-shield_full_label": api$$shield_full_label,
+        "api-shield_label": api$$shield_label,
+        "api-shield_label_mapped_resources": api$$shield_label_mapped_resources,
+        "api-shield_label_metadata": api$$shield_label_metadata,
+        "api-shield_messages": api$$shield_messages,
       },
     },
     request: (args) => ({

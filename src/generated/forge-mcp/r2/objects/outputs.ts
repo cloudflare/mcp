@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `r2_r2_delete_object_result` in responses.
  */
-export const r2_r2_delete_object_result_output: JsonSchema = {
+export const r2_r2_delete_object_result: JsonSchema = {
   "properties": {
     "key": {
       "type": "string"
@@ -18,7 +18,7 @@ export const r2_r2_delete_object_result_output: JsonSchema = {
 /**
  * The schema of `r2_r2_list_objects_result_info` in responses.
  */
-export const r2_r2_list_objects_result_info_output: JsonSchema = {
+export const r2_r2_list_objects_result_info: JsonSchema = {
   "properties": {
     "cursor": {
       "type": "string"
@@ -42,7 +42,7 @@ export const r2_r2_list_objects_result_info_output: JsonSchema = {
 /**
  * The schema of `r2_r2_object` in responses.
  */
-export const r2_r2_object_output: JsonSchema = {
+export const r2_r2_object: JsonSchema = {
   "properties": {
     "custom_metadata": {
       "additionalProperties": {
@@ -70,7 +70,11 @@ export const r2_r2_object_output: JsonSchema = {
       "type": "boolean"
     },
     "storage_class": {
-      "$ref": "#/$defs/r2_storage_class"
+      "enum": [
+        "Standard",
+        "InfrequentAccess"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
@@ -79,7 +83,7 @@ export const r2_r2_object_output: JsonSchema = {
 /**
  * The schema of `r2_r2_object_http_metadata` in responses.
  */
-export const r2_r2_object_http_metadata_output: JsonSchema = {
+export const r2_r2_object_http_metadata: JsonSchema = {
   "properties": {
     "cacheControl": {
       "type": "string"

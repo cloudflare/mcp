@@ -73,7 +73,7 @@ export const realtimekit_Preset: JsonSchema = {
                   "type": "number"
                 },
                 "quality": {
-                  "description": "Quality of screen share ",
+                  "description": "Quality of screen share",
                   "enum": [
                     "hd",
                     "vga",
@@ -692,7 +692,7 @@ export const realtimekit_UpdatePreset: JsonSchema = {
                   "type": "number"
                 },
                 "quality": {
-                  "description": "Quality of screen share ",
+                  "description": "Quality of screen share",
                   "enum": [
                     "hd",
                     "vga",

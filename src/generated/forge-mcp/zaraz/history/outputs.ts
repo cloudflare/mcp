@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `zaraz_zaraz-config-row-base` in responses.
  */
-export const zaraz_zaraz_config_row_base_output: JsonSchema = {
+export const zaraz_zaraz$$config$$row$$base: JsonSchema = {
   "properties": {
     "createdAt": {
       "format": "date-time",
@@ -35,7 +35,7 @@ export const zaraz_zaraz_config_row_base_output: JsonSchema = {
 /**
  * The schema of `zaraz_zaraz-history-response` in responses.
  */
-export const zaraz_zaraz_history_response_output: JsonSchema = {
+export const zaraz_zaraz$$history$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zaraz_api-response-common"

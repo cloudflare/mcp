@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `zone-activation_api-response-common-failure` in responses.
  */
-export const zone_activation_api_response_common_failure_output: JsonSchema = {
+export const zone$$activation_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/zone-activation_messages"
@@ -36,7 +36,7 @@ export const zone_activation_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `zone-activation_api-response-single` in responses.
  */
-export const zone_activation_api_response_single_output: JsonSchema = {
+export const zone$$activation_api$$response$$single: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/zone-activation_messages"
@@ -60,16 +60,9 @@ export const zone_activation_api_response_single_output: JsonSchema = {
 };
 
 /**
- * The schema of `zone-activation_identifier` in responses.
- */
-export const zone_activation_identifier_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `zone-activation_messages` in responses.
  */
-export const zone_activation_messages_output: JsonSchema = {
+export const zone$$activation_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `cloudflare-k2_K2ConsumerLag` in responses.
  */
-export const cloudflare_k2_K2ConsumerLag_output: JsonSchema = {
+export const cloudflare$$k2_K2ConsumerLag: JsonSchema = {
   "properties": {
     "records": {
       "oneOf": [
@@ -37,7 +37,7 @@ export const cloudflare_k2_K2ConsumerLag_output: JsonSchema = {
 /**
  * The schema of `cloudflare-k2_K2MonitoredSubscription` in responses.
  */
-export const cloudflare_k2_K2MonitoredSubscription_output: JsonSchema = {
+export const cloudflare$$k2_K2MonitoredSubscription: JsonSchema = {
   "properties": {
     "created_at": {
       "format": "date-time",
@@ -87,7 +87,7 @@ export const cloudflare_k2_K2MonitoredSubscription_output: JsonSchema = {
  * The schema of `cloudflare-k2_K2MonitoredSubscriptionListResponse` in
  * responses.
  */
-export const cloudflare_k2_K2MonitoredSubscriptionListResponse_output: JsonSchema = {
+export const cloudflare$$k2_K2MonitoredSubscriptionListResponse: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/cloudflare-k2_workers-k2-messages"
@@ -102,7 +102,7 @@ export const cloudflare_k2_K2MonitoredSubscriptionListResponse_output: JsonSchem
       "type": "array"
     },
     "success": {
-      "$ref": "#/$defs/cloudflare-k2_workers-k2-common-success"
+      "type": "boolean"
     }
   },
   "required": [

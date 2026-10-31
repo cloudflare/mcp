@@ -3,13 +3,12 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  argo_analytics_api_response_common_failure_output,
-  argo_analytics_api_response_common_output,
-  argo_analytics_api_response_single_output,
-  argo_analytics_messages_output,
-  argo_analytics_response_single_output,
+  argo$$analytics_api$$response$$common,
+  argo$$analytics_api$$response$$common$$failure,
+  argo$$analytics_api$$response$$single,
+  argo$$analytics_messages,
+  argo$$analytics_response_single,
 } from "../outputs.js";
-import { argo_analytics_identifier } from "../schemas.js";
 
 /**
  * The tools of `analytics.latency.colos`.
@@ -18,29 +17,36 @@ export const tools: readonly Tool[] = [
   {
     name: "analytics_latency_colos_get",
     title: "Argo Analytics for a zone at different PoPs",
-    description: "Retrieves Argo Smart Routing analytics broken down by geographic points of presence (PoPs). Shows latency improvements and routing efficiency per location.",
+    description: "Retrieves Argo Smart Routing analytics broken down by geographic points of presence (PoPs). Shows latency improvements and routing efficiency per location.\n\nGET /zones/{zone_id}/analytics/latency/colos",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/argo-analytics_identifier",
-          "description": "Identifier"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
-      $defs: {
-        "argo-analytics_identifier": argo_analytics_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/argo-analytics_response_single",
       $defs: {
-        "argo-analytics_api-response-common": argo_analytics_api_response_common_output,
-        "argo-analytics_api-response-single": argo_analytics_api_response_single_output,
-        "argo-analytics_messages": argo_analytics_messages_output,
-        "argo-analytics_response_single": argo_analytics_response_single_output,
+        "argo-analytics_api-response-common": argo$$analytics_api$$response$$common,
+        "argo-analytics_api-response-single": argo$$analytics_api$$response$$single,
+        "argo-analytics_messages": argo$$analytics_messages,
+        "argo-analytics_response_single": argo$$analytics_response_single,
       },
     },
     annotations: {
@@ -80,11 +86,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "argo-analytics_api-response-common": argo_analytics_api_response_common_output,
-        "argo-analytics_api-response-common-failure": argo_analytics_api_response_common_failure_output,
-        "argo-analytics_api-response-single": argo_analytics_api_response_single_output,
-        "argo-analytics_messages": argo_analytics_messages_output,
-        "argo-analytics_response_single": argo_analytics_response_single_output,
+        "argo-analytics_api-response-common": argo$$analytics_api$$response$$common,
+        "argo-analytics_api-response-common-failure": argo$$analytics_api$$response$$common$$failure,
+        "argo-analytics_api-response-single": argo$$analytics_api$$response$$single,
+        "argo-analytics_messages": argo$$analytics_messages,
+        "argo-analytics_response_single": argo$$analytics_response_single,
       },
     },
     request: (args) => ({

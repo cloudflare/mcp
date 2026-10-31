@@ -3,16 +3,16 @@
 
 import type { Tool } from "../../_/tool.js";
 import {
-  bill_subs_api_api_response_common_failure_output,
-  bill_subs_api_api_response_common_output,
-  bill_subs_api_api_response_single_output,
-  bill_subs_api_messages_output,
+  bill$$subs$$api_api$$response$$common,
+  bill$$subs$$api_api$$response$$common$$failure,
+  bill$$subs$$api_api$$response$$single,
+  bill$$subs$$api_messages,
 } from "../../outputs.js";
 import {
-  bill_subs_api_address_validation_response_single_output,
-  bill_subs_api_validated_address_output,
+  bill$$subs$$api_address_validation_response_single,
+  bill$$subs$$api_validated_address,
 } from "./outputs.js";
-import { bill_subs_api_address_validation_request } from "./schemas.js";
+import { bill$$subs$$api_address_validation_request } from "./schemas.js";
 
 /**
  * The tools of `billing.addresses`.
@@ -21,7 +21,7 @@ export const tools: readonly Tool[] = [
   {
     name: "billing_addresses_validate",
     title: "Validate Billing Address",
-    description: "Validates a billing address and returns validated address suggestions. Authentication is not enforced to support pre-signup address validation flows, so credentials are accepted but not required.",
+    description: "Validates a billing address and returns validated address suggestions. Authentication is not enforced to support pre-signup address validation flows, so credentials are accepted but not required.\n\nPOST /billing/address-validation",
     inputSchema: {
       type: "object",
       properties: {
@@ -32,18 +32,19 @@ export const tools: readonly Tool[] = [
       required: [
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "bill-subs-api_address_validation_request": bill_subs_api_address_validation_request,
+        "bill-subs-api_address_validation_request": bill$$subs$$api_address_validation_request,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/bill-subs-api_address_validation_response_single",
       $defs: {
-        "bill-subs-api_address_validation_response_single": bill_subs_api_address_validation_response_single_output,
-        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
-        "bill-subs-api_api-response-single": bill_subs_api_api_response_single_output,
-        "bill-subs-api_messages": bill_subs_api_messages_output,
-        "bill-subs-api_validated_address": bill_subs_api_validated_address_output,
+        "bill-subs-api_address_validation_response_single": bill$$subs$$api_address_validation_response_single,
+        "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
+        "bill-subs-api_api-response-single": bill$$subs$$api_api$$response$$single,
+        "bill-subs-api_messages": bill$$subs$$api_messages,
+        "bill-subs-api_validated_address": bill$$subs$$api_validated_address,
       },
     },
     annotations: {
@@ -73,12 +74,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "bill-subs-api_address_validation_response_single": bill_subs_api_address_validation_response_single_output,
-        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
-        "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
-        "bill-subs-api_api-response-single": bill_subs_api_api_response_single_output,
-        "bill-subs-api_messages": bill_subs_api_messages_output,
-        "bill-subs-api_validated_address": bill_subs_api_validated_address_output,
+        "bill-subs-api_address_validation_response_single": bill$$subs$$api_address_validation_response_single,
+        "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
+        "bill-subs-api_api-response-common-failure": bill$$subs$$api_api$$response$$common$$failure,
+        "bill-subs-api_api-response-single": bill$$subs$$api_api$$response$$single,
+        "bill-subs-api_messages": bill$$subs$$api_messages,
+        "bill-subs-api_validated_address": bill$$subs$$api_validated_address,
       },
     },
     request: (args) => ({

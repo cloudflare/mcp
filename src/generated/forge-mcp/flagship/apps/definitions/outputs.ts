@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `flagship_EvaluationRule` in responses.
  */
-export const flagship_EvaluationRule_output: JsonSchema = {
+export const flagship_EvaluationRule: JsonSchema = {
   "properties": {
     "conditions": {
       "items": {
@@ -42,7 +42,7 @@ export const flagship_EvaluationRule_output: JsonSchema = {
 /**
  * The schema of `flagship_FlagDefinitions` in responses.
  */
-export const flagship_FlagDefinitions_output: JsonSchema = {
+export const flagship_FlagDefinitions: JsonSchema = {
   "properties": {
     "flags": {
       "additionalProperties": {

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `hyperdrive_hyperdrive-caching`.
  */
-export const hyperdrive_hyperdrive_caching: JsonSchema = {
+export const hyperdrive_hyperdrive$$caching: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/hyperdrive_hyperdrive-caching-disabled"
@@ -20,7 +20,7 @@ export const hyperdrive_hyperdrive_caching: JsonSchema = {
 /**
  * The schema of `hyperdrive_hyperdrive-caching-common`.
  */
-export const hyperdrive_hyperdrive_caching_common: JsonSchema = {
+export const hyperdrive_hyperdrive$$caching$$common: JsonSchema = {
   "properties": {
     "disabled": {
       "description": "Set to true to disable caching of SQL responses. Default is false.",
@@ -33,7 +33,7 @@ export const hyperdrive_hyperdrive_caching_common: JsonSchema = {
 /**
  * The schema of `hyperdrive_hyperdrive-caching-create`.
  */
-export const hyperdrive_hyperdrive_caching_create: JsonSchema = {
+export const hyperdrive_hyperdrive$$caching$$create: JsonSchema = {
   "anyOf": [
     {
       "$ref": "#/$defs/hyperdrive_hyperdrive-caching-create-disabled"
@@ -47,7 +47,7 @@ export const hyperdrive_hyperdrive_caching_create: JsonSchema = {
 /**
  * The schema of `hyperdrive_hyperdrive-caching-create-disabled`.
  */
-export const hyperdrive_hyperdrive_caching_create_disabled: JsonSchema = {
+export const hyperdrive_hyperdrive$$caching$$create$$disabled: JsonSchema = {
   "description": "Caching disabled",
   "properties": {
     "disabled": {
@@ -86,7 +86,7 @@ export const hyperdrive_hyperdrive_caching_create_disabled: JsonSchema = {
 /**
  * The schema of `hyperdrive_hyperdrive-caching-create-enabled`.
  */
-export const hyperdrive_hyperdrive_caching_create_enabled: JsonSchema = {
+export const hyperdrive_hyperdrive$$caching$$create$$enabled: JsonSchema = {
   "description": "Caching enabled",
   "properties": {
     "disabled": {
@@ -124,7 +124,7 @@ export const hyperdrive_hyperdrive_caching_create_enabled: JsonSchema = {
 /**
  * The schema of `hyperdrive_hyperdrive-caching-disabled`.
  */
-export const hyperdrive_hyperdrive_caching_disabled: JsonSchema = {
+export const hyperdrive_hyperdrive$$caching$$disabled: JsonSchema = {
   "description": "Caching disabled",
   "properties": {
     "disabled": {
@@ -138,7 +138,7 @@ export const hyperdrive_hyperdrive_caching_disabled: JsonSchema = {
 /**
  * The schema of `hyperdrive_hyperdrive-caching-enabled`.
  */
-export const hyperdrive_hyperdrive_caching_enabled: JsonSchema = {
+export const hyperdrive_hyperdrive$$caching$$enabled: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/hyperdrive_hyperdrive-caching-common"
@@ -163,7 +163,7 @@ export const hyperdrive_hyperdrive_caching_enabled: JsonSchema = {
 /**
  * The schema of `hyperdrive_hyperdrive-config`.
  */
-export const hyperdrive_hyperdrive_config: JsonSchema = {
+export const hyperdrive_hyperdrive$$config: JsonSchema = {
   "properties": {
     "caching": {
       "$ref": "#/$defs/hyperdrive_hyperdrive-caching"
@@ -173,16 +173,16 @@ export const hyperdrive_hyperdrive_config: JsonSchema = {
       "description": "mTLS configuration for the origin connection. Cannot be used with VPC Service origins; TLS must be managed on the VPC Service."
     },
     "name": {
-      "$ref": "#/$defs/hyperdrive_hyperdrive-name",
-      "description": "The name of the Hyperdrive configuration. Used to identify the configuration in the Cloudflare dashboard and API."
+      "description": "The name of the Hyperdrive configuration. Used to identify the configuration in the Cloudflare dashboard and API.",
+      "type": "string"
     },
     "origin": {
       "$ref": "#/$defs/hyperdrive_hyperdrive-origin-full",
       "description": "Combines database connection fields with exactly one supported network location."
     },
     "origin_connection_limit": {
-      "$ref": "#/$defs/hyperdrive_hyperdrive-origin-connection-limit",
-      "description": "The (soft) maximum number of connections the Hyperdrive is allowed to make to the origin database.\n\nMaximum allowed: 20 for free tier accounts, 100 for paid tier accounts.\nIf not specified, defaults to 20 for free tier and 60 for paid tier.\nCertain Cloudflare-managed origins may be permitted a higher limit.\nContact Cloudflare if you need a higher limit.\n"
+      "description": "The (soft) maximum number of connections the Hyperdrive is allowed to make to the origin database.\n\nMaximum allowed: 20 for free tier accounts, 100 for paid tier accounts.\nIf not specified, defaults to 20 for free tier and 60 for paid tier.\nCertain Cloudflare-managed origins may be permitted a higher limit.\nContact Cloudflare if you need a higher limit.",
+      "type": "integer"
     }
   },
   "required": [
@@ -195,7 +195,7 @@ export const hyperdrive_hyperdrive_config: JsonSchema = {
 /**
  * The schema of `hyperdrive_hyperdrive-config-create`.
  */
-export const hyperdrive_hyperdrive_config_create: JsonSchema = {
+export const hyperdrive_hyperdrive$$config$$create: JsonSchema = {
   "description": "A request to create a Hyperdrive configuration using exactly one of caller-supplied origin credentials or a managed integration.",
   "oneOf": [
     {
@@ -210,7 +210,7 @@ export const hyperdrive_hyperdrive_config_create: JsonSchema = {
 /**
  * The schema of `hyperdrive_hyperdrive-config-create-common`.
  */
-export const hyperdrive_hyperdrive_config_create_common: JsonSchema = {
+export const hyperdrive_hyperdrive$$config$$create$$common: JsonSchema = {
   "properties": {
     "caching": {
       "$ref": "#/$defs/hyperdrive_hyperdrive-caching-create"
@@ -220,12 +220,12 @@ export const hyperdrive_hyperdrive_config_create_common: JsonSchema = {
       "description": "mTLS configuration for the origin connection. Cannot be used with VPC Service origins; TLS must be managed on the VPC Service."
     },
     "name": {
-      "$ref": "#/$defs/hyperdrive_hyperdrive-name",
-      "description": "The name of the Hyperdrive configuration. Used to identify the configuration in the Cloudflare dashboard and API."
+      "description": "The name of the Hyperdrive configuration. Used to identify the configuration in the Cloudflare dashboard and API.",
+      "type": "string"
     },
     "origin_connection_limit": {
-      "$ref": "#/$defs/hyperdrive_hyperdrive-origin-connection-limit",
-      "description": "The (soft) maximum number of connections the Hyperdrive is allowed to make to the origin database.\n\nMaximum allowed: 20 for free tier accounts, 100 for paid tier accounts.\nIf not specified, defaults to 20 for free tier and 60 for paid tier.\nCertain Cloudflare-managed origins may be permitted a higher limit.\nContact Cloudflare if you need a higher limit.\n"
+      "description": "The (soft) maximum number of connections the Hyperdrive is allowed to make to the origin database.\n\nMaximum allowed: 20 for free tier accounts, 100 for paid tier accounts.\nIf not specified, defaults to 20 for free tier and 60 for paid tier.\nCertain Cloudflare-managed origins may be permitted a higher limit.\nContact Cloudflare if you need a higher limit.",
+      "type": "integer"
     }
   },
   "required": [
@@ -237,7 +237,7 @@ export const hyperdrive_hyperdrive_config_create_common: JsonSchema = {
 /**
  * The schema of `hyperdrive_hyperdrive-config-create-with-integration`.
  */
-export const hyperdrive_hyperdrive_config_create_with_integration: JsonSchema = {
+export const hyperdrive_hyperdrive$$config$$create$$with$$integration: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/hyperdrive_hyperdrive-config-create-common"
@@ -271,7 +271,7 @@ export const hyperdrive_hyperdrive_config_create_with_integration: JsonSchema = 
 /**
  * The schema of `hyperdrive_hyperdrive-config-create-with-origin`.
  */
-export const hyperdrive_hyperdrive_config_create_with_origin: JsonSchema = {
+export const hyperdrive_hyperdrive$$config$$create$$with$$origin: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/hyperdrive_hyperdrive-config-create-common"
@@ -305,7 +305,7 @@ export const hyperdrive_hyperdrive_config_create_with_origin: JsonSchema = {
 /**
  * The schema of `hyperdrive_hyperdrive-config-patch`.
  */
-export const hyperdrive_hyperdrive_config_patch: JsonSchema = {
+export const hyperdrive_hyperdrive$$config$$patch: JsonSchema = {
   "properties": {
     "caching": {
       "$ref": "#/$defs/hyperdrive_hyperdrive-caching"
@@ -335,8 +335,8 @@ export const hyperdrive_hyperdrive_config_patch: JsonSchema = {
       ]
     },
     "origin_connection_limit": {
-      "$ref": "#/$defs/hyperdrive_hyperdrive-origin-connection-limit",
-      "description": "The (soft) maximum number of connections the Hyperdrive is allowed to make to the origin database.\n\nMaximum allowed: 20 for free tier accounts, 100 for paid tier accounts.\nIf not specified, defaults to 20 for free tier and 60 for paid tier.\nCertain Cloudflare-managed origins may be permitted a higher limit.\nContact Cloudflare if you need a higher limit.\n"
+      "description": "The (soft) maximum number of connections the Hyperdrive is allowed to make to the origin database.\n\nMaximum allowed: 20 for free tier accounts, 100 for paid tier accounts.\nIf not specified, defaults to 20 for free tier and 60 for paid tier.\nCertain Cloudflare-managed origins may be permitted a higher limit.\nContact Cloudflare if you need a higher limit.",
+      "type": "integer"
     }
   },
   "type": "object"
@@ -345,7 +345,7 @@ export const hyperdrive_hyperdrive_config_patch: JsonSchema = {
 /**
  * The schema of `hyperdrive_hyperdrive-database`.
  */
-export const hyperdrive_hyperdrive_database: JsonSchema = {
+export const hyperdrive_hyperdrive$$database: JsonSchema = {
   "description": "Connection Options",
   "properties": {
     "database": {
@@ -357,8 +357,13 @@ export const hyperdrive_hyperdrive_database: JsonSchema = {
       "type": "string"
     },
     "scheme": {
-      "$ref": "#/$defs/hyperdrive_hyperdrive-scheme",
-      "description": "Specifies the URL scheme used to connect to your origin database."
+      "description": "Specifies the URL scheme used to connect to your origin database.",
+      "enum": [
+        "postgres",
+        "postgresql",
+        "mysql"
+      ],
+      "type": "string"
     },
     "user": {
       "description": "Set the user of your origin database.",
@@ -371,7 +376,7 @@ export const hyperdrive_hyperdrive_database: JsonSchema = {
 /**
  * The schema of `hyperdrive_hyperdrive-database-full`.
  */
-export const hyperdrive_hyperdrive_database_full: JsonSchema = {
+export const hyperdrive_hyperdrive$$database$$full: JsonSchema = {
   "properties": {
     "database": {
       "description": "Set the name of your origin database.",
@@ -382,8 +387,13 @@ export const hyperdrive_hyperdrive_database_full: JsonSchema = {
       "type": "string"
     },
     "scheme": {
-      "$ref": "#/$defs/hyperdrive_hyperdrive-scheme",
-      "description": "Specifies the URL scheme used to connect to your origin database."
+      "description": "Specifies the URL scheme used to connect to your origin database.",
+      "enum": [
+        "postgres",
+        "postgresql",
+        "mysql"
+      ],
+      "type": "string"
     },
     "user": {
       "description": "Set the user of your origin database.",
@@ -400,20 +410,9 @@ export const hyperdrive_hyperdrive_database_full: JsonSchema = {
 };
 
 /**
- * The schema of `hyperdrive_hyperdrive-integration-provider`.
- */
-export const hyperdrive_hyperdrive_integration_provider: JsonSchema = {
-  "description": "The database integration provider used by this operation.",
-  "enum": [
-    "planetscale"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `hyperdrive_hyperdrive-mtls`.
  */
-export const hyperdrive_hyperdrive_mtls: JsonSchema = {
+export const hyperdrive_hyperdrive$$mtls: JsonSchema = {
   "description": "mTLS configuration for the origin connection. Cannot be used with VPC Service origins; TLS must be managed on the VPC Service.",
   "properties": {
     "ca_certificate_id": {
@@ -433,25 +432,9 @@ export const hyperdrive_hyperdrive_mtls: JsonSchema = {
 };
 
 /**
- * The schema of `hyperdrive_hyperdrive-name`.
- */
-export const hyperdrive_hyperdrive_name: JsonSchema = {
-  "description": "The name of the Hyperdrive configuration. Used to identify the configuration in the Cloudflare dashboard and API.",
-  "type": "string"
-};
-
-/**
- * The schema of `hyperdrive_hyperdrive-origin-connection-limit`.
- */
-export const hyperdrive_hyperdrive_origin_connection_limit: JsonSchema = {
-  "description": "The (soft) maximum number of connections the Hyperdrive is allowed to make to the origin database.\n\nMaximum allowed: 20 for free tier accounts, 100 for paid tier accounts.\nIf not specified, defaults to 20 for free tier and 60 for paid tier.\nCertain Cloudflare-managed origins may be permitted a higher limit.\nContact Cloudflare if you need a higher limit.\n",
-  "type": "integer"
-};
-
-/**
  * The schema of `hyperdrive_hyperdrive-origin-full`.
  */
-export const hyperdrive_hyperdrive_origin_full: JsonSchema = {
+export const hyperdrive_hyperdrive$$origin$$full: JsonSchema = {
   "description": "Combines database connection fields with exactly one supported network location.",
   "oneOf": [
     {
@@ -490,7 +473,7 @@ export const hyperdrive_hyperdrive_origin_full: JsonSchema = {
 /**
  * The schema of `hyperdrive_hyperdrive-planet-scale-integration`.
  */
-export const hyperdrive_hyperdrive_planet_scale_integration: JsonSchema = {
+export const hyperdrive_hyperdrive$$planet$$scale$$integration: JsonSchema = {
   "description": "Selects a PlanetScale database and provisions credentials managed by Cloudflare when creating a Hyperdrive configuration. The Cloudflare account must already be linked to PlanetScale in the Hyperdrive dashboard. The selection is returned as read-only metadata and cannot be changed with replace or update operations.",
   "properties": {
     "custom_database_name": {
@@ -510,12 +493,20 @@ export const hyperdrive_hyperdrive_planet_scale_integration: JsonSchema = {
       "type": "string"
     },
     "provider": {
-      "$ref": "#/$defs/hyperdrive_hyperdrive-integration-provider",
-      "description": "The database integration provider used by this operation."
+      "description": "The database integration provider used by this operation.",
+      "enum": [
+        "planetscale"
+      ],
+      "type": "string"
     },
     "scheme": {
-      "$ref": "#/$defs/hyperdrive_hyperdrive-scheme",
-      "description": "Specifies the URL scheme used to connect to your origin database."
+      "description": "Specifies the URL scheme used to connect to your origin database.",
+      "enum": [
+        "postgres",
+        "postgresql",
+        "mysql"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -529,30 +520,9 @@ export const hyperdrive_hyperdrive_planet_scale_integration: JsonSchema = {
 };
 
 /**
- * The schema of `hyperdrive_hyperdrive-scheme`.
- */
-export const hyperdrive_hyperdrive_scheme: JsonSchema = {
-  "description": "Specifies the URL scheme used to connect to your origin database.",
-  "enum": [
-    "postgres",
-    "postgresql",
-    "mysql"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `hyperdrive_identifier`.
- */
-export const hyperdrive_identifier: JsonSchema = {
-  "description": "Define configurations using a unique string identifier.",
-  "type": "string"
-};
-
-/**
  * The schema of `hyperdrive_internet-origin`.
  */
-export const hyperdrive_internet_origin: JsonSchema = {
+export const hyperdrive_internet$$origin: JsonSchema = {
   "description": "Public Database",
   "properties": {
     "host": {
@@ -574,7 +544,7 @@ export const hyperdrive_internet_origin: JsonSchema = {
 /**
  * The schema of `hyperdrive_over-access-origin`.
  */
-export const hyperdrive_over_access_origin: JsonSchema = {
+export const hyperdrive_over$$access$$origin: JsonSchema = {
   "description": "Access-protected Database behind Cloudflare Tunnel",
   "properties": {
     "access_client_id": {
@@ -601,8 +571,8 @@ export const hyperdrive_over_access_origin: JsonSchema = {
 /**
  * The schema of `hyperdrive_vpc-service-origin`.
  */
-export const hyperdrive_vpc_service_origin: JsonSchema = {
-  "description": "Connect to a database through a Workers VPC Service. TLS settings (mTLS, sslmode) cannot be configured on the Hyperdrive when using a VPC Service origin; TLS must be managed on the VPC Service itself.\n",
+export const hyperdrive_vpc$$service$$origin: JsonSchema = {
+  "description": "Connect to a database through a Workers VPC Service. TLS settings (mTLS, sslmode) cannot be configured on the Hyperdrive when using a VPC Service origin; TLS must be managed on the VPC Service itself.",
   "properties": {
     "service_id": {
       "description": "The identifier of the Workers VPC Service to connect through. Hyperdrive will egress through the specified VPC Service to reach the origin database.",

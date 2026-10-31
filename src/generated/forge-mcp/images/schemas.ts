@@ -4,22 +4,6 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
- * The schema of `images_account_identifier`.
- */
-export const images_account_identifier: JsonSchema = {
-  "description": "Account identifier tag.",
-  "type": "string"
-};
-
-/**
- * The schema of `images_image_identifier`.
- */
-export const images_image_identifier: JsonSchema = {
-  "description": "Image unique identifier.",
-  "type": "string"
-};
-
-/**
  * The schema of `images_image_patch_request`.
  */
 export const images_image_patch_request: JsonSchema = {
@@ -38,19 +22,4 @@ export const images_image_patch_request: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `images_images_list_continuation_token`.
- */
-export const images_images_list_continuation_token: JsonSchema = {
-  "description": "Continuation token to fetch next page. Passed as a query param when requesting List V2 api endpoint.",
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
 };

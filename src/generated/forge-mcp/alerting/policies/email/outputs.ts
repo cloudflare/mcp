@@ -6,19 +6,19 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `aaa_unsubscribe_email` in responses.
  */
-export const aaa_unsubscribe_email_output: JsonSchema = {
+export const aaa_unsubscribe_email: JsonSchema = {
   "properties": {
     "account_id": {
-      "$ref": "#/$defs/aaa_account-id"
+      "type": "string"
     },
     "email": {
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/aaa_policy-id"
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/aaa_schemas-name"
+      "type": "string"
     },
     "token": {
       "type": "string"
@@ -30,16 +30,16 @@ export const aaa_unsubscribe_email_output: JsonSchema = {
 /**
  * The schema of `aaa_unsubscribe_email_post` in responses.
  */
-export const aaa_unsubscribe_email_post_output: JsonSchema = {
+export const aaa_unsubscribe_email_post: JsonSchema = {
   "properties": {
     "account_id": {
-      "$ref": "#/$defs/aaa_account-id"
+      "type": "string"
     },
     "email": {
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/aaa_policy-id"
+      "type": "string"
     }
   },
   "type": "object"
@@ -48,7 +48,7 @@ export const aaa_unsubscribe_email_post_output: JsonSchema = {
 /**
  * The schema of `aaa_unsubscribe_email_post_single_response` in responses.
  */
-export const aaa_unsubscribe_email_post_single_response_output: JsonSchema = {
+export const aaa_unsubscribe_email_post_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/aaa_api-response-single"
@@ -67,7 +67,7 @@ export const aaa_unsubscribe_email_post_single_response_output: JsonSchema = {
 /**
  * The schema of `aaa_unsubscribe_email_single_response` in responses.
  */
-export const aaa_unsubscribe_email_single_response_output: JsonSchema = {
+export const aaa_unsubscribe_email_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/aaa_api-response-single"

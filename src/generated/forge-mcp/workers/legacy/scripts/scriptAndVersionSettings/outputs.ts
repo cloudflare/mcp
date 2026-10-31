@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `workers_script-and-version-settings-item` in responses.
  */
-export const workers_script_and_version_settings_item_output: JsonSchema = {
+export const workers_script$$and$$version$$settings$$item: JsonSchema = {
   "properties": {
     "annotations": {
       "properties": {
@@ -41,7 +41,7 @@ export const workers_script_and_version_settings_item_output: JsonSchema = {
     "compatibility_date": {
       "allOf": [
         {
-          "$ref": "#/$defs/workers_compatibility_date"
+          "type": "string"
         },
         {
           "type": "string"
@@ -71,7 +71,7 @@ export const workers_script_and_version_settings_item_output: JsonSchema = {
       "$ref": "#/$defs/workers_limits"
     },
     "logpush": {
-      "$ref": "#/$defs/workers_logpush"
+      "type": "boolean"
     },
     "migrations": {
       "oneOf": [
@@ -116,7 +116,12 @@ export const workers_script_and_version_settings_item_output: JsonSchema = {
       ]
     },
     "usage_model": {
-      "$ref": "#/$defs/workers_usage_model"
+      "enum": [
+        "standard",
+        "bundled",
+        "unbound"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
@@ -125,7 +130,7 @@ export const workers_script_and_version_settings_item_output: JsonSchema = {
 /**
  * The schema of `workers_script-and-version-settings-response` in responses.
  */
-export const workers_script_and_version_settings_response_output: JsonSchema = {
+export const workers_script$$and$$version$$settings$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/workers_api-response-common"

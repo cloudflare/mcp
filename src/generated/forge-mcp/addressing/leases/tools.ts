@@ -3,21 +3,15 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  addressing_api_response_collection_output,
-  addressing_api_response_common_failure_output,
-  addressing_api_response_common_output,
-  addressing_messages_output,
+  addressing_api$$response$$collection,
+  addressing_api$$response$$common,
+  addressing_api$$response$$common$$failure,
+  addressing_messages,
 } from "../outputs.js";
 import {
-  addressing_cidr_2_output,
-  addressing_created_at_output,
-  addressing_lease_id_output,
-  addressing_lease_output,
-  addressing_lease_owner_id_output,
-  addressing_modified_at_output,
-  addressing_response_collection_4_output,
+  addressing_lease,
+  addressing_response_collection$$4,
 } from "./outputs.js";
-import { addressing_account_identifier_2 } from "./schemas.js";
 
 /**
  * The tools of `addressing.leases`.
@@ -26,35 +20,37 @@ export const tools: readonly Tool[] = [
   {
     name: "addressing_leases_list",
     title: "List Leases",
-    description: "List all leases owned by the account.",
+    description: "List all leases owned by the account.\n\nGET /accounts/{account_id}/addressing/leases",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/addressing_account_identifier-2",
-          "description": "Identifier of a Cloudflare account."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
-      $defs: {
-        "addressing_account_identifier-2": addressing_account_identifier_2,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/addressing_response_collection-4",
       $defs: {
-        "addressing_api-response-collection": addressing_api_response_collection_output,
-        "addressing_api-response-common": addressing_api_response_common_output,
-        "addressing_cidr-2": addressing_cidr_2_output,
-        "addressing_created_at": addressing_created_at_output,
-        "addressing_lease": addressing_lease_output,
-        "addressing_lease_id": addressing_lease_id_output,
-        "addressing_lease_owner_id": addressing_lease_owner_id_output,
-        "addressing_messages": addressing_messages_output,
-        "addressing_modified_at": addressing_modified_at_output,
-        "addressing_response_collection-4": addressing_response_collection_4_output,
+        "addressing_api-response-collection": addressing_api$$response$$collection,
+        "addressing_api-response-common": addressing_api$$response$$common,
+        "addressing_lease": addressing_lease,
+        "addressing_messages": addressing_messages,
+        "addressing_response_collection-4": addressing_response_collection$$4,
       },
     },
     annotations: {
@@ -86,17 +82,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "addressing_api-response-collection": addressing_api_response_collection_output,
-        "addressing_api-response-common": addressing_api_response_common_output,
-        "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
-        "addressing_cidr-2": addressing_cidr_2_output,
-        "addressing_created_at": addressing_created_at_output,
-        "addressing_lease": addressing_lease_output,
-        "addressing_lease_id": addressing_lease_id_output,
-        "addressing_lease_owner_id": addressing_lease_owner_id_output,
-        "addressing_messages": addressing_messages_output,
-        "addressing_modified_at": addressing_modified_at_output,
-        "addressing_response_collection-4": addressing_response_collection_4_output,
+        "addressing_api-response-collection": addressing_api$$response$$collection,
+        "addressing_api-response-common": addressing_api$$response$$common,
+        "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
+        "addressing_lease": addressing_lease,
+        "addressing_messages": addressing_messages,
+        "addressing_response_collection-4": addressing_response_collection$$4,
       },
     },
     request: (args) => ({

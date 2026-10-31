@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `speed_ut_billing_response` in responses.
  */
-export const speed_ut_billing_response_output: JsonSchema = {
+export const speed_ut_billing_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/speed_base"
@@ -20,20 +20,13 @@ export const speed_ut_billing_response_output: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/speed_ut_billing_value"
+          "enum": [
+            "on"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `speed_ut_billing_value` in responses.
- */
-export const speed_ut_billing_value_output: JsonSchema = {
-  "enum": [
-    "on"
-  ],
-  "type": "string"
 };

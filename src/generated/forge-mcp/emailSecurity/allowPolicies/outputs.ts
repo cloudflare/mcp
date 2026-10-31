@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `email-security_AllowPolicy` in responses.
  */
-export const email_security_AllowPolicy_output: JsonSchema = {
+export const email$$security_AllowPolicy: JsonSchema = {
   "properties": {
     "comments": {
       "oneOf": [
@@ -19,7 +19,8 @@ export const email_security_AllowPolicy_output: JsonSchema = {
       ]
     },
     "created_at": {
-      "$ref": "#/$defs/email-security_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "expires_at": {
       "oneOf": [
@@ -33,7 +34,8 @@ export const email_security_AllowPolicy_output: JsonSchema = {
       ]
     },
     "id": {
-      "$ref": "#/$defs/email-security_AllowPolicyId"
+      "format": "uuid",
+      "type": "string"
     },
     "is_acceptable_sender": {
       "type": "boolean"
@@ -57,16 +59,24 @@ export const email_security_AllowPolicy_output: JsonSchema = {
       "type": "boolean"
     },
     "last_modified": {
-      "$ref": "#/$defs/email-security_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "modified_at": {
-      "$ref": "#/$defs/email-security_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "pattern": {
       "type": "string"
     },
     "pattern_type": {
-      "$ref": "#/$defs/email-security_PatternType"
+      "enum": [
+        "EMAIL",
+        "DOMAIN",
+        "IP",
+        "UNKNOWN"
+      ],
+      "type": "string"
     },
     "verify_sender": {
       "type": "boolean"
@@ -81,17 +91,9 @@ export const email_security_AllowPolicy_output: JsonSchema = {
 };
 
 /**
- * The schema of `email-security_AllowPolicyId` in responses.
- */
-export const email_security_AllowPolicyId_output: JsonSchema = {
-  "format": "uuid",
-  "type": "string"
-};
-
-/**
  * The schema of `email-security_AllowPolicyList` in responses.
  */
-export const email_security_AllowPolicyList_output: JsonSchema = {
+export const email$$security_AllowPolicyList: JsonSchema = {
   "items": {
     "$ref": "#/$defs/email-security_AllowPolicy"
   },
@@ -101,10 +103,11 @@ export const email_security_AllowPolicyList_output: JsonSchema = {
 /**
  * The schema of `email-security_DeletedAllowPolicy` in responses.
  */
-export const email_security_DeletedAllowPolicy_output: JsonSchema = {
+export const email$$security_DeletedAllowPolicy: JsonSchema = {
   "properties": {
     "id": {
-      "$ref": "#/$defs/email-security_AllowPolicyId"
+      "format": "uuid",
+      "type": "string"
     }
   },
   "required": [

@@ -7,7 +7,7 @@ import type { JsonSchema } from "../../../_/tool.js";
  * The schema of `teams-devices_components-schemas-response_collection` in
  * responses.
  */
-export const teams_devices_components_schemas_response_collection_output: JsonSchema = {
+export const teams$$devices_components$$schemas$$response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/teams-devices_api-response-collection"
@@ -30,7 +30,7 @@ export const teams_devices_components_schemas_response_collection_output: JsonSc
  * The schema of `teams-devices_components-schemas-single_response` in
  * responses.
  */
-export const teams_devices_components_schemas_single_response_output: JsonSchema = {
+export const teams$$devices_components$$schemas$$single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/teams-devices_api-response-single"
@@ -47,55 +47,40 @@ export const teams_devices_components_schemas_single_response_output: JsonSchema
 };
 
 /**
- * The schema of `teams-devices_components-schemas-type` in responses.
- */
-export const teams_devices_components_schemas_type_output: JsonSchema = {
-  "enum": [
-    "tls"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `teams-devices_device-managed-networks` in responses.
  */
-export const teams_devices_device_managed_networks_output: JsonSchema = {
+export const teams$$devices_device$$managed$$networks: JsonSchema = {
   "properties": {
     "config": {
       "$ref": "#/$defs/teams-devices_schemas-config_response"
     },
     "name": {
-      "$ref": "#/$defs/teams-devices_device-managed-networks_components-schemas-name"
+      "type": "string"
     },
     "network_id": {
-      "$ref": "#/$defs/teams-devices_uuid"
+      "type": "string"
     },
     "type": {
-      "$ref": "#/$defs/teams-devices_components-schemas-type"
+      "enum": [
+        "tls"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
 };
 
 /**
- * The schema of `teams-devices_device-managed-networks_components-schemas-name`
- * in responses.
- */
-export const teams_devices_device_managed_networks_components_schemas_name_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `teams-devices_schemas-config_response` in responses.
  */
-export const teams_devices_schemas_config_response_output: JsonSchema = {
+export const teams$$devices_schemas$$config_response: JsonSchema = {
   "$ref": "#/$defs/teams-devices_tls_config_response"
 };
 
 /**
  * The schema of `teams-devices_tls_config_response` in responses.
  */
-export const teams_devices_tls_config_response_output: JsonSchema = {
+export const teams$$devices_tls_config_response: JsonSchema = {
   "properties": {
     "sha256": {
       "type": "string"

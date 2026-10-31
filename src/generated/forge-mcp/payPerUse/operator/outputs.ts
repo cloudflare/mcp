@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `pay-per-crawl_PPUOperatorConfiguration` in responses.
  */
-export const pay_per_crawl_PPUOperatorConfiguration_output: JsonSchema = {
+export const pay$$per$$crawl_PPUOperatorConfiguration: JsonSchema = {
   "properties": {
     "default_price_usd_microcents": {
       "type": "integer"
@@ -29,7 +29,7 @@ export const pay_per_crawl_PPUOperatorConfiguration_output: JsonSchema = {
 /**
  * The schema of `pay-per-crawl_PPUOperatorConfigurationResponse` in responses.
  */
-export const pay_per_crawl_PPUOperatorConfigurationResponse_output: JsonSchema = {
+export const pay$$per$$crawl_PPUOperatorConfigurationResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -59,7 +59,7 @@ export const pay_per_crawl_PPUOperatorConfigurationResponse_output: JsonSchema =
 /**
  * The schema of `pay-per-crawl_PPUOperatorConfigurationResult` in responses.
  */
-export const pay_per_crawl_PPUOperatorConfigurationResult_output: JsonSchema = {
+export const pay$$per$$crawl_PPUOperatorConfigurationResult: JsonSchema = {
   "properties": {
     "default_price_usd_microcents": {
       "type": "integer"
@@ -95,7 +95,7 @@ export const pay_per_crawl_PPUOperatorConfigurationResult_output: JsonSchema = {
  * The schema of `pay-per-crawl_PPUOperatorConfigurationResultResponse` in
  * responses.
  */
-export const pay_per_crawl_PPUOperatorConfigurationResultResponse_output: JsonSchema = {
+export const pay$$per$$crawl_PPUOperatorConfigurationResultResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {

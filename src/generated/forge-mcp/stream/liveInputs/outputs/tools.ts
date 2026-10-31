@@ -3,79 +3,70 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  stream_api_response_common_failure_output,
-  stream_api_response_common_output,
-  stream_api_response_single_output,
-  stream_messages_output,
+  stream_api$$response$$common,
+  stream_api$$response$$common$$failure,
+  stream_api$$response$$single,
+  stream_messages,
 } from "../../outputs.js";
-import { stream_identifier_2 } from "../../schemas.js";
-import { stream_live_input_identifier } from "../schemas.js";
 import {
-  stream_output_enabled_output,
-  stream_output_identifier_output,
-  stream_output_output,
-  stream_output_response_collection_output,
-  stream_output_response_single_output,
-  stream_output_streamKey_output,
-  stream_output_url_output,
+  stream_output,
+  stream_output_response_collection,
+  stream_output_response_single,
 } from "./outputs.js";
 import {
   stream_create_output_request,
-  stream_output_enabled,
-  stream_output_identifier,
-  stream_output_streamKey,
-  stream_output_url,
   stream_update_output_request,
 } from "./schemas.js";
 
 /**
- * The tools of `stream.live_inputs.outputs`.
+ * The tools of `stream.liveInputs.outputs`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "stream_live_inputs_outputs_create",
+    name: "stream_liveInputs_outputs_create",
     title: "Create a new output, connected to a live input",
-    description: "Creates a new output that can be used to simulcast or restream live video to other RTMP or SRT destinations. Outputs are always linked to a specific live input — one live input can have many outputs.",
+    description: "Creates a new output that can be used to simulcast or restream live video to other RTMP or SRT destinations. Outputs are always linked to a specific live input — one live input can have many outputs.\n\nPOST /accounts/{account_id}/stream/live_inputs/{live_input_identifier}/outputs",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/stream_identifier-2",
-          "description": "Identifier."
-        },
         "body": {
           "$ref": "#/$defs/stream_create_output_request"
         },
-        "live_input_identifier": {
-          "$ref": "#/$defs/stream_live_input_identifier",
-          "description": "A unique identifier for a live input."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            },
+            "live_input_identifier": {
+              "description": "A unique identifier for a live input.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "live_input_identifier"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "live_input_identifier",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "stream_create_output_request": stream_create_output_request,
-        "stream_identifier-2": stream_identifier_2,
-        "stream_live_input_identifier": stream_live_input_identifier,
-        "stream_output_enabled": stream_output_enabled,
-        "stream_output_streamKey": stream_output_streamKey,
-        "stream_output_url": stream_output_url,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/stream_output_response_single",
       $defs: {
-        "stream_api-response-single": stream_api_response_single_output,
-        "stream_messages": stream_messages_output,
-        "stream_output": stream_output_output,
-        "stream_output_enabled": stream_output_enabled_output,
-        "stream_output_identifier": stream_output_identifier_output,
-        "stream_output_response_single": stream_output_response_single_output,
-        "stream_output_streamKey": stream_output_streamKey_output,
-        "stream_output_url": stream_output_url_output,
+        "stream_api-response-single": stream_api$$response$$single,
+        "stream_messages": stream_messages,
+        "stream_output": stream_output,
+        "stream_output_response_single": stream_output_response_single,
       },
     },
     annotations: {
@@ -97,15 +88,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "stream_api-response-common-failure": stream_api_response_common_failure_output,
-        "stream_api-response-single": stream_api_response_single_output,
-        "stream_messages": stream_messages_output,
-        "stream_output": stream_output_output,
-        "stream_output_enabled": stream_output_enabled_output,
-        "stream_output_identifier": stream_output_identifier_output,
-        "stream_output_response_single": stream_output_response_single_output,
-        "stream_output_streamKey": stream_output_streamKey_output,
-        "stream_output_url": stream_output_url_output,
+        "stream_api-response-common-failure": stream_api$$response$$common$$failure,
+        "stream_api-response-single": stream_api$$response$$single,
+        "stream_messages": stream_messages,
+        "stream_output": stream_output,
+        "stream_output_response_single": stream_output_response_single,
       },
     },
     request: (args) => ({
@@ -114,35 +101,40 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "stream_live_inputs_outputs_delete",
+    name: "stream_liveInputs_outputs_delete",
     title: "Delete an output",
-    description: "Deletes an output and removes it from the associated live input.\n\nConfirm with the user before calling this tool. Delete this output? Any active broadcast to this target will be terminated.",
+    description: "Deletes an output and removes it from the associated live input.\n\nConfirm with the user before calling this tool. Delete this output? Any active broadcast to this target will be terminated.\n\nDELETE /accounts/{account_id}/stream/live_inputs/{live_input_identifier}/outputs/{output_identifier}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/stream_identifier-2",
-          "description": "Identifier."
-        },
-        "live_input_identifier": {
-          "$ref": "#/$defs/stream_live_input_identifier",
-          "description": "A unique identifier for a live input."
-        },
-        "output_identifier": {
-          "$ref": "#/$defs/stream_output_identifier",
-          "description": "A unique identifier for the output."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            },
+            "live_input_identifier": {
+              "description": "A unique identifier for a live input.",
+              "type": "string"
+            },
+            "output_identifier": {
+              "description": "A unique identifier for the output.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "live_input_identifier",
+            "output_identifier"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "live_input_identifier",
-        "output_identifier"
+        "path"
       ],
-      $defs: {
-        "stream_identifier-2": stream_identifier_2,
-        "stream_live_input_identifier": stream_live_input_identifier,
-        "stream_output_identifier": stream_output_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
     },
@@ -171,41 +163,43 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "stream_live_inputs_outputs_list",
+    name: "stream_liveInputs_outputs_list",
     title: "List all outputs associated with a specified live input",
-    description: "Retrieves all outputs associated with a specified live input.",
+    description: "Retrieves all outputs associated with a specified live input.\n\nGET /accounts/{account_id}/stream/live_inputs/{live_input_identifier}/outputs",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/stream_identifier-2",
-          "description": "Identifier."
-        },
-        "live_input_identifier": {
-          "$ref": "#/$defs/stream_live_input_identifier",
-          "description": "A unique identifier for a live input."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            },
+            "live_input_identifier": {
+              "description": "A unique identifier for a live input.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "live_input_identifier"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "live_input_identifier"
+        "path"
       ],
-      $defs: {
-        "stream_identifier-2": stream_identifier_2,
-        "stream_live_input_identifier": stream_live_input_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/stream_output_response_collection",
       $defs: {
-        "stream_api-response-common": stream_api_response_common_output,
-        "stream_messages": stream_messages_output,
-        "stream_output": stream_output_output,
-        "stream_output_enabled": stream_output_enabled_output,
-        "stream_output_identifier": stream_output_identifier_output,
-        "stream_output_response_collection": stream_output_response_collection_output,
-        "stream_output_streamKey": stream_output_streamKey_output,
-        "stream_output_url": stream_output_url_output,
+        "stream_api-response-common": stream_api$$response$$common,
+        "stream_messages": stream_messages,
+        "stream_output": stream_output,
+        "stream_output_response_collection": stream_output_response_collection,
       },
     },
     annotations: {
@@ -233,15 +227,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "stream_api-response-common": stream_api_response_common_output,
-        "stream_api-response-common-failure": stream_api_response_common_failure_output,
-        "stream_messages": stream_messages_output,
-        "stream_output": stream_output_output,
-        "stream_output_enabled": stream_output_enabled_output,
-        "stream_output_identifier": stream_output_identifier_output,
-        "stream_output_response_collection": stream_output_response_collection_output,
-        "stream_output_streamKey": stream_output_streamKey_output,
-        "stream_output_url": stream_output_url_output,
+        "stream_api-response-common": stream_api$$response$$common,
+        "stream_api-response-common-failure": stream_api$$response$$common$$failure,
+        "stream_messages": stream_messages,
+        "stream_output": stream_output,
+        "stream_output_response_collection": stream_output_response_collection,
       },
     },
     request: (args) => ({
@@ -249,53 +239,55 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "stream_live_inputs_outputs_update",
+    name: "stream_liveInputs_outputs_update",
     title: "Update an output",
-    description: "Updates the state of an output.",
+    description: "Updates the state of an output.\n\nPUT /accounts/{account_id}/stream/live_inputs/{live_input_identifier}/outputs/{output_identifier}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/stream_identifier-2",
-          "description": "Identifier."
-        },
         "body": {
           "$ref": "#/$defs/stream_update_output_request"
         },
-        "live_input_identifier": {
-          "$ref": "#/$defs/stream_live_input_identifier",
-          "description": "A unique identifier for a live input."
-        },
-        "output_identifier": {
-          "$ref": "#/$defs/stream_output_identifier",
-          "description": "A unique identifier for the output."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            },
+            "live_input_identifier": {
+              "description": "A unique identifier for a live input.",
+              "type": "string"
+            },
+            "output_identifier": {
+              "description": "A unique identifier for the output.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "live_input_identifier",
+            "output_identifier"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "live_input_identifier",
-        "output_identifier",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "stream_identifier-2": stream_identifier_2,
-        "stream_live_input_identifier": stream_live_input_identifier,
-        "stream_output_enabled": stream_output_enabled,
-        "stream_output_identifier": stream_output_identifier,
         "stream_update_output_request": stream_update_output_request,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/stream_output_response_single",
       $defs: {
-        "stream_api-response-single": stream_api_response_single_output,
-        "stream_messages": stream_messages_output,
-        "stream_output": stream_output_output,
-        "stream_output_enabled": stream_output_enabled_output,
-        "stream_output_identifier": stream_output_identifier_output,
-        "stream_output_response_single": stream_output_response_single_output,
-        "stream_output_streamKey": stream_output_streamKey_output,
-        "stream_output_url": stream_output_url_output,
+        "stream_api-response-single": stream_api$$response$$single,
+        "stream_messages": stream_messages,
+        "stream_output": stream_output,
+        "stream_output_response_single": stream_output_response_single,
       },
     },
     annotations: {
@@ -322,15 +314,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "stream_api-response-common-failure": stream_api_response_common_failure_output,
-        "stream_api-response-single": stream_api_response_single_output,
-        "stream_messages": stream_messages_output,
-        "stream_output": stream_output_output,
-        "stream_output_enabled": stream_output_enabled_output,
-        "stream_output_identifier": stream_output_identifier_output,
-        "stream_output_response_single": stream_output_response_single_output,
-        "stream_output_streamKey": stream_output_streamKey_output,
-        "stream_output_url": stream_output_url_output,
+        "stream_api-response-common-failure": stream_api$$response$$common$$failure,
+        "stream_api-response-single": stream_api$$response$$single,
+        "stream_messages": stream_messages,
+        "stream_output": stream_output,
+        "stream_output_response_single": stream_output_response_single,
       },
     },
     request: (args) => ({

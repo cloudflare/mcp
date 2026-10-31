@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `flagship_ApiMessage` in responses.
  */
-export const flagship_ApiMessage_output: JsonSchema = {
+export const flagship_ApiMessage: JsonSchema = {
   "properties": {
     "message": {
       "type": "string"
@@ -21,7 +21,7 @@ export const flagship_ApiMessage_output: JsonSchema = {
 /**
  * The schema of `flagship_App` in responses.
  */
-export const flagship_App_output: JsonSchema = {
+export const flagship_App: JsonSchema = {
   "properties": {
     "created_at": {
       "type": "string"
@@ -52,7 +52,7 @@ export const flagship_App_output: JsonSchema = {
 /**
  * The schema of `flagship_BaseCondition` in responses.
  */
-export const flagship_BaseCondition_output: JsonSchema = {
+export const flagship_BaseCondition: JsonSchema = {
   "properties": {
     "attribute": {
       "type": "string"
@@ -90,7 +90,7 @@ export const flagship_BaseCondition_output: JsonSchema = {
 /**
  * The schema of `flagship_Condition` in responses.
  */
-export const flagship_Condition_output: JsonSchema = {
+export const flagship_Condition: JsonSchema = {
   "anyOf": [
     {
       "$ref": "#/$defs/flagship_BaseCondition"
@@ -104,7 +104,7 @@ export const flagship_Condition_output: JsonSchema = {
 /**
  * The schema of `flagship_Condition1` in responses.
  */
-export const flagship_Condition1_output: JsonSchema = {
+export const flagship_Condition1: JsonSchema = {
   "anyOf": [
     {
       "$ref": "#/$defs/flagship_BaseCondition"
@@ -118,7 +118,7 @@ export const flagship_Condition1_output: JsonSchema = {
 /**
  * The schema of `flagship_Condition2` in responses.
  */
-export const flagship_Condition2_output: JsonSchema = {
+export const flagship_Condition2: JsonSchema = {
   "anyOf": [
     {
       "$ref": "#/$defs/flagship_BaseCondition"
@@ -132,7 +132,7 @@ export const flagship_Condition2_output: JsonSchema = {
 /**
  * The schema of `flagship_Condition3` in responses.
  */
-export const flagship_Condition3_output: JsonSchema = {
+export const flagship_Condition3: JsonSchema = {
   "anyOf": [
     {
       "$ref": "#/$defs/flagship_BaseCondition"
@@ -146,7 +146,7 @@ export const flagship_Condition3_output: JsonSchema = {
 /**
  * The schema of `flagship_Condition4` in responses.
  */
-export const flagship_Condition4_output: JsonSchema = {
+export const flagship_Condition4: JsonSchema = {
   "anyOf": [
     {
       "$ref": "#/$defs/flagship_BaseCondition"
@@ -160,7 +160,7 @@ export const flagship_Condition4_output: JsonSchema = {
 /**
  * The schema of `flagship_DeleteAppResult` in responses.
  */
-export const flagship_DeleteAppResult_output: JsonSchema = {
+export const flagship_DeleteAppResult: JsonSchema = {
   "properties": {
     "id": {
       "type": "string"
@@ -175,7 +175,7 @@ export const flagship_DeleteAppResult_output: JsonSchema = {
 /**
  * The schema of `flagship_Error` in responses.
  */
-export const flagship_Error_output: JsonSchema = {
+export const flagship_Error: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -208,7 +208,7 @@ export const flagship_Error_output: JsonSchema = {
 /**
  * The schema of `flagship_EvaluationError` in responses.
  */
-export const flagship_EvaluationError_output: JsonSchema = {
+export const flagship_EvaluationError: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/flagship_Error"
@@ -239,7 +239,7 @@ export const flagship_EvaluationError_output: JsonSchema = {
 /**
  * The schema of `flagship_EvaluationResult` in responses.
  */
-export const flagship_EvaluationResult_output: JsonSchema = {
+export const flagship_EvaluationResult: JsonSchema = {
   "properties": {
     "flagKey": {
       "type": "string"
@@ -288,7 +288,7 @@ export const flagship_EvaluationResult_output: JsonSchema = {
 /**
  * The schema of `flagship_JsonValue` in responses.
  */
-export const flagship_JsonValue_output: JsonSchema = {
+export const flagship_JsonValue: JsonSchema = {
   "oneOf": [
     {
       "type": "string"
@@ -320,7 +320,7 @@ export const flagship_JsonValue_output: JsonSchema = {
 /**
  * The schema of `flagship_LogicalCondition` in responses.
  */
-export const flagship_LogicalCondition_output: JsonSchema = {
+export const flagship_LogicalCondition: JsonSchema = {
   "properties": {
     "clauses": {
       "items": {
@@ -347,7 +347,7 @@ export const flagship_LogicalCondition_output: JsonSchema = {
 /**
  * The schema of `flagship_LogicalCondition1` in responses.
  */
-export const flagship_LogicalCondition1_output: JsonSchema = {
+export const flagship_LogicalCondition1: JsonSchema = {
   "properties": {
     "clauses": {
       "items": {
@@ -374,7 +374,7 @@ export const flagship_LogicalCondition1_output: JsonSchema = {
 /**
  * The schema of `flagship_LogicalCondition2` in responses.
  */
-export const flagship_LogicalCondition2_output: JsonSchema = {
+export const flagship_LogicalCondition2: JsonSchema = {
   "properties": {
     "clauses": {
       "items": {
@@ -401,7 +401,7 @@ export const flagship_LogicalCondition2_output: JsonSchema = {
 /**
  * The schema of `flagship_LogicalCondition3` in responses.
  */
-export const flagship_LogicalCondition3_output: JsonSchema = {
+export const flagship_LogicalCondition3: JsonSchema = {
   "properties": {
     "clauses": {
       "items": {
@@ -428,7 +428,7 @@ export const flagship_LogicalCondition3_output: JsonSchema = {
 /**
  * The schema of `flagship_LogicalCondition4` in responses.
  */
-export const flagship_LogicalCondition4_output: JsonSchema = {
+export const flagship_LogicalCondition4: JsonSchema = {
   "properties": {
     "clauses": {
       "items": {

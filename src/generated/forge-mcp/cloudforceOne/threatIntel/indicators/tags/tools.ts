@@ -4,29 +4,39 @@
 import { type Tool, pathParam } from "../../../../_/tool.js";
 
 /**
- * The tools of `cloudforce_one.threat_intel.indicators.tags`.
+ * The tools of `cloudforceOne.threatIntel.indicators.tags`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "cloudforce_one_threat_intel_indicators_tags_list",
+    name: "cloudforceOne_threatIntel_indicators_tags_list",
     title: "List tags on a dataset's indicators",
-    description: "Lists the tags applied to indicators in a dataset. Results are not paginated.",
+    description: "Lists the tags applied to indicators in a dataset. Results are not paginated.\n\nGET /accounts/{account_id}/cloudforce-one/events/dataset/{dataset_id}/indicators/tags",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account ID.",
-          "type": "string"
-        },
-        "dataset_id": {
-          "description": "Dataset ID.",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account ID.",
+              "type": "string"
+            },
+            "dataset_id": {
+              "description": "Dataset ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "dataset_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "dataset_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "items": {

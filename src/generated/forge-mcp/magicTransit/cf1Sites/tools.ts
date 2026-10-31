@@ -3,68 +3,74 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  magic_api_response_common_failure_output,
-  magic_api_response_common_output,
-  magic_api_response_single_output,
-  magic_identifier_output,
-  magic_messages_output,
+  magic_api$$response$$common,
+  magic_api$$response$$common$$failure,
+  magic_api$$response$$single,
+  magic_messages,
 } from "../outputs.js";
-import { magic_identifier } from "../schemas.js";
-import {
-  magic_cf1_site_location_output,
-  magic_cf1_site_output,
-  magic_cf1_site_single_response_output,
-  magic_cf1_sites_collection_response_output,
-} from "./outputs.js";
 import {
   magic_cf1_site,
   magic_cf1_site_location,
+  magic_cf1_site_single_response,
+  magic_cf1_sites_collection_response,
+} from "./outputs.js";
+import {
+  magic_cf1_site as magic_cf1_site$,
+  magic_cf1_site_location as magic_cf1_site_location$,
   magic_cf1_site_update,
 } from "./schemas.js";
 
 /**
- * The tools of `magic_transit.cf1_sites`.
+ * The tools of `magicTransit.cf1Sites`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "magic_transit_cf1_sites_create",
+    name: "magicTransit_cf1Sites_create",
     title: "Create CF1 Sites",
-    description: "Creates new CF1 Sites for an account. Each site must have a unique name within the account.",
+    description: "Creates new CF1 Sites for an account. Each site must have a unique name within the account.\n\nPOST /accounts/{account_id}/magic/cf1_sites",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/magic_identifier",
-          "description": "Identifier"
-        },
         "body": {
           "items": {
             "$ref": "#/$defs/magic_cf1_site"
           },
           "minItems": 1,
           "type": "array"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "magic_cf1_site": magic_cf1_site,
-        "magic_cf1_site_location": magic_cf1_site_location,
-        "magic_identifier": magic_identifier,
+        "magic_cf1_site": magic_cf1_site$,
+        "magic_cf1_site_location": magic_cf1_site_location$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/magic_cf1_sites_collection_response",
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_cf1_site": magic_cf1_site_output,
-        "magic_cf1_site_location": magic_cf1_site_location_output,
-        "magic_cf1_sites_collection_response": magic_cf1_sites_collection_response_output,
-        "magic_identifier": magic_identifier_output,
-        "magic_messages": magic_messages_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_cf1_site": magic_cf1_site,
+        "magic_cf1_site_location": magic_cf1_site_location,
+        "magic_cf1_sites_collection_response": magic_cf1_sites_collection_response,
+        "magic_messages": magic_messages,
       },
     },
     annotations: {
@@ -103,14 +109,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-common-failure": magic_api_response_common_failure_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_cf1_site": magic_cf1_site_output,
-        "magic_cf1_site_location": magic_cf1_site_location_output,
-        "magic_cf1_sites_collection_response": magic_cf1_sites_collection_response_output,
-        "magic_identifier": magic_identifier_output,
-        "magic_messages": magic_messages_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-common-failure": magic_api$$response$$common$$failure,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_cf1_site": magic_cf1_site,
+        "magic_cf1_site_location": magic_cf1_site_location,
+        "magic_cf1_sites_collection_response": magic_cf1_sites_collection_response,
+        "magic_messages": magic_messages,
       },
     },
     request: (args) => ({
@@ -119,39 +124,45 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "magic_transit_cf1_sites_delete",
+    name: "magicTransit_cf1Sites_delete",
     title: "Delete CF1 Site",
-    description: "Deletes a specific CF1 Site for an account.",
+    description: "Deletes a specific CF1 Site for an account.\n\nDELETE /accounts/{account_id}/magic/cf1_sites/{cf1_site_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/magic_identifier",
-          "description": "Identifier"
-        },
-        "cf1_site_id": {
-          "$ref": "#/$defs/magic_identifier",
-          "description": "Identifier"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier",
+              "type": "string"
+            },
+            "cf1_site_id": {
+              "description": "Identifier",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "cf1_site_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "cf1_site_id"
+        "path"
       ],
-      $defs: {
-        "magic_identifier": magic_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/magic_cf1_site_single_response",
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_cf1_site": magic_cf1_site_output,
-        "magic_cf1_site_location": magic_cf1_site_location_output,
-        "magic_cf1_site_single_response": magic_cf1_site_single_response_output,
-        "magic_identifier": magic_identifier_output,
-        "magic_messages": magic_messages_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_cf1_site": magic_cf1_site,
+        "magic_cf1_site_location": magic_cf1_site_location,
+        "magic_cf1_site_single_response": magic_cf1_site_single_response,
+        "magic_messages": magic_messages,
       },
     },
     annotations: {
@@ -190,14 +201,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-common-failure": magic_api_response_common_failure_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_cf1_site": magic_cf1_site_output,
-        "magic_cf1_site_location": magic_cf1_site_location_output,
-        "magic_cf1_site_single_response": magic_cf1_site_single_response_output,
-        "magic_identifier": magic_identifier_output,
-        "magic_messages": magic_messages_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-common-failure": magic_api$$response$$common$$failure,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_cf1_site": magic_cf1_site,
+        "magic_cf1_site_location": magic_cf1_site_location,
+        "magic_cf1_site_single_response": magic_cf1_site_single_response,
+        "magic_messages": magic_messages,
       },
     },
     request: (args) => ({
@@ -205,39 +215,45 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "magic_transit_cf1_sites_get",
+    name: "magicTransit_cf1Sites_get",
     title: "Get CF1 Site",
-    description: "Gets a specific CF1 Site for an account.",
+    description: "Gets a specific CF1 Site for an account.\n\nGET /accounts/{account_id}/magic/cf1_sites/{cf1_site_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/magic_identifier",
-          "description": "Identifier"
-        },
-        "cf1_site_id": {
-          "$ref": "#/$defs/magic_identifier",
-          "description": "Identifier"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier",
+              "type": "string"
+            },
+            "cf1_site_id": {
+              "description": "Identifier",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "cf1_site_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "cf1_site_id"
+        "path"
       ],
-      $defs: {
-        "magic_identifier": magic_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/magic_cf1_site_single_response",
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_cf1_site": magic_cf1_site_output,
-        "magic_cf1_site_location": magic_cf1_site_location_output,
-        "magic_cf1_site_single_response": magic_cf1_site_single_response_output,
-        "magic_identifier": magic_identifier_output,
-        "magic_messages": magic_messages_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_cf1_site": magic_cf1_site,
+        "magic_cf1_site_location": magic_cf1_site_location,
+        "magic_cf1_site_single_response": magic_cf1_site_single_response,
+        "magic_messages": magic_messages,
       },
     },
     annotations: {
@@ -278,14 +294,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-common-failure": magic_api_response_common_failure_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_cf1_site": magic_cf1_site_output,
-        "magic_cf1_site_location": magic_cf1_site_location_output,
-        "magic_cf1_site_single_response": magic_cf1_site_single_response_output,
-        "magic_identifier": magic_identifier_output,
-        "magic_messages": magic_messages_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-common-failure": magic_api$$response$$common$$failure,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_cf1_site": magic_cf1_site,
+        "magic_cf1_site_location": magic_cf1_site_location,
+        "magic_cf1_site_single_response": magic_cf1_site_single_response,
+        "magic_messages": magic_messages,
       },
     },
     request: (args) => ({
@@ -293,34 +308,40 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "magic_transit_cf1_sites_list",
+    name: "magicTransit_cf1Sites_list",
     title: "List CF1 Sites",
-    description: "Lists CF1 Sites associated with an account. A CF1 Site represents a physical customer network location with optional geographic coordinates.",
+    description: "Lists CF1 Sites associated with an account. A CF1 Site represents a physical customer network location with optional geographic coordinates.\n\nGET /accounts/{account_id}/magic/cf1_sites",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/magic_identifier",
-          "description": "Identifier"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
-      $defs: {
-        "magic_identifier": magic_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/magic_cf1_sites_collection_response",
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_cf1_site": magic_cf1_site_output,
-        "magic_cf1_site_location": magic_cf1_site_location_output,
-        "magic_cf1_sites_collection_response": magic_cf1_sites_collection_response_output,
-        "magic_identifier": magic_identifier_output,
-        "magic_messages": magic_messages_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_cf1_site": magic_cf1_site,
+        "magic_cf1_site_location": magic_cf1_site_location,
+        "magic_cf1_sites_collection_response": magic_cf1_sites_collection_response,
+        "magic_messages": magic_messages,
       },
     },
     annotations: {
@@ -361,14 +382,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-common-failure": magic_api_response_common_failure_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_cf1_site": magic_cf1_site_output,
-        "magic_cf1_site_location": magic_cf1_site_location_output,
-        "magic_cf1_sites_collection_response": magic_cf1_sites_collection_response_output,
-        "magic_identifier": magic_identifier_output,
-        "magic_messages": magic_messages_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-common-failure": magic_api$$response$$common$$failure,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_cf1_site": magic_cf1_site,
+        "magic_cf1_site_location": magic_cf1_site_location,
+        "magic_cf1_sites_collection_response": magic_cf1_sites_collection_response,
+        "magic_messages": magic_messages,
       },
     },
     request: (args) => ({
@@ -376,45 +396,53 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "magic_transit_cf1_sites_update",
+    name: "magicTransit_cf1Sites_update",
     title: "Update CF1 Site",
-    description: "Partially updates a specific CF1 Site for an account. Only the fields included in the request body are modified; omitted fields retain their existing values.",
+    description: "Partially updates a specific CF1 Site for an account. Only the fields included in the request body are modified; omitted fields retain their existing values.\n\nPATCH /accounts/{account_id}/magic/cf1_sites/{cf1_site_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/magic_identifier",
-          "description": "Identifier"
-        },
         "body": {
           "$ref": "#/$defs/magic_cf1_site_update"
         },
-        "cf1_site_id": {
-          "$ref": "#/$defs/magic_identifier",
-          "description": "Identifier"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier",
+              "type": "string"
+            },
+            "cf1_site_id": {
+              "description": "Identifier",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "cf1_site_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "cf1_site_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "magic_cf1_site_location": magic_cf1_site_location,
+        "magic_cf1_site_location": magic_cf1_site_location$,
         "magic_cf1_site_update": magic_cf1_site_update,
-        "magic_identifier": magic_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/magic_cf1_site_single_response",
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_cf1_site": magic_cf1_site_output,
-        "magic_cf1_site_location": magic_cf1_site_location_output,
-        "magic_cf1_site_single_response": magic_cf1_site_single_response_output,
-        "magic_identifier": magic_identifier_output,
-        "magic_messages": magic_messages_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_cf1_site": magic_cf1_site,
+        "magic_cf1_site_location": magic_cf1_site_location,
+        "magic_cf1_site_single_response": magic_cf1_site_single_response,
+        "magic_messages": magic_messages,
       },
     },
     annotations: {
@@ -453,14 +481,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-common-failure": magic_api_response_common_failure_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_cf1_site": magic_cf1_site_output,
-        "magic_cf1_site_location": magic_cf1_site_location_output,
-        "magic_cf1_site_single_response": magic_cf1_site_single_response_output,
-        "magic_identifier": magic_identifier_output,
-        "magic_messages": magic_messages_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-common-failure": magic_api$$response$$common$$failure,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_cf1_site": magic_cf1_site,
+        "magic_cf1_site_location": magic_cf1_site_location,
+        "magic_cf1_site_single_response": magic_cf1_site_single_response,
+        "magic_messages": magic_messages,
       },
     },
     request: (args) => ({

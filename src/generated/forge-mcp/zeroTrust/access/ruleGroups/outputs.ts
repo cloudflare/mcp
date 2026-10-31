@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `access_exclude` in responses.
  */
-export const access_exclude_output: JsonSchema = {
+export const access_exclude: JsonSchema = {
   "items": {
     "$ref": "#/$defs/access_rule"
   },
@@ -16,16 +16,24 @@ export const access_exclude_output: JsonSchema = {
 /**
  * The schema of `access_groups-2` in responses.
  */
-export const access_groups_2_output: JsonSchema = {
+export const access_groups$$2: JsonSchema = {
   "properties": {
     "created_at": {
-      "$ref": "#/$defs/access_created_at"
+      "allOf": [
+        {
+          "type": "string"
+        },
+        {
+          "format": "date-time",
+          "type": "string"
+        }
+      ]
     },
     "exclude": {
       "$ref": "#/$defs/access_exclude"
     },
     "id": {
-      "$ref": "#/$defs/access_uuid"
+      "type": "string"
     },
     "include": {
       "$ref": "#/$defs/access_include"
@@ -34,13 +42,21 @@ export const access_groups_2_output: JsonSchema = {
       "$ref": "#/$defs/access_require"
     },
     "name": {
-      "$ref": "#/$defs/access_name-6"
+      "type": "string"
     },
     "require": {
       "$ref": "#/$defs/access_require"
     },
     "updated_at": {
-      "$ref": "#/$defs/access_updated_at"
+      "allOf": [
+        {
+          "type": "string"
+        },
+        {
+          "format": "date-time",
+          "type": "string"
+        }
+      ]
     }
   },
   "type": "object"
@@ -49,7 +65,7 @@ export const access_groups_2_output: JsonSchema = {
 /**
  * The schema of `access_include` in responses.
  */
-export const access_include_output: JsonSchema = {
+export const access_include: JsonSchema = {
   "items": {
     "$ref": "#/$defs/access_rule"
   },
@@ -57,16 +73,9 @@ export const access_include_output: JsonSchema = {
 };
 
 /**
- * The schema of `access_name-6` in responses.
- */
-export const access_name_6_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `access_require` in responses.
  */
-export const access_require_output: JsonSchema = {
+export const access_require: JsonSchema = {
   "items": {
     "$ref": "#/$defs/access_rule"
   },
@@ -76,7 +85,7 @@ export const access_require_output: JsonSchema = {
 /**
  * The schema of `access_response_collection-2` in responses.
  */
-export const access_response_collection_2_output: JsonSchema = {
+export const access_response_collection$$2: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-collection"
@@ -98,7 +107,7 @@ export const access_response_collection_2_output: JsonSchema = {
 /**
  * The schema of `access_single_response-4` in responses.
  */
-export const access_single_response_4_output: JsonSchema = {
+export const access_single_response$$4: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-single"

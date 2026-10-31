@@ -4,17 +4,9 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `tls-certificates-and-hostnames_csr`.
- */
-export const tls_certificates_and_hostnames_csr: JsonSchema = {
-  "description": "The Certificate Signing Request (CSR). Must be newline-encoded.",
-  "type": "string"
-};
-
-/**
  * The schema of `tls-certificates-and-hostnames_hostnames`.
  */
-export const tls_certificates_and_hostnames_hostnames: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_hostnames: JsonSchema = {
   "description": "Array of hostnames or wildcard names bound to the certificate.\nHostnames must be fully qualified domain names (FQDNs) belonging to zones on your account (e.g., `example.com` or `sub.example.com`). Wildcards are supported only as a `*.` prefix for a single level (e.g., `*.example.com`). Double wildcards (`*.*.example.com`) and interior wildcards (`foo.*.example.com`) are not allowed. The wildcard suffix must be a multi-label domain (`*.example.com` is valid, but `*.com` is not). Unicode/IDN hostnames are accepted and automatically converted to punycode.",
   "items": {
     "type": "string"
@@ -22,43 +14,4 @@ export const tls_certificates_and_hostnames_hostnames: JsonSchema = {
   "maxItems": 100,
   "minItems": 1,
   "type": "array"
-};
-
-/**
- * The schema of
- * `tls-certificates-and-hostnames_origin_ca_certificate_identifier`.
- */
-export const tls_certificates_and_hostnames_origin_ca_certificate_identifier: JsonSchema = {
-  "description": "The x509 serial number of the Origin CA certificate.",
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_request_type`.
- */
-export const tls_certificates_and_hostnames_request_type: JsonSchema = {
-  "description": "Signature type desired on certificate (\"origin-rsa\" (rsa), \"origin-ecc\" (ecdsa), or \"keyless-certificate\" (for Keyless SSL servers).",
-  "enum": [
-    "origin-rsa",
-    "origin-ecc",
-    "keyless-certificate"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_requested_validity`.
- */
-export const tls_certificates_and_hostnames_requested_validity: JsonSchema = {
-  "description": "The number of days for which the certificate should be valid.",
-  "enum": [
-    7,
-    30,
-    90,
-    365,
-    730,
-    1095,
-    5475
-  ],
-  "type": "integer"
 };

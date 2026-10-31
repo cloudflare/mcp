@@ -4,81 +4,22 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `zero-trust-gateway_description`.
- */
-export const zero_trust_gateway_description: JsonSchema = {
-  "description": "Provide the list description.",
-  "type": "string"
-};
-
-/**
- * The schema of `zero-trust-gateway_description_item`.
- */
-export const zero_trust_gateway_description_item: JsonSchema = {
-  "description": "Provide the list item description (optional).",
-  "type": "string"
-};
-
-/**
  * The schema of `zero-trust-gateway_items-input`.
  */
-export const zero_trust_gateway_items_input: JsonSchema = {
+export const zero$$trust$$gateway_items$$input: JsonSchema = {
   "description": "Add items to the list.",
   "items": {
     "properties": {
       "description": {
-        "$ref": "#/$defs/zero-trust-gateway_description_item",
-        "description": "Provide the list item description (optional)."
+        "description": "Provide the list item description (optional).",
+        "type": "string"
       },
       "value": {
-        "$ref": "#/$defs/zero-trust-gateway_value",
-        "description": "Specify the item value."
+        "description": "Specify the item value.",
+        "type": "string"
       }
     },
     "type": "object"
   },
   "type": "array"
-};
-
-/**
- * The schema of `zero-trust-gateway_name`.
- */
-export const zero_trust_gateway_name: JsonSchema = {
-  "description": "Specify the list name.",
-  "type": "string"
-};
-
-/**
- * The schema of `zero-trust-gateway_type-2`.
- */
-export const zero_trust_gateway_type_2: JsonSchema = {
-  "description": "Specify the list type.",
-  "enum": [
-    "SERIAL",
-    "URL",
-    "DOMAIN",
-    "EMAIL",
-    "IP",
-    "CATEGORY",
-    "LOCATION",
-    "DEVICE",
-    "AAGUID"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zero-trust-gateway_uuid-2`.
- */
-export const zero_trust_gateway_uuid_2: JsonSchema = {
-  "description": "Identify the API resource with a UUID.",
-  "type": "string"
-};
-
-/**
- * The schema of `zero-trust-gateway_value`.
- */
-export const zero_trust_gateway_value: JsonSchema = {
-  "description": "Specify the item value.",
-  "type": "string"
 };

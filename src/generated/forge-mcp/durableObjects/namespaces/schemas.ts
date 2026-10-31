@@ -11,7 +11,17 @@ export const workers_query: JsonSchema = {
     "params": {
       "description": "Values bound to the `?` placeholders in `sql`, in order.",
       "items": {
-        "$ref": "#/$defs/workers_query-param"
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "null"
+          }
+        ]
       },
       "type": "array"
     },
@@ -28,7 +38,7 @@ export const workers_query: JsonSchema = {
 /**
  * The schema of `workers_query-by-id`.
  */
-export const workers_query_by_id: JsonSchema = {
+export const workers_query$$by$$id: JsonSchema = {
   "properties": {
     "durable_object_id": {
       "type": "string"
@@ -50,7 +60,7 @@ export const workers_query_by_id: JsonSchema = {
 /**
  * The schema of `workers_query-by-name`.
  */
-export const workers_query_by_name: JsonSchema = {
+export const workers_query$$by$$name: JsonSchema = {
   "properties": {
     "durable_object_name": {
       "type": "string"
@@ -76,29 +86,4 @@ export const workers_query_by_name: JsonSchema = {
     "queries"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `workers_query-param`.
- */
-export const workers_query_param: JsonSchema = {
-  "anyOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "number"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `workers_schemas-id`.
- */
-export const workers_schemas_id: JsonSchema = {
-  "description": "ID of the namespace.",
-  "type": "string"
 };

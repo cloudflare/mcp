@@ -3,39 +3,49 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  dlp_api_response_common_failure_output,
-  dlp_api_response_single_output,
-  dlp_messages_output,
+  dlp_api$$response$$common$$failure,
+  dlp_api$$response$$single,
+  dlp_messages,
 } from "../../outputs.js";
 import {
-  dlp_SensitivityGroupTemplateArray_output,
-  dlp_SensitivityGroupTemplate_output,
-  dlp_SensitivityLevelTemplate_output,
+  dlp_SensitivityGroupTemplate,
+  dlp_SensitivityGroupTemplateArray,
+  dlp_SensitivityLevelTemplate,
 } from "./outputs.js";
 
 /**
- * The tools of `zero_trust.dlp.sensitivity_group_templates`.
+ * The tools of `zeroTrust.dlp.sensitivityGroupTemplates`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zero_trust_dlp_sensitivity_group_templates_get",
+    name: "zeroTrust_dlp_sensitivityGroupTemplates_get",
     title: "Retrieve a specific sensitivity group template.",
-    description: "Gets an available sensitivity group template.",
+    description: "Gets an available sensitivity group template.\n\nGET /accounts/{account_id}/dlp/sensitivity_groups/templates/{template_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
-        "template_id": {
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "template_id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "template_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "template_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -52,10 +62,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_SensitivityGroupTemplate": dlp_SensitivityGroupTemplate_output,
-        "dlp_SensitivityLevelTemplate": dlp_SensitivityLevelTemplate_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_SensitivityGroupTemplate": dlp_SensitivityGroupTemplate,
+        "dlp_SensitivityLevelTemplate": dlp_SensitivityLevelTemplate,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -98,11 +108,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_SensitivityGroupTemplate": dlp_SensitivityGroupTemplate_output,
-        "dlp_SensitivityLevelTemplate": dlp_SensitivityLevelTemplate_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_SensitivityGroupTemplate": dlp_SensitivityGroupTemplate,
+        "dlp_SensitivityLevelTemplate": dlp_SensitivityLevelTemplate,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -110,19 +120,29 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_dlp_sensitivity_group_templates_list",
+    name: "zeroTrust_dlp_sensitivityGroupTemplates_list",
     title: "Retrieve all sensitivity group templates in an account",
-    description: "Lists available sensitivity group templates.",
+    description: "Lists available sensitivity group templates.\n\nGET /accounts/{account_id}/dlp/sensitivity_groups/templates",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -139,11 +159,11 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_SensitivityGroupTemplate": dlp_SensitivityGroupTemplate_output,
-        "dlp_SensitivityGroupTemplateArray": dlp_SensitivityGroupTemplateArray_output,
-        "dlp_SensitivityLevelTemplate": dlp_SensitivityLevelTemplate_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_SensitivityGroupTemplate": dlp_SensitivityGroupTemplate,
+        "dlp_SensitivityGroupTemplateArray": dlp_SensitivityGroupTemplateArray,
+        "dlp_SensitivityLevelTemplate": dlp_SensitivityLevelTemplate,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -186,12 +206,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_SensitivityGroupTemplate": dlp_SensitivityGroupTemplate_output,
-        "dlp_SensitivityGroupTemplateArray": dlp_SensitivityGroupTemplateArray_output,
-        "dlp_SensitivityLevelTemplate": dlp_SensitivityLevelTemplate_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_SensitivityGroupTemplate": dlp_SensitivityGroupTemplate,
+        "dlp_SensitivityGroupTemplateArray": dlp_SensitivityGroupTemplateArray,
+        "dlp_SensitivityLevelTemplate": dlp_SensitivityLevelTemplate,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({

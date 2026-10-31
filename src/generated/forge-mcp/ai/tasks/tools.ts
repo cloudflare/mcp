@@ -10,17 +10,27 @@ export const tools: readonly Tool[] = [
   {
     name: "ai_tasks_list",
     title: "Task Search",
-    description: "Searches Workers AI models by task type (e.g., text-generation, embeddings).",
+    description: "Searches Workers AI models by task type (e.g., text-generation, embeddings).\n\nGET /accounts/{account_id}/ai/tasks/search",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

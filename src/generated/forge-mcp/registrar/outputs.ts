@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `registrar-api_api-response-common` in responses.
  */
-export const registrar_api_api_response_common_output: JsonSchema = {
+export const registrar$$api_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/registrar-api_messages"
@@ -49,7 +49,7 @@ export const registrar_api_api_response_common_output: JsonSchema = {
 /**
  * The schema of `registrar-api_api-response-common-failure` in responses.
  */
-export const registrar_api_api_response_common_failure_output: JsonSchema = {
+export const registrar$$api_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/registrar-api_messages"
@@ -79,7 +79,7 @@ export const registrar_api_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `registrar-api_messages` in responses.
  */
-export const registrar_api_messages_output: JsonSchema = {
+export const registrar$$api_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {

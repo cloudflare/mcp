@@ -3,13 +3,12 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  builds_APIResponse_output,
-  builds_ApiError_output,
-  builds_ErrorResponse_output,
-  builds_PaginationInfo_output,
+  builds_APIResponse,
+  builds_ApiError,
+  builds_ErrorResponse,
+  builds_PaginationInfo,
 } from "../../outputs.js";
-import { builds_account_id } from "../../schemas.js";
-import { builds_GetAccountLimitResponse_output } from "./outputs.js";
+import { builds_GetAccountLimitResponse } from "./outputs.js";
 
 /**
  * The tools of `builds.limits`.
@@ -18,21 +17,28 @@ export const tools: readonly Tool[] = [
   {
     name: "builds_limits_get",
     title: "Get build-minute availability",
-    description: "Return whether the account's build-minute allowance is exhausted and when it refreshes.",
+    description: "Return whether the account's build-minute allowance is exhausted and when it refreshes.\n\nGET /accounts/{account_id}/builds/account/limits",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/builds_account_id",
-          "description": "Account identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
-      $defs: {
-        "builds_account_id": builds_account_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -49,10 +55,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "builds_APIResponse": builds_APIResponse_output,
-        "builds_ApiError": builds_ApiError_output,
-        "builds_GetAccountLimitResponse": builds_GetAccountLimitResponse_output,
-        "builds_PaginationInfo": builds_PaginationInfo_output,
+        "builds_APIResponse": builds_APIResponse,
+        "builds_ApiError": builds_ApiError,
+        "builds_GetAccountLimitResponse": builds_GetAccountLimitResponse,
+        "builds_PaginationInfo": builds_PaginationInfo,
       },
     },
     annotations: {
@@ -92,11 +98,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "builds_APIResponse": builds_APIResponse_output,
-        "builds_ApiError": builds_ApiError_output,
-        "builds_ErrorResponse": builds_ErrorResponse_output,
-        "builds_GetAccountLimitResponse": builds_GetAccountLimitResponse_output,
-        "builds_PaginationInfo": builds_PaginationInfo_output,
+        "builds_APIResponse": builds_APIResponse,
+        "builds_ApiError": builds_ApiError,
+        "builds_ErrorResponse": builds_ErrorResponse,
+        "builds_GetAccountLimitResponse": builds_GetAccountLimitResponse,
+        "builds_PaginationInfo": builds_PaginationInfo,
       },
     },
     request: (args) => ({

@@ -6,14 +6,15 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `api-shield_bulk_delete_labels_on_operation_request`.
  */
-export const api_shield_bulk_delete_labels_on_operation_request: JsonSchema = {
+export const api$$shield_bulk_delete_labels_on_operation_request: JsonSchema = {
   "properties": {
     "managed": {
       "properties": {
         "labels": {
           "description": "List of managed label names.",
           "items": {
-            "$ref": "#/$defs/api-shield_label_name"
+            "description": "The name of the label",
+            "type": "string"
           },
           "type": "array"
         }
@@ -29,7 +30,8 @@ export const api_shield_bulk_delete_labels_on_operation_request: JsonSchema = {
         "labels": {
           "description": "List of user label names.",
           "items": {
-            "$ref": "#/$defs/api-shield_label_name"
+            "description": "The name of the label",
+            "type": "string"
           },
           "type": "array"
         }
@@ -46,14 +48,15 @@ export const api_shield_bulk_delete_labels_on_operation_request: JsonSchema = {
 /**
  * The schema of `api-shield_bulk_post_labels_on_operation_request`.
  */
-export const api_shield_bulk_post_labels_on_operation_request: JsonSchema = {
+export const api$$shield_bulk_post_labels_on_operation_request: JsonSchema = {
   "properties": {
     "managed": {
       "properties": {
         "labels": {
           "description": "List of managed label names.",
           "items": {
-            "$ref": "#/$defs/api-shield_label_name"
+            "description": "The name of the label",
+            "type": "string"
           },
           "minItems": 1,
           "type": "array"
@@ -70,7 +73,8 @@ export const api_shield_bulk_post_labels_on_operation_request: JsonSchema = {
         "labels": {
           "description": "List of user label names.",
           "items": {
-            "$ref": "#/$defs/api-shield_label_name"
+            "description": "The name of the label",
+            "type": "string"
           },
           "minItems": 1,
           "type": "array"
@@ -88,7 +92,7 @@ export const api_shield_bulk_post_labels_on_operation_request: JsonSchema = {
 /**
  * The schema of `api-shield_bulk_put_labels_on_operation_request`.
  */
-export const api_shield_bulk_put_labels_on_operation_request: JsonSchema = {
+export const api$$shield_bulk_put_labels_on_operation_request: JsonSchema = {
   "properties": {
     "managed": {
       "description": "Managed labels to replace for all affected operations",
@@ -96,7 +100,8 @@ export const api_shield_bulk_put_labels_on_operation_request: JsonSchema = {
         "labels": {
           "description": "List of managed label names. Providing an empty array will result in all managed labels being removed from all affected operations",
           "items": {
-            "$ref": "#/$defs/api-shield_label_name"
+            "description": "The name of the label",
+            "type": "string"
           },
           "type": "array"
         }
@@ -116,7 +121,8 @@ export const api_shield_bulk_put_labels_on_operation_request: JsonSchema = {
         "labels": {
           "description": "List of user label names. Providing an empty array will result in all user labels being removed from all affected operations",
           "items": {
-            "$ref": "#/$defs/api-shield_label_name"
+            "description": "The name of the label",
+            "type": "string"
           },
           "type": "array"
         }
@@ -138,19 +144,21 @@ export const api_shield_bulk_put_labels_on_operation_request: JsonSchema = {
 /**
  * The schema of `api-shield_delete_labels_on_operation_request`.
  */
-export const api_shield_delete_labels_on_operation_request: JsonSchema = {
+export const api$$shield_delete_labels_on_operation_request: JsonSchema = {
   "properties": {
     "managed": {
       "description": "List of managed label names.",
       "items": {
-        "$ref": "#/$defs/api-shield_label_name"
+        "description": "The name of the label",
+        "type": "string"
       },
       "type": "array"
     },
     "user": {
       "description": "List of user label names.",
       "items": {
-        "$ref": "#/$defs/api-shield_label_name"
+        "description": "The name of the label",
+        "type": "string"
       },
       "type": "array"
     }
@@ -161,12 +169,13 @@ export const api_shield_delete_labels_on_operation_request: JsonSchema = {
 /**
  * The schema of `api-shield_post_labels_on_operation_request`.
  */
-export const api_shield_post_labels_on_operation_request: JsonSchema = {
+export const api$$shield_post_labels_on_operation_request: JsonSchema = {
   "properties": {
     "managed": {
       "description": "List of managed label names.",
       "items": {
-        "$ref": "#/$defs/api-shield_label_name"
+        "description": "The name of the label",
+        "type": "string"
       },
       "minItems": 1,
       "type": "array"
@@ -174,7 +183,8 @@ export const api_shield_post_labels_on_operation_request: JsonSchema = {
     "user": {
       "description": "List of user label names.",
       "items": {
-        "$ref": "#/$defs/api-shield_label_name"
+        "description": "The name of the label",
+        "type": "string"
       },
       "minItems": 1,
       "type": "array"
@@ -186,19 +196,21 @@ export const api_shield_post_labels_on_operation_request: JsonSchema = {
 /**
  * The schema of `api-shield_put_labels_on_operation_request`.
  */
-export const api_shield_put_labels_on_operation_request: JsonSchema = {
+export const api$$shield_put_labels_on_operation_request: JsonSchema = {
   "properties": {
     "managed": {
       "description": "List of managed label names. Omitting this property or passing an empty array will result in all managed labels being removed from the operation",
       "items": {
-        "$ref": "#/$defs/api-shield_label_name"
+        "description": "The name of the label",
+        "type": "string"
       },
       "type": "array"
     },
     "user": {
       "description": "List of user label names. Omitting this property or passing an empty array will result in all user labels being removed from the operation",
       "items": {
-        "$ref": "#/$defs/api-shield_label_name"
+        "description": "The name of the label",
+        "type": "string"
       },
       "type": "array"
     }

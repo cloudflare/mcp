@@ -3,52 +3,58 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  dlp_api_response_common_failure_output,
-  dlp_api_response_single_output,
-  dlp_messages_output,
+  dlp_api$$response$$common$$failure,
+  dlp_api$$response$$single,
+  dlp_messages,
 } from "../../../outputs.js";
 import {
-  dlp_EmailRuleAction_output,
-  dlp_EmailRuleArray_output,
-  dlp_EmailRuleCondition_output,
-  dlp_EmailRuleOperator_output,
-  dlp_EmailRuleSelector_output,
-  dlp_EmailRuleValue_output,
-  dlp_EmailRule_output,
+  dlp_EmailRule,
+  dlp_EmailRuleAction,
+  dlp_EmailRuleArray,
+  dlp_EmailRuleCondition,
+  dlp_EmailRuleValue,
 } from "./outputs.js";
 import {
   dlp_CreateEmailRule,
-  dlp_EmailRuleAction,
-  dlp_EmailRuleCondition,
-  dlp_EmailRuleOperator,
-  dlp_EmailRuleSelector,
-  dlp_EmailRuleValue,
+  dlp_EmailRuleAction as dlp_EmailRuleAction$,
+  dlp_EmailRuleCondition as dlp_EmailRuleCondition$,
+  dlp_EmailRuleValue as dlp_EmailRuleValue$,
   dlp_UpdateEmailRulePriorities,
 } from "./schemas.js";
 
 /**
- * The tools of `zero_trust.dlp.email.rules`.
+ * The tools of `zeroTrust.dlp.email.rules`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zero_trust_dlp_email_rules_bulk_edit",
+    name: "zeroTrust_dlp_email_rules_bulkEdit",
     title: "Update email scanner rule priorities",
-    description: "Reorders DLP email scanning rules by updating their priority values. Higher priority rules are evaluated first.",
+    description: "Reorders DLP email scanning rules by updating their priority values. Higher priority rules are evaluated first.\n\nPATCH /accounts/{account_id}/dlp/email/rules",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/dlp_UpdateEmailRulePriorities",
           "description": "Rule priorities."
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dlp_UpdateEmailRulePriorities": dlp_UpdateEmailRulePriorities,
       },
@@ -68,14 +74,12 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_EmailRule": dlp_EmailRule_output,
-        "dlp_EmailRuleAction": dlp_EmailRuleAction_output,
-        "dlp_EmailRuleCondition": dlp_EmailRuleCondition_output,
-        "dlp_EmailRuleOperator": dlp_EmailRuleOperator_output,
-        "dlp_EmailRuleSelector": dlp_EmailRuleSelector_output,
-        "dlp_EmailRuleValue": dlp_EmailRuleValue_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_EmailRule": dlp_EmailRule,
+        "dlp_EmailRuleAction": dlp_EmailRuleAction,
+        "dlp_EmailRuleCondition": dlp_EmailRuleCondition,
+        "dlp_EmailRuleValue": dlp_EmailRuleValue,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -114,15 +118,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_EmailRule": dlp_EmailRule_output,
-        "dlp_EmailRuleAction": dlp_EmailRuleAction_output,
-        "dlp_EmailRuleCondition": dlp_EmailRuleCondition_output,
-        "dlp_EmailRuleOperator": dlp_EmailRuleOperator_output,
-        "dlp_EmailRuleSelector": dlp_EmailRuleSelector_output,
-        "dlp_EmailRuleValue": dlp_EmailRuleValue_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_EmailRule": dlp_EmailRule,
+        "dlp_EmailRuleAction": dlp_EmailRuleAction,
+        "dlp_EmailRuleCondition": dlp_EmailRuleCondition,
+        "dlp_EmailRuleValue": dlp_EmailRuleValue,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -131,31 +133,39 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_dlp_email_rules_create",
+    name: "zeroTrust_dlp_email_rules_create",
     title: "Create email scanner rule",
-    description: "Creates a new DLP email scanning rule that defines what content patterns to detect in email messages and what actions to take.",
+    description: "Creates a new DLP email scanning rule that defines what content patterns to detect in email messages and what actions to take.\n\nPOST /accounts/{account_id}/dlp/email/rules",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/dlp_CreateEmailRule",
           "description": "Rule description."
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dlp_CreateEmailRule": dlp_CreateEmailRule,
-        "dlp_EmailRuleAction": dlp_EmailRuleAction,
-        "dlp_EmailRuleCondition": dlp_EmailRuleCondition,
-        "dlp_EmailRuleOperator": dlp_EmailRuleOperator,
-        "dlp_EmailRuleSelector": dlp_EmailRuleSelector,
-        "dlp_EmailRuleValue": dlp_EmailRuleValue,
+        "dlp_EmailRuleAction": dlp_EmailRuleAction$,
+        "dlp_EmailRuleCondition": dlp_EmailRuleCondition$,
+        "dlp_EmailRuleValue": dlp_EmailRuleValue$,
       },
     },
     outputSchema: {
@@ -173,14 +183,12 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_EmailRule": dlp_EmailRule_output,
-        "dlp_EmailRuleAction": dlp_EmailRuleAction_output,
-        "dlp_EmailRuleCondition": dlp_EmailRuleCondition_output,
-        "dlp_EmailRuleOperator": dlp_EmailRuleOperator_output,
-        "dlp_EmailRuleSelector": dlp_EmailRuleSelector_output,
-        "dlp_EmailRuleValue": dlp_EmailRuleValue_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_EmailRule": dlp_EmailRule,
+        "dlp_EmailRuleAction": dlp_EmailRuleAction,
+        "dlp_EmailRuleCondition": dlp_EmailRuleCondition,
+        "dlp_EmailRuleValue": dlp_EmailRuleValue,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -219,15 +227,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_EmailRule": dlp_EmailRule_output,
-        "dlp_EmailRuleAction": dlp_EmailRuleAction_output,
-        "dlp_EmailRuleCondition": dlp_EmailRuleCondition_output,
-        "dlp_EmailRuleOperator": dlp_EmailRuleOperator_output,
-        "dlp_EmailRuleSelector": dlp_EmailRuleSelector_output,
-        "dlp_EmailRuleValue": dlp_EmailRuleValue_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_EmailRule": dlp_EmailRule,
+        "dlp_EmailRuleAction": dlp_EmailRuleAction,
+        "dlp_EmailRuleCondition": dlp_EmailRuleCondition,
+        "dlp_EmailRuleValue": dlp_EmailRuleValue,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -236,24 +242,34 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_dlp_email_rules_delete",
+    name: "zeroTrust_dlp_email_rules_delete",
     title: "Delete email scanner rule",
-    description: "Removes a DLP email scanning rule. The rule will no longer be applied to email messages.",
+    description: "Removes a DLP email scanning rule. The rule will no longer be applied to email messages.\n\nDELETE /accounts/{account_id}/dlp/email/rules/{rule_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
-        "rule_id": {
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "rule_id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "rule_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "rule_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -270,14 +286,12 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_EmailRule": dlp_EmailRule_output,
-        "dlp_EmailRuleAction": dlp_EmailRuleAction_output,
-        "dlp_EmailRuleCondition": dlp_EmailRuleCondition_output,
-        "dlp_EmailRuleOperator": dlp_EmailRuleOperator_output,
-        "dlp_EmailRuleSelector": dlp_EmailRuleSelector_output,
-        "dlp_EmailRuleValue": dlp_EmailRuleValue_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_EmailRule": dlp_EmailRule,
+        "dlp_EmailRuleAction": dlp_EmailRuleAction,
+        "dlp_EmailRuleCondition": dlp_EmailRuleCondition,
+        "dlp_EmailRuleValue": dlp_EmailRuleValue,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -316,15 +330,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_EmailRule": dlp_EmailRule_output,
-        "dlp_EmailRuleAction": dlp_EmailRuleAction_output,
-        "dlp_EmailRuleCondition": dlp_EmailRuleCondition_output,
-        "dlp_EmailRuleOperator": dlp_EmailRuleOperator_output,
-        "dlp_EmailRuleSelector": dlp_EmailRuleSelector_output,
-        "dlp_EmailRuleValue": dlp_EmailRuleValue_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_EmailRule": dlp_EmailRule,
+        "dlp_EmailRuleAction": dlp_EmailRuleAction,
+        "dlp_EmailRuleCondition": dlp_EmailRuleCondition,
+        "dlp_EmailRuleValue": dlp_EmailRuleValue,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -332,24 +344,34 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_dlp_email_rules_get",
+    name: "zeroTrust_dlp_email_rules_get",
     title: "Get an email scanner rule",
-    description: "Gets detailed configuration for a specific DLP email scanning rule, including detection patterns and actions.",
+    description: "Gets detailed configuration for a specific DLP email scanning rule, including detection patterns and actions.\n\nGET /accounts/{account_id}/dlp/email/rules/{rule_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
-        "rule_id": {
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "rule_id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "rule_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "rule_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -366,14 +388,12 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_EmailRule": dlp_EmailRule_output,
-        "dlp_EmailRuleAction": dlp_EmailRuleAction_output,
-        "dlp_EmailRuleCondition": dlp_EmailRuleCondition_output,
-        "dlp_EmailRuleOperator": dlp_EmailRuleOperator_output,
-        "dlp_EmailRuleSelector": dlp_EmailRuleSelector_output,
-        "dlp_EmailRuleValue": dlp_EmailRuleValue_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_EmailRule": dlp_EmailRule,
+        "dlp_EmailRuleAction": dlp_EmailRuleAction,
+        "dlp_EmailRuleCondition": dlp_EmailRuleCondition,
+        "dlp_EmailRuleValue": dlp_EmailRuleValue,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -413,15 +433,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_EmailRule": dlp_EmailRule_output,
-        "dlp_EmailRuleAction": dlp_EmailRuleAction_output,
-        "dlp_EmailRuleCondition": dlp_EmailRuleCondition_output,
-        "dlp_EmailRuleOperator": dlp_EmailRuleOperator_output,
-        "dlp_EmailRuleSelector": dlp_EmailRuleSelector_output,
-        "dlp_EmailRuleValue": dlp_EmailRuleValue_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_EmailRule": dlp_EmailRule,
+        "dlp_EmailRuleAction": dlp_EmailRuleAction,
+        "dlp_EmailRuleCondition": dlp_EmailRuleCondition,
+        "dlp_EmailRuleValue": dlp_EmailRuleValue,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -429,19 +447,29 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_dlp_email_rules_list",
+    name: "zeroTrust_dlp_email_rules_list",
     title: "List all email scanner rules",
-    description: "Lists all email scanner rules for an account.",
+    description: "Lists all email scanner rules for an account.\n\nGET /accounts/{account_id}/dlp/email/rules",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -458,15 +486,13 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_EmailRule": dlp_EmailRule_output,
-        "dlp_EmailRuleAction": dlp_EmailRuleAction_output,
-        "dlp_EmailRuleArray": dlp_EmailRuleArray_output,
-        "dlp_EmailRuleCondition": dlp_EmailRuleCondition_output,
-        "dlp_EmailRuleOperator": dlp_EmailRuleOperator_output,
-        "dlp_EmailRuleSelector": dlp_EmailRuleSelector_output,
-        "dlp_EmailRuleValue": dlp_EmailRuleValue_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_EmailRule": dlp_EmailRule,
+        "dlp_EmailRuleAction": dlp_EmailRuleAction,
+        "dlp_EmailRuleArray": dlp_EmailRuleArray,
+        "dlp_EmailRuleCondition": dlp_EmailRuleCondition,
+        "dlp_EmailRuleValue": dlp_EmailRuleValue,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -506,16 +532,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_EmailRule": dlp_EmailRule_output,
-        "dlp_EmailRuleAction": dlp_EmailRuleAction_output,
-        "dlp_EmailRuleArray": dlp_EmailRuleArray_output,
-        "dlp_EmailRuleCondition": dlp_EmailRuleCondition_output,
-        "dlp_EmailRuleOperator": dlp_EmailRuleOperator_output,
-        "dlp_EmailRuleSelector": dlp_EmailRuleSelector_output,
-        "dlp_EmailRuleValue": dlp_EmailRuleValue_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_EmailRule": dlp_EmailRule,
+        "dlp_EmailRuleAction": dlp_EmailRuleAction,
+        "dlp_EmailRuleArray": dlp_EmailRuleArray,
+        "dlp_EmailRuleCondition": dlp_EmailRuleCondition,
+        "dlp_EmailRuleValue": dlp_EmailRuleValue,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -523,36 +547,44 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_dlp_email_rules_update",
+    name: "zeroTrust_dlp_email_rules_update",
     title: "Update email scanner rule",
-    description: "Updates a DLP email scanning rule.",
+    description: "Updates a DLP email scanning rule.\n\nPUT /accounts/{account_id}/dlp/email/rules/{rule_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/dlp_CreateEmailRule",
           "description": "Rule description."
         },
-        "rule_id": {
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "rule_id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "rule_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "rule_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dlp_CreateEmailRule": dlp_CreateEmailRule,
-        "dlp_EmailRuleAction": dlp_EmailRuleAction,
-        "dlp_EmailRuleCondition": dlp_EmailRuleCondition,
-        "dlp_EmailRuleOperator": dlp_EmailRuleOperator,
-        "dlp_EmailRuleSelector": dlp_EmailRuleSelector,
-        "dlp_EmailRuleValue": dlp_EmailRuleValue,
+        "dlp_EmailRuleAction": dlp_EmailRuleAction$,
+        "dlp_EmailRuleCondition": dlp_EmailRuleCondition$,
+        "dlp_EmailRuleValue": dlp_EmailRuleValue$,
       },
     },
     outputSchema: {
@@ -570,14 +602,12 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_EmailRule": dlp_EmailRule_output,
-        "dlp_EmailRuleAction": dlp_EmailRuleAction_output,
-        "dlp_EmailRuleCondition": dlp_EmailRuleCondition_output,
-        "dlp_EmailRuleOperator": dlp_EmailRuleOperator_output,
-        "dlp_EmailRuleSelector": dlp_EmailRuleSelector_output,
-        "dlp_EmailRuleValue": dlp_EmailRuleValue_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_EmailRule": dlp_EmailRule,
+        "dlp_EmailRuleAction": dlp_EmailRuleAction,
+        "dlp_EmailRuleCondition": dlp_EmailRuleCondition,
+        "dlp_EmailRuleValue": dlp_EmailRuleValue,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -616,15 +646,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_EmailRule": dlp_EmailRule_output,
-        "dlp_EmailRuleAction": dlp_EmailRuleAction_output,
-        "dlp_EmailRuleCondition": dlp_EmailRuleCondition_output,
-        "dlp_EmailRuleOperator": dlp_EmailRuleOperator_output,
-        "dlp_EmailRuleSelector": dlp_EmailRuleSelector_output,
-        "dlp_EmailRuleValue": dlp_EmailRuleValue_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_EmailRule": dlp_EmailRule,
+        "dlp_EmailRuleAction": dlp_EmailRuleAction,
+        "dlp_EmailRuleCondition": dlp_EmailRuleCondition,
+        "dlp_EmailRuleValue": dlp_EmailRuleValue,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({

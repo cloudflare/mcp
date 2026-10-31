@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `speed_transformations_allowed_origins_response` in responses.
  */
-export const speed_transformations_allowed_origins_response_output: JsonSchema = {
+export const speed_transformations_allowed_origins_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/speed_base"
@@ -20,17 +20,10 @@ export const speed_transformations_allowed_origins_response_output: JsonSchema =
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/speed_transformations_allowed_origins_value"
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `speed_transformations_allowed_origins_value` in responses.
- */
-export const speed_transformations_allowed_origins_value_output: JsonSchema = {
-  "type": "string"
 };

@@ -4,52 +4,9 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `zero-trust-gateway_action`.
- */
-export const zero_trust_gateway_action: JsonSchema = {
-  "description": "Specify the action to perform when the associated traffic, identity, and device posture expressions either absent or evaluate to `true`.",
-  "enum": [
-    "on",
-    "off",
-    "allow",
-    "block",
-    "scan",
-    "noscan",
-    "safesearch",
-    "ytrestricted",
-    "isolate",
-    "noisolate",
-    "override",
-    "l4_override",
-    "egress",
-    "resolve",
-    "quarantine",
-    "redirect",
-    "forward"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zero-trust-gateway_description-2`.
- */
-export const zero_trust_gateway_description_2: JsonSchema = {
-  "description": "Specify the rule description.",
-  "type": "string"
-};
-
-/**
- * The schema of `zero-trust-gateway_device_posture`.
- */
-export const zero_trust_gateway_device_posture: JsonSchema = {
-  "description": "Specify the wirefilter expression used for device posture check. The API automatically formats and sanitizes expressions before storing them. To prevent Terraform state drift, use the formatted expression returned in the API response.",
-  "type": "string"
-};
-
-/**
  * The schema of `zero-trust-gateway_dns_resolver_settings_v4`.
  */
-export const zero_trust_gateway_dns_resolver_settings_v4: JsonSchema = {
+export const zero$$trust$$gateway_dns_resolver_settings_v4: JsonSchema = {
   "properties": {
     "ip": {
       "description": "Specify the IPv4 address of the upstream resolver.",
@@ -77,7 +34,7 @@ export const zero_trust_gateway_dns_resolver_settings_v4: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_dns_resolver_settings_v6`.
  */
-export const zero_trust_gateway_dns_resolver_settings_v6: JsonSchema = {
+export const zero$$trust$$gateway_dns_resolver_settings_v6: JsonSchema = {
   "properties": {
     "ip": {
       "description": "Specify the IPv6 address of the upstream resolver.",
@@ -103,17 +60,9 @@ export const zero_trust_gateway_dns_resolver_settings_v6: JsonSchema = {
 };
 
 /**
- * The schema of `zero-trust-gateway_enabled`.
- */
-export const zero_trust_gateway_enabled: JsonSchema = {
-  "description": "Specify whether the rule is enabled.",
-  "type": "boolean"
-};
-
-/**
  * The schema of `zero-trust-gateway_expiration`.
  */
-export const zero_trust_gateway_expiration: JsonSchema = {
+export const zero$$trust$$gateway_expiration: JsonSchema = {
   "description": "Defines the expiration time stamp and default duration of a DNS policy. Takes precedence over the policy's `schedule` configuration, if any. This  does not apply to HTTP or network policies. Settable only for `dns` rules.",
   "oneOf": [
     {
@@ -125,7 +74,8 @@ export const zero_trust_gateway_expiration: JsonSchema = {
         "expires_at": {
           "allOf": [
             {
-              "$ref": "#/$defs/zero-trust-gateway_timestamp"
+              "format": "date-time",
+              "type": "string"
             },
             {
               "type": "string"
@@ -147,7 +97,7 @@ export const zero_trust_gateway_expiration: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_filters`.
  */
-export const zero_trust_gateway_filters: JsonSchema = {
+export const zero$$trust$$gateway_filters: JsonSchema = {
   "description": "Specify the protocol or layer to evaluate the traffic, identity, and device posture expressions. Can only contain a single value.",
   "items": {
     "enum": [
@@ -165,33 +115,9 @@ export const zero_trust_gateway_filters: JsonSchema = {
 };
 
 /**
- * The schema of `zero-trust-gateway_identity`.
- */
-export const zero_trust_gateway_identity: JsonSchema = {
-  "description": "Specify the wirefilter expression used for identity matching. The API automatically formats and sanitizes expressions before storing them. To prevent Terraform state drift, use the formatted expression returned in the API response.",
-  "type": "string"
-};
-
-/**
- * The schema of `zero-trust-gateway_name-3`.
- */
-export const zero_trust_gateway_name_3: JsonSchema = {
-  "description": "Specify the rule name.",
-  "type": "string"
-};
-
-/**
- * The schema of `zero-trust-gateway_precedence`.
- */
-export const zero_trust_gateway_precedence: JsonSchema = {
-  "description": "Set the order of your rules. Lower values indicate higher precedence. At each processing phase, evaluate applicable rules in ascending order of this value. Refer to [Order of enforcement](http://developers.cloudflare.com/learning-paths/secure-internet-traffic/understand-policies/order-of-enforcement/#manage-precedence-with-terraform) to manage precedence via Terraform.",
-  "type": "integer"
-};
-
-/**
  * The schema of `zero-trust-gateway_rule-settings`.
  */
-export const zero_trust_gateway_rule_settings: JsonSchema = {
+export const zero$$trust$$gateway_rule$$settings: JsonSchema = {
   "description": "Defines settings for this rule. Settings apply only to specific rule types and must use compatible selectors. If Terraform detects drift, confirm the setting supports your rule type and check whether the API modifies the value. Use API-returned values in your configuration to prevent drift.",
   "properties": {
     "add_headers": {
@@ -732,7 +658,7 @@ export const zero_trust_gateway_rule_settings: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_schedule`.
  */
-export const zero_trust_gateway_schedule: JsonSchema = {
+export const zero$$trust$$gateway_schedule: JsonSchema = {
   "description": "Defines the schedule for activating DNS policies. Settable only for `dns` and `dns_resolver` rules.",
   "oneOf": [
     {
@@ -776,21 +702,4 @@ export const zero_trust_gateway_schedule: JsonSchema = {
       "type": "null"
     }
   ]
-};
-
-/**
- * The schema of `zero-trust-gateway_traffic`.
- */
-export const zero_trust_gateway_traffic: JsonSchema = {
-  "description": "Specify the wirefilter expression used for traffic matching. The API automatically formats and sanitizes expressions before storing them. To prevent Terraform state drift, use the formatted expression returned in the API response.",
-  "type": "string"
-};
-
-/**
- * The schema of `zero-trust-gateway_uuid-4`.
- */
-export const zero_trust_gateway_uuid_4: JsonSchema = {
-  "description": "Identify the API resource with a UUID.",
-  "format": "uuid",
-  "type": "string"
 };

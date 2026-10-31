@@ -6,12 +6,19 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `email-security_CreateDomain`.
  */
-export const email_security_CreateDomain: JsonSchema = {
+export const email$$security_CreateDomain: JsonSchema = {
   "properties": {
     "allowed_delivery_modes": {
       "description": "Delivery modes to onboard the domain through.",
       "items": {
-        "$ref": "#/$defs/email-security_DeliveryMode"
+        "enum": [
+          "DIRECT",
+          "BCC",
+          "JOURNAL",
+          "API",
+          "RETRO_SCAN"
+        ],
+        "type": "string"
       },
       "maxItems": 10,
       "minItems": 1,
@@ -24,14 +31,38 @@ export const email_security_CreateDomain: JsonSchema = {
     "drop_dispositions": {
       "description": "Dispositions to drop instead of delivering, e.g. `[\"MALICIOUS\", \"SPAM\"]`.",
       "items": {
-        "$ref": "#/$defs/email-security_DispositionLabel"
+        "description": "The verdict Email Security assigns to a message.",
+        "enum": [
+          "MALICIOUS",
+          "MALICIOUS-BEC",
+          "SUSPICIOUS",
+          "SPOOF",
+          "SPAM",
+          "BULK",
+          "ENCRYPTED",
+          "EXTERNAL",
+          "UNKNOWN",
+          "NONE"
+        ],
+        "type": "string"
       },
       "maxItems": 10,
       "type": "array"
     },
     "folder": {
-      "$ref": "#/$defs/email-security_ScannableFolder",
-      "description": "The mailbox folder to scan, for API-scanning domains."
+      "description": "The mailbox folder to scan, for API-scanning domains.",
+      "oneOf": [
+        {
+          "enum": [
+            "AllItems",
+            "Inbox"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "integration_id": {
       "description": "Identifier of the CASB integration that authorizes this domain. The integration also enables API scanning, post-delivery actions, and directory sync.",
@@ -67,7 +98,15 @@ export const email_security_CreateDomain: JsonSchema = {
     "regions": {
       "description": "Regions that process messages for this domain, e.g. `[\"GLOBAL\"]` or `[\"US\"]`.",
       "items": {
-        "$ref": "#/$defs/email-security_Region"
+        "description": "The region that processes messages for this domain.",
+        "enum": [
+          "GLOBAL",
+          "AU",
+          "DE",
+          "IN",
+          "US"
+        ],
+        "type": "string"
       },
       "maxItems": 10,
       "minItems": 1,
@@ -118,73 +157,22 @@ export const email_security_CreateDomain: JsonSchema = {
 };
 
 /**
- * The schema of `email-security_DeliveryMode`.
- */
-export const email_security_DeliveryMode: JsonSchema = {
-  "enum": [
-    "DIRECT",
-    "BCC",
-    "JOURNAL",
-    "API",
-    "RETRO_SCAN"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `email-security_DomainId`.
- */
-export const email_security_DomainId: JsonSchema = {
-  "description": "Domain identifier.",
-  "format": "uuid",
-  "type": "string"
-};
-
-/**
- * The schema of `email-security_DomainStatus`.
- */
-export const email_security_DomainStatus: JsonSchema = {
-  "oneOf": [
-    {
-      "enum": [
-        "PENDING",
-        "ACTIVE",
-        "FAILED",
-        "TIMEOUT"
-      ],
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `email-security_Region`.
- */
-export const email_security_Region: JsonSchema = {
-  "description": "The region that processes messages for this domain.",
-  "enum": [
-    "GLOBAL",
-    "AU",
-    "DE",
-    "IN",
-    "US"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `email-security_ReplaceDomain`.
  */
-export const email_security_ReplaceDomain: JsonSchema = {
-  "description": "Request body for replacing an email domain. The `domain` field is intentionally\nabsent — the domain name is immutable after creation.\n",
+export const email$$security_ReplaceDomain: JsonSchema = {
+  "description": "Request body for replacing an email domain. The `domain` field is intentionally\nabsent — the domain name is immutable after creation.",
   "properties": {
     "allowed_delivery_modes": {
       "description": "Delivery modes to onboard the domain through.",
       "items": {
-        "$ref": "#/$defs/email-security_DeliveryMode"
+        "enum": [
+          "DIRECT",
+          "BCC",
+          "JOURNAL",
+          "API",
+          "RETRO_SCAN"
+        ],
+        "type": "string"
       },
       "maxItems": 10,
       "minItems": 1,
@@ -193,14 +181,38 @@ export const email_security_ReplaceDomain: JsonSchema = {
     "drop_dispositions": {
       "description": "Dispositions to drop instead of delivering, e.g. `[\"MALICIOUS\", \"SPAM\"]`.",
       "items": {
-        "$ref": "#/$defs/email-security_DispositionLabel"
+        "description": "The verdict Email Security assigns to a message.",
+        "enum": [
+          "MALICIOUS",
+          "MALICIOUS-BEC",
+          "SUSPICIOUS",
+          "SPOOF",
+          "SPAM",
+          "BULK",
+          "ENCRYPTED",
+          "EXTERNAL",
+          "UNKNOWN",
+          "NONE"
+        ],
+        "type": "string"
       },
       "maxItems": 10,
       "type": "array"
     },
     "folder": {
-      "$ref": "#/$defs/email-security_ScannableFolder",
-      "description": "The mailbox folder to scan, for API-scanning domains."
+      "description": "The mailbox folder to scan, for API-scanning domains.",
+      "oneOf": [
+        {
+          "enum": [
+            "AllItems",
+            "Inbox"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "integration_id": {
       "description": "Identifier of the CASB integration that authorizes this domain. The integration also enables API scanning, post-delivery actions, and directory sync.",
@@ -236,7 +248,15 @@ export const email_security_ReplaceDomain: JsonSchema = {
     "regions": {
       "description": "Regions that process messages for this domain, e.g. `[\"GLOBAL\"]` or `[\"US\"]`.",
       "items": {
-        "$ref": "#/$defs/email-security_Region"
+        "description": "The region that processes messages for this domain.",
+        "enum": [
+          "GLOBAL",
+          "AU",
+          "DE",
+          "IN",
+          "US"
+        ],
+        "type": "string"
       },
       "maxItems": 10,
       "minItems": 1,
@@ -286,46 +306,58 @@ export const email_security_ReplaceDomain: JsonSchema = {
 };
 
 /**
- * The schema of `email-security_ScannableFolder`.
- */
-export const email_security_ScannableFolder: JsonSchema = {
-  "description": "The mailbox folder to scan, for API-scanning domains.",
-  "oneOf": [
-    {
-      "enum": [
-        "AllItems",
-        "Inbox"
-      ],
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
  * The schema of `email-security_UpdateDomain`.
  */
-export const email_security_UpdateDomain: JsonSchema = {
+export const email$$security_UpdateDomain: JsonSchema = {
   "properties": {
     "allowed_delivery_modes": {
       "description": "Delivery modes to onboard the domain through.",
       "items": {
-        "$ref": "#/$defs/email-security_DeliveryMode"
+        "enum": [
+          "DIRECT",
+          "BCC",
+          "JOURNAL",
+          "API",
+          "RETRO_SCAN"
+        ],
+        "type": "string"
       },
       "type": "array"
     },
     "drop_dispositions": {
       "description": "Dispositions to drop instead of delivering, e.g. `[\"MALICIOUS\", \"SPAM\"]`.",
       "items": {
-        "$ref": "#/$defs/email-security_DispositionLabel"
+        "description": "The verdict Email Security assigns to a message.",
+        "enum": [
+          "MALICIOUS",
+          "MALICIOUS-BEC",
+          "SUSPICIOUS",
+          "SPOOF",
+          "SPAM",
+          "BULK",
+          "ENCRYPTED",
+          "EXTERNAL",
+          "UNKNOWN",
+          "NONE"
+        ],
+        "type": "string"
       },
       "type": "array"
     },
     "folder": {
-      "$ref": "#/$defs/email-security_ScannableFolder",
-      "description": "The mailbox folder to scan, for API-scanning domains."
+      "description": "The mailbox folder to scan, for API-scanning domains.",
+      "oneOf": [
+        {
+          "enum": [
+            "AllItems",
+            "Inbox"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "integration_id": {
       "description": "Identifier of the CASB integration that authorizes this domain. The integration also enables API scanning, post-delivery actions, and directory sync.",
@@ -353,7 +385,15 @@ export const email_security_UpdateDomain: JsonSchema = {
     "regions": {
       "description": "Regions that process messages for this domain, e.g. `[\"GLOBAL\"]` or `[\"US\"]`.",
       "items": {
-        "$ref": "#/$defs/email-security_Region"
+        "description": "The region that processes messages for this domain.",
+        "enum": [
+          "GLOBAL",
+          "AU",
+          "DE",
+          "IN",
+          "US"
+        ],
+        "type": "string"
       },
       "type": "array"
     },

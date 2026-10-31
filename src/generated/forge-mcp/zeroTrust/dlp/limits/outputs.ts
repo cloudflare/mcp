@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `dlp_Limits` in responses.
  */
-export const dlp_Limits_output: JsonSchema = {
+export const dlp_Limits: JsonSchema = {
   "properties": {
     "max_custom_regex_entries": {
       "type": "integer"

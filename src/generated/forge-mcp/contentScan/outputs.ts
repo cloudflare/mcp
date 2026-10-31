@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `waf-product-api-bundle_api-response-common-2` in responses.
  */
-export const waf_product_api_bundle_api_response_common_2_output: JsonSchema = {
+export const waf$$product$$api$$bundle_api$$response$$common$$2: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/waf-product-api-bundle_messages"
@@ -53,7 +53,7 @@ export const waf_product_api_bundle_api_response_common_2_output: JsonSchema = {
  * The schema of `waf-product-api-bundle_api-response-common-failure-2` in
  * responses.
  */
-export const waf_product_api_bundle_api_response_common_failure_2_output: JsonSchema = {
+export const waf$$product$$api$$bundle_api$$response$$common$$failure$$2: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/waf-product-api-bundle_messages"
@@ -83,7 +83,7 @@ export const waf_product_api_bundle_api_response_common_failure_2_output: JsonSc
 /**
  * The schema of `waf-product-api-bundle_api-response-single-2` in responses.
  */
-export const waf_product_api_bundle_api_response_single_2_output: JsonSchema = {
+export const waf$$product$$api$$bundle_api$$response$$single$$2: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/waf-product-api-bundle_api-response-common-2"
@@ -112,7 +112,7 @@ export const waf_product_api_bundle_api_response_single_2_output: JsonSchema = {
 /**
  * The schema of `waf-product-api-bundle_response-status-2` in responses.
  */
-export const waf_product_api_bundle_response_status_2_output: JsonSchema = {
+export const waf$$product$$api$$bundle_response$$status$$2: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/waf-product-api-bundle_api-response-single-2"
@@ -131,7 +131,7 @@ export const waf_product_api_bundle_response_status_2_output: JsonSchema = {
 /**
  * The schema of `waf-product-api-bundle_status-2` in responses.
  */
-export const waf_product_api_bundle_status_2_output: JsonSchema = {
+export const waf$$product$$api$$bundle_status$$2: JsonSchema = {
   "properties": {
     "modified": {
       "type": "string"

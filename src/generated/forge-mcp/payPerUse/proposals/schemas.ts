@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `pay-per-crawl_PPUOperatorProposalActionRequest`.
  */
-export const pay_per_crawl_PPUOperatorProposalActionRequest: JsonSchema = {
+export const pay$$per$$crawl_PPUOperatorProposalActionRequest: JsonSchema = {
   "properties": {
     "action": {
       "enum": [

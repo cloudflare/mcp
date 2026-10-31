@@ -2,27 +2,37 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
-import { cloudforce_one_ErrorResponse_output } from "../../outputs.js";
+import { cloudforce$$one_ErrorResponse } from "../../outputs.js";
 
 /**
- * The tools of `cloudforce_one.rules.email.schema`.
+ * The tools of `cloudforceOne.rules.email.schema`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "cloudforce_one_rules_email_schema_get",
+    name: "cloudforceOne_rules_email_schema_get",
     title: "Get email rule schema",
-    description: "Get the field catalog for structured email rules.",
+    description: "Get the field catalog for structured email rules.\n\nGET /accounts/{account_id}/cloudforce-one/rules/structured/schema",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare account ID.",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -456,7 +466,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cloudforce-one_ErrorResponse": cloudforce_one_ErrorResponse_output,
+        "cloudforce-one_ErrorResponse": cloudforce$$one_ErrorResponse,
       },
     },
     request: (args) => ({

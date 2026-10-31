@@ -3,15 +3,11 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  workers_api_response_common_failure_output,
-  workers_api_response_common_output,
-  workers_messages_output,
+  workers_api$$response$$common,
+  workers_api$$response$$common$$failure,
+  workers_messages,
 } from "../../../../outputs.js";
-import {
-  workers_identifier,
-  workers_script_name,
-} from "../../../../schemas.js";
-import { workers_subdomain_output } from "./outputs.js";
+import { workers_subdomain } from "./outputs.js";
 
 /**
  * The tools of `workers.legacy.scripts.subdomain`.
@@ -20,14 +16,10 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_legacy_scripts_subdomain_create",
     title: "Update Worker Script Subdomain",
-    description: "Enable or disable a Worker script on the workers.dev subdomain.\n\nThis method is deprecated.",
+    description: "Enable or disable a Worker script on the workers.dev subdomain.\n\nThis method is deprecated.\n\nPOST /accounts/{account_id}/workers/scripts/{script_name}/subdomain",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/workers_identifier",
-          "description": "Identifier."
-        },
         "body": {
           "properties": {
             "enabled": {
@@ -44,20 +36,30 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "script_name": {
-          "$ref": "#/$defs/workers_script_name",
-          "description": "Name of the script."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            },
+            "script_name": {
+              "description": "Name of the script.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "script_name"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "script_name",
+        "path",
         "body"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier,
-        "workers_script_name": workers_script_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -77,9 +79,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_messages": workers_messages_output,
-        "workers_subdomain": workers_subdomain_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_messages": workers_messages,
+        "workers_subdomain": workers_subdomain,
       },
     },
     annotations: {
@@ -128,10 +130,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_api-response-common-failure": workers_api_response_common_failure_output,
-        "workers_messages": workers_messages_output,
-        "workers_subdomain": workers_subdomain_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_api-response-common-failure": workers_api$$response$$common$$failure,
+        "workers_messages": workers_messages,
+        "workers_subdomain": workers_subdomain,
       },
     },
     request: (args) => ({
@@ -142,27 +144,33 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_legacy_scripts_subdomain_delete",
     title: "Delete Worker Script Subdomain",
-    description: "Disable all workers.dev subdomains for a Worker script.\n\nThis method is deprecated.\n\nConfirm with the user before calling this tool. This will disable all workers.dev subdomains for the Worker script.",
+    description: "Disable all workers.dev subdomains for a Worker script.\n\nThis method is deprecated.\n\nConfirm with the user before calling this tool. This will disable all workers.dev subdomains for the Worker script.\n\nDELETE /accounts/{account_id}/workers/scripts/{script_name}/subdomain",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/workers_identifier",
-          "description": "Identifier."
-        },
-        "script_name": {
-          "$ref": "#/$defs/workers_script_name",
-          "description": "Name of the script."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            },
+            "script_name": {
+              "description": "Name of the script.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "script_name"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "script_name"
+        "path"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier,
-        "workers_script_name": workers_script_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -182,9 +190,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_messages": workers_messages_output,
-        "workers_subdomain": workers_subdomain_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_messages": workers_messages,
+        "workers_subdomain": workers_subdomain,
       },
     },
     annotations: {
@@ -233,10 +241,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_api-response-common-failure": workers_api_response_common_failure_output,
-        "workers_messages": workers_messages_output,
-        "workers_subdomain": workers_subdomain_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_api-response-common-failure": workers_api$$response$$common$$failure,
+        "workers_messages": workers_messages,
+        "workers_subdomain": workers_subdomain,
       },
     },
     request: (args) => ({
@@ -246,27 +254,33 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_legacy_scripts_subdomain_get",
     title: "Get Worker Script Subdomain",
-    description: "Get whether a Worker script is available on the workers.dev subdomain.\n\nThis method is deprecated.",
+    description: "Get whether a Worker script is available on the workers.dev subdomain.\n\nThis method is deprecated.\n\nGET /accounts/{account_id}/workers/scripts/{script_name}/subdomain",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/workers_identifier",
-          "description": "Identifier."
-        },
-        "script_name": {
-          "$ref": "#/$defs/workers_script_name",
-          "description": "Name of the script."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            },
+            "script_name": {
+              "description": "Name of the script.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "script_name"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "script_name"
+        "path"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier,
-        "workers_script_name": workers_script_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -286,9 +300,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_messages": workers_messages_output,
-        "workers_subdomain": workers_subdomain_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_messages": workers_messages,
+        "workers_subdomain": workers_subdomain,
       },
     },
     annotations: {
@@ -343,10 +357,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_api-response-common-failure": workers_api_response_common_failure_output,
-        "workers_messages": workers_messages_output,
-        "workers_subdomain": workers_subdomain_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_api-response-common-failure": workers_api$$response$$common$$failure,
+        "workers_messages": workers_messages,
+        "workers_subdomain": workers_subdomain,
       },
     },
     request: (args) => ({

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `dls_PrefixBinding` in responses.
  */
-export const dls_PrefixBinding_output: JsonSchema = {
+export const dls_PrefixBinding: JsonSchema = {
   "properties": {
     "cidr": {
       "type": "string"
@@ -33,7 +33,7 @@ export const dls_PrefixBinding_output: JsonSchema = {
 /**
  * The schema of `dls_PrefixBindingPaginatedListResponse` in responses.
  */
-export const dls_PrefixBindingPaginatedListResponse_output: JsonSchema = {
+export const dls_PrefixBindingPaginatedListResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -89,7 +89,7 @@ export const dls_PrefixBindingPaginatedListResponse_output: JsonSchema = {
 /**
  * The schema of `dls_PrefixBindingResponse` in responses.
  */
-export const dls_PrefixBindingResponse_output: JsonSchema = {
+export const dls_PrefixBindingResponse: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dls_good_response"

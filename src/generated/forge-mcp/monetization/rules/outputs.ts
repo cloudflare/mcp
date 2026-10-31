@@ -4,23 +4,9 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `monetization_identifier` in responses.
- */
-export const monetization_identifier_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `monetization_monetization-price` in responses.
- */
-export const monetization_monetization_price_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `monetization_monetization-rule` in responses.
  */
-export const monetization_monetization_rule_output: JsonSchema = {
+export const monetization_monetization$$rule: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/monetization_monetization-rule-input"
@@ -28,7 +14,7 @@ export const monetization_monetization_rule_output: JsonSchema = {
     {
       "properties": {
         "id": {
-          "$ref": "#/$defs/monetization_identifier"
+          "type": "string"
         }
       },
       "required": [
@@ -42,7 +28,7 @@ export const monetization_monetization_rule_output: JsonSchema = {
 /**
  * The schema of `monetization_monetization-rule-collection` in responses.
  */
-export const monetization_monetization_rule_collection_output: JsonSchema = {
+export const monetization_monetization$$rule$$collection: JsonSchema = {
   "properties": {
     "rules": {
       "items": {
@@ -61,7 +47,7 @@ export const monetization_monetization_rule_collection_output: JsonSchema = {
  * The schema of `monetization_monetization-rule-collection-response` in
  * responses.
  */
-export const monetization_monetization_rule_collection_response_output: JsonSchema = {
+export const monetization_monetization$$rule$$collection$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/monetization_api-response-common"
@@ -83,7 +69,7 @@ export const monetization_monetization_rule_collection_response_output: JsonSche
 /**
  * The schema of `monetization_monetization-rule-input` in responses.
  */
-export const monetization_monetization_rule_input_output: JsonSchema = {
+export const monetization_monetization$$rule$$input: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/monetization_monetization-rule-input-fixed-price"
@@ -98,7 +84,7 @@ export const monetization_monetization_rule_input_output: JsonSchema = {
  * The schema of `monetization_monetization-rule-input-fixed-price` in
  * responses.
  */
-export const monetization_monetization_rule_input_fixed_price_output: JsonSchema = {
+export const monetization_monetization$$rule$$input$$fixed$$price: JsonSchema = {
   "properties": {
     "address": {
       "type": "string"
@@ -113,10 +99,10 @@ export const monetization_monetization_rule_input_fixed_price_output: JsonSchema
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/monetization_identifier"
+      "type": "string"
     },
     "price": {
-      "$ref": "#/$defs/monetization_monetization-price"
+      "type": "string"
     },
     "scheme": {
       "enum": [
@@ -139,7 +125,7 @@ export const monetization_monetization_rule_input_fixed_price_output: JsonSchema
  * The schema of `monetization_monetization-rule-input-origin-controlled` in
  * responses.
  */
-export const monetization_monetization_rule_input_origin_controlled_output: JsonSchema = {
+export const monetization_monetization$$rule$$input$$origin$$controlled: JsonSchema = {
   "properties": {
     "address": {
       "type": "string"
@@ -154,7 +140,7 @@ export const monetization_monetization_rule_input_origin_controlled_output: Json
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/monetization_identifier"
+      "type": "string"
     },
     "scheme": {
       "enum": [
@@ -174,7 +160,7 @@ export const monetization_monetization_rule_input_origin_controlled_output: Json
 /**
  * The schema of `monetization_monetization-rule-response` in responses.
  */
-export const monetization_monetization_rule_response_output: JsonSchema = {
+export const monetization_monetization$$rule$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/monetization_api-response-common"

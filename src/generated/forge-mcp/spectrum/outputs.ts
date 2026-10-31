@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `spectrum-config_api-response-collection` in responses.
  */
-export const spectrum_config_api_response_collection_output: JsonSchema = {
+export const spectrum$$config_api$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/spectrum-config_api-response-common"
@@ -42,7 +42,7 @@ export const spectrum_config_api_response_collection_output: JsonSchema = {
 /**
  * The schema of `spectrum-config_api-response-common` in responses.
  */
-export const spectrum_config_api_response_common_output: JsonSchema = {
+export const spectrum$$config_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/spectrum-config_messages"
@@ -68,7 +68,7 @@ export const spectrum_config_api_response_common_output: JsonSchema = {
 /**
  * The schema of `spectrum-config_api-response-common-failure` in responses.
  */
-export const spectrum_config_api_response_common_failure_output: JsonSchema = {
+export const spectrum$$config_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/spectrum-config_messages"
@@ -96,16 +96,9 @@ export const spectrum_config_api_response_common_failure_output: JsonSchema = {
 };
 
 /**
- * The schema of `spectrum-config_identifier` in responses.
- */
-export const spectrum_config_identifier_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `spectrum-config_messages` in responses.
  */
-export const spectrum_config_messages_output: JsonSchema = {
+export const spectrum$$config_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {

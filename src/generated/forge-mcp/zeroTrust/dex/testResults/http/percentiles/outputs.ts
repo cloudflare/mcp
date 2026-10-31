@@ -8,7 +8,7 @@ import type { JsonSchema } from "../../../../../_/tool.js";
  * `digital-experience-monitoring_http_details_percentiles_response` in
  * responses.
  */
-export const digital_experience_monitoring_http_details_percentiles_response_output: JsonSchema = {
+export const digital$$experience$$monitoring_http_details_percentiles_response: JsonSchema = {
   "properties": {
     "dnsResponseTimeMs": {
       "$ref": "#/$defs/digital-experience-monitoring_percentiles"

@@ -6,10 +6,18 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `api-shield_public_schema` in responses.
  */
-export const api_shield_public_schema_output: JsonSchema = {
+export const api$$shield_public_schema: JsonSchema = {
   "properties": {
     "created_at": {
-      "$ref": "#/$defs/api-shield_timestamp-2"
+      "allOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "string"
+        }
+      ]
     },
     "kind": {
       "enum": [
@@ -23,7 +31,14 @@ export const api_shield_public_schema_output: JsonSchema = {
     "schema_id": {
       "allOf": [
         {
-          "$ref": "#/$defs/api-shield_uuid-2"
+          "allOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "string"
+            }
+          ]
         },
         {
           "format": "uuid",
@@ -51,7 +66,7 @@ export const api_shield_public_schema_output: JsonSchema = {
 /**
  * The schema of `api-shield_public_schema_success_result` in responses.
  */
-export const api_shield_public_schema_success_result_output: JsonSchema = {
+export const api$$shield_public_schema_success_result: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/api-shield_api-response-common"
@@ -73,7 +88,7 @@ export const api_shield_public_schema_success_result_output: JsonSchema = {
 /**
  * The schema of `api-shield_schema_issue_notification` in responses.
  */
-export const api_shield_schema_issue_notification_output: JsonSchema = {
+export const api$$shield_schema_issue_notification: JsonSchema = {
   "properties": {
     "code": {
       "type": "integer"

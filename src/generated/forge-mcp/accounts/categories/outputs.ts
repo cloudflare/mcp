@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `alexandria_categories` in responses.
  */
-export const alexandria_categories_output: JsonSchema = {
+export const alexandria_categories: JsonSchema = {
   "items": {
     "$ref": "#/$defs/alexandria_category"
   },
@@ -16,19 +16,19 @@ export const alexandria_categories_output: JsonSchema = {
 /**
  * The schema of `alexandria_category` in responses.
  */
-export const alexandria_category_output: JsonSchema = {
+export const alexandria_category: JsonSchema = {
   "properties": {
     "created_at": {
-      "$ref": "#/$defs/alexandria_category_created_at"
+      "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/alexandria_category_description"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/alexandria_category_id"
+      "type": "integer"
     },
     "name": {
-      "$ref": "#/$defs/alexandria_category_name"
+      "type": "string"
     }
   },
   "required": [
@@ -41,30 +41,9 @@ export const alexandria_category_output: JsonSchema = {
 };
 
 /**
- * The schema of `alexandria_category_created_at` in responses.
- */
-export const alexandria_category_created_at_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `alexandria_category_description` in responses.
- */
-export const alexandria_category_description_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `alexandria_category_name` in responses.
- */
-export const alexandria_category_name_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `alexandria_get_categories_response` in responses.
  */
-export const alexandria_get_categories_response_output: JsonSchema = {
+export const alexandria_get_categories_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/alexandria_api-response-collection"
@@ -83,7 +62,7 @@ export const alexandria_get_categories_response_output: JsonSchema = {
 /**
  * The schema of `alexandria_get_category_response` in responses.
  */
-export const alexandria_get_category_response_output: JsonSchema = {
+export const alexandria_get_category_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/alexandria_api-response-common"

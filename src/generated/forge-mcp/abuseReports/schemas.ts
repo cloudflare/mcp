@@ -6,11 +6,11 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `abuse-reports_BaseReportFields`.
  */
-export const abuse_reports_BaseReportFields: JsonSchema = {
+export const abuse$$reports_BaseReportFields: JsonSchema = {
   "properties": {
     "act": {
-      "$ref": "#/$defs/abuse-reports_SubmissionReportType",
-      "description": "The report type for submitted reports."
+      "description": "The report type for submitted reports.",
+      "type": "string"
     },
     "comments": {
       "description": "Any additional comments about the infringement not exceeding 2000 characters. Comments are kept internal to Cloudflare and not shared with the host or customer as part of regular processing. For delegated reports, comments may be shared in full.",
@@ -66,7 +66,7 @@ export const abuse_reports_BaseReportFields: JsonSchema = {
 /**
  * The schema of `abuse-reports_CSAMReport`.
  */
-export const abuse_reports_CSAMReport: JsonSchema = {
+export const abuse$$reports_CSAMReport: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/abuse-reports_BaseReportFields"
@@ -80,11 +80,11 @@ export const abuse_reports_CSAMReport: JsonSchema = {
           "type": "string"
         },
         "country": {
-          "description": "Text not exceeding 255 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).\n",
+          "description": "Text not exceeding 255 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
           "type": "string"
         },
         "host_notification": {
-          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
+          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.",
           "enum": [
             "send",
             "send-anon"
@@ -92,11 +92,11 @@ export const abuse_reports_CSAMReport: JsonSchema = {
           "type": "string"
         },
         "justification": {
-          "description": "A detailed description of the infringement, including any necessary access details and the exact steps needed to view the content, not exceeding 5000 characters.\n",
+          "description": "A detailed description of the infringement, including any necessary access details and the exact steps needed to view the content, not exceeding 5000 characters.",
           "type": "string"
         },
         "ncmec_notification": {
-          "description": "Notification type based on the abuse type. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
+          "description": "Notification type based on the abuse type. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.",
           "enum": [
             "send",
             "send-anon"
@@ -104,7 +104,7 @@ export const abuse_reports_CSAMReport: JsonSchema = {
           "type": "string"
         },
         "owner_notification": {
-          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
+          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.",
           "enum": [
             "send",
             "send-anon",
@@ -127,7 +127,7 @@ export const abuse_reports_CSAMReport: JsonSchema = {
 /**
  * The schema of `abuse-reports_DMCAReport`.
  */
-export const abuse_reports_DMCAReport: JsonSchema = {
+export const abuse$$reports_DMCAReport: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/abuse-reports_BaseReportFields"
@@ -160,22 +160,22 @@ export const abuse_reports_DMCAReport: JsonSchema = {
           "type": "string"
         },
         "country": {
-          "description": "Text not exceeding 255 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).\n",
+          "description": "Text not exceeding 255 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
           "type": "string"
         },
         "host_notification": {
-          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
+          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.",
           "enum": [
             "send"
           ],
           "type": "string"
         },
         "original_work": {
-          "description": "Text not exceeding 255 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).\n",
+          "description": "Text not exceeding 255 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
           "type": "string"
         },
         "owner_notification": {
-          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
+          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.",
           "enum": [
             "send"
           ],
@@ -210,7 +210,7 @@ export const abuse_reports_DMCAReport: JsonSchema = {
 /**
  * The schema of `abuse-reports_GeneralReport`.
  */
-export const abuse_reports_GeneralReport: JsonSchema = {
+export const abuse$$reports_GeneralReport: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/abuse-reports_BaseReportFields"
@@ -228,7 +228,7 @@ export const abuse_reports_GeneralReport: JsonSchema = {
           "type": "string"
         },
         "host_notification": {
-          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
+          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.",
           "enum": [
             "send",
             "send-anon"
@@ -236,11 +236,11 @@ export const abuse_reports_GeneralReport: JsonSchema = {
           "type": "string"
         },
         "justification": {
-          "description": "A detailed description of the infringement, including any necessary access details and the exact steps needed to view the content, not exceeding 5000 characters.\n",
+          "description": "A detailed description of the infringement, including any necessary access details and the exact steps needed to view the content, not exceeding 5000 characters.",
           "type": "string"
         },
         "owner_notification": {
-          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
+          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.",
           "enum": [
             "send",
             "send-anon"
@@ -267,24 +267,9 @@ export const abuse_reports_GeneralReport: JsonSchema = {
 };
 
 /**
- * The schema of `abuse-reports_MitigationStatus`.
- */
-export const abuse_reports_MitigationStatus: JsonSchema = {
-  "description": "The status of a mitigation",
-  "enum": [
-    "pending",
-    "active",
-    "in_review",
-    "cancelled",
-    "removed"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `abuse-reports_NCSEIReport`.
  */
-export const abuse_reports_NCSEIReport: JsonSchema = {
+export const abuse$$reports_NCSEIReport: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/abuse-reports_BaseReportFields"
@@ -298,11 +283,11 @@ export const abuse_reports_NCSEIReport: JsonSchema = {
           "type": "string"
         },
         "country": {
-          "description": "Text not exceeding 255 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).\n",
+          "description": "Text not exceeding 255 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
           "type": "string"
         },
         "host_notification": {
-          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
+          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.",
           "enum": [
             "send",
             "send-anon"
@@ -314,7 +299,7 @@ export const abuse_reports_NCSEIReport: JsonSchema = {
           "type": "boolean"
         },
         "owner_notification": {
-          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
+          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.",
           "enum": [
             "send",
             "send-anon",
@@ -336,7 +321,7 @@ export const abuse_reports_NCSEIReport: JsonSchema = {
 /**
  * The schema of `abuse-reports_PhishingReport`.
  */
-export const abuse_reports_PhishingReport: JsonSchema = {
+export const abuse$$reports_PhishingReport: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/abuse-reports_BaseReportFields"
@@ -350,7 +335,7 @@ export const abuse_reports_PhishingReport: JsonSchema = {
           "type": "string"
         },
         "host_notification": {
-          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
+          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.",
           "enum": [
             "send",
             "send-anon"
@@ -358,15 +343,15 @@ export const abuse_reports_PhishingReport: JsonSchema = {
           "type": "string"
         },
         "justification": {
-          "description": "A detailed description of the infringement, including any necessary access details and the exact steps needed to view the content, not exceeding 5000 characters.\n",
+          "description": "A detailed description of the infringement, including any necessary access details and the exact steps needed to view the content, not exceeding 5000 characters.",
           "type": "string"
         },
         "original_work": {
-          "description": "Text not exceeding 255 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).\n",
+          "description": "Text not exceeding 255 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
           "type": "string"
         },
         "owner_notification": {
-          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
+          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.",
           "enum": [
             "send",
             "send-anon"
@@ -387,7 +372,7 @@ export const abuse_reports_PhishingReport: JsonSchema = {
 /**
  * The schema of `abuse-reports_RegistrarWhoIsFields`.
  */
-export const abuse_reports_RegistrarWhoIsFields: JsonSchema = {
+export const abuse$$reports_RegistrarWhoIsFields: JsonSchema = {
   "description": "RDP-mandated fields for registrar WHOIS data disclosure requests.",
   "properties": {
     "reg_who_authorization_statement": {
@@ -465,7 +450,7 @@ export const abuse_reports_RegistrarWhoIsFields: JsonSchema = {
 /**
  * The schema of `abuse-reports_RegistrarWhoisReport`.
  */
-export const abuse_reports_RegistrarWhoisReport: JsonSchema = {
+export const abuse$$reports_RegistrarWhoisReport: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/abuse-reports_BaseReportFields"
@@ -479,7 +464,7 @@ export const abuse_reports_RegistrarWhoisReport: JsonSchema = {
           "type": "string"
         },
         "owner_notification": {
-          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
+          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.",
           "enum": [
             "send",
             "send-anon",
@@ -501,48 +486,9 @@ export const abuse_reports_RegistrarWhoisReport: JsonSchema = {
 };
 
 /**
- * The schema of `abuse-reports_ReportStatus`.
- */
-export const abuse_reports_ReportStatus: JsonSchema = {
-  "description": "An enum value that represents the status of an abuse record",
-  "enum": [
-    "accepted",
-    "in_review"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `abuse-reports_ReportType`.
- */
-export const abuse_reports_ReportType: JsonSchema = {
-  "description": "The abuse report type",
-  "enum": [
-    "PHISH",
-    "GEN",
-    "THREAT",
-    "DMCA",
-    "EMER",
-    "TM",
-    "REG_WHO",
-    "NCSEI",
-    "NETWORK"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `abuse-reports_SubmissionReportType`.
- */
-export const abuse_reports_SubmissionReportType: JsonSchema = {
-  "description": "The report type for submitted reports.",
-  "type": "string"
-};
-
-/**
  * The schema of `abuse-reports_SubmitReportRequest`.
  */
-export const abuse_reports_SubmitReportRequest: JsonSchema = {
+export const abuse$$reports_SubmitReportRequest: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/abuse-reports_DMCAReport"
@@ -572,22 +518,9 @@ export const abuse_reports_SubmitReportRequest: JsonSchema = {
 };
 
 /**
- * The schema of `abuse-reports_SubmittedAbuseReportStatus`.
- */
-export const abuse_reports_SubmittedAbuseReportStatus: JsonSchema = {
-  "description": "Status visible to the account that submitted the report.",
-  "enum": [
-    "submitted",
-    "accepted",
-    "denied"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `abuse-reports_ThreatReport`.
  */
-export const abuse_reports_ThreatReport: JsonSchema = {
+export const abuse$$reports_ThreatReport: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/abuse-reports_BaseReportFields"
@@ -601,7 +534,7 @@ export const abuse_reports_ThreatReport: JsonSchema = {
           "type": "string"
         },
         "host_notification": {
-          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
+          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.",
           "enum": [
             "send",
             "send-anon"
@@ -609,11 +542,11 @@ export const abuse_reports_ThreatReport: JsonSchema = {
           "type": "string"
         },
         "justification": {
-          "description": "A detailed description of the infringement, including any necessary access details and the exact steps needed to view the content, not exceeding 5000 characters.\n",
+          "description": "A detailed description of the infringement, including any necessary access details and the exact steps needed to view the content, not exceeding 5000 characters.",
           "type": "string"
         },
         "owner_notification": {
-          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
+          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.",
           "enum": [
             "send",
             "send-anon"
@@ -634,7 +567,7 @@ export const abuse_reports_ThreatReport: JsonSchema = {
 /**
  * The schema of `abuse-reports_TrademarkReport`.
  */
-export const abuse_reports_TrademarkReport: JsonSchema = {
+export const abuse$$reports_TrademarkReport: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/abuse-reports_BaseReportFields"
@@ -648,18 +581,18 @@ export const abuse_reports_TrademarkReport: JsonSchema = {
           "type": "string"
         },
         "host_notification": {
-          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
+          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.",
           "enum": [
             "send"
           ],
           "type": "string"
         },
         "justification": {
-          "description": "A detailed description of the infringement, including any necessary access details and the exact steps needed to view the content, not exceeding 5000 characters.\n",
+          "description": "A detailed description of the infringement, including any necessary access details and the exact steps needed to view the content, not exceeding 5000 characters.",
           "type": "string"
         },
         "owner_notification": {
-          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
+          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.",
           "enum": [
             "send"
           ],

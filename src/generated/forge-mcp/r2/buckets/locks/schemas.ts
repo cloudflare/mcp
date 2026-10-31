@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `r2_bucket-lock-rule`.
  */
-export const r2_bucket_lock_rule: JsonSchema = {
+export const r2_bucket$$lock$$rule: JsonSchema = {
   "properties": {
     "condition": {
       "oneOf": [
@@ -45,7 +45,7 @@ export const r2_bucket_lock_rule: JsonSchema = {
 /**
  * The schema of `r2_lock-rule-age-condition`.
  */
-export const r2_lock_rule_age_condition: JsonSchema = {
+export const r2_lock$$rule$$age$$condition: JsonSchema = {
   "description": "Condition to apply a lock rule to an object for how long in seconds.",
   "properties": {
     "maxAgeSeconds": {
@@ -68,7 +68,7 @@ export const r2_lock_rule_age_condition: JsonSchema = {
 /**
  * The schema of `r2_lock-rule-date-condition`.
  */
-export const r2_lock_rule_date_condition: JsonSchema = {
+export const r2_lock$$rule$$date$$condition: JsonSchema = {
   "description": "Condition to apply a lock rule to an object until a specific date.",
   "properties": {
     "date": {
@@ -92,7 +92,7 @@ export const r2_lock_rule_date_condition: JsonSchema = {
 /**
  * The schema of `r2_lock-rule-indefinite-condition`.
  */
-export const r2_lock_rule_indefinite_condition: JsonSchema = {
+export const r2_lock$$rule$$indefinite$$condition: JsonSchema = {
   "description": "Condition to apply a lock rule indefinitely.",
   "properties": {
     "type": {

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `zero-trust-gateway_app-types` in responses.
  */
-export const zero_trust_gateway_app_types_output: JsonSchema = {
+export const zero$$trust$$gateway_app$$types: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/zero-trust-gateway_application"
@@ -18,35 +18,22 @@ export const zero_trust_gateway_app_types_output: JsonSchema = {
 };
 
 /**
- * The schema of `zero-trust-gateway_app_id` in responses.
- */
-export const zero_trust_gateway_app_id_output: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `zero-trust-gateway_app_type_id` in responses.
- */
-export const zero_trust_gateway_app_type_id_output: JsonSchema = {
-  "type": "integer"
-};
-
-/**
  * The schema of `zero-trust-gateway_application` in responses.
  */
-export const zero_trust_gateway_application_output: JsonSchema = {
+export const zero$$trust$$gateway_application: JsonSchema = {
   "properties": {
     "application_type_id": {
-      "$ref": "#/$defs/zero-trust-gateway_app_type_id"
+      "type": "integer"
     },
     "created_at": {
-      "$ref": "#/$defs/zero-trust-gateway_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/zero-trust-gateway_app_id"
+      "type": "integer"
     },
     "name": {
-      "$ref": "#/$defs/zero-trust-gateway_name-4"
+      "type": "string"
     }
   },
   "type": "object"
@@ -55,35 +42,29 @@ export const zero_trust_gateway_application_output: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_application_type` in responses.
  */
-export const zero_trust_gateway_application_type_output: JsonSchema = {
+export const zero$$trust$$gateway_application_type: JsonSchema = {
   "properties": {
     "created_at": {
-      "$ref": "#/$defs/zero-trust-gateway_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "description": {
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/zero-trust-gateway_app_type_id"
+      "type": "integer"
     },
     "name": {
-      "$ref": "#/$defs/zero-trust-gateway_name-4"
+      "type": "string"
     }
   },
   "type": "object"
 };
 
 /**
- * The schema of `zero-trust-gateway_name-4` in responses.
- */
-export const zero_trust_gateway_name_4_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `zero-trust-gateway_response_collection-7` in responses.
  */
-export const zero_trust_gateway_response_collection_7_output: JsonSchema = {
+export const zero$$trust$$gateway_response_collection$$7: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zero-trust-gateway_api-response-collection"

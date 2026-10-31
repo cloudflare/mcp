@@ -4,28 +4,23 @@
 import type { JsonSchema } from "../../../../_/tool.js";
 
 /**
- * The schema of `zero-trust-gateway_public_key` in responses.
- */
-export const zero_trust_gateway_public_key_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `zero-trust-gateway_settings` in responses.
  */
-export const zero_trust_gateway_settings_output: JsonSchema = {
+export const zero$$trust$$gateway_settings: JsonSchema = {
   "properties": {
     "created_at": {
-      "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "public_key": {
-      "$ref": "#/$defs/zero-trust-gateway_public_key"
+      "type": "string"
     },
     "seed_id": {
-      "$ref": "#/$defs/zero-trust-gateway_uuid-5"
+      "type": "string"
     },
     "updated_at": {
-      "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+      "format": "date-time",
+      "type": "string"
     }
   },
   "type": "object"
@@ -34,7 +29,7 @@ export const zero_trust_gateway_settings_output: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_single_response-6` in responses.
  */
-export const zero_trust_gateway_single_response_6_output: JsonSchema = {
+export const zero$$trust$$gateway_single_response$$6: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zero-trust-gateway_api-response-single"
@@ -48,11 +43,4 @@ export const zero_trust_gateway_single_response_6_output: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zero-trust-gateway_uuid-5` in responses.
- */
-export const zero_trust_gateway_uuid_5_output: JsonSchema = {
-  "type": "string"
 };

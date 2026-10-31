@@ -3,20 +3,13 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  rum_api_response_common_failure_output,
-  rum_api_response_common_output,
-  rum_messages_2_output,
-  rum_messages_output,
+  rum_api$$response$$common,
+  rum_api$$response$$common$$failure,
+  rum_messages,
+  rum_messages$$2,
 } from "../../outputs.js";
-import { rum_identifier } from "../../schemas.js";
-import {
-  rum_editable_output,
-  rum_id_output,
-  rum_rum_site_output,
-  rum_rum_site_response_single_output,
-  rum_value_output,
-} from "./outputs.js";
-import { rum_toggle_rum_request } from "./schemas.js";
+import { rum_rum$$site$$response$$single, rum_rum_site } from "./outputs.js";
+import { rum_toggle$$rum$$request } from "./schemas.js";
 
 /**
  * The tools of `zones.rum`.
@@ -25,37 +18,43 @@ export const tools: readonly Tool[] = [
   {
     name: "zones_rum_edit",
     title: "Toggle RUM on/off for a zone",
-    description: "Toggles RUM on/off for an existing zone.",
+    description: "Toggles RUM on/off for an existing zone.\n\nPATCH /zones/{zone_id}/settings/rum",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "$ref": "#/$defs/rum_toggle-rum-request"
         },
-        "zone_id": {
-          "$ref": "#/$defs/rum_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "rum_identifier": rum_identifier,
-        "rum_toggle-rum-request": rum_toggle_rum_request,
+        "rum_toggle-rum-request": rum_toggle$$rum$$request,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/rum_rum-site-response-single",
       $defs: {
-        "rum_api-response-common": rum_api_response_common_output,
-        "rum_editable": rum_editable_output,
-        "rum_id": rum_id_output,
-        "rum_messages": rum_messages_output,
-        "rum_rum-site-response-single": rum_rum_site_response_single_output,
-        "rum_rum_site": rum_rum_site_output,
-        "rum_value": rum_value_output,
+        "rum_api-response-common": rum_api$$response$$common,
+        "rum_messages": rum_messages,
+        "rum_rum-site-response-single": rum_rum$$site$$response$$single,
+        "rum_rum_site": rum_rum_site,
       },
     },
     annotations: {
@@ -88,15 +87,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "rum_api-response-common": rum_api_response_common_output,
-        "rum_api-response-common-failure": rum_api_response_common_failure_output,
-        "rum_editable": rum_editable_output,
-        "rum_id": rum_id_output,
-        "rum_messages": rum_messages_output,
-        "rum_messages-2": rum_messages_2_output,
-        "rum_rum-site-response-single": rum_rum_site_response_single_output,
-        "rum_rum_site": rum_rum_site_output,
-        "rum_value": rum_value_output,
+        "rum_api-response-common": rum_api$$response$$common,
+        "rum_api-response-common-failure": rum_api$$response$$common$$failure,
+        "rum_messages": rum_messages,
+        "rum_messages-2": rum_messages$$2,
+        "rum_rum-site-response-single": rum_rum$$site$$response$$single,
+        "rum_rum_site": rum_rum_site,
       },
     },
     request: (args) => ({
@@ -107,32 +103,36 @@ export const tools: readonly Tool[] = [
   {
     name: "zones_rum_get",
     title: "Get RUM status for a zone",
-    description: "Retrieves RUM status for a zone.",
+    description: "Retrieves RUM status for a zone.\n\nGET /zones/{zone_id}/settings/rum",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/rum_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
-      $defs: {
-        "rum_identifier": rum_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/rum_rum-site-response-single",
       $defs: {
-        "rum_api-response-common": rum_api_response_common_output,
-        "rum_editable": rum_editable_output,
-        "rum_id": rum_id_output,
-        "rum_messages": rum_messages_output,
-        "rum_rum-site-response-single": rum_rum_site_response_single_output,
-        "rum_rum_site": rum_rum_site_output,
-        "rum_value": rum_value_output,
+        "rum_api-response-common": rum_api$$response$$common,
+        "rum_messages": rum_messages,
+        "rum_rum-site-response-single": rum_rum$$site$$response$$single,
+        "rum_rum_site": rum_rum_site,
       },
     },
     annotations: {
@@ -166,15 +166,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "rum_api-response-common": rum_api_response_common_output,
-        "rum_api-response-common-failure": rum_api_response_common_failure_output,
-        "rum_editable": rum_editable_output,
-        "rum_id": rum_id_output,
-        "rum_messages": rum_messages_output,
-        "rum_messages-2": rum_messages_2_output,
-        "rum_rum-site-response-single": rum_rum_site_response_single_output,
-        "rum_rum_site": rum_rum_site_output,
-        "rum_value": rum_value_output,
+        "rum_api-response-common": rum_api$$response$$common,
+        "rum_api-response-common-failure": rum_api$$response$$common$$failure,
+        "rum_messages": rum_messages,
+        "rum_messages-2": rum_messages$$2,
+        "rum_rum-site-response-single": rum_rum$$site$$response$$single,
+        "rum_rum_site": rum_rum_site,
       },
     },
     request: (args) => ({

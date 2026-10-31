@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `dns-records_AAAARecord`.
  */
-export const dns_records_AAAARecord: JsonSchema = {
+export const dns$$records_AAAARecord: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_dns-record-shared-fields"
@@ -39,7 +39,7 @@ export const dns_records_AAAARecord: JsonSchema = {
 /**
  * The schema of `dns-records_ARecord`.
  */
-export const dns_records_ARecord: JsonSchema = {
+export const dns$$records_ARecord: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_dns-record-shared-fields"
@@ -72,7 +72,7 @@ export const dns_records_ARecord: JsonSchema = {
 /**
  * The schema of `dns-records_CAARecord`.
  */
-export const dns_records_CAARecord: JsonSchema = {
+export const dns$$records_CAARecord: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_dns-record-shared-fields"
@@ -114,7 +114,7 @@ export const dns_records_CAARecord: JsonSchema = {
 /**
  * The schema of `dns-records_CERTRecord`.
  */
-export const dns_records_CERTRecord: JsonSchema = {
+export const dns$$records_CERTRecord: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_dns-record-shared-fields"
@@ -160,7 +160,7 @@ export const dns_records_CERTRecord: JsonSchema = {
 /**
  * The schema of `dns-records_CNAMERecord`.
  */
-export const dns_records_CNAMERecord: JsonSchema = {
+export const dns$$records_CNAMERecord: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_dns-record-shared-fields"
@@ -198,7 +198,7 @@ export const dns_records_CNAMERecord: JsonSchema = {
 /**
  * The schema of `dns-records_DNSKEYRecord`.
  */
-export const dns_records_DNSKEYRecord: JsonSchema = {
+export const dns$$records_DNSKEYRecord: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_dns-record-shared-fields"
@@ -244,7 +244,7 @@ export const dns_records_DNSKEYRecord: JsonSchema = {
 /**
  * The schema of `dns-records_DSRecord`.
  */
-export const dns_records_DSRecord: JsonSchema = {
+export const dns$$records_DSRecord: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_dns-record-shared-fields"
@@ -290,7 +290,7 @@ export const dns_records_DSRecord: JsonSchema = {
 /**
  * The schema of `dns-records_HTTPSRecord`.
  */
-export const dns_records_HTTPSRecord: JsonSchema = {
+export const dns$$records_HTTPSRecord: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_dns-record-shared-fields"
@@ -332,7 +332,7 @@ export const dns_records_HTTPSRecord: JsonSchema = {
 /**
  * The schema of `dns-records_LOCRecord`.
  */
-export const dns_records_LOCRecord: JsonSchema = {
+export const dns$$records_LOCRecord: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_dns-record-shared-fields"
@@ -418,7 +418,7 @@ export const dns_records_LOCRecord: JsonSchema = {
 /**
  * The schema of `dns-records_MXRecord`.
  */
-export const dns_records_MXRecord: JsonSchema = {
+export const dns$$records_MXRecord: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_dns-record-shared-fields"
@@ -430,7 +430,8 @@ export const dns_records_MXRecord: JsonSchema = {
           "type": "string"
         },
         "priority": {
-          "$ref": "#/$defs/dns-records_priority"
+          "description": "Required for MX and URI records; ignored for other record types (but may still be returned by the API). Records with lower priorities are preferred. This field is to be deprecated in favor of the priority field within the data map.",
+          "type": "number"
         },
         "type": {
           "description": "Record type.",
@@ -449,7 +450,7 @@ export const dns_records_MXRecord: JsonSchema = {
 /**
  * The schema of `dns-records_NAPTRRecord`.
  */
-export const dns_records_NAPTRRecord: JsonSchema = {
+export const dns$$records_NAPTRRecord: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_dns-record-shared-fields"
@@ -503,7 +504,7 @@ export const dns_records_NAPTRRecord: JsonSchema = {
 /**
  * The schema of `dns-records_NSRecord`.
  */
-export const dns_records_NSRecord: JsonSchema = {
+export const dns$$records_NSRecord: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_dns-record-shared-fields"
@@ -531,7 +532,7 @@ export const dns_records_NSRecord: JsonSchema = {
 /**
  * The schema of `dns-records_OPENPGPKEYRecord`.
  */
-export const dns_records_OPENPGPKEYRecord: JsonSchema = {
+export const dns$$records_OPENPGPKEYRecord: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_dns-record-shared-fields"
@@ -559,7 +560,7 @@ export const dns_records_OPENPGPKEYRecord: JsonSchema = {
 /**
  * The schema of `dns-records_PTRRecord`.
  */
-export const dns_records_PTRRecord: JsonSchema = {
+export const dns$$records_PTRRecord: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_dns-record-shared-fields"
@@ -587,7 +588,7 @@ export const dns_records_PTRRecord: JsonSchema = {
 /**
  * The schema of `dns-records_SMIMEARecord`.
  */
-export const dns_records_SMIMEARecord: JsonSchema = {
+export const dns$$records_SMIMEARecord: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_dns-record-shared-fields"
@@ -633,7 +634,7 @@ export const dns_records_SMIMEARecord: JsonSchema = {
 /**
  * The schema of `dns-records_SRVRecord`.
  */
-export const dns_records_SRVRecord: JsonSchema = {
+export const dns$$records_SRVRecord: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_dns-record-shared-fields"
@@ -648,7 +649,8 @@ export const dns_records_SRVRecord: JsonSchema = {
               "type": "number"
             },
             "priority": {
-              "$ref": "#/$defs/dns-records_priority"
+              "description": "Required for MX and URI records; ignored for other record types (but may still be returned by the API). Records with lower priorities are preferred. This field is to be deprecated in favor of the priority field within the data map.",
+              "type": "number"
             },
             "target": {
               "description": "A valid hostname.",
@@ -678,7 +680,7 @@ export const dns_records_SRVRecord: JsonSchema = {
 /**
  * The schema of `dns-records_SSHFPRecord`.
  */
-export const dns_records_SSHFPRecord: JsonSchema = {
+export const dns$$records_SSHFPRecord: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_dns-record-shared-fields"
@@ -720,7 +722,7 @@ export const dns_records_SSHFPRecord: JsonSchema = {
 /**
  * The schema of `dns-records_SVCBRecord`.
  */
-export const dns_records_SVCBRecord: JsonSchema = {
+export const dns$$records_SVCBRecord: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_dns-record-shared-fields"
@@ -762,7 +764,7 @@ export const dns_records_SVCBRecord: JsonSchema = {
 /**
  * The schema of `dns-records_TLSARecord`.
  */
-export const dns_records_TLSARecord: JsonSchema = {
+export const dns$$records_TLSARecord: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_dns-record-shared-fields"
@@ -808,7 +810,7 @@ export const dns_records_TLSARecord: JsonSchema = {
 /**
  * The schema of `dns-records_TXTRecord`.
  */
-export const dns_records_TXTRecord: JsonSchema = {
+export const dns$$records_TXTRecord: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_dns-record-shared-fields"
@@ -836,7 +838,7 @@ export const dns_records_TXTRecord: JsonSchema = {
 /**
  * The schema of `dns-records_URIRecord`.
  */
-export const dns_records_URIRecord: JsonSchema = {
+export const dns$$records_URIRecord: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_dns-record-shared-fields"
@@ -858,7 +860,8 @@ export const dns_records_URIRecord: JsonSchema = {
           "type": "object"
         },
         "priority": {
-          "$ref": "#/$defs/dns-records_priority"
+          "description": "Required for MX and URI records; ignored for other record types (but may still be returned by the API). Records with lower priorities are preferred. This field is to be deprecated in favor of the priority field within the data map.",
+          "type": "number"
         },
         "type": {
           "description": "Record type.",
@@ -875,33 +878,13 @@ export const dns_records_URIRecord: JsonSchema = {
 };
 
 /**
- * The schema of `dns-records_comment`.
- */
-export const dns_records_comment: JsonSchema = {
-  "description": "Comments or notes about the DNS record. This field has no effect on DNS responses.",
-  "type": "string"
-};
-
-/**
- * The schema of `dns-records_direction`.
- */
-export const dns_records_direction: JsonSchema = {
-  "description": "Direction to order DNS records in.",
-  "enum": [
-    "asc",
-    "desc"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `dns-records_dns-record-batch-delete`.
  */
-export const dns_records_dns_record_batch_delete: JsonSchema = {
+export const dns$$records_dns$$record$$batch$$delete: JsonSchema = {
   "properties": {
     "id": {
-      "$ref": "#/$defs/dns-records_identifier",
-      "description": "Identifier."
+      "description": "Identifier.",
+      "type": "string"
     }
   },
   "type": "object"
@@ -910,13 +893,13 @@ export const dns_records_dns_record_batch_delete: JsonSchema = {
 /**
  * The schema of `dns-records_dns-record-batch-patch`.
  */
-export const dns_records_dns_record_batch_patch: JsonSchema = {
+export const dns$$records_dns$$record$$batch$$patch: JsonSchema = {
   "allOf": [
     {
       "properties": {
         "id": {
-          "$ref": "#/$defs/dns-records_identifier",
-          "description": "Identifier."
+          "description": "Identifier.",
+          "type": "string"
         }
       },
       "required": [
@@ -933,20 +916,20 @@ export const dns_records_dns_record_batch_patch: JsonSchema = {
 /**
  * The schema of `dns-records_dns-record-batch-post`.
  */
-export const dns_records_dns_record_batch_post: JsonSchema = {
+export const dns$$records_dns$$record$$batch$$post: JsonSchema = {
   "$ref": "#/$defs/dns-records_dns-record-post"
 };
 
 /**
  * The schema of `dns-records_dns-record-batch-put`.
  */
-export const dns_records_dns_record_batch_put: JsonSchema = {
+export const dns$$records_dns$$record$$batch$$put: JsonSchema = {
   "allOf": [
     {
       "properties": {
         "id": {
-          "$ref": "#/$defs/dns-records_identifier",
-          "description": "Identifier."
+          "description": "Identifier.",
+          "type": "string"
         }
       },
       "required": [
@@ -963,7 +946,7 @@ export const dns_records_dns_record_batch_put: JsonSchema = {
 /**
  * The schema of `dns-records_dns-record-patch`.
  */
-export const dns_records_dns_record_patch: JsonSchema = {
+export const dns$$records_dns$$record$$patch: JsonSchema = {
   "anyOf": [
     {
       "$ref": "#/$defs/dns-records_dns-record-without-data"
@@ -977,7 +960,7 @@ export const dns_records_dns_record_patch: JsonSchema = {
 /**
  * The schema of `dns-records_dns-record-post`.
  */
-export const dns_records_dns_record_post: JsonSchema = {
+export const dns$$records_dns$$record$$post: JsonSchema = {
   "anyOf": [
     {
       "$ref": "#/$defs/dns-records_dns-record-without-data"
@@ -991,18 +974,18 @@ export const dns_records_dns_record_post: JsonSchema = {
 /**
  * The schema of `dns-records_dns-record-scan-batch-accept`.
  */
-export const dns_records_dns_record_scan_batch_accept: JsonSchema = {
+export const dns$$records_dns$$record$$scan$$batch$$accept: JsonSchema = {
   "$ref": "#/$defs/dns-records_dns-record-patch"
 };
 
 /**
  * The schema of `dns-records_dns-record-scan-batch-reject`.
  */
-export const dns_records_dns_record_scan_batch_reject: JsonSchema = {
+export const dns$$records_dns$$record$$scan$$batch$$reject: JsonSchema = {
   "properties": {
     "id": {
-      "$ref": "#/$defs/dns-records_identifier",
-      "description": "Identifier."
+      "description": "Identifier.",
+      "type": "string"
     }
   },
   "type": "object"
@@ -1011,20 +994,20 @@ export const dns_records_dns_record_scan_batch_reject: JsonSchema = {
 /**
  * The schema of `dns-records_dns-record-shared-fields`.
  */
-export const dns_records_dns_record_shared_fields: JsonSchema = {
+export const dns$$records_dns$$record$$shared$$fields: JsonSchema = {
   "properties": {
     "comment": {
-      "$ref": "#/$defs/dns-records_comment",
-      "description": "Comments or notes about the DNS record. This field has no effect on DNS responses."
+      "description": "Comments or notes about the DNS record. This field has no effect on DNS responses.",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/dns-records_name",
-      "description": "Complete DNS record name, including the zone name, in Punycode."
+      "description": "Complete DNS record name, including the zone name, in Punycode.",
+      "type": "string"
     },
     "proxied": {
-      "$ref": "#/$defs/dns-records_proxied",
       "default": false,
-      "description": "Whether the record is receiving the performance and security benefits of Cloudflare."
+      "description": "Whether the record is receiving the performance and security benefits of Cloudflare.",
+      "type": "boolean"
     },
     "settings": {
       "$ref": "#/$defs/dns-records_settings",
@@ -1036,7 +1019,17 @@ export const dns_records_dns_record_shared_fields: JsonSchema = {
       "description": "Custom tags for the DNS record. This field has no effect on DNS responses."
     },
     "ttl": {
-      "$ref": "#/$defs/dns-records_ttl",
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "enum": [
+            1
+          ],
+          "type": "integer"
+        }
+      ],
       "default": 1,
       "description": "Time To Live (TTL) of the DNS record in seconds. Setting to 1 means 'automatic'. Value must be between 60 and 86400, with the minimum reduced to 30 for Enterprise zones."
     }
@@ -1047,7 +1040,7 @@ export const dns_records_dns_record_shared_fields: JsonSchema = {
 /**
  * The schema of `dns-records_dns-record-with-data`.
  */
-export const dns_records_dns_record_with_data: JsonSchema = {
+export const dns$$records_dns$$record$$with$$data: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/dns-records_CAARecord"
@@ -1094,7 +1087,7 @@ export const dns_records_dns_record_with_data: JsonSchema = {
 /**
  * The schema of `dns-records_dns-record-without-data`.
  */
-export const dns_records_dns_record_without_data: JsonSchema = {
+export const dns$$records_dns$$record$$without$$data: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/dns-records_ARecord"
@@ -1126,7 +1119,7 @@ export const dns_records_dns_record_without_data: JsonSchema = {
 /**
  * The schema of `dns-records_dns-request-batch-object`.
  */
-export const dns_records_dns_request_batch_object: JsonSchema = {
+export const dns$$records_dns$$request$$batch$$object: JsonSchema = {
   "properties": {
     "deletes": {
       "items": {
@@ -1159,7 +1152,7 @@ export const dns_records_dns_request_batch_object: JsonSchema = {
 /**
  * The schema of `dns-records_dns-request-review-scan-object`.
  */
-export const dns_records_dns_request_review_scan_object: JsonSchema = {
+export const dns$$records_dns$$request$$review$$scan$$object: JsonSchema = {
   "properties": {
     "accepts": {
       "items": {
@@ -1178,84 +1171,9 @@ export const dns_records_dns_request_review_scan_object: JsonSchema = {
 };
 
 /**
- * The schema of `dns-records_match`.
- */
-export const dns_records_match: JsonSchema = {
-  "description": "Whether to match all search requirements or at least one (any). If set to `all`, acts like a logical AND between filters. If set to `any`, acts like a logical OR instead. Note that the interaction between tag filters is controlled by the `tag-match` parameter instead.\n",
-  "enum": [
-    "any",
-    "all"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `dns-records_name`.
- */
-export const dns_records_name: JsonSchema = {
-  "description": "Complete DNS record name, including the zone name, in Punycode.",
-  "type": "string"
-};
-
-/**
- * The schema of `dns-records_order`.
- */
-export const dns_records_order: JsonSchema = {
-  "description": "Field to order DNS records by.",
-  "enum": [
-    "type",
-    "name",
-    "content",
-    "ttl",
-    "proxied"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `dns-records_page`.
- */
-export const dns_records_page: JsonSchema = {
-  "description": "Page number of paginated results.",
-  "type": "number"
-};
-
-/**
- * The schema of `dns-records_per_page`.
- */
-export const dns_records_per_page: JsonSchema = {
-  "description": "Number of DNS records per page.",
-  "type": "number"
-};
-
-/**
- * The schema of `dns-records_priority`.
- */
-export const dns_records_priority: JsonSchema = {
-  "description": "Required for MX and URI records; ignored for other record types (but may still be returned by the API). Records with lower priorities are preferred. This field is to be deprecated in favor of the priority field within the data map.",
-  "type": "number"
-};
-
-/**
- * The schema of `dns-records_proxied`.
- */
-export const dns_records_proxied: JsonSchema = {
-  "description": "Whether the record is receiving the performance and security benefits of Cloudflare.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `dns-records_search`.
- */
-export const dns_records_search: JsonSchema = {
-  "description": "Allows searching in multiple properties of a DNS record simultaneously. This parameter is intended for human users, not automation. Its exact behavior is intentionally left unspecified and is subject to change in the future. This parameter works independently of the `match` setting. For automated searches, please use the other available parameters.\n",
-  "type": "string"
-};
-
-/**
  * The schema of `dns-records_settings`.
  */
-export const dns_records_settings: JsonSchema = {
+export const dns$$records_settings: JsonSchema = {
   "description": "Settings for the DNS record.",
   "properties": {
     "ipv4_only": {
@@ -1273,73 +1191,12 @@ export const dns_records_settings: JsonSchema = {
 };
 
 /**
- * The schema of `dns-records_tag_match`.
- */
-export const dns_records_tag_match: JsonSchema = {
-  "description": "Whether to match all tag search requirements or at least one (any). If set to `all`, acts like a logical AND between tag filters. If set to `any`, acts like a logical OR instead. Note that the regular `match` parameter is still used to combine the resulting condition with other filters that aren't related to tags.\n",
-  "enum": [
-    "any",
-    "all"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `dns-records_tags`.
  */
-export const dns_records_tags: JsonSchema = {
+export const dns$$records_tags: JsonSchema = {
   "description": "Custom tags for the DNS record. This field has no effect on DNS responses.",
   "items": {
     "type": "string"
   },
   "type": "array"
-};
-
-/**
- * The schema of `dns-records_ttl`.
- */
-export const dns_records_ttl: JsonSchema = {
-  "anyOf": [
-    {
-      "type": "number"
-    },
-    {
-      "enum": [
-        1
-      ],
-      "type": "integer"
-    }
-  ],
-  "description": "Time To Live (TTL) of the DNS record in seconds. Setting to 1 means 'automatic'. Value must be between 60 and 86400, with the minimum reduced to 30 for Enterprise zones."
-};
-
-/**
- * The schema of `dns-records_type`.
- */
-export const dns_records_type: JsonSchema = {
-  "description": "Record type.",
-  "enum": [
-    "A",
-    "AAAA",
-    "CAA",
-    "CERT",
-    "CNAME",
-    "DNSKEY",
-    "DS",
-    "HTTPS",
-    "LOC",
-    "MX",
-    "NAPTR",
-    "NS",
-    "OPENPGPKEY",
-    "PTR",
-    "SMIMEA",
-    "SRV",
-    "SSHFP",
-    "SVCB",
-    "TLSA",
-    "TXT",
-    "URI"
-  ],
-  "type": "string"
 };

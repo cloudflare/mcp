@@ -2,18 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import { cloudflare$$k2_workers$$k2$$messages } from "../outputs.js";
 import {
-  cloudflare_k2_workers_k2_common_success_output,
-  cloudflare_k2_workers_k2_messages_output,
-} from "../outputs.js";
-import {
-  cloudflare_k2_workers_k2_account_id,
-  cloudflare_k2_workers_k2_stream_id,
-} from "../schemas.js";
-import {
-  cloudflare_k2_K2ConsumerLag_output,
-  cloudflare_k2_K2MonitoredSubscriptionListResponse_output,
-  cloudflare_k2_K2MonitoredSubscription_output,
+  cloudflare$$k2_K2ConsumerLag,
+  cloudflare$$k2_K2MonitoredSubscription,
+  cloudflare$$k2_K2MonitoredSubscriptionListResponse,
 } from "./outputs.js";
 
 /**
@@ -23,36 +16,41 @@ export const tools: readonly Tool[] = [
   {
     name: "k2_streams_subscriptions_list",
     title: "List subscriptions with consumer lag",
-    description: "Lists every subscription on one stream, oldest first. Lag uses committed positions, not reserved read positions. A failed tail observation preserves subscription metadata and returns unavailable lag.\n\nThis method is beta.",
+    description: "Lists every subscription on one stream, oldest first. Lag uses committed positions, not reserved read positions. A failed tail observation preserves subscription metadata and returns unavailable lag.\n\nThis method is beta.\n\nGET /accounts/{account_id}/k2/streams/{stream_id}/subscriptions",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/cloudflare-k2_workers-k2-account-id",
-          "description": "Specifies the public ID of the account."
-        },
-        "stream_id": {
-          "$ref": "#/$defs/cloudflare-k2_workers-k2-stream-id",
-          "description": "Specifies the public ID of the K2 stream."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Specifies the public ID of the account.",
+              "type": "string"
+            },
+            "stream_id": {
+              "description": "Specifies the public ID of the K2 stream.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "stream_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "stream_id"
+        "path"
       ],
-      $defs: {
-        "cloudflare-k2_workers-k2-account-id": cloudflare_k2_workers_k2_account_id,
-        "cloudflare-k2_workers-k2-stream-id": cloudflare_k2_workers_k2_stream_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cloudflare-k2_K2MonitoredSubscriptionListResponse",
       $defs: {
-        "cloudflare-k2_K2ConsumerLag": cloudflare_k2_K2ConsumerLag_output,
-        "cloudflare-k2_K2MonitoredSubscription": cloudflare_k2_K2MonitoredSubscription_output,
-        "cloudflare-k2_K2MonitoredSubscriptionListResponse": cloudflare_k2_K2MonitoredSubscriptionListResponse_output,
-        "cloudflare-k2_workers-k2-common-success": cloudflare_k2_workers_k2_common_success_output,
-        "cloudflare-k2_workers-k2-messages": cloudflare_k2_workers_k2_messages_output,
+        "cloudflare-k2_K2ConsumerLag": cloudflare$$k2_K2ConsumerLag,
+        "cloudflare-k2_K2MonitoredSubscription": cloudflare$$k2_K2MonitoredSubscription,
+        "cloudflare-k2_K2MonitoredSubscriptionListResponse": cloudflare$$k2_K2MonitoredSubscriptionListResponse,
+        "cloudflare-k2_workers-k2-messages": cloudflare$$k2_workers$$k2$$messages,
       },
     },
     annotations: {
@@ -81,11 +79,10 @@ export const tools: readonly Tool[] = [
         "5XX": null
       },
       $defs: {
-        "cloudflare-k2_K2ConsumerLag": cloudflare_k2_K2ConsumerLag_output,
-        "cloudflare-k2_K2MonitoredSubscription": cloudflare_k2_K2MonitoredSubscription_output,
-        "cloudflare-k2_K2MonitoredSubscriptionListResponse": cloudflare_k2_K2MonitoredSubscriptionListResponse_output,
-        "cloudflare-k2_workers-k2-common-success": cloudflare_k2_workers_k2_common_success_output,
-        "cloudflare-k2_workers-k2-messages": cloudflare_k2_workers_k2_messages_output,
+        "cloudflare-k2_K2ConsumerLag": cloudflare$$k2_K2ConsumerLag,
+        "cloudflare-k2_K2MonitoredSubscription": cloudflare$$k2_K2MonitoredSubscription,
+        "cloudflare-k2_K2MonitoredSubscriptionListResponse": cloudflare$$k2_K2MonitoredSubscriptionListResponse,
+        "cloudflare-k2_workers-k2-messages": cloudflare$$k2_workers$$k2$$messages,
       },
     },
     request: (args) => ({

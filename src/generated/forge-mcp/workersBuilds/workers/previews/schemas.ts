@@ -10,12 +10,12 @@ export const builds_UpdatePreviewRequest: JsonSchema = {
   "description": "Request body for updating a Preview. At least one field must be provided, and omitted fields are left unchanged.",
   "properties": {
     "auto_build": {
-      "$ref": "#/$defs/builds_preview_auto_build",
-      "description": "Whether pushes to the git branch build this Preview. Deploy hooks, manual builds, and retries run regardless of this setting."
+      "description": "Whether pushes to the git branch build this Preview. Deploy hooks, manual builds, and retries run regardless of this setting.",
+      "type": "boolean"
     },
     "auto_delete": {
-      "$ref": "#/$defs/builds_preview_auto_delete",
-      "description": "Whether deleting the git branch also deletes this Preview."
+      "description": "Whether deleting the git branch also deletes this Preview.",
+      "type": "boolean"
     },
     "branch": {
       "description": "Git branch this Preview tracks",
@@ -27,20 +27,4 @@ export const builds_UpdatePreviewRequest: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `builds_preview_auto_build`.
- */
-export const builds_preview_auto_build: JsonSchema = {
-  "description": "Whether pushes to the git branch build this Preview. Deploy hooks, manual builds, and retries run regardless of this setting.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `builds_preview_auto_delete`.
- */
-export const builds_preview_auto_delete: JsonSchema = {
-  "description": "Whether deleting the git branch also deletes this Preview.",
-  "type": "boolean"
 };

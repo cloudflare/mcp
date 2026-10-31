@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `argo-analytics_api-response-common` in responses.
  */
-export const argo_analytics_api_response_common_output: JsonSchema = {
+export const argo$$analytics_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/argo-analytics_messages"
@@ -47,7 +47,7 @@ export const argo_analytics_api_response_common_output: JsonSchema = {
 /**
  * The schema of `argo-analytics_api-response-common-failure` in responses.
  */
-export const argo_analytics_api_response_common_failure_output: JsonSchema = {
+export const argo$$analytics_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/argo-analytics_messages"
@@ -77,7 +77,7 @@ export const argo_analytics_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `argo-analytics_api-response-single` in responses.
  */
-export const argo_analytics_api_response_single_output: JsonSchema = {
+export const argo$$analytics_api$$response$$single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/argo-analytics_api-response-common"
@@ -106,7 +106,7 @@ export const argo_analytics_api_response_single_output: JsonSchema = {
 /**
  * The schema of `argo-analytics_messages` in responses.
  */
-export const argo_analytics_messages_output: JsonSchema = {
+export const argo$$analytics_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -128,7 +128,7 @@ export const argo_analytics_messages_output: JsonSchema = {
 /**
  * The schema of `argo-analytics_response_single` in responses.
  */
-export const argo_analytics_response_single_output: JsonSchema = {
+export const argo$$analytics_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/argo-analytics_api-response-single"

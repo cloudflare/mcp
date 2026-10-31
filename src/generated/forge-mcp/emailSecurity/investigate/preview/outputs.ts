@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `email-security_MessagePreview` in responses.
  */
-export const email_security_MessagePreview_output: JsonSchema = {
+export const email$$security_MessagePreview: JsonSchema = {
   "properties": {
     "screenshot": {
       "type": "string"

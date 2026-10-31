@@ -4,16 +4,9 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `stream_jwk` in responses.
- */
-export const stream_jwk_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `stream_key_generation_response` in responses.
  */
-export const stream_key_generation_response_output: JsonSchema = {
+export const stream_key_generation_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/stream_api-response-common"
@@ -32,7 +25,7 @@ export const stream_key_generation_response_output: JsonSchema = {
 /**
  * The schema of `stream_key_response_collection` in responses.
  */
-export const stream_key_response_collection_output: JsonSchema = {
+export const stream_key_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/stream_api-response-common"
@@ -43,10 +36,11 @@ export const stream_key_response_collection_output: JsonSchema = {
           "items": {
             "properties": {
               "created": {
-                "$ref": "#/$defs/stream_signing_key_created"
+                "format": "date-time",
+                "type": "string"
               },
               "id": {
-                "$ref": "#/$defs/stream_identifier-2"
+                "type": "string"
               },
               "key_id": {
                 "type": "string"
@@ -65,35 +59,21 @@ export const stream_key_response_collection_output: JsonSchema = {
 /**
  * The schema of `stream_keys` in responses.
  */
-export const stream_keys_output: JsonSchema = {
+export const stream_keys: JsonSchema = {
   "properties": {
     "created": {
-      "$ref": "#/$defs/stream_signing_key_created"
+      "format": "date-time",
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/stream_identifier-2"
+      "type": "string"
     },
     "jwk": {
-      "$ref": "#/$defs/stream_jwk"
+      "type": "string"
     },
     "pem": {
-      "$ref": "#/$defs/stream_pem"
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `stream_pem` in responses.
- */
-export const stream_pem_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `stream_signing_key_created` in responses.
- */
-export const stream_signing_key_created_output: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
 };

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `pay-per-crawl_PPUProposal` in responses.
  */
-export const pay_per_crawl_PPUProposal_output: JsonSchema = {
+export const pay$$per$$crawl_PPUProposal: JsonSchema = {
   "properties": {
     "created_at": {
       "format": "date-time",
@@ -52,7 +52,7 @@ export const pay_per_crawl_PPUProposal_output: JsonSchema = {
 /**
  * The schema of `pay-per-crawl_PPUProposals` in responses.
  */
-export const pay_per_crawl_PPUProposals_output: JsonSchema = {
+export const pay$$per$$crawl_PPUProposals: JsonSchema = {
   "properties": {
     "proposals": {
       "items": {
@@ -70,7 +70,7 @@ export const pay_per_crawl_PPUProposals_output: JsonSchema = {
 /**
  * The schema of `pay-per-crawl_PPUProposalsResponse` in responses.
  */
-export const pay_per_crawl_PPUProposalsResponse_output: JsonSchema = {
+export const pay$$per$$crawl_PPUProposalsResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `intel_components-schemas-single_response` in responses.
  */
-export const intel_components_schemas_single_response_output: JsonSchema = {
+export const intel_components$$schemas$$single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/intel_schemas-api-response-collection"
@@ -25,7 +25,7 @@ export const intel_components_schemas_single_response_output: JsonSchema = {
 /**
  * The schema of `intel_passive-dns-by-ip` in responses.
  */
-export const intel_passive_dns_by_ip_output: JsonSchema = {
+export const intel_passive$$dns$$by$$ip: JsonSchema = {
   "properties": {
     "count": {
       "type": "number"
@@ -62,7 +62,7 @@ export const intel_passive_dns_by_ip_output: JsonSchema = {
 /**
  * The schema of `intel_schemas-api-response-collection` in responses.
  */
-export const intel_schemas_api_response_collection_output: JsonSchema = {
+export const intel_schemas$$api$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/intel_schemas-api-response-common"
@@ -81,7 +81,7 @@ export const intel_schemas_api_response_collection_output: JsonSchema = {
 /**
  * The schema of `intel_schemas-api-response-common` in responses.
  */
-export const intel_schemas_api_response_common_output: JsonSchema = {
+export const intel_schemas$$api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/intel_schemas-messages"
@@ -107,7 +107,7 @@ export const intel_schemas_api_response_common_output: JsonSchema = {
 /**
  * The schema of `intel_schemas-result_info` in responses.
  */
-export const intel_schemas_result_info_output: JsonSchema = {
+export const intel_schemas$$result_info: JsonSchema = {
   "properties": {
     "count": {
       "type": "number"

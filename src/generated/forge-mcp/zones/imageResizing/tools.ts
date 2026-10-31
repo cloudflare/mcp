@@ -3,34 +3,35 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  speed_api_response_common_failure_output,
-  speed_api_response_common_output,
-  speed_base_output,
-  speed_messages_output,
+  speed_api$$response$$common,
+  speed_api$$response$$common$$failure,
+  speed_base,
+  speed_messages,
 } from "../../outputs.js";
-import { speed_identifier } from "../../schemas.js";
-import {
-  speed_image_resizing_response_output,
-  speed_image_resizing_value_output,
-} from "./outputs.js";
-import { speed_image_resizing_value } from "./schemas.js";
+import { speed_image_resizing_response } from "./outputs.js";
 
 /**
- * The tools of `zones.image_resizing`.
+ * The tools of `zones.imageResizing`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zones_image_resizing_edit",
+    name: "zones_imageResizing_edit",
     title: "Change Image Transformations setting",
-    description: "Sets the Image Transformations setting for a zone. Accepted values are `off`, `on`, `open`, and `latest`.",
+    description: "Sets the Image Transformations setting for a zone. Accepted values are `off`, `on`, `open`, and `latest`.\n\nPATCH /zones/{zone_id}/settings/image_resizing",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "value": {
-              "$ref": "#/$defs/speed_image_resizing_value",
-              "description": "Controls Image Resizing behavior:\n- \"off\": Feature disabled.\n- \"on\": Resizing is enabled for same-zone images only.\n- \"open\": Resizing is enabled for images from any origin.\n- \"latest\": Resizing is enabled for same-zone images using the latest version.\n"
+              "description": "Controls Image Resizing behavior:\n- \"off\": Feature disabled.\n- \"on\": Resizing is enabled for same-zone images only.\n- \"open\": Resizing is enabled for images from any origin.\n- \"latest\": Resizing is enabled for same-zone images using the latest version.",
+              "enum": [
+                "off",
+                "on",
+                "open",
+                "latest"
+              ],
+              "type": "string"
             }
           },
           "required": [
@@ -38,19 +39,25 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "zone_id": {
-          "$ref": "#/$defs/speed_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
-      $defs: {
-        "speed_identifier": speed_identifier,
-        "speed_image_resizing_value": speed_image_resizing_value,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -67,11 +74,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "speed_api-response-common": speed_api_response_common_output,
-        "speed_base": speed_base_output,
-        "speed_image_resizing_response": speed_image_resizing_response_output,
-        "speed_image_resizing_value": speed_image_resizing_value_output,
-        "speed_messages": speed_messages_output,
+        "speed_api-response-common": speed_api$$response$$common,
+        "speed_base": speed_base,
+        "speed_image_resizing_response": speed_image_resizing_response,
+        "speed_messages": speed_messages,
       },
     },
     annotations: {
@@ -121,12 +127,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "speed_api-response-common": speed_api_response_common_output,
-        "speed_api-response-common-failure": speed_api_response_common_failure_output,
-        "speed_base": speed_base_output,
-        "speed_image_resizing_response": speed_image_resizing_response_output,
-        "speed_image_resizing_value": speed_image_resizing_value_output,
-        "speed_messages": speed_messages_output,
+        "speed_api-response-common": speed_api$$response$$common,
+        "speed_api-response-common-failure": speed_api$$response$$common$$failure,
+        "speed_base": speed_base,
+        "speed_image_resizing_response": speed_image_resizing_response,
+        "speed_messages": speed_messages,
       },
     },
     request: (args) => ({
@@ -135,23 +140,30 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zones_image_resizing_get",
+    name: "zones_imageResizing_get",
     title: "Get Image Transformations setting",
-    description: "Gets the Image Transformations setting for a zone. Accepted values are `off`, `on`, `open`, and `latest`.",
+    description: "Gets the Image Transformations setting for a zone. Accepted values are `off`, `on`, `open`, and `latest`.\n\nGET /zones/{zone_id}/settings/image_resizing",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/speed_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
-      $defs: {
-        "speed_identifier": speed_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -168,11 +180,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "speed_api-response-common": speed_api_response_common_output,
-        "speed_base": speed_base_output,
-        "speed_image_resizing_response": speed_image_resizing_response_output,
-        "speed_image_resizing_value": speed_image_resizing_value_output,
-        "speed_messages": speed_messages_output,
+        "speed_api-response-common": speed_api$$response$$common,
+        "speed_base": speed_base,
+        "speed_image_resizing_response": speed_image_resizing_response,
+        "speed_messages": speed_messages,
       },
     },
     annotations: {
@@ -223,12 +234,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "speed_api-response-common": speed_api_response_common_output,
-        "speed_api-response-common-failure": speed_api_response_common_failure_output,
-        "speed_base": speed_base_output,
-        "speed_image_resizing_response": speed_image_resizing_response_output,
-        "speed_image_resizing_value": speed_image_resizing_value_output,
-        "speed_messages": speed_messages_output,
+        "speed_api-response-common": speed_api$$response$$common,
+        "speed_api-response-common-failure": speed_api$$response$$common$$failure,
+        "speed_base": speed_base,
+        "speed_image_resizing_response": speed_image_resizing_response,
+        "speed_messages": speed_messages,
       },
     },
     request: (args) => ({

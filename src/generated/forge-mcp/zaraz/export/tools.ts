@@ -3,26 +3,25 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  zaraz_api_response_common_failure_output,
-  zaraz_base_mc_output,
-  zaraz_base_tool_output,
-  zaraz_click_listener_rule_output,
-  zaraz_custom_managed_component_output,
-  zaraz_element_visibility_rule_output,
-  zaraz_form_submission_rule_output,
-  zaraz_load_rule_output,
-  zaraz_managed_component_output,
-  zaraz_messages_output,
-  zaraz_scroll_depth_rule_output,
-  zaraz_secret_variable_output,
-  zaraz_string_variable_output,
-  zaraz_timer_rule_output,
-  zaraz_variable_match_rule_output,
-  zaraz_worker_variable_output,
-  zaraz_zaraz_config_base_output,
-  zaraz_zaraz_config_return_output,
+  zaraz_api$$response$$common$$failure,
+  zaraz_base$$mc,
+  zaraz_base$$tool,
+  zaraz_click$$listener$$rule,
+  zaraz_custom$$managed$$component,
+  zaraz_element$$visibility$$rule,
+  zaraz_form$$submission$$rule,
+  zaraz_load$$rule,
+  zaraz_managed$$component,
+  zaraz_messages,
+  zaraz_scroll$$depth$$rule,
+  zaraz_secret_variable,
+  zaraz_string_variable,
+  zaraz_timer$$rule,
+  zaraz_variable$$match$$rule,
+  zaraz_worker_variable,
+  zaraz_zaraz$$config$$base,
+  zaraz_zaraz$$config$$return,
 } from "../outputs.js";
-import { zaraz_identifier } from "../schemas.js";
 
 /**
  * The tools of `zaraz.export`.
@@ -31,41 +30,48 @@ export const tools: readonly Tool[] = [
   {
     name: "zaraz_export_get",
     title: "Export Zaraz configuration",
-    description: "Exports full current published Zaraz configuration for a zone, secret variables included.",
+    description: "Exports full current published Zaraz configuration for a zone, secret variables included.\n\nGET /zones/{zone_id}/settings/zaraz/export",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/zaraz_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
-      $defs: {
-        "zaraz_identifier": zaraz_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/zaraz_zaraz-config-return",
       $defs: {
-        "zaraz_base-mc": zaraz_base_mc_output,
-        "zaraz_base-tool": zaraz_base_tool_output,
-        "zaraz_click-listener-rule": zaraz_click_listener_rule_output,
-        "zaraz_custom-managed-component": zaraz_custom_managed_component_output,
-        "zaraz_element-visibility-rule": zaraz_element_visibility_rule_output,
-        "zaraz_form-submission-rule": zaraz_form_submission_rule_output,
-        "zaraz_load-rule": zaraz_load_rule_output,
-        "zaraz_managed-component": zaraz_managed_component_output,
-        "zaraz_scroll-depth-rule": zaraz_scroll_depth_rule_output,
-        "zaraz_secret_variable": zaraz_secret_variable_output,
-        "zaraz_string_variable": zaraz_string_variable_output,
-        "zaraz_timer-rule": zaraz_timer_rule_output,
-        "zaraz_variable-match-rule": zaraz_variable_match_rule_output,
-        "zaraz_worker_variable": zaraz_worker_variable_output,
-        "zaraz_zaraz-config-base": zaraz_zaraz_config_base_output,
-        "zaraz_zaraz-config-return": zaraz_zaraz_config_return_output,
+        "zaraz_base-mc": zaraz_base$$mc,
+        "zaraz_base-tool": zaraz_base$$tool,
+        "zaraz_click-listener-rule": zaraz_click$$listener$$rule,
+        "zaraz_custom-managed-component": zaraz_custom$$managed$$component,
+        "zaraz_element-visibility-rule": zaraz_element$$visibility$$rule,
+        "zaraz_form-submission-rule": zaraz_form$$submission$$rule,
+        "zaraz_load-rule": zaraz_load$$rule,
+        "zaraz_managed-component": zaraz_managed$$component,
+        "zaraz_scroll-depth-rule": zaraz_scroll$$depth$$rule,
+        "zaraz_secret_variable": zaraz_secret_variable,
+        "zaraz_string_variable": zaraz_string_variable,
+        "zaraz_timer-rule": zaraz_timer$$rule,
+        "zaraz_variable-match-rule": zaraz_variable$$match$$rule,
+        "zaraz_worker_variable": zaraz_worker_variable,
+        "zaraz_zaraz-config-base": zaraz_zaraz$$config$$base,
+        "zaraz_zaraz-config-return": zaraz_zaraz$$config$$return,
       },
     },
     annotations: {
@@ -94,24 +100,24 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "zaraz_api-response-common-failure": zaraz_api_response_common_failure_output,
-        "zaraz_base-mc": zaraz_base_mc_output,
-        "zaraz_base-tool": zaraz_base_tool_output,
-        "zaraz_click-listener-rule": zaraz_click_listener_rule_output,
-        "zaraz_custom-managed-component": zaraz_custom_managed_component_output,
-        "zaraz_element-visibility-rule": zaraz_element_visibility_rule_output,
-        "zaraz_form-submission-rule": zaraz_form_submission_rule_output,
-        "zaraz_load-rule": zaraz_load_rule_output,
-        "zaraz_managed-component": zaraz_managed_component_output,
-        "zaraz_messages": zaraz_messages_output,
-        "zaraz_scroll-depth-rule": zaraz_scroll_depth_rule_output,
-        "zaraz_secret_variable": zaraz_secret_variable_output,
-        "zaraz_string_variable": zaraz_string_variable_output,
-        "zaraz_timer-rule": zaraz_timer_rule_output,
-        "zaraz_variable-match-rule": zaraz_variable_match_rule_output,
-        "zaraz_worker_variable": zaraz_worker_variable_output,
-        "zaraz_zaraz-config-base": zaraz_zaraz_config_base_output,
-        "zaraz_zaraz-config-return": zaraz_zaraz_config_return_output,
+        "zaraz_api-response-common-failure": zaraz_api$$response$$common$$failure,
+        "zaraz_base-mc": zaraz_base$$mc,
+        "zaraz_base-tool": zaraz_base$$tool,
+        "zaraz_click-listener-rule": zaraz_click$$listener$$rule,
+        "zaraz_custom-managed-component": zaraz_custom$$managed$$component,
+        "zaraz_element-visibility-rule": zaraz_element$$visibility$$rule,
+        "zaraz_form-submission-rule": zaraz_form$$submission$$rule,
+        "zaraz_load-rule": zaraz_load$$rule,
+        "zaraz_managed-component": zaraz_managed$$component,
+        "zaraz_messages": zaraz_messages,
+        "zaraz_scroll-depth-rule": zaraz_scroll$$depth$$rule,
+        "zaraz_secret_variable": zaraz_secret_variable,
+        "zaraz_string_variable": zaraz_string_variable,
+        "zaraz_timer-rule": zaraz_timer$$rule,
+        "zaraz_variable-match-rule": zaraz_variable$$match$$rule,
+        "zaraz_worker_variable": zaraz_worker_variable,
+        "zaraz_zaraz-config-base": zaraz_zaraz$$config$$base,
+        "zaraz_zaraz-config-return": zaraz_zaraz$$config$$return,
       },
     },
     request: (args) => ({

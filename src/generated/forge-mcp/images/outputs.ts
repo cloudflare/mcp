@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `images_api-response-collection-v2` in responses.
  */
-export const images_api_response_collection_v2_output: JsonSchema = {
+export const images_api$$response$$collection$$v2: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/images_api-response-common"
@@ -16,7 +16,14 @@ export const images_api_response_collection_v2_output: JsonSchema = {
         "result": {
           "properties": {
             "continuation_token": {
-              "$ref": "#/$defs/images_images_list_continuation_token"
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             }
           },
           "type": "object"
@@ -30,7 +37,7 @@ export const images_api_response_collection_v2_output: JsonSchema = {
 /**
  * The schema of `images_api-response-common` in responses.
  */
-export const images_api_response_common_output: JsonSchema = {
+export const images_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/images_messages"
@@ -73,7 +80,7 @@ export const images_api_response_common_output: JsonSchema = {
 /**
  * The schema of `images_api-response-common-failure` in responses.
  */
-export const images_api_response_common_failure_output: JsonSchema = {
+export const images_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/images_messages"
@@ -103,7 +110,7 @@ export const images_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `images_api-response-single` in responses.
  */
-export const images_api_response_single_output: JsonSchema = {
+export const images_api$$response$$single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/images_api-response-common"
@@ -129,7 +136,7 @@ export const images_api_response_single_output: JsonSchema = {
 /**
  * The schema of `images_deleted_response` in responses.
  */
-export const images_deleted_response_output: JsonSchema = {
+export const images_deleted_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/images_api-response-single"
@@ -148,25 +155,33 @@ export const images_deleted_response_output: JsonSchema = {
 /**
  * The schema of `images_image` in responses.
  */
-export const images_image_output: JsonSchema = {
+export const images_image: JsonSchema = {
   "properties": {
     "creator": {
-      "$ref": "#/$defs/images_image_creator"
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "filename": {
-      "$ref": "#/$defs/images_image_filename"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/images_image_identifier"
+      "type": "string"
     },
     "meta": {
       "$ref": "#/$defs/images_image_metadata"
     },
     "requireSignedURLs": {
-      "$ref": "#/$defs/images_image_requireSignedURLs"
+      "type": "boolean"
     },
     "uploaded": {
-      "$ref": "#/$defs/images_image_uploaded"
+      "format": "date-time",
+      "type": "string"
     },
     "variants": {
       "$ref": "#/$defs/images_image_variants"
@@ -176,65 +191,16 @@ export const images_image_output: JsonSchema = {
 };
 
 /**
- * The schema of `images_image_creator` in responses.
- */
-export const images_image_creator_output: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `images_image_filename` in responses.
- */
-export const images_image_filename_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `images_image_hero_url` in responses.
- */
-export const images_image_hero_url_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `images_image_identifier` in responses.
- */
-export const images_image_identifier_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `images_image_metadata` in responses.
  */
-export const images_image_metadata_output: JsonSchema = {
+export const images_image_metadata: JsonSchema = {
   "type": "object"
-};
-
-/**
- * The schema of `images_image_original_url` in responses.
- */
-export const images_image_original_url_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `images_image_requireSignedURLs` in responses.
- */
-export const images_image_requireSignedURLs_output: JsonSchema = {
-  "type": "boolean"
 };
 
 /**
  * The schema of `images_image_response_blob` in responses.
  */
-export const images_image_response_blob_output: JsonSchema = {
+export const images_image_response_blob: JsonSchema = {
   "anyOf": [
     {
       "type": "string"
@@ -248,7 +214,7 @@ export const images_image_response_blob_output: JsonSchema = {
 /**
  * The schema of `images_image_response_single` in responses.
  */
-export const images_image_response_single_output: JsonSchema = {
+export const images_image_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/images_api-response-single"
@@ -265,34 +231,19 @@ export const images_image_response_single_output: JsonSchema = {
 };
 
 /**
- * The schema of `images_image_thumbnail_url` in responses.
- */
-export const images_image_thumbnail_url_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `images_image_uploaded` in responses.
- */
-export const images_image_uploaded_output: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
  * The schema of `images_image_variants` in responses.
  */
-export const images_image_variants_output: JsonSchema = {
+export const images_image_variants: JsonSchema = {
   "items": {
     "anyOf": [
       {
-        "$ref": "#/$defs/images_image_thumbnail_url"
+        "type": "string"
       },
       {
-        "$ref": "#/$defs/images_image_hero_url"
+        "type": "string"
       },
       {
-        "$ref": "#/$defs/images_image_original_url"
+        "type": "string"
       }
     ]
   },
@@ -300,23 +251,9 @@ export const images_image_variants_output: JsonSchema = {
 };
 
 /**
- * The schema of `images_images_list_continuation_token` in responses.
- */
-export const images_images_list_continuation_token_output: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
  * The schema of `images_images_list_response_v2` in responses.
  */
-export const images_images_list_response_v2_output: JsonSchema = {
+export const images_images_list_response_v2: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/images_api-response-collection-v2"
@@ -343,7 +280,7 @@ export const images_images_list_response_v2_output: JsonSchema = {
 /**
  * The schema of `images_images_stats` in responses.
  */
-export const images_images_stats_output: JsonSchema = {
+export const images_images_stats: JsonSchema = {
   "properties": {
     "count": {
       "$ref": "#/$defs/images_images_stats_count"
@@ -353,38 +290,24 @@ export const images_images_stats_output: JsonSchema = {
 };
 
 /**
- * The schema of `images_images_stats_allowed` in responses.
- */
-export const images_images_stats_allowed_output: JsonSchema = {
-  "type": "number"
-};
-
-/**
  * The schema of `images_images_stats_count` in responses.
  */
-export const images_images_stats_count_output: JsonSchema = {
+export const images_images_stats_count: JsonSchema = {
   "properties": {
     "allowed": {
-      "$ref": "#/$defs/images_images_stats_allowed"
+      "type": "number"
     },
     "current": {
-      "$ref": "#/$defs/images_images_stats_current"
+      "type": "number"
     }
   },
   "type": "object"
 };
 
 /**
- * The schema of `images_images_stats_current` in responses.
- */
-export const images_images_stats_current_output: JsonSchema = {
-  "type": "number"
-};
-
-/**
  * The schema of `images_images_stats_response` in responses.
  */
-export const images_images_stats_response_output: JsonSchema = {
+export const images_images_stats_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/images_api-response-single"
@@ -403,7 +326,7 @@ export const images_images_stats_response_output: JsonSchema = {
 /**
  * The schema of `images_messages` in responses.
  */
-export const images_messages_output: JsonSchema = {
+export const images_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {

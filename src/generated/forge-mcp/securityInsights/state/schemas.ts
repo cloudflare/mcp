@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `security-center_updateAccountStateRequest`.
  */
-export const security_center_updateAccountStateRequest: JsonSchema = {
+export const security$$center_updateAccountStateRequest: JsonSchema = {
   "properties": {
     "scans_enabled": {
       "description": "Enable or disable scans for the account.",

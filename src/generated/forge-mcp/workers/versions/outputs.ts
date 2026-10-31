@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `workers_Version` in responses.
  */
-export const workers_Version_output: JsonSchema = {
+export const workers_Version: JsonSchema = {
   "properties": {
     "annotations": {
       "properties": {
@@ -88,7 +88,7 @@ export const workers_Version_output: JsonSchema = {
       "$ref": "#/$defs/workers_cache_options"
     },
     "compatibility_date": {
-      "$ref": "#/$defs/workers_compatibility_date"
+      "type": "string"
     },
     "compatibility_flags": {
       "$ref": "#/$defs/workers_compatibility_flags"

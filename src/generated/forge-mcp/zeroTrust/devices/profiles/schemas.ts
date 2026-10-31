@@ -4,57 +4,9 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `teams-devices_allow_mode_switch`.
- */
-export const teams_devices_allow_mode_switch: JsonSchema = {
-  "description": "Whether to allow the user to switch WARP between modes.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `teams-devices_allow_updates`.
- */
-export const teams_devices_allow_updates: JsonSchema = {
-  "description": "Whether to receive update notifications when a new version of the client is available.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `teams-devices_allowed_to_leave`.
- */
-export const teams_devices_allowed_to_leave: JsonSchema = {
-  "description": "Whether to allow devices to leave the organization.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `teams-devices_auto_connect`.
- */
-export const teams_devices_auto_connect: JsonSchema = {
-  "description": "The amount of time in seconds to reconnect after having been disabled.",
-  "type": "number"
-};
-
-/**
- * The schema of `teams-devices_captive_portal`.
- */
-export const teams_devices_captive_portal: JsonSchema = {
-  "description": "Turn on the captive portal after the specified amount of time.",
-  "type": "number"
-};
-
-/**
- * The schema of `teams-devices_disable_auto_fallback`.
- */
-export const teams_devices_disable_auto_fallback: JsonSchema = {
-  "description": "If the `dns_server` field of a fallback domain is not present, the client will fall back to a best guess of the default/system DNS resolvers unless this policy option is set to `true`.",
-  "type": "boolean"
-};
-
-/**
  * The schema of `teams-devices_dns_search_suffix`.
  */
-export const teams_devices_dns_search_suffix: JsonSchema = {
+export const teams$$devices_dns_search_suffix: JsonSchema = {
   "properties": {
     "description": {
       "description": "A description of the DNS search suffix.",
@@ -74,7 +26,7 @@ export const teams_devices_dns_search_suffix: JsonSchema = {
 /**
  * The schema of `teams-devices_dns_search_suffixes`.
  */
-export const teams_devices_dns_search_suffixes: JsonSchema = {
+export const teams$$devices_dns_search_suffixes: JsonSchema = {
   "description": "List of DNS search suffixes to apply to clients. Suffixes are evaluated in order. Use an empty array to clear.",
   "items": {
     "$ref": "#/$defs/teams-devices_dns_search_suffix"
@@ -83,25 +35,9 @@ export const teams_devices_dns_search_suffixes: JsonSchema = {
 };
 
 /**
- * The schema of `teams-devices_enable_device_credential_authentication`.
- */
-export const teams_devices_enable_device_credential_authentication: JsonSchema = {
-  "description": "Determines whether the WARP client can silently reauthenticate the user with device credentials (Microsoft Entra) instead of prompting for browser-based reauthentication.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `teams-devices_exclude_office_ips`.
- */
-export const teams_devices_exclude_office_ips: JsonSchema = {
-  "description": "Whether to add Microsoft IPs to Split Tunnel exclusions.",
-  "type": "boolean"
-};
-
-/**
  * The schema of `teams-devices_exclude_request`.
  */
-export const teams_devices_exclude_request: JsonSchema = {
+export const teams$$devices_exclude_request: JsonSchema = {
   "description": "List of routes excluded in the WARP client's tunnel. Both 'exclude' and 'include' cannot be set in the same request.",
   "items": {
     "$ref": "#/$defs/teams-devices_split_tunnel"
@@ -112,15 +48,15 @@ export const teams_devices_exclude_request: JsonSchema = {
 /**
  * The schema of `teams-devices_exclude_split_tunnel_with_address`.
  */
-export const teams_devices_exclude_split_tunnel_with_address: JsonSchema = {
+export const teams$$devices_exclude_split_tunnel_with_address: JsonSchema = {
   "properties": {
     "address": {
-      "$ref": "#/$defs/teams-devices_split_tunnel_address",
-      "description": "The address in CIDR format to exclude from the tunnel. If `address` is present, `host` must not be present."
+      "description": "The address in CIDR format to exclude from the tunnel. If `address` is present, `host` must not be present.",
+      "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/teams-devices_split_tunnel_description",
-      "description": "A description of the Split Tunnel item, displayed in the client UI."
+      "description": "A description of the Split Tunnel item, displayed in the client UI.",
+      "type": "string"
     }
   },
   "required": [
@@ -132,15 +68,15 @@ export const teams_devices_exclude_split_tunnel_with_address: JsonSchema = {
 /**
  * The schema of `teams-devices_exclude_split_tunnel_with_host`.
  */
-export const teams_devices_exclude_split_tunnel_with_host: JsonSchema = {
+export const teams$$devices_exclude_split_tunnel_with_host: JsonSchema = {
   "properties": {
     "description": {
-      "$ref": "#/$defs/teams-devices_split_tunnel_description",
-      "description": "A description of the Split Tunnel item, displayed in the client UI."
+      "description": "A description of the Split Tunnel item, displayed in the client UI.",
+      "type": "string"
     },
     "host": {
-      "$ref": "#/$defs/teams-devices_split_tunnel_host",
-      "description": "The domain name to exclude from the tunnel. If `host` is present, `address` must not be present."
+      "description": "The domain name to exclude from the tunnel. If `host` is present, `address` must not be present.",
+      "type": "string"
     }
   },
   "required": [
@@ -152,7 +88,7 @@ export const teams_devices_exclude_split_tunnel_with_host: JsonSchema = {
 /**
  * The schema of `teams-devices_global_acceleration`.
  */
-export const teams_devices_global_acceleration: JsonSchema = {
+export const teams$$devices_global_acceleration: JsonSchema = {
   "description": "Global Acceleration settings for China. When configured, WARP clients connect to the Global Accelerator addresses instead of the default ones. Please contact your account representative to enable this feature on your account. See https://developers.cloudflare.com/china-network/concepts/global-acceleration/.",
   "oneOf": [
     {
@@ -213,7 +149,7 @@ export const teams_devices_global_acceleration: JsonSchema = {
 /**
  * The schema of `teams-devices_include_request`.
  */
-export const teams_devices_include_request: JsonSchema = {
+export const teams$$devices_include_request: JsonSchema = {
   "description": "List of routes included in the WARP client's tunnel. Both 'exclude' and 'include' cannot be set in the same request.",
   "items": {
     "$ref": "#/$defs/teams-devices_split_tunnel_include"
@@ -222,41 +158,17 @@ export const teams_devices_include_request: JsonSchema = {
 };
 
 /**
- * The schema of `teams-devices_include_split_tunnel_address`.
- */
-export const teams_devices_include_split_tunnel_address: JsonSchema = {
-  "description": "The address in CIDR format to include in the tunnel. If `address` is present, `host` must not be present.",
-  "type": "string"
-};
-
-/**
- * The schema of `teams-devices_include_split_tunnel_description`.
- */
-export const teams_devices_include_split_tunnel_description: JsonSchema = {
-  "description": "A description of the Split Tunnel item, displayed in the client UI.",
-  "type": "string"
-};
-
-/**
- * The schema of `teams-devices_include_split_tunnel_host`.
- */
-export const teams_devices_include_split_tunnel_host: JsonSchema = {
-  "description": "The domain name to include in the tunnel. If `host` is present, `address` must not be present.",
-  "type": "string"
-};
-
-/**
  * The schema of `teams-devices_include_split_tunnel_with_address`.
  */
-export const teams_devices_include_split_tunnel_with_address: JsonSchema = {
+export const teams$$devices_include_split_tunnel_with_address: JsonSchema = {
   "properties": {
     "address": {
-      "$ref": "#/$defs/teams-devices_include_split_tunnel_address",
-      "description": "The address in CIDR format to include in the tunnel. If `address` is present, `host` must not be present."
+      "description": "The address in CIDR format to include in the tunnel. If `address` is present, `host` must not be present.",
+      "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/teams-devices_include_split_tunnel_description",
-      "description": "A description of the Split Tunnel item, displayed in the client UI."
+      "description": "A description of the Split Tunnel item, displayed in the client UI.",
+      "type": "string"
     }
   },
   "required": [
@@ -268,15 +180,15 @@ export const teams_devices_include_split_tunnel_with_address: JsonSchema = {
 /**
  * The schema of `teams-devices_include_split_tunnel_with_host`.
  */
-export const teams_devices_include_split_tunnel_with_host: JsonSchema = {
+export const teams$$devices_include_split_tunnel_with_host: JsonSchema = {
   "properties": {
     "description": {
-      "$ref": "#/$defs/teams-devices_include_split_tunnel_description",
-      "description": "A description of the Split Tunnel item, displayed in the client UI."
+      "description": "A description of the Split Tunnel item, displayed in the client UI.",
+      "type": "string"
     },
     "host": {
-      "$ref": "#/$defs/teams-devices_include_split_tunnel_host",
-      "description": "The domain name to include in the tunnel. If `host` is present, `address` must not be present."
+      "description": "The domain name to include in the tunnel. If `host` is present, `address` must not be present.",
+      "type": "string"
     }
   },
   "required": [
@@ -286,60 +198,9 @@ export const teams_devices_include_split_tunnel_with_host: JsonSchema = {
 };
 
 /**
- * The schema of `teams-devices_lan_allow_minutes`.
- */
-export const teams_devices_lan_allow_minutes: JsonSchema = {
-  "description": "The amount of time in minutes a user is allowed access to their LAN. A value of 0 will allow LAN access until the next WARP reconnection, such as a reboot or a laptop waking from sleep. Note that this field is omitted from the response if null or unset.",
-  "type": "number"
-};
-
-/**
- * The schema of `teams-devices_lan_allow_subnet_size`.
- */
-export const teams_devices_lan_allow_subnet_size: JsonSchema = {
-  "description": "The size of the subnet for the local access network. Note that this field is omitted from the response if null or unset.",
-  "type": "number"
-};
-
-/**
- * The schema of `teams-devices_profile_type`.
- */
-export const teams_devices_profile_type: JsonSchema = {
-  "description": "The client type to which the device settings profile applies. This field is set when the profile is created and cannot be changed.",
-  "enum": [
-    "warp",
-    "browser_extension"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `teams-devices_register_interface_ip_with_dns`.
- */
-export const teams_devices_register_interface_ip_with_dns: JsonSchema = {
-  "description": "Determines if the operating system will register WARP's local interface IP with your on-premises DNS server.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `teams-devices_sccm_vpn_boundary_support`.
- */
-export const teams_devices_sccm_vpn_boundary_support: JsonSchema = {
-  "description": "Determines whether the WARP client indicates to SCCM that it is inside a VPN boundary. (Windows only).",
-  "type": "boolean"
-};
-
-/**
- * The schema of `teams-devices_schemas-uuid`.
- */
-export const teams_devices_schemas_uuid: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `teams-devices_service_mode_v2`.
  */
-export const teams_devices_service_mode_v2: JsonSchema = {
+export const teams$$devices_service_mode_v2: JsonSchema = {
   "properties": {
     "mode": {
       "description": "The mode to run the WARP client under.",
@@ -356,7 +217,7 @@ export const teams_devices_service_mode_v2: JsonSchema = {
 /**
  * The schema of `teams-devices_split_tunnel`.
  */
-export const teams_devices_split_tunnel: JsonSchema = {
+export const teams$$devices_split_tunnel: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/teams-devices_exclude_split_tunnel_with_address"
@@ -368,33 +229,9 @@ export const teams_devices_split_tunnel: JsonSchema = {
 };
 
 /**
- * The schema of `teams-devices_split_tunnel_address`.
- */
-export const teams_devices_split_tunnel_address: JsonSchema = {
-  "description": "The address in CIDR format to exclude from the tunnel. If `address` is present, `host` must not be present.",
-  "type": "string"
-};
-
-/**
- * The schema of `teams-devices_split_tunnel_description`.
- */
-export const teams_devices_split_tunnel_description: JsonSchema = {
-  "description": "A description of the Split Tunnel item, displayed in the client UI.",
-  "type": "string"
-};
-
-/**
- * The schema of `teams-devices_split_tunnel_host`.
- */
-export const teams_devices_split_tunnel_host: JsonSchema = {
-  "description": "The domain name to exclude from the tunnel. If `host` is present, `address` must not be present.",
-  "type": "string"
-};
-
-/**
  * The schema of `teams-devices_split_tunnel_include`.
  */
-export const teams_devices_split_tunnel_include: JsonSchema = {
+export const teams$$devices_split_tunnel_include: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/teams-devices_include_split_tunnel_with_address"
@@ -406,41 +243,9 @@ export const teams_devices_split_tunnel_include: JsonSchema = {
 };
 
 /**
- * The schema of `teams-devices_support_url`.
- */
-export const teams_devices_support_url: JsonSchema = {
-  "description": "The URL to launch when the Send Feedback button is clicked.",
-  "type": "string"
-};
-
-/**
- * The schema of `teams-devices_switch_locked`.
- */
-export const teams_devices_switch_locked: JsonSchema = {
-  "description": "Whether to allow the user to turn off the WARP switch and disconnect the client.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `teams-devices_tunnel_protocol`.
- */
-export const teams_devices_tunnel_protocol: JsonSchema = {
-  "description": "Determines which tunnel protocol to use.",
-  "type": "string"
-};
-
-/**
- * The schema of `teams-devices_uninstall_protection`.
- */
-export const teams_devices_uninstall_protection: JsonSchema = {
-  "description": "Determines whether uninstalling the WARP client requires an override code. (Windows only).",
-  "type": "boolean"
-};
-
-/**
  * The schema of `teams-devices_virtual_networks`.
  */
-export const teams_devices_virtual_networks: JsonSchema = {
+export const teams$$devices_virtual_networks: JsonSchema = {
   "description": "Virtual network access settings for the device.",
   "oneOf": [
     {

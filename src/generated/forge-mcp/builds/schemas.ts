@@ -10,8 +10,8 @@ export const builds_EnvironmentVariablesRequest: JsonSchema = {
   "additionalProperties": {
     "properties": {
       "is_secret": {
-        "$ref": "#/$defs/builds_is_secret",
-        "description": "Whether to hide the value after it is saved. Secret values remain available to builds but appear as `null` when you list variables; non-secret values remain visible."
+        "description": "Whether to hide the value after it is saved. Secret values remain available to builds but appear as `null` when you list variables; non-secret values remain visible.",
+        "type": "boolean"
       },
       "value": {
         "description": "Value made available to the build. Maximum length is 5000 characters.",

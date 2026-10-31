@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `cloudforce-one_EditApprovalResponse` in responses.
  */
-export const cloudforce_one_EditApprovalResponse_output: JsonSchema = {
+export const cloudforce$$one_EditApprovalResponse: JsonSchema = {
   "properties": {
     "approval": {
       "allOf": [
@@ -40,7 +40,7 @@ export const cloudforce_one_EditApprovalResponse_output: JsonSchema = {
 /**
  * The schema of `cloudforce-one_EmailRuleValidationResponse` in responses.
  */
-export const cloudforce_one_EmailRuleValidationResponse_output: JsonSchema = {
+export const cloudforce$$one_EmailRuleValidationResponse: JsonSchema = {
   "properties": {
     "compiled_yara": {
       "type": "string"
@@ -61,7 +61,7 @@ export const cloudforce_one_EmailRuleValidationResponse_output: JsonSchema = {
 /**
  * The schema of `cloudforce-one_EmailRulesListResponse` in responses.
  */
-export const cloudforce_one_EmailRulesListResponse_output: JsonSchema = {
+export const cloudforce$$one_EmailRulesListResponse: JsonSchema = {
   "properties": {
     "rules": {
       "items": {
@@ -83,7 +83,7 @@ export const cloudforce_one_EmailRulesListResponse_output: JsonSchema = {
 /**
  * The schema of `cloudforce-one_PendingApproval` in responses.
  */
-export const cloudforce_one_PendingApproval_output: JsonSchema = {
+export const cloudforce$$one_PendingApproval: JsonSchema = {
   "properties": {
     "audit_log_id": {
       "type": "number"

@@ -3,38 +3,49 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  dlp_api_response_common_failure_output,
-  dlp_api_response_single_output,
-  dlp_messages_output,
+  dlp_api$$response$$common$$failure,
+  dlp_api$$response$$single,
+  dlp_messages,
 } from "../../outputs.js";
-import { dlp_RiskLevel_output } from "../outputs.js";
-import { dlp_RiskLevel } from "../schemas.js";
 import {
-  dlp_Behavior_output,
-  dlp_Behaviors_output,
-  dlp_UpdateBehavior_output,
-  dlp_UpdateBehaviors_output,
+  dlp_Behavior,
+  dlp_Behaviors,
+  dlp_UpdateBehavior,
+  dlp_UpdateBehaviors,
 } from "./outputs.js";
-import { dlp_UpdateBehavior, dlp_UpdateBehaviors } from "./schemas.js";
+import {
+  dlp_UpdateBehavior as dlp_UpdateBehavior$,
+  dlp_UpdateBehaviors as dlp_UpdateBehaviors$,
+} from "./schemas.js";
 
 /**
- * The tools of `zero_trust.risk_scoring.behaviours`.
+ * The tools of `zeroTrust.riskScoring.behaviours`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zero_trust_risk_scoring_behaviours_get",
+    name: "zeroTrust_riskScoring_behaviours_get",
     title: "Get all behaviors and associated configuration",
-    description: "Retrieves configured risk score behaviors that define how user actions affect their overall risk score.",
+    description: "Retrieves configured risk score behaviors that define how user actions affect their overall risk score.\n\nGET /accounts/{account_id}/zt_risk_scoring/behaviors",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -51,11 +62,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_Behavior": dlp_Behavior_output,
-        "dlp_Behaviors": dlp_Behaviors_output,
-        "dlp_RiskLevel": dlp_RiskLevel_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_Behavior": dlp_Behavior,
+        "dlp_Behaviors": dlp_Behaviors,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -95,12 +105,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_Behavior": dlp_Behavior_output,
-        "dlp_Behaviors": dlp_Behaviors_output,
-        "dlp_RiskLevel": dlp_RiskLevel_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_Behavior": dlp_Behavior,
+        "dlp_Behaviors": dlp_Behaviors,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -108,29 +117,38 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_risk_scoring_behaviours_update",
+    name: "zeroTrust_riskScoring_behaviours_update",
     title: "Update configuration for risk behaviors",
-    description: "Updates risk score behavior configurations, defining weights and thresholds for risk calculation.",
+    description: "Updates risk score behavior configurations, defining weights and thresholds for risk calculation.\n\nPUT /accounts/{account_id}/zt_risk_scoring/behaviors",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account ID.",
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/dlp_UpdateBehaviors",
           "description": "Behaviors."
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "dlp_RiskLevel": dlp_RiskLevel,
-        "dlp_UpdateBehavior": dlp_UpdateBehavior,
-        "dlp_UpdateBehaviors": dlp_UpdateBehaviors,
+        "dlp_UpdateBehavior": dlp_UpdateBehavior$,
+        "dlp_UpdateBehaviors": dlp_UpdateBehaviors$,
       },
     },
     outputSchema: {
@@ -148,11 +166,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_RiskLevel": dlp_RiskLevel_output,
-        "dlp_UpdateBehavior": dlp_UpdateBehavior_output,
-        "dlp_UpdateBehaviors": dlp_UpdateBehaviors_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_UpdateBehavior": dlp_UpdateBehavior,
+        "dlp_UpdateBehaviors": dlp_UpdateBehaviors,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -191,12 +208,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_RiskLevel": dlp_RiskLevel_output,
-        "dlp_UpdateBehavior": dlp_UpdateBehavior_output,
-        "dlp_UpdateBehaviors": dlp_UpdateBehaviors_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_UpdateBehavior": dlp_UpdateBehavior,
+        "dlp_UpdateBehaviors": dlp_UpdateBehaviors,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({

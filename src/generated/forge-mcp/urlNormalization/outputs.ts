@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `rulesets_UrlNormalization` in responses.
  */
-export const rulesets_UrlNormalization_output: JsonSchema = {
+export const rulesets_UrlNormalization: JsonSchema = {
   "properties": {
     "scope": {
       "enum": [

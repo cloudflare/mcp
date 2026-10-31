@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `posture-api_FindingInstanceBulkActionRequest`.
  */
-export const posture_api_FindingInstanceBulkActionRequest: JsonSchema = {
+export const posture$$api_FindingInstanceBulkActionRequest: JsonSchema = {
   "description": "Request body for bulk actions on finding instances.",
   "properties": {
     "check_instances": {
@@ -27,7 +27,7 @@ export const posture_api_FindingInstanceBulkActionRequest: JsonSchema = {
 /**
  * The schema of `posture-api_FindingInstanceExportFilterRequest`.
  */
-export const posture_api_FindingInstanceExportFilterRequest: JsonSchema = {
+export const posture$$api_FindingInstanceExportFilterRequest: JsonSchema = {
   "description": "Filter specification for finding instance exports.",
   "properties": {
     "archived": {
@@ -63,12 +63,16 @@ export const posture_api_FindingInstanceExportFilterRequest: JsonSchema = {
 /**
  * The schema of `posture-api_FindingInstanceExportOrderFilterRequest`.
  */
-export const posture_api_FindingInstanceExportOrderFilterRequest: JsonSchema = {
+export const posture$$api_FindingInstanceExportOrderFilterRequest: JsonSchema = {
   "description": "Order specification for finding instance exports.",
   "properties": {
     "direction": {
-      "$ref": "#/$defs/posture-api_DirectionEnum",
-      "description": "Sort direction."
+      "description": "Sort direction.",
+      "enum": [
+        "asc",
+        "desc"
+      ],
+      "type": "string"
     },
     "name": {
       "description": "Which field to use when ordering the finding instances.",

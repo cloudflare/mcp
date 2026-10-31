@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `pay-per-crawl_DaricZoneCanBeEnabled` in responses.
  */
-export const pay_per_crawl_DaricZoneCanBeEnabled_output: JsonSchema = {
+export const pay$$per$$crawl_DaricZoneCanBeEnabled: JsonSchema = {
   "properties": {
     "can_be_enabled": {
       "type": "boolean"
@@ -24,7 +24,7 @@ export const pay_per_crawl_DaricZoneCanBeEnabled_output: JsonSchema = {
 /**
  * The schema of `pay-per-crawl_ZonesCanBeEnabledPayload` in responses.
  */
-export const pay_per_crawl_ZonesCanBeEnabledPayload_output: JsonSchema = {
+export const pay$$per$$crawl_ZonesCanBeEnabledPayload: JsonSchema = {
   "properties": {
     "zones": {
       "items": {
@@ -39,7 +39,7 @@ export const pay_per_crawl_ZonesCanBeEnabledPayload_output: JsonSchema = {
 /**
  * The schema of `pay-per-crawl_getZoneCanBeEnabledResponse` in responses.
  */
-export const pay_per_crawl_getZoneCanBeEnabledResponse_output: JsonSchema = {
+export const pay$$per$$crawl_getZoneCanBeEnabledResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -69,7 +69,7 @@ export const pay_per_crawl_getZoneCanBeEnabledResponse_output: JsonSchema = {
 /**
  * The schema of `pay-per-crawl_queryZonesCanBeEnabledResponse` in responses.
  */
-export const pay_per_crawl_queryZonesCanBeEnabledResponse_output: JsonSchema = {
+export const pay$$per$$crawl_queryZonesCanBeEnabledResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {

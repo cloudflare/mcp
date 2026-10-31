@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `spectrum-config_api-response-single` in responses.
  */
-export const spectrum_config_api_response_single_output: JsonSchema = {
+export const spectrum$$config_api$$response$$single: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/spectrum-config_messages"
@@ -32,7 +32,7 @@ export const spectrum_config_api_response_single_output: JsonSchema = {
 /**
  * The schema of `spectrum-config_api-response-single-id` in responses.
  */
-export const spectrum_config_api_response_single_id_output: JsonSchema = {
+export const spectrum$$config_api$$response$$single$$id: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/spectrum-config_api-response-common"
@@ -44,7 +44,7 @@ export const spectrum_config_api_response_single_id_output: JsonSchema = {
             {
               "properties": {
                 "id": {
-                  "$ref": "#/$defs/spectrum-config_identifier"
+                  "type": "string"
                 }
               },
               "required": [
@@ -66,7 +66,7 @@ export const spectrum_config_api_response_single_id_output: JsonSchema = {
 /**
  * The schema of `spectrum-config_app_config` in responses.
  */
-export const spectrum_config_app_config_output: JsonSchema = {
+export const spectrum$$config_app_config: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/spectrum-config_base_app_config"
@@ -74,7 +74,7 @@ export const spectrum_config_app_config_output: JsonSchema = {
     {
       "properties": {
         "argo_smart_routing": {
-          "$ref": "#/$defs/spectrum-config_argo_smart_routing"
+          "type": "boolean"
         },
         "dns": {
           "$ref": "#/$defs/spectrum-config_dns"
@@ -83,7 +83,7 @@ export const spectrum_config_app_config_output: JsonSchema = {
           "$ref": "#/$defs/spectrum-config_edge_ips"
         },
         "ip_firewall": {
-          "$ref": "#/$defs/spectrum-config_ip_firewall"
+          "type": "boolean"
         },
         "origin_direct": {
           "$ref": "#/$defs/spectrum-config_origin_direct"
@@ -92,25 +92,51 @@ export const spectrum_config_app_config_output: JsonSchema = {
           "$ref": "#/$defs/spectrum-config_origin_dns"
         },
         "origin_port": {
-          "$ref": "#/$defs/spectrum-config_origin_port"
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ]
         },
         "origin_worker_id": {
-          "$ref": "#/$defs/spectrum-config_origin_worker_id"
+          "type": "string"
         },
         "protocol": {
-          "$ref": "#/$defs/spectrum-config_protocol"
+          "type": "string"
         },
         "proxy_protocol": {
-          "$ref": "#/$defs/spectrum-config_proxy_protocol"
+          "enum": [
+            "off",
+            "v1",
+            "v2",
+            "simple"
+          ],
+          "type": "string"
         },
         "tls": {
-          "$ref": "#/$defs/spectrum-config_tls"
+          "enum": [
+            "off",
+            "flexible",
+            "full",
+            "strict"
+          ],
+          "type": "string"
         },
         "traffic_type": {
-          "$ref": "#/$defs/spectrum-config_traffic_type"
+          "enum": [
+            "direct",
+            "http",
+            "https",
+            "worker"
+          ],
+          "type": "string"
         },
         "virtual_network_id": {
-          "$ref": "#/$defs/spectrum-config_virtual_network_id"
+          "format": "uuid",
+          "type": "string"
         }
       },
       "required": [
@@ -126,7 +152,7 @@ export const spectrum_config_app_config_output: JsonSchema = {
 /**
  * The schema of `spectrum-config_app_config_collection` in responses.
  */
-export const spectrum_config_app_config_collection_output: JsonSchema = {
+export const spectrum$$config_app_config_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/spectrum-config_api-response-collection"
@@ -158,7 +184,7 @@ export const spectrum_config_app_config_collection_output: JsonSchema = {
 /**
  * The schema of `spectrum-config_app_config_single` in responses.
  */
-export const spectrum_config_app_config_single_output: JsonSchema = {
+export const spectrum$$config_app_config_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/spectrum-config_api-response-single"
@@ -182,32 +208,20 @@ export const spectrum_config_app_config_single_output: JsonSchema = {
 };
 
 /**
- * The schema of `spectrum-config_app_identifier` in responses.
- */
-export const spectrum_config_app_identifier_output: JsonSchema = {
-  "$ref": "#/$defs/spectrum-config_identifier"
-};
-
-/**
- * The schema of `spectrum-config_argo_smart_routing` in responses.
- */
-export const spectrum_config_argo_smart_routing_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `spectrum-config_base_app_config` in responses.
  */
-export const spectrum_config_base_app_config_output: JsonSchema = {
+export const spectrum$$config_base_app_config: JsonSchema = {
   "properties": {
     "created_on": {
-      "$ref": "#/$defs/spectrum-config_created"
+      "format": "date-time",
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/spectrum-config_app_identifier"
+      "type": "string"
     },
     "modified_on": {
-      "$ref": "#/$defs/spectrum-config_modified"
+      "format": "date-time",
+      "type": "string"
     }
   },
   "required": [
@@ -219,56 +233,28 @@ export const spectrum_config_base_app_config_output: JsonSchema = {
 };
 
 /**
- * The schema of `spectrum-config_created` in responses.
- */
-export const spectrum_config_created_output: JsonSchema = {
-  "$ref": "#/$defs/spectrum-config_timestamp"
-};
-
-/**
  * The schema of `spectrum-config_dns` in responses.
  */
-export const spectrum_config_dns_output: JsonSchema = {
+export const spectrum$$config_dns: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/spectrum-config_dns_name"
+      "type": "string"
     },
     "type": {
-      "$ref": "#/$defs/spectrum-config_dns_type"
+      "enum": [
+        "CNAME",
+        "ADDRESS"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
 };
 
 /**
- * The schema of `spectrum-config_dns_name` in responses.
- */
-export const spectrum_config_dns_name_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `spectrum-config_dns_ttl` in responses.
- */
-export const spectrum_config_dns_ttl_output: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `spectrum-config_dns_type` in responses.
- */
-export const spectrum_config_dns_type_output: JsonSchema = {
-  "enum": [
-    "CNAME",
-    "ADDRESS"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `spectrum-config_edge_ips` in responses.
  */
-export const spectrum_config_edge_ips_output: JsonSchema = {
+export const spectrum$$config_edge_ips: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -310,23 +296,9 @@ export const spectrum_config_edge_ips_output: JsonSchema = {
 };
 
 /**
- * The schema of `spectrum-config_ip_firewall` in responses.
- */
-export const spectrum_config_ip_firewall_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `spectrum-config_modified` in responses.
- */
-export const spectrum_config_modified_output: JsonSchema = {
-  "$ref": "#/$defs/spectrum-config_timestamp"
-};
-
-/**
  * The schema of `spectrum-config_origin_direct` in responses.
  */
-export const spectrum_config_origin_direct_output: JsonSchema = {
+export const spectrum$$config_origin_direct: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -336,66 +308,31 @@ export const spectrum_config_origin_direct_output: JsonSchema = {
 /**
  * The schema of `spectrum-config_origin_dns` in responses.
  */
-export const spectrum_config_origin_dns_output: JsonSchema = {
+export const spectrum$$config_origin_dns: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/spectrum-config_origin_dns_name"
+      "type": "string"
     },
     "ttl": {
-      "$ref": "#/$defs/spectrum-config_dns_ttl"
+      "type": "integer"
     },
     "type": {
-      "$ref": "#/$defs/spectrum-config_origin_dns_type"
+      "enum": [
+        "",
+        "A",
+        "AAAA",
+        "SRV"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
 };
 
 /**
- * The schema of `spectrum-config_origin_dns_name` in responses.
- */
-export const spectrum_config_origin_dns_name_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `spectrum-config_origin_dns_type` in responses.
- */
-export const spectrum_config_origin_dns_type_output: JsonSchema = {
-  "enum": [
-    "",
-    "A",
-    "AAAA",
-    "SRV"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `spectrum-config_origin_port` in responses.
- */
-export const spectrum_config_origin_port_output: JsonSchema = {
-  "anyOf": [
-    {
-      "type": "integer"
-    },
-    {
-      "type": "string"
-    }
-  ]
-};
-
-/**
- * The schema of `spectrum-config_origin_worker_id` in responses.
- */
-export const spectrum_config_origin_worker_id_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `spectrum-config_paygo_app_config` in responses.
  */
-export const spectrum_config_paygo_app_config_output: JsonSchema = {
+export const spectrum$$config_paygo_app_config: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/spectrum-config_base_app_config"
@@ -409,7 +346,7 @@ export const spectrum_config_paygo_app_config_output: JsonSchema = {
           "$ref": "#/$defs/spectrum-config_origin_direct"
         },
         "protocol": {
-          "$ref": "#/$defs/spectrum-config_protocol"
+          "type": "string"
         }
       },
       "required": [
@@ -419,66 +356,4 @@ export const spectrum_config_paygo_app_config_output: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `spectrum-config_protocol` in responses.
- */
-export const spectrum_config_protocol_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `spectrum-config_proxy_protocol` in responses.
- */
-export const spectrum_config_proxy_protocol_output: JsonSchema = {
-  "enum": [
-    "off",
-    "v1",
-    "v2",
-    "simple"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `spectrum-config_timestamp` in responses.
- */
-export const spectrum_config_timestamp_output: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `spectrum-config_tls` in responses.
- */
-export const spectrum_config_tls_output: JsonSchema = {
-  "enum": [
-    "off",
-    "flexible",
-    "full",
-    "strict"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `spectrum-config_traffic_type` in responses.
- */
-export const spectrum_config_traffic_type_output: JsonSchema = {
-  "enum": [
-    "direct",
-    "http",
-    "https",
-    "worker"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `spectrum-config_virtual_network_id` in responses.
- */
-export const spectrum_config_virtual_network_id_output: JsonSchema = {
-  "format": "uuid",
-  "type": "string"
 };

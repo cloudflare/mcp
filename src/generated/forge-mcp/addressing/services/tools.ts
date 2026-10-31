@@ -3,13 +3,10 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  addressing_api_response_common_failure_output,
-  addressing_api_response_common_output,
-  addressing_messages_output,
-  addressing_service_identifier_output,
-  addressing_service_name_output,
+  addressing_api$$response$$common,
+  addressing_api$$response$$common$$failure,
+  addressing_messages,
 } from "../outputs.js";
-import { addressing_account_identifier } from "../schemas.js";
 
 /**
  * The tools of `addressing.services`.
@@ -18,21 +15,28 @@ export const tools: readonly Tool[] = [
   {
     name: "addressing_services_list",
     title: "List Services",
-    description: "Bring-Your-Own IP (BYOIP) prefixes onboarded to Cloudflare must be bound to a service running on the Cloudflare network to enable a Cloudflare product on the IP addresses. This endpoint can be used as a reference of available services on the Cloudflare network, and their service IDs.",
+    description: "Bring-Your-Own IP (BYOIP) prefixes onboarded to Cloudflare must be bound to a service running on the Cloudflare network to enable a Cloudflare product on the IP addresses. This endpoint can be used as a reference of available services on the Cloudflare network, and their service IDs.\n\nGET /accounts/{account_id}/addressing/services",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/addressing_account_identifier",
-          "description": "Identifier of a Cloudflare account."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
-      $defs: {
-        "addressing_account_identifier": addressing_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -45,10 +49,10 @@ export const tools: readonly Tool[] = [
               "items": {
                 "properties": {
                   "id": {
-                    "$ref": "#/$defs/addressing_service_identifier"
+                    "type": "string"
                   },
                   "name": {
-                    "$ref": "#/$defs/addressing_service_name"
+                    "type": "string"
                   }
                 },
                 "type": "object"
@@ -60,10 +64,8 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "addressing_api-response-common": addressing_api_response_common_output,
-        "addressing_messages": addressing_messages_output,
-        "addressing_service_identifier": addressing_service_identifier_output,
-        "addressing_service_name": addressing_service_name_output,
+        "addressing_api-response-common": addressing_api$$response$$common,
+        "addressing_messages": addressing_messages,
       },
     },
     annotations: {
@@ -94,10 +96,10 @@ export const tools: readonly Tool[] = [
                   "items": {
                     "properties": {
                       "id": {
-                        "$ref": "#/$defs/addressing_service_identifier"
+                        "type": "string"
                       },
                       "name": {
-                        "$ref": "#/$defs/addressing_service_name"
+                        "type": "string"
                       }
                     },
                     "type": "object"
@@ -114,11 +116,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "addressing_api-response-common": addressing_api_response_common_output,
-        "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
-        "addressing_messages": addressing_messages_output,
-        "addressing_service_identifier": addressing_service_identifier_output,
-        "addressing_service_name": addressing_service_name_output,
+        "addressing_api-response-common": addressing_api$$response$$common,
+        "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
+        "addressing_messages": addressing_messages,
       },
     },
     request: (args) => ({

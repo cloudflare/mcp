@@ -3,18 +3,14 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  spectrum_config_api_response_collection_output,
-  spectrum_config_api_response_common_failure_output,
-  spectrum_config_api_response_common_output,
-  spectrum_config_messages_output,
+  spectrum$$config_api$$response$$collection,
+  spectrum$$config_api$$response$$common,
+  spectrum$$config_api$$response$$common$$failure,
+  spectrum$$config_messages,
 } from "../outputs.js";
 import {
-  spectrum_config_identifier,
-  spectrum_config_zone_identifier,
-} from "../schemas.js";
-import {
-  spectrum_config_app_protocol_output,
-  spectrum_config_protocol_collection_output,
+  spectrum$$config_app_protocol,
+  spectrum$$config_protocol_collection,
 } from "./outputs.js";
 
 /**
@@ -24,31 +20,37 @@ export const tools: readonly Tool[] = [
   {
     name: "spectrum_protocols_list",
     title: "List Spectrum application protocols",
-    description: "Retrieves a list of Spectrum application protocols available for a zone.",
+    description: "Retrieves a list of Spectrum application protocols available for a zone.\n\nGET /zones/{zone_id}/spectrum/protocols",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/spectrum-config_zone_identifier",
-          "description": "Zone identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Zone identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
-      $defs: {
-        "spectrum-config_identifier": spectrum_config_identifier,
-        "spectrum-config_zone_identifier": spectrum_config_zone_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/spectrum-config_protocol_collection",
       $defs: {
-        "spectrum-config_api-response-collection": spectrum_config_api_response_collection_output,
-        "spectrum-config_api-response-common": spectrum_config_api_response_common_output,
-        "spectrum-config_app_protocol": spectrum_config_app_protocol_output,
-        "spectrum-config_messages": spectrum_config_messages_output,
-        "spectrum-config_protocol_collection": spectrum_config_protocol_collection_output,
+        "spectrum-config_api-response-collection": spectrum$$config_api$$response$$collection,
+        "spectrum-config_api-response-common": spectrum$$config_api$$response$$common,
+        "spectrum-config_app_protocol": spectrum$$config_app_protocol,
+        "spectrum-config_messages": spectrum$$config_messages,
+        "spectrum-config_protocol_collection": spectrum$$config_protocol_collection,
       },
     },
     annotations: {
@@ -76,12 +78,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "spectrum-config_api-response-collection": spectrum_config_api_response_collection_output,
-        "spectrum-config_api-response-common": spectrum_config_api_response_common_output,
-        "spectrum-config_api-response-common-failure": spectrum_config_api_response_common_failure_output,
-        "spectrum-config_app_protocol": spectrum_config_app_protocol_output,
-        "spectrum-config_messages": spectrum_config_messages_output,
-        "spectrum-config_protocol_collection": spectrum_config_protocol_collection_output,
+        "spectrum-config_api-response-collection": spectrum$$config_api$$response$$collection,
+        "spectrum-config_api-response-common": spectrum$$config_api$$response$$common,
+        "spectrum-config_api-response-common-failure": spectrum$$config_api$$response$$common$$failure,
+        "spectrum-config_app_protocol": spectrum$$config_app_protocol,
+        "spectrum-config_messages": spectrum$$config_messages,
+        "spectrum-config_protocol_collection": spectrum$$config_protocol_collection,
       },
     },
     request: (args) => ({

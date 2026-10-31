@@ -4,25 +4,18 @@
 import type { JsonSchema } from "../../../../../_/tool.js";
 
 /**
- * The schema of `dlp_WorkerStatus` in responses.
- */
-export const dlp_WorkerStatus_output: JsonSchema = {
-  "enum": [
-    "worker_not_found",
-    "worker_error",
-    "configured",
-    "active"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `dlp_WorkerValidatorStatus` in responses.
  */
-export const dlp_WorkerValidatorStatus_output: JsonSchema = {
+export const dlp_WorkerValidatorStatus: JsonSchema = {
   "properties": {
     "status": {
-      "$ref": "#/$defs/dlp_WorkerStatus"
+      "enum": [
+        "worker_not_found",
+        "worker_error",
+        "configured",
+        "active"
+      ],
+      "type": "string"
     }
   },
   "required": [

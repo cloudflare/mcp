@@ -3,55 +3,59 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  email_api_response_collection_output,
-  email_api_response_common_output,
-  email_api_response_single_output,
-  email_dns_record_output,
-  email_dns_settings_response_collection_output,
-  email_messages_output,
+  email_api$$response$$collection,
+  email_api$$response$$common,
+  email_api$$response$$single,
+  email_dns_record,
+  email_dns_settings_response_collection,
+  email_messages,
 } from "../../../outputs.js";
-import { email_identifier } from "../../../schemas.js";
-import { email_sending_subdomain_config_error_output } from "../outputs.js";
-import { email_sending_subdomain_identifier } from "../schemas.js";
-import { email_sending_subdomain_dns_status_response_output } from "./outputs.js";
+import { email_sending_subdomain_config_error } from "../outputs.js";
+import { email_sending_subdomain_dns_status_response } from "./outputs.js";
 
 /**
- * The tools of `email_sending.subdomains.dns`.
+ * The tools of `emailSending.subdomains.dns`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "email_sending_subdomains_dns_fix",
+    name: "emailSending_subdomains_dns_fix",
     title: "Fix sending subdomain DNS records",
-    description: "Idempotently re-applies the sending DNS records (creates missing records, re-applies the email_routing lock on records whose lock has been cleared). Refuses with a 409 if foreign MX, multiple SPF, multiple DMARC, or multiple DKIM records exist at the relevant DNS names — those require manual cleanup.",
+    description: "Idempotently re-applies the sending DNS records (creates missing records, re-applies the email_routing lock on records whose lock has been cleared). Refuses with a 409 if foreign MX, multiple SPF, multiple DMARC, or multiple DKIM records exist at the relevant DNS names — those require manual cleanup.\n\nPOST /zones/{zone_id}/email/sending/subdomains/{subdomain_id}/dns",
     inputSchema: {
       type: "object",
       properties: {
-        "subdomain_id": {
-          "$ref": "#/$defs/email_sending_subdomain_identifier",
-          "description": "Sending subdomain identifier."
-        },
-        "zone_id": {
-          "$ref": "#/$defs/email_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "subdomain_id": {
+              "description": "Sending subdomain identifier.",
+              "type": "string"
+            },
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id",
+            "subdomain_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
-        "subdomain_id"
+        "path"
       ],
-      $defs: {
-        "email_identifier": email_identifier,
-        "email_sending_subdomain_identifier": email_sending_subdomain_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/email_sending_subdomain_dns_status_response",
       $defs: {
-        "email_api-response-single": email_api_response_single_output,
-        "email_dns_record": email_dns_record_output,
-        "email_messages": email_messages_output,
-        "email_sending_subdomain_config_error": email_sending_subdomain_config_error_output,
-        "email_sending_subdomain_dns_status_response": email_sending_subdomain_dns_status_response_output,
+        "email_api-response-single": email_api$$response$$single,
+        "email_dns_record": email_dns_record,
+        "email_messages": email_messages,
+        "email_sending_subdomain_config_error": email_sending_subdomain_config_error,
+        "email_sending_subdomain_dns_status_response": email_sending_subdomain_dns_status_response,
       },
     },
     annotations: {
@@ -87,11 +91,11 @@ export const tools: readonly Tool[] = [
         "409": null
       },
       $defs: {
-        "email_api-response-single": email_api_response_single_output,
-        "email_dns_record": email_dns_record_output,
-        "email_messages": email_messages_output,
-        "email_sending_subdomain_config_error": email_sending_subdomain_config_error_output,
-        "email_sending_subdomain_dns_status_response": email_sending_subdomain_dns_status_response_output,
+        "email_api-response-single": email_api$$response$$single,
+        "email_dns_record": email_dns_record,
+        "email_messages": email_messages,
+        "email_sending_subdomain_config_error": email_sending_subdomain_config_error,
+        "email_sending_subdomain_dns_status_response": email_sending_subdomain_dns_status_response,
       },
     },
     request: (args) => ({
@@ -99,38 +103,44 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "email_sending_subdomains_dns_get",
+    name: "emailSending_subdomains_dns_get",
     title: "Get sending subdomain DNS records",
-    description: "Returns the expected DNS records for a sending subdomain.",
+    description: "Returns the expected DNS records for a sending subdomain.\n\nGET /zones/{zone_id}/email/sending/subdomains/{subdomain_id}/dns",
     inputSchema: {
       type: "object",
       properties: {
-        "subdomain_id": {
-          "$ref": "#/$defs/email_sending_subdomain_identifier",
-          "description": "Sending subdomain identifier."
-        },
-        "zone_id": {
-          "$ref": "#/$defs/email_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "subdomain_id": {
+              "description": "Sending subdomain identifier.",
+              "type": "string"
+            },
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id",
+            "subdomain_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
-        "subdomain_id"
+        "path"
       ],
-      $defs: {
-        "email_identifier": email_identifier,
-        "email_sending_subdomain_identifier": email_sending_subdomain_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/email_dns_settings_response_collection",
       $defs: {
-        "email_api-response-collection": email_api_response_collection_output,
-        "email_api-response-common": email_api_response_common_output,
-        "email_dns_record": email_dns_record_output,
-        "email_dns_settings_response_collection": email_dns_settings_response_collection_output,
-        "email_messages": email_messages_output,
+        "email_api-response-collection": email_api$$response$$collection,
+        "email_api-response-common": email_api$$response$$common,
+        "email_dns_record": email_dns_record,
+        "email_dns_settings_response_collection": email_dns_settings_response_collection,
+        "email_messages": email_messages,
       },
     },
     annotations: {
@@ -163,11 +173,11 @@ export const tools: readonly Tool[] = [
         "404": null
       },
       $defs: {
-        "email_api-response-collection": email_api_response_collection_output,
-        "email_api-response-common": email_api_response_common_output,
-        "email_dns_record": email_dns_record_output,
-        "email_dns_settings_response_collection": email_dns_settings_response_collection_output,
-        "email_messages": email_messages_output,
+        "email_api-response-collection": email_api$$response$$collection,
+        "email_api-response-common": email_api$$response$$common,
+        "email_dns_record": email_dns_record,
+        "email_dns_settings_response_collection": email_dns_settings_response_collection,
+        "email_messages": email_messages,
       },
     },
     request: (args) => ({
@@ -175,38 +185,44 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "email_sending_subdomains_dns_status",
+    name: "emailSending_subdomains_dns_status",
     title: "Get sending subdomain DNS status",
-    description: "Returns the desired DNS records for a sending subdomain along with a live diff against actual DNS state. Use this to detect missing, unlocked, foreign, or multi-record conflicts before deciding whether to call the fix endpoint. For wildcard sending rows, each call also rechecks the governing organizational-domain DMARC policy and reports policy drift that DNS Fix cannot repair.",
+    description: "Returns the desired DNS records for a sending subdomain along with a live diff against actual DNS state. Use this to detect missing, unlocked, foreign, or multi-record conflicts before deciding whether to call the fix endpoint. For wildcard sending rows, each call also rechecks the governing organizational-domain DMARC policy and reports policy drift that DNS Fix cannot repair.\n\nGET /zones/{zone_id}/email/sending/subdomains/{subdomain_id}/dns/status",
     inputSchema: {
       type: "object",
       properties: {
-        "subdomain_id": {
-          "$ref": "#/$defs/email_sending_subdomain_identifier",
-          "description": "Sending subdomain identifier."
-        },
-        "zone_id": {
-          "$ref": "#/$defs/email_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "subdomain_id": {
+              "description": "Sending subdomain identifier.",
+              "type": "string"
+            },
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id",
+            "subdomain_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
-        "subdomain_id"
+        "path"
       ],
-      $defs: {
-        "email_identifier": email_identifier,
-        "email_sending_subdomain_identifier": email_sending_subdomain_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/email_sending_subdomain_dns_status_response",
       $defs: {
-        "email_api-response-single": email_api_response_single_output,
-        "email_dns_record": email_dns_record_output,
-        "email_messages": email_messages_output,
-        "email_sending_subdomain_config_error": email_sending_subdomain_config_error_output,
-        "email_sending_subdomain_dns_status_response": email_sending_subdomain_dns_status_response_output,
+        "email_api-response-single": email_api$$response$$single,
+        "email_dns_record": email_dns_record,
+        "email_messages": email_messages,
+        "email_sending_subdomain_config_error": email_sending_subdomain_config_error,
+        "email_sending_subdomain_dns_status_response": email_sending_subdomain_dns_status_response,
       },
     },
     annotations: {
@@ -240,11 +256,11 @@ export const tools: readonly Tool[] = [
         "404": null
       },
       $defs: {
-        "email_api-response-single": email_api_response_single_output,
-        "email_dns_record": email_dns_record_output,
-        "email_messages": email_messages_output,
-        "email_sending_subdomain_config_error": email_sending_subdomain_config_error_output,
-        "email_sending_subdomain_dns_status_response": email_sending_subdomain_dns_status_response_output,
+        "email_api-response-single": email_api$$response$$single,
+        "email_dns_record": email_dns_record,
+        "email_messages": email_messages,
+        "email_sending_subdomain_config_error": email_sending_subdomain_config_error,
+        "email_sending_subdomain_dns_status_response": email_sending_subdomain_dns_status_response,
       },
     },
     request: (args) => ({

@@ -3,54 +3,54 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  email_security_DispositionLabel_output,
-  email_security_ValidationStatus_output,
-  email_security_Validation_output,
-  email_security_api_response_common_failure_output,
-  email_security_api_response_common_output,
-  email_security_messages_output,
+  email$$security_Validation,
+  email$$security_api$$response$$common,
+  email$$security_api$$response$$common$$failure,
+  email$$security_messages,
 } from "../../outputs.js";
 import {
-  email_security_InvestigateId,
-  email_security_identifier,
-} from "../../schemas.js";
-import {
-  email_security_Attachment_output,
-  email_security_Finding_output,
-  email_security_Link_output,
-  email_security_MessageDetectionDetails_output,
-  email_security_MessageHeader_output,
-  email_security_ThreatCategory_output,
+  email$$security_Attachment,
+  email$$security_Finding,
+  email$$security_Link,
+  email$$security_MessageDetectionDetails,
+  email$$security_MessageHeader,
+  email$$security_ThreatCategory,
 } from "./outputs.js";
 
 /**
- * The tools of `email_security.investigate.detections`.
+ * The tools of `emailSecurity.investigate.detections`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "email_security_investigate_detections_get",
+    name: "emailSecurity_investigate_detections_get",
     title: "Get message detection details",
-    description: "Returns detection details such as threat categories and sender information for messages with a detection.\n\nThis method is beta.",
+    description: "Returns detection details such as threat categories and sender information for messages with a detection.\n\nThis method is beta.\n\nGET /accounts/{account_id}/email-security/investigate/{investigate_id}/detections",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/email-security_identifier",
-          "description": "Account identifier tag."
-        },
-        "investigate_id": {
-          "$ref": "#/$defs/email-security_InvestigateId",
-          "description": "Unique identifier for a message retrieved from investigation."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account identifier tag.",
+              "type": "string"
+            },
+            "investigate_id": {
+              "description": "Unique identifier for a message retrieved from investigation.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "investigate_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "investigate_id"
+        "path"
       ],
-      $defs: {
-        "email-security_InvestigateId": email_security_InvestigateId,
-        "email-security_identifier": email_security_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -70,17 +70,15 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "email-security_Attachment": email_security_Attachment_output,
-        "email-security_DispositionLabel": email_security_DispositionLabel_output,
-        "email-security_Finding": email_security_Finding_output,
-        "email-security_Link": email_security_Link_output,
-        "email-security_MessageDetectionDetails": email_security_MessageDetectionDetails_output,
-        "email-security_MessageHeader": email_security_MessageHeader_output,
-        "email-security_ThreatCategory": email_security_ThreatCategory_output,
-        "email-security_Validation": email_security_Validation_output,
-        "email-security_ValidationStatus": email_security_ValidationStatus_output,
-        "email-security_api-response-common": email_security_api_response_common_output,
-        "email-security_messages": email_security_messages_output,
+        "email-security_Attachment": email$$security_Attachment,
+        "email-security_Finding": email$$security_Finding,
+        "email-security_Link": email$$security_Link,
+        "email-security_MessageDetectionDetails": email$$security_MessageDetectionDetails,
+        "email-security_MessageHeader": email$$security_MessageHeader,
+        "email-security_ThreatCategory": email$$security_ThreatCategory,
+        "email-security_Validation": email$$security_Validation,
+        "email-security_api-response-common": email$$security_api$$response$$common,
+        "email-security_messages": email$$security_messages,
       },
     },
     annotations: {
@@ -124,18 +122,16 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "email-security_Attachment": email_security_Attachment_output,
-        "email-security_DispositionLabel": email_security_DispositionLabel_output,
-        "email-security_Finding": email_security_Finding_output,
-        "email-security_Link": email_security_Link_output,
-        "email-security_MessageDetectionDetails": email_security_MessageDetectionDetails_output,
-        "email-security_MessageHeader": email_security_MessageHeader_output,
-        "email-security_ThreatCategory": email_security_ThreatCategory_output,
-        "email-security_Validation": email_security_Validation_output,
-        "email-security_ValidationStatus": email_security_ValidationStatus_output,
-        "email-security_api-response-common": email_security_api_response_common_output,
-        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
-        "email-security_messages": email_security_messages_output,
+        "email-security_Attachment": email$$security_Attachment,
+        "email-security_Finding": email$$security_Finding,
+        "email-security_Link": email$$security_Link,
+        "email-security_MessageDetectionDetails": email$$security_MessageDetectionDetails,
+        "email-security_MessageHeader": email$$security_MessageHeader,
+        "email-security_ThreatCategory": email$$security_ThreatCategory,
+        "email-security_Validation": email$$security_Validation,
+        "email-security_api-response-common": email$$security_api$$response$$common,
+        "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
+        "email-security_messages": email$$security_messages,
       },
     },
     request: (args) => ({

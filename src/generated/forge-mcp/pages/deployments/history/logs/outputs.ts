@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `pages_deployment_log` in responses.
  */
-export const pages_deployment_log_output: JsonSchema = {
+export const pages_deployment_log: JsonSchema = {
   "properties": {
     "data": {
       "items": {

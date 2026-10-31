@@ -4,37 +4,13 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `stream_audio_default`.
- */
-export const stream_audio_default: JsonSchema = {
-  "description": "Denotes whether the audio track will be played by default in a player.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `stream_audio_identifier`.
- */
-export const stream_audio_identifier: JsonSchema = {
-  "description": "The unique identifier for an additional audio track.",
-  "type": "string"
-};
-
-/**
- * The schema of `stream_audio_label`.
- */
-export const stream_audio_label: JsonSchema = {
-  "description": "A string to uniquely identify the track amongst other audio track labels for the specified video.",
-  "type": "string"
-};
-
-/**
  * The schema of `stream_copyAudioTrack`.
  */
 export const stream_copyAudioTrack: JsonSchema = {
   "properties": {
     "label": {
-      "$ref": "#/$defs/stream_audio_label",
-      "description": "A string to uniquely identify the track amongst other audio track labels for the specified video."
+      "description": "A string to uniquely identify the track amongst other audio track labels for the specified video.",
+      "type": "string"
     },
     "url": {
       "description": "An audio track URL. The server must be publicly routable and support `HTTP HEAD` requests and `HTTP GET` range requests. The server should respond to `HTTP HEAD` requests with a `content-range` header that includes the size of the file.",
@@ -53,13 +29,13 @@ export const stream_copyAudioTrack: JsonSchema = {
 export const stream_editAudioTrack: JsonSchema = {
   "properties": {
     "default": {
-      "$ref": "#/$defs/stream_audio_default",
       "default": false,
-      "description": "Denotes whether the audio track will be played by default in a player."
+      "description": "Denotes whether the audio track will be played by default in a player.",
+      "type": "boolean"
     },
     "label": {
-      "$ref": "#/$defs/stream_audio_label",
-      "description": "A string to uniquely identify the track amongst other audio track labels for the specified video."
+      "description": "A string to uniquely identify the track amongst other audio track labels for the specified video.",
+      "type": "string"
     }
   },
   "type": "object"

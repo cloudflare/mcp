@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `intel_components-schemas-response` in responses.
  */
-export const intel_components_schemas_response_output: JsonSchema = {
+export const intel_components$$schemas$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/intel_api-response-collection"
@@ -28,7 +28,7 @@ export const intel_components_schemas_response_output: JsonSchema = {
 /**
  * The schema of `intel_ip-list` in responses.
  */
-export const intel_ip_list_output: JsonSchema = {
+export const intel_ip$$list: JsonSchema = {
   "properties": {
     "description": {
       "type": "string"

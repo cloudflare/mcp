@@ -3,34 +3,34 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  speed_api_response_common_failure_output,
-  speed_api_response_common_output,
-  speed_base_output,
-  speed_messages_output,
+  speed_api$$response$$common,
+  speed_api$$response$$common$$failure,
+  speed_base,
+  speed_messages,
 } from "../../outputs.js";
-import { speed_identifier } from "../../schemas.js";
-import {
-  speed_h2_prioritization_response_output,
-  speed_h2_prioritization_value_output,
-} from "./outputs.js";
-import { speed_h2_prioritization_value } from "./schemas.js";
+import { speed_h2_prioritization_response } from "./outputs.js";
 
 /**
- * The tools of `zones.h2_prioritization`.
+ * The tools of `zones.h2Prioritization`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zones_h2_prioritization_edit",
+    name: "zones_h2Prioritization_edit",
     title: "Change HTTP/2 Prioritization setting",
-    description: "HTTP/2 Prioritization controls the order in which assets are delivered to browsers.\nCloudflare's HTTP/2 Prioritization overrides the default browser prioritization order,\nimproving the loading performance of web pages.",
+    description: "HTTP/2 Prioritization controls the order in which assets are delivered to browsers.\nCloudflare's HTTP/2 Prioritization overrides the default browser prioritization order,\nimproving the loading performance of web pages.\n\nPATCH /zones/{zone_id}/settings/h2_prioritization",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "value": {
-              "$ref": "#/$defs/speed_h2_prioritization_value",
-              "description": "Controls HTTP/2 Prioritization behavior:\n- \"off\": Use browser default prioritization.\n- \"on\": Use Cloudflare's optimized prioritization.\n- \"custom\": Use custom prioritization rules.\n"
+              "description": "Controls HTTP/2 Prioritization behavior:\n- \"off\": Use browser default prioritization.\n- \"on\": Use Cloudflare's optimized prioritization.\n- \"custom\": Use custom prioritization rules.",
+              "enum": [
+                "off",
+                "on",
+                "custom"
+              ],
+              "type": "string"
             }
           },
           "required": [
@@ -38,19 +38,25 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "zone_id": {
-          "$ref": "#/$defs/speed_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
-      $defs: {
-        "speed_h2_prioritization_value": speed_h2_prioritization_value,
-        "speed_identifier": speed_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -67,11 +73,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "speed_api-response-common": speed_api_response_common_output,
-        "speed_base": speed_base_output,
-        "speed_h2_prioritization_response": speed_h2_prioritization_response_output,
-        "speed_h2_prioritization_value": speed_h2_prioritization_value_output,
-        "speed_messages": speed_messages_output,
+        "speed_api-response-common": speed_api$$response$$common,
+        "speed_base": speed_base,
+        "speed_h2_prioritization_response": speed_h2_prioritization_response,
+        "speed_messages": speed_messages,
       },
     },
     annotations: {
@@ -121,12 +126,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "speed_api-response-common": speed_api_response_common_output,
-        "speed_api-response-common-failure": speed_api_response_common_failure_output,
-        "speed_base": speed_base_output,
-        "speed_h2_prioritization_response": speed_h2_prioritization_response_output,
-        "speed_h2_prioritization_value": speed_h2_prioritization_value_output,
-        "speed_messages": speed_messages_output,
+        "speed_api-response-common": speed_api$$response$$common,
+        "speed_api-response-common-failure": speed_api$$response$$common$$failure,
+        "speed_base": speed_base,
+        "speed_h2_prioritization_response": speed_h2_prioritization_response,
+        "speed_messages": speed_messages,
       },
     },
     request: (args) => ({
@@ -135,23 +139,30 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zones_h2_prioritization_get",
+    name: "zones_h2Prioritization_get",
     title: "Get HTTP/2 Prioritization setting",
-    description: "HTTP/2 Prioritization controls the order in which assets are delivered to browsers.\nCloudflare's HTTP/2 Prioritization overrides the default browser prioritization order,\nimproving the loading performance of web pages.",
+    description: "HTTP/2 Prioritization controls the order in which assets are delivered to browsers.\nCloudflare's HTTP/2 Prioritization overrides the default browser prioritization order,\nimproving the loading performance of web pages.\n\nGET /zones/{zone_id}/settings/h2_prioritization",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/speed_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
-      $defs: {
-        "speed_identifier": speed_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -168,11 +179,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "speed_api-response-common": speed_api_response_common_output,
-        "speed_base": speed_base_output,
-        "speed_h2_prioritization_response": speed_h2_prioritization_response_output,
-        "speed_h2_prioritization_value": speed_h2_prioritization_value_output,
-        "speed_messages": speed_messages_output,
+        "speed_api-response-common": speed_api$$response$$common,
+        "speed_base": speed_base,
+        "speed_h2_prioritization_response": speed_h2_prioritization_response,
+        "speed_messages": speed_messages,
       },
     },
     annotations: {
@@ -223,12 +233,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "speed_api-response-common": speed_api_response_common_output,
-        "speed_api-response-common-failure": speed_api_response_common_failure_output,
-        "speed_base": speed_base_output,
-        "speed_h2_prioritization_response": speed_h2_prioritization_response_output,
-        "speed_h2_prioritization_value": speed_h2_prioritization_value_output,
-        "speed_messages": speed_messages_output,
+        "speed_api-response-common": speed_api$$response$$common,
+        "speed_api-response-common-failure": speed_api$$response$$common$$failure,
+        "speed_base": speed_base,
+        "speed_h2_prioritization_response": speed_h2_prioritization_response,
+        "speed_messages": speed_messages,
       },
     },
     request: (args) => ({

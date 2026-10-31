@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `posture-api_Finding` in responses.
  */
-export const posture_api_Finding_output: JsonSchema = {
+export const posture$$api_Finding: JsonSchema = {
   "properties": {
     "active_count": {
       "type": "integer"
@@ -54,7 +54,7 @@ export const posture_api_Finding_output: JsonSchema = {
 /**
  * The schema of `posture-api_FindingRemediation` in responses.
  */
-export const posture_api_FindingRemediation_output: JsonSchema = {
+export const posture$$api_FindingRemediation: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -100,13 +100,19 @@ export const posture_api_FindingRemediation_output: JsonSchema = {
 /**
  * The schema of `posture-api_FindingSeverityOverride` in responses.
  */
-export const posture_api_FindingSeverityOverride_output: JsonSchema = {
+export const posture$$api_FindingSeverityOverride: JsonSchema = {
   "properties": {
     "created_by": {
       "type": "string"
     },
     "severity": {
-      "$ref": "#/$defs/posture-api_SeverityEnum"
+      "enum": [
+        "Critical",
+        "High",
+        "Medium",
+        "Low"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -119,7 +125,7 @@ export const posture_api_FindingSeverityOverride_output: JsonSchema = {
 /**
  * The schema of `posture-api_FindingType` in responses.
  */
-export const posture_api_FindingType_output: JsonSchema = {
+export const posture$$api_FindingType: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/posture-api_BaseFindingType"
@@ -138,7 +144,7 @@ export const posture_api_FindingType_output: JsonSchema = {
 /**
  * The schema of `posture-api_finding-response` in responses.
  */
-export const posture_api_finding_response_output: JsonSchema = {
+export const posture$$api_finding$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/posture-api_api-response-common"
@@ -157,7 +163,7 @@ export const posture_api_finding_response_output: JsonSchema = {
 /**
  * The schema of `posture-api_paginated-finding-list` in responses.
  */
-export const posture_api_paginated_finding_list_output: JsonSchema = {
+export const posture$$api_paginated$$finding$$list: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/posture-api_api-response-collection"

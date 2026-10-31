@@ -6,25 +6,25 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `custom-indicator-feeds_permission_list_item` in responses.
  */
-export const custom_indicator_feeds_permission_list_item_output: JsonSchema = {
+export const custom$$indicator$$feeds_permission_list_item: JsonSchema = {
   "properties": {
     "description": {
-      "$ref": "#/$defs/custom-indicator-feeds_description"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/custom-indicator-feeds_id"
+      "type": "integer"
     },
     "is_attributable": {
-      "$ref": "#/$defs/custom-indicator-feeds_is_attributable"
+      "type": "boolean"
     },
     "is_downloadable": {
-      "$ref": "#/$defs/custom-indicator-feeds_is_downloadable"
+      "type": "boolean"
     },
     "is_public": {
-      "$ref": "#/$defs/custom-indicator-feeds_is_public"
+      "type": "boolean"
     },
     "name": {
-      "$ref": "#/$defs/custom-indicator-feeds_name"
+      "type": "string"
     }
   },
   "type": "object"
@@ -34,7 +34,7 @@ export const custom_indicator_feeds_permission_list_item_output: JsonSchema = {
  * The schema of `custom-indicator-feeds_permission_list_item_response` in
  * responses.
  */
-export const custom_indicator_feeds_permission_list_item_response_output: JsonSchema = {
+export const custom$$indicator$$feeds_permission_list_item_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/custom-indicator-feeds_api-response-common"
@@ -56,7 +56,7 @@ export const custom_indicator_feeds_permission_list_item_response_output: JsonSc
 /**
  * The schema of `custom-indicator-feeds_permissions_response` in responses.
  */
-export const custom_indicator_feeds_permissions_response_output: JsonSchema = {
+export const custom$$indicator$$feeds_permissions_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/custom-indicator-feeds_api-response-single"
@@ -75,7 +75,7 @@ export const custom_indicator_feeds_permissions_response_output: JsonSchema = {
 /**
  * The schema of `custom-indicator-feeds_permissions_update` in responses.
  */
-export const custom_indicator_feeds_permissions_update_output: JsonSchema = {
+export const custom$$indicator$$feeds_permissions_update: JsonSchema = {
   "properties": {
     "success": {
       "type": "boolean"

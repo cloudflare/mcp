@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `digital-experience-monitoring_colos_response` in responses.
  */
-export const digital_experience_monitoring_colos_response_output: JsonSchema = {
+export const digital$$experience$$monitoring_colos_response: JsonSchema = {
   "items": {
     "properties": {
       "airportCode": {

@@ -2,46 +2,49 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import { email_api$$response$$single, email_messages } from "../../outputs.js";
 import {
-  email_api_response_single_output,
-  email_messages_output,
-} from "../../outputs.js";
-import { email_identifier } from "../../schemas.js";
-import {
-  email_sending_limits_properties_output,
-  email_sending_limits_response_single_output,
+  email_sending_limits_properties,
+  email_sending_limits_response_single,
 } from "./outputs.js";
 
 /**
- * The tools of `email_sending.limits`.
+ * The tools of `emailSending.limits`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "email_sending_limits_get",
+    name: "emailSending_limits_get",
     title: "Get sending limits",
-    description: "Returns the current daily sending quota for the account and, when a quota is resolved, the account's current usage against it. Quota is null when not yet available; usage is null when there is no resolved quota or usage is temporarily unavailable.",
+    description: "Returns the current daily sending quota for the account and, when a quota is resolved, the account's current usage against it. Quota is null when not yet available; usage is null when there is no resolved quota or usage is temporarily unavailable.\n\nGET /accounts/{account_id}/email/sending/limits",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/email_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
-      $defs: {
-        "email_identifier": email_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/email_sending_limits_response_single",
       $defs: {
-        "email_api-response-single": email_api_response_single_output,
-        "email_messages": email_messages_output,
-        "email_sending_limits_properties": email_sending_limits_properties_output,
-        "email_sending_limits_response_single": email_sending_limits_response_single_output,
+        "email_api-response-single": email_api$$response$$single,
+        "email_messages": email_messages,
+        "email_sending_limits_properties": email_sending_limits_properties,
+        "email_sending_limits_response_single": email_sending_limits_response_single,
       },
     },
     annotations: {
@@ -74,10 +77,10 @@ export const tools: readonly Tool[] = [
         "403": null
       },
       $defs: {
-        "email_api-response-single": email_api_response_single_output,
-        "email_messages": email_messages_output,
-        "email_sending_limits_properties": email_sending_limits_properties_output,
-        "email_sending_limits_response_single": email_sending_limits_response_single_output,
+        "email_api-response-single": email_api$$response$$single,
+        "email_messages": email_messages,
+        "email_sending_limits_properties": email_sending_limits_properties,
+        "email_sending_limits_response_single": email_sending_limits_response_single,
       },
     },
     request: (args) => ({

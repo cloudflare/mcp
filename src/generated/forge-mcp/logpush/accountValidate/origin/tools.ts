@@ -3,65 +3,78 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  logpush_api_response_common_failure_output,
-  logpush_api_response_common_output,
-  logpush_messages_output,
+  logpush_api$$response$$common,
+  logpush_api$$response$$common$$failure,
+  logpush_messages,
 } from "../../outputs.js";
-import { logpush_identifier, logpush_logpull_options } from "../../schemas.js";
-import { logpush_validate_response_output } from "../outputs.js";
+import { logpush_validate_response } from "../outputs.js";
 
 /**
- * The tools of `logpush.account_validate.origin`.
+ * The tools of `logpush.accountValidate.origin`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "logpush_account_validate_origin_create",
+    name: "logpush_accountValidate_origin_create",
     title: "Validate origin",
-    description: "Validates logpull origin with logpull_options.",
+    description: "Validates logpull origin with logpull_options.\n\nPOST /{account_or_zone}/{account_or_zone_id}/logpush/validate/origin",
     inputSchema: {
       type: "object",
       properties: {
-        "account_or_zone": {
-          "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
-          "enum": [
-            "accounts",
-            "zones"
-          ],
-          "type": "string"
-        },
-        "account_or_zone_id": {
-          "$ref": "#/$defs/logpush_identifier",
-          "description": "The account ID or zone ID, as selected by account_or_zone."
-        },
         "body": {
           "properties": {
             "logpull_options": {
-              "$ref": "#/$defs/logpush_logpull_options",
-              "description": "This field is deprecated. Use `output_options` instead. Configuration string. It specifies things like requested fields and timestamp formats. If migrating from the logpull api, copy the url (full url or just the query string) of your call here, and logpush will keep on making this call for you, setting start and end times appropriately."
+              "deprecated": true,
+              "description": "This field is deprecated. Use `output_options` instead. Configuration string. It specifies things like requested fields and timestamp formats. If migrating from the logpull api, copy the url (full url or just the query string) of your call here, and logpush will keep on making this call for you, setting start and end times appropriately.",
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             }
           },
           "required": [
             "logpull_options"
           ],
           "type": "object"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_or_zone": {
+              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "enum": [
+                "accounts",
+                "zones"
+              ],
+              "type": "string"
+            },
+            "account_or_zone_id": {
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_or_zone",
+            "account_or_zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_or_zone",
-        "account_or_zone_id",
+        "path",
         "body"
       ],
-      $defs: {
-        "logpush_identifier": logpush_identifier,
-        "logpush_logpull_options": logpush_logpull_options,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/logpush_validate_response",
       $defs: {
-        "logpush_api-response-common": logpush_api_response_common_output,
-        "logpush_messages": logpush_messages_output,
-        "logpush_validate_response": logpush_validate_response_output,
+        "logpush_api-response-common": logpush_api$$response$$common,
+        "logpush_messages": logpush_messages,
+        "logpush_validate_response": logpush_validate_response,
       },
     },
     annotations: {
@@ -99,10 +112,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "logpush_api-response-common": logpush_api_response_common_output,
-        "logpush_api-response-common-failure": logpush_api_response_common_failure_output,
-        "logpush_messages": logpush_messages_output,
-        "logpush_validate_response": logpush_validate_response_output,
+        "logpush_api-response-common": logpush_api$$response$$common,
+        "logpush_api-response-common-failure": logpush_api$$response$$common$$failure,
+        "logpush_messages": logpush_messages,
+        "logpush_validate_response": logpush_validate_response,
       },
     },
     request: (args) => ({

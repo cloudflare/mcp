@@ -3,14 +3,10 @@
 
 import { type Tool, pathParam } from "../../../../../_/tool.js";
 import {
-  realtimekit_GenericErrorResponse_output,
-  realtimekit_GenericSuccessResponse_output,
-  realtimekit_ValidationIssue_output,
+  realtimekit_GenericErrorResponse,
+  realtimekit_GenericSuccessResponse,
+  realtimekit_ValidationIssue,
 } from "../../../outputs.js";
-import {
-  realtimekit_account_identifier,
-  realtimekit_app_id,
-} from "../../../schemas.js";
 import { realtimekit_ParticipantTokenValidity } from "../schemas.js";
 
 /**
@@ -20,41 +16,49 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_meetings_participants_tokens_refresh",
     title: "Refresh participant's authentication token",
-    description: "Regenerates participant's authentication token for the given meeting and participant ID.\n\nThis method is beta.",
+    description: "Regenerates participant's authentication token for the given meeting and participant ID.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/realtime/kit/{app_id}/meetings/{meeting_id}/participants/{participant_id}/token",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/realtimekit_account_identifier",
-          "description": "The account identifier tag."
-        },
-        "app_id": {
-          "$ref": "#/$defs/realtimekit_app_id",
-          "description": "The app identifier tag."
-        },
         "body": {
           "$ref": "#/$defs/realtimekit_ParticipantTokenValidity"
         },
-        "meeting_id": {
-          "description": "ID of the meeting. You can fetch the meeting ID using the create a meeting API.",
-          "format": "uuid",
-          "type": "string"
-        },
-        "participant_id": {
-          "description": "ID of the participant. You can fetch the participant ID using the add a  participant API.",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "The account identifier tag.",
+              "type": "string"
+            },
+            "app_id": {
+              "description": "The app identifier tag.",
+              "type": "string"
+            },
+            "meeting_id": {
+              "description": "ID of the meeting. You can fetch the meeting ID using the create a meeting API.",
+              "format": "uuid",
+              "type": "string"
+            },
+            "participant_id": {
+              "description": "ID of the participant. You can fetch the participant ID using the add a  participant API.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "app_id",
+            "meeting_id",
+            "participant_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "app_id",
-        "meeting_id",
-        "participant_id"
+        "path"
       ],
+      additionalProperties: false,
       $defs: {
         "realtimekit_ParticipantTokenValidity": realtimekit_ParticipantTokenValidity,
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
       },
     },
     outputSchema: {
@@ -93,7 +97,7 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
+        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse,
       },
     },
     annotations: {
@@ -157,9 +161,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
-        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
-        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse,
+        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue,
       },
     },
     request: (args) => ({
@@ -170,18 +174,10 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_meetings_participants_tokens_revoke",
     title: "Revoke participant's authentication token",
-    description: "Revokes a previously issued participant authentication token without deleting the participant. Other tokens issued to the participant remain valid.\n\nThis method is beta.",
+    description: "Revokes a previously issued participant authentication token without deleting the participant. Other tokens issued to the participant remain valid.\n\nThis method is beta.\n\nDELETE /accounts/{account_id}/realtime/kit/{app_id}/meetings/{meeting_id}/participants/{participant_id}/token",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/realtimekit_account_identifier",
-          "description": "The account identifier tag."
-        },
-        "app_id": {
-          "$ref": "#/$defs/realtimekit_app_id",
-          "description": "The app identifier tag."
-        },
         "body": {
           "properties": {
             "token": {
@@ -194,27 +190,41 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "meeting_id": {
-          "description": "ID of the meeting. You can fetch the meeting ID using the create a meeting API.",
-          "format": "uuid",
-          "type": "string"
-        },
-        "participant_id": {
-          "description": "ID of the participant. You can fetch the participant ID using the add a participant API.",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "The account identifier tag.",
+              "type": "string"
+            },
+            "app_id": {
+              "description": "The app identifier tag.",
+              "type": "string"
+            },
+            "meeting_id": {
+              "description": "ID of the meeting. You can fetch the meeting ID using the create a meeting API.",
+              "format": "uuid",
+              "type": "string"
+            },
+            "participant_id": {
+              "description": "ID of the participant. You can fetch the participant ID using the add a participant API.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "app_id",
+            "meeting_id",
+            "participant_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "app_id",
-        "meeting_id",
-        "participant_id",
+        "path",
         "body"
       ],
-      $defs: {
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -242,7 +252,7 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
+        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse,
       },
     },
     annotations: {
@@ -299,9 +309,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
-        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
-        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse,
+        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue,
       },
     },
     request: (args) => ({

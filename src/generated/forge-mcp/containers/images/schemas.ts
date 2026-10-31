@@ -10,8 +10,8 @@ export const cc_PrepareContainerImageRequestBody: JsonSchema = {
   "description": "A digest-pinned managed container image to prepare for the new runtime.",
   "properties": {
     "image": {
-      "$ref": "#/$defs/cc_Image",
-      "description": "Image url."
+      "description": "Image url.",
+      "type": "string"
     }
   },
   "required": [

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `workers_placement-provider` in responses.
  */
-export const workers_placement_provider_output: JsonSchema = {
+export const workers_placement$$provider: JsonSchema = {
   "properties": {
     "id": {
       "type": "string"
@@ -28,7 +28,7 @@ export const workers_placement_provider_output: JsonSchema = {
 /**
  * The schema of `workers_placement-region` in responses.
  */
-export const workers_placement_region_output: JsonSchema = {
+export const workers_placement$$region: JsonSchema = {
   "properties": {
     "id": {
       "type": "string"
@@ -43,7 +43,7 @@ export const workers_placement_region_output: JsonSchema = {
 /**
  * The schema of `workers_placement-regions-response` in responses.
  */
-export const workers_placement_regions_response_output: JsonSchema = {
+export const workers_placement$$regions$$response: JsonSchema = {
   "properties": {
     "providers": {
       "items": {

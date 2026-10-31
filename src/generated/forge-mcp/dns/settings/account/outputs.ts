@@ -6,10 +6,10 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `dns-settings_account_settings` in responses.
  */
-export const dns_settings_account_settings_output: JsonSchema = {
+export const dns$$settings_account_settings: JsonSchema = {
   "properties": {
     "enforce_dns_only": {
-      "$ref": "#/$defs/dns-settings_enforce_dns_only"
+      "type": "boolean"
     },
     "zone_defaults": {
       "$ref": "#/$defs/dns-settings_dns-settings-account-response"
@@ -24,7 +24,7 @@ export const dns_settings_account_settings_output: JsonSchema = {
 /**
  * The schema of `dns-settings_api-response-collection` in responses.
  */
-export const dns_settings_api_response_collection_output: JsonSchema = {
+export const dns$$settings_api$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-settings_api-response-common"
@@ -60,7 +60,7 @@ export const dns_settings_api_response_collection_output: JsonSchema = {
 /**
  * The schema of `dns-settings_api-response-common` in responses.
  */
-export const dns_settings_api_response_common_output: JsonSchema = {
+export const dns$$settings_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/dns-settings_messages"
@@ -86,7 +86,7 @@ export const dns_settings_api_response_common_output: JsonSchema = {
 /**
  * The schema of `dns-settings_api-response-common-failure` in responses.
  */
-export const dns_settings_api_response_common_failure_output: JsonSchema = {
+export const dns$$settings_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/dns-settings_messages"
@@ -116,7 +116,7 @@ export const dns_settings_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `dns-settings_api-response-single` in responses.
  */
-export const dns_settings_api_response_single_output: JsonSchema = {
+export const dns$$settings_api$$response$$single: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/dns-settings_messages"
@@ -142,7 +142,7 @@ export const dns_settings_api_response_single_output: JsonSchema = {
 /**
  * The schema of `dns-settings_dns-settings-account-response` in responses.
  */
-export const dns_settings_dns_settings_account_response_output: JsonSchema = {
+export const dns$$settings_dns$$settings$$account$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-settings_dns-settings-response"
@@ -179,31 +179,36 @@ export const dns_settings_dns_settings_account_response_output: JsonSchema = {
 /**
  * The schema of `dns-settings_dns-settings-base` in responses.
  */
-export const dns_settings_dns_settings_base_output: JsonSchema = {
+export const dns$$settings_dns$$settings$$base: JsonSchema = {
   "properties": {
     "flatten_all_cnames": {
-      "$ref": "#/$defs/dns-settings_flatten_all_cnames"
+      "type": "boolean"
     },
     "foundation_dns": {
-      "$ref": "#/$defs/dns-settings_foundation_dns"
+      "type": "boolean"
     },
     "internal_dns": {
       "$ref": "#/$defs/dns-settings_internal_dns_base"
     },
     "multi_provider": {
-      "$ref": "#/$defs/dns-settings_multi_provider"
+      "type": "boolean"
     },
     "ns_ttl": {
-      "$ref": "#/$defs/dns-settings_ns_ttl"
+      "type": "number"
     },
     "secondary_overrides": {
-      "$ref": "#/$defs/dns-settings_secondary_overrides"
+      "type": "boolean"
     },
     "soa": {
       "$ref": "#/$defs/dns-settings_soa-base"
     },
     "zone_mode": {
-      "$ref": "#/$defs/dns-settings_zone_mode"
+      "enum": [
+        "standard",
+        "cdn_only",
+        "dns_only"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
@@ -212,7 +217,7 @@ export const dns_settings_dns_settings_base_output: JsonSchema = {
 /**
  * The schema of `dns-settings_dns-settings-response` in responses.
  */
-export const dns_settings_dns_settings_response_output: JsonSchema = {
+export const dns$$settings_dns$$settings$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-settings_dns-settings-base"
@@ -238,7 +243,7 @@ export const dns_settings_dns_settings_response_output: JsonSchema = {
 /**
  * The schema of `dns-settings_dns_response_single` in responses.
  */
-export const dns_settings_dns_response_single_output: JsonSchema = {
+export const dns$$settings_dns_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-settings_api-response-single"
@@ -255,37 +260,9 @@ export const dns_settings_dns_response_single_output: JsonSchema = {
 };
 
 /**
- * The schema of `dns-settings_enforce_dns_only` in responses.
- */
-export const dns_settings_enforce_dns_only_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `dns-settings_flatten_all_cnames` in responses.
- */
-export const dns_settings_flatten_all_cnames_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `dns-settings_foundation_dns` in responses.
- */
-export const dns_settings_foundation_dns_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `dns-settings_identifier` in responses.
- */
-export const dns_settings_identifier_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `dns-settings_internal_dns_base` in responses.
  */
-export const dns_settings_internal_dns_base_output: JsonSchema = {
+export const dns$$settings_internal_dns_base: JsonSchema = {
   "properties": {
     "reference_zone_id": {
       "type": "string"
@@ -297,7 +274,7 @@ export const dns_settings_internal_dns_base_output: JsonSchema = {
 /**
  * The schema of `dns-settings_internal_dns_response` in responses.
  */
-export const dns_settings_internal_dns_response_output: JsonSchema = {
+export const dns$$settings_internal_dns_response: JsonSchema = {
   "properties": {
     "reference_zone_id": {
       "type": "string"
@@ -312,7 +289,7 @@ export const dns_settings_internal_dns_response_output: JsonSchema = {
 /**
  * The schema of `dns-settings_messages` in responses.
  */
-export const dns_settings_messages_output: JsonSchema = {
+export const dns$$settings_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -343,30 +320,9 @@ export const dns_settings_messages_output: JsonSchema = {
 };
 
 /**
- * The schema of `dns-settings_multi_provider` in responses.
- */
-export const dns_settings_multi_provider_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `dns-settings_ns_ttl` in responses.
- */
-export const dns_settings_ns_ttl_output: JsonSchema = {
-  "type": "number"
-};
-
-/**
- * The schema of `dns-settings_secondary_overrides` in responses.
- */
-export const dns_settings_secondary_overrides_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `dns-settings_soa-base` in responses.
  */
-export const dns_settings_soa_base_output: JsonSchema = {
+export const dns$$settings_soa$$base: JsonSchema = {
   "properties": {
     "expire": {
       "type": "number"
@@ -403,7 +359,7 @@ export const dns_settings_soa_base_output: JsonSchema = {
 /**
  * The schema of `dns-settings_soa-response` in responses.
  */
-export const dns_settings_soa_response_output: JsonSchema = {
+export const dns$$settings_soa$$response: JsonSchema = {
   "properties": {
     "expire": {
       "type": "number"
@@ -444,16 +400,4 @@ export const dns_settings_soa_response_output: JsonSchema = {
     "ttl"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `dns-settings_zone_mode` in responses.
- */
-export const dns_settings_zone_mode_output: JsonSchema = {
-  "enum": [
-    "standard",
-    "cdn_only",
-    "dns_only"
-  ],
-  "type": "string"
 };

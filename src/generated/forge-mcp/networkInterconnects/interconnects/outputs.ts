@@ -4,37 +4,9 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `nsc_ApiBandwidth` in responses.
- */
-export const nsc_ApiBandwidth_output: JsonSchema = {
-  "enum": [
-    "50M",
-    "100M",
-    "200M",
-    "300M",
-    "400M",
-    "500M",
-    "1G",
-    "2G",
-    "5G",
-    "10G",
-    "20G",
-    "50G"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `nsc_CloudflareSite` in responses.
- */
-export const nsc_CloudflareSite_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `nsc_DefaultNameResponse` in responses.
  */
-export const nsc_DefaultNameResponse_output: JsonSchema = {
+export const nsc_DefaultNameResponse: JsonSchema = {
   "properties": {
     "name": {
       "type": "string"
@@ -49,7 +21,7 @@ export const nsc_DefaultNameResponse_output: JsonSchema = {
 /**
  * The schema of `nsc_Interconnect` in responses.
  */
-export const nsc_Interconnect_output: JsonSchema = {
+export const nsc_Interconnect: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/nsc_Interconnect_Physical_Body"
@@ -63,7 +35,7 @@ export const nsc_Interconnect_output: JsonSchema = {
 /**
  * The schema of `nsc_InterconnectList` in responses.
  */
-export const nsc_InterconnectList_output: JsonSchema = {
+export const nsc_InterconnectList: JsonSchema = {
   "properties": {
     "items": {
       "items": {
@@ -91,7 +63,7 @@ export const nsc_InterconnectList_output: JsonSchema = {
 /**
  * The schema of `nsc_Interconnect_GcpPartner_Body` in responses.
  */
-export const nsc_Interconnect_GcpPartner_Body_output: JsonSchema = {
+export const nsc_Interconnect_GcpPartner_Body: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -121,7 +93,21 @@ export const nsc_Interconnect_GcpPartner_Body_output: JsonSchema = {
           "type": "string"
         },
         "speed": {
-          "$ref": "#/$defs/nsc_ApiBandwidth"
+          "enum": [
+            "50M",
+            "100M",
+            "200M",
+            "300M",
+            "400M",
+            "500M",
+            "1G",
+            "2G",
+            "5G",
+            "10G",
+            "20G",
+            "50G"
+          ],
+          "type": "string"
         },
         "virtual_port_reservation_id": {
           "format": "uuid",
@@ -140,7 +126,7 @@ export const nsc_Interconnect_GcpPartner_Body_output: JsonSchema = {
 /**
  * The schema of `nsc_Interconnect_Physical_Body` in responses.
  */
-export const nsc_Interconnect_Physical_Body_output: JsonSchema = {
+export const nsc_Interconnect_Physical_Body: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -180,7 +166,7 @@ export const nsc_Interconnect_Physical_Body_output: JsonSchema = {
           "$ref": "#/$defs/nsc_FacilityInfo"
         },
         "site": {
-          "$ref": "#/$defs/nsc_CloudflareSite"
+          "type": "string"
         },
         "slot_id": {
           "format": "uuid",
@@ -209,7 +195,7 @@ export const nsc_Interconnect_Physical_Body_output: JsonSchema = {
 /**
  * The schema of `nsc_StatusInfo` in responses.
  */
-export const nsc_StatusInfo_output: JsonSchema = {
+export const nsc_StatusInfo: JsonSchema = {
   "oneOf": [
     {
       "properties": {

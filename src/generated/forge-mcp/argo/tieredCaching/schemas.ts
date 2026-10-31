@@ -6,28 +6,20 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `cache-settings_patch`.
  */
-export const cache_settings_patch: JsonSchema = {
+export const cache$$settings_patch: JsonSchema = {
   "description": "Update enablement of Tiered Caching.",
   "properties": {
     "value": {
-      "$ref": "#/$defs/cache-settings_value",
-      "description": "Enables Tiered Caching."
+      "description": "Enables Tiered Caching.",
+      "enum": [
+        "on",
+        "off"
+      ],
+      "type": "string"
     }
   },
   "required": [
     "value"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `cache-settings_value`.
- */
-export const cache_settings_value: JsonSchema = {
-  "description": "Enables Tiered Caching.",
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
 };

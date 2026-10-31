@@ -8,7 +8,7 @@ import type { JsonSchema } from "../../_/tool.js";
  * `tls-certificates-and-hostnames_advanced_certificate_pack_response_single` in
  * responses.
  */
-export const tls_certificates_and_hostnames_advanced_certificate_pack_response_single_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_advanced_certificate_pack_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-single"
@@ -25,25 +25,17 @@ export const tls_certificates_and_hostnames_advanced_certificate_pack_response_s
 };
 
 /**
- * The schema of `tls-certificates-and-hostnames_certificate_authority-2` in
- * responses.
- */
-export const tls_certificates_and_hostnames_certificate_authority_2_output: JsonSchema = {
-  "enum": [
-    "google",
-    "lets_encrypt",
-    "ssl_com"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `tls-certificates-and-hostnames_certificate_pack` in responses.
  */
-export const tls_certificates_and_hostnames_certificate_pack_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_certificate_pack: JsonSchema = {
   "properties": {
     "certificate_authority": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_authority-2"
+      "enum": [
+        "google",
+        "lets_encrypt",
+        "ssl_com"
+      ],
+      "type": "string"
     },
     "certificates": {
       "items": {
@@ -52,7 +44,7 @@ export const tls_certificates_and_hostnames_certificate_pack_output: JsonSchema 
       "type": "array"
     },
     "cloudflare_branding": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_cloudflare_branding"
+      "type": "boolean"
     },
     "dcv_delegation_records": {
       "items": {
@@ -64,16 +56,49 @@ export const tls_certificates_and_hostnames_certificate_pack_output: JsonSchema 
       "$ref": "#/$defs/tls-certificates-and-hostnames_hosts-2"
     },
     "id": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_pack_identifier"
+      "type": "string"
     },
     "primary_certificate": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_primary"
+      "type": "string"
     },
     "status": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_status-5"
+      "enum": [
+        "initializing",
+        "pending_validation",
+        "deleted",
+        "pending_issuance",
+        "pending_deployment",
+        "pending_deletion",
+        "pending_expiration",
+        "expired",
+        "active",
+        "initializing_timed_out",
+        "validation_timed_out",
+        "issuance_timed_out",
+        "deployment_timed_out",
+        "deletion_timed_out",
+        "pending_cleanup",
+        "staging_deployment",
+        "staging_active",
+        "deactivating",
+        "inactive",
+        "backup_issued",
+        "holding_deployment"
+      ],
+      "type": "string"
     },
     "type": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_type-2"
+      "enum": [
+        "mh_custom",
+        "managed_hostname",
+        "sni_custom",
+        "universal",
+        "advanced",
+        "total_tls",
+        "keyless",
+        "legacy_custom"
+      ],
+      "type": "string"
     },
     "validation_errors": {
       "items": {
@@ -87,7 +112,12 @@ export const tls_certificates_and_hostnames_certificate_pack_output: JsonSchema 
       "type": "array"
     },
     "validation_method": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_validation_method"
+      "enum": [
+        "txt",
+        "http",
+        "email"
+      ],
+      "type": "string"
     },
     "validation_records": {
       "items": {
@@ -96,7 +126,13 @@ export const tls_certificates_and_hostnames_certificate_pack_output: JsonSchema 
       "type": "array"
     },
     "validity_days": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_validity_days"
+      "enum": [
+        14,
+        30,
+        90,
+        365
+      ],
+      "type": "integer"
     }
   },
   "required": [
@@ -113,7 +149,7 @@ export const tls_certificates_and_hostnames_certificate_pack_output: JsonSchema 
  * The schema of `tls-certificates-and-hostnames_certificate_pack_certificate`
  * in responses.
  */
-export const tls_certificates_and_hostnames_certificate_pack_certificate_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_certificate_pack_certificate: JsonSchema = {
   "properties": {
     "bundle_method": {
       "type": "string"
@@ -165,7 +201,7 @@ export const tls_certificates_and_hostnames_certificate_pack_certificate_output:
       "type": "string"
     },
     "zone_id": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_identifier"
+      "type": "string"
     }
   },
   "required": [
@@ -177,19 +213,11 @@ export const tls_certificates_and_hostnames_certificate_pack_certificate_output:
 };
 
 /**
- * The schema of `tls-certificates-and-hostnames_certificate_pack_identifier` in
- * responses.
- */
-export const tls_certificates_and_hostnames_certificate_pack_identifier_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of
  * `tls-certificates-and-hostnames_certificate_pack_response_collection` in
  * responses.
  */
-export const tls_certificates_and_hostnames_certificate_pack_response_collection_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_certificate_pack_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-collection"
@@ -213,7 +241,7 @@ export const tls_certificates_and_hostnames_certificate_pack_response_collection
  * `tls-certificates-and-hostnames_certificate_pack_response_single` in
  * responses.
  */
-export const tls_certificates_and_hostnames_certificate_pack_response_single_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_certificate_pack_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-single"
@@ -230,19 +258,11 @@ export const tls_certificates_and_hostnames_certificate_pack_response_single_out
 };
 
 /**
- * The schema of `tls-certificates-and-hostnames_cloudflare_branding` in
- * responses.
- */
-export const tls_certificates_and_hostnames_cloudflare_branding_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of
  * `tls-certificates-and-hostnames_delete_advanced_certificate_pack_response_single`
  * in responses.
  */
-export const tls_certificates_and_hostnames_delete_advanced_certificate_pack_response_single_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_delete_advanced_certificate_pack_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-single"
@@ -252,7 +272,7 @@ export const tls_certificates_and_hostnames_delete_advanced_certificate_pack_res
         "result": {
           "properties": {
             "id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_pack_identifier"
+              "type": "string"
             }
           },
           "type": "object"
@@ -266,89 +286,9 @@ export const tls_certificates_and_hostnames_delete_advanced_certificate_pack_res
 /**
  * The schema of `tls-certificates-and-hostnames_hosts-2` in responses.
  */
-export const tls_certificates_and_hostnames_hosts_2_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_hosts$$2: JsonSchema = {
   "items": {
     "type": "string"
   },
   "type": "array"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_primary` in responses.
- */
-export const tls_certificates_and_hostnames_primary_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_status-5` in responses.
- */
-export const tls_certificates_and_hostnames_status_5_output: JsonSchema = {
-  "enum": [
-    "initializing",
-    "pending_validation",
-    "deleted",
-    "pending_issuance",
-    "pending_deployment",
-    "pending_deletion",
-    "pending_expiration",
-    "expired",
-    "active",
-    "initializing_timed_out",
-    "validation_timed_out",
-    "issuance_timed_out",
-    "deployment_timed_out",
-    "deletion_timed_out",
-    "pending_cleanup",
-    "staging_deployment",
-    "staging_active",
-    "deactivating",
-    "inactive",
-    "backup_issued",
-    "holding_deployment"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_type-2` in responses.
- */
-export const tls_certificates_and_hostnames_type_2_output: JsonSchema = {
-  "enum": [
-    "mh_custom",
-    "managed_hostname",
-    "sni_custom",
-    "universal",
-    "advanced",
-    "total_tls",
-    "keyless",
-    "legacy_custom"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_validation_method` in
- * responses.
- */
-export const tls_certificates_and_hostnames_validation_method_output: JsonSchema = {
-  "enum": [
-    "txt",
-    "http",
-    "email"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_validity_days` in responses.
- */
-export const tls_certificates_and_hostnames_validity_days_output: JsonSchema = {
-  "enum": [
-    14,
-    30,
-    90,
-    365
-  ],
-  "type": "integer"
 };

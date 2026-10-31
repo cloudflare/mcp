@@ -4,30 +4,9 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `email-security_ContentPolicyId`.
- */
-export const email_security_ContentPolicyId: JsonSchema = {
-  "description": "Content policy identifier.",
-  "format": "uuid",
-  "type": "string"
-};
-
-/**
- * The schema of `email-security_ContentPolicyTarget`.
- */
-export const email_security_ContentPolicyTarget: JsonSchema = {
-  "description": "The part of the email to match the pattern against.",
-  "enum": [
-    "SUBJECT",
-    "BODY"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `email-security_CreateContentPolicy`.
  */
-export const email_security_CreateContentPolicy: JsonSchema = {
+export const email$$security_CreateContentPolicy: JsonSchema = {
   "description": "Create a content policy.",
   "properties": {
     "enabled": {
@@ -68,7 +47,12 @@ export const email_security_CreateContentPolicy: JsonSchema = {
     "targets": {
       "description": "Parts of the email the pattern is matched against.",
       "items": {
-        "$ref": "#/$defs/email-security_ContentPolicyTarget"
+        "description": "The part of the email to match the pattern against.",
+        "enum": [
+          "SUBJECT",
+          "BODY"
+        ],
+        "type": "string"
       },
       "minItems": 1,
       "type": "array"
@@ -86,7 +70,7 @@ export const email_security_CreateContentPolicy: JsonSchema = {
 /**
  * The schema of `email-security_UpdateContentPolicy`.
  */
-export const email_security_UpdateContentPolicy: JsonSchema = {
+export const email$$security_UpdateContentPolicy: JsonSchema = {
   "description": "Update a content policy.",
   "properties": {
     "enabled": {
@@ -127,7 +111,12 @@ export const email_security_UpdateContentPolicy: JsonSchema = {
     "targets": {
       "description": "Parts of the email the pattern is matched against.",
       "items": {
-        "$ref": "#/$defs/email-security_ContentPolicyTarget"
+        "description": "The part of the email to match the pattern against.",
+        "enum": [
+          "SUBJECT",
+          "BODY"
+        ],
+        "type": "string"
       },
       "minItems": 1,
       "type": "array"

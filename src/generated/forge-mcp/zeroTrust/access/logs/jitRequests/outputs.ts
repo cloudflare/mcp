@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `access_jit_request_event` in responses.
  */
-export const access_jit_request_event_output: JsonSchema = {
+export const access_jit_request_event: JsonSchema = {
   "properties": {
     "actor_email": {
       "type": "string"
@@ -31,34 +31,28 @@ export const access_jit_request_event_output: JsonSchema = {
       "type": "boolean"
     },
     "timestamp": {
-      "$ref": "#/$defs/access_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "type": {
-      "$ref": "#/$defs/access_jit_request_event_type"
+      "enum": [
+        "CREATED",
+        "APPROVER_DECISION",
+        "COMMITTED",
+        "CANCELED",
+        "LOGIN_SUCCESS",
+        "REDIRECT_TO_ACTIVE"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
 };
 
 /**
- * The schema of `access_jit_request_event_type` in responses.
- */
-export const access_jit_request_event_type_output: JsonSchema = {
-  "enum": [
-    "CREATED",
-    "APPROVER_DECISION",
-    "COMMITTED",
-    "CANCELED",
-    "LOGIN_SUCCESS",
-    "REDIRECT_TO_ACTIVE"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `access_jit_request_log` in responses.
  */
-export const access_jit_request_log_output: JsonSchema = {
+export const access_jit_request_log: JsonSchema = {
   "properties": {
     "app_aud": {
       "type": "string"
@@ -76,10 +70,12 @@ export const access_jit_request_log_output: JsonSchema = {
       "type": "array"
     },
     "created_at": {
-      "$ref": "#/$defs/access_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "expires_at": {
-      "$ref": "#/$defs/access_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "knock_request_id": {
       "type": "string"
@@ -91,7 +87,14 @@ export const access_jit_request_log_output: JsonSchema = {
       "type": "string"
     },
     "status": {
-      "$ref": "#/$defs/access_jit_request_status"
+      "enum": [
+        "PENDING",
+        "APPROVED",
+        "DENIED",
+        "CANCELED",
+        "SPENT"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
@@ -100,7 +103,7 @@ export const access_jit_request_log_output: JsonSchema = {
 /**
  * The schema of `access_jit_request_log_detail` in responses.
  */
-export const access_jit_request_log_detail_output: JsonSchema = {
+export const access_jit_request_log_detail: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_jit_request_log"
@@ -120,23 +123,9 @@ export const access_jit_request_log_detail_output: JsonSchema = {
 };
 
 /**
- * The schema of `access_jit_request_status` in responses.
- */
-export const access_jit_request_status_output: JsonSchema = {
-  "enum": [
-    "PENDING",
-    "APPROVED",
-    "DENIED",
-    "CANCELED",
-    "SPENT"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `access_response_collection-13` in responses.
  */
-export const access_response_collection_13_output: JsonSchema = {
+export const access_response_collection$$13: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-collection"
@@ -158,7 +147,7 @@ export const access_response_collection_13_output: JsonSchema = {
 /**
  * The schema of `access_response_single` in responses.
  */
-export const access_response_single_output: JsonSchema = {
+export const access_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-single"

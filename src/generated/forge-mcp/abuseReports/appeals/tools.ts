@@ -3,38 +3,48 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  abuse_reports_AuthErrorResponse_output,
-  abuse_reports_CloudflareAPIErrorResponse_output,
-  abuse_reports_ErrorMessage_output,
-  abuse_reports_Message_output,
-  abuse_reports_UnauthorizedErrorResponse_output,
+  abuse$$reports_AuthErrorResponse,
+  abuse$$reports_CloudflareAPIErrorResponse,
+  abuse$$reports_ErrorMessage,
+  abuse$$reports_Message,
+  abuse$$reports_UnauthorizedErrorResponse,
 } from "../outputs.js";
-import { abuse_reports_AppealEligibility_output } from "./outputs.js";
+import { abuse$$reports_AppealEligibility } from "./outputs.js";
 
 /**
- * The tools of `abuse_reports.appeals`.
+ * The tools of `abuseReports.appeals`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "abuse_reports_appeals_eligibility",
+    name: "abuseReports_appeals_eligibility",
     title: "Check whether a report can be appealed",
-    description: "Returns whether the report is currently appealable, along with the signals behind that decision: whether it already has an open appeal, how many appeals have been submitted against it, and whether it has at least one mitigation that an appeal could reverse.\nReport-level appeals are currently available only for DMCA (copyright) reports. For other report types this operation returns the same `404 Report not found` response as a report that does not exist for the account.",
+    description: "Returns whether the report is currently appealable, along with the signals behind that decision: whether it already has an open appeal, how many appeals have been submitted against it, and whether it has at least one mitigation that an appeal could reverse.\nReport-level appeals are currently available only for DMCA (copyright) reports. For other report types this operation returns the same `404 Report not found` response as a report that does not exist for the account.\n\nGET /accounts/{account_id}/abuse-reports/{report_id}/appeals/eligibility",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare Account ID",
-          "type": "string"
-        },
-        "report_id": {
-          "description": "Abuse Report ID",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare Account ID",
+              "type": "string"
+            },
+            "report_id": {
+              "description": "Abuse Report ID",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "report_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "report_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -62,8 +72,8 @@ export const tools: readonly Tool[] = [
       ],
       "type": "object",
       $defs: {
-        "abuse-reports_AppealEligibility": abuse_reports_AppealEligibility_output,
-        "abuse-reports_Message": abuse_reports_Message_output,
+        "abuse-reports_AppealEligibility": abuse$$reports_AppealEligibility,
+        "abuse-reports_Message": abuse$$reports_Message,
       },
     },
     annotations: {
@@ -151,12 +161,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "abuse-reports_AppealEligibility": abuse_reports_AppealEligibility_output,
-        "abuse-reports_AuthErrorResponse": abuse_reports_AuthErrorResponse_output,
-        "abuse-reports_CloudflareAPIErrorResponse": abuse_reports_CloudflareAPIErrorResponse_output,
-        "abuse-reports_ErrorMessage": abuse_reports_ErrorMessage_output,
-        "abuse-reports_Message": abuse_reports_Message_output,
-        "abuse-reports_UnauthorizedErrorResponse": abuse_reports_UnauthorizedErrorResponse_output,
+        "abuse-reports_AppealEligibility": abuse$$reports_AppealEligibility,
+        "abuse-reports_AuthErrorResponse": abuse$$reports_AuthErrorResponse,
+        "abuse-reports_CloudflareAPIErrorResponse": abuse$$reports_CloudflareAPIErrorResponse,
+        "abuse-reports_ErrorMessage": abuse$$reports_ErrorMessage,
+        "abuse-reports_Message": abuse$$reports_Message,
+        "abuse-reports_UnauthorizedErrorResponse": abuse$$reports_UnauthorizedErrorResponse,
       },
     },
     request: (args) => ({

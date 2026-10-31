@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `workers-observability_distribution_result` in responses.
  */
-export const workers_observability_distribution_result_output: JsonSchema = {
+export const workers$$observability_distribution_result: JsonSchema = {
   "properties": {
     "bins": {
       "items": {
@@ -56,7 +56,7 @@ export const workers_observability_distribution_result_output: JsonSchema = {
 /**
  * The schema of `workers-observability_filter_leaf` in responses.
  */
-export const workers_observability_filter_leaf_output: JsonSchema = {
+export const workers$$observability_filter_leaf: JsonSchema = {
   "properties": {
     "key": {
       "type": "string"
@@ -135,7 +135,7 @@ export const workers_observability_filter_leaf_output: JsonSchema = {
 /**
  * The schema of `workers-observability_filter_node` in responses.
  */
-export const workers_observability_filter_node_output: JsonSchema = {
+export const workers$$observability_filter_node: JsonSchema = {
   "anyOf": [
     {
       "properties": {
@@ -178,7 +178,7 @@ export const workers_observability_filter_node_output: JsonSchema = {
 /**
  * The schema of `workers-observability_performance_information` in responses.
  */
-export const workers_observability_performance_information_output: JsonSchema = {
+export const workers$$observability_performance_information: JsonSchema = {
   "properties": {
     "abr_level": {
       "type": "number"
@@ -204,7 +204,7 @@ export const workers_observability_performance_information_output: JsonSchema = 
 /**
  * The schema of `workers-observability_query` in responses.
  */
-export const workers_observability_query_output: JsonSchema = {
+export const workers$$observability_query: JsonSchema = {
   "properties": {
     "adhoc": {
       "type": "boolean"
@@ -491,7 +491,7 @@ export const workers_observability_query_output: JsonSchema = {
 /**
  * The schema of `workers-observability_query_results` in responses.
  */
-export const workers_observability_query_results_output: JsonSchema = {
+export const workers$$observability_query_results: JsonSchema = {
   "properties": {
     "agents": {
       "items": {
@@ -1067,7 +1067,7 @@ export const workers_observability_query_results_output: JsonSchema = {
 /**
  * The schema of `workers-observability_query_run` in responses.
  */
-export const workers_observability_query_run_output: JsonSchema = {
+export const workers$$observability_query_run: JsonSchema = {
   "properties": {
     "accountId": {
       "type": "string"
@@ -1185,7 +1185,7 @@ export const workers_observability_query_run_output: JsonSchema = {
 /**
  * The schema of `workers-observability_telemetry_event` in responses.
  */
-export const workers_observability_telemetry_event_output: JsonSchema = {
+export const workers$$observability_telemetry_event: JsonSchema = {
   "properties": {
     "$containers": {
       "type": "object"

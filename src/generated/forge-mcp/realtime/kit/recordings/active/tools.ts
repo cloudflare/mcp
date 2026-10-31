@@ -3,15 +3,11 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  realtimekit_GenericErrorResponse_output,
-  realtimekit_GenericSuccessResponse_output,
-  realtimekit_ValidationIssue_output,
+  realtimekit_GenericErrorResponse,
+  realtimekit_GenericSuccessResponse,
+  realtimekit_ValidationIssue,
 } from "../../outputs.js";
-import {
-  realtimekit_account_identifier,
-  realtimekit_app_id,
-} from "../../schemas.js";
-import { realtimekit_Recording_output } from "../outputs.js";
+import { realtimekit_Recording } from "../outputs.js";
 
 /**
  * The tools of `realtime.kit.recordings.active`.
@@ -20,32 +16,38 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_recordings_active_get",
     title: "Fetch active recording",
-    description: "Returns the active recording details for the given meeting ID.\n\nThis method is beta.",
+    description: "Returns the active recording details for the given meeting ID.\n\nThis method is beta.\n\nGET /accounts/{account_id}/realtime/kit/{app_id}/recordings/active-recording/{meeting_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/realtimekit_account_identifier",
-          "description": "The account identifier tag."
-        },
-        "app_id": {
-          "$ref": "#/$defs/realtimekit_app_id",
-          "description": "The app identifier tag."
-        },
-        "meeting_id": {
-          "description": "ID of the meeting",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "The account identifier tag.",
+              "type": "string"
+            },
+            "app_id": {
+              "description": "The app identifier tag.",
+              "type": "string"
+            },
+            "meeting_id": {
+              "description": "ID of the meeting",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "app_id",
+            "meeting_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "app_id",
-        "meeting_id"
+        "path"
       ],
-      $defs: {
-        "realtimekit_account_identifier": realtimekit_account_identifier,
-        "realtimekit_app_id": realtimekit_app_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -65,8 +67,8 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
-        "realtimekit_Recording": realtimekit_Recording_output,
+        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse,
+        "realtimekit_Recording": realtimekit_Recording,
       },
     },
     annotations: {
@@ -109,10 +111,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
-        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
-        "realtimekit_Recording": realtimekit_Recording_output,
-        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse,
+        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse,
+        "realtimekit_Recording": realtimekit_Recording,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue,
       },
     },
     request: (args) => ({

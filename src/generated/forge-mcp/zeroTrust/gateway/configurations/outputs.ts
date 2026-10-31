@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `zero-trust-gateway_activity-log-settings` in responses.
  */
-export const zero_trust_gateway_activity_log_settings_output: JsonSchema = {
+export const zero$$trust$$gateway_activity$$log$$settings: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -32,18 +32,39 @@ export const zero_trust_gateway_activity_log_settings_output: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_anti-virus-settings` in responses.
  */
-export const zero_trust_gateway_anti_virus_settings_output: JsonSchema = {
+export const zero$$trust$$gateway_anti$$virus$$settings: JsonSchema = {
   "oneOf": [
     {
       "properties": {
         "enabled_download_phase": {
-          "$ref": "#/$defs/zero-trust-gateway_enabled_download_phase"
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "enabled_upload_phase": {
-          "$ref": "#/$defs/zero-trust-gateway_enabled_upload_phase"
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "fail_closed": {
-          "$ref": "#/$defs/zero-trust-gateway_fail_closed"
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "notification_settings": {
           "$ref": "#/$defs/zero-trust-gateway_notification_settings"
@@ -60,7 +81,7 @@ export const zero_trust_gateway_anti_virus_settings_output: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_block-page-settings` in responses.
  */
-export const zero_trust_gateway_block_page_settings_output: JsonSchema = {
+export const zero$$trust$$gateway_block$$page$$settings: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -154,7 +175,7 @@ export const zero_trust_gateway_block_page_settings_output: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_body-scanning-settings` in responses.
  */
-export const zero_trust_gateway_body_scanning_settings_output: JsonSchema = {
+export const zero$$trust$$gateway_body$$scanning$$settings: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -177,7 +198,7 @@ export const zero_trust_gateway_body_scanning_settings_output: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_browser-isolation-settings` in responses.
  */
-export const zero_trust_gateway_browser_isolation_settings_output: JsonSchema = {
+export const zero$$trust$$gateway_browser$$isolation$$settings: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -199,7 +220,7 @@ export const zero_trust_gateway_browser_isolation_settings_output: JsonSchema = 
 /**
  * The schema of `zero-trust-gateway_certificate-settings` in responses.
  */
-export const zero_trust_gateway_certificate_settings_output: JsonSchema = {
+export const zero$$trust$$gateway_certificate$$settings: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -221,7 +242,7 @@ export const zero_trust_gateway_certificate_settings_output: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_custom-certificate-settings` in responses.
  */
-export const zero_trust_gateway_custom_certificate_settings_output: JsonSchema = {
+export const zero$$trust$$gateway_custom$$certificate$$settings: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -258,37 +279,9 @@ export const zero_trust_gateway_custom_certificate_settings_output: JsonSchema =
 };
 
 /**
- * The schema of `zero-trust-gateway_enabled_download_phase` in responses.
- */
-export const zero_trust_gateway_enabled_download_phase_output: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "boolean"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `zero-trust-gateway_enabled_upload_phase` in responses.
- */
-export const zero_trust_gateway_enabled_upload_phase_output: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "boolean"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
  * The schema of `zero-trust-gateway_extended-email-matching` in responses.
  */
-export const zero_trust_gateway_extended_email_matching_output: JsonSchema = {
+export const zero$$trust$$gateway_extended$$email$$matching: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -321,23 +314,9 @@ export const zero_trust_gateway_extended_email_matching_output: JsonSchema = {
 };
 
 /**
- * The schema of `zero-trust-gateway_fail_closed` in responses.
- */
-export const zero_trust_gateway_fail_closed_output: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "boolean"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
  * The schema of `zero-trust-gateway_fips-settings` in responses.
  */
-export const zero_trust_gateway_fips_settings_output: JsonSchema = {
+export const zero$$trust$$gateway_fips$$settings: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -356,7 +335,7 @@ export const zero_trust_gateway_fips_settings_output: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_gateway-account-settings` in responses.
  */
-export const zero_trust_gateway_gateway_account_settings_output: JsonSchema = {
+export const zero$$trust$$gateway_gateway$$account$$settings: JsonSchema = {
   "properties": {
     "settings": {
       "properties": {
@@ -394,7 +373,14 @@ export const zero_trust_gateway_gateway_account_settings_output: JsonSchema = {
           "$ref": "#/$defs/zero-trust-gateway_inspection-settings"
         },
         "max_ttl_secs": {
-          "$ref": "#/$defs/zero-trust-gateway_max-ttl-secs"
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "protocol_detection": {
           "$ref": "#/$defs/zero-trust-gateway_protocol-detection"
@@ -415,7 +401,7 @@ export const zero_trust_gateway_gateway_account_settings_output: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_gateway_account_config` in responses.
  */
-export const zero_trust_gateway_gateway_account_config_output: JsonSchema = {
+export const zero$$trust$$gateway_gateway_account_config: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zero-trust-gateway_api-response-single"
@@ -430,10 +416,12 @@ export const zero_trust_gateway_gateway_account_config_output: JsonSchema = {
             {
               "properties": {
                 "created_at": {
-                  "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+                  "format": "date-time",
+                  "type": "string"
                 },
                 "updated_at": {
-                  "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+                  "format": "date-time",
+                  "type": "string"
                 }
               },
               "type": "object"
@@ -449,7 +437,7 @@ export const zero_trust_gateway_gateway_account_config_output: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_host-selector-settings` in responses.
  */
-export const zero_trust_gateway_host_selector_settings_output: JsonSchema = {
+export const zero$$trust$$gateway_host$$selector$$settings: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -475,7 +463,7 @@ export const zero_trust_gateway_host_selector_settings_output: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_inspection-settings` in responses.
  */
-export const zero_trust_gateway_inspection_settings_output: JsonSchema = {
+export const zero$$trust$$gateway_inspection$$settings: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -496,23 +484,9 @@ export const zero_trust_gateway_inspection_settings_output: JsonSchema = {
 };
 
 /**
- * The schema of `zero-trust-gateway_max-ttl-secs` in responses.
- */
-export const zero_trust_gateway_max_ttl_secs_output: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "integer"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
  * The schema of `zero-trust-gateway_notification_settings` in responses.
  */
-export const zero_trust_gateway_notification_settings_output: JsonSchema = {
+export const zero$$trust$$gateway_notification_settings: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -540,7 +514,7 @@ export const zero_trust_gateway_notification_settings_output: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_protocol-detection` in responses.
  */
-export const zero_trust_gateway_protocol_detection_output: JsonSchema = {
+export const zero$$trust$$gateway_protocol$$detection: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -566,7 +540,7 @@ export const zero_trust_gateway_protocol_detection_output: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_sandbox` in responses.
  */
-export const zero_trust_gateway_sandbox_output: JsonSchema = {
+export const zero$$trust$$gateway_sandbox: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -599,7 +573,7 @@ export const zero_trust_gateway_sandbox_output: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_tls-settings` in responses.
  */
-export const zero_trust_gateway_tls_settings_output: JsonSchema = {
+export const zero$$trust$$gateway_tls$$settings: JsonSchema = {
   "oneOf": [
     {
       "properties": {

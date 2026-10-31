@@ -7,7 +7,7 @@ import type { JsonSchema } from "../../../../../_/tool.js";
  * The schema of `digital-experience-monitoring_fleet_status_over_time_response`
  * in responses.
  */
-export const digital_experience_monitoring_fleet_status_over_time_response_output: JsonSchema = {
+export const digital$$experience$$monitoring_fleet_status_over_time_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/digital-experience-monitoring_api-response-single"
@@ -31,7 +31,7 @@ export const digital_experience_monitoring_fleet_status_over_time_response_outpu
                   "type": "array"
                 },
                 "uniqueDevicesTotal": {
-                  "$ref": "#/$defs/digital-experience-monitoring_uniqueDevicesTotal"
+                  "type": "number"
                 }
               },
               "type": "object"
@@ -49,13 +49,13 @@ export const digital_experience_monitoring_fleet_status_over_time_response_outpu
  * The schema of `digital-experience-monitoring_schemas-aggregate_stat` in
  * responses.
  */
-export const digital_experience_monitoring_schemas_aggregate_stat_output: JsonSchema = {
+export const digital$$experience$$monitoring_schemas$$aggregate_stat: JsonSchema = {
   "properties": {
     "timestamp": {
-      "$ref": "#/$defs/digital-experience-monitoring_timestamp"
+      "type": "string"
     },
     "uniqueDevicesTotal": {
-      "$ref": "#/$defs/digital-experience-monitoring_uniqueDevicesTotal"
+      "type": "number"
     },
     "value": {
       "type": "string"

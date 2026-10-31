@@ -4,179 +4,96 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `addressing_advertised` in responses.
+ * The schema of `addressing_ipam-prefixes` in responses.
  */
-export const addressing_advertised_output: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "boolean"
+export const addressing_ipam$$prefixes: JsonSchema = {
+  "properties": {
+    "account_id": {
+      "type": "string"
     },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `addressing_advertised_modified_at_nullable` in responses.
- */
-export const addressing_advertised_modified_at_nullable_output: JsonSchema = {
-  "oneOf": [
-    {
+    "advertised": {
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "advertised_modified_at": {
+      "oneOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "approved": {
+      "type": "string"
+    },
+    "asn": {
+      "type": "integer"
+    },
+    "cidr": {
+      "type": "string"
+    },
+    "created_at": {
       "format": "date-time",
       "type": "string"
     },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `addressing_approved` in responses.
- */
-export const addressing_approved_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `addressing_asn` in responses.
- */
-export const addressing_asn_output: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `addressing_cidr` in responses.
- */
-export const addressing_cidr_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `addressing_delegate_loa_creation` in responses.
- */
-export const addressing_delegate_loa_creation_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `addressing_description` in responses.
- */
-export const addressing_description_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `addressing_ipam-prefixes` in responses.
- */
-export const addressing_ipam_prefixes_output: JsonSchema = {
-  "properties": {
-    "account_id": {
-      "$ref": "#/$defs/addressing_account_identifier"
-    },
-    "advertised": {
-      "$ref": "#/$defs/addressing_advertised"
-    },
-    "advertised_modified_at": {
-      "$ref": "#/$defs/addressing_advertised_modified_at_nullable"
-    },
-    "approved": {
-      "$ref": "#/$defs/addressing_approved"
-    },
-    "asn": {
-      "$ref": "#/$defs/addressing_asn"
-    },
-    "cidr": {
-      "$ref": "#/$defs/addressing_cidr"
-    },
-    "created_at": {
-      "$ref": "#/$defs/addressing_timestamp"
-    },
     "delegate_loa_creation": {
-      "$ref": "#/$defs/addressing_delegate_loa_creation"
+      "type": "boolean"
     },
     "description": {
-      "$ref": "#/$defs/addressing_description"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/addressing_prefix_identifier"
+      "type": "string"
     },
     "irr_validation_state": {
-      "$ref": "#/$defs/addressing_validation_state"
+      "type": "string"
     },
     "loa_document_id": {
-      "$ref": "#/$defs/addressing_loa_document_identifier"
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "modified_at": {
-      "$ref": "#/$defs/addressing_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "on_demand_enabled": {
-      "$ref": "#/$defs/addressing_on_demand_enabled"
+      "type": "boolean"
     },
     "on_demand_locked": {
-      "$ref": "#/$defs/addressing_on_demand_locked"
+      "type": "boolean"
     },
     "ownership_validation_state": {
-      "$ref": "#/$defs/addressing_validation_state"
+      "type": "string"
     },
     "ownership_validation_token": {
-      "$ref": "#/$defs/addressing_ownership_validation_token"
+      "type": "string"
     },
     "rpki_validation_state": {
-      "$ref": "#/$defs/addressing_validation_state"
+      "type": "string"
     }
   },
   "type": "object"
 };
 
 /**
- * The schema of `addressing_modified_at_nullable` in responses.
- */
-export const addressing_modified_at_nullable_output: JsonSchema = {
-  "oneOf": [
-    {
-      "format": "date-time",
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `addressing_on_demand_enabled` in responses.
- */
-export const addressing_on_demand_enabled_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `addressing_on_demand_locked` in responses.
- */
-export const addressing_on_demand_locked_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `addressing_ownership_validation_token` in responses.
- */
-export const addressing_ownership_validation_token_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `addressing_prefix_identifier` in responses.
- */
-export const addressing_prefix_identifier_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `addressing_response_collection` in responses.
  */
-export const addressing_response_collection_output: JsonSchema = {
+export const addressing_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/addressing_api-response-single"
@@ -198,7 +115,7 @@ export const addressing_response_collection_output: JsonSchema = {
 /**
  * The schema of `addressing_single_response` in responses.
  */
-export const addressing_single_response_output: JsonSchema = {
+export const addressing_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/addressing_api-response-single"
@@ -212,11 +129,4 @@ export const addressing_single_response_output: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `addressing_validation_state` in responses.
- */
-export const addressing_validation_state_output: JsonSchema = {
-  "type": "string"
 };

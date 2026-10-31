@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `custom-indicator-feeds_create_provider_response` in responses.
  */
-export const custom_indicator_feeds_create_provider_response_output: JsonSchema = {
+export const custom$$indicator$$feeds_create_provider_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/custom-indicator-feeds_api-response-single"
@@ -25,7 +25,7 @@ export const custom_indicator_feeds_create_provider_response_output: JsonSchema 
 /**
  * The schema of `custom-indicator-feeds_create_provider_result` in responses.
  */
-export const custom_indicator_feeds_create_provider_result_output: JsonSchema = {
+export const custom$$indicator$$feeds_create_provider_result: JsonSchema = {
   "properties": {
     "account_id": {
       "type": "integer"

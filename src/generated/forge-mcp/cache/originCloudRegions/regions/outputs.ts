@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `cache-settings_supported_cloud_region` in responses.
  */
-export const cache_settings_supported_cloud_region_output: JsonSchema = {
+export const cache$$settings_supported_cloud_region: JsonSchema = {
   "properties": {
     "name": {
       "type": "string"
@@ -28,7 +28,7 @@ export const cache_settings_supported_cloud_region_output: JsonSchema = {
 /**
  * The schema of `cache-settings_supported_cloud_regions_result` in responses.
  */
-export const cache_settings_supported_cloud_regions_result_output: JsonSchema = {
+export const cache$$settings_supported_cloud_regions_result: JsonSchema = {
   "properties": {
     "obtained_codes": {
       "type": "boolean"

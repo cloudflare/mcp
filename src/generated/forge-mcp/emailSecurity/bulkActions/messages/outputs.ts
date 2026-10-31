@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `email-security_BulkActionMessageDetail` in responses.
  */
-export const email_security_BulkActionMessageDetail_output: JsonSchema = {
+export const email$$security_BulkActionMessageDetail: JsonSchema = {
   "properties": {
     "action_params": {
       "$ref": "#/$defs/email-security_BulkMessageActionParams"
@@ -78,7 +78,15 @@ export const email_security_BulkActionMessageDetail_output: JsonSchema = {
       "type": "integer"
     },
     "status": {
-      "$ref": "#/$defs/email-security_BulkActionMessageStatus"
+      "enum": [
+        "PENDING",
+        "PROCESSING",
+        "COMPLETED",
+        "FAILED",
+        "CANCELLED",
+        "SKIPPED"
+      ],
+      "type": "string"
     },
     "status_message": {
       "oneOf": [
@@ -104,24 +112,9 @@ export const email_security_BulkActionMessageDetail_output: JsonSchema = {
 };
 
 /**
- * The schema of `email-security_BulkActionMessageStatus` in responses.
- */
-export const email_security_BulkActionMessageStatus_output: JsonSchema = {
-  "enum": [
-    "PENDING",
-    "PROCESSING",
-    "COMPLETED",
-    "FAILED",
-    "CANCELLED",
-    "SKIPPED"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `email-security_BulkMessageActionParams` in responses.
  */
-export const email_security_BulkMessageActionParams_output: JsonSchema = {
+export const email$$security_BulkMessageActionParams: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -129,12 +122,31 @@ export const email_security_BulkMessageActionParams_output: JsonSchema = {
           "type": "string"
         },
         "destination": {
-          "$ref": "#/$defs/email-security_MailboxDestination"
+          "enum": [
+            "Inbox",
+            "JunkEmail",
+            "DeletedItems",
+            "RecoverableItemsDeletions",
+            "RecoverableItemsPurges"
+          ],
+          "type": "string"
         },
         "expected_disposition": {
           "oneOf": [
             {
-              "$ref": "#/$defs/email-security_DispositionLabel"
+              "enum": [
+                "MALICIOUS",
+                "MALICIOUS-BEC",
+                "SUSPICIOUS",
+                "SPOOF",
+                "SPAM",
+                "BULK",
+                "ENCRYPTED",
+                "EXTERNAL",
+                "UNKNOWN",
+                "NONE"
+              ],
+              "type": "string"
             },
             {
               "type": "null"

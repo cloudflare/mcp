@@ -3,15 +3,15 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  art_APIError_output,
-  art_APIMessage_output,
-  art_ErrorResponse_output,
-  art_ResultValues_output,
-  art_SummaryResponse_output,
-  art_SummaryResult_output,
-  art_TimeseriesResponse_output,
-  art_TimeseriesResult_output,
-  art_TopNResponse_output,
+  art_APIError,
+  art_APIMessage,
+  art_ErrorResponse,
+  art_ResultValues,
+  art_SummaryResponse,
+  art_SummaryResult,
+  art_TimeseriesResponse,
+  art_TimeseriesResult,
+  art_TopNResponse,
 } from "./outputs.js";
 import {
   art_CommonQuery,
@@ -28,27 +28,37 @@ export const tools: readonly Tool[] = [
   {
     name: "analytics_query_summary",
     title: "Query analytics summary",
-    description: "Returns aggregate summary stats for a dataset. Includes current-period and previous-period totals for trend comparison.\n\nThis method is beta.",
+    description: "Returns aggregate summary stats for a dataset. Includes current-period and previous-period totals for trend comparison.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/analytics/query/{dataset}/summary",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare account identifier.",
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/art_QuerySummary"
         },
-        "dataset": {
-          "description": "Dataset name to query. Examples: `access-logins`, `gateway-http`, `gateway-dns`, `gateway-http`, `shadow-it`.\n",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account identifier.",
+              "type": "string"
+            },
+            "dataset": {
+              "description": "Dataset name to query. Examples: `access-logins`, `gateway-http`, `gateway-dns`, `gateway-http`, `shadow-it`.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "dataset"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "dataset",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "art_Filter": art_Filter,
         "art_QuerySummary": art_QuerySummary,
@@ -57,11 +67,11 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/art_SummaryResponse",
       $defs: {
-        "art_APIError": art_APIError_output,
-        "art_APIMessage": art_APIMessage_output,
-        "art_ResultValues": art_ResultValues_output,
-        "art_SummaryResponse": art_SummaryResponse_output,
-        "art_SummaryResult": art_SummaryResult_output,
+        "art_APIError": art_APIError,
+        "art_APIMessage": art_APIMessage,
+        "art_ResultValues": art_ResultValues,
+        "art_SummaryResponse": art_SummaryResponse,
+        "art_SummaryResult": art_SummaryResult,
       },
     },
     annotations: {
@@ -95,12 +105,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "art_APIError": art_APIError_output,
-        "art_APIMessage": art_APIMessage_output,
-        "art_ErrorResponse": art_ErrorResponse_output,
-        "art_ResultValues": art_ResultValues_output,
-        "art_SummaryResponse": art_SummaryResponse_output,
-        "art_SummaryResult": art_SummaryResult_output,
+        "art_APIError": art_APIError,
+        "art_APIMessage": art_APIMessage,
+        "art_ErrorResponse": art_ErrorResponse,
+        "art_ResultValues": art_ResultValues,
+        "art_SummaryResponse": art_SummaryResponse,
+        "art_SummaryResult": art_SummaryResult,
       },
     },
     request: (args) => ({
@@ -111,27 +121,37 @@ export const tools: readonly Tool[] = [
   {
     name: "analytics_query_timeseries",
     title: "Query analytics timeseries",
-    description: "Returns time-bucketed analytics data for a dataset. Includes time slots, each containing the requested stats, group-by dimensions, and resolution-controlled bucket size (e.g. `hour`, `day`).\n\nThis method is beta.",
+    description: "Returns time-bucketed analytics data for a dataset. Includes time slots, each containing the requested stats, group-by dimensions, and resolution-controlled bucket size (e.g. `hour`, `day`).\n\nThis method is beta.\n\nPOST /accounts/{account_id}/analytics/query/{dataset}/timeseries",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare account identifier.",
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/art_QueryTimeseries"
         },
-        "dataset": {
-          "description": "Dataset name to query. Examples: `access-logins`, `gateway-http`, `gateway-dns`, `gateway-http`, `shadow-it`.\n",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account identifier.",
+              "type": "string"
+            },
+            "dataset": {
+              "description": "Dataset name to query. Examples: `access-logins`, `gateway-http`, `gateway-dns`, `gateway-http`, `shadow-it`.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "dataset"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "dataset",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "art_CommonQuery": art_CommonQuery,
         "art_Filter": art_Filter,
@@ -141,11 +161,11 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/art_TimeseriesResponse",
       $defs: {
-        "art_APIError": art_APIError_output,
-        "art_APIMessage": art_APIMessage_output,
-        "art_ResultValues": art_ResultValues_output,
-        "art_TimeseriesResponse": art_TimeseriesResponse_output,
-        "art_TimeseriesResult": art_TimeseriesResult_output,
+        "art_APIError": art_APIError,
+        "art_APIMessage": art_APIMessage,
+        "art_ResultValues": art_ResultValues,
+        "art_TimeseriesResponse": art_TimeseriesResponse,
+        "art_TimeseriesResult": art_TimeseriesResult,
       },
     },
     annotations: {
@@ -179,12 +199,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "art_APIError": art_APIError_output,
-        "art_APIMessage": art_APIMessage_output,
-        "art_ErrorResponse": art_ErrorResponse_output,
-        "art_ResultValues": art_ResultValues_output,
-        "art_TimeseriesResponse": art_TimeseriesResponse_output,
-        "art_TimeseriesResult": art_TimeseriesResult_output,
+        "art_APIError": art_APIError,
+        "art_APIMessage": art_APIMessage,
+        "art_ErrorResponse": art_ErrorResponse,
+        "art_ResultValues": art_ResultValues,
+        "art_TimeseriesResponse": art_TimeseriesResponse,
+        "art_TimeseriesResult": art_TimeseriesResult,
       },
     },
     request: (args) => ({
@@ -193,29 +213,39 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "analytics_query_top_n",
+    name: "analytics_query_topN",
     title: "Query analytics top-N",
-    description: "Returns the top N results for a dataset by a specified stat. Includes an array of result rows, each containing the requested stats and group-by dimensions.\n\nThis method is beta.",
+    description: "Returns the top N results for a dataset by a specified stat. Includes an array of result rows, each containing the requested stats and group-by dimensions.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/analytics/query/{dataset}/top-n",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare account identifier.",
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/art_QueryTopN"
         },
-        "dataset": {
-          "description": "Dataset name to query. Examples: `access-logins`, `gateway-http`, `gateway-dns`, `gateway-http`, `shadow-it`.\n",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account identifier.",
+              "type": "string"
+            },
+            "dataset": {
+              "description": "Dataset name to query. Examples: `access-logins`, `gateway-http`, `gateway-dns`, `gateway-http`, `shadow-it`.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "dataset"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "dataset",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "art_CommonQuery": art_CommonQuery,
         "art_Filter": art_Filter,
@@ -225,10 +255,10 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/art_TopNResponse",
       $defs: {
-        "art_APIError": art_APIError_output,
-        "art_APIMessage": art_APIMessage_output,
-        "art_ResultValues": art_ResultValues_output,
-        "art_TopNResponse": art_TopNResponse_output,
+        "art_APIError": art_APIError,
+        "art_APIMessage": art_APIMessage,
+        "art_ResultValues": art_ResultValues,
+        "art_TopNResponse": art_TopNResponse,
       },
     },
     annotations: {
@@ -262,11 +292,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "art_APIError": art_APIError_output,
-        "art_APIMessage": art_APIMessage_output,
-        "art_ErrorResponse": art_ErrorResponse_output,
-        "art_ResultValues": art_ResultValues_output,
-        "art_TopNResponse": art_TopNResponse_output,
+        "art_APIError": art_APIError,
+        "art_APIMessage": art_APIMessage,
+        "art_ErrorResponse": art_ErrorResponse,
+        "art_ResultValues": art_ResultValues,
+        "art_TopNResponse": art_TopNResponse,
       },
     },
     request: (args) => ({

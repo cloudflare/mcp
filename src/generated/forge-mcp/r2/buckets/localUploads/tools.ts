@@ -3,42 +3,47 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  r2_errors_output,
-  r2_messages_output,
-  r2_v4_response_failure_output,
-  r2_v4_response_output,
+  r2_errors,
+  r2_messages,
+  r2_v4_response,
+  r2_v4_response_failure,
 } from "../../outputs.js";
-import { r2_account_identifier, r2_bucket_name } from "../../schemas.js";
-import { r2_local_uploads_configuration_output } from "./outputs.js";
+import { r2_local_uploads_configuration } from "./outputs.js";
 
 /**
- * The tools of `r2.buckets.local_uploads`.
+ * The tools of `r2.buckets.localUploads`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "r2_buckets_local_uploads_get",
+    name: "r2_buckets_localUploads_get",
     title: "Get Local Uploads Configuration",
-    description: "Gets the Local Uploads configuration for an R2 bucket. When enabled, object data is written near the client before being asynchronously copied to the bucket's primary region. Local Uploads is only supported in the default jurisdiction.\n\nThis method is beta.",
+    description: "Gets the Local Uploads configuration for an R2 bucket. When enabled, object data is written near the client before being asynchronously copied to the bucket's primary region. Local Uploads is only supported in the default jurisdiction.\n\nThis method is beta.\n\nGET /accounts/{account_id}/r2/buckets/{bucket_name}/local-uploads",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/r2_account_identifier",
-          "description": "Cloudflare account ID that owns the R2 resource."
-        },
-        "bucket_name": {
-          "$ref": "#/$defs/r2_bucket_name",
-          "description": "Name of the bucket."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID that owns the R2 resource.",
+              "type": "string"
+            },
+            "bucket_name": {
+              "description": "Name of the bucket.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "bucket_name"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "bucket_name"
+        "path"
       ],
-      $defs: {
-        "r2_account_identifier": r2_account_identifier,
-        "r2_bucket_name": r2_bucket_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -55,10 +60,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "r2_errors": r2_errors_output,
-        "r2_local_uploads_configuration": r2_local_uploads_configuration_output,
-        "r2_messages": r2_messages_output,
-        "r2_v4_response": r2_v4_response_output,
+        "r2_errors": r2_errors,
+        "r2_local_uploads_configuration": r2_local_uploads_configuration,
+        "r2_messages": r2_messages,
+        "r2_v4_response": r2_v4_response,
       },
     },
     annotations: {
@@ -99,11 +104,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "r2_errors": r2_errors_output,
-        "r2_local_uploads_configuration": r2_local_uploads_configuration_output,
-        "r2_messages": r2_messages_output,
-        "r2_v4_response": r2_v4_response_output,
-        "r2_v4_response_failure": r2_v4_response_failure_output,
+        "r2_errors": r2_errors,
+        "r2_local_uploads_configuration": r2_local_uploads_configuration,
+        "r2_messages": r2_messages,
+        "r2_v4_response": r2_v4_response,
+        "r2_v4_response_failure": r2_v4_response_failure,
       },
     },
     request: (args) => ({
@@ -111,16 +116,12 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "r2_buckets_local_uploads_update",
+    name: "r2_buckets_localUploads_update",
     title: "Set Local Uploads Configuration",
-    description: "Enables or disables Local Uploads for an R2 bucket in the default jurisdiction. When enabled, object data is written near the client before being asynchronously copied to the bucket's primary region. Disabling Local Uploads allows existing replication to finish.\n\nThis method is beta.",
+    description: "Enables or disables Local Uploads for an R2 bucket in the default jurisdiction. When enabled, object data is written near the client before being asynchronously copied to the bucket's primary region. Disabling Local Uploads allows existing replication to finish.\n\nThis method is beta.\n\nPUT /accounts/{account_id}/r2/buckets/{bucket_name}/local-uploads",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/r2_account_identifier",
-          "description": "Cloudflare account ID that owns the R2 resource."
-        },
         "body": {
           "properties": {
             "enabled": {
@@ -133,27 +134,37 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "bucket_name": {
-          "$ref": "#/$defs/r2_bucket_name",
-          "description": "Name of the bucket."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID that owns the R2 resource.",
+              "type": "string"
+            },
+            "bucket_name": {
+              "description": "Name of the bucket.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "bucket_name"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "bucket_name",
+        "path",
         "body"
       ],
-      $defs: {
-        "r2_account_identifier": r2_account_identifier,
-        "r2_bucket_name": r2_bucket_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/r2_v4_response",
       $defs: {
-        "r2_errors": r2_errors_output,
-        "r2_messages": r2_messages_output,
-        "r2_v4_response": r2_v4_response_output,
+        "r2_errors": r2_errors,
+        "r2_messages": r2_messages,
+        "r2_v4_response": r2_v4_response,
       },
     },
     annotations: {
@@ -182,10 +193,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "r2_errors": r2_errors_output,
-        "r2_messages": r2_messages_output,
-        "r2_v4_response": r2_v4_response_output,
-        "r2_v4_response_failure": r2_v4_response_failure_output,
+        "r2_errors": r2_errors,
+        "r2_messages": r2_messages,
+        "r2_v4_response": r2_v4_response,
+        "r2_v4_response_failure": r2_v4_response_failure,
       },
     },
     request: (args) => ({

@@ -3,46 +3,56 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  pay_per_crawl_ErrorSource_output,
-  pay_per_crawl_Msg_output,
-  pay_per_crawl_RESTError_output,
-  pay_per_crawl_ResultInfo_output,
-  pay_per_crawl_Source_output,
-  pay_per_crawl_apiErrorResponse_output,
+  pay$$per$$crawl_ErrorSource,
+  pay$$per$$crawl_Msg,
+  pay$$per$$crawl_RESTError,
+  pay$$per$$crawl_ResultInfo,
+  pay$$per$$crawl_Source,
+  pay$$per$$crawl_apiErrorResponse,
 } from "../../outputs.js";
 import {
-  pay_per_crawl_CrawlerEntry_output,
-  pay_per_crawl_listCrawlersResponse_output,
+  pay$$per$$crawl_CrawlerEntry,
+  pay$$per$$crawl_listCrawlersResponse,
 } from "./outputs.js";
 
 /**
- * The tools of `pay_per_crawl.crawlers`.
+ * The tools of `payPerCrawl.crawlers`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "pay_per_crawl_crawlers_list",
+    name: "payPerCrawl_crawlers_list",
     title: "List pay-per-crawl crawlers",
-    description: "Lists the crawlers known to pay-per-crawl.",
+    description: "Lists the crawlers known to pay-per-crawl.\n\nGET /accounts/{account_id}/pay-per-crawl/crawlers",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "account id",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "account id",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/pay-per-crawl_listCrawlersResponse",
       $defs: {
-        "pay-per-crawl_CrawlerEntry": pay_per_crawl_CrawlerEntry_output,
-        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
-        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
-        "pay-per-crawl_Source": pay_per_crawl_Source_output,
-        "pay-per-crawl_listCrawlersResponse": pay_per_crawl_listCrawlersResponse_output,
+        "pay-per-crawl_CrawlerEntry": pay$$per$$crawl_CrawlerEntry,
+        "pay-per-crawl_Msg": pay$$per$$crawl_Msg,
+        "pay-per-crawl_ResultInfo": pay$$per$$crawl_ResultInfo,
+        "pay-per-crawl_Source": pay$$per$$crawl_Source,
+        "pay-per-crawl_listCrawlersResponse": pay$$per$$crawl_listCrawlersResponse,
       },
     },
     annotations: {
@@ -64,14 +74,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "pay-per-crawl_CrawlerEntry": pay_per_crawl_CrawlerEntry_output,
-        "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
-        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
-        "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
-        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
-        "pay-per-crawl_Source": pay_per_crawl_Source_output,
-        "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
-        "pay-per-crawl_listCrawlersResponse": pay_per_crawl_listCrawlersResponse_output,
+        "pay-per-crawl_CrawlerEntry": pay$$per$$crawl_CrawlerEntry,
+        "pay-per-crawl_ErrorSource": pay$$per$$crawl_ErrorSource,
+        "pay-per-crawl_Msg": pay$$per$$crawl_Msg,
+        "pay-per-crawl_RESTError": pay$$per$$crawl_RESTError,
+        "pay-per-crawl_ResultInfo": pay$$per$$crawl_ResultInfo,
+        "pay-per-crawl_Source": pay$$per$$crawl_Source,
+        "pay-per-crawl_apiErrorResponse": pay$$per$$crawl_apiErrorResponse,
+        "pay-per-crawl_listCrawlersResponse": pay$$per$$crawl_listCrawlersResponse,
       },
     },
     request: (args) => ({

@@ -3,67 +3,70 @@
 
 import { type Tool, pathParam } from "../../../../../_/tool.js";
 import {
-  workers_api_response_common_failure_output,
-  workers_api_response_common_output,
-  workers_create_assets_upload_session_response_output,
-  workers_messages_output,
+  workers_api$$response$$common,
+  workers_api$$response$$common$$failure,
+  workers_create$$assets$$upload$$session$$response,
+  workers_messages,
 } from "../../../../../outputs.js";
 import {
-  workers_create_assets_upload_session_object,
-  workers_identifier,
-  workers_manifest_value,
-  workers_script_name,
+  workers_create$$assets$$upload$$session$$object,
+  workers_manifest$$value,
 } from "../../../../../schemas.js";
-import { workers_dispatch_namespace_name } from "../../../schemas.js";
 
 /**
- * The tools of
- * `workers_for_platforms.dispatch_namespaces.scripts.assets.upload`.
+ * The tools of `workersForPlatforms.dispatchNamespaces.scripts.assets.upload`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "workers_for_platforms_dispatch_namespaces_scripts_assets_upload_create_session",
+    name: "workersForPlatforms_dispatchNamespaces_scripts_assets_upload_createSession",
     title: "Create Workers for Platforms Assets Upload Session",
-    description: "Start uploading a collection of assets for use in a Workers for Platforms script version. To learn more about the direct uploads of assets, see https://developers.cloudflare.com/workers/static-assets/direct-upload/.",
+    description: "Start uploading a collection of assets for use in a Workers for Platforms script version. To learn more about the direct uploads of assets, see https://developers.cloudflare.com/workers/static-assets/direct-upload/.\n\nPOST /accounts/{account_id}/workers/dispatch/namespaces/{dispatch_namespace}/scripts/{script_name}/assets-upload-session",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/workers_identifier",
-          "description": "Identifier."
-        },
         "body": {
           "$ref": "#/$defs/workers_create-assets-upload-session-object"
         },
-        "dispatch_namespace": {
-          "$ref": "#/$defs/workers_dispatch_namespace_name",
-          "description": "Name of the Workers for Platforms dispatch namespace."
-        },
-        "script_name": {
-          "$ref": "#/$defs/workers_script_name",
-          "description": "Name of the script."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            },
+            "dispatch_namespace": {
+              "description": "Name of the Workers for Platforms dispatch namespace.",
+              "type": "string"
+            },
+            "script_name": {
+              "description": "Name of the script.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "dispatch_namespace",
+            "script_name"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "dispatch_namespace",
-        "script_name",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "workers_create-assets-upload-session-object": workers_create_assets_upload_session_object,
-        "workers_dispatch_namespace_name": workers_dispatch_namespace_name,
-        "workers_identifier": workers_identifier,
-        "workers_manifest-value": workers_manifest_value,
-        "workers_script_name": workers_script_name,
+        "workers_create-assets-upload-session-object": workers_create$$assets$$upload$$session$$object,
+        "workers_manifest-value": workers_manifest$$value,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/workers_create-assets-upload-session-response",
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_create-assets-upload-session-response": workers_create_assets_upload_session_response_output,
-        "workers_messages": workers_messages_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_create-assets-upload-session-response": workers_create$$assets$$upload$$session$$response,
+        "workers_messages": workers_messages,
       },
     },
     annotations: {
@@ -90,10 +93,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_api-response-common-failure": workers_api_response_common_failure_output,
-        "workers_create-assets-upload-session-response": workers_create_assets_upload_session_response_output,
-        "workers_messages": workers_messages_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_api-response-common-failure": workers_api$$response$$common$$failure,
+        "workers_create-assets-upload-session-response": workers_create$$assets$$upload$$session$$response,
+        "workers_messages": workers_messages,
       },
     },
     request: (args) => ({

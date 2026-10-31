@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `realtimekit_AIConfig` in responses.
  */
-export const realtimekit_AIConfig_output: JsonSchema = {
+export const realtimekit_AIConfig: JsonSchema = {
   "properties": {
     "summarization": {
       "$ref": "#/$defs/realtimekit_SummarizationConfig"
@@ -21,7 +21,7 @@ export const realtimekit_AIConfig_output: JsonSchema = {
 /**
  * The schema of `realtimekit_SummarizationConfig` in responses.
  */
-export const realtimekit_SummarizationConfig_output: JsonSchema = {
+export const realtimekit_SummarizationConfig: JsonSchema = {
   "properties": {
     "summary_type": {
       "enum": [
@@ -54,7 +54,7 @@ export const realtimekit_SummarizationConfig_output: JsonSchema = {
 /**
  * The schema of `realtimekit_TranscriptionConfig` in responses.
  */
-export const realtimekit_TranscriptionConfig_output: JsonSchema = {
+export const realtimekit_TranscriptionConfig: JsonSchema = {
   "properties": {
     "keywords": {
       "items": {

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `workers-kv_api-response-collection` in responses.
  */
-export const workers_kv_api_response_collection_output: JsonSchema = {
+export const workers$$kv_api$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/workers-kv_api-response-common"
@@ -23,36 +23,32 @@ export const workers_kv_api_response_collection_output: JsonSchema = {
 };
 
 /**
- * The schema of `workers-kv_jurisdiction` in responses.
- */
-export const workers_kv_jurisdiction_output: JsonSchema = {
-  "enum": [
-    "eu",
-    "fedramp",
-    "us"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `workers-kv_namespace` in responses.
  */
-export const workers_kv_namespace_output: JsonSchema = {
+export const workers$$kv_namespace: JsonSchema = {
   "properties": {
     "id": {
-      "$ref": "#/$defs/workers-kv_namespace_identifier"
+      "type": "string"
     },
     "jurisdiction": {
-      "$ref": "#/$defs/workers-kv_jurisdiction"
+      "enum": [
+        "eu",
+        "fedramp",
+        "us"
+      ],
+      "type": "string"
     },
     "mode": {
-      "$ref": "#/$defs/workers-kv_namespace_mode"
+      "enum": [
+        "instant"
+      ],
+      "type": "string"
     },
     "supports_url_encoding": {
       "type": "boolean"
     },
     "title": {
-      "$ref": "#/$defs/workers-kv_namespace_title"
+      "type": "string"
     }
   },
   "required": [
@@ -63,26 +59,9 @@ export const workers_kv_namespace_output: JsonSchema = {
 };
 
 /**
- * The schema of `workers-kv_namespace_mode` in responses.
- */
-export const workers_kv_namespace_mode_output: JsonSchema = {
-  "enum": [
-    "instant"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `workers-kv_namespace_title` in responses.
- */
-export const workers_kv_namespace_title_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `workers-kv_result_info` in responses.
  */
-export const workers_kv_result_info_output: JsonSchema = {
+export const workers$$kv_result_info: JsonSchema = {
   "properties": {
     "count": {
       "type": "number"

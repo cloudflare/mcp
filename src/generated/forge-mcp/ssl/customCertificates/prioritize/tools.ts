@@ -3,52 +3,30 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  tls_certificates_and_hostnames_api_response_collection_output,
-  tls_certificates_and_hostnames_api_response_common_failure_output,
-  tls_certificates_and_hostnames_api_response_common_output,
-  tls_certificates_and_hostnames_identifier_output,
-  tls_certificates_and_hostnames_issuer_output,
-  tls_certificates_and_hostnames_messages_output,
-  tls_certificates_and_hostnames_signature_output,
-  tls_certificates_and_hostnames_uploaded_on_output,
+  tls$$certificates$$and$$hostnames_api$$response$$collection,
+  tls$$certificates$$and$$hostnames_api$$response$$common,
+  tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
+  tls$$certificates$$and$$hostnames_messages,
 } from "../../../outputs.js";
-import { tls_certificates_and_hostnames_identifier } from "../../../schemas.js";
 import {
-  tls_certificates_and_hostnames_bundle_method_output,
-  tls_certificates_and_hostnames_enabled_output,
-  tls_certificates_and_hostnames_host_output,
-  tls_certificates_and_hostnames_keyless_certificate_identifier_output,
-  tls_certificates_and_hostnames_keyless_certificate_output,
-  tls_certificates_and_hostnames_keyless_private_ip_output,
-  tls_certificates_and_hostnames_keyless_tunnel_output,
-  tls_certificates_and_hostnames_keyless_vnet_id_output,
-  tls_certificates_and_hostnames_name_output,
-  tls_certificates_and_hostnames_port_output,
-  tls_certificates_and_hostnames_status_2_output,
+  tls$$certificates$$and$$hostnames_keyless$$certificate,
+  tls$$certificates$$and$$hostnames_keyless_tunnel,
 } from "../../outputs.js";
 import {
-  tls_certificates_and_hostnames_certificate_response_collection_output,
-  tls_certificates_and_hostnames_custom_certificate_identifier_output,
-  tls_certificates_and_hostnames_custom_certificate_output,
-  tls_certificates_and_hostnames_custom_csr_id_output,
-  tls_certificates_and_hostnames_expires_on_output,
-  tls_certificates_and_hostnames_geo_restrictions_output,
-  tls_certificates_and_hostnames_hosts_output,
-  tls_certificates_and_hostnames_modified_on_output,
-  tls_certificates_and_hostnames_policy_restrictions_output,
-  tls_certificates_and_hostnames_priority_output,
-  tls_certificates_and_hostnames_status_output,
+  tls$$certificates$$and$$hostnames_certificate_response_collection,
+  tls$$certificates$$and$$hostnames_custom$$certificate,
+  tls$$certificates$$and$$hostnames_geo_restrictions,
+  tls$$certificates$$and$$hostnames_hosts,
 } from "../outputs.js";
-import { tls_certificates_and_hostnames_priority } from "../schemas.js";
 
 /**
- * The tools of `ssl.custom_certificates.prioritize`.
+ * The tools of `ssl.customCertificates.prioritize`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "ssl_custom_certificates_prioritize_update",
+    name: "ssl_customCertificates_prioritize_update",
     title: "Re-prioritize SSL Certificates",
-    description: "If a zone has multiple SSL certificates, you can set the order in which they should be used during a request. The higher priority will break ties across overlapping 'legacy_custom' certificates.",
+    description: "If a zone has multiple SSL certificates, you can set the order in which they should be used during a request. The higher priority will break ties across overlapping 'legacy_custom' certificates.\n\nPUT /zones/{zone_id}/custom_certificates/prioritize",
     inputSchema: {
       type: "object",
       properties: {
@@ -59,8 +37,8 @@ export const tools: readonly Tool[] = [
               "items": {
                 "properties": {
                   "priority": {
-                    "$ref": "#/$defs/tls-certificates-and-hostnames_priority",
-                    "description": "The order/priority in which the certificate will be used in a request. The higher priority will break ties across overlapping 'legacy_custom' certificates, but 'legacy_custom' certificates will always supercede 'sni_custom' certificates."
+                    "description": "The order/priority in which the certificate will be used in a request. The higher priority will break ties across overlapping 'legacy_custom' certificates, but 'legacy_custom' certificates will always supercede 'sni_custom' certificates.",
+                    "type": "number"
                   }
                 },
                 "type": "object"
@@ -73,52 +51,38 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "zone_id": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
-      $defs: {
-        "tls-certificates-and-hostnames_identifier": tls_certificates_and_hostnames_identifier,
-        "tls-certificates-and-hostnames_priority": tls_certificates_and_hostnames_priority,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_response_collection",
       $defs: {
-        "tls-certificates-and-hostnames_api-response-collection": tls_certificates_and_hostnames_api_response_collection_output,
-        "tls-certificates-and-hostnames_api-response-common": tls_certificates_and_hostnames_api_response_common_output,
-        "tls-certificates-and-hostnames_bundle_method": tls_certificates_and_hostnames_bundle_method_output,
-        "tls-certificates-and-hostnames_certificate_response_collection": tls_certificates_and_hostnames_certificate_response_collection_output,
-        "tls-certificates-and-hostnames_custom-certificate": tls_certificates_and_hostnames_custom_certificate_output,
-        "tls-certificates-and-hostnames_custom_certificate_identifier": tls_certificates_and_hostnames_custom_certificate_identifier_output,
-        "tls-certificates-and-hostnames_custom_csr_id": tls_certificates_and_hostnames_custom_csr_id_output,
-        "tls-certificates-and-hostnames_enabled": tls_certificates_and_hostnames_enabled_output,
-        "tls-certificates-and-hostnames_expires_on": tls_certificates_and_hostnames_expires_on_output,
-        "tls-certificates-and-hostnames_geo_restrictions": tls_certificates_and_hostnames_geo_restrictions_output,
-        "tls-certificates-and-hostnames_host": tls_certificates_and_hostnames_host_output,
-        "tls-certificates-and-hostnames_hosts": tls_certificates_and_hostnames_hosts_output,
-        "tls-certificates-and-hostnames_identifier": tls_certificates_and_hostnames_identifier_output,
-        "tls-certificates-and-hostnames_issuer": tls_certificates_and_hostnames_issuer_output,
-        "tls-certificates-and-hostnames_keyless-certificate": tls_certificates_and_hostnames_keyless_certificate_output,
-        "tls-certificates-and-hostnames_keyless_certificate_identifier": tls_certificates_and_hostnames_keyless_certificate_identifier_output,
-        "tls-certificates-and-hostnames_keyless_private_ip": tls_certificates_and_hostnames_keyless_private_ip_output,
-        "tls-certificates-and-hostnames_keyless_tunnel": tls_certificates_and_hostnames_keyless_tunnel_output,
-        "tls-certificates-and-hostnames_keyless_vnet_id": tls_certificates_and_hostnames_keyless_vnet_id_output,
-        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
-        "tls-certificates-and-hostnames_modified_on": tls_certificates_and_hostnames_modified_on_output,
-        "tls-certificates-and-hostnames_name": tls_certificates_and_hostnames_name_output,
-        "tls-certificates-and-hostnames_policy_restrictions": tls_certificates_and_hostnames_policy_restrictions_output,
-        "tls-certificates-and-hostnames_port": tls_certificates_and_hostnames_port_output,
-        "tls-certificates-and-hostnames_priority": tls_certificates_and_hostnames_priority_output,
-        "tls-certificates-and-hostnames_signature": tls_certificates_and_hostnames_signature_output,
-        "tls-certificates-and-hostnames_status": tls_certificates_and_hostnames_status_output,
-        "tls-certificates-and-hostnames_status-2": tls_certificates_and_hostnames_status_2_output,
-        "tls-certificates-and-hostnames_uploaded_on": tls_certificates_and_hostnames_uploaded_on_output,
+        "tls-certificates-and-hostnames_api-response-collection": tls$$certificates$$and$$hostnames_api$$response$$collection,
+        "tls-certificates-and-hostnames_api-response-common": tls$$certificates$$and$$hostnames_api$$response$$common,
+        "tls-certificates-and-hostnames_certificate_response_collection": tls$$certificates$$and$$hostnames_certificate_response_collection,
+        "tls-certificates-and-hostnames_custom-certificate": tls$$certificates$$and$$hostnames_custom$$certificate,
+        "tls-certificates-and-hostnames_geo_restrictions": tls$$certificates$$and$$hostnames_geo_restrictions,
+        "tls-certificates-and-hostnames_hosts": tls$$certificates$$and$$hostnames_hosts,
+        "tls-certificates-and-hostnames_keyless-certificate": tls$$certificates$$and$$hostnames_keyless$$certificate,
+        "tls-certificates-and-hostnames_keyless_tunnel": tls$$certificates$$and$$hostnames_keyless_tunnel,
+        "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
       },
     },
     annotations: {
@@ -164,36 +128,16 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "tls-certificates-and-hostnames_api-response-collection": tls_certificates_and_hostnames_api_response_collection_output,
-        "tls-certificates-and-hostnames_api-response-common": tls_certificates_and_hostnames_api_response_common_output,
-        "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
-        "tls-certificates-and-hostnames_bundle_method": tls_certificates_and_hostnames_bundle_method_output,
-        "tls-certificates-and-hostnames_certificate_response_collection": tls_certificates_and_hostnames_certificate_response_collection_output,
-        "tls-certificates-and-hostnames_custom-certificate": tls_certificates_and_hostnames_custom_certificate_output,
-        "tls-certificates-and-hostnames_custom_certificate_identifier": tls_certificates_and_hostnames_custom_certificate_identifier_output,
-        "tls-certificates-and-hostnames_custom_csr_id": tls_certificates_and_hostnames_custom_csr_id_output,
-        "tls-certificates-and-hostnames_enabled": tls_certificates_and_hostnames_enabled_output,
-        "tls-certificates-and-hostnames_expires_on": tls_certificates_and_hostnames_expires_on_output,
-        "tls-certificates-and-hostnames_geo_restrictions": tls_certificates_and_hostnames_geo_restrictions_output,
-        "tls-certificates-and-hostnames_host": tls_certificates_and_hostnames_host_output,
-        "tls-certificates-and-hostnames_hosts": tls_certificates_and_hostnames_hosts_output,
-        "tls-certificates-and-hostnames_identifier": tls_certificates_and_hostnames_identifier_output,
-        "tls-certificates-and-hostnames_issuer": tls_certificates_and_hostnames_issuer_output,
-        "tls-certificates-and-hostnames_keyless-certificate": tls_certificates_and_hostnames_keyless_certificate_output,
-        "tls-certificates-and-hostnames_keyless_certificate_identifier": tls_certificates_and_hostnames_keyless_certificate_identifier_output,
-        "tls-certificates-and-hostnames_keyless_private_ip": tls_certificates_and_hostnames_keyless_private_ip_output,
-        "tls-certificates-and-hostnames_keyless_tunnel": tls_certificates_and_hostnames_keyless_tunnel_output,
-        "tls-certificates-and-hostnames_keyless_vnet_id": tls_certificates_and_hostnames_keyless_vnet_id_output,
-        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
-        "tls-certificates-and-hostnames_modified_on": tls_certificates_and_hostnames_modified_on_output,
-        "tls-certificates-and-hostnames_name": tls_certificates_and_hostnames_name_output,
-        "tls-certificates-and-hostnames_policy_restrictions": tls_certificates_and_hostnames_policy_restrictions_output,
-        "tls-certificates-and-hostnames_port": tls_certificates_and_hostnames_port_output,
-        "tls-certificates-and-hostnames_priority": tls_certificates_and_hostnames_priority_output,
-        "tls-certificates-and-hostnames_signature": tls_certificates_and_hostnames_signature_output,
-        "tls-certificates-and-hostnames_status": tls_certificates_and_hostnames_status_output,
-        "tls-certificates-and-hostnames_status-2": tls_certificates_and_hostnames_status_2_output,
-        "tls-certificates-and-hostnames_uploaded_on": tls_certificates_and_hostnames_uploaded_on_output,
+        "tls-certificates-and-hostnames_api-response-collection": tls$$certificates$$and$$hostnames_api$$response$$collection,
+        "tls-certificates-and-hostnames_api-response-common": tls$$certificates$$and$$hostnames_api$$response$$common,
+        "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
+        "tls-certificates-and-hostnames_certificate_response_collection": tls$$certificates$$and$$hostnames_certificate_response_collection,
+        "tls-certificates-and-hostnames_custom-certificate": tls$$certificates$$and$$hostnames_custom$$certificate,
+        "tls-certificates-and-hostnames_geo_restrictions": tls$$certificates$$and$$hostnames_geo_restrictions,
+        "tls-certificates-and-hostnames_hosts": tls$$certificates$$and$$hostnames_hosts,
+        "tls-certificates-and-hostnames_keyless-certificate": tls$$certificates$$and$$hostnames_keyless$$certificate,
+        "tls-certificates-and-hostnames_keyless_tunnel": tls$$certificates$$and$$hostnames_keyless_tunnel,
+        "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
       },
     },
     request: (args) => ({

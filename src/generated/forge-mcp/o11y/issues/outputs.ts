@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `workers-observability_issue_occurrence` in responses.
  */
-export const workers_observability_issue_occurrence_output: JsonSchema = {
+export const workers$$observability_issue_occurrence: JsonSchema = {
   "properties": {
     "context": {
       "properties": {

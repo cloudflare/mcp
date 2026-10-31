@@ -4,18 +4,10 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `magic-visibility-pcaps_pcaps_ownership_challenge` in
- * responses.
- */
-export const magic_visibility_pcaps_pcaps_ownership_challenge_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `magic-visibility-pcaps_pcaps_ownership_collection` in
  * responses.
  */
-export const magic_visibility_pcaps_pcaps_ownership_collection_output: JsonSchema = {
+export const magic$$visibility$$pcaps_pcaps_ownership_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic-visibility-pcaps_api-response-collection"
@@ -44,13 +36,13 @@ export const magic_visibility_pcaps_pcaps_ownership_collection_output: JsonSchem
 /**
  * The schema of `magic-visibility-pcaps_pcaps_ownership_response` in responses.
  */
-export const magic_visibility_pcaps_pcaps_ownership_response_output: JsonSchema = {
+export const magic$$visibility$$pcaps_pcaps_ownership_response: JsonSchema = {
   "properties": {
     "destination_conf": {
-      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_destination_conf"
+      "type": "string"
     },
     "filename": {
-      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_ownership_challenge"
+      "type": "string"
     },
     "id": {
       "type": "string"
@@ -84,7 +76,7 @@ export const magic_visibility_pcaps_pcaps_ownership_response_output: JsonSchema 
  * The schema of `magic-visibility-pcaps_pcaps_ownership_single_response` in
  * responses.
  */
-export const magic_visibility_pcaps_pcaps_ownership_single_response_output: JsonSchema = {
+export const magic$$visibility$$pcaps_pcaps_ownership_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic-visibility-pcaps_api-response-common"

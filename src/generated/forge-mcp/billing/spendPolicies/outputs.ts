@@ -7,7 +7,7 @@ import type { JsonSchema } from "../../_/tool.js";
  * The schema of `billing-spend-policies_api-response-common-failure` in
  * responses.
  */
-export const billing_spend_policies_api_response_common_failure_output: JsonSchema = {
+export const billing$$spend$$policies_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -52,7 +52,7 @@ export const billing_spend_policies_api_response_common_failure_output: JsonSche
  * The schema of `billing-spend-policies_api-response-common-success` in
  * responses.
  */
-export const billing_spend_policies_api_response_common_success_output: JsonSchema = {
+export const billing$$spend$$policies_api$$response$$common$$success: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -84,7 +84,7 @@ export const billing_spend_policies_api_response_common_success_output: JsonSche
 /**
  * The schema of `billing-spend-policies_message` in responses.
  */
-export const billing_spend_policies_message_output: JsonSchema = {
+export const billing$$spend$$policies_message: JsonSchema = {
   "properties": {
     "code": {
       "type": "integer"
@@ -102,13 +102,17 @@ export const billing_spend_policies_message_output: JsonSchema = {
 /**
  * The schema of `billing-spend-policies_policy` in responses.
  */
-export const billing_spend_policies_policy_output: JsonSchema = {
+export const billing$$spend$$policies_policy: JsonSchema = {
   "properties": {
     "account_id": {
       "type": "integer"
     },
     "action": {
-      "$ref": "#/$defs/billing-spend-policies_policy_action"
+      "enum": [
+        "notification",
+        "usage_block"
+      ],
+      "type": "string"
     },
     "current_state": {
       "$ref": "#/$defs/billing-spend-policies_policy_current_state"
@@ -117,7 +121,8 @@ export const billing_spend_policies_policy_output: JsonSchema = {
       "type": "boolean"
     },
     "id": {
-      "$ref": "#/$defs/billing-spend-policies_policy_id"
+      "format": "uuid",
+      "type": "string"
     },
     "name": {
       "type": "string"
@@ -126,7 +131,11 @@ export const billing_spend_policies_policy_output: JsonSchema = {
       "type": "string"
     },
     "product_id": {
-      "$ref": "#/$defs/billing-spend-policies_product_id"
+      "enum": [
+        "workers",
+        "durable_objects"
+      ],
+      "type": "string"
     },
     "threshold_cents": {
       "type": "integer"
@@ -150,20 +159,9 @@ export const billing_spend_policies_policy_output: JsonSchema = {
 };
 
 /**
- * The schema of `billing-spend-policies_policy_action` in responses.
- */
-export const billing_spend_policies_policy_action_output: JsonSchema = {
-  "enum": [
-    "notification",
-    "usage_block"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `billing-spend-policies_policy_current_state` in responses.
  */
-export const billing_spend_policies_policy_current_state_output: JsonSchema = {
+export const billing$$spend$$policies_policy_current_state: JsonSchema = {
   "properties": {
     "balance_cents": {
       "oneOf": [
@@ -279,7 +277,7 @@ export const billing_spend_policies_policy_current_state_output: JsonSchema = {
 /**
  * The schema of `billing-spend-policies_policy_delete_response` in responses.
  */
-export const billing_spend_policies_policy_delete_response_output: JsonSchema = {
+export const billing$$spend$$policies_policy_delete_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/billing-spend-policies_api-response-common-success"
@@ -289,7 +287,8 @@ export const billing_spend_policies_policy_delete_response_output: JsonSchema = 
         "result": {
           "properties": {
             "id": {
-              "$ref": "#/$defs/billing-spend-policies_policy_id"
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
@@ -307,17 +306,9 @@ export const billing_spend_policies_policy_delete_response_output: JsonSchema = 
 };
 
 /**
- * The schema of `billing-spend-policies_policy_id` in responses.
- */
-export const billing_spend_policies_policy_id_output: JsonSchema = {
-  "format": "uuid",
-  "type": "string"
-};
-
-/**
  * The schema of `billing-spend-policies_policy_list_response` in responses.
  */
-export const billing_spend_policies_policy_list_response_output: JsonSchema = {
+export const billing$$spend$$policies_policy_list_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/billing-spend-policies_api-response-common-success"
@@ -342,7 +333,7 @@ export const billing_spend_policies_policy_list_response_output: JsonSchema = {
 /**
  * The schema of `billing-spend-policies_policy_response` in responses.
  */
-export const billing_spend_policies_policy_response_output: JsonSchema = {
+export const billing$$spend$$policies_policy_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/billing-spend-policies_api-response-common-success"
@@ -359,15 +350,4 @@ export const billing_spend_policies_policy_response_output: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `billing-spend-policies_product_id` in responses.
- */
-export const billing_spend_policies_product_id_output: JsonSchema = {
-  "enum": [
-    "workers",
-    "durable_objects"
-  ],
-  "type": "string"
 };

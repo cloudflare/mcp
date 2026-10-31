@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `security-center_accountStateResponse` in responses.
  */
-export const security_center_accountStateResponse_output: JsonSchema = {
+export const security$$center_accountStateResponse: JsonSchema = {
   "properties": {
     "recent_dormant_reactivation": {
       "type": "boolean"

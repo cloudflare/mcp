@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `r2-slurper_GCSLikeCredsSchema`.
  */
-export const r2_slurper_GCSLikeCredsSchema: JsonSchema = {
+export const r2$$slurper_GCSLikeCredsSchema: JsonSchema = {
   "properties": {
     "clientEmail": {
       "type": "string"
@@ -25,7 +25,7 @@ export const r2_slurper_GCSLikeCredsSchema: JsonSchema = {
 /**
  * The schema of `r2-slurper_GCSSourceSchema`.
  */
-export const r2_slurper_GCSSourceSchema: JsonSchema = {
+export const r2$$slurper_GCSSourceSchema: JsonSchema = {
   "properties": {
     "bucket": {
       "type": "string"
@@ -73,28 +73,21 @@ export const r2_slurper_GCSSourceSchema: JsonSchema = {
 };
 
 /**
- * The schema of `r2-slurper_Jurisdiction`.
- */
-export const r2_slurper_Jurisdiction: JsonSchema = {
-  "enum": [
-    "default",
-    "eu",
-    "us",
-    "fedramp"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `r2-slurper_R2SourceSchema`.
  */
-export const r2_slurper_R2SourceSchema: JsonSchema = {
+export const r2$$slurper_R2SourceSchema: JsonSchema = {
   "properties": {
     "bucket": {
       "type": "string"
     },
     "jurisdiction": {
-      "$ref": "#/$defs/r2-slurper_Jurisdiction"
+      "enum": [
+        "default",
+        "eu",
+        "us",
+        "fedramp"
+      ],
+      "type": "string"
     },
     "keys": {
       "oneOf": [
@@ -141,13 +134,19 @@ export const r2_slurper_R2SourceSchema: JsonSchema = {
 /**
  * The schema of `r2-slurper_R2TargetSchema`.
  */
-export const r2_slurper_R2TargetSchema: JsonSchema = {
+export const r2$$slurper_R2TargetSchema: JsonSchema = {
   "properties": {
     "bucket": {
       "type": "string"
     },
     "jurisdiction": {
-      "$ref": "#/$defs/r2-slurper_Jurisdiction"
+      "enum": [
+        "default",
+        "eu",
+        "us",
+        "fedramp"
+      ],
+      "type": "string"
     },
     "secret": {
       "$ref": "#/$defs/r2-slurper_S3LikeCredsSchema"
@@ -170,7 +169,7 @@ export const r2_slurper_R2TargetSchema: JsonSchema = {
 /**
  * The schema of `r2-slurper_S3LikeCredsSchema`.
  */
-export const r2_slurper_S3LikeCredsSchema: JsonSchema = {
+export const r2$$slurper_S3LikeCredsSchema: JsonSchema = {
   "properties": {
     "accessKeyId": {
       "type": "string"
@@ -189,7 +188,7 @@ export const r2_slurper_S3LikeCredsSchema: JsonSchema = {
 /**
  * The schema of `r2-slurper_S3SourceSchema`.
  */
-export const r2_slurper_S3SourceSchema: JsonSchema = {
+export const r2$$slurper_S3SourceSchema: JsonSchema = {
   "properties": {
     "bucket": {
       "type": "string"
@@ -260,7 +259,7 @@ export const r2_slurper_S3SourceSchema: JsonSchema = {
 /**
  * The schema of `r2-slurper_SourceJobSchema`.
  */
-export const r2_slurper_SourceJobSchema: JsonSchema = {
+export const r2$$slurper_SourceJobSchema: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/r2-slurper_S3SourceSchema"

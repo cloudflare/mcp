@@ -3,13 +3,13 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  reports_Error_output,
-  reports_Message_output,
-  reports_PolicyErrorResponse_output,
+  reports_Error,
+  reports_Message,
+  reports_PolicyErrorResponse,
 } from "../outputs.js";
 import {
-  reports_PoliciesListResponse_output,
-  reports_PolicySingleResponse_output,
+  reports_PoliciesListResponse,
+  reports_PolicySingleResponse,
 } from "./outputs.js";
 
 /**
@@ -19,31 +19,41 @@ export const tools: readonly Tool[] = [
   {
     name: "reporting_policies_get",
     title: "Get a reporting policy",
-    description: "Gets a reporting policy by identifier.",
+    description: "Gets a reporting policy by identifier.\n\nGET /accounts/{account_id}/reporting/policies/{policy_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare public account ID (32-character hexadecimal string)",
-          "type": "string"
-        },
-        "policy_id": {
-          "description": "Unique identifier for the policy (UUID format)",
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare public account ID (32-character hexadecimal string)",
+              "type": "string"
+            },
+            "policy_id": {
+              "description": "Unique identifier for the policy (UUID format)",
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "policy_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "policy_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/reports_PolicySingleResponse",
       $defs: {
-        "reports_Error": reports_Error_output,
-        "reports_Message": reports_Message_output,
-        "reports_PolicySingleResponse": reports_PolicySingleResponse_output,
+        "reports_Error": reports_Error,
+        "reports_Message": reports_Message,
+        "reports_PolicySingleResponse": reports_PolicySingleResponse,
       },
     },
     annotations: {
@@ -70,10 +80,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "reports_Error": reports_Error_output,
-        "reports_Message": reports_Message_output,
-        "reports_PolicyErrorResponse": reports_PolicyErrorResponse_output,
-        "reports_PolicySingleResponse": reports_PolicySingleResponse_output,
+        "reports_Error": reports_Error,
+        "reports_Message": reports_Message,
+        "reports_PolicyErrorResponse": reports_PolicyErrorResponse,
+        "reports_PolicySingleResponse": reports_PolicySingleResponse,
       },
     },
     request: (args) => ({
@@ -83,25 +93,35 @@ export const tools: readonly Tool[] = [
   {
     name: "reporting_policies_list",
     title: "List reporting policies",
-    description: "Lists all reporting policies for an account.",
+    description: "Lists all reporting policies for an account.\n\nGET /accounts/{account_id}/reporting/policies",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare public account ID (32-character hexadecimal string)",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare public account ID (32-character hexadecimal string)",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/reports_PoliciesListResponse",
       $defs: {
-        "reports_Error": reports_Error_output,
-        "reports_Message": reports_Message_output,
-        "reports_PoliciesListResponse": reports_PoliciesListResponse_output,
+        "reports_Error": reports_Error,
+        "reports_Message": reports_Message,
+        "reports_PoliciesListResponse": reports_PoliciesListResponse,
       },
     },
     annotations: {
@@ -128,10 +148,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "reports_Error": reports_Error_output,
-        "reports_Message": reports_Message_output,
-        "reports_PoliciesListResponse": reports_PoliciesListResponse_output,
-        "reports_PolicyErrorResponse": reports_PolicyErrorResponse_output,
+        "reports_Error": reports_Error,
+        "reports_Message": reports_Message,
+        "reports_PoliciesListResponse": reports_PoliciesListResponse,
+        "reports_PolicyErrorResponse": reports_PolicyErrorResponse,
       },
     },
     request: (args) => ({

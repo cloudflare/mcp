@@ -13,8 +13,12 @@ export const pages_source_connect_request: JsonSchema = {
       "$ref": "#/$defs/pages_source_config"
     },
     "type": {
-      "$ref": "#/$defs/pages_source_type",
-      "description": "The source control management provider."
+      "description": "The source control management provider.",
+      "enum": [
+        "github",
+        "gitlab"
+      ],
+      "type": "string"
     }
   },
   "required": [

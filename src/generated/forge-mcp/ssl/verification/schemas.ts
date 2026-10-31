@@ -4,39 +4,23 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `tls-certificates-and-hostnames_cert_pack_uuid`.
- */
-export const tls_certificates_and_hostnames_cert_pack_uuid: JsonSchema = {
-  "description": "Certificate Pack UUID.",
-  "type": "string"
-};
-
-/**
  * The schema of `tls-certificates-and-hostnames_validation_method-3`.
  */
-export const tls_certificates_and_hostnames_validation_method_3: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_validation_method$$3: JsonSchema = {
   "properties": {
     "validation_method": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_validation_method_definition",
-      "description": "Desired validation method."
+      "description": "Desired validation method.",
+      "enum": [
+        "http",
+        "cname",
+        "txt",
+        "email"
+      ],
+      "type": "string"
     }
   },
   "required": [
     "validation_method"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_validation_method_definition`.
- */
-export const tls_certificates_and_hostnames_validation_method_definition: JsonSchema = {
-  "description": "Desired validation method.",
-  "enum": [
-    "http",
-    "cname",
-    "txt",
-    "email"
-  ],
-  "type": "string"
 };

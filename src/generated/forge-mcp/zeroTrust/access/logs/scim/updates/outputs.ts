@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../../_/tool.js";
 /**
  * The schema of `access_responses` in responses.
  */
-export const access_responses_output: JsonSchema = {
+export const access_responses: JsonSchema = {
   "properties": {
     "cf_resource_id": {
       "type": "string"
@@ -21,7 +21,8 @@ export const access_responses_output: JsonSchema = {
       "type": "string"
     },
     "logged_at": {
-      "$ref": "#/$defs/access_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "request_body": {
       "type": "string"
@@ -48,7 +49,7 @@ export const access_responses_output: JsonSchema = {
 /**
  * The schema of `access_scim_update_logs_response` in responses.
  */
-export const access_scim_update_logs_response_output: JsonSchema = {
+export const access_scim_update_logs_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-collection"

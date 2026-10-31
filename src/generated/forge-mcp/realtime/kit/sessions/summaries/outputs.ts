@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `realtimekit_TranscriptSummary` in responses.
  */
-export const realtimekit_TranscriptSummary_output: JsonSchema = {
+export const realtimekit_TranscriptSummary: JsonSchema = {
   "properties": {
     "sessionId": {
       "type": "string"

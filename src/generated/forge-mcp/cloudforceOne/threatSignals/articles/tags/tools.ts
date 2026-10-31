@@ -4,24 +4,16 @@
 import { type Tool, pathParam } from "../../../../_/tool.js";
 
 /**
- * The tools of `cloudforce_one.threat_signals.articles.tags`.
+ * The tools of `cloudforceOne.threatSignals.articles.tags`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "cloudforce_one_threat_signals_articles_tags_add",
+    name: "cloudforceOne_threatSignals_articles_tags_add",
     title: "Add tag to Threat Signals article",
-    description: "Applies a tag from the account's tag catalog to a Threat Signals article.",
+    description: "Applies a tag from the account's tag catalog to a Threat Signals article.\n\nPOST /accounts/{account_id}/cloudforce-one/v2/threat-signals/articles/{article_id}/tags",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
-        "article_id": {
-          "description": "Threat Signals article UUID",
-          "format": "uuid",
-          "type": "string"
-        },
         "body": {
           "properties": {
             "tag_id": {
@@ -34,12 +26,30 @@ export const tools: readonly Tool[] = [
             "tag_id"
           ],
           "type": "object"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "article_id": {
+              "description": "Threat Signals article UUID",
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "article_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "article_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -290,25 +300,35 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "cloudforce_one_threat_signals_articles_tags_generate",
+    name: "cloudforceOne_threatSignals_articles_tags_generate",
     title: "Generate Threat Signals article AI tags",
-    description: "Runs the default AI tagging skill on an article and replaces its AI-applied tags.",
+    description: "Runs the default AI tagging skill on an article and replaces its AI-applied tags.\n\nPOST /accounts/{account_id}/cloudforce-one/v2/threat-signals/articles/{article_id}/tag",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
-        "article_id": {
-          "description": "Threat Signals article UUID",
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "article_id": {
+              "description": "Threat Signals article UUID",
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "article_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "article_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -588,31 +608,41 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "cloudforce_one_threat_signals_articles_tags_remove",
+    name: "cloudforceOne_threatSignals_articles_tags_remove",
     title: "Remove tag from Threat Signals article",
-    description: "Removes a tag from a Threat Signals article.",
+    description: "Removes a tag from a Threat Signals article.\n\nDELETE /accounts/{account_id}/cloudforce-one/v2/threat-signals/articles/{article_id}/tags/{tag_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
-        "article_id": {
-          "description": "Threat Signals article UUID",
-          "format": "uuid",
-          "type": "string"
-        },
-        "tag_id": {
-          "description": "UUID of a tag from the account's catalog",
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "article_id": {
+              "description": "Threat Signals article UUID",
+              "format": "uuid",
+              "type": "string"
+            },
+            "tag_id": {
+              "description": "UUID of a tag from the account's catalog",
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "article_id",
+            "tag_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "article_id",
-        "tag_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

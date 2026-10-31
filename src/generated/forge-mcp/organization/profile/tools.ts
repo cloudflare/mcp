@@ -3,15 +3,12 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  organizations_api_Profile_output,
-  organizations_api_V4ErrorResponse_output,
-  organizations_api_V4Message_output,
+  organizations$$api_Profile,
+  organizations$$api_V4ErrorResponse,
+  organizations$$api_V4Message,
 } from "../../outputs.js";
-import {
-  organizations_api_ModifyProfileRequest,
-  organizations_api_OrganizationID,
-} from "../../schemas.js";
-import { organizations_api_ProfileResponse_output } from "./outputs.js";
+import { organizations$$api_ModifyProfileRequest } from "../../schemas.js";
+import { organizations$$api_ProfileResponse } from "./outputs.js";
 
 /**
  * The tools of `organization.profile`.
@@ -20,28 +17,35 @@ export const tools: readonly Tool[] = [
   {
     name: "organization_profile_get",
     title: "Get organization profile",
-    description: "Retrieves the business profile (name, email, phone, address, and external metadata)\nassociated with this organization's customer record. Profiles can be shared across\naccounts and organizations. Only available to members of the organization.",
+    description: "Retrieves the business profile (name, email, phone, address, and external metadata)\nassociated with this organization's customer record. Profiles can be shared across\naccounts and organizations. Only available to members of the organization.\n\nGET /organizations/{organization_id}/profile",
     inputSchema: {
       type: "object",
       properties: {
-        "organization_id": {
-          "$ref": "#/$defs/organizations-api_OrganizationID",
-          "description": "The ID of the organization to retrieve a profile for."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "organization_id": {
+              "description": "The ID of the organization to retrieve a profile for.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "organization_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "organization_id"
+        "path"
       ],
-      $defs: {
-        "organizations-api_OrganizationID": organizations_api_OrganizationID,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/organizations-api_ProfileResponse",
       $defs: {
-        "organizations-api_Profile": organizations_api_Profile_output,
-        "organizations-api_ProfileResponse": organizations_api_ProfileResponse_output,
-        "organizations-api_V4Message": organizations_api_V4Message_output,
+        "organizations-api_Profile": organizations$$api_Profile,
+        "organizations-api_ProfileResponse": organizations$$api_ProfileResponse,
+        "organizations-api_V4Message": organizations$$api_V4Message,
       },
     },
     annotations: {
@@ -66,10 +70,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "organizations-api_Profile": organizations_api_Profile_output,
-        "organizations-api_ProfileResponse": organizations_api_ProfileResponse_output,
-        "organizations-api_V4ErrorResponse": organizations_api_V4ErrorResponse_output,
-        "organizations-api_V4Message": organizations_api_V4Message_output,
+        "organizations-api_Profile": organizations$$api_Profile,
+        "organizations-api_ProfileResponse": organizations$$api_ProfileResponse,
+        "organizations-api_V4ErrorResponse": organizations$$api_V4ErrorResponse,
+        "organizations-api_V4Message": organizations$$api_V4Message,
       },
     },
     request: (args) => ({
@@ -79,24 +83,34 @@ export const tools: readonly Tool[] = [
   {
     name: "organization_profile_update",
     title: "Modify organization profile.",
-    description: "Partially updates the business profile (name, email, phone, address, and external metadata)\nassociated with this organization's customer record, creating the profile if it does not\nexist. Changes apply to every account and organization sharing that profile. Omitted,\nempty, or null fields are left unchanged. Each profile field is limited to 1,000 UTF-8\nbytes. Only available to members of the organization.",
+    description: "Partially updates the business profile (name, email, phone, address, and external metadata)\nassociated with this organization's customer record, creating the profile if it does not\nexist. Changes apply to every account and organization sharing that profile. Omitted,\nempty, or null fields are left unchanged. Each profile field is limited to 1,000 UTF-8\nbytes. Only available to members of the organization.\n\nPUT /organizations/{organization_id}/profile",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "$ref": "#/$defs/organizations-api_ModifyProfileRequest"
         },
-        "organization_id": {
-          "$ref": "#/$defs/organizations-api_OrganizationID"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "organization_id": {
+              "description": "Organization ID",
+              "type": "string"
+            }
+          },
+          "required": [
+            "organization_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "organization_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "organizations-api_ModifyProfileRequest": organizations_api_ModifyProfileRequest,
-        "organizations-api_OrganizationID": organizations_api_OrganizationID,
+        "organizations-api_ModifyProfileRequest": organizations$$api_ModifyProfileRequest,
       },
     },
     annotations: {
@@ -119,8 +133,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "organizations-api_V4ErrorResponse": organizations_api_V4ErrorResponse_output,
-        "organizations-api_V4Message": organizations_api_V4Message_output,
+        "organizations-api_V4ErrorResponse": organizations$$api_V4ErrorResponse,
+        "organizations-api_V4Message": organizations$$api_V4Message,
       },
     },
     request: (args) => ({

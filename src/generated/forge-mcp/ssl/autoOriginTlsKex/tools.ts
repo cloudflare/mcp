@@ -2,54 +2,56 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
-import { cache_messages_output } from "../outputs.js";
-import { cache_identifier } from "../schemas.js";
+import { cache_messages } from "../outputs.js";
 import {
-  cache_auto_origin_tls_kex_failure_response_output,
-  cache_auto_origin_tls_kex_response_output,
-  cache_auto_origin_tls_kex_result_output,
-  cache_auto_origin_tls_kex_value_output,
+  cache_auto_origin_tls_kex_failure_response,
+  cache_auto_origin_tls_kex_response,
+  cache_auto_origin_tls_kex_result,
 } from "./outputs.js";
-import {
-  cache_auto_origin_tls_kex_patch,
-  cache_auto_origin_tls_kex_value,
-} from "./schemas.js";
+import { cache_auto_origin_tls_kex_patch } from "./schemas.js";
 
 /**
- * The tools of `ssl.auto_origin_tls_kex`.
+ * The tools of `ssl.autoOriginTlsKex`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "ssl_auto_origin_tls_kex_edit",
+    name: "ssl_autoOriginTlsKex_edit",
     title: "Patch Auto-Origin TLS KEX enrollment status for the given zone",
-    description: "Enable or disable Auto-Origin TLS KEX selection for the zone by sending `{\"enabled\": true}` or `{\"enabled\": false}`. When enabled, Cloudflare runs a periodic scan of the zone's origins to determine the preferred key-exchange algorithm and writes that preference to the edge so it is sent first in the TLS ClientHello to the origin.",
+    description: "Enable or disable Auto-Origin TLS KEX selection for the zone by sending `{\"enabled\": true}` or `{\"enabled\": false}`. When enabled, Cloudflare runs a periodic scan of the zone's origins to determine the preferred key-exchange algorithm and writes that preference to the edge so it is sent first in the TLS ClientHello to the origin.\n\nPATCH /zones/{zone_id}/settings/auto_origin_tls_kex",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "$ref": "#/$defs/cache_auto_origin_tls_kex_patch"
         },
-        "zone_id": {
-          "$ref": "#/$defs/cache_identifier"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "cache_auto_origin_tls_kex_patch": cache_auto_origin_tls_kex_patch,
-        "cache_auto_origin_tls_kex_value": cache_auto_origin_tls_kex_value,
-        "cache_identifier": cache_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/cache_auto_origin_tls_kex_response",
       $defs: {
-        "cache_auto_origin_tls_kex_response": cache_auto_origin_tls_kex_response_output,
-        "cache_auto_origin_tls_kex_result": cache_auto_origin_tls_kex_result_output,
-        "cache_auto_origin_tls_kex_value": cache_auto_origin_tls_kex_value_output,
-        "cache_messages": cache_messages_output,
+        "cache_auto_origin_tls_kex_response": cache_auto_origin_tls_kex_response,
+        "cache_auto_origin_tls_kex_result": cache_auto_origin_tls_kex_result,
+        "cache_messages": cache_messages,
       },
     },
     annotations: {
@@ -79,11 +81,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cache_auto_origin_tls_kex_failure_response": cache_auto_origin_tls_kex_failure_response_output,
-        "cache_auto_origin_tls_kex_response": cache_auto_origin_tls_kex_response_output,
-        "cache_auto_origin_tls_kex_result": cache_auto_origin_tls_kex_result_output,
-        "cache_auto_origin_tls_kex_value": cache_auto_origin_tls_kex_value_output,
-        "cache_messages": cache_messages_output,
+        "cache_auto_origin_tls_kex_failure_response": cache_auto_origin_tls_kex_failure_response,
+        "cache_auto_origin_tls_kex_response": cache_auto_origin_tls_kex_response,
+        "cache_auto_origin_tls_kex_result": cache_auto_origin_tls_kex_result,
+        "cache_messages": cache_messages,
       },
     },
     request: (args) => ({
@@ -92,30 +93,36 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "ssl_auto_origin_tls_kex_get",
+    name: "ssl_autoOriginTlsKex_get",
     title: "Get Auto-Origin TLS KEX enrollment status for the given zone",
-    description: "When enabled, Cloudflare automatically selects the preferred TLS key-exchange algorithm to use when establishing the TLS connection to the zone's origin, picking from the algorithms permitted by the zone's `origin_tls_compliance_modes` setting. When disabled, the default key-exchange ordering is used.",
+    description: "When enabled, Cloudflare automatically selects the preferred TLS key-exchange algorithm to use when establishing the TLS connection to the zone's origin, picking from the algorithms permitted by the zone's `origin_tls_compliance_modes` setting. When disabled, the default key-exchange ordering is used.\n\nGET /zones/{zone_id}/settings/auto_origin_tls_kex",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/cache_identifier"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
-      $defs: {
-        "cache_identifier": cache_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cache_auto_origin_tls_kex_response",
       $defs: {
-        "cache_auto_origin_tls_kex_response": cache_auto_origin_tls_kex_response_output,
-        "cache_auto_origin_tls_kex_result": cache_auto_origin_tls_kex_result_output,
-        "cache_auto_origin_tls_kex_value": cache_auto_origin_tls_kex_value_output,
-        "cache_messages": cache_messages_output,
+        "cache_auto_origin_tls_kex_response": cache_auto_origin_tls_kex_response,
+        "cache_auto_origin_tls_kex_result": cache_auto_origin_tls_kex_result,
+        "cache_messages": cache_messages,
       },
     },
     annotations: {
@@ -145,11 +152,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cache_auto_origin_tls_kex_failure_response": cache_auto_origin_tls_kex_failure_response_output,
-        "cache_auto_origin_tls_kex_response": cache_auto_origin_tls_kex_response_output,
-        "cache_auto_origin_tls_kex_result": cache_auto_origin_tls_kex_result_output,
-        "cache_auto_origin_tls_kex_value": cache_auto_origin_tls_kex_value_output,
-        "cache_messages": cache_messages_output,
+        "cache_auto_origin_tls_kex_failure_response": cache_auto_origin_tls_kex_failure_response,
+        "cache_auto_origin_tls_kex_response": cache_auto_origin_tls_kex_response,
+        "cache_auto_origin_tls_kex_result": cache_auto_origin_tls_kex_result,
+        "cache_messages": cache_messages,
       },
     },
     request: (args) => ({

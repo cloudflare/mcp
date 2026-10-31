@@ -4,29 +4,24 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `resource-sharing_excluded_recipient_id` in responses.
- */
-export const resource_sharing_excluded_recipient_id_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `resource-sharing_share_excluded_recipient_object` in
  * responses.
  */
-export const resource_sharing_share_excluded_recipient_object_output: JsonSchema = {
+export const resource$$sharing_share_excluded_recipient_object: JsonSchema = {
   "properties": {
     "account_id": {
-      "$ref": "#/$defs/resource-sharing_account_id"
+      "type": "string"
     },
     "created": {
-      "$ref": "#/$defs/resource-sharing_created"
+      "format": "date-time",
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/resource-sharing_excluded_recipient_id"
+      "type": "string"
     },
     "modified": {
-      "$ref": "#/$defs/resource-sharing_modified"
+      "format": "date-time",
+      "type": "string"
     }
   },
   "required": [
@@ -42,7 +37,7 @@ export const resource_sharing_share_excluded_recipient_object_output: JsonSchema
  * The schema of `resource-sharing_share_excluded_recipient_response_collection`
  * in responses.
  */
-export const resource_sharing_share_excluded_recipient_response_collection_output: JsonSchema = {
+export const resource$$sharing_share_excluded_recipient_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/resource-sharing_api-response-collection"
@@ -58,7 +53,7 @@ export const resource_sharing_share_excluded_recipient_response_collection_outpu
  * `resource-sharing_share_excluded_recipient_response_collection_result` in
  * responses.
  */
-export const resource_sharing_share_excluded_recipient_response_collection_result_output: JsonSchema = {
+export const resource$$sharing_share_excluded_recipient_response_collection_result: JsonSchema = {
   "properties": {
     "result": {
       "items": {
@@ -74,7 +69,7 @@ export const resource_sharing_share_excluded_recipient_response_collection_resul
  * The schema of `resource-sharing_share_excluded_recipient_response_single` in
  * responses.
  */
-export const resource_sharing_share_excluded_recipient_response_single_output: JsonSchema = {
+export const resource$$sharing_share_excluded_recipient_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/resource-sharing_api-response-common"
@@ -90,7 +85,7 @@ export const resource_sharing_share_excluded_recipient_response_single_output: J
  * `resource-sharing_share_excluded_recipient_response_single_result` in
  * responses.
  */
-export const resource_sharing_share_excluded_recipient_response_single_result_output: JsonSchema = {
+export const resource$$sharing_share_excluded_recipient_response_single_result: JsonSchema = {
   "properties": {
     "result": {
       "$ref": "#/$defs/resource-sharing_share_excluded_recipient_object"

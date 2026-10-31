@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `cloudflare-pipelines_Format`.
  */
-export const cloudflare_pipelines_Format: JsonSchema = {
+export const cloudflare$$pipelines_Format: JsonSchema = {
   "description": "Defines the data format of the events.",
   "oneOf": [
     {
@@ -52,12 +52,4 @@ export const cloudflare_pipelines_Format: JsonSchema = {
       ]
     }
   ]
-};
-
-/**
- * The schema of `cloudflare-pipelines_workers-pipelines-stream-id`.
- */
-export const cloudflare_pipelines_workers_pipelines_stream_id: JsonSchema = {
-  "description": "Specifies the public ID of the stream.",
-  "type": "string"
 };

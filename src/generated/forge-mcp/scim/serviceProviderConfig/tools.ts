@@ -2,51 +2,53 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import { iam_scim_error_response } from "../outputs.js";
 import {
-  iam_account_identifier,
-  iam_common_components_schemas_identifier,
-} from "../../schemas.js";
-import { iam_scim_error_response_output } from "../outputs.js";
-import {
-  iam_scim_authentication_scheme_output,
-  iam_scim_bulk_feature_output,
-  iam_scim_feature_output,
-  iam_scim_filter_feature_output,
-  iam_scim_service_provider_config_output,
+  iam_scim_authentication_scheme,
+  iam_scim_bulk_feature,
+  iam_scim_feature,
+  iam_scim_filter_feature,
+  iam_scim_service_provider_config,
 } from "./outputs.js";
 
 /**
- * The tools of `scim.service_provider_config`.
+ * The tools of `scim.serviceProviderConfig`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "scim_service_provider_config_get",
+    name: "scim_serviceProviderConfig_get",
     title: "Get SCIM Service Provider Config",
-    description: "Returns the SCIM 2.0 Service Provider configuration (RFC 7643 Section 5). IdPs use this endpoint to auto-configure their SCIM integration with Cloudflare, discovering which optional features (patch, bulk, filter, etc.) are supported.",
+    description: "Returns the SCIM 2.0 Service Provider configuration (RFC 7643 Section 5). IdPs use this endpoint to auto-configure their SCIM integration with Cloudflare, discovering which optional features (patch, bulk, filter, etc.) are supported.\n\nGET /accounts/{account_id}/scim/v2/ServiceProviderConfig",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/iam_account_identifier",
-          "description": "Account identifier tag."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account identifier tag.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
-      $defs: {
-        "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/iam_scim_service_provider_config",
       $defs: {
-        "iam_scim_authentication_scheme": iam_scim_authentication_scheme_output,
-        "iam_scim_bulk_feature": iam_scim_bulk_feature_output,
-        "iam_scim_feature": iam_scim_feature_output,
-        "iam_scim_filter_feature": iam_scim_filter_feature_output,
-        "iam_scim_service_provider_config": iam_scim_service_provider_config_output,
+        "iam_scim_authentication_scheme": iam_scim_authentication_scheme,
+        "iam_scim_bulk_feature": iam_scim_bulk_feature,
+        "iam_scim_feature": iam_scim_feature,
+        "iam_scim_filter_feature": iam_scim_filter_feature,
+        "iam_scim_service_provider_config": iam_scim_service_provider_config,
       },
     },
     annotations: {
@@ -86,12 +88,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "iam_scim_authentication_scheme": iam_scim_authentication_scheme_output,
-        "iam_scim_bulk_feature": iam_scim_bulk_feature_output,
-        "iam_scim_error_response": iam_scim_error_response_output,
-        "iam_scim_feature": iam_scim_feature_output,
-        "iam_scim_filter_feature": iam_scim_filter_feature_output,
-        "iam_scim_service_provider_config": iam_scim_service_provider_config_output,
+        "iam_scim_authentication_scheme": iam_scim_authentication_scheme,
+        "iam_scim_bulk_feature": iam_scim_bulk_feature,
+        "iam_scim_error_response": iam_scim_error_response,
+        "iam_scim_feature": iam_scim_feature,
+        "iam_scim_filter_feature": iam_scim_filter_feature,
+        "iam_scim_service_provider_config": iam_scim_service_provider_config,
       },
     },
     request: (args) => ({

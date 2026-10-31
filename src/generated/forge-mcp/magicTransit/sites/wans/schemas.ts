@@ -10,16 +10,16 @@ export const magic_wan_static_addressing_create_request: JsonSchema = {
   "description": "Static addressing configuration for a WAN. Omit to use DHCP. Submit secondary_address when the site is in high availability mode.",
   "properties": {
     "address": {
-      "$ref": "#/$defs/magic_cidr",
-      "description": "A valid CIDR notation representing an IP range."
+      "description": "A valid CIDR notation representing an IP range.",
+      "type": "string"
     },
     "gateway_address": {
-      "$ref": "#/$defs/magic_ip-address",
-      "description": "A valid IPv4 address."
+      "description": "A valid IPv4 address.",
+      "type": "string"
     },
     "secondary_address": {
-      "$ref": "#/$defs/magic_cidr",
-      "description": "A valid CIDR notation representing an IP range."
+      "description": "A valid CIDR notation representing an IP range.",
+      "type": "string"
     },
     "secondary_gateway_address": {
       "description": "Gateway address for the secondary connector of a high availability site.",
@@ -40,16 +40,16 @@ export const magic_wan_static_addressing_update: JsonSchema = {
   "description": "Static addressing configuration. PATCH updates only the fields provided, and PUT replaces the configuration.",
   "properties": {
     "address": {
-      "$ref": "#/$defs/magic_cidr",
-      "description": "A valid CIDR notation representing an IP range."
+      "description": "A valid CIDR notation representing an IP range.",
+      "type": "string"
     },
     "gateway_address": {
-      "$ref": "#/$defs/magic_ip-address",
-      "description": "A valid IPv4 address."
+      "description": "A valid IPv4 address.",
+      "type": "string"
     },
     "secondary_address": {
-      "$ref": "#/$defs/magic_cidr",
-      "description": "A valid CIDR notation representing an IP range."
+      "description": "A valid CIDR notation representing an IP range.",
+      "type": "string"
     },
     "secondary_gateway_address": {
       "description": "Gateway address for the secondary connector of a high availability site. Set to null to remove it.",
@@ -94,7 +94,7 @@ export const magic_wan_update_request: JsonSchema = {
       "type": "string"
     },
     "physport": {
-      "$ref": "#/$defs/magic_port"
+      "type": "integer"
     },
     "priority": {
       "type": "integer"
@@ -126,8 +126,8 @@ export const magic_wan_update_request: JsonSchema = {
       "description": "Static addressing configuration. PATCH updates only the fields provided, and PUT replaces the configuration."
     },
     "vlan_tag": {
-      "$ref": "#/$defs/magic_vlan_tag",
-      "description": "VLAN ID. Use zero for untagged."
+      "description": "VLAN ID. Use zero for untagged.",
+      "type": "integer"
     }
   },
   "type": "object"
@@ -156,7 +156,7 @@ export const magic_wans_add_single_request: JsonSchema = {
       "type": "string"
     },
     "physport": {
-      "$ref": "#/$defs/magic_port"
+      "type": "integer"
     },
     "priority": {
       "type": "integer"
@@ -174,8 +174,8 @@ export const magic_wans_add_single_request: JsonSchema = {
       "description": "Static addressing configuration for a WAN. Omit to use DHCP. Submit secondary_address when the site is in high availability mode."
     },
     "vlan_tag": {
-      "$ref": "#/$defs/magic_vlan_tag",
-      "description": "VLAN ID. Use zero for untagged."
+      "description": "VLAN ID. Use zero for untagged.",
+      "type": "integer"
     }
   },
   "required": [

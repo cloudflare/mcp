@@ -4,43 +4,53 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 
 /**
- * The tools of `cloudforce_one.requests.constants`.
+ * The tools of `cloudforceOne.requests.constants`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "cloudforce_one_requests_constants_get",
+    name: "cloudforceOne_requests_constants_get",
     title: "Get request constants",
-    description: "Returns available priorities, statuses, and TLP levels for request workflows",
+    description: "Returns available priorities, statuses, and TLP levels for request workflows\n\nGET /accounts/{account_id}/cloudforce-one/v2/requests/{project_type}/constants",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account ID",
-          "type": "string"
-        },
-        "project_type": {
-          "description": "Project type",
-          "enum": [
-            "threat-intelligence",
-            "incident-response",
-            "ir-emergency-response",
-            "table-top",
-            "pentest",
-            "irp",
-            "threat-hunting",
-            "cybersecurity-assessment",
-            "react-general",
-            "legal-response",
-            "soc-alerts",
-            "demo"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account ID",
+              "type": "string"
+            },
+            "project_type": {
+              "description": "Project type",
+              "enum": [
+                "threat-intelligence",
+                "incident-response",
+                "ir-emergency-response",
+                "table-top",
+                "pentest",
+                "irp",
+                "threat-hunting",
+                "cybersecurity-assessment",
+                "react-general",
+                "legal-response",
+                "soc-alerts",
+                "demo"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "project_type"
           ],
-          "type": "string"
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "project_type"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

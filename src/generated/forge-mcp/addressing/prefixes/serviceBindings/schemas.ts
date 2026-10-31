@@ -9,12 +9,12 @@ import type { JsonSchema } from "../../../_/tool.js";
 export const addressing_create_binding_request: JsonSchema = {
   "properties": {
     "cidr": {
-      "$ref": "#/$defs/addressing_cidr",
-      "description": "IP Prefix in Classless Inter-Domain Routing format."
+      "description": "IP Prefix in Classless Inter-Domain Routing format.",
+      "type": "string"
     },
     "service_id": {
-      "$ref": "#/$defs/addressing_service_identifier",
-      "description": "Identifier of a Service on the Cloudflare network. Available services and their IDs may be found in the\n**List Services** endpoint.\n"
+      "description": "Identifier of a Service on the Cloudflare network. Available services and their IDs may be found in the\n**List Services** endpoint.",
+      "type": "string"
     }
   },
   "required": [
@@ -22,12 +22,4 @@ export const addressing_create_binding_request: JsonSchema = {
     "service_id"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `addressing_service_binding_identifier`.
- */
-export const addressing_service_binding_identifier: JsonSchema = {
-  "description": "Identifier of a Service Binding.",
-  "type": "string"
 };

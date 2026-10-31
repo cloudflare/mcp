@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `dns-custom-nameservers_CustomNS` in responses.
  */
-export const dns_custom_nameservers_CustomNS_output: JsonSchema = {
+export const dns$$custom$$nameservers_CustomNS: JsonSchema = {
   "properties": {
     "dns_records": {
       "items": {
@@ -27,10 +27,10 @@ export const dns_custom_nameservers_CustomNS_output: JsonSchema = {
       "type": "array"
     },
     "ns_name": {
-      "$ref": "#/$defs/dns-custom-nameservers_ns_name"
+      "type": "string"
     },
     "ns_set": {
-      "$ref": "#/$defs/dns-custom-nameservers_ns_set"
+      "type": "number"
     },
     "status": {
       "enum": [
@@ -41,7 +41,7 @@ export const dns_custom_nameservers_CustomNS_output: JsonSchema = {
       "type": "string"
     },
     "zone_tag": {
-      "$ref": "#/$defs/dns-custom-nameservers_identifier-2"
+      "type": "string"
     }
   },
   "required": [
@@ -56,7 +56,7 @@ export const dns_custom_nameservers_CustomNS_output: JsonSchema = {
 /**
  * The schema of `dns-custom-nameservers_acns_response_collection` in responses.
  */
-export const dns_custom_nameservers_acns_response_collection_output: JsonSchema = {
+export const dns$$custom$$nameservers_acns_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-custom-nameservers_api-response-collection"
@@ -78,7 +78,7 @@ export const dns_custom_nameservers_acns_response_collection_output: JsonSchema 
 /**
  * The schema of `dns-custom-nameservers_acns_response_single` in responses.
  */
-export const dns_custom_nameservers_acns_response_single_output: JsonSchema = {
+export const dns$$custom$$nameservers_acns_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-custom-nameservers_api-response-single"
@@ -97,7 +97,7 @@ export const dns_custom_nameservers_acns_response_single_output: JsonSchema = {
 /**
  * The schema of `dns-custom-nameservers_empty_response` in responses.
  */
-export const dns_custom_nameservers_empty_response_output: JsonSchema = {
+export const dns$$custom$$nameservers_empty_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-custom-nameservers_api-response-collection"

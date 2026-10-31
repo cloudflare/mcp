@@ -4,23 +4,9 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `dnssec_algorithm` in responses.
- */
-export const dnssec_algorithm_output: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
  * The schema of `dnssec_api-response-common-failure` in responses.
  */
-export const dnssec_api_response_common_failure_output: JsonSchema = {
+export const dnssec_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/dnssec_messages"
@@ -50,7 +36,7 @@ export const dnssec_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `dnssec_api-response-single` in responses.
  */
-export const dnssec_api_response_single_output: JsonSchema = {
+export const dnssec_api$$response$$single: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/dnssec_messages"
@@ -76,7 +62,7 @@ export const dnssec_api_response_single_output: JsonSchema = {
 /**
  * The schema of `dnssec_delete_dnssec_response_single` in responses.
  */
-export const dnssec_delete_dnssec_response_single_output: JsonSchema = {
+export const dnssec_delete_dnssec_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dnssec_api-response-single"
@@ -93,116 +79,138 @@ export const dnssec_delete_dnssec_response_single_output: JsonSchema = {
 };
 
 /**
- * The schema of `dnssec_digest` in responses.
- */
-export const dnssec_digest_output: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `dnssec_digest_algorithm` in responses.
- */
-export const dnssec_digest_algorithm_output: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `dnssec_digest_type` in responses.
- */
-export const dnssec_digest_type_output: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
  * The schema of `dnssec_dnssec` in responses.
  */
-export const dnssec_dnssec_output: JsonSchema = {
+export const dnssec_dnssec: JsonSchema = {
   "properties": {
     "algorithm": {
-      "$ref": "#/$defs/dnssec_algorithm"
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "digest": {
-      "$ref": "#/$defs/dnssec_digest"
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "digest_algorithm": {
-      "$ref": "#/$defs/dnssec_digest_algorithm"
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "digest_type": {
-      "$ref": "#/$defs/dnssec_digest_type"
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "dnssec_multi_signer": {
-      "$ref": "#/$defs/dnssec_dnssec_multi_signer"
+      "type": "boolean"
     },
     "dnssec_presigned": {
-      "$ref": "#/$defs/dnssec_dnssec_presigned"
+      "type": "boolean"
     },
     "dnssec_use_nsec3": {
-      "$ref": "#/$defs/dnssec_dnssec_use_nsec3"
+      "type": "boolean"
     },
     "ds": {
-      "$ref": "#/$defs/dnssec_ds"
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "flags": {
-      "$ref": "#/$defs/dnssec_flags"
+      "oneOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "key_tag": {
-      "$ref": "#/$defs/dnssec_key_tag"
+      "oneOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "key_type": {
-      "$ref": "#/$defs/dnssec_key_type"
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "modified_on": {
-      "$ref": "#/$defs/dnssec_modified_on"
+      "oneOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "public_key": {
-      "$ref": "#/$defs/dnssec_public_key"
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "status": {
-      "$ref": "#/$defs/dnssec_status"
+      "enum": [
+        "active",
+        "pending",
+        "disabled",
+        "pending-disabled",
+        "error"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
 };
 
 /**
- * The schema of `dnssec_dnssec_multi_signer` in responses.
- */
-export const dnssec_dnssec_multi_signer_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `dnssec_dnssec_presigned` in responses.
- */
-export const dnssec_dnssec_presigned_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `dnssec_dnssec_response_single` in responses.
  */
-export const dnssec_dnssec_response_single_output: JsonSchema = {
+export const dnssec_dnssec_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dnssec_api-response-single"
@@ -219,72 +227,9 @@ export const dnssec_dnssec_response_single_output: JsonSchema = {
 };
 
 /**
- * The schema of `dnssec_dnssec_use_nsec3` in responses.
- */
-export const dnssec_dnssec_use_nsec3_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `dnssec_ds` in responses.
- */
-export const dnssec_ds_output: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `dnssec_flags` in responses.
- */
-export const dnssec_flags_output: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "number"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `dnssec_key_tag` in responses.
- */
-export const dnssec_key_tag_output: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "number"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `dnssec_key_type` in responses.
- */
-export const dnssec_key_type_output: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
  * The schema of `dnssec_messages` in responses.
  */
-export const dnssec_messages_output: JsonSchema = {
+export const dnssec_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -312,47 +257,4 @@ export const dnssec_messages_output: JsonSchema = {
     "type": "object"
   },
   "type": "array"
-};
-
-/**
- * The schema of `dnssec_modified_on` in responses.
- */
-export const dnssec_modified_on_output: JsonSchema = {
-  "oneOf": [
-    {
-      "format": "date-time",
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `dnssec_public_key` in responses.
- */
-export const dnssec_public_key_output: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `dnssec_status` in responses.
- */
-export const dnssec_status_output: JsonSchema = {
-  "enum": [
-    "active",
-    "pending",
-    "disabled",
-    "pending-disabled",
-    "error"
-  ],
-  "type": "string"
 };

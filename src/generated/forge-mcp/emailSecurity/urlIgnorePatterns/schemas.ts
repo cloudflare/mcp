@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `email-security_CreateUrlIgnorePattern`.
  */
-export const email_security_CreateUrlIgnorePattern: JsonSchema = {
+export const email$$security_CreateUrlIgnorePattern: JsonSchema = {
   "description": "Creates a URL ignore pattern that exempts matching URLs from rewriting.",
   "properties": {
     "comments": {
@@ -34,7 +34,7 @@ export const email_security_CreateUrlIgnorePattern: JsonSchema = {
 /**
  * The schema of `email-security_UpdateUrlIgnorePattern`.
  */
-export const email_security_UpdateUrlIgnorePattern: JsonSchema = {
+export const email$$security_UpdateUrlIgnorePattern: JsonSchema = {
   "description": "Updates a URL rewrite ignore pattern; modifies only the provided fields.",
   "properties": {
     "comments": {
@@ -54,13 +54,4 @@ export const email_security_UpdateUrlIgnorePattern: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `email-security_UrlIgnorePatternId`.
- */
-export const email_security_UrlIgnorePatternId: JsonSchema = {
-  "description": "URL ignore pattern identifier.",
-  "format": "uuid",
-  "type": "string"
 };

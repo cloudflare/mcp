@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `workers_version-item-full` in responses.
  */
-export const workers_version_item_full_output: JsonSchema = {
+export const workers_version$$item$$full: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/workers_version-item-short"
@@ -113,7 +113,7 @@ export const workers_version_item_full_output: JsonSchema = {
 /**
  * The schema of `workers_version-item-short` in responses.
  */
-export const workers_version_item_short_output: JsonSchema = {
+export const workers_version$$item$$short: JsonSchema = {
   "properties": {
     "id": {
       "type": "string"
@@ -164,7 +164,7 @@ export const workers_version_item_short_output: JsonSchema = {
 /**
  * The schema of `workers_versions-list-response` in responses.
  */
-export const workers_versions_list_response_output: JsonSchema = {
+export const workers_versions$$list$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/workers_api-response-common"
@@ -194,7 +194,7 @@ export const workers_versions_list_response_output: JsonSchema = {
 /**
  * The schema of `workers_versions-single-response` in responses.
  */
-export const workers_versions_single_response_output: JsonSchema = {
+export const workers_versions$$single$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/workers_api-response-common"

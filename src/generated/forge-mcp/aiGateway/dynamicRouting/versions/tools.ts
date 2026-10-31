@@ -4,19 +4,16 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 
 /**
- * The tools of `ai_gateway.dynamic_routing.versions`.
+ * The tools of `aiGateway.dynamicRouting.versions`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "ai_gateway_dynamic_routing_versions_create",
+    name: "aiGateway_dynamicRouting_versions_create",
     title: "Create a dynamic route version",
-    description: "Creates a new version of a dynamic route from the specified routing elements. The version does not serve traffic until you deploy it.\n\nThis method is beta.",
+    description: "Creates a new version of a dynamic route from the specified routing elements. The version does not serve traffic until you deploy it.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/ai-gateway/gateways/{gateway_id}/routes/{id}/versions",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
         "body": {
           "properties": {
             "elements": {
@@ -347,18 +344,31 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "gateway_id": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "gateway_id": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "gateway_id",
+            "id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "gateway_id",
-        "id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -1153,31 +1163,41 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "ai_gateway_dynamic_routing_versions_get",
+    name: "aiGateway_dynamicRouting_versions_get",
     title: "Get a dynamic route version",
-    description: "Retrieves a saved version of a dynamic route, including its routing elements.\n\nThis method is beta.",
+    description: "Retrieves a saved version of a dynamic route, including its routing elements.\n\nThis method is beta.\n\nGET /accounts/{account_id}/ai-gateway/gateways/{gateway_id}/routes/{id}/versions/{version_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
-        "gateway_id": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "version_id": {
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "gateway_id": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "version_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "gateway_id",
+            "id",
+            "version_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "gateway_id",
-        "id",
-        "version_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -2008,27 +2028,37 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "ai_gateway_dynamic_routing_versions_list",
+    name: "aiGateway_dynamicRouting_versions_list",
     title: "List dynamic route versions",
-    description: "Lists the saved versions of a dynamic route.\n\nThis method is beta.",
+    description: "Lists the saved versions of a dynamic route.\n\nThis method is beta.\n\nGET /accounts/{account_id}/ai-gateway/gateways/{gateway_id}/routes/{id}/versions",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
-        "gateway_id": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "gateway_id": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "gateway_id",
+            "id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "gateway_id",
-        "id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

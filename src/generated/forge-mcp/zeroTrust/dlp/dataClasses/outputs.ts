@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `dlp_DataClass` in responses.
  */
-export const dlp_DataClass_output: JsonSchema = {
+export const dlp_DataClass: JsonSchema = {
   "properties": {
     "created_at": {
       "format": "date-time",
@@ -65,7 +65,7 @@ export const dlp_DataClass_output: JsonSchema = {
 /**
  * The schema of `dlp_DataClassArray` in responses.
  */
-export const dlp_DataClassArray_output: JsonSchema = {
+export const dlp_DataClassArray: JsonSchema = {
   "items": {
     "$ref": "#/$defs/dlp_DataClass"
   },

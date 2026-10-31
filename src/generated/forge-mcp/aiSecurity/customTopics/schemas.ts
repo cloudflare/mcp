@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `waf-product-api-bundle_custom-topic`.
  */
-export const waf_product_api_bundle_custom_topic: JsonSchema = {
+export const waf$$product$$api$$bundle_custom$$topic: JsonSchema = {
   "properties": {
     "label": {
       "description": "Unique label identifier. Must contain only lowercase letters (a–z), digits (0–9), and hyphens.",
@@ -27,7 +27,7 @@ export const waf_product_api_bundle_custom_topic: JsonSchema = {
 /**
  * The schema of `waf-product-api-bundle_custom-topics`.
  */
-export const waf_product_api_bundle_custom_topics: JsonSchema = {
+export const waf$$product$$api$$bundle_custom$$topics: JsonSchema = {
   "properties": {
     "topics": {
       "description": "Custom topic categories for AI Security for Apps content detection.",

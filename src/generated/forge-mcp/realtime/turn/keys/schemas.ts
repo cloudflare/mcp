@@ -9,18 +9,10 @@ import type { JsonSchema } from "../../../_/tool.js";
 export const calls_turn_key_editable_fields: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/calls_turn_key_name",
       "default": "",
-      "description": "A short description of a TURN key, not shown to end users."
+      "description": "A short description of a TURN key, not shown to end users.",
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `calls_turn_key_name`.
- */
-export const calls_turn_key_name: JsonSchema = {
-  "description": "A short description of a TURN key, not shown to end users.",
-  "type": "string"
 };

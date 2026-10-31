@@ -3,32 +3,30 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  pay_per_crawl_ErrorSource_output,
-  pay_per_crawl_Msg_output,
-  pay_per_crawl_RESTError_output,
-  pay_per_crawl_ResultInfo_output,
-  pay_per_crawl_Source_output,
-  pay_per_crawl_apiErrorResponse_output,
+  pay$$per$$crawl_ErrorSource,
+  pay$$per$$crawl_Msg,
+  pay$$per$$crawl_RESTError,
+  pay$$per$$crawl_ResultInfo,
+  pay$$per$$crawl_Source,
+  pay$$per$$crawl_apiErrorResponse,
 } from "../../outputs.js";
 import {
-  pay_per_crawl_BotAccessMode_output,
-  pay_per_crawl_DaricConfig_output,
-  pay_per_crawl_getConfigResponse_output,
+  pay$$per$$crawl_DaricConfig,
+  pay$$per$$crawl_getConfigResponse,
 } from "./outputs.js";
 import {
-  pay_per_crawl_BotAccessMode,
-  pay_per_crawl_DaricConfig,
-  pay_per_crawl_DaricConfigCreate,
+  pay$$per$$crawl_DaricConfig as pay$$per$$crawl_DaricConfig$,
+  pay$$per$$crawl_DaricConfigCreate,
 } from "./schemas.js";
 
 /**
- * The tools of `pay_per_crawl.config`.
+ * The tools of `payPerCrawl.config`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "pay_per_crawl_config_create",
+    name: "payPerCrawl_config_create",
     title: "Creates pay-per-crawl config for a zone",
-    description: "Creates the pay-per-crawl config for a zone.",
+    description: "Creates the pay-per-crawl config for a zone.\n\nPOST /zones/{zone_id}/pay-per-crawl/configuration",
     inputSchema: {
       type: "object",
       properties: {
@@ -36,29 +34,37 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/pay-per-crawl_DaricConfigCreate",
           "description": "Data for fully replacing a pay-per-crawl zone configuration"
         },
-        "zone_id": {
-          "description": "zone id",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "zone id",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "pay-per-crawl_BotAccessMode": pay_per_crawl_BotAccessMode,
-        "pay-per-crawl_DaricConfigCreate": pay_per_crawl_DaricConfigCreate,
+        "pay-per-crawl_DaricConfigCreate": pay$$per$$crawl_DaricConfigCreate,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/pay-per-crawl_getConfigResponse",
       $defs: {
-        "pay-per-crawl_BotAccessMode": pay_per_crawl_BotAccessMode_output,
-        "pay-per-crawl_DaricConfig": pay_per_crawl_DaricConfig_output,
-        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
-        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
-        "pay-per-crawl_Source": pay_per_crawl_Source_output,
-        "pay-per-crawl_getConfigResponse": pay_per_crawl_getConfigResponse_output,
+        "pay-per-crawl_DaricConfig": pay$$per$$crawl_DaricConfig,
+        "pay-per-crawl_Msg": pay$$per$$crawl_Msg,
+        "pay-per-crawl_ResultInfo": pay$$per$$crawl_ResultInfo,
+        "pay-per-crawl_Source": pay$$per$$crawl_Source,
+        "pay-per-crawl_getConfigResponse": pay$$per$$crawl_getConfigResponse,
       },
     },
     annotations: {
@@ -85,15 +91,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "pay-per-crawl_BotAccessMode": pay_per_crawl_BotAccessMode_output,
-        "pay-per-crawl_DaricConfig": pay_per_crawl_DaricConfig_output,
-        "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
-        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
-        "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
-        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
-        "pay-per-crawl_Source": pay_per_crawl_Source_output,
-        "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
-        "pay-per-crawl_getConfigResponse": pay_per_crawl_getConfigResponse_output,
+        "pay-per-crawl_DaricConfig": pay$$per$$crawl_DaricConfig,
+        "pay-per-crawl_ErrorSource": pay$$per$$crawl_ErrorSource,
+        "pay-per-crawl_Msg": pay$$per$$crawl_Msg,
+        "pay-per-crawl_RESTError": pay$$per$$crawl_RESTError,
+        "pay-per-crawl_ResultInfo": pay$$per$$crawl_ResultInfo,
+        "pay-per-crawl_Source": pay$$per$$crawl_Source,
+        "pay-per-crawl_apiErrorResponse": pay$$per$$crawl_apiErrorResponse,
+        "pay-per-crawl_getConfigResponse": pay$$per$$crawl_getConfigResponse,
       },
     },
     request: (args) => ({
@@ -102,9 +107,9 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "pay_per_crawl_config_edit",
+    name: "payPerCrawl_config_edit",
     title: "Changes pay-per-crawl config for a zone",
-    description: "Changes the pay-per-crawl config for a zone.",
+    description: "Changes the pay-per-crawl config for a zone.\n\nPATCH /zones/{zone_id}/pay-per-crawl/configuration",
     inputSchema: {
       type: "object",
       properties: {
@@ -112,29 +117,37 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/pay-per-crawl_DaricConfig",
           "description": "Data for setting flag on zones"
         },
-        "zone_id": {
-          "description": "zone id",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "zone id",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "pay-per-crawl_BotAccessMode": pay_per_crawl_BotAccessMode,
-        "pay-per-crawl_DaricConfig": pay_per_crawl_DaricConfig,
+        "pay-per-crawl_DaricConfig": pay$$per$$crawl_DaricConfig$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/pay-per-crawl_getConfigResponse",
       $defs: {
-        "pay-per-crawl_BotAccessMode": pay_per_crawl_BotAccessMode_output,
-        "pay-per-crawl_DaricConfig": pay_per_crawl_DaricConfig_output,
-        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
-        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
-        "pay-per-crawl_Source": pay_per_crawl_Source_output,
-        "pay-per-crawl_getConfigResponse": pay_per_crawl_getConfigResponse_output,
+        "pay-per-crawl_DaricConfig": pay$$per$$crawl_DaricConfig,
+        "pay-per-crawl_Msg": pay$$per$$crawl_Msg,
+        "pay-per-crawl_ResultInfo": pay$$per$$crawl_ResultInfo,
+        "pay-per-crawl_Source": pay$$per$$crawl_Source,
+        "pay-per-crawl_getConfigResponse": pay$$per$$crawl_getConfigResponse,
       },
     },
     annotations: {
@@ -161,15 +174,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "pay-per-crawl_BotAccessMode": pay_per_crawl_BotAccessMode_output,
-        "pay-per-crawl_DaricConfig": pay_per_crawl_DaricConfig_output,
-        "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
-        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
-        "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
-        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
-        "pay-per-crawl_Source": pay_per_crawl_Source_output,
-        "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
-        "pay-per-crawl_getConfigResponse": pay_per_crawl_getConfigResponse_output,
+        "pay-per-crawl_DaricConfig": pay$$per$$crawl_DaricConfig,
+        "pay-per-crawl_ErrorSource": pay$$per$$crawl_ErrorSource,
+        "pay-per-crawl_Msg": pay$$per$$crawl_Msg,
+        "pay-per-crawl_RESTError": pay$$per$$crawl_RESTError,
+        "pay-per-crawl_ResultInfo": pay$$per$$crawl_ResultInfo,
+        "pay-per-crawl_Source": pay$$per$$crawl_Source,
+        "pay-per-crawl_apiErrorResponse": pay$$per$$crawl_apiErrorResponse,
+        "pay-per-crawl_getConfigResponse": pay$$per$$crawl_getConfigResponse,
       },
     },
     request: (args) => ({
@@ -178,30 +190,39 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "pay_per_crawl_config_get",
+    name: "payPerCrawl_config_get",
     title: "Get the pay-per-crawl config",
-    description: "Gets the pay-per-crawl config for a zone including the bot configuration.",
+    description: "Gets the pay-per-crawl config for a zone including the bot configuration.\n\nGET /zones/{zone_id}/pay-per-crawl/configuration",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "description": "zone id",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "zone id",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/pay-per-crawl_getConfigResponse",
       $defs: {
-        "pay-per-crawl_BotAccessMode": pay_per_crawl_BotAccessMode_output,
-        "pay-per-crawl_DaricConfig": pay_per_crawl_DaricConfig_output,
-        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
-        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
-        "pay-per-crawl_Source": pay_per_crawl_Source_output,
-        "pay-per-crawl_getConfigResponse": pay_per_crawl_getConfigResponse_output,
+        "pay-per-crawl_DaricConfig": pay$$per$$crawl_DaricConfig,
+        "pay-per-crawl_Msg": pay$$per$$crawl_Msg,
+        "pay-per-crawl_ResultInfo": pay$$per$$crawl_ResultInfo,
+        "pay-per-crawl_Source": pay$$per$$crawl_Source,
+        "pay-per-crawl_getConfigResponse": pay$$per$$crawl_getConfigResponse,
       },
     },
     annotations: {
@@ -229,15 +250,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "pay-per-crawl_BotAccessMode": pay_per_crawl_BotAccessMode_output,
-        "pay-per-crawl_DaricConfig": pay_per_crawl_DaricConfig_output,
-        "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
-        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
-        "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
-        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
-        "pay-per-crawl_Source": pay_per_crawl_Source_output,
-        "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
-        "pay-per-crawl_getConfigResponse": pay_per_crawl_getConfigResponse_output,
+        "pay-per-crawl_DaricConfig": pay$$per$$crawl_DaricConfig,
+        "pay-per-crawl_ErrorSource": pay$$per$$crawl_ErrorSource,
+        "pay-per-crawl_Msg": pay$$per$$crawl_Msg,
+        "pay-per-crawl_RESTError": pay$$per$$crawl_RESTError,
+        "pay-per-crawl_ResultInfo": pay$$per$$crawl_ResultInfo,
+        "pay-per-crawl_Source": pay$$per$$crawl_Source,
+        "pay-per-crawl_apiErrorResponse": pay$$per$$crawl_apiErrorResponse,
+        "pay-per-crawl_getConfigResponse": pay$$per$$crawl_getConfigResponse,
       },
     },
     request: (args) => ({

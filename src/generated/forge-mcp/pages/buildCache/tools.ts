@@ -3,40 +3,45 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  pages_api_response_common_failure_output,
-  pages_api_response_common_output,
-  pages_messages_output,
+  pages_api$$response$$common,
+  pages_api$$response$$common$$failure,
+  pages_messages,
 } from "../outputs.js";
-import { pages_identifier, pages_project_name } from "../schemas.js";
 
 /**
- * The tools of `pages.build_cache`.
+ * The tools of `pages.buildCache`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "pages_build_cache_purge",
+    name: "pages_buildCache_purge",
     title: "Purge the Pages build cache",
-    description: "Remove cached build artifacts so subsequent builds run without the project's existing build cache.\n\nConfirm with the user before calling this tool. This operation purges the build cache for a Pages project.",
+    description: "Remove cached build artifacts so subsequent builds run without the project's existing build cache.\n\nConfirm with the user before calling this tool. This operation purges the build cache for a Pages project.\n\nPOST /accounts/{account_id}/pages/projects/{project_name}/purge_build_cache",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/pages_identifier",
-          "description": "Identifier."
-        },
-        "project_name": {
-          "$ref": "#/$defs/pages_project_name",
-          "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            },
+            "project_name": {
+              "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "project_name"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "project_name"
+        "path"
       ],
-      $defs: {
-        "pages_identifier": pages_identifier,
-        "pages_project_name": pages_project_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -63,8 +68,8 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "pages_api-response-common": pages_api_response_common_output,
-        "pages_messages": pages_messages_output,
+        "pages_api-response-common": pages_api$$response$$common,
+        "pages_messages": pages_messages,
       },
     },
     annotations: {
@@ -113,9 +118,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "pages_api-response-common": pages_api_response_common_output,
-        "pages_api-response-common-failure": pages_api_response_common_failure_output,
-        "pages_messages": pages_messages_output,
+        "pages_api-response-common": pages_api$$response$$common,
+        "pages_api-response-common-failure": pages_api$$response$$common$$failure,
+        "pages_messages": pages_messages,
       },
     },
     request: (args) => ({

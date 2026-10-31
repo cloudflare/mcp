@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `api-shield_global_settings` in responses.
  */
-export const api_shield_global_settings_output: JsonSchema = {
+export const api$$shield_global_settings: JsonSchema = {
   "properties": {
     "validation_default_mitigation_action": {
       "enum": [

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `client-side-security_cookie` in responses.
  */
-export const client_side_security_cookie_output: JsonSchema = {
+export const client$$side$$security_cookie: JsonSchema = {
   "properties": {
     "domain_attribute": {
       "type": "string"
@@ -26,7 +26,7 @@ export const client_side_security_cookie_output: JsonSchema = {
       "type": "boolean"
     },
     "id": {
-      "$ref": "#/$defs/client-side-security_id"
+      "type": "string"
     },
     "last_seen_at": {
       "format": "date-time",
@@ -80,7 +80,7 @@ export const client_side_security_cookie_output: JsonSchema = {
 /**
  * The schema of `client-side-security_get-zone-cookie-response` in responses.
  */
-export const client_side_security_get_zone_cookie_response_output: JsonSchema = {
+export const client$$side$$security_get$$zone$$cookie$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/client-side-security_api-get-response-collection"
@@ -102,7 +102,7 @@ export const client_side_security_get_zone_cookie_response_output: JsonSchema = 
 /**
  * The schema of `client-side-security_list-zone-cookies-response` in responses.
  */
-export const client_side_security_list_zone_cookies_response_output: JsonSchema = {
+export const client$$side$$security_list$$zone$$cookies$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/client-side-security_api-list-response-collection"

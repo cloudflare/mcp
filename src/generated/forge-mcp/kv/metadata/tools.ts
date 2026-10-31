@@ -3,17 +3,12 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  workers_kv_any_output,
-  workers_kv_api_response_common_failure_output,
-  workers_kv_api_response_common_output,
-  workers_kv_list_metadata_output,
-  workers_kv_messages_output,
+  workers$$kv_any,
+  workers$$kv_api$$response$$common,
+  workers$$kv_api$$response$$common$$failure,
+  workers$$kv_list_metadata,
+  workers$$kv_messages,
 } from "../outputs.js";
-import {
-  workers_kv_identifier,
-  workers_kv_key_name,
-  workers_kv_namespace_identifier,
-} from "../schemas.js";
 
 /**
  * The tools of `kv.metadata`.
@@ -22,33 +17,38 @@ export const tools: readonly Tool[] = [
   {
     name: "kv_metadata_get",
     title: "Get a key's metadata",
-    description: "Returns the JSON metadata associated with the specified key in the Workers KV namespace, without retrieving its value. Use URL-encoding for special characters (for example, `:`, `!`, `%`) in the key name when constructing the request URL.",
+    description: "Returns the JSON metadata associated with the specified key in the Workers KV namespace, without retrieving its value. Use URL-encoding for special characters (for example, `:`, `!`, `%`) in the key name when constructing the request URL.\n\nGET /accounts/{account_id}/storage/kv/namespaces/{namespace_id}/metadata/{key_name}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/workers-kv_identifier",
-          "description": "ID of the Cloudflare account that owns the Workers KV namespaces."
-        },
-        "key_name": {
-          "$ref": "#/$defs/workers-kv_key_name",
-          "description": "A key's name. The name may be at most 512 bytes. All printable, non-whitespace characters are valid. Use percent-encoding to define key names as part of a URL."
-        },
-        "namespace_id": {
-          "$ref": "#/$defs/workers-kv_namespace_identifier",
-          "description": "ID of the Workers KV namespace."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "ID of the Cloudflare account that owns the Workers KV namespaces.",
+              "type": "string"
+            },
+            "key_name": {
+              "description": "A key's name. The name may be at most 512 bytes. All printable, non-whitespace characters are valid. Use percent-encoding to define key names as part of a URL.",
+              "type": "string"
+            },
+            "namespace_id": {
+              "description": "ID of the Workers KV namespace.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "namespace_id",
+            "key_name"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "namespace_id",
-        "key_name"
+        "path"
       ],
-      $defs: {
-        "workers-kv_identifier": workers_kv_identifier,
-        "workers-kv_key_name": workers_kv_key_name,
-        "workers-kv_namespace_identifier": workers_kv_namespace_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -65,10 +65,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "workers-kv_any": workers_kv_any_output,
-        "workers-kv_api-response-common": workers_kv_api_response_common_output,
-        "workers-kv_list_metadata": workers_kv_list_metadata_output,
-        "workers-kv_messages": workers_kv_messages_output,
+        "workers-kv_any": workers$$kv_any,
+        "workers-kv_api-response-common": workers$$kv_api$$response$$common,
+        "workers-kv_list_metadata": workers$$kv_list_metadata,
+        "workers-kv_messages": workers$$kv_messages,
       },
     },
     annotations: {
@@ -108,11 +108,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "workers-kv_any": workers_kv_any_output,
-        "workers-kv_api-response-common": workers_kv_api_response_common_output,
-        "workers-kv_api-response-common-failure": workers_kv_api_response_common_failure_output,
-        "workers-kv_list_metadata": workers_kv_list_metadata_output,
-        "workers-kv_messages": workers_kv_messages_output,
+        "workers-kv_any": workers$$kv_any,
+        "workers-kv_api-response-common": workers$$kv_api$$response$$common,
+        "workers-kv_api-response-common-failure": workers$$kv_api$$response$$common$$failure,
+        "workers-kv_list_metadata": workers$$kv_list_metadata,
+        "workers-kv_messages": workers$$kv_messages,
       },
     },
     request: (args) => ({

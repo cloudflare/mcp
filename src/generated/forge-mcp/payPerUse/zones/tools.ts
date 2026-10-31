@@ -3,56 +3,66 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  pay_per_crawl_ErrorSource_output,
-  pay_per_crawl_Msg_output,
-  pay_per_crawl_RESTError_output,
-  pay_per_crawl_ResultInfo_output,
-  pay_per_crawl_Source_output,
-  pay_per_crawl_apiErrorResponse_output,
-  pay_per_crawl_apiNoResultResponse_output,
+  pay$$per$$crawl_ErrorSource,
+  pay$$per$$crawl_Msg,
+  pay$$per$$crawl_RESTError,
+  pay$$per$$crawl_ResultInfo,
+  pay$$per$$crawl_Source,
+  pay$$per$$crawl_apiErrorResponse,
+  pay$$per$$crawl_apiNoResultResponse,
 } from "../../outputs.js";
 import {
-  pay_per_crawl_PPUZoneCanBeEnabledResponse_output,
-  pay_per_crawl_PPUZoneCanBeEnabled_output,
-  pay_per_crawl_PPUZoneConfigurationResponse_output,
-  pay_per_crawl_PPUZoneConfigurationResultResponse_output,
-  pay_per_crawl_PPUZoneConfigurationResult_output,
-  pay_per_crawl_PPUZoneConfiguration_output,
+  pay$$per$$crawl_PPUZoneCanBeEnabled,
+  pay$$per$$crawl_PPUZoneCanBeEnabledResponse,
+  pay$$per$$crawl_PPUZoneConfiguration,
+  pay$$per$$crawl_PPUZoneConfigurationResponse,
+  pay$$per$$crawl_PPUZoneConfigurationResult,
+  pay$$per$$crawl_PPUZoneConfigurationResultResponse,
 } from "./outputs.js";
 import {
-  pay_per_crawl_PPUZoneCanBeEnabledUpdate,
-  pay_per_crawl_PPUZoneConfigurationUpdate,
-  pay_per_crawl_PPUZonesCanBeEnabledPayload,
+  pay$$per$$crawl_PPUZoneCanBeEnabledUpdate,
+  pay$$per$$crawl_PPUZoneConfigurationUpdate,
+  pay$$per$$crawl_PPUZonesCanBeEnabledPayload,
 } from "./schemas.js";
 
 /**
- * The tools of `pay_per_use.zones`.
+ * The tools of `payPerUse.zones`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "pay_per_use_zones_get_can_be_enabled",
+    name: "payPerUse_zones_getCanBeEnabled",
     title: "Get pay-per-use zone eligibility",
-    description: "Gets whether pay-per-use can be enabled for a zone and the current zone-level grace period.",
+    description: "Gets whether pay-per-use can be enabled for a zone and the current zone-level grace period.\n\nGET /zones/{zone_id}/pay-per-use/can_be_enabled",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "description": "zone id",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "zone id",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/pay-per-crawl_PPUZoneCanBeEnabledResponse",
       $defs: {
-        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
-        "pay-per-crawl_PPUZoneCanBeEnabled": pay_per_crawl_PPUZoneCanBeEnabled_output,
-        "pay-per-crawl_PPUZoneCanBeEnabledResponse": pay_per_crawl_PPUZoneCanBeEnabledResponse_output,
-        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
-        "pay-per-crawl_Source": pay_per_crawl_Source_output,
+        "pay-per-crawl_Msg": pay$$per$$crawl_Msg,
+        "pay-per-crawl_PPUZoneCanBeEnabled": pay$$per$$crawl_PPUZoneCanBeEnabled,
+        "pay-per-crawl_PPUZoneCanBeEnabledResponse": pay$$per$$crawl_PPUZoneCanBeEnabledResponse,
+        "pay-per-crawl_ResultInfo": pay$$per$$crawl_ResultInfo,
+        "pay-per-crawl_Source": pay$$per$$crawl_Source,
       },
     },
     annotations: {
@@ -74,14 +84,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
-        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
-        "pay-per-crawl_PPUZoneCanBeEnabled": pay_per_crawl_PPUZoneCanBeEnabled_output,
-        "pay-per-crawl_PPUZoneCanBeEnabledResponse": pay_per_crawl_PPUZoneCanBeEnabledResponse_output,
-        "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
-        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
-        "pay-per-crawl_Source": pay_per_crawl_Source_output,
-        "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
+        "pay-per-crawl_ErrorSource": pay$$per$$crawl_ErrorSource,
+        "pay-per-crawl_Msg": pay$$per$$crawl_Msg,
+        "pay-per-crawl_PPUZoneCanBeEnabled": pay$$per$$crawl_PPUZoneCanBeEnabled,
+        "pay-per-crawl_PPUZoneCanBeEnabledResponse": pay$$per$$crawl_PPUZoneCanBeEnabledResponse,
+        "pay-per-crawl_RESTError": pay$$per$$crawl_RESTError,
+        "pay-per-crawl_ResultInfo": pay$$per$$crawl_ResultInfo,
+        "pay-per-crawl_Source": pay$$per$$crawl_Source,
+        "pay-per-crawl_apiErrorResponse": pay$$per$$crawl_apiErrorResponse,
       },
     },
     request: (args) => ({
@@ -89,30 +99,40 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "pay_per_use_zones_get_configuration",
+    name: "payPerUse_zones_getConfiguration",
     title: "Get pay-per-use zone configuration",
-    description: "Gets the pay-per-use configuration, zone-level grace period, and read-only non-billable classification timestamp for a zone.",
+    description: "Gets the pay-per-use configuration, zone-level grace period, and read-only non-billable classification timestamp for a zone.\n\nGET /zones/{zone_id}/pay-per-use/configuration",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "description": "zone id",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "zone id",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/pay-per-crawl_PPUZoneConfigurationResultResponse",
       $defs: {
-        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
-        "pay-per-crawl_PPUZoneConfiguration": pay_per_crawl_PPUZoneConfiguration_output,
-        "pay-per-crawl_PPUZoneConfigurationResult": pay_per_crawl_PPUZoneConfigurationResult_output,
-        "pay-per-crawl_PPUZoneConfigurationResultResponse": pay_per_crawl_PPUZoneConfigurationResultResponse_output,
-        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
-        "pay-per-crawl_Source": pay_per_crawl_Source_output,
+        "pay-per-crawl_Msg": pay$$per$$crawl_Msg,
+        "pay-per-crawl_PPUZoneConfiguration": pay$$per$$crawl_PPUZoneConfiguration,
+        "pay-per-crawl_PPUZoneConfigurationResult": pay$$per$$crawl_PPUZoneConfigurationResult,
+        "pay-per-crawl_PPUZoneConfigurationResultResponse": pay$$per$$crawl_PPUZoneConfigurationResultResponse,
+        "pay-per-crawl_ResultInfo": pay$$per$$crawl_ResultInfo,
+        "pay-per-crawl_Source": pay$$per$$crawl_Source,
       },
     },
     annotations: {
@@ -134,15 +154,15 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
-        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
-        "pay-per-crawl_PPUZoneConfiguration": pay_per_crawl_PPUZoneConfiguration_output,
-        "pay-per-crawl_PPUZoneConfigurationResult": pay_per_crawl_PPUZoneConfigurationResult_output,
-        "pay-per-crawl_PPUZoneConfigurationResultResponse": pay_per_crawl_PPUZoneConfigurationResultResponse_output,
-        "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
-        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
-        "pay-per-crawl_Source": pay_per_crawl_Source_output,
-        "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
+        "pay-per-crawl_ErrorSource": pay$$per$$crawl_ErrorSource,
+        "pay-per-crawl_Msg": pay$$per$$crawl_Msg,
+        "pay-per-crawl_PPUZoneConfiguration": pay$$per$$crawl_PPUZoneConfiguration,
+        "pay-per-crawl_PPUZoneConfigurationResult": pay$$per$$crawl_PPUZoneConfigurationResult,
+        "pay-per-crawl_PPUZoneConfigurationResultResponse": pay$$per$$crawl_PPUZoneConfigurationResultResponse,
+        "pay-per-crawl_RESTError": pay$$per$$crawl_RESTError,
+        "pay-per-crawl_ResultInfo": pay$$per$$crawl_ResultInfo,
+        "pay-per-crawl_Source": pay$$per$$crawl_Source,
+        "pay-per-crawl_apiErrorResponse": pay$$per$$crawl_apiErrorResponse,
       },
     },
     request: (args) => ({
@@ -150,37 +170,47 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "pay_per_use_zones_set_can_be_enabled",
+    name: "payPerUse_zones_setCanBeEnabled",
     title: "Set pay-per-use zone eligibility",
-    description: "Sets pay-per-use eligibility for a list of account zones. An omitted can_be_enabled value leaves that zone unchanged. Revoking eligibility disables the zone immediately while existing accepted licenses remain active until the start of the next UTC month.",
+    description: "Sets pay-per-use eligibility for a list of account zones. An omitted can_be_enabled value leaves that zone unchanged. Revoking eligibility disables the zone immediately while existing accepted licenses remain active until the start of the next UTC month.\n\nPATCH /accounts/{account_id}/pay-per-use/zones_can_be_enabled",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "account id",
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/pay-per-crawl_PPUZonesCanBeEnabledPayload",
           "description": "Pay-per-use zone eligibility updates"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "account id",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "pay-per-crawl_PPUZoneCanBeEnabledUpdate": pay_per_crawl_PPUZoneCanBeEnabledUpdate,
-        "pay-per-crawl_PPUZonesCanBeEnabledPayload": pay_per_crawl_PPUZonesCanBeEnabledPayload,
+        "pay-per-crawl_PPUZoneCanBeEnabledUpdate": pay$$per$$crawl_PPUZoneCanBeEnabledUpdate,
+        "pay-per-crawl_PPUZonesCanBeEnabledPayload": pay$$per$$crawl_PPUZonesCanBeEnabledPayload,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/pay-per-crawl_apiNoResultResponse",
       $defs: {
-        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
-        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
-        "pay-per-crawl_Source": pay_per_crawl_Source_output,
-        "pay-per-crawl_apiNoResultResponse": pay_per_crawl_apiNoResultResponse_output,
+        "pay-per-crawl_Msg": pay$$per$$crawl_Msg,
+        "pay-per-crawl_ResultInfo": pay$$per$$crawl_ResultInfo,
+        "pay-per-crawl_Source": pay$$per$$crawl_Source,
+        "pay-per-crawl_apiNoResultResponse": pay$$per$$crawl_apiNoResultResponse,
       },
     },
     annotations: {
@@ -205,13 +235,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
-        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
-        "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
-        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
-        "pay-per-crawl_Source": pay_per_crawl_Source_output,
-        "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
-        "pay-per-crawl_apiNoResultResponse": pay_per_crawl_apiNoResultResponse_output,
+        "pay-per-crawl_ErrorSource": pay$$per$$crawl_ErrorSource,
+        "pay-per-crawl_Msg": pay$$per$$crawl_Msg,
+        "pay-per-crawl_RESTError": pay$$per$$crawl_RESTError,
+        "pay-per-crawl_ResultInfo": pay$$per$$crawl_ResultInfo,
+        "pay-per-crawl_Source": pay$$per$$crawl_Source,
+        "pay-per-crawl_apiErrorResponse": pay$$per$$crawl_apiErrorResponse,
+        "pay-per-crawl_apiNoResultResponse": pay$$per$$crawl_apiNoResultResponse,
       },
     },
     request: (args) => ({
@@ -220,9 +250,9 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "pay_per_use_zones_update_configuration",
+    name: "payPerUse_zones_updateConfiguration",
     title: "Update pay-per-use zone configuration",
-    description: "Enables or disables an existing pay-per-use zone configuration. Omitting enabled leaves the zone unchanged. Enabling a disabled billable zone requires completed publisher Stripe onboarding, while non-billable zones do not; an already-enabled zone is not affected by later Stripe status changes. Disabling starts a disabled period immediately while existing accepted licenses remain active until the start of the next UTC month; re-enabling before expiry clears the schedule and restores those licenses.",
+    description: "Enables or disables an existing pay-per-use zone configuration. Omitting enabled leaves the zone unchanged. Enabling a disabled billable zone requires completed publisher Stripe onboarding, while non-billable zones do not; an already-enabled zone is not affected by later Stripe status changes. Disabling starts a disabled period immediately while existing accepted licenses remain active until the start of the next UTC month; re-enabling before expiry clears the schedule and restores those licenses.\n\nPATCH /zones/{zone_id}/pay-per-use/configuration",
     inputSchema: {
       type: "object",
       properties: {
@@ -230,27 +260,37 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/pay-per-crawl_PPUZoneConfigurationUpdate",
           "description": "Pay-per-use zone configuration update"
         },
-        "zone_id": {
-          "description": "zone id",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "zone id",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "pay-per-crawl_PPUZoneConfigurationUpdate": pay_per_crawl_PPUZoneConfigurationUpdate,
+        "pay-per-crawl_PPUZoneConfigurationUpdate": pay$$per$$crawl_PPUZoneConfigurationUpdate,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/pay-per-crawl_PPUZoneConfigurationResponse",
       $defs: {
-        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
-        "pay-per-crawl_PPUZoneConfiguration": pay_per_crawl_PPUZoneConfiguration_output,
-        "pay-per-crawl_PPUZoneConfigurationResponse": pay_per_crawl_PPUZoneConfigurationResponse_output,
-        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
-        "pay-per-crawl_Source": pay_per_crawl_Source_output,
+        "pay-per-crawl_Msg": pay$$per$$crawl_Msg,
+        "pay-per-crawl_PPUZoneConfiguration": pay$$per$$crawl_PPUZoneConfiguration,
+        "pay-per-crawl_PPUZoneConfigurationResponse": pay$$per$$crawl_PPUZoneConfigurationResponse,
+        "pay-per-crawl_ResultInfo": pay$$per$$crawl_ResultInfo,
+        "pay-per-crawl_Source": pay$$per$$crawl_Source,
       },
     },
     annotations: {
@@ -281,14 +321,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
-        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
-        "pay-per-crawl_PPUZoneConfiguration": pay_per_crawl_PPUZoneConfiguration_output,
-        "pay-per-crawl_PPUZoneConfigurationResponse": pay_per_crawl_PPUZoneConfigurationResponse_output,
-        "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
-        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
-        "pay-per-crawl_Source": pay_per_crawl_Source_output,
-        "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
+        "pay-per-crawl_ErrorSource": pay$$per$$crawl_ErrorSource,
+        "pay-per-crawl_Msg": pay$$per$$crawl_Msg,
+        "pay-per-crawl_PPUZoneConfiguration": pay$$per$$crawl_PPUZoneConfiguration,
+        "pay-per-crawl_PPUZoneConfigurationResponse": pay$$per$$crawl_PPUZoneConfigurationResponse,
+        "pay-per-crawl_RESTError": pay$$per$$crawl_RESTError,
+        "pay-per-crawl_ResultInfo": pay$$per$$crawl_ResultInfo,
+        "pay-per-crawl_Source": pay$$per$$crawl_Source,
+        "pay-per-crawl_apiErrorResponse": pay$$per$$crawl_apiErrorResponse,
       },
     },
     request: (args) => ({

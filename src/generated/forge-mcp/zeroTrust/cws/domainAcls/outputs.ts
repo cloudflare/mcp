@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `cws_DomainACL` in responses.
  */
-export const cws_DomainACL_output: JsonSchema = {
+export const cws_DomainACL: JsonSchema = {
   "properties": {
     "created_at": {
       "format": "date-time",
@@ -58,7 +58,7 @@ export const cws_DomainACL_output: JsonSchema = {
 /**
  * The schema of `cws_DomainACLEntry` in responses.
  */
-export const cws_DomainACLEntry_output: JsonSchema = {
+export const cws_DomainACLEntry: JsonSchema = {
   "properties": {
     "action": {
       "enum": [
@@ -81,7 +81,7 @@ export const cws_DomainACLEntry_output: JsonSchema = {
 /**
  * The schema of `cws_PageResponseDomainACL` in responses.
  */
-export const cws_PageResponseDomainACL_output: JsonSchema = {
+export const cws_PageResponseDomainACL: JsonSchema = {
   "properties": {
     "errors": {
       "oneOf": [
@@ -142,7 +142,7 @@ export const cws_PageResponseDomainACL_output: JsonSchema = {
 /**
  * The schema of `cws_ResponseDomainACL` in responses.
  */
-export const cws_ResponseDomainACL_output: JsonSchema = {
+export const cws_ResponseDomainACL: JsonSchema = {
   "properties": {
     "errors": {
       "oneOf": [

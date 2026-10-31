@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `magic_wan` in responses.
  */
-export const magic_wan_output: JsonSchema = {
+export const magic_wan: JsonSchema = {
   "properties": {
     "health_check_rate": {
       "enum": [
@@ -17,7 +17,7 @@ export const magic_wan_output: JsonSchema = {
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/magic_identifier"
+      "type": "string"
     },
     "load_balance_inner_flows": {
       "type": "boolean"
@@ -26,7 +26,7 @@ export const magic_wan_output: JsonSchema = {
       "type": "string"
     },
     "physport": {
-      "$ref": "#/$defs/magic_port"
+      "type": "integer"
     },
     "priority": {
       "type": "integer"
@@ -38,13 +38,13 @@ export const magic_wan_output: JsonSchema = {
       "type": "integer"
     },
     "site_id": {
-      "$ref": "#/$defs/magic_identifier"
+      "type": "string"
     },
     "static_addressing": {
       "$ref": "#/$defs/magic_wan_static_addressing"
     },
     "vlan_tag": {
-      "$ref": "#/$defs/magic_vlan_tag"
+      "type": "integer"
     }
   },
   "type": "object"
@@ -53,7 +53,7 @@ export const magic_wan_output: JsonSchema = {
 /**
  * The schema of `magic_wan_deleted_response` in responses.
  */
-export const magic_wan_deleted_response_output: JsonSchema = {
+export const magic_wan_deleted_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"
@@ -72,7 +72,7 @@ export const magic_wan_deleted_response_output: JsonSchema = {
 /**
  * The schema of `magic_wan_modified_response` in responses.
  */
-export const magic_wan_modified_response_output: JsonSchema = {
+export const magic_wan_modified_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"
@@ -91,7 +91,7 @@ export const magic_wan_modified_response_output: JsonSchema = {
 /**
  * The schema of `magic_wan_single_response` in responses.
  */
-export const magic_wan_single_response_output: JsonSchema = {
+export const magic_wan_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"
@@ -110,16 +110,16 @@ export const magic_wan_single_response_output: JsonSchema = {
 /**
  * The schema of `magic_wan_static_addressing` in responses.
  */
-export const magic_wan_static_addressing_output: JsonSchema = {
+export const magic_wan_static_addressing: JsonSchema = {
   "properties": {
     "address": {
-      "$ref": "#/$defs/magic_cidr"
+      "type": "string"
     },
     "gateway_address": {
-      "$ref": "#/$defs/magic_ip-address"
+      "type": "string"
     },
     "secondary_address": {
-      "$ref": "#/$defs/magic_cidr"
+      "type": "string"
     },
     "secondary_gateway_address": {
       "type": "string"
@@ -135,7 +135,7 @@ export const magic_wan_static_addressing_output: JsonSchema = {
 /**
  * The schema of `magic_wans_collection_response` in responses.
  */
-export const magic_wans_collection_response_output: JsonSchema = {
+export const magic_wans_collection_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"

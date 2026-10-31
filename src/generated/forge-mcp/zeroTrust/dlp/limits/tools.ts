@@ -3,30 +3,40 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  dlp_api_response_common_failure_output,
-  dlp_api_response_single_output,
-  dlp_messages_output,
+  dlp_api$$response$$common$$failure,
+  dlp_api$$response$$single,
+  dlp_messages,
 } from "../../outputs.js";
-import { dlp_Limits_output } from "./outputs.js";
+import { dlp_Limits } from "./outputs.js";
 
 /**
- * The tools of `zero_trust.dlp.limits`.
+ * The tools of `zeroTrust.dlp.limits`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zero_trust_dlp_limits_list",
+    name: "zeroTrust_dlp_limits_list",
     title: "Fetch limits associated with DLP for account",
-    description: "Retrieves current DLP usage limits and quotas for the account, including\nmaximum allowed counts and current usage for custom entries, dataset cells,\nand document fingerprints.",
+    description: "Retrieves current DLP usage limits and quotas for the account, including\nmaximum allowed counts and current usage for custom entries, dataset cells,\nand document fingerprints.\n\nGET /accounts/{account_id}/dlp/limits",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -43,9 +53,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_Limits": dlp_Limits_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_Limits": dlp_Limits,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -85,10 +95,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_Limits": dlp_Limits_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_Limits": dlp_Limits,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({

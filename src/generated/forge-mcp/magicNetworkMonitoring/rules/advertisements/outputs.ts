@@ -7,12 +7,19 @@ import type { JsonSchema } from "../../../_/tool.js";
  * The schema of `magic-visibility-mnm_mnm_rule_advertisable_response` in
  * responses.
  */
-export const magic_visibility_mnm_mnm_rule_advertisable_response_output: JsonSchema = {
+export const magic$$visibility$$mnm_mnm_rule_advertisable_response: JsonSchema = {
   "oneOf": [
     {
       "properties": {
         "automatic_advertisement": {
-          "$ref": "#/$defs/magic-visibility-mnm_mnm_rule_automatic_advertisement"
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
       },
       "required": [
@@ -30,7 +37,7 @@ export const magic_visibility_mnm_mnm_rule_advertisable_response_output: JsonSch
  * The schema of `magic-visibility-mnm_mnm_rule_advertisement_single_response`
  * in responses.
  */
-export const magic_visibility_mnm_mnm_rule_advertisement_single_response_output: JsonSchema = {
+export const magic$$visibility$$mnm_mnm_rule_advertisement_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic-visibility-mnm_api-response-single"

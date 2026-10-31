@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `cloudforce-one_CreateRule`.
  */
-export const cloudforce_one_CreateRule: JsonSchema = {
+export const cloudforce$$one_CreateRule: JsonSchema = {
   "properties": {
     "actions": {
       "items": {
@@ -69,7 +69,7 @@ export const cloudforce_one_CreateRule: JsonSchema = {
 /**
  * The schema of `cloudforce-one_DeleteRuleBody`.
  */
-export const cloudforce_one_DeleteRuleBody: JsonSchema = {
+export const cloudforce$$one_DeleteRuleBody: JsonSchema = {
   "properties": {
     "commit_message": {
       "description": "Human-readable justification for the deletion. Required for internal-account submissions; optional for customer accounts and automated sync.",
@@ -82,7 +82,7 @@ export const cloudforce_one_DeleteRuleBody: JsonSchema = {
 /**
  * The schema of `cloudforce-one_MetaInputEntry`.
  */
-export const cloudforce_one_MetaInputEntry: JsonSchema = {
+export const cloudforce$$one_MetaInputEntry: JsonSchema = {
   "description": "A YARA meta entry. The server resolves its value type. The 'detection' key accepts MALICIOUS, SUSPICIOUS, SPAM, or SPOOF.",
   "properties": {
     "key": {
@@ -112,7 +112,7 @@ export const cloudforce_one_MetaInputEntry: JsonSchema = {
 /**
  * The schema of `cloudforce-one_RuleAction`.
  */
-export const cloudforce_one_RuleAction: JsonSchema = {
+export const cloudforce$$one_RuleAction: JsonSchema = {
   "properties": {
     "action_config": {
       "additionalProperties": {
@@ -171,7 +171,7 @@ export const cloudforce_one_RuleAction: JsonSchema = {
 /**
  * The schema of `cloudforce-one_UpdateRule`.
  */
-export const cloudforce_one_UpdateRule: JsonSchema = {
+export const cloudforce$$one_UpdateRule: JsonSchema = {
   "properties": {
     "commit_message": {
       "description": "Human-readable justification for this change. Required for internal-account submissions; optional for customer accounts and automated sync.",

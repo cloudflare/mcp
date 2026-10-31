@@ -7,7 +7,7 @@ import type { JsonSchema } from "../../../_/tool.js";
  * The schema of `digital-experience-monitoring_get_commands_response` in
  * responses.
  */
-export const digital_experience_monitoring_get_commands_response_output: JsonSchema = {
+export const digital$$experience$$monitoring_get_commands_response: JsonSchema = {
   "properties": {
     "commands": {
       "items": {
@@ -68,7 +68,7 @@ export const digital_experience_monitoring_get_commands_response_output: JsonSch
  * The schema of `digital-experience-monitoring_post_commands_response` in
  * responses.
  */
-export const digital_experience_monitoring_post_commands_response_output: JsonSchema = {
+export const digital$$experience$$monitoring_post_commands_response: JsonSchema = {
   "properties": {
     "commands": {
       "items": {

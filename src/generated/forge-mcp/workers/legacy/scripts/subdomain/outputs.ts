@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `workers_subdomain` in responses.
  */
-export const workers_subdomain_output: JsonSchema = {
+export const workers_subdomain: JsonSchema = {
   "properties": {
     "enabled": {
       "type": "boolean"

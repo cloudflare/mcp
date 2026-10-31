@@ -6,10 +6,10 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `email_email_domain` in responses.
  */
-export const email_email_domain_output: JsonSchema = {
+export const email_email_domain: JsonSchema = {
   "properties": {
     "account_id": {
-      "$ref": "#/$defs/email_identifier"
+      "type": "string"
     },
     "claim_release_at": {
       "format": "date-time",
@@ -83,7 +83,7 @@ export const email_email_domain_output: JsonSchema = {
 /**
  * The schema of `email_email_domain_capability` in responses.
  */
-export const email_email_domain_capability_output: JsonSchema = {
+export const email_email_domain_capability: JsonSchema = {
   "properties": {
     "reason": {
       "type": "string"
@@ -111,7 +111,7 @@ export const email_email_domain_capability_output: JsonSchema = {
 /**
  * The schema of `email_email_domain_change` in responses.
  */
-export const email_email_domain_change_output: JsonSchema = {
+export const email_email_domain_change: JsonSchema = {
   "properties": {
     "email_domain": {
       "$ref": "#/$defs/email_email_domain"
@@ -136,7 +136,7 @@ export const email_email_domain_change_output: JsonSchema = {
 /**
  * The schema of `email_email_domain_change_collection_response` in responses.
  */
-export const email_email_domain_change_collection_response_output: JsonSchema = {
+export const email_email_domain_change_collection_response: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -200,7 +200,7 @@ export const email_email_domain_change_collection_response_output: JsonSchema = 
 /**
  * The schema of `email_email_domain_collection_response` in responses.
  */
-export const email_email_domain_collection_response_output: JsonSchema = {
+export const email_email_domain_collection_response: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -256,7 +256,7 @@ export const email_email_domain_collection_response_output: JsonSchema = {
 /**
  * The schema of `email_email_domain_dns_record` in responses.
  */
-export const email_email_domain_dns_record_output: JsonSchema = {
+export const email_email_domain_dns_record: JsonSchema = {
   "properties": {
     "content": {
       "type": "string"
@@ -338,7 +338,7 @@ export const email_email_domain_dns_record_output: JsonSchema = {
 /**
  * The schema of `email_email_domain_error_response` in responses.
  */
-export const email_email_domain_error_response_output: JsonSchema = {
+export const email_email_domain_error_response: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -405,7 +405,7 @@ export const email_email_domain_error_response_output: JsonSchema = {
 /**
  * The schema of `email_email_domain_platform_status` in responses.
  */
-export const email_email_domain_platform_status_output: JsonSchema = {
+export const email_email_domain_platform_status: JsonSchema = {
   "properties": {
     "routing": {
       "$ref": "#/$defs/email_email_domain_capability"
@@ -424,7 +424,7 @@ export const email_email_domain_platform_status_output: JsonSchema = {
 /**
  * The schema of `email_email_domain_response` in responses.
  */
-export const email_email_domain_response_output: JsonSchema = {
+export const email_email_domain_response: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -457,7 +457,7 @@ export const email_email_domain_response_output: JsonSchema = {
 /**
  * The schema of `email_email_domain_tombstone` in responses.
  */
-export const email_email_domain_tombstone_output: JsonSchema = {
+export const email_email_domain_tombstone: JsonSchema = {
   "properties": {
     "hostname": {
       "type": "string"
@@ -492,7 +492,7 @@ export const email_email_domain_tombstone_output: JsonSchema = {
 /**
  * The schema of `email_email_domain_verification` in responses.
  */
-export const email_email_domain_verification_output: JsonSchema = {
+export const email_email_domain_verification: JsonSchema = {
   "properties": {
     "expires_at": {
       "format": "date-time",

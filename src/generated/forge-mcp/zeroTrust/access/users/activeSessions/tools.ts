@@ -3,73 +3,76 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  access_api_response_collection_output,
-  access_api_response_common_failure_output,
-  access_api_response_common_output,
-  access_api_response_single_output,
-  access_messages_output,
+  access_api$$response$$collection,
+  access_api$$response$$common,
+  access_api$$response$$common$$failure,
+  access_api$$response$$single,
+  access_messages,
 } from "../../../outputs.js";
-import { access_identifier, access_uuid } from "../../../schemas.js";
 import {
-  access_device_posture_check_output,
-  access_device_posture_rule_2_output,
-  access_device_session_output,
-  access_geo_output,
-  access_identity_output,
-  access_string_key_map_device_session_output,
+  access_device_posture_check,
+  access_device_posture_rule$$2,
+  access_device_session,
+  access_geo,
+  access_identity,
+  access_string_key_map_device_session,
 } from "../outputs.js";
 import {
-  access_active_session_response_output,
-  access_active_sessions_response_output,
+  access_active_session_response,
+  access_active_sessions_response,
 } from "./outputs.js";
-import { access_nonce } from "./schemas.js";
 
 /**
- * The tools of `zero_trust.access.users.active_sessions`.
+ * The tools of `zeroTrust.access.users.activeSessions`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zero_trust_access_users_active_sessions_get",
+    name: "zeroTrust_access_users_activeSessions_get",
     title: "Get single active session",
-    description: "Get an active session for a single user.",
+    description: "Get an active session for a single user.\n\nGET /accounts/{account_id}/access/users/{user_id}/active_sessions/{nonce}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/access_identifier",
-          "description": "Identifier."
-        },
-        "nonce": {
-          "$ref": "#/$defs/access_nonce"
-        },
-        "user_id": {
-          "$ref": "#/$defs/access_uuid",
-          "description": "UUID."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            },
+            "nonce": {
+              "type": "string"
+            },
+            "user_id": {
+              "description": "UUID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "user_id",
+            "nonce"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "user_id",
-        "nonce"
+        "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-        "access_nonce": access_nonce,
-        "access_uuid": access_uuid,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_active_session_response",
       $defs: {
-        "access_active_session_response": access_active_session_response_output,
-        "access_api-response-single": access_api_response_single_output,
-        "access_device_posture_check": access_device_posture_check_output,
-        "access_device_posture_rule-2": access_device_posture_rule_2_output,
-        "access_device_session": access_device_session_output,
-        "access_geo": access_geo_output,
-        "access_identity": access_identity_output,
-        "access_messages": access_messages_output,
-        "access_string_key_map_device_session": access_string_key_map_device_session_output,
+        "access_active_session_response": access_active_session_response,
+        "access_api-response-single": access_api$$response$$single,
+        "access_device_posture_check": access_device_posture_check,
+        "access_device_posture_rule-2": access_device_posture_rule$$2,
+        "access_device_session": access_device_session,
+        "access_geo": access_geo,
+        "access_identity": access_identity,
+        "access_messages": access_messages,
+        "access_string_key_map_device_session": access_string_key_map_device_session,
       },
     },
     annotations: {
@@ -96,16 +99,16 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "access_active_session_response": access_active_session_response_output,
-        "access_api-response-common-failure": access_api_response_common_failure_output,
-        "access_api-response-single": access_api_response_single_output,
-        "access_device_posture_check": access_device_posture_check_output,
-        "access_device_posture_rule-2": access_device_posture_rule_2_output,
-        "access_device_session": access_device_session_output,
-        "access_geo": access_geo_output,
-        "access_identity": access_identity_output,
-        "access_messages": access_messages_output,
-        "access_string_key_map_device_session": access_string_key_map_device_session_output,
+        "access_active_session_response": access_active_session_response,
+        "access_api-response-common-failure": access_api$$response$$common$$failure,
+        "access_api-response-single": access_api$$response$$single,
+        "access_device_posture_check": access_device_posture_check,
+        "access_device_posture_rule-2": access_device_posture_rule$$2,
+        "access_device_session": access_device_session,
+        "access_geo": access_geo,
+        "access_identity": access_identity,
+        "access_messages": access_messages,
+        "access_string_key_map_device_session": access_string_key_map_device_session,
       },
     },
     request: (args) => ({
@@ -113,37 +116,43 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_access_users_active_sessions_list",
+    name: "zeroTrust_access_users_activeSessions_list",
     title: "Get active sessions",
-    description: "Get active sessions for a single user.",
+    description: "Get active sessions for a single user.\n\nGET /accounts/{account_id}/access/users/{user_id}/active_sessions",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/access_identifier",
-          "description": "Identifier."
-        },
-        "user_id": {
-          "$ref": "#/$defs/access_uuid",
-          "description": "UUID."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            },
+            "user_id": {
+              "description": "UUID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "user_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "user_id"
+        "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-        "access_uuid": access_uuid,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_active_sessions_response",
       $defs: {
-        "access_active_sessions_response": access_active_sessions_response_output,
-        "access_api-response-collection": access_api_response_collection_output,
-        "access_api-response-common": access_api_response_common_output,
-        "access_messages": access_messages_output,
+        "access_active_sessions_response": access_active_sessions_response,
+        "access_api-response-collection": access_api$$response$$collection,
+        "access_api-response-common": access_api$$response$$common,
+        "access_messages": access_messages,
       },
     },
     annotations: {
@@ -170,11 +179,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "access_active_sessions_response": access_active_sessions_response_output,
-        "access_api-response-collection": access_api_response_collection_output,
-        "access_api-response-common": access_api_response_common_output,
-        "access_api-response-common-failure": access_api_response_common_failure_output,
-        "access_messages": access_messages_output,
+        "access_active_sessions_response": access_active_sessions_response,
+        "access_api-response-collection": access_api$$response$$collection,
+        "access_api-response-common": access_api$$response$$common,
+        "access_api-response-common-failure": access_api$$response$$common$$failure,
+        "access_messages": access_messages,
       },
     },
     request: (args) => ({

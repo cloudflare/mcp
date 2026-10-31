@@ -4,29 +4,9 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
- * The schema of `bill-subs-api_schemas-frequency` in responses.
- */
-export const bill_subs_api_schemas_frequency_output: JsonSchema = {
-  "enum": [
-    "weekly",
-    "monthly",
-    "quarterly",
-    "yearly"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `bill-subs-api_schemas-name` in responses.
- */
-export const bill_subs_api_schemas_name_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `zones_api-response-common` in responses.
  */
-export const zones_api_response_common_output: JsonSchema = {
+export const zones_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/zones_messages"
@@ -49,7 +29,7 @@ export const zones_api_response_common_output: JsonSchema = {
 /**
  * The schema of `zones_api-response-common-failure` in responses.
  */
-export const zones_api_response_common_failure_output: JsonSchema = {
+export const zones_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/zones_messages"
@@ -83,7 +63,7 @@ export const zones_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `zones_api-response-single-id` in responses.
  */
-export const zones_api_response_single_id_output: JsonSchema = {
+export const zones_api$$response$$single$$id: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_api-response-common"
@@ -95,7 +75,7 @@ export const zones_api_response_single_id_output: JsonSchema = {
             {
               "properties": {
                 "id": {
-                  "$ref": "#/$defs/zones_identifier"
+                  "type": "string"
                 }
               },
               "required": [
@@ -115,16 +95,9 @@ export const zones_api_response_single_id_output: JsonSchema = {
 };
 
 /**
- * The schema of `zones_identifier` in responses.
- */
-export const zones_identifier_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `zones_messages` in responses.
  */
-export const zones_messages_output: JsonSchema = {
+export const zones_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -144,16 +117,9 @@ export const zones_messages_output: JsonSchema = {
 };
 
 /**
- * The schema of `zones_paused` in responses.
- */
-export const zones_paused_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `zones_result_info` in responses.
  */
-export const zones_result_info_output: JsonSchema = {
+export const zones_result_info: JsonSchema = {
   "properties": {
     "count": {
       "type": "number"
@@ -175,22 +141,9 @@ export const zones_result_info_output: JsonSchema = {
 };
 
 /**
- * The schema of `zones_type` in responses.
- */
-export const zones_type_output: JsonSchema = {
-  "enum": [
-    "full",
-    "partial",
-    "secondary",
-    "internal"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `zones_zone` in responses.
  */
-export const zones_zone_output: JsonSchema = {
+export const zones_zone: JsonSchema = {
   "properties": {
     "account": {
       "properties": {
@@ -302,7 +255,7 @@ export const zones_zone_output: JsonSchema = {
     "owner": {
       "properties": {
         "id": {
-          "$ref": "#/$defs/zones_identifier"
+          "type": "string"
         },
         "name": {
           "type": "string"
@@ -314,7 +267,7 @@ export const zones_zone_output: JsonSchema = {
       "type": "object"
     },
     "paused": {
-      "$ref": "#/$defs/zones_paused"
+      "type": "boolean"
     },
     "permissions": {
       "items": {
@@ -337,7 +290,7 @@ export const zones_zone_output: JsonSchema = {
           "type": "string"
         },
         "id": {
-          "$ref": "#/$defs/zones_identifier"
+          "type": "string"
         },
         "is_subscribed": {
           "type": "boolean"
@@ -369,7 +322,7 @@ export const zones_zone_output: JsonSchema = {
     "tenant": {
       "properties": {
         "id": {
-          "$ref": "#/$defs/zones_identifier"
+          "type": "string"
         },
         "name": {
           "type": "string"
@@ -380,13 +333,19 @@ export const zones_zone_output: JsonSchema = {
     "tenant_unit": {
       "properties": {
         "id": {
-          "$ref": "#/$defs/zones_identifier"
+          "type": "string"
         }
       },
       "type": "object"
     },
     "type": {
-      "$ref": "#/$defs/zones_type"
+      "enum": [
+        "full",
+        "partial",
+        "secondary",
+        "internal"
+      ],
+      "type": "string"
     },
     "vanity_name_servers": {
       "items": {

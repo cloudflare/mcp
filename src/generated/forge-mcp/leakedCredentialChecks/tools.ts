@@ -3,49 +3,55 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
-  waf_product_api_bundle_api_response_common_output,
-  waf_product_api_bundle_api_response_single_output,
-  waf_product_api_bundle_messages_output,
+  waf$$product$$api$$bundle_api$$response$$common,
+  waf$$product$$api$$bundle_api$$response$$single,
+  waf$$product$$api$$bundle_messages,
 } from "../outputs.js";
-import { waf_product_api_bundle_identifier } from "../schemas.js";
 import {
-  waf_product_api_bundle_api_response_common_failure_output,
-  waf_product_api_bundle_response_status_output,
-  waf_product_api_bundle_status_output,
+  waf$$product$$api$$bundle_api$$response$$common$$failure,
+  waf$$product$$api$$bundle_response$$status,
+  waf$$product$$api$$bundle_status,
 } from "./outputs.js";
-import { waf_product_api_bundle_status } from "./schemas.js";
+import { waf$$product$$api$$bundle_status as waf$$product$$api$$bundle_status$ } from "./schemas.js";
 
 /**
- * The tools of `leaked_credential_checks`.
+ * The tools of `leakedCredentialChecks`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "leaked_credential_checks_get",
+    name: "leakedCredentialChecks_get",
     title: "Get the Leaked Credential Checks status for a zone.",
-    description: "Get the current Leaked Credential Checks status for the zone. While enabled, Cloudflare scans incoming requests for usernames and passwords that were exposed in known data breaches.",
+    description: "Get the current Leaked Credential Checks status for the zone. While enabled, Cloudflare scans incoming requests for usernames and passwords that were exposed in known data breaches.\n\nGET /zones/{zone_id}/leaked-credential-checks",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/waf-product-api-bundle_identifier",
-          "description": "Defines an identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Defines an identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
-      $defs: {
-        "waf-product-api-bundle_identifier": waf_product_api_bundle_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/waf-product-api-bundle_response-status",
       $defs: {
-        "waf-product-api-bundle_api-response-common": waf_product_api_bundle_api_response_common_output,
-        "waf-product-api-bundle_api-response-single": waf_product_api_bundle_api_response_single_output,
-        "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
-        "waf-product-api-bundle_response-status": waf_product_api_bundle_response_status_output,
-        "waf-product-api-bundle_status": waf_product_api_bundle_status_output,
+        "waf-product-api-bundle_api-response-common": waf$$product$$api$$bundle_api$$response$$common,
+        "waf-product-api-bundle_api-response-single": waf$$product$$api$$bundle_api$$response$$single,
+        "waf-product-api-bundle_messages": waf$$product$$api$$bundle_messages,
+        "waf-product-api-bundle_response-status": waf$$product$$api$$bundle_response$$status,
+        "waf-product-api-bundle_status": waf$$product$$api$$bundle_status,
       },
     },
     annotations: {
@@ -82,12 +88,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "waf-product-api-bundle_api-response-common": waf_product_api_bundle_api_response_common_output,
-        "waf-product-api-bundle_api-response-common-failure": waf_product_api_bundle_api_response_common_failure_output,
-        "waf-product-api-bundle_api-response-single": waf_product_api_bundle_api_response_single_output,
-        "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
-        "waf-product-api-bundle_response-status": waf_product_api_bundle_response_status_output,
-        "waf-product-api-bundle_status": waf_product_api_bundle_status_output,
+        "waf-product-api-bundle_api-response-common": waf$$product$$api$$bundle_api$$response$$common,
+        "waf-product-api-bundle_api-response-common-failure": waf$$product$$api$$bundle_api$$response$$common$$failure,
+        "waf-product-api-bundle_api-response-single": waf$$product$$api$$bundle_api$$response$$single,
+        "waf-product-api-bundle_messages": waf$$product$$api$$bundle_messages,
+        "waf-product-api-bundle_response-status": waf$$product$$api$$bundle_response$$status,
+        "waf-product-api-bundle_status": waf$$product$$api$$bundle_status,
       },
     },
     request: (args) => ({
@@ -95,37 +101,46 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "leaked_credential_checks_update",
+    name: "leakedCredentialChecks_update",
     title: "Update the Leaked Credential Checks status for a zone.",
-    description: "Update the Leaked Credential Checks status for the zone, enabling or disabling the detection. While enabled, the detection populates the `cf.waf.credential_check.*` fields, which you can reference in custom rules and rate limiting rules to challenge or block requests carrying compromised credentials.\n\nConfirm with the user before calling this tool. This operation toggles Leaked Credential Checks for a zone.",
+    description: "Update the Leaked Credential Checks status for the zone, enabling or disabling the detection. While enabled, the detection populates the `cf.waf.credential_check.*` fields, which you can reference in custom rules and rate limiting rules to challenge or block requests carrying compromised credentials.\n\nConfirm with the user before calling this tool. This operation toggles Leaked Credential Checks for a zone.\n\nPOST /zones/{zone_id}/leaked-credential-checks",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "$ref": "#/$defs/waf-product-api-bundle_status"
         },
-        "zone_id": {
-          "$ref": "#/$defs/waf-product-api-bundle_identifier",
-          "description": "Defines an identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Defines an identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "waf-product-api-bundle_identifier": waf_product_api_bundle_identifier,
-        "waf-product-api-bundle_status": waf_product_api_bundle_status,
+        "waf-product-api-bundle_status": waf$$product$$api$$bundle_status$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/waf-product-api-bundle_response-status",
       $defs: {
-        "waf-product-api-bundle_api-response-common": waf_product_api_bundle_api_response_common_output,
-        "waf-product-api-bundle_api-response-single": waf_product_api_bundle_api_response_single_output,
-        "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
-        "waf-product-api-bundle_response-status": waf_product_api_bundle_response_status_output,
-        "waf-product-api-bundle_status": waf_product_api_bundle_status_output,
+        "waf-product-api-bundle_api-response-common": waf$$product$$api$$bundle_api$$response$$common,
+        "waf-product-api-bundle_api-response-single": waf$$product$$api$$bundle_api$$response$$single,
+        "waf-product-api-bundle_messages": waf$$product$$api$$bundle_messages,
+        "waf-product-api-bundle_response-status": waf$$product$$api$$bundle_response$$status,
+        "waf-product-api-bundle_status": waf$$product$$api$$bundle_status,
       },
     },
     annotations: {
@@ -160,12 +175,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "waf-product-api-bundle_api-response-common": waf_product_api_bundle_api_response_common_output,
-        "waf-product-api-bundle_api-response-common-failure": waf_product_api_bundle_api_response_common_failure_output,
-        "waf-product-api-bundle_api-response-single": waf_product_api_bundle_api_response_single_output,
-        "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
-        "waf-product-api-bundle_response-status": waf_product_api_bundle_response_status_output,
-        "waf-product-api-bundle_status": waf_product_api_bundle_status_output,
+        "waf-product-api-bundle_api-response-common": waf$$product$$api$$bundle_api$$response$$common,
+        "waf-product-api-bundle_api-response-common-failure": waf$$product$$api$$bundle_api$$response$$common$$failure,
+        "waf-product-api-bundle_api-response-single": waf$$product$$api$$bundle_api$$response$$single,
+        "waf-product-api-bundle_messages": waf$$product$$api$$bundle_messages,
+        "waf-product-api-bundle_response-status": waf$$product$$api$$bundle_response$$status,
+        "waf-product-api-bundle_status": waf$$product$$api$$bundle_status,
       },
     },
     request: (args) => ({

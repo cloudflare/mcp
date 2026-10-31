@@ -7,25 +7,43 @@ import type { JsonSchema } from "../../../_/tool.js";
  * The schema of `tls-certificates-and-hostnames_hostname_assoc_object` in
  * responses.
  */
-export const tls_certificates_and_hostnames_hostname_assoc_object_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_hostname_assoc_object: JsonSchema = {
   "properties": {
     "cert_id": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_cert_id"
+      "type": "string"
     },
     "created_at": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_created_at-3"
+      "format": "date-time",
+      "type": "string"
     },
     "enabled": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_enabled-5"
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "hostname": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_hostname-2"
+      "type": "string"
     },
     "status": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_status-9"
+      "enum": [
+        "initializing",
+        "pending_deployment",
+        "pending_deletion",
+        "active",
+        "deleted",
+        "deployment_timed_out",
+        "deletion_timed_out"
+      ],
+      "type": "string"
     },
     "updated_at": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_updated_at-3"
+      "format": "date-time",
+      "type": "string"
     }
   },
   "type": "object"
@@ -36,7 +54,7 @@ export const tls_certificates_and_hostnames_hostname_assoc_object_output: JsonSc
  * `tls-certificates-and-hostnames_hostname_assoc_response_collection` in
  * responses.
  */
-export const tls_certificates_and_hostnames_hostname_assoc_response_collection_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_hostname_assoc_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-collection"

@@ -6,13 +6,13 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `workers_namespace-script-delete-bulk-response` in responses.
  */
-export const workers_namespace_script_delete_bulk_response_output: JsonSchema = {
+export const workers_namespace$$script$$delete$$bulk$$response: JsonSchema = {
   "properties": {
     "deleted": {
       "items": {
         "properties": {
           "id": {
-            "$ref": "#/$defs/workers_uuid"
+            "type": "string"
           }
         },
         "type": "object"
@@ -32,16 +32,18 @@ export const workers_namespace_script_delete_bulk_response_output: JsonSchema = 
 /**
  * The schema of `workers_namespace-script-response` in responses.
  */
-export const workers_namespace_script_response_output: JsonSchema = {
+export const workers_namespace$$script$$response: JsonSchema = {
   "properties": {
     "created_on": {
-      "$ref": "#/$defs/workers_created_on"
+      "format": "date-time",
+      "type": "string"
     },
     "dispatch_namespace": {
-      "$ref": "#/$defs/workers_dispatch_namespace_name"
+      "type": "string"
     },
     "modified_on": {
-      "$ref": "#/$defs/workers_modified_on"
+      "format": "date-time",
+      "type": "string"
     },
     "script": {
       "$ref": "#/$defs/workers_script-response"
@@ -53,7 +55,7 @@ export const workers_namespace_script_response_output: JsonSchema = {
 /**
  * The schema of `workers_namespace-script-response-single` in responses.
  */
-export const workers_namespace_script_response_single_output: JsonSchema = {
+export const workers_namespace$$script$$response$$single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/workers_api-response-common"

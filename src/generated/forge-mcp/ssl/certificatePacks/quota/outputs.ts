@@ -8,7 +8,7 @@ import type { JsonSchema } from "../../../_/tool.js";
  * `tls-certificates-and-hostnames_certificate_pack_quota_response` in
  * responses.
  */
-export const tls_certificates_and_hostnames_certificate_pack_quota_response_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_certificate_pack_quota_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-single"
@@ -32,7 +32,7 @@ export const tls_certificates_and_hostnames_certificate_pack_quota_response_outp
 /**
  * The schema of `tls-certificates-and-hostnames_quota` in responses.
  */
-export const tls_certificates_and_hostnames_quota_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_quota: JsonSchema = {
   "properties": {
     "allocated": {
       "type": "integer"

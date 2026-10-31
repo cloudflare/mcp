@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `api-shield_replace_operations_attached_to_label_request`.
  */
-export const api_shield_replace_operations_attached_to_label_request: JsonSchema = {
+export const api$$shield_replace_operations_attached_to_label_request: JsonSchema = {
   "properties": {
     "selector": {
       "$ref": "#/$defs/api-shield_operation_id_selector",

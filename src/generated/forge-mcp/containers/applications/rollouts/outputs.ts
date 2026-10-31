@@ -6,10 +6,10 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `cc_ApplicationRollout` in responses.
  */
-export const cc_ApplicationRollout_output: JsonSchema = {
+export const cc_ApplicationRollout: JsonSchema = {
   "properties": {
     "created_at": {
-      "$ref": "#/$defs/cc_ISO8601Timestamp"
+      "type": "string"
     },
     "current_configuration": {
       "$ref": "#/$defs/cc_ModifyUserDeploymentConfiguration"
@@ -24,7 +24,7 @@ export const cc_ApplicationRollout_output: JsonSchema = {
       "$ref": "#/$defs/cc_ApplicationHealth"
     },
     "id": {
-      "$ref": "#/$defs/cc_RolloutID"
+      "type": "string"
     },
     "kind": {
       "enum": [
@@ -35,7 +35,7 @@ export const cc_ApplicationRollout_output: JsonSchema = {
       "type": "string"
     },
     "last_updated_at": {
-      "$ref": "#/$defs/cc_ISO8601Timestamp"
+      "type": "string"
     },
     "percentage": {
       "type": "integer"
@@ -112,7 +112,7 @@ export const cc_ApplicationRollout_output: JsonSchema = {
 /**
  * The schema of `cc_ApplicationRolloutProgress` in responses.
  */
-export const cc_ApplicationRolloutProgress_output: JsonSchema = {
+export const cc_ApplicationRolloutProgress: JsonSchema = {
   "properties": {
     "current_step": {
       "type": "integer"
@@ -156,10 +156,10 @@ export const cc_ApplicationRolloutProgress_output: JsonSchema = {
 /**
  * The schema of `cc_RolloutStep` in responses.
  */
-export const cc_RolloutStep_output: JsonSchema = {
+export const cc_RolloutStep: JsonSchema = {
   "properties": {
     "completed_at": {
-      "$ref": "#/$defs/cc_ISO8601Timestamp"
+      "type": "string"
     },
     "description": {
       "type": "string"
@@ -171,7 +171,7 @@ export const cc_RolloutStep_output: JsonSchema = {
       "type": "string"
     },
     "started_at": {
-      "$ref": "#/$defs/cc_ISO8601Timestamp"
+      "type": "string"
     },
     "status": {
       "enum": [

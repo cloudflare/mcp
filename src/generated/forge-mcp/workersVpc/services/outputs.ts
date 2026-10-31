@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `infra_ApiTlsSettings` in responses.
  */
-export const infra_ApiTlsSettings_output: JsonSchema = {
+export const infra_ApiTlsSettings: JsonSchema = {
   "properties": {
     "cert_verification_mode": {
       "type": "string"
@@ -41,7 +41,7 @@ export const infra_ApiTlsSettings_output: JsonSchema = {
 /**
  * The schema of `infra_ConnectivityServiceArray` in responses.
  */
-export const infra_ConnectivityServiceArray_output: JsonSchema = {
+export const infra_ConnectivityServiceArray: JsonSchema = {
   "items": {
     "$ref": "#/$defs/infra_ServiceConfig"
   },
@@ -51,7 +51,7 @@ export const infra_ConnectivityServiceArray_output: JsonSchema = {
 /**
  * The schema of `infra_DualStackHost` in responses.
  */
-export const infra_DualStackHost_output: JsonSchema = {
+export const infra_DualStackHost: JsonSchema = {
   "properties": {
     "ipv4": {
       "type": "string"
@@ -74,7 +74,7 @@ export const infra_DualStackHost_output: JsonSchema = {
 /**
  * The schema of `infra_HostnameHost` in responses.
  */
-export const infra_HostnameHost_output: JsonSchema = {
+export const infra_HostnameHost: JsonSchema = {
   "properties": {
     "hostname": {
       "type": "string"
@@ -93,7 +93,7 @@ export const infra_HostnameHost_output: JsonSchema = {
 /**
  * The schema of `infra_HttpServiceConfig` in responses.
  */
-export const infra_HttpServiceConfig_output: JsonSchema = {
+export const infra_HttpServiceConfig: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/infra_ServiceCommon"
@@ -129,7 +129,7 @@ export const infra_HttpServiceConfig_output: JsonSchema = {
 /**
  * The schema of `infra_IPv4Host` in responses.
  */
-export const infra_IPv4Host_output: JsonSchema = {
+export const infra_IPv4Host: JsonSchema = {
   "properties": {
     "ipv4": {
       "type": "string"
@@ -148,7 +148,7 @@ export const infra_IPv4Host_output: JsonSchema = {
 /**
  * The schema of `infra_IPv6Host` in responses.
  */
-export const infra_IPv6Host_output: JsonSchema = {
+export const infra_IPv6Host: JsonSchema = {
   "properties": {
     "ipv6": {
       "type": "string"
@@ -167,7 +167,7 @@ export const infra_IPv6Host_output: JsonSchema = {
 /**
  * The schema of `infra_Network` in responses.
  */
-export const infra_Network_output: JsonSchema = {
+export const infra_Network: JsonSchema = {
   "properties": {
     "tunnel_id": {
       "format": "uuid",
@@ -183,7 +183,7 @@ export const infra_Network_output: JsonSchema = {
 /**
  * The schema of `infra_ResolverNetwork` in responses.
  */
-export const infra_ResolverNetwork_output: JsonSchema = {
+export const infra_ResolverNetwork: JsonSchema = {
   "properties": {
     "resolver_ips": {
       "oneOf": [
@@ -212,7 +212,7 @@ export const infra_ResolverNetwork_output: JsonSchema = {
 /**
  * The schema of `infra_ServiceCommon` in responses.
  */
-export const infra_ServiceCommon_output: JsonSchema = {
+export const infra_ServiceCommon: JsonSchema = {
   "properties": {
     "created_at": {
       "format": "date-time",
@@ -239,7 +239,11 @@ export const infra_ServiceCommon_output: JsonSchema = {
       ]
     },
     "type": {
-      "$ref": "#/$defs/infra_ServiceType"
+      "enum": [
+        "tcp",
+        "http"
+      ],
+      "type": "string"
     },
     "updated_at": {
       "format": "date-time",
@@ -257,7 +261,7 @@ export const infra_ServiceCommon_output: JsonSchema = {
 /**
  * The schema of `infra_ServiceConfig` in responses.
  */
-export const infra_ServiceConfig_output: JsonSchema = {
+export const infra_ServiceConfig: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/infra_HttpServiceConfig"
@@ -271,7 +275,7 @@ export const infra_ServiceConfig_output: JsonSchema = {
 /**
  * The schema of `infra_ServiceHost` in responses.
  */
-export const infra_ServiceHost_output: JsonSchema = {
+export const infra_ServiceHost: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/infra_IPv4Host"
@@ -289,20 +293,9 @@ export const infra_ServiceHost_output: JsonSchema = {
 };
 
 /**
- * The schema of `infra_ServiceType` in responses.
- */
-export const infra_ServiceType_output: JsonSchema = {
-  "enum": [
-    "tcp",
-    "http"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `infra_TcpServiceConfig` in responses.
  */
-export const infra_TcpServiceConfig_output: JsonSchema = {
+export const infra_TcpServiceConfig: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/infra_ServiceCommon"

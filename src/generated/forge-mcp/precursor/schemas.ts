@@ -4,47 +4,31 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
- * The schema of `precursor_identifier`.
- */
-export const precursor_identifier: JsonSchema = {
-  "description": "Identifier.",
-  "type": "string"
-};
-
-/**
  * The schema of `precursor_precursor_config`.
  */
 export const precursor_precursor_config: JsonSchema = {
   "description": "Precursor Config",
   "properties": {
     "mode": {
-      "$ref": "#/$defs/precursor_precursor_mode",
       "default": "off",
-      "description": "Controls Precursor detection for the zone. `off` disables detection,\n`monitor` records detections without affecting bot scores, and `arm`\nallows detections to affect bot scores.\n"
+      "description": "Controls Precursor detection for the zone. `off` disables detection,\n`monitor` records detections without affecting bot scores, and `arm`\nallows detections to affect bot scores.",
+      "enum": [
+        "off",
+        "monitor",
+        "arm"
+      ],
+      "type": "string"
     },
     "rules": {
       "$ref": "#/$defs/precursor_precursor_rules",
       "description": "The ordered list of Precursor rules for the zone."
     },
     "show_interstitial": {
-      "$ref": "#/$defs/precursor_show_interstitial",
-      "description": "Whether Precursor shows an interstitial when it takes action on a\nrequest.\n"
+      "description": "Whether Precursor shows an interstitial when it takes action on a\nrequest.",
+      "type": "boolean"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `precursor_precursor_mode`.
- */
-export const precursor_precursor_mode: JsonSchema = {
-  "description": "Controls Precursor detection for the zone. `off` disables detection,\n`monitor` records detections without affecting bot scores, and `arm`\nallows detections to affect bot scores.\n",
-  "enum": [
-    "off",
-    "monitor",
-    "arm"
-  ],
-  "type": "string"
 };
 
 /**
@@ -68,8 +52,8 @@ export const precursor_precursor_rule: JsonSchema = {
       "type": "string"
     },
     "show_interstitial": {
-      "$ref": "#/$defs/precursor_show_interstitial",
-      "description": "Whether Precursor shows an interstitial when it takes action on a\nrequest.\n"
+      "description": "Whether Precursor shows an interstitial when it takes action on a\nrequest.",
+      "type": "boolean"
     }
   },
   "required": [
@@ -88,12 +72,4 @@ export const precursor_precursor_rules: JsonSchema = {
     "$ref": "#/$defs/precursor_precursor_rule"
   },
   "type": "array"
-};
-
-/**
- * The schema of `precursor_show_interstitial`.
- */
-export const precursor_show_interstitial: JsonSchema = {
-  "description": "Whether Precursor shows an interstitial when it takes action on a\nrequest.\n",
-  "type": "boolean"
 };

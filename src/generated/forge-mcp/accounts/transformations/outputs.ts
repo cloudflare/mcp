@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `speed_zone_config_item` in responses.
  */
-export const speed_zone_config_item_output: JsonSchema = {
+export const speed_zone_config_item: JsonSchema = {
   "properties": {
     "cf_zone_tag": {
       "type": "string"

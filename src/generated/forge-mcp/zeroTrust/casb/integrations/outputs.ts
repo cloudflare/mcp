@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `one_IntegrationCreateResponse` in responses.
  */
-export const one_IntegrationCreateResponse_output: JsonSchema = {
+export const one_IntegrationCreateResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -37,7 +37,7 @@ export const one_IntegrationCreateResponse_output: JsonSchema = {
 /**
  * The schema of `one_IntegrationDetailResponse` in responses.
  */
-export const one_IntegrationDetailResponse_output: JsonSchema = {
+export const one_IntegrationDetailResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -68,7 +68,7 @@ export const one_IntegrationDetailResponse_output: JsonSchema = {
 /**
  * The schema of `one_IntegrationPauseResponse` in responses.
  */
-export const one_IntegrationPauseResponse_output: JsonSchema = {
+export const one_IntegrationPauseResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -99,7 +99,7 @@ export const one_IntegrationPauseResponse_output: JsonSchema = {
 /**
  * The schema of `one_IntegrationResumeResponse` in responses.
  */
-export const one_IntegrationResumeResponse_output: JsonSchema = {
+export const one_IntegrationResumeResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -130,7 +130,7 @@ export const one_IntegrationResumeResponse_output: JsonSchema = {
 /**
  * The schema of `one_IntegrationUpdateResponse` in responses.
  */
-export const one_IntegrationUpdateResponse_output: JsonSchema = {
+export const one_IntegrationUpdateResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -161,7 +161,7 @@ export const one_IntegrationUpdateResponse_output: JsonSchema = {
 /**
  * The schema of `one_IntegrationV2Detail` in responses.
  */
-export const one_IntegrationV2Detail_output: JsonSchema = {
+export const one_IntegrationV2Detail: JsonSchema = {
   "properties": {
     "application": {
       "additionalProperties": {
@@ -296,7 +296,7 @@ export const one_IntegrationV2Detail_output: JsonSchema = {
 /**
  * The schema of `one_IntegrationV2ListItem` in responses.
  */
-export const one_IntegrationV2ListItem_output: JsonSchema = {
+export const one_IntegrationV2ListItem: JsonSchema = {
   "properties": {
     "application": {
       "additionalProperties": {
@@ -378,7 +378,7 @@ export const one_IntegrationV2ListItem_output: JsonSchema = {
 /**
  * The schema of `one_PaginatedIntegrationV2ListItemList` in responses.
  */
-export const one_PaginatedIntegrationV2ListItemList_output: JsonSchema = {
+export const one_PaginatedIntegrationV2ListItemList: JsonSchema = {
   "properties": {
     "errors": {
       "items": {

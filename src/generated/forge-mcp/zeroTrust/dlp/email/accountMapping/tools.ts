@@ -3,41 +3,51 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  dlp_api_response_common_failure_output,
-  dlp_api_response_single_output,
-  dlp_messages_output,
+  dlp_api$$response$$common$$failure,
+  dlp_api$$response$$single,
+  dlp_messages,
 } from "../../../outputs.js";
+import { dlp_AddinAccountMapping, dlp_AddinAuth } from "./outputs.js";
 import {
-  dlp_AddinAccountMapping_output,
-  dlp_AddinAuth_output,
-} from "./outputs.js";
-import { dlp_AddinAuth, dlp_UpdateAddinAccountMapping } from "./schemas.js";
+  dlp_AddinAuth as dlp_AddinAuth$,
+  dlp_UpdateAddinAccountMapping,
+} from "./schemas.js";
 
 /**
- * The tools of `zero_trust.dlp.email.account_mapping`.
+ * The tools of `zeroTrust.dlp.email.accountMapping`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zero_trust_dlp_email_account_mapping_create",
+    name: "zeroTrust_dlp_email_accountMapping_create",
     title: "Create mapping",
-    description: "Creates a mapping between a Cloudflare account and an email provider for DLP email scanning integration.",
+    description: "Creates a mapping between a Cloudflare account and an email provider for DLP email scanning integration.\n\nPOST /accounts/{account_id}/dlp/email/account_mapping",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/dlp_UpdateAddinAccountMapping",
           "description": "Account mapping."
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "dlp_AddinAuth": dlp_AddinAuth,
+        "dlp_AddinAuth": dlp_AddinAuth$,
         "dlp_UpdateAddinAccountMapping": dlp_UpdateAddinAccountMapping,
       },
     },
@@ -56,10 +66,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_AddinAccountMapping": dlp_AddinAccountMapping_output,
-        "dlp_AddinAuth": dlp_AddinAuth_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_AddinAccountMapping": dlp_AddinAccountMapping,
+        "dlp_AddinAuth": dlp_AddinAuth,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -98,11 +108,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_AddinAccountMapping": dlp_AddinAccountMapping_output,
-        "dlp_AddinAuth": dlp_AddinAuth_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_AddinAccountMapping": dlp_AddinAccountMapping,
+        "dlp_AddinAuth": dlp_AddinAuth,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -111,19 +121,29 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_dlp_email_account_mapping_get",
+    name: "zeroTrust_dlp_email_accountMapping_get",
     title: "Get mapping",
-    description: "Retrieves the email provider mapping configuration for DLP email scanning.",
+    description: "Retrieves the email provider mapping configuration for DLP email scanning.\n\nGET /accounts/{account_id}/dlp/email/account_mapping",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -140,10 +160,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_AddinAccountMapping": dlp_AddinAccountMapping_output,
-        "dlp_AddinAuth": dlp_AddinAuth_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_AddinAccountMapping": dlp_AddinAccountMapping,
+        "dlp_AddinAuth": dlp_AddinAuth,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -183,11 +203,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_AddinAccountMapping": dlp_AddinAccountMapping_output,
-        "dlp_AddinAuth": dlp_AddinAuth_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_AddinAccountMapping": dlp_AddinAccountMapping,
+        "dlp_AddinAuth": dlp_AddinAuth,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({

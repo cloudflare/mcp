@@ -4,24 +4,34 @@
 import { type Tool, pathParam } from "../../../../_/tool.js";
 
 /**
- * The tools of `cloudforce_one.threat_intel.events.legacy`.
+ * The tools of `cloudforceOne.threatIntel.events.legacy`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "cloudforce_one_threat_intel_events_legacy_graphql",
+    name: "cloudforceOne_threatIntel_events_legacy_graphql",
     title: "Run a GraphQL aggregation over events (legacy)",
-    description: "Legacy. Use `threat-intel events graphql` (`POST /events/graphql`) instead. Both commands run the same query.",
+    description: "Legacy. Use `threat-intel events graphql` (`POST /events/graphql`) instead. Both commands run the same query.\n\nPOST /accounts/{account_id}/cloudforce-one/v2/events/graphql",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account ID.",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `aaa_silence` in responses.
  */
-export const aaa_silence_output: JsonSchema = {
+export const aaa_silence: JsonSchema = {
   "properties": {
     "created_at": {
       "type": "string"
@@ -15,10 +15,10 @@ export const aaa_silence_output: JsonSchema = {
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/aaa_silence-id"
+      "type": "string"
     },
     "policy_id": {
-      "$ref": "#/$defs/aaa_policy-id"
+      "type": "string"
     },
     "start_time": {
       "type": "string"
@@ -31,17 +31,10 @@ export const aaa_silence_output: JsonSchema = {
 };
 
 /**
- * The schema of `aaa_silence-id` in responses.
- */
-export const aaa_silence_id_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `aaa_silence_components-schemas-response_collection` in
  * responses.
  */
-export const aaa_silence_components_schemas_response_collection_output: JsonSchema = {
+export const aaa_silence_components$$schemas$$response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/aaa_api-response-common-2"
@@ -61,7 +54,7 @@ export const aaa_silence_components_schemas_response_collection_output: JsonSche
  * The schema of `aaa_silences_components-schemas-response_collection` in
  * responses.
  */
-export const aaa_silences_components_schemas_response_collection_output: JsonSchema = {
+export const aaa_silences_components$$schemas$$response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/aaa_api-response-common-2"

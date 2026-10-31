@@ -6,99 +6,44 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `access_access-requests` in responses.
  */
-export const access_access_requests_output: JsonSchema = {
+export const access_access$$requests: JsonSchema = {
   "properties": {
     "action": {
-      "$ref": "#/$defs/access_action"
+      "type": "string"
     },
     "allowed": {
-      "$ref": "#/$defs/access_allowed"
+      "type": "boolean"
     },
     "app_domain": {
-      "$ref": "#/$defs/access_app_domain"
+      "type": "string"
     },
     "app_uid": {
-      "$ref": "#/$defs/access_app_uid"
+      "type": "string"
     },
     "connection": {
-      "$ref": "#/$defs/access_connection"
+      "type": "string"
     },
     "created_at": {
-      "$ref": "#/$defs/access_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "ip_address": {
-      "$ref": "#/$defs/access_ip"
+      "type": "string"
     },
     "ray_id": {
-      "$ref": "#/$defs/access_ray_id"
+      "type": "string"
     },
     "user_email": {
-      "$ref": "#/$defs/access_email-3"
+      "type": "string"
     }
   },
   "type": "object"
 };
 
 /**
- * The schema of `access_action` in responses.
- */
-export const access_action_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `access_allowed` in responses.
- */
-export const access_allowed_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `access_app_domain` in responses.
- */
-export const access_app_domain_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `access_app_uid` in responses.
- */
-export const access_app_uid_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `access_connection` in responses.
- */
-export const access_connection_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `access_email-3` in responses.
- */
-export const access_email_3_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `access_ip` in responses.
- */
-export const access_ip_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `access_ray_id` in responses.
- */
-export const access_ray_id_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `access_response_collection-12` in responses.
  */
-export const access_response_collection_12_output: JsonSchema = {
+export const access_response_collection$$12: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-common"

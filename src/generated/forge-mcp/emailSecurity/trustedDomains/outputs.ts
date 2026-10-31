@@ -6,10 +6,11 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `email-security_DeletedTrustedDomain` in responses.
  */
-export const email_security_DeletedTrustedDomain_output: JsonSchema = {
+export const email$$security_DeletedTrustedDomain: JsonSchema = {
   "properties": {
     "id": {
-      "$ref": "#/$defs/email-security_TrustedDomainId"
+      "format": "uuid",
+      "type": "string"
     }
   },
   "required": [
@@ -21,7 +22,7 @@ export const email_security_DeletedTrustedDomain_output: JsonSchema = {
 /**
  * The schema of `email-security_TrustedDomain` in responses.
  */
-export const email_security_TrustedDomain_output: JsonSchema = {
+export const email$$security_TrustedDomain: JsonSchema = {
   "properties": {
     "comments": {
       "oneOf": [
@@ -34,10 +35,12 @@ export const email_security_TrustedDomain_output: JsonSchema = {
       ]
     },
     "created_at": {
-      "$ref": "#/$defs/email-security_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/email-security_TrustedDomainId"
+      "format": "uuid",
+      "type": "string"
     },
     "is_recent": {
       "type": "boolean"
@@ -49,10 +52,12 @@ export const email_security_TrustedDomain_output: JsonSchema = {
       "type": "boolean"
     },
     "last_modified": {
-      "$ref": "#/$defs/email-security_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "modified_at": {
-      "$ref": "#/$defs/email-security_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "pattern": {
       "type": "string"
@@ -62,17 +67,9 @@ export const email_security_TrustedDomain_output: JsonSchema = {
 };
 
 /**
- * The schema of `email-security_TrustedDomainId` in responses.
- */
-export const email_security_TrustedDomainId_output: JsonSchema = {
-  "format": "uuid",
-  "type": "string"
-};
-
-/**
  * The schema of `email-security_TrustedDomainList` in responses.
  */
-export const email_security_TrustedDomainList_output: JsonSchema = {
+export const email$$security_TrustedDomainList: JsonSchema = {
   "items": {
     "$ref": "#/$defs/email-security_TrustedDomain"
   },

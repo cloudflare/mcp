@@ -3,58 +3,58 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  waitingroom_api_response_common_failure_output,
-  waitingroom_api_response_common_output,
-  waitingroom_api_response_single_output,
-  waitingroom_messages_output,
+  waitingroom_api$$response$$common,
+  waitingroom_api$$response$$common$$failure,
+  waitingroom_api$$response$$single,
+  waitingroom_messages,
 } from "../outputs.js";
-import { waitingroom_identifier } from "../schemas.js";
-import {
-  waitingroom_search_engine_crawler_bypass_output,
-  waitingroom_zone_settings_response_output,
-} from "./outputs.js";
-import {
-  waitingroom_search_engine_crawler_bypass,
-  waitingroom_zone_settings,
-} from "./schemas.js";
+import { waitingroom_zone_settings_response } from "./outputs.js";
+import { waitingroom_zone_settings } from "./schemas.js";
 
 /**
- * The tools of `waiting_rooms.settings`.
+ * The tools of `waitingRooms.settings`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "waiting_rooms_settings_edit",
+    name: "waitingRooms_settings_edit",
     title: "Patch zone-level Waiting Room settings",
-    description: "Patch zone-level Waiting Room settings.",
+    description: "Patch zone-level Waiting Room settings.\n\nPATCH /zones/{zone_id}/waiting_rooms/settings",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "$ref": "#/$defs/waitingroom_zone_settings"
         },
-        "zone_id": {
-          "$ref": "#/$defs/waitingroom_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "waitingroom_identifier": waitingroom_identifier,
-        "waitingroom_search_engine_crawler_bypass": waitingroom_search_engine_crawler_bypass,
         "waitingroom_zone_settings": waitingroom_zone_settings,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/waitingroom_zone_settings_response",
       $defs: {
-        "waitingroom_api-response-common": waitingroom_api_response_common_output,
-        "waitingroom_api-response-single": waitingroom_api_response_single_output,
-        "waitingroom_messages": waitingroom_messages_output,
-        "waitingroom_search_engine_crawler_bypass": waitingroom_search_engine_crawler_bypass_output,
-        "waitingroom_zone_settings_response": waitingroom_zone_settings_response_output,
+        "waitingroom_api-response-common": waitingroom_api$$response$$common,
+        "waitingroom_api-response-single": waitingroom_api$$response$$single,
+        "waitingroom_messages": waitingroom_messages,
+        "waitingroom_zone_settings_response": waitingroom_zone_settings_response,
       },
     },
     annotations: {
@@ -94,12 +94,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "waitingroom_api-response-common": waitingroom_api_response_common_output,
-        "waitingroom_api-response-common-failure": waitingroom_api_response_common_failure_output,
-        "waitingroom_api-response-single": waitingroom_api_response_single_output,
-        "waitingroom_messages": waitingroom_messages_output,
-        "waitingroom_search_engine_crawler_bypass": waitingroom_search_engine_crawler_bypass_output,
-        "waitingroom_zone_settings_response": waitingroom_zone_settings_response_output,
+        "waitingroom_api-response-common": waitingroom_api$$response$$common,
+        "waitingroom_api-response-common-failure": waitingroom_api$$response$$common$$failure,
+        "waitingroom_api-response-single": waitingroom_api$$response$$single,
+        "waitingroom_messages": waitingroom_messages,
+        "waitingroom_zone_settings_response": waitingroom_zone_settings_response,
       },
     },
     request: (args) => ({
@@ -108,32 +107,38 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "waiting_rooms_settings_get",
+    name: "waitingRooms_settings_get",
     title: "Get zone-level Waiting Room settings",
-    description: "Get zone-level Waiting Room settings.",
+    description: "Get zone-level Waiting Room settings.\n\nGET /zones/{zone_id}/waiting_rooms/settings",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/waitingroom_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
-      $defs: {
-        "waitingroom_identifier": waitingroom_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/waitingroom_zone_settings_response",
       $defs: {
-        "waitingroom_api-response-common": waitingroom_api_response_common_output,
-        "waitingroom_api-response-single": waitingroom_api_response_single_output,
-        "waitingroom_messages": waitingroom_messages_output,
-        "waitingroom_search_engine_crawler_bypass": waitingroom_search_engine_crawler_bypass_output,
-        "waitingroom_zone_settings_response": waitingroom_zone_settings_response_output,
+        "waitingroom_api-response-common": waitingroom_api$$response$$common,
+        "waitingroom_api-response-single": waitingroom_api$$response$$single,
+        "waitingroom_messages": waitingroom_messages,
+        "waitingroom_zone_settings_response": waitingroom_zone_settings_response,
       },
     },
     annotations: {
@@ -174,12 +179,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "waitingroom_api-response-common": waitingroom_api_response_common_output,
-        "waitingroom_api-response-common-failure": waitingroom_api_response_common_failure_output,
-        "waitingroom_api-response-single": waitingroom_api_response_single_output,
-        "waitingroom_messages": waitingroom_messages_output,
-        "waitingroom_search_engine_crawler_bypass": waitingroom_search_engine_crawler_bypass_output,
-        "waitingroom_zone_settings_response": waitingroom_zone_settings_response_output,
+        "waitingroom_api-response-common": waitingroom_api$$response$$common,
+        "waitingroom_api-response-common-failure": waitingroom_api$$response$$common$$failure,
+        "waitingroom_api-response-single": waitingroom_api$$response$$single,
+        "waitingroom_messages": waitingroom_messages,
+        "waitingroom_zone_settings_response": waitingroom_zone_settings_response,
       },
     },
     request: (args) => ({
@@ -187,38 +191,45 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "waiting_rooms_settings_update",
+    name: "waitingRooms_settings_update",
     title: "Update zone-level Waiting Room settings",
-    description: "Replace zone-level Waiting Room settings.",
+    description: "Replace zone-level Waiting Room settings.\n\nPUT /zones/{zone_id}/waiting_rooms/settings",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "$ref": "#/$defs/waitingroom_zone_settings"
         },
-        "zone_id": {
-          "$ref": "#/$defs/waitingroom_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "waitingroom_identifier": waitingroom_identifier,
-        "waitingroom_search_engine_crawler_bypass": waitingroom_search_engine_crawler_bypass,
         "waitingroom_zone_settings": waitingroom_zone_settings,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/waitingroom_zone_settings_response",
       $defs: {
-        "waitingroom_api-response-common": waitingroom_api_response_common_output,
-        "waitingroom_api-response-single": waitingroom_api_response_single_output,
-        "waitingroom_messages": waitingroom_messages_output,
-        "waitingroom_search_engine_crawler_bypass": waitingroom_search_engine_crawler_bypass_output,
-        "waitingroom_zone_settings_response": waitingroom_zone_settings_response_output,
+        "waitingroom_api-response-common": waitingroom_api$$response$$common,
+        "waitingroom_api-response-single": waitingroom_api$$response$$single,
+        "waitingroom_messages": waitingroom_messages,
+        "waitingroom_zone_settings_response": waitingroom_zone_settings_response,
       },
     },
     annotations: {
@@ -258,12 +269,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "waitingroom_api-response-common": waitingroom_api_response_common_output,
-        "waitingroom_api-response-common-failure": waitingroom_api_response_common_failure_output,
-        "waitingroom_api-response-single": waitingroom_api_response_single_output,
-        "waitingroom_messages": waitingroom_messages_output,
-        "waitingroom_search_engine_crawler_bypass": waitingroom_search_engine_crawler_bypass_output,
-        "waitingroom_zone_settings_response": waitingroom_zone_settings_response_output,
+        "waitingroom_api-response-common": waitingroom_api$$response$$common,
+        "waitingroom_api-response-common-failure": waitingroom_api$$response$$common$$failure,
+        "waitingroom_api-response-single": waitingroom_api$$response$$single,
+        "waitingroom_messages": waitingroom_messages,
+        "waitingroom_zone_settings_response": waitingroom_zone_settings_response,
       },
     },
     request: (args) => ({

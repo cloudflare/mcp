@@ -6,10 +6,11 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `email-security_DeletedSendingDomainRestriction` in responses.
  */
-export const email_security_DeletedSendingDomainRestriction_output: JsonSchema = {
+export const email$$security_DeletedSendingDomainRestriction: JsonSchema = {
   "properties": {
     "id": {
-      "$ref": "#/$defs/email-security_SendingDomainRestrictionId"
+      "format": "uuid",
+      "type": "string"
     }
   },
   "required": [
@@ -21,7 +22,7 @@ export const email_security_DeletedSendingDomainRestriction_output: JsonSchema =
 /**
  * The schema of `email-security_SendingDomainRestriction` in responses.
  */
-export const email_security_SendingDomainRestriction_output: JsonSchema = {
+export const email$$security_SendingDomainRestriction: JsonSchema = {
   "properties": {
     "comments": {
       "oneOf": [
@@ -34,7 +35,8 @@ export const email_security_SendingDomainRestriction_output: JsonSchema = {
       ]
     },
     "created_at": {
-      "$ref": "#/$defs/email-security_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "domain": {
       "type": "string"
@@ -46,30 +48,25 @@ export const email_security_SendingDomainRestriction_output: JsonSchema = {
       "type": "array"
     },
     "id": {
-      "$ref": "#/$defs/email-security_SendingDomainRestrictionId"
+      "format": "uuid",
+      "type": "string"
     },
     "last_modified": {
-      "$ref": "#/$defs/email-security_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "modified_at": {
-      "$ref": "#/$defs/email-security_timestamp"
+      "format": "date-time",
+      "type": "string"
     }
   },
   "type": "object"
 };
 
 /**
- * The schema of `email-security_SendingDomainRestrictionId` in responses.
- */
-export const email_security_SendingDomainRestrictionId_output: JsonSchema = {
-  "format": "uuid",
-  "type": "string"
-};
-
-/**
  * The schema of `email-security_SendingDomainRestrictionList` in responses.
  */
-export const email_security_SendingDomainRestrictionList_output: JsonSchema = {
+export const email$$security_SendingDomainRestrictionList: JsonSchema = {
   "items": {
     "$ref": "#/$defs/email-security_SendingDomainRestriction"
   },

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `load-balancing_monitor-group`.
  */
-export const load_balancing_monitor_group: JsonSchema = {
+export const load$$balancing_monitor$$group: JsonSchema = {
   "properties": {
     "description": {
       "description": "A short description of the monitor group",
@@ -30,15 +30,15 @@ export const load_balancing_monitor_group: JsonSchema = {
 /**
  * The schema of `load-balancing_monitor-group-member`.
  */
-export const load_balancing_monitor_group_member: JsonSchema = {
+export const load$$balancing_monitor$$group$$member: JsonSchema = {
   "properties": {
     "enabled": {
       "description": "Whether this monitor is enabled in the group",
       "type": "boolean"
     },
     "monitor_id": {
-      "$ref": "#/$defs/load-balancing_monitor_id",
-      "description": "The ID of the Monitor to use for checking the health of origins within this pool."
+      "description": "The ID of the Monitor to use for checking the health of origins within this pool.",
+      "type": "string"
     },
     "monitoring_only": {
       "description": "Whether this monitor is used for monitoring only (does not affect pool health)",

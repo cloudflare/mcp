@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `google-tag-gateway_api-response-common` in responses.
  */
-export const google_tag_gateway_api_response_common_output: JsonSchema = {
+export const google$$tag$$gateway_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/google-tag-gateway_messages"
@@ -32,7 +32,7 @@ export const google_tag_gateway_api_response_common_output: JsonSchema = {
 /**
  * The schema of `google-tag-gateway_api-response-common-failure` in responses.
  */
-export const google_tag_gateway_api_response_common_failure_output: JsonSchema = {
+export const google$$tag$$gateway_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/google-tag-gateway_messages"
@@ -62,7 +62,7 @@ export const google_tag_gateway_api_response_common_failure_output: JsonSchema =
 /**
  * The schema of `google-tag-gateway_google-tag-gateway-config` in responses.
  */
-export const google_tag_gateway_google_tag_gateway_config_output: JsonSchema = {
+export const google$$tag$$gateway_google$$tag$$gateway$$config: JsonSchema = {
   "properties": {
     "enabled": {
       "type": "boolean"
@@ -99,7 +99,7 @@ export const google_tag_gateway_google_tag_gateway_config_output: JsonSchema = {
 /**
  * The schema of `google-tag-gateway_messages` in responses.
  */
-export const google_tag_gateway_messages_output: JsonSchema = {
+export const google$$tag$$gateway_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {

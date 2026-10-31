@@ -4,62 +4,54 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `magic_cloudflare_gre_endpoint`.
- */
-export const magic_cloudflare_gre_endpoint: JsonSchema = {
-  "description": "The IP address assigned to the Cloudflare side of the GRE tunnel.",
-  "type": "string"
-};
-
-/**
  * The schema of `magic_create_gre_tunnel_request`.
  */
 export const magic_create_gre_tunnel_request: JsonSchema = {
   "properties": {
     "automatic_return_routing": {
-      "$ref": "#/$defs/magic_automatic_return_routing",
       "default": false,
-      "description": "True if automatic stateful return routing should be enabled for a tunnel, false otherwise. Requires the `coupler_integration` account flag to be enabled; requests setting this to `true` without that flag will be rejected."
+      "description": "True if automatic stateful return routing should be enabled for a tunnel, false otherwise. Requires the `coupler_integration` account flag to be enabled; requests setting this to `true` without that flag will be rejected.",
+      "type": "boolean"
     },
     "bgp": {
       "$ref": "#/$defs/magic_bgp_config"
     },
     "cloudflare_gre_endpoint": {
-      "$ref": "#/$defs/magic_cloudflare_gre_endpoint",
-      "description": "The IP address assigned to the Cloudflare side of the GRE tunnel."
+      "description": "The IP address assigned to the Cloudflare side of the GRE tunnel.",
+      "type": "string"
     },
     "customer_gre_endpoint": {
-      "$ref": "#/$defs/magic_customer_gre_endpoint",
-      "description": "The IP address assigned to the customer side of the GRE tunnel."
+      "description": "The IP address assigned to the customer side of the GRE tunnel.",
+      "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/magic_schemas-description",
-      "description": "An optional description of the GRE tunnel."
+      "description": "An optional description of the GRE tunnel.",
+      "type": "string"
     },
     "health_check": {
       "$ref": "#/$defs/magic_tunnel_health_check"
     },
     "interface_address": {
-      "$ref": "#/$defs/magic_interface_address",
-      "description": "A 31-bit prefix (/31 in CIDR notation) supporting two hosts, one for each side of the tunnel. Select the subnet from the following private IP space: 10.0.0.0–10.255.255.255, 172.16.0.0–172.31.255.255, 192.168.0.0–192.168.255.255."
+      "description": "A 31-bit prefix (/31 in CIDR notation) supporting two hosts, one for each side of the tunnel. Select the subnet from the following private IP space: 10.0.0.0–10.255.255.255, 172.16.0.0–172.31.255.255, 192.168.0.0–192.168.255.255.",
+      "type": "string"
     },
     "interface_address6": {
-      "$ref": "#/$defs/magic_interface_address6",
-      "description": "A 127 bit IPV6 prefix from within the virtual_subnet6 prefix space with the address being the first IP of the subnet and not same as the address of virtual_subnet6. Eg if virtual_subnet6 is 2606:54c1:7:0:a9fe:12d2::/127 , interface_address6 could be 2606:54c1:7:0:a9fe:12d2:1:200/127"
+      "description": "A 127 bit IPV6 prefix from within the virtual_subnet6 prefix space with the address being the first IP of the subnet and not same as the address of virtual_subnet6. Eg if virtual_subnet6 is 2606:54c1:7:0:a9fe:12d2::/127 , interface_address6 could be 2606:54c1:7:0:a9fe:12d2:1:200/127",
+      "type": "string"
     },
     "mtu": {
-      "$ref": "#/$defs/magic_mtu",
       "default": 1476,
-      "description": "Maximum Transmission Unit (MTU) in bytes for the GRE tunnel. The minimum value is 576."
+      "description": "Maximum Transmission Unit (MTU) in bytes for the GRE tunnel. The minimum value is 576.",
+      "type": "integer"
     },
     "name": {
-      "$ref": "#/$defs/magic_gre_tunnel_name",
-      "description": "The name of the tunnel. The name cannot contain spaces or special characters, must be 15 characters or less, and cannot share a name with another GRE tunnel."
+      "description": "The name of the tunnel. The name cannot contain spaces or special characters, must be 15 characters or less, and cannot share a name with another GRE tunnel.",
+      "type": "string"
     },
     "ttl": {
-      "$ref": "#/$defs/magic_ttl",
       "default": 64,
-      "description": "Time To Live (TTL) in number of hops of the GRE tunnel."
+      "description": "Time To Live (TTL) in number of hops of the GRE tunnel.",
+      "type": "integer"
     }
   },
   "required": [
@@ -69,22 +61,6 @@ export const magic_create_gre_tunnel_request: JsonSchema = {
     "name"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `magic_customer_gre_endpoint`.
- */
-export const magic_customer_gre_endpoint: JsonSchema = {
-  "description": "The IP address assigned to the customer side of the GRE tunnel.",
-  "type": "string"
-};
-
-/**
- * The schema of `magic_gre_tunnel_name`.
- */
-export const magic_gre_tunnel_name: JsonSchema = {
-  "description": "The name of the tunnel. The name cannot contain spaces or special characters, must be 15 characters or less, and cannot share a name with another GRE tunnel.",
-  "type": "string"
 };
 
 /**
@@ -93,46 +69,46 @@ export const magic_gre_tunnel_name: JsonSchema = {
 export const magic_gre_tunnel_update_request: JsonSchema = {
   "properties": {
     "automatic_return_routing": {
-      "$ref": "#/$defs/magic_automatic_return_routing",
       "default": false,
-      "description": "True if automatic stateful return routing should be enabled for a tunnel, false otherwise. Requires the `coupler_integration` account flag to be enabled; requests setting this to `true` without that flag will be rejected."
+      "description": "True if automatic stateful return routing should be enabled for a tunnel, false otherwise. Requires the `coupler_integration` account flag to be enabled; requests setting this to `true` without that flag will be rejected.",
+      "type": "boolean"
     },
     "cloudflare_gre_endpoint": {
-      "$ref": "#/$defs/magic_cloudflare_gre_endpoint",
-      "description": "The IP address assigned to the Cloudflare side of the GRE tunnel."
+      "description": "The IP address assigned to the Cloudflare side of the GRE tunnel.",
+      "type": "string"
     },
     "customer_gre_endpoint": {
-      "$ref": "#/$defs/magic_customer_gre_endpoint",
-      "description": "The IP address assigned to the customer side of the GRE tunnel."
+      "description": "The IP address assigned to the customer side of the GRE tunnel.",
+      "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/magic_schemas-description",
-      "description": "An optional description of the GRE tunnel."
+      "description": "An optional description of the GRE tunnel.",
+      "type": "string"
     },
     "health_check": {
       "$ref": "#/$defs/magic_tunnel_health_check"
     },
     "interface_address": {
-      "$ref": "#/$defs/magic_interface_address",
-      "description": "A 31-bit prefix (/31 in CIDR notation) supporting two hosts, one for each side of the tunnel. Select the subnet from the following private IP space: 10.0.0.0–10.255.255.255, 172.16.0.0–172.31.255.255, 192.168.0.0–192.168.255.255."
+      "description": "A 31-bit prefix (/31 in CIDR notation) supporting two hosts, one for each side of the tunnel. Select the subnet from the following private IP space: 10.0.0.0–10.255.255.255, 172.16.0.0–172.31.255.255, 192.168.0.0–192.168.255.255.",
+      "type": "string"
     },
     "interface_address6": {
-      "$ref": "#/$defs/magic_interface_address6",
-      "description": "A 127 bit IPV6 prefix from within the virtual_subnet6 prefix space with the address being the first IP of the subnet and not same as the address of virtual_subnet6. Eg if virtual_subnet6 is 2606:54c1:7:0:a9fe:12d2::/127 , interface_address6 could be 2606:54c1:7:0:a9fe:12d2:1:200/127"
+      "description": "A 127 bit IPV6 prefix from within the virtual_subnet6 prefix space with the address being the first IP of the subnet and not same as the address of virtual_subnet6. Eg if virtual_subnet6 is 2606:54c1:7:0:a9fe:12d2::/127 , interface_address6 could be 2606:54c1:7:0:a9fe:12d2:1:200/127",
+      "type": "string"
     },
     "mtu": {
-      "$ref": "#/$defs/magic_mtu",
       "default": 1476,
-      "description": "Maximum Transmission Unit (MTU) in bytes for the GRE tunnel. The minimum value is 576."
+      "description": "Maximum Transmission Unit (MTU) in bytes for the GRE tunnel. The minimum value is 576.",
+      "type": "integer"
     },
     "name": {
-      "$ref": "#/$defs/magic_gre_tunnel_name",
-      "description": "The name of the tunnel. The name cannot contain spaces or special characters, must be 15 characters or less, and cannot share a name with another GRE tunnel."
+      "description": "The name of the tunnel. The name cannot contain spaces or special characters, must be 15 characters or less, and cannot share a name with another GRE tunnel.",
+      "type": "string"
     },
     "ttl": {
-      "$ref": "#/$defs/magic_ttl",
       "default": 64,
-      "description": "Time To Live (TTL) in number of hops of the GRE tunnel."
+      "description": "Time To Live (TTL) in number of hops of the GRE tunnel.",
+      "type": "integer"
     }
   },
   "required": [
@@ -142,28 +118,4 @@ export const magic_gre_tunnel_update_request: JsonSchema = {
     "name"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `magic_mtu`.
- */
-export const magic_mtu: JsonSchema = {
-  "description": "Maximum Transmission Unit (MTU) in bytes for the GRE tunnel. The minimum value is 576.",
-  "type": "integer"
-};
-
-/**
- * The schema of `magic_schemas-description`.
- */
-export const magic_schemas_description: JsonSchema = {
-  "description": "An optional description of the GRE tunnel.",
-  "type": "string"
-};
-
-/**
- * The schema of `magic_ttl`.
- */
-export const magic_ttl: JsonSchema = {
-  "description": "Time To Live (TTL) in number of hops of the GRE tunnel.",
-  "type": "integer"
 };

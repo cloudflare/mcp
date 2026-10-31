@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `posture-api_CreateWebhookRequest`.
  */
-export const posture_api_CreateWebhookRequest: JsonSchema = {
+export const posture$$api_CreateWebhookRequest: JsonSchema = {
   "description": "Request body for creating a new webhook configuration.",
   "properties": {
     "authentication_type": {
@@ -60,7 +60,7 @@ export const posture_api_CreateWebhookRequest: JsonSchema = {
 /**
  * The schema of `posture-api_EvaluateNewWebhookRequest`.
  */
-export const posture_api_EvaluateNewWebhookRequest: JsonSchema = {
+export const posture$$api_EvaluateNewWebhookRequest: JsonSchema = {
   "description": "Request body for testing a webhook configuration before creating it.",
   "properties": {
     "authentication_type": {
@@ -100,7 +100,7 @@ export const posture_api_EvaluateNewWebhookRequest: JsonSchema = {
 /**
  * The schema of `posture-api_UpdateWebhookRequest`.
  */
-export const posture_api_UpdateWebhookRequest: JsonSchema = {
+export const posture$$api_UpdateWebhookRequest: JsonSchema = {
   "description": "Request body for updating an existing webhook configuration.",
   "properties": {
     "authentication_type": {
@@ -154,7 +154,7 @@ export const posture_api_UpdateWebhookRequest: JsonSchema = {
 /**
  * The schema of `posture-api_WebhookHeaderInput`.
  */
-export const posture_api_WebhookHeaderInput: JsonSchema = {
+export const posture$$api_WebhookHeaderInput: JsonSchema = {
   "description": "A header to include in webhook requests. On Create/Evaluate, both key and value are required. On Update, omitting value means \"keep existing value\".",
   "properties": {
     "key": {

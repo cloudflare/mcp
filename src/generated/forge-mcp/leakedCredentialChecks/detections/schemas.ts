@@ -6,12 +6,12 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `waf-product-api-bundle_custom-detection`.
  */
-export const waf_product_api_bundle_custom_detection: JsonSchema = {
+export const waf$$product$$api$$bundle_custom$$detection: JsonSchema = {
   "description": "Defines a custom set of username/password expressions to match Leaked Credential Checks on.",
   "properties": {
     "id": {
-      "$ref": "#/$defs/waf-product-api-bundle_detection-id",
-      "description": "Defines the unique ID for this custom detection."
+      "description": "Defines the unique ID for this custom detection.",
+      "type": "string"
     },
     "password": {
       "description": "Defines ehe ruleset expression to use in matching the password in a request.",
@@ -23,12 +23,4 @@ export const waf_product_api_bundle_custom_detection: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `waf-product-api-bundle_detection-id`.
- */
-export const waf_product_api_bundle_detection_id: JsonSchema = {
-  "$ref": "#/$defs/waf-product-api-bundle_identifier",
-  "description": "Defines the unique ID for this custom detection."
 };

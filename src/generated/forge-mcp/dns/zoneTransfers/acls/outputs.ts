@@ -6,16 +6,16 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `secondary-dns_acl` in responses.
  */
-export const secondary_dns_acl_output: JsonSchema = {
+export const secondary$$dns_acl: JsonSchema = {
   "properties": {
     "id": {
-      "$ref": "#/$defs/secondary-dns_identifier-3"
+      "type": "string"
     },
     "ip_range": {
-      "$ref": "#/$defs/secondary-dns_ip_range"
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/secondary-dns_name-4"
+      "type": "string"
     }
   },
   "required": [
@@ -27,23 +27,9 @@ export const secondary_dns_acl_output: JsonSchema = {
 };
 
 /**
- * The schema of `secondary-dns_ip_range` in responses.
- */
-export const secondary_dns_ip_range_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `secondary-dns_name-4` in responses.
- */
-export const secondary_dns_name_4_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `secondary-dns_response_collection-3` in responses.
  */
-export const secondary_dns_response_collection_3_output: JsonSchema = {
+export const secondary$$dns_response_collection$$3: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/secondary-dns_api-response-collection"
@@ -65,7 +51,7 @@ export const secondary_dns_response_collection_3_output: JsonSchema = {
 /**
  * The schema of `secondary-dns_single_response-3` in responses.
  */
-export const secondary_dns_single_response_3_output: JsonSchema = {
+export const secondary$$dns_single_response$$3: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/secondary-dns_api-response-single"

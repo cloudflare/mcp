@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `api-shield_credentials-JWT-Key-oct-patch-request`.
  */
-export const api_shield_credentials_JWT_Key_oct_patch_request: JsonSchema = {
+export const api$$shield_credentials$$JWT$$Key$$oct$$patch$$request: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/api-shield_credentials-JWT-Key-common"
@@ -47,7 +47,7 @@ export const api_shield_credentials_JWT_Key_oct_patch_request: JsonSchema = {
 /**
  * The schema of `api-shield_credentials-JWT-Key-patch-request`.
  */
-export const api_shield_credentials_JWT_Key_patch_request: JsonSchema = {
+export const api$$shield_credentials$$JWT$$Key$$patch$$request: JsonSchema = {
   "description": "JSON representation of a JWKS key for PATCH credentials requests.",
   "oneOf": [
     {
@@ -68,7 +68,7 @@ export const api_shield_credentials_JWT_Key_patch_request: JsonSchema = {
 /**
  * The schema of `api-shield_credentials-patch-request`.
  */
-export const api_shield_credentials_patch_request: JsonSchema = {
+export const api$$shield_credentials$$patch$$request: JsonSchema = {
   "description": "Request payload for PATCH credentials. Provided keys define the complete stored key set, and stored keys omitted from payload are removed. For each provided key identity (`{alg,kid}`), payload fields overwrite the stored key before validation and omitted fields inherit from the stored key. Key identities must be unique.",
   "properties": {
     "keys": {

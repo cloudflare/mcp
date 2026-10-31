@@ -4,40 +4,15 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
- * The schema of `iam_components-schemas-status` in responses.
- */
-export const iam_components_schemas_status_output: JsonSchema = {
-  "enum": [
-    "member",
-    "invited"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `iam_country` in responses.
- */
-export const iam_country_output: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
  * The schema of `iam_organization` in responses.
  */
-export const iam_organization_output: JsonSchema = {
+export const iam_organization: JsonSchema = {
   "properties": {
     "id": {
-      "$ref": "#/$defs/iam_common_components-schemas-identifier"
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/iam_schemas-name"
+      "type": "string"
     },
     "permissions": {
       "$ref": "#/$defs/iam_schemas-permissions"
@@ -49,7 +24,11 @@ export const iam_organization_output: JsonSchema = {
       "type": "array"
     },
     "status": {
-      "$ref": "#/$defs/iam_components-schemas-status"
+      "enum": [
+        "member",
+        "invited"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
@@ -58,7 +37,7 @@ export const iam_organization_output: JsonSchema = {
 /**
  * The schema of `iam_role_names` in responses.
  */
-export const iam_role_names_output: JsonSchema = {
+export const iam_role_names: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -66,16 +45,9 @@ export const iam_role_names_output: JsonSchema = {
 };
 
 /**
- * The schema of `iam_schemas-name` in responses.
- */
-export const iam_schemas_name_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `iam_schemas-permissions` in responses.
  */
-export const iam_schemas_permissions_output: JsonSchema = {
+export const iam_schemas$$permissions: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -85,7 +57,7 @@ export const iam_schemas_permissions_output: JsonSchema = {
 /**
  * The schema of `iam_single_user_response` in responses.
  */
-export const iam_single_user_response_output: JsonSchema = {
+export const iam_single_user_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/iam_api-response-single"
@@ -101,13 +73,27 @@ export const iam_single_user_response_output: JsonSchema = {
               "type": "array"
             },
             "country": {
-              "$ref": "#/$defs/iam_country"
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "email": {
               "type": "string"
             },
             "first_name": {
-              "$ref": "#/$defs/iam_first_name"
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "has_business_zones": {
               "type": "boolean"
@@ -122,7 +108,14 @@ export const iam_single_user_response_output: JsonSchema = {
               "type": "string"
             },
             "last_name": {
-              "$ref": "#/$defs/iam_last_name"
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "organizations": {
               "items": {
@@ -134,16 +127,30 @@ export const iam_single_user_response_output: JsonSchema = {
               "type": "boolean"
             },
             "telephone": {
-              "$ref": "#/$defs/iam_telephone"
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "two_factor_authentication_enabled": {
-              "$ref": "#/$defs/iam_two_factor_authentication_enabled"
+              "type": "boolean"
             },
             "two_factor_authentication_locked": {
-              "$ref": "#/$defs/iam_two_factor_authentication_locked"
+              "type": "boolean"
             },
             "zipcode": {
-              "$ref": "#/$defs/iam_zipcode"
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             }
           },
           "required": [
@@ -154,41 +161,6 @@ export const iam_single_user_response_output: JsonSchema = {
         }
       },
       "type": "object"
-    }
-  ]
-};
-
-/**
- * The schema of `iam_telephone` in responses.
- */
-export const iam_telephone_output: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `iam_two_factor_authentication_locked` in responses.
- */
-export const iam_two_factor_authentication_locked_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `iam_zipcode` in responses.
- */
-export const iam_zipcode_output: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
     }
   ]
 };

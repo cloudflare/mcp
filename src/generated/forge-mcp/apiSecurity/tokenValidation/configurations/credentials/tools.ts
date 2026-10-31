@@ -3,82 +3,98 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  api_shield_api_response_common_failure_output,
-  api_shield_api_response_common_output,
-  api_shield_messages_output,
+  api$$shield_api$$response$$common,
+  api$$shield_api$$response$$common$$failure,
+  api$$shield_messages,
 } from "../../../../outputs.js";
 import {
-  api_shield_identifier,
-  api_shield_identifier_2,
-  api_shield_uuid,
-  api_shield_uuid_2,
-} from "../../../../schemas.js";
-import {
-  api_shield_credentials_JWT_Key_EC_ES256_output,
-  api_shield_credentials_JWT_Key_EC_ES384_output,
-  api_shield_credentials_JWT_Key_EC_common_output,
-  api_shield_credentials_JWT_Key_RSA_output,
-  api_shield_credentials_JWT_Key_common_output,
-  api_shield_credentials_JWT_Key_oct_response_output,
-  api_shield_credentials_JWT_Key_response_output,
-  api_shield_credentials_output,
+  api$$shield_credentials,
+  api$$shield_credentials$$JWT$$Key$$EC$$ES256,
+  api$$shield_credentials$$JWT$$Key$$EC$$ES384,
+  api$$shield_credentials$$JWT$$Key$$EC$$common,
+  api$$shield_credentials$$JWT$$Key$$RSA,
+  api$$shield_credentials$$JWT$$Key$$common,
+  api$$shield_credentials$$JWT$$Key$$oct$$response,
+  api$$shield_credentials$$JWT$$Key$$response,
 } from "../outputs.js";
 import {
-  api_shield_credentials_JWT_Key_EC_ES256,
-  api_shield_credentials_JWT_Key_EC_ES384,
-  api_shield_credentials_JWT_Key_EC_common,
-  api_shield_credentials_JWT_Key_RSA,
-  api_shield_credentials_JWT_Key_common,
-  api_shield_credentials_JWT_Key_oct_request,
-  api_shield_credentials_JWT_Key_request,
-  api_shield_credentials_request,
+  api$$shield_credentials$$JWT$$Key$$EC$$ES256 as api$$shield_credentials$$JWT$$Key$$EC$$ES256$,
+  api$$shield_credentials$$JWT$$Key$$EC$$ES384 as api$$shield_credentials$$JWT$$Key$$EC$$ES384$,
+  api$$shield_credentials$$JWT$$Key$$EC$$common as api$$shield_credentials$$JWT$$Key$$EC$$common$,
+  api$$shield_credentials$$JWT$$Key$$RSA as api$$shield_credentials$$JWT$$Key$$RSA$,
+  api$$shield_credentials$$JWT$$Key$$common as api$$shield_credentials$$JWT$$Key$$common$,
+  api$$shield_credentials$$JWT$$Key$$oct$$request,
+  api$$shield_credentials$$JWT$$Key$$request,
+  api$$shield_credentials$$request,
 } from "../schemas.js";
 import {
-  api_shield_credentials_JWT_Key_oct_patch_request,
-  api_shield_credentials_JWT_Key_patch_request,
-  api_shield_credentials_patch_request,
+  api$$shield_credentials$$JWT$$Key$$oct$$patch$$request,
+  api$$shield_credentials$$JWT$$Key$$patch$$request,
+  api$$shield_credentials$$patch$$request,
 } from "./schemas.js";
 
 /**
- * The tools of `api_security.token_validation.configurations.credentials`.
+ * The tools of `apiSecurity.tokenValidation.configurations.credentials`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "api_security_token_validation_configurations_credentials_edit",
+    name: "apiSecurity_tokenValidation_configurations_credentials_edit",
     title: "Edit token validation credentials",
-    description: "Updates the configuration's complete key set while allowing omitted fields on existing keys to retain stored values. Omitted key identities are removed.",
+    description: "Updates the configuration's complete key set while allowing omitted fields on existing keys to retain stored values. Omitted key identities are removed.\n\nPATCH /zones/{zone_id}/token_validation/config/{config_id}/credentials",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "$ref": "#/$defs/api-shield_credentials-patch-request"
         },
-        "config_id": {
-          "$ref": "#/$defs/api-shield_uuid-2",
-          "description": "Token Configuration ID"
-        },
-        "zone_id": {
-          "$ref": "#/$defs/api-shield_identifier-2"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "config_id": {
+              "allOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "description": "UUID.",
+                  "type": "string"
+                }
+              ],
+              "description": "Token Configuration ID"
+            },
+            "zone_id": {
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "required": [
+            "zone_id",
+            "config_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
-        "config_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "api-shield_credentials-JWT-Key-EC-ES256": api_shield_credentials_JWT_Key_EC_ES256,
-        "api-shield_credentials-JWT-Key-EC-ES384": api_shield_credentials_JWT_Key_EC_ES384,
-        "api-shield_credentials-JWT-Key-EC-common": api_shield_credentials_JWT_Key_EC_common,
-        "api-shield_credentials-JWT-Key-RSA": api_shield_credentials_JWT_Key_RSA,
-        "api-shield_credentials-JWT-Key-common": api_shield_credentials_JWT_Key_common,
-        "api-shield_credentials-JWT-Key-oct-patch-request": api_shield_credentials_JWT_Key_oct_patch_request,
-        "api-shield_credentials-JWT-Key-patch-request": api_shield_credentials_JWT_Key_patch_request,
-        "api-shield_credentials-patch-request": api_shield_credentials_patch_request,
-        "api-shield_identifier": api_shield_identifier,
-        "api-shield_identifier-2": api_shield_identifier_2,
-        "api-shield_uuid": api_shield_uuid,
-        "api-shield_uuid-2": api_shield_uuid_2,
+        "api-shield_credentials-JWT-Key-EC-ES256": api$$shield_credentials$$JWT$$Key$$EC$$ES256$,
+        "api-shield_credentials-JWT-Key-EC-ES384": api$$shield_credentials$$JWT$$Key$$EC$$ES384$,
+        "api-shield_credentials-JWT-Key-EC-common": api$$shield_credentials$$JWT$$Key$$EC$$common$,
+        "api-shield_credentials-JWT-Key-RSA": api$$shield_credentials$$JWT$$Key$$RSA$,
+        "api-shield_credentials-JWT-Key-common": api$$shield_credentials$$JWT$$Key$$common$,
+        "api-shield_credentials-JWT-Key-oct-patch-request": api$$shield_credentials$$JWT$$Key$$oct$$patch$$request,
+        "api-shield_credentials-JWT-Key-patch-request": api$$shield_credentials$$JWT$$Key$$patch$$request,
+        "api-shield_credentials-patch-request": api$$shield_credentials$$patch$$request,
       },
     },
     outputSchema: {
@@ -99,16 +115,16 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "api-shield_api-response-common": api_shield_api_response_common_output,
-        "api-shield_credentials": api_shield_credentials_output,
-        "api-shield_credentials-JWT-Key-EC-ES256": api_shield_credentials_JWT_Key_EC_ES256_output,
-        "api-shield_credentials-JWT-Key-EC-ES384": api_shield_credentials_JWT_Key_EC_ES384_output,
-        "api-shield_credentials-JWT-Key-EC-common": api_shield_credentials_JWT_Key_EC_common_output,
-        "api-shield_credentials-JWT-Key-RSA": api_shield_credentials_JWT_Key_RSA_output,
-        "api-shield_credentials-JWT-Key-common": api_shield_credentials_JWT_Key_common_output,
-        "api-shield_credentials-JWT-Key-oct-response": api_shield_credentials_JWT_Key_oct_response_output,
-        "api-shield_credentials-JWT-Key-response": api_shield_credentials_JWT_Key_response_output,
-        "api-shield_messages": api_shield_messages_output,
+        "api-shield_api-response-common": api$$shield_api$$response$$common,
+        "api-shield_credentials": api$$shield_credentials,
+        "api-shield_credentials-JWT-Key-EC-ES256": api$$shield_credentials$$JWT$$Key$$EC$$ES256,
+        "api-shield_credentials-JWT-Key-EC-ES384": api$$shield_credentials$$JWT$$Key$$EC$$ES384,
+        "api-shield_credentials-JWT-Key-EC-common": api$$shield_credentials$$JWT$$Key$$EC$$common,
+        "api-shield_credentials-JWT-Key-RSA": api$$shield_credentials$$JWT$$Key$$RSA,
+        "api-shield_credentials-JWT-Key-common": api$$shield_credentials$$JWT$$Key$$common,
+        "api-shield_credentials-JWT-Key-oct-response": api$$shield_credentials$$JWT$$Key$$oct$$response,
+        "api-shield_credentials-JWT-Key-response": api$$shield_credentials$$JWT$$Key$$response,
+        "api-shield_messages": api$$shield_messages,
       },
     },
     annotations: {
@@ -151,17 +167,17 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "api-shield_api-response-common": api_shield_api_response_common_output,
-        "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
-        "api-shield_credentials": api_shield_credentials_output,
-        "api-shield_credentials-JWT-Key-EC-ES256": api_shield_credentials_JWT_Key_EC_ES256_output,
-        "api-shield_credentials-JWT-Key-EC-ES384": api_shield_credentials_JWT_Key_EC_ES384_output,
-        "api-shield_credentials-JWT-Key-EC-common": api_shield_credentials_JWT_Key_EC_common_output,
-        "api-shield_credentials-JWT-Key-RSA": api_shield_credentials_JWT_Key_RSA_output,
-        "api-shield_credentials-JWT-Key-common": api_shield_credentials_JWT_Key_common_output,
-        "api-shield_credentials-JWT-Key-oct-response": api_shield_credentials_JWT_Key_oct_response_output,
-        "api-shield_credentials-JWT-Key-response": api_shield_credentials_JWT_Key_response_output,
-        "api-shield_messages": api_shield_messages_output,
+        "api-shield_api-response-common": api$$shield_api$$response$$common,
+        "api-shield_api-response-common-failure": api$$shield_api$$response$$common$$failure,
+        "api-shield_credentials": api$$shield_credentials,
+        "api-shield_credentials-JWT-Key-EC-ES256": api$$shield_credentials$$JWT$$Key$$EC$$ES256,
+        "api-shield_credentials-JWT-Key-EC-ES384": api$$shield_credentials$$JWT$$Key$$EC$$ES384,
+        "api-shield_credentials-JWT-Key-EC-common": api$$shield_credentials$$JWT$$Key$$EC$$common,
+        "api-shield_credentials-JWT-Key-RSA": api$$shield_credentials$$JWT$$Key$$RSA,
+        "api-shield_credentials-JWT-Key-common": api$$shield_credentials$$JWT$$Key$$common,
+        "api-shield_credentials-JWT-Key-oct-response": api$$shield_credentials$$JWT$$Key$$oct$$response,
+        "api-shield_credentials-JWT-Key-response": api$$shield_credentials$$JWT$$Key$$response,
+        "api-shield_messages": api$$shield_messages,
       },
     },
     request: (args) => ({
@@ -170,41 +186,63 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "api_security_token_validation_configurations_credentials_update",
+    name: "apiSecurity_tokenValidation_configurations_credentials_update",
     title: "Replace token validation credentials",
-    description: "Replaces the configuration's complete key set. Symmetric keys must include their key material.",
+    description: "Replaces the configuration's complete key set. Symmetric keys must include their key material.\n\nPUT /zones/{zone_id}/token_validation/config/{config_id}/credentials",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "$ref": "#/$defs/api-shield_credentials-request"
         },
-        "config_id": {
-          "$ref": "#/$defs/api-shield_uuid-2",
-          "description": "Token Configuration ID"
-        },
-        "zone_id": {
-          "$ref": "#/$defs/api-shield_identifier-2"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "config_id": {
+              "allOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "description": "UUID.",
+                  "type": "string"
+                }
+              ],
+              "description": "Token Configuration ID"
+            },
+            "zone_id": {
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "required": [
+            "zone_id",
+            "config_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
-        "config_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "api-shield_credentials-JWT-Key-EC-ES256": api_shield_credentials_JWT_Key_EC_ES256,
-        "api-shield_credentials-JWT-Key-EC-ES384": api_shield_credentials_JWT_Key_EC_ES384,
-        "api-shield_credentials-JWT-Key-EC-common": api_shield_credentials_JWT_Key_EC_common,
-        "api-shield_credentials-JWT-Key-RSA": api_shield_credentials_JWT_Key_RSA,
-        "api-shield_credentials-JWT-Key-common": api_shield_credentials_JWT_Key_common,
-        "api-shield_credentials-JWT-Key-oct-request": api_shield_credentials_JWT_Key_oct_request,
-        "api-shield_credentials-JWT-Key-request": api_shield_credentials_JWT_Key_request,
-        "api-shield_credentials-request": api_shield_credentials_request,
-        "api-shield_identifier": api_shield_identifier,
-        "api-shield_identifier-2": api_shield_identifier_2,
-        "api-shield_uuid": api_shield_uuid,
-        "api-shield_uuid-2": api_shield_uuid_2,
+        "api-shield_credentials-JWT-Key-EC-ES256": api$$shield_credentials$$JWT$$Key$$EC$$ES256$,
+        "api-shield_credentials-JWT-Key-EC-ES384": api$$shield_credentials$$JWT$$Key$$EC$$ES384$,
+        "api-shield_credentials-JWT-Key-EC-common": api$$shield_credentials$$JWT$$Key$$EC$$common$,
+        "api-shield_credentials-JWT-Key-RSA": api$$shield_credentials$$JWT$$Key$$RSA$,
+        "api-shield_credentials-JWT-Key-common": api$$shield_credentials$$JWT$$Key$$common$,
+        "api-shield_credentials-JWT-Key-oct-request": api$$shield_credentials$$JWT$$Key$$oct$$request,
+        "api-shield_credentials-JWT-Key-request": api$$shield_credentials$$JWT$$Key$$request,
+        "api-shield_credentials-request": api$$shield_credentials$$request,
       },
     },
     outputSchema: {
@@ -225,16 +263,16 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "api-shield_api-response-common": api_shield_api_response_common_output,
-        "api-shield_credentials": api_shield_credentials_output,
-        "api-shield_credentials-JWT-Key-EC-ES256": api_shield_credentials_JWT_Key_EC_ES256_output,
-        "api-shield_credentials-JWT-Key-EC-ES384": api_shield_credentials_JWT_Key_EC_ES384_output,
-        "api-shield_credentials-JWT-Key-EC-common": api_shield_credentials_JWT_Key_EC_common_output,
-        "api-shield_credentials-JWT-Key-RSA": api_shield_credentials_JWT_Key_RSA_output,
-        "api-shield_credentials-JWT-Key-common": api_shield_credentials_JWT_Key_common_output,
-        "api-shield_credentials-JWT-Key-oct-response": api_shield_credentials_JWT_Key_oct_response_output,
-        "api-shield_credentials-JWT-Key-response": api_shield_credentials_JWT_Key_response_output,
-        "api-shield_messages": api_shield_messages_output,
+        "api-shield_api-response-common": api$$shield_api$$response$$common,
+        "api-shield_credentials": api$$shield_credentials,
+        "api-shield_credentials-JWT-Key-EC-ES256": api$$shield_credentials$$JWT$$Key$$EC$$ES256,
+        "api-shield_credentials-JWT-Key-EC-ES384": api$$shield_credentials$$JWT$$Key$$EC$$ES384,
+        "api-shield_credentials-JWT-Key-EC-common": api$$shield_credentials$$JWT$$Key$$EC$$common,
+        "api-shield_credentials-JWT-Key-RSA": api$$shield_credentials$$JWT$$Key$$RSA,
+        "api-shield_credentials-JWT-Key-common": api$$shield_credentials$$JWT$$Key$$common,
+        "api-shield_credentials-JWT-Key-oct-response": api$$shield_credentials$$JWT$$Key$$oct$$response,
+        "api-shield_credentials-JWT-Key-response": api$$shield_credentials$$JWT$$Key$$response,
+        "api-shield_messages": api$$shield_messages,
       },
     },
     annotations: {
@@ -277,17 +315,17 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "api-shield_api-response-common": api_shield_api_response_common_output,
-        "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
-        "api-shield_credentials": api_shield_credentials_output,
-        "api-shield_credentials-JWT-Key-EC-ES256": api_shield_credentials_JWT_Key_EC_ES256_output,
-        "api-shield_credentials-JWT-Key-EC-ES384": api_shield_credentials_JWT_Key_EC_ES384_output,
-        "api-shield_credentials-JWT-Key-EC-common": api_shield_credentials_JWT_Key_EC_common_output,
-        "api-shield_credentials-JWT-Key-RSA": api_shield_credentials_JWT_Key_RSA_output,
-        "api-shield_credentials-JWT-Key-common": api_shield_credentials_JWT_Key_common_output,
-        "api-shield_credentials-JWT-Key-oct-response": api_shield_credentials_JWT_Key_oct_response_output,
-        "api-shield_credentials-JWT-Key-response": api_shield_credentials_JWT_Key_response_output,
-        "api-shield_messages": api_shield_messages_output,
+        "api-shield_api-response-common": api$$shield_api$$response$$common,
+        "api-shield_api-response-common-failure": api$$shield_api$$response$$common$$failure,
+        "api-shield_credentials": api$$shield_credentials,
+        "api-shield_credentials-JWT-Key-EC-ES256": api$$shield_credentials$$JWT$$Key$$EC$$ES256,
+        "api-shield_credentials-JWT-Key-EC-ES384": api$$shield_credentials$$JWT$$Key$$EC$$ES384,
+        "api-shield_credentials-JWT-Key-EC-common": api$$shield_credentials$$JWT$$Key$$EC$$common,
+        "api-shield_credentials-JWT-Key-RSA": api$$shield_credentials$$JWT$$Key$$RSA,
+        "api-shield_credentials-JWT-Key-common": api$$shield_credentials$$JWT$$Key$$common,
+        "api-shield_credentials-JWT-Key-oct-response": api$$shield_credentials$$JWT$$Key$$oct$$response,
+        "api-shield_credentials-JWT-Key-response": api$$shield_credentials$$JWT$$Key$$response,
+        "api-shield_messages": api$$shield_messages,
       },
     },
     request: (args) => ({

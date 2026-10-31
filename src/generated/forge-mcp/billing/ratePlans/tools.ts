@@ -3,40 +3,50 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  bill_subs_api_api_response_common_failure_output,
-  bill_subs_api_api_response_common_output,
-  bill_subs_api_api_response_single_output,
-  bill_subs_api_messages_output,
+  bill$$subs$$api_api$$response$$common,
+  bill$$subs$$api_api$$response$$common$$failure,
+  bill$$subs$$api_api$$response$$single,
+  bill$$subs$$api_messages,
 } from "../../outputs.js";
-import { bill_subs_api_rate_plan_simple_response_output } from "./outputs.js";
+import { bill$$subs$$api_rate_plan_simple_response } from "./outputs.js";
 
 /**
- * The tools of `billing.rate_plans`.
+ * The tools of `billing.ratePlans`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "billing_rate_plans_get",
+    name: "billing_ratePlans_get",
     title: "Get Rate Plan by Public Key",
-    description: "Gets a rate plan's details by its public key (e.g., 'teams_free', 'cf_pro_20_20'). This is a public catalog endpoint, so authentication is not enforced and credentials are accepted but not required.",
+    description: "Gets a rate plan's details by its public key (e.g., 'teams_free', 'cf_pro_20_20'). This is a public catalog endpoint, so authentication is not enforced and credentials are accepted but not required.\n\nGET /billing/rate_plans/{public_key}",
     inputSchema: {
       type: "object",
       properties: {
-        "public_key": {
-          "description": "The public key identifier for the rate plan.",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "public_key": {
+              "description": "The public key identifier for the rate plan.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "public_key"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "public_key"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/bill-subs-api_rate_plan_simple_response",
       $defs: {
-        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
-        "bill-subs-api_api-response-single": bill_subs_api_api_response_single_output,
-        "bill-subs-api_messages": bill_subs_api_messages_output,
-        "bill-subs-api_rate_plan_simple_response": bill_subs_api_rate_plan_simple_response_output,
+        "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
+        "bill-subs-api_api-response-single": bill$$subs$$api_api$$response$$single,
+        "bill-subs-api_messages": bill$$subs$$api_messages,
+        "bill-subs-api_rate_plan_simple_response": bill$$subs$$api_rate_plan_simple_response,
       },
     },
     annotations: {
@@ -66,11 +76,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
-        "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
-        "bill-subs-api_api-response-single": bill_subs_api_api_response_single_output,
-        "bill-subs-api_messages": bill_subs_api_messages_output,
-        "bill-subs-api_rate_plan_simple_response": bill_subs_api_rate_plan_simple_response_output,
+        "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
+        "bill-subs-api_api-response-common-failure": bill$$subs$$api_api$$response$$common$$failure,
+        "bill-subs-api_api-response-single": bill$$subs$$api_api$$response$$single,
+        "bill-subs-api_messages": bill$$subs$$api_messages,
+        "bill-subs-api_rate_plan_simple_response": bill$$subs$$api_rate_plan_simple_response,
       },
     },
     request: (args) => ({

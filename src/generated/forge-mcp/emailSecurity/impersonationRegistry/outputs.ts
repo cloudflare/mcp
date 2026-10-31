@@ -6,10 +6,11 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `email-security_DeletedImpersonationRegistry` in responses.
  */
-export const email_security_DeletedImpersonationRegistry_output: JsonSchema = {
+export const email$$security_DeletedImpersonationRegistry: JsonSchema = {
   "properties": {
     "id": {
-      "$ref": "#/$defs/email-security_ImpersonationRegistryId"
+      "format": "uuid",
+      "type": "string"
     }
   },
   "required": [
@@ -21,7 +22,7 @@ export const email_security_DeletedImpersonationRegistry_output: JsonSchema = {
 /**
  * The schema of `email-security_ImpersonationRegistry` in responses.
  */
-export const email_security_ImpersonationRegistry_output: JsonSchema = {
+export const email$$security_ImpersonationRegistry: JsonSchema = {
   "properties": {
     "comments": {
       "oneOf": [
@@ -34,7 +35,8 @@ export const email_security_ImpersonationRegistry_output: JsonSchema = {
       ]
     },
     "created_at": {
-      "$ref": "#/$defs/email-security_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "directory_id": {
       "oneOf": [
@@ -70,16 +72,19 @@ export const email_security_ImpersonationRegistry_output: JsonSchema = {
       ]
     },
     "id": {
-      "$ref": "#/$defs/email-security_ImpersonationRegistryId"
+      "format": "uuid",
+      "type": "string"
     },
     "is_email_regex": {
       "type": "boolean"
     },
     "last_modified": {
-      "$ref": "#/$defs/email-security_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "modified_at": {
-      "$ref": "#/$defs/email-security_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "name": {
       "type": "string"
@@ -87,7 +92,13 @@ export const email_security_ImpersonationRegistry_output: JsonSchema = {
     "provenance": {
       "oneOf": [
         {
-          "$ref": "#/$defs/email-security_Provenance"
+          "enum": [
+            "A1S_INTERNAL",
+            "SNOOPY-CASB_OFFICE_365",
+            "SNOOPY-OFFICE_365",
+            "SNOOPY-GOOGLE_DIRECTORY"
+          ],
+          "type": "string"
         },
         {
           "type": "null"
@@ -99,32 +110,11 @@ export const email_security_ImpersonationRegistry_output: JsonSchema = {
 };
 
 /**
- * The schema of `email-security_ImpersonationRegistryId` in responses.
- */
-export const email_security_ImpersonationRegistryId_output: JsonSchema = {
-  "format": "uuid",
-  "type": "string"
-};
-
-/**
  * The schema of `email-security_ImpersonationRegistryList` in responses.
  */
-export const email_security_ImpersonationRegistryList_output: JsonSchema = {
+export const email$$security_ImpersonationRegistryList: JsonSchema = {
   "items": {
     "$ref": "#/$defs/email-security_ImpersonationRegistry"
   },
   "type": "array"
-};
-
-/**
- * The schema of `email-security_Provenance` in responses.
- */
-export const email_security_Provenance_output: JsonSchema = {
-  "enum": [
-    "A1S_INTERNAL",
-    "SNOOPY-CASB_OFFICE_365",
-    "SNOOPY-OFFICE_365",
-    "SNOOPY-GOOGLE_DIRECTORY"
-  ],
-  "type": "string"
 };

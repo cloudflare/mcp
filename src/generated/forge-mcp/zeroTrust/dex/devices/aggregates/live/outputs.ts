@@ -7,7 +7,7 @@ import type { JsonSchema } from "../../../../../_/tool.js";
  * The schema of `digital-experience-monitoring_fleet_status_live_response` in
  * responses.
  */
-export const digital_experience_monitoring_fleet_status_live_response_output: JsonSchema = {
+export const digital$$experience$$monitoring_fleet_status_live_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/digital-experience-monitoring_api-response-single"
@@ -84,7 +84,7 @@ export const digital_experience_monitoring_fleet_status_live_response_output: Js
                   ]
                 },
                 "uniqueDevicesTotal": {
-                  "$ref": "#/$defs/digital-experience-monitoring_uniqueDevicesTotal"
+                  "type": "number"
                 }
               },
               "type": "object"
@@ -101,10 +101,10 @@ export const digital_experience_monitoring_fleet_status_live_response_output: Js
 /**
  * The schema of `digital-experience-monitoring_live_stat` in responses.
  */
-export const digital_experience_monitoring_live_stat_output: JsonSchema = {
+export const digital$$experience$$monitoring_live_stat: JsonSchema = {
   "properties": {
     "uniqueDevicesTotal": {
-      "$ref": "#/$defs/digital-experience-monitoring_uniqueDevicesTotal"
+      "type": "number"
     },
     "value": {
       "type": "string"

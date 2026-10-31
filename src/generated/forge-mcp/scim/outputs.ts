@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `iam_scim_error_response` in responses.
  */
-export const iam_scim_error_response_output: JsonSchema = {
+export const iam_scim_error_response: JsonSchema = {
   "properties": {
     "detail": {
       "type": "string"

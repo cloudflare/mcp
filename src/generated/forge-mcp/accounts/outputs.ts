@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `alexandria_api-response-collection` in responses.
  */
-export const alexandria_api_response_collection_output: JsonSchema = {
+export const alexandria_api$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/alexandria_api-response-common"
@@ -45,7 +45,7 @@ export const alexandria_api_response_collection_output: JsonSchema = {
 /**
  * The schema of `alexandria_api-response-common` in responses.
  */
-export const alexandria_api_response_common_output: JsonSchema = {
+export const alexandria_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/alexandria_messages"
@@ -71,7 +71,7 @@ export const alexandria_api_response_common_output: JsonSchema = {
 /**
  * The schema of `alexandria_api_response_common_failure` in responses.
  */
-export const alexandria_api_response_common_failure_output: JsonSchema = {
+export const alexandria_api_response_common_failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/alexandria_messages"
@@ -99,16 +99,9 @@ export const alexandria_api_response_common_failure_output: JsonSchema = {
 };
 
 /**
- * The schema of `alexandria_category_id` in responses.
- */
-export const alexandria_category_id_output: JsonSchema = {
-  "type": "integer"
-};
-
-/**
  * The schema of `alexandria_messages` in responses.
  */
-export const alexandria_messages_output: JsonSchema = {
+export const alexandria_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -141,14 +134,14 @@ export const alexandria_messages_output: JsonSchema = {
 /**
  * The schema of `iam_account` in responses.
  */
-export const iam_account_output: JsonSchema = {
+export const iam_account: JsonSchema = {
   "properties": {
     "created_on": {
       "format": "date-time",
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/iam_common_components-schemas-identifier"
+      "type": "string"
     },
     "managed_by": {
       "properties": {
@@ -182,7 +175,11 @@ export const iam_account_output: JsonSchema = {
       "type": "object"
     },
     "type": {
-      "$ref": "#/$defs/iam_account-type"
+      "enum": [
+        "standard",
+        "enterprise"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -196,7 +193,7 @@ export const iam_account_output: JsonSchema = {
 /**
  * The schema of `iam_response_collection_accounts` in responses.
  */
-export const iam_response_collection_accounts_output: JsonSchema = {
+export const iam_response_collection_accounts: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/iam_api-response-collection"
@@ -218,7 +215,7 @@ export const iam_response_collection_accounts_output: JsonSchema = {
 /**
  * The schema of `iam_response_single_account` in responses.
  */
-export const iam_response_single_account_output: JsonSchema = {
+export const iam_response_single_account: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/iam_api-response-single"
@@ -237,13 +234,13 @@ export const iam_response_single_account_output: JsonSchema = {
 /**
  * The schema of `iam_role` in responses.
  */
-export const iam_role_output: JsonSchema = {
+export const iam_role: JsonSchema = {
   "properties": {
     "description": {
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/iam_role_components-schemas-identifier"
+      "type": "string"
     },
     "name": {
       "type": "string"
@@ -262,16 +259,9 @@ export const iam_role_output: JsonSchema = {
 };
 
 /**
- * The schema of `iam_role_components-schemas-identifier` in responses.
- */
-export const iam_role_components_schemas_identifier_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `organizations-api_MoveAccountResult` in responses.
  */
-export const organizations_api_MoveAccountResult_output: JsonSchema = {
+export const organizations$$api_MoveAccountResult: JsonSchema = {
   "properties": {
     "account_id": {
       "type": "string"

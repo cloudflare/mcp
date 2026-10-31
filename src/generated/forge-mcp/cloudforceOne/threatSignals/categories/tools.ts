@@ -4,23 +4,33 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 
 /**
- * The tools of `cloudforce_one.threat_signals.categories`.
+ * The tools of `cloudforceOne.threatSignals.categories`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "cloudforce_one_threat_signals_categories_list",
+    name: "cloudforceOne_threatSignals_categories_list",
     title: "List Threat Signals feed categories",
-    description: "Lists the predefined categories that can be assigned to feeds.",
+    description: "Lists the predefined categories that can be assigned to feeds.\n\nGET /accounts/{account_id}/cloudforce-one/v2/threat-signals/categories",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

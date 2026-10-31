@@ -4,17 +4,6 @@
 import type { JsonSchema } from "../../../../_/tool.js";
 
 /**
- * The schema of `web3_content_list_action`.
- */
-export const web3_content_list_action: JsonSchema = {
-  "description": "Behavior of the content list.",
-  "enum": [
-    "block"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `web3_content_list_entries`.
  */
 export const web3_content_list_entries: JsonSchema = {
@@ -32,47 +21,23 @@ export const web3_content_list_entry: JsonSchema = {
   "description": "Specify a content list entry to block.",
   "properties": {
     "content": {
-      "$ref": "#/$defs/web3_content_list_entry_content",
-      "description": "Specify the CID or content path of content to block."
+      "description": "Specify the CID or content path of content to block.",
+      "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/web3_content_list_entry_description",
-      "description": "Specify an optional description of the content list entry."
+      "description": "Specify an optional description of the content list entry.",
+      "type": "string"
     },
     "type": {
-      "$ref": "#/$defs/web3_content_list_entry_type",
-      "description": "Specify the type of content list entry to block."
+      "description": "Specify the type of content list entry to block.",
+      "enum": [
+        "cid",
+        "content_path"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `web3_content_list_entry_content`.
- */
-export const web3_content_list_entry_content: JsonSchema = {
-  "description": "Specify the CID or content path of content to block.",
-  "type": "string"
-};
-
-/**
- * The schema of `web3_content_list_entry_description`.
- */
-export const web3_content_list_entry_description: JsonSchema = {
-  "description": "Specify an optional description of the content list entry.",
-  "type": "string"
-};
-
-/**
- * The schema of `web3_content_list_entry_type`.
- */
-export const web3_content_list_entry_type: JsonSchema = {
-  "description": "Specify the type of content list entry to block.",
-  "enum": [
-    "cid",
-    "content_path"
-  ],
-  "type": "string"
 };
 
 /**
@@ -81,8 +46,11 @@ export const web3_content_list_entry_type: JsonSchema = {
 export const web3_content_list_update_request: JsonSchema = {
   "properties": {
     "action": {
-      "$ref": "#/$defs/web3_content_list_action",
-      "description": "Behavior of the content list."
+      "description": "Behavior of the content list.",
+      "enum": [
+        "block"
+      ],
+      "type": "string"
     },
     "entries": {
       "$ref": "#/$defs/web3_content_list_entries",

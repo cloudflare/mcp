@@ -3,47 +3,54 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  email_auth_api_response_common_failure_output,
-  email_auth_api_response_single_output,
-  email_auth_messages_output,
+  email$$auth_api$$response$$common$$failure,
+  email$$auth_api$$response$$single,
+  email$$auth_messages,
 } from "../outputs.js";
-import { email_auth_identifier } from "../schemas.js";
 import {
-  email_auth_ApprovedSourceResponse_output,
-  email_auth_DmarcReportResponse_output,
-  email_auth_DmarcStatus_output,
-  email_auth_DnsRecordInfo_output,
-  email_auth_ResolvedDmarcRecord_output,
-  email_auth_ZoneDnsRecords_output,
+  email$$auth_ApprovedSourceResponse,
+  email$$auth_DmarcReportResponse,
+  email$$auth_DnsRecordInfo,
+  email$$auth_ResolvedDmarcRecord,
+  email$$auth_ZoneDnsRecords,
 } from "./outputs.js";
-import { email_auth_ConfigureDmarcReportsRequest } from "./schemas.js";
+import { email$$auth_ConfigureDmarcReportsRequest } from "./schemas.js";
 
 /**
- * The tools of `email_auth.dmarc_reports`.
+ * The tools of `emailAuth.dmarcReports`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "email_auth_dmarc_reports_edit",
+    name: "emailAuth_dmarcReports_edit",
     title: "Configure DMARC Reports",
-    description: "Updates the DMARC report configuration for a zone.\nAt least one of `enabled` or `skip_wizard` must be provided.\nWhen enabling, the handler will ensure the DMARC RUA record exists in DNS.",
+    description: "Updates the DMARC report configuration for a zone.\nAt least one of `enabled` or `skip_wizard` must be provided.\nWhen enabling, the handler will ensure the DMARC RUA record exists in DNS.\n\nPATCH /zones/{zone_id}/email/auth/dmarc-reports",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "$ref": "#/$defs/email-auth_ConfigureDmarcReportsRequest"
         },
-        "zone_id": {
-          "$ref": "#/$defs/email-auth_identifier",
-          "description": "Zone identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Zone identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "email-auth_ConfigureDmarcReportsRequest": email_auth_ConfigureDmarcReportsRequest,
-        "email-auth_identifier": email_auth_identifier,
+        "email-auth_ConfigureDmarcReportsRequest": email$$auth_ConfigureDmarcReportsRequest,
       },
     },
     outputSchema: {
@@ -61,14 +68,13 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "email-auth_ApprovedSourceResponse": email_auth_ApprovedSourceResponse_output,
-        "email-auth_DmarcReportResponse": email_auth_DmarcReportResponse_output,
-        "email-auth_DmarcStatus": email_auth_DmarcStatus_output,
-        "email-auth_DnsRecordInfo": email_auth_DnsRecordInfo_output,
-        "email-auth_ResolvedDmarcRecord": email_auth_ResolvedDmarcRecord_output,
-        "email-auth_ZoneDnsRecords": email_auth_ZoneDnsRecords_output,
-        "email-auth_api-response-single": email_auth_api_response_single_output,
-        "email-auth_messages": email_auth_messages_output,
+        "email-auth_ApprovedSourceResponse": email$$auth_ApprovedSourceResponse,
+        "email-auth_DmarcReportResponse": email$$auth_DmarcReportResponse,
+        "email-auth_DnsRecordInfo": email$$auth_DnsRecordInfo,
+        "email-auth_ResolvedDmarcRecord": email$$auth_ResolvedDmarcRecord,
+        "email-auth_ZoneDnsRecords": email$$auth_ZoneDnsRecords,
+        "email-auth_api-response-single": email$$auth_api$$response$$single,
+        "email-auth_messages": email$$auth_messages,
       },
     },
     annotations: {
@@ -102,15 +108,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "email-auth_ApprovedSourceResponse": email_auth_ApprovedSourceResponse_output,
-        "email-auth_DmarcReportResponse": email_auth_DmarcReportResponse_output,
-        "email-auth_DmarcStatus": email_auth_DmarcStatus_output,
-        "email-auth_DnsRecordInfo": email_auth_DnsRecordInfo_output,
-        "email-auth_ResolvedDmarcRecord": email_auth_ResolvedDmarcRecord_output,
-        "email-auth_ZoneDnsRecords": email_auth_ZoneDnsRecords_output,
-        "email-auth_api-response-common-failure": email_auth_api_response_common_failure_output,
-        "email-auth_api-response-single": email_auth_api_response_single_output,
-        "email-auth_messages": email_auth_messages_output,
+        "email-auth_ApprovedSourceResponse": email$$auth_ApprovedSourceResponse,
+        "email-auth_DmarcReportResponse": email$$auth_DmarcReportResponse,
+        "email-auth_DnsRecordInfo": email$$auth_DnsRecordInfo,
+        "email-auth_ResolvedDmarcRecord": email$$auth_ResolvedDmarcRecord,
+        "email-auth_ZoneDnsRecords": email$$auth_ZoneDnsRecords,
+        "email-auth_api-response-common-failure": email$$auth_api$$response$$common$$failure,
+        "email-auth_api-response-single": email$$auth_api$$response$$single,
+        "email-auth_messages": email$$auth_messages,
       },
     },
     request: (args) => ({
@@ -119,23 +124,30 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "email_auth_dmarc_reports_get",
+    name: "emailAuth_dmarcReports_get",
     title: "Get DMARC Report Status",
-    description: "Retrieves the current DMARC report configuration and status for a zone.\nReturns the RUA prefix, enabled status, approved sources, and DNS records.",
+    description: "Retrieves the current DMARC report configuration and status for a zone.\nReturns the RUA prefix, enabled status, approved sources, and DNS records.\n\nGET /zones/{zone_id}/email/auth/dmarc-reports",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/email-auth_identifier",
-          "description": "Zone identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Zone identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
-      $defs: {
-        "email-auth_identifier": email_auth_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -152,14 +164,13 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "email-auth_ApprovedSourceResponse": email_auth_ApprovedSourceResponse_output,
-        "email-auth_DmarcReportResponse": email_auth_DmarcReportResponse_output,
-        "email-auth_DmarcStatus": email_auth_DmarcStatus_output,
-        "email-auth_DnsRecordInfo": email_auth_DnsRecordInfo_output,
-        "email-auth_ResolvedDmarcRecord": email_auth_ResolvedDmarcRecord_output,
-        "email-auth_ZoneDnsRecords": email_auth_ZoneDnsRecords_output,
-        "email-auth_api-response-single": email_auth_api_response_single_output,
-        "email-auth_messages": email_auth_messages_output,
+        "email-auth_ApprovedSourceResponse": email$$auth_ApprovedSourceResponse,
+        "email-auth_DmarcReportResponse": email$$auth_DmarcReportResponse,
+        "email-auth_DnsRecordInfo": email$$auth_DnsRecordInfo,
+        "email-auth_ResolvedDmarcRecord": email$$auth_ResolvedDmarcRecord,
+        "email-auth_ZoneDnsRecords": email$$auth_ZoneDnsRecords,
+        "email-auth_api-response-single": email$$auth_api$$response$$single,
+        "email-auth_messages": email$$auth_messages,
       },
     },
     annotations: {
@@ -193,15 +204,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "email-auth_ApprovedSourceResponse": email_auth_ApprovedSourceResponse_output,
-        "email-auth_DmarcReportResponse": email_auth_DmarcReportResponse_output,
-        "email-auth_DmarcStatus": email_auth_DmarcStatus_output,
-        "email-auth_DnsRecordInfo": email_auth_DnsRecordInfo_output,
-        "email-auth_ResolvedDmarcRecord": email_auth_ResolvedDmarcRecord_output,
-        "email-auth_ZoneDnsRecords": email_auth_ZoneDnsRecords_output,
-        "email-auth_api-response-common-failure": email_auth_api_response_common_failure_output,
-        "email-auth_api-response-single": email_auth_api_response_single_output,
-        "email-auth_messages": email_auth_messages_output,
+        "email-auth_ApprovedSourceResponse": email$$auth_ApprovedSourceResponse,
+        "email-auth_DmarcReportResponse": email$$auth_DmarcReportResponse,
+        "email-auth_DnsRecordInfo": email$$auth_DnsRecordInfo,
+        "email-auth_ResolvedDmarcRecord": email$$auth_ResolvedDmarcRecord,
+        "email-auth_ZoneDnsRecords": email$$auth_ZoneDnsRecords,
+        "email-auth_api-response-common-failure": email$$auth_api$$response$$common$$failure,
+        "email-auth_api-response-single": email$$auth_api$$response$$single,
+        "email-auth_messages": email$$auth_messages,
       },
     },
     request: (args) => ({

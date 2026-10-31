@@ -3,35 +3,32 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  cache_settings_api_response_common_failure_output,
-  cache_settings_api_response_common_output,
-  cache_settings_base_output,
-  cache_settings_messages_output,
+  cache$$settings_api$$response$$common,
+  cache$$settings_api$$response$$common$$failure,
+  cache$$settings_base,
+  cache$$settings_messages,
 } from "../../outputs.js";
-import { cache_settings_identifier } from "../../schemas.js";
 import {
-  cache_settings_origin_h2_max_streams_output,
-  cache_settings_origin_h2_max_streams_response_value_output,
-  cache_settings_origin_h2_max_streams_value_output,
+  cache$$settings_origin_h2_max_streams,
+  cache$$settings_origin_h2_max_streams_response_value,
 } from "./outputs.js";
-import { cache_settings_origin_h2_max_streams_value } from "./schemas.js";
 
 /**
- * The tools of `zones.origin_h2_max_streams`.
+ * The tools of `zones.originH2MaxStreams`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zones_origin_h2_max_streams_edit",
+    name: "zones_originH2MaxStreams_edit",
     title: "Change Origin H2 Max Streams Setting",
-    description: "Origin H2 Max Streams configures the max number of concurrent requests that Cloudflare will send within the same connection when communicating with the origin server, if the origin supports it. Note that if your origin does not support H2 multiplexing, 5xx errors may be observed, particularly 520s. Also note that the default value is `100` for all plan types except Enterprise where it is `1`. `1` means that H2 multiplexing is disabled.",
+    description: "Origin H2 Max Streams configures the max number of concurrent requests that Cloudflare will send within the same connection when communicating with the origin server, if the origin supports it. Note that if your origin does not support H2 multiplexing, 5xx errors may be observed, particularly 520s. Also note that the default value is `100` for all plan types except Enterprise where it is `1`. `1` means that H2 multiplexing is disabled.\n\nPATCH /zones/{zone_id}/settings/origin_h2_max_streams",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "value": {
-              "$ref": "#/$defs/cache-settings_origin_h2_max_streams_value",
-              "description": "Value of the Origin H2 Max Streams Setting."
+              "description": "Value of the Origin H2 Max Streams Setting.",
+              "type": "integer"
             }
           },
           "required": [
@@ -39,29 +36,34 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "zone_id": {
-          "$ref": "#/$defs/cache-settings_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
-      $defs: {
-        "cache-settings_identifier": cache_settings_identifier,
-        "cache-settings_origin_h2_max_streams_value": cache_settings_origin_h2_max_streams_value,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cache-settings_origin_h2_max_streams_response_value",
       $defs: {
-        "cache-settings_api-response-common": cache_settings_api_response_common_output,
-        "cache-settings_base": cache_settings_base_output,
-        "cache-settings_messages": cache_settings_messages_output,
-        "cache-settings_origin_h2_max_streams": cache_settings_origin_h2_max_streams_output,
-        "cache-settings_origin_h2_max_streams_response_value": cache_settings_origin_h2_max_streams_response_value_output,
-        "cache-settings_origin_h2_max_streams_value": cache_settings_origin_h2_max_streams_value_output,
+        "cache-settings_api-response-common": cache$$settings_api$$response$$common,
+        "cache-settings_base": cache$$settings_base,
+        "cache-settings_messages": cache$$settings_messages,
+        "cache-settings_origin_h2_max_streams": cache$$settings_origin_h2_max_streams,
+        "cache-settings_origin_h2_max_streams_response_value": cache$$settings_origin_h2_max_streams_response_value,
       },
     },
     annotations: {
@@ -100,13 +102,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cache-settings_api-response-common": cache_settings_api_response_common_output,
-        "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
-        "cache-settings_base": cache_settings_base_output,
-        "cache-settings_messages": cache_settings_messages_output,
-        "cache-settings_origin_h2_max_streams": cache_settings_origin_h2_max_streams_output,
-        "cache-settings_origin_h2_max_streams_response_value": cache_settings_origin_h2_max_streams_response_value_output,
-        "cache-settings_origin_h2_max_streams_value": cache_settings_origin_h2_max_streams_value_output,
+        "cache-settings_api-response-common": cache$$settings_api$$response$$common,
+        "cache-settings_api-response-common-failure": cache$$settings_api$$response$$common$$failure,
+        "cache-settings_base": cache$$settings_base,
+        "cache-settings_messages": cache$$settings_messages,
+        "cache-settings_origin_h2_max_streams": cache$$settings_origin_h2_max_streams,
+        "cache-settings_origin_h2_max_streams_response_value": cache$$settings_origin_h2_max_streams_response_value,
       },
     },
     request: (args) => ({
@@ -115,33 +116,39 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zones_origin_h2_max_streams_get",
+    name: "zones_originH2MaxStreams_get",
     title: "Get Origin H2 Max Streams Setting",
-    description: "Origin H2 Max Streams configures the max number of concurrent requests that Cloudflare will send within the same connection when communicating with the origin server, if the origin supports it. Note that if your origin does not support H2 multiplexing, 5xx errors may be observed, particularly 520s. Also note that the default value is `100` for all plan types except Enterprise where it is `1`. `1` means that H2 multiplexing is disabled.",
+    description: "Origin H2 Max Streams configures the max number of concurrent requests that Cloudflare will send within the same connection when communicating with the origin server, if the origin supports it. Note that if your origin does not support H2 multiplexing, 5xx errors may be observed, particularly 520s. Also note that the default value is `100` for all plan types except Enterprise where it is `1`. `1` means that H2 multiplexing is disabled.\n\nGET /zones/{zone_id}/settings/origin_h2_max_streams",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/cache-settings_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
-      $defs: {
-        "cache-settings_identifier": cache_settings_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cache-settings_origin_h2_max_streams_response_value",
       $defs: {
-        "cache-settings_api-response-common": cache_settings_api_response_common_output,
-        "cache-settings_base": cache_settings_base_output,
-        "cache-settings_messages": cache_settings_messages_output,
-        "cache-settings_origin_h2_max_streams": cache_settings_origin_h2_max_streams_output,
-        "cache-settings_origin_h2_max_streams_response_value": cache_settings_origin_h2_max_streams_response_value_output,
-        "cache-settings_origin_h2_max_streams_value": cache_settings_origin_h2_max_streams_value_output,
+        "cache-settings_api-response-common": cache$$settings_api$$response$$common,
+        "cache-settings_base": cache$$settings_base,
+        "cache-settings_messages": cache$$settings_messages,
+        "cache-settings_origin_h2_max_streams": cache$$settings_origin_h2_max_streams,
+        "cache-settings_origin_h2_max_streams_response_value": cache$$settings_origin_h2_max_streams_response_value,
       },
     },
     annotations: {
@@ -182,13 +189,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cache-settings_api-response-common": cache_settings_api_response_common_output,
-        "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
-        "cache-settings_base": cache_settings_base_output,
-        "cache-settings_messages": cache_settings_messages_output,
-        "cache-settings_origin_h2_max_streams": cache_settings_origin_h2_max_streams_output,
-        "cache-settings_origin_h2_max_streams_response_value": cache_settings_origin_h2_max_streams_response_value_output,
-        "cache-settings_origin_h2_max_streams_value": cache_settings_origin_h2_max_streams_value_output,
+        "cache-settings_api-response-common": cache$$settings_api$$response$$common,
+        "cache-settings_api-response-common-failure": cache$$settings_api$$response$$common$$failure,
+        "cache-settings_base": cache$$settings_base,
+        "cache-settings_messages": cache$$settings_messages,
+        "cache-settings_origin_h2_max_streams": cache$$settings_origin_h2_max_streams,
+        "cache-settings_origin_h2_max_streams_response_value": cache$$settings_origin_h2_max_streams_response_value,
       },
     },
     request: (args) => ({

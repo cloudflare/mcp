@@ -3,20 +3,19 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  magic_api_response_common_failure_output,
-  magic_api_response_common_output,
-  magic_api_response_single_output,
-  magic_messages_output,
+  magic_api$$response$$common,
+  magic_api$$response$$common$$failure,
+  magic_api$$response$$single,
+  magic_messages,
 } from "../outputs.js";
-import { magic_identifier } from "../schemas.js";
 import {
-  magic_delete_redundancy_group_response_output,
-  magic_redundancy_group_output,
-  magic_redundancy_group_single_response_output,
-  magic_redundancy_group_with_members_output,
-  magic_redundancy_group_with_members_response_output,
-  magic_redundancy_groups_collection_response_output,
-  magic_redundancy_member_data_output,
+  magic_delete_redundancy_group_response,
+  magic_redundancy_group,
+  magic_redundancy_group_single_response,
+  magic_redundancy_group_with_members,
+  magic_redundancy_group_with_members_response,
+  magic_redundancy_groups_collection_response,
+  magic_redundancy_member_data,
 } from "./outputs.js";
 import {
   magic_create_redundancy_group_request,
@@ -24,42 +23,51 @@ import {
 } from "./schemas.js";
 
 /**
- * The tools of `magic_transit.redundancy_groups`.
+ * The tools of `magicTransit.redundancyGroups`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "magic_transit_redundancy_groups_create",
+    name: "magicTransit_redundancyGroups_create",
     title: "Create a Redundancy Group",
-    description: "Creates a new redundancy group, optionally with tunnel members.",
+    description: "Creates a new redundancy group, optionally with tunnel members.\n\nPOST /accounts/{account_id}/magic/redundancy_groups",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/magic_identifier",
-          "description": "Identifier"
-        },
         "body": {
           "$ref": "#/$defs/magic_create_redundancy_group_request"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "magic_create_redundancy_group_request": magic_create_redundancy_group_request,
-        "magic_identifier": magic_identifier,
         "magic_redundancy_member_request": magic_redundancy_member_request,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/magic_redundancy_group_single_response",
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_messages": magic_messages_output,
-        "magic_redundancy_group": magic_redundancy_group_output,
-        "magic_redundancy_group_single_response": magic_redundancy_group_single_response_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_messages": magic_messages,
+        "magic_redundancy_group": magic_redundancy_group,
+        "magic_redundancy_group_single_response": magic_redundancy_group_single_response,
       },
     },
     annotations: {
@@ -89,12 +97,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-common-failure": magic_api_response_common_failure_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_messages": magic_messages_output,
-        "magic_redundancy_group": magic_redundancy_group_output,
-        "magic_redundancy_group_single_response": magic_redundancy_group_single_response_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-common-failure": magic_api$$response$$common$$failure,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_messages": magic_messages,
+        "magic_redundancy_group": magic_redundancy_group,
+        "magic_redundancy_group_single_response": magic_redundancy_group_single_response,
       },
     },
     request: (args) => ({
@@ -103,37 +111,44 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "magic_transit_redundancy_groups_delete",
+    name: "magicTransit_redundancyGroups_delete",
     title: "Delete a Redundancy Group",
-    description: "Deletes a redundancy group. Member tunnels are not deleted — their redundancy_group_id is cleared.",
+    description: "Deletes a redundancy group. Member tunnels are not deleted — their redundancy_group_id is cleared.\n\nDELETE /accounts/{account_id}/magic/redundancy_groups/{redundancy_group_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/magic_identifier",
-          "description": "Identifier"
-        },
-        "redundancy_group_id": {
-          "$ref": "#/$defs/magic_identifier",
-          "description": "Identifier"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier",
+              "type": "string"
+            },
+            "redundancy_group_id": {
+              "description": "Identifier",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "redundancy_group_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "redundancy_group_id"
+        "path"
       ],
-      $defs: {
-        "magic_identifier": magic_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/magic_delete_redundancy_group_response",
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_delete_redundancy_group_response": magic_delete_redundancy_group_response_output,
-        "magic_messages": magic_messages_output,
-        "magic_redundancy_group": magic_redundancy_group_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_delete_redundancy_group_response": magic_delete_redundancy_group_response,
+        "magic_messages": magic_messages,
+        "magic_redundancy_group": magic_redundancy_group,
       },
     },
     annotations: {
@@ -163,12 +178,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-common-failure": magic_api_response_common_failure_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_delete_redundancy_group_response": magic_delete_redundancy_group_response_output,
-        "magic_messages": magic_messages_output,
-        "magic_redundancy_group": magic_redundancy_group_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-common-failure": magic_api$$response$$common$$failure,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_delete_redundancy_group_response": magic_delete_redundancy_group_response,
+        "magic_messages": magic_messages,
+        "magic_redundancy_group": magic_redundancy_group,
       },
     },
     request: (args) => ({
@@ -176,39 +191,46 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "magic_transit_redundancy_groups_get",
+    name: "magicTransit_redundancyGroups_get",
     title: "Get Redundancy Group Details",
-    description: "Gets details for a specific redundancy group, including full member tunnel data.",
+    description: "Gets details for a specific redundancy group, including full member tunnel data.\n\nGET /accounts/{account_id}/magic/redundancy_groups/{redundancy_group_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/magic_identifier",
-          "description": "Identifier"
-        },
-        "redundancy_group_id": {
-          "$ref": "#/$defs/magic_identifier",
-          "description": "Identifier"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier",
+              "type": "string"
+            },
+            "redundancy_group_id": {
+              "description": "Identifier",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "redundancy_group_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "redundancy_group_id"
+        "path"
       ],
-      $defs: {
-        "magic_identifier": magic_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/magic_redundancy_group_with_members_response",
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_messages": magic_messages_output,
-        "magic_redundancy_group": magic_redundancy_group_output,
-        "magic_redundancy_group_with_members": magic_redundancy_group_with_members_output,
-        "magic_redundancy_group_with_members_response": magic_redundancy_group_with_members_response_output,
-        "magic_redundancy_member_data": magic_redundancy_member_data_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_messages": magic_messages,
+        "magic_redundancy_group": magic_redundancy_group,
+        "magic_redundancy_group_with_members": magic_redundancy_group_with_members,
+        "magic_redundancy_group_with_members_response": magic_redundancy_group_with_members_response,
+        "magic_redundancy_member_data": magic_redundancy_member_data,
       },
     },
     annotations: {
@@ -238,14 +260,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-common-failure": magic_api_response_common_failure_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_messages": magic_messages_output,
-        "magic_redundancy_group": magic_redundancy_group_output,
-        "magic_redundancy_group_with_members": magic_redundancy_group_with_members_output,
-        "magic_redundancy_group_with_members_response": magic_redundancy_group_with_members_response_output,
-        "magic_redundancy_member_data": magic_redundancy_member_data_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-common-failure": magic_api$$response$$common$$failure,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_messages": magic_messages,
+        "magic_redundancy_group": magic_redundancy_group,
+        "magic_redundancy_group_with_members": magic_redundancy_group_with_members,
+        "magic_redundancy_group_with_members_response": magic_redundancy_group_with_members_response,
+        "magic_redundancy_member_data": magic_redundancy_member_data,
       },
     },
     request: (args) => ({
@@ -253,34 +275,41 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "magic_transit_redundancy_groups_list",
+    name: "magicTransit_redundancyGroups_list",
     title: "List Redundancy Groups",
-    description: "Lists redundancy groups associated with an account, including full member tunnel data.",
+    description: "Lists redundancy groups associated with an account, including full member tunnel data.\n\nGET /accounts/{account_id}/magic/redundancy_groups",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/magic_identifier",
-          "description": "Identifier"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
-      $defs: {
-        "magic_identifier": magic_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/magic_redundancy_groups_collection_response",
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_messages": magic_messages_output,
-        "magic_redundancy_group": magic_redundancy_group_output,
-        "magic_redundancy_group_with_members": magic_redundancy_group_with_members_output,
-        "magic_redundancy_groups_collection_response": magic_redundancy_groups_collection_response_output,
-        "magic_redundancy_member_data": magic_redundancy_member_data_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_messages": magic_messages,
+        "magic_redundancy_group": magic_redundancy_group,
+        "magic_redundancy_group_with_members": magic_redundancy_group_with_members,
+        "magic_redundancy_groups_collection_response": magic_redundancy_groups_collection_response,
+        "magic_redundancy_member_data": magic_redundancy_member_data,
       },
     },
     annotations: {
@@ -310,14 +339,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-common-failure": magic_api_response_common_failure_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_messages": magic_messages_output,
-        "magic_redundancy_group": magic_redundancy_group_output,
-        "magic_redundancy_group_with_members": magic_redundancy_group_with_members_output,
-        "magic_redundancy_groups_collection_response": magic_redundancy_groups_collection_response_output,
-        "magic_redundancy_member_data": magic_redundancy_member_data_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-common-failure": magic_api$$response$$common$$failure,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_messages": magic_messages,
+        "magic_redundancy_group": magic_redundancy_group,
+        "magic_redundancy_group_with_members": magic_redundancy_group_with_members,
+        "magic_redundancy_groups_collection_response": magic_redundancy_groups_collection_response,
+        "magic_redundancy_member_data": magic_redundancy_member_data,
       },
     },
     request: (args) => ({
@@ -325,43 +354,52 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "magic_transit_redundancy_groups_update",
+    name: "magicTransit_redundancyGroups_update",
     title: "Update a Redundancy Group",
-    description: "Replaces the name, description, and full set of members for an existing redundancy group.",
+    description: "Replaces the name, description, and full set of members for an existing redundancy group.\n\nPUT /accounts/{account_id}/magic/redundancy_groups/{redundancy_group_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/magic_identifier",
-          "description": "Identifier"
-        },
         "body": {
           "$ref": "#/$defs/magic_create_redundancy_group_request"
         },
-        "redundancy_group_id": {
-          "$ref": "#/$defs/magic_identifier",
-          "description": "Identifier"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier",
+              "type": "string"
+            },
+            "redundancy_group_id": {
+              "description": "Identifier",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "redundancy_group_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "redundancy_group_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "magic_create_redundancy_group_request": magic_create_redundancy_group_request,
-        "magic_identifier": magic_identifier,
         "magic_redundancy_member_request": magic_redundancy_member_request,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/magic_redundancy_group_single_response",
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_messages": magic_messages_output,
-        "magic_redundancy_group": magic_redundancy_group_output,
-        "magic_redundancy_group_single_response": magic_redundancy_group_single_response_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_messages": magic_messages,
+        "magic_redundancy_group": magic_redundancy_group,
+        "magic_redundancy_group_single_response": magic_redundancy_group_single_response,
       },
     },
     annotations: {
@@ -391,12 +429,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-common-failure": magic_api_response_common_failure_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_messages": magic_messages_output,
-        "magic_redundancy_group": magic_redundancy_group_output,
-        "magic_redundancy_group_single_response": magic_redundancy_group_single_response_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-common-failure": magic_api$$response$$common$$failure,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_messages": magic_messages,
+        "magic_redundancy_group": magic_redundancy_group,
+        "magic_redundancy_group_single_response": magic_redundancy_group_single_response,
       },
     },
     request: (args) => ({

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../../_/tool.js";
 /**
  * The schema of `realtimekit_Poll` in responses.
  */
-export const realtimekit_Poll_output: JsonSchema = {
+export const realtimekit_Poll: JsonSchema = {
   "properties": {
     "anonymous": {
       "type": "boolean"

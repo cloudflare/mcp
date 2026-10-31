@@ -4,17 +4,9 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `tls-certificates-and-hostnames_created_at-2` in responses.
- */
-export const tls_certificates_and_hostnames_created_at_2_output: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
  * The schema of `tls-certificates-and-hostnames_errors` in responses.
  */
-export const tls_certificates_and_hostnames_errors_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_errors: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -25,7 +17,7 @@ export const tls_certificates_and_hostnames_errors_output: JsonSchema = {
  * The schema of `tls-certificates-and-hostnames_fallback_origin_response` in
  * responses.
  */
-export const tls_certificates_and_hostnames_fallback_origin_response_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_fallback_origin_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-single"
@@ -44,53 +36,33 @@ export const tls_certificates_and_hostnames_fallback_origin_response_output: Jso
 /**
  * The schema of `tls-certificates-and-hostnames_fallbackorigin` in responses.
  */
-export const tls_certificates_and_hostnames_fallbackorigin_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_fallbackorigin: JsonSchema = {
   "properties": {
     "created_at": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_created_at-2"
+      "format": "date-time",
+      "type": "string"
     },
     "errors": {
       "$ref": "#/$defs/tls-certificates-and-hostnames_errors"
     },
     "origin": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_origin"
+      "type": "string"
     },
     "status": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_status-4"
+      "enum": [
+        "initializing",
+        "pending_deployment",
+        "pending_deletion",
+        "active",
+        "deployment_timed_out",
+        "deletion_timed_out"
+      ],
+      "type": "string"
     },
     "updated_at": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_updated_at"
+      "format": "date-time",
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_origin` in responses.
- */
-export const tls_certificates_and_hostnames_origin_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_status-4` in responses.
- */
-export const tls_certificates_and_hostnames_status_4_output: JsonSchema = {
-  "enum": [
-    "initializing",
-    "pending_deployment",
-    "pending_deletion",
-    "active",
-    "deployment_timed_out",
-    "deletion_timed_out"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_updated_at` in responses.
- */
-export const tls_certificates_and_hostnames_updated_at_output: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
 };

@@ -9,20 +9,25 @@ import type { JsonSchema } from "../../_/tool.js";
 export const web3_create_request: JsonSchema = {
   "properties": {
     "description": {
-      "$ref": "#/$defs/web3_description",
-      "description": "Specify an optional description of the hostname."
+      "description": "Specify an optional description of the hostname.",
+      "type": "string"
     },
     "dnslink": {
-      "$ref": "#/$defs/web3_dnslink",
-      "description": "Specify the DNSLink value used if the target is ipfs."
+      "description": "Specify the DNSLink value used if the target is ipfs.",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/web3_name",
-      "description": "Specify the hostname that points to the target gateway via CNAME."
+      "description": "Specify the hostname that points to the target gateway via CNAME.",
+      "type": "string"
     },
     "target": {
-      "$ref": "#/$defs/web3_target",
-      "description": "Specify the target gateway of the hostname."
+      "description": "Specify the target gateway of the hostname.",
+      "enum": [
+        "ethereum",
+        "ipfs",
+        "ipfs_universal_path"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -33,63 +38,18 @@ export const web3_create_request: JsonSchema = {
 };
 
 /**
- * The schema of `web3_description`.
- */
-export const web3_description: JsonSchema = {
-  "description": "Specify an optional description of the hostname.",
-  "type": "string"
-};
-
-/**
- * The schema of `web3_dnslink`.
- */
-export const web3_dnslink: JsonSchema = {
-  "description": "Specify the DNSLink value used if the target is ipfs.",
-  "type": "string"
-};
-
-/**
- * The schema of `web3_identifier`.
- */
-export const web3_identifier: JsonSchema = {
-  "description": "Specify the identifier of the hostname.",
-  "type": "string"
-};
-
-/**
  * The schema of `web3_modify_request`.
  */
 export const web3_modify_request: JsonSchema = {
   "properties": {
     "description": {
-      "$ref": "#/$defs/web3_description",
-      "description": "Specify an optional description of the hostname."
+      "description": "Specify an optional description of the hostname.",
+      "type": "string"
     },
     "dnslink": {
-      "$ref": "#/$defs/web3_dnslink",
-      "description": "Specify the DNSLink value used if the target is ipfs."
+      "description": "Specify the DNSLink value used if the target is ipfs.",
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `web3_name`.
- */
-export const web3_name: JsonSchema = {
-  "description": "Specify the hostname that points to the target gateway via CNAME.",
-  "type": "string"
-};
-
-/**
- * The schema of `web3_target`.
- */
-export const web3_target: JsonSchema = {
-  "description": "Specify the target gateway of the hostname.",
-  "enum": [
-    "ethereum",
-    "ipfs",
-    "ipfs_universal_path"
-  ],
-  "type": "string"
 };

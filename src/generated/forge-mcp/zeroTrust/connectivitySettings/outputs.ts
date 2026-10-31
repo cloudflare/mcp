@@ -4,24 +4,10 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `tunnel_icmp_proxy_enabled` in responses.
- */
-export const tunnel_icmp_proxy_enabled_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `tunnel_offramp_warp_enabled` in responses.
- */
-export const tunnel_offramp_warp_enabled_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `tunnel_zero_trust_connectivity_settings_response` in
  * responses.
  */
-export const tunnel_zero_trust_connectivity_settings_response_output: JsonSchema = {
+export const tunnel_zero_trust_connectivity_settings_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tunnel_api-response-common"
@@ -31,10 +17,10 @@ export const tunnel_zero_trust_connectivity_settings_response_output: JsonSchema
         "result": {
           "properties": {
             "icmp_proxy_enabled": {
-              "$ref": "#/$defs/tunnel_icmp_proxy_enabled"
+              "type": "boolean"
             },
             "offramp_warp_enabled": {
-              "$ref": "#/$defs/tunnel_offramp_warp_enabled"
+              "type": "boolean"
             }
           },
           "type": "object"

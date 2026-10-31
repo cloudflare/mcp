@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `realtimekit_SessionParticipant` in responses.
  */
-export const realtimekit_SessionParticipant_output: JsonSchema = {
+export const realtimekit_SessionParticipant: JsonSchema = {
   "properties": {
     "created_at": {
       "type": "string"

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `art_APIError` in responses.
  */
-export const art_APIError_output: JsonSchema = {
+export const art_APIError: JsonSchema = {
   "properties": {
     "code": {
       "type": "integer"
@@ -21,7 +21,7 @@ export const art_APIError_output: JsonSchema = {
 /**
  * The schema of `art_APIMessage` in responses.
  */
-export const art_APIMessage_output: JsonSchema = {
+export const art_APIMessage: JsonSchema = {
   "properties": {
     "code": {
       "type": "integer"
@@ -36,7 +36,7 @@ export const art_APIMessage_output: JsonSchema = {
 /**
  * The schema of `art_ErrorResponse` in responses.
  */
-export const art_ErrorResponse_output: JsonSchema = {
+export const art_ErrorResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -75,14 +75,14 @@ export const art_ErrorResponse_output: JsonSchema = {
 /**
  * The schema of `art_ResultValues` in responses.
  */
-export const art_ResultValues_output: JsonSchema = {
+export const art_ResultValues: JsonSchema = {
   "type": "object"
 };
 
 /**
  * The schema of `art_SummaryResponse` in responses.
  */
-export const art_SummaryResponse_output: JsonSchema = {
+export const art_SummaryResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -115,7 +115,7 @@ export const art_SummaryResponse_output: JsonSchema = {
 /**
  * The schema of `art_SummaryResult` in responses.
  */
-export const art_SummaryResult_output: JsonSchema = {
+export const art_SummaryResult: JsonSchema = {
   "properties": {
     "currentTotal": {
       "items": {
@@ -140,7 +140,7 @@ export const art_SummaryResult_output: JsonSchema = {
 /**
  * The schema of `art_TimeseriesResponse` in responses.
  */
-export const art_TimeseriesResponse_output: JsonSchema = {
+export const art_TimeseriesResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -173,7 +173,7 @@ export const art_TimeseriesResponse_output: JsonSchema = {
 /**
  * The schema of `art_TimeseriesResult` in responses.
  */
-export const art_TimeseriesResult_output: JsonSchema = {
+export const art_TimeseriesResult: JsonSchema = {
   "properties": {
     "resolution": {
       "type": "string"
@@ -195,7 +195,7 @@ export const art_TimeseriesResult_output: JsonSchema = {
 /**
  * The schema of `art_TopNResponse` in responses.
  */
-export const art_TopNResponse_output: JsonSchema = {
+export const art_TopNResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {

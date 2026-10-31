@@ -4,17 +4,9 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
- * The schema of `resource-tagging_access_application_id` in responses.
- */
-export const resource_tagging_access_application_id_output: JsonSchema = {
-  "format": "uuid",
-  "type": "string"
-};
-
-/**
  * The schema of `resource-tagging_api-response-common` in responses.
  */
-export const resource_tagging_api_response_common_output: JsonSchema = {
+export const resource$$tagging_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/resource-tagging_messages"
@@ -40,7 +32,7 @@ export const resource_tagging_api_response_common_output: JsonSchema = {
 /**
  * The schema of `resource-tagging_api-response-common-failure` in responses.
  */
-export const resource_tagging_api_response_common_failure_output: JsonSchema = {
+export const resource$$tagging_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/resource-tagging_messages"
@@ -70,7 +62,7 @@ export const resource_tagging_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `resource-tagging_cursor_result_info` in responses.
  */
-export const resource_tagging_cursor_result_info_output: JsonSchema = {
+export const resource$$tagging_cursor_result_info: JsonSchema = {
   "properties": {
     "count": {
       "type": "integer"
@@ -90,23 +82,9 @@ export const resource_tagging_cursor_result_info_output: JsonSchema = {
 };
 
 /**
- * The schema of `resource-tagging_etag` in responses.
- */
-export const resource_tagging_etag_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `resource-tagging_identifier` in responses.
- */
-export const resource_tagging_identifier_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `resource-tagging_messages` in responses.
  */
-export const resource_tagging_messages_output: JsonSchema = {
+export const resource$$tagging_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -139,7 +117,7 @@ export const resource_tagging_messages_output: JsonSchema = {
 /**
  * The schema of `resource-tagging_namespace_worker_navigation` in responses.
  */
-export const resource_tagging_namespace_worker_navigation_output: JsonSchema = {
+export const resource$$tagging_namespace_worker_navigation: JsonSchema = {
   "properties": {
     "namespace_id": {
       "type": "string"
@@ -160,23 +138,9 @@ export const resource_tagging_namespace_worker_navigation_output: JsonSchema = {
 };
 
 /**
- * The schema of `resource-tagging_resource_id` in responses.
- */
-export const resource_tagging_resource_id_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `resource-tagging_resource_name` in responses.
- */
-export const resource_tagging_resource_name_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `resource-tagging_tagged_resource_object` in responses.
  */
-export const resource_tagging_tagged_resource_object_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/resource-tagging_tagged_resource_object_access_application"
@@ -323,7 +287,7 @@ export const resource_tagging_tagged_resource_object_output: JsonSchema = {
  * The schema of `resource-tagging_tagged_resource_object_access_application` in
  * responses.
  */
-export const resource_tagging_tagged_resource_object_access_application_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_access_application: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -350,7 +314,7 @@ export const resource_tagging_tagged_resource_object_access_application_output: 
  * `resource-tagging_tagged_resource_object_access_application_policy` in
  * responses.
  */
-export const resource_tagging_tagged_resource_object_access_application_policy_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_access_application_policy: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -377,28 +341,30 @@ export const resource_tagging_tagged_resource_object_access_application_policy_o
  * `resource-tagging_tagged_resource_object_access_application_policy_base` in
  * responses.
  */
-export const resource_tagging_tagged_resource_object_access_application_policy_base_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_access_application_policy_base: JsonSchema = {
   "properties": {
     "access_application_id": {
-      "$ref": "#/$defs/resource-tagging_access_application_id"
+      "format": "uuid",
+      "type": "string"
     },
     "etag": {
-      "$ref": "#/$defs/resource-tagging_etag"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/resource-tagging_resource_id"
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/resource-tagging_resource_name"
+      "type": "string"
     },
     "tags": {
       "$ref": "#/$defs/resource-tagging_tags"
     },
     "tags_updated_at": {
-      "$ref": "#/$defs/resource-tagging_tags_updated_at"
+      "format": "date-time",
+      "type": "string"
     },
     "zone_id": {
-      "$ref": "#/$defs/resource-tagging_zone_id"
+      "type": "string"
     }
   },
   "required": [
@@ -416,7 +382,7 @@ export const resource_tagging_tagged_resource_object_access_application_policy_b
  * The schema of `resource-tagging_tagged_resource_object_access_group` in
  * responses.
  */
-export const resource_tagging_tagged_resource_object_access_group_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_access_group: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -442,7 +408,7 @@ export const resource_tagging_tagged_resource_object_access_group_output: JsonSc
  * The schema of `resource-tagging_tagged_resource_object_access_service_token`
  * in responses.
  */
-export const resource_tagging_tagged_resource_object_access_service_token_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_access_service_token: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -467,7 +433,7 @@ export const resource_tagging_tagged_resource_object_access_service_token_output
 /**
  * The schema of `resource-tagging_tagged_resource_object_account` in responses.
  */
-export const resource_tagging_tagged_resource_object_account_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_account: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -493,22 +459,23 @@ export const resource_tagging_tagged_resource_object_account_output: JsonSchema 
  * The schema of `resource-tagging_tagged_resource_object_account_level_base` in
  * responses.
  */
-export const resource_tagging_tagged_resource_object_account_level_base_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_account_level_base: JsonSchema = {
   "properties": {
     "etag": {
-      "$ref": "#/$defs/resource-tagging_etag"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/resource-tagging_resource_id"
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/resource-tagging_resource_name"
+      "type": "string"
     },
     "tags": {
       "$ref": "#/$defs/resource-tagging_tags"
     },
     "tags_updated_at": {
-      "$ref": "#/$defs/resource-tagging_tags_updated_at"
+      "format": "date-time",
+      "type": "string"
     }
   },
   "required": [
@@ -524,7 +491,7 @@ export const resource_tagging_tagged_resource_object_account_level_base_output: 
  * The schema of `resource-tagging_tagged_resource_object_account_ruleset` in
  * responses.
  */
-export const resource_tagging_tagged_resource_object_account_ruleset_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_account_ruleset: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -550,7 +517,7 @@ export const resource_tagging_tagged_resource_object_account_ruleset_output: Jso
  * The schema of `resource-tagging_tagged_resource_object_ai_gateway` in
  * responses.
  */
-export const resource_tagging_tagged_resource_object_ai_gateway_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_ai_gateway: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -576,7 +543,7 @@ export const resource_tagging_tagged_resource_object_ai_gateway_output: JsonSche
  * The schema of `resource-tagging_tagged_resource_object_ai_search_instance` in
  * responses.
  */
-export const resource_tagging_tagged_resource_object_ai_search_instance_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_ai_search_instance: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -602,7 +569,7 @@ export const resource_tagging_tagged_resource_object_ai_search_instance_output: 
  * The schema of `resource-tagging_tagged_resource_object_ai_search_namespace`
  * in responses.
  */
-export const resource_tagging_tagged_resource_object_ai_search_namespace_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_ai_search_namespace: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -628,7 +595,7 @@ export const resource_tagging_tagged_resource_object_ai_search_namespace_output:
  * The schema of `resource-tagging_tagged_resource_object_alerting_policy` in
  * responses.
  */
-export const resource_tagging_tagged_resource_object_alerting_policy_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_alerting_policy: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -654,7 +621,7 @@ export const resource_tagging_tagged_resource_object_alerting_policy_output: Jso
  * The schema of `resource-tagging_tagged_resource_object_alerting_webhook` in
  * responses.
  */
-export const resource_tagging_tagged_resource_object_alerting_webhook_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_alerting_webhook: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -680,7 +647,7 @@ export const resource_tagging_tagged_resource_object_alerting_webhook_output: Js
  * The schema of `resource-tagging_tagged_resource_object_api_gateway_operation`
  * in responses.
  */
-export const resource_tagging_tagged_resource_object_api_gateway_operation_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_api_gateway_operation: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -706,7 +673,7 @@ export const resource_tagging_tagged_resource_object_api_gateway_operation_outpu
  * The schema of `resource-tagging_tagged_resource_object_cloudflared_tunnel` in
  * responses.
  */
-export const resource_tagging_tagged_resource_object_cloudflared_tunnel_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_cloudflared_tunnel: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -732,7 +699,7 @@ export const resource_tagging_tagged_resource_object_cloudflared_tunnel_output: 
  * The schema of `resource-tagging_tagged_resource_object_custom_certificate` in
  * responses.
  */
-export const resource_tagging_tagged_resource_object_custom_certificate_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_custom_certificate: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -758,7 +725,7 @@ export const resource_tagging_tagged_resource_object_custom_certificate_output: 
  * The schema of `resource-tagging_tagged_resource_object_custom_hostname` in
  * responses.
  */
-export const resource_tagging_tagged_resource_object_custom_hostname_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_custom_hostname: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -784,7 +751,7 @@ export const resource_tagging_tagged_resource_object_custom_hostname_output: Jso
  * The schema of `resource-tagging_tagged_resource_object_cws_deployment` in
  * responses.
  */
-export const resource_tagging_tagged_resource_object_cws_deployment_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_cws_deployment: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -810,7 +777,7 @@ export const resource_tagging_tagged_resource_object_cws_deployment_output: Json
  * The schema of `resource-tagging_tagged_resource_object_cws_policy` in
  * responses.
  */
-export const resource_tagging_tagged_resource_object_cws_policy_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_cws_policy: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -836,7 +803,7 @@ export const resource_tagging_tagged_resource_object_cws_policy_output: JsonSche
  * The schema of `resource-tagging_tagged_resource_object_cws_policy_set` in
  * responses.
  */
-export const resource_tagging_tagged_resource_object_cws_policy_set_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_cws_policy_set: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -862,7 +829,7 @@ export const resource_tagging_tagged_resource_object_cws_policy_set_output: Json
  * The schema of `resource-tagging_tagged_resource_object_cws_workload` in
  * responses.
  */
-export const resource_tagging_tagged_resource_object_cws_workload_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_cws_workload: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -888,7 +855,7 @@ export const resource_tagging_tagged_resource_object_cws_workload_output: JsonSc
  * The schema of `resource-tagging_tagged_resource_object_d1_database` in
  * responses.
  */
-export const resource_tagging_tagged_resource_object_d1_database_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_d1_database: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -913,7 +880,7 @@ export const resource_tagging_tagged_resource_object_d1_database_output: JsonSch
 /**
  * The schema of `resource-tagging_tagged_resource_object_device` in responses.
  */
-export const resource_tagging_tagged_resource_object_device_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_device: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -939,7 +906,7 @@ export const resource_tagging_tagged_resource_object_device_output: JsonSchema =
  * The schema of `resource-tagging_tagged_resource_object_dns_record` in
  * responses.
  */
-export const resource_tagging_tagged_resource_object_dns_record_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_dns_record: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -966,7 +933,7 @@ export const resource_tagging_tagged_resource_object_dns_record_output: JsonSche
  * `resource-tagging_tagged_resource_object_durable_object_namespace` in
  * responses.
  */
-export const resource_tagging_tagged_resource_object_durable_object_namespace_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_durable_object_namespace: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -992,7 +959,7 @@ export const resource_tagging_tagged_resource_object_durable_object_namespace_ou
  * The schema of `resource-tagging_tagged_resource_object_gateway_list` in
  * responses.
  */
-export const resource_tagging_tagged_resource_object_gateway_list_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_gateway_list: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -1018,7 +985,7 @@ export const resource_tagging_tagged_resource_object_gateway_list_output: JsonSc
  * The schema of `resource-tagging_tagged_resource_object_gateway_rule` in
  * responses.
  */
-export const resource_tagging_tagged_resource_object_gateway_rule_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_gateway_rule: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -1044,7 +1011,7 @@ export const resource_tagging_tagged_resource_object_gateway_rule_output: JsonSc
  * The schema of `resource-tagging_tagged_resource_object_healthcheck` in
  * responses.
  */
-export const resource_tagging_tagged_resource_object_healthcheck_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_healthcheck: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -1069,7 +1036,7 @@ export const resource_tagging_tagged_resource_object_healthcheck_output: JsonSch
 /**
  * The schema of `resource-tagging_tagged_resource_object_image` in responses.
  */
-export const resource_tagging_tagged_resource_object_image_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_image: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -1095,7 +1062,7 @@ export const resource_tagging_tagged_resource_object_image_output: JsonSchema = 
  * The schema of `resource-tagging_tagged_resource_object_infrastructure_target`
  * in responses.
  */
-export const resource_tagging_tagged_resource_object_infrastructure_target_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_infrastructure_target: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -1121,7 +1088,7 @@ export const resource_tagging_tagged_resource_object_infrastructure_target_outpu
  * The schema of `resource-tagging_tagged_resource_object_kv_namespace` in
  * responses.
  */
-export const resource_tagging_tagged_resource_object_kv_namespace_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_kv_namespace: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -1147,7 +1114,7 @@ export const resource_tagging_tagged_resource_object_kv_namespace_output: JsonSc
  * The schema of `resource-tagging_tagged_resource_object_load_balancer` in
  * responses.
  */
-export const resource_tagging_tagged_resource_object_load_balancer_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_load_balancer: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -1173,7 +1140,7 @@ export const resource_tagging_tagged_resource_object_load_balancer_output: JsonS
  * The schema of `resource-tagging_tagged_resource_object_load_balancer_monitor`
  * in responses.
  */
-export const resource_tagging_tagged_resource_object_load_balancer_monitor_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_load_balancer_monitor: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -1199,7 +1166,7 @@ export const resource_tagging_tagged_resource_object_load_balancer_monitor_outpu
  * The schema of `resource-tagging_tagged_resource_object_load_balancer_pool` in
  * responses.
  */
-export const resource_tagging_tagged_resource_object_load_balancer_pool_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_load_balancer_pool: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -1226,7 +1193,7 @@ export const resource_tagging_tagged_resource_object_load_balancer_pool_output: 
  * `resource-tagging_tagged_resource_object_managed_client_certificate` in
  * responses.
  */
-export const resource_tagging_tagged_resource_object_managed_client_certificate_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_managed_client_certificate: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -1252,7 +1219,7 @@ export const resource_tagging_tagged_resource_object_managed_client_certificate_
  * The schema of `resource-tagging_tagged_resource_object_namespace_worker` in
  * responses.
  */
-export const resource_tagging_tagged_resource_object_namespace_worker_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_namespace_worker: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -1281,7 +1248,7 @@ export const resource_tagging_tagged_resource_object_namespace_worker_output: Js
  * The schema of `resource-tagging_tagged_resource_object_pages_project` in
  * responses.
  */
-export const resource_tagging_tagged_resource_object_pages_project_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_pages_project: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -1306,7 +1273,7 @@ export const resource_tagging_tagged_resource_object_pages_project_output: JsonS
 /**
  * The schema of `resource-tagging_tagged_resource_object_queue` in responses.
  */
-export const resource_tagging_tagged_resource_object_queue_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_queue: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -1332,7 +1299,7 @@ export const resource_tagging_tagged_resource_object_queue_output: JsonSchema = 
  * The schema of `resource-tagging_tagged_resource_object_r2_bucket` in
  * responses.
  */
-export const resource_tagging_tagged_resource_object_r2_bucket_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_r2_bucket: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -1358,7 +1325,7 @@ export const resource_tagging_tagged_resource_object_r2_bucket_output: JsonSchem
  * The schema of `resource-tagging_tagged_resource_object_resource_share` in
  * responses.
  */
-export const resource_tagging_tagged_resource_object_resource_share_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_resource_share: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -1384,7 +1351,7 @@ export const resource_tagging_tagged_resource_object_resource_share_output: Json
  * The schema of `resource-tagging_tagged_resource_object_stream_live_input` in
  * responses.
  */
-export const resource_tagging_tagged_resource_object_stream_live_input_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_stream_live_input: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -1410,7 +1377,7 @@ export const resource_tagging_tagged_resource_object_stream_live_input_output: J
  * The schema of `resource-tagging_tagged_resource_object_stream_video` in
  * responses.
  */
-export const resource_tagging_tagged_resource_object_stream_video_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_stream_video: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -1436,7 +1403,7 @@ export const resource_tagging_tagged_resource_object_stream_video_output: JsonSc
  * The schema of `resource-tagging_tagged_resource_object_vectorize_index` in
  * responses.
  */
-export const resource_tagging_tagged_resource_object_vectorize_index_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_vectorize_index: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -1461,7 +1428,7 @@ export const resource_tagging_tagged_resource_object_vectorize_index_output: Jso
 /**
  * The schema of `resource-tagging_tagged_resource_object_worker` in responses.
  */
-export const resource_tagging_tagged_resource_object_worker_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_worker: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -1487,7 +1454,7 @@ export const resource_tagging_tagged_resource_object_worker_output: JsonSchema =
  * The schema of `resource-tagging_tagged_resource_object_worker_route` in
  * responses.
  */
-export const resource_tagging_tagged_resource_object_worker_route_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_worker_route: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -1513,7 +1480,7 @@ export const resource_tagging_tagged_resource_object_worker_route_output: JsonSc
  * The schema of `resource-tagging_tagged_resource_object_worker_version` in
  * responses.
  */
-export const resource_tagging_tagged_resource_object_worker_version_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_worker_version: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -1539,25 +1506,26 @@ export const resource_tagging_tagged_resource_object_worker_version_output: Json
  * The schema of `resource-tagging_tagged_resource_object_worker_version_base`
  * in responses.
  */
-export const resource_tagging_tagged_resource_object_worker_version_base_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_worker_version_base: JsonSchema = {
   "properties": {
     "etag": {
-      "$ref": "#/$defs/resource-tagging_etag"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/resource-tagging_resource_id"
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/resource-tagging_resource_name"
+      "type": "string"
     },
     "tags": {
       "$ref": "#/$defs/resource-tagging_tags"
     },
     "tags_updated_at": {
-      "$ref": "#/$defs/resource-tagging_tags_updated_at"
+      "format": "date-time",
+      "type": "string"
     },
     "worker_id": {
-      "$ref": "#/$defs/resource-tagging_worker_id"
+      "type": "string"
     }
   },
   "required": [
@@ -1573,7 +1541,7 @@ export const resource_tagging_tagged_resource_object_worker_version_base_output:
 /**
  * The schema of `resource-tagging_tagged_resource_object_zone` in responses.
  */
-export const resource_tagging_tagged_resource_object_zone_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_zone: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -1599,25 +1567,26 @@ export const resource_tagging_tagged_resource_object_zone_output: JsonSchema = {
  * The schema of `resource-tagging_tagged_resource_object_zone_level_base` in
  * responses.
  */
-export const resource_tagging_tagged_resource_object_zone_level_base_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_zone_level_base: JsonSchema = {
   "properties": {
     "etag": {
-      "$ref": "#/$defs/resource-tagging_etag"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/resource-tagging_resource_id"
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/resource-tagging_resource_name"
+      "type": "string"
     },
     "tags": {
       "$ref": "#/$defs/resource-tagging_tags"
     },
     "tags_updated_at": {
-      "$ref": "#/$defs/resource-tagging_tags_updated_at"
+      "format": "date-time",
+      "type": "string"
     },
     "zone_id": {
-      "$ref": "#/$defs/resource-tagging_zone_id"
+      "type": "string"
     }
   },
   "required": [
@@ -1634,7 +1603,7 @@ export const resource_tagging_tagged_resource_object_zone_level_base_output: Jso
  * The schema of `resource-tagging_tagged_resource_object_zone_ruleset` in
  * responses.
  */
-export const resource_tagging_tagged_resource_object_zone_ruleset_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_object_zone_ruleset: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -1659,31 +1628,9 @@ export const resource_tagging_tagged_resource_object_zone_ruleset_output: JsonSc
 /**
  * The schema of `resource-tagging_tags` in responses.
  */
-export const resource_tagging_tags_output: JsonSchema = {
+export const resource$$tagging_tags: JsonSchema = {
   "additionalProperties": {
     "type": "string"
   },
   "type": "object"
-};
-
-/**
- * The schema of `resource-tagging_tags_updated_at` in responses.
- */
-export const resource_tagging_tags_updated_at_output: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `resource-tagging_worker_id` in responses.
- */
-export const resource_tagging_worker_id_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `resource-tagging_zone_id` in responses.
- */
-export const resource_tagging_zone_id_output: JsonSchema = {
-  "$ref": "#/$defs/resource-tagging_identifier"
 };

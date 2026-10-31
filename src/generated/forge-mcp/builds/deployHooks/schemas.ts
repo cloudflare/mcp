@@ -9,12 +9,12 @@ import type { JsonSchema } from "../../_/tool.js";
 export const builds_CreateDeployHookRequest: JsonSchema = {
   "properties": {
     "branch": {
-      "$ref": "#/$defs/builds_branch",
-      "description": "Git branch name."
+      "description": "Git branch name.",
+      "type": "string"
     },
     "deploy_hook_name": {
-      "$ref": "#/$defs/builds_deploy_hook_name",
-      "description": "Deploy hook name (1-58 characters)."
+      "description": "Deploy hook name (1-58 characters).",
+      "type": "string"
     }
   },
   "required": [
@@ -22,21 +22,4 @@ export const builds_CreateDeployHookRequest: JsonSchema = {
     "deploy_hook_name"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `builds_deploy_hook_uuid`.
- */
-export const builds_deploy_hook_uuid: JsonSchema = {
-  "description": "Deploy hook UUID.",
-  "format": "uuid",
-  "type": "string"
-};
-
-/**
- * The schema of `builds_script_name`.
- */
-export const builds_script_name: JsonSchema = {
-  "description": "Human-readable name of the Worker.",
-  "type": "string"
 };

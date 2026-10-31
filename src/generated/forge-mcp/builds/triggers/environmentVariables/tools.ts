@@ -3,63 +3,61 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  builds_APIResponse_output,
-  builds_ApiError_output,
-  builds_EnvironmentVariablesResponse_output,
-  builds_ErrorResponse_output,
-  builds_PaginationInfo_output,
-  builds_created_on_output,
-  builds_is_secret_output,
+  builds_APIResponse,
+  builds_ApiError,
+  builds_EnvironmentVariablesResponse,
+  builds_ErrorResponse,
+  builds_PaginationInfo,
 } from "../../../outputs.js";
-import {
-  builds_account_id,
-  builds_is_secret,
-  builds_trigger_uuid,
-} from "../../../schemas.js";
 import { builds_EnvironmentVariablesRequest } from "../../schemas.js";
-import { builds_environment_variable_key } from "./schemas.js";
 
 /**
- * The tools of `builds.triggers.environment_variables`.
+ * The tools of `builds.triggers.environmentVariables`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "builds_triggers_environment_variables_delete",
+    name: "builds_triggers_environmentVariables_delete",
     title: "Delete a build variable",
-    description: "Delete one build-time variable or secret by key.",
+    description: "Delete one build-time variable or secret by key.\n\nDELETE /accounts/{account_id}/builds/triggers/{trigger_uuid}/environment_variables/{environment_variable_key}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/builds_account_id",
-          "description": "Account identifier."
-        },
-        "environment_variable_key": {
-          "$ref": "#/$defs/builds_environment_variable_key",
-          "description": "Environment variable key."
-        },
-        "trigger_uuid": {
-          "$ref": "#/$defs/builds_trigger_uuid",
-          "description": "Trigger UUID."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account identifier.",
+              "type": "string"
+            },
+            "environment_variable_key": {
+              "description": "Environment variable key.",
+              "type": "string"
+            },
+            "trigger_uuid": {
+              "description": "Trigger UUID.",
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "trigger_uuid",
+            "environment_variable_key"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "trigger_uuid",
-        "environment_variable_key"
+        "path"
       ],
-      $defs: {
-        "builds_account_id": builds_account_id,
-        "builds_environment_variable_key": builds_environment_variable_key,
-        "builds_trigger_uuid": builds_trigger_uuid,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/builds_APIResponse",
       $defs: {
-        "builds_APIResponse": builds_APIResponse_output,
-        "builds_ApiError": builds_ApiError_output,
-        "builds_PaginationInfo": builds_PaginationInfo_output,
+        "builds_APIResponse": builds_APIResponse,
+        "builds_ApiError": builds_ApiError,
+        "builds_PaginationInfo": builds_PaginationInfo,
       },
     },
     annotations: {
@@ -89,10 +87,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "builds_APIResponse": builds_APIResponse_output,
-        "builds_ApiError": builds_ApiError_output,
-        "builds_ErrorResponse": builds_ErrorResponse_output,
-        "builds_PaginationInfo": builds_PaginationInfo_output,
+        "builds_APIResponse": builds_APIResponse,
+        "builds_ApiError": builds_ApiError,
+        "builds_ErrorResponse": builds_ErrorResponse,
+        "builds_PaginationInfo": builds_PaginationInfo,
       },
     },
     request: (args) => ({
@@ -100,29 +98,36 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "builds_triggers_environment_variables_list",
+    name: "builds_triggers_environmentVariables_list",
     title: "List build variables",
-    description: "List build-time variables configured for a trigger. Secret values are not returned.",
+    description: "List build-time variables configured for a trigger. Secret values are not returned.\n\nGET /accounts/{account_id}/builds/triggers/{trigger_uuid}/environment_variables",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/builds_account_id",
-          "description": "Account identifier."
-        },
-        "trigger_uuid": {
-          "$ref": "#/$defs/builds_trigger_uuid",
-          "description": "Trigger UUID."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account identifier.",
+              "type": "string"
+            },
+            "trigger_uuid": {
+              "description": "Trigger UUID.",
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "trigger_uuid"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "trigger_uuid"
+        "path"
       ],
-      $defs: {
-        "builds_account_id": builds_account_id,
-        "builds_trigger_uuid": builds_trigger_uuid,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -139,12 +144,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "builds_APIResponse": builds_APIResponse_output,
-        "builds_ApiError": builds_ApiError_output,
-        "builds_EnvironmentVariablesResponse": builds_EnvironmentVariablesResponse_output,
-        "builds_PaginationInfo": builds_PaginationInfo_output,
-        "builds_created_on": builds_created_on_output,
-        "builds_is_secret": builds_is_secret_output,
+        "builds_APIResponse": builds_APIResponse,
+        "builds_ApiError": builds_ApiError,
+        "builds_EnvironmentVariablesResponse": builds_EnvironmentVariablesResponse,
+        "builds_PaginationInfo": builds_PaginationInfo,
       },
     },
     annotations: {
@@ -184,13 +187,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "builds_APIResponse": builds_APIResponse_output,
-        "builds_ApiError": builds_ApiError_output,
-        "builds_EnvironmentVariablesResponse": builds_EnvironmentVariablesResponse_output,
-        "builds_ErrorResponse": builds_ErrorResponse_output,
-        "builds_PaginationInfo": builds_PaginationInfo_output,
-        "builds_created_on": builds_created_on_output,
-        "builds_is_secret": builds_is_secret_output,
+        "builds_APIResponse": builds_APIResponse,
+        "builds_ApiError": builds_ApiError,
+        "builds_EnvironmentVariablesResponse": builds_EnvironmentVariablesResponse,
+        "builds_ErrorResponse": builds_ErrorResponse,
+        "builds_PaginationInfo": builds_PaginationInfo,
       },
     },
     request: (args) => ({
@@ -198,34 +199,42 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "builds_triggers_environment_variables_upsert",
+    name: "builds_triggers_environmentVariables_upsert",
     title: "Set build variables",
-    description: "Add or replace build-time variables and secrets without changing unspecified keys.",
+    description: "Add or replace build-time variables and secrets without changing unspecified keys.\n\nPATCH /accounts/{account_id}/builds/triggers/{trigger_uuid}/environment_variables",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/builds_account_id",
-          "description": "Account identifier."
-        },
         "body": {
           "$ref": "#/$defs/builds_EnvironmentVariablesRequest"
         },
-        "trigger_uuid": {
-          "$ref": "#/$defs/builds_trigger_uuid",
-          "description": "Trigger UUID."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account identifier.",
+              "type": "string"
+            },
+            "trigger_uuid": {
+              "description": "Trigger UUID.",
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "trigger_uuid"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "trigger_uuid",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "builds_EnvironmentVariablesRequest": builds_EnvironmentVariablesRequest,
-        "builds_account_id": builds_account_id,
-        "builds_is_secret": builds_is_secret,
-        "builds_trigger_uuid": builds_trigger_uuid,
       },
     },
     outputSchema: {
@@ -243,12 +252,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "builds_APIResponse": builds_APIResponse_output,
-        "builds_ApiError": builds_ApiError_output,
-        "builds_EnvironmentVariablesResponse": builds_EnvironmentVariablesResponse_output,
-        "builds_PaginationInfo": builds_PaginationInfo_output,
-        "builds_created_on": builds_created_on_output,
-        "builds_is_secret": builds_is_secret_output,
+        "builds_APIResponse": builds_APIResponse,
+        "builds_ApiError": builds_ApiError,
+        "builds_EnvironmentVariablesResponse": builds_EnvironmentVariablesResponse,
+        "builds_PaginationInfo": builds_PaginationInfo,
       },
     },
     annotations: {
@@ -290,13 +297,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "builds_APIResponse": builds_APIResponse_output,
-        "builds_ApiError": builds_ApiError_output,
-        "builds_EnvironmentVariablesResponse": builds_EnvironmentVariablesResponse_output,
-        "builds_ErrorResponse": builds_ErrorResponse_output,
-        "builds_PaginationInfo": builds_PaginationInfo_output,
-        "builds_created_on": builds_created_on_output,
-        "builds_is_secret": builds_is_secret_output,
+        "builds_APIResponse": builds_APIResponse,
+        "builds_ApiError": builds_ApiError,
+        "builds_EnvironmentVariablesResponse": builds_EnvironmentVariablesResponse,
+        "builds_ErrorResponse": builds_ErrorResponse,
+        "builds_PaginationInfo": builds_PaginationInfo,
       },
     },
     request: (args) => ({

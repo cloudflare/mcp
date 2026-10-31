@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `abuse-reports_AppealEligibility` in responses.
  */
-export const abuse_reports_AppealEligibility_output: JsonSchema = {
+export const abuse$$reports_AppealEligibility: JsonSchema = {
   "properties": {
     "appeal_count": {
       "type": "integer"

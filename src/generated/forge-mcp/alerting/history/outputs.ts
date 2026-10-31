@@ -4,50 +4,42 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `aaa_alert_body` in responses.
- */
-export const aaa_alert_body_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `aaa_components-schemas-description` in responses.
- */
-export const aaa_components_schemas_description_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `aaa_history` in responses.
  */
-export const aaa_history_output: JsonSchema = {
+export const aaa_history: JsonSchema = {
   "properties": {
     "alert_body": {
-      "$ref": "#/$defs/aaa_alert_body"
+      "type": "string"
     },
     "alert_type": {
-      "$ref": "#/$defs/aaa_schemas-alert_type"
+      "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/aaa_components-schemas-description"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/aaa_uuid"
+      "type": "string"
     },
     "mechanism": {
-      "$ref": "#/$defs/aaa_mechanism"
+      "type": "string"
     },
     "mechanism_type": {
-      "$ref": "#/$defs/aaa_mechanism_type"
+      "enum": [
+        "email",
+        "pagerduty",
+        "webhook"
+      ],
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/aaa_schemas-name"
+      "type": "string"
     },
     "policy_id": {
-      "$ref": "#/$defs/aaa_policy-id"
+      "type": "string"
     },
     "sent": {
-      "$ref": "#/$defs/aaa_sent"
+      "format": "date-time",
+      "type": "string"
     }
   },
   "type": "object"
@@ -57,7 +49,7 @@ export const aaa_history_output: JsonSchema = {
  * The schema of `aaa_history_components-schemas-response_collection` in
  * responses.
  */
-export const aaa_history_components_schemas_response_collection_output: JsonSchema = {
+export const aaa_history_components$$schemas$$response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/aaa_api-response-collection"
@@ -77,38 +69,4 @@ export const aaa_history_components_schemas_response_collection_output: JsonSche
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `aaa_mechanism` in responses.
- */
-export const aaa_mechanism_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `aaa_mechanism_type` in responses.
- */
-export const aaa_mechanism_type_output: JsonSchema = {
-  "enum": [
-    "email",
-    "pagerduty",
-    "webhook"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `aaa_schemas-alert_type` in responses.
- */
-export const aaa_schemas_alert_type_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `aaa_sent` in responses.
- */
-export const aaa_sent_output: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
 };

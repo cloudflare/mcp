@@ -6,10 +6,11 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `vectorize_create-metadata-index-response` in responses.
  */
-export const vectorize_create_metadata_index_response_output: JsonSchema = {
+export const vectorize_create$$metadata$$index$$response: JsonSchema = {
   "properties": {
     "mutationId": {
-      "$ref": "#/$defs/vectorize_mutation-uuid"
+      "format": "uuid",
+      "type": "string"
     }
   },
   "type": "object"
@@ -18,10 +19,11 @@ export const vectorize_create_metadata_index_response_output: JsonSchema = {
 /**
  * The schema of `vectorize_delete-metadata-index-response` in responses.
  */
-export const vectorize_delete_metadata_index_response_output: JsonSchema = {
+export const vectorize_delete$$metadata$$index$$response: JsonSchema = {
   "properties": {
     "mutationId": {
-      "$ref": "#/$defs/vectorize_mutation-uuid"
+      "format": "uuid",
+      "type": "string"
     }
   },
   "type": "object"
@@ -30,7 +32,7 @@ export const vectorize_delete_metadata_index_response_output: JsonSchema = {
 /**
  * The schema of `vectorize_list-metadata-index-response` in responses.
  */
-export const vectorize_list_metadata_index_response_output: JsonSchema = {
+export const vectorize_list$$metadata$$index$$response: JsonSchema = {
   "properties": {
     "metadataIndexes": {
       "items": {

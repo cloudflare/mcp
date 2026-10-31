@@ -3,72 +3,60 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  bill_subs_api_api_response_collection_output,
-  bill_subs_api_api_response_common_failure_output,
-  bill_subs_api_api_response_common_output,
-  bill_subs_api_currency_output,
-  bill_subs_api_messages_output,
-  bill_subs_api_result_info_output,
+  bill$$subs$$api_api$$response$$collection,
+  bill$$subs$$api_api$$response$$common,
+  bill$$subs$$api_api$$response$$common$$failure,
+  bill$$subs$$api_messages,
+  bill$$subs$$api_result_info,
 } from "../../outputs.js";
-import { bill_subs_api_identifier } from "../../schemas.js";
 import {
-  bill_subs_api_schemas_frequency_output,
-  bill_subs_api_schemas_name_output,
-} from "../outputs.js";
-import {
-  bill_subs_api_components_schemas_name_output,
-  bill_subs_api_default_output,
-  bill_subs_api_duration_output,
-  bill_subs_api_plan_component_value_output,
-  bill_subs_api_plan_response_collection_output,
-  bill_subs_api_rate_plan_components_schemas_identifier_output,
-  bill_subs_api_schemas_component_values_output,
-  bill_subs_api_schemas_rate_plan_output,
-  bill_subs_api_unit_price_output,
+  bill$$subs$$api_plan_component_value,
+  bill$$subs$$api_plan_response_collection,
+  bill$$subs$$api_schemas$$component_values,
+  bill$$subs$$api_schemas$$rate$$plan,
 } from "./outputs.js";
 
 /**
- * The tools of `zones.rate_plans`.
+ * The tools of `zones.ratePlans`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zones_rate_plans_get",
+    name: "zones_ratePlans_get",
     title: "List Available Rate Plans",
-    description: "Lists all rate plans the zone can subscribe to.",
+    description: "Lists all rate plans the zone can subscribe to.\n\nGET /zones/{zone_id}/available_rate_plans",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/bill-subs-api_identifier",
-          "description": "Identifier"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
-      $defs: {
-        "bill-subs-api_identifier": bill_subs_api_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/bill-subs-api_plan_response_collection",
       $defs: {
-        "bill-subs-api_api-response-collection": bill_subs_api_api_response_collection_output,
-        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
-        "bill-subs-api_components-schemas-name": bill_subs_api_components_schemas_name_output,
-        "bill-subs-api_currency": bill_subs_api_currency_output,
-        "bill-subs-api_default": bill_subs_api_default_output,
-        "bill-subs-api_duration": bill_subs_api_duration_output,
-        "bill-subs-api_messages": bill_subs_api_messages_output,
-        "bill-subs-api_plan_component_value": bill_subs_api_plan_component_value_output,
-        "bill-subs-api_plan_response_collection": bill_subs_api_plan_response_collection_output,
-        "bill-subs-api_rate-plan_components-schemas-identifier": bill_subs_api_rate_plan_components_schemas_identifier_output,
-        "bill-subs-api_result_info": bill_subs_api_result_info_output,
-        "bill-subs-api_schemas-component_values": bill_subs_api_schemas_component_values_output,
-        "bill-subs-api_schemas-frequency": bill_subs_api_schemas_frequency_output,
-        "bill-subs-api_schemas-name": bill_subs_api_schemas_name_output,
-        "bill-subs-api_schemas-rate-plan": bill_subs_api_schemas_rate_plan_output,
-        "bill-subs-api_unit_price": bill_subs_api_unit_price_output,
+        "bill-subs-api_api-response-collection": bill$$subs$$api_api$$response$$collection,
+        "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
+        "bill-subs-api_messages": bill$$subs$$api_messages,
+        "bill-subs-api_plan_component_value": bill$$subs$$api_plan_component_value,
+        "bill-subs-api_plan_response_collection": bill$$subs$$api_plan_response_collection,
+        "bill-subs-api_result_info": bill$$subs$$api_result_info,
+        "bill-subs-api_schemas-component_values": bill$$subs$$api_schemas$$component_values,
+        "bill-subs-api_schemas-rate-plan": bill$$subs$$api_schemas$$rate$$plan,
       },
     },
     annotations: {
@@ -107,23 +95,15 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "bill-subs-api_api-response-collection": bill_subs_api_api_response_collection_output,
-        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
-        "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
-        "bill-subs-api_components-schemas-name": bill_subs_api_components_schemas_name_output,
-        "bill-subs-api_currency": bill_subs_api_currency_output,
-        "bill-subs-api_default": bill_subs_api_default_output,
-        "bill-subs-api_duration": bill_subs_api_duration_output,
-        "bill-subs-api_messages": bill_subs_api_messages_output,
-        "bill-subs-api_plan_component_value": bill_subs_api_plan_component_value_output,
-        "bill-subs-api_plan_response_collection": bill_subs_api_plan_response_collection_output,
-        "bill-subs-api_rate-plan_components-schemas-identifier": bill_subs_api_rate_plan_components_schemas_identifier_output,
-        "bill-subs-api_result_info": bill_subs_api_result_info_output,
-        "bill-subs-api_schemas-component_values": bill_subs_api_schemas_component_values_output,
-        "bill-subs-api_schemas-frequency": bill_subs_api_schemas_frequency_output,
-        "bill-subs-api_schemas-name": bill_subs_api_schemas_name_output,
-        "bill-subs-api_schemas-rate-plan": bill_subs_api_schemas_rate_plan_output,
-        "bill-subs-api_unit_price": bill_subs_api_unit_price_output,
+        "bill-subs-api_api-response-collection": bill$$subs$$api_api$$response$$collection,
+        "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
+        "bill-subs-api_api-response-common-failure": bill$$subs$$api_api$$response$$common$$failure,
+        "bill-subs-api_messages": bill$$subs$$api_messages,
+        "bill-subs-api_plan_component_value": bill$$subs$$api_plan_component_value,
+        "bill-subs-api_plan_response_collection": bill$$subs$$api_plan_response_collection,
+        "bill-subs-api_result_info": bill$$subs$$api_result_info,
+        "bill-subs-api_schemas-component_values": bill$$subs$$api_schemas$$component_values,
+        "bill-subs-api_schemas-rate-plan": bill$$subs$$api_schemas$$rate$$plan,
       },
     },
     request: (args) => ({

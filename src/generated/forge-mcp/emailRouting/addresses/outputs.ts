@@ -6,41 +6,37 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `email_addresses` in responses.
  */
-export const email_addresses_output: JsonSchema = {
+export const email_addresses: JsonSchema = {
   "properties": {
     "created": {
-      "$ref": "#/$defs/email_created"
+      "format": "date-time",
+      "type": "string"
     },
     "email": {
-      "$ref": "#/$defs/email_email"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/email_destination_address_identifier"
+      "type": "string"
     },
     "modified": {
-      "$ref": "#/$defs/email_modified"
+      "format": "date-time",
+      "type": "string"
     },
     "tag": {
-      "$ref": "#/$defs/email_destination_address_tag"
+      "type": "string"
     },
     "verified": {
-      "$ref": "#/$defs/email_verified"
+      "format": "date-time",
+      "type": "string"
     }
   },
   "type": "object"
 };
 
 /**
- * The schema of `email_destination_address_identifier` in responses.
- */
-export const email_destination_address_identifier_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `email_destination_address_response_single` in responses.
  */
-export const email_destination_address_response_single_output: JsonSchema = {
+export const email_destination_address_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/email_api-response-single"
@@ -57,16 +53,9 @@ export const email_destination_address_response_single_output: JsonSchema = {
 };
 
 /**
- * The schema of `email_destination_address_tag` in responses.
- */
-export const email_destination_address_tag_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `email_destination_addresses_response_collection` in responses.
  */
-export const email_destination_addresses_response_collection_output: JsonSchema = {
+export const email_destination_addresses_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/email_api-response-collection"
@@ -100,19 +89,4 @@ export const email_destination_addresses_response_collection_output: JsonSchema 
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `email_email` in responses.
- */
-export const email_email_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `email_verified` in responses.
- */
-export const email_verified_output: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
 };

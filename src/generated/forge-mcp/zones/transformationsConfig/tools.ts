@@ -3,26 +3,25 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  speed_api_response_common_failure_output,
-  speed_api_response_common_output,
-  speed_base_output,
-  speed_messages_output,
+  speed_api$$response$$common,
+  speed_api$$response$$common$$failure,
+  speed_base,
+  speed_messages,
 } from "../../outputs.js";
-import { speed_identifier } from "../../schemas.js";
 import {
-  speed_transformations_config_response_output,
-  speed_transformations_config_value_output,
+  speed_transformations_config_response,
+  speed_transformations_config_value,
 } from "./outputs.js";
-import { speed_transformations_config_value } from "./schemas.js";
+import { speed_transformations_config_value as speed_transformations_config_value$ } from "./schemas.js";
 
 /**
- * The tools of `zones.transformations_config`.
+ * The tools of `zones.transformationsConfig`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zones_transformations_config_edit",
+    name: "zones_transformationsConfig_edit",
     title: "Change Transformations configuration",
-    description: "Updates one or more fields of the combined Transformations configuration for a zone.\nOmitted fields are left unchanged. The response always returns the full current state\nof all three sub-settings.",
+    description: "Updates one or more fields of the combined Transformations configuration for a zone.\nOmitted fields are left unchanged. The response always returns the full current state\nof all three sub-settings.\n\nPATCH /zones/{zone_id}/settings/transformations_config",
     inputSchema: {
       type: "object",
       properties: {
@@ -30,7 +29,7 @@ export const tools: readonly Tool[] = [
           "properties": {
             "value": {
               "$ref": "#/$defs/speed_transformations_config_value",
-              "description": "Combined configuration value for Transformations. All fields are optional on PATCH;\nomitted fields are left unchanged.\n"
+              "description": "Combined configuration value for Transformations. All fields are optional on PATCH;\nomitted fields are left unchanged."
             }
           },
           "required": [
@@ -38,18 +37,27 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "zone_id": {
-          "$ref": "#/$defs/speed_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "speed_identifier": speed_identifier,
-        "speed_transformations_config_value": speed_transformations_config_value,
+        "speed_transformations_config_value": speed_transformations_config_value$,
       },
     },
     outputSchema: {
@@ -67,11 +75,11 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "speed_api-response-common": speed_api_response_common_output,
-        "speed_base": speed_base_output,
-        "speed_messages": speed_messages_output,
-        "speed_transformations_config_response": speed_transformations_config_response_output,
-        "speed_transformations_config_value": speed_transformations_config_value_output,
+        "speed_api-response-common": speed_api$$response$$common,
+        "speed_base": speed_base,
+        "speed_messages": speed_messages,
+        "speed_transformations_config_response": speed_transformations_config_response,
+        "speed_transformations_config_value": speed_transformations_config_value,
       },
     },
     annotations: {
@@ -116,12 +124,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "speed_api-response-common": speed_api_response_common_output,
-        "speed_api-response-common-failure": speed_api_response_common_failure_output,
-        "speed_base": speed_base_output,
-        "speed_messages": speed_messages_output,
-        "speed_transformations_config_response": speed_transformations_config_response_output,
-        "speed_transformations_config_value": speed_transformations_config_value_output,
+        "speed_api-response-common": speed_api$$response$$common,
+        "speed_api-response-common-failure": speed_api$$response$$common$$failure,
+        "speed_base": speed_base,
+        "speed_messages": speed_messages,
+        "speed_transformations_config_response": speed_transformations_config_response,
+        "speed_transformations_config_value": speed_transformations_config_value,
       },
     },
     request: (args) => ({
@@ -130,23 +138,30 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zones_transformations_config_get",
+    name: "zones_transformationsConfig_get",
     title: "Get Transformations configuration",
-    description: "Returns the combined Transformations configuration for a zone, including the transformations\ntoggle, allowed origins, and C2PA signing settings in a single response.",
+    description: "Returns the combined Transformations configuration for a zone, including the transformations\ntoggle, allowed origins, and C2PA signing settings in a single response.\n\nGET /zones/{zone_id}/settings/transformations_config",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/speed_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
-      $defs: {
-        "speed_identifier": speed_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -163,11 +178,11 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "speed_api-response-common": speed_api_response_common_output,
-        "speed_base": speed_base_output,
-        "speed_messages": speed_messages_output,
-        "speed_transformations_config_response": speed_transformations_config_response_output,
-        "speed_transformations_config_value": speed_transformations_config_value_output,
+        "speed_api-response-common": speed_api$$response$$common,
+        "speed_base": speed_base,
+        "speed_messages": speed_messages,
+        "speed_transformations_config_response": speed_transformations_config_response,
+        "speed_transformations_config_value": speed_transformations_config_value,
       },
     },
     annotations: {
@@ -213,12 +228,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "speed_api-response-common": speed_api_response_common_output,
-        "speed_api-response-common-failure": speed_api_response_common_failure_output,
-        "speed_base": speed_base_output,
-        "speed_messages": speed_messages_output,
-        "speed_transformations_config_response": speed_transformations_config_response_output,
-        "speed_transformations_config_value": speed_transformations_config_value_output,
+        "speed_api-response-common": speed_api$$response$$common,
+        "speed_api-response-common-failure": speed_api$$response$$common$$failure,
+        "speed_base": speed_base,
+        "speed_messages": speed_messages,
+        "speed_transformations_config_response": speed_transformations_config_response,
+        "speed_transformations_config_value": speed_transformations_config_value,
       },
     },
     request: (args) => ({

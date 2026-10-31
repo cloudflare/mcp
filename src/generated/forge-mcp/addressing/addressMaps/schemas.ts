@@ -6,99 +6,22 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `addressing_address-maps-membership-request`.
  */
-export const addressing_address_maps_membership_request: JsonSchema = {
+export const addressing_address$$maps$$membership$$request: JsonSchema = {
   "properties": {
     "identifier": {
-      "$ref": "#/$defs/addressing_identifier",
-      "description": "The identifier for the membership (eg. a zone or account tag)."
+      "description": "The identifier for the membership (eg. a zone or account tag).",
+      "type": "string"
     },
     "kind": {
-      "$ref": "#/$defs/addressing_kind",
-      "description": "The type of the membership."
+      "description": "The type of the membership.",
+      "enum": [
+        "zone",
+        "account"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `addressing_address_map_identifier`.
- */
-export const addressing_address_map_identifier: JsonSchema = {
-  "description": "Identifier of an Address Map.",
-  "type": "string"
-};
-
-/**
- * The schema of `addressing_default_sni`.
- */
-export const addressing_default_sni: JsonSchema = {
-  "description": "If you have legacy TLS clients which do not send the TLS server name indicator, then you can specify one default SNI on the map. If Cloudflare receives a TLS handshake from a client without an SNI, it will respond with the default SNI on those IPs. The default SNI can be any valid zone or subdomain owned by the account.",
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `addressing_description-2`.
- */
-export const addressing_description_2: JsonSchema = {
-  "description": "An optional description field which may be used to describe the types of IPs or zones on the map.",
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `addressing_enabled`.
- */
-export const addressing_enabled: JsonSchema = {
-  "description": "Whether the Address Map is enabled or not. Cloudflare's DNS will not respond with IP addresses on an Address Map until the map is enabled.",
-  "oneOf": [
-    {
-      "type": "boolean"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `addressing_identifier`.
- */
-export const addressing_identifier: JsonSchema = {
-  "description": "The identifier for the membership (eg. a zone or account tag).",
-  "type": "string"
-};
-
-/**
- * The schema of `addressing_ip_address`.
- */
-export const addressing_ip_address: JsonSchema = {
-  "description": "An IPv4 or IPv6 address.",
-  "type": "string"
-};
-
-/**
- * The schema of `addressing_kind`.
- */
-export const addressing_kind: JsonSchema = {
-  "description": "The type of the membership.",
-  "enum": [
-    "zone",
-    "account"
-  ],
-  "type": "string"
 };
 
 /**

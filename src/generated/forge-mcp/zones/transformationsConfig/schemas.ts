@@ -7,10 +7,10 @@ import type { JsonSchema } from "../../_/tool.js";
  * The schema of `speed_transformations_config_value`.
  */
 export const speed_transformations_config_value: JsonSchema = {
-  "description": "Combined configuration value for Transformations. All fields are optional on PATCH;\nomitted fields are left unchanged.\n",
+  "description": "Combined configuration value for Transformations. All fields are optional on PATCH;\nomitted fields are left unchanged.",
   "properties": {
     "allowed_origins": {
-      "description": "Comma-separated list of allowed origin domains for image and video transformations.\nUse \"*\" to allow all origins (default).\n",
+      "description": "Comma-separated list of allowed origin domains for image and video transformations.\nUse \"*\" to allow all origins (default).",
       "type": "string"
     },
     "c2pa": {
@@ -22,7 +22,7 @@ export const speed_transformations_config_value: JsonSchema = {
       "type": "string"
     },
     "transformations": {
-      "description": "Controls Image Transformations behavior:\n- \"off\": Feature disabled.\n- \"on\": Transformations enabled for same-zone images only.\n- \"open\": Transformations enabled for images from any origin.\n- \"latest\": Transformations enabled using the latest version.\n",
+      "description": "Controls Image Transformations behavior:\n- \"off\": Feature disabled.\n- \"on\": Transformations enabled for same-zone images only.\n- \"open\": Transformations enabled for images from any origin.\n- \"latest\": Transformations enabled using the latest version.",
       "enum": [
         "off",
         "on",

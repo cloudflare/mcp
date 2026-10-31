@@ -3,38 +3,45 @@
 
 import { type Tool, pathParam } from "../../../../../_/tool.js";
 import {
-  dlp_api_response_common_failure_output,
-  dlp_api_response_single_output,
-  dlp_messages_output,
+  dlp_api$$response$$common$$failure,
+  dlp_api$$response$$single,
+  dlp_messages,
 } from "../../../../outputs.js";
-import {
-  dlp_WorkerStatus_output,
-  dlp_WorkerValidatorStatus_output,
-} from "./outputs.js";
+import { dlp_WorkerValidatorStatus } from "./outputs.js";
 
 /**
- * The tools of `zero_trust.dlp.validators.worker.status`.
+ * The tools of `zeroTrust.dlp.validators.worker.status`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zero_trust_dlp_validators_worker_status_get",
+    name: "zeroTrust_dlp_validators_worker_status_get",
     title: "Get a worker validator status",
-    description: "Reports whether the validator's Worker can be used. Returns `worker_not_found` if the Worker\ncannot be found, and `worker_error` if the Worker does not have a valid validation entrypoint\nor is returning incorrect responses.",
+    description: "Reports whether the validator's Worker can be used. Returns `worker_not_found` if the Worker\ncannot be found, and `worker_error` if the Worker does not have a valid validation entrypoint\nor is returning incorrect responses.\n\nGET /accounts/{account_id}/dlp/validators/worker/{validator_id}/status",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
-        "validator_id": {
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "validator_id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "validator_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "validator_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -51,10 +58,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_WorkerStatus": dlp_WorkerStatus_output,
-        "dlp_WorkerValidatorStatus": dlp_WorkerValidatorStatus_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_WorkerValidatorStatus": dlp_WorkerValidatorStatus,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -94,11 +100,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_WorkerStatus": dlp_WorkerStatus_output,
-        "dlp_WorkerValidatorStatus": dlp_WorkerValidatorStatus_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_WorkerValidatorStatus": dlp_WorkerValidatorStatus,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `stream_addAudioTrackResponse` in responses.
  */
-export const stream_addAudioTrackResponse_output: JsonSchema = {
+export const stream_addAudioTrackResponse: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/stream_api-response-common"
@@ -25,54 +25,33 @@ export const stream_addAudioTrackResponse_output: JsonSchema = {
 /**
  * The schema of `stream_additionalAudio` in responses.
  */
-export const stream_additionalAudio_output: JsonSchema = {
+export const stream_additionalAudio: JsonSchema = {
   "properties": {
     "default": {
-      "$ref": "#/$defs/stream_audio_default"
+      "type": "boolean"
     },
     "label": {
-      "$ref": "#/$defs/stream_audio_label"
+      "type": "string"
     },
     "status": {
-      "$ref": "#/$defs/stream_audio_state"
+      "enum": [
+        "queued",
+        "ready",
+        "error"
+      ],
+      "type": "string"
     },
     "uid": {
-      "$ref": "#/$defs/stream_identifier"
+      "type": "string"
     }
   },
   "type": "object"
 };
 
 /**
- * The schema of `stream_audio_default` in responses.
- */
-export const stream_audio_default_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `stream_audio_label` in responses.
- */
-export const stream_audio_label_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `stream_audio_state` in responses.
- */
-export const stream_audio_state_output: JsonSchema = {
-  "enum": [
-    "queued",
-    "ready",
-    "error"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `stream_listAudioTrackResponse` in responses.
  */
-export const stream_listAudioTrackResponse_output: JsonSchema = {
+export const stream_listAudioTrackResponse: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/stream_api-response-common"

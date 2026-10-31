@@ -4,39 +4,16 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `images_sourcingkit_acceptable_content_type` in responses.
- */
-export const images_sourcingkit_acceptable_content_type_output: JsonSchema = {
-  "enum": [
-    "image/jpeg",
-    "image/png",
-    "image/webp",
-    "image/gif",
-    "image/avif",
-    "image/heic",
-    "image/svg+xml"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `images_sourcingkit_conflict_behaviour` in responses.
- */
-export const images_sourcingkit_conflict_behaviour_output: JsonSchema = {
-  "enum": [
-    "skip",
-    "overwrite"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `images_sourcingkit_migration` in responses.
  */
-export const images_sourcingkit_migration_output: JsonSchema = {
+export const images_sourcingkit_migration: JsonSchema = {
   "properties": {
     "conflictBehaviour": {
-      "$ref": "#/$defs/images_sourcingkit_conflict_behaviour"
+      "enum": [
+        "skip",
+        "overwrite"
+      ],
+      "type": "string"
     },
     "createdAt": {
       "format": "date-time",
@@ -57,7 +34,16 @@ export const images_sourcingkit_migration_output: JsonSchema = {
       "oneOf": [
         {
           "items": {
-            "$ref": "#/$defs/images_sourcingkit_acceptable_content_type"
+            "enum": [
+              "image/jpeg",
+              "image/png",
+              "image/webp",
+              "image/gif",
+              "image/avif",
+              "image/heic",
+              "image/svg+xml"
+            ],
+            "type": "string"
           },
           "type": "array"
         },
@@ -126,7 +112,14 @@ export const images_sourcingkit_migration_output: JsonSchema = {
       ]
     },
     "status": {
-      "$ref": "#/$defs/images_sourcingkit_migration_status"
+      "enum": [
+        "pending",
+        "processing",
+        "success",
+        "error",
+        "aborted"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
@@ -135,7 +128,7 @@ export const images_sourcingkit_migration_output: JsonSchema = {
 /**
  * The schema of `images_sourcingkit_migration_create_response` in responses.
  */
-export const images_sourcingkit_migration_create_response_output: JsonSchema = {
+export const images_sourcingkit_migration_create_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/images_api-response-single"
@@ -154,7 +147,7 @@ export const images_sourcingkit_migration_create_response_output: JsonSchema = {
 /**
  * The schema of `images_sourcingkit_migration_list_response` in responses.
  */
-export const images_sourcingkit_migration_list_response_output: JsonSchema = {
+export const images_sourcingkit_migration_list_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/images_api-response-common"
@@ -181,7 +174,7 @@ export const images_sourcingkit_migration_list_response_output: JsonSchema = {
 /**
  * The schema of `images_sourcingkit_migration_log` in responses.
  */
-export const images_sourcingkit_migration_log_output: JsonSchema = {
+export const images_sourcingkit_migration_log: JsonSchema = {
   "properties": {
     "createdAt": {
       "oneOf": [
@@ -195,7 +188,21 @@ export const images_sourcingkit_migration_log_output: JsonSchema = {
       ]
     },
     "logType": {
-      "$ref": "#/$defs/images_sourcingkit_migration_log_type"
+      "enum": [
+        "default",
+        "importSkippedUnsupportedContentType",
+        "importSkippedExcludedContentType",
+        "importSkippedInvalidMedia",
+        "importErrorRetryExhaustion",
+        "importSkippedOversized",
+        "migrationErrorFailedContinuation",
+        "migrationStart",
+        "migrationAbort",
+        "migrationError",
+        "migrationComplete",
+        "importSkippedStorageClass"
+      ],
+      "type": "string"
     },
     "msg": {
       "oneOf": [
@@ -214,7 +221,7 @@ export const images_sourcingkit_migration_log_output: JsonSchema = {
 /**
  * The schema of `images_sourcingkit_migration_log_list_response` in responses.
  */
-export const images_sourcingkit_migration_log_list_response_output: JsonSchema = {
+export const images_sourcingkit_migration_log_list_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/images_api-response-common"
@@ -239,30 +246,9 @@ export const images_sourcingkit_migration_log_list_response_output: JsonSchema =
 };
 
 /**
- * The schema of `images_sourcingkit_migration_log_type` in responses.
- */
-export const images_sourcingkit_migration_log_type_output: JsonSchema = {
-  "enum": [
-    "default",
-    "importSkippedUnsupportedContentType",
-    "importSkippedExcludedContentType",
-    "importSkippedInvalidMedia",
-    "importErrorRetryExhaustion",
-    "importSkippedOversized",
-    "migrationErrorFailedContinuation",
-    "migrationStart",
-    "migrationAbort",
-    "migrationError",
-    "migrationComplete",
-    "importSkippedStorageClass"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `images_sourcingkit_migration_progress_response` in responses.
  */
-export const images_sourcingkit_migration_progress_response_output: JsonSchema = {
+export const images_sourcingkit_migration_progress_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/images_api-response-single"
@@ -327,7 +313,14 @@ export const images_sourcingkit_migration_progress_response_output: JsonSchema =
               ]
             },
             "status": {
-              "$ref": "#/$defs/images_sourcingkit_migration_status"
+              "enum": [
+                "pending",
+                "processing",
+                "success",
+                "error",
+                "aborted"
+              ],
+              "type": "string"
             }
           },
           "type": "object"
@@ -341,7 +334,7 @@ export const images_sourcingkit_migration_progress_response_output: JsonSchema =
 /**
  * The schema of `images_sourcingkit_migration_single_response` in responses.
  */
-export const images_sourcingkit_migration_single_response_output: JsonSchema = {
+export const images_sourcingkit_migration_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/images_api-response-single"
@@ -355,18 +348,4 @@ export const images_sourcingkit_migration_single_response_output: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `images_sourcingkit_migration_status` in responses.
- */
-export const images_sourcingkit_migration_status_output: JsonSchema = {
-  "enum": [
-    "pending",
-    "processing",
-    "success",
-    "error",
-    "aborted"
-  ],
-  "type": "string"
 };

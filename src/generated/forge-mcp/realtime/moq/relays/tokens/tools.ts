@@ -3,14 +3,13 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  moq_api_response_common_output,
-  moq_api_response_error_output,
-  moq_cloudflare_jwt_issuer_output,
-  moq_cloudflare_jwt_token_output,
-  moq_issuer_output,
+  moq_api$$response$$common,
+  moq_api$$response$$error,
+  moq_cloudflare_jwt_issuer,
+  moq_cloudflare_jwt_token,
+  moq_issuer,
 } from "../outputs.js";
-import { moq_account_identifier } from "../schemas.js";
-import { moq_tokens_envelope_output } from "./outputs.js";
+import { moq_tokens_envelope } from "./outputs.js";
 
 /**
  * The tools of `realtime.moq.relays.tokens`.
@@ -19,18 +18,14 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_moq_relays_tokens_create",
     title: "Create a token",
-    description: "Mints a new relay-scoped token and adds it to the relay's accepted-auth\nregistry. The token value (secret) is shown once in the response. A relay\nmay hold up to 10 tokens; creating an 11th is rejected.\n\nThis method is beta.",
+    description: "Mints a new relay-scoped token and adds it to the relay's accepted-auth\nregistry. The token value (secret) is shown once in the response. A relay\nmay hold up to 10 tokens; creating an 11th is rejected.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/moq/relays/{relay_id}/tokens",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/moq_account_identifier",
-          "description": "Cloudflare account identifier."
-        },
         "body": {
           "properties": {
             "expires": {
-              "description": "Optional expiry (RFC 3339). Defaults to 1 year from creation;\nrejected if more than 1 year in the future.\n",
+              "description": "Optional expiry (RFC 3339). Defaults to 1 year from creation;\nrejected if more than 1 year in the future.",
               "format": "date-time",
               "type": "string"
             },
@@ -39,7 +34,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "operations": {
-              "description": "Non-empty subset of the V1 roles the token is allowed to\nperform. Signed into the token.\n",
+              "description": "Non-empty subset of the V1 roles the token is allowed to\nperform. Signed into the token.",
               "items": {
                 "enum": [
                   "publish",
@@ -56,19 +51,30 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "relay_id": {
-          "description": "Relay unique identifier (32 hex characters).",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account identifier.",
+              "type": "string"
+            },
+            "relay_id": {
+              "description": "Relay unique identifier (32 hex characters).",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "relay_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "relay_id",
+        "path",
         "body"
       ],
-      $defs: {
-        "moq_account_identifier": moq_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -85,11 +91,11 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "moq_api-response-common": moq_api_response_common_output,
-        "moq_cloudflare_jwt_issuer": moq_cloudflare_jwt_issuer_output,
-        "moq_cloudflare_jwt_token": moq_cloudflare_jwt_token_output,
-        "moq_issuer": moq_issuer_output,
-        "moq_tokens_envelope": moq_tokens_envelope_output,
+        "moq_api-response-common": moq_api$$response$$common,
+        "moq_cloudflare_jwt_issuer": moq_cloudflare_jwt_issuer,
+        "moq_cloudflare_jwt_token": moq_cloudflare_jwt_token,
+        "moq_issuer": moq_issuer,
+        "moq_tokens_envelope": moq_tokens_envelope,
       },
     },
     annotations: {
@@ -135,12 +141,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "moq_api-response-common": moq_api_response_common_output,
-        "moq_api-response-error": moq_api_response_error_output,
-        "moq_cloudflare_jwt_issuer": moq_cloudflare_jwt_issuer_output,
-        "moq_cloudflare_jwt_token": moq_cloudflare_jwt_token_output,
-        "moq_issuer": moq_issuer_output,
-        "moq_tokens_envelope": moq_tokens_envelope_output,
+        "moq_api-response-common": moq_api$$response$$common,
+        "moq_api-response-error": moq_api$$response$$error,
+        "moq_cloudflare_jwt_issuer": moq_cloudflare_jwt_issuer,
+        "moq_cloudflare_jwt_token": moq_cloudflare_jwt_token,
+        "moq_issuer": moq_issuer,
+        "moq_tokens_envelope": moq_tokens_envelope,
       },
     },
     request: (args) => ({
@@ -151,36 +157,43 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_moq_relays_tokens_delete",
     title: "Revoke a token",
-    description: "Revokes a token by removing it from the set the relay accepts. Relays\ncache that set, so revocation takes effect within seconds rather than\ninstantly, and connections already established with the token are not\nclosed. Revoking an unknown token succeeds, so the call is idempotent.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. Revoking this token blocks new connections that present it. Sessions already connected with it stay up.",
+    description: "Revokes a token by removing it from the set the relay accepts. Relays\ncache that set, so revocation takes effect within seconds rather than\ninstantly, and connections already established with the token are not\nclosed. Revoking an unknown token succeeds, so the call is idempotent.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. Revoking this token blocks new connections that present it. Sessions already connected with it stay up.\n\nDELETE /accounts/{account_id}/moq/relays/{relay_id}/tokens/{jti}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/moq_account_identifier",
-          "description": "Cloudflare account identifier."
-        },
-        "jti": {
-          "description": "Token identifier (jti — 32 hex characters).",
-          "type": "string"
-        },
-        "relay_id": {
-          "description": "Relay unique identifier (32 hex characters).",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account identifier.",
+              "type": "string"
+            },
+            "jti": {
+              "description": "Token identifier (jti — 32 hex characters).",
+              "type": "string"
+            },
+            "relay_id": {
+              "description": "Relay unique identifier (32 hex characters).",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "relay_id",
+            "jti"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "relay_id",
-        "jti"
+        "path"
       ],
-      $defs: {
-        "moq_account_identifier": moq_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/moq_api-response-common",
       $defs: {
-        "moq_api-response-common": moq_api_response_common_output,
+        "moq_api-response-common": moq_api$$response$$common,
       },
     },
     annotations: {
@@ -211,8 +224,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "moq_api-response-common": moq_api_response_common_output,
-        "moq_api-response-error": moq_api_response_error_output,
+        "moq_api-response-common": moq_api$$response$$common,
+        "moq_api-response-error": moq_api$$response$$error,
       },
     },
     request: (args) => ({
@@ -222,26 +235,33 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_moq_relays_tokens_list",
     title: "List tokens",
-    description: "Returns metadata for every token the relay accepts. Secrets are never\nreturned, so a token that has been lost cannot be recovered here. There\nis no expiry filter: compare each token's `expires` to the current time\nto tell which ones have lapsed.\n\nThis method is beta.",
+    description: "Returns metadata for every token the relay accepts. Secrets are never\nreturned, so a token that has been lost cannot be recovered here. There\nis no expiry filter: compare each token's `expires` to the current time\nto tell which ones have lapsed.\n\nThis method is beta.\n\nGET /accounts/{account_id}/moq/relays/{relay_id}/tokens",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/moq_account_identifier",
-          "description": "Cloudflare account identifier."
-        },
-        "relay_id": {
-          "description": "Relay unique identifier (32 hex characters).",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account identifier.",
+              "type": "string"
+            },
+            "relay_id": {
+              "description": "Relay unique identifier (32 hex characters).",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "relay_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "relay_id"
+        "path"
       ],
-      $defs: {
-        "moq_account_identifier": moq_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -258,11 +278,11 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "moq_api-response-common": moq_api_response_common_output,
-        "moq_cloudflare_jwt_issuer": moq_cloudflare_jwt_issuer_output,
-        "moq_cloudflare_jwt_token": moq_cloudflare_jwt_token_output,
-        "moq_issuer": moq_issuer_output,
-        "moq_tokens_envelope": moq_tokens_envelope_output,
+        "moq_api-response-common": moq_api$$response$$common,
+        "moq_cloudflare_jwt_issuer": moq_cloudflare_jwt_issuer,
+        "moq_cloudflare_jwt_token": moq_cloudflare_jwt_token,
+        "moq_issuer": moq_issuer,
+        "moq_tokens_envelope": moq_tokens_envelope,
       },
     },
     annotations: {
@@ -305,12 +325,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "moq_api-response-common": moq_api_response_common_output,
-        "moq_api-response-error": moq_api_response_error_output,
-        "moq_cloudflare_jwt_issuer": moq_cloudflare_jwt_issuer_output,
-        "moq_cloudflare_jwt_token": moq_cloudflare_jwt_token_output,
-        "moq_issuer": moq_issuer_output,
-        "moq_tokens_envelope": moq_tokens_envelope_output,
+        "moq_api-response-common": moq_api$$response$$common,
+        "moq_api-response-error": moq_api$$response$$error,
+        "moq_cloudflare_jwt_issuer": moq_cloudflare_jwt_issuer,
+        "moq_cloudflare_jwt_token": moq_cloudflare_jwt_token,
+        "moq_issuer": moq_issuer,
+        "moq_tokens_envelope": moq_tokens_envelope,
       },
     },
     request: (args) => ({

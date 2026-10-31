@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `intel_api-response-collection` in responses.
  */
-export const intel_api_response_collection_output: JsonSchema = {
+export const intel_api$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/intel_api-response-common"
@@ -45,7 +45,7 @@ export const intel_api_response_collection_output: JsonSchema = {
 /**
  * The schema of `intel_api-response-common` in responses.
  */
-export const intel_api_response_common_output: JsonSchema = {
+export const intel_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/intel_messages"
@@ -95,7 +95,7 @@ export const intel_api_response_common_output: JsonSchema = {
 /**
  * The schema of `intel_api-response-common-failure` in responses.
  */
-export const intel_api_response_common_failure_output: JsonSchema = {
+export const intel_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/intel_messages"
@@ -122,7 +122,7 @@ export const intel_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `intel_api-response-single` in responses.
  */
-export const intel_api_response_single_output: JsonSchema = {
+export const intel_api$$response$$single: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/intel_schemas-messages"
@@ -146,16 +146,9 @@ export const intel_api_response_single_output: JsonSchema = {
 };
 
 /**
- * The schema of `intel_domain_name` in responses.
- */
-export const intel_domain_name_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `intel_messages` in responses.
  */
-export const intel_messages_output: JsonSchema = {
+export const intel_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -177,7 +170,7 @@ export const intel_messages_output: JsonSchema = {
 /**
  * The schema of `intel_result_info` in responses.
  */
-export const intel_result_info_output: JsonSchema = {
+export const intel_result_info: JsonSchema = {
   "properties": {
     "count": {
       "type": "number"
@@ -198,7 +191,7 @@ export const intel_result_info_output: JsonSchema = {
 /**
  * The schema of `intel_schemas-messages` in responses.
  */
-export const intel_schemas_messages_output: JsonSchema = {
+export const intel_schemas$$messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {

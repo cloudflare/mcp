@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `posture-api_CreateRemediationJobResponse` in responses.
  */
-export const posture_api_CreateRemediationJobResponse_output: JsonSchema = {
+export const posture$$api_CreateRemediationJobResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -57,7 +57,7 @@ export const posture_api_CreateRemediationJobResponse_output: JsonSchema = {
 /**
  * The schema of `posture-api_PaginatedRemediationJobList` in responses.
  */
-export const posture_api_PaginatedRemediationJobList_output: JsonSchema = {
+export const posture$$api_PaginatedRemediationJobList: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -121,7 +121,7 @@ export const posture_api_PaginatedRemediationJobList_output: JsonSchema = {
 /**
  * The schema of `posture-api_RemediationJob` in responses.
  */
-export const posture_api_RemediationJob_output: JsonSchema = {
+export const posture$$api_RemediationJob: JsonSchema = {
   "properties": {
     "asset": {
       "$ref": "#/$defs/posture-api_RemediationJobAsset"
@@ -159,7 +159,14 @@ export const posture_api_RemediationJob_output: JsonSchema = {
       "type": "string"
     },
     "status": {
-      "$ref": "#/$defs/posture-api_RemediationJobStatusEnum"
+      "enum": [
+        "pending",
+        "processing",
+        "completed",
+        "failed",
+        "validating"
+      ],
+      "type": "string"
     },
     "triggered_by_actor": {
       "oneOf": [
@@ -209,7 +216,7 @@ export const posture_api_RemediationJob_output: JsonSchema = {
 /**
  * The schema of `posture-api_RemediationJobAsset` in responses.
  */
-export const posture_api_RemediationJobAsset_output: JsonSchema = {
+export const posture$$api_RemediationJobAsset: JsonSchema = {
   "properties": {
     "category": {
       "$ref": "#/$defs/posture-api_RemediationJobAssetCategory"
@@ -254,7 +261,7 @@ export const posture_api_RemediationJobAsset_output: JsonSchema = {
 /**
  * The schema of `posture-api_RemediationJobAssetCategory` in responses.
  */
-export const posture_api_RemediationJobAssetCategory_output: JsonSchema = {
+export const posture$$api_RemediationJobAssetCategory: JsonSchema = {
   "properties": {
     "service": {
       "type": "string"
@@ -263,7 +270,26 @@ export const posture_api_RemediationJobAssetCategory_output: JsonSchema = {
       "type": "string"
     },
     "vendor": {
-      "$ref": "#/$defs/posture-api_VendorsDisplayNameEnum"
+      "enum": [
+        "AWS",
+        "Anthropic",
+        "Bitbucket",
+        "Box",
+        "Confluence",
+        "Dropbox",
+        "GitHub",
+        "Google Cloud Platform",
+        "Google Workspace",
+        "Jira",
+        "Microsoft",
+        "Microsoft Internal",
+        "OpenAI",
+        "Slack",
+        "Salesforce",
+        "ServiceNow",
+        "Zoom"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -277,7 +303,7 @@ export const posture_api_RemediationJobAssetCategory_output: JsonSchema = {
 /**
  * The schema of `posture-api_RemediationJobAssetField` in responses.
  */
-export const posture_api_RemediationJobAssetField_output: JsonSchema = {
+export const posture$$api_RemediationJobAssetField: JsonSchema = {
   "properties": {
     "link": {
       "oneOf": [
@@ -316,7 +342,7 @@ export const posture_api_RemediationJobAssetField_output: JsonSchema = {
 /**
  * The schema of `posture-api_RemediationJobFailure` in responses.
  */
-export const posture_api_RemediationJobFailure_output: JsonSchema = {
+export const posture$$api_RemediationJobFailure: JsonSchema = {
   "properties": {
     "error": {
       "type": "string"
@@ -331,30 +357,4 @@ export const posture_api_RemediationJobFailure_output: JsonSchema = {
     "finding_instance_id"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `posture-api_VendorsDisplayNameEnum` in responses.
- */
-export const posture_api_VendorsDisplayNameEnum_output: JsonSchema = {
-  "enum": [
-    "AWS",
-    "Anthropic",
-    "Bitbucket",
-    "Box",
-    "Confluence",
-    "Dropbox",
-    "GitHub",
-    "Google Cloud Platform",
-    "Google Workspace",
-    "Jira",
-    "Microsoft",
-    "Microsoft Internal",
-    "OpenAI",
-    "Slack",
-    "Salesforce",
-    "ServiceNow",
-    "Zoom"
-  ],
-  "type": "string"
 };

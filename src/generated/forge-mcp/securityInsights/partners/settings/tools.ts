@@ -3,55 +3,61 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  security_center_api_response_common_failure_output,
-  security_center_api_response_common_output,
-  security_center_messages_output,
+  security$$center_api$$response$$common,
+  security$$center_api$$response$$common$$failure,
+  security$$center_messages,
 } from "../../../outputs.js";
-import { security_center_identifier } from "../../../schemas.js";
 import {
-  security_center_partnerSettingsGetResponse_output,
-  security_center_partnerSettingsPostResponse_output,
-  security_center_partnerSettings_output,
+  security$$center_partnerSettings,
+  security$$center_partnerSettingsGetResponse,
+  security$$center_partnerSettingsPostResponse,
 } from "./outputs.js";
-import { security_center_partnerSettings } from "./schemas.js";
+import { security$$center_partnerSettings as security$$center_partnerSettings$ } from "./schemas.js";
 
 /**
- * The tools of `security_insights.partners.settings`.
+ * The tools of `securityInsights.partners.settings`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "security_insights_partners_settings_get",
+    name: "securityInsights_partners_settings_get",
     title: "Retrieves Partner Integration Settings",
-    description: "Returns whether the account has enabled the selected partner integration and, if enabled, whether the account has been matched with the partner. An integration that has not been configured is returned as disabled.\n\nThis method is beta.",
+    description: "Returns whether the account has enabled the selected partner integration and, if enabled, whether the account has been matched with the partner. An integration that has not been configured is returned as disabled.\n\nThis method is beta.\n\nGET /accounts/{account_id}/security-center/partners/{partner}/settings",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/security-center_identifier",
-          "description": "Identifier."
-        },
-        "partner": {
-          "description": "The partner integration identifier.",
-          "enum": [
-            "riskrecon"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            },
+            "partner": {
+              "description": "The partner integration identifier.",
+              "enum": [
+                "riskrecon"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "partner"
           ],
-          "type": "string"
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "partner"
+        "path"
       ],
-      $defs: {
-        "security-center_identifier": security_center_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/security-center_partnerSettingsGetResponse",
       $defs: {
-        "security-center_api-response-common": security_center_api_response_common_output,
-        "security-center_messages": security_center_messages_output,
-        "security-center_partnerSettingsGetResponse": security_center_partnerSettingsGetResponse_output,
+        "security-center_api-response-common": security$$center_api$$response$$common,
+        "security-center_messages": security$$center_messages,
+        "security-center_partnerSettingsGetResponse": security$$center_partnerSettingsGetResponse,
       },
     },
     annotations: {
@@ -73,10 +79,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "security-center_api-response-common": security_center_api_response_common_output,
-        "security-center_api-response-common-failure": security_center_api_response_common_failure_output,
-        "security-center_messages": security_center_messages_output,
-        "security-center_partnerSettingsGetResponse": security_center_partnerSettingsGetResponse_output,
+        "security-center_api-response-common": security$$center_api$$response$$common,
+        "security-center_api-response-common-failure": security$$center_api$$response$$common$$failure,
+        "security-center_messages": security$$center_messages,
+        "security-center_partnerSettingsGetResponse": security$$center_partnerSettingsGetResponse,
       },
     },
     request: (args) => ({
@@ -84,44 +90,53 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "security_insights_partners_settings_update",
+    name: "securityInsights_partners_settings_update",
     title: "Updates Partner Integration Settings",
-    description: "Enables or disables the selected partner integration for the account. Enabling the integration for the first time also schedules an account scan for that partner.\n\nThis method is beta.",
+    description: "Enables or disables the selected partner integration for the account. Enabling the integration for the first time also schedules an account scan for that partner.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/security-center/partners/{partner}/settings",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/security-center_identifier",
-          "description": "Identifier."
-        },
         "body": {
           "$ref": "#/$defs/security-center_partnerSettings"
         },
-        "partner": {
-          "description": "The partner integration identifier.",
-          "enum": [
-            "riskrecon"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            },
+            "partner": {
+              "description": "The partner integration identifier.",
+              "enum": [
+                "riskrecon"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "partner"
           ],
-          "type": "string"
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "partner",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "security-center_identifier": security_center_identifier,
-        "security-center_partnerSettings": security_center_partnerSettings,
+        "security-center_partnerSettings": security$$center_partnerSettings$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/security-center_partnerSettingsPostResponse",
       $defs: {
-        "security-center_api-response-common": security_center_api_response_common_output,
-        "security-center_messages": security_center_messages_output,
-        "security-center_partnerSettings": security_center_partnerSettings_output,
-        "security-center_partnerSettingsPostResponse": security_center_partnerSettingsPostResponse_output,
+        "security-center_api-response-common": security$$center_api$$response$$common,
+        "security-center_messages": security$$center_messages,
+        "security-center_partnerSettings": security$$center_partnerSettings,
+        "security-center_partnerSettingsPostResponse": security$$center_partnerSettingsPostResponse,
       },
     },
     annotations: {
@@ -143,11 +158,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "security-center_api-response-common": security_center_api_response_common_output,
-        "security-center_api-response-common-failure": security_center_api_response_common_failure_output,
-        "security-center_messages": security_center_messages_output,
-        "security-center_partnerSettings": security_center_partnerSettings_output,
-        "security-center_partnerSettingsPostResponse": security_center_partnerSettingsPostResponse_output,
+        "security-center_api-response-common": security$$center_api$$response$$common,
+        "security-center_api-response-common-failure": security$$center_api$$response$$common$$failure,
+        "security-center_messages": security$$center_messages,
+        "security-center_partnerSettings": security$$center_partnerSettings,
+        "security-center_partnerSettingsPostResponse": security$$center_partnerSettingsPostResponse,
       },
     },
     request: (args) => ({

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `dlp_RiskSummary` in responses.
  */
-export const dlp_RiskSummary_output: JsonSchema = {
+export const dlp_RiskSummary: JsonSchema = {
   "properties": {
     "users": {
       "items": {
@@ -24,7 +24,7 @@ export const dlp_RiskSummary_output: JsonSchema = {
 /**
  * The schema of `dlp_UserRiskInfo` in responses.
  */
-export const dlp_UserRiskInfo_output: JsonSchema = {
+export const dlp_UserRiskInfo: JsonSchema = {
   "properties": {
     "email": {
       "type": "string"
@@ -37,7 +37,12 @@ export const dlp_UserRiskInfo_output: JsonSchema = {
       "type": "string"
     },
     "max_risk_level": {
-      "$ref": "#/$defs/dlp_RiskLevel"
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "type": "string"
     },
     "name": {
       "type": "string"

@@ -6,10 +6,10 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `nsc_SlotInfo` in responses.
  */
-export const nsc_SlotInfo_output: JsonSchema = {
+export const nsc_SlotInfo: JsonSchema = {
   "properties": {
     "account": {
-      "$ref": "#/$defs/nsc_AccountTag"
+      "type": "string"
     },
     "ccr_device_name": {
       "oneOf": [
@@ -51,7 +51,7 @@ export const nsc_SlotInfo_output: JsonSchema = {
 /**
  * The schema of `nsc_SlotList` in responses.
  */
-export const nsc_SlotList_output: JsonSchema = {
+export const nsc_SlotList: JsonSchema = {
   "properties": {
     "items": {
       "items": {

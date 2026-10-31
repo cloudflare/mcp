@@ -4,40 +4,9 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `magic_connector-id`.
- */
-export const magic_connector_id: JsonSchema = {
-  "description": "Magic Connector identifier tag.",
-  "type": "string"
-};
-
-/**
- * The schema of `magic_ip-address`.
- */
-export const magic_ip_address: JsonSchema = {
-  "description": "A valid IPv4 address.",
-  "type": "string"
-};
-
-/**
- * The schema of `magic_port`.
- */
-export const magic_port: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `magic_secondary-connector-id`.
- */
-export const magic_secondary_connector_id: JsonSchema = {
-  "description": "Magic Connector identifier tag. Used when high availability mode is on.",
-  "type": "string"
-};
-
-/**
  * The schema of `magic_site-location`.
  */
-export const magic_site_location: JsonSchema = {
+export const magic_site$$location: JsonSchema = {
   "description": "Location of site in latitude and longitude.",
   "properties": {
     "lat": {
@@ -53,21 +22,13 @@ export const magic_site_location: JsonSchema = {
 };
 
 /**
- * The schema of `magic_site-name`.
- */
-export const magic_site_name: JsonSchema = {
-  "description": "The name of the site.",
-  "type": "string"
-};
-
-/**
  * The schema of `magic_site_update_request`.
  */
 export const magic_site_update_request: JsonSchema = {
   "properties": {
     "connector_id": {
-      "$ref": "#/$defs/magic_connector-id",
-      "description": "Magic Connector identifier tag."
+      "description": "Magic Connector identifier tag.",
+      "type": "string"
     },
     "description": {
       "type": "string"
@@ -81,12 +42,12 @@ export const magic_site_update_request: JsonSchema = {
       "description": "Location of site in latitude and longitude."
     },
     "name": {
-      "$ref": "#/$defs/magic_site-name",
-      "description": "The name of the site."
+      "description": "The name of the site.",
+      "type": "string"
     },
     "secondary_connector_id": {
-      "$ref": "#/$defs/magic_secondary-connector-id",
-      "description": "Magic Connector identifier tag. Used when high availability mode is on."
+      "description": "Magic Connector identifier tag. Used when high availability mode is on.",
+      "type": "string"
     }
   },
   "type": "object"
@@ -98,8 +59,8 @@ export const magic_site_update_request: JsonSchema = {
 export const magic_sites_add_single_request: JsonSchema = {
   "properties": {
     "connector_id": {
-      "$ref": "#/$defs/magic_connector-id",
-      "description": "Magic Connector identifier tag."
+      "description": "Magic Connector identifier tag.",
+      "type": "string"
     },
     "description": {
       "type": "string"
@@ -113,24 +74,16 @@ export const magic_sites_add_single_request: JsonSchema = {
       "description": "Location of site in latitude and longitude."
     },
     "name": {
-      "$ref": "#/$defs/magic_site-name",
-      "description": "The name of the site."
+      "description": "The name of the site.",
+      "type": "string"
     },
     "secondary_connector_id": {
-      "$ref": "#/$defs/magic_secondary-connector-id",
-      "description": "Magic Connector identifier tag. Used when high availability mode is on."
+      "description": "Magic Connector identifier tag. Used when high availability mode is on.",
+      "type": "string"
     }
   },
   "required": [
     "name"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `magic_vlan_tag`.
- */
-export const magic_vlan_tag: JsonSchema = {
-  "description": "VLAN ID. Use zero for untagged.",
-  "type": "integer"
 };

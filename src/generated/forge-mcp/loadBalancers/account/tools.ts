@@ -3,104 +3,67 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  load_balancing_api_paginated_response_collection_output,
-  load_balancing_api_response_common_failure_output,
-  load_balancing_api_response_common_output,
-  load_balancing_api_response_single_output,
-  load_balancing_messages_output,
-  load_balancing_networks_output,
-  load_balancing_result_info_output,
-  load_balancing_timestamp_output,
+  load$$balancing_api$$paginated$$response$$collection,
+  load$$balancing_api$$response$$common,
+  load$$balancing_api$$response$$common$$failure,
+  load$$balancing_api$$response$$single,
+  load$$balancing_messages,
+  load$$balancing_networks,
+  load$$balancing_result_info,
 } from "../../outputs.js";
-import { load_balancing_networks } from "../../schemas.js";
-import { load_balancing_components_schemas_identifier } from "../schemas.js";
+import { load$$balancing_networks as load$$balancing_networks$ } from "../../schemas.js";
 import {
-  load_balancing_adaptive_routing_output,
-  load_balancing_components_schemas_description_output,
-  load_balancing_components_schemas_enabled_output,
-  load_balancing_components_schemas_id_response_output,
-  load_balancing_components_schemas_name_output,
-  load_balancing_components_schemas_zone_name_output,
-  load_balancing_country_pools_output,
-  load_balancing_default_pools_output,
-  load_balancing_fallback_pool_output,
-  load_balancing_fixed_response_output,
-  load_balancing_load_balancer_components_schemas_identifier_output,
-  load_balancing_load_balancer_components_schemas_response_collection_output,
-  load_balancing_load_balancer_components_schemas_single_response_output,
-  load_balancing_load_balancer_output,
-  load_balancing_location_strategy_output,
-  load_balancing_match_output,
-  load_balancing_pool_default_weight_output,
-  load_balancing_pool_set_output,
-  load_balancing_pool_set_overrides_output,
-  load_balancing_pool_sets_output,
-  load_balancing_pool_weights_output,
-  load_balancing_pools_output,
-  load_balancing_pop_pools_output,
-  load_balancing_proxied_output,
-  load_balancing_random_steering_output,
-  load_balancing_region_pools_output,
-  load_balancing_rule_overrides_output,
-  load_balancing_rules_output,
-  load_balancing_session_affinity_attributes_output,
-  load_balancing_session_affinity_output,
-  load_balancing_session_affinity_ttl_output,
-  load_balancing_steering_policy_output,
-  load_balancing_topology_match_output,
-  load_balancing_ttl_output,
+  load$$balancing_adaptive_routing,
+  load$$balancing_components$$schemas$$id_response,
+  load$$balancing_country_pools,
+  load$$balancing_default_pools,
+  load$$balancing_fixed_response,
+  load$$balancing_load$$balancer,
+  load$$balancing_load$$balancer_components$$schemas$$response_collection,
+  load$$balancing_load$$balancer_components$$schemas$$single_response,
+  load$$balancing_location_strategy,
+  load$$balancing_match,
+  load$$balancing_pool_set,
+  load$$balancing_pool_set_overrides,
+  load$$balancing_pool_sets,
+  load$$balancing_pool_weights,
+  load$$balancing_pools,
+  load$$balancing_pop_pools,
+  load$$balancing_random_steering,
+  load$$balancing_region_pools,
+  load$$balancing_rule_overrides,
+  load$$balancing_rules,
+  load$$balancing_session_affinity_attributes,
+  load$$balancing_topology_match,
 } from "./outputs.js";
 import {
-  load_balancing_adaptive_routing,
-  load_balancing_components_schemas_description,
-  load_balancing_components_schemas_enabled,
-  load_balancing_components_schemas_name,
-  load_balancing_country_pools,
-  load_balancing_default_pools,
-  load_balancing_fallback_pool,
-  load_balancing_fixed_response,
-  load_balancing_load_balancer_components_schemas_identifier,
-  load_balancing_load_balancer_editable,
-  load_balancing_location_strategy,
-  load_balancing_pool_default_weight,
-  load_balancing_pool_weights,
-  load_balancing_pools,
-  load_balancing_pop_pools,
-  load_balancing_proxied,
-  load_balancing_random_steering,
-  load_balancing_region_pools,
-  load_balancing_rule_overrides,
-  load_balancing_rules,
-  load_balancing_session_affinity,
-  load_balancing_session_affinity_attributes,
-  load_balancing_session_affinity_ttl,
-  load_balancing_steering_policy,
-  load_balancing_ttl,
+  load$$balancing_adaptive_routing as load$$balancing_adaptive_routing$,
+  load$$balancing_country_pools as load$$balancing_country_pools$,
+  load$$balancing_default_pools as load$$balancing_default_pools$,
+  load$$balancing_fixed_response as load$$balancing_fixed_response$,
+  load$$balancing_load$$balancer$$editable,
+  load$$balancing_location_strategy as load$$balancing_location_strategy$,
+  load$$balancing_pool_weights as load$$balancing_pool_weights$,
+  load$$balancing_pools as load$$balancing_pools$,
+  load$$balancing_pop_pools as load$$balancing_pop_pools$,
+  load$$balancing_random_steering as load$$balancing_random_steering$,
+  load$$balancing_region_pools as load$$balancing_region_pools$,
+  load$$balancing_rule_overrides as load$$balancing_rule_overrides$,
+  load$$balancing_rules as load$$balancing_rules$,
+  load$$balancing_session_affinity_attributes as load$$balancing_session_affinity_attributes$,
 } from "./schemas.js";
 
 /**
- * The tools of `load_balancers.account`.
+ * The tools of `loadBalancers.account`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "load_balancers_account_create",
+    name: "loadBalancers_account_create",
     title: "Create account or zone Load Balancer",
-    description: "Create a new account or zone-scoped load balancer.",
+    description: "Create a new account or zone-scoped load balancer.\n\nPOST /{account_or_zone}/{account_or_zone_id}/load_balancers",
     inputSchema: {
       type: "object",
       properties: {
-        "account_or_zone": {
-          "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
-          "enum": [
-            "accounts",
-            "zones"
-          ],
-          "type": "string"
-        },
-        "account_or_zone_id": {
-          "$ref": "#/$defs/load-balancing_components-schemas-identifier",
-          "description": "The account ID or zone ID, as selected by account_or_zone."
-        },
         "body": {
           "properties": {
             "adaptive_routing": {
@@ -116,25 +79,25 @@ export const tools: readonly Tool[] = [
               "description": "A list of pool IDs ordered by their failover priority. Pools defined here are used by default, or when region_pools are not configured for a given region."
             },
             "description": {
-              "$ref": "#/$defs/load-balancing_components-schemas-description",
-              "description": "Object description."
+              "description": "Object description.",
+              "type": "string"
             },
             "enabled": {
-              "$ref": "#/$defs/load-balancing_components-schemas-enabled",
               "default": true,
-              "description": "Whether to enable (the default) this load balancer."
+              "description": "Whether to enable (the default) this load balancer.",
+              "type": "boolean"
             },
             "fallback_pool": {
-              "$ref": "#/$defs/load-balancing_fallback_pool",
-              "description": "The pool ID to use when all other pools are detected as unhealthy."
+              "description": "The pool ID to use when all other pools are detected as unhealthy.",
+              "type": "string"
             },
             "location_strategy": {
               "$ref": "#/$defs/load-balancing_location_strategy",
               "description": "Controls location-based steering for non-proxied requests. See `steering_policy` to learn how steering is affected."
             },
             "name": {
-              "$ref": "#/$defs/load-balancing_components-schemas-name",
-              "description": "The DNS hostname to associate with your Load Balancer. If this hostname already exists as a DNS record in Cloudflare's DNS, the Load Balancer will take precedence and the DNS record will not be used."
+              "description": "The DNS hostname to associate with your Load Balancer. If this hostname already exists as a DNS record in Cloudflare's DNS, the Load Balancer will take precedence and the DNS record will not be used.",
+              "type": "string"
             },
             "networks": {
               "$ref": "#/$defs/load-balancing_networks",
@@ -145,9 +108,9 @@ export const tools: readonly Tool[] = [
               "description": "Enterprise only: A mapping of Cloudflare PoP identifiers to a list of pool IDs (ordered by their failover priority) for the PoP (datacenter). Any PoPs not explicitly defined will fall back to using the corresponding country_pool, then region_pool mapping if it exists else to default_pools."
             },
             "proxied": {
-              "$ref": "#/$defs/load-balancing_proxied",
               "default": false,
-              "description": "Whether the hostname should be gray clouded (false) or orange clouded (true)."
+              "description": "Whether the hostname should be gray clouded (false) or orange clouded (true).",
+              "type": "boolean"
             },
             "random_steering": {
               "$ref": "#/$defs/load-balancing_random_steering",
@@ -162,26 +125,42 @@ export const tools: readonly Tool[] = [
               "description": "BETA Field Not General Access: A list of rules for this load balancer to execute."
             },
             "session_affinity": {
-              "$ref": "#/$defs/load-balancing_session_affinity",
               "default": "none",
-              "description": "Specifies the type of session affinity the load balancer should use unless specified as `\"none\"`. The supported types are: - `\"cookie\"`: On the first request to a proxied load balancer, a cookie is generated, encoding information of which origin the request will be forwarded to. Subsequent requests, by the same client to the same load balancer, will be sent to the origin server the cookie encodes, for the duration of the cookie and as long as the origin server remains healthy. If the cookie has expired or the origin server is unhealthy, then a new origin server is calculated and used. - `\"ip_cookie\"`: Behaves the same as `\"cookie\"` except the initial origin selection is stable and based on the client's ip address. - `\"header\"`: On the first request to a proxied load balancer, a session key based on the configured HTTP headers (see `session_affinity_attributes.headers`) is generated, encoding the request headers used for storing in the load balancer session state which origin the request will be forwarded to. Subsequent requests to the load balancer with the same headers will be sent to the same origin server, for the duration of the session and as long as the origin server remains healthy. If the session has been idle for the duration of `session_affinity_ttl` seconds or the origin server is unhealthy, then a new origin server is calculated and used. See `headers` in `session_affinity_attributes` for additional required configuration."
+              "description": "Specifies the type of session affinity the load balancer should use unless specified as `\"none\"`. The supported types are: - `\"cookie\"`: On the first request to a proxied load balancer, a cookie is generated, encoding information of which origin the request will be forwarded to. Subsequent requests, by the same client to the same load balancer, will be sent to the origin server the cookie encodes, for the duration of the cookie and as long as the origin server remains healthy. If the cookie has expired or the origin server is unhealthy, then a new origin server is calculated and used. - `\"ip_cookie\"`: Behaves the same as `\"cookie\"` except the initial origin selection is stable and based on the client's ip address. - `\"header\"`: On the first request to a proxied load balancer, a session key based on the configured HTTP headers (see `session_affinity_attributes.headers`) is generated, encoding the request headers used for storing in the load balancer session state which origin the request will be forwarded to. Subsequent requests to the load balancer with the same headers will be sent to the same origin server, for the duration of the session and as long as the origin server remains healthy. If the session has been idle for the duration of `session_affinity_ttl` seconds or the origin server is unhealthy, then a new origin server is calculated and used. See `headers` in `session_affinity_attributes` for additional required configuration.",
+              "enum": [
+                "none",
+                "cookie",
+                "ip_cookie",
+                "header"
+              ],
+              "type": "string"
             },
             "session_affinity_attributes": {
               "$ref": "#/$defs/load-balancing_session_affinity_attributes",
               "description": "Configures attributes for session affinity."
             },
             "session_affinity_ttl": {
-              "$ref": "#/$defs/load-balancing_session_affinity_ttl",
-              "description": "Time, in seconds, until a client's session expires after being created. Once the expiry time has been reached, subsequent requests may get sent to a different origin server. The accepted ranges per `session_affinity` policy are: - `\"cookie\"` / `\"ip_cookie\"`: The current default of 23 hours will be used unless explicitly set. The accepted range of values is between [1800, 604800]. - `\"header\"`: The current default of 1800 seconds will be used unless explicitly set. The accepted range of values is between [30, 3600]. Note: With session affinity by header, sessions only expire after they haven't been used for the number of seconds specified."
+              "description": "Time, in seconds, until a client's session expires after being created. Once the expiry time has been reached, subsequent requests may get sent to a different origin server. The accepted ranges per `session_affinity` policy are: - `\"cookie\"` / `\"ip_cookie\"`: The current default of 23 hours will be used unless explicitly set. The accepted range of values is between [1800, 604800]. - `\"header\"`: The current default of 1800 seconds will be used unless explicitly set. The accepted range of values is between [30, 3600]. Note: With session affinity by header, sessions only expire after they haven't been used for the number of seconds specified.",
+              "type": "number"
             },
             "steering_policy": {
-              "$ref": "#/$defs/load-balancing_steering_policy",
               "default": "",
-              "description": "Steering Policy for this load balancer.\n- `\"off\"`: Use `default_pools`.\n- `\"geo\"`: Use `region_pools`/`country_pools`/`pop_pools`. For non-proxied requests, the country for `country_pools` is determined by `location_strategy`.\n- `\"random\"`: Select a pool randomly.\n- `\"dynamic_latency\"`: Use round trip time to select the closest pool in default_pools (requires pool health checks).\n- `\"proximity\"`: Use the pools' latitude and longitude to select the closest pool using the Cloudflare PoP location for proxied requests or the location determined by `location_strategy` for non-proxied requests.\n- `\"least_outstanding_requests\"`: Select a pool by taking into consideration `random_steering` weights, as well as each pool's number of outstanding requests. Pools with more pending requests are weighted proportionately less relative to others.\n- `\"least_connections\"`: Select a pool by taking into consideration `random_steering` weights, as well as each pool's number of open connections. Pools with more open connections are weighted proportionately less relative to others. Supported for HTTP/1 and HTTP/2 connections.\n- `\"\"`: Will map to `\"geo\"` if you use `region_pools`/`country_pools`/`pop_pools` otherwise `\"off\"`."
+              "description": "Steering Policy for this load balancer.\n- `\"off\"`: Use `default_pools`.\n- `\"geo\"`: Use `region_pools`/`country_pools`/`pop_pools`. For non-proxied requests, the country for `country_pools` is determined by `location_strategy`.\n- `\"random\"`: Select a pool randomly.\n- `\"dynamic_latency\"`: Use round trip time to select the closest pool in default_pools (requires pool health checks).\n- `\"proximity\"`: Use the pools' latitude and longitude to select the closest pool using the Cloudflare PoP location for proxied requests or the location determined by `location_strategy` for non-proxied requests.\n- `\"least_outstanding_requests\"`: Select a pool by taking into consideration `random_steering` weights, as well as each pool's number of outstanding requests. Pools with more pending requests are weighted proportionately less relative to others.\n- `\"least_connections\"`: Select a pool by taking into consideration `random_steering` weights, as well as each pool's number of open connections. Pools with more open connections are weighted proportionately less relative to others. Supported for HTTP/1 and HTTP/2 connections.\n- `\"\"`: Will map to `\"geo\"` if you use `region_pools`/`country_pools`/`pop_pools` otherwise `\"off\"`.",
+              "enum": [
+                "off",
+                "geo",
+                "random",
+                "dynamic_latency",
+                "proximity",
+                "least_outstanding_requests",
+                "least_connections",
+                ""
+              ],
+              "type": "string"
             },
             "ttl": {
-              "$ref": "#/$defs/load-balancing_ttl",
-              "description": "Time to live (TTL) of the DNS entry for the IP address returned by this load balancer. This only applies to gray-clouded (unproxied) load balancers."
+              "description": "Time to live (TTL) of the DNS entry for the IP address returned by this load balancer. This only applies to gray-clouded (unproxied) load balancers.",
+              "type": "number"
             }
           },
           "required": [
@@ -190,81 +169,79 @@ export const tools: readonly Tool[] = [
             "name"
           ],
           "type": "object"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_or_zone": {
+              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "enum": [
+                "accounts",
+                "zones"
+              ],
+              "type": "string"
+            },
+            "account_or_zone_id": {
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_or_zone",
+            "account_or_zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_or_zone",
-        "account_or_zone_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "load-balancing_adaptive_routing": load_balancing_adaptive_routing,
-        "load-balancing_components-schemas-description": load_balancing_components_schemas_description,
-        "load-balancing_components-schemas-enabled": load_balancing_components_schemas_enabled,
-        "load-balancing_components-schemas-identifier": load_balancing_components_schemas_identifier,
-        "load-balancing_components-schemas-name": load_balancing_components_schemas_name,
-        "load-balancing_country_pools": load_balancing_country_pools,
-        "load-balancing_default_pools": load_balancing_default_pools,
-        "load-balancing_fallback_pool": load_balancing_fallback_pool,
-        "load-balancing_fixed_response": load_balancing_fixed_response,
-        "load-balancing_location_strategy": load_balancing_location_strategy,
-        "load-balancing_networks": load_balancing_networks,
-        "load-balancing_pool_default_weight": load_balancing_pool_default_weight,
-        "load-balancing_pool_weights": load_balancing_pool_weights,
-        "load-balancing_pools": load_balancing_pools,
-        "load-balancing_pop_pools": load_balancing_pop_pools,
-        "load-balancing_proxied": load_balancing_proxied,
-        "load-balancing_random_steering": load_balancing_random_steering,
-        "load-balancing_region_pools": load_balancing_region_pools,
-        "load-balancing_rule_overrides": load_balancing_rule_overrides,
-        "load-balancing_rules": load_balancing_rules,
-        "load-balancing_session_affinity": load_balancing_session_affinity,
-        "load-balancing_session_affinity_attributes": load_balancing_session_affinity_attributes,
-        "load-balancing_session_affinity_ttl": load_balancing_session_affinity_ttl,
-        "load-balancing_steering_policy": load_balancing_steering_policy,
-        "load-balancing_ttl": load_balancing_ttl,
+        "load-balancing_adaptive_routing": load$$balancing_adaptive_routing$,
+        "load-balancing_country_pools": load$$balancing_country_pools$,
+        "load-balancing_default_pools": load$$balancing_default_pools$,
+        "load-balancing_fixed_response": load$$balancing_fixed_response$,
+        "load-balancing_location_strategy": load$$balancing_location_strategy$,
+        "load-balancing_networks": load$$balancing_networks$,
+        "load-balancing_pool_weights": load$$balancing_pool_weights$,
+        "load-balancing_pools": load$$balancing_pools$,
+        "load-balancing_pop_pools": load$$balancing_pop_pools$,
+        "load-balancing_random_steering": load$$balancing_random_steering$,
+        "load-balancing_region_pools": load$$balancing_region_pools$,
+        "load-balancing_rule_overrides": load$$balancing_rule_overrides$,
+        "load-balancing_rules": load$$balancing_rules$,
+        "load-balancing_session_affinity_attributes": load$$balancing_session_affinity_attributes$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/load-balancing_load-balancer_components-schemas-single_response",
       $defs: {
-        "load-balancing_adaptive_routing": load_balancing_adaptive_routing_output,
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_api-response-single": load_balancing_api_response_single_output,
-        "load-balancing_components-schemas-description": load_balancing_components_schemas_description_output,
-        "load-balancing_components-schemas-enabled": load_balancing_components_schemas_enabled_output,
-        "load-balancing_components-schemas-name": load_balancing_components_schemas_name_output,
-        "load-balancing_components-schemas-zone-name": load_balancing_components_schemas_zone_name_output,
-        "load-balancing_country_pools": load_balancing_country_pools_output,
-        "load-balancing_default_pools": load_balancing_default_pools_output,
-        "load-balancing_fallback_pool": load_balancing_fallback_pool_output,
-        "load-balancing_fixed_response": load_balancing_fixed_response_output,
-        "load-balancing_load-balancer": load_balancing_load_balancer_output,
-        "load-balancing_load-balancer_components-schemas-identifier": load_balancing_load_balancer_components_schemas_identifier_output,
-        "load-balancing_load-balancer_components-schemas-single_response": load_balancing_load_balancer_components_schemas_single_response_output,
-        "load-balancing_location_strategy": load_balancing_location_strategy_output,
-        "load-balancing_match": load_balancing_match_output,
-        "load-balancing_messages": load_balancing_messages_output,
-        "load-balancing_networks": load_balancing_networks_output,
-        "load-balancing_pool_default_weight": load_balancing_pool_default_weight_output,
-        "load-balancing_pool_set": load_balancing_pool_set_output,
-        "load-balancing_pool_set_overrides": load_balancing_pool_set_overrides_output,
-        "load-balancing_pool_sets": load_balancing_pool_sets_output,
-        "load-balancing_pool_weights": load_balancing_pool_weights_output,
-        "load-balancing_pools": load_balancing_pools_output,
-        "load-balancing_pop_pools": load_balancing_pop_pools_output,
-        "load-balancing_proxied": load_balancing_proxied_output,
-        "load-balancing_random_steering": load_balancing_random_steering_output,
-        "load-balancing_region_pools": load_balancing_region_pools_output,
-        "load-balancing_rule_overrides": load_balancing_rule_overrides_output,
-        "load-balancing_rules": load_balancing_rules_output,
-        "load-balancing_session_affinity": load_balancing_session_affinity_output,
-        "load-balancing_session_affinity_attributes": load_balancing_session_affinity_attributes_output,
-        "load-balancing_session_affinity_ttl": load_balancing_session_affinity_ttl_output,
-        "load-balancing_steering_policy": load_balancing_steering_policy_output,
-        "load-balancing_timestamp": load_balancing_timestamp_output,
-        "load-balancing_topology_match": load_balancing_topology_match_output,
-        "load-balancing_ttl": load_balancing_ttl_output,
+        "load-balancing_adaptive_routing": load$$balancing_adaptive_routing,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_api-response-single": load$$balancing_api$$response$$single,
+        "load-balancing_country_pools": load$$balancing_country_pools,
+        "load-balancing_default_pools": load$$balancing_default_pools,
+        "load-balancing_fixed_response": load$$balancing_fixed_response,
+        "load-balancing_load-balancer": load$$balancing_load$$balancer,
+        "load-balancing_load-balancer_components-schemas-single_response": load$$balancing_load$$balancer_components$$schemas$$single_response,
+        "load-balancing_location_strategy": load$$balancing_location_strategy,
+        "load-balancing_match": load$$balancing_match,
+        "load-balancing_messages": load$$balancing_messages,
+        "load-balancing_networks": load$$balancing_networks,
+        "load-balancing_pool_set": load$$balancing_pool_set,
+        "load-balancing_pool_set_overrides": load$$balancing_pool_set_overrides,
+        "load-balancing_pool_sets": load$$balancing_pool_sets,
+        "load-balancing_pool_weights": load$$balancing_pool_weights,
+        "load-balancing_pools": load$$balancing_pools,
+        "load-balancing_pop_pools": load$$balancing_pop_pools,
+        "load-balancing_random_steering": load$$balancing_random_steering,
+        "load-balancing_region_pools": load$$balancing_region_pools,
+        "load-balancing_rule_overrides": load$$balancing_rule_overrides,
+        "load-balancing_rules": load$$balancing_rules,
+        "load-balancing_session_affinity_attributes": load$$balancing_session_affinity_attributes,
+        "load-balancing_topology_match": load$$balancing_topology_match,
       },
     },
     annotations: {
@@ -291,44 +268,31 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "load-balancing_adaptive_routing": load_balancing_adaptive_routing_output,
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
-        "load-balancing_api-response-single": load_balancing_api_response_single_output,
-        "load-balancing_components-schemas-description": load_balancing_components_schemas_description_output,
-        "load-balancing_components-schemas-enabled": load_balancing_components_schemas_enabled_output,
-        "load-balancing_components-schemas-name": load_balancing_components_schemas_name_output,
-        "load-balancing_components-schemas-zone-name": load_balancing_components_schemas_zone_name_output,
-        "load-balancing_country_pools": load_balancing_country_pools_output,
-        "load-balancing_default_pools": load_balancing_default_pools_output,
-        "load-balancing_fallback_pool": load_balancing_fallback_pool_output,
-        "load-balancing_fixed_response": load_balancing_fixed_response_output,
-        "load-balancing_load-balancer": load_balancing_load_balancer_output,
-        "load-balancing_load-balancer_components-schemas-identifier": load_balancing_load_balancer_components_schemas_identifier_output,
-        "load-balancing_load-balancer_components-schemas-single_response": load_balancing_load_balancer_components_schemas_single_response_output,
-        "load-balancing_location_strategy": load_balancing_location_strategy_output,
-        "load-balancing_match": load_balancing_match_output,
-        "load-balancing_messages": load_balancing_messages_output,
-        "load-balancing_networks": load_balancing_networks_output,
-        "load-balancing_pool_default_weight": load_balancing_pool_default_weight_output,
-        "load-balancing_pool_set": load_balancing_pool_set_output,
-        "load-balancing_pool_set_overrides": load_balancing_pool_set_overrides_output,
-        "load-balancing_pool_sets": load_balancing_pool_sets_output,
-        "load-balancing_pool_weights": load_balancing_pool_weights_output,
-        "load-balancing_pools": load_balancing_pools_output,
-        "load-balancing_pop_pools": load_balancing_pop_pools_output,
-        "load-balancing_proxied": load_balancing_proxied_output,
-        "load-balancing_random_steering": load_balancing_random_steering_output,
-        "load-balancing_region_pools": load_balancing_region_pools_output,
-        "load-balancing_rule_overrides": load_balancing_rule_overrides_output,
-        "load-balancing_rules": load_balancing_rules_output,
-        "load-balancing_session_affinity": load_balancing_session_affinity_output,
-        "load-balancing_session_affinity_attributes": load_balancing_session_affinity_attributes_output,
-        "load-balancing_session_affinity_ttl": load_balancing_session_affinity_ttl_output,
-        "load-balancing_steering_policy": load_balancing_steering_policy_output,
-        "load-balancing_timestamp": load_balancing_timestamp_output,
-        "load-balancing_topology_match": load_balancing_topology_match_output,
-        "load-balancing_ttl": load_balancing_ttl_output,
+        "load-balancing_adaptive_routing": load$$balancing_adaptive_routing,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_api-response-common-failure": load$$balancing_api$$response$$common$$failure,
+        "load-balancing_api-response-single": load$$balancing_api$$response$$single,
+        "load-balancing_country_pools": load$$balancing_country_pools,
+        "load-balancing_default_pools": load$$balancing_default_pools,
+        "load-balancing_fixed_response": load$$balancing_fixed_response,
+        "load-balancing_load-balancer": load$$balancing_load$$balancer,
+        "load-balancing_load-balancer_components-schemas-single_response": load$$balancing_load$$balancer_components$$schemas$$single_response,
+        "load-balancing_location_strategy": load$$balancing_location_strategy,
+        "load-balancing_match": load$$balancing_match,
+        "load-balancing_messages": load$$balancing_messages,
+        "load-balancing_networks": load$$balancing_networks,
+        "load-balancing_pool_set": load$$balancing_pool_set,
+        "load-balancing_pool_set_overrides": load$$balancing_pool_set_overrides,
+        "load-balancing_pool_sets": load$$balancing_pool_sets,
+        "load-balancing_pool_weights": load$$balancing_pool_weights,
+        "load-balancing_pools": load$$balancing_pools,
+        "load-balancing_pop_pools": load$$balancing_pop_pools,
+        "load-balancing_random_steering": load$$balancing_random_steering,
+        "load-balancing_region_pools": load$$balancing_region_pools,
+        "load-balancing_rule_overrides": load$$balancing_rule_overrides,
+        "load-balancing_rules": load$$balancing_rules,
+        "load-balancing_session_affinity_attributes": load$$balancing_session_affinity_attributes,
+        "load-balancing_topology_match": load$$balancing_topology_match,
       },
     },
     request: (args) => ({
@@ -337,46 +301,51 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "load_balancers_account_delete",
+    name: "loadBalancers_account_delete",
     title: "Delete account or zone Load Balancer",
-    description: "Delete a configured account or zone-scoped load balancer.",
+    description: "Delete a configured account or zone-scoped load balancer.\n\nDELETE /{account_or_zone}/{account_or_zone_id}/load_balancers/{load_balancer_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_or_zone": {
-          "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
-          "enum": [
-            "accounts",
-            "zones"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_or_zone": {
+              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "enum": [
+                "accounts",
+                "zones"
+              ],
+              "type": "string"
+            },
+            "account_or_zone_id": {
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
+            },
+            "load_balancer_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_or_zone",
+            "account_or_zone_id",
+            "load_balancer_id"
           ],
-          "type": "string"
-        },
-        "account_or_zone_id": {
-          "$ref": "#/$defs/load-balancing_components-schemas-identifier",
-          "description": "The account ID or zone ID, as selected by account_or_zone."
-        },
-        "load_balancer_id": {
-          "$ref": "#/$defs/load-balancing_load-balancer_components-schemas-identifier"
+          "type": "object"
         }
       },
       required: [
-        "account_or_zone",
-        "account_or_zone_id",
-        "load_balancer_id"
+        "path"
       ],
-      $defs: {
-        "load-balancing_components-schemas-identifier": load_balancing_components_schemas_identifier,
-        "load-balancing_load-balancer_components-schemas-identifier": load_balancing_load_balancer_components_schemas_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/load-balancing_components-schemas-id_response",
       $defs: {
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_api-response-single": load_balancing_api_response_single_output,
-        "load-balancing_components-schemas-id_response": load_balancing_components_schemas_id_response_output,
-        "load-balancing_load-balancer_components-schemas-identifier": load_balancing_load_balancer_components_schemas_identifier_output,
-        "load-balancing_messages": load_balancing_messages_output,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_api-response-single": load$$balancing_api$$response$$single,
+        "load-balancing_components-schemas-id_response": load$$balancing_components$$schemas$$id_response,
+        "load-balancing_messages": load$$balancing_messages,
       },
     },
     annotations: {
@@ -403,12 +372,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
-        "load-balancing_api-response-single": load_balancing_api_response_single_output,
-        "load-balancing_components-schemas-id_response": load_balancing_components_schemas_id_response_output,
-        "load-balancing_load-balancer_components-schemas-identifier": load_balancing_load_balancer_components_schemas_identifier_output,
-        "load-balancing_messages": load_balancing_messages_output,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_api-response-common-failure": load$$balancing_api$$response$$common$$failure,
+        "load-balancing_api-response-single": load$$balancing_api$$response$$single,
+        "load-balancing_components-schemas-id_response": load$$balancing_components$$schemas$$id_response,
+        "load-balancing_messages": load$$balancing_messages,
       },
     },
     request: (args) => ({
@@ -416,107 +384,92 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "load_balancers_account_edit",
+    name: "loadBalancers_account_edit",
     title: "Patch account or zone Load Balancer",
-    description: "Apply changes to an existing account or zone-scoped load balancer, overwriting the supplied properties.",
+    description: "Apply changes to an existing account or zone-scoped load balancer, overwriting the supplied properties.\n\nPATCH /{account_or_zone}/{account_or_zone_id}/load_balancers/{load_balancer_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_or_zone": {
-          "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
-          "enum": [
-            "accounts",
-            "zones"
-          ],
-          "type": "string"
-        },
-        "account_or_zone_id": {
-          "$ref": "#/$defs/load-balancing_components-schemas-identifier",
-          "description": "The account ID or zone ID, as selected by account_or_zone."
-        },
         "body": {
           "$ref": "#/$defs/load-balancing_load-balancer-editable"
         },
-        "load_balancer_id": {
-          "$ref": "#/$defs/load-balancing_load-balancer_components-schemas-identifier"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_or_zone": {
+              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "enum": [
+                "accounts",
+                "zones"
+              ],
+              "type": "string"
+            },
+            "account_or_zone_id": {
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
+            },
+            "load_balancer_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_or_zone",
+            "account_or_zone_id",
+            "load_balancer_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_or_zone",
-        "account_or_zone_id",
-        "load_balancer_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "load-balancing_adaptive_routing": load_balancing_adaptive_routing,
-        "load-balancing_components-schemas-description": load_balancing_components_schemas_description,
-        "load-balancing_components-schemas-enabled": load_balancing_components_schemas_enabled,
-        "load-balancing_components-schemas-identifier": load_balancing_components_schemas_identifier,
-        "load-balancing_components-schemas-name": load_balancing_components_schemas_name,
-        "load-balancing_country_pools": load_balancing_country_pools,
-        "load-balancing_default_pools": load_balancing_default_pools,
-        "load-balancing_fallback_pool": load_balancing_fallback_pool,
-        "load-balancing_fixed_response": load_balancing_fixed_response,
-        "load-balancing_load-balancer-editable": load_balancing_load_balancer_editable,
-        "load-balancing_load-balancer_components-schemas-identifier": load_balancing_load_balancer_components_schemas_identifier,
-        "load-balancing_location_strategy": load_balancing_location_strategy,
-        "load-balancing_networks": load_balancing_networks,
-        "load-balancing_pool_default_weight": load_balancing_pool_default_weight,
-        "load-balancing_pool_weights": load_balancing_pool_weights,
-        "load-balancing_pools": load_balancing_pools,
-        "load-balancing_pop_pools": load_balancing_pop_pools,
-        "load-balancing_proxied": load_balancing_proxied,
-        "load-balancing_random_steering": load_balancing_random_steering,
-        "load-balancing_region_pools": load_balancing_region_pools,
-        "load-balancing_rule_overrides": load_balancing_rule_overrides,
-        "load-balancing_rules": load_balancing_rules,
-        "load-balancing_session_affinity": load_balancing_session_affinity,
-        "load-balancing_session_affinity_attributes": load_balancing_session_affinity_attributes,
-        "load-balancing_session_affinity_ttl": load_balancing_session_affinity_ttl,
-        "load-balancing_steering_policy": load_balancing_steering_policy,
-        "load-balancing_ttl": load_balancing_ttl,
+        "load-balancing_adaptive_routing": load$$balancing_adaptive_routing$,
+        "load-balancing_country_pools": load$$balancing_country_pools$,
+        "load-balancing_default_pools": load$$balancing_default_pools$,
+        "load-balancing_fixed_response": load$$balancing_fixed_response$,
+        "load-balancing_load-balancer-editable": load$$balancing_load$$balancer$$editable,
+        "load-balancing_location_strategy": load$$balancing_location_strategy$,
+        "load-balancing_networks": load$$balancing_networks$,
+        "load-balancing_pool_weights": load$$balancing_pool_weights$,
+        "load-balancing_pools": load$$balancing_pools$,
+        "load-balancing_pop_pools": load$$balancing_pop_pools$,
+        "load-balancing_random_steering": load$$balancing_random_steering$,
+        "load-balancing_region_pools": load$$balancing_region_pools$,
+        "load-balancing_rule_overrides": load$$balancing_rule_overrides$,
+        "load-balancing_rules": load$$balancing_rules$,
+        "load-balancing_session_affinity_attributes": load$$balancing_session_affinity_attributes$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/load-balancing_load-balancer_components-schemas-single_response",
       $defs: {
-        "load-balancing_adaptive_routing": load_balancing_adaptive_routing_output,
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_api-response-single": load_balancing_api_response_single_output,
-        "load-balancing_components-schemas-description": load_balancing_components_schemas_description_output,
-        "load-balancing_components-schemas-enabled": load_balancing_components_schemas_enabled_output,
-        "load-balancing_components-schemas-name": load_balancing_components_schemas_name_output,
-        "load-balancing_components-schemas-zone-name": load_balancing_components_schemas_zone_name_output,
-        "load-balancing_country_pools": load_balancing_country_pools_output,
-        "load-balancing_default_pools": load_balancing_default_pools_output,
-        "load-balancing_fallback_pool": load_balancing_fallback_pool_output,
-        "load-balancing_fixed_response": load_balancing_fixed_response_output,
-        "load-balancing_load-balancer": load_balancing_load_balancer_output,
-        "load-balancing_load-balancer_components-schemas-identifier": load_balancing_load_balancer_components_schemas_identifier_output,
-        "load-balancing_load-balancer_components-schemas-single_response": load_balancing_load_balancer_components_schemas_single_response_output,
-        "load-balancing_location_strategy": load_balancing_location_strategy_output,
-        "load-balancing_match": load_balancing_match_output,
-        "load-balancing_messages": load_balancing_messages_output,
-        "load-balancing_networks": load_balancing_networks_output,
-        "load-balancing_pool_default_weight": load_balancing_pool_default_weight_output,
-        "load-balancing_pool_set": load_balancing_pool_set_output,
-        "load-balancing_pool_set_overrides": load_balancing_pool_set_overrides_output,
-        "load-balancing_pool_sets": load_balancing_pool_sets_output,
-        "load-balancing_pool_weights": load_balancing_pool_weights_output,
-        "load-balancing_pools": load_balancing_pools_output,
-        "load-balancing_pop_pools": load_balancing_pop_pools_output,
-        "load-balancing_proxied": load_balancing_proxied_output,
-        "load-balancing_random_steering": load_balancing_random_steering_output,
-        "load-balancing_region_pools": load_balancing_region_pools_output,
-        "load-balancing_rule_overrides": load_balancing_rule_overrides_output,
-        "load-balancing_rules": load_balancing_rules_output,
-        "load-balancing_session_affinity": load_balancing_session_affinity_output,
-        "load-balancing_session_affinity_attributes": load_balancing_session_affinity_attributes_output,
-        "load-balancing_session_affinity_ttl": load_balancing_session_affinity_ttl_output,
-        "load-balancing_steering_policy": load_balancing_steering_policy_output,
-        "load-balancing_timestamp": load_balancing_timestamp_output,
-        "load-balancing_topology_match": load_balancing_topology_match_output,
-        "load-balancing_ttl": load_balancing_ttl_output,
+        "load-balancing_adaptive_routing": load$$balancing_adaptive_routing,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_api-response-single": load$$balancing_api$$response$$single,
+        "load-balancing_country_pools": load$$balancing_country_pools,
+        "load-balancing_default_pools": load$$balancing_default_pools,
+        "load-balancing_fixed_response": load$$balancing_fixed_response,
+        "load-balancing_load-balancer": load$$balancing_load$$balancer,
+        "load-balancing_load-balancer_components-schemas-single_response": load$$balancing_load$$balancer_components$$schemas$$single_response,
+        "load-balancing_location_strategy": load$$balancing_location_strategy,
+        "load-balancing_match": load$$balancing_match,
+        "load-balancing_messages": load$$balancing_messages,
+        "load-balancing_networks": load$$balancing_networks,
+        "load-balancing_pool_set": load$$balancing_pool_set,
+        "load-balancing_pool_set_overrides": load$$balancing_pool_set_overrides,
+        "load-balancing_pool_sets": load$$balancing_pool_sets,
+        "load-balancing_pool_weights": load$$balancing_pool_weights,
+        "load-balancing_pools": load$$balancing_pools,
+        "load-balancing_pop_pools": load$$balancing_pop_pools,
+        "load-balancing_random_steering": load$$balancing_random_steering,
+        "load-balancing_region_pools": load$$balancing_region_pools,
+        "load-balancing_rule_overrides": load$$balancing_rule_overrides,
+        "load-balancing_rules": load$$balancing_rules,
+        "load-balancing_session_affinity_attributes": load$$balancing_session_affinity_attributes,
+        "load-balancing_topology_match": load$$balancing_topology_match,
       },
     },
     annotations: {
@@ -543,44 +496,31 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "load-balancing_adaptive_routing": load_balancing_adaptive_routing_output,
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
-        "load-balancing_api-response-single": load_balancing_api_response_single_output,
-        "load-balancing_components-schemas-description": load_balancing_components_schemas_description_output,
-        "load-balancing_components-schemas-enabled": load_balancing_components_schemas_enabled_output,
-        "load-balancing_components-schemas-name": load_balancing_components_schemas_name_output,
-        "load-balancing_components-schemas-zone-name": load_balancing_components_schemas_zone_name_output,
-        "load-balancing_country_pools": load_balancing_country_pools_output,
-        "load-balancing_default_pools": load_balancing_default_pools_output,
-        "load-balancing_fallback_pool": load_balancing_fallback_pool_output,
-        "load-balancing_fixed_response": load_balancing_fixed_response_output,
-        "load-balancing_load-balancer": load_balancing_load_balancer_output,
-        "load-balancing_load-balancer_components-schemas-identifier": load_balancing_load_balancer_components_schemas_identifier_output,
-        "load-balancing_load-balancer_components-schemas-single_response": load_balancing_load_balancer_components_schemas_single_response_output,
-        "load-balancing_location_strategy": load_balancing_location_strategy_output,
-        "load-balancing_match": load_balancing_match_output,
-        "load-balancing_messages": load_balancing_messages_output,
-        "load-balancing_networks": load_balancing_networks_output,
-        "load-balancing_pool_default_weight": load_balancing_pool_default_weight_output,
-        "load-balancing_pool_set": load_balancing_pool_set_output,
-        "load-balancing_pool_set_overrides": load_balancing_pool_set_overrides_output,
-        "load-balancing_pool_sets": load_balancing_pool_sets_output,
-        "load-balancing_pool_weights": load_balancing_pool_weights_output,
-        "load-balancing_pools": load_balancing_pools_output,
-        "load-balancing_pop_pools": load_balancing_pop_pools_output,
-        "load-balancing_proxied": load_balancing_proxied_output,
-        "load-balancing_random_steering": load_balancing_random_steering_output,
-        "load-balancing_region_pools": load_balancing_region_pools_output,
-        "load-balancing_rule_overrides": load_balancing_rule_overrides_output,
-        "load-balancing_rules": load_balancing_rules_output,
-        "load-balancing_session_affinity": load_balancing_session_affinity_output,
-        "load-balancing_session_affinity_attributes": load_balancing_session_affinity_attributes_output,
-        "load-balancing_session_affinity_ttl": load_balancing_session_affinity_ttl_output,
-        "load-balancing_steering_policy": load_balancing_steering_policy_output,
-        "load-balancing_timestamp": load_balancing_timestamp_output,
-        "load-balancing_topology_match": load_balancing_topology_match_output,
-        "load-balancing_ttl": load_balancing_ttl_output,
+        "load-balancing_adaptive_routing": load$$balancing_adaptive_routing,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_api-response-common-failure": load$$balancing_api$$response$$common$$failure,
+        "load-balancing_api-response-single": load$$balancing_api$$response$$single,
+        "load-balancing_country_pools": load$$balancing_country_pools,
+        "load-balancing_default_pools": load$$balancing_default_pools,
+        "load-balancing_fixed_response": load$$balancing_fixed_response,
+        "load-balancing_load-balancer": load$$balancing_load$$balancer,
+        "load-balancing_load-balancer_components-schemas-single_response": load$$balancing_load$$balancer_components$$schemas$$single_response,
+        "load-balancing_location_strategy": load$$balancing_location_strategy,
+        "load-balancing_match": load$$balancing_match,
+        "load-balancing_messages": load$$balancing_messages,
+        "load-balancing_networks": load$$balancing_networks,
+        "load-balancing_pool_set": load$$balancing_pool_set,
+        "load-balancing_pool_set_overrides": load$$balancing_pool_set_overrides,
+        "load-balancing_pool_sets": load$$balancing_pool_sets,
+        "load-balancing_pool_weights": load$$balancing_pool_weights,
+        "load-balancing_pools": load$$balancing_pools,
+        "load-balancing_pop_pools": load$$balancing_pop_pools,
+        "load-balancing_random_steering": load$$balancing_random_steering,
+        "load-balancing_region_pools": load$$balancing_region_pools,
+        "load-balancing_rule_overrides": load$$balancing_rule_overrides,
+        "load-balancing_rules": load$$balancing_rules,
+        "load-balancing_session_affinity_attributes": load$$balancing_session_affinity_attributes,
+        "load-balancing_topology_match": load$$balancing_topology_match,
       },
     },
     request: (args) => ({
@@ -589,78 +529,71 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "load_balancers_account_get",
+    name: "loadBalancers_account_get",
     title: "account or zone Load Balancer Details",
-    description: "Fetch a single configured account or zone-scoped load balancer.",
+    description: "Fetch a single configured account or zone-scoped load balancer.\n\nGET /{account_or_zone}/{account_or_zone_id}/load_balancers/{load_balancer_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_or_zone": {
-          "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
-          "enum": [
-            "accounts",
-            "zones"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_or_zone": {
+              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "enum": [
+                "accounts",
+                "zones"
+              ],
+              "type": "string"
+            },
+            "account_or_zone_id": {
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
+            },
+            "load_balancer_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_or_zone",
+            "account_or_zone_id",
+            "load_balancer_id"
           ],
-          "type": "string"
-        },
-        "account_or_zone_id": {
-          "$ref": "#/$defs/load-balancing_components-schemas-identifier",
-          "description": "The account ID or zone ID, as selected by account_or_zone."
-        },
-        "load_balancer_id": {
-          "$ref": "#/$defs/load-balancing_load-balancer_components-schemas-identifier"
+          "type": "object"
         }
       },
       required: [
-        "account_or_zone",
-        "account_or_zone_id",
-        "load_balancer_id"
+        "path"
       ],
-      $defs: {
-        "load-balancing_components-schemas-identifier": load_balancing_components_schemas_identifier,
-        "load-balancing_load-balancer_components-schemas-identifier": load_balancing_load_balancer_components_schemas_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/load-balancing_load-balancer_components-schemas-single_response",
       $defs: {
-        "load-balancing_adaptive_routing": load_balancing_adaptive_routing_output,
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_api-response-single": load_balancing_api_response_single_output,
-        "load-balancing_components-schemas-description": load_balancing_components_schemas_description_output,
-        "load-balancing_components-schemas-enabled": load_balancing_components_schemas_enabled_output,
-        "load-balancing_components-schemas-name": load_balancing_components_schemas_name_output,
-        "load-balancing_components-schemas-zone-name": load_balancing_components_schemas_zone_name_output,
-        "load-balancing_country_pools": load_balancing_country_pools_output,
-        "load-balancing_default_pools": load_balancing_default_pools_output,
-        "load-balancing_fallback_pool": load_balancing_fallback_pool_output,
-        "load-balancing_fixed_response": load_balancing_fixed_response_output,
-        "load-balancing_load-balancer": load_balancing_load_balancer_output,
-        "load-balancing_load-balancer_components-schemas-identifier": load_balancing_load_balancer_components_schemas_identifier_output,
-        "load-balancing_load-balancer_components-schemas-single_response": load_balancing_load_balancer_components_schemas_single_response_output,
-        "load-balancing_location_strategy": load_balancing_location_strategy_output,
-        "load-balancing_match": load_balancing_match_output,
-        "load-balancing_messages": load_balancing_messages_output,
-        "load-balancing_networks": load_balancing_networks_output,
-        "load-balancing_pool_default_weight": load_balancing_pool_default_weight_output,
-        "load-balancing_pool_set": load_balancing_pool_set_output,
-        "load-balancing_pool_set_overrides": load_balancing_pool_set_overrides_output,
-        "load-balancing_pool_sets": load_balancing_pool_sets_output,
-        "load-balancing_pool_weights": load_balancing_pool_weights_output,
-        "load-balancing_pools": load_balancing_pools_output,
-        "load-balancing_pop_pools": load_balancing_pop_pools_output,
-        "load-balancing_proxied": load_balancing_proxied_output,
-        "load-balancing_random_steering": load_balancing_random_steering_output,
-        "load-balancing_region_pools": load_balancing_region_pools_output,
-        "load-balancing_rule_overrides": load_balancing_rule_overrides_output,
-        "load-balancing_rules": load_balancing_rules_output,
-        "load-balancing_session_affinity": load_balancing_session_affinity_output,
-        "load-balancing_session_affinity_attributes": load_balancing_session_affinity_attributes_output,
-        "load-balancing_session_affinity_ttl": load_balancing_session_affinity_ttl_output,
-        "load-balancing_steering_policy": load_balancing_steering_policy_output,
-        "load-balancing_timestamp": load_balancing_timestamp_output,
-        "load-balancing_topology_match": load_balancing_topology_match_output,
-        "load-balancing_ttl": load_balancing_ttl_output,
+        "load-balancing_adaptive_routing": load$$balancing_adaptive_routing,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_api-response-single": load$$balancing_api$$response$$single,
+        "load-balancing_country_pools": load$$balancing_country_pools,
+        "load-balancing_default_pools": load$$balancing_default_pools,
+        "load-balancing_fixed_response": load$$balancing_fixed_response,
+        "load-balancing_load-balancer": load$$balancing_load$$balancer,
+        "load-balancing_load-balancer_components-schemas-single_response": load$$balancing_load$$balancer_components$$schemas$$single_response,
+        "load-balancing_location_strategy": load$$balancing_location_strategy,
+        "load-balancing_match": load$$balancing_match,
+        "load-balancing_messages": load$$balancing_messages,
+        "load-balancing_networks": load$$balancing_networks,
+        "load-balancing_pool_set": load$$balancing_pool_set,
+        "load-balancing_pool_set_overrides": load$$balancing_pool_set_overrides,
+        "load-balancing_pool_sets": load$$balancing_pool_sets,
+        "load-balancing_pool_weights": load$$balancing_pool_weights,
+        "load-balancing_pools": load$$balancing_pools,
+        "load-balancing_pop_pools": load$$balancing_pop_pools,
+        "load-balancing_random_steering": load$$balancing_random_steering,
+        "load-balancing_region_pools": load$$balancing_region_pools,
+        "load-balancing_rule_overrides": load$$balancing_rule_overrides,
+        "load-balancing_rules": load$$balancing_rules,
+        "load-balancing_session_affinity_attributes": load$$balancing_session_affinity_attributes,
+        "load-balancing_topology_match": load$$balancing_topology_match,
       },
     },
     annotations: {
@@ -688,44 +621,31 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "load-balancing_adaptive_routing": load_balancing_adaptive_routing_output,
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
-        "load-balancing_api-response-single": load_balancing_api_response_single_output,
-        "load-balancing_components-schemas-description": load_balancing_components_schemas_description_output,
-        "load-balancing_components-schemas-enabled": load_balancing_components_schemas_enabled_output,
-        "load-balancing_components-schemas-name": load_balancing_components_schemas_name_output,
-        "load-balancing_components-schemas-zone-name": load_balancing_components_schemas_zone_name_output,
-        "load-balancing_country_pools": load_balancing_country_pools_output,
-        "load-balancing_default_pools": load_balancing_default_pools_output,
-        "load-balancing_fallback_pool": load_balancing_fallback_pool_output,
-        "load-balancing_fixed_response": load_balancing_fixed_response_output,
-        "load-balancing_load-balancer": load_balancing_load_balancer_output,
-        "load-balancing_load-balancer_components-schemas-identifier": load_balancing_load_balancer_components_schemas_identifier_output,
-        "load-balancing_load-balancer_components-schemas-single_response": load_balancing_load_balancer_components_schemas_single_response_output,
-        "load-balancing_location_strategy": load_balancing_location_strategy_output,
-        "load-balancing_match": load_balancing_match_output,
-        "load-balancing_messages": load_balancing_messages_output,
-        "load-balancing_networks": load_balancing_networks_output,
-        "load-balancing_pool_default_weight": load_balancing_pool_default_weight_output,
-        "load-balancing_pool_set": load_balancing_pool_set_output,
-        "load-balancing_pool_set_overrides": load_balancing_pool_set_overrides_output,
-        "load-balancing_pool_sets": load_balancing_pool_sets_output,
-        "load-balancing_pool_weights": load_balancing_pool_weights_output,
-        "load-balancing_pools": load_balancing_pools_output,
-        "load-balancing_pop_pools": load_balancing_pop_pools_output,
-        "load-balancing_proxied": load_balancing_proxied_output,
-        "load-balancing_random_steering": load_balancing_random_steering_output,
-        "load-balancing_region_pools": load_balancing_region_pools_output,
-        "load-balancing_rule_overrides": load_balancing_rule_overrides_output,
-        "load-balancing_rules": load_balancing_rules_output,
-        "load-balancing_session_affinity": load_balancing_session_affinity_output,
-        "load-balancing_session_affinity_attributes": load_balancing_session_affinity_attributes_output,
-        "load-balancing_session_affinity_ttl": load_balancing_session_affinity_ttl_output,
-        "load-balancing_steering_policy": load_balancing_steering_policy_output,
-        "load-balancing_timestamp": load_balancing_timestamp_output,
-        "load-balancing_topology_match": load_balancing_topology_match_output,
-        "load-balancing_ttl": load_balancing_ttl_output,
+        "load-balancing_adaptive_routing": load$$balancing_adaptive_routing,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_api-response-common-failure": load$$balancing_api$$response$$common$$failure,
+        "load-balancing_api-response-single": load$$balancing_api$$response$$single,
+        "load-balancing_country_pools": load$$balancing_country_pools,
+        "load-balancing_default_pools": load$$balancing_default_pools,
+        "load-balancing_fixed_response": load$$balancing_fixed_response,
+        "load-balancing_load-balancer": load$$balancing_load$$balancer,
+        "load-balancing_load-balancer_components-schemas-single_response": load$$balancing_load$$balancer_components$$schemas$$single_response,
+        "load-balancing_location_strategy": load$$balancing_location_strategy,
+        "load-balancing_match": load$$balancing_match,
+        "load-balancing_messages": load$$balancing_messages,
+        "load-balancing_networks": load$$balancing_networks,
+        "load-balancing_pool_set": load$$balancing_pool_set,
+        "load-balancing_pool_set_overrides": load$$balancing_pool_set_overrides,
+        "load-balancing_pool_sets": load$$balancing_pool_sets,
+        "load-balancing_pool_weights": load$$balancing_pool_weights,
+        "load-balancing_pools": load$$balancing_pools,
+        "load-balancing_pop_pools": load$$balancing_pop_pools,
+        "load-balancing_random_steering": load$$balancing_random_steering,
+        "load-balancing_region_pools": load$$balancing_region_pools,
+        "load-balancing_rule_overrides": load$$balancing_rule_overrides,
+        "load-balancing_rules": load$$balancing_rules,
+        "load-balancing_session_affinity_attributes": load$$balancing_session_affinity_attributes,
+        "load-balancing_topology_match": load$$balancing_topology_match,
       },
     },
     request: (args) => ({
@@ -733,74 +653,68 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "load_balancers_account_list",
+    name: "loadBalancers_account_list",
     title: "List account or zone Load Balancers",
-    description: "List configured account or zone-scoped load balancers.",
+    description: "List configured account or zone-scoped load balancers.\n\nGET /{account_or_zone}/{account_or_zone_id}/load_balancers",
     inputSchema: {
       type: "object",
       properties: {
-        "account_or_zone": {
-          "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
-          "enum": [
-            "accounts",
-            "zones"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_or_zone": {
+              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "enum": [
+                "accounts",
+                "zones"
+              ],
+              "type": "string"
+            },
+            "account_or_zone_id": {
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_or_zone",
+            "account_or_zone_id"
           ],
-          "type": "string"
-        },
-        "account_or_zone_id": {
-          "$ref": "#/$defs/load-balancing_components-schemas-identifier",
-          "description": "The account ID or zone ID, as selected by account_or_zone."
+          "type": "object"
         }
       },
       required: [
-        "account_or_zone",
-        "account_or_zone_id"
+        "path"
       ],
-      $defs: {
-        "load-balancing_components-schemas-identifier": load_balancing_components_schemas_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/load-balancing_load-balancer_components-schemas-response_collection",
       $defs: {
-        "load-balancing_adaptive_routing": load_balancing_adaptive_routing_output,
-        "load-balancing_api-paginated-response-collection": load_balancing_api_paginated_response_collection_output,
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_components-schemas-description": load_balancing_components_schemas_description_output,
-        "load-balancing_components-schemas-enabled": load_balancing_components_schemas_enabled_output,
-        "load-balancing_components-schemas-name": load_balancing_components_schemas_name_output,
-        "load-balancing_components-schemas-zone-name": load_balancing_components_schemas_zone_name_output,
-        "load-balancing_country_pools": load_balancing_country_pools_output,
-        "load-balancing_default_pools": load_balancing_default_pools_output,
-        "load-balancing_fallback_pool": load_balancing_fallback_pool_output,
-        "load-balancing_fixed_response": load_balancing_fixed_response_output,
-        "load-balancing_load-balancer": load_balancing_load_balancer_output,
-        "load-balancing_load-balancer_components-schemas-identifier": load_balancing_load_balancer_components_schemas_identifier_output,
-        "load-balancing_load-balancer_components-schemas-response_collection": load_balancing_load_balancer_components_schemas_response_collection_output,
-        "load-balancing_location_strategy": load_balancing_location_strategy_output,
-        "load-balancing_match": load_balancing_match_output,
-        "load-balancing_messages": load_balancing_messages_output,
-        "load-balancing_networks": load_balancing_networks_output,
-        "load-balancing_pool_default_weight": load_balancing_pool_default_weight_output,
-        "load-balancing_pool_set": load_balancing_pool_set_output,
-        "load-balancing_pool_set_overrides": load_balancing_pool_set_overrides_output,
-        "load-balancing_pool_sets": load_balancing_pool_sets_output,
-        "load-balancing_pool_weights": load_balancing_pool_weights_output,
-        "load-balancing_pools": load_balancing_pools_output,
-        "load-balancing_pop_pools": load_balancing_pop_pools_output,
-        "load-balancing_proxied": load_balancing_proxied_output,
-        "load-balancing_random_steering": load_balancing_random_steering_output,
-        "load-balancing_region_pools": load_balancing_region_pools_output,
-        "load-balancing_result_info": load_balancing_result_info_output,
-        "load-balancing_rule_overrides": load_balancing_rule_overrides_output,
-        "load-balancing_rules": load_balancing_rules_output,
-        "load-balancing_session_affinity": load_balancing_session_affinity_output,
-        "load-balancing_session_affinity_attributes": load_balancing_session_affinity_attributes_output,
-        "load-balancing_session_affinity_ttl": load_balancing_session_affinity_ttl_output,
-        "load-balancing_steering_policy": load_balancing_steering_policy_output,
-        "load-balancing_timestamp": load_balancing_timestamp_output,
-        "load-balancing_topology_match": load_balancing_topology_match_output,
-        "load-balancing_ttl": load_balancing_ttl_output,
+        "load-balancing_adaptive_routing": load$$balancing_adaptive_routing,
+        "load-balancing_api-paginated-response-collection": load$$balancing_api$$paginated$$response$$collection,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_country_pools": load$$balancing_country_pools,
+        "load-balancing_default_pools": load$$balancing_default_pools,
+        "load-balancing_fixed_response": load$$balancing_fixed_response,
+        "load-balancing_load-balancer": load$$balancing_load$$balancer,
+        "load-balancing_load-balancer_components-schemas-response_collection": load$$balancing_load$$balancer_components$$schemas$$response_collection,
+        "load-balancing_location_strategy": load$$balancing_location_strategy,
+        "load-balancing_match": load$$balancing_match,
+        "load-balancing_messages": load$$balancing_messages,
+        "load-balancing_networks": load$$balancing_networks,
+        "load-balancing_pool_set": load$$balancing_pool_set,
+        "load-balancing_pool_set_overrides": load$$balancing_pool_set_overrides,
+        "load-balancing_pool_sets": load$$balancing_pool_sets,
+        "load-balancing_pool_weights": load$$balancing_pool_weights,
+        "load-balancing_pools": load$$balancing_pools,
+        "load-balancing_pop_pools": load$$balancing_pop_pools,
+        "load-balancing_random_steering": load$$balancing_random_steering,
+        "load-balancing_region_pools": load$$balancing_region_pools,
+        "load-balancing_result_info": load$$balancing_result_info,
+        "load-balancing_rule_overrides": load$$balancing_rule_overrides,
+        "load-balancing_rules": load$$balancing_rules,
+        "load-balancing_session_affinity_attributes": load$$balancing_session_affinity_attributes,
+        "load-balancing_topology_match": load$$balancing_topology_match,
       },
     },
     annotations: {
@@ -828,45 +742,32 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "load-balancing_adaptive_routing": load_balancing_adaptive_routing_output,
-        "load-balancing_api-paginated-response-collection": load_balancing_api_paginated_response_collection_output,
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
-        "load-balancing_components-schemas-description": load_balancing_components_schemas_description_output,
-        "load-balancing_components-schemas-enabled": load_balancing_components_schemas_enabled_output,
-        "load-balancing_components-schemas-name": load_balancing_components_schemas_name_output,
-        "load-balancing_components-schemas-zone-name": load_balancing_components_schemas_zone_name_output,
-        "load-balancing_country_pools": load_balancing_country_pools_output,
-        "load-balancing_default_pools": load_balancing_default_pools_output,
-        "load-balancing_fallback_pool": load_balancing_fallback_pool_output,
-        "load-balancing_fixed_response": load_balancing_fixed_response_output,
-        "load-balancing_load-balancer": load_balancing_load_balancer_output,
-        "load-balancing_load-balancer_components-schemas-identifier": load_balancing_load_balancer_components_schemas_identifier_output,
-        "load-balancing_load-balancer_components-schemas-response_collection": load_balancing_load_balancer_components_schemas_response_collection_output,
-        "load-balancing_location_strategy": load_balancing_location_strategy_output,
-        "load-balancing_match": load_balancing_match_output,
-        "load-balancing_messages": load_balancing_messages_output,
-        "load-balancing_networks": load_balancing_networks_output,
-        "load-balancing_pool_default_weight": load_balancing_pool_default_weight_output,
-        "load-balancing_pool_set": load_balancing_pool_set_output,
-        "load-balancing_pool_set_overrides": load_balancing_pool_set_overrides_output,
-        "load-balancing_pool_sets": load_balancing_pool_sets_output,
-        "load-balancing_pool_weights": load_balancing_pool_weights_output,
-        "load-balancing_pools": load_balancing_pools_output,
-        "load-balancing_pop_pools": load_balancing_pop_pools_output,
-        "load-balancing_proxied": load_balancing_proxied_output,
-        "load-balancing_random_steering": load_balancing_random_steering_output,
-        "load-balancing_region_pools": load_balancing_region_pools_output,
-        "load-balancing_result_info": load_balancing_result_info_output,
-        "load-balancing_rule_overrides": load_balancing_rule_overrides_output,
-        "load-balancing_rules": load_balancing_rules_output,
-        "load-balancing_session_affinity": load_balancing_session_affinity_output,
-        "load-balancing_session_affinity_attributes": load_balancing_session_affinity_attributes_output,
-        "load-balancing_session_affinity_ttl": load_balancing_session_affinity_ttl_output,
-        "load-balancing_steering_policy": load_balancing_steering_policy_output,
-        "load-balancing_timestamp": load_balancing_timestamp_output,
-        "load-balancing_topology_match": load_balancing_topology_match_output,
-        "load-balancing_ttl": load_balancing_ttl_output,
+        "load-balancing_adaptive_routing": load$$balancing_adaptive_routing,
+        "load-balancing_api-paginated-response-collection": load$$balancing_api$$paginated$$response$$collection,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_api-response-common-failure": load$$balancing_api$$response$$common$$failure,
+        "load-balancing_country_pools": load$$balancing_country_pools,
+        "load-balancing_default_pools": load$$balancing_default_pools,
+        "load-balancing_fixed_response": load$$balancing_fixed_response,
+        "load-balancing_load-balancer": load$$balancing_load$$balancer,
+        "load-balancing_load-balancer_components-schemas-response_collection": load$$balancing_load$$balancer_components$$schemas$$response_collection,
+        "load-balancing_location_strategy": load$$balancing_location_strategy,
+        "load-balancing_match": load$$balancing_match,
+        "load-balancing_messages": load$$balancing_messages,
+        "load-balancing_networks": load$$balancing_networks,
+        "load-balancing_pool_set": load$$balancing_pool_set,
+        "load-balancing_pool_set_overrides": load$$balancing_pool_set_overrides,
+        "load-balancing_pool_sets": load$$balancing_pool_sets,
+        "load-balancing_pool_weights": load$$balancing_pool_weights,
+        "load-balancing_pools": load$$balancing_pools,
+        "load-balancing_pop_pools": load$$balancing_pop_pools,
+        "load-balancing_random_steering": load$$balancing_random_steering,
+        "load-balancing_region_pools": load$$balancing_region_pools,
+        "load-balancing_result_info": load$$balancing_result_info,
+        "load-balancing_rule_overrides": load$$balancing_rule_overrides,
+        "load-balancing_rules": load$$balancing_rules,
+        "load-balancing_session_affinity_attributes": load$$balancing_session_affinity_attributes,
+        "load-balancing_topology_match": load$$balancing_topology_match,
       },
     },
     request: (args) => ({
@@ -874,24 +775,12 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "load_balancers_account_update",
+    name: "loadBalancers_account_update",
     title: "Update account or zone Load Balancer",
-    description: "Update a configured account or zone-scoped load balancer.",
+    description: "Update a configured account or zone-scoped load balancer.\n\nPUT /{account_or_zone}/{account_or_zone_id}/load_balancers/{load_balancer_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_or_zone": {
-          "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
-          "enum": [
-            "accounts",
-            "zones"
-          ],
-          "type": "string"
-        },
-        "account_or_zone_id": {
-          "$ref": "#/$defs/load-balancing_components-schemas-identifier",
-          "description": "The account ID or zone ID, as selected by account_or_zone."
-        },
         "body": {
           "properties": {
             "adaptive_routing": {
@@ -907,25 +796,25 @@ export const tools: readonly Tool[] = [
               "description": "A list of pool IDs ordered by their failover priority. Pools defined here are used by default, or when region_pools are not configured for a given region."
             },
             "description": {
-              "$ref": "#/$defs/load-balancing_components-schemas-description",
-              "description": "Object description."
+              "description": "Object description.",
+              "type": "string"
             },
             "enabled": {
-              "$ref": "#/$defs/load-balancing_components-schemas-enabled",
               "default": true,
-              "description": "Whether to enable (the default) this load balancer."
+              "description": "Whether to enable (the default) this load balancer.",
+              "type": "boolean"
             },
             "fallback_pool": {
-              "$ref": "#/$defs/load-balancing_fallback_pool",
-              "description": "The pool ID to use when all other pools are detected as unhealthy."
+              "description": "The pool ID to use when all other pools are detected as unhealthy.",
+              "type": "string"
             },
             "location_strategy": {
               "$ref": "#/$defs/load-balancing_location_strategy",
               "description": "Controls location-based steering for non-proxied requests. See `steering_policy` to learn how steering is affected."
             },
             "name": {
-              "$ref": "#/$defs/load-balancing_components-schemas-name",
-              "description": "The DNS hostname to associate with your Load Balancer. If this hostname already exists as a DNS record in Cloudflare's DNS, the Load Balancer will take precedence and the DNS record will not be used."
+              "description": "The DNS hostname to associate with your Load Balancer. If this hostname already exists as a DNS record in Cloudflare's DNS, the Load Balancer will take precedence and the DNS record will not be used.",
+              "type": "string"
             },
             "networks": {
               "$ref": "#/$defs/load-balancing_networks",
@@ -936,9 +825,9 @@ export const tools: readonly Tool[] = [
               "description": "Enterprise only: A mapping of Cloudflare PoP identifiers to a list of pool IDs (ordered by their failover priority) for the PoP (datacenter). Any PoPs not explicitly defined will fall back to using the corresponding country_pool, then region_pool mapping if it exists else to default_pools."
             },
             "proxied": {
-              "$ref": "#/$defs/load-balancing_proxied",
               "default": false,
-              "description": "Whether the hostname should be gray clouded (false) or orange clouded (true)."
+              "description": "Whether the hostname should be gray clouded (false) or orange clouded (true).",
+              "type": "boolean"
             },
             "random_steering": {
               "$ref": "#/$defs/load-balancing_random_steering",
@@ -953,26 +842,42 @@ export const tools: readonly Tool[] = [
               "description": "BETA Field Not General Access: A list of rules for this load balancer to execute."
             },
             "session_affinity": {
-              "$ref": "#/$defs/load-balancing_session_affinity",
               "default": "none",
-              "description": "Specifies the type of session affinity the load balancer should use unless specified as `\"none\"`. The supported types are: - `\"cookie\"`: On the first request to a proxied load balancer, a cookie is generated, encoding information of which origin the request will be forwarded to. Subsequent requests, by the same client to the same load balancer, will be sent to the origin server the cookie encodes, for the duration of the cookie and as long as the origin server remains healthy. If the cookie has expired or the origin server is unhealthy, then a new origin server is calculated and used. - `\"ip_cookie\"`: Behaves the same as `\"cookie\"` except the initial origin selection is stable and based on the client's ip address. - `\"header\"`: On the first request to a proxied load balancer, a session key based on the configured HTTP headers (see `session_affinity_attributes.headers`) is generated, encoding the request headers used for storing in the load balancer session state which origin the request will be forwarded to. Subsequent requests to the load balancer with the same headers will be sent to the same origin server, for the duration of the session and as long as the origin server remains healthy. If the session has been idle for the duration of `session_affinity_ttl` seconds or the origin server is unhealthy, then a new origin server is calculated and used. See `headers` in `session_affinity_attributes` for additional required configuration."
+              "description": "Specifies the type of session affinity the load balancer should use unless specified as `\"none\"`. The supported types are: - `\"cookie\"`: On the first request to a proxied load balancer, a cookie is generated, encoding information of which origin the request will be forwarded to. Subsequent requests, by the same client to the same load balancer, will be sent to the origin server the cookie encodes, for the duration of the cookie and as long as the origin server remains healthy. If the cookie has expired or the origin server is unhealthy, then a new origin server is calculated and used. - `\"ip_cookie\"`: Behaves the same as `\"cookie\"` except the initial origin selection is stable and based on the client's ip address. - `\"header\"`: On the first request to a proxied load balancer, a session key based on the configured HTTP headers (see `session_affinity_attributes.headers`) is generated, encoding the request headers used for storing in the load balancer session state which origin the request will be forwarded to. Subsequent requests to the load balancer with the same headers will be sent to the same origin server, for the duration of the session and as long as the origin server remains healthy. If the session has been idle for the duration of `session_affinity_ttl` seconds or the origin server is unhealthy, then a new origin server is calculated and used. See `headers` in `session_affinity_attributes` for additional required configuration.",
+              "enum": [
+                "none",
+                "cookie",
+                "ip_cookie",
+                "header"
+              ],
+              "type": "string"
             },
             "session_affinity_attributes": {
               "$ref": "#/$defs/load-balancing_session_affinity_attributes",
               "description": "Configures attributes for session affinity."
             },
             "session_affinity_ttl": {
-              "$ref": "#/$defs/load-balancing_session_affinity_ttl",
-              "description": "Time, in seconds, until a client's session expires after being created. Once the expiry time has been reached, subsequent requests may get sent to a different origin server. The accepted ranges per `session_affinity` policy are: - `\"cookie\"` / `\"ip_cookie\"`: The current default of 23 hours will be used unless explicitly set. The accepted range of values is between [1800, 604800]. - `\"header\"`: The current default of 1800 seconds will be used unless explicitly set. The accepted range of values is between [30, 3600]. Note: With session affinity by header, sessions only expire after they haven't been used for the number of seconds specified."
+              "description": "Time, in seconds, until a client's session expires after being created. Once the expiry time has been reached, subsequent requests may get sent to a different origin server. The accepted ranges per `session_affinity` policy are: - `\"cookie\"` / `\"ip_cookie\"`: The current default of 23 hours will be used unless explicitly set. The accepted range of values is between [1800, 604800]. - `\"header\"`: The current default of 1800 seconds will be used unless explicitly set. The accepted range of values is between [30, 3600]. Note: With session affinity by header, sessions only expire after they haven't been used for the number of seconds specified.",
+              "type": "number"
             },
             "steering_policy": {
-              "$ref": "#/$defs/load-balancing_steering_policy",
               "default": "",
-              "description": "Steering Policy for this load balancer.\n- `\"off\"`: Use `default_pools`.\n- `\"geo\"`: Use `region_pools`/`country_pools`/`pop_pools`. For non-proxied requests, the country for `country_pools` is determined by `location_strategy`.\n- `\"random\"`: Select a pool randomly.\n- `\"dynamic_latency\"`: Use round trip time to select the closest pool in default_pools (requires pool health checks).\n- `\"proximity\"`: Use the pools' latitude and longitude to select the closest pool using the Cloudflare PoP location for proxied requests or the location determined by `location_strategy` for non-proxied requests.\n- `\"least_outstanding_requests\"`: Select a pool by taking into consideration `random_steering` weights, as well as each pool's number of outstanding requests. Pools with more pending requests are weighted proportionately less relative to others.\n- `\"least_connections\"`: Select a pool by taking into consideration `random_steering` weights, as well as each pool's number of open connections. Pools with more open connections are weighted proportionately less relative to others. Supported for HTTP/1 and HTTP/2 connections.\n- `\"\"`: Will map to `\"geo\"` if you use `region_pools`/`country_pools`/`pop_pools` otherwise `\"off\"`."
+              "description": "Steering Policy for this load balancer.\n- `\"off\"`: Use `default_pools`.\n- `\"geo\"`: Use `region_pools`/`country_pools`/`pop_pools`. For non-proxied requests, the country for `country_pools` is determined by `location_strategy`.\n- `\"random\"`: Select a pool randomly.\n- `\"dynamic_latency\"`: Use round trip time to select the closest pool in default_pools (requires pool health checks).\n- `\"proximity\"`: Use the pools' latitude and longitude to select the closest pool using the Cloudflare PoP location for proxied requests or the location determined by `location_strategy` for non-proxied requests.\n- `\"least_outstanding_requests\"`: Select a pool by taking into consideration `random_steering` weights, as well as each pool's number of outstanding requests. Pools with more pending requests are weighted proportionately less relative to others.\n- `\"least_connections\"`: Select a pool by taking into consideration `random_steering` weights, as well as each pool's number of open connections. Pools with more open connections are weighted proportionately less relative to others. Supported for HTTP/1 and HTTP/2 connections.\n- `\"\"`: Will map to `\"geo\"` if you use `region_pools`/`country_pools`/`pop_pools` otherwise `\"off\"`.",
+              "enum": [
+                "off",
+                "geo",
+                "random",
+                "dynamic_latency",
+                "proximity",
+                "least_outstanding_requests",
+                "least_connections",
+                ""
+              ],
+              "type": "string"
             },
             "ttl": {
-              "$ref": "#/$defs/load-balancing_ttl",
-              "description": "Time to live (TTL) of the DNS entry for the IP address returned by this load balancer. This only applies to gray-clouded (unproxied) load balancers."
+              "description": "Time to live (TTL) of the DNS entry for the IP address returned by this load balancer. This only applies to gray-clouded (unproxied) load balancers.",
+              "type": "number"
             }
           },
           "required": [
@@ -982,85 +887,82 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "load_balancer_id": {
-          "$ref": "#/$defs/load-balancing_load-balancer_components-schemas-identifier"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_or_zone": {
+              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "enum": [
+                "accounts",
+                "zones"
+              ],
+              "type": "string"
+            },
+            "account_or_zone_id": {
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
+            },
+            "load_balancer_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_or_zone",
+            "account_or_zone_id",
+            "load_balancer_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_or_zone",
-        "account_or_zone_id",
-        "load_balancer_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "load-balancing_adaptive_routing": load_balancing_adaptive_routing,
-        "load-balancing_components-schemas-description": load_balancing_components_schemas_description,
-        "load-balancing_components-schemas-enabled": load_balancing_components_schemas_enabled,
-        "load-balancing_components-schemas-identifier": load_balancing_components_schemas_identifier,
-        "load-balancing_components-schemas-name": load_balancing_components_schemas_name,
-        "load-balancing_country_pools": load_balancing_country_pools,
-        "load-balancing_default_pools": load_balancing_default_pools,
-        "load-balancing_fallback_pool": load_balancing_fallback_pool,
-        "load-balancing_fixed_response": load_balancing_fixed_response,
-        "load-balancing_load-balancer_components-schemas-identifier": load_balancing_load_balancer_components_schemas_identifier,
-        "load-balancing_location_strategy": load_balancing_location_strategy,
-        "load-balancing_networks": load_balancing_networks,
-        "load-balancing_pool_default_weight": load_balancing_pool_default_weight,
-        "load-balancing_pool_weights": load_balancing_pool_weights,
-        "load-balancing_pools": load_balancing_pools,
-        "load-balancing_pop_pools": load_balancing_pop_pools,
-        "load-balancing_proxied": load_balancing_proxied,
-        "load-balancing_random_steering": load_balancing_random_steering,
-        "load-balancing_region_pools": load_balancing_region_pools,
-        "load-balancing_rule_overrides": load_balancing_rule_overrides,
-        "load-balancing_rules": load_balancing_rules,
-        "load-balancing_session_affinity": load_balancing_session_affinity,
-        "load-balancing_session_affinity_attributes": load_balancing_session_affinity_attributes,
-        "load-balancing_session_affinity_ttl": load_balancing_session_affinity_ttl,
-        "load-balancing_steering_policy": load_balancing_steering_policy,
-        "load-balancing_ttl": load_balancing_ttl,
+        "load-balancing_adaptive_routing": load$$balancing_adaptive_routing$,
+        "load-balancing_country_pools": load$$balancing_country_pools$,
+        "load-balancing_default_pools": load$$balancing_default_pools$,
+        "load-balancing_fixed_response": load$$balancing_fixed_response$,
+        "load-balancing_location_strategy": load$$balancing_location_strategy$,
+        "load-balancing_networks": load$$balancing_networks$,
+        "load-balancing_pool_weights": load$$balancing_pool_weights$,
+        "load-balancing_pools": load$$balancing_pools$,
+        "load-balancing_pop_pools": load$$balancing_pop_pools$,
+        "load-balancing_random_steering": load$$balancing_random_steering$,
+        "load-balancing_region_pools": load$$balancing_region_pools$,
+        "load-balancing_rule_overrides": load$$balancing_rule_overrides$,
+        "load-balancing_rules": load$$balancing_rules$,
+        "load-balancing_session_affinity_attributes": load$$balancing_session_affinity_attributes$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/load-balancing_load-balancer_components-schemas-single_response",
       $defs: {
-        "load-balancing_adaptive_routing": load_balancing_adaptive_routing_output,
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_api-response-single": load_balancing_api_response_single_output,
-        "load-balancing_components-schemas-description": load_balancing_components_schemas_description_output,
-        "load-balancing_components-schemas-enabled": load_balancing_components_schemas_enabled_output,
-        "load-balancing_components-schemas-name": load_balancing_components_schemas_name_output,
-        "load-balancing_components-schemas-zone-name": load_balancing_components_schemas_zone_name_output,
-        "load-balancing_country_pools": load_balancing_country_pools_output,
-        "load-balancing_default_pools": load_balancing_default_pools_output,
-        "load-balancing_fallback_pool": load_balancing_fallback_pool_output,
-        "load-balancing_fixed_response": load_balancing_fixed_response_output,
-        "load-balancing_load-balancer": load_balancing_load_balancer_output,
-        "load-balancing_load-balancer_components-schemas-identifier": load_balancing_load_balancer_components_schemas_identifier_output,
-        "load-balancing_load-balancer_components-schemas-single_response": load_balancing_load_balancer_components_schemas_single_response_output,
-        "load-balancing_location_strategy": load_balancing_location_strategy_output,
-        "load-balancing_match": load_balancing_match_output,
-        "load-balancing_messages": load_balancing_messages_output,
-        "load-balancing_networks": load_balancing_networks_output,
-        "load-balancing_pool_default_weight": load_balancing_pool_default_weight_output,
-        "load-balancing_pool_set": load_balancing_pool_set_output,
-        "load-balancing_pool_set_overrides": load_balancing_pool_set_overrides_output,
-        "load-balancing_pool_sets": load_balancing_pool_sets_output,
-        "load-balancing_pool_weights": load_balancing_pool_weights_output,
-        "load-balancing_pools": load_balancing_pools_output,
-        "load-balancing_pop_pools": load_balancing_pop_pools_output,
-        "load-balancing_proxied": load_balancing_proxied_output,
-        "load-balancing_random_steering": load_balancing_random_steering_output,
-        "load-balancing_region_pools": load_balancing_region_pools_output,
-        "load-balancing_rule_overrides": load_balancing_rule_overrides_output,
-        "load-balancing_rules": load_balancing_rules_output,
-        "load-balancing_session_affinity": load_balancing_session_affinity_output,
-        "load-balancing_session_affinity_attributes": load_balancing_session_affinity_attributes_output,
-        "load-balancing_session_affinity_ttl": load_balancing_session_affinity_ttl_output,
-        "load-balancing_steering_policy": load_balancing_steering_policy_output,
-        "load-balancing_timestamp": load_balancing_timestamp_output,
-        "load-balancing_topology_match": load_balancing_topology_match_output,
-        "load-balancing_ttl": load_balancing_ttl_output,
+        "load-balancing_adaptive_routing": load$$balancing_adaptive_routing,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_api-response-single": load$$balancing_api$$response$$single,
+        "load-balancing_country_pools": load$$balancing_country_pools,
+        "load-balancing_default_pools": load$$balancing_default_pools,
+        "load-balancing_fixed_response": load$$balancing_fixed_response,
+        "load-balancing_load-balancer": load$$balancing_load$$balancer,
+        "load-balancing_load-balancer_components-schemas-single_response": load$$balancing_load$$balancer_components$$schemas$$single_response,
+        "load-balancing_location_strategy": load$$balancing_location_strategy,
+        "load-balancing_match": load$$balancing_match,
+        "load-balancing_messages": load$$balancing_messages,
+        "load-balancing_networks": load$$balancing_networks,
+        "load-balancing_pool_set": load$$balancing_pool_set,
+        "load-balancing_pool_set_overrides": load$$balancing_pool_set_overrides,
+        "load-balancing_pool_sets": load$$balancing_pool_sets,
+        "load-balancing_pool_weights": load$$balancing_pool_weights,
+        "load-balancing_pools": load$$balancing_pools,
+        "load-balancing_pop_pools": load$$balancing_pop_pools,
+        "load-balancing_random_steering": load$$balancing_random_steering,
+        "load-balancing_region_pools": load$$balancing_region_pools,
+        "load-balancing_rule_overrides": load$$balancing_rule_overrides,
+        "load-balancing_rules": load$$balancing_rules,
+        "load-balancing_session_affinity_attributes": load$$balancing_session_affinity_attributes,
+        "load-balancing_topology_match": load$$balancing_topology_match,
       },
     },
     annotations: {
@@ -1087,44 +989,31 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "load-balancing_adaptive_routing": load_balancing_adaptive_routing_output,
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
-        "load-balancing_api-response-single": load_balancing_api_response_single_output,
-        "load-balancing_components-schemas-description": load_balancing_components_schemas_description_output,
-        "load-balancing_components-schemas-enabled": load_balancing_components_schemas_enabled_output,
-        "load-balancing_components-schemas-name": load_balancing_components_schemas_name_output,
-        "load-balancing_components-schemas-zone-name": load_balancing_components_schemas_zone_name_output,
-        "load-balancing_country_pools": load_balancing_country_pools_output,
-        "load-balancing_default_pools": load_balancing_default_pools_output,
-        "load-balancing_fallback_pool": load_balancing_fallback_pool_output,
-        "load-balancing_fixed_response": load_balancing_fixed_response_output,
-        "load-balancing_load-balancer": load_balancing_load_balancer_output,
-        "load-balancing_load-balancer_components-schemas-identifier": load_balancing_load_balancer_components_schemas_identifier_output,
-        "load-balancing_load-balancer_components-schemas-single_response": load_balancing_load_balancer_components_schemas_single_response_output,
-        "load-balancing_location_strategy": load_balancing_location_strategy_output,
-        "load-balancing_match": load_balancing_match_output,
-        "load-balancing_messages": load_balancing_messages_output,
-        "load-balancing_networks": load_balancing_networks_output,
-        "load-balancing_pool_default_weight": load_balancing_pool_default_weight_output,
-        "load-balancing_pool_set": load_balancing_pool_set_output,
-        "load-balancing_pool_set_overrides": load_balancing_pool_set_overrides_output,
-        "load-balancing_pool_sets": load_balancing_pool_sets_output,
-        "load-balancing_pool_weights": load_balancing_pool_weights_output,
-        "load-balancing_pools": load_balancing_pools_output,
-        "load-balancing_pop_pools": load_balancing_pop_pools_output,
-        "load-balancing_proxied": load_balancing_proxied_output,
-        "load-balancing_random_steering": load_balancing_random_steering_output,
-        "load-balancing_region_pools": load_balancing_region_pools_output,
-        "load-balancing_rule_overrides": load_balancing_rule_overrides_output,
-        "load-balancing_rules": load_balancing_rules_output,
-        "load-balancing_session_affinity": load_balancing_session_affinity_output,
-        "load-balancing_session_affinity_attributes": load_balancing_session_affinity_attributes_output,
-        "load-balancing_session_affinity_ttl": load_balancing_session_affinity_ttl_output,
-        "load-balancing_steering_policy": load_balancing_steering_policy_output,
-        "load-balancing_timestamp": load_balancing_timestamp_output,
-        "load-balancing_topology_match": load_balancing_topology_match_output,
-        "load-balancing_ttl": load_balancing_ttl_output,
+        "load-balancing_adaptive_routing": load$$balancing_adaptive_routing,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_api-response-common-failure": load$$balancing_api$$response$$common$$failure,
+        "load-balancing_api-response-single": load$$balancing_api$$response$$single,
+        "load-balancing_country_pools": load$$balancing_country_pools,
+        "load-balancing_default_pools": load$$balancing_default_pools,
+        "load-balancing_fixed_response": load$$balancing_fixed_response,
+        "load-balancing_load-balancer": load$$balancing_load$$balancer,
+        "load-balancing_load-balancer_components-schemas-single_response": load$$balancing_load$$balancer_components$$schemas$$single_response,
+        "load-balancing_location_strategy": load$$balancing_location_strategy,
+        "load-balancing_match": load$$balancing_match,
+        "load-balancing_messages": load$$balancing_messages,
+        "load-balancing_networks": load$$balancing_networks,
+        "load-balancing_pool_set": load$$balancing_pool_set,
+        "load-balancing_pool_set_overrides": load$$balancing_pool_set_overrides,
+        "load-balancing_pool_sets": load$$balancing_pool_sets,
+        "load-balancing_pool_weights": load$$balancing_pool_weights,
+        "load-balancing_pools": load$$balancing_pools,
+        "load-balancing_pop_pools": load$$balancing_pop_pools,
+        "load-balancing_random_steering": load$$balancing_random_steering,
+        "load-balancing_region_pools": load$$balancing_region_pools,
+        "load-balancing_rule_overrides": load$$balancing_rule_overrides,
+        "load-balancing_rules": load$$balancing_rules,
+        "load-balancing_session_affinity_attributes": load$$balancing_session_affinity_attributes,
+        "load-balancing_topology_match": load$$balancing_topology_match,
       },
     },
     request: (args) => ({

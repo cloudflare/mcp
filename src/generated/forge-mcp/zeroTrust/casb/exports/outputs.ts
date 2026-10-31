@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `posture-api_PaginatedExportJobList` in responses.
  */
-export const posture_api_PaginatedExportJobList_output: JsonSchema = {
+export const posture$$api_PaginatedExportJobList: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/posture-api_api-response-collection"

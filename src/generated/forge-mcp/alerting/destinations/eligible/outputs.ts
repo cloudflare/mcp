@@ -6,39 +6,30 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `aaa_eligibility` in responses.
  */
-export const aaa_eligibility_output: JsonSchema = {
+export const aaa_eligibility: JsonSchema = {
   "properties": {
     "eligible": {
-      "$ref": "#/$defs/aaa_eligible"
+      "type": "boolean"
     },
     "ready": {
-      "$ref": "#/$defs/aaa_ready"
+      "type": "boolean"
     },
     "type": {
-      "$ref": "#/$defs/aaa_schemas-type"
+      "enum": [
+        "email",
+        "pagerduty",
+        "webhook"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
 };
 
 /**
- * The schema of `aaa_eligible` in responses.
- */
-export const aaa_eligible_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `aaa_ready` in responses.
- */
-export const aaa_ready_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `aaa_schemas-response_collection` in responses.
  */
-export const aaa_schemas_response_collection_output: JsonSchema = {
+export const aaa_schemas$$response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/aaa_api-response-common-2"
@@ -58,16 +49,4 @@ export const aaa_schemas_response_collection_output: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `aaa_schemas-type` in responses.
- */
-export const aaa_schemas_type_output: JsonSchema = {
-  "enum": [
-    "email",
-    "pagerduty",
-    "webhook"
-  ],
-  "type": "string"
 };

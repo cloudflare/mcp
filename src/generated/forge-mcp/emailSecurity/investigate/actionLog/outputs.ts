@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `email-security_ActionEntry` in responses.
  */
-export const email_security_ActionEntry_output: JsonSchema = {
+export const email$$security_ActionEntry: JsonSchema = {
   "properties": {
     "completed_at": {
       "oneOf": [
@@ -79,7 +79,7 @@ export const email_security_ActionEntry_output: JsonSchema = {
 /**
  * The schema of `email-security_ActionEntryProperties` in responses.
  */
-export const email_security_ActionEntryProperties_output: JsonSchema = {
+export const email$$security_ActionEntryProperties: JsonSchema = {
   "properties": {
     "folder": {
       "oneOf": [

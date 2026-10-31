@@ -6,11 +6,11 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `registrar-api-sandbox_domain_check_request`.
  */
-export const registrar_api_sandbox_domain_check_request: JsonSchema = {
+export const registrar$$api$$sandbox_domain_check_request: JsonSchema = {
   "description": "Request body for checking domain availability.",
   "properties": {
     "domains": {
-      "description": "List of fully qualified domain names (FQDNs) to check for availability. Each domain must include the extension.\n- Minimum: 1 domain.\n- Maximum: 20 domains per request.\n- The response returns domains on unsupported extensions with `registrable: false` and a `reason` field.\n- The response may omit malformed domain names (e.g., names missing an extension).\n",
+      "description": "List of fully qualified domain names (FQDNs) to check for availability. Each domain must include the extension.\n- Minimum: 1 domain.\n- Maximum: 20 domains per request.\n- The response returns domains on unsupported extensions with `registrable: false` and a `reason` field.\n- The response may omit malformed domain names (e.g., names missing an extension).",
       "items": {
         "type": "string"
       },
@@ -26,25 +26,17 @@ export const registrar_api_sandbox_domain_check_request: JsonSchema = {
 };
 
 /**
- * The schema of `registrar-api-sandbox_domain_name`.
- */
-export const registrar_api_sandbox_domain_name: JsonSchema = {
-  "description": "Provides a fully qualified domain name (FQDN), including the extension\n(e.g., `example.com`, `mybrand.app`). The domain name uniquely identifies\na registration. Cloudflare permits only one registration per domain, making\nthe domain name a natural idempotency key for registration requests.\n",
-  "type": "string"
-};
-
-/**
  * The schema of `registrar-api-sandbox_registration_contact`.
  */
-export const registrar_api_sandbox_registration_contact: JsonSchema = {
-  "description": "Contact data for the domain registration. This information\nis submitted to the domain registry and, depending on extension and\nprivacy settings, may appear in public WHOIS records.\n",
+export const registrar$$api$$sandbox_registration_contact: JsonSchema = {
+  "description": "Contact data for the domain registration. This information\nis submitted to the domain registry and, depending on extension and\nprivacy settings, may appear in public WHOIS records.",
   "properties": {
     "email": {
-      "description": "Email address for the registrant. Used for domain-related\ncommunications from the registry, including ownership verification\nand renewal notices.\n",
+      "description": "Email address for the registrant. Used for domain-related\ncommunications from the registry, including ownership verification\nand renewal notices.",
       "type": "string"
     },
     "fax": {
-      "description": "Fax number in E.164 format (e.g., `+1.5555555555`). Optional.\nMost registrations do not require a fax number.\n",
+      "description": "Fax number in E.164 format (e.g., `+1.5555555555`). Optional.\nMost registrations do not require a fax number.",
       "type": "string"
     },
     "phone": {
@@ -53,7 +45,7 @@ export const registrar_api_sandbox_registration_contact: JsonSchema = {
     },
     "postal_info": {
       "$ref": "#/$defs/registrar-api-sandbox_registration_contact_postal_info",
-      "description": "Postal/mailing information for the contact. The `name` field is the\ncomplete contact name in one string. Some registries require a complete\npersonal name, including a family or last name where applicable, but this\nAPI does not accept separate first-name and last-name fields for\nregistration contacts.\n"
+      "description": "Postal/mailing information for the contact. The `name` field is the\ncomplete contact name in one string. Some registries require a complete\npersonal name, including a family or last name where applicable, but this\nAPI does not accept separate first-name and last-name fields for\nregistration contacts."
     }
   },
   "required": [
@@ -67,7 +59,7 @@ export const registrar_api_sandbox_registration_contact: JsonSchema = {
 /**
  * The schema of `registrar-api-sandbox_registration_contact_address`.
  */
-export const registrar_api_sandbox_registration_contact_address: JsonSchema = {
+export const registrar$$api$$sandbox_registration_contact_address: JsonSchema = {
   "description": "Physical mailing address for the registrant contact.",
   "properties": {
     "city": {
@@ -104,8 +96,8 @@ export const registrar_api_sandbox_registration_contact_address: JsonSchema = {
 /**
  * The schema of `registrar-api-sandbox_registration_contact_postal_info`.
  */
-export const registrar_api_sandbox_registration_contact_postal_info: JsonSchema = {
-  "description": "Postal/mailing information for the contact. The `name` field is the\ncomplete contact name in one string. Some registries require a complete\npersonal name, including a family or last name where applicable, but this\nAPI does not accept separate first-name and last-name fields for\nregistration contacts.\n",
+export const registrar$$api$$sandbox_registration_contact_postal_info: JsonSchema = {
+  "description": "Postal/mailing information for the contact. The `name` field is the\ncomplete contact name in one string. Some registries require a complete\npersonal name, including a family or last name where applicable, but this\nAPI does not accept separate first-name and last-name fields for\nregistration contacts.",
   "properties": {
     "address": {
       "$ref": "#/$defs/registrar-api-sandbox_registration_contact_address",
@@ -130,24 +122,24 @@ export const registrar_api_sandbox_registration_contact_postal_info: JsonSchema 
 /**
  * The schema of `registrar-api-sandbox_registration_contacts`.
  */
-export const registrar_api_sandbox_registration_contacts: JsonSchema = {
-  "description": "Provides contact data for the registration request.\n\nThe per-extension schema from\n`GET /accounts/{account_id}/registrar/extensions/{extension}` defines the\naccepted contact roles. Every currently supported extension requires only\n`contacts.registrant` from API callers. Callers may provide additional roles\nsuch as `technical`, `administrator`, and `billing` when the extension\nschema includes them. When a registry requires an omitted role, Cloudflare\nmay derive that contact from `contacts.registrant`.\n\nWhen the request omits either the entire `contacts` object or\n`contacts.registrant`, the system uses the account's default address book\nentry as the registrant contact. The account owner must configure this\ndefault at `https://dash.cloudflare.com/{account_id}/domains/registrations`,\nwhere they can create or update the address book entry and accept the\nrequired agreement. Dashboard settings currently provide the only way to\nmanage address book entries.\n\nWithout either a default address book entry or a registrant contact, the\nregistration request fails validation.\n",
+export const registrar$$api$$sandbox_registration_contacts: JsonSchema = {
+  "description": "Provides contact data for the registration request.\n\nThe per-extension schema from\n`GET /accounts/{account_id}/registrar/extensions/{extension}` defines the\naccepted contact roles. Every currently supported extension requires only\n`contacts.registrant` from API callers. Callers may provide additional roles\nsuch as `technical`, `administrator`, and `billing` when the extension\nschema includes them. When a registry requires an omitted role, Cloudflare\nmay derive that contact from `contacts.registrant`.\n\nWhen the request omits either the entire `contacts` object or\n`contacts.registrant`, the system uses the account's default address book\nentry as the registrant contact. The account owner must configure this\ndefault at `https://dash.cloudflare.com/{account_id}/domains/registrations`,\nwhere they can create or update the address book entry and accept the\nrequired agreement. Dashboard settings currently provide the only way to\nmanage address book entries.\n\nWithout either a default address book entry or a registrant contact, the\nregistration request fails validation.",
   "properties": {
     "administrator": {
       "$ref": "#/$defs/registrar-api-sandbox_registration_contact",
-      "description": "Optional administrator contact. Accepted only when the extension\nschema includes this role. When the registry requires an omitted\ncontact, Cloudflare may derive it from `contacts.registrant`.\n"
+      "description": "Optional administrator contact. Accepted only when the extension\nschema includes this role. When the registry requires an omitted\ncontact, Cloudflare may derive it from `contacts.registrant`."
     },
     "billing": {
       "$ref": "#/$defs/registrar-api-sandbox_registration_contact",
-      "description": "Optional billing contact. Accepted only when the extension schema\nincludes this role. When the registry requires an omitted contact,\nCloudflare may derive it from `contacts.registrant`.\n"
+      "description": "Optional billing contact. Accepted only when the extension schema\nincludes this role. When the registry requires an omitted contact,\nCloudflare may derive it from `contacts.registrant`."
     },
     "registrant": {
       "$ref": "#/$defs/registrar-api-sandbox_registration_contact",
-      "description": "Optional registrant contact. If omitted, the account's default\naddress book entry is used instead.\n"
+      "description": "Optional registrant contact. If omitted, the account's default\naddress book entry is used instead."
     },
     "technical": {
       "$ref": "#/$defs/registrar-api-sandbox_registration_contact",
-      "description": "Optional technical contact. Accepted only when the extension schema\nincludes this role. When the registry requires an omitted contact,\nCloudflare may derive it from `contacts.registrant`.\n"
+      "description": "Optional technical contact. Accepted only when the extension schema\nincludes this role. When the registry requires an omitted contact,\nCloudflare may derive it from `contacts.registrant`."
     }
   },
   "type": "object"
@@ -156,31 +148,31 @@ export const registrar_api_sandbox_registration_contacts: JsonSchema = {
 /**
  * The schema of `registrar-api-sandbox_registration_create_request`.
  */
-export const registrar_api_sandbox_registration_create_request: JsonSchema = {
+export const registrar$$api$$sandbox_registration_create_request: JsonSchema = {
   "properties": {
     "acknowledgements": {
-      "description": "Provides user acknowledgements for a specific extension or premium\nregistration flow. The extension registration schema from the\nextension discovery endpoint identifies the required keys.\n",
+      "description": "Provides user acknowledgements for a specific extension or premium\nregistration flow. The extension registration schema from the\nextension discovery endpoint identifies the required keys.",
       "type": "object"
     },
     "auto_renew": {
       "default": false,
-      "description": "Enable or disable automatic renewal. Defaults to `false` if omitted.\nSetting this field to `true` is an explicit opt-in authorizing\nCloudflare to charge the account's default payment method up to 30\ndays before domain expiry to renew the domain automatically.\nRenewal pricing may change over time based on registry pricing.\n",
+      "description": "Enable or disable automatic renewal. Defaults to `false` if omitted.\nSetting this field to `true` is an explicit opt-in authorizing\nCloudflare to charge the account's default payment method up to 30\ndays before domain expiry to renew the domain automatically.\nRenewal pricing may change over time based on registry pricing.",
       "type": "boolean"
     },
     "contact_extensions": {
-      "description": "Provides registry-specific contact extension values for the registrant.\n`GET /accounts/{account_id}/registrar/extensions/{extension}` identifies\nthe required keys and allowed values for each extension in the\n`registration_schema.properties.contact_extensions` object.\n\nExamples include `.us` nexus fields, `.uk` registrant type fields,\nand `.ca` legal type fields. Omit this object when the extension's\nregistration schema excludes `contact_extensions`.\n",
+      "description": "Provides registry-specific contact extension values for the registrant.\n`GET /accounts/{account_id}/registrar/extensions/{extension}` identifies\nthe required keys and allowed values for each extension in the\n`registration_schema.properties.contact_extensions` object.\n\nExamples include `.us` nexus fields, `.uk` registrant type fields,\nand `.ca` legal type fields. Omit this object when the extension's\nregistration schema excludes `contact_extensions`.",
       "type": "object"
     },
     "contacts": {
       "$ref": "#/$defs/registrar-api-sandbox_registration_contacts"
     },
     "domain_name": {
-      "$ref": "#/$defs/registrar-api-sandbox_domain_name",
-      "description": "Provides a fully qualified domain name (FQDN), including the extension\n(e.g., `example.com`, `mybrand.app`). The domain name uniquely identifies\na registration. Cloudflare permits only one registration per domain, making\nthe domain name a natural idempotency key for registration requests.\n"
+      "description": "Provides a fully qualified domain name (FQDN), including the extension\n(e.g., `example.com`, `mybrand.app`). The domain name uniquely identifies\na registration. Cloudflare permits only one registration per domain, making\nthe domain name a natural idempotency key for registration requests.",
+      "type": "string"
     },
     "privacy_mode": {
       "default": "redaction",
-      "description": "Sets the WHOIS privacy mode for the registration. Defaults to `redaction`.\n- `off`: Disables WHOIS privacy.\n- `redaction`: Requests WHOIS redaction where the extension supports it.\n  Some extensions exclude privacy and redaction.\n",
+      "description": "Sets the WHOIS privacy mode for the registration. Defaults to `redaction`.\n- `off`: Disables WHOIS privacy.\n- `redaction`: Requests WHOIS redaction where the extension supports it.\n  Some extensions exclude privacy and redaction.",
       "enum": [
         "off",
         "redaction"
@@ -188,7 +180,7 @@ export const registrar_api_sandbox_registration_create_request: JsonSchema = {
       "type": "string"
     },
     "years": {
-      "description": "Sets the registration term from 1 to 10 years. When omitted, this\nfield defaults to the registry's minimum registration period for the\nextension. Most extensions require 1 year, while some require longer\nminimum terms (e.g., `.ai` requires 2 years).\n\nEach registry may also enforce its own maximum registration term. A\nrequest above that maximum fails. When uncertain, omit this field to\nuse the default.\n",
+      "description": "Sets the registration term from 1 to 10 years. When omitted, this\nfield defaults to the registry's minimum registration period for the\nextension. Most extensions require 1 year, while some require longer\nminimum terms (e.g., `.ai` requires 2 years).\n\nEach registry may also enforce its own maximum registration term. A\nrequest above that maximum fails. When uncertain, omit this field to\nuse the default.",
       "type": "integer"
     }
   },
@@ -201,11 +193,11 @@ export const registrar_api_sandbox_registration_create_request: JsonSchema = {
 /**
  * The schema of `registrar-api-sandbox_registration_update_request`.
  */
-export const registrar_api_sandbox_registration_update_request: JsonSchema = {
-  "description": "Request to update an existing domain registration.\n\nThis endpoint currently supports updating `auto_renew` only.\n",
+export const registrar$$api$$sandbox_registration_update_request: JsonSchema = {
+  "description": "Request to update an existing domain registration.\n\nThis endpoint currently supports updating `auto_renew` only.",
   "properties": {
     "auto_renew": {
-      "description": "Enable or disable automatic renewal.\nSetting this field to `true` authorizes Cloudflare to charge the\naccount's default payment method up to 30 days before domain expiry\nto renew the domain automatically. Renewal pricing may change over\ntime based on registry pricing.\n",
+      "description": "Enable or disable automatic renewal.\nSetting this field to `true` authorizes Cloudflare to charge the\naccount's default payment method up to 30 days before domain expiry\nto renew the domain automatically. Renewal pricing may change over\ntime based on registry pricing.",
       "type": "boolean"
     }
   },

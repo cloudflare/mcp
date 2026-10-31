@@ -4,50 +4,9 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `waitingroom_estimated_queued_users` in responses.
- */
-export const waitingroom_estimated_queued_users_output: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `waitingroom_estimated_total_active_users` in responses.
- */
-export const waitingroom_estimated_total_active_users_output: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `waitingroom_max_estimated_time_minutes` in responses.
- */
-export const waitingroom_max_estimated_time_minutes_output: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `waitingroom_status` in responses.
- */
-export const waitingroom_status_output: JsonSchema = {
-  "enum": [
-    "event_prequeueing",
-    "not_queueing",
-    "queueing",
-    "suspended"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `waitingroom_status_event_id` in responses.
- */
-export const waitingroom_status_event_id_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `waitingroom_status_response` in responses.
  */
-export const waitingroom_status_response_output: JsonSchema = {
+export const waitingroom_status_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/waitingroom_api-response-single"
@@ -57,19 +16,25 @@ export const waitingroom_status_response_output: JsonSchema = {
         "result": {
           "properties": {
             "estimated_queued_users": {
-              "$ref": "#/$defs/waitingroom_estimated_queued_users"
+              "type": "integer"
             },
             "estimated_total_active_users": {
-              "$ref": "#/$defs/waitingroom_estimated_total_active_users"
+              "type": "integer"
             },
             "event_id": {
-              "$ref": "#/$defs/waitingroom_status_event_id"
+              "type": "string"
             },
             "max_estimated_time_minutes": {
-              "$ref": "#/$defs/waitingroom_max_estimated_time_minutes"
+              "type": "integer"
             },
             "status": {
-              "$ref": "#/$defs/waitingroom_status"
+              "enum": [
+                "event_prequeueing",
+                "not_queueing",
+                "queueing",
+                "suspended"
+              ],
+              "type": "string"
             }
           },
           "type": "object"

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `email-security_DomainVerificationInfo` in responses.
  */
-export const email_security_DomainVerificationInfo_output: JsonSchema = {
+export const email$$security_DomainVerificationInfo: JsonSchema = {
   "properties": {
     "last_checked_at": {
       "oneOf": [
@@ -20,7 +20,20 @@ export const email_security_DomainVerificationInfo_output: JsonSchema = {
       ]
     },
     "status": {
-      "$ref": "#/$defs/email-security_DomainStatus"
+      "oneOf": [
+        {
+          "enum": [
+            "PENDING",
+            "ACTIVE",
+            "FAILED",
+            "TIMEOUT"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "txt_record_name": {
       "type": "string"

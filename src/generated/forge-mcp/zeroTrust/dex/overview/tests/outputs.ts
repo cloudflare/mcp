@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `digital-experience-monitoring_aggregate_stat` in responses.
  */
-export const digital_experience_monitoring_aggregate_stat_output: JsonSchema = {
+export const digital$$experience$$monitoring_aggregate_stat: JsonSchema = {
   "properties": {
     "avgMs": {
       "oneOf": [
@@ -42,7 +42,7 @@ export const digital_experience_monitoring_aggregate_stat_output: JsonSchema = {
  * The schema of `digital-experience-monitoring_aggregate_time_period` in
  * responses.
  */
-export const digital_experience_monitoring_aggregate_time_period_output: JsonSchema = {
+export const digital$$experience$$monitoring_aggregate_time_period: JsonSchema = {
   "properties": {
     "units": {
       "enum": [
@@ -67,7 +67,7 @@ export const digital_experience_monitoring_aggregate_time_period_output: JsonSch
  * The schema of `digital-experience-monitoring_aggregate_time_slot` in
  * responses.
  */
-export const digital_experience_monitoring_aggregate_time_slot_output: JsonSchema = {
+export const digital$$experience$$monitoring_aggregate_time_slot: JsonSchema = {
   "properties": {
     "avgMs": {
       "type": "integer"
@@ -86,7 +86,7 @@ export const digital_experience_monitoring_aggregate_time_slot_output: JsonSchem
 /**
  * The schema of `digital-experience-monitoring_tests_response` in responses.
  */
-export const digital_experience_monitoring_tests_response_output: JsonSchema = {
+export const digital$$experience$$monitoring_tests_response: JsonSchema = {
   "properties": {
     "overviewMetrics": {
       "properties": {
@@ -171,7 +171,7 @@ export const digital_experience_monitoring_tests_response_output: JsonSchema = {
             "type": "array"
           },
           "id": {
-            "$ref": "#/$defs/digital-experience-monitoring_uuid"
+            "type": "string"
           },
           "interval": {
             "type": "string"
@@ -198,7 +198,7 @@ export const digital_experience_monitoring_tests_response_output: JsonSchema = {
                       "type": "boolean"
                     },
                     "id": {
-                      "$ref": "#/$defs/digital-experience-monitoring_uuid"
+                      "type": "string"
                     },
                     "name": {
                       "type": "string"
@@ -287,7 +287,7 @@ export const digital_experience_monitoring_tests_response_output: JsonSchema = {
 /**
  * The schema of `digital-experience-monitoring_timing_aggregates` in responses.
  */
-export const digital_experience_monitoring_timing_aggregates_output: JsonSchema = {
+export const digital$$experience$$monitoring_timing_aggregates: JsonSchema = {
   "properties": {
     "avgMs": {
       "oneOf": [

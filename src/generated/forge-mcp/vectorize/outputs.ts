@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `vectorize_api-response-common` in responses.
  */
-export const vectorize_api_response_common_output: JsonSchema = {
+export const vectorize_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/vectorize_messages"
@@ -49,7 +49,7 @@ export const vectorize_api_response_common_output: JsonSchema = {
 /**
  * The schema of `vectorize_api-response-common-failure` in responses.
  */
-export const vectorize_api_response_common_failure_output: JsonSchema = {
+export const vectorize_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/vectorize_messages"
@@ -79,7 +79,7 @@ export const vectorize_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `vectorize_api-response-single` in responses.
  */
-export const vectorize_api_response_single_output: JsonSchema = {
+export const vectorize_api$$response$$single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/vectorize_api-response-common"
@@ -108,7 +108,7 @@ export const vectorize_api_response_single_output: JsonSchema = {
 /**
  * The schema of `vectorize_create-index-response` in responses.
  */
-export const vectorize_create_index_response_output: JsonSchema = {
+export const vectorize_create$$index$$response: JsonSchema = {
   "properties": {
     "config": {
       "allOf": [
@@ -118,7 +118,14 @@ export const vectorize_create_index_response_output: JsonSchema = {
         {
           "properties": {
             "preset": {
-              "$ref": "#/$defs/vectorize_index-preset"
+              "enum": [
+                "@cf/baai/bge-small-en-v1.5",
+                "@cf/baai/bge-base-en-v1.5",
+                "@cf/baai/bge-large-en-v1.5",
+                "openai/text-embedding-ada-002",
+                "cohere/embed-multilingual-v2.0"
+              ],
+              "type": "string"
             }
           },
           "type": "object"
@@ -130,14 +137,14 @@ export const vectorize_create_index_response_output: JsonSchema = {
       "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/vectorize_index-description"
+      "type": "string"
     },
     "modified_on": {
       "format": "date-time",
       "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/vectorize_index-name"
+      "type": "string"
     }
   },
   "type": "object"
@@ -147,32 +154,31 @@ export const vectorize_create_index_response_output: JsonSchema = {
  * The schema of `vectorize_index-delete-vectors-by-id-v2-response` in
  * responses.
  */
-export const vectorize_index_delete_vectors_by_id_v2_response_output: JsonSchema = {
+export const vectorize_index$$delete$$vectors$$by$$id$$v2$$response: JsonSchema = {
   "properties": {
     "mutationId": {
-      "$ref": "#/$defs/vectorize_mutation-uuid"
+      "format": "uuid",
+      "type": "string"
     }
   },
   "type": "object"
 };
 
 /**
- * The schema of `vectorize_index-description` in responses.
- */
-export const vectorize_index_description_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `vectorize_index-dimension-configuration` in responses.
  */
-export const vectorize_index_dimension_configuration_output: JsonSchema = {
+export const vectorize_index$$dimension$$configuration: JsonSchema = {
   "properties": {
     "dimensions": {
-      "$ref": "#/$defs/vectorize_index-dimensions"
+      "type": "integer"
     },
     "metric": {
-      "$ref": "#/$defs/vectorize_index-metric"
+      "enum": [
+        "cosine",
+        "euclidean",
+        "dot-product"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -183,20 +189,13 @@ export const vectorize_index_dimension_configuration_output: JsonSchema = {
 };
 
 /**
- * The schema of `vectorize_index-dimensions` in responses.
- */
-export const vectorize_index_dimensions_output: JsonSchema = {
-  "type": "integer"
-};
-
-/**
  * The schema of `vectorize_index-get-vectors-by-id-response` in responses.
  */
-export const vectorize_index_get_vectors_by_id_response_output: JsonSchema = {
+export const vectorize_index$$get$$vectors$$by$$id$$response: JsonSchema = {
   "items": {
     "properties": {
       "id": {
-        "$ref": "#/$defs/vectorize_vector-identifier"
+        "type": "string"
       },
       "metadata": {
         "type": "object"
@@ -226,10 +225,10 @@ export const vectorize_index_get_vectors_by_id_response_output: JsonSchema = {
 /**
  * The schema of `vectorize_index-info-response` in responses.
  */
-export const vectorize_index_info_response_output: JsonSchema = {
+export const vectorize_index$$info$$response: JsonSchema = {
   "properties": {
     "dimensions": {
-      "$ref": "#/$defs/vectorize_index-dimensions"
+      "type": "integer"
     },
     "processedUpToDatetime": {
       "oneOf": [
@@ -245,7 +244,8 @@ export const vectorize_index_info_response_output: JsonSchema = {
     "processedUpToMutation": {
       "oneOf": [
         {
-          "$ref": "#/$defs/vectorize_mutation-uuid"
+          "format": "uuid",
+          "type": "string"
         },
         {
           "type": "null"
@@ -262,7 +262,7 @@ export const vectorize_index_info_response_output: JsonSchema = {
 /**
  * The schema of `vectorize_index-list-vectors-response` in responses.
  */
-export const vectorize_index_list_vectors_response_output: JsonSchema = {
+export const vectorize_index$$list$$vectors$$response: JsonSchema = {
   "properties": {
     "count": {
       "type": "integer"
@@ -311,42 +311,9 @@ export const vectorize_index_list_vectors_response_output: JsonSchema = {
 };
 
 /**
- * The schema of `vectorize_index-metric` in responses.
- */
-export const vectorize_index_metric_output: JsonSchema = {
-  "enum": [
-    "cosine",
-    "euclidean",
-    "dot-product"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `vectorize_index-name` in responses.
- */
-export const vectorize_index_name_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `vectorize_index-preset` in responses.
- */
-export const vectorize_index_preset_output: JsonSchema = {
-  "enum": [
-    "@cf/baai/bge-small-en-v1.5",
-    "@cf/baai/bge-base-en-v1.5",
-    "@cf/baai/bge-large-en-v1.5",
-    "openai/text-embedding-ada-002",
-    "cohere/embed-multilingual-v2.0"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `vectorize_index-query-v2-response` in responses.
  */
-export const vectorize_index_query_v2_response_output: JsonSchema = {
+export const vectorize_index$$query$$v2$$response: JsonSchema = {
   "properties": {
     "count": {
       "type": "integer"
@@ -355,7 +322,7 @@ export const vectorize_index_query_v2_response_output: JsonSchema = {
       "items": {
         "properties": {
           "id": {
-            "$ref": "#/$defs/vectorize_vector-identifier"
+            "type": "string"
           },
           "metadata": {
             "oneOf": [
@@ -405,7 +372,7 @@ export const vectorize_index_query_v2_response_output: JsonSchema = {
 /**
  * The schema of `vectorize_messages` in responses.
  */
-export const vectorize_messages_output: JsonSchema = {
+export const vectorize_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -425,27 +392,12 @@ export const vectorize_messages_output: JsonSchema = {
 };
 
 /**
- * The schema of `vectorize_mutation-uuid` in responses.
- */
-export const vectorize_mutation_uuid_output: JsonSchema = {
-  "format": "uuid",
-  "type": "string"
-};
-
-/**
- * The schema of `vectorize_vector-identifier` in responses.
- */
-export const vectorize_vector_identifier_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `vectorize_vector-list-item` in responses.
  */
-export const vectorize_vector_list_item_output: JsonSchema = {
+export const vectorize_vector$$list$$item: JsonSchema = {
   "properties": {
     "id": {
-      "$ref": "#/$defs/vectorize_vector-identifier"
+      "type": "string"
     }
   },
   "required": [

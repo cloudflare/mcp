@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `zones_api-response-common-3` in responses.
  */
-export const zones_api_response_common_3_output: JsonSchema = {
+export const zones_api$$response$$common$$3: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/zones_messages"
@@ -49,7 +49,7 @@ export const zones_api_response_common_3_output: JsonSchema = {
 /**
  * The schema of `zones_api-response-single-2` in responses.
  */
-export const zones_api_response_single_2_output: JsonSchema = {
+export const zones_api$$response$$single$$2: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_api-response-common-3"

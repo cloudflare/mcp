@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `email-security_CreateImpersonationRegistry`.
  */
-export const email_security_CreateImpersonationRegistry: JsonSchema = {
+export const email$$security_CreateImpersonationRegistry: JsonSchema = {
   "description": "Create an impersonation registry entry.",
   "properties": {
     "comments": {
@@ -70,7 +70,13 @@ export const email_security_CreateImpersonationRegistry: JsonSchema = {
       "description": "Source the entry was created from.",
       "oneOf": [
         {
-          "$ref": "#/$defs/email-security_Provenance"
+          "enum": [
+            "A1S_INTERNAL",
+            "SNOOPY-CASB_OFFICE_365",
+            "SNOOPY-OFFICE_365",
+            "SNOOPY-GOOGLE_DIRECTORY"
+          ],
+          "type": "string"
         },
         {
           "type": "null"
@@ -87,31 +93,9 @@ export const email_security_CreateImpersonationRegistry: JsonSchema = {
 };
 
 /**
- * The schema of `email-security_ImpersonationRegistryId`.
- */
-export const email_security_ImpersonationRegistryId: JsonSchema = {
-  "description": "Impersonation registry entry identifier.",
-  "format": "uuid",
-  "type": "string"
-};
-
-/**
- * The schema of `email-security_Provenance`.
- */
-export const email_security_Provenance: JsonSchema = {
-  "enum": [
-    "A1S_INTERNAL",
-    "SNOOPY-CASB_OFFICE_365",
-    "SNOOPY-OFFICE_365",
-    "SNOOPY-GOOGLE_DIRECTORY"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `email-security_UpdateImpersonationRegistry`.
  */
-export const email_security_UpdateImpersonationRegistry: JsonSchema = {
+export const email$$security_UpdateImpersonationRegistry: JsonSchema = {
   "description": "Update an impersonation registry entry.",
   "properties": {
     "comments": {
@@ -175,7 +159,13 @@ export const email_security_UpdateImpersonationRegistry: JsonSchema = {
       "description": "Source the entry was created from.",
       "oneOf": [
         {
-          "$ref": "#/$defs/email-security_Provenance"
+          "enum": [
+            "A1S_INTERNAL",
+            "SNOOPY-CASB_OFFICE_365",
+            "SNOOPY-OFFICE_365",
+            "SNOOPY-GOOGLE_DIRECTORY"
+          ],
+          "type": "string"
         },
         {
           "type": "null"

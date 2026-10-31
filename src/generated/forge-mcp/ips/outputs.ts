@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `public-ip_api-response-common-failure` in responses.
  */
-export const public_ip_api_response_common_failure_output: JsonSchema = {
+export const public$$ip_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/public-ip_messages"
@@ -36,7 +36,7 @@ export const public_ip_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `public-ip_api-response-single` in responses.
  */
-export const public_ip_api_response_single_output: JsonSchema = {
+export const public$$ip_api$$response$$single: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/public-ip_messages"
@@ -60,19 +60,12 @@ export const public_ip_api_response_single_output: JsonSchema = {
 };
 
 /**
- * The schema of `public-ip_etag` in responses.
- */
-export const public_ip_etag_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `public-ip_ips` in responses.
  */
-export const public_ip_ips_output: JsonSchema = {
+export const public$$ip_ips: JsonSchema = {
   "properties": {
     "etag": {
-      "$ref": "#/$defs/public-ip_etag"
+      "type": "string"
     },
     "ipv4_cidrs": {
       "$ref": "#/$defs/public-ip_ipv4_cidrs"
@@ -87,10 +80,10 @@ export const public_ip_ips_output: JsonSchema = {
 /**
  * The schema of `public-ip_ips_jdcloud` in responses.
  */
-export const public_ip_ips_jdcloud_output: JsonSchema = {
+export const public$$ip_ips_jdcloud: JsonSchema = {
   "properties": {
     "etag": {
-      "$ref": "#/$defs/public-ip_etag"
+      "type": "string"
     },
     "ipv4_cidrs": {
       "$ref": "#/$defs/public-ip_ipv4_cidrs"
@@ -108,7 +101,7 @@ export const public_ip_ips_jdcloud_output: JsonSchema = {
 /**
  * The schema of `public-ip_ipv4_cidrs` in responses.
  */
-export const public_ip_ipv4_cidrs_output: JsonSchema = {
+export const public$$ip_ipv4_cidrs: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -118,7 +111,7 @@ export const public_ip_ipv4_cidrs_output: JsonSchema = {
 /**
  * The schema of `public-ip_ipv6_cidrs` in responses.
  */
-export const public_ip_ipv6_cidrs_output: JsonSchema = {
+export const public$$ip_ipv6_cidrs: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -128,7 +121,7 @@ export const public_ip_ipv6_cidrs_output: JsonSchema = {
 /**
  * The schema of `public-ip_jdcloud_cidrs` in responses.
  */
-export const public_ip_jdcloud_cidrs_output: JsonSchema = {
+export const public$$ip_jdcloud_cidrs: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -138,7 +131,7 @@ export const public_ip_jdcloud_cidrs_output: JsonSchema = {
 /**
  * The schema of `public-ip_messages` in responses.
  */
-export const public_ip_messages_output: JsonSchema = {
+export const public$$ip_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {

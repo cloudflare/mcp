@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `dns-records_api-response-common-failure` in responses.
  */
-export const dns_records_api_response_common_failure_output: JsonSchema = {
+export const dns$$records_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/dns-records_messages"
@@ -36,7 +36,7 @@ export const dns_records_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `dns-records_api-response-single` in responses.
  */
-export const dns_records_api_response_single_output: JsonSchema = {
+export const dns$$records_api$$response$$single: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/dns-records_messages"
@@ -60,16 +60,9 @@ export const dns_records_api_response_single_output: JsonSchema = {
 };
 
 /**
- * The schema of `dns-records_identifier` in responses.
- */
-export const dns_records_identifier_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `dns-records_messages` in responses.
  */
-export const dns_records_messages_output: JsonSchema = {
+export const dns$$records_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {

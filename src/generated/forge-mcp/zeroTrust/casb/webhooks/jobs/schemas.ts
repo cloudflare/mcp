@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `posture-api_CreateWebhookJobsRequest`.
  */
-export const posture_api_CreateWebhookJobsRequest: JsonSchema = {
+export const posture$$api_CreateWebhookJobsRequest: JsonSchema = {
   "description": "Request body for creating up to 100 webhook jobs. The number of jobs is the product of webhook_ids and finding_instance_ids.",
   "properties": {
     "finding_instance_ids": {

@@ -3,36 +3,46 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  cloudforce_one_port_scan_api_api_response_common_failure_output,
-  cloudforce_one_port_scan_api_api_response_common_output,
-  cloudforce_one_port_scan_api_messages_output,
+  cloudforce$$one$$port$$scan$$api_api$$response$$common,
+  cloudforce$$one$$port$$scan$$api_api$$response$$common$$failure,
+  cloudforce$$one$$port$$scan$$api_messages,
 } from "../outputs.js";
-import { cloudforce_one_port_scan_api_port_output } from "./outputs.js";
+import { cloudforce$$one$$port$$scan$$api_port } from "./outputs.js";
 
 /**
- * The tools of `cloudforce_one.scans.results`.
+ * The tools of `cloudforceOne.scans.results`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "cloudforce_one_scans_results_get",
+    name: "cloudforceOne_scans_results_get",
     title: "Get the Latest Scan Result",
-    description: "Retrieves the latest scan results for a Cloudforce One scan configuration, including discovered open ports.",
+    description: "Retrieves the latest scan results for a Cloudforce One scan configuration, including discovered open ports.\n\nGET /accounts/{account_id}/cloudforce-one/scans/results/{config_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Defines the Account ID.",
-          "type": "string"
-        },
-        "config_id": {
-          "description": "Defines the Config ID.",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Defines the Account ID.",
+              "type": "string"
+            },
+            "config_id": {
+              "description": "Defines the Config ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "config_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "config_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -74,7 +84,7 @@ export const tools: readonly Tool[] = [
       ],
       "type": "object",
       $defs: {
-        "cloudforce-one-port-scan-api_port": cloudforce_one_port_scan_api_port_output,
+        "cloudforce-one-port-scan-api_port": cloudforce$$one$$port$$scan$$api_port,
       },
     },
     annotations: {
@@ -139,10 +149,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cloudforce-one-port-scan-api_api-response-common": cloudforce_one_port_scan_api_api_response_common_output,
-        "cloudforce-one-port-scan-api_api-response-common-failure": cloudforce_one_port_scan_api_api_response_common_failure_output,
-        "cloudforce-one-port-scan-api_messages": cloudforce_one_port_scan_api_messages_output,
-        "cloudforce-one-port-scan-api_port": cloudforce_one_port_scan_api_port_output,
+        "cloudforce-one-port-scan-api_api-response-common": cloudforce$$one$$port$$scan$$api_api$$response$$common,
+        "cloudforce-one-port-scan-api_api-response-common-failure": cloudforce$$one$$port$$scan$$api_api$$response$$common$$failure,
+        "cloudforce-one-port-scan-api_messages": cloudforce$$one$$port$$scan$$api_messages,
+        "cloudforce-one-port-scan-api_port": cloudforce$$one$$port$$scan$$api_port,
       },
     },
     request: (args) => ({
@@ -150,25 +160,35 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "cloudforce_one_scans_results_get_banners",
+    name: "cloudforceOne_scans_results_getBanners",
     title: "Get the Latest Banner Grab Result",
-    description: "Retrieves the latest banner grab results for a Cloudforce One scan configuration, including service banners from open ports.",
+    description: "Retrieves the latest banner grab results for a Cloudforce One scan configuration, including service banners from open ports.\n\nGET /accounts/{account_id}/cloudforce-one/banner/{config_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Defines the Account ID.",
-          "type": "string"
-        },
-        "config_id": {
-          "description": "Defines the Config ID.",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Defines the Account ID.",
+              "type": "string"
+            },
+            "config_id": {
+              "description": "Defines the Config ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "config_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "config_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -210,7 +230,7 @@ export const tools: readonly Tool[] = [
       ],
       "type": "object",
       $defs: {
-        "cloudforce-one-port-scan-api_port": cloudforce_one_port_scan_api_port_output,
+        "cloudforce-one-port-scan-api_port": cloudforce$$one$$port$$scan$$api_port,
       },
     },
     annotations: {
@@ -269,10 +289,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cloudforce-one-port-scan-api_api-response-common": cloudforce_one_port_scan_api_api_response_common_output,
-        "cloudforce-one-port-scan-api_api-response-common-failure": cloudforce_one_port_scan_api_api_response_common_failure_output,
-        "cloudforce-one-port-scan-api_messages": cloudforce_one_port_scan_api_messages_output,
-        "cloudforce-one-port-scan-api_port": cloudforce_one_port_scan_api_port_output,
+        "cloudforce-one-port-scan-api_api-response-common": cloudforce$$one$$port$$scan$$api_api$$response$$common,
+        "cloudforce-one-port-scan-api_api-response-common-failure": cloudforce$$one$$port$$scan$$api_api$$response$$common$$failure,
+        "cloudforce-one-port-scan-api_messages": cloudforce$$one$$port$$scan$$api_messages,
+        "cloudforce-one-port-scan-api_port": cloudforce$$one$$port$$scan$$api_port,
       },
     },
     request: (args) => ({

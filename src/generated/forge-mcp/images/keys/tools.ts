@@ -3,19 +3,15 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  images_api_response_common_failure_output,
-  images_api_response_common_output,
-  images_messages_output,
+  images_api$$response$$common,
+  images_api$$response$$common$$failure,
+  images_messages,
 } from "../outputs.js";
-import { images_account_identifier } from "../schemas.js";
 import {
-  images_image_key_name_output,
-  images_image_key_response_collection_output,
-  images_image_key_value_output,
-  images_image_keys_output,
-  images_image_keys_response_output,
+  images_image_key_response_collection,
+  images_image_keys,
+  images_image_keys_response,
 } from "./outputs.js";
-import { images_signing_key_identifier } from "./schemas.js";
 
 /**
  * The tools of `images.keys`.
@@ -24,37 +20,41 @@ export const tools: readonly Tool[] = [
   {
     name: "images_keys_create",
     title: "Create a new Signing Key",
-    description: "Create a new CF Images signing key with specified name. Returns all keys available.",
+    description: "Create a new CF Images signing key with specified name. Returns all keys available.\n\nPUT /accounts/{account_id}/images/v1/keys/{signing_key_name}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/images_account_identifier",
-          "description": "Account identifier tag."
-        },
-        "signing_key_name": {
-          "$ref": "#/$defs/images_signing_key_identifier"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account identifier tag.",
+              "type": "string"
+            },
+            "signing_key_name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "signing_key_name"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "signing_key_name"
+        "path"
       ],
-      $defs: {
-        "images_account_identifier": images_account_identifier,
-        "images_signing_key_identifier": images_signing_key_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/images_image_key_response_collection",
       $defs: {
-        "images_api-response-common": images_api_response_common_output,
-        "images_image_key_name": images_image_key_name_output,
-        "images_image_key_response_collection": images_image_key_response_collection_output,
-        "images_image_key_value": images_image_key_value_output,
-        "images_image_keys": images_image_keys_output,
-        "images_image_keys_response": images_image_keys_response_output,
-        "images_messages": images_messages_output,
+        "images_api-response-common": images_api$$response$$common,
+        "images_image_key_response_collection": images_image_key_response_collection,
+        "images_image_keys": images_image_keys,
+        "images_image_keys_response": images_image_keys_response,
+        "images_messages": images_messages,
       },
     },
     annotations: {
@@ -83,14 +83,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "images_api-response-common": images_api_response_common_output,
-        "images_api-response-common-failure": images_api_response_common_failure_output,
-        "images_image_key_name": images_image_key_name_output,
-        "images_image_key_response_collection": images_image_key_response_collection_output,
-        "images_image_key_value": images_image_key_value_output,
-        "images_image_keys": images_image_keys_output,
-        "images_image_keys_response": images_image_keys_response_output,
-        "images_messages": images_messages_output,
+        "images_api-response-common": images_api$$response$$common,
+        "images_api-response-common-failure": images_api$$response$$common$$failure,
+        "images_image_key_response_collection": images_image_key_response_collection,
+        "images_image_keys": images_image_keys,
+        "images_image_keys_response": images_image_keys_response,
+        "images_messages": images_messages,
       },
     },
     request: (args) => ({
@@ -100,37 +98,41 @@ export const tools: readonly Tool[] = [
   {
     name: "images_keys_delete",
     title: "Delete Signing Key",
-    description: "Delete a CF Images signing key with specified name. Returns all keys available.\nWhen the last key is removed, a new default signing key will be generated.\n\nConfirm with the user before calling this tool. This operation will delete this signing key. This will invalidate any URLs that are signed with this key.",
+    description: "Delete a CF Images signing key with specified name. Returns all keys available.\nWhen the last key is removed, a new default signing key will be generated.\n\nConfirm with the user before calling this tool. This operation will delete this signing key. This will invalidate any URLs that are signed with this key.\n\nDELETE /accounts/{account_id}/images/v1/keys/{signing_key_name}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/images_account_identifier",
-          "description": "Account identifier tag."
-        },
-        "signing_key_name": {
-          "$ref": "#/$defs/images_signing_key_identifier"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account identifier tag.",
+              "type": "string"
+            },
+            "signing_key_name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "signing_key_name"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "signing_key_name"
+        "path"
       ],
-      $defs: {
-        "images_account_identifier": images_account_identifier,
-        "images_signing_key_identifier": images_signing_key_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/images_image_key_response_collection",
       $defs: {
-        "images_api-response-common": images_api_response_common_output,
-        "images_image_key_name": images_image_key_name_output,
-        "images_image_key_response_collection": images_image_key_response_collection_output,
-        "images_image_key_value": images_image_key_value_output,
-        "images_image_keys": images_image_keys_output,
-        "images_image_keys_response": images_image_keys_response_output,
-        "images_messages": images_messages_output,
+        "images_api-response-common": images_api$$response$$common,
+        "images_image_key_response_collection": images_image_key_response_collection,
+        "images_image_keys": images_image_keys,
+        "images_image_keys_response": images_image_keys_response,
+        "images_messages": images_messages,
       },
     },
     annotations: {
@@ -159,14 +161,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "images_api-response-common": images_api_response_common_output,
-        "images_api-response-common-failure": images_api_response_common_failure_output,
-        "images_image_key_name": images_image_key_name_output,
-        "images_image_key_response_collection": images_image_key_response_collection_output,
-        "images_image_key_value": images_image_key_value_output,
-        "images_image_keys": images_image_keys_output,
-        "images_image_keys_response": images_image_keys_response_output,
-        "images_messages": images_messages_output,
+        "images_api-response-common": images_api$$response$$common,
+        "images_api-response-common-failure": images_api$$response$$common$$failure,
+        "images_image_key_response_collection": images_image_key_response_collection,
+        "images_image_keys": images_image_keys,
+        "images_image_keys_response": images_image_keys_response,
+        "images_messages": images_messages,
       },
     },
     request: (args) => ({
@@ -176,32 +176,37 @@ export const tools: readonly Tool[] = [
   {
     name: "images_keys_list",
     title: "List Signing Keys",
-    description: "List your CF Images signing keys.",
+    description: "List your CF Images signing keys.\n\nGET /accounts/{account_id}/images/v1/keys",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/images_account_identifier",
-          "description": "Account identifier tag."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account identifier tag.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
-      $defs: {
-        "images_account_identifier": images_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/images_image_key_response_collection",
       $defs: {
-        "images_api-response-common": images_api_response_common_output,
-        "images_image_key_name": images_image_key_name_output,
-        "images_image_key_response_collection": images_image_key_response_collection_output,
-        "images_image_key_value": images_image_key_value_output,
-        "images_image_keys": images_image_keys_output,
-        "images_image_keys_response": images_image_keys_response_output,
-        "images_messages": images_messages_output,
+        "images_api-response-common": images_api$$response$$common,
+        "images_image_key_response_collection": images_image_key_response_collection,
+        "images_image_keys": images_image_keys,
+        "images_image_keys_response": images_image_keys_response,
+        "images_messages": images_messages,
       },
     },
     annotations: {
@@ -236,14 +241,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "images_api-response-common": images_api_response_common_output,
-        "images_api-response-common-failure": images_api_response_common_failure_output,
-        "images_image_key_name": images_image_key_name_output,
-        "images_image_key_response_collection": images_image_key_response_collection_output,
-        "images_image_key_value": images_image_key_value_output,
-        "images_image_keys": images_image_keys_output,
-        "images_image_keys_response": images_image_keys_response_output,
-        "images_messages": images_messages_output,
+        "images_api-response-common": images_api$$response$$common,
+        "images_api-response-common-failure": images_api$$response$$common$$failure,
+        "images_image_key_response_collection": images_image_key_response_collection,
+        "images_image_keys": images_image_keys,
+        "images_image_keys_response": images_image_keys_response,
+        "images_messages": images_messages,
       },
     },
     request: (args) => ({

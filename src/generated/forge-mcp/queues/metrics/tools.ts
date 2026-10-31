@@ -3,13 +3,12 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  mq_api_v4_error_output,
-  mq_api_v4_failure_output,
-  mq_api_v4_message_output,
-  mq_api_v4_success_output,
-  mq_queue_metrics_output,
+  mq_api$$v4$$error,
+  mq_api$$v4$$failure,
+  mq_api$$v4$$message,
+  mq_api$$v4$$success,
+  mq_queue$$metrics,
 } from "../outputs.js";
-import { mq_identifier } from "../schemas.js";
 
 /**
  * The tools of `queues.metrics`.
@@ -18,26 +17,33 @@ export const tools: readonly Tool[] = [
   {
     name: "queues_metrics_get",
     title: "Get Queue Metrics",
-    description: "Returns best-effort metrics for a Queue. Values may be approximate due to the distributed nature of Queues.",
+    description: "Returns best-effort metrics for a Queue. Values may be approximate due to the distributed nature of Queues.\n\nGET /accounts/{account_id}/queues/{queue_id}/metrics",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/mq_identifier",
-          "description": "A Resource identifier."
-        },
-        "queue_id": {
-          "$ref": "#/$defs/mq_identifier",
-          "description": "A Resource identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "A Resource identifier.",
+              "type": "string"
+            },
+            "queue_id": {
+              "description": "A Resource identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "queue_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "queue_id"
+        "path"
       ],
-      $defs: {
-        "mq_identifier": mq_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -54,10 +60,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "mq_api-v4-error": mq_api_v4_error_output,
-        "mq_api-v4-message": mq_api_v4_message_output,
-        "mq_api-v4-success": mq_api_v4_success_output,
-        "mq_queue-metrics": mq_queue_metrics_output,
+        "mq_api-v4-error": mq_api$$v4$$error,
+        "mq_api-v4-message": mq_api$$v4$$message,
+        "mq_api-v4-success": mq_api$$v4$$success,
+        "mq_queue-metrics": mq_queue$$metrics,
       },
     },
     annotations: {
@@ -99,11 +105,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "mq_api-v4-error": mq_api_v4_error_output,
-        "mq_api-v4-failure": mq_api_v4_failure_output,
-        "mq_api-v4-message": mq_api_v4_message_output,
-        "mq_api-v4-success": mq_api_v4_success_output,
-        "mq_queue-metrics": mq_queue_metrics_output,
+        "mq_api-v4-error": mq_api$$v4$$error,
+        "mq_api-v4-failure": mq_api$$v4$$failure,
+        "mq_api-v4-message": mq_api$$v4$$message,
+        "mq_api-v4-success": mq_api$$v4$$success,
+        "mq_queue-metrics": mq_queue$$metrics,
       },
     },
     request: (args) => ({

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `client-side-security_api-response-single` in responses.
  */
-export const client_side_security_api_response_single_output: JsonSchema = {
+export const client$$side$$security_api$$response$$single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/client-side-security_api-response-common"
@@ -23,28 +23,21 @@ export const client_side_security_api_response_single_output: JsonSchema = {
 };
 
 /**
- * The schema of `client-side-security_enabled` in responses.
- */
-export const client_side_security_enabled_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `client-side-security_get-zone-settings-response` in responses.
  */
-export const client_side_security_get_zone_settings_response_output: JsonSchema = {
+export const client$$side$$security_get$$zone$$settings$$response: JsonSchema = {
   "properties": {
     "enabled": {
-      "$ref": "#/$defs/client-side-security_enabled"
+      "type": "boolean"
     },
     "updated_at": {
-      "$ref": "#/$defs/client-side-security_updated_at"
+      "type": "string"
     },
     "use_cloudflare_reporting_endpoint": {
-      "$ref": "#/$defs/client-side-security_use_cloudflare_reporting_endpoint"
+      "type": "boolean"
     },
     "use_connection_url_path": {
-      "$ref": "#/$defs/client-side-security_use_connection_url_path"
+      "type": "boolean"
     }
   },
   "required": [
@@ -60,19 +53,19 @@ export const client_side_security_get_zone_settings_response_output: JsonSchema 
  * The schema of `client-side-security_update-zone-settings-response` in
  * responses.
  */
-export const client_side_security_update_zone_settings_response_output: JsonSchema = {
+export const client$$side$$security_update$$zone$$settings$$response: JsonSchema = {
   "properties": {
     "enabled": {
-      "$ref": "#/$defs/client-side-security_enabled"
+      "type": "boolean"
     },
     "updated_at": {
-      "$ref": "#/$defs/client-side-security_updated_at"
+      "type": "string"
     },
     "use_cloudflare_reporting_endpoint": {
-      "$ref": "#/$defs/client-side-security_use_cloudflare_reporting_endpoint"
+      "type": "boolean"
     },
     "use_connection_url_path": {
-      "$ref": "#/$defs/client-side-security_use_connection_url_path"
+      "type": "boolean"
     }
   },
   "required": [
@@ -85,32 +78,10 @@ export const client_side_security_update_zone_settings_response_output: JsonSche
 };
 
 /**
- * The schema of `client-side-security_updated_at` in responses.
- */
-export const client_side_security_updated_at_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `client-side-security_use_cloudflare_reporting_endpoint` in
- * responses.
- */
-export const client_side_security_use_cloudflare_reporting_endpoint_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `client-side-security_use_connection_url_path` in responses.
- */
-export const client_side_security_use_connection_url_path_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `client-side-security_zone_settings_response_single` in
  * responses.
  */
-export const client_side_security_zone_settings_response_single_output: JsonSchema = {
+export const client$$side$$security_zone_settings_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/client-side-security_api-response-single"

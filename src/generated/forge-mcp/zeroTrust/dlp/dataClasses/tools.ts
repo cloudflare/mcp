@@ -3,42 +3,52 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  dlp_Empty_output,
-  dlp_api_response_common_failure_output,
-  dlp_api_response_single_output,
-  dlp_messages_output,
+  dlp_Empty,
+  dlp_api$$response$$common$$failure,
+  dlp_api$$response$$single,
+  dlp_messages,
 } from "../../outputs.js";
-import { dlp_SensitivityLevelRef_output } from "../outputs.js";
-import { dlp_SensitivityLevelRef } from "../schemas.js";
-import { dlp_DataClassArray_output, dlp_DataClass_output } from "./outputs.js";
+import { dlp_SensitivityLevelRef } from "../outputs.js";
+import { dlp_SensitivityLevelRef as dlp_SensitivityLevelRef$ } from "../schemas.js";
+import { dlp_DataClass, dlp_DataClassArray } from "./outputs.js";
 import { dlp_DataClassUpdate, dlp_NewDataClass } from "./schemas.js";
 
 /**
- * The tools of `zero_trust.dlp.data_classes`.
+ * The tools of `zeroTrust.dlp.dataClasses`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zero_trust_dlp_data_classes_create",
+    name: "zeroTrust_dlp_dataClasses_create",
     title: "Creates a new data class",
-    description: "Creates a data class for use in DLP profiles.",
+    description: "Creates a data class for use in DLP profiles.\n\nPOST /accounts/{account_id}/dlp/data_classes",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/dlp_NewDataClass",
           "description": "Attributes of the new data class."
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dlp_NewDataClass": dlp_NewDataClass,
-        "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef,
+        "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef$,
       },
     },
     outputSchema: {
@@ -56,10 +66,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_DataClass": dlp_DataClass_output,
-        "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_DataClass": dlp_DataClass,
+        "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -98,11 +108,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_DataClass": dlp_DataClass_output,
-        "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_DataClass": dlp_DataClass,
+        "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -111,24 +121,34 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_dlp_data_classes_delete",
+    name: "zeroTrust_dlp_dataClasses_delete",
     title: "Delete a single data class",
-    description: "Deletes a data class from the account.",
+    description: "Deletes a data class from the account.\n\nDELETE /accounts/{account_id}/dlp/data_classes/{data_class_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
-        "data_class_id": {
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "data_class_id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "data_class_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "data_class_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -145,9 +165,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_Empty": dlp_Empty_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_Empty": dlp_Empty,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -186,10 +206,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_Empty": dlp_Empty_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_Empty": dlp_Empty,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -197,24 +217,34 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_dlp_data_classes_get",
+    name: "zeroTrust_dlp_dataClasses_get",
     title: "Retrieve a specific data class",
-    description: "Gets the configuration for a data class.",
+    description: "Gets the configuration for a data class.\n\nGET /accounts/{account_id}/dlp/data_classes/{data_class_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
-        "data_class_id": {
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "data_class_id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "data_class_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "data_class_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -231,10 +261,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_DataClass": dlp_DataClass_output,
-        "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_DataClass": dlp_DataClass,
+        "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -274,11 +304,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_DataClass": dlp_DataClass_output,
-        "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_DataClass": dlp_DataClass,
+        "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -286,19 +316,29 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_dlp_data_classes_list",
+    name: "zeroTrust_dlp_dataClasses_list",
     title: "Retrieve all data classes in an account",
-    description: "Lists data classes configured for the account.",
+    description: "Lists data classes configured for the account.\n\nGET /accounts/{account_id}/dlp/data_classes",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -315,11 +355,11 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_DataClass": dlp_DataClass_output,
-        "dlp_DataClassArray": dlp_DataClassArray_output,
-        "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_DataClass": dlp_DataClass,
+        "dlp_DataClassArray": dlp_DataClassArray,
+        "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -359,12 +399,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_DataClass": dlp_DataClass_output,
-        "dlp_DataClassArray": dlp_DataClassArray_output,
-        "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_DataClass": dlp_DataClass,
+        "dlp_DataClassArray": dlp_DataClassArray,
+        "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -372,32 +412,42 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_dlp_data_classes_update",
+    name: "zeroTrust_dlp_dataClasses_update",
     title: "Update the attributes of a single data class",
-    description: "Updates the configuration for a data class.",
+    description: "Updates the configuration for a data class.\n\nPUT /accounts/{account_id}/dlp/data_classes/{data_class_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/dlp_DataClassUpdate",
           "description": "Attributes of the data class to update."
         },
-        "data_class_id": {
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "data_class_id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "data_class_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "data_class_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dlp_DataClassUpdate": dlp_DataClassUpdate,
-        "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef,
+        "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef$,
       },
     },
     outputSchema: {
@@ -415,10 +465,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_DataClass": dlp_DataClass_output,
-        "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_DataClass": dlp_DataClass,
+        "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -457,11 +507,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_DataClass": dlp_DataClass_output,
-        "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_DataClass": dlp_DataClass,
+        "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({

@@ -4,31 +4,31 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `zero-trust-gateway_beta` in responses.
- */
-export const zero_trust_gateway_beta_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `zero-trust-gateway_categories` in responses.
  */
-export const zero_trust_gateway_categories_output: JsonSchema = {
+export const zero$$trust$$gateway_categories: JsonSchema = {
   "properties": {
     "beta": {
-      "$ref": "#/$defs/zero-trust-gateway_beta"
+      "type": "boolean"
     },
     "class": {
-      "$ref": "#/$defs/zero-trust-gateway_class"
+      "enum": [
+        "free",
+        "premium",
+        "blocked",
+        "removalPending",
+        "noBlock"
+      ],
+      "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/zero-trust-gateway_description-3"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/zero-trust-gateway_id"
+      "type": "integer"
     },
     "name": {
-      "$ref": "#/$defs/zero-trust-gateway_name-5"
+      "type": "string"
     },
     "subcategories": {
       "items": {
@@ -41,44 +41,9 @@ export const zero_trust_gateway_categories_output: JsonSchema = {
 };
 
 /**
- * The schema of `zero-trust-gateway_class` in responses.
- */
-export const zero_trust_gateway_class_output: JsonSchema = {
-  "enum": [
-    "free",
-    "premium",
-    "blocked",
-    "removalPending",
-    "noBlock"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zero-trust-gateway_description-3` in responses.
- */
-export const zero_trust_gateway_description_3_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `zero-trust-gateway_id` in responses.
- */
-export const zero_trust_gateway_id_output: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `zero-trust-gateway_name-5` in responses.
- */
-export const zero_trust_gateway_name_5_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `zero-trust-gateway_response_collection-8` in responses.
  */
-export const zero_trust_gateway_response_collection_8_output: JsonSchema = {
+export const zero$$trust$$gateway_response_collection$$8: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zero-trust-gateway_api-response-collection"
@@ -100,22 +65,29 @@ export const zero_trust_gateway_response_collection_8_output: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_subcategory` in responses.
  */
-export const zero_trust_gateway_subcategory_output: JsonSchema = {
+export const zero$$trust$$gateway_subcategory: JsonSchema = {
   "properties": {
     "beta": {
-      "$ref": "#/$defs/zero-trust-gateway_beta"
+      "type": "boolean"
     },
     "class": {
-      "$ref": "#/$defs/zero-trust-gateway_class"
+      "enum": [
+        "free",
+        "premium",
+        "blocked",
+        "removalPending",
+        "noBlock"
+      ],
+      "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/zero-trust-gateway_description-3"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/zero-trust-gateway_id"
+      "type": "integer"
     },
     "name": {
-      "$ref": "#/$defs/zero-trust-gateway_name-5"
+      "type": "string"
     }
   },
   "type": "object"

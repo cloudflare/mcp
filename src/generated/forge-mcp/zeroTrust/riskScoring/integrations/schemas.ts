@@ -9,7 +9,10 @@ import type { JsonSchema } from "../../../_/tool.js";
 export const dlp_CreateIntegrationBody: JsonSchema = {
   "properties": {
     "integration_type": {
-      "$ref": "#/$defs/dlp_RiskScoreIntegrationType"
+      "enum": [
+        "Okta"
+      ],
+      "type": "string"
     },
     "reference_id": {
       "description": "A reference id that can be supplied by the client. Currently this should be set to the Access-Okta IDP ID (a UUIDv4).\nhttps://developers.cloudflare.com/api/operations/access-identity-providers-get-an-access-identity-provider",
@@ -32,16 +35,6 @@ export const dlp_CreateIntegrationBody: JsonSchema = {
     "tenant_url"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `dlp_RiskScoreIntegrationType`.
- */
-export const dlp_RiskScoreIntegrationType: JsonSchema = {
-  "enum": [
-    "Okta"
-  ],
-  "type": "string"
 };
 
 /**

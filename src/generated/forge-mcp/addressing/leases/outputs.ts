@@ -4,24 +4,9 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `addressing_cidr-2` in responses.
- */
-export const addressing_cidr_2_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `addressing_created_at` in responses.
- */
-export const addressing_created_at_output: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
  * The schema of `addressing_lease` in responses.
  */
-export const addressing_lease_output: JsonSchema = {
+export const addressing_lease: JsonSchema = {
   "properties": {
     "active_from": {
       "format": "date-time",
@@ -29,21 +14,23 @@ export const addressing_lease_output: JsonSchema = {
     },
     "cidrs": {
       "items": {
-        "$ref": "#/$defs/addressing_cidr-2"
+        "type": "string"
       },
       "type": "array"
     },
     "created_at": {
-      "$ref": "#/$defs/addressing_created_at"
+      "format": "date-time",
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/addressing_lease_id"
+      "type": "string"
     },
     "modified_at": {
-      "$ref": "#/$defs/addressing_modified_at"
+      "format": "date-time",
+      "type": "string"
     },
     "owner_id": {
-      "$ref": "#/$defs/addressing_lease_owner_id"
+      "type": "string"
     },
     "purpose": {
       "type": "string"
@@ -53,31 +40,9 @@ export const addressing_lease_output: JsonSchema = {
 };
 
 /**
- * The schema of `addressing_lease_id` in responses.
- */
-export const addressing_lease_id_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `addressing_lease_owner_id` in responses.
- */
-export const addressing_lease_owner_id_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `addressing_modified_at` in responses.
- */
-export const addressing_modified_at_output: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
  * The schema of `addressing_response_collection-4` in responses.
  */
-export const addressing_response_collection_4_output: JsonSchema = {
+export const addressing_response_collection$$4: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/addressing_api-response-collection"

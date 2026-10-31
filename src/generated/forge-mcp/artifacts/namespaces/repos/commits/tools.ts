@@ -10,33 +10,43 @@ export const tools: readonly Tool[] = [
   {
     name: "artifacts_namespaces_repos_commits_get",
     title: "Read a Git commit",
-    description: "Returns decoded metadata for an immutable Git commit object. Commit responses are cacheable forever by hash.\n\nThis method is beta.",
+    description: "Returns decoded metadata for an immutable Git commit object. Commit responses are cacheable forever by hash.\n\nThis method is beta.\n\nGET /accounts/{account_id}/artifacts/namespaces/{namespace}/repos/{name}/commit/{hash}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare account ID.",
-          "type": "string"
-        },
-        "hash": {
-          "description": "40-character lowercase hexadecimal Git object hash.",
-          "type": "string"
-        },
-        "name": {
-          "description": "Repository name.",
-          "type": "string"
-        },
-        "namespace": {
-          "description": "Artifacts namespace name.",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID.",
+              "type": "string"
+            },
+            "hash": {
+              "description": "40-character lowercase hexadecimal Git object hash.",
+              "type": "string"
+            },
+            "name": {
+              "description": "Repository name.",
+              "type": "string"
+            },
+            "namespace": {
+              "description": "Artifacts namespace name.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "namespace",
+            "name",
+            "hash"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "namespace",
-        "name",
-        "hash"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

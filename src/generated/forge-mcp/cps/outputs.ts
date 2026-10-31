@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `cps_api_response_common_failure` in responses.
  */
-export const cps_api_response_common_failure_output: JsonSchema = {
+export const cps_api_response_common_failure: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -43,7 +43,7 @@ export const cps_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `cps_api_response_message` in responses.
  */
-export const cps_api_response_message_output: JsonSchema = {
+export const cps_api_response_message: JsonSchema = {
   "properties": {
     "code": {
       "type": "integer"
@@ -62,7 +62,7 @@ export const cps_api_response_message_output: JsonSchema = {
 /**
  * The schema of `cps_communication_preferences` in responses.
  */
-export const cps_communication_preferences_output: JsonSchema = {
+export const cps_communication_preferences: JsonSchema = {
   "properties": {
     "created_on": {
       "format": "date-time",
@@ -118,7 +118,7 @@ export const cps_communication_preferences_output: JsonSchema = {
 /**
  * The schema of `cps_communication_preferences_response` in responses.
  */
-export const cps_communication_preferences_response_output: JsonSchema = {
+export const cps_communication_preferences_response: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -151,7 +151,7 @@ export const cps_communication_preferences_response_output: JsonSchema = {
 /**
  * The schema of `cps_customer_preference` in responses.
  */
-export const cps_customer_preference_output: JsonSchema = {
+export const cps_customer_preference: JsonSchema = {
   "properties": {
     "created_on": {
       "format": "date-time",

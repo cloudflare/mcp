@@ -4,40 +4,35 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `zero-trust-gateway_binding_status` in responses.
- */
-export const zero_trust_gateway_binding_status_output: JsonSchema = {
-  "enum": [
-    "pending_deployment",
-    "available",
-    "pending_deletion",
-    "inactive"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `zero-trust-gateway_certificates` in responses.
  */
-export const zero_trust_gateway_certificates_output: JsonSchema = {
+export const zero$$trust$$gateway_certificates: JsonSchema = {
   "properties": {
     "binding_status": {
-      "$ref": "#/$defs/zero-trust-gateway_binding_status"
+      "enum": [
+        "pending_deployment",
+        "available",
+        "pending_deletion",
+        "inactive"
+      ],
+      "type": "string"
     },
     "certificate": {
       "type": "string"
     },
     "created_at": {
-      "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "expires_on": {
-      "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "fingerprint": {
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/zero-trust-gateway_uuid"
+      "type": "string"
     },
     "in_use": {
       "type": "boolean"
@@ -49,32 +44,31 @@ export const zero_trust_gateway_certificates_output: JsonSchema = {
       "type": "string"
     },
     "region": {
-      "$ref": "#/$defs/zero-trust-gateway_region"
+      "type": "string"
     },
     "type": {
-      "$ref": "#/$defs/zero-trust-gateway_type"
+      "enum": [
+        "custom",
+        "gateway_managed"
+      ],
+      "type": "string"
     },
     "updated_at": {
-      "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "uploaded_on": {
-      "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+      "format": "date-time",
+      "type": "string"
     }
   },
   "type": "object"
 };
 
 /**
- * The schema of `zero-trust-gateway_region` in responses.
- */
-export const zero_trust_gateway_region_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `zero-trust-gateway_response_collection` in responses.
  */
-export const zero_trust_gateway_response_collection_output: JsonSchema = {
+export const zero$$trust$$gateway_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zero-trust-gateway_api-response-collection"
@@ -96,7 +90,7 @@ export const zero_trust_gateway_response_collection_output: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_single_response` in responses.
  */
-export const zero_trust_gateway_single_response_output: JsonSchema = {
+export const zero$$trust$$gateway_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zero-trust-gateway_api-response-single"
@@ -110,22 +104,4 @@ export const zero_trust_gateway_single_response_output: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `zero-trust-gateway_type` in responses.
- */
-export const zero_trust_gateway_type_output: JsonSchema = {
-  "enum": [
-    "custom",
-    "gateway_managed"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `zero-trust-gateway_uuid` in responses.
- */
-export const zero_trust_gateway_uuid_output: JsonSchema = {
-  "type": "string"
 };

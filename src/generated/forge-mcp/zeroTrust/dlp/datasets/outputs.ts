@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `dlp_Dataset` in responses.
  */
-export const dlp_Dataset_output: JsonSchema = {
+export const dlp_Dataset: JsonSchema = {
   "properties": {
     "case_sensitive": {
       "type": "boolean"
@@ -48,7 +48,15 @@ export const dlp_Dataset_output: JsonSchema = {
       "type": "boolean"
     },
     "status": {
-      "$ref": "#/$defs/dlp_DatasetUploadStatus"
+      "enum": [
+        "empty",
+        "uploading",
+        "pending",
+        "processing",
+        "failed",
+        "complete"
+      ],
+      "type": "string"
     },
     "updated_at": {
       "format": "date-time",
@@ -79,7 +87,7 @@ export const dlp_Dataset_output: JsonSchema = {
 /**
  * The schema of `dlp_DatasetArray` in responses.
  */
-export const dlp_DatasetArray_output: JsonSchema = {
+export const dlp_DatasetArray: JsonSchema = {
   "items": {
     "$ref": "#/$defs/dlp_Dataset"
   },
@@ -89,7 +97,7 @@ export const dlp_DatasetArray_output: JsonSchema = {
 /**
  * The schema of `dlp_DatasetColumn` in responses.
  */
-export const dlp_DatasetColumn_output: JsonSchema = {
+export const dlp_DatasetColumn: JsonSchema = {
   "properties": {
     "entry_id": {
       "format": "uuid",
@@ -102,7 +110,15 @@ export const dlp_DatasetColumn_output: JsonSchema = {
       "type": "integer"
     },
     "upload_status": {
-      "$ref": "#/$defs/dlp_DatasetUploadStatus"
+      "enum": [
+        "empty",
+        "uploading",
+        "pending",
+        "processing",
+        "failed",
+        "complete"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -117,7 +133,7 @@ export const dlp_DatasetColumn_output: JsonSchema = {
 /**
  * The schema of `dlp_DatasetCreation` in responses.
  */
-export const dlp_DatasetCreation_output: JsonSchema = {
+export const dlp_DatasetCreation: JsonSchema = {
   "properties": {
     "dataset": {
       "$ref": "#/$defs/dlp_Dataset"
@@ -147,7 +163,7 @@ export const dlp_DatasetCreation_output: JsonSchema = {
 /**
  * The schema of `dlp_DatasetNewVersion` in responses.
  */
-export const dlp_DatasetNewVersion_output: JsonSchema = {
+export const dlp_DatasetNewVersion: JsonSchema = {
   "properties": {
     "case_sensitive": {
       "type": "boolean"
@@ -182,13 +198,21 @@ export const dlp_DatasetNewVersion_output: JsonSchema = {
 /**
  * The schema of `dlp_DatasetUpload` in responses.
  */
-export const dlp_DatasetUpload_output: JsonSchema = {
+export const dlp_DatasetUpload: JsonSchema = {
   "properties": {
     "num_cells": {
       "type": "integer"
     },
     "status": {
-      "$ref": "#/$defs/dlp_DatasetUploadStatus"
+      "enum": [
+        "empty",
+        "uploading",
+        "pending",
+        "processing",
+        "failed",
+        "complete"
+      ],
+      "type": "string"
     },
     "version": {
       "type": "integer"

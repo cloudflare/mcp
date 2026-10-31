@@ -3,11 +3,11 @@
 
 import type { Tool } from "../_/tool.js";
 import {
-  cps_api_response_common_failure_output,
-  cps_api_response_message_output,
-  cps_communication_preferences_output,
-  cps_communication_preferences_response_output,
-  cps_customer_preference_output,
+  cps_api_response_common_failure,
+  cps_api_response_message,
+  cps_communication_preferences,
+  cps_communication_preferences_response,
+  cps_customer_preference,
 } from "./outputs.js";
 import { cps_update_communication_preferences_request } from "./schemas.js";
 
@@ -18,18 +18,19 @@ export const tools: readonly Tool[] = [
   {
     name: "cps_get",
     title: "Get communication preferences",
-    description: "Retrieve the communication preferences for the authenticated user, including email verification status, marketing subscription opt-in/opt-out state, and language locale. Callers authenticate with standard Cloudflare API tokens or keys.",
+    description: "Retrieve the communication preferences for the authenticated user, including email verification status, marketing subscription opt-in/opt-out state, and language locale. Callers authenticate with standard Cloudflare API tokens or keys.\n\nGET /user/communication_preferences",
     inputSchema: {
       type: "object",
       properties: {},
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cps_communication_preferences_response",
       $defs: {
-        "cps_api_response_message": cps_api_response_message_output,
-        "cps_communication_preferences": cps_communication_preferences_output,
-        "cps_communication_preferences_response": cps_communication_preferences_response_output,
-        "cps_customer_preference": cps_customer_preference_output,
+        "cps_api_response_message": cps_api_response_message,
+        "cps_communication_preferences": cps_communication_preferences,
+        "cps_communication_preferences_response": cps_communication_preferences_response,
+        "cps_customer_preference": cps_customer_preference,
       },
     },
     annotations: {
@@ -68,11 +69,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cps_api_response_common_failure": cps_api_response_common_failure_output,
-        "cps_api_response_message": cps_api_response_message_output,
-        "cps_communication_preferences": cps_communication_preferences_output,
-        "cps_communication_preferences_response": cps_communication_preferences_response_output,
-        "cps_customer_preference": cps_customer_preference_output,
+        "cps_api_response_common_failure": cps_api_response_common_failure,
+        "cps_api_response_message": cps_api_response_message,
+        "cps_communication_preferences": cps_communication_preferences,
+        "cps_communication_preferences_response": cps_communication_preferences_response,
+        "cps_customer_preference": cps_customer_preference,
       },
     },
     request: (_args) => ({
@@ -82,7 +83,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cps_update",
     title: "Update communication preferences",
-    description: "Set one or more communication preferences for the authenticated user. Supply a map of preference keys to subscription states, and an optional language locale. This endpoint does not modify email verification settings. Callers authenticate with standard Cloudflare API tokens or keys.",
+    description: "Set one or more communication preferences for the authenticated user. Supply a map of preference keys to subscription states, and an optional language locale. This endpoint does not modify email verification settings. Callers authenticate with standard Cloudflare API tokens or keys.\n\nPUT /user/communication_preferences",
     inputSchema: {
       type: "object",
       properties: {
@@ -93,6 +94,7 @@ export const tools: readonly Tool[] = [
       required: [
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "cps_update_communication_preferences_request": cps_update_communication_preferences_request,
       },
@@ -100,10 +102,10 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/cps_communication_preferences_response",
       $defs: {
-        "cps_api_response_message": cps_api_response_message_output,
-        "cps_communication_preferences": cps_communication_preferences_output,
-        "cps_communication_preferences_response": cps_communication_preferences_response_output,
-        "cps_customer_preference": cps_customer_preference_output,
+        "cps_api_response_message": cps_api_response_message,
+        "cps_communication_preferences": cps_communication_preferences,
+        "cps_communication_preferences_response": cps_communication_preferences_response,
+        "cps_customer_preference": cps_customer_preference,
       },
     },
     annotations: {
@@ -142,11 +144,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cps_api_response_common_failure": cps_api_response_common_failure_output,
-        "cps_api_response_message": cps_api_response_message_output,
-        "cps_communication_preferences": cps_communication_preferences_output,
-        "cps_communication_preferences_response": cps_communication_preferences_response_output,
-        "cps_customer_preference": cps_customer_preference_output,
+        "cps_api_response_common_failure": cps_api_response_common_failure,
+        "cps_api_response_message": cps_api_response_message,
+        "cps_communication_preferences": cps_communication_preferences,
+        "cps_communication_preferences_response": cps_communication_preferences_response,
+        "cps_customer_preference": cps_customer_preference,
       },
     },
     request: (args) => ({

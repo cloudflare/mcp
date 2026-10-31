@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `dlp_EntryProfile` in responses.
  */
-export const dlp_EntryProfile_output: JsonSchema = {
+export const dlp_EntryProfile: JsonSchema = {
   "properties": {
     "id": {
       "format": "uuid",
@@ -26,7 +26,7 @@ export const dlp_EntryProfile_output: JsonSchema = {
 /**
  * The schema of `dlp_EntryWithSharedProfiles` in responses.
  */
-export const dlp_EntryWithSharedProfiles_output: JsonSchema = {
+export const dlp_EntryWithSharedProfiles: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dlp_EntryWithUploadStatus"
@@ -51,7 +51,7 @@ export const dlp_EntryWithSharedProfiles_output: JsonSchema = {
 /**
  * The schema of `dlp_EntryWithUploadStatus` in responses.
  */
-export const dlp_EntryWithUploadStatus_output: JsonSchema = {
+export const dlp_EntryWithUploadStatus: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dlp_Entry"
@@ -59,7 +59,15 @@ export const dlp_EntryWithUploadStatus_output: JsonSchema = {
     {
       "properties": {
         "upload_status": {
-          "$ref": "#/$defs/dlp_DatasetUploadStatus"
+          "enum": [
+            "empty",
+            "uploading",
+            "pending",
+            "processing",
+            "failed",
+            "complete"
+          ],
+          "type": "string"
         }
       },
       "type": "object"

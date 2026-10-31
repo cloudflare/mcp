@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `email-security_CreateTrustedDomain`.
  */
-export const email_security_CreateTrustedDomain: JsonSchema = {
+export const email$$security_CreateTrustedDomain: JsonSchema = {
   "description": "Create a trusted domain.",
   "properties": {
     "comments": {
@@ -46,18 +46,9 @@ export const email_security_CreateTrustedDomain: JsonSchema = {
 };
 
 /**
- * The schema of `email-security_TrustedDomainId`.
- */
-export const email_security_TrustedDomainId: JsonSchema = {
-  "description": "Trusted domain identifier.",
-  "format": "uuid",
-  "type": "string"
-};
-
-/**
  * The schema of `email-security_UpdateTrustedDomain`.
  */
-export const email_security_UpdateTrustedDomain: JsonSchema = {
+export const email$$security_UpdateTrustedDomain: JsonSchema = {
   "description": "Update a trusted domain.",
   "properties": {
     "comments": {

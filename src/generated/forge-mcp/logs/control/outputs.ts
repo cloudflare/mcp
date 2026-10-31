@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `logcontrol_api-response-common-failure` in responses.
  */
-export const logcontrol_api_response_common_failure_output: JsonSchema = {
+export const logcontrol_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/logcontrol_messages"
@@ -36,7 +36,7 @@ export const logcontrol_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `logcontrol_api-response-single` in responses.
  */
-export const logcontrol_api_response_single_output: JsonSchema = {
+export const logcontrol_api$$response$$single: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/logcontrol_messages"
@@ -62,7 +62,7 @@ export const logcontrol_api_response_single_output: JsonSchema = {
 /**
  * The schema of `logcontrol_messages` in responses.
  */
-export const logcontrol_messages_output: JsonSchema = {
+export const logcontrol_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {

@@ -3,42 +3,44 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  botnet_feed_api_api_response_common_failure_output,
-  botnet_feed_api_api_response_common_output,
-  botnet_feed_api_messages_output,
+  botnet$$feed$$api_api$$response$$common,
+  botnet$$feed$$api_api$$response$$common$$failure,
+  botnet$$feed$$api_messages,
 } from "../../outputs.js";
-import {
-  botnet_feed_api_asn,
-  botnet_feed_api_identifier,
-} from "../../schemas.js";
 
 /**
- * The tools of `botnet_feed.configs.asn`.
+ * The tools of `botnetFeed.configs.asn`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "botnet_feed_configs_asn_delete",
+    name: "botnetFeed_configs_asn_delete",
     title: "Delete an ASN",
-    description: "Delete an ASN from botnet threat feed for a given user.",
+    description: "Delete an ASN from botnet threat feed for a given user.\n\nDELETE /accounts/{account_id}/botnet_feed/configs/asn/{asn_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/botnet-feed-api_identifier",
-          "description": "Identifier."
-        },
-        "asn_id": {
-          "$ref": "#/$defs/botnet-feed-api_asn"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            },
+            "asn_id": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "account_id",
+            "asn_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "asn_id"
+        "path"
       ],
-      $defs: {
-        "botnet-feed-api_asn": botnet_feed_api_asn,
-        "botnet-feed-api_identifier": botnet_feed_api_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -60,8 +62,8 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "botnet-feed-api_api-response-common": botnet_feed_api_api_response_common_output,
-        "botnet-feed-api_messages": botnet_feed_api_messages_output,
+        "botnet-feed-api_api-response-common": botnet$$feed$$api_api$$response$$common,
+        "botnet-feed-api_messages": botnet$$feed$$api_messages,
       },
     },
     annotations: {
@@ -105,9 +107,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "botnet-feed-api_api-response-common": botnet_feed_api_api_response_common_output,
-        "botnet-feed-api_api-response-common-failure": botnet_feed_api_api_response_common_failure_output,
-        "botnet-feed-api_messages": botnet_feed_api_messages_output,
+        "botnet-feed-api_api-response-common": botnet$$feed$$api_api$$response$$common,
+        "botnet-feed-api_api-response-common-failure": botnet$$feed$$api_api$$response$$common$$failure,
+        "botnet-feed-api_messages": botnet$$feed$$api_messages,
       },
     },
     request: (args) => ({
@@ -115,23 +117,30 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "botnet_feed_configs_asn_get",
+    name: "botnetFeed_configs_asn_get",
     title: "Get list of ASNs",
-    description: "Gets a list of all ASNs registered for a user for the DDoS Botnet Feed API.",
+    description: "Gets a list of all ASNs registered for a user for the DDoS Botnet Feed API.\n\nGET /accounts/{account_id}/botnet_feed/configs/asn",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/botnet-feed-api_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
-      $defs: {
-        "botnet-feed-api_identifier": botnet_feed_api_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -153,8 +162,8 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "botnet-feed-api_api-response-common": botnet_feed_api_api_response_common_output,
-        "botnet-feed-api_messages": botnet_feed_api_messages_output,
+        "botnet-feed-api_api-response-common": botnet$$feed$$api_api$$response$$common,
+        "botnet-feed-api_messages": botnet$$feed$$api_messages,
       },
     },
     annotations: {
@@ -199,9 +208,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "botnet-feed-api_api-response-common": botnet_feed_api_api_response_common_output,
-        "botnet-feed-api_api-response-common-failure": botnet_feed_api_api_response_common_failure_output,
-        "botnet-feed-api_messages": botnet_feed_api_messages_output,
+        "botnet-feed-api_api-response-common": botnet$$feed$$api_api$$response$$common,
+        "botnet-feed-api_api-response-common-failure": botnet$$feed$$api_api$$response$$common$$failure,
+        "botnet-feed-api_messages": botnet$$feed$$api_messages,
       },
     },
     request: (args) => ({

@@ -10,18 +10,28 @@ export const tools: readonly Tool[] = [
   {
     name: "images_flows_get",
     title: "Get transformation flows",
-    description: "Get the current transformation flows configuration for a zone.",
+    description: "Get the current transformation flows configuration for a zone.\n\nGET /zones/{zone_id}/images/v1/flows",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "description": "Zone identifier.",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Zone identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -525,7 +535,7 @@ export const tools: readonly Tool[] = [
   {
     name: "images_flows_update",
     title: "Update transformation flows",
-    description: "Replace the entire transformation flows configuration for a zone.",
+    description: "Replace the entire transformation flows configuration for a zone.\n\nPUT /zones/{zone_id}/images/v1/flows",
     inputSchema: {
       type: "object",
       properties: {
@@ -749,14 +759,24 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "zone_id": {
-          "description": "Zone identifier.",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Zone identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

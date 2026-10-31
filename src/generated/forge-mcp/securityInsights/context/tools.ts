@@ -3,38 +3,44 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  security_center_api_response_common_failure_output,
-  security_center_api_response_common_output,
-  security_center_messages_output,
+  security$$center_api$$response$$common,
+  security$$center_api$$response$$common$$failure,
+  security$$center_messages,
 } from "../../outputs.js";
-import { security_center_identifier } from "../../schemas.js";
 
 /**
- * The tools of `security_insights.context`.
+ * The tools of `securityInsights.context`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "security_insights_context_get",
+    name: "securityInsights_context_get",
     title: "Retrieves Security Center Insight Context",
-    description: "Returns the full context payload for an insight. This endpoint is used for insights with large payloads that are not included inline in the list response.",
+    description: "Returns the full context payload for an insight. This endpoint is used for insights with large payloads that are not included inline in the list response.\n\nGET /accounts/{account_id}/security-center/insights/{issue_id}/context",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/security-center_identifier",
-          "description": "Identifier."
-        },
-        "issue_id": {
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            },
+            "issue_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "issue_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "issue_id"
+        "path"
       ],
-      $defs: {
-        "security-center_identifier": security_center_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -51,8 +57,8 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "security-center_api-response-common": security_center_api_response_common_output,
-        "security-center_messages": security_center_messages_output,
+        "security-center_api-response-common": security$$center_api$$response$$common,
+        "security-center_messages": security$$center_messages,
       },
     },
     annotations: {
@@ -86,9 +92,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "security-center_api-response-common": security_center_api_response_common_output,
-        "security-center_api-response-common-failure": security_center_api_response_common_failure_output,
-        "security-center_messages": security_center_messages_output,
+        "security-center_api-response-common": security$$center_api$$response$$common,
+        "security-center_api-response-common-failure": security$$center_api$$response$$common$$failure,
+        "security-center_messages": security$$center_messages,
       },
     },
     request: (args) => ({

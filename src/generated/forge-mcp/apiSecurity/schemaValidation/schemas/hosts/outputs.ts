@@ -6,10 +6,18 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `api-shield_schema_hosts` in responses.
  */
-export const api_shield_schema_hosts_output: JsonSchema = {
+export const api$$shield_schema_hosts: JsonSchema = {
   "properties": {
     "created_at": {
-      "$ref": "#/$defs/api-shield_timestamp-2"
+      "allOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "string"
+        }
+      ]
     },
     "hosts": {
       "items": {
@@ -23,7 +31,14 @@ export const api_shield_schema_hosts_output: JsonSchema = {
     "schema_id": {
       "allOf": [
         {
-          "$ref": "#/$defs/api-shield_uuid-2"
+          "allOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "string"
+            }
+          ]
         },
         {
           "format": "uuid",

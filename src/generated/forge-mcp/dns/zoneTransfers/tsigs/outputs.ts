@@ -4,16 +4,9 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `secondary-dns_algo` in responses.
- */
-export const secondary_dns_algo_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `secondary-dns_id_response-2` in responses.
  */
-export const secondary_dns_id_response_2_output: JsonSchema = {
+export const secondary$$dns_id_response$$2: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/secondary-dns_api-response-single"
@@ -23,7 +16,7 @@ export const secondary_dns_id_response_2_output: JsonSchema = {
         "result": {
           "properties": {
             "id": {
-              "$ref": "#/$defs/secondary-dns_identifier-2"
+              "type": "string"
             }
           },
           "type": "object"
@@ -35,23 +28,9 @@ export const secondary_dns_id_response_2_output: JsonSchema = {
 };
 
 /**
- * The schema of `secondary-dns_identifier-2` in responses.
- */
-export const secondary_dns_identifier_2_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `secondary-dns_name-2` in responses.
- */
-export const secondary_dns_name_2_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `secondary-dns_response_collection` in responses.
  */
-export const secondary_dns_response_collection_output: JsonSchema = {
+export const secondary$$dns_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/secondary-dns_api-response-collection"
@@ -71,16 +50,9 @@ export const secondary_dns_response_collection_output: JsonSchema = {
 };
 
 /**
- * The schema of `secondary-dns_secret` in responses.
- */
-export const secondary_dns_secret_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `secondary-dns_single_response` in responses.
  */
-export const secondary_dns_single_response_output: JsonSchema = {
+export const secondary$$dns_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/secondary-dns_api-response-single"
@@ -99,19 +71,19 @@ export const secondary_dns_single_response_output: JsonSchema = {
 /**
  * The schema of `secondary-dns_tsig` in responses.
  */
-export const secondary_dns_tsig_output: JsonSchema = {
+export const secondary$$dns_tsig: JsonSchema = {
   "properties": {
     "algo": {
-      "$ref": "#/$defs/secondary-dns_algo"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/secondary-dns_identifier-2"
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/secondary-dns_name-2"
+      "type": "string"
     },
     "secret": {
-      "$ref": "#/$defs/secondary-dns_secret"
+      "type": "string"
     }
   },
   "required": [

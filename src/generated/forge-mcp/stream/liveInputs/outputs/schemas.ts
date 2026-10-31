@@ -9,17 +9,17 @@ import type { JsonSchema } from "../../../_/tool.js";
 export const stream_create_output_request: JsonSchema = {
   "properties": {
     "enabled": {
-      "$ref": "#/$defs/stream_output_enabled",
       "default": true,
-      "description": "When enabled, live video streamed to the associated live input will be sent to the output URL. When disabled, live video will not be sent to the output URL, even when streaming to the associated live input. Use this to control precisely when you start and stop simulcasting to specific destinations like YouTube and Twitch."
+      "description": "When enabled, live video streamed to the associated live input will be sent to the output URL. When disabled, live video will not be sent to the output URL, even when streaming to the associated live input. Use this to control precisely when you start and stop simulcasting to specific destinations like YouTube and Twitch.",
+      "type": "boolean"
     },
     "streamKey": {
-      "$ref": "#/$defs/stream_output_streamKey",
-      "description": "The streamKey used to authenticate against an output's target."
+      "description": "The streamKey used to authenticate against an output's target.",
+      "type": "string"
     },
     "url": {
-      "$ref": "#/$defs/stream_output_url",
-      "description": "The URL an output uses to restream."
+      "description": "The URL an output uses to restream.",
+      "type": "string"
     }
   },
   "required": [
@@ -30,46 +30,14 @@ export const stream_create_output_request: JsonSchema = {
 };
 
 /**
- * The schema of `stream_output_enabled`.
- */
-export const stream_output_enabled: JsonSchema = {
-  "description": "When enabled, live video streamed to the associated live input will be sent to the output URL. When disabled, live video will not be sent to the output URL, even when streaming to the associated live input. Use this to control precisely when you start and stop simulcasting to specific destinations like YouTube and Twitch.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `stream_output_identifier`.
- */
-export const stream_output_identifier: JsonSchema = {
-  "description": "A unique identifier for the output.",
-  "type": "string"
-};
-
-/**
- * The schema of `stream_output_streamKey`.
- */
-export const stream_output_streamKey: JsonSchema = {
-  "description": "The streamKey used to authenticate against an output's target.",
-  "type": "string"
-};
-
-/**
- * The schema of `stream_output_url`.
- */
-export const stream_output_url: JsonSchema = {
-  "description": "The URL an output uses to restream.",
-  "type": "string"
-};
-
-/**
  * The schema of `stream_update_output_request`.
  */
 export const stream_update_output_request: JsonSchema = {
   "properties": {
     "enabled": {
-      "$ref": "#/$defs/stream_output_enabled",
       "default": true,
-      "description": "When enabled, live video streamed to the associated live input will be sent to the output URL. When disabled, live video will not be sent to the output URL, even when streaming to the associated live input. Use this to control precisely when you start and stop simulcasting to specific destinations like YouTube and Twitch."
+      "description": "When enabled, live video streamed to the associated live input will be sent to the output URL. When disabled, live video will not be sent to the output URL, even when streaming to the associated live input. Use this to control precisely when you start and stop simulcasting to specific destinations like YouTube and Twitch.",
+      "type": "boolean"
     }
   },
   "required": [

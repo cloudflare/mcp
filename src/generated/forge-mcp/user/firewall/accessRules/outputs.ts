@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `firewall_rule_collection_response` in responses.
  */
-export const firewall_rule_collection_response_output: JsonSchema = {
+export const firewall_rule_collection_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/firewall_api-response-collection"
@@ -28,7 +28,7 @@ export const firewall_rule_collection_response_output: JsonSchema = {
 /**
  * The schema of `firewall_rule_single_id_response` in responses.
  */
-export const firewall_rule_single_id_response_output: JsonSchema = {
+export const firewall_rule_single_id_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/firewall_api-response-single"
@@ -38,7 +38,7 @@ export const firewall_rule_single_id_response_output: JsonSchema = {
         "result": {
           "properties": {
             "id": {
-              "$ref": "#/$defs/firewall_schemas-identifier"
+              "type": "string"
             }
           },
           "type": "object"
@@ -52,7 +52,7 @@ export const firewall_rule_single_id_response_output: JsonSchema = {
 /**
  * The schema of `firewall_rule_single_response` in responses.
  */
-export const firewall_rule_single_response_output: JsonSchema = {
+export const firewall_rule_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/firewall_api-response-single"

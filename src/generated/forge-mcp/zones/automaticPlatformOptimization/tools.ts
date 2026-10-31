@@ -3,26 +3,25 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  speed_api_response_common_failure_output,
-  speed_api_response_common_output,
-  speed_base_output,
-  speed_messages_output,
+  speed_api$$response$$common,
+  speed_api$$response$$common$$failure,
+  speed_base,
+  speed_messages,
 } from "../../outputs.js";
-import { speed_identifier } from "../../schemas.js";
 import {
-  speed_automatic_platform_optimization_response_output,
-  speed_automatic_platform_optimization_value_output,
+  speed_automatic_platform_optimization_response,
+  speed_automatic_platform_optimization_value,
 } from "./outputs.js";
-import { speed_automatic_platform_optimization_value } from "./schemas.js";
+import { speed_automatic_platform_optimization_value as speed_automatic_platform_optimization_value$ } from "./schemas.js";
 
 /**
- * The tools of `zones.automatic_platform_optimization`.
+ * The tools of `zones.automaticPlatformOptimization`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zones_automatic_platform_optimization_edit",
+    name: "zones_automaticPlatformOptimization_edit",
     title: "Change Automatic Platform Optimization setting",
-    description: "Automatic Platform Optimization (APO) for WordPress is a performance feature that serves your\nWordPress site from Cloudflare's edge network, reducing load times for visitors.\nRefer to the APO documentation for more information.",
+    description: "Automatic Platform Optimization (APO) for WordPress is a performance feature that serves your\nWordPress site from Cloudflare's edge network, reducing load times for visitors.\nRefer to the APO documentation for more information.\n\nPATCH /zones/{zone_id}/settings/automatic_platform_optimization",
     inputSchema: {
       type: "object",
       properties: {
@@ -30,7 +29,7 @@ export const tools: readonly Tool[] = [
           "properties": {
             "value": {
               "$ref": "#/$defs/speed_automatic_platform_optimization_value",
-              "description": "Configuration for Automatic Platform Optimization (APO) for WordPress.\nSet to \"off\" to disable, or provide an object to configure APO settings.\n"
+              "description": "Configuration for Automatic Platform Optimization (APO) for WordPress.\nSet to \"off\" to disable, or provide an object to configure APO settings."
             }
           },
           "required": [
@@ -38,18 +37,27 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "zone_id": {
-          "$ref": "#/$defs/speed_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "speed_automatic_platform_optimization_value": speed_automatic_platform_optimization_value,
-        "speed_identifier": speed_identifier,
+        "speed_automatic_platform_optimization_value": speed_automatic_platform_optimization_value$,
       },
     },
     outputSchema: {
@@ -67,11 +75,11 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "speed_api-response-common": speed_api_response_common_output,
-        "speed_automatic_platform_optimization_response": speed_automatic_platform_optimization_response_output,
-        "speed_automatic_platform_optimization_value": speed_automatic_platform_optimization_value_output,
-        "speed_base": speed_base_output,
-        "speed_messages": speed_messages_output,
+        "speed_api-response-common": speed_api$$response$$common,
+        "speed_automatic_platform_optimization_response": speed_automatic_platform_optimization_response,
+        "speed_automatic_platform_optimization_value": speed_automatic_platform_optimization_value,
+        "speed_base": speed_base,
+        "speed_messages": speed_messages,
       },
     },
     annotations: {
@@ -121,12 +129,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "speed_api-response-common": speed_api_response_common_output,
-        "speed_api-response-common-failure": speed_api_response_common_failure_output,
-        "speed_automatic_platform_optimization_response": speed_automatic_platform_optimization_response_output,
-        "speed_automatic_platform_optimization_value": speed_automatic_platform_optimization_value_output,
-        "speed_base": speed_base_output,
-        "speed_messages": speed_messages_output,
+        "speed_api-response-common": speed_api$$response$$common,
+        "speed_api-response-common-failure": speed_api$$response$$common$$failure,
+        "speed_automatic_platform_optimization_response": speed_automatic_platform_optimization_response,
+        "speed_automatic_platform_optimization_value": speed_automatic_platform_optimization_value,
+        "speed_base": speed_base,
+        "speed_messages": speed_messages,
       },
     },
     request: (args) => ({
@@ -135,23 +143,30 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zones_automatic_platform_optimization_get",
+    name: "zones_automaticPlatformOptimization_get",
     title: "Get Automatic Platform Optimization setting",
-    description: "Automatic Platform Optimization (APO) for WordPress is a performance feature that serves your\nWordPress site from Cloudflare's edge network, reducing load times for visitors.\nRefer to the APO documentation for more information.",
+    description: "Automatic Platform Optimization (APO) for WordPress is a performance feature that serves your\nWordPress site from Cloudflare's edge network, reducing load times for visitors.\nRefer to the APO documentation for more information.\n\nGET /zones/{zone_id}/settings/automatic_platform_optimization",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/speed_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
-      $defs: {
-        "speed_identifier": speed_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -168,11 +183,11 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "speed_api-response-common": speed_api_response_common_output,
-        "speed_automatic_platform_optimization_response": speed_automatic_platform_optimization_response_output,
-        "speed_automatic_platform_optimization_value": speed_automatic_platform_optimization_value_output,
-        "speed_base": speed_base_output,
-        "speed_messages": speed_messages_output,
+        "speed_api-response-common": speed_api$$response$$common,
+        "speed_automatic_platform_optimization_response": speed_automatic_platform_optimization_response,
+        "speed_automatic_platform_optimization_value": speed_automatic_platform_optimization_value,
+        "speed_base": speed_base,
+        "speed_messages": speed_messages,
       },
     },
     annotations: {
@@ -223,12 +238,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "speed_api-response-common": speed_api_response_common_output,
-        "speed_api-response-common-failure": speed_api_response_common_failure_output,
-        "speed_automatic_platform_optimization_response": speed_automatic_platform_optimization_response_output,
-        "speed_automatic_platform_optimization_value": speed_automatic_platform_optimization_value_output,
-        "speed_base": speed_base_output,
-        "speed_messages": speed_messages_output,
+        "speed_api-response-common": speed_api$$response$$common,
+        "speed_api-response-common-failure": speed_api$$response$$common$$failure,
+        "speed_automatic_platform_optimization_response": speed_automatic_platform_optimization_response,
+        "speed_automatic_platform_optimization_value": speed_automatic_platform_optimization_value,
+        "speed_base": speed_base,
+        "speed_messages": speed_messages,
       },
     },
     request: (args) => ({

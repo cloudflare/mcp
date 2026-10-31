@@ -4,16 +4,9 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `workers_cursor` in responses.
- */
-export const workers_cursor_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `workers_object` in responses.
  */
-export const workers_object_output: JsonSchema = {
+export const workers_object: JsonSchema = {
   "properties": {
     "hasStoredData": {
       "type": "boolean"

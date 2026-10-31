@@ -32,8 +32,12 @@ export const images_sourcingkit_connectivity_precheck_request: JsonSchema = {
       "type": "object"
     },
     "vendor": {
-      "$ref": "#/$defs/images_sourcingkit_vendor",
-      "description": "The cloud storage vendor of the source bucket."
+      "description": "The cloud storage vendor of the source bucket.",
+      "enum": [
+        "s3",
+        "r2"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -66,8 +70,12 @@ export const images_sourcingkit_source_create_request: JsonSchema = {
       "type": "object"
     },
     "vendor": {
-      "$ref": "#/$defs/images_sourcingkit_vendor",
-      "description": "The cloud storage vendor of the source bucket."
+      "description": "The cloud storage vendor of the source bucket.",
+      "enum": [
+        "s3",
+        "r2"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -93,16 +101,4 @@ export const images_sourcingkit_source_update_request: JsonSchema = {
     "name"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `images_sourcingkit_vendor`.
- */
-export const images_sourcingkit_vendor: JsonSchema = {
-  "description": "The cloud storage vendor of the source bucket.",
-  "enum": [
-    "s3",
-    "r2"
-  ],
-  "type": "string"
 };

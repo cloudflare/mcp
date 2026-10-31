@@ -3,69 +3,58 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  builds_APIResponse_output,
-  builds_ApiError_output,
-  builds_BuildStatus_output,
-  builds_ErrorResponse_output,
-  builds_PaginationInfo_output,
-  builds_branch_output,
-  builds_build_uuid_output,
-  builds_created_on_output,
-  builds_deploy_hook_name_output,
-  builds_external_script_id_output,
-  builds_modified_on_output,
+  builds_APIResponse,
+  builds_ApiError,
+  builds_ErrorResponse,
+  builds_PaginationInfo,
 } from "../../outputs.js";
 import {
-  builds_account_id,
-  builds_branch,
-  builds_deploy_hook_name,
-} from "../../schemas.js";
-import {
-  builds_DeployHookResponse_output,
-  builds_DetailedDeployHookResponse_output,
-  builds_TriggerDeployHookResponse_output,
-  builds_deploy_hook_uuid_output,
+  builds_DeployHookResponse,
+  builds_DetailedDeployHookResponse,
+  builds_TriggerDeployHookResponse,
 } from "./outputs.js";
-import {
-  builds_CreateDeployHookRequest,
-  builds_deploy_hook_uuid,
-  builds_script_name,
-} from "./schemas.js";
+import { builds_CreateDeployHookRequest } from "./schemas.js";
 
 /**
- * The tools of `builds.deploy_hooks`.
+ * The tools of `builds.deployHooks`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "builds_deploy_hooks_create",
+    name: "builds_deployHooks_create",
     title: "Create a deploy hook",
-    description: "Create an HTTP hook that starts a build for a selected Worker branch.",
+    description: "Create an HTTP hook that starts a build for a selected Worker branch.\n\nPOST /accounts/{account_id}/builds/workers/{script_name}/deploy_hooks",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/builds_account_id",
-          "description": "Account identifier."
-        },
         "body": {
           "$ref": "#/$defs/builds_CreateDeployHookRequest"
         },
-        "script_name": {
-          "$ref": "#/$defs/builds_script_name",
-          "description": "Human-readable name of the worker."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account identifier.",
+              "type": "string"
+            },
+            "script_name": {
+              "description": "Human-readable name of the worker.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "script_name"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "script_name",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "builds_CreateDeployHookRequest": builds_CreateDeployHookRequest,
-        "builds_account_id": builds_account_id,
-        "builds_branch": builds_branch,
-        "builds_deploy_hook_name": builds_deploy_hook_name,
-        "builds_script_name": builds_script_name,
       },
     },
     outputSchema: {
@@ -83,16 +72,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "builds_APIResponse": builds_APIResponse_output,
-        "builds_ApiError": builds_ApiError_output,
-        "builds_DeployHookResponse": builds_DeployHookResponse_output,
-        "builds_PaginationInfo": builds_PaginationInfo_output,
-        "builds_branch": builds_branch_output,
-        "builds_created_on": builds_created_on_output,
-        "builds_deploy_hook_name": builds_deploy_hook_name_output,
-        "builds_deploy_hook_uuid": builds_deploy_hook_uuid_output,
-        "builds_external_script_id": builds_external_script_id_output,
-        "builds_modified_on": builds_modified_on_output,
+        "builds_APIResponse": builds_APIResponse,
+        "builds_ApiError": builds_ApiError,
+        "builds_DeployHookResponse": builds_DeployHookResponse,
+        "builds_PaginationInfo": builds_PaginationInfo,
       },
     },
     annotations: {
@@ -140,17 +123,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "builds_APIResponse": builds_APIResponse_output,
-        "builds_ApiError": builds_ApiError_output,
-        "builds_DeployHookResponse": builds_DeployHookResponse_output,
-        "builds_ErrorResponse": builds_ErrorResponse_output,
-        "builds_PaginationInfo": builds_PaginationInfo_output,
-        "builds_branch": builds_branch_output,
-        "builds_created_on": builds_created_on_output,
-        "builds_deploy_hook_name": builds_deploy_hook_name_output,
-        "builds_deploy_hook_uuid": builds_deploy_hook_uuid_output,
-        "builds_external_script_id": builds_external_script_id_output,
-        "builds_modified_on": builds_modified_on_output,
+        "builds_APIResponse": builds_APIResponse,
+        "builds_ApiError": builds_ApiError,
+        "builds_DeployHookResponse": builds_DeployHookResponse,
+        "builds_ErrorResponse": builds_ErrorResponse,
+        "builds_PaginationInfo": builds_PaginationInfo,
       },
     },
     request: (args) => ({
@@ -159,35 +136,41 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "builds_deploy_hooks_delete",
+    name: "builds_deployHooks_delete",
     title: "Delete a deploy hook",
-    description: "Delete a deploy hook so its UUID can no longer start builds.",
+    description: "Delete a deploy hook so its UUID can no longer start builds.\n\nDELETE /accounts/{account_id}/builds/workers/{script_name}/deploy_hooks/{deploy_hook_uuid}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/builds_account_id",
-          "description": "Account identifier."
-        },
-        "deploy_hook_uuid": {
-          "$ref": "#/$defs/builds_deploy_hook_uuid",
-          "description": "Deploy hook UUID"
-        },
-        "script_name": {
-          "$ref": "#/$defs/builds_script_name",
-          "description": "Human-readable name of the worker."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account identifier.",
+              "type": "string"
+            },
+            "deploy_hook_uuid": {
+              "description": "Deploy hook UUID",
+              "format": "uuid",
+              "type": "string"
+            },
+            "script_name": {
+              "description": "Human-readable name of the worker.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "script_name",
+            "deploy_hook_uuid"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "script_name",
-        "deploy_hook_uuid"
+        "path"
       ],
-      $defs: {
-        "builds_account_id": builds_account_id,
-        "builds_deploy_hook_uuid": builds_deploy_hook_uuid,
-        "builds_script_name": builds_script_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -204,16 +187,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "builds_APIResponse": builds_APIResponse_output,
-        "builds_ApiError": builds_ApiError_output,
-        "builds_DeployHookResponse": builds_DeployHookResponse_output,
-        "builds_PaginationInfo": builds_PaginationInfo_output,
-        "builds_branch": builds_branch_output,
-        "builds_created_on": builds_created_on_output,
-        "builds_deploy_hook_name": builds_deploy_hook_name_output,
-        "builds_deploy_hook_uuid": builds_deploy_hook_uuid_output,
-        "builds_external_script_id": builds_external_script_id_output,
-        "builds_modified_on": builds_modified_on_output,
+        "builds_APIResponse": builds_APIResponse,
+        "builds_ApiError": builds_ApiError,
+        "builds_DeployHookResponse": builds_DeployHookResponse,
+        "builds_PaginationInfo": builds_PaginationInfo,
       },
     },
     annotations: {
@@ -255,17 +232,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "builds_APIResponse": builds_APIResponse_output,
-        "builds_ApiError": builds_ApiError_output,
-        "builds_DeployHookResponse": builds_DeployHookResponse_output,
-        "builds_ErrorResponse": builds_ErrorResponse_output,
-        "builds_PaginationInfo": builds_PaginationInfo_output,
-        "builds_branch": builds_branch_output,
-        "builds_created_on": builds_created_on_output,
-        "builds_deploy_hook_name": builds_deploy_hook_name_output,
-        "builds_deploy_hook_uuid": builds_deploy_hook_uuid_output,
-        "builds_external_script_id": builds_external_script_id_output,
-        "builds_modified_on": builds_modified_on_output,
+        "builds_APIResponse": builds_APIResponse,
+        "builds_ApiError": builds_ApiError,
+        "builds_DeployHookResponse": builds_DeployHookResponse,
+        "builds_ErrorResponse": builds_ErrorResponse,
+        "builds_PaginationInfo": builds_PaginationInfo,
       },
     },
     request: (args) => ({
@@ -273,35 +244,41 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "builds_deploy_hooks_get",
+    name: "builds_deployHooks_get",
     title: "Get a deploy hook",
-    description: "Retrieve the name, branch, Worker identifier, and timestamps for a deploy hook.",
+    description: "Retrieve the name, branch, Worker identifier, and timestamps for a deploy hook.\n\nGET /accounts/{account_id}/builds/workers/{script_name}/deploy_hooks/{deploy_hook_uuid}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/builds_account_id",
-          "description": "Account identifier."
-        },
-        "deploy_hook_uuid": {
-          "$ref": "#/$defs/builds_deploy_hook_uuid",
-          "description": "Deploy hook UUID"
-        },
-        "script_name": {
-          "$ref": "#/$defs/builds_script_name",
-          "description": "Human-readable name of the worker."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account identifier.",
+              "type": "string"
+            },
+            "deploy_hook_uuid": {
+              "description": "Deploy hook UUID",
+              "format": "uuid",
+              "type": "string"
+            },
+            "script_name": {
+              "description": "Human-readable name of the worker.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "script_name",
+            "deploy_hook_uuid"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "script_name",
-        "deploy_hook_uuid"
+        "path"
       ],
-      $defs: {
-        "builds_account_id": builds_account_id,
-        "builds_deploy_hook_uuid": builds_deploy_hook_uuid,
-        "builds_script_name": builds_script_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -318,16 +295,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "builds_APIResponse": builds_APIResponse_output,
-        "builds_ApiError": builds_ApiError_output,
-        "builds_DeployHookResponse": builds_DeployHookResponse_output,
-        "builds_PaginationInfo": builds_PaginationInfo_output,
-        "builds_branch": builds_branch_output,
-        "builds_created_on": builds_created_on_output,
-        "builds_deploy_hook_name": builds_deploy_hook_name_output,
-        "builds_deploy_hook_uuid": builds_deploy_hook_uuid_output,
-        "builds_external_script_id": builds_external_script_id_output,
-        "builds_modified_on": builds_modified_on_output,
+        "builds_APIResponse": builds_APIResponse,
+        "builds_ApiError": builds_ApiError,
+        "builds_DeployHookResponse": builds_DeployHookResponse,
+        "builds_PaginationInfo": builds_PaginationInfo,
       },
     },
     annotations: {
@@ -370,17 +341,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "builds_APIResponse": builds_APIResponse_output,
-        "builds_ApiError": builds_ApiError_output,
-        "builds_DeployHookResponse": builds_DeployHookResponse_output,
-        "builds_ErrorResponse": builds_ErrorResponse_output,
-        "builds_PaginationInfo": builds_PaginationInfo_output,
-        "builds_branch": builds_branch_output,
-        "builds_created_on": builds_created_on_output,
-        "builds_deploy_hook_name": builds_deploy_hook_name_output,
-        "builds_deploy_hook_uuid": builds_deploy_hook_uuid_output,
-        "builds_external_script_id": builds_external_script_id_output,
-        "builds_modified_on": builds_modified_on_output,
+        "builds_APIResponse": builds_APIResponse,
+        "builds_ApiError": builds_ApiError,
+        "builds_DeployHookResponse": builds_DeployHookResponse,
+        "builds_ErrorResponse": builds_ErrorResponse,
+        "builds_PaginationInfo": builds_PaginationInfo,
       },
     },
     request: (args) => ({
@@ -388,29 +353,35 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "builds_deploy_hooks_list",
+    name: "builds_deployHooks_list",
     title: "List deploy hooks",
-    description: "List the branch-specific deploy hooks configured for a Worker.",
+    description: "List the branch-specific deploy hooks configured for a Worker.\n\nGET /accounts/{account_id}/builds/workers/{script_name}/deploy_hooks",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/builds_account_id",
-          "description": "Account identifier."
-        },
-        "script_name": {
-          "$ref": "#/$defs/builds_script_name",
-          "description": "Human-readable name of the worker."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account identifier.",
+              "type": "string"
+            },
+            "script_name": {
+              "description": "Human-readable name of the worker.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "script_name"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "script_name"
+        "path"
       ],
-      $defs: {
-        "builds_account_id": builds_account_id,
-        "builds_script_name": builds_script_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -430,16 +401,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "builds_APIResponse": builds_APIResponse_output,
-        "builds_ApiError": builds_ApiError_output,
-        "builds_DetailedDeployHookResponse": builds_DetailedDeployHookResponse_output,
-        "builds_PaginationInfo": builds_PaginationInfo_output,
-        "builds_branch": builds_branch_output,
-        "builds_created_on": builds_created_on_output,
-        "builds_deploy_hook_name": builds_deploy_hook_name_output,
-        "builds_deploy_hook_uuid": builds_deploy_hook_uuid_output,
-        "builds_external_script_id": builds_external_script_id_output,
-        "builds_modified_on": builds_modified_on_output,
+        "builds_APIResponse": builds_APIResponse,
+        "builds_ApiError": builds_ApiError,
+        "builds_DetailedDeployHookResponse": builds_DetailedDeployHookResponse,
+        "builds_PaginationInfo": builds_PaginationInfo,
       },
     },
     annotations: {
@@ -482,17 +447,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "builds_APIResponse": builds_APIResponse_output,
-        "builds_ApiError": builds_ApiError_output,
-        "builds_DetailedDeployHookResponse": builds_DetailedDeployHookResponse_output,
-        "builds_ErrorResponse": builds_ErrorResponse_output,
-        "builds_PaginationInfo": builds_PaginationInfo_output,
-        "builds_branch": builds_branch_output,
-        "builds_created_on": builds_created_on_output,
-        "builds_deploy_hook_name": builds_deploy_hook_name_output,
-        "builds_deploy_hook_uuid": builds_deploy_hook_uuid_output,
-        "builds_external_script_id": builds_external_script_id_output,
-        "builds_modified_on": builds_modified_on_output,
+        "builds_APIResponse": builds_APIResponse,
+        "builds_ApiError": builds_ApiError,
+        "builds_DetailedDeployHookResponse": builds_DetailedDeployHookResponse,
+        "builds_ErrorResponse": builds_ErrorResponse,
+        "builds_PaginationInfo": builds_PaginationInfo,
       },
     },
     request: (args) => ({
@@ -500,23 +459,31 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "builds_deploy_hooks_trigger",
+    name: "builds_deployHooks_trigger",
     title: "Trigger deploy hook",
-    description: "Trigger a build using a deploy hook. This endpoint does not require authentication - the deploy_hook_uuid acts as a secret token.",
+    description: "Trigger a build using a deploy hook. This endpoint does not require authentication - the deploy_hook_uuid acts as a secret token.\n\nPOST /workers/builds/deploy_hooks/{deploy_hook_uuid}",
     inputSchema: {
       type: "object",
       properties: {
-        "deploy_hook_uuid": {
-          "$ref": "#/$defs/builds_deploy_hook_uuid",
-          "description": "Deploy hook UUID"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "deploy_hook_uuid": {
+              "description": "Deploy hook UUID",
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "deploy_hook_uuid"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "deploy_hook_uuid"
+        "path"
       ],
-      $defs: {
-        "builds_deploy_hook_uuid": builds_deploy_hook_uuid,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -533,13 +500,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "builds_APIResponse": builds_APIResponse_output,
-        "builds_ApiError": builds_ApiError_output,
-        "builds_BuildStatus": builds_BuildStatus_output,
-        "builds_PaginationInfo": builds_PaginationInfo_output,
-        "builds_TriggerDeployHookResponse": builds_TriggerDeployHookResponse_output,
-        "builds_build_uuid": builds_build_uuid_output,
-        "builds_created_on": builds_created_on_output,
+        "builds_APIResponse": builds_APIResponse,
+        "builds_ApiError": builds_ApiError,
+        "builds_PaginationInfo": builds_PaginationInfo,
+        "builds_TriggerDeployHookResponse": builds_TriggerDeployHookResponse,
       },
     },
     annotations: {
@@ -576,14 +540,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "builds_APIResponse": builds_APIResponse_output,
-        "builds_ApiError": builds_ApiError_output,
-        "builds_BuildStatus": builds_BuildStatus_output,
-        "builds_ErrorResponse": builds_ErrorResponse_output,
-        "builds_PaginationInfo": builds_PaginationInfo_output,
-        "builds_TriggerDeployHookResponse": builds_TriggerDeployHookResponse_output,
-        "builds_build_uuid": builds_build_uuid_output,
-        "builds_created_on": builds_created_on_output,
+        "builds_APIResponse": builds_APIResponse,
+        "builds_ApiError": builds_ApiError,
+        "builds_ErrorResponse": builds_ErrorResponse,
+        "builds_PaginationInfo": builds_PaginationInfo,
+        "builds_TriggerDeployHookResponse": builds_TriggerDeployHookResponse,
       },
     },
     request: (args) => ({
@@ -591,41 +552,47 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "builds_deploy_hooks_update",
+    name: "builds_deployHooks_update",
     title: "Update a deploy hook",
-    description: "Replace the name and target branch for a deploy hook.",
+    description: "Replace the name and target branch for a deploy hook.\n\nPUT /accounts/{account_id}/builds/workers/{script_name}/deploy_hooks/{deploy_hook_uuid}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/builds_account_id",
-          "description": "Account identifier."
-        },
         "body": {
           "$ref": "#/$defs/builds_CreateDeployHookRequest"
         },
-        "deploy_hook_uuid": {
-          "$ref": "#/$defs/builds_deploy_hook_uuid",
-          "description": "Deploy hook UUID"
-        },
-        "script_name": {
-          "$ref": "#/$defs/builds_script_name",
-          "description": "Human-readable name of the worker."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account identifier.",
+              "type": "string"
+            },
+            "deploy_hook_uuid": {
+              "description": "Deploy hook UUID",
+              "format": "uuid",
+              "type": "string"
+            },
+            "script_name": {
+              "description": "Human-readable name of the worker.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "script_name",
+            "deploy_hook_uuid"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "script_name",
-        "deploy_hook_uuid",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "builds_CreateDeployHookRequest": builds_CreateDeployHookRequest,
-        "builds_account_id": builds_account_id,
-        "builds_branch": builds_branch,
-        "builds_deploy_hook_name": builds_deploy_hook_name,
-        "builds_deploy_hook_uuid": builds_deploy_hook_uuid,
-        "builds_script_name": builds_script_name,
       },
     },
     outputSchema: {
@@ -643,16 +610,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "builds_APIResponse": builds_APIResponse_output,
-        "builds_ApiError": builds_ApiError_output,
-        "builds_DeployHookResponse": builds_DeployHookResponse_output,
-        "builds_PaginationInfo": builds_PaginationInfo_output,
-        "builds_branch": builds_branch_output,
-        "builds_created_on": builds_created_on_output,
-        "builds_deploy_hook_name": builds_deploy_hook_name_output,
-        "builds_deploy_hook_uuid": builds_deploy_hook_uuid_output,
-        "builds_external_script_id": builds_external_script_id_output,
-        "builds_modified_on": builds_modified_on_output,
+        "builds_APIResponse": builds_APIResponse,
+        "builds_ApiError": builds_ApiError,
+        "builds_DeployHookResponse": builds_DeployHookResponse,
+        "builds_PaginationInfo": builds_PaginationInfo,
       },
     },
     annotations: {
@@ -700,17 +661,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "builds_APIResponse": builds_APIResponse_output,
-        "builds_ApiError": builds_ApiError_output,
-        "builds_DeployHookResponse": builds_DeployHookResponse_output,
-        "builds_ErrorResponse": builds_ErrorResponse_output,
-        "builds_PaginationInfo": builds_PaginationInfo_output,
-        "builds_branch": builds_branch_output,
-        "builds_created_on": builds_created_on_output,
-        "builds_deploy_hook_name": builds_deploy_hook_name_output,
-        "builds_deploy_hook_uuid": builds_deploy_hook_uuid_output,
-        "builds_external_script_id": builds_external_script_id_output,
-        "builds_modified_on": builds_modified_on_output,
+        "builds_APIResponse": builds_APIResponse,
+        "builds_ApiError": builds_ApiError,
+        "builds_DeployHookResponse": builds_DeployHookResponse,
+        "builds_ErrorResponse": builds_ErrorResponse,
+        "builds_PaginationInfo": builds_PaginationInfo,
       },
     },
     request: (args) => ({

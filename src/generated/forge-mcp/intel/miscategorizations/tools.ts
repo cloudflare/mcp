@@ -3,12 +3,11 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  intel_api_response_common_failure_output,
-  intel_api_response_single_output,
-  intel_messages_output,
-  intel_schemas_messages_output,
+  intel_api$$response$$common$$failure,
+  intel_api$$response$$single,
+  intel_messages,
+  intel_schemas$$messages,
 } from "../outputs.js";
-import { intel_identifier } from "../schemas.js";
 import { intel_miscategorization } from "./schemas.js";
 
 /**
@@ -18,32 +17,41 @@ export const tools: readonly Tool[] = [
   {
     name: "intel_miscategorizations_create",
     title: "Create Miscategorization",
-    description: "Allows you to submit requests to change a domain’s category.\n\nRequests that include category `169` (New Domains) or category `177` (Newly Seen)\nin any of `content_adds`, `content_removes`, `security_adds`, or `security_removes`\nwill be rejected with a `400 Bad Request`. These categories are automatically\nmanaged and fall off 30 days after they are applied.",
+    description: "Allows you to submit requests to change a domain’s category.\n\nRequests that include category `169` (New Domains) or category `177` (Newly Seen)\nin any of `content_adds`, `content_removes`, `security_adds`, or `security_removes`\nwill be rejected with a `400 Bad Request`. These categories are automatically\nmanaged and fall off 30 days after they are applied.\n\nPOST /accounts/{account_id}/intel/miscategorization",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/intel_identifier",
-          "description": "Identifier."
-        },
         "body": {
           "$ref": "#/$defs/intel_miscategorization"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "intel_identifier": intel_identifier,
         "intel_miscategorization": intel_miscategorization,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/intel_api-response-single",
       $defs: {
-        "intel_api-response-single": intel_api_response_single_output,
-        "intel_schemas-messages": intel_schemas_messages_output,
+        "intel_api-response-single": intel_api$$response$$single,
+        "intel_schemas-messages": intel_schemas$$messages,
       },
     },
     annotations: {
@@ -72,10 +80,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "intel_api-response-common-failure": intel_api_response_common_failure_output,
-        "intel_api-response-single": intel_api_response_single_output,
-        "intel_messages": intel_messages_output,
-        "intel_schemas-messages": intel_schemas_messages_output,
+        "intel_api-response-common-failure": intel_api$$response$$common$$failure,
+        "intel_api-response-single": intel_api$$response$$single,
+        "intel_messages": intel_messages,
+        "intel_schemas-messages": intel_schemas$$messages,
       },
     },
     request: (args) => ({

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `speed_transformations_c2pa_response` in responses.
  */
-export const speed_transformations_c2pa_response_output: JsonSchema = {
+export const speed_transformations_c2pa_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/speed_base"
@@ -20,21 +20,14 @@ export const speed_transformations_c2pa_response_output: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/speed_transformations_c2pa_value"
+          "enum": [
+            "off",
+            "on"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `speed_transformations_c2pa_value` in responses.
- */
-export const speed_transformations_c2pa_value_output: JsonSchema = {
-  "enum": [
-    "off",
-    "on"
-  ],
-  "type": "string"
 };

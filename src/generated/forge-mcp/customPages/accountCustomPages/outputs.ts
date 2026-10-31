@@ -6,10 +6,11 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `custom-pages_custom_page` in responses.
  */
-export const custom_pages_custom_page_output: JsonSchema = {
+export const custom$$pages_custom_page: JsonSchema = {
   "properties": {
     "created_on": {
-      "$ref": "#/$defs/custom-pages_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "description": {
       "type": "string"
@@ -18,7 +19,8 @@ export const custom_pages_custom_page_output: JsonSchema = {
       "type": "string"
     },
     "modified_on": {
-      "$ref": "#/$defs/custom-pages_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "preview_target": {
       "type": "string"
@@ -30,10 +32,14 @@ export const custom_pages_custom_page_output: JsonSchema = {
       "type": "array"
     },
     "state": {
-      "$ref": "#/$defs/custom-pages_state"
+      "enum": [
+        "default",
+        "customized"
+      ],
+      "type": "string"
     },
     "url": {
-      "$ref": "#/$defs/custom-pages_url"
+      "type": "string"
     }
   },
   "type": "object"
@@ -42,7 +48,7 @@ export const custom_pages_custom_page_output: JsonSchema = {
 /**
  * The schema of `custom-pages_custom_page_result` in responses.
  */
-export const custom_pages_custom_page_result_output: JsonSchema = {
+export const custom$$pages_custom_page_result: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/custom-pages_api-response-single"
@@ -61,7 +67,7 @@ export const custom_pages_custom_page_result_output: JsonSchema = {
 /**
  * The schema of `custom-pages_custom_page_result_list` in responses.
  */
-export const custom_pages_custom_page_result_list_output: JsonSchema = {
+export const custom$$pages_custom_page_result_list: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/custom-pages_api-response-collection"
@@ -78,22 +84,4 @@ export const custom_pages_custom_page_result_list_output: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `custom-pages_state` in responses.
- */
-export const custom_pages_state_output: JsonSchema = {
-  "enum": [
-    "default",
-    "customized"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `custom-pages_url` in responses.
- */
-export const custom_pages_url_output: JsonSchema = {
-  "type": "string"
 };

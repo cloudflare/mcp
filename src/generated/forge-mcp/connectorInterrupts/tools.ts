@@ -3,62 +3,69 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
-  mconn_bad_response_output,
-  mconn_coded_message_output,
-  mconn_good_response_output,
-  mconn_none_output,
-  mconn_response_output,
+  mconn_bad_response,
+  mconn_coded_message,
+  mconn_good_response,
+  mconn_none,
+  mconn_response,
 } from "../outputs.js";
-import { mconn_account_id, mconn_uuid } from "../schemas.js";
 import {
-  mconn_connector_interrupts_create_response_output,
-  mconn_connector_interrupts_list_response_output,
-  mconn_connector_interrupts_result_output,
-  mconn_interrupt_output,
+  mconn_connector_interrupts_create_response,
+  mconn_connector_interrupts_list_response,
+  mconn_connector_interrupts_result,
+  mconn_interrupt,
 } from "./outputs.js";
-import { mconn_interrupt } from "./schemas.js";
+import { mconn_interrupt as mconn_interrupt$ } from "./schemas.js";
 
 /**
- * The tools of `connector_interrupts`.
+ * The tools of `connectorInterrupts`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "connector_interrupts_create",
+    name: "connectorInterrupts_create",
     title: "Create Interrupt",
-    description: "Creates an interrupt for a Magic WAN Connector.",
+    description: "Creates an interrupt for a Magic WAN Connector.\n\nPOST /accounts/{account_id}/magic/connectors/{connector_id}/interrupts",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/mconn_account_id"
-        },
         "body": {
           "$ref": "#/$defs/mconn_interrupt"
         },
-        "connector_id": {
-          "$ref": "#/$defs/mconn_uuid"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "connector_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "connector_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "connector_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "mconn_account_id": mconn_account_id,
-        "mconn_interrupt": mconn_interrupt,
-        "mconn_uuid": mconn_uuid,
+        "mconn_interrupt": mconn_interrupt$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/mconn_connector_interrupts_create_response",
       $defs: {
-        "mconn_coded_message": mconn_coded_message_output,
-        "mconn_connector_interrupts_create_response": mconn_connector_interrupts_create_response_output,
-        "mconn_connector_interrupts_result": mconn_connector_interrupts_result_output,
-        "mconn_good_response": mconn_good_response_output,
-        "mconn_interrupt": mconn_interrupt_output,
-        "mconn_response": mconn_response_output,
+        "mconn_coded_message": mconn_coded_message,
+        "mconn_connector_interrupts_create_response": mconn_connector_interrupts_create_response,
+        "mconn_connector_interrupts_result": mconn_connector_interrupts_result,
+        "mconn_good_response": mconn_good_response,
+        "mconn_interrupt": mconn_interrupt,
+        "mconn_response": mconn_response,
       },
     },
     annotations: {
@@ -103,14 +110,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "mconn_bad_response": mconn_bad_response_output,
-        "mconn_coded_message": mconn_coded_message_output,
-        "mconn_connector_interrupts_create_response": mconn_connector_interrupts_create_response_output,
-        "mconn_connector_interrupts_result": mconn_connector_interrupts_result_output,
-        "mconn_good_response": mconn_good_response_output,
-        "mconn_interrupt": mconn_interrupt_output,
-        "mconn_none": mconn_none_output,
-        "mconn_response": mconn_response_output,
+        "mconn_bad_response": mconn_bad_response,
+        "mconn_coded_message": mconn_coded_message,
+        "mconn_connector_interrupts_create_response": mconn_connector_interrupts_create_response,
+        "mconn_connector_interrupts_result": mconn_connector_interrupts_result,
+        "mconn_good_response": mconn_good_response,
+        "mconn_interrupt": mconn_interrupt,
+        "mconn_none": mconn_none,
+        "mconn_response": mconn_response,
       },
     },
     request: (args) => ({
@@ -119,37 +126,43 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "connector_interrupts_list",
+    name: "connectorInterrupts_list",
     title: "List Interrupts",
-    description: "Lists interrupts for a Magic WAN Connector.",
+    description: "Lists interrupts for a Magic WAN Connector.\n\nGET /accounts/{account_id}/magic/connectors/{connector_id}/interrupts",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/mconn_account_id"
-        },
-        "connector_id": {
-          "$ref": "#/$defs/mconn_uuid"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "connector_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "connector_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "connector_id"
+        "path"
       ],
-      $defs: {
-        "mconn_account_id": mconn_account_id,
-        "mconn_uuid": mconn_uuid,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/mconn_connector_interrupts_list_response",
       $defs: {
-        "mconn_coded_message": mconn_coded_message_output,
-        "mconn_connector_interrupts_list_response": mconn_connector_interrupts_list_response_output,
-        "mconn_connector_interrupts_result": mconn_connector_interrupts_result_output,
-        "mconn_good_response": mconn_good_response_output,
-        "mconn_interrupt": mconn_interrupt_output,
-        "mconn_response": mconn_response_output,
+        "mconn_coded_message": mconn_coded_message,
+        "mconn_connector_interrupts_list_response": mconn_connector_interrupts_list_response,
+        "mconn_connector_interrupts_result": mconn_connector_interrupts_result,
+        "mconn_good_response": mconn_good_response,
+        "mconn_interrupt": mconn_interrupt,
+        "mconn_response": mconn_response,
       },
     },
     annotations: {
@@ -195,14 +208,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "mconn_bad_response": mconn_bad_response_output,
-        "mconn_coded_message": mconn_coded_message_output,
-        "mconn_connector_interrupts_list_response": mconn_connector_interrupts_list_response_output,
-        "mconn_connector_interrupts_result": mconn_connector_interrupts_result_output,
-        "mconn_good_response": mconn_good_response_output,
-        "mconn_interrupt": mconn_interrupt_output,
-        "mconn_none": mconn_none_output,
-        "mconn_response": mconn_response_output,
+        "mconn_bad_response": mconn_bad_response,
+        "mconn_coded_message": mconn_coded_message,
+        "mconn_connector_interrupts_list_response": mconn_connector_interrupts_list_response,
+        "mconn_connector_interrupts_result": mconn_connector_interrupts_result,
+        "mconn_good_response": mconn_good_response,
+        "mconn_interrupt": mconn_interrupt,
+        "mconn_none": mconn_none,
+        "mconn_response": mconn_response,
       },
     },
     request: (args) => ({

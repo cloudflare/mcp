@@ -3,11 +3,10 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  zaraz_api_response_common_failure_output,
-  zaraz_api_response_common_output,
-  zaraz_messages_output,
+  zaraz_api$$response$$common,
+  zaraz_api$$response$$common$$failure,
+  zaraz_messages,
 } from "../outputs.js";
-import { zaraz_identifier } from "../schemas.js";
 
 /**
  * The tools of `zaraz.publish`.
@@ -16,24 +15,31 @@ export const tools: readonly Tool[] = [
   {
     name: "zaraz_publish_create",
     title: "Publish Zaraz preview configuration",
-    description: "Publish current Zaraz preview configuration for a zone.",
+    description: "Publish current Zaraz preview configuration for a zone.\n\nPOST /zones/{zone_id}/settings/zaraz/publish",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "type": "string"
         },
-        "zone_id": {
-          "$ref": "#/$defs/zaraz_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
-      $defs: {
-        "zaraz_identifier": zaraz_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -50,8 +56,8 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "zaraz_api-response-common": zaraz_api_response_common_output,
-        "zaraz_messages": zaraz_messages_output,
+        "zaraz_api-response-common": zaraz_api$$response$$common,
+        "zaraz_messages": zaraz_messages,
       },
     },
     annotations: {
@@ -95,9 +101,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "zaraz_api-response-common": zaraz_api_response_common_output,
-        "zaraz_api-response-common-failure": zaraz_api_response_common_failure_output,
-        "zaraz_messages": zaraz_messages_output,
+        "zaraz_api-response-common": zaraz_api$$response$$common,
+        "zaraz_api-response-common-failure": zaraz_api$$response$$common$$failure,
+        "zaraz_messages": zaraz_messages,
       },
     },
     request: (args) => ({

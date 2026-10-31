@@ -3,33 +3,17 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  aaa_api_response_common_2_output,
-  aaa_api_response_common_failure_3_output,
-  aaa_api_response_single_output,
-  aaa_id_response_output,
-  aaa_messages_3_output,
-  aaa_uuid_output,
+  aaa_api$$response$$common$$2,
+  aaa_api$$response$$common$$failure$$3,
+  aaa_api$$response$$single,
+  aaa_id_response,
+  aaa_messages$$3,
 } from "../../outputs.js";
-import { aaa_account_id } from "../../schemas.js";
 import {
-  aaa_components_schemas_name_output,
-  aaa_components_schemas_type_output,
-  aaa_created_at_output,
-  aaa_last_failure_output,
-  aaa_last_success_output,
-  aaa_schemas_single_response_output,
-  aaa_secret_output,
-  aaa_url_output,
-  aaa_webhook_id_output,
-  aaa_webhooks_components_schemas_response_collection_output,
-  aaa_webhooks_output,
+  aaa_schemas$$single_response,
+  aaa_webhooks,
+  aaa_webhooks_components$$schemas$$response_collection,
 } from "./outputs.js";
-import {
-  aaa_components_schemas_name,
-  aaa_secret,
-  aaa_url,
-  aaa_webhook_id,
-} from "./schemas.js";
 
 /**
  * The tools of `alerting.destinations.webhooks`.
@@ -38,27 +22,23 @@ export const tools: readonly Tool[] = [
   {
     name: "alerting_destinations_webhooks_create",
     title: "Create a webhook",
-    description: "Creates a new webhook destination.",
+    description: "Creates a new webhook destination.\n\nPOST /accounts/{account_id}/alerting/v3/destinations/webhooks",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/aaa_account-id",
-          "description": "The account id"
-        },
         "body": {
           "properties": {
             "name": {
-              "$ref": "#/$defs/aaa_components-schemas-name",
-              "description": "The name of the webhook destination. This will be included in the request body when you receive a webhook notification."
+              "description": "The name of the webhook destination. This will be included in the request body when you receive a webhook notification.",
+              "type": "string"
             },
             "secret": {
-              "$ref": "#/$defs/aaa_secret",
-              "description": "Optional secret that will be passed in the `cf-webhook-auth` header when dispatching generic webhook notifications or formatted for supported destinations. Secrets are not returned in any API response body."
+              "description": "Optional secret that will be passed in the `cf-webhook-auth` header when dispatching generic webhook notifications or formatted for supported destinations. Secrets are not returned in any API response body.",
+              "type": "string"
             },
             "url": {
-              "$ref": "#/$defs/aaa_url",
-              "description": "The POST endpoint to call when dispatching a notification."
+              "description": "The POST endpoint to call when dispatching a notification.",
+              "type": "string"
             }
           },
           "required": [
@@ -66,26 +46,33 @@ export const tools: readonly Tool[] = [
             "url"
           ],
           "type": "object"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "The account id",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
-      $defs: {
-        "aaa_account-id": aaa_account_id,
-        "aaa_components-schemas-name": aaa_components_schemas_name,
-        "aaa_secret": aaa_secret,
-        "aaa_url": aaa_url,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/aaa_id_response",
       $defs: {
-        "aaa_api-response-single": aaa_api_response_single_output,
-        "aaa_id_response": aaa_id_response_output,
-        "aaa_messages-3": aaa_messages_3_output,
-        "aaa_uuid": aaa_uuid_output,
+        "aaa_api-response-single": aaa_api$$response$$single,
+        "aaa_id_response": aaa_id_response,
+        "aaa_messages-3": aaa_messages$$3,
       },
     },
     annotations: {
@@ -126,11 +113,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "aaa_api-response-common-failure-3": aaa_api_response_common_failure_3_output,
-        "aaa_api-response-single": aaa_api_response_single_output,
-        "aaa_id_response": aaa_id_response_output,
-        "aaa_messages-3": aaa_messages_3_output,
-        "aaa_uuid": aaa_uuid_output,
+        "aaa_api-response-common-failure-3": aaa_api$$response$$common$$failure$$3,
+        "aaa_api-response-single": aaa_api$$response$$single,
+        "aaa_id_response": aaa_id_response,
+        "aaa_messages-3": aaa_messages$$3,
       },
     },
     request: (args) => ({
@@ -141,33 +127,39 @@ export const tools: readonly Tool[] = [
   {
     name: "alerting_destinations_webhooks_delete",
     title: "Delete a webhook",
-    description: "Delete a configured webhook destination.\n\nConfirm with the user before calling this tool. This operation deletes the webhook destination.",
+    description: "Delete a configured webhook destination.\n\nConfirm with the user before calling this tool. This operation deletes the webhook destination.\n\nDELETE /accounts/{account_id}/alerting/v3/destinations/webhooks/{webhook_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/aaa_account-id",
-          "description": "The account id"
-        },
-        "webhook_id": {
-          "$ref": "#/$defs/aaa_webhook-id",
-          "description": "The unique identifier of a webhook"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "The account id",
+              "type": "string"
+            },
+            "webhook_id": {
+              "description": "The unique identifier of a webhook",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "webhook_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "webhook_id"
+        "path"
       ],
-      $defs: {
-        "aaa_account-id": aaa_account_id,
-        "aaa_webhook-id": aaa_webhook_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/aaa_api-response-common-2",
       $defs: {
-        "aaa_api-response-common-2": aaa_api_response_common_2_output,
-        "aaa_messages-3": aaa_messages_3_output,
+        "aaa_api-response-common-2": aaa_api$$response$$common$$2,
+        "aaa_messages-3": aaa_messages$$3,
       },
     },
     annotations: {
@@ -201,9 +193,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "aaa_api-response-common-2": aaa_api_response_common_2_output,
-        "aaa_api-response-common-failure-3": aaa_api_response_common_failure_3_output,
-        "aaa_messages-3": aaa_messages_3_output,
+        "aaa_api-response-common-2": aaa_api$$response$$common$$2,
+        "aaa_api-response-common-failure-3": aaa_api$$response$$common$$failure$$3,
+        "aaa_messages-3": aaa_messages$$3,
       },
     },
     request: (args) => ({
@@ -213,43 +205,41 @@ export const tools: readonly Tool[] = [
   {
     name: "alerting_destinations_webhooks_get",
     title: "Get a webhook",
-    description: "Get details for a single webhooks destination.",
+    description: "Get details for a single webhooks destination.\n\nGET /accounts/{account_id}/alerting/v3/destinations/webhooks/{webhook_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/aaa_account-id",
-          "description": "The account id"
-        },
-        "webhook_id": {
-          "$ref": "#/$defs/aaa_webhook-id",
-          "description": "The unique identifier of a webhook"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "The account id",
+              "type": "string"
+            },
+            "webhook_id": {
+              "description": "The unique identifier of a webhook",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "webhook_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "webhook_id"
+        "path"
       ],
-      $defs: {
-        "aaa_account-id": aaa_account_id,
-        "aaa_webhook-id": aaa_webhook_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/aaa_schemas-single_response",
       $defs: {
-        "aaa_api-response-single": aaa_api_response_single_output,
-        "aaa_components-schemas-name": aaa_components_schemas_name_output,
-        "aaa_components-schemas-type": aaa_components_schemas_type_output,
-        "aaa_created_at": aaa_created_at_output,
-        "aaa_last_failure": aaa_last_failure_output,
-        "aaa_last_success": aaa_last_success_output,
-        "aaa_messages-3": aaa_messages_3_output,
-        "aaa_schemas-single_response": aaa_schemas_single_response_output,
-        "aaa_secret": aaa_secret_output,
-        "aaa_url": aaa_url_output,
-        "aaa_webhook-id": aaa_webhook_id_output,
-        "aaa_webhooks": aaa_webhooks_output,
+        "aaa_api-response-single": aaa_api$$response$$single,
+        "aaa_messages-3": aaa_messages$$3,
+        "aaa_schemas-single_response": aaa_schemas$$single_response,
+        "aaa_webhooks": aaa_webhooks,
       },
     },
     annotations: {
@@ -293,19 +283,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "aaa_api-response-common-failure-3": aaa_api_response_common_failure_3_output,
-        "aaa_api-response-single": aaa_api_response_single_output,
-        "aaa_components-schemas-name": aaa_components_schemas_name_output,
-        "aaa_components-schemas-type": aaa_components_schemas_type_output,
-        "aaa_created_at": aaa_created_at_output,
-        "aaa_last_failure": aaa_last_failure_output,
-        "aaa_last_success": aaa_last_success_output,
-        "aaa_messages-3": aaa_messages_3_output,
-        "aaa_schemas-single_response": aaa_schemas_single_response_output,
-        "aaa_secret": aaa_secret_output,
-        "aaa_url": aaa_url_output,
-        "aaa_webhook-id": aaa_webhook_id_output,
-        "aaa_webhooks": aaa_webhooks_output,
+        "aaa_api-response-common-failure-3": aaa_api$$response$$common$$failure$$3,
+        "aaa_api-response-single": aaa_api$$response$$single,
+        "aaa_messages-3": aaa_messages$$3,
+        "aaa_schemas-single_response": aaa_schemas$$single_response,
+        "aaa_webhooks": aaa_webhooks,
       },
     },
     request: (args) => ({
@@ -315,37 +297,36 @@ export const tools: readonly Tool[] = [
   {
     name: "alerting_destinations_webhooks_list",
     title: "List webhooks",
-    description: "Gets a list of all configured webhook destinations.",
+    description: "Gets a list of all configured webhook destinations.\n\nGET /accounts/{account_id}/alerting/v3/destinations/webhooks",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/aaa_account-id",
-          "description": "The account id"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "The account id",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
-      $defs: {
-        "aaa_account-id": aaa_account_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/aaa_webhooks_components-schemas-response_collection",
       $defs: {
-        "aaa_api-response-common-2": aaa_api_response_common_2_output,
-        "aaa_components-schemas-name": aaa_components_schemas_name_output,
-        "aaa_components-schemas-type": aaa_components_schemas_type_output,
-        "aaa_created_at": aaa_created_at_output,
-        "aaa_last_failure": aaa_last_failure_output,
-        "aaa_last_success": aaa_last_success_output,
-        "aaa_messages-3": aaa_messages_3_output,
-        "aaa_secret": aaa_secret_output,
-        "aaa_url": aaa_url_output,
-        "aaa_webhook-id": aaa_webhook_id_output,
-        "aaa_webhooks": aaa_webhooks_output,
-        "aaa_webhooks_components-schemas-response_collection": aaa_webhooks_components_schemas_response_collection_output,
+        "aaa_api-response-common-2": aaa_api$$response$$common$$2,
+        "aaa_messages-3": aaa_messages$$3,
+        "aaa_webhooks": aaa_webhooks,
+        "aaa_webhooks_components-schemas-response_collection": aaa_webhooks_components$$schemas$$response_collection,
       },
     },
     annotations: {
@@ -389,19 +370,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "aaa_api-response-common-2": aaa_api_response_common_2_output,
-        "aaa_api-response-common-failure-3": aaa_api_response_common_failure_3_output,
-        "aaa_components-schemas-name": aaa_components_schemas_name_output,
-        "aaa_components-schemas-type": aaa_components_schemas_type_output,
-        "aaa_created_at": aaa_created_at_output,
-        "aaa_last_failure": aaa_last_failure_output,
-        "aaa_last_success": aaa_last_success_output,
-        "aaa_messages-3": aaa_messages_3_output,
-        "aaa_secret": aaa_secret_output,
-        "aaa_url": aaa_url_output,
-        "aaa_webhook-id": aaa_webhook_id_output,
-        "aaa_webhooks": aaa_webhooks_output,
-        "aaa_webhooks_components-schemas-response_collection": aaa_webhooks_components_schemas_response_collection_output,
+        "aaa_api-response-common-2": aaa_api$$response$$common$$2,
+        "aaa_api-response-common-failure-3": aaa_api$$response$$common$$failure$$3,
+        "aaa_messages-3": aaa_messages$$3,
+        "aaa_webhooks": aaa_webhooks,
+        "aaa_webhooks_components-schemas-response_collection": aaa_webhooks_components$$schemas$$response_collection,
       },
     },
     request: (args) => ({
@@ -411,27 +384,23 @@ export const tools: readonly Tool[] = [
   {
     name: "alerting_destinations_webhooks_update",
     title: "Update a webhook",
-    description: "Update a webhook destination.",
+    description: "Update a webhook destination.\n\nPUT /accounts/{account_id}/alerting/v3/destinations/webhooks/{webhook_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/aaa_account-id",
-          "description": "The account id"
-        },
         "body": {
           "properties": {
             "name": {
-              "$ref": "#/$defs/aaa_components-schemas-name",
-              "description": "The name of the webhook destination. This will be included in the request body when you receive a webhook notification."
+              "description": "The name of the webhook destination. This will be included in the request body when you receive a webhook notification.",
+              "type": "string"
             },
             "secret": {
-              "$ref": "#/$defs/aaa_secret",
-              "description": "Optional secret that will be passed in the `cf-webhook-auth` header when dispatching generic webhook notifications or formatted for supported destinations. Secrets are not returned in any API response body."
+              "description": "Optional secret that will be passed in the `cf-webhook-auth` header when dispatching generic webhook notifications or formatted for supported destinations. Secrets are not returned in any API response body.",
+              "type": "string"
             },
             "url": {
-              "$ref": "#/$defs/aaa_url",
-              "description": "The POST endpoint to call when dispatching a notification."
+              "description": "The POST endpoint to call when dispatching a notification.",
+              "type": "string"
             }
           },
           "required": [
@@ -440,31 +409,37 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "webhook_id": {
-          "$ref": "#/$defs/aaa_webhook-id",
-          "description": "The unique identifier of a webhook"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "The account id",
+              "type": "string"
+            },
+            "webhook_id": {
+              "description": "The unique identifier of a webhook",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "webhook_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "webhook_id",
+        "path",
         "body"
       ],
-      $defs: {
-        "aaa_account-id": aaa_account_id,
-        "aaa_components-schemas-name": aaa_components_schemas_name,
-        "aaa_secret": aaa_secret,
-        "aaa_url": aaa_url,
-        "aaa_webhook-id": aaa_webhook_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/aaa_id_response",
       $defs: {
-        "aaa_api-response-single": aaa_api_response_single_output,
-        "aaa_id_response": aaa_id_response_output,
-        "aaa_messages-3": aaa_messages_3_output,
-        "aaa_uuid": aaa_uuid_output,
+        "aaa_api-response-single": aaa_api$$response$$single,
+        "aaa_id_response": aaa_id_response,
+        "aaa_messages-3": aaa_messages$$3,
       },
     },
     annotations: {
@@ -505,11 +480,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "aaa_api-response-common-failure-3": aaa_api_response_common_failure_3_output,
-        "aaa_api-response-single": aaa_api_response_single_output,
-        "aaa_id_response": aaa_id_response_output,
-        "aaa_messages-3": aaa_messages_3_output,
-        "aaa_uuid": aaa_uuid_output,
+        "aaa_api-response-common-failure-3": aaa_api$$response$$common$$failure$$3,
+        "aaa_api-response-single": aaa_api$$response$$single,
+        "aaa_id_response": aaa_id_response,
+        "aaa_messages-3": aaa_messages$$3,
       },
     },
     request: (args) => ({

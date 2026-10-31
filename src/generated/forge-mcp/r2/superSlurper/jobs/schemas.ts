@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `r2-slurper_CreateJobRequest`.
  */
-export const r2_slurper_CreateJobRequest: JsonSchema = {
+export const r2$$slurper_CreateJobRequest: JsonSchema = {
   "properties": {
     "overwrite": {
       "default": true,

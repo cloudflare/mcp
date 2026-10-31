@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `speed_cloudflare_fonts` in responses.
  */
-export const speed_cloudflare_fonts_output: JsonSchema = {
+export const speed_cloudflare_fonts: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/speed_base"
@@ -20,21 +20,14 @@ export const speed_cloudflare_fonts_output: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/speed_cloudflare_fonts_value"
+          "enum": [
+            "on",
+            "off"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `speed_cloudflare_fonts_value` in responses.
- */
-export const speed_cloudflare_fonts_value_output: JsonSchema = {
-  "enum": [
-    "on",
-    "off"
-  ],
-  "type": "string"
 };

@@ -6,27 +6,32 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `client-side-security_policy`.
  */
-export const client_side_security_policy: JsonSchema = {
+export const client$$side$$security_policy: JsonSchema = {
   "properties": {
     "action": {
-      "$ref": "#/$defs/client-side-security_policy-action",
-      "description": "The action to take if the expression matches"
+      "description": "The action to take if the expression matches",
+      "enum": [
+        "allow",
+        "log",
+        "add_reporting_directives"
+      ],
+      "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/client-side-security_policy-description",
-      "description": "A description for the policy"
+      "description": "A description for the policy",
+      "type": "string"
     },
     "enabled": {
-      "$ref": "#/$defs/client-side-security_policy-enabled",
-      "description": "Whether the policy is enabled"
+      "description": "Whether the policy is enabled",
+      "type": "boolean"
     },
     "expression": {
-      "$ref": "#/$defs/client-side-security_policy-expression",
-      "description": "The expression which must match for the policy to be applied, using the Cloudflare Firewall rule expression syntax"
+      "description": "The expression which must match for the policy to be applied, using the Cloudflare Firewall rule expression syntax",
+      "type": "string"
     },
     "value": {
-      "$ref": "#/$defs/client-side-security_policy-value",
-      "description": "The policy which will be applied"
+      "description": "The policy which will be applied",
+      "type": "string"
     }
   },
   "required": [
@@ -37,49 +42,4 @@ export const client_side_security_policy: JsonSchema = {
     "value"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `client-side-security_policy-action`.
- */
-export const client_side_security_policy_action: JsonSchema = {
-  "description": "The action to take if the expression matches",
-  "enum": [
-    "allow",
-    "log",
-    "add_reporting_directives"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `client-side-security_policy-description`.
- */
-export const client_side_security_policy_description: JsonSchema = {
-  "description": "A description for the policy",
-  "type": "string"
-};
-
-/**
- * The schema of `client-side-security_policy-enabled`.
- */
-export const client_side_security_policy_enabled: JsonSchema = {
-  "description": "Whether the policy is enabled",
-  "type": "boolean"
-};
-
-/**
- * The schema of `client-side-security_policy-expression`.
- */
-export const client_side_security_policy_expression: JsonSchema = {
-  "description": "The expression which must match for the policy to be applied, using the Cloudflare Firewall rule expression syntax",
-  "type": "string"
-};
-
-/**
- * The schema of `client-side-security_policy-value`.
- */
-export const client_side_security_policy_value: JsonSchema = {
-  "description": "The policy which will be applied",
-  "type": "string"
 };

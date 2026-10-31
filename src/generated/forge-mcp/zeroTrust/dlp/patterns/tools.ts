@@ -3,37 +3,47 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  dlp_api_response_common_failure_output,
-  dlp_api_response_single_output,
-  dlp_messages_output,
+  dlp_api$$response$$common$$failure,
+  dlp_api$$response$$single,
+  dlp_messages,
 } from "../../outputs.js";
-import { dlp_RegexValidationResult_output } from "./outputs.js";
+import { dlp_RegexValidationResult } from "./outputs.js";
 import { dlp_RegexValidationQuery } from "./schemas.js";
 
 /**
- * The tools of `zero_trust.dlp.patterns`.
+ * The tools of `zeroTrust.dlp.patterns`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zero_trust_dlp_patterns_validate",
+    name: "zeroTrust_dlp_patterns_validate",
     title: "Validate a DLP regex pattern",
-    description: "Validates whether this pattern is a valid regular expression. Rejects it if\nthe regular expression is too complex or can match an unbounded-length\nstring. The regex will be rejected if it uses `*` or `+`. Bound the maximum\nnumber of characters that can be matched using a range, e.g. `{1,100}`.",
+    description: "Validates whether this pattern is a valid regular expression. Rejects it if\nthe regular expression is too complex or can match an unbounded-length\nstring. The regex will be rejected if it uses `*` or `+`. Bound the maximum\nnumber of characters that can be matched using a range, e.g. `{1,100}`.\n\nPOST /accounts/{account_id}/dlp/patterns/validate",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account ID.",
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/dlp_RegexValidationQuery",
           "description": "Validation query."
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dlp_RegexValidationQuery": dlp_RegexValidationQuery,
       },
@@ -53,9 +63,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_RegexValidationResult": dlp_RegexValidationResult_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_RegexValidationResult": dlp_RegexValidationResult,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -94,10 +104,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_RegexValidationResult": dlp_RegexValidationResult_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_RegexValidationResult": dlp_RegexValidationResult,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({

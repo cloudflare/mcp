@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `organizations-api_ProfileResponse` in responses.
  */
-export const organizations_api_ProfileResponse_output: JsonSchema = {
+export const organizations$$api_ProfileResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `zero-trust-gateway_ips`.
  */
-export const zero_trust_gateway_ips: JsonSchema = {
+export const zero$$trust$$gateway_ips: JsonSchema = {
   "description": "Specify the list of CIDRs to restrict ingress connections.",
   "items": {
     "type": "string"
@@ -15,17 +15,9 @@ export const zero_trust_gateway_ips: JsonSchema = {
 };
 
 /**
- * The schema of `zero-trust-gateway_name-6`.
- */
-export const zero_trust_gateway_name_6: JsonSchema = {
-  "description": "Specify the name of the proxy endpoint.",
-  "type": "string"
-};
-
-/**
  * The schema of `zero-trust-gateway_proxy-endpoint-identity-create`.
  */
-export const zero_trust_gateway_proxy_endpoint_identity_create: JsonSchema = {
+export const zero$$trust$$gateway_proxy$$endpoint$$identity$$create: JsonSchema = {
   "properties": {
     "kind": {
       "description": "The proxy endpoint kind",
@@ -35,8 +27,8 @@ export const zero_trust_gateway_proxy_endpoint_identity_create: JsonSchema = {
       "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/zero-trust-gateway_name-6",
-      "description": "Specify the name of the proxy endpoint."
+      "description": "Specify the name of the proxy endpoint.",
+      "type": "string"
     }
   },
   "required": [
@@ -49,7 +41,7 @@ export const zero_trust_gateway_proxy_endpoint_identity_create: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_proxy-endpoint-ip-create`.
  */
-export const zero_trust_gateway_proxy_endpoint_ip_create: JsonSchema = {
+export const zero$$trust$$gateway_proxy$$endpoint$$ip$$create: JsonSchema = {
   "properties": {
     "kind": {
       "description": "The proxy endpoint kind",
@@ -59,8 +51,8 @@ export const zero_trust_gateway_proxy_endpoint_ip_create: JsonSchema = {
       "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/zero-trust-gateway_name-6",
-      "description": "Specify the name of the proxy endpoint."
+      "description": "Specify the name of the proxy endpoint.",
+      "type": "string"
     }
   },
   "required": [

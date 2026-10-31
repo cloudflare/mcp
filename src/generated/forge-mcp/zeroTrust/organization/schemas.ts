@@ -4,30 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `access_allow_authenticate_via_warp`.
- */
-export const access_allow_authenticate_via_warp: JsonSchema = {
-  "description": "When set to true, users can authenticate via WARP for any application in your organization. Application settings will take precedence over this value.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `access_auth_domain`.
- */
-export const access_auth_domain: JsonSchema = {
-  "description": "The unique subdomain assigned to your Zero Trust organization. If omitted on creation, a unique subdomain is auto-generated in the format `adjective-noun-hex4` (e.g. `frosty-moon-7a3b.cloudflareaccess.com`).",
-  "type": "string"
-};
-
-/**
- * The schema of `access_auto_redirect_to_identity`.
- */
-export const access_auto_redirect_to_identity: JsonSchema = {
-  "description": "When set to `true`, users skip the identity provider selection step during login.",
-  "type": "boolean"
-};
-
-/**
  * The schema of `access_custom_pages`.
  */
 export const access_custom_pages: JsonSchema = {
@@ -45,14 +21,6 @@ export const access_custom_pages: JsonSchema = {
 };
 
 /**
- * The schema of `access_deny_unmatched_requests`.
- */
-export const access_deny_unmatched_requests: JsonSchema = {
-  "description": "Determines whether to deny all requests to Cloudflare-protected resources that lack an associated Access application. If enabled, you must explicitly configure an Access application and policy to allow traffic to your Cloudflare-protected resources. For domains you want to be public across all subdomains, add the domain to the `deny_unmatched_requests_exempted_zone_names` array.",
-  "type": "boolean"
-};
-
-/**
  * The schema of `access_deny_unmatched_requests_exempted_zone_names`.
  */
 export const access_deny_unmatched_requests_exempted_zone_names: JsonSchema = {
@@ -61,22 +29,6 @@ export const access_deny_unmatched_requests_exempted_zone_names: JsonSchema = {
     "type": "string"
   },
   "type": "array"
-};
-
-/**
- * The schema of `access_disable_end_user_app_creation`.
- */
-export const access_disable_end_user_app_creation: JsonSchema = {
-  "description": "Whether creation of end user applications is disabled for this organization.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `access_is_ui_read_only`.
- */
-export const access_is_ui_read_only: JsonSchema = {
-  "description": "Lock all settings as Read-Only in the Dashboard, regardless of user permission. Updates may only be made via the API or Terraform for this account when enabled.",
-  "type": "boolean"
 };
 
 /**
@@ -168,22 +120,6 @@ export const access_mfa_piv_key_requirements: JsonSchema = {
 };
 
 /**
- * The schema of `access_mfa_required_for_all_apps`.
- */
-export const access_mfa_required_for_all_apps: JsonSchema = {
-  "description": "Determines whether global MFA settings apply to applications by default. The organization must have MFA enabled with at least one authentication method and a session duration configured. Note: 'allowed_authenticators' cannot contain only the infrastructure SSH authenticators ('piv_key' and 'ssh_fido2_key') if the organization has any non-infrastructure applications.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `access_name`.
- */
-export const access_name: JsonSchema = {
-  "description": "The name of your Zero Trust organization. When omitted on creation, defaults to the provided auth_domain; when both are omitted, defaults to the auto-generated subdomain slug (e.g. frosty-moon-7a3b).",
-  "type": "string"
-};
-
-/**
  * The schema of `access_org_mfa_config`.
  */
 export const access_org_mfa_config: JsonSchema = {
@@ -249,52 +185,4 @@ export const access_service_token_inactivity: JsonSchema = {
     "inactivity_threshold_days"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `access_session_duration`.
- */
-export const access_session_duration: JsonSchema = {
-  "description": "The amount of time that tokens issued for applications will be valid. Must be in the format `300ms` or `2h45m`. Valid time units are: ns, us (or µs), ms, s, m, h.",
-  "type": "string"
-};
-
-/**
- * The schema of `access_strict_service_token_auth`.
- */
-export const access_strict_service_token_auth: JsonSchema = {
-  "description": "Enables new behaviors for requests made with Access service tokens. Unauthorized requests emit audit logs, and return a 401 or 403 status code in the response instead of redirecting to the login page. Successful requests no longer receive a CF_Authorization cookie in the response. Zero Trust organizations created on or after October 5, 2026 will have this setting enabled by default, and cannot disable it.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `access_ui_read_only_toggle_reason`.
- */
-export const access_ui_read_only_toggle_reason: JsonSchema = {
-  "description": "A description of the reason why the UI read only field is being toggled.",
-  "type": "string"
-};
-
-/**
- * The schema of `access_user_seat_expiration_inactive_time`.
- */
-export const access_user_seat_expiration_inactive_time: JsonSchema = {
-  "description": "The amount of time a user seat is inactive before it expires. When the user seat exceeds the set time of inactivity, the user is removed as an active seat and no longer counts against your Teams seat count.  Minimum value for this setting is 1 month (730h). Must be in the format `300ms` or `2h45m`. Valid time units are: `ns`, `us` (or `µs`), `ms`, `s`, `m`, `h`.",
-  "type": "string"
-};
-
-/**
- * The schema of `access_warp_auth_non_browser_401`.
- */
-export const access_warp_auth_non_browser_401: JsonSchema = {
-  "description": "When enabled, unsuccessful WARP authentication requests with a non-HTML Accept header return a 401 response instead of redirecting to the login page.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `access_warp_auth_session_duration`.
- */
-export const access_warp_auth_session_duration: JsonSchema = {
-  "description": "The amount of time that tokens issued for applications will be valid. Must be in the format `30m` or `2h45m`. Valid time units are: m, h.",
-  "type": "string"
 };

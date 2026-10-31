@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `tunnel_cfd-tunnel-response-single` in responses.
  */
-export const tunnel_cfd_tunnel_response_single_output: JsonSchema = {
+export const tunnel_cfd$$tunnel$$response$$single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tunnel_api-response-common"
@@ -23,16 +23,9 @@ export const tunnel_cfd_tunnel_response_single_output: JsonSchema = {
 };
 
 /**
- * The schema of `tunnel_config_version` in responses.
- */
-export const tunnel_config_version_output: JsonSchema = {
-  "type": "integer"
-};
-
-/**
  * The schema of `tunnel_connections` in responses.
  */
-export const tunnel_connections_output: JsonSchema = {
+export const tunnel_connections: JsonSchema = {
   "items": {
     "$ref": "#/$defs/tunnel_schemas-connection"
   },
@@ -42,7 +35,7 @@ export const tunnel_connections_output: JsonSchema = {
 /**
  * The schema of `tunnel_tunnel-response-collection` in responses.
  */
-export const tunnel_tunnel_response_collection_output: JsonSchema = {
+export const tunnel_tunnel$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tunnel_api-response-collection"
@@ -71,13 +64,13 @@ export const tunnel_tunnel_response_collection_output: JsonSchema = {
 /**
  * The schema of `tunnel_tunnel_client` in responses.
  */
-export const tunnel_tunnel_client_output: JsonSchema = {
+export const tunnel_tunnel_client: JsonSchema = {
   "properties": {
     "arch": {
-      "$ref": "#/$defs/tunnel_arch"
+      "type": "string"
     },
     "config_version": {
-      "$ref": "#/$defs/tunnel_config_version"
+      "type": "integer"
     },
     "conns": {
       "$ref": "#/$defs/tunnel_connections"
@@ -86,13 +79,15 @@ export const tunnel_tunnel_client_output: JsonSchema = {
       "$ref": "#/$defs/tunnel_features"
     },
     "id": {
-      "$ref": "#/$defs/tunnel_connection_id"
+      "format": "uuid",
+      "type": "string"
     },
     "run_at": {
-      "$ref": "#/$defs/tunnel_run_at"
+      "format": "date-time",
+      "type": "string"
     },
     "version": {
-      "$ref": "#/$defs/tunnel_version"
+      "type": "string"
     }
   },
   "type": "object"

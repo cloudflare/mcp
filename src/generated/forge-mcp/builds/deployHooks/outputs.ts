@@ -6,25 +6,28 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `builds_DeployHookResponse` in responses.
  */
-export const builds_DeployHookResponse_output: JsonSchema = {
+export const builds_DeployHookResponse: JsonSchema = {
   "properties": {
     "branch": {
-      "$ref": "#/$defs/builds_branch"
+      "type": "string"
     },
     "created_on": {
-      "$ref": "#/$defs/builds_created_on"
+      "format": "date-time",
+      "type": "string"
     },
     "deploy_hook_name": {
-      "$ref": "#/$defs/builds_deploy_hook_name"
+      "type": "string"
     },
     "deploy_hook_uuid": {
-      "$ref": "#/$defs/builds_deploy_hook_uuid"
+      "format": "uuid",
+      "type": "string"
     },
     "external_script_id": {
-      "$ref": "#/$defs/builds_external_script_id"
+      "type": "string"
     },
     "modified_on": {
-      "$ref": "#/$defs/builds_modified_on"
+      "format": "date-time",
+      "type": "string"
     }
   },
   "type": "object"
@@ -33,29 +36,32 @@ export const builds_DeployHookResponse_output: JsonSchema = {
 /**
  * The schema of `builds_DetailedDeployHookResponse` in responses.
  */
-export const builds_DetailedDeployHookResponse_output: JsonSchema = {
+export const builds_DetailedDeployHookResponse: JsonSchema = {
   "properties": {
     "branch": {
-      "$ref": "#/$defs/builds_branch"
+      "type": "string"
     },
     "created_on": {
-      "$ref": "#/$defs/builds_created_on"
+      "format": "date-time",
+      "type": "string"
     },
     "deploy_hook_name": {
-      "$ref": "#/$defs/builds_deploy_hook_name"
+      "type": "string"
     },
     "deploy_hook_uuid": {
-      "$ref": "#/$defs/builds_deploy_hook_uuid"
+      "format": "uuid",
+      "type": "string"
     },
     "external_script_id": {
-      "$ref": "#/$defs/builds_external_script_id"
+      "type": "string"
     },
     "latest_build": {
       "oneOf": [
         {
           "properties": {
             "created_on": {
-              "$ref": "#/$defs/builds_created_on"
+              "format": "date-time",
+              "type": "string"
             }
           },
           "type": "object"
@@ -66,7 +72,8 @@ export const builds_DetailedDeployHookResponse_output: JsonSchema = {
       ]
     },
     "modified_on": {
-      "$ref": "#/$defs/builds_modified_on"
+      "format": "date-time",
+      "type": "string"
     }
   },
   "type": "object"
@@ -75,28 +82,28 @@ export const builds_DetailedDeployHookResponse_output: JsonSchema = {
 /**
  * The schema of `builds_TriggerDeployHookResponse` in responses.
  */
-export const builds_TriggerDeployHookResponse_output: JsonSchema = {
+export const builds_TriggerDeployHookResponse: JsonSchema = {
   "properties": {
     "already_exists": {
       "type": "boolean"
     },
     "build_uuid": {
-      "$ref": "#/$defs/builds_build_uuid"
+      "format": "uuid",
+      "type": "string"
     },
     "created_on": {
-      "$ref": "#/$defs/builds_created_on"
+      "format": "date-time",
+      "type": "string"
     },
     "status": {
-      "$ref": "#/$defs/builds_BuildStatus"
+      "enum": [
+        "queued",
+        "initializing",
+        "running",
+        "stopped"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `builds_deploy_hook_uuid` in responses.
- */
-export const builds_deploy_hook_uuid_output: JsonSchema = {
-  "format": "uuid",
-  "type": "string"
 };

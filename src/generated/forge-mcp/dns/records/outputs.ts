@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `dns-records_AAAARecord` in responses.
  */
-export const dns_records_AAAARecord_output: JsonSchema = {
+export const dns$$records_AAAARecord: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_dns-record-shared-fields"
@@ -34,7 +34,7 @@ export const dns_records_AAAARecord_output: JsonSchema = {
 /**
  * The schema of `dns-records_ARecord` in responses.
  */
-export const dns_records_ARecord_output: JsonSchema = {
+export const dns$$records_ARecord: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_dns-record-shared-fields"
@@ -62,7 +62,7 @@ export const dns_records_ARecord_output: JsonSchema = {
 /**
  * The schema of `dns-records_CAARecord` in responses.
  */
-export const dns_records_CAARecord_output: JsonSchema = {
+export const dns$$records_CAARecord: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_dns-record-shared-fields"
@@ -101,7 +101,7 @@ export const dns_records_CAARecord_output: JsonSchema = {
 /**
  * The schema of `dns-records_CERTRecord` in responses.
  */
-export const dns_records_CERTRecord_output: JsonSchema = {
+export const dns$$records_CERTRecord: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_dns-record-shared-fields"
@@ -143,7 +143,7 @@ export const dns_records_CERTRecord_output: JsonSchema = {
 /**
  * The schema of `dns-records_CNAMERecord` in responses.
  */
-export const dns_records_CNAMERecord_output: JsonSchema = {
+export const dns$$records_CNAMERecord: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_dns-record-shared-fields"
@@ -176,7 +176,7 @@ export const dns_records_CNAMERecord_output: JsonSchema = {
 /**
  * The schema of `dns-records_DNSKEYRecord` in responses.
  */
-export const dns_records_DNSKEYRecord_output: JsonSchema = {
+export const dns$$records_DNSKEYRecord: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_dns-record-shared-fields"
@@ -218,7 +218,7 @@ export const dns_records_DNSKEYRecord_output: JsonSchema = {
 /**
  * The schema of `dns-records_DSRecord` in responses.
  */
-export const dns_records_DSRecord_output: JsonSchema = {
+export const dns$$records_DSRecord: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_dns-record-shared-fields"
@@ -260,7 +260,7 @@ export const dns_records_DSRecord_output: JsonSchema = {
 /**
  * The schema of `dns-records_HTTPSRecord` in responses.
  */
-export const dns_records_HTTPSRecord_output: JsonSchema = {
+export const dns$$records_HTTPSRecord: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_dns-record-shared-fields"
@@ -299,7 +299,7 @@ export const dns_records_HTTPSRecord_output: JsonSchema = {
 /**
  * The schema of `dns-records_LOCRecord` in responses.
  */
-export const dns_records_LOCRecord_output: JsonSchema = {
+export const dns$$records_LOCRecord: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_dns-record-shared-fields"
@@ -373,7 +373,7 @@ export const dns_records_LOCRecord_output: JsonSchema = {
 /**
  * The schema of `dns-records_MXRecord` in responses.
  */
-export const dns_records_MXRecord_output: JsonSchema = {
+export const dns$$records_MXRecord: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_dns-record-shared-fields"
@@ -384,7 +384,7 @@ export const dns_records_MXRecord_output: JsonSchema = {
           "type": "string"
         },
         "priority": {
-          "$ref": "#/$defs/dns-records_priority"
+          "type": "number"
         },
         "type": {
           "enum": [
@@ -401,7 +401,7 @@ export const dns_records_MXRecord_output: JsonSchema = {
 /**
  * The schema of `dns-records_NAPTRRecord` in responses.
  */
-export const dns_records_NAPTRRecord_output: JsonSchema = {
+export const dns$$records_NAPTRRecord: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_dns-record-shared-fields"
@@ -449,7 +449,7 @@ export const dns_records_NAPTRRecord_output: JsonSchema = {
 /**
  * The schema of `dns-records_NSRecord` in responses.
  */
-export const dns_records_NSRecord_output: JsonSchema = {
+export const dns$$records_NSRecord: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_dns-record-shared-fields"
@@ -474,7 +474,7 @@ export const dns_records_NSRecord_output: JsonSchema = {
 /**
  * The schema of `dns-records_OPENPGPKEYRecord` in responses.
  */
-export const dns_records_OPENPGPKEYRecord_output: JsonSchema = {
+export const dns$$records_OPENPGPKEYRecord: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_dns-record-shared-fields"
@@ -499,7 +499,7 @@ export const dns_records_OPENPGPKEYRecord_output: JsonSchema = {
 /**
  * The schema of `dns-records_PTRRecord` in responses.
  */
-export const dns_records_PTRRecord_output: JsonSchema = {
+export const dns$$records_PTRRecord: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_dns-record-shared-fields"
@@ -524,7 +524,7 @@ export const dns_records_PTRRecord_output: JsonSchema = {
 /**
  * The schema of `dns-records_SMIMEARecord` in responses.
  */
-export const dns_records_SMIMEARecord_output: JsonSchema = {
+export const dns$$records_SMIMEARecord: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_dns-record-shared-fields"
@@ -566,7 +566,7 @@ export const dns_records_SMIMEARecord_output: JsonSchema = {
 /**
  * The schema of `dns-records_SRVRecord` in responses.
  */
-export const dns_records_SRVRecord_output: JsonSchema = {
+export const dns$$records_SRVRecord: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_dns-record-shared-fields"
@@ -582,7 +582,7 @@ export const dns_records_SRVRecord_output: JsonSchema = {
               "type": "number"
             },
             "priority": {
-              "$ref": "#/$defs/dns-records_priority"
+              "type": "number"
             },
             "target": {
               "type": "string"
@@ -608,7 +608,7 @@ export const dns_records_SRVRecord_output: JsonSchema = {
 /**
  * The schema of `dns-records_SSHFPRecord` in responses.
  */
-export const dns_records_SSHFPRecord_output: JsonSchema = {
+export const dns$$records_SSHFPRecord: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_dns-record-shared-fields"
@@ -647,7 +647,7 @@ export const dns_records_SSHFPRecord_output: JsonSchema = {
 /**
  * The schema of `dns-records_SVCBRecord` in responses.
  */
-export const dns_records_SVCBRecord_output: JsonSchema = {
+export const dns$$records_SVCBRecord: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_dns-record-shared-fields"
@@ -686,7 +686,7 @@ export const dns_records_SVCBRecord_output: JsonSchema = {
 /**
  * The schema of `dns-records_TLSARecord` in responses.
  */
-export const dns_records_TLSARecord_output: JsonSchema = {
+export const dns$$records_TLSARecord: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_dns-record-shared-fields"
@@ -728,7 +728,7 @@ export const dns_records_TLSARecord_output: JsonSchema = {
 /**
  * The schema of `dns-records_TXTRecord` in responses.
  */
-export const dns_records_TXTRecord_output: JsonSchema = {
+export const dns$$records_TXTRecord: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_dns-record-shared-fields"
@@ -753,7 +753,7 @@ export const dns_records_TXTRecord_output: JsonSchema = {
 /**
  * The schema of `dns-records_URIRecord` in responses.
  */
-export const dns_records_URIRecord_output: JsonSchema = {
+export const dns$$records_URIRecord: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_dns-record-shared-fields"
@@ -775,7 +775,7 @@ export const dns_records_URIRecord_output: JsonSchema = {
           "type": "object"
         },
         "priority": {
-          "$ref": "#/$defs/dns-records_priority"
+          "type": "number"
         },
         "type": {
           "enum": [
@@ -792,7 +792,7 @@ export const dns_records_URIRecord_output: JsonSchema = {
 /**
  * The schema of `dns-records_api-response-collection` in responses.
  */
-export const dns_records_api_response_collection_output: JsonSchema = {
+export const dns$$records_api$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_api-response-common"
@@ -828,7 +828,7 @@ export const dns_records_api_response_collection_output: JsonSchema = {
 /**
  * The schema of `dns-records_api-response-common` in responses.
  */
-export const dns_records_api_response_common_output: JsonSchema = {
+export const dns$$records_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/dns-records_messages"
@@ -852,16 +852,9 @@ export const dns_records_api_response_common_output: JsonSchema = {
 };
 
 /**
- * The schema of `dns-records_comment` in responses.
- */
-export const dns_records_comment_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `dns-records_dns-record-response` in responses.
  */
-export const dns_records_dns_record_response_output: JsonSchema = {
+export const dns$$records_dns$$record$$response: JsonSchema = {
   "allOf": [
     {
       "anyOf": [
@@ -884,7 +877,7 @@ export const dns_records_dns_record_response_output: JsonSchema = {
           "type": "string"
         },
         "id": {
-          "$ref": "#/$defs/dns-records_identifier"
+          "type": "string"
         },
         "meta": {
           "properties": {
@@ -933,16 +926,16 @@ export const dns_records_dns_record_response_output: JsonSchema = {
 /**
  * The schema of `dns-records_dns-record-shared-fields` in responses.
  */
-export const dns_records_dns_record_shared_fields_output: JsonSchema = {
+export const dns$$records_dns$$record$$shared$$fields: JsonSchema = {
   "properties": {
     "comment": {
-      "$ref": "#/$defs/dns-records_comment"
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/dns-records_name"
+      "type": "string"
     },
     "proxied": {
-      "$ref": "#/$defs/dns-records_proxied"
+      "type": "boolean"
     },
     "settings": {
       "$ref": "#/$defs/dns-records_settings"
@@ -951,7 +944,17 @@ export const dns_records_dns_record_shared_fields_output: JsonSchema = {
       "$ref": "#/$defs/dns-records_tags"
     },
     "ttl": {
-      "$ref": "#/$defs/dns-records_ttl"
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "enum": [
+            1
+          ],
+          "type": "integer"
+        }
+      ]
     }
   },
   "type": "object"
@@ -960,7 +963,7 @@ export const dns_records_dns_record_shared_fields_output: JsonSchema = {
 /**
  * The schema of `dns-records_dns-record-with-data` in responses.
  */
-export const dns_records_dns_record_with_data_output: JsonSchema = {
+export const dns$$records_dns$$record$$with$$data: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/dns-records_CAARecord"
@@ -1007,7 +1010,7 @@ export const dns_records_dns_record_with_data_output: JsonSchema = {
 /**
  * The schema of `dns-records_dns-record-without-data` in responses.
  */
-export const dns_records_dns_record_without_data_output: JsonSchema = {
+export const dns$$records_dns$$record$$without$$data: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/dns-records_ARecord"
@@ -1039,7 +1042,7 @@ export const dns_records_dns_record_without_data_output: JsonSchema = {
 /**
  * The schema of `dns-records_dns-response-batch-object` in responses.
  */
-export const dns_records_dns_response_batch_object_output: JsonSchema = {
+export const dns$$records_dns$$response$$batch$$object: JsonSchema = {
   "properties": {
     "deletes": {
       "items": {
@@ -1072,7 +1075,7 @@ export const dns_records_dns_response_batch_object_output: JsonSchema = {
 /**
  * The schema of `dns-records_dns-response-review-scan-object` in responses.
  */
-export const dns_records_dns_response_review_scan_object_output: JsonSchema = {
+export const dns$$records_dns$$response$$review$$scan$$object: JsonSchema = {
   "properties": {
     "accepts": {
       "items": {
@@ -1082,7 +1085,7 @@ export const dns_records_dns_response_review_scan_object_output: JsonSchema = {
     },
     "rejects": {
       "items": {
-        "$ref": "#/$defs/dns-records_identifier"
+        "type": "string"
       },
       "type": "array"
     }
@@ -1093,7 +1096,7 @@ export const dns_records_dns_response_review_scan_object_output: JsonSchema = {
 /**
  * The schema of `dns-records_dns_response_batch` in responses.
  */
-export const dns_records_dns_response_batch_output: JsonSchema = {
+export const dns$$records_dns_response_batch: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_api-response-single"
@@ -1112,7 +1115,7 @@ export const dns_records_dns_response_batch_output: JsonSchema = {
 /**
  * The schema of `dns-records_dns_response_collection` in responses.
  */
-export const dns_records_dns_response_collection_output: JsonSchema = {
+export const dns$$records_dns_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_api-response-collection"
@@ -1134,7 +1137,7 @@ export const dns_records_dns_response_collection_output: JsonSchema = {
 /**
  * The schema of `dns-records_dns_response_review_scan` in responses.
  */
-export const dns_records_dns_response_review_scan_output: JsonSchema = {
+export const dns$$records_dns_response_review_scan: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_api-response-single"
@@ -1153,7 +1156,7 @@ export const dns_records_dns_response_review_scan_output: JsonSchema = {
 /**
  * The schema of `dns-records_dns_response_single` in responses.
  */
-export const dns_records_dns_response_single_output: JsonSchema = {
+export const dns$$records_dns_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_api-response-single"
@@ -1172,7 +1175,7 @@ export const dns_records_dns_response_single_output: JsonSchema = {
 /**
  * The schema of `dns-records_dns_response_trigger_scan` in responses.
  */
-export const dns_records_dns_response_trigger_scan_output: JsonSchema = {
+export const dns$$records_dns_response_trigger_scan: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/dns-records_messages"
@@ -1196,30 +1199,9 @@ export const dns_records_dns_response_trigger_scan_output: JsonSchema = {
 };
 
 /**
- * The schema of `dns-records_name` in responses.
- */
-export const dns_records_name_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `dns-records_priority` in responses.
- */
-export const dns_records_priority_output: JsonSchema = {
-  "type": "number"
-};
-
-/**
- * The schema of `dns-records_proxied` in responses.
- */
-export const dns_records_proxied_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `dns-records_settings` in responses.
  */
-export const dns_records_settings_output: JsonSchema = {
+export const dns$$records_settings: JsonSchema = {
   "properties": {
     "ipv4_only": {
       "type": "boolean"
@@ -1234,26 +1216,9 @@ export const dns_records_settings_output: JsonSchema = {
 /**
  * The schema of `dns-records_tags` in responses.
  */
-export const dns_records_tags_output: JsonSchema = {
+export const dns$$records_tags: JsonSchema = {
   "items": {
     "type": "string"
   },
   "type": "array"
-};
-
-/**
- * The schema of `dns-records_ttl` in responses.
- */
-export const dns_records_ttl_output: JsonSchema = {
-  "anyOf": [
-    {
-      "type": "number"
-    },
-    {
-      "enum": [
-        1
-      ],
-      "type": "integer"
-    }
-  ]
 };

@@ -3,16 +3,15 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  r2_errors_output,
-  r2_messages_output,
-  r2_v4_response_failure_output,
-  r2_v4_response_output,
+  r2_errors,
+  r2_messages,
+  r2_v4_response,
+  r2_v4_response_failure,
 } from "../../outputs.js";
-import { r2_account_identifier } from "../../schemas.js";
 import {
-  r2_account_level_metrics_output,
-  r2_class_based_metrics_output,
-  r2_object_size_metrics_output,
+  r2_account_level_metrics,
+  r2_class_based_metrics,
+  r2_object_size_metrics,
 } from "./outputs.js";
 
 /**
@@ -22,21 +21,28 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_buckets_metrics_list",
     title: "Get Account-Level Metrics",
-    description: "Get Storage/Object Count Metrics across all buckets in your account. Note that Account-Level Metrics may not immediately reflect the latest data.",
+    description: "Get Storage/Object Count Metrics across all buckets in your account. Note that Account-Level Metrics may not immediately reflect the latest data.\n\nGET /accounts/{account_id}/r2/metrics",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/r2_account_identifier",
-          "description": "Cloudflare account ID that owns the R2 resource."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID that owns the R2 resource.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
-      $defs: {
-        "r2_account_identifier": r2_account_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -53,12 +59,12 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "r2_account_level_metrics": r2_account_level_metrics_output,
-        "r2_class_based_metrics": r2_class_based_metrics_output,
-        "r2_errors": r2_errors_output,
-        "r2_messages": r2_messages_output,
-        "r2_object_size_metrics": r2_object_size_metrics_output,
-        "r2_v4_response": r2_v4_response_output,
+        "r2_account_level_metrics": r2_account_level_metrics,
+        "r2_class_based_metrics": r2_class_based_metrics,
+        "r2_errors": r2_errors,
+        "r2_messages": r2_messages,
+        "r2_object_size_metrics": r2_object_size_metrics,
+        "r2_v4_response": r2_v4_response,
       },
     },
     annotations: {
@@ -95,13 +101,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "r2_account_level_metrics": r2_account_level_metrics_output,
-        "r2_class_based_metrics": r2_class_based_metrics_output,
-        "r2_errors": r2_errors_output,
-        "r2_messages": r2_messages_output,
-        "r2_object_size_metrics": r2_object_size_metrics_output,
-        "r2_v4_response": r2_v4_response_output,
-        "r2_v4_response_failure": r2_v4_response_failure_output,
+        "r2_account_level_metrics": r2_account_level_metrics,
+        "r2_class_based_metrics": r2_class_based_metrics,
+        "r2_errors": r2_errors,
+        "r2_messages": r2_messages,
+        "r2_object_size_metrics": r2_object_size_metrics,
+        "r2_v4_response": r2_v4_response,
+        "r2_v4_response_failure": r2_v4_response_failure,
       },
     },
     request: (args) => ({

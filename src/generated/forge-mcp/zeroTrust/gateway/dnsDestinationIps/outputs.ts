@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `zero-trust-gateway_dns_destination_ip_pair` in responses.
  */
-export const zero_trust_gateway_dns_destination_ip_pair_output: JsonSchema = {
+export const zero$$trust$$gateway_dns_destination_ip_pair: JsonSchema = {
   "properties": {
     "backup_ip": {
       "type": "string"
@@ -38,7 +38,7 @@ export const zero_trust_gateway_dns_destination_ip_pair_output: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_response_collection-2` in responses.
  */
-export const zero_trust_gateway_response_collection_2_output: JsonSchema = {
+export const zero$$trust$$gateway_response_collection$$2: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zero-trust-gateway_api-response-collection"

@@ -3,52 +3,54 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  access_api_response_collection_output,
-  access_api_response_common_failure_output,
-  access_api_response_common_output,
-  access_messages_output,
+  access_api$$response$$collection,
+  access_api$$response$$common,
+  access_api$$response$$common$$failure,
+  access_messages,
 } from "../../../outputs.js";
-import { access_identifier } from "../../../schemas.js";
 import {
-  access_aaguid_output,
-  access_authenticator_device_aaguid_output,
-  access_name_14_output,
-  access_response_collection_17_output,
+  access_authenticator_device_aaguid,
+  access_response_collection$$17,
 } from "./outputs.js";
 
 /**
- * The tools of `zero_trust.access.mfa.authenticator_catalog`.
+ * The tools of `zeroTrust.access.mfa.authenticatorCatalog`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zero_trust_access_mfa_authenticator_catalog_list",
+    name: "zeroTrust_access_mfa_authenticatorCatalog_list",
     title: "List authenticator device AAGUIDs",
-    description: "Returns a list of Authenticator Device AAGUIDs for MFA configuration.",
+    description: "Returns a list of Authenticator Device AAGUIDs for MFA configuration.\n\nGET /accounts/{account_id}/access/authenticator_device_aaguids",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/access_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_response_collection-17",
       $defs: {
-        "access_aaguid": access_aaguid_output,
-        "access_api-response-collection": access_api_response_collection_output,
-        "access_api-response-common": access_api_response_common_output,
-        "access_authenticator_device_aaguid": access_authenticator_device_aaguid_output,
-        "access_messages": access_messages_output,
-        "access_name-14": access_name_14_output,
-        "access_response_collection-17": access_response_collection_17_output,
+        "access_api-response-collection": access_api$$response$$collection,
+        "access_api-response-common": access_api$$response$$common,
+        "access_authenticator_device_aaguid": access_authenticator_device_aaguid,
+        "access_messages": access_messages,
+        "access_response_collection-17": access_response_collection$$17,
       },
     },
     annotations: {
@@ -70,14 +72,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "access_aaguid": access_aaguid_output,
-        "access_api-response-collection": access_api_response_collection_output,
-        "access_api-response-common": access_api_response_common_output,
-        "access_api-response-common-failure": access_api_response_common_failure_output,
-        "access_authenticator_device_aaguid": access_authenticator_device_aaguid_output,
-        "access_messages": access_messages_output,
-        "access_name-14": access_name_14_output,
-        "access_response_collection-17": access_response_collection_17_output,
+        "access_api-response-collection": access_api$$response$$collection,
+        "access_api-response-common": access_api$$response$$common,
+        "access_api-response-common-failure": access_api$$response$$common$$failure,
+        "access_authenticator_device_aaguid": access_authenticator_device_aaguid,
+        "access_messages": access_messages,
+        "access_response_collection-17": access_response_collection$$17,
       },
     },
     request: (args) => ({

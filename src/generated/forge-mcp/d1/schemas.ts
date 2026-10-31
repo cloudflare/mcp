@@ -4,17 +4,9 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
- * The schema of `d1_account-identifier`.
- */
-export const d1_account_identifier: JsonSchema = {
-  "description": "Account identifier tag.",
-  "type": "string"
-};
-
-/**
  * The schema of `d1_batch-query`.
  */
-export const d1_batch_query: JsonSchema = {
+export const d1_batch$$query: JsonSchema = {
   "description": "A single query object or a batch query object",
   "oneOf": [
     {
@@ -38,25 +30,9 @@ export const d1_batch_query: JsonSchema = {
 };
 
 /**
- * The schema of `d1_database-identifier`.
- */
-export const d1_database_identifier: JsonSchema = {
-  "description": "D1 database identifier (UUID).",
-  "type": "string"
-};
-
-/**
- * The schema of `d1_database-name`.
- */
-export const d1_database_name: JsonSchema = {
-  "description": "D1 database name.",
-  "type": "string"
-};
-
-/**
  * The schema of `d1_database-update-partial-request-body`.
  */
-export const d1_database_update_partial_request_body: JsonSchema = {
+export const d1_database$$update$$partial$$request$$body: JsonSchema = {
   "properties": {
     "read_replication": {
       "$ref": "#/$defs/d1_read-replication-details-for-request",
@@ -69,7 +45,7 @@ export const d1_database_update_partial_request_body: JsonSchema = {
 /**
  * The schema of `d1_database-update-request-body`.
  */
-export const d1_database_update_request_body: JsonSchema = {
+export const d1_database$$update$$request$$body: JsonSchema = {
   "properties": {
     "read_replication": {
       "$ref": "#/$defs/d1_read-replication-details-for-request",
@@ -83,19 +59,6 @@ export const d1_database_update_request_body: JsonSchema = {
 };
 
 /**
- * The schema of `d1_jurisdiction`.
- */
-export const d1_jurisdiction: JsonSchema = {
-  "description": "Specify the location to restrict the D1 database to run and store data. If this option is present, the location hint is ignored.",
-  "enum": [
-    "eu",
-    "fedramp",
-    "us"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `d1_params`.
  */
 export const d1_params: JsonSchema = {
@@ -106,25 +69,9 @@ export const d1_params: JsonSchema = {
 };
 
 /**
- * The schema of `d1_primary-location-hint`.
- */
-export const d1_primary_location_hint: JsonSchema = {
-  "description": "Specify the region to create the D1 primary, if available. If this option is omitted, the D1 will be created as close as possible to the current user.",
-  "enum": [
-    "wnam",
-    "enam",
-    "weur",
-    "eeur",
-    "apac",
-    "oc"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `d1_read-replication-details-for-request`.
  */
-export const d1_read_replication_details_for_request: JsonSchema = {
+export const d1_read$$replication$$details$$for$$request: JsonSchema = {
   "description": "Configuration for D1 read replication.",
   "properties": {
     "mode": {
@@ -145,27 +92,19 @@ export const d1_read_replication_details_for_request: JsonSchema = {
 /**
  * The schema of `d1_single-query`.
  */
-export const d1_single_query: JsonSchema = {
+export const d1_single$$query: JsonSchema = {
   "description": "A single query with or without parameters",
   "properties": {
     "params": {
       "$ref": "#/$defs/d1_params"
     },
     "sql": {
-      "$ref": "#/$defs/d1_sql",
-      "description": "Your SQL query. Supports multiple statements, joined by semicolons, which will be executed as a batch."
+      "description": "Your SQL query. Supports multiple statements, joined by semicolons, which will be executed as a batch.",
+      "type": "string"
     }
   },
   "required": [
     "sql"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `d1_sql`.
- */
-export const d1_sql: JsonSchema = {
-  "description": "Your SQL query. Supports multiple statements, joined by semicolons, which will be executed as a batch.",
-  "type": "string"
 };

@@ -7,7 +7,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
  * The schema of `digital-experience-monitoring_device_state_over_time` in
  * responses.
  */
-export const digital_experience_monitoring_device_state_over_time_output: JsonSchema = {
+export const digital$$experience$$monitoring_device_state_over_time: JsonSchema = {
   "properties": {
     "battery_cycles": {
       "items": {
@@ -144,7 +144,7 @@ export const digital_experience_monitoring_device_state_over_time_output: JsonSc
  * `digital-experience-monitoring_device_state_top_networks_summary` in
  * responses.
  */
-export const digital_experience_monitoring_device_state_top_networks_summary_output: JsonSchema = {
+export const digital$$experience$$monitoring_device_state_top_networks_summary: JsonSchema = {
   "properties": {
     "count": {
       "type": "integer"
@@ -164,7 +164,7 @@ export const digital_experience_monitoring_device_state_top_networks_summary_out
  * The schema of `digital-experience-monitoring_device_status_over_time_result`
  * in responses.
  */
-export const digital_experience_monitoring_device_status_over_time_result_output: JsonSchema = {
+export const digital$$experience$$monitoring_device_status_over_time_result: JsonSchema = {
   "properties": {
     "over_time": {
       "$ref": "#/$defs/digital-experience-monitoring_device_state_over_time"
@@ -186,7 +186,7 @@ export const digital_experience_monitoring_device_status_over_time_result_output
 /**
  * The schema of `digital-experience-monitoring_timeslot_cpu_apps` in responses.
  */
-export const digital_experience_monitoring_timeslot_cpu_apps_output: JsonSchema = {
+export const digital$$experience$$monitoring_timeslot_cpu_apps: JsonSchema = {
   "properties": {
     "timestamp": {
       "type": "string"
@@ -208,7 +208,7 @@ export const digital_experience_monitoring_timeslot_cpu_apps_output: JsonSchema 
 /**
  * The schema of `digital-experience-monitoring_timeslot_float` in responses.
  */
-export const digital_experience_monitoring_timeslot_float_output: JsonSchema = {
+export const digital$$experience$$monitoring_timeslot_float: JsonSchema = {
   "properties": {
     "timestamp": {
       "type": "string"
@@ -227,7 +227,7 @@ export const digital_experience_monitoring_timeslot_float_output: JsonSchema = {
 /**
  * The schema of `digital-experience-monitoring_timeslot_int` in responses.
  */
-export const digital_experience_monitoring_timeslot_int_output: JsonSchema = {
+export const digital$$experience$$monitoring_timeslot_int: JsonSchema = {
   "properties": {
     "timestamp": {
       "type": "string"
@@ -246,7 +246,7 @@ export const digital_experience_monitoring_timeslot_int_output: JsonSchema = {
 /**
  * The schema of `digital-experience-monitoring_timeslot_ram_apps` in responses.
  */
-export const digital_experience_monitoring_timeslot_ram_apps_output: JsonSchema = {
+export const digital$$experience$$monitoring_timeslot_ram_apps: JsonSchema = {
   "properties": {
     "timestamp": {
       "type": "string"
@@ -269,7 +269,7 @@ export const digital_experience_monitoring_timeslot_ram_apps_output: JsonSchema 
  * The schema of `digital-experience-monitoring_timeslot_rtt_stats` in
  * responses.
  */
-export const digital_experience_monitoring_timeslot_rtt_stats_output: JsonSchema = {
+export const digital$$experience$$monitoring_timeslot_rtt_stats: JsonSchema = {
   "properties": {
     "timestamp": {
       "type": "string"
@@ -288,7 +288,7 @@ export const digital_experience_monitoring_timeslot_rtt_stats_output: JsonSchema
 /**
  * The schema of `digital-experience-monitoring_timeslot_string` in responses.
  */
-export const digital_experience_monitoring_timeslot_string_output: JsonSchema = {
+export const digital$$experience$$monitoring_timeslot_string: JsonSchema = {
   "properties": {
     "timestamp": {
       "type": "string"
@@ -308,7 +308,7 @@ export const digital_experience_monitoring_timeslot_string_output: JsonSchema = 
  * The schema of `digital-experience-monitoring_timeslot_tunnel_stats` in
  * responses.
  */
-export const digital_experience_monitoring_timeslot_tunnel_stats_output: JsonSchema = {
+export const digital$$experience$$monitoring_timeslot_tunnel_stats: JsonSchema = {
   "properties": {
     "timestamp": {
       "type": "string"

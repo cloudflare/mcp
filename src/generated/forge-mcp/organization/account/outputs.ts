@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `organizations-api_Account` in responses.
  */
-export const organizations_api_Account_output: JsonSchema = {
+export const organizations$$api_Account: JsonSchema = {
   "properties": {
     "created_on": {
       "format": "date-time",
@@ -126,7 +126,7 @@ export const organizations_api_Account_output: JsonSchema = {
 /**
  * The schema of `organizations-api_AccountListResultInfo` in responses.
  */
-export const organizations_api_AccountListResultInfo_output: JsonSchema = {
+export const organizations$$api_AccountListResultInfo: JsonSchema = {
   "anyOf": [
     {
       "$ref": "#/$defs/organizations-api_PageTokenResultInfo"
@@ -140,7 +140,7 @@ export const organizations_api_AccountListResultInfo_output: JsonSchema = {
 /**
  * The schema of `organizations-api_LegacyAccount` in responses.
  */
-export const organizations_api_LegacyAccount_output: JsonSchema = {
+export const organizations$$api_LegacyAccount: JsonSchema = {
   "properties": {
     "account_pubname": {
       "oneOf": [
@@ -211,7 +211,7 @@ export const organizations_api_LegacyAccount_output: JsonSchema = {
 /**
  * The schema of `organizations-api_LegacyPaginationResultInfo` in responses.
  */
-export const organizations_api_LegacyPaginationResultInfo_output: JsonSchema = {
+export const organizations$$api_LegacyPaginationResultInfo: JsonSchema = {
   "properties": {
     "count": {
       "type": "integer"

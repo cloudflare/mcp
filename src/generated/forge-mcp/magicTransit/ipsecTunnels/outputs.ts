@@ -4,30 +4,9 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `magic_allow_null_cipher` in responses.
- */
-export const magic_allow_null_cipher_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `magic_cloudflare_ipsec_endpoint` in responses.
- */
-export const magic_cloudflare_ipsec_endpoint_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `magic_components-schemas-description` in responses.
- */
-export const magic_components_schemas_description_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `magic_custom_remote_identities` in responses.
  */
-export const magic_custom_remote_identities_output: JsonSchema = {
+export const magic_custom_remote_identities: JsonSchema = {
   "properties": {
     "fqdn_id": {
       "type": "string"
@@ -37,22 +16,15 @@ export const magic_custom_remote_identities_output: JsonSchema = {
 };
 
 /**
- * The schema of `magic_customer_ipsec_endpoint` in responses.
- */
-export const magic_customer_ipsec_endpoint_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `magic_ipsec-tunnel` in responses.
  */
-export const magic_ipsec_tunnel_output: JsonSchema = {
+export const magic_ipsec$$tunnel: JsonSchema = {
   "properties": {
     "allow_null_cipher": {
-      "$ref": "#/$defs/magic_allow_null_cipher"
+      "type": "boolean"
     },
     "automatic_return_routing": {
-      "$ref": "#/$defs/magic_automatic_return_routing"
+      "type": "boolean"
     },
     "bgp": {
       "$ref": "#/$defs/magic_bgp_config"
@@ -61,43 +33,45 @@ export const magic_ipsec_tunnel_output: JsonSchema = {
       "$ref": "#/$defs/magic_bgp_status_with_state"
     },
     "cloudflare_endpoint": {
-      "$ref": "#/$defs/magic_cloudflare_ipsec_endpoint"
+      "type": "string"
     },
     "created_on": {
-      "$ref": "#/$defs/magic_schemas-created_on"
+      "format": "date-time",
+      "type": "string"
     },
     "custom_remote_identities": {
       "$ref": "#/$defs/magic_custom_remote_identities"
     },
     "customer_endpoint": {
-      "$ref": "#/$defs/magic_customer_ipsec_endpoint"
+      "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/magic_components-schemas-description"
+      "type": "string"
     },
     "health_check": {
       "$ref": "#/$defs/magic_tunnel_health_check"
     },
     "id": {
-      "$ref": "#/$defs/magic_schemas-identifier"
+      "type": "string"
     },
     "interface_address": {
-      "$ref": "#/$defs/magic_interface_address"
+      "type": "string"
     },
     "interface_address6": {
-      "$ref": "#/$defs/magic_interface_address6"
+      "type": "string"
     },
     "modified_on": {
-      "$ref": "#/$defs/magic_schemas-modified_on"
+      "format": "date-time",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/magic_ipsec_tunnel_name"
+      "type": "string"
     },
     "psk_metadata": {
       "$ref": "#/$defs/magic_psk_metadata"
     },
     "replay_protection": {
-      "$ref": "#/$defs/magic_replay_protection"
+      "type": "boolean"
     }
   },
   "required": [
@@ -112,16 +86,16 @@ export const magic_ipsec_tunnel_output: JsonSchema = {
 /**
  * The schema of `magic_ipsec_tunnel_applied_psk` in responses.
  */
-export const magic_ipsec_tunnel_applied_psk_output: JsonSchema = {
+export const magic_ipsec_tunnel_applied_psk: JsonSchema = {
   "properties": {
     "ipsec_id": {
       "type": "string"
     },
     "ipsec_tunnel_id": {
-      "$ref": "#/$defs/magic_identifier"
+      "type": "string"
     },
     "psk": {
-      "$ref": "#/$defs/magic_psk"
+      "type": "string"
     },
     "psk_metadata": {
       "$ref": "#/$defs/magic_psk_metadata"
@@ -137,16 +111,9 @@ export const magic_ipsec_tunnel_applied_psk_output: JsonSchema = {
 };
 
 /**
- * The schema of `magic_ipsec_tunnel_name` in responses.
- */
-export const magic_ipsec_tunnel_name_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `magic_ipsec_tunnels_psk_response` in responses.
  */
-export const magic_ipsec_tunnels_psk_response_output: JsonSchema = {
+export const magic_ipsec_tunnels_psk_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"
@@ -177,16 +144,9 @@ export const magic_ipsec_tunnels_psk_response_output: JsonSchema = {
 };
 
 /**
- * The schema of `magic_psk` in responses.
- */
-export const magic_psk_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `magic_psk_generation_response` in responses.
  */
-export const magic_psk_generation_response_output: JsonSchema = {
+export const magic_psk_generation_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"
@@ -196,10 +156,10 @@ export const magic_psk_generation_response_output: JsonSchema = {
         "result": {
           "properties": {
             "ipsec_tunnel_id": {
-              "$ref": "#/$defs/magic_identifier"
+              "type": "string"
             },
             "psk": {
-              "$ref": "#/$defs/magic_psk"
+              "type": "string"
             },
             "psk_metadata": {
               "$ref": "#/$defs/magic_psk_metadata"
@@ -216,26 +176,20 @@ export const magic_psk_generation_response_output: JsonSchema = {
 /**
  * The schema of `magic_psk_metadata` in responses.
  */
-export const magic_psk_metadata_output: JsonSchema = {
+export const magic_psk_metadata: JsonSchema = {
   "properties": {
     "last_generated_on": {
-      "$ref": "#/$defs/magic_schemas-modified_on"
+      "format": "date-time",
+      "type": "string"
     }
   },
   "type": "object"
 };
 
 /**
- * The schema of `magic_replay_protection` in responses.
- */
-export const magic_replay_protection_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `magic_schemas-create_ipsec_tunnel_response` in responses.
  */
-export const magic_schemas_create_ipsec_tunnel_response_output: JsonSchema = {
+export const magic_schemas$$create_ipsec_tunnel_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"
@@ -255,7 +209,7 @@ export const magic_schemas_create_ipsec_tunnel_response_output: JsonSchema = {
  * The schema of `magic_schemas-modified_tunnels_collection_response` in
  * responses.
  */
-export const magic_schemas_modified_tunnels_collection_response_output: JsonSchema = {
+export const magic_schemas$$modified_tunnels_collection_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"
@@ -285,7 +239,7 @@ export const magic_schemas_modified_tunnels_collection_response_output: JsonSche
 /**
  * The schema of `magic_schemas-tunnel_deleted_response` in responses.
  */
-export const magic_schemas_tunnel_deleted_response_output: JsonSchema = {
+export const magic_schemas$$tunnel_deleted_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"
@@ -312,7 +266,7 @@ export const magic_schemas_tunnel_deleted_response_output: JsonSchema = {
 /**
  * The schema of `magic_schemas-tunnel_modified_response` in responses.
  */
-export const magic_schemas_tunnel_modified_response_output: JsonSchema = {
+export const magic_schemas$$tunnel_modified_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"
@@ -339,7 +293,7 @@ export const magic_schemas_tunnel_modified_response_output: JsonSchema = {
 /**
  * The schema of `magic_schemas-tunnel_single_response` in responses.
  */
-export const magic_schemas_tunnel_single_response_output: JsonSchema = {
+export const magic_schemas$$tunnel_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"
@@ -363,7 +317,7 @@ export const magic_schemas_tunnel_single_response_output: JsonSchema = {
 /**
  * The schema of `magic_schemas-tunnels_collection_response` in responses.
  */
-export const magic_schemas_tunnels_collection_response_output: JsonSchema = {
+export const magic_schemas$$tunnels_collection_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"

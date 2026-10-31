@@ -2,33 +2,43 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
-import { nsc_Settings_output } from "./outputs.js";
+import { nsc_Settings } from "./outputs.js";
 import { nsc_SettingsRequest } from "./schemas.js";
 
 /**
- * The tools of `network_interconnects.settings`.
+ * The tools of `networkInterconnects.settings`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "network_interconnects_settings_get",
+    name: "networkInterconnects_settings_get",
     title: "Get the current settings for the active account",
-    description: "Retrieves current settings configuration for the specified resource or service.",
+    description: "Retrieves current settings configuration for the specified resource or service.\n\nGET /accounts/{account_id}/cni/settings",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account tag to retrieve settings for",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account tag to retrieve settings for",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/nsc_Settings",
       $defs: {
-        "nsc_Settings": nsc_Settings_output,
+        "nsc_Settings": nsc_Settings,
       },
     },
     annotations: {
@@ -58,7 +68,7 @@ export const tools: readonly Tool[] = [
         "500": null
       },
       $defs: {
-        "nsc_Settings": nsc_Settings_output,
+        "nsc_Settings": nsc_Settings,
       },
     },
     request: (args) => ({
@@ -66,24 +76,34 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "network_interconnects_settings_update",
+    name: "networkInterconnects_settings_update",
     title: "Update the current settings for the active account",
-    description: "Updates configuration settings for the specified resource or service.",
+    description: "Updates configuration settings for the specified resource or service.\n\nPUT /accounts/{account_id}/cni/settings",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account tag to update settings for",
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/nsc_SettingsRequest"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account tag to update settings for",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "nsc_SettingsRequest": nsc_SettingsRequest,
       },
@@ -91,7 +111,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/nsc_Settings",
       $defs: {
-        "nsc_Settings": nsc_Settings_output,
+        "nsc_Settings": nsc_Settings,
       },
     },
     annotations: {
@@ -119,7 +139,7 @@ export const tools: readonly Tool[] = [
         "500": null
       },
       $defs: {
-        "nsc_Settings": nsc_Settings_output,
+        "nsc_Settings": nsc_Settings,
       },
     },
     request: (args) => ({

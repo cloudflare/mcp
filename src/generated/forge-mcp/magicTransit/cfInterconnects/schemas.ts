@@ -4,14 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `magic_components-schemas-name`.
- */
-export const magic_components_schemas_name: JsonSchema = {
-  "description": "The name of the interconnect. The name cannot share a name with other tunnels.",
-  "type": "string"
-};
-
-/**
  * The schema of `magic_gre`.
  */
 export const magic_gre: JsonSchema = {
@@ -54,7 +46,7 @@ export const magic_interconnect_bgp_config: JsonSchema = {
       "type": "string"
     },
     "extra_prefixes": {
-      "description": "IPv4 prefixes in this list will be advertised to the customer device, in addition to the routes in the Magic\nrouting table. Each entry must be a network address in CIDR notation with no host bits set (for example\n`192.0.2.0/24`, not `192.0.2.1/24`) and must not repeat another entry.\n",
+      "description": "IPv4 prefixes in this list will be advertised to the customer device, in addition to the routes in the Magic\nrouting table. Each entry must be a network address in CIDR notation with no host bits set (for example\n`192.0.2.0/24`, not `192.0.2.1/24`) and must not repeat another entry.",
       "items": {
         "type": "string"
       },
@@ -70,14 +62,6 @@ export const magic_interconnect_bgp_config: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `magic_interconnect_components-schemas-description`.
- */
-export const magic_interconnect_components_schemas_description: JsonSchema = {
-  "description": "An optional description of the interconnect.",
-  "type": "string"
 };
 
 /**
@@ -115,16 +99,16 @@ export const magic_interconnect_health_check: JsonSchema = {
 export const magic_interconnect_tunnel_update_request: JsonSchema = {
   "properties": {
     "automatic_return_routing": {
-      "$ref": "#/$defs/magic_automatic_return_routing",
       "default": false,
-      "description": "True if automatic stateful return routing should be enabled for a tunnel, false otherwise. Requires the `coupler_integration` account flag to be enabled; requests setting this to `true` without that flag will be rejected."
+      "description": "True if automatic stateful return routing should be enabled for a tunnel, false otherwise. Requires the `coupler_integration` account flag to be enabled; requests setting this to `true` without that flag will be rejected.",
+      "type": "boolean"
     },
     "bgp": {
       "$ref": "#/$defs/magic_interconnect_bgp_config"
     },
     "description": {
-      "$ref": "#/$defs/magic_interconnect_components-schemas-description",
-      "description": "An optional description of the interconnect."
+      "description": "An optional description of the interconnect.",
+      "type": "string"
     },
     "gre": {
       "$ref": "#/$defs/magic_gre"
@@ -133,38 +117,22 @@ export const magic_interconnect_tunnel_update_request: JsonSchema = {
       "$ref": "#/$defs/magic_interconnect_health_check"
     },
     "interface_address": {
-      "$ref": "#/$defs/magic_interface_address_interconnect",
-      "description": "The IPv4 interface address for the interconnect. For MPLS Interconnects,\nuse a /30 or /31 prefix. For GRE Interconnects, a /30 or /31 prefix\nmay be used. Version 1.5 interconnects require a /31 prefix and may\nalso use a prefix from the account's authorized prefixes; otherwise,\nselect the subnet from RFC 1918 or the approved link-local ranges.\n"
+      "description": "The IPv4 interface address for the interconnect. For MPLS Interconnects,\nuse a /30 or /31 prefix. For GRE Interconnects, a /30 or /31 prefix\nmay be used. Version 1.5 interconnects require a /31 prefix and may\nalso use a prefix from the account's authorized prefixes; otherwise,\nselect the subnet from RFC 1918 or the approved link-local ranges.",
+      "type": "string"
     },
     "interface_address6": {
-      "$ref": "#/$defs/magic_interface_address6",
-      "description": "A 127 bit IPV6 prefix from within the virtual_subnet6 prefix space with the address being the first IP of the subnet and not same as the address of virtual_subnet6. Eg if virtual_subnet6 is 2606:54c1:7:0:a9fe:12d2::/127 , interface_address6 could be 2606:54c1:7:0:a9fe:12d2:1:200/127"
+      "description": "A 127 bit IPV6 prefix from within the virtual_subnet6 prefix space with the address being the first IP of the subnet and not same as the address of virtual_subnet6. Eg if virtual_subnet6 is 2606:54c1:7:0:a9fe:12d2::/127 , interface_address6 could be 2606:54c1:7:0:a9fe:12d2:1:200/127",
+      "type": "string"
     },
     "mtu": {
-      "$ref": "#/$defs/magic_schemas-mtu",
       "default": 1476,
-      "description": "The Maximum Transmission Unit (MTU) in bytes for the interconnect. The minimum value is 576."
+      "description": "The Maximum Transmission Unit (MTU) in bytes for the interconnect. The minimum value is 576.",
+      "type": "integer"
     },
     "name": {
-      "$ref": "#/$defs/magic_components-schemas-name",
-      "description": "The name of the interconnect. The name cannot share a name with other tunnels."
+      "description": "The name of the interconnect. The name cannot share a name with other tunnels.",
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `magic_interface_address_interconnect`.
- */
-export const magic_interface_address_interconnect: JsonSchema = {
-  "description": "The IPv4 interface address for the interconnect. For MPLS Interconnects,\nuse a /30 or /31 prefix. For GRE Interconnects, a /30 or /31 prefix\nmay be used. Version 1.5 interconnects require a /31 prefix and may\nalso use a prefix from the account's authorized prefixes; otherwise,\nselect the subnet from RFC 1918 or the approved link-local ranges.\n",
-  "type": "string"
-};
-
-/**
- * The schema of `magic_schemas-mtu`.
- */
-export const magic_schemas_mtu: JsonSchema = {
-  "description": "The Maximum Transmission Unit (MTU) in bytes for the interconnect. The minimum value is 576.",
-  "type": "integer"
 };

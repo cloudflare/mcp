@@ -4,23 +4,33 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 
 /**
- * The tools of `cloudforce_one.priority_intelligence.profile`.
+ * The tools of `cloudforceOne.priorityIntelligence.profile`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "cloudforce_one_priority_intelligence_profile_delete",
+    name: "cloudforceOne_priorityIntelligence_profile_delete",
     title: "Delete the organization profile",
-    description: "Deletes the account's organization profile. Succeeds when the account has no profile.",
+    description: "Deletes the account's organization profile. Succeeds when the account has no profile.\n\nDELETE /accounts/{account_id}/cloudforce-one/v2/priority-intelligence/profile",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": true,
@@ -48,19 +58,29 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "cloudforce_one_priority_intelligence_profile_get",
+    name: "cloudforceOne_priorityIntelligence_profile_get",
     title: "Get the organization profile",
-    description: "Returns the account's organization profile, which all of its Priority Intelligence Requirements share to judge how relevant intelligence is to the organization. `result` is null when the account has no profile.",
+    description: "Returns the account's organization profile, which all of its Priority Intelligence Requirements share to judge how relevant intelligence is to the organization. `result` is null when the account has no profile.\n\nGET /accounts/{account_id}/cloudforce-one/v2/priority-intelligence/profile",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,
@@ -89,15 +109,12 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "cloudforce_one_priority_intelligence_profile_update",
+    name: "cloudforceOne_priorityIntelligence_profile_update",
     title: "Create or replace the organization profile",
-    description: "Creates or replaces the account's organization profile: who the organization is, such as its name, brands, domains, sector, regions, key systems and suppliers. All of the account's Priority Intelligence Requirements share it. An account has at most one profile, and it does not count against the PIR quota.",
+    description: "Creates or replaces the account's organization profile: who the organization is, such as its name, brands, domains, sector, regions, key systems and suppliers. All of the account's Priority Intelligence Requirements share it. An account has at most one profile, and it does not count against the PIR quota.\n\nPUT /accounts/{account_id}/cloudforce-one/v2/priority-intelligence/profile",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
         "body": {
           "properties": {
             "profile": {
@@ -109,11 +126,24 @@ export const tools: readonly Tool[] = [
             "profile"
           ],
           "type": "object"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": true,

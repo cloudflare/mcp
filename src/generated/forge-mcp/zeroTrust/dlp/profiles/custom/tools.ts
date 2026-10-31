@@ -3,42 +3,41 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  dlp_Empty_output,
-  dlp_api_response_common_failure_output,
-  dlp_api_response_single_output,
-  dlp_messages_output,
+  dlp_Empty,
+  dlp_api$$response$$common$$failure,
+  dlp_api$$response$$single,
+  dlp_messages,
 } from "../../../outputs.js";
 import {
-  dlp_CustomEntry_output,
-  dlp_CustomPromptTopicEntry_output,
-  dlp_DocumentFingerprintEntry_output,
-  dlp_EntryConfidence_output,
-  dlp_Entry_output,
-  dlp_ExactDataEntry_output,
-  dlp_IntegrationEntry_output,
-  dlp_Pattern_output,
-  dlp_PredefinedEntryVariant_output,
-  dlp_PredefinedEntry_output,
-  dlp_PromptTopicType_output,
-  dlp_SensitivityLevelRef_output,
-  dlp_Validation_output,
-  dlp_WordListEntry_output,
+  dlp_CustomEntry,
+  dlp_CustomPromptTopicEntry,
+  dlp_DocumentFingerprintEntry,
+  dlp_Entry,
+  dlp_EntryConfidence,
+  dlp_ExactDataEntry,
+  dlp_IntegrationEntry,
+  dlp_Pattern,
+  dlp_PredefinedEntry,
+  dlp_PredefinedEntryVariant,
+  dlp_SensitivityLevelRef,
+  dlp_WordListEntry,
 } from "../../outputs.js";
 import {
-  dlp_Pattern,
-  dlp_SensitivityLevelRef,
-  dlp_Validation,
+  dlp_Pattern as dlp_Pattern$,
+  dlp_SensitivityLevelRef as dlp_SensitivityLevelRef$,
 } from "../../schemas.js";
 import {
-  dlp_Confidence_output,
-  dlp_ContextAwareness_output,
-  dlp_CustomProfile_output,
-  dlp_IntegrationProfile_output,
-  dlp_PredefinedProfile_output,
-  dlp_Profile_output,
-  dlp_SkipConfig_output,
+  dlp_ContextAwareness,
+  dlp_CustomProfile,
+  dlp_IntegrationProfile,
+  dlp_PredefinedProfile,
+  dlp_Profile,
+  dlp_SkipConfig,
 } from "../outputs.js";
-import { dlp_ContextAwareness, dlp_SkipConfig } from "../schemas.js";
+import {
+  dlp_ContextAwareness as dlp_ContextAwareness$,
+  dlp_SkipConfig as dlp_SkipConfig$,
+} from "../schemas.js";
 import {
   dlp_CustomProfileUpdate,
   dlp_EntryOfNewProfile,
@@ -52,39 +51,48 @@ import {
 } from "./schemas.js";
 
 /**
- * The tools of `zero_trust.dlp.profiles.custom`.
+ * The tools of `zeroTrust.dlp.profiles.custom`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zero_trust_dlp_profiles_custom_create",
+    name: "zeroTrust_dlp_profiles_custom_create",
     title: "Create custom profile",
-    description: "Creates a DLP custom profile.",
+    description: "Creates a DLP custom profile.\n\nPOST /accounts/{account_id}/dlp/profiles/custom",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/dlp_NewCustomProfile",
           "description": "A new profile to create."
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "dlp_ContextAwareness": dlp_ContextAwareness,
+        "dlp_ContextAwareness": dlp_ContextAwareness$,
         "dlp_EntryOfNewProfile": dlp_EntryOfNewProfile,
         "dlp_NewCustomEntry": dlp_NewCustomEntry,
         "dlp_NewCustomProfile": dlp_NewCustomProfile,
         "dlp_NewSharedEntry": dlp_NewSharedEntry,
         "dlp_NewWordListEntry": dlp_NewWordListEntry,
-        "dlp_Pattern": dlp_Pattern,
-        "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef,
-        "dlp_SkipConfig": dlp_SkipConfig,
-        "dlp_Validation": dlp_Validation,
+        "dlp_Pattern": dlp_Pattern$,
+        "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef$,
+        "dlp_SkipConfig": dlp_SkipConfig$,
       },
     },
     outputSchema: {
@@ -102,29 +110,26 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_Confidence": dlp_Confidence_output,
-        "dlp_ContextAwareness": dlp_ContextAwareness_output,
-        "dlp_CustomEntry": dlp_CustomEntry_output,
-        "dlp_CustomProfile": dlp_CustomProfile_output,
-        "dlp_CustomPromptTopicEntry": dlp_CustomPromptTopicEntry_output,
-        "dlp_DocumentFingerprintEntry": dlp_DocumentFingerprintEntry_output,
-        "dlp_Entry": dlp_Entry_output,
-        "dlp_EntryConfidence": dlp_EntryConfidence_output,
-        "dlp_ExactDataEntry": dlp_ExactDataEntry_output,
-        "dlp_IntegrationEntry": dlp_IntegrationEntry_output,
-        "dlp_IntegrationProfile": dlp_IntegrationProfile_output,
-        "dlp_Pattern": dlp_Pattern_output,
-        "dlp_PredefinedEntry": dlp_PredefinedEntry_output,
-        "dlp_PredefinedEntryVariant": dlp_PredefinedEntryVariant_output,
-        "dlp_PredefinedProfile": dlp_PredefinedProfile_output,
-        "dlp_Profile": dlp_Profile_output,
-        "dlp_PromptTopicType": dlp_PromptTopicType_output,
-        "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef_output,
-        "dlp_SkipConfig": dlp_SkipConfig_output,
-        "dlp_Validation": dlp_Validation_output,
-        "dlp_WordListEntry": dlp_WordListEntry_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_ContextAwareness": dlp_ContextAwareness,
+        "dlp_CustomEntry": dlp_CustomEntry,
+        "dlp_CustomProfile": dlp_CustomProfile,
+        "dlp_CustomPromptTopicEntry": dlp_CustomPromptTopicEntry,
+        "dlp_DocumentFingerprintEntry": dlp_DocumentFingerprintEntry,
+        "dlp_Entry": dlp_Entry,
+        "dlp_EntryConfidence": dlp_EntryConfidence,
+        "dlp_ExactDataEntry": dlp_ExactDataEntry,
+        "dlp_IntegrationEntry": dlp_IntegrationEntry,
+        "dlp_IntegrationProfile": dlp_IntegrationProfile,
+        "dlp_Pattern": dlp_Pattern,
+        "dlp_PredefinedEntry": dlp_PredefinedEntry,
+        "dlp_PredefinedEntryVariant": dlp_PredefinedEntryVariant,
+        "dlp_PredefinedProfile": dlp_PredefinedProfile,
+        "dlp_Profile": dlp_Profile,
+        "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef,
+        "dlp_SkipConfig": dlp_SkipConfig,
+        "dlp_WordListEntry": dlp_WordListEntry,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -163,30 +168,27 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_Confidence": dlp_Confidence_output,
-        "dlp_ContextAwareness": dlp_ContextAwareness_output,
-        "dlp_CustomEntry": dlp_CustomEntry_output,
-        "dlp_CustomProfile": dlp_CustomProfile_output,
-        "dlp_CustomPromptTopicEntry": dlp_CustomPromptTopicEntry_output,
-        "dlp_DocumentFingerprintEntry": dlp_DocumentFingerprintEntry_output,
-        "dlp_Entry": dlp_Entry_output,
-        "dlp_EntryConfidence": dlp_EntryConfidence_output,
-        "dlp_ExactDataEntry": dlp_ExactDataEntry_output,
-        "dlp_IntegrationEntry": dlp_IntegrationEntry_output,
-        "dlp_IntegrationProfile": dlp_IntegrationProfile_output,
-        "dlp_Pattern": dlp_Pattern_output,
-        "dlp_PredefinedEntry": dlp_PredefinedEntry_output,
-        "dlp_PredefinedEntryVariant": dlp_PredefinedEntryVariant_output,
-        "dlp_PredefinedProfile": dlp_PredefinedProfile_output,
-        "dlp_Profile": dlp_Profile_output,
-        "dlp_PromptTopicType": dlp_PromptTopicType_output,
-        "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef_output,
-        "dlp_SkipConfig": dlp_SkipConfig_output,
-        "dlp_Validation": dlp_Validation_output,
-        "dlp_WordListEntry": dlp_WordListEntry_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_ContextAwareness": dlp_ContextAwareness,
+        "dlp_CustomEntry": dlp_CustomEntry,
+        "dlp_CustomProfile": dlp_CustomProfile,
+        "dlp_CustomPromptTopicEntry": dlp_CustomPromptTopicEntry,
+        "dlp_DocumentFingerprintEntry": dlp_DocumentFingerprintEntry,
+        "dlp_Entry": dlp_Entry,
+        "dlp_EntryConfidence": dlp_EntryConfidence,
+        "dlp_ExactDataEntry": dlp_ExactDataEntry,
+        "dlp_IntegrationEntry": dlp_IntegrationEntry,
+        "dlp_IntegrationProfile": dlp_IntegrationProfile,
+        "dlp_Pattern": dlp_Pattern,
+        "dlp_PredefinedEntry": dlp_PredefinedEntry,
+        "dlp_PredefinedEntryVariant": dlp_PredefinedEntryVariant,
+        "dlp_PredefinedProfile": dlp_PredefinedProfile,
+        "dlp_Profile": dlp_Profile,
+        "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef,
+        "dlp_SkipConfig": dlp_SkipConfig,
+        "dlp_WordListEntry": dlp_WordListEntry,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -195,24 +197,34 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_dlp_profiles_custom_delete",
+    name: "zeroTrust_dlp_profiles_custom_delete",
     title: "Delete custom profile",
-    description: "Deletes a DLP custom profile.",
+    description: "Deletes a DLP custom profile.\n\nDELETE /accounts/{account_id}/dlp/profiles/custom/{profile_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
-        "profile_id": {
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "profile_id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "profile_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "profile_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -229,9 +241,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_Empty": dlp_Empty_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_Empty": dlp_Empty,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -270,10 +282,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_Empty": dlp_Empty_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_Empty": dlp_Empty,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -281,40 +293,49 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_dlp_profiles_custom_update",
+    name: "zeroTrust_dlp_profiles_custom_update",
     title: "Update custom profile",
-    description: "Updates a DLP custom profile.",
+    description: "Updates a DLP custom profile.\n\nPUT /accounts/{account_id}/dlp/profiles/custom/{profile_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/dlp_CustomProfileUpdate",
           "description": "The updated parameters for the profile."
         },
-        "profile_id": {
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "profile_id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "profile_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "profile_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "dlp_ContextAwareness": dlp_ContextAwareness,
+        "dlp_ContextAwareness": dlp_ContextAwareness$,
         "dlp_CustomProfileUpdate": dlp_CustomProfileUpdate,
         "dlp_NewCustomEntry": dlp_NewCustomEntry,
         "dlp_NewCustomEntryWithId": dlp_NewCustomEntryWithId,
-        "dlp_Pattern": dlp_Pattern,
+        "dlp_Pattern": dlp_Pattern$,
         "dlp_ProfileEntryUpdate": dlp_ProfileEntryUpdate,
-        "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef,
+        "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef$,
         "dlp_SharedEntryUpdate": dlp_SharedEntryUpdate,
-        "dlp_SkipConfig": dlp_SkipConfig,
-        "dlp_Validation": dlp_Validation,
+        "dlp_SkipConfig": dlp_SkipConfig$,
       },
     },
     outputSchema: {
@@ -332,29 +353,26 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_Confidence": dlp_Confidence_output,
-        "dlp_ContextAwareness": dlp_ContextAwareness_output,
-        "dlp_CustomEntry": dlp_CustomEntry_output,
-        "dlp_CustomProfile": dlp_CustomProfile_output,
-        "dlp_CustomPromptTopicEntry": dlp_CustomPromptTopicEntry_output,
-        "dlp_DocumentFingerprintEntry": dlp_DocumentFingerprintEntry_output,
-        "dlp_Entry": dlp_Entry_output,
-        "dlp_EntryConfidence": dlp_EntryConfidence_output,
-        "dlp_ExactDataEntry": dlp_ExactDataEntry_output,
-        "dlp_IntegrationEntry": dlp_IntegrationEntry_output,
-        "dlp_IntegrationProfile": dlp_IntegrationProfile_output,
-        "dlp_Pattern": dlp_Pattern_output,
-        "dlp_PredefinedEntry": dlp_PredefinedEntry_output,
-        "dlp_PredefinedEntryVariant": dlp_PredefinedEntryVariant_output,
-        "dlp_PredefinedProfile": dlp_PredefinedProfile_output,
-        "dlp_Profile": dlp_Profile_output,
-        "dlp_PromptTopicType": dlp_PromptTopicType_output,
-        "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef_output,
-        "dlp_SkipConfig": dlp_SkipConfig_output,
-        "dlp_Validation": dlp_Validation_output,
-        "dlp_WordListEntry": dlp_WordListEntry_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_ContextAwareness": dlp_ContextAwareness,
+        "dlp_CustomEntry": dlp_CustomEntry,
+        "dlp_CustomProfile": dlp_CustomProfile,
+        "dlp_CustomPromptTopicEntry": dlp_CustomPromptTopicEntry,
+        "dlp_DocumentFingerprintEntry": dlp_DocumentFingerprintEntry,
+        "dlp_Entry": dlp_Entry,
+        "dlp_EntryConfidence": dlp_EntryConfidence,
+        "dlp_ExactDataEntry": dlp_ExactDataEntry,
+        "dlp_IntegrationEntry": dlp_IntegrationEntry,
+        "dlp_IntegrationProfile": dlp_IntegrationProfile,
+        "dlp_Pattern": dlp_Pattern,
+        "dlp_PredefinedEntry": dlp_PredefinedEntry,
+        "dlp_PredefinedEntryVariant": dlp_PredefinedEntryVariant,
+        "dlp_PredefinedProfile": dlp_PredefinedProfile,
+        "dlp_Profile": dlp_Profile,
+        "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef,
+        "dlp_SkipConfig": dlp_SkipConfig,
+        "dlp_WordListEntry": dlp_WordListEntry,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -393,30 +411,27 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_Confidence": dlp_Confidence_output,
-        "dlp_ContextAwareness": dlp_ContextAwareness_output,
-        "dlp_CustomEntry": dlp_CustomEntry_output,
-        "dlp_CustomProfile": dlp_CustomProfile_output,
-        "dlp_CustomPromptTopicEntry": dlp_CustomPromptTopicEntry_output,
-        "dlp_DocumentFingerprintEntry": dlp_DocumentFingerprintEntry_output,
-        "dlp_Entry": dlp_Entry_output,
-        "dlp_EntryConfidence": dlp_EntryConfidence_output,
-        "dlp_ExactDataEntry": dlp_ExactDataEntry_output,
-        "dlp_IntegrationEntry": dlp_IntegrationEntry_output,
-        "dlp_IntegrationProfile": dlp_IntegrationProfile_output,
-        "dlp_Pattern": dlp_Pattern_output,
-        "dlp_PredefinedEntry": dlp_PredefinedEntry_output,
-        "dlp_PredefinedEntryVariant": dlp_PredefinedEntryVariant_output,
-        "dlp_PredefinedProfile": dlp_PredefinedProfile_output,
-        "dlp_Profile": dlp_Profile_output,
-        "dlp_PromptTopicType": dlp_PromptTopicType_output,
-        "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef_output,
-        "dlp_SkipConfig": dlp_SkipConfig_output,
-        "dlp_Validation": dlp_Validation_output,
-        "dlp_WordListEntry": dlp_WordListEntry_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_ContextAwareness": dlp_ContextAwareness,
+        "dlp_CustomEntry": dlp_CustomEntry,
+        "dlp_CustomProfile": dlp_CustomProfile,
+        "dlp_CustomPromptTopicEntry": dlp_CustomPromptTopicEntry,
+        "dlp_DocumentFingerprintEntry": dlp_DocumentFingerprintEntry,
+        "dlp_Entry": dlp_Entry,
+        "dlp_EntryConfidence": dlp_EntryConfidence,
+        "dlp_ExactDataEntry": dlp_ExactDataEntry,
+        "dlp_IntegrationEntry": dlp_IntegrationEntry,
+        "dlp_IntegrationProfile": dlp_IntegrationProfile,
+        "dlp_Pattern": dlp_Pattern,
+        "dlp_PredefinedEntry": dlp_PredefinedEntry,
+        "dlp_PredefinedEntryVariant": dlp_PredefinedEntryVariant,
+        "dlp_PredefinedProfile": dlp_PredefinedProfile,
+        "dlp_Profile": dlp_Profile,
+        "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef,
+        "dlp_SkipConfig": dlp_SkipConfig,
+        "dlp_WordListEntry": dlp_WordListEntry,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({

@@ -3,16 +3,14 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  workers_api_response_common_failure_output,
-  workers_api_response_common_output,
-  workers_create_assets_upload_session_response_output,
-  workers_messages_output,
+  workers_api$$response$$common,
+  workers_api$$response$$common$$failure,
+  workers_create$$assets$$upload$$session$$response,
+  workers_messages,
 } from "../../../outputs.js";
 import {
-  workers_create_assets_upload_session_object,
-  workers_identifier,
-  workers_manifest_value,
-  workers_script_name,
+  workers_create$$assets$$upload$$session$$object,
+  workers_manifest$$value,
 } from "../../../schemas.js";
 
 /**
@@ -20,42 +18,50 @@ import {
  */
 export const tools: readonly Tool[] = [
   {
-    name: "workers_assets_upload_create_session",
+    name: "workers_assets_upload_createSession",
     title: "Create Worker Assets Upload Session",
-    description: "Start uploading a collection of assets for use in a Worker version. To learn more about the direct uploads of assets, see https://developers.cloudflare.com/workers/static-assets/direct-upload/.",
+    description: "Start uploading a collection of assets for use in a Worker version. To learn more about the direct uploads of assets, see https://developers.cloudflare.com/workers/static-assets/direct-upload/.\n\nPOST /accounts/{account_id}/workers/scripts/{script_name}/assets-upload-session",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/workers_identifier",
-          "description": "Identifier."
-        },
         "body": {
           "$ref": "#/$defs/workers_create-assets-upload-session-object"
         },
-        "script_name": {
-          "$ref": "#/$defs/workers_script_name",
-          "description": "Name of the script."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            },
+            "script_name": {
+              "description": "Name of the script.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "script_name"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "script_name",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "workers_create-assets-upload-session-object": workers_create_assets_upload_session_object,
-        "workers_identifier": workers_identifier,
-        "workers_manifest-value": workers_manifest_value,
-        "workers_script_name": workers_script_name,
+        "workers_create-assets-upload-session-object": workers_create$$assets$$upload$$session$$object,
+        "workers_manifest-value": workers_manifest$$value,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/workers_create-assets-upload-session-response",
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_create-assets-upload-session-response": workers_create_assets_upload_session_response_output,
-        "workers_messages": workers_messages_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_create-assets-upload-session-response": workers_create$$assets$$upload$$session$$response,
+        "workers_messages": workers_messages,
       },
     },
     annotations: {
@@ -92,10 +98,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_api-response-common-failure": workers_api_response_common_failure_output,
-        "workers_create-assets-upload-session-response": workers_create_assets_upload_session_response_output,
-        "workers_messages": workers_messages_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_api-response-common-failure": workers_api$$response$$common$$failure,
+        "workers_create-assets-upload-session-response": workers_create$$assets$$upload$$session$$response,
+        "workers_messages": workers_messages,
       },
     },
     request: (args) => ({

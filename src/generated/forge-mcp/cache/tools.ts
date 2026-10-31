@@ -3,19 +3,17 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
-  cache_purge_api_response_common_failure_output,
-  cache_purge_api_response_single_id_output,
-  cache_purge_identifier_output,
-  cache_purge_messages_output,
+  cache$$purge_api$$response$$common$$failure,
+  cache$$purge_api$$response$$single$$id,
+  cache$$purge_messages,
 } from "./outputs.js";
 import {
-  cache_purge_Everything,
-  cache_purge_FlexPurgeByHostnames,
-  cache_purge_FlexPurgeByPrefixes,
-  cache_purge_FlexPurgeByTags,
-  cache_purge_SingleFile,
-  cache_purge_SingleFileWithUrlAndHeaders,
-  cache_purge_identifier,
+  cache$$purge_Everything,
+  cache$$purge_FlexPurgeByHostnames,
+  cache$$purge_FlexPurgeByPrefixes,
+  cache$$purge_FlexPurgeByTags,
+  cache$$purge_SingleFile,
+  cache$$purge_SingleFileWithUrlAndHeaders,
 } from "./schemas.js";
 
 /**
@@ -25,7 +23,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cache_invalidate",
     title: "Invalidate Cached Content",
-    description: "Marks cached content as stale in every Cloudflare data center and cache tier, including Cache Reserve. The content stays in cache. The next request for it makes Cloudflare revalidate it with your origin, using the `ETag` and `Last-Modified` values it was cached with:\n\n- If your origin answers `304 Not Modified`, Cloudflare serves the cached copy without downloading it again, and `CF-Cache-Status` is `REVALIDATED`.\n- If your origin sends a full response, Cloudflare serves and caches the new content, and `CF-Cache-Status` is `EXPIRED`.\n\nWith Tiered Cache, each tier revalidates with the tier above it, so a visitor can see `EXPIRED` even when your origin answered `304`.\n\nUntil content is revalidated, your `stale-while-revalidate` and `stale-if-error` directives still apply, counted from the time you invalidated it. For example, if your origin fails during revalidation, Cloudflare can keep serving the stale copy for the `stale-if-error` window.\n\n### Invalidate or purge?\n\n- **Invalidate** when content may not have changed, for example after a deploy. Unchanged content costs your origin a `304` instead of a full response. That saving needs an origin that sends `ETag` or `Last-Modified` and answers conditional requests. Otherwise, every revalidation downloads the full response.\n- **Purge**, with `POST /zones/{zone_id}/purge_cache`, when content must not be served again, for example content you removed for legal or security reasons.\n\nInvalidating takes the same request bodies as purging, needs the same permission, and counts against the same rate limits. After a broad invalidation, such as `purge_everything`, expect more conditional requests to your origin while visitors request the invalidated content again.\n\n### Choose what to invalidate\n\nSend one of these fields in the request body:\n\n- `files`: specific URLs. If your cache key includes request headers, send each URL with the header values it was cached with.\n- `tags`: all content whose `Cache-Tag` response header contains one of the tags.\n- `hosts`: all content cached for the hostnames.\n- `prefixes`: all content whose URL starts with one of the prefixes.\n- `purge_everything`: all cached content in the zone.\n\n### Check the result\n\nA `200` response with `success: true` means Cloudflare accepted the request. To check, request an invalidated URL and confirm that the `CF-Cache-Status` response header is `REVALIDATED` or `EXPIRED`.\n\n### Availability and limits\n\nRate limits and the number of items you can send in one request depend on your plan. See [Purge cache: availability and limits](https://developers.cloudflare.com/cache/how-to/purge-cache/#availability-and-limits).\n\nConfirm with the user before calling this tool. This operation marks the selected content in the zone's cache as stale.",
+    description: "Marks cached content as stale in every Cloudflare data center and cache tier, including Cache Reserve. The content stays in cache. The next request for it makes Cloudflare revalidate it with your origin, using the `ETag` and `Last-Modified` values it was cached with:\n\n- If your origin answers `304 Not Modified`, Cloudflare serves the cached copy without downloading it again, and `CF-Cache-Status` is `REVALIDATED`.\n- If your origin sends a full response, Cloudflare serves and caches the new content, and `CF-Cache-Status` is `EXPIRED`.\n\nWith Tiered Cache, each tier revalidates with the tier above it, so a visitor can see `EXPIRED` even when your origin answered `304`.\n\nUntil content is revalidated, your `stale-while-revalidate` and `stale-if-error` directives still apply, counted from the time you invalidated it. For example, if your origin fails during revalidation, Cloudflare can keep serving the stale copy for the `stale-if-error` window.\n\n### Invalidate or purge?\n\n- **Invalidate** when content may not have changed, for example after a deploy. Unchanged content costs your origin a `304` instead of a full response. That saving needs an origin that sends `ETag` or `Last-Modified` and answers conditional requests. Otherwise, every revalidation downloads the full response.\n- **Purge**, with `POST /zones/{zone_id}/purge_cache`, when content must not be served again, for example content you removed for legal or security reasons.\n\nInvalidating takes the same request bodies as purging, needs the same permission, and counts against the same rate limits. After a broad invalidation, such as `purge_everything`, expect more conditional requests to your origin while visitors request the invalidated content again.\n\n### Choose what to invalidate\n\nSend one of these fields in the request body:\n\n- `files`: specific URLs. If your cache key includes request headers, send each URL with the header values it was cached with.\n- `tags`: all content whose `Cache-Tag` response header contains one of the tags.\n- `hosts`: all content cached for the hostnames.\n- `prefixes`: all content whose URL starts with one of the prefixes.\n- `purge_everything`: all cached content in the zone.\n\n### Check the result\n\nA `200` response with `success: true` means Cloudflare accepted the request. To check, request an invalidated URL and confirm that the `CF-Cache-Status` response header is `REVALIDATED` or `EXPIRED`.\n\n### Availability and limits\n\nRate limits and the number of items you can send in one request depend on your plan. See [Purge cache: availability and limits](https://developers.cloudflare.com/cache/how-to/purge-cache/#availability-and-limits).\n\nConfirm with the user before calling this tool. This operation marks the selected content in the zone's cache as stale.\n\nPOST /zones/{zone_id}/invalidate_cache",
     inputSchema: {
       type: "object",
       properties: {
@@ -51,31 +49,39 @@ export const tools: readonly Tool[] = [
             }
           ]
         },
-        "zone_id": {
-          "$ref": "#/$defs/cache-purge_identifier",
-          "description": "The zone ID."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "The zone ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "cache-purge_Everything": cache_purge_Everything,
-        "cache-purge_FlexPurgeByHostnames": cache_purge_FlexPurgeByHostnames,
-        "cache-purge_FlexPurgeByPrefixes": cache_purge_FlexPurgeByPrefixes,
-        "cache-purge_FlexPurgeByTags": cache_purge_FlexPurgeByTags,
-        "cache-purge_SingleFile": cache_purge_SingleFile,
-        "cache-purge_SingleFileWithUrlAndHeaders": cache_purge_SingleFileWithUrlAndHeaders,
-        "cache-purge_identifier": cache_purge_identifier,
+        "cache-purge_Everything": cache$$purge_Everything,
+        "cache-purge_FlexPurgeByHostnames": cache$$purge_FlexPurgeByHostnames,
+        "cache-purge_FlexPurgeByPrefixes": cache$$purge_FlexPurgeByPrefixes,
+        "cache-purge_FlexPurgeByTags": cache$$purge_FlexPurgeByTags,
+        "cache-purge_SingleFile": cache$$purge_SingleFile,
+        "cache-purge_SingleFileWithUrlAndHeaders": cache$$purge_SingleFileWithUrlAndHeaders,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/cache-purge_api-response-single-id",
       $defs: {
-        "cache-purge_api-response-single-id": cache_purge_api_response_single_id_output,
-        "cache-purge_identifier": cache_purge_identifier_output,
-        "cache-purge_messages": cache_purge_messages_output,
+        "cache-purge_api-response-single-id": cache$$purge_api$$response$$single$$id,
+        "cache-purge_messages": cache$$purge_messages,
       },
     },
     annotations: {
@@ -104,10 +110,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cache-purge_api-response-common-failure": cache_purge_api_response_common_failure_output,
-        "cache-purge_api-response-single-id": cache_purge_api_response_single_id_output,
-        "cache-purge_identifier": cache_purge_identifier_output,
-        "cache-purge_messages": cache_purge_messages_output,
+        "cache-purge_api-response-common-failure": cache$$purge_api$$response$$common$$failure,
+        "cache-purge_api-response-single-id": cache$$purge_api$$response$$single$$id,
+        "cache-purge_messages": cache$$purge_messages,
       },
     },
     request: (args) => ({
@@ -116,9 +121,9 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "cache_invalidate_environment",
+    name: "cache_invalidateEnvironment",
     title: "Invalidate Cached Content by Environment",
-    description: "Marks cached content as stale for one environment of the zone. Content cached for the zone's other environments, including production, is not affected. Otherwise this works like `POST /zones/{zone_id}/invalidate_cache`: the next request for invalidated content makes Cloudflare revalidate it with your origin, and the request body takes the same fields.\n\nEnvironments are part of [Version Management](https://developers.cloudflare.com/version-management/). To delete the content instead, use `POST /zones/{zone_id}/environments/{environment_id}/purge_cache`.\n\nInvalidating by URL (`files`) does not work for environments that select requests by IP address, country, ASN, or threat score, and fails with error `1136`. Use `tags`, `hosts`, `prefixes`, or `purge_everything` for those environments.\n\n### Availability and limits\n\nRate limits and the number of items you can send in one request depend on your plan. See [Purge cache: availability and limits](https://developers.cloudflare.com/cache/how-to/purge-cache/#availability-and-limits).\n\nConfirm with the user before calling this tool. This operation marks the selected content in the environment's cache as stale.",
+    description: "Marks cached content as stale for one environment of the zone. Content cached for the zone's other environments, including production, is not affected. Otherwise this works like `POST /zones/{zone_id}/invalidate_cache`: the next request for invalidated content makes Cloudflare revalidate it with your origin, and the request body takes the same fields.\n\nEnvironments are part of [Version Management](https://developers.cloudflare.com/version-management/). To delete the content instead, use `POST /zones/{zone_id}/environments/{environment_id}/purge_cache`.\n\nInvalidating by URL (`files`) does not work for environments that select requests by IP address, country, ASN, or threat score, and fails with error `1136`. Use `tags`, `hosts`, `prefixes`, or `purge_everything` for those environments.\n\n### Availability and limits\n\nRate limits and the number of items you can send in one request depend on your plan. See [Purge cache: availability and limits](https://developers.cloudflare.com/cache/how-to/purge-cache/#availability-and-limits).\n\nConfirm with the user before calling this tool. This operation marks the selected content in the environment's cache as stale.\n\nPOST /zones/{zone_id}/environments/{environment_id}/invalidate_cache",
     inputSchema: {
       type: "object",
       properties: {
@@ -144,36 +149,44 @@ export const tools: readonly Tool[] = [
             }
           ]
         },
-        "environment_id": {
-          "$ref": "#/$defs/cache-purge_identifier",
-          "description": "The environment ID, from Version Management."
-        },
-        "zone_id": {
-          "$ref": "#/$defs/cache-purge_identifier",
-          "description": "The zone ID."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "environment_id": {
+              "description": "The environment ID, from Version Management.",
+              "type": "string"
+            },
+            "zone_id": {
+              "description": "The zone ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id",
+            "environment_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
-        "environment_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "cache-purge_Everything": cache_purge_Everything,
-        "cache-purge_FlexPurgeByHostnames": cache_purge_FlexPurgeByHostnames,
-        "cache-purge_FlexPurgeByPrefixes": cache_purge_FlexPurgeByPrefixes,
-        "cache-purge_FlexPurgeByTags": cache_purge_FlexPurgeByTags,
-        "cache-purge_SingleFile": cache_purge_SingleFile,
-        "cache-purge_SingleFileWithUrlAndHeaders": cache_purge_SingleFileWithUrlAndHeaders,
-        "cache-purge_identifier": cache_purge_identifier,
+        "cache-purge_Everything": cache$$purge_Everything,
+        "cache-purge_FlexPurgeByHostnames": cache$$purge_FlexPurgeByHostnames,
+        "cache-purge_FlexPurgeByPrefixes": cache$$purge_FlexPurgeByPrefixes,
+        "cache-purge_FlexPurgeByTags": cache$$purge_FlexPurgeByTags,
+        "cache-purge_SingleFile": cache$$purge_SingleFile,
+        "cache-purge_SingleFileWithUrlAndHeaders": cache$$purge_SingleFileWithUrlAndHeaders,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/cache-purge_api-response-single-id",
       $defs: {
-        "cache-purge_api-response-single-id": cache_purge_api_response_single_id_output,
-        "cache-purge_identifier": cache_purge_identifier_output,
-        "cache-purge_messages": cache_purge_messages_output,
+        "cache-purge_api-response-single-id": cache$$purge_api$$response$$single$$id,
+        "cache-purge_messages": cache$$purge_messages,
       },
     },
     annotations: {
@@ -207,10 +220,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cache-purge_api-response-common-failure": cache_purge_api_response_common_failure_output,
-        "cache-purge_api-response-single-id": cache_purge_api_response_single_id_output,
-        "cache-purge_identifier": cache_purge_identifier_output,
-        "cache-purge_messages": cache_purge_messages_output,
+        "cache-purge_api-response-common-failure": cache$$purge_api$$response$$common$$failure,
+        "cache-purge_api-response-single-id": cache$$purge_api$$response$$single$$id,
+        "cache-purge_messages": cache$$purge_messages,
       },
     },
     request: (args) => ({
@@ -221,7 +233,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cache_purge",
     title: "Purge Cached Content",
-    description: "Deletes cached content in every Cloudflare data center and cache tier, including Cache Reserve. The next request for purged content is a cache `MISS`: Cloudflare fetches the full response from your origin and caches it again. Cloudflare does not serve purged content from cache again, even if your origin is unavailable.\n\nTo keep content cached and have Cloudflare revalidate it with your origin instead, use `POST /zones/{zone_id}/invalidate_cache`.\n\n### Choose what to purge\n\nSend one of these fields in the request body:\n\n- `files`: specific URLs. If your cache key includes request headers, send each URL with the header values it was cached with.\n- `tags`: all content whose `Cache-Tag` response header contains one of the tags.\n- `hosts`: all content cached for the hostnames.\n- `prefixes`: all content whose URL starts with one of the prefixes.\n- `purge_everything`: all cached content in the zone.\n\n### Check the result\n\nA `200` response with `success: true` means Cloudflare accepted the request. It does not confirm that any content was cached or removed. To check, request a purged URL and confirm that the `CF-Cache-Status` response header is `MISS`.\n\n### Availability and limits\n\nRate limits and the number of items you can send in one request depend on your plan. See [Purge cache: availability and limits](https://developers.cloudflare.com/cache/how-to/purge-cache/#availability-and-limits).\n\nConfirm with the user before calling this tool. This operation deletes the selected content from the zone's cache.",
+    description: "Deletes cached content in every Cloudflare data center and cache tier, including Cache Reserve. The next request for purged content is a cache `MISS`: Cloudflare fetches the full response from your origin and caches it again. Cloudflare does not serve purged content from cache again, even if your origin is unavailable.\n\nTo keep content cached and have Cloudflare revalidate it with your origin instead, use `POST /zones/{zone_id}/invalidate_cache`.\n\n### Choose what to purge\n\nSend one of these fields in the request body:\n\n- `files`: specific URLs. If your cache key includes request headers, send each URL with the header values it was cached with.\n- `tags`: all content whose `Cache-Tag` response header contains one of the tags.\n- `hosts`: all content cached for the hostnames.\n- `prefixes`: all content whose URL starts with one of the prefixes.\n- `purge_everything`: all cached content in the zone.\n\n### Check the result\n\nA `200` response with `success: true` means Cloudflare accepted the request. It does not confirm that any content was cached or removed. To check, request a purged URL and confirm that the `CF-Cache-Status` response header is `MISS`.\n\n### Availability and limits\n\nRate limits and the number of items you can send in one request depend on your plan. See [Purge cache: availability and limits](https://developers.cloudflare.com/cache/how-to/purge-cache/#availability-and-limits).\n\nConfirm with the user before calling this tool. This operation deletes the selected content from the zone's cache.\n\nPOST /zones/{zone_id}/purge_cache",
     inputSchema: {
       type: "object",
       properties: {
@@ -247,31 +259,39 @@ export const tools: readonly Tool[] = [
             }
           ]
         },
-        "zone_id": {
-          "$ref": "#/$defs/cache-purge_identifier",
-          "description": "The zone ID."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "The zone ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "cache-purge_Everything": cache_purge_Everything,
-        "cache-purge_FlexPurgeByHostnames": cache_purge_FlexPurgeByHostnames,
-        "cache-purge_FlexPurgeByPrefixes": cache_purge_FlexPurgeByPrefixes,
-        "cache-purge_FlexPurgeByTags": cache_purge_FlexPurgeByTags,
-        "cache-purge_SingleFile": cache_purge_SingleFile,
-        "cache-purge_SingleFileWithUrlAndHeaders": cache_purge_SingleFileWithUrlAndHeaders,
-        "cache-purge_identifier": cache_purge_identifier,
+        "cache-purge_Everything": cache$$purge_Everything,
+        "cache-purge_FlexPurgeByHostnames": cache$$purge_FlexPurgeByHostnames,
+        "cache-purge_FlexPurgeByPrefixes": cache$$purge_FlexPurgeByPrefixes,
+        "cache-purge_FlexPurgeByTags": cache$$purge_FlexPurgeByTags,
+        "cache-purge_SingleFile": cache$$purge_SingleFile,
+        "cache-purge_SingleFileWithUrlAndHeaders": cache$$purge_SingleFileWithUrlAndHeaders,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/cache-purge_api-response-single-id",
       $defs: {
-        "cache-purge_api-response-single-id": cache_purge_api_response_single_id_output,
-        "cache-purge_identifier": cache_purge_identifier_output,
-        "cache-purge_messages": cache_purge_messages_output,
+        "cache-purge_api-response-single-id": cache$$purge_api$$response$$single$$id,
+        "cache-purge_messages": cache$$purge_messages,
       },
     },
     annotations: {
@@ -310,10 +330,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cache-purge_api-response-common-failure": cache_purge_api_response_common_failure_output,
-        "cache-purge_api-response-single-id": cache_purge_api_response_single_id_output,
-        "cache-purge_identifier": cache_purge_identifier_output,
-        "cache-purge_messages": cache_purge_messages_output,
+        "cache-purge_api-response-common-failure": cache$$purge_api$$response$$common$$failure,
+        "cache-purge_api-response-single-id": cache$$purge_api$$response$$single$$id,
+        "cache-purge_messages": cache$$purge_messages,
       },
     },
     request: (args) => ({
@@ -322,9 +341,9 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "cache_purge_environment",
+    name: "cache_purgeEnvironment",
     title: "Purge Cached Content by Environment",
-    description: "Deletes cached content for one environment of the zone. Content cached for the zone's other environments, including production, is not affected. Otherwise this works like `POST /zones/{zone_id}/purge_cache`: the next request for purged content is a cache `MISS`, and the request body takes the same fields.\n\nEnvironments are part of [Version Management](https://developers.cloudflare.com/version-management/). To keep content cached and have Cloudflare revalidate it instead, use `POST /zones/{zone_id}/environments/{environment_id}/invalidate_cache`.\n\nPurging by URL (`files`) does not work for environments that select requests by IP address, country, ASN, or threat score, and fails with error `1136`. Use `tags`, `hosts`, `prefixes`, or `purge_everything` for those environments.\n\n### Availability and limits\n\nRate limits and the number of items you can send in one request depend on your plan. See [Purge cache: availability and limits](https://developers.cloudflare.com/cache/how-to/purge-cache/#availability-and-limits).\n\nConfirm with the user before calling this tool. This operation deletes the selected content from the environment's cache.",
+    description: "Deletes cached content for one environment of the zone. Content cached for the zone's other environments, including production, is not affected. Otherwise this works like `POST /zones/{zone_id}/purge_cache`: the next request for purged content is a cache `MISS`, and the request body takes the same fields.\n\nEnvironments are part of [Version Management](https://developers.cloudflare.com/version-management/). To keep content cached and have Cloudflare revalidate it instead, use `POST /zones/{zone_id}/environments/{environment_id}/invalidate_cache`.\n\nPurging by URL (`files`) does not work for environments that select requests by IP address, country, ASN, or threat score, and fails with error `1136`. Use `tags`, `hosts`, `prefixes`, or `purge_everything` for those environments.\n\n### Availability and limits\n\nRate limits and the number of items you can send in one request depend on your plan. See [Purge cache: availability and limits](https://developers.cloudflare.com/cache/how-to/purge-cache/#availability-and-limits).\n\nConfirm with the user before calling this tool. This operation deletes the selected content from the environment's cache.\n\nPOST /zones/{zone_id}/environments/{environment_id}/purge_cache",
     inputSchema: {
       type: "object",
       properties: {
@@ -350,36 +369,44 @@ export const tools: readonly Tool[] = [
             }
           ]
         },
-        "environment_id": {
-          "$ref": "#/$defs/cache-purge_identifier",
-          "description": "The environment ID, from Version Management."
-        },
-        "zone_id": {
-          "$ref": "#/$defs/cache-purge_identifier",
-          "description": "The zone ID."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "environment_id": {
+              "description": "The environment ID, from Version Management.",
+              "type": "string"
+            },
+            "zone_id": {
+              "description": "The zone ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id",
+            "environment_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
-        "environment_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "cache-purge_Everything": cache_purge_Everything,
-        "cache-purge_FlexPurgeByHostnames": cache_purge_FlexPurgeByHostnames,
-        "cache-purge_FlexPurgeByPrefixes": cache_purge_FlexPurgeByPrefixes,
-        "cache-purge_FlexPurgeByTags": cache_purge_FlexPurgeByTags,
-        "cache-purge_SingleFile": cache_purge_SingleFile,
-        "cache-purge_SingleFileWithUrlAndHeaders": cache_purge_SingleFileWithUrlAndHeaders,
-        "cache-purge_identifier": cache_purge_identifier,
+        "cache-purge_Everything": cache$$purge_Everything,
+        "cache-purge_FlexPurgeByHostnames": cache$$purge_FlexPurgeByHostnames,
+        "cache-purge_FlexPurgeByPrefixes": cache$$purge_FlexPurgeByPrefixes,
+        "cache-purge_FlexPurgeByTags": cache$$purge_FlexPurgeByTags,
+        "cache-purge_SingleFile": cache$$purge_SingleFile,
+        "cache-purge_SingleFileWithUrlAndHeaders": cache$$purge_SingleFileWithUrlAndHeaders,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/cache-purge_api-response-single-id",
       $defs: {
-        "cache-purge_api-response-single-id": cache_purge_api_response_single_id_output,
-        "cache-purge_identifier": cache_purge_identifier_output,
-        "cache-purge_messages": cache_purge_messages_output,
+        "cache-purge_api-response-single-id": cache$$purge_api$$response$$single$$id,
+        "cache-purge_messages": cache$$purge_messages,
       },
     },
     annotations: {
@@ -418,10 +445,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cache-purge_api-response-common-failure": cache_purge_api_response_common_failure_output,
-        "cache-purge_api-response-single-id": cache_purge_api_response_single_id_output,
-        "cache-purge_identifier": cache_purge_identifier_output,
-        "cache-purge_messages": cache_purge_messages_output,
+        "cache-purge_api-response-common-failure": cache$$purge_api$$response$$common$$failure,
+        "cache-purge_api-response-single-id": cache$$purge_api$$response$$single$$id,
+        "cache-purge_messages": cache$$purge_messages,
       },
     },
     request: (args) => ({

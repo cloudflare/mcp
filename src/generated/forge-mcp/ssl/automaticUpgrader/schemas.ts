@@ -10,24 +10,16 @@ export const cache_schemas_patch: JsonSchema = {
   "description": "Update enablement of Automatic SSL/TLS.",
   "properties": {
     "value": {
-      "$ref": "#/$defs/cache_schemas_value",
-      "description": "Controls enablement of Automatic SSL/TLS."
+      "description": "Controls enablement of Automatic SSL/TLS.",
+      "enum": [
+        "auto",
+        "custom"
+      ],
+      "type": "string"
     }
   },
   "required": [
     "value"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `cache_schemas_value`.
- */
-export const cache_schemas_value: JsonSchema = {
-  "description": "Controls enablement of Automatic SSL/TLS.",
-  "enum": [
-    "auto",
-    "custom"
-  ],
-  "type": "string"
 };

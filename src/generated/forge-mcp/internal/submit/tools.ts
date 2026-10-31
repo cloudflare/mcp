@@ -2,7 +2,7 @@
 /* eslint-disable */
 
 import type { Tool } from "../../_/tool.js";
-import { brand_protection_api_Error_output } from "../../outputs.js";
+import { brand$$protection$$api_Error } from "../../outputs.js";
 
 /**
  * The tools of `internal.submit`.
@@ -11,10 +11,11 @@ export const tools: readonly Tool[] = [
   {
     name: "internal_submit_create",
     title: "Internal route for testing URL submissions",
-    description: "Internal route for testing URL submissions.",
+    description: "Internal route for testing URL submissions.\n\nPOST /internal/submit",
     inputSchema: {
       type: "object",
       properties: {},
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,
@@ -45,7 +46,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "brand-protection-api_Error": brand_protection_api_Error_output,
+        "brand-protection-api_Error": brand$$protection$$api_Error,
       },
     },
     request: (_args) => ({

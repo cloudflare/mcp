@@ -3,34 +3,29 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  speed_api_response_common_failure_output,
-  speed_api_response_common_output,
-  speed_base_output,
-  speed_messages_output,
+  speed_api$$response$$common,
+  speed_api$$response$$common$$failure,
+  speed_base,
+  speed_messages,
 } from "../../outputs.js";
-import { speed_identifier } from "../../schemas.js";
-import {
-  speed_transformations_allowed_origins_response_output,
-  speed_transformations_allowed_origins_value_output,
-} from "./outputs.js";
-import { speed_transformations_allowed_origins_value } from "./schemas.js";
+import { speed_transformations_allowed_origins_response } from "./outputs.js";
 
 /**
- * The tools of `zones.transformations_allowed_origins`.
+ * The tools of `zones.transformationsAllowedOrigins`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zones_transformations_allowed_origins_edit",
+    name: "zones_transformationsAllowedOrigins_edit",
     title: "Change Image Transformations Allowed Origins setting",
-    description: "Media Transformations Allowed Origins restricts transformations for images and video served through\nCloudflare's network to requests originating from specified domains. Refer to the\nImage Transformations and Video Transformations documentation for more information.",
+    description: "Media Transformations Allowed Origins restricts transformations for images and video served through\nCloudflare's network to requests originating from specified domains. Refer to the\nImage Transformations and Video Transformations documentation for more information.\n\nPATCH /zones/{zone_id}/settings/transformations_allowed_origins",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "value": {
-              "$ref": "#/$defs/speed_transformations_allowed_origins_value",
-              "description": "Comma-separated list of allowed origin domains for image and video transformations.\nUse \"*\" to allow all origins (default).\n"
+              "description": "Comma-separated list of allowed origin domains for image and video transformations.\nUse \"*\" to allow all origins (default).",
+              "type": "string"
             }
           },
           "required": [
@@ -38,19 +33,25 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "zone_id": {
-          "$ref": "#/$defs/speed_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
-      $defs: {
-        "speed_identifier": speed_identifier,
-        "speed_transformations_allowed_origins_value": speed_transformations_allowed_origins_value,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -67,11 +68,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "speed_api-response-common": speed_api_response_common_output,
-        "speed_base": speed_base_output,
-        "speed_messages": speed_messages_output,
-        "speed_transformations_allowed_origins_response": speed_transformations_allowed_origins_response_output,
-        "speed_transformations_allowed_origins_value": speed_transformations_allowed_origins_value_output,
+        "speed_api-response-common": speed_api$$response$$common,
+        "speed_base": speed_base,
+        "speed_messages": speed_messages,
+        "speed_transformations_allowed_origins_response": speed_transformations_allowed_origins_response,
       },
     },
     annotations: {
@@ -116,12 +116,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "speed_api-response-common": speed_api_response_common_output,
-        "speed_api-response-common-failure": speed_api_response_common_failure_output,
-        "speed_base": speed_base_output,
-        "speed_messages": speed_messages_output,
-        "speed_transformations_allowed_origins_response": speed_transformations_allowed_origins_response_output,
-        "speed_transformations_allowed_origins_value": speed_transformations_allowed_origins_value_output,
+        "speed_api-response-common": speed_api$$response$$common,
+        "speed_api-response-common-failure": speed_api$$response$$common$$failure,
+        "speed_base": speed_base,
+        "speed_messages": speed_messages,
+        "speed_transformations_allowed_origins_response": speed_transformations_allowed_origins_response,
       },
     },
     request: (args) => ({
@@ -130,23 +129,30 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zones_transformations_allowed_origins_get",
+    name: "zones_transformationsAllowedOrigins_get",
     title: "Get Image Transformations Allowed Origins setting",
-    description: "Media Transformations Allowed Origins restricts transformations for images and video served through\nCloudflare's network to requests originating from specified domains. Refer to the\nImage Transformations and Video Transformations documentation for more information.",
+    description: "Media Transformations Allowed Origins restricts transformations for images and video served through\nCloudflare's network to requests originating from specified domains. Refer to the\nImage Transformations and Video Transformations documentation for more information.\n\nGET /zones/{zone_id}/settings/transformations_allowed_origins",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/speed_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
-      $defs: {
-        "speed_identifier": speed_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -163,11 +169,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "speed_api-response-common": speed_api_response_common_output,
-        "speed_base": speed_base_output,
-        "speed_messages": speed_messages_output,
-        "speed_transformations_allowed_origins_response": speed_transformations_allowed_origins_response_output,
-        "speed_transformations_allowed_origins_value": speed_transformations_allowed_origins_value_output,
+        "speed_api-response-common": speed_api$$response$$common,
+        "speed_base": speed_base,
+        "speed_messages": speed_messages,
+        "speed_transformations_allowed_origins_response": speed_transformations_allowed_origins_response,
       },
     },
     annotations: {
@@ -213,12 +218,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "speed_api-response-common": speed_api_response_common_output,
-        "speed_api-response-common-failure": speed_api_response_common_failure_output,
-        "speed_base": speed_base_output,
-        "speed_messages": speed_messages_output,
-        "speed_transformations_allowed_origins_response": speed_transformations_allowed_origins_response_output,
-        "speed_transformations_allowed_origins_value": speed_transformations_allowed_origins_value_output,
+        "speed_api-response-common": speed_api$$response$$common,
+        "speed_api-response-common-failure": speed_api$$response$$common$$failure,
+        "speed_base": speed_base,
+        "speed_messages": speed_messages,
+        "speed_transformations_allowed_origins_response": speed_transformations_allowed_origins_response,
       },
     },
     request: (args) => ({

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `mconn_customer_connector` in responses.
  */
-export const mconn_customer_connector_output: JsonSchema = {
+export const mconn_customer_connector: JsonSchema = {
   "properties": {
     "activated": {
       "type": "boolean"
@@ -15,11 +15,20 @@ export const mconn_customer_connector_output: JsonSchema = {
       "$ref": "#/$defs/mconn_customer_device"
     },
     "id": {
-      "$ref": "#/$defs/mconn_uuid"
+      "type": "string"
     },
     "interrupt_window_days_of_week": {
       "items": {
-        "$ref": "#/$defs/mconn_day_of_week"
+        "enum": [
+          "Sunday",
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday"
+        ],
+        "type": "string"
       },
       "type": "array"
     },
@@ -28,7 +37,7 @@ export const mconn_customer_connector_output: JsonSchema = {
     },
     "interrupt_window_embargo_dates": {
       "items": {
-        "$ref": "#/$defs/mconn_embargo_date"
+        "type": "string"
       },
       "maxItems": 100,
       "type": "array"
@@ -72,7 +81,7 @@ export const mconn_customer_connector_output: JsonSchema = {
 /**
  * The schema of `mconn_customer_connectors_create_response` in responses.
  */
-export const mconn_customer_connectors_create_response_output: JsonSchema = {
+export const mconn_customer_connectors_create_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/mconn_good_response"
@@ -91,7 +100,7 @@ export const mconn_customer_connectors_create_response_output: JsonSchema = {
 /**
  * The schema of `mconn_customer_connectors_delete_response` in responses.
  */
-export const mconn_customer_connectors_delete_response_output: JsonSchema = {
+export const mconn_customer_connectors_delete_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/mconn_good_response"
@@ -110,7 +119,7 @@ export const mconn_customer_connectors_delete_response_output: JsonSchema = {
 /**
  * The schema of `mconn_customer_connectors_edit_response` in responses.
  */
-export const mconn_customer_connectors_edit_response_output: JsonSchema = {
+export const mconn_customer_connectors_edit_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/mconn_good_response"
@@ -129,7 +138,7 @@ export const mconn_customer_connectors_edit_response_output: JsonSchema = {
 /**
  * The schema of `mconn_customer_connectors_get_response` in responses.
  */
-export const mconn_customer_connectors_get_response_output: JsonSchema = {
+export const mconn_customer_connectors_get_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/mconn_good_response"
@@ -148,7 +157,7 @@ export const mconn_customer_connectors_get_response_output: JsonSchema = {
 /**
  * The schema of `mconn_customer_connectors_list_response` in responses.
  */
-export const mconn_customer_connectors_list_response_output: JsonSchema = {
+export const mconn_customer_connectors_list_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/mconn_good_response"
@@ -170,7 +179,7 @@ export const mconn_customer_connectors_list_response_output: JsonSchema = {
 /**
  * The schema of `mconn_customer_connectors_update_response` in responses.
  */
-export const mconn_customer_connectors_update_response_output: JsonSchema = {
+export const mconn_customer_connectors_update_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/mconn_good_response"
@@ -189,10 +198,10 @@ export const mconn_customer_connectors_update_response_output: JsonSchema = {
 /**
  * The schema of `mconn_customer_device` in responses.
  */
-export const mconn_customer_device_output: JsonSchema = {
+export const mconn_customer_device: JsonSchema = {
   "properties": {
     "id": {
-      "$ref": "#/$defs/mconn_uuid"
+      "type": "string"
     },
     "serial_number": {
       "type": "string"
@@ -209,27 +218,4 @@ export const mconn_customer_device_output: JsonSchema = {
     "id"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `mconn_day_of_week` in responses.
- */
-export const mconn_day_of_week_output: JsonSchema = {
-  "enum": [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `mconn_embargo_date` in responses.
- */
-export const mconn_embargo_date_output: JsonSchema = {
-  "type": "string"
 };

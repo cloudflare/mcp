@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `posture-api_ContentExportRequest`.
  */
-export const posture_api_ContentExportRequest: JsonSchema = {
+export const posture$$api_ContentExportRequest: JsonSchema = {
   "description": "Request body for creating content exports.",
   "properties": {
     "dlp_profile_id": {
@@ -56,7 +56,27 @@ export const posture_api_ContentExportRequest: JsonSchema = {
     "vendors": {
       "description": "Filter by vendor types.",
       "items": {
-        "$ref": "#/$defs/posture-api_VendorsEnum"
+        "description": "Supported vendor types for integrations.",
+        "enum": [
+          "ANTHROPIC",
+          "AWS",
+          "BITBUCKET",
+          "BOX",
+          "CONFLUENCE",
+          "DROPBOX",
+          "GITHUB",
+          "GOOGLE_CLOUD_PLATFORM",
+          "GOOGLE_WORKSPACE",
+          "JIRA",
+          "MICROSOFT",
+          "MICROSOFT_INTERNAL",
+          "OPENAI",
+          "SALESFORCE",
+          "SERVICENOW",
+          "SLACK",
+          "ZOOM"
+        ],
+        "type": "string"
       },
       "type": "array"
     }
@@ -70,7 +90,7 @@ export const posture_api_ContentExportRequest: JsonSchema = {
 /**
  * The schema of `posture-api_ContentOrder`.
  */
-export const posture_api_ContentOrder: JsonSchema = {
+export const posture$$api_ContentOrder: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/posture-api_Order"
@@ -99,7 +119,7 @@ export const posture_api_ContentOrder: JsonSchema = {
 /**
  * The schema of `posture-api_DLPProfile`.
  */
-export const posture_api_DLPProfile: JsonSchema = {
+export const posture$$api_DLPProfile: JsonSchema = {
   "description": "DLP profile configuration.",
   "properties": {
     "entries": {
@@ -130,7 +150,7 @@ export const posture_api_DLPProfile: JsonSchema = {
 /**
  * The schema of `posture-api_DLPProfileEntry`.
  */
-export const posture_api_DLPProfileEntry: JsonSchema = {
+export const posture$$api_DLPProfileEntry: JsonSchema = {
   "description": "Entry within a DLP profile.",
   "properties": {
     "id": {
@@ -159,12 +179,16 @@ export const posture_api_DLPProfileEntry: JsonSchema = {
 /**
  * The schema of `posture-api_Order`.
  */
-export const posture_api_Order: JsonSchema = {
+export const posture$$api_Order: JsonSchema = {
   "description": "Generic ordering specification.",
   "properties": {
     "direction": {
-      "$ref": "#/$defs/posture-api_DirectionEnum",
-      "description": "Sort direction."
+      "description": "Sort direction.",
+      "enum": [
+        "asc",
+        "desc"
+      ],
+      "type": "string"
     },
     "name": {
       "description": "Field name to order by.",

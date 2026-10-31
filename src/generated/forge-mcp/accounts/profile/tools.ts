@@ -3,11 +3,11 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  organizations_api_Profile_output,
-  organizations_api_V4ErrorResponse_output,
-  organizations_api_V4Message_output,
+  organizations$$api_Profile,
+  organizations$$api_V4ErrorResponse,
+  organizations$$api_V4Message,
 } from "../../outputs.js";
-import { organizations_api_ModifyProfileRequest } from "../../schemas.js";
+import { organizations$$api_ModifyProfileRequest } from "../../schemas.js";
 
 /**
  * The tools of `accounts.profile`.
@@ -16,18 +16,28 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_profile_get",
     title: "Get account profile",
-    description: "Retrieves the business profile (name, email, phone, address, and external metadata)\nassociated with this account's customer record. Profiles can be shared across accounts and\norganizations. Only available to members of an organization that contains the account.",
+    description: "Retrieves the business profile (name, email, phone, address, and external metadata)\nassociated with this account's customer record. Profiles can be shared across accounts and\norganizations. Only available to members of an organization that contains the account.\n\nGET /accounts/{account_id}/profile",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "The ID of the account whose business profile to retrieve.",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "The ID of the account whose business profile to retrieve.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -62,8 +72,8 @@ export const tools: readonly Tool[] = [
       ],
       "type": "object",
       $defs: {
-        "organizations-api_Profile": organizations_api_Profile_output,
-        "organizations-api_V4Message": organizations_api_V4Message_output,
+        "organizations-api_Profile": organizations$$api_Profile,
+        "organizations-api_V4Message": organizations$$api_V4Message,
       },
     },
     annotations: {
@@ -123,9 +133,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "organizations-api_Profile": organizations_api_Profile_output,
-        "organizations-api_V4ErrorResponse": organizations_api_V4ErrorResponse_output,
-        "organizations-api_V4Message": organizations_api_V4Message_output,
+        "organizations-api_Profile": organizations$$api_Profile,
+        "organizations-api_V4ErrorResponse": organizations$$api_V4ErrorResponse,
+        "organizations-api_V4Message": organizations$$api_V4Message,
       },
     },
     request: (args) => ({
@@ -135,24 +145,34 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_profile_update",
     title: "Update account profile",
-    description: "Partially updates the business profile (name, email, phone, address, and external metadata)\nassociated with this account's parent organization customer record, creating the profile if\nit does not exist. Changes apply to every account and organization sharing that profile.\nOmitted, empty, or null fields are left unchanged. Each profile field is limited to 1,000\nUTF-8 bytes. Only available to members of an organization that contains the account.",
+    description: "Partially updates the business profile (name, email, phone, address, and external metadata)\nassociated with this account's parent organization customer record, creating the profile if\nit does not exist. Changes apply to every account and organization sharing that profile.\nOmitted, empty, or null fields are left unchanged. Each profile field is limited to 1,000\nUTF-8 bytes. Only available to members of an organization that contains the account.\n\nPUT /accounts/{account_id}/profile",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "The ID of the account whose business profile to update.",
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/organizations-api_ModifyProfileRequest"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "The ID of the account whose business profile to update.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "organizations-api_ModifyProfileRequest": organizations_api_ModifyProfileRequest,
+        "organizations-api_ModifyProfileRequest": organizations$$api_ModifyProfileRequest,
       },
     },
     annotations: {
@@ -180,8 +200,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "organizations-api_V4ErrorResponse": organizations_api_V4ErrorResponse_output,
-        "organizations-api_V4Message": organizations_api_V4Message_output,
+        "organizations-api_V4ErrorResponse": organizations$$api_V4ErrorResponse,
+        "organizations-api_V4Message": organizations$$api_V4Message,
       },
     },
     request: (args) => ({

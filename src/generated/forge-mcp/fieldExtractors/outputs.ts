@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `field-extractors_ApiError` in responses.
  */
-export const field_extractors_ApiError_output: JsonSchema = {
+export const field$$extractors_ApiError: JsonSchema = {
   "properties": {
     "code": {
       "type": "number"
@@ -36,7 +36,7 @@ export const field_extractors_ApiError_output: JsonSchema = {
 /**
  * The schema of `field-extractors_DeleteResponse` in responses.
  */
-export const field_extractors_DeleteResponse_output: JsonSchema = {
+export const field$$extractors_DeleteResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -91,7 +91,7 @@ export const field_extractors_DeleteResponse_output: JsonSchema = {
 /**
  * The schema of `field-extractors_ErrorResponse` in responses.
  */
-export const field_extractors_ErrorResponse_output: JsonSchema = {
+export const field$$extractors_ErrorResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -146,7 +146,7 @@ export const field_extractors_ErrorResponse_output: JsonSchema = {
 /**
  * The schema of `field-extractors_ExtractorResult` in responses.
  */
-export const field_extractors_ExtractorResult_output: JsonSchema = {
+export const field$$extractors_ExtractorResult: JsonSchema = {
   "properties": {
     "extractor": {
       "type": "string"
@@ -169,7 +169,7 @@ export const field_extractors_ExtractorResult_output: JsonSchema = {
 /**
  * The schema of `field-extractors_FieldOutput` in responses.
  */
-export const field_extractors_FieldOutput_output: JsonSchema = {
+export const field$$extractors_FieldOutput: JsonSchema = {
   "properties": {
     "expression": {
       "type": "string"
@@ -188,7 +188,7 @@ export const field_extractors_FieldOutput_output: JsonSchema = {
 /**
  * The schema of `field-extractors_RuleOutput` in responses.
  */
-export const field_extractors_RuleOutput_output: JsonSchema = {
+export const field$$extractors_RuleOutput: JsonSchema = {
   "properties": {
     "description": {
       "type": "string"
@@ -213,7 +213,7 @@ export const field_extractors_RuleOutput_output: JsonSchema = {
 /**
  * The schema of `field-extractors_SuccessResponse` in responses.
  */
-export const field_extractors_SuccessResponse_output: JsonSchema = {
+export const field$$extractors_SuccessResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {

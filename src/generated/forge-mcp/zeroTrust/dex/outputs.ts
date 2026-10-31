@@ -7,7 +7,7 @@ import type { JsonSchema } from "../../_/tool.js";
  * The schema of `digital-experience-monitoring_api-response-collection` in
  * responses.
  */
-export const digital_experience_monitoring_api_response_collection_output: JsonSchema = {
+export const digital$$experience$$monitoring_api$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/digital-experience-monitoring_api-response-common"
@@ -44,7 +44,7 @@ export const digital_experience_monitoring_api_response_collection_output: JsonS
  * The schema of `digital-experience-monitoring_api-response-common` in
  * responses.
  */
-export const digital_experience_monitoring_api_response_common_output: JsonSchema = {
+export const digital$$experience$$monitoring_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/digital-experience-monitoring_messages"
@@ -71,7 +71,7 @@ export const digital_experience_monitoring_api_response_common_output: JsonSchem
  * The schema of `digital-experience-monitoring_api-response-common-failure` in
  * responses.
  */
-export const digital_experience_monitoring_api_response_common_failure_output: JsonSchema = {
+export const digital$$experience$$monitoring_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/digital-experience-monitoring_messages"
@@ -102,7 +102,7 @@ export const digital_experience_monitoring_api_response_common_failure_output: J
  * The schema of `digital-experience-monitoring_api-response-single` in
  * responses.
  */
-export const digital_experience_monitoring_api_response_single_output: JsonSchema = {
+export const digital$$experience$$monitoring_api$$response$$single: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/digital-experience-monitoring_messages"
@@ -126,17 +126,10 @@ export const digital_experience_monitoring_api_response_single_output: JsonSchem
 };
 
 /**
- * The schema of `digital-experience-monitoring_colo` in responses.
- */
-export const digital_experience_monitoring_colo_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `digital-experience-monitoring_device-dex-test-schemas-data` in
  * responses.
  */
-export const digital_experience_monitoring_device_dex_test_schemas_data_output: JsonSchema = {
+export const digital$$experience$$monitoring_device$$dex$$test$$schemas$$data: JsonSchema = {
   "properties": {
     "host": {
       "type": "string"
@@ -165,7 +158,7 @@ export const digital_experience_monitoring_device_dex_test_schemas_data_output: 
 /**
  * The schema of `digital-experience-monitoring_messages` in responses.
  */
-export const digital_experience_monitoring_messages_output: JsonSchema = {
+export const digital$$experience$$monitoring_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -193,39 +186,4 @@ export const digital_experience_monitoring_messages_output: JsonSchema = {
     "type": "object"
   },
   "type": "array"
-};
-
-/**
- * The schema of `digital-experience-monitoring_platform` in responses.
- */
-export const digital_experience_monitoring_platform_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `digital-experience-monitoring_status` in responses.
- */
-export const digital_experience_monitoring_status_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `digital-experience-monitoring_timestamp` in responses.
- */
-export const digital_experience_monitoring_timestamp_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `digital-experience-monitoring_uuid` in responses.
- */
-export const digital_experience_monitoring_uuid_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `digital-experience-monitoring_version` in responses.
- */
-export const digital_experience_monitoring_version_output: JsonSchema = {
-  "type": "string"
 };

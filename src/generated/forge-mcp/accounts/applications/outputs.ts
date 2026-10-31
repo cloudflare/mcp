@@ -6,46 +6,46 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `alexandria_application` in responses.
  */
-export const alexandria_application_output: JsonSchema = {
+export const alexandria_application: JsonSchema = {
   "properties": {
     "application_confidence_score": {
-      "$ref": "#/$defs/alexandria_application_confidence_score"
+      "type": "number"
     },
     "application_score_composition": {
       "$ref": "#/$defs/alexandria_application_score_composition"
     },
     "application_source": {
-      "$ref": "#/$defs/alexandria_application_source"
+      "type": "string"
     },
     "application_type": {
-      "$ref": "#/$defs/alexandria_application_type"
+      "type": "string"
     },
     "application_type_description": {
-      "$ref": "#/$defs/alexandria_application_type_description"
+      "type": "string"
     },
     "category_id": {
-      "$ref": "#/$defs/alexandria_category_id"
+      "type": "integer"
     },
     "created_at": {
-      "$ref": "#/$defs/alexandria_application_created_at"
+      "type": "string"
     },
     "gen_ai_score": {
-      "$ref": "#/$defs/alexandria_application_gen_ai_score"
+      "type": "number"
     },
     "hostnames": {
       "$ref": "#/$defs/alexandria_application_hostnames"
     },
     "human_id": {
-      "$ref": "#/$defs/alexandria_application_human_id"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/alexandria_application_id"
+      "type": "integer"
     },
     "ip_subnets": {
       "$ref": "#/$defs/alexandria_application_ip_subnets"
     },
     "name": {
-      "$ref": "#/$defs/alexandria_application_name"
+      "type": "string"
     },
     "port_protocols": {
       "$ref": "#/$defs/alexandria_application_port_protocols"
@@ -57,10 +57,10 @@ export const alexandria_application_output: JsonSchema = {
       "$ref": "#/$defs/alexandria_application_supported"
     },
     "updated_at": {
-      "$ref": "#/$defs/alexandria_application_updated_at"
+      "type": "string"
     },
     "version": {
-      "$ref": "#/$defs/alexandria_application_version"
+      "type": "string"
     }
   },
   "required": [
@@ -86,30 +86,9 @@ export const alexandria_application_output: JsonSchema = {
 };
 
 /**
- * The schema of `alexandria_application_confidence_score` in responses.
- */
-export const alexandria_application_confidence_score_output: JsonSchema = {
-  "type": "number"
-};
-
-/**
- * The schema of `alexandria_application_created_at` in responses.
- */
-export const alexandria_application_created_at_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `alexandria_application_gen_ai_score` in responses.
- */
-export const alexandria_application_gen_ai_score_output: JsonSchema = {
-  "type": "number"
-};
-
-/**
  * The schema of `alexandria_application_hostnames` in responses.
  */
-export const alexandria_application_hostnames_output: JsonSchema = {
+export const alexandria_application_hostnames: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -117,23 +96,9 @@ export const alexandria_application_hostnames_output: JsonSchema = {
 };
 
 /**
- * The schema of `alexandria_application_human_id` in responses.
- */
-export const alexandria_application_human_id_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `alexandria_application_id` in responses.
- */
-export const alexandria_application_id_output: JsonSchema = {
-  "type": "integer"
-};
-
-/**
  * The schema of `alexandria_application_ip_subnets` in responses.
  */
-export const alexandria_application_ip_subnets_output: JsonSchema = {
+export const alexandria_application_ip_subnets: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -143,46 +108,46 @@ export const alexandria_application_ip_subnets_output: JsonSchema = {
 /**
  * The schema of `alexandria_application_list_item` in responses.
  */
-export const alexandria_application_list_item_output: JsonSchema = {
+export const alexandria_application_list_item: JsonSchema = {
   "properties": {
     "application_confidence_score": {
-      "$ref": "#/$defs/alexandria_application_confidence_score"
+      "type": "number"
     },
     "application_score_composition": {
       "$ref": "#/$defs/alexandria_application_score_composition"
     },
     "application_source": {
-      "$ref": "#/$defs/alexandria_application_source"
+      "type": "string"
     },
     "application_type": {
-      "$ref": "#/$defs/alexandria_application_type"
+      "type": "string"
     },
     "application_type_description": {
-      "$ref": "#/$defs/alexandria_application_type_description"
+      "type": "string"
     },
     "category_id": {
-      "$ref": "#/$defs/alexandria_category_id"
+      "type": "integer"
     },
     "created_at": {
-      "$ref": "#/$defs/alexandria_application_created_at"
+      "type": "string"
     },
     "gen_ai_score": {
-      "$ref": "#/$defs/alexandria_application_gen_ai_score"
+      "type": "number"
     },
     "hostnames": {
       "$ref": "#/$defs/alexandria_application_hostnames"
     },
     "human_id": {
-      "$ref": "#/$defs/alexandria_application_human_id"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/alexandria_application_id"
+      "type": "integer"
     },
     "ip_subnets": {
       "$ref": "#/$defs/alexandria_application_ip_subnets"
     },
     "name": {
-      "$ref": "#/$defs/alexandria_application_name"
+      "type": "string"
     },
     "port_protocols": {
       "$ref": "#/$defs/alexandria_application_port_protocols"
@@ -203,10 +168,10 @@ export const alexandria_application_list_item_output: JsonSchema = {
       "$ref": "#/$defs/alexandria_application_supported"
     },
     "updated_at": {
-      "$ref": "#/$defs/alexandria_application_updated_at"
+      "type": "string"
     },
     "version": {
-      "$ref": "#/$defs/alexandria_application_version"
+      "type": "string"
     }
   },
   "required": [
@@ -216,16 +181,9 @@ export const alexandria_application_list_item_output: JsonSchema = {
 };
 
 /**
- * The schema of `alexandria_application_name` in responses.
- */
-export const alexandria_application_name_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `alexandria_application_port_protocols` in responses.
  */
-export const alexandria_application_port_protocols_output: JsonSchema = {
+export const alexandria_application_port_protocols: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -235,7 +193,7 @@ export const alexandria_application_port_protocols_output: JsonSchema = {
 /**
  * The schema of `alexandria_application_reference` in responses.
  */
-export const alexandria_application_reference_output: JsonSchema = {
+export const alexandria_application_reference: JsonSchema = {
   "properties": {
     "id": {
       "type": "string"
@@ -258,7 +216,7 @@ export const alexandria_application_reference_output: JsonSchema = {
 /**
  * The schema of `alexandria_application_score_composition` in responses.
  */
-export const alexandria_application_score_composition_output: JsonSchema = {
+export const alexandria_application_score_composition: JsonSchema = {
   "oneOf": [
     {
       "type": "object"
@@ -270,16 +228,9 @@ export const alexandria_application_score_composition_output: JsonSchema = {
 };
 
 /**
- * The schema of `alexandria_application_source` in responses.
- */
-export const alexandria_application_source_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `alexandria_application_support_domains` in responses.
  */
-export const alexandria_application_support_domains_output: JsonSchema = {
+export const alexandria_application_support_domains: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -289,7 +240,7 @@ export const alexandria_application_support_domains_output: JsonSchema = {
 /**
  * The schema of `alexandria_application_supported` in responses.
  */
-export const alexandria_application_supported_output: JsonSchema = {
+export const alexandria_application_supported: JsonSchema = {
   "items": {
     "enum": [
       "GATEWAY",
@@ -302,37 +253,9 @@ export const alexandria_application_supported_output: JsonSchema = {
 };
 
 /**
- * The schema of `alexandria_application_type` in responses.
- */
-export const alexandria_application_type_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `alexandria_application_type_description` in responses.
- */
-export const alexandria_application_type_description_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `alexandria_application_updated_at` in responses.
- */
-export const alexandria_application_updated_at_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `alexandria_application_version` in responses.
- */
-export const alexandria_application_version_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `alexandria_applications` in responses.
  */
-export const alexandria_applications_output: JsonSchema = {
+export const alexandria_applications: JsonSchema = {
   "items": {
     "$ref": "#/$defs/alexandria_application_list_item"
   },
@@ -342,7 +265,7 @@ export const alexandria_applications_output: JsonSchema = {
 /**
  * The schema of `alexandria_delete_application_conflict_response` in responses.
  */
-export const alexandria_delete_application_conflict_response_output: JsonSchema = {
+export const alexandria_delete_application_conflict_response: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -405,7 +328,7 @@ export const alexandria_delete_application_conflict_response_output: JsonSchema 
 /**
  * The schema of `alexandria_delete_application_response` in responses.
  */
-export const alexandria_delete_application_response_output: JsonSchema = {
+export const alexandria_delete_application_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/alexandria_api-response-common"
@@ -427,7 +350,7 @@ export const alexandria_delete_application_response_output: JsonSchema = {
 /**
  * The schema of `alexandria_get_application_response` in responses.
  */
-export const alexandria_get_application_response_output: JsonSchema = {
+export const alexandria_get_application_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/alexandria_api-response-common"
@@ -446,7 +369,7 @@ export const alexandria_get_application_response_output: JsonSchema = {
 /**
  * The schema of `alexandria_get_applications_response` in responses.
  */
-export const alexandria_get_applications_response_output: JsonSchema = {
+export const alexandria_get_applications_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/alexandria_api-response-collection"

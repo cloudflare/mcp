@@ -4,41 +4,12 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `secondary-dns_account_identifier`.
- */
-export const secondary_dns_account_identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `secondary-dns_identifier`.
- */
-export const secondary_dns_identifier: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `secondary-dns_identifier-3`.
- */
-export const secondary_dns_identifier_3: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `secondary-dns_name`.
- */
-export const secondary_dns_name: JsonSchema = {
-  "description": "Zone name.",
-  "type": "string"
-};
-
-/**
  * The schema of `secondary-dns_peers`.
  */
-export const secondary_dns_peers: JsonSchema = {
+export const secondary$$dns_peers: JsonSchema = {
   "description": "A list of peer tags.",
   "items": {
-    "$ref": "#/$defs/secondary-dns_identifier"
+    "type": "string"
   },
   "type": "array"
 };

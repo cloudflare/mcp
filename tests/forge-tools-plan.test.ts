@@ -14,7 +14,7 @@ function plan(name: string, args: Record<string, unknown>, options: Partial<Plan
 
 describe('planning a generated tool call', () => {
   it("fills in the session's account and carries the method's permissions", async () => {
-    const result = await plan('d1_list', { per_page: 5 }, { sessionAccountId: ACCOUNT })
+    const result = await plan('d1_list', { query: { per_page: 5 } }, { sessionAccountId: ACCOUNT })
 
     expect(result).toMatchObject({
       kind: 'request',
@@ -27,12 +27,52 @@ describe('planning a generated tool call', () => {
     expect(result.kind === 'request' && result.headers).not.toHaveProperty('authorization')
   })
 
-  it('asks for an account when the session has several', async () => {
-    expect(await plan('d1_list', {})).toEqual({ kind: 'needs_account' })
+  it('asks for an account when the session has several, naming where it goes', async () => {
+    expect(await plan('d1_list', {})).toEqual({
+      kind: 'needs_account',
+      argument: 'path.account_id'
+    })
+    expect(
+      await plan('zeroTrust_access_applications_list', { path: { account_or_zone: 'accounts' } })
+    ).toEqual({ kind: 'needs_account', argument: 'path.account_or_zone_id' })
+  })
+
+  it('refuses a misspelled parameter and lists the ones its place takes', async () => {
+    expect(await plan('d1_list', { query: { nmae: 'db' } }, { sessionAccountId: ACCOUNT })).toEqual(
+      {
+        kind: 'invalid',
+        message:
+          'Unknown arguments for d1_list: query.nmae is not an argument; query takes name, page, per_page. ' +
+          'It takes path, query.'
+      }
+    )
+  })
+
+  it('reports a misplaced account_id as misplaced, not as a missing account', async () => {
+    const result = await plan('d1_list', { account_id: ACCOUNT })
+
+    expect(result).toMatchObject({ kind: 'invalid' })
+    expect(result.kind === 'invalid' && result.message).toContain('account_id goes in path')
+  })
+
+  it('refuses parameters passed at the top level, and says where they go', async () => {
+    const result = await plan(
+      'd1_list',
+      { account_id: ACCOUNT, per_page: 5, verbose: true },
+      { sessionAccountId: ACCOUNT }
+    )
+
+    expect(result).toEqual({
+      kind: 'invalid',
+      message:
+        'Unknown arguments for d1_list: account_id goes in path: { "path": { "account_id": … } }; ' +
+        'per_page goes in query: { "query": { "per_page": … } }; verbose is not an argument. ' +
+        'It takes path, query.'
+    })
   })
 
   it('keeps an account the caller passed, and sends the body', async () => {
-    const result = await plan('d1_create', { account_id: 'mine', body: { name: 'db' } })
+    const result = await plan('d1_create', { path: { account_id: 'mine' }, body: { name: 'db' } })
 
     expect(result).toMatchObject({
       kind: 'request',
@@ -44,13 +84,12 @@ describe('planning a generated tool call', () => {
   })
 
   it('fills in the account for a merged account-or-zone path called with accounts', async () => {
-    const zone = await plan('zero_trust_access_applications_list', {
-      account_or_zone: 'zones',
-      account_or_zone_id: 'z1'
+    const zone = await plan('zeroTrust_access_applications_list', {
+      path: { account_or_zone: 'zones', account_or_zone_id: 'z1' }
     })
     const account = await plan(
-      'zero_trust_access_applications_list',
-      { account_or_zone: 'accounts' },
+      'zeroTrust_access_applications_list',
+      { path: { account_or_zone: 'accounts' } },
       { sessionAccountId: ACCOUNT }
     )
 
@@ -68,7 +107,15 @@ describe('planning a generated tool call', () => {
   it('reports arguments the request cannot be built from', async () => {
     expect(await plan('zones_get', {})).toEqual({
       kind: 'invalid',
-      message: 'Missing required arguments: zone_id'
+      message: 'Missing required arguments: path'
+    })
+    expect(await plan('zones_get', { path: {} })).toEqual({
+      kind: 'invalid',
+      message: 'Missing required arguments: path.zone_id'
+    })
+    expect(await plan('zones_get', { path: 'z1' })).toEqual({
+      kind: 'invalid',
+      message: 'path must be an object'
     })
   })
 })

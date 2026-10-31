@@ -10,7 +10,17 @@ export const dlp_WorkerValidatorWrite: JsonSchema = {
   "description": "The attributes of a worker validator.",
   "properties": {
     "default": {
-      "$ref": "#/$defs/dlp_WorkerDefault"
+      "oneOf": [
+        {
+          "type": "number"
+        },
+        {
+          "enum": [
+            "veto"
+          ],
+          "type": "string"
+        }
+      ]
     },
     "name": {
       "description": "A name for this validator, at most 50 characters.",

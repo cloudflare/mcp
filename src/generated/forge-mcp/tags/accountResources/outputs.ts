@@ -7,7 +7,7 @@ import type { JsonSchema } from "../../_/tool.js";
  * The schema of `resource-tagging_tagged_resource_response_single` in
  * responses.
  */
-export const resource_tagging_tagged_resource_response_single_output: JsonSchema = {
+export const resource$$tagging_tagged_resource_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/resource-tagging_api-response-common"

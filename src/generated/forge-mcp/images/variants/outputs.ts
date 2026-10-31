@@ -6,13 +6,13 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `images_image_variant_definition` in responses.
  */
-export const images_image_variant_definition_output: JsonSchema = {
+export const images_image_variant_definition: JsonSchema = {
   "properties": {
     "id": {
-      "$ref": "#/$defs/images_image_variant_identifier"
+      "type": "string"
     },
     "neverRequireSignedURLs": {
-      "$ref": "#/$defs/images_image_variant_neverRequireSignedURLs"
+      "type": "boolean"
     },
     "options": {
       "$ref": "#/$defs/images_image_variant_options"
@@ -26,37 +26,9 @@ export const images_image_variant_definition_output: JsonSchema = {
 };
 
 /**
- * The schema of `images_image_variant_fit` in responses.
- */
-export const images_image_variant_fit_output: JsonSchema = {
-  "enum": [
-    "scale-down",
-    "contain",
-    "cover",
-    "crop",
-    "pad"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `images_image_variant_height` in responses.
- */
-export const images_image_variant_height_output: JsonSchema = {
-  "type": "number"
-};
-
-/**
- * The schema of `images_image_variant_identifier` in responses.
- */
-export const images_image_variant_identifier_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `images_image_variant_list_response` in responses.
  */
-export const images_image_variant_list_response_output: JsonSchema = {
+export const images_image_variant_list_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/images_api-response-common"
@@ -73,28 +45,33 @@ export const images_image_variant_list_response_output: JsonSchema = {
 };
 
 /**
- * The schema of `images_image_variant_neverRequireSignedURLs` in responses.
- */
-export const images_image_variant_neverRequireSignedURLs_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `images_image_variant_options` in responses.
  */
-export const images_image_variant_options_output: JsonSchema = {
+export const images_image_variant_options: JsonSchema = {
   "properties": {
     "fit": {
-      "$ref": "#/$defs/images_image_variant_fit"
+      "enum": [
+        "scale-down",
+        "contain",
+        "cover",
+        "crop",
+        "pad"
+      ],
+      "type": "string"
     },
     "height": {
-      "$ref": "#/$defs/images_image_variant_height"
+      "type": "number"
     },
     "metadata": {
-      "$ref": "#/$defs/images_image_variant_schemas_metadata"
+      "enum": [
+        "keep",
+        "copyright",
+        "none"
+      ],
+      "type": "string"
     },
     "width": {
-      "$ref": "#/$defs/images_image_variant_width"
+      "type": "number"
     }
   },
   "required": [
@@ -109,15 +86,15 @@ export const images_image_variant_options_output: JsonSchema = {
 /**
  * The schema of `images_image_variant_public_request` in responses.
  */
-export const images_image_variant_public_request_output: JsonSchema = {
+export const images_image_variant_public_request: JsonSchema = {
   "properties": {
     "hero": {
       "properties": {
         "id": {
-          "$ref": "#/$defs/images_image_variant_identifier"
+          "type": "string"
         },
         "neverRequireSignedURLs": {
-          "$ref": "#/$defs/images_image_variant_neverRequireSignedURLs"
+          "type": "boolean"
         },
         "options": {
           "$ref": "#/$defs/images_image_variant_options"
@@ -136,7 +113,7 @@ export const images_image_variant_public_request_output: JsonSchema = {
 /**
  * The schema of `images_image_variant_response` in responses.
  */
-export const images_image_variant_response_output: JsonSchema = {
+export const images_image_variant_response: JsonSchema = {
   "properties": {
     "variant": {
       "$ref": "#/$defs/images_image_variant_definition"
@@ -146,21 +123,9 @@ export const images_image_variant_response_output: JsonSchema = {
 };
 
 /**
- * The schema of `images_image_variant_schemas_metadata` in responses.
- */
-export const images_image_variant_schemas_metadata_output: JsonSchema = {
-  "enum": [
-    "keep",
-    "copyright",
-    "none"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `images_image_variant_simple_response` in responses.
  */
-export const images_image_variant_simple_response_output: JsonSchema = {
+export const images_image_variant_simple_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/images_api-response-single"
@@ -177,16 +142,9 @@ export const images_image_variant_simple_response_output: JsonSchema = {
 };
 
 /**
- * The schema of `images_image_variant_width` in responses.
- */
-export const images_image_variant_width_output: JsonSchema = {
-  "type": "number"
-};
-
-/**
  * The schema of `images_image_variants_response` in responses.
  */
-export const images_image_variants_response_output: JsonSchema = {
+export const images_image_variants_response: JsonSchema = {
   "properties": {
     "variants": {
       "$ref": "#/$defs/images_image_variant_public_request"

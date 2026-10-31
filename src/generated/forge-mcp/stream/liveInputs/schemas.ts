@@ -9,26 +9,26 @@ import type { JsonSchema } from "../../_/tool.js";
 export const stream_create_input_request: JsonSchema = {
   "properties": {
     "defaultCreator": {
-      "$ref": "#/$defs/stream_live_input_default_creator",
-      "description": "Sets the creator ID asssociated with this live input."
+      "description": "Sets the creator ID asssociated with this live input.",
+      "type": "string"
     },
     "deleteRecordingAfterDays": {
-      "$ref": "#/$defs/stream_live_input_recording_deletion",
-      "description": "Indicates the number of days after which the live inputs recordings will be deleted. When a stream completes and the recording is ready, the value is used to calculate a scheduled deletion date for that recording. Omit the field to indicate no change, or include with a `null` value to remove an existing scheduled deletion."
+      "description": "Indicates the number of days after which the live inputs recordings will be deleted. When a stream completes and the recording is ready, the value is used to calculate a scheduled deletion date for that recording. Omit the field to indicate no change, or include with a `null` value to remove an existing scheduled deletion.",
+      "type": "number"
     },
     "enabled": {
-      "$ref": "#/$defs/stream_live_input_enabled",
       "default": true,
-      "description": "Indicates whether the live input is enabled and can accept streams."
+      "description": "Indicates whether the live input is enabled and can accept streams.",
+      "type": "boolean"
     },
     "meta": {
       "$ref": "#/$defs/stream_live_input_metadata",
       "description": "A user modifiable key-value store used to reference other systems of record for managing live inputs."
     },
     "preferLowLatency": {
-      "$ref": "#/$defs/stream_live_input_prefer_low_latency",
       "default": false,
-      "description": "When enabled, the live stream is delivered using Low-Latency HLS (LL-HLS), reducing glass-to-glass latency for viewers at the cost of reduced player compatibility."
+      "description": "When enabled, the live stream is delivered using Low-Latency HLS (LL-HLS), reducing glass-to-glass latency for viewers at the cost of reduced player compatibility.",
+      "type": "boolean"
     },
     "recording": {
       "$ref": "#/$defs/stream_live_input_recording_settings",
@@ -39,43 +39,11 @@ export const stream_create_input_request: JsonSchema = {
 };
 
 /**
- * The schema of `stream_live_input_default_creator`.
- */
-export const stream_live_input_default_creator: JsonSchema = {
-  "description": "Sets the creator ID asssociated with this live input.",
-  "type": "string"
-};
-
-/**
- * The schema of `stream_live_input_enabled`.
- */
-export const stream_live_input_enabled: JsonSchema = {
-  "description": "Indicates whether the live input is enabled and can accept streams.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `stream_live_input_identifier`.
- */
-export const stream_live_input_identifier: JsonSchema = {
-  "description": "A unique identifier for a live input.",
-  "type": "string"
-};
-
-/**
  * The schema of `stream_live_input_metadata`.
  */
 export const stream_live_input_metadata: JsonSchema = {
   "description": "A user modifiable key-value store used to reference other systems of record for managing live inputs.",
   "type": "object"
-};
-
-/**
- * The schema of `stream_live_input_prefer_low_latency`.
- */
-export const stream_live_input_prefer_low_latency: JsonSchema = {
-  "description": "When enabled, the live stream is delivered using Low-Latency HLS (LL-HLS), reducing glass-to-glass latency for viewers at the cost of reduced player compatibility.",
-  "type": "boolean"
 };
 
 /**
@@ -90,42 +58,6 @@ export const stream_live_input_recording_allowedOrigins: JsonSchema = {
 };
 
 /**
- * The schema of `stream_live_input_recording_deletion`.
- */
-export const stream_live_input_recording_deletion: JsonSchema = {
-  "description": "Indicates the number of days after which the live inputs recordings will be deleted. When a stream completes and the recording is ready, the value is used to calculate a scheduled deletion date for that recording. Omit the field to indicate no change, or include with a `null` value to remove an existing scheduled deletion.",
-  "type": "number"
-};
-
-/**
- * The schema of `stream_live_input_recording_hideLiveViewerCount`.
- */
-export const stream_live_input_recording_hideLiveViewerCount: JsonSchema = {
-  "description": "Disables reporting the number of live viewers when this property is set to `true`.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `stream_live_input_recording_mode`.
- */
-export const stream_live_input_recording_mode: JsonSchema = {
-  "description": "Specifies the recording behavior for the live input. Set this value to `off` to prevent a recording. Set the value to `automatic` to begin a recording and transition to on-demand after Stream Live stops receiving input.",
-  "enum": [
-    "off",
-    "automatic"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `stream_live_input_recording_requireSignedURLs`.
- */
-export const stream_live_input_recording_requireSignedURLs: JsonSchema = {
-  "description": "Indicates if a video using the live input has the `requireSignedURLs` property set. Also enforces access controls on any video recording of the livestream with the live input.",
-  "type": "boolean"
-};
-
-/**
  * The schema of `stream_live_input_recording_settings`.
  */
 export const stream_live_input_recording_settings: JsonSchema = {
@@ -136,35 +68,31 @@ export const stream_live_input_recording_settings: JsonSchema = {
       "description": "Lists the origins allowed to display videos created with this input. Enter allowed origin domains in an array and use `*` for wildcard subdomains. An empty array allows videos to be viewed on any origin."
     },
     "hideLiveViewerCount": {
-      "$ref": "#/$defs/stream_live_input_recording_hideLiveViewerCount",
       "default": false,
-      "description": "Disables reporting the number of live viewers when this property is set to `true`."
+      "description": "Disables reporting the number of live viewers when this property is set to `true`.",
+      "type": "boolean"
     },
     "mode": {
-      "$ref": "#/$defs/stream_live_input_recording_mode",
       "default": "off",
-      "description": "Specifies the recording behavior for the live input. Set this value to `off` to prevent a recording. Set the value to `automatic` to begin a recording and transition to on-demand after Stream Live stops receiving input."
+      "description": "Specifies the recording behavior for the live input. Set this value to `off` to prevent a recording. Set the value to `automatic` to begin a recording and transition to on-demand after Stream Live stops receiving input.",
+      "enum": [
+        "off",
+        "automatic"
+      ],
+      "type": "string"
     },
     "requireSignedURLs": {
-      "$ref": "#/$defs/stream_live_input_recording_requireSignedURLs",
       "default": false,
-      "description": "Indicates if a video using the live input has the `requireSignedURLs` property set. Also enforces access controls on any video recording of the livestream with the live input."
+      "description": "Indicates if a video using the live input has the `requireSignedURLs` property set. Also enforces access controls on any video recording of the livestream with the live input.",
+      "type": "boolean"
     },
     "timeoutSeconds": {
-      "$ref": "#/$defs/stream_live_input_recording_timeoutSeconds",
       "default": 0,
-      "description": "Determines the amount of time a live input configured in `automatic` mode should wait before a recording transitions from live to on-demand. `0` is recommended for most use cases and indicates the platform default should be used."
+      "description": "Determines the amount of time a live input configured in `automatic` mode should wait before a recording transitions from live to on-demand. `0` is recommended for most use cases and indicates the platform default should be used.",
+      "type": "integer"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `stream_live_input_recording_timeoutSeconds`.
- */
-export const stream_live_input_recording_timeoutSeconds: JsonSchema = {
-  "description": "Determines the amount of time a live input configured in `automatic` mode should wait before a recording transitions from live to on-demand. `0` is recommended for most use cases and indicates the platform default should be used.",
-  "type": "integer"
 };
 
 /**
@@ -173,26 +101,26 @@ export const stream_live_input_recording_timeoutSeconds: JsonSchema = {
 export const stream_update_input_request: JsonSchema = {
   "properties": {
     "defaultCreator": {
-      "$ref": "#/$defs/stream_live_input_default_creator",
-      "description": "Sets the creator ID asssociated with this live input."
+      "description": "Sets the creator ID asssociated with this live input.",
+      "type": "string"
     },
     "deleteRecordingAfterDays": {
-      "$ref": "#/$defs/stream_live_input_recording_deletion",
-      "description": "Indicates the number of days after which the live inputs recordings will be deleted. When a stream completes and the recording is ready, the value is used to calculate a scheduled deletion date for that recording. Omit the field to indicate no change, or include with a `null` value to remove an existing scheduled deletion."
+      "description": "Indicates the number of days after which the live inputs recordings will be deleted. When a stream completes and the recording is ready, the value is used to calculate a scheduled deletion date for that recording. Omit the field to indicate no change, or include with a `null` value to remove an existing scheduled deletion.",
+      "type": "number"
     },
     "enabled": {
-      "$ref": "#/$defs/stream_live_input_enabled",
       "default": true,
-      "description": "Indicates whether the live input is enabled and can accept streams."
+      "description": "Indicates whether the live input is enabled and can accept streams.",
+      "type": "boolean"
     },
     "meta": {
       "$ref": "#/$defs/stream_live_input_metadata",
       "description": "A user modifiable key-value store used to reference other systems of record for managing live inputs."
     },
     "preferLowLatency": {
-      "$ref": "#/$defs/stream_live_input_prefer_low_latency",
       "default": false,
-      "description": "When enabled, the live stream is delivered using Low-Latency HLS (LL-HLS), reducing glass-to-glass latency for viewers at the cost of reduced player compatibility."
+      "description": "When enabled, the live stream is delivered using Low-Latency HLS (LL-HLS), reducing glass-to-glass latency for viewers at the cost of reduced player compatibility.",
+      "type": "boolean"
     },
     "recording": {
       "$ref": "#/$defs/stream_live_input_recording_settings",

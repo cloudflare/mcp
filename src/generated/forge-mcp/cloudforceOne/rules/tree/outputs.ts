@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `cloudforce-one_TreeNode` in responses.
  */
-export const cloudforce_one_TreeNode_output: JsonSchema = {
+export const cloudforce$$one_TreeNode: JsonSchema = {
   "properties": {
     "children": {
       "items": {
@@ -36,7 +36,7 @@ export const cloudforce_one_TreeNode_output: JsonSchema = {
 /**
  * The schema of `cloudforce-one_TreeResponse` in responses.
  */
-export const cloudforce_one_TreeResponse_output: JsonSchema = {
+export const cloudforce$$one_TreeResponse: JsonSchema = {
   "properties": {
     "tree": {
       "items": {

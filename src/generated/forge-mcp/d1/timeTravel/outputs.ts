@@ -4,21 +4,14 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `d1_time-travel-bookmark` in responses.
- */
-export const d1_time_travel_bookmark_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `d1_time-travel-restore-response` in responses.
  */
-export const d1_time_travel_restore_response_output: JsonSchema = {
+export const d1_time$$travel$$restore$$response: JsonSchema = {
   "properties": {
     "bookmark": {
       "allOf": [
         {
-          "$ref": "#/$defs/d1_time-travel-bookmark"
+          "type": "string"
         },
         {
           "type": "string"
@@ -31,7 +24,7 @@ export const d1_time_travel_restore_response_output: JsonSchema = {
     "previous_bookmark": {
       "allOf": [
         {
-          "$ref": "#/$defs/d1_time-travel-bookmark"
+          "type": "string"
         },
         {
           "type": "string"

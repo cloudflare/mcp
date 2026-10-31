@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `email-security_BulkActionRequest`.
  */
-export const email_security_BulkActionRequest: JsonSchema = {
+export const email$$security_BulkActionRequest: JsonSchema = {
   "properties": {
     "action": {
       "description": "The action the job performs on every message matching the search parameters.",
@@ -28,15 +28,35 @@ export const email_security_BulkActionRequest: JsonSchema = {
       ]
     },
     "destination": {
-      "$ref": "#/$defs/email-security_MailboxDestination",
-      "description": "Required when action is 'MOVE'."
+      "description": "Required when action is 'MOVE'.",
+      "enum": [
+        "Inbox",
+        "JunkEmail",
+        "DeletedItems",
+        "RecoverableItemsDeletions",
+        "RecoverableItemsPurges"
+      ],
+      "type": "string"
     },
     "expected_disposition": {
       "deprecated": true,
       "description": "Nonfunctional field. End of life: December 1, 2026.",
       "oneOf": [
         {
-          "$ref": "#/$defs/email-security_DispositionLabel"
+          "description": "The verdict Email Security assigns to a message.",
+          "enum": [
+            "MALICIOUS",
+            "MALICIOUS-BEC",
+            "SUSPICIOUS",
+            "SPOOF",
+            "SPAM",
+            "BULK",
+            "ENCRYPTED",
+            "EXTERNAL",
+            "UNKNOWN",
+            "NONE"
+          ],
+          "type": "string"
         },
         {
           "type": "null"
@@ -55,34 +75,9 @@ export const email_security_BulkActionRequest: JsonSchema = {
 };
 
 /**
- * The schema of `email-security_BulkJobId`.
- */
-export const email_security_BulkJobId: JsonSchema = {
-  "description": "Bulk action job identifier.",
-  "format": "uuid",
-  "type": "string"
-};
-
-/**
- * The schema of `email-security_BulkJobStatus`.
- */
-export const email_security_BulkJobStatus: JsonSchema = {
-  "description": "Status of a bulk action job.",
-  "enum": [
-    "PENDING",
-    "DISCOVERING",
-    "PROCESSING",
-    "COMPLETED",
-    "FAILED",
-    "CANCELLED"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `email-security_BulkSearchParams`.
  */
-export const email_security_BulkSearchParams: JsonSchema = {
+export const email$$security_BulkSearchParams: JsonSchema = {
   "properties": {
     "action_log": {
       "default": false,
@@ -105,7 +100,18 @@ export const email_security_BulkSearchParams: JsonSchema = {
       "description": "Delivery status to filter by.",
       "oneOf": [
         {
-          "$ref": "#/$defs/email-security_MessageDeliveryStatus"
+          "description": "Delivery status of the message.",
+          "enum": [
+            "delivered",
+            "moved",
+            "quarantined",
+            "rejected",
+            "deferred",
+            "bounced",
+            "queued",
+            "move_failed"
+          ],
+          "type": "string"
         },
         {
           "type": "null"
@@ -148,7 +154,20 @@ export const email_security_BulkSearchParams: JsonSchema = {
       "description": "Dispositions to filter by.",
       "oneOf": [
         {
-          "$ref": "#/$defs/email-security_DispositionLabel"
+          "description": "The verdict Email Security assigns to a message.",
+          "enum": [
+            "MALICIOUS",
+            "MALICIOUS-BEC",
+            "SUSPICIOUS",
+            "SPOOF",
+            "SPAM",
+            "BULK",
+            "ENCRYPTED",
+            "EXTERNAL",
+            "UNKNOWN",
+            "NONE"
+          ],
+          "type": "string"
         },
         {
           "type": "null"

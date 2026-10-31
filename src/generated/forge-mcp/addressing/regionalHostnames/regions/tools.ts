@@ -3,36 +3,41 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  dls_api_response_collection_output,
-  dls_api_response_common_failure_output,
-  dls_api_response_common_output,
-  dls_messages_output,
-  dls_region_key_output,
+  dls_api$$response$$collection,
+  dls_api$$response$$common,
+  dls_api$$response$$common$$failure,
+  dls_messages,
 } from "../outputs.js";
-import { dls_identifier } from "../schemas.js";
 
 /**
- * The tools of `addressing.regional_hostnames.regions`.
+ * The tools of `addressing.regionalHostnames.regions`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "addressing_regional_hostnames_regions_list",
+    name: "addressing_regionalHostnames_regions_list",
     title: "List Regions",
-    description: "List all Regional Services regions available for use by this account.",
+    description: "List all Regional Services regions available for use by this account.\n\nGET /accounts/{account_id}/addressing/regional_hostnames/regions",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/dls_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
-      $defs: {
-        "dls_identifier": dls_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -45,7 +50,7 @@ export const tools: readonly Tool[] = [
               "items": {
                 "properties": {
                   "key": {
-                    "$ref": "#/$defs/dls_region_key"
+                    "type": "string"
                   },
                   "label": {
                     "type": "string"
@@ -60,10 +65,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dls_api-response-collection": dls_api_response_collection_output,
-        "dls_api-response-common": dls_api_response_common_output,
-        "dls_messages": dls_messages_output,
-        "dls_region_key": dls_region_key_output,
+        "dls_api-response-collection": dls_api$$response$$collection,
+        "dls_api-response-common": dls_api$$response$$common,
+        "dls_messages": dls_messages,
       },
     },
     annotations: {
@@ -94,7 +98,7 @@ export const tools: readonly Tool[] = [
                   "items": {
                     "properties": {
                       "key": {
-                        "$ref": "#/$defs/dls_region_key"
+                        "type": "string"
                       },
                       "label": {
                         "type": "string"
@@ -114,11 +118,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dls_api-response-collection": dls_api_response_collection_output,
-        "dls_api-response-common": dls_api_response_common_output,
-        "dls_api-response-common-failure": dls_api_response_common_failure_output,
-        "dls_messages": dls_messages_output,
-        "dls_region_key": dls_region_key_output,
+        "dls_api-response-collection": dls_api$$response$$collection,
+        "dls_api-response-common": dls_api$$response$$common,
+        "dls_api-response-common-failure": dls_api$$response$$common$$failure,
+        "dls_messages": dls_messages,
       },
     },
     request: (args) => ({

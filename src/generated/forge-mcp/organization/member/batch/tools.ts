@@ -3,22 +3,18 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  organizations_api_V4ErrorResponse_output,
-  organizations_api_V4Message_output,
+  organizations$$api_V4ErrorResponse,
+  organizations$$api_V4Message,
 } from "../../../outputs.js";
-import { organizations_api_OrganizationID } from "../../../schemas.js";
+import { organizations$$api_MemberSubjectUser } from "../../outputs.js";
 import {
-  organizations_api_MemberID_output,
-  organizations_api_MemberSubjectUser_output,
-} from "../../outputs.js";
-import {
-  organizations_api_MemberPolicyRole_output,
-  organizations_api_MemberPolicyScope_output,
-  organizations_api_MemberPolicy_output,
-  organizations_api_Member_output,
+  organizations$$api_Member,
+  organizations$$api_MemberPolicy,
+  organizations$$api_MemberPolicyRole,
+  organizations$$api_MemberPolicyScope,
 } from "../outputs.js";
-import { organizations_api_CreateSingleMember } from "../schemas.js";
-import { organizations_api_BatchCreateMembersRequest } from "./schemas.js";
+import { organizations$$api_CreateSingleMember } from "../schemas.js";
+import { organizations$$api_BatchCreateMembersRequest } from "./schemas.js";
 
 /**
  * The tools of `organization.member.batch`.
@@ -27,25 +23,35 @@ export const tools: readonly Tool[] = [
   {
     name: "organization_member_batch_create",
     title: "Batch create organization members",
-    description: "Batch create multiple memberships that grant access to a specific Organization.",
+    description: "Batch create multiple memberships that grant access to a specific Organization.\n\nPOST /organizations/{organization_id}/members:batchCreate",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "$ref": "#/$defs/organizations-api_BatchCreateMembersRequest"
         },
-        "organization_id": {
-          "$ref": "#/$defs/organizations-api_OrganizationID"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "organization_id": {
+              "description": "Organization ID",
+              "type": "string"
+            }
+          },
+          "required": [
+            "organization_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "organization_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "organizations-api_BatchCreateMembersRequest": organizations_api_BatchCreateMembersRequest,
-        "organizations-api_CreateSingleMember": organizations_api_CreateSingleMember,
-        "organizations-api_OrganizationID": organizations_api_OrganizationID,
+        "organizations-api_BatchCreateMembersRequest": organizations$$api_BatchCreateMembersRequest,
+        "organizations-api_CreateSingleMember": organizations$$api_CreateSingleMember,
       },
     },
     outputSchema: {
@@ -84,13 +90,12 @@ export const tools: readonly Tool[] = [
       ],
       "type": "object",
       $defs: {
-        "organizations-api_Member": organizations_api_Member_output,
-        "organizations-api_MemberID": organizations_api_MemberID_output,
-        "organizations-api_MemberPolicy": organizations_api_MemberPolicy_output,
-        "organizations-api_MemberPolicyRole": organizations_api_MemberPolicyRole_output,
-        "organizations-api_MemberPolicyScope": organizations_api_MemberPolicyScope_output,
-        "organizations-api_MemberSubjectUser": organizations_api_MemberSubjectUser_output,
-        "organizations-api_V4Message": organizations_api_V4Message_output,
+        "organizations-api_Member": organizations$$api_Member,
+        "organizations-api_MemberPolicy": organizations$$api_MemberPolicy,
+        "organizations-api_MemberPolicyRole": organizations$$api_MemberPolicyRole,
+        "organizations-api_MemberPolicyScope": organizations$$api_MemberPolicyScope,
+        "organizations-api_MemberSubjectUser": organizations$$api_MemberSubjectUser,
+        "organizations-api_V4Message": organizations$$api_V4Message,
       },
     },
     annotations: {
@@ -148,14 +153,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "organizations-api_Member": organizations_api_Member_output,
-        "organizations-api_MemberID": organizations_api_MemberID_output,
-        "organizations-api_MemberPolicy": organizations_api_MemberPolicy_output,
-        "organizations-api_MemberPolicyRole": organizations_api_MemberPolicyRole_output,
-        "organizations-api_MemberPolicyScope": organizations_api_MemberPolicyScope_output,
-        "organizations-api_MemberSubjectUser": organizations_api_MemberSubjectUser_output,
-        "organizations-api_V4ErrorResponse": organizations_api_V4ErrorResponse_output,
-        "organizations-api_V4Message": organizations_api_V4Message_output,
+        "organizations-api_Member": organizations$$api_Member,
+        "organizations-api_MemberPolicy": organizations$$api_MemberPolicy,
+        "organizations-api_MemberPolicyRole": organizations$$api_MemberPolicyRole,
+        "organizations-api_MemberPolicyScope": organizations$$api_MemberPolicyScope,
+        "organizations-api_MemberSubjectUser": organizations$$api_MemberSubjectUser,
+        "organizations-api_V4ErrorResponse": organizations$$api_V4ErrorResponse,
+        "organizations-api_V4Message": organizations$$api_V4Message,
       },
     },
     request: (args) => ({

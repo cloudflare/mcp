@@ -3,12 +3,11 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  hyperdrive_api_response_common_failure_output,
-  hyperdrive_api_response_single_output,
-  hyperdrive_messages_output,
+  hyperdrive_api$$response$$common$$failure,
+  hyperdrive_api$$response$$single,
+  hyperdrive_messages,
 } from "../../outputs.js";
-import { hyperdrive_identifier } from "../../schemas.js";
-import { hyperdrive_hyperdrive_database_signature_response_output } from "./outputs.js";
+import { hyperdrive_hyperdrive$$database$$signature$$response } from "./outputs.js";
 
 /**
  * The tools of `hyperdrive.integration.planetscale`.
@@ -17,21 +16,28 @@ export const tools: readonly Tool[] = [
   {
     name: "hyperdrive_integration_planetscale_signature",
     title: "Create Database Signature",
-    description: "Returns a short-lived signed authorization for creating a database that is billed through Cloudflare. The caller passes these values to the integration partner's own CLI, which verifies the signature before creating the database. Requires the account to be entitled to Cloudflare-billed databases for the integration.\n\nThis method is beta.",
+    description: "Returns a short-lived signed authorization for creating a database that is billed through Cloudflare. The caller passes these values to the integration partner's own CLI, which verifies the signature before creating the database. Requires the account to be entitled to Cloudflare-billed databases for the integration.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/hyperdrive/integrationsOperations/planetScale/createDatabaseSignature",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/hyperdrive_identifier",
-          "description": "The Cloudflare account ID."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "The Cloudflare account ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
-      $defs: {
-        "hyperdrive_identifier": hyperdrive_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -48,9 +54,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "hyperdrive_api-response-single": hyperdrive_api_response_single_output,
-        "hyperdrive_hyperdrive-database-signature-response": hyperdrive_hyperdrive_database_signature_response_output,
-        "hyperdrive_messages": hyperdrive_messages_output,
+        "hyperdrive_api-response-single": hyperdrive_api$$response$$single,
+        "hyperdrive_hyperdrive-database-signature-response": hyperdrive_hyperdrive$$database$$signature$$response,
+        "hyperdrive_messages": hyperdrive_messages,
       },
     },
     annotations: {
@@ -84,10 +90,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "hyperdrive_api-response-common-failure": hyperdrive_api_response_common_failure_output,
-        "hyperdrive_api-response-single": hyperdrive_api_response_single_output,
-        "hyperdrive_hyperdrive-database-signature-response": hyperdrive_hyperdrive_database_signature_response_output,
-        "hyperdrive_messages": hyperdrive_messages_output,
+        "hyperdrive_api-response-common-failure": hyperdrive_api$$response$$common$$failure,
+        "hyperdrive_api-response-single": hyperdrive_api$$response$$single,
+        "hyperdrive_hyperdrive-database-signature-response": hyperdrive_hyperdrive$$database$$signature$$response,
+        "hyperdrive_messages": hyperdrive_messages,
       },
     },
     request: (args) => ({

@@ -4,73 +4,33 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `secondary-dns_ip`.
- */
-export const secondary_dns_ip: JsonSchema = {
-  "description": "IPv4/IPv6 address of primary or secondary nameserver, depending on what zone this peer is linked to. For primary zones this IP defines the IP of the secondary nameserver Cloudflare will NOTIFY upon zone changes. For secondary zones this IP defines the IP of the primary nameserver Cloudflare will send AXFR/IXFR requests to.",
-  "type": "string"
-};
-
-/**
- * The schema of `secondary-dns_ixfr_enable`.
- */
-export const secondary_dns_ixfr_enable: JsonSchema = {
-  "description": "Enable IXFR transfer protocol, default is AXFR. Only applicable to secondary zones.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `secondary-dns_name-3`.
- */
-export const secondary_dns_name_3: JsonSchema = {
-  "description": "The name of the peer.",
-  "type": "string"
-};
-
-/**
  * The schema of `secondary-dns_peer`.
  */
-export const secondary_dns_peer: JsonSchema = {
+export const secondary$$dns_peer: JsonSchema = {
   "properties": {
     "ip": {
-      "$ref": "#/$defs/secondary-dns_ip",
-      "description": "IPv4/IPv6 address of primary or secondary nameserver, depending on what zone this peer is linked to. For primary zones this IP defines the IP of the secondary nameserver Cloudflare will NOTIFY upon zone changes. For secondary zones this IP defines the IP of the primary nameserver Cloudflare will send AXFR/IXFR requests to."
+      "description": "IPv4/IPv6 address of primary or secondary nameserver, depending on what zone this peer is linked to. For primary zones this IP defines the IP of the secondary nameserver Cloudflare will NOTIFY upon zone changes. For secondary zones this IP defines the IP of the primary nameserver Cloudflare will send AXFR/IXFR requests to.",
+      "type": "string"
     },
     "ixfr_enable": {
-      "$ref": "#/$defs/secondary-dns_ixfr_enable",
-      "description": "Enable IXFR transfer protocol, default is AXFR. Only applicable to secondary zones."
+      "description": "Enable IXFR transfer protocol, default is AXFR. Only applicable to secondary zones.",
+      "type": "boolean"
     },
     "name": {
-      "$ref": "#/$defs/secondary-dns_name-3",
-      "description": "The name of the peer."
+      "description": "The name of the peer.",
+      "type": "string"
     },
     "port": {
-      "$ref": "#/$defs/secondary-dns_port",
-      "description": "DNS port of primary or secondary nameserver, depending on what zone this peer is linked to."
+      "description": "DNS port of primary or secondary nameserver, depending on what zone this peer is linked to.",
+      "type": "number"
     },
     "tsig_id": {
-      "$ref": "#/$defs/secondary-dns_tsig_id",
-      "description": "TSIG authentication will be used for zone transfer if configured."
+      "description": "TSIG authentication will be used for zone transfer if configured.",
+      "type": "string"
     }
   },
   "required": [
     "name"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `secondary-dns_port`.
- */
-export const secondary_dns_port: JsonSchema = {
-  "description": "DNS port of primary or secondary nameserver, depending on what zone this peer is linked to.",
-  "type": "number"
-};
-
-/**
- * The schema of `secondary-dns_tsig_id`.
- */
-export const secondary_dns_tsig_id: JsonSchema = {
-  "description": "TSIG authentication will be used for zone transfer if configured.",
-  "type": "string"
 };

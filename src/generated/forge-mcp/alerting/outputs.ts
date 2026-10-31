@@ -4,16 +4,9 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
- * The schema of `aaa_account-id` in responses.
- */
-export const aaa_account_id_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `aaa_api-response-collection` in responses.
  */
-export const aaa_api_response_collection_output: JsonSchema = {
+export const aaa_api$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/aaa_api-response-common-2"
@@ -32,7 +25,7 @@ export const aaa_api_response_collection_output: JsonSchema = {
 /**
  * The schema of `aaa_api-response-common-2` in responses.
  */
-export const aaa_api_response_common_2_output: JsonSchema = {
+export const aaa_api$$response$$common$$2: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/aaa_messages-3"
@@ -58,7 +51,7 @@ export const aaa_api_response_common_2_output: JsonSchema = {
 /**
  * The schema of `aaa_api-response-common-failure-3` in responses.
  */
-export const aaa_api_response_common_failure_3_output: JsonSchema = {
+export const aaa_api$$response$$common$$failure$$3: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/aaa_messages-3"
@@ -84,7 +77,7 @@ export const aaa_api_response_common_failure_3_output: JsonSchema = {
 /**
  * The schema of `aaa_api-response-single` in responses.
  */
-export const aaa_api_response_single_output: JsonSchema = {
+export const aaa_api$$response$$single: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/aaa_messages-3"
@@ -110,7 +103,7 @@ export const aaa_api_response_single_output: JsonSchema = {
 /**
  * The schema of `aaa_id_response` in responses.
  */
-export const aaa_id_response_output: JsonSchema = {
+export const aaa_id_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/aaa_api-response-single"
@@ -120,7 +113,7 @@ export const aaa_id_response_output: JsonSchema = {
         "result": {
           "properties": {
             "id": {
-              "$ref": "#/$defs/aaa_uuid"
+              "type": "string"
             }
           },
           "type": "object"
@@ -134,7 +127,7 @@ export const aaa_id_response_output: JsonSchema = {
 /**
  * The schema of `aaa_messages-3` in responses.
  */
-export const aaa_messages_3_output: JsonSchema = {
+export const aaa_messages$$3: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -153,16 +146,9 @@ export const aaa_messages_3_output: JsonSchema = {
 };
 
 /**
- * The schema of `aaa_policy-id` in responses.
- */
-export const aaa_policy_id_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `aaa_result_info-2` in responses.
  */
-export const aaa_result_info_2_output: JsonSchema = {
+export const aaa_result_info$$2: JsonSchema = {
   "properties": {
     "count": {
       "type": "number"
@@ -178,18 +164,4 @@ export const aaa_result_info_2_output: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `aaa_schemas-name` in responses.
- */
-export const aaa_schemas_name_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `aaa_uuid` in responses.
- */
-export const aaa_uuid_output: JsonSchema = {
-  "type": "string"
 };

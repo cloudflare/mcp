@@ -3,38 +3,42 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  google_tag_gateway_api_response_common_failure_output,
-  google_tag_gateway_api_response_common_output,
-  google_tag_gateway_google_tag_gateway_config_output,
-  google_tag_gateway_messages_output,
+  google$$tag$$gateway_api$$response$$common,
+  google$$tag$$gateway_api$$response$$common$$failure,
+  google$$tag$$gateway_google$$tag$$gateway$$config,
+  google$$tag$$gateway_messages,
 } from "./outputs.js";
-import {
-  google_tag_gateway_google_tag_gateway_config,
-  google_tag_gateway_identifier,
-} from "./schemas.js";
+import { google$$tag$$gateway_google$$tag$$gateway$$config as google$$tag$$gateway_google$$tag$$gateway$$config$ } from "./schemas.js";
 
 /**
- * The tools of `google_tag_gateway.config`.
+ * The tools of `googleTagGateway.config`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "google_tag_gateway_config_get",
+    name: "googleTagGateway_config_get",
     title: "Get Google Tag Gateway configuration",
-    description: "Gets the Google Tag Gateway configuration for a zone.",
+    description: "Gets the Google Tag Gateway configuration for a zone.\n\nGET /zones/{zone_id}/settings/google-tag-gateway/config",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/google-tag-gateway_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
-      $defs: {
-        "google-tag-gateway_identifier": google_tag_gateway_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -51,9 +55,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "google-tag-gateway_api-response-common": google_tag_gateway_api_response_common_output,
-        "google-tag-gateway_google-tag-gateway-config": google_tag_gateway_google_tag_gateway_config_output,
-        "google-tag-gateway_messages": google_tag_gateway_messages_output,
+        "google-tag-gateway_api-response-common": google$$tag$$gateway_api$$response$$common,
+        "google-tag-gateway_google-tag-gateway-config": google$$tag$$gateway_google$$tag$$gateway$$config,
+        "google-tag-gateway_messages": google$$tag$$gateway_messages,
       },
     },
     annotations: {
@@ -105,10 +109,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "google-tag-gateway_api-response-common": google_tag_gateway_api_response_common_output,
-        "google-tag-gateway_api-response-common-failure": google_tag_gateway_api_response_common_failure_output,
-        "google-tag-gateway_google-tag-gateway-config": google_tag_gateway_google_tag_gateway_config_output,
-        "google-tag-gateway_messages": google_tag_gateway_messages_output,
+        "google-tag-gateway_api-response-common": google$$tag$$gateway_api$$response$$common,
+        "google-tag-gateway_api-response-common-failure": google$$tag$$gateway_api$$response$$common$$failure,
+        "google-tag-gateway_google-tag-gateway-config": google$$tag$$gateway_google$$tag$$gateway$$config,
+        "google-tag-gateway_messages": google$$tag$$gateway_messages,
       },
     },
     request: (args) => ({
@@ -116,27 +120,36 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "google_tag_gateway_config_update",
+    name: "googleTagGateway_config_update",
     title: "Update Google Tag Gateway configuration",
-    description: "Updates the Google Tag Gateway configuration for a zone.",
+    description: "Updates the Google Tag Gateway configuration for a zone.\n\nPUT /zones/{zone_id}/settings/google-tag-gateway/config",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "$ref": "#/$defs/google-tag-gateway_google-tag-gateway-config"
         },
-        "zone_id": {
-          "$ref": "#/$defs/google-tag-gateway_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "google-tag-gateway_google-tag-gateway-config": google_tag_gateway_google_tag_gateway_config,
-        "google-tag-gateway_identifier": google_tag_gateway_identifier,
+        "google-tag-gateway_google-tag-gateway-config": google$$tag$$gateway_google$$tag$$gateway$$config$,
       },
     },
     outputSchema: {
@@ -154,9 +167,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "google-tag-gateway_api-response-common": google_tag_gateway_api_response_common_output,
-        "google-tag-gateway_google-tag-gateway-config": google_tag_gateway_google_tag_gateway_config_output,
-        "google-tag-gateway_messages": google_tag_gateway_messages_output,
+        "google-tag-gateway_api-response-common": google$$tag$$gateway_api$$response$$common,
+        "google-tag-gateway_google-tag-gateway-config": google$$tag$$gateway_google$$tag$$gateway$$config,
+        "google-tag-gateway_messages": google$$tag$$gateway_messages,
       },
     },
     annotations: {
@@ -207,10 +220,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "google-tag-gateway_api-response-common": google_tag_gateway_api_response_common_output,
-        "google-tag-gateway_api-response-common-failure": google_tag_gateway_api_response_common_failure_output,
-        "google-tag-gateway_google-tag-gateway-config": google_tag_gateway_google_tag_gateway_config_output,
-        "google-tag-gateway_messages": google_tag_gateway_messages_output,
+        "google-tag-gateway_api-response-common": google$$tag$$gateway_api$$response$$common,
+        "google-tag-gateway_api-response-common-failure": google$$tag$$gateway_api$$response$$common$$failure,
+        "google-tag-gateway_google-tag-gateway-config": google$$tag$$gateway_google$$tag$$gateway$$config,
+        "google-tag-gateway_messages": google$$tag$$gateway_messages,
       },
     },
     request: (args) => ({

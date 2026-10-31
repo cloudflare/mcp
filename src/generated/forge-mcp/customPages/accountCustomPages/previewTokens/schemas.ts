@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `custom-pages_preview_request`.
  */
-export const custom_pages_preview_request: JsonSchema = {
+export const custom$$pages_preview_request: JsonSchema = {
   "properties": {
     "act": {
       "description": "The preview action type. Required for request parsing but not used in token generation. Typically set to \"preview\".",

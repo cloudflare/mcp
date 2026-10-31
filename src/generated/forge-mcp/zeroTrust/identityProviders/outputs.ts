@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `access_azureAD` in responses.
  */
-export const access_azureAD_output: JsonSchema = {
+export const access_azureAD: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_identity-provider"
@@ -54,7 +54,7 @@ export const access_azureAD_output: JsonSchema = {
 /**
  * The schema of `access_centrify` in responses.
  */
-export const access_centrify_output: JsonSchema = {
+export const access_centrify: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_identity-provider"
@@ -91,7 +91,7 @@ export const access_centrify_output: JsonSchema = {
 /**
  * The schema of `access_cloudflare` in responses.
  */
-export const access_cloudflare_output: JsonSchema = {
+export const access_cloudflare: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_identity-provider"
@@ -124,7 +124,7 @@ export const access_cloudflare_output: JsonSchema = {
 /**
  * The schema of `access_custom-claims-support` in responses.
  */
-export const access_custom_claims_support_output: JsonSchema = {
+export const access_custom$$claims$$support: JsonSchema = {
   "properties": {
     "claims": {
       "items": {
@@ -142,7 +142,7 @@ export const access_custom_claims_support_output: JsonSchema = {
 /**
  * The schema of `access_duo` in responses.
  */
-export const access_duo_output: JsonSchema = {
+export const access_duo: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_identity-provider"
@@ -178,7 +178,7 @@ export const access_duo_output: JsonSchema = {
 /**
  * The schema of `access_facebook` in responses.
  */
-export const access_facebook_output: JsonSchema = {
+export const access_facebook: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_identity-provider"
@@ -197,7 +197,7 @@ export const access_facebook_output: JsonSchema = {
 /**
  * The schema of `access_generic-oauth-config` in responses.
  */
-export const access_generic_oauth_config_output: JsonSchema = {
+export const access_generic$$oauth$$config: JsonSchema = {
   "properties": {
     "client_id": {
       "type": "string"
@@ -212,7 +212,7 @@ export const access_generic_oauth_config_output: JsonSchema = {
 /**
  * The schema of `access_github` in responses.
  */
-export const access_github_output: JsonSchema = {
+export const access_github: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_identity-provider"
@@ -231,7 +231,7 @@ export const access_github_output: JsonSchema = {
 /**
  * The schema of `access_google` in responses.
  */
-export const access_google_output: JsonSchema = {
+export const access_google: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_identity-provider"
@@ -257,7 +257,7 @@ export const access_google_output: JsonSchema = {
 /**
  * The schema of `access_google-apps` in responses.
  */
-export const access_google_apps_output: JsonSchema = {
+export const access_google$$apps: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_identity-provider"
@@ -302,16 +302,16 @@ export const access_google_apps_output: JsonSchema = {
 /**
  * The schema of `access_identity-provider` in responses.
  */
-export const access_identity_provider_output: JsonSchema = {
+export const access_identity$$provider: JsonSchema = {
   "properties": {
     "config": {
       "type": "object"
     },
     "id": {
-      "$ref": "#/$defs/access_uuid"
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/access_name-3"
+      "type": "string"
     },
     "read_only": {
       "type": "boolean"
@@ -385,7 +385,7 @@ export const access_identity_provider_output: JsonSchema = {
 /**
  * The schema of `access_identity-providers` in responses.
  */
-export const access_identity_providers_output: JsonSchema = {
+export const access_identity$$providers: JsonSchema = {
   "anyOf": [
     {
       "$ref": "#/$defs/access_azureAD"
@@ -444,7 +444,7 @@ export const access_identity_providers_output: JsonSchema = {
 /**
  * The schema of `access_linkedin` in responses.
  */
-export const access_linkedin_output: JsonSchema = {
+export const access_linkedin: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_identity-provider"
@@ -461,16 +461,9 @@ export const access_linkedin_output: JsonSchema = {
 };
 
 /**
- * The schema of `access_name-3` in responses.
- */
-export const access_name_3_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `access_oidc` in responses.
  */
-export const access_oidc_output: JsonSchema = {
+export const access_oidc: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_identity-provider"
@@ -519,7 +512,7 @@ export const access_oidc_output: JsonSchema = {
 /**
  * The schema of `access_okta` in responses.
  */
-export const access_okta_output: JsonSchema = {
+export const access_okta: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_identity-provider"
@@ -556,7 +549,7 @@ export const access_okta_output: JsonSchema = {
 /**
  * The schema of `access_onelogin` in responses.
  */
-export const access_onelogin_output: JsonSchema = {
+export const access_onelogin: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_identity-provider"
@@ -590,7 +583,7 @@ export const access_onelogin_output: JsonSchema = {
 /**
  * The schema of `access_onetimepin` in responses.
  */
-export const access_onetimepin_output: JsonSchema = {
+export const access_onetimepin: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_identity-provider"
@@ -620,7 +613,7 @@ export const access_onetimepin_output: JsonSchema = {
 /**
  * The schema of `access_passkeys` in responses.
  */
-export const access_passkeys_output: JsonSchema = {
+export const access_passkeys: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_identity-provider"
@@ -653,7 +646,7 @@ export const access_passkeys_output: JsonSchema = {
 /**
  * The schema of `access_pingone` in responses.
  */
-export const access_pingone_output: JsonSchema = {
+export const access_pingone: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_identity-provider"
@@ -687,7 +680,7 @@ export const access_pingone_output: JsonSchema = {
 /**
  * The schema of `access_response_collection` in responses.
  */
-export const access_response_collection_output: JsonSchema = {
+export const access_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-collection"
@@ -761,7 +754,7 @@ export const access_response_collection_output: JsonSchema = {
 /**
  * The schema of `access_saml` in responses.
  */
-export const access_saml_output: JsonSchema = {
+export const access_saml: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_identity-provider"
@@ -829,7 +822,7 @@ export const access_saml_output: JsonSchema = {
 /**
  * The schema of `access_saml_certificate` in responses.
  */
-export const access_saml_certificate_output: JsonSchema = {
+export const access_saml_certificate: JsonSchema = {
   "properties": {
     "is_current": {
       "type": "boolean"
@@ -858,7 +851,7 @@ export const access_saml_certificate_output: JsonSchema = {
 /**
  * The schema of `access_saml_certificate_set` in responses.
  */
-export const access_saml_certificate_set_output: JsonSchema = {
+export const access_saml_certificate_set: JsonSchema = {
   "properties": {
     "created_at": {
       "format": "date-time",
@@ -897,7 +890,7 @@ export const access_saml_certificate_set_output: JsonSchema = {
 /**
  * The schema of `access_single_response-3` in responses.
  */
-export const access_single_response_3_output: JsonSchema = {
+export const access_single_response$$3: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-single"
@@ -916,7 +909,7 @@ export const access_single_response_3_output: JsonSchema = {
 /**
  * The schema of `access_yandex` in responses.
  */
-export const access_yandex_output: JsonSchema = {
+export const access_yandex: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_identity-provider"

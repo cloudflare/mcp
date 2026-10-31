@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `workers_account-settings`.
  */
-export const workers_account_settings: JsonSchema = {
+export const workers_account$$settings: JsonSchema = {
   "properties": {
     "default_usage_model": {
       "type": "string"

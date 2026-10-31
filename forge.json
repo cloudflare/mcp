@@ -1,5 +1,5 @@
 {
   "$comment": "The forge that generates src/generated/forge-mcp: a commit of cloudflare/forge. Bump ref to pick up generator changes; CI builds it.",
   "repository": "cloudflare/forge",
-  "ref": "580804fccf9c3f04d0449d2bc22506a2f2a8e419"
+  "ref": "b380789daec251e3f01168101e80c18ce1d19513"
 }

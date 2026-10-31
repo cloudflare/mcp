@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `workers_deployment` in responses.
  */
-export const workers_deployment_output: JsonSchema = {
+export const workers_deployment: JsonSchema = {
   "properties": {
     "annotations": {
       "properties": {

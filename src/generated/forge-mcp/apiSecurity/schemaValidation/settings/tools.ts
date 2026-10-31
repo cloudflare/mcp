@@ -3,43 +3,55 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  api_shield_api_response_common_failure_output,
-  api_shield_messages_output,
+  api$$shield_api$$response$$common$$failure,
+  api$$shield_messages,
 } from "../../../outputs.js";
-import {
-  api_shield_identifier,
-  api_shield_identifier_2,
-} from "../../../schemas.js";
-import { api_shield_api_response_single_output } from "../../outputs.js";
-import { api_shield_global_settings_output } from "./outputs.js";
-import { api_shield_global_setting_change_base } from "./schemas.js";
+import { api$$shield_api$$response$$single } from "../../outputs.js";
+import { api$$shield_global_settings } from "./outputs.js";
+import { api$$shield_global_setting_change_base } from "./schemas.js";
 
 /**
- * The tools of `api_security.schema_validation.settings`.
+ * The tools of `apiSecurity.schemaValidation.settings`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "api_security_schema_validation_settings_edit",
+    name: "apiSecurity_schemaValidation_settings_edit",
     title: "Edit global schema validation settings",
-    description: "Partially updates global schema validation settings for a zone using PATCH semantics.",
+    description: "Partially updates global schema validation settings for a zone using PATCH semantics.\n\nPATCH /zones/{zone_id}/schema_validation/settings",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "$ref": "#/$defs/api-shield_global_setting_change_base"
         },
-        "zone_id": {
-          "$ref": "#/$defs/api-shield_identifier-2"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "api-shield_global_setting_change_base": api_shield_global_setting_change_base,
-        "api-shield_identifier": api_shield_identifier,
-        "api-shield_identifier-2": api_shield_identifier_2,
+        "api-shield_global_setting_change_base": api$$shield_global_setting_change_base,
       },
     },
     outputSchema: {
@@ -60,9 +72,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "api-shield_api-response-single": api_shield_api_response_single_output,
-        "api-shield_global_settings": api_shield_global_settings_output,
-        "api-shield_messages": api_shield_messages_output,
+        "api-shield_api-response-single": api$$shield_api$$response$$single,
+        "api-shield_global_settings": api$$shield_global_settings,
+        "api-shield_messages": api$$shield_messages,
       },
     },
     annotations: {
@@ -105,10 +117,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
-        "api-shield_api-response-single": api_shield_api_response_single_output,
-        "api-shield_global_settings": api_shield_global_settings_output,
-        "api-shield_messages": api_shield_messages_output,
+        "api-shield_api-response-common-failure": api$$shield_api$$response$$common$$failure,
+        "api-shield_api-response-single": api$$shield_api$$response$$single,
+        "api-shield_global_settings": api$$shield_global_settings,
+        "api-shield_messages": api$$shield_messages,
       },
     },
     request: (args) => ({
@@ -117,23 +129,37 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "api_security_schema_validation_settings_get",
+    name: "apiSecurity_schemaValidation_settings_get",
     title: "Get global schema validation settings",
-    description: "Retrieves the current global schema validation settings for a zone.",
+    description: "Retrieves the current global schema validation settings for a zone.\n\nGET /zones/{zone_id}/schema_validation/settings",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/api-shield_identifier-2"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
-      $defs: {
-        "api-shield_identifier": api_shield_identifier,
-        "api-shield_identifier-2": api_shield_identifier_2,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -153,9 +179,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "api-shield_api-response-single": api_shield_api_response_single_output,
-        "api-shield_global_settings": api_shield_global_settings_output,
-        "api-shield_messages": api_shield_messages_output,
+        "api-shield_api-response-single": api$$shield_api$$response$$single,
+        "api-shield_global_settings": api$$shield_global_settings,
+        "api-shield_messages": api$$shield_messages,
       },
     },
     annotations: {
@@ -200,10 +226,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
-        "api-shield_api-response-single": api_shield_api_response_single_output,
-        "api-shield_global_settings": api_shield_global_settings_output,
-        "api-shield_messages": api_shield_messages_output,
+        "api-shield_api-response-common-failure": api$$shield_api$$response$$common$$failure,
+        "api-shield_api-response-single": api$$shield_api$$response$$single,
+        "api-shield_global_settings": api$$shield_global_settings,
+        "api-shield_messages": api$$shield_messages,
       },
     },
     request: (args) => ({
@@ -211,16 +237,16 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "api_security_schema_validation_settings_update",
+    name: "apiSecurity_schemaValidation_settings_update",
     title: "Update global schema validation settings",
-    description: "Fully updates global schema validation settings for a zone, replacing existing configuration.",
+    description: "Fully updates global schema validation settings for a zone, replacing existing configuration.\n\nPUT /zones/{zone_id}/schema_validation/settings",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "validation_default_mitigation_action": {
-              "description": "The default mitigation action used\nMitigation actions are as follows:\n\n  - `\"log\"` - log request when request does not conform to schema\n  - `\"block\"` - deny access to the site when request does not conform to schema\n  - `\"none\"` - skip running schema validation\n",
+              "description": "The default mitigation action used\nMitigation actions are as follows:\n\n  - `\"log\"` - log request when request does not conform to schema\n  - `\"block\"` - deny access to the site when request does not conform to schema\n  - `\"none\"` - skip running schema validation",
               "enum": [
                 "none",
                 "log",
@@ -229,7 +255,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "validation_override_mitigation_action": {
-              "description": "When set, this overrides both zone level and operation level mitigation actions.\n\n  - `\"none\"` - skip running schema validation entirely for the request\n  - `null` - clears any existing override\n",
+              "description": "When set, this overrides both zone level and operation level mitigation actions.\n\n  - `\"none\"` - skip running schema validation entirely for the request\n  - `null` - clears any existing override",
               "oneOf": [
                 {
                   "enum": [
@@ -248,18 +274,32 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "zone_id": {
-          "$ref": "#/$defs/api-shield_identifier-2"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
-      $defs: {
-        "api-shield_identifier": api_shield_identifier,
-        "api-shield_identifier-2": api_shield_identifier_2,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -279,9 +319,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "api-shield_api-response-single": api_shield_api_response_single_output,
-        "api-shield_global_settings": api_shield_global_settings_output,
-        "api-shield_messages": api_shield_messages_output,
+        "api-shield_api-response-single": api$$shield_api$$response$$single,
+        "api-shield_global_settings": api$$shield_global_settings,
+        "api-shield_messages": api$$shield_messages,
       },
     },
     annotations: {
@@ -324,10 +364,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
-        "api-shield_api-response-single": api_shield_api_response_single_output,
-        "api-shield_global_settings": api_shield_global_settings_output,
-        "api-shield_messages": api_shield_messages_output,
+        "api-shield_api-response-common-failure": api$$shield_api$$response$$common$$failure,
+        "api-shield_api-response-single": api$$shield_api$$response$$single,
+        "api-shield_global_settings": api$$shield_global_settings,
+        "api-shield_messages": api$$shield_messages,
       },
     },
     request: (args) => ({

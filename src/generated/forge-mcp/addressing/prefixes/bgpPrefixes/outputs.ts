@@ -4,140 +4,101 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `addressing_advertised-2` in responses.
- */
-export const addressing_advertised_2_output: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "boolean"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `addressing_asn-2` in responses.
- */
-export const addressing_asn_2_output: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "integer"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `addressing_asn_prepend_count` in responses.
- */
-export const addressing_asn_prepend_count_output: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `addressing_auto_advertise_withdraw` in responses.
- */
-export const addressing_auto_advertise_withdraw_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `addressing_bgp_on_demand` in responses.
  */
-export const addressing_bgp_on_demand_output: JsonSchema = {
+export const addressing_bgp_on_demand: JsonSchema = {
   "properties": {
     "advertised": {
-      "$ref": "#/$defs/addressing_advertised-2"
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "advertised_modified_at": {
-      "$ref": "#/$defs/addressing_modified_at_nullable"
+      "oneOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "on_demand_enabled": {
-      "$ref": "#/$defs/addressing_on_demand_enabled-2"
+      "type": "boolean"
     },
     "on_demand_locked": {
-      "$ref": "#/$defs/addressing_on_demand_locked-2"
+      "type": "boolean"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `addressing_bgp_prefix_identifier` in responses.
- */
-export const addressing_bgp_prefix_identifier_output: JsonSchema = {
-  "type": "string"
 };
 
 /**
  * The schema of `addressing_bgp_signal_opts` in responses.
  */
-export const addressing_bgp_signal_opts_output: JsonSchema = {
+export const addressing_bgp_signal_opts: JsonSchema = {
   "properties": {
     "enabled": {
-      "$ref": "#/$defs/addressing_bgp_signaling_enabled"
+      "type": "boolean"
     },
     "modified_at": {
-      "$ref": "#/$defs/addressing_bgp_signaling_modified_at"
+      "oneOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     }
   },
   "type": "object"
 };
 
 /**
- * The schema of `addressing_bgp_signaling_enabled` in responses.
- */
-export const addressing_bgp_signaling_enabled_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `addressing_bgp_signaling_modified_at` in responses.
- */
-export const addressing_bgp_signaling_modified_at_output: JsonSchema = {
-  "oneOf": [
-    {
-      "format": "date-time",
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
  * The schema of `addressing_ipam-bgp-prefixes` in responses.
  */
-export const addressing_ipam_bgp_prefixes_output: JsonSchema = {
+export const addressing_ipam$$bgp$$prefixes: JsonSchema = {
   "properties": {
     "asn": {
-      "$ref": "#/$defs/addressing_asn-2"
+      "oneOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "asn_prepend_count": {
-      "$ref": "#/$defs/addressing_asn_prepend_count"
+      "type": "integer"
     },
     "auto_advertise_withdraw": {
-      "$ref": "#/$defs/addressing_auto_advertise_withdraw"
+      "type": "boolean"
     },
     "bgp_signal_opts": {
       "$ref": "#/$defs/addressing_bgp_signal_opts"
     },
     "cidr": {
-      "$ref": "#/$defs/addressing_cidr"
+      "type": "string"
     },
     "created_at": {
-      "$ref": "#/$defs/addressing_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/addressing_bgp_prefix_identifier"
+      "type": "string"
     },
     "modified_at": {
-      "$ref": "#/$defs/addressing_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "on_demand": {
       "$ref": "#/$defs/addressing_bgp_on_demand"
@@ -147,23 +108,9 @@ export const addressing_ipam_bgp_prefixes_output: JsonSchema = {
 };
 
 /**
- * The schema of `addressing_on_demand_enabled-2` in responses.
- */
-export const addressing_on_demand_enabled_2_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `addressing_on_demand_locked-2` in responses.
- */
-export const addressing_on_demand_locked_2_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `addressing_response_collection_bgp` in responses.
  */
-export const addressing_response_collection_bgp_output: JsonSchema = {
+export const addressing_response_collection_bgp: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/addressing_api-response-single"
@@ -185,7 +132,7 @@ export const addressing_response_collection_bgp_output: JsonSchema = {
 /**
  * The schema of `addressing_single_response_bgp` in responses.
  */
-export const addressing_single_response_bgp_output: JsonSchema = {
+export const addressing_single_response_bgp: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/addressing_api-response-single"

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `posture-api_FindingTypeValidationError` in responses.
  */
-export const posture_api_FindingTypeValidationError_output: JsonSchema = {
+export const posture$$api_FindingTypeValidationError: JsonSchema = {
   "properties": {
     "code": {
       "type": "string"
@@ -37,7 +37,7 @@ export const posture_api_FindingTypeValidationError_output: JsonSchema = {
 /**
  * The schema of `posture-api_ValidateFindingTypeResponse` in responses.
  */
-export const posture_api_ValidateFindingTypeResponse_output: JsonSchema = {
+export const posture$$api_ValidateFindingTypeResponse: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/posture-api_api-response-common"
@@ -56,7 +56,7 @@ export const posture_api_ValidateFindingTypeResponse_output: JsonSchema = {
 /**
  * The schema of `posture-api_ValidateFindingTypeResult` in responses.
  */
-export const posture_api_ValidateFindingTypeResult_output: JsonSchema = {
+export const posture$$api_ValidateFindingTypeResult: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -78,7 +78,7 @@ export const posture_api_ValidateFindingTypeResult_output: JsonSchema = {
 /**
  * The schema of `posture-api_custom-finding-type-response` in responses.
  */
-export const posture_api_custom_finding_type_response_output: JsonSchema = {
+export const posture$$api_custom$$finding$$type$$response: JsonSchema = {
   "properties": {
     "applies_to_all_integrations": {
       "type": "boolean"
@@ -89,7 +89,25 @@ export const posture_api_custom_finding_type_response_output: JsonSchema = {
     "asset_vendor": {
       "allOf": [
         {
-          "$ref": "#/$defs/posture-api_FindingTypeVendorsEnum"
+          "enum": [
+            "ANTHROPIC",
+            "AWS",
+            "BITBUCKET",
+            "BOX",
+            "CONFLUENCE",
+            "DROPBOX",
+            "GITHUB",
+            "GOOGLE_CLOUD_PLATFORM",
+            "GOOGLE_WORKSPACE",
+            "JIRA",
+            "MICROSOFT",
+            "OPENAI",
+            "SALESFORCE",
+            "SERVICENOW",
+            "SLACK",
+            "ZOOM"
+          ],
+          "type": "string"
         },
         {
           "type": "string"
@@ -146,7 +164,13 @@ export const posture_api_custom_finding_type_response_output: JsonSchema = {
     "severity": {
       "allOf": [
         {
-          "$ref": "#/$defs/posture-api_SeverityEnum"
+          "enum": [
+            "Critical",
+            "High",
+            "Medium",
+            "Low"
+          ],
+          "type": "string"
         },
         {
           "type": "string"
@@ -186,7 +210,7 @@ export const posture_api_custom_finding_type_response_output: JsonSchema = {
 /**
  * The schema of `posture-api_custom-finding-type-single-response` in responses.
  */
-export const posture_api_custom_finding_type_single_response_output: JsonSchema = {
+export const posture$$api_custom$$finding$$type$$single$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/posture-api_api-response-common"
@@ -205,7 +229,7 @@ export const posture_api_custom_finding_type_single_response_output: JsonSchema 
 /**
  * The schema of `posture-api_finding-type-response` in responses.
  */
-export const posture_api_finding_type_response_output: JsonSchema = {
+export const posture$$api_finding$$type$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/posture-api_api-response-common"
@@ -224,7 +248,7 @@ export const posture_api_finding_type_response_output: JsonSchema = {
 /**
  * The schema of `posture-api_paginated-finding-type-list` in responses.
  */
-export const posture_api_paginated_finding_type_list_output: JsonSchema = {
+export const posture$$api_paginated$$finding$$type$$list: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/posture-api_api-response-collection"

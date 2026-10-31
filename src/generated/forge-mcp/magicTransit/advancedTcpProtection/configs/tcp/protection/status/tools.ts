@@ -3,48 +3,54 @@
 
 import { type Tool, pathParam } from "../../../../../../_/tool.js";
 import {
-  advanced_ddos_protection_api_response_common_failure_output,
-  advanced_ddos_protection_api_response_common_output,
-  advanced_ddos_protection_messages_output,
+  advanced$$ddos$$protection_api$$response$$common,
+  advanced$$ddos$$protection_api$$response$$common$$failure,
+  advanced$$ddos$$protection_messages,
 } from "../../../../../outputs.js";
-import { advanced_ddos_protection_identifier } from "../../../../../schemas.js";
 import {
-  advanced_ddos_protection_ProtectionStatus_output,
-  advanced_ddos_protection_protection_status_response_output,
+  advanced$$ddos$$protection_ProtectionStatus,
+  advanced$$ddos$$protection_protection$$status$$response,
 } from "./outputs.js";
-import { advanced_ddos_protection_UpdateProtectionStatus } from "./schemas.js";
+import { advanced$$ddos$$protection_UpdateProtectionStatus } from "./schemas.js";
 
 /**
  * The tools of
- * `magic_transit.advanced_tcp_protection.configs.tcp.protection.status`.
+ * `magicTransit.advancedTcpProtection.configs.tcp.protection.status`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "magic_transit_advanced_tcp_protection_configs_tcp_protection_status_get",
+    name: "magicTransit_advancedTcpProtection_configs_tcp_protection_status_get",
     title: "Get protection status.",
-    description: "Get the protection status of the account.",
+    description: "Get the protection status of the account.\n\nGET /accounts/{account_id}/magic/advanced_tcp_protection/configs/tcp_protection_status",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/advanced-ddos-protection_identifier",
-          "description": "The account ID."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "The account ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
-      $defs: {
-        "advanced-ddos-protection_identifier": advanced_ddos_protection_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/advanced-ddos-protection_protection-status-response",
       $defs: {
-        "advanced-ddos-protection_ProtectionStatus": advanced_ddos_protection_ProtectionStatus_output,
-        "advanced-ddos-protection_api-response-common": advanced_ddos_protection_api_response_common_output,
-        "advanced-ddos-protection_messages": advanced_ddos_protection_messages_output,
-        "advanced-ddos-protection_protection-status-response": advanced_ddos_protection_protection_status_response_output,
+        "advanced-ddos-protection_ProtectionStatus": advanced$$ddos$$protection_ProtectionStatus,
+        "advanced-ddos-protection_api-response-common": advanced$$ddos$$protection_api$$response$$common,
+        "advanced-ddos-protection_messages": advanced$$ddos$$protection_messages,
+        "advanced-ddos-protection_protection-status-response": advanced$$ddos$$protection_protection$$status$$response,
       },
     },
     annotations: {
@@ -72,11 +78,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "advanced-ddos-protection_ProtectionStatus": advanced_ddos_protection_ProtectionStatus_output,
-        "advanced-ddos-protection_api-response-common": advanced_ddos_protection_api_response_common_output,
-        "advanced-ddos-protection_api-response-common-failure": advanced_ddos_protection_api_response_common_failure_output,
-        "advanced-ddos-protection_messages": advanced_ddos_protection_messages_output,
-        "advanced-ddos-protection_protection-status-response": advanced_ddos_protection_protection_status_response_output,
+        "advanced-ddos-protection_ProtectionStatus": advanced$$ddos$$protection_ProtectionStatus,
+        "advanced-ddos-protection_api-response-common": advanced$$ddos$$protection_api$$response$$common,
+        "advanced-ddos-protection_api-response-common-failure": advanced$$ddos$$protection_api$$response$$common$$failure,
+        "advanced-ddos-protection_messages": advanced$$ddos$$protection_messages,
+        "advanced-ddos-protection_protection-status-response": advanced$$ddos$$protection_protection$$status$$response,
       },
     },
     request: (args) => ({
@@ -84,37 +90,46 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "magic_transit_advanced_tcp_protection_configs_tcp_protection_status_update",
+    name: "magicTransit_advancedTcpProtection_configs_tcp_protection_status_update",
     title: "Update protection status.",
-    description: "Update the protection status of the account.",
+    description: "Update the protection status of the account.\n\nPATCH /accounts/{account_id}/magic/advanced_tcp_protection/configs/tcp_protection_status",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/advanced-ddos-protection_identifier",
-          "description": "The account ID."
-        },
         "body": {
           "$ref": "#/$defs/advanced-ddos-protection_UpdateProtectionStatus",
           "description": "The update to apply to the protection status."
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "The account ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "advanced-ddos-protection_UpdateProtectionStatus": advanced_ddos_protection_UpdateProtectionStatus,
-        "advanced-ddos-protection_identifier": advanced_ddos_protection_identifier,
+        "advanced-ddos-protection_UpdateProtectionStatus": advanced$$ddos$$protection_UpdateProtectionStatus,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/advanced-ddos-protection_protection-status-response",
       $defs: {
-        "advanced-ddos-protection_ProtectionStatus": advanced_ddos_protection_ProtectionStatus_output,
-        "advanced-ddos-protection_api-response-common": advanced_ddos_protection_api_response_common_output,
-        "advanced-ddos-protection_messages": advanced_ddos_protection_messages_output,
-        "advanced-ddos-protection_protection-status-response": advanced_ddos_protection_protection_status_response_output,
+        "advanced-ddos-protection_ProtectionStatus": advanced$$ddos$$protection_ProtectionStatus,
+        "advanced-ddos-protection_api-response-common": advanced$$ddos$$protection_api$$response$$common,
+        "advanced-ddos-protection_messages": advanced$$ddos$$protection_messages,
+        "advanced-ddos-protection_protection-status-response": advanced$$ddos$$protection_protection$$status$$response,
       },
     },
     annotations: {
@@ -141,11 +156,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "advanced-ddos-protection_ProtectionStatus": advanced_ddos_protection_ProtectionStatus_output,
-        "advanced-ddos-protection_api-response-common": advanced_ddos_protection_api_response_common_output,
-        "advanced-ddos-protection_api-response-common-failure": advanced_ddos_protection_api_response_common_failure_output,
-        "advanced-ddos-protection_messages": advanced_ddos_protection_messages_output,
-        "advanced-ddos-protection_protection-status-response": advanced_ddos_protection_protection_status_response_output,
+        "advanced-ddos-protection_ProtectionStatus": advanced$$ddos$$protection_ProtectionStatus,
+        "advanced-ddos-protection_api-response-common": advanced$$ddos$$protection_api$$response$$common,
+        "advanced-ddos-protection_api-response-common-failure": advanced$$ddos$$protection_api$$response$$common$$failure,
+        "advanced-ddos-protection_messages": advanced$$ddos$$protection_messages,
+        "advanced-ddos-protection_protection-status-response": advanced$$ddos$$protection_protection$$status$$response,
       },
     },
     request: (args) => ({

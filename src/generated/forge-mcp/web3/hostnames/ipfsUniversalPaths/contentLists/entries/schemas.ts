@@ -9,16 +9,20 @@ import type { JsonSchema } from "../../../../../_/tool.js";
 export const web3_content_list_entry_create_request: JsonSchema = {
   "properties": {
     "content": {
-      "$ref": "#/$defs/web3_content_list_entry_content",
-      "description": "Specify the CID or content path of content to block."
+      "description": "Specify the CID or content path of content to block.",
+      "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/web3_content_list_entry_description",
-      "description": "Specify an optional description of the content list entry."
+      "description": "Specify an optional description of the content list entry.",
+      "type": "string"
     },
     "type": {
-      "$ref": "#/$defs/web3_content_list_entry_type",
-      "description": "Specify the type of content list entry to block."
+      "description": "Specify the type of content list entry to block.",
+      "enum": [
+        "cid",
+        "content_path"
+      ],
+      "type": "string"
     }
   },
   "required": [

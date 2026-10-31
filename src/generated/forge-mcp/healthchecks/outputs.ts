@@ -4,16 +4,9 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
- * The schema of `healthchecks_address` in responses.
- */
-export const healthchecks_address_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `healthchecks_api-response-collection` in responses.
  */
-export const healthchecks_api_response_collection_output: JsonSchema = {
+export const healthchecks_api$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/healthchecks_api-response-common"
@@ -45,7 +38,7 @@ export const healthchecks_api_response_collection_output: JsonSchema = {
 /**
  * The schema of `healthchecks_api-response-common` in responses.
  */
-export const healthchecks_api_response_common_output: JsonSchema = {
+export const healthchecks_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/healthchecks_messages"
@@ -88,7 +81,7 @@ export const healthchecks_api_response_common_output: JsonSchema = {
 /**
  * The schema of `healthchecks_api-response-common-failure` in responses.
  */
-export const healthchecks_api_response_common_failure_output: JsonSchema = {
+export const healthchecks_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/healthchecks_messages"
@@ -118,7 +111,7 @@ export const healthchecks_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `healthchecks_api-response-single` in responses.
  */
-export const healthchecks_api_response_single_output: JsonSchema = {
+export const healthchecks_api$$response$$single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/healthchecks_api-response-common"
@@ -144,7 +137,7 @@ export const healthchecks_api_response_single_output: JsonSchema = {
 /**
  * The schema of `healthchecks_check_regions` in responses.
  */
-export const healthchecks_check_regions_output: JsonSchema = {
+export const healthchecks_check_regions: JsonSchema = {
   "oneOf": [
     {
       "items": {
@@ -175,91 +168,71 @@ export const healthchecks_check_regions_output: JsonSchema = {
 };
 
 /**
- * The schema of `healthchecks_consecutive_fails` in responses.
- */
-export const healthchecks_consecutive_fails_output: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `healthchecks_consecutive_successes` in responses.
- */
-export const healthchecks_consecutive_successes_output: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `healthchecks_description` in responses.
- */
-export const healthchecks_description_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `healthchecks_failure_reason` in responses.
- */
-export const healthchecks_failure_reason_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `healthchecks_healthchecks` in responses.
  */
-export const healthchecks_healthchecks_output: JsonSchema = {
+export const healthchecks_healthchecks: JsonSchema = {
   "properties": {
     "address": {
-      "$ref": "#/$defs/healthchecks_address"
+      "type": "string"
     },
     "check_regions": {
       "$ref": "#/$defs/healthchecks_check_regions"
     },
     "consecutive_fails": {
-      "$ref": "#/$defs/healthchecks_consecutive_fails"
+      "type": "integer"
     },
     "consecutive_successes": {
-      "$ref": "#/$defs/healthchecks_consecutive_successes"
+      "type": "integer"
     },
     "created_on": {
-      "$ref": "#/$defs/healthchecks_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "description": {
-      "$ref": "#/$defs/healthchecks_description"
+      "type": "string"
     },
     "failure_reason": {
-      "$ref": "#/$defs/healthchecks_failure_reason"
+      "type": "string"
     },
     "http_config": {
       "$ref": "#/$defs/healthchecks_http_config"
     },
     "id": {
-      "$ref": "#/$defs/healthchecks_identifier"
+      "type": "string"
     },
     "interval": {
-      "$ref": "#/$defs/healthchecks_interval"
+      "type": "integer"
     },
     "modified_on": {
-      "$ref": "#/$defs/healthchecks_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/healthchecks_name"
+      "type": "string"
     },
     "retries": {
-      "$ref": "#/$defs/healthchecks_retries"
+      "type": "integer"
     },
     "status": {
-      "$ref": "#/$defs/healthchecks_status"
+      "enum": [
+        "unknown",
+        "healthy",
+        "unhealthy",
+        "suspended"
+      ],
+      "type": "string"
     },
     "suspended": {
-      "$ref": "#/$defs/healthchecks_suspended"
+      "type": "boolean"
     },
     "tcp_config": {
       "$ref": "#/$defs/healthchecks_tcp_config"
     },
     "timeout": {
-      "$ref": "#/$defs/healthchecks_timeout"
+      "type": "integer"
     },
     "type": {
-      "$ref": "#/$defs/healthchecks_type"
+      "type": "string"
     }
   },
   "type": "object"
@@ -268,7 +241,7 @@ export const healthchecks_healthchecks_output: JsonSchema = {
 /**
  * The schema of `healthchecks_http_config` in responses.
  */
-export const healthchecks_http_config_output: JsonSchema = {
+export const healthchecks_http_config: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -335,7 +308,7 @@ export const healthchecks_http_config_output: JsonSchema = {
 /**
  * The schema of `healthchecks_id_response` in responses.
  */
-export const healthchecks_id_response_output: JsonSchema = {
+export const healthchecks_id_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/healthchecks_api-response-single"
@@ -345,7 +318,7 @@ export const healthchecks_id_response_output: JsonSchema = {
         "result": {
           "properties": {
             "id": {
-              "$ref": "#/$defs/healthchecks_identifier"
+              "type": "string"
             }
           },
           "type": "object"
@@ -357,23 +330,9 @@ export const healthchecks_id_response_output: JsonSchema = {
 };
 
 /**
- * The schema of `healthchecks_identifier` in responses.
- */
-export const healthchecks_identifier_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `healthchecks_interval` in responses.
- */
-export const healthchecks_interval_output: JsonSchema = {
-  "type": "integer"
-};
-
-/**
  * The schema of `healthchecks_messages` in responses.
  */
-export const healthchecks_messages_output: JsonSchema = {
+export const healthchecks_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -393,16 +352,9 @@ export const healthchecks_messages_output: JsonSchema = {
 };
 
 /**
- * The schema of `healthchecks_name` in responses.
- */
-export const healthchecks_name_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `healthchecks_response_collection` in responses.
  */
-export const healthchecks_response_collection_output: JsonSchema = {
+export const healthchecks_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/healthchecks_api-response-collection"
@@ -424,7 +376,7 @@ export const healthchecks_response_collection_output: JsonSchema = {
 /**
  * The schema of `healthchecks_result_info` in responses.
  */
-export const healthchecks_result_info_output: JsonSchema = {
+export const healthchecks_result_info: JsonSchema = {
   "properties": {
     "count": {
       "type": "number"
@@ -443,16 +395,9 @@ export const healthchecks_result_info_output: JsonSchema = {
 };
 
 /**
- * The schema of `healthchecks_retries` in responses.
- */
-export const healthchecks_retries_output: JsonSchema = {
-  "type": "integer"
-};
-
-/**
  * The schema of `healthchecks_single_response` in responses.
  */
-export const healthchecks_single_response_output: JsonSchema = {
+export const healthchecks_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/healthchecks_api-response-single"
@@ -469,29 +414,9 @@ export const healthchecks_single_response_output: JsonSchema = {
 };
 
 /**
- * The schema of `healthchecks_status` in responses.
- */
-export const healthchecks_status_output: JsonSchema = {
-  "enum": [
-    "unknown",
-    "healthy",
-    "unhealthy",
-    "suspended"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `healthchecks_suspended` in responses.
- */
-export const healthchecks_suspended_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `healthchecks_tcp_config` in responses.
  */
-export const healthchecks_tcp_config_output: JsonSchema = {
+export const healthchecks_tcp_config: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -511,26 +436,4 @@ export const healthchecks_tcp_config_output: JsonSchema = {
       "type": "null"
     }
   ]
-};
-
-/**
- * The schema of `healthchecks_timeout` in responses.
- */
-export const healthchecks_timeout_output: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `healthchecks_timestamp` in responses.
- */
-export const healthchecks_timestamp_output: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `healthchecks_type` in responses.
- */
-export const healthchecks_type_output: JsonSchema = {
-  "type": "string"
 };

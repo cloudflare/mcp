@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `r2_r2_bucket_job` in responses.
  */
-export const r2_r2_bucket_job_output: JsonSchema = {
+export const r2_r2_bucket_job: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/r2_prefix_delete_job"
@@ -20,7 +20,7 @@ export const r2_r2_bucket_job_output: JsonSchema = {
 /**
  * The schema of `r2_r2_bucket_jobs_result` in responses.
  */
-export const r2_r2_bucket_jobs_result_output: JsonSchema = {
+export const r2_r2_bucket_jobs_result: JsonSchema = {
   "properties": {
     "jobs": {
       "items": {
@@ -41,7 +41,7 @@ export const r2_r2_bucket_jobs_result_output: JsonSchema = {
 /**
  * The schema of `r2_storage_class_migration_job` in responses.
  */
-export const r2_storage_class_migration_job_output: JsonSchema = {
+export const r2_storage_class_migration_job: JsonSchema = {
   "properties": {
     "endTime": {
       "format": "date-time",
@@ -61,7 +61,14 @@ export const r2_storage_class_migration_job_output: JsonSchema = {
       "type": "string"
     },
     "status": {
-      "$ref": "#/$defs/r2_r2_bucket_job_status"
+      "enum": [
+        "ENQUEUED",
+        "RUNNING",
+        "COMPLETED",
+        "FAILED",
+        "CANCELLED"
+      ],
+      "type": "string"
     },
     "storageClassMigration": {
       "properties": {

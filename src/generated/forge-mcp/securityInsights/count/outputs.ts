@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `security-center_partnerInsightCountResponse` in responses.
  */
-export const security_center_partnerInsightCountResponse_output: JsonSchema = {
+export const security$$center_partnerInsightCountResponse: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/security-center_api-response-common"

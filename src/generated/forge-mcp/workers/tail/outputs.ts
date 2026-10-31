@@ -6,13 +6,13 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `workers_tail` in responses.
  */
-export const workers_tail_output: JsonSchema = {
+export const workers_tail: JsonSchema = {
   "properties": {
     "expires_at": {
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/workers_identifier"
+      "type": "string"
     },
     "url": {
       "type": "string"

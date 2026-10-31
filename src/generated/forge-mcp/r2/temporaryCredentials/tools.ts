@@ -3,40 +3,48 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  r2_errors_output,
-  r2_messages_output,
-  r2_v4_response_failure_output,
-  r2_v4_response_output,
+  r2_errors,
+  r2_messages,
+  r2_v4_response,
+  r2_v4_response_failure,
 } from "../outputs.js";
-import { r2_account_identifier } from "../schemas.js";
-import { r2_temp_access_creds_response_output } from "./outputs.js";
+import { r2_temp_access_creds_response } from "./outputs.js";
 import { r2_temp_access_creds_request } from "./schemas.js";
 
 /**
- * The tools of `r2.temporary_credentials`.
+ * The tools of `r2.temporaryCredentials`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "r2_temporary_credentials_create",
+    name: "r2_temporaryCredentials_create",
     title: "Create Temporary Access Credentials",
-    description: "Creates temporary access credentials on a bucket that can be optionally scoped to prefixes or objects.",
+    description: "Creates temporary access credentials on a bucket that can be optionally scoped to prefixes or objects.\n\nPOST /accounts/{account_id}/r2/temp-access-credentials",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/r2_account_identifier",
-          "description": "Cloudflare account ID that owns the R2 resource."
-        },
         "body": {
           "$ref": "#/$defs/r2_temp_access_creds_request"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID that owns the R2 resource.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "r2_account_identifier": r2_account_identifier,
         "r2_temp_access_creds_request": r2_temp_access_creds_request,
       },
     },
@@ -55,10 +63,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "r2_errors": r2_errors_output,
-        "r2_messages": r2_messages_output,
-        "r2_temp_access_creds_response": r2_temp_access_creds_response_output,
-        "r2_v4_response": r2_v4_response_output,
+        "r2_errors": r2_errors,
+        "r2_messages": r2_messages,
+        "r2_temp_access_creds_response": r2_temp_access_creds_response,
+        "r2_v4_response": r2_v4_response,
       },
     },
     annotations: {
@@ -92,11 +100,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "r2_errors": r2_errors_output,
-        "r2_messages": r2_messages_output,
-        "r2_temp_access_creds_response": r2_temp_access_creds_response_output,
-        "r2_v4_response": r2_v4_response_output,
-        "r2_v4_response_failure": r2_v4_response_failure_output,
+        "r2_errors": r2_errors,
+        "r2_messages": r2_messages,
+        "r2_temp_access_creds_response": r2_temp_access_creds_response,
+        "r2_v4_response": r2_v4_response,
+        "r2_v4_response_failure": r2_v4_response_failure,
       },
     },
     request: (args) => ({

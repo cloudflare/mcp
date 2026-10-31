@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `tunnel_config` in responses.
  */
-export const tunnel_config_output: JsonSchema = {
+export const tunnel_config: JsonSchema = {
   "properties": {
     "ingress": {
       "items": {
@@ -23,45 +23,33 @@ export const tunnel_config_output: JsonSchema = {
 };
 
 /**
- * The schema of `tunnel_config_src-2` in responses.
- */
-export const tunnel_config_src_2_output: JsonSchema = {
-  "enum": [
-    "local",
-    "cloudflare"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `tunnel_config_version-2` in responses.
- */
-export const tunnel_config_version_2_output: JsonSchema = {
-  "type": "integer"
-};
-
-/**
  * The schema of `tunnel_configuration` in responses.
  */
-export const tunnel_configuration_output: JsonSchema = {
+export const tunnel_configuration: JsonSchema = {
   "properties": {
     "account_id": {
-      "$ref": "#/$defs/tunnel_identifier"
+      "type": "string"
     },
     "config": {
       "$ref": "#/$defs/tunnel_config"
     },
     "created_at": {
-      "$ref": "#/$defs/tunnel_timestamp"
+      "format": "date-time",
+      "type": "string"
     },
     "source": {
-      "$ref": "#/$defs/tunnel_config_src-2"
+      "enum": [
+        "local",
+        "cloudflare"
+      ],
+      "type": "string"
     },
     "tunnel_id": {
-      "$ref": "#/$defs/tunnel_tunnel_id-2"
+      "format": "uuid",
+      "type": "string"
     },
     "version": {
-      "$ref": "#/$defs/tunnel_config_version-2"
+      "type": "integer"
     }
   },
   "type": "object"
@@ -70,7 +58,7 @@ export const tunnel_configuration_output: JsonSchema = {
 /**
  * The schema of `tunnel_configuration_response` in responses.
  */
-export const tunnel_configuration_response_output: JsonSchema = {
+export const tunnel_configuration_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tunnel_api-response-single-2"
@@ -89,7 +77,7 @@ export const tunnel_configuration_response_output: JsonSchema = {
 /**
  * The schema of `tunnel_ingressRule` in responses.
  */
-export const tunnel_ingressRule_output: JsonSchema = {
+export const tunnel_ingressRule: JsonSchema = {
   "properties": {
     "hostname": {
       "type": "string"
@@ -114,7 +102,7 @@ export const tunnel_ingressRule_output: JsonSchema = {
 /**
  * The schema of `tunnel_originRequest` in responses.
  */
-export const tunnel_originRequest_output: JsonSchema = {
+export const tunnel_originRequest: JsonSchema = {
   "properties": {
     "access": {
       "properties": {
@@ -181,12 +169,4 @@ export const tunnel_originRequest_output: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `tunnel_timestamp` in responses.
- */
-export const tunnel_timestamp_output: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
 };

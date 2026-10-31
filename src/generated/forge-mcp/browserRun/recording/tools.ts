@@ -4,29 +4,39 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 
 /**
- * The tools of `browser_run.recording`.
+ * The tools of `browserRun.recording`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "browser_run_recording_get",
+    name: "browserRun_recording_get",
     title: "Get recording data.",
-    description: "Returns the recording data for a given session as a dictionary of events per targetId.",
+    description: "Returns the recording data for a given session as a dictionary of events per targetId.\n\nGET /accounts/{account_id}/browser-rendering/recording/{session_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account ID.",
-          "type": "string"
-        },
-        "session_id": {
-          "description": "Session ID.",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account ID.",
+              "type": "string"
+            },
+            "session_id": {
+              "description": "Session ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "session_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "session_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

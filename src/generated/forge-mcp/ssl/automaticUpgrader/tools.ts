@@ -3,42 +3,48 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  cache_api_response_common_failure_output,
-  cache_api_response_single_id_output,
-  cache_messages_output,
-  cache_result_output,
+  cache_api$$response$$common$$failure,
+  cache_api$$response$$single$$id,
+  cache_messages,
+  cache_result,
 } from "../outputs.js";
-import { cache_identifier } from "../schemas.js";
-import { cache_schemas_patch, cache_schemas_value } from "./schemas.js";
+import { cache_schemas_patch } from "./schemas.js";
 
 /**
- * The tools of `ssl.automatic_upgrader`.
+ * The tools of `ssl.automaticUpgrader`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "ssl_automatic_upgrader_get",
+    name: "ssl_automaticUpgrader_get",
     title: "Get Automatic SSL/TLS enrollment status for the given zone",
-    description: "If the system is enabled, the response will include next_scheduled_scan, representing the next time this zone will be scanned and the zone's ssl/tls encryption mode is potentially upgraded by the system. If the system is disabled, next_scheduled_scan will not be present in the response body.",
+    description: "If the system is enabled, the response will include next_scheduled_scan, representing the next time this zone will be scanned and the zone's ssl/tls encryption mode is potentially upgraded by the system. If the system is disabled, next_scheduled_scan will not be present in the response body.\n\nGET /zones/{zone_id}/settings/ssl_automatic_mode",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/cache_identifier"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
-      $defs: {
-        "cache_identifier": cache_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/cache_api-response-single-id",
       $defs: {
-        "cache_api-response-single-id": cache_api_response_single_id_output,
-        "cache_messages": cache_messages_output,
-        "cache_result": cache_result_output,
+        "cache_api-response-single-id": cache_api$$response$$single$$id,
+        "cache_messages": cache_messages,
+        "cache_result": cache_result,
       },
     },
     annotations: {
@@ -79,10 +85,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cache_api-response-common-failure": cache_api_response_common_failure_output,
-        "cache_api-response-single-id": cache_api_response_single_id_output,
-        "cache_messages": cache_messages_output,
-        "cache_result": cache_result_output,
+        "cache_api-response-common-failure": cache_api$$response$$common$$failure,
+        "cache_api-response-single-id": cache_api$$response$$single$$id,
+        "cache_messages": cache_messages,
+        "cache_result": cache_result,
       },
     },
     request: (args) => ({
@@ -90,35 +96,43 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "ssl_automatic_upgrader_patch",
+    name: "ssl_automaticUpgrader_patch",
     title: "Patch Automatic SSL/TLS Enrollment status for given zone",
-    description: "The automatic system is enabled when this endpoint is hit with value in the request body is set to \"auto\", and disabled when the request body value is set to \"custom\".",
+    description: "The automatic system is enabled when this endpoint is hit with value in the request body is set to \"auto\", and disabled when the request body value is set to \"custom\".\n\nPATCH /zones/{zone_id}/settings/ssl_automatic_mode",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "$ref": "#/$defs/cache_schemas_patch"
         },
-        "zone_id": {
-          "$ref": "#/$defs/cache_identifier"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "cache_identifier": cache_identifier,
         "cache_schemas_patch": cache_schemas_patch,
-        "cache_schemas_value": cache_schemas_value,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/cache_api-response-single-id",
       $defs: {
-        "cache_api-response-single-id": cache_api_response_single_id_output,
-        "cache_messages": cache_messages_output,
-        "cache_result": cache_result_output,
+        "cache_api-response-single-id": cache_api$$response$$single$$id,
+        "cache_messages": cache_messages,
+        "cache_result": cache_result,
       },
     },
     annotations: {
@@ -158,10 +172,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cache_api-response-common-failure": cache_api_response_common_failure_output,
-        "cache_api-response-single-id": cache_api_response_single_id_output,
-        "cache_messages": cache_messages_output,
-        "cache_result": cache_result_output,
+        "cache_api-response-common-failure": cache_api$$response$$common$$failure,
+        "cache_api-response-single-id": cache_api$$response$$single$$id,
+        "cache_messages": cache_messages,
+        "cache_result": cache_result,
       },
     },
     request: (args) => ({

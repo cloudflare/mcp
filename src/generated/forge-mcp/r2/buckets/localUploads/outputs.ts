@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `r2_local_uploads_configuration` in responses.
  */
-export const r2_local_uploads_configuration_output: JsonSchema = {
+export const r2_local_uploads_configuration: JsonSchema = {
   "properties": {
     "enabled": {
       "type": "boolean"

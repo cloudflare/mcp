@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `registrar-api_cursor_result_info` in responses.
  */
-export const registrar_api_cursor_result_info_output: JsonSchema = {
+export const registrar$$api_cursor_result_info: JsonSchema = {
   "properties": {
     "count": {
       "type": "integer"
@@ -29,7 +29,7 @@ export const registrar_api_cursor_result_info_output: JsonSchema = {
 /**
  * The schema of `registrar-api_domain_check_response` in responses.
  */
-export const registrar_api_domain_check_response_output: JsonSchema = {
+export const registrar$$api_domain_check_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/registrar-api_api-response-common"
@@ -62,7 +62,7 @@ export const registrar_api_domain_check_response_output: JsonSchema = {
 /**
  * The schema of `registrar-api_domain_check_result` in responses.
  */
-export const registrar_api_domain_check_result_output: JsonSchema = {
+export const registrar$$api_domain_check_result: JsonSchema = {
   "properties": {
     "name": {
       "type": "string"
@@ -99,16 +99,9 @@ export const registrar_api_domain_check_result_output: JsonSchema = {
 };
 
 /**
- * The schema of `registrar-api_domain_name` in responses.
- */
-export const registrar_api_domain_name_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `registrar-api_domain_search_response` in responses.
  */
-export const registrar_api_domain_search_response_output: JsonSchema = {
+export const registrar$$api_domain_search_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/registrar-api_api-response-common"
@@ -141,7 +134,7 @@ export const registrar_api_domain_search_response_output: JsonSchema = {
 /**
  * The schema of `registrar-api_domain_search_result` in responses.
  */
-export const registrar_api_domain_search_result_output: JsonSchema = {
+export const registrar$$api_domain_search_result: JsonSchema = {
   "properties": {
     "name": {
       "type": "string"
@@ -178,35 +171,9 @@ export const registrar_api_domain_search_result_output: JsonSchema = {
 };
 
 /**
- * The schema of `registrar-api_domain_transfer_check_reason` in responses.
- */
-export const registrar_api_domain_transfer_check_reason_output: JsonSchema = {
-  "enum": [
-    "extension_not_supported_via_api",
-    "extension_not_supported",
-    "domain_premium",
-    "extension_disallows_transfer",
-    "domain_not_exists",
-    "domain_on_cloudflare",
-    "domain_locked",
-    "registry_status",
-    "domain_outside_transfer_window",
-    "domain_max_term",
-    "invalid_auth_code",
-    "invalid_auth_code_format",
-    "dnssec_enabled",
-    "zone_not_found",
-    "zone_status_invalid",
-    "invalid_zone_plan",
-    "domain_unsupported"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `registrar-api_domain_transfer_check_response` in responses.
  */
-export const registrar_api_domain_transfer_check_response_output: JsonSchema = {
+export const registrar$$api_domain_transfer_check_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/registrar-api_api-response-common"
@@ -239,7 +206,7 @@ export const registrar_api_domain_transfer_check_response_output: JsonSchema = {
 /**
  * The schema of `registrar-api_domain_transfer_check_result` in responses.
  */
-export const registrar_api_domain_transfer_check_result_output: JsonSchema = {
+export const registrar$$api_domain_transfer_check_result: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -253,7 +220,26 @@ export const registrar_api_domain_transfer_check_result_output: JsonSchema = {
           "items": {
             "properties": {
               "code": {
-                "$ref": "#/$defs/registrar-api_domain_transfer_check_reason"
+                "enum": [
+                  "extension_not_supported_via_api",
+                  "extension_not_supported",
+                  "domain_premium",
+                  "extension_disallows_transfer",
+                  "domain_not_exists",
+                  "domain_on_cloudflare",
+                  "domain_locked",
+                  "registry_status",
+                  "domain_outside_transfer_window",
+                  "domain_max_term",
+                  "invalid_auth_code",
+                  "invalid_auth_code_format",
+                  "dnssec_enabled",
+                  "zone_not_found",
+                  "zone_status_invalid",
+                  "invalid_zone_plan",
+                  "domain_unsupported"
+                ],
+                "type": "string"
               }
             },
             "required": [
@@ -282,7 +268,26 @@ export const registrar_api_domain_transfer_check_result_output: JsonSchema = {
               "items": {
                 "properties": {
                   "code": {
-                    "$ref": "#/$defs/registrar-api_domain_transfer_check_reason"
+                    "enum": [
+                      "extension_not_supported_via_api",
+                      "extension_not_supported",
+                      "domain_premium",
+                      "extension_disallows_transfer",
+                      "domain_not_exists",
+                      "domain_on_cloudflare",
+                      "domain_locked",
+                      "registry_status",
+                      "domain_outside_transfer_window",
+                      "domain_max_term",
+                      "invalid_auth_code",
+                      "invalid_auth_code_format",
+                      "dnssec_enabled",
+                      "zone_not_found",
+                      "zone_status_invalid",
+                      "invalid_zone_plan",
+                      "domain_unsupported"
+                    ],
+                    "type": "string"
                   }
                 },
                 "required": [
@@ -311,7 +316,26 @@ export const registrar_api_domain_transfer_check_result_output: JsonSchema = {
               "items": {
                 "properties": {
                   "code": {
-                    "$ref": "#/$defs/registrar-api_domain_transfer_check_reason"
+                    "enum": [
+                      "extension_not_supported_via_api",
+                      "extension_not_supported",
+                      "domain_premium",
+                      "extension_disallows_transfer",
+                      "domain_not_exists",
+                      "domain_on_cloudflare",
+                      "domain_locked",
+                      "registry_status",
+                      "domain_outside_transfer_window",
+                      "domain_max_term",
+                      "invalid_auth_code",
+                      "invalid_auth_code_format",
+                      "dnssec_enabled",
+                      "zone_not_found",
+                      "zone_status_invalid",
+                      "invalid_zone_plan",
+                      "domain_unsupported"
+                    ],
+                    "type": "string"
                   }
                 },
                 "required": [
@@ -342,7 +366,7 @@ export const registrar_api_domain_transfer_check_result_output: JsonSchema = {
 /**
  * The schema of `registrar-api_pricing_base` in responses.
  */
-export const registrar_api_pricing_base_output: JsonSchema = {
+export const registrar$$api_pricing_base: JsonSchema = {
   "properties": {
     "currency": {
       "type": "string"
@@ -361,7 +385,7 @@ export const registrar_api_pricing_base_output: JsonSchema = {
 /**
  * The schema of `registrar-api_pricing_registration` in responses.
  */
-export const registrar_api_pricing_registration_output: JsonSchema = {
+export const registrar$$api_pricing_registration: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/registrar-api_pricing_base"
@@ -383,7 +407,7 @@ export const registrar_api_pricing_registration_output: JsonSchema = {
 /**
  * The schema of `registrar-api_pricing_transfer` in responses.
  */
-export const registrar_api_pricing_transfer_output: JsonSchema = {
+export const registrar$$api_pricing_transfer: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/registrar-api_pricing_base"
@@ -405,7 +429,7 @@ export const registrar_api_pricing_transfer_output: JsonSchema = {
 /**
  * The schema of `registrar-api_registration` in responses.
  */
-export const registrar_api_registration_output: JsonSchema = {
+export const registrar$$api_registration: JsonSchema = {
   "properties": {
     "auto_renew": {
       "type": "boolean"
@@ -415,7 +439,7 @@ export const registrar_api_registration_output: JsonSchema = {
       "type": "string"
     },
     "domain_name": {
-      "$ref": "#/$defs/registrar-api_domain_name"
+      "type": "string"
     },
     "expires_at": {
       "oneOf": [
@@ -466,7 +490,7 @@ export const registrar_api_registration_output: JsonSchema = {
 /**
  * The schema of `registrar-api_registration-response-collection` in responses.
  */
-export const registrar_api_registration_response_collection_output: JsonSchema = {
+export const registrar$$api_registration$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/registrar-api_api-response-common"
@@ -495,7 +519,7 @@ export const registrar_api_registration_response_collection_output: JsonSchema =
 /**
  * The schema of `registrar-api_registration-response-single` in responses.
  */
-export const registrar_api_registration_response_single_output: JsonSchema = {
+export const registrar$$api_registration$$response$$single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/registrar-api_api-response-common"
@@ -514,7 +538,7 @@ export const registrar_api_registration_response_single_output: JsonSchema = {
 /**
  * The schema of `registrar-api_workflow-status-response-single` in responses.
  */
-export const registrar_api_workflow_status_response_single_output: JsonSchema = {
+export const registrar$$api_workflow$$status$$response$$single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/registrar-api_api-response-common"
@@ -533,7 +557,7 @@ export const registrar_api_workflow_status_response_single_output: JsonSchema = 
 /**
  * The schema of `registrar-api_workflow_error` in responses.
  */
-export const registrar_api_workflow_error_output: JsonSchema = {
+export const registrar$$api_workflow_error: JsonSchema = {
   "properties": {
     "code": {
       "type": "string"
@@ -552,7 +576,7 @@ export const registrar_api_workflow_error_output: JsonSchema = {
 /**
  * The schema of `registrar-api_workflow_links` in responses.
  */
-export const registrar_api_workflow_links_output: JsonSchema = {
+export const registrar$$api_workflow_links: JsonSchema = {
   "properties": {
     "resource": {
       "type": "string"
@@ -570,7 +594,7 @@ export const registrar_api_workflow_links_output: JsonSchema = {
 /**
  * The schema of `registrar-api_workflow_status` in responses.
  */
-export const registrar_api_workflow_status_output: JsonSchema = {
+export const registrar$$api_workflow_status: JsonSchema = {
   "properties": {
     "completed": {
       "type": "boolean"

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `mq_api-v4-error` in responses.
  */
-export const mq_api_v4_error_output: JsonSchema = {
+export const mq_api$$v4$$error: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -28,7 +28,7 @@ export const mq_api_v4_error_output: JsonSchema = {
 /**
  * The schema of `mq_api-v4-failure` in responses.
  */
-export const mq_api_v4_failure_output: JsonSchema = {
+export const mq_api$$v4$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/mq_api-v4-error"
@@ -49,7 +49,7 @@ export const mq_api_v4_failure_output: JsonSchema = {
 /**
  * The schema of `mq_api-v4-message` in responses.
  */
-export const mq_api_v4_message_output: JsonSchema = {
+export const mq_api$$v4$$message: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -59,7 +59,7 @@ export const mq_api_v4_message_output: JsonSchema = {
 /**
  * The schema of `mq_api-v4-success` in responses.
  */
-export const mq_api_v4_success_output: JsonSchema = {
+export const mq_api$$v4$$success: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/mq_api-v4-error"
@@ -78,16 +78,9 @@ export const mq_api_v4_success_output: JsonSchema = {
 };
 
 /**
- * The schema of `mq_batch-size` in responses.
- */
-export const mq_batch_size_output: JsonSchema = {
-  "type": "number"
-};
-
-/**
  * The schema of `mq_consumer-response` in responses.
  */
-export const mq_consumer_response_output: JsonSchema = {
+export const mq_consumer$$response: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/mq_worker-consumer-response"
@@ -101,10 +94,10 @@ export const mq_consumer_response_output: JsonSchema = {
 /**
  * The schema of `mq_http-consumer-response` in responses.
  */
-export const mq_http_consumer_response_output: JsonSchema = {
+export const mq_http$$consumer$$response: JsonSchema = {
   "properties": {
     "consumer_id": {
-      "$ref": "#/$defs/mq_identifier"
+      "type": "string"
     },
     "created_on": {
       "format": "date-time",
@@ -114,21 +107,21 @@ export const mq_http_consumer_response_output: JsonSchema = {
       "type": "string"
     },
     "queue_name": {
-      "$ref": "#/$defs/mq_queue-name"
+      "type": "string"
     },
     "settings": {
       "properties": {
         "batch_size": {
-          "$ref": "#/$defs/mq_batch-size"
+          "type": "number"
         },
         "max_retries": {
-          "$ref": "#/$defs/mq_max-retries"
+          "type": "number"
         },
         "retry_delay": {
-          "$ref": "#/$defs/mq_retry-delay"
+          "type": "number"
         },
         "visibility_timeout_ms": {
-          "$ref": "#/$defs/mq_visibility-timeout"
+          "type": "number"
         }
       },
       "type": "object"
@@ -144,49 +137,9 @@ export const mq_http_consumer_response_output: JsonSchema = {
 };
 
 /**
- * The schema of `mq_identifier` in responses.
- */
-export const mq_identifier_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `mq_jurisdiction` in responses.
- */
-export const mq_jurisdiction_output: JsonSchema = {
-  "enum": [
-    "eu",
-    "us",
-    "fedramp"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `mq_max-concurrency` in responses.
- */
-export const mq_max_concurrency_output: JsonSchema = {
-  "type": "number"
-};
-
-/**
- * The schema of `mq_max-retries` in responses.
- */
-export const mq_max_retries_output: JsonSchema = {
-  "type": "number"
-};
-
-/**
- * The schema of `mq_max-wait-time` in responses.
- */
-export const mq_max_wait_time_output: JsonSchema = {
-  "type": "number"
-};
-
-/**
  * The schema of `mq_producer` in responses.
  */
-export const mq_producer_output: JsonSchema = {
+export const mq_producer: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/mq_worker-producer"
@@ -200,7 +153,7 @@ export const mq_producer_output: JsonSchema = {
 /**
  * The schema of `mq_queue` in responses.
  */
-export const mq_queue_output: JsonSchema = {
+export const mq_queue: JsonSchema = {
   "properties": {
     "consumers": {
       "items": {
@@ -215,7 +168,12 @@ export const mq_queue_output: JsonSchema = {
       "type": "string"
     },
     "jurisdiction": {
-      "$ref": "#/$defs/mq_jurisdiction"
+      "enum": [
+        "eu",
+        "us",
+        "fedramp"
+      ],
+      "type": "string"
     },
     "modified_on": {
       "type": "string"
@@ -233,7 +191,7 @@ export const mq_queue_output: JsonSchema = {
       "type": "string"
     },
     "queue_name": {
-      "$ref": "#/$defs/mq_queue-name"
+      "type": "string"
     },
     "settings": {
       "$ref": "#/$defs/mq_queue-settings"
@@ -245,7 +203,7 @@ export const mq_queue_output: JsonSchema = {
 /**
  * The schema of `mq_queue-metrics` in responses.
  */
-export const mq_queue_metrics_output: JsonSchema = {
+export const mq_queue$$metrics: JsonSchema = {
   "properties": {
     "backlog_bytes": {
       "type": "number"
@@ -266,16 +224,9 @@ export const mq_queue_metrics_output: JsonSchema = {
 };
 
 /**
- * The schema of `mq_queue-name` in responses.
- */
-export const mq_queue_name_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `mq_queue-settings` in responses.
  */
-export const mq_queue_settings_output: JsonSchema = {
+export const mq_queue$$settings: JsonSchema = {
   "properties": {
     "delivery_delay": {
       "type": "number"
@@ -293,7 +244,7 @@ export const mq_queue_settings_output: JsonSchema = {
 /**
  * The schema of `mq_r2-producer` in responses.
  */
-export const mq_r2_producer_output: JsonSchema = {
+export const mq_r2$$producer: JsonSchema = {
   "properties": {
     "bucket_name": {
       "type": "string"
@@ -309,33 +260,12 @@ export const mq_r2_producer_output: JsonSchema = {
 };
 
 /**
- * The schema of `mq_retry-delay` in responses.
- */
-export const mq_retry_delay_output: JsonSchema = {
-  "type": "number"
-};
-
-/**
- * The schema of `mq_script-name` in responses.
- */
-export const mq_script_name_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `mq_visibility-timeout` in responses.
- */
-export const mq_visibility_timeout_output: JsonSchema = {
-  "type": "number"
-};
-
-/**
  * The schema of `mq_worker-consumer-response` in responses.
  */
-export const mq_worker_consumer_response_output: JsonSchema = {
+export const mq_worker$$consumer$$response: JsonSchema = {
   "properties": {
     "consumer_id": {
-      "$ref": "#/$defs/mq_identifier"
+      "type": "string"
     },
     "created_on": {
       "format": "date-time",
@@ -345,27 +275,27 @@ export const mq_worker_consumer_response_output: JsonSchema = {
       "type": "string"
     },
     "queue_name": {
-      "$ref": "#/$defs/mq_queue-name"
+      "type": "string"
     },
     "script_name": {
-      "$ref": "#/$defs/mq_script-name"
+      "type": "string"
     },
     "settings": {
       "properties": {
         "batch_size": {
-          "$ref": "#/$defs/mq_batch-size"
+          "type": "number"
         },
         "max_concurrency": {
-          "$ref": "#/$defs/mq_max-concurrency"
+          "type": "number"
         },
         "max_retries": {
-          "$ref": "#/$defs/mq_max-retries"
+          "type": "number"
         },
         "max_wait_time_ms": {
-          "$ref": "#/$defs/mq_max-wait-time"
+          "type": "number"
         },
         "retry_delay": {
-          "$ref": "#/$defs/mq_retry-delay"
+          "type": "number"
         }
       },
       "type": "object"
@@ -383,7 +313,7 @@ export const mq_worker_consumer_response_output: JsonSchema = {
 /**
  * The schema of `mq_worker-producer` in responses.
  */
-export const mq_worker_producer_output: JsonSchema = {
+export const mq_worker$$producer: JsonSchema = {
   "properties": {
     "script": {
       "type": "string"

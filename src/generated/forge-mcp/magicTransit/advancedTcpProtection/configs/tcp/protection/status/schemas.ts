@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../../../_/tool.js";
 /**
  * The schema of `advanced-ddos-protection_UpdateProtectionStatus`.
  */
-export const advanced_ddos_protection_UpdateProtectionStatus: JsonSchema = {
+export const advanced$$ddos$$protection_UpdateProtectionStatus: JsonSchema = {
   "properties": {
     "enabled": {
       "description": "Enables or disables protection.",

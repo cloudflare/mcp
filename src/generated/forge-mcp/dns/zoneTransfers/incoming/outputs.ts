@@ -4,16 +4,9 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `secondary-dns_auto_refresh_seconds` in responses.
- */
-export const secondary_dns_auto_refresh_seconds_output: JsonSchema = {
-  "type": "number"
-};
-
-/**
  * The schema of `secondary-dns_single_response_incoming` in responses.
  */
-export const secondary_dns_single_response_incoming_output: JsonSchema = {
+export const secondary$$dns_single_response_incoming: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/secondary-dns_api-response-single"
@@ -23,28 +16,28 @@ export const secondary_dns_single_response_incoming_output: JsonSchema = {
         "result": {
           "properties": {
             "auto_refresh_seconds": {
-              "$ref": "#/$defs/secondary-dns_auto_refresh_seconds"
+              "type": "number"
             },
             "checked_time": {
-              "$ref": "#/$defs/secondary-dns_time"
+              "type": "string"
             },
             "created_time": {
-              "$ref": "#/$defs/secondary-dns_time"
+              "type": "string"
             },
             "id": {
-              "$ref": "#/$defs/secondary-dns_identifier"
+              "type": "string"
             },
             "modified_time": {
-              "$ref": "#/$defs/secondary-dns_time"
+              "type": "string"
             },
             "name": {
-              "$ref": "#/$defs/secondary-dns_name"
+              "type": "string"
             },
             "peers": {
               "$ref": "#/$defs/secondary-dns_peers"
             },
             "soa_serial": {
-              "$ref": "#/$defs/secondary-dns_soa_serial"
+              "type": "number"
             }
           },
           "type": "object"

@@ -10,38 +10,48 @@ export const tools: readonly Tool[] = [
   {
     name: "artifacts_namespaces_repos_raw_get",
     title: "Read a raw file with content type",
-    description: "Returns file bytes resolved by ref and path, with a sniffed content type and browser-safe response headers.\n\nThis method is beta.",
+    description: "Returns file bytes resolved by ref and path, with a sniffed content type and browser-safe response headers.\n\nThis method is beta.\n\nGET /accounts/{account_id}/artifacts/namespaces/{namespace}/repos/{name}/raw/{ref}/{path}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare account ID.",
-          "type": "string"
-        },
-        "name": {
-          "description": "Repository name.",
-          "type": "string"
-        },
-        "namespace": {
-          "description": "Artifacts namespace name.",
-          "type": "string"
-        },
         "path": {
-          "description": "File path. May contain slashes.",
-          "type": "string"
-        },
-        "ref": {
-          "description": "Git ref, branch, tag, or 40-character commit hash.",
-          "type": "string"
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID.",
+              "type": "string"
+            },
+            "name": {
+              "description": "Repository name.",
+              "type": "string"
+            },
+            "namespace": {
+              "description": "Artifacts namespace name.",
+              "type": "string"
+            },
+            "path": {
+              "description": "File path. May contain slashes.",
+              "type": "string"
+            },
+            "ref": {
+              "description": "Git ref, branch, tag, or 40-character commit hash.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "namespace",
+            "name",
+            "ref",
+            "path"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "namespace",
-        "name",
-        "ref",
         "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "type": "string",

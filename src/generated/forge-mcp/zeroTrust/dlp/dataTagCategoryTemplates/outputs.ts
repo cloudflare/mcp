@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `dlp_DataTagCategoryTemplate` in responses.
  */
-export const dlp_DataTagCategoryTemplate_output: JsonSchema = {
+export const dlp_DataTagCategoryTemplate: JsonSchema = {
   "properties": {
     "description": {
       "type": "string"
@@ -37,7 +37,7 @@ export const dlp_DataTagCategoryTemplate_output: JsonSchema = {
 /**
  * The schema of `dlp_DataTagCategoryTemplateArray` in responses.
  */
-export const dlp_DataTagCategoryTemplateArray_output: JsonSchema = {
+export const dlp_DataTagCategoryTemplateArray: JsonSchema = {
   "items": {
     "$ref": "#/$defs/dlp_DataTagCategoryTemplate"
   },
@@ -47,7 +47,7 @@ export const dlp_DataTagCategoryTemplateArray_output: JsonSchema = {
 /**
  * The schema of `dlp_DataTagTemplate` in responses.
  */
-export const dlp_DataTagTemplate_output: JsonSchema = {
+export const dlp_DataTagTemplate: JsonSchema = {
   "properties": {
     "description": {
       "type": "string"

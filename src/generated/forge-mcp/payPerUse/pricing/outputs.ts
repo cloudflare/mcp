@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `pay-per-crawl_PPUOperatorPrice` in responses.
  */
-export const pay_per_crawl_PPUOperatorPrice_output: JsonSchema = {
+export const pay$$per$$crawl_PPUOperatorPrice: JsonSchema = {
   "properties": {
     "current_price": {
       "$ref": "#/$defs/pay-per-crawl_PPUPrice"
@@ -50,7 +50,7 @@ export const pay_per_crawl_PPUOperatorPrice_output: JsonSchema = {
 /**
  * The schema of `pay-per-crawl_PPUOperatorPrices` in responses.
  */
-export const pay_per_crawl_PPUOperatorPrices_output: JsonSchema = {
+export const pay$$per$$crawl_PPUOperatorPrices: JsonSchema = {
   "properties": {
     "operators": {
       "items": {
@@ -68,7 +68,7 @@ export const pay_per_crawl_PPUOperatorPrices_output: JsonSchema = {
 /**
  * The schema of `pay-per-crawl_PPUOperatorPricesResponse` in responses.
  */
-export const pay_per_crawl_PPUOperatorPricesResponse_output: JsonSchema = {
+export const pay$$per$$crawl_PPUOperatorPricesResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {

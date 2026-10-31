@@ -4,25 +4,16 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `digital-experience-monitoring_timestamp_datetime` in
- * responses.
- */
-export const digital_experience_monitoring_timestamp_datetime_output: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
  * The schema of `digital-experience-monitoring_warp_config_change_event` in
  * responses.
  */
-export const digital_experience_monitoring_warp_config_change_event_output: JsonSchema = {
+export const digital$$experience$$monitoring_warp_config_change_event: JsonSchema = {
   "properties": {
     "device_id": {
-      "$ref": "#/$defs/digital-experience-monitoring_uuid"
+      "type": "string"
     },
     "device_registration": {
-      "$ref": "#/$defs/digital-experience-monitoring_uuid"
+      "type": "string"
     },
     "from": {
       "$ref": "#/$defs/digital-experience-monitoring_warp_config_details"
@@ -31,13 +22,14 @@ export const digital_experience_monitoring_warp_config_change_event_output: Json
       "type": "string"
     },
     "registration_id": {
-      "$ref": "#/$defs/digital-experience-monitoring_uuid"
+      "type": "string"
     },
     "serial_number": {
       "type": "string"
     },
     "timestamp": {
-      "$ref": "#/$defs/digital-experience-monitoring_timestamp_datetime"
+      "format": "date-time",
+      "type": "string"
     },
     "to": {
       "$ref": "#/$defs/digital-experience-monitoring_warp_config_details"
@@ -53,13 +45,13 @@ export const digital_experience_monitoring_warp_config_change_event_output: Json
  * The schema of `digital-experience-monitoring_warp_config_details` in
  * responses.
  */
-export const digital_experience_monitoring_warp_config_details_output: JsonSchema = {
+export const digital$$experience$$monitoring_warp_config_details: JsonSchema = {
   "properties": {
     "account_name": {
       "type": "string"
     },
     "account_tag": {
-      "$ref": "#/$defs/digital-experience-monitoring_uuid"
+      "type": "string"
     },
     "config_name": {
       "type": "string"
@@ -72,7 +64,7 @@ export const digital_experience_monitoring_warp_config_details_output: JsonSchem
  * The schema of `digital-experience-monitoring_warp_events_response` in
  * responses.
  */
-export const digital_experience_monitoring_warp_events_response_output: JsonSchema = {
+export const digital$$experience$$monitoring_warp_events_response: JsonSchema = {
   "items": {
     "oneOf": [
       {
@@ -90,7 +82,7 @@ export const digital_experience_monitoring_warp_events_response_output: JsonSche
  * The schema of `digital-experience-monitoring_warp_toggle_change_event` in
  * responses.
  */
-export const digital_experience_monitoring_warp_toggle_change_event_output: JsonSchema = {
+export const digital$$experience$$monitoring_warp_toggle_change_event: JsonSchema = {
   "properties": {
     "account_name": {
       "type": "string"
@@ -99,22 +91,23 @@ export const digital_experience_monitoring_warp_toggle_change_event_output: Json
       "type": "string"
     },
     "device_id": {
-      "$ref": "#/$defs/digital-experience-monitoring_uuid"
+      "type": "string"
     },
     "device_registration": {
-      "$ref": "#/$defs/digital-experience-monitoring_uuid"
+      "type": "string"
     },
     "hostname": {
       "type": "string"
     },
     "registration_id": {
-      "$ref": "#/$defs/digital-experience-monitoring_uuid"
+      "type": "string"
     },
     "serial_number": {
       "type": "string"
     },
     "timestamp": {
-      "$ref": "#/$defs/digital-experience-monitoring_timestamp_datetime"
+      "format": "date-time",
+      "type": "string"
     },
     "toggle": {
       "enum": [

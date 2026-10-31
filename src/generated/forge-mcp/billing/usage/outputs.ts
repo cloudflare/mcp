@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `billable-usage-api_usage_info_response` in responses.
  */
-export const billable_usage_api_usage_info_response_output: JsonSchema = {
+export const billable$$usage$$api_usage_info_response: JsonSchema = {
   "properties": {
     "errors": {
       "oneOf": [
@@ -93,7 +93,7 @@ export const billable_usage_api_usage_info_response_output: JsonSchema = {
 /**
  * The schema of `billable-usage-api_usage_record` in responses.
  */
-export const billable_usage_api_usage_record_output: JsonSchema = {
+export const billable$$usage$$api_usage_record: JsonSchema = {
   "properties": {
     "BilledCost": {
       "type": "number"
@@ -256,7 +256,7 @@ export const billable_usage_api_usage_record_output: JsonSchema = {
 /**
  * The schema of `billable-usage-api_usage_response` in responses.
  */
-export const billable_usage_api_usage_response_output: JsonSchema = {
+export const billable$$usage$$api_usage_response: JsonSchema = {
   "properties": {
     "errors": {
       "oneOf": [
@@ -309,7 +309,7 @@ export const billable_usage_api_usage_response_output: JsonSchema = {
 /**
  * The schema of `billable-usage-api_v2_account_billable_metric` in responses.
  */
-export const billable_usage_api_v2_account_billable_metric_output: JsonSchema = {
+export const billable$$usage$$api_v2_account_billable_metric: JsonSchema = {
   "properties": {
     "DimensionKeys": {
       "items": {
@@ -350,7 +350,7 @@ export const billable_usage_api_v2_account_billable_metric_output: JsonSchema = 
  * The schema of `billable-usage-api_v2_account_billable_metrics_response` in
  * responses.
  */
-export const billable_usage_api_v2_account_billable_metrics_response_output: JsonSchema = {
+export const billable$$usage$$api_v2_account_billable_metrics_response: JsonSchema = {
   "properties": {
     "errors": {
       "oneOf": [
@@ -403,7 +403,7 @@ export const billable_usage_api_v2_account_billable_metrics_response_output: Jso
 /**
  * The schema of `billable-usage-api_v2_product_category` in responses.
  */
-export const billable_usage_api_v2_product_category_output: JsonSchema = {
+export const billable$$usage$$api_v2_product_category: JsonSchema = {
   "properties": {
     "Id": {
       "type": "string"
@@ -422,7 +422,7 @@ export const billable_usage_api_v2_product_category_output: JsonSchema = {
 /**
  * The schema of `billable-usage-api_v2_product_family` in responses.
  */
-export const billable_usage_api_v2_product_family_output: JsonSchema = {
+export const billable$$usage$$api_v2_product_family: JsonSchema = {
   "properties": {
     "Id": {
       "type": "string"
@@ -441,7 +441,7 @@ export const billable_usage_api_v2_product_family_output: JsonSchema = {
 /**
  * The schema of `usage-analytics_billing_usage_data_point` in responses.
  */
-export const usage_analytics_billing_usage_data_point_output: JsonSchema = {
+export const usage$$analytics_billing_usage_data_point: JsonSchema = {
   "properties": {
     "argoAcceleratedBytes": {
       "type": "integer"
@@ -480,7 +480,7 @@ export const usage_analytics_billing_usage_data_point_output: JsonSchema = {
 /**
  * The schema of `usage-analytics_billing_usage_response` in responses.
  */
-export const usage_analytics_billing_usage_response_output: JsonSchema = {
+export const usage$$analytics_billing_usage_response: JsonSchema = {
   "properties": {
     "errors": {
       "items": {

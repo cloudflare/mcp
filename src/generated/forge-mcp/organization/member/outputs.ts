@@ -7,7 +7,7 @@ import type { JsonSchema } from "../../_/tool.js";
  * The schema of `organizations-api_DeleteOrganizationMemberResult` in
  * responses.
  */
-export const organizations_api_DeleteOrganizationMemberResult_output: JsonSchema = {
+export const organizations$$api_DeleteOrganizationMemberResult: JsonSchema = {
   "properties": {
     "id": {
       "type": "string"
@@ -22,14 +22,14 @@ export const organizations_api_DeleteOrganizationMemberResult_output: JsonSchema
 /**
  * The schema of `organizations-api_Member` in responses.
  */
-export const organizations_api_Member_output: JsonSchema = {
+export const organizations$$api_Member: JsonSchema = {
   "properties": {
     "create_time": {
       "format": "date-time",
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/organizations-api_MemberID"
+      "type": "string"
     },
     "meta": {
       "additionalProperties": {
@@ -74,7 +74,7 @@ export const organizations_api_Member_output: JsonSchema = {
 /**
  * The schema of `organizations-api_MemberPolicy` in responses.
  */
-export const organizations_api_MemberPolicy_output: JsonSchema = {
+export const organizations$$api_MemberPolicy: JsonSchema = {
   "properties": {
     "id": {
       "type": "string"
@@ -106,7 +106,7 @@ export const organizations_api_MemberPolicy_output: JsonSchema = {
 /**
  * The schema of `organizations-api_MemberPolicyRole` in responses.
  */
-export const organizations_api_MemberPolicyRole_output: JsonSchema = {
+export const organizations$$api_MemberPolicyRole: JsonSchema = {
   "properties": {
     "id": {
       "type": "string"
@@ -121,7 +121,7 @@ export const organizations_api_MemberPolicyRole_output: JsonSchema = {
 /**
  * The schema of `organizations-api_MemberPolicyScope` in responses.
  */
-export const organizations_api_MemberPolicyScope_output: JsonSchema = {
+export const organizations$$api_MemberPolicyScope: JsonSchema = {
   "properties": {
     "key": {
       "type": "string"

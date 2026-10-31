@@ -4,47 +4,26 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `logpush_destination_conf-2` in responses.
- */
-export const logpush_destination_conf_2_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `logpush_fields` in responses.
- */
-export const logpush_fields_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `logpush_filter-2` in responses.
- */
-export const logpush_filter_2_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `logpush_instant_logs_job` in responses.
  */
-export const logpush_instant_logs_job_output: JsonSchema = {
+export const logpush_instant_logs_job: JsonSchema = {
   "oneOf": [
     {
       "properties": {
         "destination_conf": {
-          "$ref": "#/$defs/logpush_destination_conf-2"
+          "type": "string"
         },
         "fields": {
-          "$ref": "#/$defs/logpush_fields"
+          "type": "string"
         },
         "filter": {
-          "$ref": "#/$defs/logpush_filter-2"
+          "type": "string"
         },
         "sample": {
-          "$ref": "#/$defs/logpush_sample"
+          "type": "integer"
         },
         "session_id": {
-          "$ref": "#/$defs/logpush_session_id"
+          "type": "string"
         }
       },
       "type": "object"
@@ -58,7 +37,7 @@ export const logpush_instant_logs_job_output: JsonSchema = {
 /**
  * The schema of `logpush_instant_logs_job_response_collection` in responses.
  */
-export const logpush_instant_logs_job_response_collection_output: JsonSchema = {
+export const logpush_instant_logs_job_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/logpush_api-response-common"
@@ -87,7 +66,7 @@ export const logpush_instant_logs_job_response_collection_output: JsonSchema = {
 /**
  * The schema of `logpush_instant_logs_job_response_single` in responses.
  */
-export const logpush_instant_logs_job_response_single_output: JsonSchema = {
+export const logpush_instant_logs_job_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/logpush_api-response-single"
@@ -108,18 +87,4 @@ export const logpush_instant_logs_job_response_single_output: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `logpush_sample` in responses.
- */
-export const logpush_sample_output: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `logpush_session_id` in responses.
- */
-export const logpush_session_id_output: JsonSchema = {
-  "type": "string"
 };

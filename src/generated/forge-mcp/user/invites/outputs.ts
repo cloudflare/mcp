@@ -4,38 +4,9 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `iam_invite_components-schemas-identifier` in responses.
- */
-export const iam_invite_components_schemas_identifier_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `iam_invited_by` in responses.
- */
-export const iam_invited_by_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `iam_invited_member_email` in responses.
- */
-export const iam_invited_member_email_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `iam_invited_on` in responses.
- */
-export const iam_invited_on_output: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
  * The schema of `iam_schemas-collection_invite_response` in responses.
  */
-export const iam_schemas_collection_invite_response_output: JsonSchema = {
+export const iam_schemas$$collection_invite_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/iam_api-response-collection"
@@ -55,17 +26,9 @@ export const iam_schemas_collection_invite_response_output: JsonSchema = {
 };
 
 /**
- * The schema of `iam_schemas-expires_on` in responses.
- */
-export const iam_schemas_expires_on_output: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
  * The schema of `iam_single_invite_response` in responses.
  */
-export const iam_single_invite_response_output: JsonSchema = {
+export const iam_single_invite_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/iam_api-response-single"
@@ -84,19 +47,20 @@ export const iam_single_invite_response_output: JsonSchema = {
 /**
  * The schema of `iam_user_invite` in responses.
  */
-export const iam_user_invite_output: JsonSchema = {
+export const iam_user_invite: JsonSchema = {
   "properties": {
     "expires_on": {
-      "$ref": "#/$defs/iam_schemas-expires_on"
+      "format": "date-time",
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/iam_invite_components-schemas-identifier"
+      "type": "string"
     },
     "invited_by": {
-      "$ref": "#/$defs/iam_invited_by"
+      "type": "string"
     },
     "invited_member_email": {
-      "$ref": "#/$defs/iam_invited_member_email"
+      "type": "string"
     },
     "invited_member_id": {
       "oneOf": [
@@ -109,7 +73,8 @@ export const iam_user_invite_output: JsonSchema = {
       ]
     },
     "invited_on": {
-      "$ref": "#/$defs/iam_invited_on"
+      "format": "date-time",
+      "type": "string"
     },
     "organization_id": {
       "type": "string"

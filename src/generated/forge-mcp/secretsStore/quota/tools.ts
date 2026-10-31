@@ -3,50 +3,56 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  secrets_store_api_response_collection_output,
-  secrets_store_api_response_common_failure_output,
-  secrets_store_api_response_common_output,
-  secrets_store_messages_output,
+  secrets$$store_api$$response$$collection,
+  secrets$$store_api$$response$$common,
+  secrets$$store_api$$response$$common$$failure,
+  secrets$$store_messages,
 } from "../outputs.js";
 import {
-  secrets_store_quota_output,
-  secrets_store_quota_response_output,
-  secrets_store_secretsUsageObject_output,
-  secrets_store_usageQuotaObject_output,
-  secrets_store_usage_output,
+  secrets$$store_quota_response,
+  secrets$$store_secretsUsageObject,
+  secrets$$store_usageQuotaObject,
 } from "./outputs.js";
 
 /**
- * The tools of `secrets_store.quota`.
+ * The tools of `secretsStore.quota`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "secrets_store_quota_get",
+    name: "secretsStore_quota_get",
     title: "View secret usage",
-    description: "Lists the number of secrets used in the account.\n\nThis method is beta.",
+    description: "Lists the number of secrets used in the account.\n\nThis method is beta.\n\nGET /accounts/{account_id}/secrets_store/quota",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account identifier.",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/secrets-store_quota_response",
       $defs: {
-        "secrets-store_api-response-collection": secrets_store_api_response_collection_output,
-        "secrets-store_api-response-common": secrets_store_api_response_common_output,
-        "secrets-store_messages": secrets_store_messages_output,
-        "secrets-store_quota": secrets_store_quota_output,
-        "secrets-store_quota_response": secrets_store_quota_response_output,
-        "secrets-store_secretsUsageObject": secrets_store_secretsUsageObject_output,
-        "secrets-store_usage": secrets_store_usage_output,
-        "secrets-store_usageQuotaObject": secrets_store_usageQuotaObject_output,
+        "secrets-store_api-response-collection": secrets$$store_api$$response$$collection,
+        "secrets-store_api-response-common": secrets$$store_api$$response$$common,
+        "secrets-store_messages": secrets$$store_messages,
+        "secrets-store_quota_response": secrets$$store_quota_response,
+        "secrets-store_secretsUsageObject": secrets$$store_secretsUsageObject,
+        "secrets-store_usageQuotaObject": secrets$$store_usageQuotaObject,
       },
     },
     annotations: {
@@ -81,15 +87,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "secrets-store_api-response-collection": secrets_store_api_response_collection_output,
-        "secrets-store_api-response-common": secrets_store_api_response_common_output,
-        "secrets-store_api-response-common-failure": secrets_store_api_response_common_failure_output,
-        "secrets-store_messages": secrets_store_messages_output,
-        "secrets-store_quota": secrets_store_quota_output,
-        "secrets-store_quota_response": secrets_store_quota_response_output,
-        "secrets-store_secretsUsageObject": secrets_store_secretsUsageObject_output,
-        "secrets-store_usage": secrets_store_usage_output,
-        "secrets-store_usageQuotaObject": secrets_store_usageQuotaObject_output,
+        "secrets-store_api-response-collection": secrets$$store_api$$response$$collection,
+        "secrets-store_api-response-common": secrets$$store_api$$response$$common,
+        "secrets-store_api-response-common-failure": secrets$$store_api$$response$$common$$failure,
+        "secrets-store_messages": secrets$$store_messages,
+        "secrets-store_quota_response": secrets$$store_quota_response,
+        "secrets-store_secretsUsageObject": secrets$$store_secretsUsageObject,
+        "secrets-store_usageQuotaObject": secrets$$store_usageQuotaObject,
       },
     },
     request: (args) => ({

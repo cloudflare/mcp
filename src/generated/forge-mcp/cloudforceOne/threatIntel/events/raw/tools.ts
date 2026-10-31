@@ -4,34 +4,44 @@
 import { type Tool, pathParam } from "../../../../_/tool.js";
 
 /**
- * The tools of `cloudforce_one.threat_intel.events.raw`.
+ * The tools of `cloudforceOne.threatIntel.events.raw`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "cloudforce_one_threat_intel_events_raw_get",
+    name: "cloudforceOne_threatIntel_events_raw_get",
     title: "Get raw data for an event",
-    description: "Returns the raw source data stored with an event.",
+    description: "Returns the raw source data stored with an event.\n\nGET /accounts/{account_id}/cloudforce-one/events/datasets/{dataset_id}/events/{event_id}/raw",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account ID.",
-          "type": "string"
-        },
-        "dataset_id": {
-          "description": "Dataset ID.",
-          "type": "string"
-        },
-        "event_id": {
-          "description": "Event ID.",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account ID.",
+              "type": "string"
+            },
+            "dataset_id": {
+              "description": "Dataset ID.",
+              "type": "string"
+            },
+            "event_id": {
+              "description": "Event ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "dataset_id",
+            "event_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "dataset_id",
-        "event_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

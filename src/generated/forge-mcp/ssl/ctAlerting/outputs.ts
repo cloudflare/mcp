@@ -7,7 +7,7 @@ import type { JsonSchema } from "../../_/tool.js";
  * The schema of `tls-certificates-and-hostnames_ct_alerting_emails` in
  * responses.
  */
-export const tls_certificates_and_hostnames_ct_alerting_emails_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_ct_alerting_emails: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -16,24 +16,16 @@ export const tls_certificates_and_hostnames_ct_alerting_emails_output: JsonSchem
 };
 
 /**
- * The schema of `tls-certificates-and-hostnames_ct_alerting_enabled` in
- * responses.
- */
-export const tls_certificates_and_hostnames_ct_alerting_enabled_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `tls-certificates-and-hostnames_ct_alerting_subscription` in
  * responses.
  */
-export const tls_certificates_and_hostnames_ct_alerting_subscription_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_ct_alerting_subscription: JsonSchema = {
   "properties": {
     "emails": {
       "$ref": "#/$defs/tls-certificates-and-hostnames_ct_alerting_emails"
     },
     "enabled": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_ct_alerting_enabled"
+      "type": "boolean"
     }
   },
   "required": [
@@ -47,7 +39,7 @@ export const tls_certificates_and_hostnames_ct_alerting_subscription_output: Jso
  * `tls-certificates-and-hostnames_ct_alerting_subscription_response_single` in
  * responses.
  */
-export const tls_certificates_and_hostnames_ct_alerting_subscription_response_single_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_ct_alerting_subscription_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-single"

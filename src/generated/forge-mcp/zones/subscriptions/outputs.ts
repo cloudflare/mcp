@@ -4,30 +4,9 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `bill-subs-api_frequency_response` in responses.
- */
-export const bill_subs_api_frequency_response_output: JsonSchema = {
-  "allOf": [
-    {
-      "$ref": "#/$defs/bill-subs-api_frequency"
-    },
-    {
-      "enum": [
-        "weekly",
-        "monthly",
-        "quarterly",
-        "yearly",
-        "not-applicable"
-      ],
-      "type": "string"
-    }
-  ]
-};
-
-/**
  * The schema of `bill-subs-api_subscription_response` in responses.
  */
-export const bill_subs_api_subscription_response_output: JsonSchema = {
+export const bill$$subs$$api_subscription_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/bill-subs-api_subscription-v2"
@@ -35,7 +14,27 @@ export const bill_subs_api_subscription_response_output: JsonSchema = {
     {
       "properties": {
         "frequency": {
-          "$ref": "#/$defs/bill-subs-api_frequency_response"
+          "allOf": [
+            {
+              "enum": [
+                "weekly",
+                "monthly",
+                "quarterly",
+                "yearly"
+              ],
+              "type": "string"
+            },
+            {
+              "enum": [
+                "weekly",
+                "monthly",
+                "quarterly",
+                "yearly",
+                "not-applicable"
+              ],
+              "type": "string"
+            }
+          ]
         }
       },
       "type": "object"
@@ -46,7 +45,7 @@ export const bill_subs_api_subscription_response_output: JsonSchema = {
 /**
  * The schema of `bill-subs-api_zone_subscription_response_single` in responses.
  */
-export const bill_subs_api_zone_subscription_response_single_output: JsonSchema = {
+export const bill$$subs$$api_zone_subscription_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/bill-subs-api_api-response-single"

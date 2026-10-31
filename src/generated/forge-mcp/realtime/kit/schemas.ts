@@ -54,7 +54,7 @@ export const realtimekit_LivestreamingConfig: JsonSchema = {
  * The schema of `realtimekit_RecordingConfig`.
  */
 export const realtimekit_RecordingConfig: JsonSchema = {
-  "description": "Recording Configurations to be used for this meeting. This level of configs takes higher preference over App level configs on the RealtimeKit developer portal.\n",
+  "description": "Recording Configurations to be used for this meeting. This level of configs takes higher preference over App level configs on the RealtimeKit developer portal.",
   "properties": {
     "audio_config": {
       "$ref": "#/$defs/realtimekit_AudioConfig",
@@ -99,7 +99,7 @@ export const realtimekit_StorageConfig: JsonSchema = {
               "type": "string"
             },
             "auth_method": {
-              "description": "Authentication method used for \"sftp\" type storage medium\n",
+              "description": "Authentication method used for \"sftp\" type storage medium",
               "enum": [
                 "KEY",
                 "PASSWORD"
@@ -317,22 +317,6 @@ export const realtimekit_VideoConfig: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `realtimekit_account_identifier`.
- */
-export const realtimekit_account_identifier: JsonSchema = {
-  "description": "The account identifier tag.",
-  "type": "string"
-};
-
-/**
- * The schema of `realtimekit_app_id`.
- */
-export const realtimekit_app_id: JsonSchema = {
-  "description": "The app identifier tag.",
-  "type": "string"
 };
 
 /**

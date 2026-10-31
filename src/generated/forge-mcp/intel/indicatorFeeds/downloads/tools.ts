@@ -3,54 +3,56 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  custom_indicator_feeds_api_response_common_failure_output,
-  custom_indicator_feeds_api_response_single_output,
-  custom_indicator_feeds_messages_2_output,
-  custom_indicator_feeds_messages_output,
-  custom_indicator_feeds_update_feed_output,
-  custom_indicator_feeds_update_feed_response_output,
+  custom$$indicator$$feeds_api$$response$$single,
+  custom$$indicator$$feeds_api_response_common_failure,
+  custom$$indicator$$feeds_messages,
+  custom$$indicator$$feeds_messages$$2,
+  custom$$indicator$$feeds_update_feed,
+  custom$$indicator$$feeds_update_feed_response,
 } from "../outputs.js";
-import {
-  custom_indicator_feeds_feed_id,
-  custom_indicator_feeds_identifier,
-} from "../schemas.js";
 
 /**
- * The tools of `intel.indicator_feeds.downloads`.
+ * The tools of `intel.indicatorFeeds.downloads`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "intel_indicator_feeds_downloads_get",
+    name: "intel_indicatorFeeds_downloads_get",
     title: "Download indicator feed data",
-    description: "Downloads the content of a custom threat indicator feed.",
+    description: "Downloads the content of a custom threat indicator feed.\n\nGET /accounts/{account_id}/intel/indicator-feeds/{feed_id}/download",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/custom-indicator-feeds_identifier",
-          "description": "Identifier"
-        },
-        "feed_id": {
-          "$ref": "#/$defs/custom-indicator-feeds_feed_id",
-          "description": "Indicator feed ID"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier",
+              "type": "string"
+            },
+            "feed_id": {
+              "description": "Indicator feed ID",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "account_id",
+            "feed_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "feed_id"
+        "path"
       ],
-      $defs: {
-        "custom-indicator-feeds_feed_id": custom_indicator_feeds_feed_id,
-        "custom-indicator-feeds_identifier": custom_indicator_feeds_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/custom-indicator-feeds_update_feed_response",
       $defs: {
-        "custom-indicator-feeds_api-response-single": custom_indicator_feeds_api_response_single_output,
-        "custom-indicator-feeds_messages-2": custom_indicator_feeds_messages_2_output,
-        "custom-indicator-feeds_update_feed": custom_indicator_feeds_update_feed_output,
-        "custom-indicator-feeds_update_feed_response": custom_indicator_feeds_update_feed_response_output,
+        "custom-indicator-feeds_api-response-single": custom$$indicator$$feeds_api$$response$$single,
+        "custom-indicator-feeds_messages-2": custom$$indicator$$feeds_messages$$2,
+        "custom-indicator-feeds_update_feed": custom$$indicator$$feeds_update_feed,
+        "custom-indicator-feeds_update_feed_response": custom$$indicator$$feeds_update_feed_response,
       },
     },
     annotations: {
@@ -78,12 +80,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "custom-indicator-feeds_api-response-single": custom_indicator_feeds_api_response_single_output,
-        "custom-indicator-feeds_api_response_common_failure": custom_indicator_feeds_api_response_common_failure_output,
-        "custom-indicator-feeds_messages": custom_indicator_feeds_messages_output,
-        "custom-indicator-feeds_messages-2": custom_indicator_feeds_messages_2_output,
-        "custom-indicator-feeds_update_feed": custom_indicator_feeds_update_feed_output,
-        "custom-indicator-feeds_update_feed_response": custom_indicator_feeds_update_feed_response_output,
+        "custom-indicator-feeds_api-response-single": custom$$indicator$$feeds_api$$response$$single,
+        "custom-indicator-feeds_api_response_common_failure": custom$$indicator$$feeds_api_response_common_failure,
+        "custom-indicator-feeds_messages": custom$$indicator$$feeds_messages,
+        "custom-indicator-feeds_messages-2": custom$$indicator$$feeds_messages$$2,
+        "custom-indicator-feeds_update_feed": custom$$indicator$$feeds_update_feed,
+        "custom-indicator-feeds_update_feed_response": custom$$indicator$$feeds_update_feed_response,
       },
     },
     request: (args) => ({

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `one_ApplicationDetail` in responses.
  */
-export const one_ApplicationDetail_output: JsonSchema = {
+export const one_ApplicationDetail: JsonSchema = {
   "properties": {
     "auth_methods": {
       "items": {
@@ -91,7 +91,7 @@ export const one_ApplicationDetail_output: JsonSchema = {
 /**
  * The schema of `one_ApplicationDetailResponse` in responses.
  */
-export const one_ApplicationDetailResponse_output: JsonSchema = {
+export const one_ApplicationDetailResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -122,7 +122,7 @@ export const one_ApplicationDetailResponse_output: JsonSchema = {
 /**
  * The schema of `one_ApplicationList` in responses.
  */
-export const one_ApplicationList_output: JsonSchema = {
+export const one_ApplicationList: JsonSchema = {
   "properties": {
     "auth_methods": {
       "items": {
@@ -210,7 +210,7 @@ export const one_ApplicationList_output: JsonSchema = {
 /**
  * The schema of `one_AuthMethod` in responses.
  */
-export const one_AuthMethod_output: JsonSchema = {
+export const one_AuthMethod: JsonSchema = {
   "properties": {
     "display_name": {
       "type": "string"
@@ -240,7 +240,7 @@ export const one_AuthMethod_output: JsonSchema = {
 /**
  * The schema of `one_AuthMethodSummary` in responses.
  */
-export const one_AuthMethodSummary_output: JsonSchema = {
+export const one_AuthMethodSummary: JsonSchema = {
   "properties": {
     "display_name": {
       "type": "string"
@@ -259,7 +259,7 @@ export const one_AuthMethodSummary_output: JsonSchema = {
 /**
  * The schema of `one_FeatureScope` in responses.
  */
-export const one_FeatureScope_output: JsonSchema = {
+export const one_FeatureScope: JsonSchema = {
   "properties": {
     "description": {
       "type": "string"
@@ -289,7 +289,7 @@ export const one_FeatureScope_output: JsonSchema = {
 /**
  * The schema of `one_PaginatedApplicationListList` in responses.
  */
-export const one_PaginatedApplicationListList_output: JsonSchema = {
+export const one_PaginatedApplicationListList: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -363,7 +363,7 @@ export const one_PaginatedApplicationListList_output: JsonSchema = {
 /**
  * The schema of `one_Permission` in responses.
  */
-export const one_Permission_output: JsonSchema = {
+export const one_Permission: JsonSchema = {
   "properties": {
     "display_name": {
       "type": "string"
@@ -392,7 +392,7 @@ export const one_Permission_output: JsonSchema = {
 /**
  * The schema of `one_UseCaseDetail` in responses.
  */
-export const one_UseCaseDetail_output: JsonSchema = {
+export const one_UseCaseDetail: JsonSchema = {
   "properties": {
     "base_scopes": {
       "items": {
@@ -429,7 +429,7 @@ export const one_UseCaseDetail_output: JsonSchema = {
 /**
  * The schema of `one_UseCaseSummary` in responses.
  */
-export const one_UseCaseSummary_output: JsonSchema = {
+export const one_UseCaseSummary: JsonSchema = {
   "properties": {
     "display_name": {
       "type": "string"

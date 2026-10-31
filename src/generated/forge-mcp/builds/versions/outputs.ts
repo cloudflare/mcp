@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `builds_BuildsByVersionResponse` in responses.
  */
-export const builds_BuildsByVersionResponse_output: JsonSchema = {
+export const builds_BuildsByVersionResponse: JsonSchema = {
   "properties": {
     "builds": {
       "additionalProperties": {

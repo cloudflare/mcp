@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `dlp_Behavior` in responses.
  */
-export const dlp_Behavior_output: JsonSchema = {
+export const dlp_Behavior: JsonSchema = {
   "properties": {
     "description": {
       "type": "string"
@@ -18,7 +18,12 @@ export const dlp_Behavior_output: JsonSchema = {
       "type": "string"
     },
     "risk_level": {
-      "$ref": "#/$defs/dlp_RiskLevel"
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -33,7 +38,7 @@ export const dlp_Behavior_output: JsonSchema = {
 /**
  * The schema of `dlp_Behaviors` in responses.
  */
-export const dlp_Behaviors_output: JsonSchema = {
+export const dlp_Behaviors: JsonSchema = {
   "properties": {
     "behaviors": {
       "additionalProperties": {
@@ -51,13 +56,18 @@ export const dlp_Behaviors_output: JsonSchema = {
 /**
  * The schema of `dlp_UpdateBehavior` in responses.
  */
-export const dlp_UpdateBehavior_output: JsonSchema = {
+export const dlp_UpdateBehavior: JsonSchema = {
   "properties": {
     "enabled": {
       "type": "boolean"
     },
     "risk_level": {
-      "$ref": "#/$defs/dlp_RiskLevel"
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -70,7 +80,7 @@ export const dlp_UpdateBehavior_output: JsonSchema = {
 /**
  * The schema of `dlp_UpdateBehaviors` in responses.
  */
-export const dlp_UpdateBehaviors_output: JsonSchema = {
+export const dlp_UpdateBehaviors: JsonSchema = {
   "properties": {
     "behaviors": {
       "additionalProperties": {

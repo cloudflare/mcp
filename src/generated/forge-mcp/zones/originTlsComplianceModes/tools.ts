@@ -3,49 +3,51 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  cache_settings_api_response_common_failure_output,
-  cache_settings_api_response_common_output,
-  cache_settings_base_output,
-  cache_settings_editable_output,
-  cache_settings_messages_output,
-  cache_settings_modified_on_output,
-  cache_settings_result_object_delete_output,
-  cache_settings_result_object_output,
-  cache_settings_setting_id_output,
-  cache_settings_setting_value_output,
-  cache_settings_zone_cache_settings_delete_response_single_output,
-  cache_settings_zone_cache_settings_response_single_output,
+  cache$$settings_api$$response$$common,
+  cache$$settings_api$$response$$common$$failure,
+  cache$$settings_base,
+  cache$$settings_messages,
+  cache$$settings_result$$object,
+  cache$$settings_result$$object$$delete,
+  cache$$settings_zone_cache_settings_delete_response_single,
+  cache$$settings_zone_cache_settings_response_single,
 } from "../../outputs.js";
-import { cache_settings_identifier } from "../../schemas.js";
 import {
-  cache_settings_origin_tls_compliance_modes_output,
-  cache_settings_origin_tls_compliance_modes_response_value_output,
-  cache_settings_origin_tls_compliance_modes_value_output,
+  cache$$settings_origin_tls_compliance_modes,
+  cache$$settings_origin_tls_compliance_modes_response_value,
+  cache$$settings_origin_tls_compliance_modes_value,
 } from "./outputs.js";
-import { cache_settings_origin_tls_compliance_modes_value } from "./schemas.js";
+import { cache$$settings_origin_tls_compliance_modes_value as cache$$settings_origin_tls_compliance_modes_value$ } from "./schemas.js";
 
 /**
- * The tools of `zones.origin_tls_compliance_modes`.
+ * The tools of `zones.originTlsComplianceModes`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zones_origin_tls_compliance_modes_delete",
+    name: "zones_originTlsComplianceModes_delete",
     title: "Delete Origin TLS Compliance Modes setting",
-    description: "Delete the Origin TLS Compliance Modes setting for the zone, removing any configured compliance constraint. After deletion, Cloudflare's default behavior applies (no compliance filtering of the key-exchange algorithm list sent to the origin).",
+    description: "Delete the Origin TLS Compliance Modes setting for the zone, removing any configured compliance constraint. After deletion, Cloudflare's default behavior applies (no compliance filtering of the key-exchange algorithm list sent to the origin).\n\nDELETE /zones/{zone_id}/settings/origin_tls_compliance_modes",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/cache-settings_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
-      $defs: {
-        "cache-settings_identifier": cache_settings_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -62,15 +64,12 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "cache-settings_api-response-common": cache_settings_api_response_common_output,
-        "cache-settings_base": cache_settings_base_output,
-        "cache-settings_editable": cache_settings_editable_output,
-        "cache-settings_messages": cache_settings_messages_output,
-        "cache-settings_modified_on": cache_settings_modified_on_output,
-        "cache-settings_origin_tls_compliance_modes": cache_settings_origin_tls_compliance_modes_output,
-        "cache-settings_result-object-delete": cache_settings_result_object_delete_output,
-        "cache-settings_setting_id": cache_settings_setting_id_output,
-        "cache-settings_zone_cache_settings_delete_response_single": cache_settings_zone_cache_settings_delete_response_single_output,
+        "cache-settings_api-response-common": cache$$settings_api$$response$$common,
+        "cache-settings_base": cache$$settings_base,
+        "cache-settings_messages": cache$$settings_messages,
+        "cache-settings_origin_tls_compliance_modes": cache$$settings_origin_tls_compliance_modes,
+        "cache-settings_result-object-delete": cache$$settings_result$$object$$delete,
+        "cache-settings_zone_cache_settings_delete_response_single": cache$$settings_zone_cache_settings_delete_response_single,
       },
     },
     annotations: {
@@ -112,16 +111,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cache-settings_api-response-common": cache_settings_api_response_common_output,
-        "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
-        "cache-settings_base": cache_settings_base_output,
-        "cache-settings_editable": cache_settings_editable_output,
-        "cache-settings_messages": cache_settings_messages_output,
-        "cache-settings_modified_on": cache_settings_modified_on_output,
-        "cache-settings_origin_tls_compliance_modes": cache_settings_origin_tls_compliance_modes_output,
-        "cache-settings_result-object-delete": cache_settings_result_object_delete_output,
-        "cache-settings_setting_id": cache_settings_setting_id_output,
-        "cache-settings_zone_cache_settings_delete_response_single": cache_settings_zone_cache_settings_delete_response_single_output,
+        "cache-settings_api-response-common": cache$$settings_api$$response$$common,
+        "cache-settings_api-response-common-failure": cache$$settings_api$$response$$common$$failure,
+        "cache-settings_base": cache$$settings_base,
+        "cache-settings_messages": cache$$settings_messages,
+        "cache-settings_origin_tls_compliance_modes": cache$$settings_origin_tls_compliance_modes,
+        "cache-settings_result-object-delete": cache$$settings_result$$object$$delete,
+        "cache-settings_zone_cache_settings_delete_response_single": cache$$settings_zone_cache_settings_delete_response_single,
       },
     },
     request: (args) => ({
@@ -129,9 +125,9 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zones_origin_tls_compliance_modes_edit",
+    name: "zones_originTlsComplianceModes_edit",
     title: "Change Origin TLS Compliance Modes setting",
-    description: "Update the set of TLS compliance modes for the zone. PATCH performs a full replace of the modes list, not a merge — the request body is treated as the complete new list, and any modes not present in it are removed. (To remove a single mode from an existing configuration, send the updated list without it.) The request body must be of the form `{\"value\": [\"fips\", \"pqh\"]}`. Currently supported modes are `fips` and `pqh`; an empty list clears the constraint. Future modes (e.g. `cnsa2`) may be added; clients should treat unknown values as opaque strings. Invalid mode values are rejected with a 4xx response.",
+    description: "Update the set of TLS compliance modes for the zone. PATCH performs a full replace of the modes list, not a merge — the request body is treated as the complete new list, and any modes not present in it are removed. (To remove a single mode from an existing configuration, send the updated list without it.) The request body must be of the form `{\"value\": [\"fips\", \"pqh\"]}`. Currently supported modes are `fips` and `pqh`; an empty list clears the constraint. Future modes (e.g. `cnsa2`) may be added; clients should treat unknown values as opaque strings. Invalid mode values are rejected with a 4xx response.\n\nPATCH /zones/{zone_id}/settings/origin_tls_compliance_modes",
     inputSchema: {
       type: "object",
       properties: {
@@ -147,18 +143,27 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "zone_id": {
-          "$ref": "#/$defs/cache-settings_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "cache-settings_identifier": cache_settings_identifier,
-        "cache-settings_origin_tls_compliance_modes_value": cache_settings_origin_tls_compliance_modes_value,
+        "cache-settings_origin_tls_compliance_modes_value": cache$$settings_origin_tls_compliance_modes_value$,
       },
     },
     outputSchema: {
@@ -171,18 +176,14 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "cache-settings_api-response-common": cache_settings_api_response_common_output,
-        "cache-settings_base": cache_settings_base_output,
-        "cache-settings_editable": cache_settings_editable_output,
-        "cache-settings_messages": cache_settings_messages_output,
-        "cache-settings_modified_on": cache_settings_modified_on_output,
-        "cache-settings_origin_tls_compliance_modes": cache_settings_origin_tls_compliance_modes_output,
-        "cache-settings_origin_tls_compliance_modes_response_value": cache_settings_origin_tls_compliance_modes_response_value_output,
-        "cache-settings_origin_tls_compliance_modes_value": cache_settings_origin_tls_compliance_modes_value_output,
-        "cache-settings_result-object": cache_settings_result_object_output,
-        "cache-settings_setting_id": cache_settings_setting_id_output,
-        "cache-settings_setting_value": cache_settings_setting_value_output,
-        "cache-settings_zone_cache_settings_response_single": cache_settings_zone_cache_settings_response_single_output,
+        "cache-settings_api-response-common": cache$$settings_api$$response$$common,
+        "cache-settings_base": cache$$settings_base,
+        "cache-settings_messages": cache$$settings_messages,
+        "cache-settings_origin_tls_compliance_modes": cache$$settings_origin_tls_compliance_modes,
+        "cache-settings_origin_tls_compliance_modes_response_value": cache$$settings_origin_tls_compliance_modes_response_value,
+        "cache-settings_origin_tls_compliance_modes_value": cache$$settings_origin_tls_compliance_modes_value,
+        "cache-settings_result-object": cache$$settings_result$$object,
+        "cache-settings_zone_cache_settings_response_single": cache$$settings_zone_cache_settings_response_single,
       },
     },
     annotations: {
@@ -219,19 +220,15 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cache-settings_api-response-common": cache_settings_api_response_common_output,
-        "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
-        "cache-settings_base": cache_settings_base_output,
-        "cache-settings_editable": cache_settings_editable_output,
-        "cache-settings_messages": cache_settings_messages_output,
-        "cache-settings_modified_on": cache_settings_modified_on_output,
-        "cache-settings_origin_tls_compliance_modes": cache_settings_origin_tls_compliance_modes_output,
-        "cache-settings_origin_tls_compliance_modes_response_value": cache_settings_origin_tls_compliance_modes_response_value_output,
-        "cache-settings_origin_tls_compliance_modes_value": cache_settings_origin_tls_compliance_modes_value_output,
-        "cache-settings_result-object": cache_settings_result_object_output,
-        "cache-settings_setting_id": cache_settings_setting_id_output,
-        "cache-settings_setting_value": cache_settings_setting_value_output,
-        "cache-settings_zone_cache_settings_response_single": cache_settings_zone_cache_settings_response_single_output,
+        "cache-settings_api-response-common": cache$$settings_api$$response$$common,
+        "cache-settings_api-response-common-failure": cache$$settings_api$$response$$common$$failure,
+        "cache-settings_base": cache$$settings_base,
+        "cache-settings_messages": cache$$settings_messages,
+        "cache-settings_origin_tls_compliance_modes": cache$$settings_origin_tls_compliance_modes,
+        "cache-settings_origin_tls_compliance_modes_response_value": cache$$settings_origin_tls_compliance_modes_response_value,
+        "cache-settings_origin_tls_compliance_modes_value": cache$$settings_origin_tls_compliance_modes_value,
+        "cache-settings_result-object": cache$$settings_result$$object,
+        "cache-settings_zone_cache_settings_response_single": cache$$settings_zone_cache_settings_response_single,
       },
     },
     request: (args) => ({
@@ -240,23 +237,30 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zones_origin_tls_compliance_modes_get",
+    name: "zones_originTlsComplianceModes_get",
     title: "Get Origin TLS Compliance Modes setting",
-    description: "Origin TLS Compliance Modes constrains the set of TLS key-exchange algorithms Cloudflare may use when establishing the TLS connection to the zone's origin. The value is a list of named compliance modes (currently `fips` and `pqh`). Multiple modes are combined as the intersection of their permitted algorithm lists. An empty list (or no rule configured) means no compliance constraint is applied.",
+    description: "Origin TLS Compliance Modes constrains the set of TLS key-exchange algorithms Cloudflare may use when establishing the TLS connection to the zone's origin. The value is a list of named compliance modes (currently `fips` and `pqh`). Multiple modes are combined as the intersection of their permitted algorithm lists. An empty list (or no rule configured) means no compliance constraint is applied.\n\nGET /zones/{zone_id}/settings/origin_tls_compliance_modes",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/cache-settings_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
-      $defs: {
-        "cache-settings_identifier": cache_settings_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -268,18 +272,14 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "cache-settings_api-response-common": cache_settings_api_response_common_output,
-        "cache-settings_base": cache_settings_base_output,
-        "cache-settings_editable": cache_settings_editable_output,
-        "cache-settings_messages": cache_settings_messages_output,
-        "cache-settings_modified_on": cache_settings_modified_on_output,
-        "cache-settings_origin_tls_compliance_modes": cache_settings_origin_tls_compliance_modes_output,
-        "cache-settings_origin_tls_compliance_modes_response_value": cache_settings_origin_tls_compliance_modes_response_value_output,
-        "cache-settings_origin_tls_compliance_modes_value": cache_settings_origin_tls_compliance_modes_value_output,
-        "cache-settings_result-object": cache_settings_result_object_output,
-        "cache-settings_setting_id": cache_settings_setting_id_output,
-        "cache-settings_setting_value": cache_settings_setting_value_output,
-        "cache-settings_zone_cache_settings_response_single": cache_settings_zone_cache_settings_response_single_output,
+        "cache-settings_api-response-common": cache$$settings_api$$response$$common,
+        "cache-settings_base": cache$$settings_base,
+        "cache-settings_messages": cache$$settings_messages,
+        "cache-settings_origin_tls_compliance_modes": cache$$settings_origin_tls_compliance_modes,
+        "cache-settings_origin_tls_compliance_modes_response_value": cache$$settings_origin_tls_compliance_modes_response_value,
+        "cache-settings_origin_tls_compliance_modes_value": cache$$settings_origin_tls_compliance_modes_value,
+        "cache-settings_result-object": cache$$settings_result$$object,
+        "cache-settings_zone_cache_settings_response_single": cache$$settings_zone_cache_settings_response_single,
       },
     },
     annotations: {
@@ -316,19 +316,15 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cache-settings_api-response-common": cache_settings_api_response_common_output,
-        "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
-        "cache-settings_base": cache_settings_base_output,
-        "cache-settings_editable": cache_settings_editable_output,
-        "cache-settings_messages": cache_settings_messages_output,
-        "cache-settings_modified_on": cache_settings_modified_on_output,
-        "cache-settings_origin_tls_compliance_modes": cache_settings_origin_tls_compliance_modes_output,
-        "cache-settings_origin_tls_compliance_modes_response_value": cache_settings_origin_tls_compliance_modes_response_value_output,
-        "cache-settings_origin_tls_compliance_modes_value": cache_settings_origin_tls_compliance_modes_value_output,
-        "cache-settings_result-object": cache_settings_result_object_output,
-        "cache-settings_setting_id": cache_settings_setting_id_output,
-        "cache-settings_setting_value": cache_settings_setting_value_output,
-        "cache-settings_zone_cache_settings_response_single": cache_settings_zone_cache_settings_response_single_output,
+        "cache-settings_api-response-common": cache$$settings_api$$response$$common,
+        "cache-settings_api-response-common-failure": cache$$settings_api$$response$$common$$failure,
+        "cache-settings_base": cache$$settings_base,
+        "cache-settings_messages": cache$$settings_messages,
+        "cache-settings_origin_tls_compliance_modes": cache$$settings_origin_tls_compliance_modes,
+        "cache-settings_origin_tls_compliance_modes_response_value": cache$$settings_origin_tls_compliance_modes_response_value,
+        "cache-settings_origin_tls_compliance_modes_value": cache$$settings_origin_tls_compliance_modes_value,
+        "cache-settings_result-object": cache$$settings_result$$object,
+        "cache-settings_zone_cache_settings_response_single": cache$$settings_zone_cache_settings_response_single,
       },
     },
     request: (args) => ({
@@ -336,9 +332,9 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zones_origin_tls_compliance_modes_update",
+    name: "zones_originTlsComplianceModes_update",
     title: "Replace Origin TLS Compliance Modes setting",
-    description: "Replace the entire set of TLS compliance modes for the zone with the list provided in the request body. PUT performs a full replace, not a merge — any modes not present in the request body are removed. The request body must be of the form `{\"value\": [\"fips\", \"pqh\"]}`. Currently supported modes are `fips` and `pqh`; an empty list clears the constraint. Future modes (e.g. `cnsa2`) may be added; clients should treat unknown values as opaque strings. Invalid mode values are rejected with a 4xx response.",
+    description: "Replace the entire set of TLS compliance modes for the zone with the list provided in the request body. PUT performs a full replace, not a merge — any modes not present in the request body are removed. The request body must be of the form `{\"value\": [\"fips\", \"pqh\"]}`. Currently supported modes are `fips` and `pqh`; an empty list clears the constraint. Future modes (e.g. `cnsa2`) may be added; clients should treat unknown values as opaque strings. Invalid mode values are rejected with a 4xx response.\n\nPUT /zones/{zone_id}/settings/origin_tls_compliance_modes",
     inputSchema: {
       type: "object",
       properties: {
@@ -354,18 +350,27 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "zone_id": {
-          "$ref": "#/$defs/cache-settings_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "cache-settings_identifier": cache_settings_identifier,
-        "cache-settings_origin_tls_compliance_modes_value": cache_settings_origin_tls_compliance_modes_value,
+        "cache-settings_origin_tls_compliance_modes_value": cache$$settings_origin_tls_compliance_modes_value$,
       },
     },
     outputSchema: {
@@ -378,18 +383,14 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "cache-settings_api-response-common": cache_settings_api_response_common_output,
-        "cache-settings_base": cache_settings_base_output,
-        "cache-settings_editable": cache_settings_editable_output,
-        "cache-settings_messages": cache_settings_messages_output,
-        "cache-settings_modified_on": cache_settings_modified_on_output,
-        "cache-settings_origin_tls_compliance_modes": cache_settings_origin_tls_compliance_modes_output,
-        "cache-settings_origin_tls_compliance_modes_response_value": cache_settings_origin_tls_compliance_modes_response_value_output,
-        "cache-settings_origin_tls_compliance_modes_value": cache_settings_origin_tls_compliance_modes_value_output,
-        "cache-settings_result-object": cache_settings_result_object_output,
-        "cache-settings_setting_id": cache_settings_setting_id_output,
-        "cache-settings_setting_value": cache_settings_setting_value_output,
-        "cache-settings_zone_cache_settings_response_single": cache_settings_zone_cache_settings_response_single_output,
+        "cache-settings_api-response-common": cache$$settings_api$$response$$common,
+        "cache-settings_base": cache$$settings_base,
+        "cache-settings_messages": cache$$settings_messages,
+        "cache-settings_origin_tls_compliance_modes": cache$$settings_origin_tls_compliance_modes,
+        "cache-settings_origin_tls_compliance_modes_response_value": cache$$settings_origin_tls_compliance_modes_response_value,
+        "cache-settings_origin_tls_compliance_modes_value": cache$$settings_origin_tls_compliance_modes_value,
+        "cache-settings_result-object": cache$$settings_result$$object,
+        "cache-settings_zone_cache_settings_response_single": cache$$settings_zone_cache_settings_response_single,
       },
     },
     annotations: {
@@ -426,19 +427,15 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cache-settings_api-response-common": cache_settings_api_response_common_output,
-        "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
-        "cache-settings_base": cache_settings_base_output,
-        "cache-settings_editable": cache_settings_editable_output,
-        "cache-settings_messages": cache_settings_messages_output,
-        "cache-settings_modified_on": cache_settings_modified_on_output,
-        "cache-settings_origin_tls_compliance_modes": cache_settings_origin_tls_compliance_modes_output,
-        "cache-settings_origin_tls_compliance_modes_response_value": cache_settings_origin_tls_compliance_modes_response_value_output,
-        "cache-settings_origin_tls_compliance_modes_value": cache_settings_origin_tls_compliance_modes_value_output,
-        "cache-settings_result-object": cache_settings_result_object_output,
-        "cache-settings_setting_id": cache_settings_setting_id_output,
-        "cache-settings_setting_value": cache_settings_setting_value_output,
-        "cache-settings_zone_cache_settings_response_single": cache_settings_zone_cache_settings_response_single_output,
+        "cache-settings_api-response-common": cache$$settings_api$$response$$common,
+        "cache-settings_api-response-common-failure": cache$$settings_api$$response$$common$$failure,
+        "cache-settings_base": cache$$settings_base,
+        "cache-settings_messages": cache$$settings_messages,
+        "cache-settings_origin_tls_compliance_modes": cache$$settings_origin_tls_compliance_modes,
+        "cache-settings_origin_tls_compliance_modes_response_value": cache$$settings_origin_tls_compliance_modes_response_value,
+        "cache-settings_origin_tls_compliance_modes_value": cache$$settings_origin_tls_compliance_modes_value,
+        "cache-settings_result-object": cache$$settings_result$$object,
+        "cache-settings_zone_cache_settings_response_single": cache$$settings_zone_cache_settings_response_single,
       },
     },
     request: (args) => ({

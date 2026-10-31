@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `speed_binary_ast_response` in responses.
  */
-export const speed_binary_ast_response_output: JsonSchema = {
+export const speed_binary_ast_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/speed_base"
@@ -20,22 +20,15 @@ export const speed_binary_ast_response_output: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/speed_binary_ast_value"
+          "enum": [
+            "off",
+            "on",
+            "latest"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `speed_binary_ast_value` in responses.
- */
-export const speed_binary_ast_value_output: JsonSchema = {
-  "enum": [
-    "off",
-    "on",
-    "latest"
-  ],
-  "type": "string"
 };

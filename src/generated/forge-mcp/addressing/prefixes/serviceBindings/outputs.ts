@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `addressing_provisioning` in responses.
  */
-export const addressing_provisioning_output: JsonSchema = {
+export const addressing_provisioning: JsonSchema = {
   "properties": {
     "state": {
       "enum": [
@@ -23,30 +23,23 @@ export const addressing_provisioning_output: JsonSchema = {
 /**
  * The schema of `addressing_service_binding` in responses.
  */
-export const addressing_service_binding_output: JsonSchema = {
+export const addressing_service_binding: JsonSchema = {
   "properties": {
     "cidr": {
-      "$ref": "#/$defs/addressing_cidr"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/addressing_service_binding_identifier"
+      "type": "string"
     },
     "provisioning": {
       "$ref": "#/$defs/addressing_provisioning"
     },
     "service_id": {
-      "$ref": "#/$defs/addressing_service_identifier"
+      "type": "string"
     },
     "service_name": {
-      "$ref": "#/$defs/addressing_service_name"
+      "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `addressing_service_binding_identifier` in responses.
- */
-export const addressing_service_binding_identifier_output: JsonSchema = {
-  "type": "string"
 };

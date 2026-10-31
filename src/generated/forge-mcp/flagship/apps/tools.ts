@@ -3,10 +3,10 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  flagship_ApiMessage_output,
-  flagship_App_output,
-  flagship_DeleteAppResult_output,
-  flagship_Error_output,
+  flagship_ApiMessage,
+  flagship_App,
+  flagship_DeleteAppResult,
+  flagship_Error,
 } from "./outputs.js";
 
 /**
@@ -16,14 +16,10 @@ export const tools: readonly Tool[] = [
   {
     name: "flagship_apps_create",
     title: "Create app",
-    description: "Creates an app. The returned `id` is used in all subsequent flag, changelog, and evaluation requests.\n\nThis method is beta.",
+    description: "Creates an app. The returned `id` is used in all subsequent flag, changelog, and evaluation requests.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/flagship/apps",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare account ID that owns the Flagship app.",
-          "type": "string"
-        },
         "body": {
           "properties": {
             "name": {
@@ -35,12 +31,26 @@ export const tools: readonly Tool[] = [
             "name"
           ],
           "type": "object"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID that owns the Flagship app.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -87,7 +97,7 @@ export const tools: readonly Tool[] = [
       ],
       "type": "object",
       $defs: {
-        "flagship_App": flagship_App_output,
+        "flagship_App": flagship_App,
       },
     },
     annotations: {
@@ -182,9 +192,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "flagship_ApiMessage": flagship_ApiMessage_output,
-        "flagship_App": flagship_App_output,
-        "flagship_Error": flagship_Error_output,
+        "flagship_ApiMessage": flagship_ApiMessage,
+        "flagship_App": flagship_App,
+        "flagship_Error": flagship_Error,
       },
     },
     request: (args) => ({
@@ -195,23 +205,33 @@ export const tools: readonly Tool[] = [
   {
     name: "flagship_apps_delete",
     title: "Delete app",
-    description: "Deletes an app and all its flags and changelog history. Returns 409 if any Worker still references this app via a Flagship binding.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. Delete this Flagship app, all of its flags, and all changelog history? This action cannot be undone.",
+    description: "Deletes an app and all its flags and changelog history. Returns 409 if any Worker still references this app via a Flagship binding.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. Delete this Flagship app, all of its flags, and all changelog history? This action cannot be undone.\n\nDELETE /accounts/{account_id}/flagship/apps/{app_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare account ID that owns the Flagship app.",
-          "type": "string"
-        },
-        "app_id": {
-          "description": "Flagship app ID returned when the app was created.",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID that owns the Flagship app.",
+              "type": "string"
+            },
+            "app_id": {
+              "description": "Flagship app ID returned when the app was created.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "app_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "app_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -258,7 +278,7 @@ export const tools: readonly Tool[] = [
       ],
       "type": "object",
       $defs: {
-        "flagship_DeleteAppResult": flagship_DeleteAppResult_output,
+        "flagship_DeleteAppResult": flagship_DeleteAppResult,
       },
     },
     annotations: {
@@ -356,9 +376,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "flagship_ApiMessage": flagship_ApiMessage_output,
-        "flagship_DeleteAppResult": flagship_DeleteAppResult_output,
-        "flagship_Error": flagship_Error_output,
+        "flagship_ApiMessage": flagship_ApiMessage,
+        "flagship_DeleteAppResult": flagship_DeleteAppResult,
+        "flagship_Error": flagship_Error,
       },
     },
     request: (args) => ({
@@ -368,23 +388,33 @@ export const tools: readonly Tool[] = [
   {
     name: "flagship_apps_get",
     title: "Get app",
-    description: "Returns an app's name and audit fields. Flag definitions are not included.\n\nThis method is beta.",
+    description: "Returns an app's name and audit fields. Flag definitions are not included.\n\nThis method is beta.\n\nGET /accounts/{account_id}/flagship/apps/{app_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare account ID that owns the Flagship app.",
-          "type": "string"
-        },
-        "app_id": {
-          "description": "Flagship app ID returned when the app was created.",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID that owns the Flagship app.",
+              "type": "string"
+            },
+            "app_id": {
+              "description": "Flagship app ID returned when the app was created.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "app_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "app_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -431,7 +461,7 @@ export const tools: readonly Tool[] = [
       ],
       "type": "object",
       $defs: {
-        "flagship_App": flagship_App_output,
+        "flagship_App": flagship_App,
       },
     },
     annotations: {
@@ -527,9 +557,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "flagship_ApiMessage": flagship_ApiMessage_output,
-        "flagship_App": flagship_App_output,
-        "flagship_Error": flagship_Error_output,
+        "flagship_ApiMessage": flagship_ApiMessage,
+        "flagship_App": flagship_App,
+        "flagship_Error": flagship_Error,
       },
     },
     request: (args) => ({
@@ -539,18 +569,28 @@ export const tools: readonly Tool[] = [
   {
     name: "flagship_apps_list",
     title: "List apps",
-    description: "Lists all Flagship apps in the account. Returns identity and audit fields only; flag definitions are not included.\n\nThis method is beta.",
+    description: "Lists all Flagship apps in the account. Returns identity and audit fields only; flag definitions are not included.\n\nThis method is beta.\n\nGET /accounts/{account_id}/flagship/apps",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare account ID that owns the Flagship app.",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID that owns the Flagship app.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -600,7 +640,7 @@ export const tools: readonly Tool[] = [
       ],
       "type": "object",
       $defs: {
-        "flagship_App": flagship_App_output,
+        "flagship_App": flagship_App,
       },
     },
     annotations: {
@@ -699,9 +739,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "flagship_ApiMessage": flagship_ApiMessage_output,
-        "flagship_App": flagship_App_output,
-        "flagship_Error": flagship_Error_output,
+        "flagship_ApiMessage": flagship_ApiMessage,
+        "flagship_App": flagship_App,
+        "flagship_Error": flagship_Error,
       },
     },
     request: (args) => ({
@@ -711,18 +751,10 @@ export const tools: readonly Tool[] = [
   {
     name: "flagship_apps_update",
     title: "Update app",
-    description: "Updates an app. Only `name` is mutable.\n\nThis method is beta.",
+    description: "Updates an app. Only `name` is mutable.\n\nThis method is beta.\n\nPUT /accounts/{account_id}/flagship/apps/{app_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare account ID that owns the Flagship app.",
-          "type": "string"
-        },
-        "app_id": {
-          "description": "Flagship app ID returned when the app was created.",
-          "type": "string"
-        },
         "body": {
           "properties": {
             "name": {
@@ -731,13 +763,31 @@ export const tools: readonly Tool[] = [
             }
           },
           "type": "object"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID that owns the Flagship app.",
+              "type": "string"
+            },
+            "app_id": {
+              "description": "Flagship app ID returned when the app was created.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "app_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "app_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -784,7 +834,7 @@ export const tools: readonly Tool[] = [
       ],
       "type": "object",
       $defs: {
-        "flagship_App": flagship_App_output,
+        "flagship_App": flagship_App,
       },
     },
     annotations: {
@@ -879,9 +929,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "flagship_ApiMessage": flagship_ApiMessage_output,
-        "flagship_App": flagship_App_output,
-        "flagship_Error": flagship_Error_output,
+        "flagship_ApiMessage": flagship_ApiMessage,
+        "flagship_App": flagship_App,
+        "flagship_Error": flagship_Error,
       },
     },
     request: (args) => ({

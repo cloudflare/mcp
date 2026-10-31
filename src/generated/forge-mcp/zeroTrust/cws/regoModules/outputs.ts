@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `cws_PageResponseRegoModule` in responses.
  */
-export const cws_PageResponseRegoModule_output: JsonSchema = {
+export const cws_PageResponseRegoModule: JsonSchema = {
   "properties": {
     "errors": {
       "oneOf": [
@@ -67,7 +67,7 @@ export const cws_PageResponseRegoModule_output: JsonSchema = {
 /**
  * The schema of `cws_RegoModule` in responses.
  */
-export const cws_RegoModule_output: JsonSchema = {
+export const cws_RegoModule: JsonSchema = {
   "properties": {
     "created_at": {
       "format": "date-time",
@@ -105,7 +105,7 @@ export const cws_RegoModule_output: JsonSchema = {
 /**
  * The schema of `cws_ResponseRegoModule` in responses.
  */
-export const cws_ResponseRegoModule_output: JsonSchema = {
+export const cws_ResponseRegoModule: JsonSchema = {
   "properties": {
     "errors": {
       "oneOf": [

@@ -3,13 +3,9 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  workers_api_response_common_failure_output,
-  workers_messages_output,
+  workers_api$$response$$common$$failure,
+  workers_messages,
 } from "../../../../outputs.js";
-import {
-  workers_identifier,
-  workers_script_name,
-} from "../../../../schemas.js";
 
 /**
  * The tools of `workers.legacy.scripts.content`.
@@ -18,27 +14,33 @@ export const tools: readonly Tool[] = [
   {
     name: "workers_legacy_scripts_content_get",
     title: "Get Worker Script Content",
-    description: "Fetch Worker script content only.\n\nThis method is deprecated.",
+    description: "Fetch Worker script content only.\n\nThis method is deprecated.\n\nGET /accounts/{account_id}/workers/scripts/{script_name}/content/v2",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/workers_identifier",
-          "description": "Identifier."
-        },
-        "script_name": {
-          "$ref": "#/$defs/workers_script_name",
-          "description": "Name of the script."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            },
+            "script_name": {
+              "description": "Name of the script.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "script_name"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "script_name"
+        "path"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier,
-        "workers_script_name": workers_script_name,
-      },
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,
@@ -73,8 +75,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "workers_api-response-common-failure": workers_api_response_common_failure_output,
-        "workers_messages": workers_messages_output,
+        "workers_api-response-common-failure": workers_api$$response$$common$$failure,
+        "workers_messages": workers_messages,
       },
     },
     request: (args) => ({

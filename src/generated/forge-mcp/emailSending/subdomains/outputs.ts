@@ -6,10 +6,11 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `email_sending_subdomain` in responses.
  */
-export const email_sending_subdomain_output: JsonSchema = {
+export const email_sending_subdomain: JsonSchema = {
   "properties": {
     "created": {
-      "$ref": "#/$defs/email_created"
+      "format": "date-time",
+      "type": "string"
     },
     "dkim_selector": {
       "type": "string"
@@ -21,7 +22,8 @@ export const email_sending_subdomain_output: JsonSchema = {
       "type": "boolean"
     },
     "modified": {
-      "$ref": "#/$defs/email_modified"
+      "format": "date-time",
+      "type": "string"
     },
     "name": {
       "type": "string"
@@ -33,7 +35,7 @@ export const email_sending_subdomain_output: JsonSchema = {
       "type": "string"
     },
     "tag": {
-      "$ref": "#/$defs/email_sending_subdomain_identifier"
+      "type": "string"
     }
   },
   "required": [
@@ -47,7 +49,7 @@ export const email_sending_subdomain_output: JsonSchema = {
 /**
  * The schema of `email_sending_subdomain_config_error` in responses.
  */
-export const email_sending_subdomain_config_error_output: JsonSchema = {
+export const email_sending_subdomain_config_error: JsonSchema = {
   "properties": {
     "code": {
       "enum": [
@@ -89,16 +91,9 @@ export const email_sending_subdomain_config_error_output: JsonSchema = {
 };
 
 /**
- * The schema of `email_sending_subdomain_identifier` in responses.
- */
-export const email_sending_subdomain_identifier_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `email_sending_subdomain_preview_response` in responses.
  */
-export const email_sending_subdomain_preview_response_output: JsonSchema = {
+export const email_sending_subdomain_preview_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/email_api-response-single"
@@ -131,7 +126,7 @@ export const email_sending_subdomain_preview_response_output: JsonSchema = {
 /**
  * The schema of `email_sending_subdomain_response_single` in responses.
  */
-export const email_sending_subdomain_response_single_output: JsonSchema = {
+export const email_sending_subdomain_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/email_api-response-single"
@@ -150,7 +145,7 @@ export const email_sending_subdomain_response_single_output: JsonSchema = {
 /**
  * The schema of `email_sending_subdomains_response_collection` in responses.
  */
-export const email_sending_subdomains_response_collection_output: JsonSchema = {
+export const email_sending_subdomains_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/email_api-response-collection"

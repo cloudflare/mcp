@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `moq_api-response-common` in responses.
  */
-export const moq_api_response_common_output: JsonSchema = {
+export const moq_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -51,7 +51,7 @@ export const moq_api_response_common_output: JsonSchema = {
 /**
  * The schema of `moq_api-response-error` in responses.
  */
-export const moq_api_response_error_output: JsonSchema = {
+export const moq_api$$response$$error: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -102,7 +102,7 @@ export const moq_api_response_error_output: JsonSchema = {
 /**
  * The schema of `moq_cloudflare_jwt_issuer` in responses.
  */
-export const moq_cloudflare_jwt_issuer_output: JsonSchema = {
+export const moq_cloudflare_jwt_issuer: JsonSchema = {
   "properties": {
     "cloudflare_tokens": {
       "items": {
@@ -134,7 +134,7 @@ export const moq_cloudflare_jwt_issuer_output: JsonSchema = {
 /**
  * The schema of `moq_cloudflare_jwt_token` in responses.
  */
-export const moq_cloudflare_jwt_token_output: JsonSchema = {
+export const moq_cloudflare_jwt_token: JsonSchema = {
   "properties": {
     "created": {
       "format": "date-time",
@@ -177,14 +177,14 @@ export const moq_cloudflare_jwt_token_output: JsonSchema = {
 /**
  * The schema of `moq_issuer` in responses.
  */
-export const moq_issuer_output: JsonSchema = {
+export const moq_issuer: JsonSchema = {
   "$ref": "#/$defs/moq_cloudflare_jwt_issuer"
 };
 
 /**
  * The schema of `moq_relay` in responses.
  */
-export const moq_relay_output: JsonSchema = {
+export const moq_relay: JsonSchema = {
   "properties": {
     "config": {
       "$ref": "#/$defs/moq_relay_config"
@@ -223,7 +223,7 @@ export const moq_relay_output: JsonSchema = {
 /**
  * The schema of `moq_relay_config` in responses.
  */
-export const moq_relay_config_output: JsonSchema = {
+export const moq_relay_config: JsonSchema = {
   "properties": {
     "upstreams": {
       "$ref": "#/$defs/moq_upstreams"
@@ -235,7 +235,7 @@ export const moq_relay_config_output: JsonSchema = {
 /**
  * The schema of `moq_relay_create_response` in responses.
  */
-export const moq_relay_create_response_output: JsonSchema = {
+export const moq_relay_create_response: JsonSchema = {
   "properties": {
     "config": {
       "$ref": "#/$defs/moq_relay_config"
@@ -275,7 +275,7 @@ export const moq_relay_create_response_output: JsonSchema = {
 /**
  * The schema of `moq_relay_list_item` in responses.
  */
-export const moq_relay_list_item_output: JsonSchema = {
+export const moq_relay_list_item: JsonSchema = {
   "properties": {
     "created": {
       "format": "date-time",
@@ -304,7 +304,7 @@ export const moq_relay_list_item_output: JsonSchema = {
 /**
  * The schema of `moq_result_info` in responses.
  */
-export const moq_result_info_output: JsonSchema = {
+export const moq_result_info: JsonSchema = {
   "properties": {
     "count": {
       "type": "integer"
@@ -319,7 +319,7 @@ export const moq_result_info_output: JsonSchema = {
 /**
  * The schema of `moq_upstream` in responses.
  */
-export const moq_upstream_output: JsonSchema = {
+export const moq_upstream: JsonSchema = {
   "properties": {
     "url": {
       "type": "string"
@@ -334,7 +334,7 @@ export const moq_upstream_output: JsonSchema = {
 /**
  * The schema of `moq_upstreams` in responses.
  */
-export const moq_upstreams_output: JsonSchema = {
+export const moq_upstreams: JsonSchema = {
   "properties": {
     "enabled": {
       "type": "boolean"

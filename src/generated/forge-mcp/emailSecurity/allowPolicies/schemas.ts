@@ -4,18 +4,9 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `email-security_AllowPolicyId`.
- */
-export const email_security_AllowPolicyId: JsonSchema = {
-  "description": "Allow policy identifier.",
-  "format": "uuid",
-  "type": "string"
-};
-
-/**
  * The schema of `email-security_CreateAllowPolicy`.
  */
-export const email_security_CreateAllowPolicy: JsonSchema = {
+export const email$$security_CreateAllowPolicy: JsonSchema = {
   "description": "Create an allow policy.",
   "properties": {
     "comments": {
@@ -75,8 +66,14 @@ export const email_security_CreateAllowPolicy: JsonSchema = {
       "type": "string"
     },
     "pattern_type": {
-      "$ref": "#/$defs/email-security_PatternType",
-      "description": "Type of pattern matching.\n- EMAIL: matches a full email address (e.g. `user@example.com`)\n- DOMAIN: matches a domain name (e.g. `example.com`)\n- IP: matches a plain IPv4 or IPv6 address (e.g. `1.2.3.4` or `2606:4700:4700::1111`) or CIDR block (e.g. `1.2.3.0/24` or `2606:4700:4700::/48`). The API rejects private or unique-local, loopback, link-local, unspecified, and IPv4 broadcast addresses, including their IPv4-mapped IPv6 equivalents.\n- UNKNOWN: deprecated; you cannot use this when creating or updating policies, but it may appear on existing entries.\n"
+      "description": "Type of pattern matching.\n- EMAIL: matches a full email address (e.g. `user@example.com`)\n- DOMAIN: matches a domain name (e.g. `example.com`)\n- IP: matches a plain IPv4 or IPv6 address (e.g. `1.2.3.4` or `2606:4700:4700::1111`) or CIDR block (e.g. `1.2.3.0/24` or `2606:4700:4700::/48`). The API rejects private or unique-local, loopback, link-local, unspecified, and IPv4 broadcast addresses, including their IPv4-mapped IPv6 equivalents.\n- UNKNOWN: deprecated; you cannot use this when creating or updating policies, but it may appear on existing entries.",
+      "enum": [
+        "EMAIL",
+        "DOMAIN",
+        "IP",
+        "UNKNOWN"
+      ],
+      "type": "string"
     },
     "verify_sender": {
       "description": "Enforce DMARC, SPF or DKIM authentication. When on, Email Security only honors policies that pass authentication.",
@@ -98,7 +95,7 @@ export const email_security_CreateAllowPolicy: JsonSchema = {
 /**
  * The schema of `email-security_UpdateAllowPolicy`.
  */
-export const email_security_UpdateAllowPolicy: JsonSchema = {
+export const email$$security_UpdateAllowPolicy: JsonSchema = {
   "description": "Update an allow policy.",
   "properties": {
     "comments": {
@@ -158,8 +155,14 @@ export const email_security_UpdateAllowPolicy: JsonSchema = {
       "type": "string"
     },
     "pattern_type": {
-      "$ref": "#/$defs/email-security_PatternType",
-      "description": "Type of pattern matching.\n- EMAIL: matches a full email address (e.g. `user@example.com`)\n- DOMAIN: matches a domain name (e.g. `example.com`)\n- IP: matches a plain IPv4 or IPv6 address (e.g. `1.2.3.4` or `2606:4700:4700::1111`) or CIDR block (e.g. `1.2.3.0/24` or `2606:4700:4700::/48`). The API rejects private or unique-local, loopback, link-local, unspecified, and IPv4 broadcast addresses, including their IPv4-mapped IPv6 equivalents.\n- UNKNOWN: deprecated; you cannot use this when creating or updating policies, but it may appear on existing entries.\n"
+      "description": "Type of pattern matching.\n- EMAIL: matches a full email address (e.g. `user@example.com`)\n- DOMAIN: matches a domain name (e.g. `example.com`)\n- IP: matches a plain IPv4 or IPv6 address (e.g. `1.2.3.4` or `2606:4700:4700::1111`) or CIDR block (e.g. `1.2.3.0/24` or `2606:4700:4700::/48`). The API rejects private or unique-local, loopback, link-local, unspecified, and IPv4 broadcast addresses, including their IPv4-mapped IPv6 equivalents.\n- UNKNOWN: deprecated; you cannot use this when creating or updating policies, but it may appear on existing entries.",
+      "enum": [
+        "EMAIL",
+        "DOMAIN",
+        "IP",
+        "UNKNOWN"
+      ],
+      "type": "string"
     },
     "verify_sender": {
       "description": "Enforce DMARC, SPF or DKIM authentication. When on, Email Security only honors policies that pass authentication.",

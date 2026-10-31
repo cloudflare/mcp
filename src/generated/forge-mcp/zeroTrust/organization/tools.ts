@@ -3,118 +3,74 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  access_api_response_common_failure_output,
-  access_api_response_single_output,
-  access_created_at_output,
-  access_messages_output,
-  access_timestamp_output,
-  access_updated_at_output,
+  access_api$$response$$common$$failure,
+  access_api$$response$$single,
+  access_messages,
 } from "../outputs.js";
-import { access_identifier } from "../schemas.js";
 import {
-  access_allow_authenticate_via_warp_output,
-  access_auth_domain_output,
-  access_auto_redirect_to_identity_output,
-  access_custom_pages_output,
-  access_deny_unmatched_requests_exempted_zone_names_output,
-  access_deny_unmatched_requests_output,
-  access_disable_end_user_app_creation_output,
-  access_get_response_output,
-  access_is_ui_read_only_output,
-  access_login_design_output,
-  access_mfa_piv_key_requirements_output,
-  access_mfa_required_for_all_apps_output,
-  access_name_output,
-  access_org_mfa_config_output,
-  access_organizations_output,
-  access_service_token_inactivity_output,
-  access_session_duration_output,
-  access_single_response_output,
-  access_strict_service_token_auth_output,
-  access_ui_read_only_toggle_reason_output,
-  access_user_seat_expiration_inactive_time_output,
-  access_warp_auth_non_browser_401_output,
-  access_warp_auth_session_duration_output,
-} from "./outputs.js";
-import {
-  access_allow_authenticate_via_warp,
-  access_auth_domain,
-  access_auto_redirect_to_identity,
   access_custom_pages,
-  access_deny_unmatched_requests,
   access_deny_unmatched_requests_exempted_zone_names,
-  access_disable_end_user_app_creation,
-  access_is_ui_read_only,
+  access_get_response,
   access_login_design,
   access_mfa_piv_key_requirements,
-  access_mfa_required_for_all_apps,
-  access_name,
   access_org_mfa_config,
+  access_organizations,
   access_service_token_inactivity,
-  access_session_duration,
-  access_strict_service_token_auth,
-  access_ui_read_only_toggle_reason,
-  access_user_seat_expiration_inactive_time,
-  access_warp_auth_non_browser_401,
-  access_warp_auth_session_duration,
+  access_single_response,
+} from "./outputs.js";
+import {
+  access_custom_pages as access_custom_pages$,
+  access_deny_unmatched_requests_exempted_zone_names as access_deny_unmatched_requests_exempted_zone_names$,
+  access_login_design as access_login_design$,
+  access_mfa_piv_key_requirements as access_mfa_piv_key_requirements$,
+  access_org_mfa_config as access_org_mfa_config$,
+  access_service_token_inactivity as access_service_token_inactivity$,
 } from "./schemas.js";
 
 /**
- * The tools of `zero_trust.organization`.
+ * The tools of `zeroTrust.organization`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zero_trust_organization_create",
+    name: "zeroTrust_organization_create",
     title: "Create your Zero Trust organization",
-    description: "Sets up a Zero Trust organization for your account or zone.",
+    description: "Sets up a Zero Trust organization for your account or zone.\n\nPOST /{account_or_zone}/{account_or_zone_id}/access/organizations",
     inputSchema: {
       type: "object",
       properties: {
-        "account_or_zone": {
-          "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
-          "enum": [
-            "accounts",
-            "zones"
-          ],
-          "type": "string"
-        },
-        "account_or_zone_id": {
-          "$ref": "#/$defs/access_identifier",
-          "description": "The account ID or zone ID, as selected by account_or_zone."
-        },
         "body": {
           "properties": {
             "allow_authenticate_via_warp": {
-              "$ref": "#/$defs/access_allow_authenticate_via_warp",
               "default": false,
-              "description": "When set to true, users can authenticate via WARP for any application in your organization. Application settings will take precedence over this value."
+              "description": "When set to true, users can authenticate via WARP for any application in your organization. Application settings will take precedence over this value.",
+              "type": "boolean"
             },
             "auth_domain": {
-              "$ref": "#/$defs/access_auth_domain",
-              "description": "The unique subdomain assigned to your Zero Trust organization. If omitted on creation, a unique subdomain is auto-generated in the format `adjective-noun-hex4` (e.g. `frosty-moon-7a3b.cloudflareaccess.com`)."
+              "description": "The unique subdomain assigned to your Zero Trust organization. If omitted on creation, a unique subdomain is auto-generated in the format `adjective-noun-hex4` (e.g. `frosty-moon-7a3b.cloudflareaccess.com`).",
+              "type": "string"
             },
             "auto_redirect_to_identity": {
-              "$ref": "#/$defs/access_auto_redirect_to_identity",
               "default": false,
-              "description": "When set to `true`, users skip the identity provider selection step during login."
+              "description": "When set to `true`, users skip the identity provider selection step during login.",
+              "type": "boolean"
             },
             "deny_unmatched_requests": {
-              "$ref": "#/$defs/access_deny_unmatched_requests",
-              "description": "Determines whether to deny all requests to Cloudflare-protected resources that lack an associated Access application. If enabled, you must explicitly configure an Access application and policy to allow traffic to your Cloudflare-protected resources. For domains you want to be public across all subdomains, add the domain to the `deny_unmatched_requests_exempted_zone_names` array."
+              "description": "Determines whether to deny all requests to Cloudflare-protected resources that lack an associated Access application. If enabled, you must explicitly configure an Access application and policy to allow traffic to your Cloudflare-protected resources. For domains you want to be public across all subdomains, add the domain to the `deny_unmatched_requests_exempted_zone_names` array.",
+              "type": "boolean"
             },
             "deny_unmatched_requests_exempted_zone_names": {
               "$ref": "#/$defs/access_deny_unmatched_requests_exempted_zone_names",
               "description": "Contains zone names to exempt from the `deny_unmatched_requests` feature. Requests to a subdomain in an exempted zone will block unauthenticated traffic by default if there is a configured Access application and policy that matches the request."
             },
             "disable_end_user_app_creation": {
-              "$ref": "#/$defs/access_disable_end_user_app_creation",
               "default": false,
-              "description": "Whether creation of end user applications is disabled for this organization."
+              "description": "Whether creation of end user applications is disabled for this organization.",
+              "type": "boolean"
             },
             "is_ui_read_only": {
-              "$ref": "#/$defs/access_is_ui_read_only",
               "default": false,
-              "description": "Lock all settings as Read-Only in the Dashboard, regardless of user permission. Updates may only be made via the API or Terraform for this account when enabled."
+              "description": "Lock all settings as Read-Only in the Dashboard, regardless of user permission. Updates may only be made via the API or Terraform for this account when enabled.",
+              "type": "boolean"
             },
             "login_design": {
               "$ref": "#/$defs/access_login_design"
@@ -128,105 +84,95 @@ export const tools: readonly Tool[] = [
               "description": "Configures PIV key requirements for MFA using hardware security keys."
             },
             "mfa_required_for_all_apps": {
-              "$ref": "#/$defs/access_mfa_required_for_all_apps",
               "default": false,
-              "description": "Determines whether global MFA settings apply to applications by default. The organization must have MFA enabled with at least one authentication method and a session duration configured. Note: 'allowed_authenticators' cannot contain only the infrastructure SSH authenticators ('piv_key' and 'ssh_fido2_key') if the organization has any non-infrastructure applications."
+              "description": "Determines whether global MFA settings apply to applications by default. The organization must have MFA enabled with at least one authentication method and a session duration configured. Note: 'allowed_authenticators' cannot contain only the infrastructure SSH authenticators ('piv_key' and 'ssh_fido2_key') if the organization has any non-infrastructure applications.",
+              "type": "boolean"
             },
             "name": {
-              "$ref": "#/$defs/access_name",
-              "description": "The name of your Zero Trust organization. When omitted on creation, defaults to the provided auth_domain; when both are omitted, defaults to the auto-generated subdomain slug (e.g. frosty-moon-7a3b)."
+              "description": "The name of your Zero Trust organization. When omitted on creation, defaults to the provided auth_domain; when both are omitted, defaults to the auto-generated subdomain slug (e.g. frosty-moon-7a3b).",
+              "type": "string"
             },
             "service_token_inactivity": {
               "$ref": "#/$defs/access_service_token_inactivity",
               "description": "Configures automatic enforcement for inactive service tokens. A service token is inactive if no policy references it, and it has not successfully authenticated with an Access application during the selected inactivity period. This setting applies to every service token in your Zero Trust account."
             },
             "session_duration": {
-              "$ref": "#/$defs/access_session_duration",
-              "description": "The amount of time that tokens issued for applications will be valid. Must be in the format `300ms` or `2h45m`. Valid time units are: ns, us (or µs), ms, s, m, h."
+              "description": "The amount of time that tokens issued for applications will be valid. Must be in the format `300ms` or `2h45m`. Valid time units are: ns, us (or µs), ms, s, m, h.",
+              "type": "string"
             },
             "strict_service_token_auth": {
-              "$ref": "#/$defs/access_strict_service_token_auth",
-              "description": "Enables new behaviors for requests made with Access service tokens. Unauthorized requests emit audit logs, and return a 401 or 403 status code in the response instead of redirecting to the login page. Successful requests no longer receive a CF_Authorization cookie in the response. Zero Trust organizations created on or after October 5, 2026 will have this setting enabled by default, and cannot disable it."
+              "description": "Enables new behaviors for requests made with Access service tokens. Unauthorized requests emit audit logs, and return a 401 or 403 status code in the response instead of redirecting to the login page. Successful requests no longer receive a CF_Authorization cookie in the response. Zero Trust organizations created on or after October 5, 2026 will have this setting enabled by default, and cannot disable it.",
+              "type": "boolean"
             },
             "ui_read_only_toggle_reason": {
-              "$ref": "#/$defs/access_ui_read_only_toggle_reason",
-              "description": "A description of the reason why the UI read only field is being toggled."
+              "description": "A description of the reason why the UI read only field is being toggled.",
+              "type": "string"
             },
             "user_seat_expiration_inactive_time": {
-              "$ref": "#/$defs/access_user_seat_expiration_inactive_time",
-              "description": "The amount of time a user seat is inactive before it expires. When the user seat exceeds the set time of inactivity, the user is removed as an active seat and no longer counts against your Teams seat count.  Minimum value for this setting is 1 month (730h). Must be in the format `300ms` or `2h45m`. Valid time units are: `ns`, `us` (or `µs`), `ms`, `s`, `m`, `h`."
+              "description": "The amount of time a user seat is inactive before it expires. When the user seat exceeds the set time of inactivity, the user is removed as an active seat and no longer counts against your Teams seat count.  Minimum value for this setting is 1 month (730h). Must be in the format `300ms` or `2h45m`. Valid time units are: `ns`, `us` (or `µs`), `ms`, `s`, `m`, `h`.",
+              "type": "string"
             },
             "warp_auth_non_browser_401": {
-              "$ref": "#/$defs/access_warp_auth_non_browser_401",
               "default": false,
-              "description": "When enabled, unsuccessful WARP authentication requests with a non-HTML Accept header return a 401 response instead of redirecting to the login page."
+              "description": "When enabled, unsuccessful WARP authentication requests with a non-HTML Accept header return a 401 response instead of redirecting to the login page.",
+              "type": "boolean"
             },
             "warp_auth_session_duration": {
-              "$ref": "#/$defs/access_warp_auth_session_duration",
-              "description": "The amount of time that tokens issued for applications will be valid. Must be in the format `30m` or `2h45m`. Valid time units are: m, h."
+              "description": "The amount of time that tokens issued for applications will be valid. Must be in the format `30m` or `2h45m`. Valid time units are: m, h.",
+              "type": "string"
             }
           },
+          "type": "object"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_or_zone": {
+              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "enum": [
+                "accounts",
+                "zones"
+              ],
+              "type": "string"
+            },
+            "account_or_zone_id": {
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_or_zone",
+            "account_or_zone_id"
+          ],
           "type": "object"
         }
       },
       required: [
-        "account_or_zone",
-        "account_or_zone_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "access_allow_authenticate_via_warp": access_allow_authenticate_via_warp,
-        "access_auth_domain": access_auth_domain,
-        "access_auto_redirect_to_identity": access_auto_redirect_to_identity,
-        "access_deny_unmatched_requests": access_deny_unmatched_requests,
-        "access_deny_unmatched_requests_exempted_zone_names": access_deny_unmatched_requests_exempted_zone_names,
-        "access_disable_end_user_app_creation": access_disable_end_user_app_creation,
-        "access_identifier": access_identifier,
-        "access_is_ui_read_only": access_is_ui_read_only,
-        "access_login_design": access_login_design,
-        "access_mfa_piv_key_requirements": access_mfa_piv_key_requirements,
-        "access_mfa_required_for_all_apps": access_mfa_required_for_all_apps,
-        "access_name": access_name,
-        "access_org_mfa_config": access_org_mfa_config,
-        "access_service_token_inactivity": access_service_token_inactivity,
-        "access_session_duration": access_session_duration,
-        "access_strict_service_token_auth": access_strict_service_token_auth,
-        "access_ui_read_only_toggle_reason": access_ui_read_only_toggle_reason,
-        "access_user_seat_expiration_inactive_time": access_user_seat_expiration_inactive_time,
-        "access_warp_auth_non_browser_401": access_warp_auth_non_browser_401,
-        "access_warp_auth_session_duration": access_warp_auth_session_duration,
+        "access_deny_unmatched_requests_exempted_zone_names": access_deny_unmatched_requests_exempted_zone_names$,
+        "access_login_design": access_login_design$,
+        "access_mfa_piv_key_requirements": access_mfa_piv_key_requirements$,
+        "access_org_mfa_config": access_org_mfa_config$,
+        "access_service_token_inactivity": access_service_token_inactivity$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/access_single_response",
       $defs: {
-        "access_allow_authenticate_via_warp": access_allow_authenticate_via_warp_output,
-        "access_api-response-single": access_api_response_single_output,
-        "access_auth_domain": access_auth_domain_output,
-        "access_auto_redirect_to_identity": access_auto_redirect_to_identity_output,
-        "access_created_at": access_created_at_output,
-        "access_custom_pages": access_custom_pages_output,
-        "access_deny_unmatched_requests": access_deny_unmatched_requests_output,
-        "access_deny_unmatched_requests_exempted_zone_names": access_deny_unmatched_requests_exempted_zone_names_output,
-        "access_disable_end_user_app_creation": access_disable_end_user_app_creation_output,
-        "access_is_ui_read_only": access_is_ui_read_only_output,
-        "access_login_design": access_login_design_output,
-        "access_messages": access_messages_output,
-        "access_mfa_piv_key_requirements": access_mfa_piv_key_requirements_output,
-        "access_mfa_required_for_all_apps": access_mfa_required_for_all_apps_output,
-        "access_name": access_name_output,
-        "access_org_mfa_config": access_org_mfa_config_output,
-        "access_organizations": access_organizations_output,
-        "access_service_token_inactivity": access_service_token_inactivity_output,
-        "access_session_duration": access_session_duration_output,
-        "access_single_response": access_single_response_output,
-        "access_strict_service_token_auth": access_strict_service_token_auth_output,
-        "access_timestamp": access_timestamp_output,
-        "access_ui_read_only_toggle_reason": access_ui_read_only_toggle_reason_output,
-        "access_updated_at": access_updated_at_output,
-        "access_user_seat_expiration_inactive_time": access_user_seat_expiration_inactive_time_output,
-        "access_warp_auth_non_browser_401": access_warp_auth_non_browser_401_output,
-        "access_warp_auth_session_duration": access_warp_auth_session_duration_output,
+        "access_api-response-single": access_api$$response$$single,
+        "access_custom_pages": access_custom_pages,
+        "access_deny_unmatched_requests_exempted_zone_names": access_deny_unmatched_requests_exempted_zone_names,
+        "access_login_design": access_login_design,
+        "access_messages": access_messages,
+        "access_mfa_piv_key_requirements": access_mfa_piv_key_requirements,
+        "access_org_mfa_config": access_org_mfa_config,
+        "access_organizations": access_organizations,
+        "access_service_token_inactivity": access_service_token_inactivity,
+        "access_single_response": access_single_response,
       },
     },
     annotations: {
@@ -253,34 +199,17 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "access_allow_authenticate_via_warp": access_allow_authenticate_via_warp_output,
-        "access_api-response-common-failure": access_api_response_common_failure_output,
-        "access_api-response-single": access_api_response_single_output,
-        "access_auth_domain": access_auth_domain_output,
-        "access_auto_redirect_to_identity": access_auto_redirect_to_identity_output,
-        "access_created_at": access_created_at_output,
-        "access_custom_pages": access_custom_pages_output,
-        "access_deny_unmatched_requests": access_deny_unmatched_requests_output,
-        "access_deny_unmatched_requests_exempted_zone_names": access_deny_unmatched_requests_exempted_zone_names_output,
-        "access_disable_end_user_app_creation": access_disable_end_user_app_creation_output,
-        "access_is_ui_read_only": access_is_ui_read_only_output,
-        "access_login_design": access_login_design_output,
-        "access_messages": access_messages_output,
-        "access_mfa_piv_key_requirements": access_mfa_piv_key_requirements_output,
-        "access_mfa_required_for_all_apps": access_mfa_required_for_all_apps_output,
-        "access_name": access_name_output,
-        "access_org_mfa_config": access_org_mfa_config_output,
-        "access_organizations": access_organizations_output,
-        "access_service_token_inactivity": access_service_token_inactivity_output,
-        "access_session_duration": access_session_duration_output,
-        "access_single_response": access_single_response_output,
-        "access_strict_service_token_auth": access_strict_service_token_auth_output,
-        "access_timestamp": access_timestamp_output,
-        "access_ui_read_only_toggle_reason": access_ui_read_only_toggle_reason_output,
-        "access_updated_at": access_updated_at_output,
-        "access_user_seat_expiration_inactive_time": access_user_seat_expiration_inactive_time_output,
-        "access_warp_auth_non_browser_401": access_warp_auth_non_browser_401_output,
-        "access_warp_auth_session_duration": access_warp_auth_session_duration_output,
+        "access_api-response-common-failure": access_api$$response$$common$$failure,
+        "access_api-response-single": access_api$$response$$single,
+        "access_custom_pages": access_custom_pages,
+        "access_deny_unmatched_requests_exempted_zone_names": access_deny_unmatched_requests_exempted_zone_names,
+        "access_login_design": access_login_design,
+        "access_messages": access_messages,
+        "access_mfa_piv_key_requirements": access_mfa_piv_key_requirements,
+        "access_org_mfa_config": access_org_mfa_config,
+        "access_organizations": access_organizations,
+        "access_service_token_inactivity": access_service_token_inactivity,
+        "access_single_response": access_single_response,
       },
     },
     request: (args) => ({
@@ -289,63 +218,53 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_organization_get",
+    name: "zeroTrust_organization_get",
     title: "Get your Zero Trust organization",
-    description: "Returns the configuration for your Zero Trust organization.",
+    description: "Returns the configuration for your Zero Trust organization.\n\nGET /{account_or_zone}/{account_or_zone_id}/access/organizations",
     inputSchema: {
       type: "object",
       properties: {
-        "account_or_zone": {
-          "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
-          "enum": [
-            "accounts",
-            "zones"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_or_zone": {
+              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "enum": [
+                "accounts",
+                "zones"
+              ],
+              "type": "string"
+            },
+            "account_or_zone_id": {
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_or_zone",
+            "account_or_zone_id"
           ],
-          "type": "string"
-        },
-        "account_or_zone_id": {
-          "$ref": "#/$defs/access_identifier",
-          "description": "The account ID or zone ID, as selected by account_or_zone."
+          "type": "object"
         }
       },
       required: [
-        "account_or_zone",
-        "account_or_zone_id"
+        "path"
       ],
-      $defs: {
-        "access_identifier": access_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/access_get_response",
       $defs: {
-        "access_allow_authenticate_via_warp": access_allow_authenticate_via_warp_output,
-        "access_api-response-single": access_api_response_single_output,
-        "access_auth_domain": access_auth_domain_output,
-        "access_auto_redirect_to_identity": access_auto_redirect_to_identity_output,
-        "access_created_at": access_created_at_output,
-        "access_custom_pages": access_custom_pages_output,
-        "access_deny_unmatched_requests": access_deny_unmatched_requests_output,
-        "access_deny_unmatched_requests_exempted_zone_names": access_deny_unmatched_requests_exempted_zone_names_output,
-        "access_disable_end_user_app_creation": access_disable_end_user_app_creation_output,
-        "access_get_response": access_get_response_output,
-        "access_is_ui_read_only": access_is_ui_read_only_output,
-        "access_login_design": access_login_design_output,
-        "access_messages": access_messages_output,
-        "access_mfa_piv_key_requirements": access_mfa_piv_key_requirements_output,
-        "access_mfa_required_for_all_apps": access_mfa_required_for_all_apps_output,
-        "access_name": access_name_output,
-        "access_org_mfa_config": access_org_mfa_config_output,
-        "access_organizations": access_organizations_output,
-        "access_service_token_inactivity": access_service_token_inactivity_output,
-        "access_session_duration": access_session_duration_output,
-        "access_strict_service_token_auth": access_strict_service_token_auth_output,
-        "access_timestamp": access_timestamp_output,
-        "access_ui_read_only_toggle_reason": access_ui_read_only_toggle_reason_output,
-        "access_updated_at": access_updated_at_output,
-        "access_user_seat_expiration_inactive_time": access_user_seat_expiration_inactive_time_output,
-        "access_warp_auth_non_browser_401": access_warp_auth_non_browser_401_output,
-        "access_warp_auth_session_duration": access_warp_auth_session_duration_output,
+        "access_api-response-single": access_api$$response$$single,
+        "access_custom_pages": access_custom_pages,
+        "access_deny_unmatched_requests_exempted_zone_names": access_deny_unmatched_requests_exempted_zone_names,
+        "access_get_response": access_get_response,
+        "access_login_design": access_login_design,
+        "access_messages": access_messages,
+        "access_mfa_piv_key_requirements": access_mfa_piv_key_requirements,
+        "access_org_mfa_config": access_org_mfa_config,
+        "access_organizations": access_organizations,
+        "access_service_token_inactivity": access_service_token_inactivity,
       },
     },
     annotations: {
@@ -374,34 +293,17 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "access_allow_authenticate_via_warp": access_allow_authenticate_via_warp_output,
-        "access_api-response-common-failure": access_api_response_common_failure_output,
-        "access_api-response-single": access_api_response_single_output,
-        "access_auth_domain": access_auth_domain_output,
-        "access_auto_redirect_to_identity": access_auto_redirect_to_identity_output,
-        "access_created_at": access_created_at_output,
-        "access_custom_pages": access_custom_pages_output,
-        "access_deny_unmatched_requests": access_deny_unmatched_requests_output,
-        "access_deny_unmatched_requests_exempted_zone_names": access_deny_unmatched_requests_exempted_zone_names_output,
-        "access_disable_end_user_app_creation": access_disable_end_user_app_creation_output,
-        "access_get_response": access_get_response_output,
-        "access_is_ui_read_only": access_is_ui_read_only_output,
-        "access_login_design": access_login_design_output,
-        "access_messages": access_messages_output,
-        "access_mfa_piv_key_requirements": access_mfa_piv_key_requirements_output,
-        "access_mfa_required_for_all_apps": access_mfa_required_for_all_apps_output,
-        "access_name": access_name_output,
-        "access_org_mfa_config": access_org_mfa_config_output,
-        "access_organizations": access_organizations_output,
-        "access_service_token_inactivity": access_service_token_inactivity_output,
-        "access_session_duration": access_session_duration_output,
-        "access_strict_service_token_auth": access_strict_service_token_auth_output,
-        "access_timestamp": access_timestamp_output,
-        "access_ui_read_only_toggle_reason": access_ui_read_only_toggle_reason_output,
-        "access_updated_at": access_updated_at_output,
-        "access_user_seat_expiration_inactive_time": access_user_seat_expiration_inactive_time_output,
-        "access_warp_auth_non_browser_401": access_warp_auth_non_browser_401_output,
-        "access_warp_auth_session_duration": access_warp_auth_session_duration_output,
+        "access_api-response-common-failure": access_api$$response$$common$$failure,
+        "access_api-response-single": access_api$$response$$single,
+        "access_custom_pages": access_custom_pages,
+        "access_deny_unmatched_requests_exempted_zone_names": access_deny_unmatched_requests_exempted_zone_names,
+        "access_get_response": access_get_response,
+        "access_login_design": access_login_design,
+        "access_messages": access_messages,
+        "access_mfa_piv_key_requirements": access_mfa_piv_key_requirements,
+        "access_org_mfa_config": access_org_mfa_config,
+        "access_organizations": access_organizations,
+        "access_service_token_inactivity": access_service_token_inactivity,
       },
     },
     request: (args) => ({
@@ -409,60 +311,48 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_organization_update",
+    name: "zeroTrust_organization_update",
     title: "Update your Zero Trust organization",
-    description: "Updates the configuration for your Zero Trust organization.",
+    description: "Updates the configuration for your Zero Trust organization.\n\nPUT /{account_or_zone}/{account_or_zone_id}/access/organizations",
     inputSchema: {
       type: "object",
       properties: {
-        "account_or_zone": {
-          "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
-          "enum": [
-            "accounts",
-            "zones"
-          ],
-          "type": "string"
-        },
-        "account_or_zone_id": {
-          "$ref": "#/$defs/access_identifier",
-          "description": "The account ID or zone ID, as selected by account_or_zone."
-        },
         "body": {
           "properties": {
             "allow_authenticate_via_warp": {
-              "$ref": "#/$defs/access_allow_authenticate_via_warp",
               "default": false,
-              "description": "When set to true, users can authenticate via WARP for any application in your organization. Application settings will take precedence over this value."
+              "description": "When set to true, users can authenticate via WARP for any application in your organization. Application settings will take precedence over this value.",
+              "type": "boolean"
             },
             "auth_domain": {
-              "$ref": "#/$defs/access_auth_domain",
-              "description": "The unique subdomain assigned to your Zero Trust organization. If omitted on creation, a unique subdomain is auto-generated in the format `adjective-noun-hex4` (e.g. `frosty-moon-7a3b.cloudflareaccess.com`)."
+              "description": "The unique subdomain assigned to your Zero Trust organization. If omitted on creation, a unique subdomain is auto-generated in the format `adjective-noun-hex4` (e.g. `frosty-moon-7a3b.cloudflareaccess.com`).",
+              "type": "string"
             },
             "auto_redirect_to_identity": {
-              "$ref": "#/$defs/access_auto_redirect_to_identity",
               "default": false,
-              "description": "When set to `true`, users skip the identity provider selection step during login."
+              "description": "When set to `true`, users skip the identity provider selection step during login.",
+              "type": "boolean"
             },
             "custom_pages": {
               "$ref": "#/$defs/access_custom_pages"
             },
             "deny_unmatched_requests": {
-              "$ref": "#/$defs/access_deny_unmatched_requests",
-              "description": "Determines whether to deny all requests to Cloudflare-protected resources that lack an associated Access application. If enabled, you must explicitly configure an Access application and policy to allow traffic to your Cloudflare-protected resources. For domains you want to be public across all subdomains, add the domain to the `deny_unmatched_requests_exempted_zone_names` array."
+              "description": "Determines whether to deny all requests to Cloudflare-protected resources that lack an associated Access application. If enabled, you must explicitly configure an Access application and policy to allow traffic to your Cloudflare-protected resources. For domains you want to be public across all subdomains, add the domain to the `deny_unmatched_requests_exempted_zone_names` array.",
+              "type": "boolean"
             },
             "deny_unmatched_requests_exempted_zone_names": {
               "$ref": "#/$defs/access_deny_unmatched_requests_exempted_zone_names",
               "description": "Contains zone names to exempt from the `deny_unmatched_requests` feature. Requests to a subdomain in an exempted zone will block unauthenticated traffic by default if there is a configured Access application and policy that matches the request."
             },
             "disable_end_user_app_creation": {
-              "$ref": "#/$defs/access_disable_end_user_app_creation",
               "default": false,
-              "description": "Whether creation of end user applications is disabled for this organization."
+              "description": "Whether creation of end user applications is disabled for this organization.",
+              "type": "boolean"
             },
             "is_ui_read_only": {
-              "$ref": "#/$defs/access_is_ui_read_only",
               "default": false,
-              "description": "Lock all settings as Read-Only in the Dashboard, regardless of user permission. Updates may only be made via the API or Terraform for this account when enabled."
+              "description": "Lock all settings as Read-Only in the Dashboard, regardless of user permission. Updates may only be made via the API or Terraform for this account when enabled.",
+              "type": "boolean"
             },
             "login_design": {
               "$ref": "#/$defs/access_login_design"
@@ -476,106 +366,96 @@ export const tools: readonly Tool[] = [
               "description": "Configures PIV key requirements for MFA using hardware security keys."
             },
             "mfa_required_for_all_apps": {
-              "$ref": "#/$defs/access_mfa_required_for_all_apps",
               "default": false,
-              "description": "Determines whether global MFA settings apply to applications by default. The organization must have MFA enabled with at least one authentication method and a session duration configured. Note: 'allowed_authenticators' cannot contain only the infrastructure SSH authenticators ('piv_key' and 'ssh_fido2_key') if the organization has any non-infrastructure applications."
+              "description": "Determines whether global MFA settings apply to applications by default. The organization must have MFA enabled with at least one authentication method and a session duration configured. Note: 'allowed_authenticators' cannot contain only the infrastructure SSH authenticators ('piv_key' and 'ssh_fido2_key') if the organization has any non-infrastructure applications.",
+              "type": "boolean"
             },
             "name": {
-              "$ref": "#/$defs/access_name",
-              "description": "The name of your Zero Trust organization. When omitted on creation, defaults to the provided auth_domain; when both are omitted, defaults to the auto-generated subdomain slug (e.g. frosty-moon-7a3b)."
+              "description": "The name of your Zero Trust organization. When omitted on creation, defaults to the provided auth_domain; when both are omitted, defaults to the auto-generated subdomain slug (e.g. frosty-moon-7a3b).",
+              "type": "string"
             },
             "service_token_inactivity": {
               "$ref": "#/$defs/access_service_token_inactivity",
               "description": "Configures automatic enforcement for inactive service tokens. A service token is inactive if no policy references it, and it has not successfully authenticated with an Access application during the selected inactivity period. This setting applies to every service token in your Zero Trust account."
             },
             "session_duration": {
-              "$ref": "#/$defs/access_session_duration",
-              "description": "The amount of time that tokens issued for applications will be valid. Must be in the format `300ms` or `2h45m`. Valid time units are: ns, us (or µs), ms, s, m, h."
+              "description": "The amount of time that tokens issued for applications will be valid. Must be in the format `300ms` or `2h45m`. Valid time units are: ns, us (or µs), ms, s, m, h.",
+              "type": "string"
             },
             "strict_service_token_auth": {
-              "$ref": "#/$defs/access_strict_service_token_auth",
-              "description": "Enables new behaviors for requests made with Access service tokens. Unauthorized requests emit audit logs, and return a 401 or 403 status code in the response instead of redirecting to the login page. Successful requests no longer receive a CF_Authorization cookie in the response. Zero Trust organizations created on or after October 5, 2026 will have this setting enabled by default, and cannot disable it."
+              "description": "Enables new behaviors for requests made with Access service tokens. Unauthorized requests emit audit logs, and return a 401 or 403 status code in the response instead of redirecting to the login page. Successful requests no longer receive a CF_Authorization cookie in the response. Zero Trust organizations created on or after October 5, 2026 will have this setting enabled by default, and cannot disable it.",
+              "type": "boolean"
             },
             "ui_read_only_toggle_reason": {
-              "$ref": "#/$defs/access_ui_read_only_toggle_reason",
-              "description": "A description of the reason why the UI read only field is being toggled."
+              "description": "A description of the reason why the UI read only field is being toggled.",
+              "type": "string"
             },
             "user_seat_expiration_inactive_time": {
-              "$ref": "#/$defs/access_user_seat_expiration_inactive_time",
-              "description": "The amount of time a user seat is inactive before it expires. When the user seat exceeds the set time of inactivity, the user is removed as an active seat and no longer counts against your Teams seat count.  Minimum value for this setting is 1 month (730h). Must be in the format `300ms` or `2h45m`. Valid time units are: `ns`, `us` (or `µs`), `ms`, `s`, `m`, `h`."
+              "description": "The amount of time a user seat is inactive before it expires. When the user seat exceeds the set time of inactivity, the user is removed as an active seat and no longer counts against your Teams seat count.  Minimum value for this setting is 1 month (730h). Must be in the format `300ms` or `2h45m`. Valid time units are: `ns`, `us` (or `µs`), `ms`, `s`, `m`, `h`.",
+              "type": "string"
             },
             "warp_auth_non_browser_401": {
-              "$ref": "#/$defs/access_warp_auth_non_browser_401",
               "default": false,
-              "description": "When enabled, unsuccessful WARP authentication requests with a non-HTML Accept header return a 401 response instead of redirecting to the login page."
+              "description": "When enabled, unsuccessful WARP authentication requests with a non-HTML Accept header return a 401 response instead of redirecting to the login page.",
+              "type": "boolean"
             },
             "warp_auth_session_duration": {
-              "$ref": "#/$defs/access_warp_auth_session_duration",
-              "description": "The amount of time that tokens issued for applications will be valid. Must be in the format `30m` or `2h45m`. Valid time units are: m, h."
+              "description": "The amount of time that tokens issued for applications will be valid. Must be in the format `30m` or `2h45m`. Valid time units are: m, h.",
+              "type": "string"
             }
           },
+          "type": "object"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_or_zone": {
+              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "enum": [
+                "accounts",
+                "zones"
+              ],
+              "type": "string"
+            },
+            "account_or_zone_id": {
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_or_zone",
+            "account_or_zone_id"
+          ],
           "type": "object"
         }
       },
       required: [
-        "account_or_zone",
-        "account_or_zone_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "access_allow_authenticate_via_warp": access_allow_authenticate_via_warp,
-        "access_auth_domain": access_auth_domain,
-        "access_auto_redirect_to_identity": access_auto_redirect_to_identity,
-        "access_custom_pages": access_custom_pages,
-        "access_deny_unmatched_requests": access_deny_unmatched_requests,
-        "access_deny_unmatched_requests_exempted_zone_names": access_deny_unmatched_requests_exempted_zone_names,
-        "access_disable_end_user_app_creation": access_disable_end_user_app_creation,
-        "access_identifier": access_identifier,
-        "access_is_ui_read_only": access_is_ui_read_only,
-        "access_login_design": access_login_design,
-        "access_mfa_piv_key_requirements": access_mfa_piv_key_requirements,
-        "access_mfa_required_for_all_apps": access_mfa_required_for_all_apps,
-        "access_name": access_name,
-        "access_org_mfa_config": access_org_mfa_config,
-        "access_service_token_inactivity": access_service_token_inactivity,
-        "access_session_duration": access_session_duration,
-        "access_strict_service_token_auth": access_strict_service_token_auth,
-        "access_ui_read_only_toggle_reason": access_ui_read_only_toggle_reason,
-        "access_user_seat_expiration_inactive_time": access_user_seat_expiration_inactive_time,
-        "access_warp_auth_non_browser_401": access_warp_auth_non_browser_401,
-        "access_warp_auth_session_duration": access_warp_auth_session_duration,
+        "access_custom_pages": access_custom_pages$,
+        "access_deny_unmatched_requests_exempted_zone_names": access_deny_unmatched_requests_exempted_zone_names$,
+        "access_login_design": access_login_design$,
+        "access_mfa_piv_key_requirements": access_mfa_piv_key_requirements$,
+        "access_org_mfa_config": access_org_mfa_config$,
+        "access_service_token_inactivity": access_service_token_inactivity$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/access_single_response",
       $defs: {
-        "access_allow_authenticate_via_warp": access_allow_authenticate_via_warp_output,
-        "access_api-response-single": access_api_response_single_output,
-        "access_auth_domain": access_auth_domain_output,
-        "access_auto_redirect_to_identity": access_auto_redirect_to_identity_output,
-        "access_created_at": access_created_at_output,
-        "access_custom_pages": access_custom_pages_output,
-        "access_deny_unmatched_requests": access_deny_unmatched_requests_output,
-        "access_deny_unmatched_requests_exempted_zone_names": access_deny_unmatched_requests_exempted_zone_names_output,
-        "access_disable_end_user_app_creation": access_disable_end_user_app_creation_output,
-        "access_is_ui_read_only": access_is_ui_read_only_output,
-        "access_login_design": access_login_design_output,
-        "access_messages": access_messages_output,
-        "access_mfa_piv_key_requirements": access_mfa_piv_key_requirements_output,
-        "access_mfa_required_for_all_apps": access_mfa_required_for_all_apps_output,
-        "access_name": access_name_output,
-        "access_org_mfa_config": access_org_mfa_config_output,
-        "access_organizations": access_organizations_output,
-        "access_service_token_inactivity": access_service_token_inactivity_output,
-        "access_session_duration": access_session_duration_output,
-        "access_single_response": access_single_response_output,
-        "access_strict_service_token_auth": access_strict_service_token_auth_output,
-        "access_timestamp": access_timestamp_output,
-        "access_ui_read_only_toggle_reason": access_ui_read_only_toggle_reason_output,
-        "access_updated_at": access_updated_at_output,
-        "access_user_seat_expiration_inactive_time": access_user_seat_expiration_inactive_time_output,
-        "access_warp_auth_non_browser_401": access_warp_auth_non_browser_401_output,
-        "access_warp_auth_session_duration": access_warp_auth_session_duration_output,
+        "access_api-response-single": access_api$$response$$single,
+        "access_custom_pages": access_custom_pages,
+        "access_deny_unmatched_requests_exempted_zone_names": access_deny_unmatched_requests_exempted_zone_names,
+        "access_login_design": access_login_design,
+        "access_messages": access_messages,
+        "access_mfa_piv_key_requirements": access_mfa_piv_key_requirements,
+        "access_org_mfa_config": access_org_mfa_config,
+        "access_organizations": access_organizations,
+        "access_service_token_inactivity": access_service_token_inactivity,
+        "access_single_response": access_single_response,
       },
     },
     annotations: {
@@ -602,34 +482,17 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "access_allow_authenticate_via_warp": access_allow_authenticate_via_warp_output,
-        "access_api-response-common-failure": access_api_response_common_failure_output,
-        "access_api-response-single": access_api_response_single_output,
-        "access_auth_domain": access_auth_domain_output,
-        "access_auto_redirect_to_identity": access_auto_redirect_to_identity_output,
-        "access_created_at": access_created_at_output,
-        "access_custom_pages": access_custom_pages_output,
-        "access_deny_unmatched_requests": access_deny_unmatched_requests_output,
-        "access_deny_unmatched_requests_exempted_zone_names": access_deny_unmatched_requests_exempted_zone_names_output,
-        "access_disable_end_user_app_creation": access_disable_end_user_app_creation_output,
-        "access_is_ui_read_only": access_is_ui_read_only_output,
-        "access_login_design": access_login_design_output,
-        "access_messages": access_messages_output,
-        "access_mfa_piv_key_requirements": access_mfa_piv_key_requirements_output,
-        "access_mfa_required_for_all_apps": access_mfa_required_for_all_apps_output,
-        "access_name": access_name_output,
-        "access_org_mfa_config": access_org_mfa_config_output,
-        "access_organizations": access_organizations_output,
-        "access_service_token_inactivity": access_service_token_inactivity_output,
-        "access_session_duration": access_session_duration_output,
-        "access_single_response": access_single_response_output,
-        "access_strict_service_token_auth": access_strict_service_token_auth_output,
-        "access_timestamp": access_timestamp_output,
-        "access_ui_read_only_toggle_reason": access_ui_read_only_toggle_reason_output,
-        "access_updated_at": access_updated_at_output,
-        "access_user_seat_expiration_inactive_time": access_user_seat_expiration_inactive_time_output,
-        "access_warp_auth_non_browser_401": access_warp_auth_non_browser_401_output,
-        "access_warp_auth_session_duration": access_warp_auth_session_duration_output,
+        "access_api-response-common-failure": access_api$$response$$common$$failure,
+        "access_api-response-single": access_api$$response$$single,
+        "access_custom_pages": access_custom_pages,
+        "access_deny_unmatched_requests_exempted_zone_names": access_deny_unmatched_requests_exempted_zone_names,
+        "access_login_design": access_login_design,
+        "access_messages": access_messages,
+        "access_mfa_piv_key_requirements": access_mfa_piv_key_requirements,
+        "access_org_mfa_config": access_org_mfa_config,
+        "access_organizations": access_organizations,
+        "access_service_token_inactivity": access_service_token_inactivity,
+        "access_single_response": access_single_response,
       },
     },
     request: (args) => ({

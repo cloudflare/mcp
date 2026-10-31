@@ -3,61 +3,69 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  custom_pages_api_response_common_failure_output,
-  custom_pages_api_response_single_output,
-  custom_pages_messages_output,
+  custom$$pages_api$$response$$common$$failure,
+  custom$$pages_api$$response$$single,
+  custom$$pages_messages,
 } from "../../outputs.js";
-import { custom_pages_identifier } from "../../schemas.js";
 import {
-  custom_pages_preview_token_output,
-  custom_pages_preview_token_result_output,
+  custom$$pages_preview_token,
+  custom$$pages_preview_token_result,
 } from "./outputs.js";
-import { custom_pages_preview_request } from "./schemas.js";
+import { custom$$pages_preview_request } from "./schemas.js";
 
 /**
- * The tools of `custom_pages.account_custom_pages.preview_tokens`.
+ * The tools of `customPages.accountCustomPages.previewTokens`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "custom_pages_account_custom_pages_preview_tokens_create",
+    name: "customPages_accountCustomPages_previewTokens_create",
     title: "Create a preview token",
-    description: "Creates a signed JWT for previewing an account or zone-level custom page before it is published.",
+    description: "Creates a signed JWT for previewing an account or zone-level custom page before it is published.\n\nPOST /{account_or_zone}/{account_or_zone_id}/custom_pages/preview_tokens",
     inputSchema: {
       type: "object",
       properties: {
-        "account_or_zone": {
-          "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
-          "enum": [
-            "accounts",
-            "zones"
-          ],
-          "type": "string"
-        },
-        "account_or_zone_id": {
-          "$ref": "#/$defs/custom-pages_identifier",
-          "description": "The account ID or zone ID, as selected by account_or_zone."
-        },
         "body": {
           "$ref": "#/$defs/custom-pages_preview_request"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_or_zone": {
+              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "enum": [
+                "accounts",
+                "zones"
+              ],
+              "type": "string"
+            },
+            "account_or_zone_id": {
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_or_zone",
+            "account_or_zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_or_zone",
-        "account_or_zone_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "custom-pages_identifier": custom_pages_identifier,
-        "custom-pages_preview_request": custom_pages_preview_request,
+        "custom-pages_preview_request": custom$$pages_preview_request,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/custom-pages_preview_token_result",
       $defs: {
-        "custom-pages_api-response-single": custom_pages_api_response_single_output,
-        "custom-pages_messages": custom_pages_messages_output,
-        "custom-pages_preview_token": custom_pages_preview_token_output,
-        "custom-pages_preview_token_result": custom_pages_preview_token_result_output,
+        "custom-pages_api-response-single": custom$$pages_api$$response$$single,
+        "custom-pages_messages": custom$$pages_messages,
+        "custom-pages_preview_token": custom$$pages_preview_token,
+        "custom-pages_preview_token_result": custom$$pages_preview_token_result,
       },
     },
     annotations: {
@@ -99,11 +107,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "custom-pages_api-response-common-failure": custom_pages_api_response_common_failure_output,
-        "custom-pages_api-response-single": custom_pages_api_response_single_output,
-        "custom-pages_messages": custom_pages_messages_output,
-        "custom-pages_preview_token": custom_pages_preview_token_output,
-        "custom-pages_preview_token_result": custom_pages_preview_token_result_output,
+        "custom-pages_api-response-common-failure": custom$$pages_api$$response$$common$$failure,
+        "custom-pages_api-response-single": custom$$pages_api$$response$$single,
+        "custom-pages_messages": custom$$pages_messages,
+        "custom-pages_preview_token": custom$$pages_preview_token,
+        "custom-pages_preview_token_result": custom$$pages_preview_token_result,
       },
     },
     request: (args) => ({

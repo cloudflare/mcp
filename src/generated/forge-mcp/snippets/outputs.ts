@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `snippets_Errors` in responses.
  */
-export const snippets_Errors_output: JsonSchema = {
+export const snippets_Errors: JsonSchema = {
   "items": {
     "$ref": "#/$defs/snippets_Message"
   },
@@ -16,7 +16,7 @@ export const snippets_Errors_output: JsonSchema = {
 /**
  * The schema of `snippets_Message` in responses.
  */
-export const snippets_Message_output: JsonSchema = {
+export const snippets_Message: JsonSchema = {
   "properties": {
     "code": {
       "type": "integer"
@@ -34,7 +34,7 @@ export const snippets_Message_output: JsonSchema = {
 /**
  * The schema of `snippets_Messages` in responses.
  */
-export const snippets_Messages_output: JsonSchema = {
+export const snippets_Messages: JsonSchema = {
   "items": {
     "$ref": "#/$defs/snippets_Message"
   },
@@ -42,23 +42,9 @@ export const snippets_Messages_output: JsonSchema = {
 };
 
 /**
- * The schema of `snippets_Page` in responses.
- */
-export const snippets_Page_output: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `snippets_PerPage` in responses.
- */
-export const snippets_PerPage_output: JsonSchema = {
-  "type": "integer"
-};
-
-/**
  * The schema of `snippets_Response` in responses.
  */
-export const snippets_Response_output: JsonSchema = {
+export const snippets_Response: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/snippets_Errors"
@@ -81,16 +67,16 @@ export const snippets_Response_output: JsonSchema = {
 /**
  * The schema of `snippets_ResultInfo` in responses.
  */
-export const snippets_ResultInfo_output: JsonSchema = {
+export const snippets_ResultInfo: JsonSchema = {
   "properties": {
     "count": {
       "type": "integer"
     },
     "page": {
-      "$ref": "#/$defs/snippets_Page"
+      "type": "integer"
     },
     "per_page": {
-      "$ref": "#/$defs/snippets_PerPage"
+      "type": "integer"
     },
     "total_count": {
       "type": "integer"
@@ -112,7 +98,7 @@ export const snippets_ResultInfo_output: JsonSchema = {
 /**
  * The schema of `snippets_Snippet` in responses.
  */
-export const snippets_Snippet_output: JsonSchema = {
+export const snippets_Snippet: JsonSchema = {
   "properties": {
     "created_on": {
       "format": "date-time",
@@ -123,7 +109,7 @@ export const snippets_Snippet_output: JsonSchema = {
       "type": "string"
     },
     "snippet_name": {
-      "$ref": "#/$defs/snippets_SnippetName"
+      "type": "string"
     }
   },
   "required": [
@@ -131,11 +117,4 @@ export const snippets_Snippet_output: JsonSchema = {
     "snippet_name"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `snippets_SnippetName` in responses.
- */
-export const snippets_SnippetName_output: JsonSchema = {
-  "type": "string"
 };

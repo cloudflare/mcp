@@ -3,39 +3,49 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  dlp_api_response_common_failure_output,
-  dlp_api_response_single_output,
-  dlp_messages_output,
+  dlp_api$$response$$common$$failure,
+  dlp_api$$response$$single,
+  dlp_messages,
 } from "../../outputs.js";
 import {
-  dlp_DataTagCategoryTemplateArray_output,
-  dlp_DataTagCategoryTemplate_output,
-  dlp_DataTagTemplate_output,
+  dlp_DataTagCategoryTemplate,
+  dlp_DataTagCategoryTemplateArray,
+  dlp_DataTagTemplate,
 } from "./outputs.js";
 
 /**
- * The tools of `zero_trust.dlp.data_tag_category_templates`.
+ * The tools of `zeroTrust.dlp.dataTagCategoryTemplates`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zero_trust_dlp_data_tag_category_templates_get",
+    name: "zeroTrust_dlp_dataTagCategoryTemplates_get",
     title: "Retrieve a specific data tag category template.",
-    description: "Gets an available data tag category template.",
+    description: "Gets an available data tag category template.\n\nGET /accounts/{account_id}/dlp/data_tag_category_templates/{template_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
-        "template_id": {
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "template_id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "template_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "template_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -52,10 +62,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_DataTagCategoryTemplate": dlp_DataTagCategoryTemplate_output,
-        "dlp_DataTagTemplate": dlp_DataTagTemplate_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_DataTagCategoryTemplate": dlp_DataTagCategoryTemplate,
+        "dlp_DataTagTemplate": dlp_DataTagTemplate,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -98,11 +108,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_DataTagCategoryTemplate": dlp_DataTagCategoryTemplate_output,
-        "dlp_DataTagTemplate": dlp_DataTagTemplate_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_DataTagCategoryTemplate": dlp_DataTagCategoryTemplate,
+        "dlp_DataTagTemplate": dlp_DataTagTemplate,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -110,19 +120,29 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_dlp_data_tag_category_templates_list",
+    name: "zeroTrust_dlp_dataTagCategoryTemplates_list",
     title: "Retrieve all data tag category templates in an account",
-    description: "Lists available data tag category templates.",
+    description: "Lists available data tag category templates.\n\nGET /accounts/{account_id}/dlp/data_tag_category_templates",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -139,11 +159,11 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_DataTagCategoryTemplate": dlp_DataTagCategoryTemplate_output,
-        "dlp_DataTagCategoryTemplateArray": dlp_DataTagCategoryTemplateArray_output,
-        "dlp_DataTagTemplate": dlp_DataTagTemplate_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_DataTagCategoryTemplate": dlp_DataTagCategoryTemplate,
+        "dlp_DataTagCategoryTemplateArray": dlp_DataTagCategoryTemplateArray,
+        "dlp_DataTagTemplate": dlp_DataTagTemplate,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -186,12 +206,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_DataTagCategoryTemplate": dlp_DataTagCategoryTemplate_output,
-        "dlp_DataTagCategoryTemplateArray": dlp_DataTagCategoryTemplateArray_output,
-        "dlp_DataTagTemplate": dlp_DataTagTemplate_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_DataTagCategoryTemplate": dlp_DataTagCategoryTemplate,
+        "dlp_DataTagCategoryTemplateArray": dlp_DataTagCategoryTemplateArray,
+        "dlp_DataTagTemplate": dlp_DataTagTemplate,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({

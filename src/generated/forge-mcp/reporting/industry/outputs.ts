@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `reports_AccountIndustryErrorResponse` in responses.
  */
-export const reports_AccountIndustryErrorResponse_output: JsonSchema = {
+export const reports_AccountIndustryErrorResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -48,7 +48,7 @@ export const reports_AccountIndustryErrorResponse_output: JsonSchema = {
 /**
  * The schema of `reports_AccountIndustryPatchResponse` in responses.
  */
-export const reports_AccountIndustryPatchResponse_output: JsonSchema = {
+export const reports_AccountIndustryPatchResponse: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -184,7 +184,7 @@ export const reports_AccountIndustryPatchResponse_output: JsonSchema = {
 /**
  * The schema of `reports_AccountIndustrySingleResponse` in responses.
  */
-export const reports_AccountIndustrySingleResponse_output: JsonSchema = {
+export const reports_AccountIndustrySingleResponse: JsonSchema = {
   "oneOf": [
     {
       "properties": {

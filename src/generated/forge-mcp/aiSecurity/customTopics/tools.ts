@@ -3,54 +3,60 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  waf_product_api_bundle_api_response_common_output,
-  waf_product_api_bundle_api_response_single_output,
-  waf_product_api_bundle_messages_output,
+  waf$$product$$api$$bundle_api$$response$$common,
+  waf$$product$$api$$bundle_api$$response$$single,
+  waf$$product$$api$$bundle_messages,
 } from "../../outputs.js";
-import { waf_product_api_bundle_api_response_common_failure_3_output } from "../outputs.js";
-import { waf_product_api_bundle_zone_id } from "../schemas.js";
+import { waf$$product$$api$$bundle_api$$response$$common$$failure$$3 } from "../outputs.js";
 import {
-  waf_product_api_bundle_custom_topic_output,
-  waf_product_api_bundle_custom_topics_output,
-  waf_product_api_bundle_response_custom_topics_output,
+  waf$$product$$api$$bundle_custom$$topic,
+  waf$$product$$api$$bundle_custom$$topics,
+  waf$$product$$api$$bundle_response$$custom$$topics,
 } from "./outputs.js";
 import {
-  waf_product_api_bundle_custom_topic,
-  waf_product_api_bundle_custom_topics,
+  waf$$product$$api$$bundle_custom$$topic as waf$$product$$api$$bundle_custom$$topic$,
+  waf$$product$$api$$bundle_custom$$topics as waf$$product$$api$$bundle_custom$$topics$,
 } from "./schemas.js";
 
 /**
- * The tools of `ai_security.custom_topics`.
+ * The tools of `aiSecurity.customTopics`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "ai_security_custom_topics_get",
+    name: "aiSecurity_customTopics_get",
     title: "Get the AI Security for Apps custom topics of a zone.",
-    description: "Get the custom topic categories defined for the zone. While AI Security for Apps is enabled, it scores every incoming prompt against these topics and writes the scores to the `cf.llm.prompt.custom_topic_categories` field, keyed by topic label. Topics can be configured while the detection is disabled, but no prompt is scored until you enable it.",
+    description: "Get the custom topic categories defined for the zone. While AI Security for Apps is enabled, it scores every incoming prompt against these topics and writes the scores to the `cf.llm.prompt.custom_topic_categories` field, keyed by topic label. Topics can be configured while the detection is disabled, but no prompt is scored until you enable it.\n\nGET /zones/{zone_id}/ai-security/custom-topics",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/waf-product-api-bundle_zone_id",
-          "description": "Defines the zone."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Defines the zone.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
-      $defs: {
-        "waf-product-api-bundle_zone_id": waf_product_api_bundle_zone_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/waf-product-api-bundle_response-custom-topics",
       $defs: {
-        "waf-product-api-bundle_api-response-common": waf_product_api_bundle_api_response_common_output,
-        "waf-product-api-bundle_api-response-single": waf_product_api_bundle_api_response_single_output,
-        "waf-product-api-bundle_custom-topic": waf_product_api_bundle_custom_topic_output,
-        "waf-product-api-bundle_custom-topics": waf_product_api_bundle_custom_topics_output,
-        "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
-        "waf-product-api-bundle_response-custom-topics": waf_product_api_bundle_response_custom_topics_output,
+        "waf-product-api-bundle_api-response-common": waf$$product$$api$$bundle_api$$response$$common,
+        "waf-product-api-bundle_api-response-single": waf$$product$$api$$bundle_api$$response$$single,
+        "waf-product-api-bundle_custom-topic": waf$$product$$api$$bundle_custom$$topic,
+        "waf-product-api-bundle_custom-topics": waf$$product$$api$$bundle_custom$$topics,
+        "waf-product-api-bundle_messages": waf$$product$$api$$bundle_messages,
+        "waf-product-api-bundle_response-custom-topics": waf$$product$$api$$bundle_response$$custom$$topics,
       },
     },
     annotations: {
@@ -79,13 +85,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "waf-product-api-bundle_api-response-common": waf_product_api_bundle_api_response_common_output,
-        "waf-product-api-bundle_api-response-common-failure-3": waf_product_api_bundle_api_response_common_failure_3_output,
-        "waf-product-api-bundle_api-response-single": waf_product_api_bundle_api_response_single_output,
-        "waf-product-api-bundle_custom-topic": waf_product_api_bundle_custom_topic_output,
-        "waf-product-api-bundle_custom-topics": waf_product_api_bundle_custom_topics_output,
-        "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
-        "waf-product-api-bundle_response-custom-topics": waf_product_api_bundle_response_custom_topics_output,
+        "waf-product-api-bundle_api-response-common": waf$$product$$api$$bundle_api$$response$$common,
+        "waf-product-api-bundle_api-response-common-failure-3": waf$$product$$api$$bundle_api$$response$$common$$failure$$3,
+        "waf-product-api-bundle_api-response-single": waf$$product$$api$$bundle_api$$response$$single,
+        "waf-product-api-bundle_custom-topic": waf$$product$$api$$bundle_custom$$topic,
+        "waf-product-api-bundle_custom-topics": waf$$product$$api$$bundle_custom$$topics,
+        "waf-product-api-bundle_messages": waf$$product$$api$$bundle_messages,
+        "waf-product-api-bundle_response-custom-topics": waf$$product$$api$$bundle_response$$custom$$topics,
       },
     },
     request: (args) => ({
@@ -93,39 +99,48 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "ai_security_custom_topics_update",
+    name: "aiSecurity_customTopics_update",
     title: "Update the AI Security for Apps custom topics of a zone.",
-    description: "Update the custom topic list of the zone, overwriting it entirely with the topics in the request, so include\nevery topic you want to keep. Changes can take up to a minute to propagate.\n\nEach entry has a `label`, used to reference the topic in rule expressions and analytics, and a `topic`\ndescription, which the classifier scores prompts against while AI Security for Apps is enabled. The following\nrules apply:\n\n- A zone can hold at most 20 topics.\n- `label` must be 2–20 characters, using only lowercase letters (a–z), digits (0–9), and hyphens.\n- `topic` must be 2–50 UTF-8 bytes. Text in any language is supported, including spaces, numbers,\n  punctuation, and symbols. Tabs, line breaks, invalid text, and invisible formatting characters are not allowed.\n- Labels must be unique within the zone, and so must topic descriptions.\n\nConfirm with the user before calling this tool. This operation overwrites the AI Security for Apps custom topics for a zone.",
+    description: "Update the custom topic list of the zone, overwriting it entirely with the topics in the request, so include\nevery topic you want to keep. Changes can take up to a minute to propagate.\n\nEach entry has a `label`, used to reference the topic in rule expressions and analytics, and a `topic`\ndescription, which the classifier scores prompts against while AI Security for Apps is enabled. The following\nrules apply:\n\n- A zone can hold at most 20 topics.\n- `label` must be 2–20 characters, using only lowercase letters (a–z), digits (0–9), and hyphens.\n- `topic` must be 2–50 UTF-8 bytes. Text in any language is supported, including spaces, numbers,\n  punctuation, and symbols. Tabs, line breaks, invalid text, and invisible formatting characters are not allowed.\n- Labels must be unique within the zone, and so must topic descriptions.\n\nConfirm with the user before calling this tool. This operation overwrites the AI Security for Apps custom topics for a zone.\n\nPUT /zones/{zone_id}/ai-security/custom-topics",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "$ref": "#/$defs/waf-product-api-bundle_custom-topics"
         },
-        "zone_id": {
-          "$ref": "#/$defs/waf-product-api-bundle_zone_id",
-          "description": "Defines the zone."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Defines the zone.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "waf-product-api-bundle_custom-topic": waf_product_api_bundle_custom_topic,
-        "waf-product-api-bundle_custom-topics": waf_product_api_bundle_custom_topics,
-        "waf-product-api-bundle_zone_id": waf_product_api_bundle_zone_id,
+        "waf-product-api-bundle_custom-topic": waf$$product$$api$$bundle_custom$$topic$,
+        "waf-product-api-bundle_custom-topics": waf$$product$$api$$bundle_custom$$topics$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/waf-product-api-bundle_response-custom-topics",
       $defs: {
-        "waf-product-api-bundle_api-response-common": waf_product_api_bundle_api_response_common_output,
-        "waf-product-api-bundle_api-response-single": waf_product_api_bundle_api_response_single_output,
-        "waf-product-api-bundle_custom-topic": waf_product_api_bundle_custom_topic_output,
-        "waf-product-api-bundle_custom-topics": waf_product_api_bundle_custom_topics_output,
-        "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
-        "waf-product-api-bundle_response-custom-topics": waf_product_api_bundle_response_custom_topics_output,
+        "waf-product-api-bundle_api-response-common": waf$$product$$api$$bundle_api$$response$$common,
+        "waf-product-api-bundle_api-response-single": waf$$product$$api$$bundle_api$$response$$single,
+        "waf-product-api-bundle_custom-topic": waf$$product$$api$$bundle_custom$$topic,
+        "waf-product-api-bundle_custom-topics": waf$$product$$api$$bundle_custom$$topics,
+        "waf-product-api-bundle_messages": waf$$product$$api$$bundle_messages,
+        "waf-product-api-bundle_response-custom-topics": waf$$product$$api$$bundle_response$$custom$$topics,
       },
     },
     annotations: {
@@ -154,13 +169,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "waf-product-api-bundle_api-response-common": waf_product_api_bundle_api_response_common_output,
-        "waf-product-api-bundle_api-response-common-failure-3": waf_product_api_bundle_api_response_common_failure_3_output,
-        "waf-product-api-bundle_api-response-single": waf_product_api_bundle_api_response_single_output,
-        "waf-product-api-bundle_custom-topic": waf_product_api_bundle_custom_topic_output,
-        "waf-product-api-bundle_custom-topics": waf_product_api_bundle_custom_topics_output,
-        "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
-        "waf-product-api-bundle_response-custom-topics": waf_product_api_bundle_response_custom_topics_output,
+        "waf-product-api-bundle_api-response-common": waf$$product$$api$$bundle_api$$response$$common,
+        "waf-product-api-bundle_api-response-common-failure-3": waf$$product$$api$$bundle_api$$response$$common$$failure$$3,
+        "waf-product-api-bundle_api-response-single": waf$$product$$api$$bundle_api$$response$$single,
+        "waf-product-api-bundle_custom-topic": waf$$product$$api$$bundle_custom$$topic,
+        "waf-product-api-bundle_custom-topics": waf$$product$$api$$bundle_custom$$topics,
+        "waf-product-api-bundle_messages": waf$$product$$api$$bundle_messages,
+        "waf-product-api-bundle_response-custom-topics": waf$$product$$api$$bundle_response$$custom$$topics,
       },
     },
     request: (args) => ({

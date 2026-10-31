@@ -3,59 +3,58 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  workers_api_response_common_failure_output,
-  workers_api_response_common_output,
-  workers_messages_output,
-  workers_usage_model_output,
+  workers_api$$response$$common,
+  workers_api$$response$$common$$failure,
+  workers_messages,
 } from "../../../../outputs.js";
 import {
-  workers_identifier,
-  workers_script_name,
-  workers_usage_model,
-} from "../../../../schemas.js";
-import {
-  workers_usage_model_response_output,
-  workers_user_limits_output,
+  workers_usage$$model$$response,
+  workers_user_limits,
 } from "./outputs.js";
-import { workers_user_limits } from "./schemas.js";
+import { workers_user_limits as workers_user_limits$ } from "./schemas.js";
 
 /**
- * The tools of `workers.legacy.scripts.usage_model`.
+ * The tools of `workers.legacy.scripts.usageModel`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "workers_legacy_scripts_usage_model_get",
+    name: "workers_legacy_scripts_usageModel_get",
     title: "Get Worker Script Usage Model",
-    description: "Fetches the usage model for a Worker script.\n\nThis method is deprecated.",
+    description: "Fetches the usage model for a Worker script.\n\nThis method is deprecated.\n\nGET /accounts/{account_id}/workers/scripts/{script_name}/usage-model",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/workers_identifier",
-          "description": "Identifier."
-        },
-        "script_name": {
-          "$ref": "#/$defs/workers_script_name",
-          "description": "Name of the script."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            },
+            "script_name": {
+              "description": "Name of the script.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "script_name"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "script_name"
+        "path"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier,
-        "workers_script_name": workers_script_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/workers_usage-model-response",
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_messages": workers_messages_output,
-        "workers_usage-model-response": workers_usage_model_response_output,
-        "workers_usage_model": workers_usage_model_output,
-        "workers_user_limits": workers_user_limits_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_messages": workers_messages,
+        "workers_usage-model-response": workers_usage$$model$$response,
+        "workers_user_limits": workers_user_limits,
       },
     },
     annotations: {
@@ -95,12 +94,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_api-response-common-failure": workers_api_response_common_failure_output,
-        "workers_messages": workers_messages_output,
-        "workers_usage-model-response": workers_usage_model_response_output,
-        "workers_usage_model": workers_usage_model_output,
-        "workers_user_limits": workers_user_limits_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_api-response-common-failure": workers_api$$response$$common$$failure,
+        "workers_messages": workers_messages,
+        "workers_usage-model-response": workers_usage$$model$$response,
+        "workers_user_limits": workers_user_limits,
       },
     },
     request: (args) => ({
@@ -108,22 +106,23 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "workers_legacy_scripts_usage_model_update",
+    name: "workers_legacy_scripts_usageModel_update",
     title: "Replace Worker Script Usage Model",
-    description: "Replaces the usage model for a Worker script. Requires a Workers Paid subscription.\n\nThis method is deprecated.",
+    description: "Replaces the usage model for a Worker script. Requires a Workers Paid subscription.\n\nThis method is deprecated.\n\nPUT /accounts/{account_id}/workers/scripts/{script_name}/usage-model",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/workers_identifier",
-          "description": "Identifier."
-        },
         "body": {
           "properties": {
             "usage_model": {
-              "$ref": "#/$defs/workers_usage_model",
               "default": "standard",
-              "description": "Usage model for the Worker invocations."
+              "description": "Usage model for the Worker invocations.",
+              "enum": [
+                "standard",
+                "bundled",
+                "unbound"
+              ],
+              "type": "string"
             },
             "user_limits": {
               "$ref": "#/$defs/workers_user_limits",
@@ -132,31 +131,41 @@ export const tools: readonly Tool[] = [
           },
           "type": "object"
         },
-        "script_name": {
-          "$ref": "#/$defs/workers_script_name",
-          "description": "Name of the script."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            },
+            "script_name": {
+              "description": "Name of the script.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "script_name"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "script_name",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "workers_identifier": workers_identifier,
-        "workers_script_name": workers_script_name,
-        "workers_usage_model": workers_usage_model,
-        "workers_user_limits": workers_user_limits,
+        "workers_user_limits": workers_user_limits$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/workers_usage-model-response",
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_messages": workers_messages_output,
-        "workers_usage-model-response": workers_usage_model_response_output,
-        "workers_usage_model": workers_usage_model_output,
-        "workers_user_limits": workers_user_limits_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_messages": workers_messages,
+        "workers_usage-model-response": workers_usage$$model$$response,
+        "workers_user_limits": workers_user_limits,
       },
     },
     annotations: {
@@ -190,12 +199,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_api-response-common-failure": workers_api_response_common_failure_output,
-        "workers_messages": workers_messages_output,
-        "workers_usage-model-response": workers_usage_model_response_output,
-        "workers_usage_model": workers_usage_model_output,
-        "workers_user_limits": workers_user_limits_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_api-response-common-failure": workers_api$$response$$common$$failure,
+        "workers_messages": workers_messages,
+        "workers_usage-model-response": workers_usage$$model$$response,
+        "workers_user_limits": workers_user_limits,
       },
     },
     request: (args) => ({

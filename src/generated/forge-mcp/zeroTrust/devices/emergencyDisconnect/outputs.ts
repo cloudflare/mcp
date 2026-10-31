@@ -4,22 +4,16 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `teams-devices_disconnect` in responses.
- */
-export const teams_devices_disconnect_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `teams-devices_global_warp_override` in responses.
  */
-export const teams_devices_global_warp_override_output: JsonSchema = {
+export const teams$$devices_global_warp_override: JsonSchema = {
   "properties": {
     "disconnect": {
-      "$ref": "#/$defs/teams-devices_disconnect"
+      "type": "boolean"
     },
     "timestamp": {
-      "$ref": "#/$defs/teams-devices_timestamp"
+      "format": "date-time",
+      "type": "string"
     }
   },
   "type": "object"
@@ -28,7 +22,7 @@ export const teams_devices_global_warp_override_output: JsonSchema = {
 /**
  * The schema of `teams-devices_global_warp_override_response` in responses.
  */
-export const teams_devices_global_warp_override_response_output: JsonSchema = {
+export const teams$$devices_global_warp_override_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/teams-devices_api-response-single"
@@ -42,12 +36,4 @@ export const teams_devices_global_warp_override_response_output: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `teams-devices_timestamp` in responses.
- */
-export const teams_devices_timestamp_output: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
 };

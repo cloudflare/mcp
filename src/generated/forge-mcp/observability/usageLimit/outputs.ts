@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `workers-observability_usage_limit` in responses.
  */
-export const workers_observability_usage_limit_output: JsonSchema = {
+export const workers$$observability_usage_limit: JsonSchema = {
   "properties": {
     "limit": {
       "properties": {

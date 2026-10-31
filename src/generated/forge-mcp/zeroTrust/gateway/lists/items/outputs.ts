@@ -7,7 +7,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
  * The schema of `zero-trust-gateway_list_item_response_collection` in
  * responses.
  */
-export const zero_trust_gateway_list_item_response_collection_output: JsonSchema = {
+export const zero$$trust$$gateway_list_item_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zero-trust-gateway_api-response-collection"

@@ -6,19 +6,24 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `cc_ContainerImagePreparation` in responses.
  */
-export const cc_ContainerImagePreparation_output: JsonSchema = {
+export const cc_ContainerImagePreparation: JsonSchema = {
   "properties": {
     "artifact_digest": {
       "type": "string"
     },
     "image": {
-      "$ref": "#/$defs/cc_Image"
+      "type": "string"
     },
     "reason": {
       "type": "string"
     },
     "status": {
-      "$ref": "#/$defs/cc_ContainerImagePreparationStatus"
+      "enum": [
+        "pending",
+        "ready",
+        "error"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -26,16 +31,4 @@ export const cc_ContainerImagePreparation_output: JsonSchema = {
     "status"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `cc_ContainerImagePreparationStatus` in responses.
- */
-export const cc_ContainerImagePreparationStatus_output: JsonSchema = {
-  "enum": [
-    "pending",
-    "ready",
-    "error"
-  ],
-  "type": "string"
 };

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `cloudforce-one_ApprovalConflictResponse` in responses.
  */
-export const cloudforce_one_ApprovalConflictResponse_output: JsonSchema = {
+export const cloudforce$$one_ApprovalConflictResponse: JsonSchema = {
   "properties": {
     "approval_id": {
       "type": "number"
@@ -32,7 +32,7 @@ export const cloudforce_one_ApprovalConflictResponse_output: JsonSchema = {
 /**
  * The schema of `cloudforce-one_ApprovalPendingResponse` in responses.
  */
-export const cloudforce_one_ApprovalPendingResponse_output: JsonSchema = {
+export const cloudforce$$one_ApprovalPendingResponse: JsonSchema = {
   "properties": {
     "approval_id": {
       "type": "number"
@@ -51,7 +51,7 @@ export const cloudforce_one_ApprovalPendingResponse_output: JsonSchema = {
 /**
  * The schema of `cloudforce-one_ApprovalProposedChanges` in responses.
  */
-export const cloudforce_one_ApprovalProposedChanges_output: JsonSchema = {
+export const cloudforce$$one_ApprovalProposedChanges: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -216,7 +216,7 @@ export const cloudforce_one_ApprovalProposedChanges_output: JsonSchema = {
 /**
  * The schema of `cloudforce-one_DeleteAllResponse` in responses.
  */
-export const cloudforce_one_DeleteAllResponse_output: JsonSchema = {
+export const cloudforce$$one_DeleteAllResponse: JsonSchema = {
   "properties": {
     "deleted": {
       "type": "number"
@@ -231,7 +231,7 @@ export const cloudforce_one_DeleteAllResponse_output: JsonSchema = {
 /**
  * The schema of `cloudforce-one_ErrorResponse` in responses.
  */
-export const cloudforce_one_ErrorResponse_output: JsonSchema = {
+export const cloudforce$$one_ErrorResponse: JsonSchema = {
   "properties": {
     "error": {
       "type": "string"
@@ -246,7 +246,7 @@ export const cloudforce_one_ErrorResponse_output: JsonSchema = {
 /**
  * The schema of `cloudforce-one_PendingRuleChange` in responses.
  */
-export const cloudforce_one_PendingRuleChange_output: JsonSchema = {
+export const cloudforce$$one_PendingRuleChange: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -284,7 +284,7 @@ export const cloudforce_one_PendingRuleChange_output: JsonSchema = {
 /**
  * The schema of `cloudforce-one_ResubmitApprovalResponse` in responses.
  */
-export const cloudforce_one_ResubmitApprovalResponse_output: JsonSchema = {
+export const cloudforce$$one_ResubmitApprovalResponse: JsonSchema = {
   "properties": {
     "approval_id": {
       "type": "number"
@@ -318,7 +318,7 @@ export const cloudforce_one_ResubmitApprovalResponse_output: JsonSchema = {
 /**
  * The schema of `cloudforce-one_Rule` in responses.
  */
-export const cloudforce_one_Rule_output: JsonSchema = {
+export const cloudforce$$one_Rule: JsonSchema = {
   "properties": {
     "content": {
       "type": "string"
@@ -412,7 +412,7 @@ export const cloudforce_one_Rule_output: JsonSchema = {
 /**
  * The schema of `cloudforce-one_RuleMetaEntry` in responses.
  */
-export const cloudforce_one_RuleMetaEntry_output: JsonSchema = {
+export const cloudforce$$one_RuleMetaEntry: JsonSchema = {
   "properties": {
     "key": {
       "type": "string"
@@ -450,7 +450,7 @@ export const cloudforce_one_RuleMetaEntry_output: JsonSchema = {
 /**
  * The schema of `cloudforce-one_RulePreview` in responses.
  */
-export const cloudforce_one_RulePreview_output: JsonSchema = {
+export const cloudforce$$one_RulePreview: JsonSchema = {
   "properties": {
     "content": {
       "type": "string"
@@ -543,7 +543,7 @@ export const cloudforce_one_RulePreview_output: JsonSchema = {
 /**
  * The schema of `cloudforce-one_RuleSearchResult` in responses.
  */
-export const cloudforce_one_RuleSearchResult_output: JsonSchema = {
+export const cloudforce$$one_RuleSearchResult: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/cloudforce-one_RulePreview"
@@ -585,7 +585,7 @@ export const cloudforce_one_RuleSearchResult_output: JsonSchema = {
 /**
  * The schema of `cloudforce-one_RulesPreviewListResponse` in responses.
  */
-export const cloudforce_one_RulesPreviewListResponse_output: JsonSchema = {
+export const cloudforce$$one_RulesPreviewListResponse: JsonSchema = {
   "properties": {
     "rules": {
       "items": {
@@ -607,7 +607,7 @@ export const cloudforce_one_RulesPreviewListResponse_output: JsonSchema = {
 /**
  * The schema of `cloudforce-one_RulesSearchResponse` in responses.
  */
-export const cloudforce_one_RulesSearchResponse_output: JsonSchema = {
+export const cloudforce$$one_RulesSearchResponse: JsonSchema = {
   "properties": {
     "fallback": {
       "type": "boolean"
@@ -660,7 +660,7 @@ export const cloudforce_one_RulesSearchResponse_output: JsonSchema = {
 /**
  * The schema of `cloudforce-one_SuccessResponse` in responses.
  */
-export const cloudforce_one_SuccessResponse_output: JsonSchema = {
+export const cloudforce$$one_SuccessResponse: JsonSchema = {
   "properties": {
     "success": {
       "type": "boolean"
@@ -675,7 +675,7 @@ export const cloudforce_one_SuccessResponse_output: JsonSchema = {
 /**
  * The schema of `cloudforce-one_ValidationResponse` in responses.
  */
-export const cloudforce_one_ValidationResponse_output: JsonSchema = {
+export const cloudforce$$one_ValidationResponse: JsonSchema = {
   "properties": {
     "error": {
       "type": "string"

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../../../_/tool.js";
 /**
  * The schema of `advanced-ddos-protection_ProtectionStatus` in responses.
  */
-export const advanced_ddos_protection_ProtectionStatus_output: JsonSchema = {
+export const advanced$$ddos$$protection_ProtectionStatus: JsonSchema = {
   "properties": {
     "enabled": {
       "type": "boolean"
@@ -22,7 +22,7 @@ export const advanced_ddos_protection_ProtectionStatus_output: JsonSchema = {
  * The schema of `advanced-ddos-protection_protection-status-response` in
  * responses.
  */
-export const advanced_ddos_protection_protection_status_response_output: JsonSchema = {
+export const advanced$$ddos$$protection_protection$$status$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/advanced-ddos-protection_api-response-common"

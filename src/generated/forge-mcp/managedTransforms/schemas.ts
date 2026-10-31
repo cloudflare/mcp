@@ -14,8 +14,8 @@ export const rulesets_ManagedTransform: JsonSchema = {
       "type": "boolean"
     },
     "id": {
-      "$ref": "#/$defs/rulesets_ManagedTransformId",
-      "description": "The human-readable identifier of the Managed Transform."
+      "description": "The human-readable identifier of the Managed Transform.",
+      "type": "string"
     }
   },
   "required": [
@@ -23,14 +23,6 @@ export const rulesets_ManagedTransform: JsonSchema = {
     "id"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `rulesets_ManagedTransformId`.
- */
-export const rulesets_ManagedTransformId: JsonSchema = {
-  "description": "The human-readable identifier of the Managed Transform.",
-  "type": "string"
 };
 
 /**

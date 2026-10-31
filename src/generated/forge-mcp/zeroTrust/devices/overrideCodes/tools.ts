@@ -3,36 +3,46 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  teams_devices_v4_error_response_output,
-  teams_devices_v4_response_message_output,
+  teams$$devices_v4_error_response,
+  teams$$devices_v4_response_message,
 } from "../outputs.js";
-import { teams_devices_override_code_output } from "./outputs.js";
-import { teams_devices_override_code_create_request } from "./schemas.js";
+import { teams$$devices_override_code } from "./outputs.js";
+import { teams$$devices_override_code_create_request } from "./schemas.js";
 
 /**
- * The tools of `zero_trust.devices.override_codes`.
+ * The tools of `zeroTrust.devices.overrideCodes`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zero_trust_devices_override_codes_create",
+    name: "zeroTrust_devices_overrideCodes_create",
     title: "Generate an uninstall protection override code",
-    description: "Generates an account-wide or device-specific uninstall protection override code.",
+    description: "Generates an account-wide or device-specific uninstall protection override code.\n\nPOST /accounts/{account_id}/devices/override_codes",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/teams-devices_override_code_create_request"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "teams-devices_override_code_create_request": teams_devices_override_code_create_request,
+        "teams-devices_override_code_create_request": teams$$devices_override_code_create_request,
       },
     },
     outputSchema: {
@@ -64,8 +74,8 @@ export const tools: readonly Tool[] = [
       ],
       "type": "object",
       $defs: {
-        "teams-devices_override_code": teams_devices_override_code_output,
-        "teams-devices_v4_response_message": teams_devices_v4_response_message_output,
+        "teams-devices_override_code": teams$$devices_override_code,
+        "teams-devices_v4_response_message": teams$$devices_v4_response_message,
       },
     },
     annotations: {
@@ -116,9 +126,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "teams-devices_override_code": teams_devices_override_code_output,
-        "teams-devices_v4_error_response": teams_devices_v4_error_response_output,
-        "teams-devices_v4_response_message": teams_devices_v4_response_message_output,
+        "teams-devices_override_code": teams$$devices_override_code,
+        "teams-devices_v4_error_response": teams$$devices_v4_error_response,
+        "teams-devices_v4_response_message": teams$$devices_v4_response_message,
       },
     },
     request: (args) => ({

@@ -3,53 +3,59 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  api_shield_api_response_common_failure_output,
-  api_shield_api_response_common_output,
-  api_shield_messages_output,
-  api_shield_timestamp_2_output,
-  api_shield_timestamp_output,
+  api$$shield_api$$response$$common,
+  api$$shield_api$$response$$common$$failure,
+  api$$shield_messages,
 } from "../../outputs.js";
 import {
-  api_shield_identifier,
-  api_shield_identifier_2,
-} from "../../schemas.js";
-import {
-  api_shield_openapi_output,
-  api_shield_schema_response_discovery_output,
+  api$$shield_openapi,
+  api$$shield_schema_response_discovery,
 } from "./outputs.js";
 
 /**
- * The tools of `web_assets.discovery`.
+ * The tools of `webAssets.discovery`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "web_assets_discovery_get",
+    name: "webAssets_discovery_get",
     title: "Export discovered API operations as OpenAPI schemas",
-    description: "Returns the latest API operations discovered from zone traffic, rendered as OpenAPI schemas.",
+    description: "Returns the latest API operations discovered from zone traffic, rendered as OpenAPI schemas.\n\nGET /zones/{zone_id}/api_gateway/discovery",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/api-shield_identifier-2"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "allOf": [
+                {
+                  "description": "Identifier.",
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
-      $defs: {
-        "api-shield_identifier": api_shield_identifier,
-        "api-shield_identifier-2": api_shield_identifier_2,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/api-shield_schema_response_discovery",
       $defs: {
-        "api-shield_api-response-common": api_shield_api_response_common_output,
-        "api-shield_messages": api_shield_messages_output,
-        "api-shield_openapi": api_shield_openapi_output,
-        "api-shield_schema_response_discovery": api_shield_schema_response_discovery_output,
-        "api-shield_timestamp": api_shield_timestamp_output,
-        "api-shield_timestamp-2": api_shield_timestamp_2_output,
+        "api-shield_api-response-common": api$$shield_api$$response$$common,
+        "api-shield_messages": api$$shield_messages,
+        "api-shield_openapi": api$$shield_openapi,
+        "api-shield_schema_response_discovery": api$$shield_schema_response_discovery,
       },
     },
     annotations: {
@@ -86,13 +92,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "api-shield_api-response-common": api_shield_api_response_common_output,
-        "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
-        "api-shield_messages": api_shield_messages_output,
-        "api-shield_openapi": api_shield_openapi_output,
-        "api-shield_schema_response_discovery": api_shield_schema_response_discovery_output,
-        "api-shield_timestamp": api_shield_timestamp_output,
-        "api-shield_timestamp-2": api_shield_timestamp_2_output,
+        "api-shield_api-response-common": api$$shield_api$$response$$common,
+        "api-shield_api-response-common-failure": api$$shield_api$$response$$common$$failure,
+        "api-shield_messages": api$$shield_messages,
+        "api-shield_openapi": api$$shield_openapi,
+        "api-shield_schema_response_discovery": api$$shield_schema_response_discovery,
       },
     },
     request: (args) => ({

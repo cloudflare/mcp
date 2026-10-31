@@ -4,54 +4,11 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `tls-certificates-and-hostnames_brand_check` in responses.
- */
-export const tls_certificates_and_hostnames_brand_check_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_cert_pack_uuid` in responses.
- */
-export const tls_certificates_and_hostnames_cert_pack_uuid_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_certificate_status` in
- * responses.
- */
-export const tls_certificates_and_hostnames_certificate_status_output: JsonSchema = {
-  "enum": [
-    "initializing",
-    "authorizing",
-    "active",
-    "expired",
-    "issuing",
-    "timing_out",
-    "pending_deployment"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_signature-2` in responses.
- */
-export const tls_certificates_and_hostnames_signature_2_output: JsonSchema = {
-  "enum": [
-    "ECDSAWithSHA256",
-    "SHA1WithRSA",
-    "SHA256WithRSA"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of
  * `tls-certificates-and-hostnames_ssl_validation_method_response_collection` in
  * responses.
  */
-export const tls_certificates_and_hostnames_ssl_validation_method_response_collection_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_ssl_validation_method_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-single"
@@ -61,10 +18,16 @@ export const tls_certificates_and_hostnames_ssl_validation_method_response_colle
         "result": {
           "properties": {
             "status": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_status-6"
+              "type": "string"
             },
             "validation_method": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_validation_method_definition"
+              "enum": [
+                "http",
+                "cname",
+                "txt",
+                "email"
+              ],
+              "type": "string"
             }
           },
           "type": "object"
@@ -80,7 +43,7 @@ export const tls_certificates_and_hostnames_ssl_validation_method_response_colle
  * `tls-certificates-and-hostnames_ssl_verification_response_collection` in
  * responses.
  */
-export const tls_certificates_and_hostnames_ssl_verification_response_collection_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_ssl_verification_response_collection: JsonSchema = {
   "properties": {
     "result": {
       "items": {
@@ -93,67 +56,56 @@ export const tls_certificates_and_hostnames_ssl_verification_response_collection
 };
 
 /**
- * The schema of `tls-certificates-and-hostnames_status-6` in responses.
- */
-export const tls_certificates_and_hostnames_status_6_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_validation_method-2` in
- * responses.
- */
-export const tls_certificates_and_hostnames_validation_method_2_output: JsonSchema = {
-  "enum": [
-    "http",
-    "cname",
-    "txt"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_validation_method_definition`
- * in responses.
- */
-export const tls_certificates_and_hostnames_validation_method_definition_output: JsonSchema = {
-  "enum": [
-    "http",
-    "cname",
-    "txt",
-    "email"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `tls-certificates-and-hostnames_verification` in responses.
  */
-export const tls_certificates_and_hostnames_verification_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_verification: JsonSchema = {
   "properties": {
     "brand_check": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_brand_check"
+      "type": "boolean"
     },
     "cert_pack_uuid": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_cert_pack_uuid"
+      "type": "string"
     },
     "certificate_status": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_status"
+      "enum": [
+        "initializing",
+        "authorizing",
+        "active",
+        "expired",
+        "issuing",
+        "timing_out",
+        "pending_deployment"
+      ],
+      "type": "string"
     },
     "signature": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_signature-2"
+      "enum": [
+        "ECDSAWithSHA256",
+        "SHA1WithRSA",
+        "SHA256WithRSA"
+      ],
+      "type": "string"
     },
     "validation_method": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_validation_method-2"
+      "enum": [
+        "http",
+        "cname",
+        "txt"
+      ],
+      "type": "string"
     },
     "verification_info": {
       "$ref": "#/$defs/tls-certificates-and-hostnames_verification_info"
     },
     "verification_status": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_verification_status"
+      "type": "boolean"
     },
     "verification_type": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_verification_type"
+      "enum": [
+        "cname",
+        "meta tag"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -166,7 +118,7 @@ export const tls_certificates_and_hostnames_verification_output: JsonSchema = {
  * The schema of `tls-certificates-and-hostnames_verification_info` in
  * responses.
  */
-export const tls_certificates_and_hostnames_verification_info_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_verification_info: JsonSchema = {
   "properties": {
     "record_name": {
       "enum": [
@@ -188,24 +140,4 @@ export const tls_certificates_and_hostnames_verification_info_output: JsonSchema
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_verification_status` in
- * responses.
- */
-export const tls_certificates_and_hostnames_verification_status_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_verification_type` in
- * responses.
- */
-export const tls_certificates_and_hostnames_verification_type_output: JsonSchema = {
-  "enum": [
-    "cname",
-    "meta tag"
-  ],
-  "type": "string"
 };

@@ -4,34 +4,44 @@
 import { type Tool, pathParam } from "../../../../../_/tool.js";
 
 /**
- * The tools of `cloudforce_one.threat_intel.events.legacy.raw`.
+ * The tools of `cloudforceOne.threatIntel.events.legacy.raw`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "cloudforce_one_threat_intel_events_legacy_raw_get",
+    name: "cloudforceOne_threatIntel_events_legacy_raw_get",
     title: "Get raw event data by raw ID (legacy)",
-    description: "Legacy. Returns raw data stored under a `raw_id`, which new events don't use. Use `threat-intel events raw get` (`GET /events/datasets/{dataset_id}/events/{event_id}/raw`) instead.",
+    description: "Legacy. Returns raw data stored under a `raw_id`, which new events don't use. Use `threat-intel events raw get` (`GET /events/datasets/{dataset_id}/events/{event_id}/raw`) instead.\n\nGET /accounts/{account_id}/cloudforce-one/events/{event_id}/raw/{raw_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account ID.",
-          "type": "string"
-        },
-        "event_id": {
-          "description": "Event UUID.",
-          "type": "string"
-        },
-        "raw_id": {
-          "description": "Raw Event UUID.",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account ID.",
+              "type": "string"
+            },
+            "event_id": {
+              "description": "Event UUID.",
+              "type": "string"
+            },
+            "raw_id": {
+              "description": "Raw Event UUID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "event_id",
+            "raw_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "event_id",
-        "raw_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -149,16 +159,12 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "cloudforce_one_threat_intel_events_legacy_raw_update",
+    name: "cloudforceOne_threatIntel_events_legacy_raw_update",
     title: "Update raw event data by raw ID (legacy)",
-    description: "Legacy. Updates raw data stored under a `raw_id`, which new events don't use. There is no direct replacement.",
+    description: "Legacy. Updates raw data stored under a `raw_id`, which new events don't use. There is no direct replacement.\n\nPATCH /accounts/{account_id}/cloudforce-one/events/{event_id}/raw/{raw_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account ID.",
-          "type": "string"
-        },
         "body": {
           "properties": {
             "data": {
@@ -173,20 +179,34 @@ export const tools: readonly Tool[] = [
           },
           "type": "object"
         },
-        "event_id": {
-          "description": "Event UUID.",
-          "type": "string"
-        },
-        "raw_id": {
-          "description": "Raw Event UUID.",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account ID.",
+              "type": "string"
+            },
+            "event_id": {
+              "description": "Event UUID.",
+              "type": "string"
+            },
+            "raw_id": {
+              "description": "Raw Event UUID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "event_id",
+            "raw_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "event_id",
-        "raw_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `cache-settings_origin_max_http_version` in responses.
  */
-export const cache_settings_origin_max_http_version_output: JsonSchema = {
+export const cache$$settings_origin_max_http_version: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/cache-settings_base"
@@ -20,7 +20,11 @@ export const cache_settings_origin_max_http_version_output: JsonSchema = {
           "type": "string"
         },
         "value": {
-          "$ref": "#/$defs/cache-settings_origin_max_http_version_value"
+          "enum": [
+            "2",
+            "1"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
@@ -32,22 +36,11 @@ export const cache_settings_origin_max_http_version_output: JsonSchema = {
  * The schema of `cache-settings_origin_max_http_version_response_value` in
  * responses.
  */
-export const cache_settings_origin_max_http_version_response_value_output: JsonSchema = {
+export const cache$$settings_origin_max_http_version_response_value: JsonSchema = {
   "properties": {
     "result": {
       "$ref": "#/$defs/cache-settings_origin_max_http_version"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `cache-settings_origin_max_http_version_value` in responses.
- */
-export const cache_settings_origin_max_http_version_value_output: JsonSchema = {
-  "enum": [
-    "2",
-    "1"
-  ],
-  "type": "string"
 };

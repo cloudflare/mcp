@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `email-security_CreateSendingDomainRestriction`.
  */
-export const email_security_CreateSendingDomainRestriction: JsonSchema = {
+export const email$$security_CreateSendingDomainRestriction: JsonSchema = {
   "description": "Create a sending domain restriction.",
   "properties": {
     "comments": {
@@ -39,18 +39,9 @@ export const email_security_CreateSendingDomainRestriction: JsonSchema = {
 };
 
 /**
- * The schema of `email-security_SendingDomainRestrictionId`.
- */
-export const email_security_SendingDomainRestrictionId: JsonSchema = {
-  "description": "Sending domain restriction identifier.",
-  "format": "uuid",
-  "type": "string"
-};
-
-/**
  * The schema of `email-security_UpdateSendingDomainRestriction`.
  */
-export const email_security_UpdateSendingDomainRestriction: JsonSchema = {
+export const email$$security_UpdateSendingDomainRestriction: JsonSchema = {
   "description": "Update a sending domain restriction.",
   "properties": {
     "comments": {

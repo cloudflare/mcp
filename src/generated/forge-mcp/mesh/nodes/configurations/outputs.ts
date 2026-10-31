@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `tunnel_mesh_aws_config` in responses.
  */
-export const tunnel_mesh_aws_config_output: JsonSchema = {
+export const tunnel_mesh_aws_config: JsonSchema = {
   "properties": {
     "fnr_id": {
       "type": "string"
@@ -21,7 +21,7 @@ export const tunnel_mesh_aws_config_output: JsonSchema = {
 /**
  * The schema of `tunnel_mesh_configuration_response` in responses.
  */
-export const tunnel_mesh_configuration_response_output: JsonSchema = {
+export const tunnel_mesh_configuration_response: JsonSchema = {
   "properties": {
     "config": {
       "oneOf": [
@@ -40,16 +40,32 @@ export const tunnel_mesh_configuration_response_output: JsonSchema = {
       "type": "integer"
     },
     "created_at": {
-      "$ref": "#/$defs/tunnel_created_at"
+      "format": "date-time",
+      "type": "string"
     },
     "ha_mode": {
-      "$ref": "#/$defs/tunnel_mesh_ha_mode"
+      "enum": [
+        "none",
+        "disabled",
+        "aws",
+        "local"
+      ],
+      "type": "string"
     },
     "tunnel_id": {
-      "$ref": "#/$defs/tunnel_tunnel_id-2"
+      "format": "uuid",
+      "type": "string"
     },
     "updated_at": {
-      "$ref": "#/$defs/tunnel_updated_at"
+      "oneOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     }
   },
   "required": [
@@ -64,7 +80,7 @@ export const tunnel_mesh_configuration_response_output: JsonSchema = {
 /**
  * The schema of `tunnel_mesh_configuration_response_single` in responses.
  */
-export const tunnel_mesh_configuration_response_single_output: JsonSchema = {
+export const tunnel_mesh_configuration_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tunnel_api-response-single-2"
@@ -81,22 +97,9 @@ export const tunnel_mesh_configuration_response_single_output: JsonSchema = {
 };
 
 /**
- * The schema of `tunnel_mesh_ha_mode` in responses.
- */
-export const tunnel_mesh_ha_mode_output: JsonSchema = {
-  "enum": [
-    "none",
-    "disabled",
-    "aws",
-    "local"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `tunnel_mesh_local_config` in responses.
  */
-export const tunnel_mesh_local_config_output: JsonSchema = {
+export const tunnel_mesh_local_config: JsonSchema = {
   "properties": {
     "vips": {
       "items": {
@@ -123,7 +126,7 @@ export const tunnel_mesh_local_config_output: JsonSchema = {
 /**
  * The schema of `tunnel_mesh_vip_entry` in responses.
  */
-export const tunnel_mesh_vip_entry_output: JsonSchema = {
+export const tunnel_mesh_vip_entry: JsonSchema = {
   "properties": {
     "address": {
       "type": "string"
@@ -133,19 +136,4 @@ export const tunnel_mesh_vip_entry_output: JsonSchema = {
     "address"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `tunnel_updated_at` in responses.
- */
-export const tunnel_updated_at_output: JsonSchema = {
-  "oneOf": [
-    {
-      "format": "date-time",
-      "type": "string"
-    },
-    {
-      "type": "null"
-    }
-  ]
 };

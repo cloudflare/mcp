@@ -7,7 +7,7 @@ import type { JsonSchema } from "../../_/tool.js";
  * The schema of `resource-sharing_share_resource_response_collection` in
  * responses.
  */
-export const resource_sharing_share_resource_response_collection_output: JsonSchema = {
+export const resource$$sharing_share_resource_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/resource-sharing_api-response-collection"
@@ -22,7 +22,7 @@ export const resource_sharing_share_resource_response_collection_output: JsonSch
  * The schema of `resource-sharing_share_resource_response_collection_result` in
  * responses.
  */
-export const resource_sharing_share_resource_response_collection_result_output: JsonSchema = {
+export const resource$$sharing_share_resource_response_collection_result: JsonSchema = {
   "properties": {
     "result": {
       "items": {
@@ -37,7 +37,7 @@ export const resource_sharing_share_resource_response_collection_result_output: 
 /**
  * The schema of `resource-sharing_share_resource_response_single` in responses.
  */
-export const resource_sharing_share_resource_response_single_output: JsonSchema = {
+export const resource$$sharing_share_resource_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/resource-sharing_api-response-common"
@@ -52,7 +52,7 @@ export const resource_sharing_share_resource_response_single_output: JsonSchema 
  * The schema of `resource-sharing_share_resource_response_single_result` in
  * responses.
  */
-export const resource_sharing_share_resource_response_single_result_output: JsonSchema = {
+export const resource$$sharing_share_resource_response_single_result: JsonSchema = {
   "properties": {
     "result": {
       "$ref": "#/$defs/resource-sharing_share_resource_object"

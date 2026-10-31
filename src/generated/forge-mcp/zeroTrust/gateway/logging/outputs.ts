@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `zero-trust-gateway_account-log-options` in responses.
  */
-export const zero_trust_gateway_account_log_options_output: JsonSchema = {
+export const zero$$trust$$gateway_account$$log$$options: JsonSchema = {
   "properties": {
     "log_all": {
       "type": "boolean"
@@ -22,7 +22,7 @@ export const zero_trust_gateway_account_log_options_output: JsonSchema = {
  * The schema of `zero-trust-gateway_gateway-account-logging-settings` in
  * responses.
  */
-export const zero_trust_gateway_gateway_account_logging_settings_output: JsonSchema = {
+export const zero$$trust$$gateway_gateway$$account$$logging$$settings: JsonSchema = {
   "properties": {
     "redact_pii": {
       "type": "boolean"
@@ -49,7 +49,7 @@ export const zero_trust_gateway_gateway_account_logging_settings_output: JsonSch
  * The schema of `zero-trust-gateway_gateway-account-logging-settings-response`
  * in responses.
  */
-export const zero_trust_gateway_gateway_account_logging_settings_response_output: JsonSchema = {
+export const zero$$trust$$gateway_gateway$$account$$logging$$settings$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zero-trust-gateway_api-response-single"

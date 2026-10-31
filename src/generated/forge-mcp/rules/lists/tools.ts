@@ -3,30 +3,15 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  lists_api_response_collection_output,
-  lists_api_response_common_failure_output,
-  lists_api_response_common_output,
-  lists_created_on_output,
-  lists_description_output,
-  lists_kind_output,
-  lists_list_delete_response_collection_output,
-  lists_list_id_output,
-  lists_list_output,
-  lists_list_response_collection_output,
-  lists_lists_response_collection_output,
-  lists_messages_output,
-  lists_modified_on_output,
-  lists_name_output,
-  lists_num_items_output,
-  lists_num_referencing_filters_output,
+  lists_api$$response$$collection,
+  lists_api$$response$$common,
+  lists_api$$response$$common$$failure,
+  lists_list,
+  lists_list$$delete$$response$$collection,
+  lists_list$$response$$collection,
+  lists_lists$$response$$collection,
+  lists_messages,
 } from "./outputs.js";
-import {
-  lists_account_id,
-  lists_description,
-  lists_kind,
-  lists_list_id,
-  lists_name,
-} from "./schemas.js";
 
 /**
  * The tools of `rules.lists`.
@@ -35,27 +20,29 @@ export const tools: readonly Tool[] = [
   {
     name: "rules_lists_create",
     title: "Create a list",
-    description: "Creates a new list of the specified kind.",
+    description: "Creates a new list of the specified kind.\n\nPOST /accounts/{account_id}/rules/lists",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/lists_account_id",
-          "description": "The Account ID for this resource."
-        },
         "body": {
           "properties": {
             "description": {
-              "$ref": "#/$defs/lists_description",
-              "description": "An informative summary of the list."
+              "description": "An informative summary of the list.",
+              "type": "string"
             },
             "kind": {
-              "$ref": "#/$defs/lists_kind",
-              "description": "The type of the list. Each type supports specific list items (IP addresses, ASNs, hostnames or redirects)."
+              "description": "The type of the list. Each type supports specific list items (IP addresses, ASNs, hostnames or redirects).",
+              "enum": [
+                "ip",
+                "redirect",
+                "hostname",
+                "asn"
+              ],
+              "type": "string"
             },
             "name": {
-              "$ref": "#/$defs/lists_name",
-              "description": "An informative name for the list. Use this name in filter and rule expressions."
+              "description": "An informative name for the list. Use this name in filter and rule expressions.",
+              "type": "string"
             }
           },
           "required": [
@@ -63,34 +50,34 @@ export const tools: readonly Tool[] = [
             "name"
           ],
           "type": "object"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "The Account ID for this resource.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
-      $defs: {
-        "lists_account_id": lists_account_id,
-        "lists_description": lists_description,
-        "lists_kind": lists_kind,
-        "lists_name": lists_name,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/lists_list-response-collection",
       $defs: {
-        "lists_api-response-common": lists_api_response_common_output,
-        "lists_created_on": lists_created_on_output,
-        "lists_description": lists_description_output,
-        "lists_kind": lists_kind_output,
-        "lists_list": lists_list_output,
-        "lists_list-response-collection": lists_list_response_collection_output,
-        "lists_list_id": lists_list_id_output,
-        "lists_messages": lists_messages_output,
-        "lists_modified_on": lists_modified_on_output,
-        "lists_name": lists_name_output,
-        "lists_num_items": lists_num_items_output,
-        "lists_num_referencing_filters": lists_num_referencing_filters_output,
+        "lists_api-response-common": lists_api$$response$$common,
+        "lists_list": lists_list,
+        "lists_list-response-collection": lists_list$$response$$collection,
+        "lists_messages": lists_messages,
       },
     },
     annotations: {
@@ -130,19 +117,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "lists_api-response-common": lists_api_response_common_output,
-        "lists_api-response-common-failure": lists_api_response_common_failure_output,
-        "lists_created_on": lists_created_on_output,
-        "lists_description": lists_description_output,
-        "lists_kind": lists_kind_output,
-        "lists_list": lists_list_output,
-        "lists_list-response-collection": lists_list_response_collection_output,
-        "lists_list_id": lists_list_id_output,
-        "lists_messages": lists_messages_output,
-        "lists_modified_on": lists_modified_on_output,
-        "lists_name": lists_name_output,
-        "lists_num_items": lists_num_items_output,
-        "lists_num_referencing_filters": lists_num_referencing_filters_output,
+        "lists_api-response-common": lists_api$$response$$common,
+        "lists_api-response-common-failure": lists_api$$response$$common$$failure,
+        "lists_list": lists_list,
+        "lists_list-response-collection": lists_list$$response$$collection,
+        "lists_messages": lists_messages,
       },
     },
     request: (args) => ({
@@ -153,35 +132,40 @@ export const tools: readonly Tool[] = [
   {
     name: "rules_lists_delete",
     title: "Delete a list",
-    description: "Deletes a specific list and all its items.\n\nConfirm with the user before calling this tool. This operation deletes the custom list and every item it contains.",
+    description: "Deletes a specific list and all its items.\n\nConfirm with the user before calling this tool. This operation deletes the custom list and every item it contains.\n\nDELETE /accounts/{account_id}/rules/lists/{list_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/lists_account_id",
-          "description": "The Account ID for this resource."
-        },
-        "list_id": {
-          "$ref": "#/$defs/lists_list_id",
-          "description": "The unique ID of the list."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "The Account ID for this resource.",
+              "type": "string"
+            },
+            "list_id": {
+              "description": "The unique ID of the list.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "list_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "list_id"
+        "path"
       ],
-      $defs: {
-        "lists_account_id": lists_account_id,
-        "lists_list_id": lists_list_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/lists_list-delete-response-collection",
       $defs: {
-        "lists_api-response-common": lists_api_response_common_output,
-        "lists_list-delete-response-collection": lists_list_delete_response_collection_output,
-        "lists_list_id": lists_list_id_output,
-        "lists_messages": lists_messages_output,
+        "lists_api-response-common": lists_api$$response$$common,
+        "lists_list-delete-response-collection": lists_list$$delete$$response$$collection,
+        "lists_messages": lists_messages,
       },
     },
     annotations: {
@@ -221,11 +205,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "lists_api-response-common": lists_api_response_common_output,
-        "lists_api-response-common-failure": lists_api_response_common_failure_output,
-        "lists_list-delete-response-collection": lists_list_delete_response_collection_output,
-        "lists_list_id": lists_list_id_output,
-        "lists_messages": lists_messages_output,
+        "lists_api-response-common": lists_api$$response$$common,
+        "lists_api-response-common-failure": lists_api$$response$$common$$failure,
+        "lists_list-delete-response-collection": lists_list$$delete$$response$$collection,
+        "lists_messages": lists_messages,
       },
     },
     request: (args) => ({
@@ -235,43 +218,41 @@ export const tools: readonly Tool[] = [
   {
     name: "rules_lists_get",
     title: "Get a list",
-    description: "Fetches the details of a list.",
+    description: "Fetches the details of a list.\n\nGET /accounts/{account_id}/rules/lists/{list_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/lists_account_id",
-          "description": "The Account ID for this resource."
-        },
-        "list_id": {
-          "$ref": "#/$defs/lists_list_id",
-          "description": "The unique ID of the list."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "The Account ID for this resource.",
+              "type": "string"
+            },
+            "list_id": {
+              "description": "The unique ID of the list.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "list_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "list_id"
+        "path"
       ],
-      $defs: {
-        "lists_account_id": lists_account_id,
-        "lists_list_id": lists_list_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/lists_list-response-collection",
       $defs: {
-        "lists_api-response-common": lists_api_response_common_output,
-        "lists_created_on": lists_created_on_output,
-        "lists_description": lists_description_output,
-        "lists_kind": lists_kind_output,
-        "lists_list": lists_list_output,
-        "lists_list-response-collection": lists_list_response_collection_output,
-        "lists_list_id": lists_list_id_output,
-        "lists_messages": lists_messages_output,
-        "lists_modified_on": lists_modified_on_output,
-        "lists_name": lists_name_output,
-        "lists_num_items": lists_num_items_output,
-        "lists_num_referencing_filters": lists_num_referencing_filters_output,
+        "lists_api-response-common": lists_api$$response$$common,
+        "lists_list": lists_list,
+        "lists_list-response-collection": lists_list$$response$$collection,
+        "lists_messages": lists_messages,
       },
     },
     annotations: {
@@ -311,19 +292,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "lists_api-response-common": lists_api_response_common_output,
-        "lists_api-response-common-failure": lists_api_response_common_failure_output,
-        "lists_created_on": lists_created_on_output,
-        "lists_description": lists_description_output,
-        "lists_kind": lists_kind_output,
-        "lists_list": lists_list_output,
-        "lists_list-response-collection": lists_list_response_collection_output,
-        "lists_list_id": lists_list_id_output,
-        "lists_messages": lists_messages_output,
-        "lists_modified_on": lists_modified_on_output,
-        "lists_name": lists_name_output,
-        "lists_num_items": lists_num_items_output,
-        "lists_num_referencing_filters": lists_num_referencing_filters_output,
+        "lists_api-response-common": lists_api$$response$$common,
+        "lists_api-response-common-failure": lists_api$$response$$common$$failure,
+        "lists_list": lists_list,
+        "lists_list-response-collection": lists_list$$response$$collection,
+        "lists_messages": lists_messages,
       },
     },
     request: (args) => ({
@@ -333,38 +306,37 @@ export const tools: readonly Tool[] = [
   {
     name: "rules_lists_list",
     title: "Get lists",
-    description: "Fetches all lists in the account.",
+    description: "Fetches all lists in the account.\n\nGET /accounts/{account_id}/rules/lists",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/lists_account_id",
-          "description": "The Account ID for this resource."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "The Account ID for this resource.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
-      $defs: {
-        "lists_account_id": lists_account_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/lists_lists-response-collection",
       $defs: {
-        "lists_api-response-collection": lists_api_response_collection_output,
-        "lists_api-response-common": lists_api_response_common_output,
-        "lists_created_on": lists_created_on_output,
-        "lists_description": lists_description_output,
-        "lists_kind": lists_kind_output,
-        "lists_list": lists_list_output,
-        "lists_list_id": lists_list_id_output,
-        "lists_lists-response-collection": lists_lists_response_collection_output,
-        "lists_messages": lists_messages_output,
-        "lists_modified_on": lists_modified_on_output,
-        "lists_name": lists_name_output,
-        "lists_num_items": lists_num_items_output,
-        "lists_num_referencing_filters": lists_num_referencing_filters_output,
+        "lists_api-response-collection": lists_api$$response$$collection,
+        "lists_api-response-common": lists_api$$response$$common,
+        "lists_list": lists_list,
+        "lists_lists-response-collection": lists_lists$$response$$collection,
+        "lists_messages": lists_messages,
       },
     },
     annotations: {
@@ -405,20 +377,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "lists_api-response-collection": lists_api_response_collection_output,
-        "lists_api-response-common": lists_api_response_common_output,
-        "lists_api-response-common-failure": lists_api_response_common_failure_output,
-        "lists_created_on": lists_created_on_output,
-        "lists_description": lists_description_output,
-        "lists_kind": lists_kind_output,
-        "lists_list": lists_list_output,
-        "lists_list_id": lists_list_id_output,
-        "lists_lists-response-collection": lists_lists_response_collection_output,
-        "lists_messages": lists_messages_output,
-        "lists_modified_on": lists_modified_on_output,
-        "lists_name": lists_name_output,
-        "lists_num_items": lists_num_items_output,
-        "lists_num_referencing_filters": lists_num_referencing_filters_output,
+        "lists_api-response-collection": lists_api$$response$$collection,
+        "lists_api-response-common": lists_api$$response$$common,
+        "lists_api-response-common-failure": lists_api$$response$$common$$failure,
+        "lists_list": lists_list,
+        "lists_lists-response-collection": lists_lists$$response$$collection,
+        "lists_messages": lists_messages,
       },
     },
     request: (args) => ({
@@ -428,54 +392,51 @@ export const tools: readonly Tool[] = [
   {
     name: "rules_lists_update",
     title: "Update a list",
-    description: "Updates the description of a list.",
+    description: "Updates the description of a list.\n\nPUT /accounts/{account_id}/rules/lists/{list_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/lists_account_id",
-          "description": "The Account ID for this resource."
-        },
         "body": {
           "properties": {
             "description": {
-              "$ref": "#/$defs/lists_description",
-              "description": "An informative summary of the list."
+              "description": "An informative summary of the list.",
+              "type": "string"
             }
           },
           "type": "object"
         },
-        "list_id": {
-          "$ref": "#/$defs/lists_list_id",
-          "description": "The unique ID of the list."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "The Account ID for this resource.",
+              "type": "string"
+            },
+            "list_id": {
+              "description": "The unique ID of the list.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "list_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "list_id",
+        "path",
         "body"
       ],
-      $defs: {
-        "lists_account_id": lists_account_id,
-        "lists_description": lists_description,
-        "lists_list_id": lists_list_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/lists_list-response-collection",
       $defs: {
-        "lists_api-response-common": lists_api_response_common_output,
-        "lists_created_on": lists_created_on_output,
-        "lists_description": lists_description_output,
-        "lists_kind": lists_kind_output,
-        "lists_list": lists_list_output,
-        "lists_list-response-collection": lists_list_response_collection_output,
-        "lists_list_id": lists_list_id_output,
-        "lists_messages": lists_messages_output,
-        "lists_modified_on": lists_modified_on_output,
-        "lists_name": lists_name_output,
-        "lists_num_items": lists_num_items_output,
-        "lists_num_referencing_filters": lists_num_referencing_filters_output,
+        "lists_api-response-common": lists_api$$response$$common,
+        "lists_list": lists_list,
+        "lists_list-response-collection": lists_list$$response$$collection,
+        "lists_messages": lists_messages,
       },
     },
     annotations: {
@@ -515,19 +476,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "lists_api-response-common": lists_api_response_common_output,
-        "lists_api-response-common-failure": lists_api_response_common_failure_output,
-        "lists_created_on": lists_created_on_output,
-        "lists_description": lists_description_output,
-        "lists_kind": lists_kind_output,
-        "lists_list": lists_list_output,
-        "lists_list-response-collection": lists_list_response_collection_output,
-        "lists_list_id": lists_list_id_output,
-        "lists_messages": lists_messages_output,
-        "lists_modified_on": lists_modified_on_output,
-        "lists_name": lists_name_output,
-        "lists_num_items": lists_num_items_output,
-        "lists_num_referencing_filters": lists_num_referencing_filters_output,
+        "lists_api-response-common": lists_api$$response$$common,
+        "lists_api-response-common-failure": lists_api$$response$$common$$failure,
+        "lists_list": lists_list,
+        "lists_list-response-collection": lists_list$$response$$collection,
+        "lists_messages": lists_messages,
       },
     },
     request: (args) => ({

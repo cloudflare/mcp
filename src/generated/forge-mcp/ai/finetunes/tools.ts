@@ -10,13 +10,10 @@ export const tools: readonly Tool[] = [
   {
     name: "ai_finetunes_create",
     title: "Create a new Finetune",
-    description: "Creates a new fine-tuning job for a Workers AI model using custom training data.",
+    description: "Creates a new fine-tuning job for a Workers AI model using custom training data.\n\nPOST /accounts/{account_id}/ai/finetunes",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
         "body": {
           "properties": {
             "description": {
@@ -38,11 +35,24 @@ export const tools: readonly Tool[] = [
             "name"
           ],
           "type": "object"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -197,21 +207,31 @@ export const tools: readonly Tool[] = [
   {
     name: "ai_finetunes_delete",
     title: "Delete a Finetune",
-    description: "Delete a finetune. Any in-flight requests referencing the lora will fail after the files are deleted.",
+    description: "Delete a finetune. Any in-flight requests referencing the lora will fail after the files are deleted.\n\nDELETE /accounts/{account_id}/ai/finetunes/{finetune_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
-        "finetune_id": {
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "finetune_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "finetune_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "finetune_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -320,17 +340,27 @@ export const tools: readonly Tool[] = [
   {
     name: "ai_finetunes_list",
     title: "List Finetunes",
-    description: "Lists all fine-tuning jobs created by the account, including status and metrics.",
+    description: "Lists all fine-tuning jobs created by the account, including status and metrics.\n\nGET /accounts/{account_id}/ai/finetunes",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

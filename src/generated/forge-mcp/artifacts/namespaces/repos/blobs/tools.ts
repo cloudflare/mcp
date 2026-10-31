@@ -10,33 +10,43 @@ export const tools: readonly Tool[] = [
   {
     name: "artifacts_namespaces_repos_blobs_get",
     title: "Read a Git blob",
-    description: "Returns raw bytes for an immutable Git blob object. Blob responses are cacheable forever by hash.\n\nThis method is beta.",
+    description: "Returns raw bytes for an immutable Git blob object. Blob responses are cacheable forever by hash.\n\nThis method is beta.\n\nGET /accounts/{account_id}/artifacts/namespaces/{namespace}/repos/{name}/blob/{hash}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare account ID.",
-          "type": "string"
-        },
-        "hash": {
-          "description": "40-character lowercase hexadecimal Git object hash.",
-          "type": "string"
-        },
-        "name": {
-          "description": "Repository name.",
-          "type": "string"
-        },
-        "namespace": {
-          "description": "Artifacts namespace name.",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID.",
+              "type": "string"
+            },
+            "hash": {
+              "description": "40-character lowercase hexadecimal Git object hash.",
+              "type": "string"
+            },
+            "name": {
+              "description": "Repository name.",
+              "type": "string"
+            },
+            "namespace": {
+              "description": "Artifacts namespace name.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "namespace",
+            "name",
+            "hash"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "namespace",
-        "name",
-        "hash"
+        "path"
       ],
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": false,

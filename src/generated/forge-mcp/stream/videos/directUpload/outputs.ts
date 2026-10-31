@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `stream_direct_upload_response` in responses.
  */
-export const stream_direct_upload_response_output: JsonSchema = {
+export const stream_direct_upload_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/stream_api-response-single"
@@ -16,10 +16,11 @@ export const stream_direct_upload_response_output: JsonSchema = {
         "result": {
           "properties": {
             "scheduledDeletion": {
-              "$ref": "#/$defs/stream_scheduledDeletion"
+              "format": "date-time",
+              "type": "string"
             },
             "uid": {
-              "$ref": "#/$defs/stream_identifier"
+              "type": "string"
             },
             "uploadURL": {
               "type": "string"

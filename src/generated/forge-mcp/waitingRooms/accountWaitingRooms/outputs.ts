@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `waitingroom_response_collection` in responses.
  */
-export const waitingroom_response_collection_output: JsonSchema = {
+export const waitingroom_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/waitingroom_api-response-collection"

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `organizations-api_CreateOrganizationProfileRequest`.
  */
-export const organizations_api_CreateOrganizationProfileRequest: JsonSchema = {
+export const organizations$$api_CreateOrganizationProfileRequest: JsonSchema = {
   "description": "Optional profile fields, each limited to 1,000 UTF-8 bytes. An empty profile is ignored.",
   "properties": {
     "business_address": {
@@ -31,7 +31,7 @@ export const organizations_api_CreateOrganizationProfileRequest: JsonSchema = {
 /**
  * The schema of `organizations-api_CreateOrganizationRequest`.
  */
-export const organizations_api_CreateOrganizationRequest: JsonSchema = {
+export const organizations$$api_CreateOrganizationRequest: JsonSchema = {
   "properties": {
     "name": {
       "description": "The Organization name, limited to 65 UTF-8 bytes.",
@@ -40,7 +40,8 @@ export const organizations_api_CreateOrganizationRequest: JsonSchema = {
     "parent": {
       "properties": {
         "id": {
-          "$ref": "#/$defs/organizations-api_OrganizationID"
+          "description": "Organization ID",
+          "type": "string"
         }
       },
       "required": [
@@ -60,25 +61,17 @@ export const organizations_api_CreateOrganizationRequest: JsonSchema = {
 };
 
 /**
- * The schema of `organizations-api_MemberID`.
- */
-export const organizations_api_MemberID: JsonSchema = {
-  "description": "Organization Member ID",
-  "type": "string"
-};
-
-/**
  * The schema of `organizations-api_ModifyOrganizationRequest`.
  */
-export const organizations_api_ModifyOrganizationRequest: JsonSchema = {
+export const organizations$$api_ModifyOrganizationRequest: JsonSchema = {
   "properties": {
     "name": {
       "description": "The Organization's display name, limited to 65 UTF-8 bytes. An omitted, empty, or unchanged value is a no-op.",
       "type": "string"
     },
     "parent_id": {
-      "$ref": "#/$defs/organizations-api_OrganizationID",
-      "description": "The current parent Organization ID. A different value is rejected; this endpoint cannot move an Organization."
+      "description": "The current parent Organization ID. A different value is rejected; this endpoint cannot move an Organization.",
+      "type": "string"
     }
   },
   "type": "object"

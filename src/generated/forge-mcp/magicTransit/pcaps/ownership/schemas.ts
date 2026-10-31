@@ -4,21 +4,13 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `magic-visibility-pcaps_pcaps_ownership_challenge`.
- */
-export const magic_visibility_pcaps_pcaps_ownership_challenge: JsonSchema = {
-  "description": "The ownership challenge filename stored in the bucket.",
-  "type": "string"
-};
-
-/**
  * The schema of `magic-visibility-pcaps_pcaps_ownership_request`.
  */
-export const magic_visibility_pcaps_pcaps_ownership_request: JsonSchema = {
+export const magic$$visibility$$pcaps_pcaps_ownership_request: JsonSchema = {
   "properties": {
     "destination_conf": {
-      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_destination_conf",
-      "description": "The full URI for the bucket. This field only applies to `full` packet captures."
+      "description": "The full URI for the bucket. This field only applies to `full` packet captures.",
+      "type": "string"
     }
   },
   "required": [
@@ -30,15 +22,15 @@ export const magic_visibility_pcaps_pcaps_ownership_request: JsonSchema = {
 /**
  * The schema of `magic-visibility-pcaps_pcaps_ownership_validate_request`.
  */
-export const magic_visibility_pcaps_pcaps_ownership_validate_request: JsonSchema = {
+export const magic$$visibility$$pcaps_pcaps_ownership_validate_request: JsonSchema = {
   "properties": {
     "destination_conf": {
-      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_destination_conf",
-      "description": "The full URI for the bucket. This field only applies to `full` packet captures."
+      "description": "The full URI for the bucket. This field only applies to `full` packet captures.",
+      "type": "string"
     },
     "ownership_challenge": {
-      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_ownership_challenge",
-      "description": "The ownership challenge filename stored in the bucket."
+      "description": "The ownership challenge filename stored in the bucket.",
+      "type": "string"
     }
   },
   "required": [

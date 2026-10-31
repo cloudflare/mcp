@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../../_/tool.js";
 /**
  * The schema of `web3_content_list_entry_collection_response` in responses.
  */
-export const web3_content_list_entry_collection_response_output: JsonSchema = {
+export const web3_content_list_entry_collection_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/web3_api-response-collection"
@@ -30,7 +30,7 @@ export const web3_content_list_entry_collection_response_output: JsonSchema = {
 /**
  * The schema of `web3_content_list_entry_single_response` in responses.
  */
-export const web3_content_list_entry_single_response_output: JsonSchema = {
+export const web3_content_list_entry_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/web3_api-response-single"

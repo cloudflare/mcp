@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `waitingroom_preview_response` in responses.
  */
-export const waitingroom_preview_response_output: JsonSchema = {
+export const waitingroom_preview_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/waitingroom_api-response-single"
@@ -16,7 +16,7 @@ export const waitingroom_preview_response_output: JsonSchema = {
         "result": {
           "properties": {
             "preview_url": {
-              "$ref": "#/$defs/waitingroom_preview_url"
+              "type": "string"
             }
           },
           "type": "object"
@@ -25,11 +25,4 @@ export const waitingroom_preview_response_output: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `waitingroom_preview_url` in responses.
- */
-export const waitingroom_preview_url_output: JsonSchema = {
-  "type": "string"
 };

@@ -113,7 +113,9 @@ async function callForgeTool(
     case 'invalid':
       return toolError(plan.message)
     case 'needs_account':
-      return toolError(missingAccountMessage(props, FORGE_ACCOUNT_DISCOVERY_GUIDANCE))
+      return toolError(
+        missingAccountMessage(props, FORGE_ACCOUNT_DISCOVERY_GUIDANCE, plan.argument)
+      )
     case 'request':
       break
   }

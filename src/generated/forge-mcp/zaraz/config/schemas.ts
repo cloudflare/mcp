@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `zaraz_zaraz-config-body`.
  */
-export const zaraz_zaraz_config_body: JsonSchema = {
+export const zaraz_zaraz$$config$$body: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zaraz_zaraz-config-base"

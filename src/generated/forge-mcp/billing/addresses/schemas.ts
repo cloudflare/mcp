@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `bill-subs-api_address_validation_request`.
  */
-export const bill_subs_api_address_validation_request: JsonSchema = {
+export const bill$$subs$$api_address_validation_request: JsonSchema = {
   "properties": {
     "address": {
       "description": "Address line 1.",

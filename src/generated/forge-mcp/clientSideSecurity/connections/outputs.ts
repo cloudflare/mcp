@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `client-side-security_connection` in responses.
  */
-export const client_side_security_connection_output: JsonSchema = {
+export const client$$side$$security_connection: JsonSchema = {
   "properties": {
     "added_at": {
       "format": "date-time",
@@ -26,7 +26,7 @@ export const client_side_security_connection_output: JsonSchema = {
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/client-side-security_id"
+      "type": "string"
     },
     "last_seen_at": {
       "format": "date-time",
@@ -76,7 +76,7 @@ export const client_side_security_connection_output: JsonSchema = {
  * The schema of `client-side-security_get-zone-connection-response` in
  * responses.
  */
-export const client_side_security_get_zone_connection_response_output: JsonSchema = {
+export const client$$side$$security_get$$zone$$connection$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/client-side-security_api-get-response-collection"
@@ -99,7 +99,7 @@ export const client_side_security_get_zone_connection_response_output: JsonSchem
  * The schema of `client-side-security_list-zone-connections-response` in
  * responses.
  */
-export const client_side_security_list_zone_connections_response_output: JsonSchema = {
+export const client$$side$$security_list$$zone$$connections$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/client-side-security_api-list-response-collection"

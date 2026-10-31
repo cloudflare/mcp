@@ -3,36 +3,42 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  workers_api_response_common_failure_output,
-  workers_api_response_common_output,
-  workers_messages_output,
+  workers_api$$response$$common,
+  workers_api$$response$$common$$failure,
+  workers_messages,
 } from "../../outputs.js";
-import { workers_identifier } from "../../schemas.js";
-import { workers_account_settings_output } from "./outputs.js";
-import { workers_account_settings } from "./schemas.js";
+import { workers_account$$settings } from "./outputs.js";
+import { workers_account$$settings as workers_account$$settings$ } from "./schemas.js";
 
 /**
- * The tools of `workers.account_settings`.
+ * The tools of `workers.accountSettings`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "workers_account_settings_get",
+    name: "workers_accountSettings_get",
     title: "Fetch Workers Account Settings",
-    description: "Fetches Workers account settings for an account.",
+    description: "Fetches Workers account settings for an account.\n\nGET /accounts/{account_id}/workers/account-settings",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/workers_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
-      $defs: {
-        "workers_identifier": workers_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -52,9 +58,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "workers_account-settings": workers_account_settings_output,
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_messages": workers_messages_output,
+        "workers_account-settings": workers_account$$settings,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_messages": workers_messages,
       },
     },
     annotations: {
@@ -127,10 +133,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "workers_account-settings": workers_account_settings_output,
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_api-response-common-failure": workers_api_response_common_failure_output,
-        "workers_messages": workers_messages_output,
+        "workers_account-settings": workers_account$$settings,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_api-response-common-failure": workers_api$$response$$common$$failure,
+        "workers_messages": workers_messages,
       },
     },
     request: (args) => ({
@@ -138,27 +144,36 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "workers_account_settings_update",
+    name: "workers_accountSettings_update",
     title: "Configure Workers Account Settings",
-    description: "Configure Workers account settings for an account.",
+    description: "Configure Workers account settings for an account.\n\nPUT /accounts/{account_id}/workers/account-settings",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/workers_identifier",
-          "description": "Identifier."
-        },
         "body": {
           "$ref": "#/$defs/workers_account-settings"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "workers_account-settings": workers_account_settings,
-        "workers_identifier": workers_identifier,
+        "workers_account-settings": workers_account$$settings$,
       },
     },
     outputSchema: {
@@ -179,9 +194,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "workers_account-settings": workers_account_settings_output,
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_messages": workers_messages_output,
+        "workers_account-settings": workers_account$$settings,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_messages": workers_messages,
       },
     },
     annotations: {
@@ -226,10 +241,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "workers_account-settings": workers_account_settings_output,
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_api-response-common-failure": workers_api_response_common_failure_output,
-        "workers_messages": workers_messages_output,
+        "workers_account-settings": workers_account$$settings,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_api-response-common-failure": workers_api$$response$$common$$failure,
+        "workers_messages": workers_messages,
       },
     },
     request: (args) => ({

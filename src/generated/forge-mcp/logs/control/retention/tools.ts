@@ -3,17 +3,15 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  logcontrol_api_response_common_failure_output,
-  logcontrol_api_response_single_output,
-  logcontrol_messages_output,
+  logcontrol_api$$response$$common$$failure,
+  logcontrol_api$$response$$single,
+  logcontrol_messages,
 } from "../outputs.js";
-import { logcontrol_identifier } from "../schemas.js";
 import {
-  logcontrol_flag_output,
-  logcontrol_retention_flag_output,
-  logcontrol_retention_flag_response_single_output,
+  logcontrol_retention_flag,
+  logcontrol_retention_flag_response_single,
 } from "./outputs.js";
-import { logcontrol_flag, logcontrol_retention_flag } from "./schemas.js";
+import { logcontrol_retention_flag as logcontrol_retention_flag$ } from "./schemas.js";
 
 /**
  * The tools of `logs.control.retention`.
@@ -22,36 +20,43 @@ export const tools: readonly Tool[] = [
   {
     name: "logs_control_retention_create",
     title: "Update log retention flag",
-    description: "Updates log retention flag for Logpull API.\n\nThis method is deprecated.",
+    description: "Updates log retention flag for Logpull API.\n\nThis method is deprecated.\n\nPOST /zones/{zone_id}/logs/control/retention/flag",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "$ref": "#/$defs/logcontrol_retention_flag"
         },
-        "zone_id": {
-          "$ref": "#/$defs/logcontrol_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "logcontrol_flag": logcontrol_flag,
-        "logcontrol_identifier": logcontrol_identifier,
-        "logcontrol_retention_flag": logcontrol_retention_flag,
+        "logcontrol_retention_flag": logcontrol_retention_flag$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/logcontrol_retention_flag_response_single",
       $defs: {
-        "logcontrol_api-response-single": logcontrol_api_response_single_output,
-        "logcontrol_flag": logcontrol_flag_output,
-        "logcontrol_messages": logcontrol_messages_output,
-        "logcontrol_retention_flag": logcontrol_retention_flag_output,
-        "logcontrol_retention_flag_response_single": logcontrol_retention_flag_response_single_output,
+        "logcontrol_api-response-single": logcontrol_api$$response$$single,
+        "logcontrol_messages": logcontrol_messages,
+        "logcontrol_retention_flag": logcontrol_retention_flag,
+        "logcontrol_retention_flag_response_single": logcontrol_retention_flag_response_single,
       },
     },
     annotations: {
@@ -89,12 +94,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "logcontrol_api-response-common-failure": logcontrol_api_response_common_failure_output,
-        "logcontrol_api-response-single": logcontrol_api_response_single_output,
-        "logcontrol_flag": logcontrol_flag_output,
-        "logcontrol_messages": logcontrol_messages_output,
-        "logcontrol_retention_flag": logcontrol_retention_flag_output,
-        "logcontrol_retention_flag_response_single": logcontrol_retention_flag_response_single_output,
+        "logcontrol_api-response-common-failure": logcontrol_api$$response$$common$$failure,
+        "logcontrol_api-response-single": logcontrol_api$$response$$single,
+        "logcontrol_messages": logcontrol_messages,
+        "logcontrol_retention_flag": logcontrol_retention_flag,
+        "logcontrol_retention_flag_response_single": logcontrol_retention_flag_response_single,
       },
     },
     request: (args) => ({
@@ -105,30 +109,36 @@ export const tools: readonly Tool[] = [
   {
     name: "logs_control_retention_get",
     title: "Get log retention flag",
-    description: "Gets log retention flag for Logpull API.\n\nThis method is deprecated.",
+    description: "Gets log retention flag for Logpull API.\n\nThis method is deprecated.\n\nGET /zones/{zone_id}/logs/control/retention/flag",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/logcontrol_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
-      $defs: {
-        "logcontrol_identifier": logcontrol_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/logcontrol_retention_flag_response_single",
       $defs: {
-        "logcontrol_api-response-single": logcontrol_api_response_single_output,
-        "logcontrol_flag": logcontrol_flag_output,
-        "logcontrol_messages": logcontrol_messages_output,
-        "logcontrol_retention_flag": logcontrol_retention_flag_output,
-        "logcontrol_retention_flag_response_single": logcontrol_retention_flag_response_single_output,
+        "logcontrol_api-response-single": logcontrol_api$$response$$single,
+        "logcontrol_messages": logcontrol_messages,
+        "logcontrol_retention_flag": logcontrol_retention_flag,
+        "logcontrol_retention_flag_response_single": logcontrol_retention_flag_response_single,
       },
     },
     annotations: {
@@ -168,12 +178,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "logcontrol_api-response-common-failure": logcontrol_api_response_common_failure_output,
-        "logcontrol_api-response-single": logcontrol_api_response_single_output,
-        "logcontrol_flag": logcontrol_flag_output,
-        "logcontrol_messages": logcontrol_messages_output,
-        "logcontrol_retention_flag": logcontrol_retention_flag_output,
-        "logcontrol_retention_flag_response_single": logcontrol_retention_flag_response_single_output,
+        "logcontrol_api-response-common-failure": logcontrol_api$$response$$common$$failure,
+        "logcontrol_api-response-single": logcontrol_api$$response$$single,
+        "logcontrol_messages": logcontrol_messages,
+        "logcontrol_retention_flag": logcontrol_retention_flag,
+        "logcontrol_retention_flag_response_single": logcontrol_retention_flag_response_single,
       },
     },
     request: (args) => ({

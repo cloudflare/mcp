@@ -4,29 +4,13 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `lists_item_asn`.
- */
-export const lists_item_asn: JsonSchema = {
-  "description": "Defines a non-negative 32 bit integer.",
-  "type": "integer"
-};
-
-/**
- * The schema of `lists_item_comment`.
- */
-export const lists_item_comment: JsonSchema = {
-  "description": "Defines an informative summary of the list item.",
-  "type": "string"
-};
-
-/**
  * The schema of `lists_item_comment_object`.
  */
 export const lists_item_comment_object: JsonSchema = {
   "properties": {
     "comment": {
-      "$ref": "#/$defs/lists_item_comment",
-      "description": "Defines an informative summary of the list item."
+      "description": "Defines an informative summary of the list item.",
+      "type": "string"
     }
   },
   "type": "object"
@@ -50,22 +34,6 @@ export const lists_item_hostname: JsonSchema = {
     "url_hostname"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `lists_item_id`.
- */
-export const lists_item_id: JsonSchema = {
-  "description": "Defines the unique ID of the item in the List.",
-  "type": "string"
-};
-
-/**
- * The schema of `lists_item_ip`.
- */
-export const lists_item_ip: JsonSchema = {
-  "description": "An IPv4 address, an IPv4 CIDR, an IPv6 address, or an IPv6 CIDR.",
-  "type": "string"
 };
 
 /**
@@ -117,7 +85,7 @@ export const lists_item_redirect: JsonSchema = {
 /**
  * The schema of `lists_items-update-request-collection`.
  */
-export const lists_items_update_request_collection: JsonSchema = {
+export const lists_items$$update$$request$$collection: JsonSchema = {
   "items": {
     "oneOf": [
       {
@@ -157,8 +125,8 @@ export const lists_list_item_asn_comment: JsonSchema = {
 export const lists_list_item_asn_object: JsonSchema = {
   "properties": {
     "asn": {
-      "$ref": "#/$defs/lists_item_asn",
-      "description": "Defines a non-negative 32 bit integer."
+      "description": "Defines a non-negative 32 bit integer.",
+      "type": "integer"
     }
   },
   "required": [
@@ -217,8 +185,8 @@ export const lists_list_item_ip_comment: JsonSchema = {
 export const lists_list_item_ip_object: JsonSchema = {
   "properties": {
     "ip": {
-      "$ref": "#/$defs/lists_item_ip",
-      "description": "An IPv4 address, an IPv4 CIDR, an IPv6 address, or an IPv6 CIDR."
+      "description": "An IPv4 address, an IPv4 CIDR, an IPv6 address, or an IPv6 CIDR.",
+      "type": "string"
     }
   },
   "required": [

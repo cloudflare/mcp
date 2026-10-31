@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `teams-devices_zero-trust-account-device-settings`.
  */
-export const teams_devices_zero_trust_account_device_settings: JsonSchema = {
+export const teams$$devices_zero$$trust$$account$$device$$settings: JsonSchema = {
   "properties": {
     "disable_for_time": {
       "description": "Sets the time limit, in seconds, that a user can use an override code to bypass WARP.",

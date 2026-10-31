@@ -4,31 +4,41 @@
 import { type Tool, pathParam } from "../../../../_/tool.js";
 
 /**
- * The tools of `cloudforce_one.threat_signals.skills.tag_categories`.
+ * The tools of `cloudforceOne.threatSignals.skills.tagCategories`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "cloudforce_one_threat_signals_skills_tag_categories_get",
+    name: "cloudforceOne_threatSignals_skills_tagCategories_get",
     title: "Get Threat Signals skill tag categories",
-    description: "Retrieves the Tag Categories the managed default tagging skill may select tags from. This configures the managed default tagging skill, not Custom Skills.",
+    description: "Retrieves the Tag Categories the managed default tagging skill may select tags from. This configures the managed default tagging skill, not Custom Skills.\n\nGET /accounts/{account_id}/cloudforce-one/v2/threat-signals/skills/{skill_id}/tag-categories",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
-        "skill_id": {
-          "description": "Must be default-tagging-skill; configures the managed default tagging skill",
-          "enum": [
-            "default-tagging-skill"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "skill_id": {
+              "description": "Must be default-tagging-skill; configures the managed default tagging skill",
+              "enum": [
+                "default-tagging-skill"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "skill_id"
           ],
-          "type": "string"
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "skill_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -159,15 +169,12 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "cloudforce_one_threat_signals_skills_tag_categories_update",
+    name: "cloudforceOne_threatSignals_skills_tagCategories_update",
     title: "Replace Threat Signals skill tag categories",
-    description: "Replaces the Tag Categories the managed default tagging skill may select tags from. This configures the managed default tagging skill, not Custom Skills.",
+    description: "Replaces the Tag Categories the managed default tagging skill may select tags from. This configures the managed default tagging skill, not Custom Skills.\n\nPUT /accounts/{account_id}/cloudforce-one/v2/threat-signals/skills/{skill_id}/tag-categories",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
         "body": {
           "properties": {
             "category_uuids": {
@@ -185,18 +192,31 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "skill_id": {
-          "description": "Must be default-tagging-skill; configures the managed default tagging skill",
-          "enum": [
-            "default-tagging-skill"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "skill_id": {
+              "description": "Must be default-tagging-skill; configures the managed default tagging skill",
+              "enum": [
+                "default-tagging-skill"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "skill_id"
           ],
-          "type": "string"
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "skill_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

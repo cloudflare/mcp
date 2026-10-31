@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `cache-purge_Everything`.
  */
-export const cache_purge_Everything: JsonSchema = {
+export const cache$$purge_Everything: JsonSchema = {
   "description": "Purge everything",
   "properties": {
     "purge_everything": {
@@ -20,7 +20,7 @@ export const cache_purge_Everything: JsonSchema = {
 /**
  * The schema of `cache-purge_FlexPurgeByHostnames`.
  */
-export const cache_purge_FlexPurgeByHostnames: JsonSchema = {
+export const cache$$purge_FlexPurgeByHostnames: JsonSchema = {
   "description": "Purge by hostnames",
   "properties": {
     "hosts": {
@@ -37,7 +37,7 @@ export const cache_purge_FlexPurgeByHostnames: JsonSchema = {
 /**
  * The schema of `cache-purge_FlexPurgeByPrefixes`.
  */
-export const cache_purge_FlexPurgeByPrefixes: JsonSchema = {
+export const cache$$purge_FlexPurgeByPrefixes: JsonSchema = {
   "description": "Purge by prefixes",
   "properties": {
     "prefixes": {
@@ -54,7 +54,7 @@ export const cache_purge_FlexPurgeByPrefixes: JsonSchema = {
 /**
  * The schema of `cache-purge_FlexPurgeByTags`.
  */
-export const cache_purge_FlexPurgeByTags: JsonSchema = {
+export const cache$$purge_FlexPurgeByTags: JsonSchema = {
   "description": "Purge by tags",
   "properties": {
     "tags": {
@@ -71,7 +71,7 @@ export const cache_purge_FlexPurgeByTags: JsonSchema = {
 /**
  * The schema of `cache-purge_SingleFile`.
  */
-export const cache_purge_SingleFile: JsonSchema = {
+export const cache$$purge_SingleFile: JsonSchema = {
   "description": "Purge files",
   "properties": {
     "files": {
@@ -88,11 +88,11 @@ export const cache_purge_SingleFile: JsonSchema = {
 /**
  * The schema of `cache-purge_SingleFileWithUrlAndHeaders`.
  */
-export const cache_purge_SingleFileWithUrlAndHeaders: JsonSchema = {
+export const cache$$purge_SingleFileWithUrlAndHeaders: JsonSchema = {
   "description": "Purge files with URL and headers",
   "properties": {
     "files": {
-      "description": "URLs with the request headers your cache key uses. Use this form when your cache key includes request headers, or the visitor's device type, country, or language: send the header values each URL was cached with, such as `CF-Device-Type`, `CF-IPCountry`, or `Accept-Language`.\n\nWhen you send the `Origin` header, include the scheme and hostname. Include the port unless it is the default for the scheme: 80 for `http`, 443 for `https`.\n\nSee [Purge by single-file](https://developers.cloudflare.com/cache/how-to/purge-cache/purge-by-single-file/).\n",
+      "description": "URLs with the request headers your cache key uses. Use this form when your cache key includes request headers, or the visitor's device type, country, or language: send the header values each URL was cached with, such as `CF-Device-Type`, `CF-IPCountry`, or `Accept-Language`.\n\nWhen you send the `Origin` header, include the scheme and hostname. Include the port unless it is the default for the scheme: 80 for `http`, 443 for `https`.\n\nSee [Purge by single-file](https://developers.cloudflare.com/cache/how-to/purge-cache/purge-by-single-file/).",
       "items": {
         "properties": {
           "headers": {
@@ -113,11 +113,4 @@ export const cache_purge_SingleFileWithUrlAndHeaders: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `cache-purge_identifier`.
- */
-export const cache_purge_identifier: JsonSchema = {
-  "type": "string"
 };

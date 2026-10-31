@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `cache-purge_api-response-common-failure` in responses.
  */
-export const cache_purge_api_response_common_failure_output: JsonSchema = {
+export const cache$$purge_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/cache-purge_messages"
@@ -40,7 +40,7 @@ export const cache_purge_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `cache-purge_api-response-single-id` in responses.
  */
-export const cache_purge_api_response_single_id_output: JsonSchema = {
+export const cache$$purge_api$$response$$single$$id: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/cache-purge_messages"
@@ -53,7 +53,7 @@ export const cache_purge_api_response_single_id_output: JsonSchema = {
         {
           "properties": {
             "id": {
-              "$ref": "#/$defs/cache-purge_identifier"
+              "type": "string"
             }
           },
           "required": [
@@ -79,16 +79,9 @@ export const cache_purge_api_response_single_id_output: JsonSchema = {
 };
 
 /**
- * The schema of `cache-purge_identifier` in responses.
- */
-export const cache_purge_identifier_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `cache-purge_messages` in responses.
  */
-export const cache_purge_messages_output: JsonSchema = {
+export const cache$$purge_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {

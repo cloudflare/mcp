@@ -4,20 +4,9 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `zaraz_zaraz-workflow` in responses.
- */
-export const zaraz_zaraz_workflow_output: JsonSchema = {
-  "enum": [
-    "realtime",
-    "preview"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `zaraz_zaraz-workflow-response` in responses.
  */
-export const zaraz_zaraz_workflow_response_output: JsonSchema = {
+export const zaraz_zaraz$$workflow$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zaraz_api-response-common"
@@ -25,7 +14,11 @@ export const zaraz_zaraz_workflow_response_output: JsonSchema = {
     {
       "properties": {
         "result": {
-          "$ref": "#/$defs/zaraz_zaraz-workflow"
+          "enum": [
+            "realtime",
+            "preview"
+          ],
+          "type": "string"
         }
       },
       "type": "object"

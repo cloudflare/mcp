@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `vectorize_create-metadata-index-request`.
  */
-export const vectorize_create_metadata_index_request: JsonSchema = {
+export const vectorize_create$$metadata$$index$$request: JsonSchema = {
   "properties": {
     "indexType": {
       "description": "Specifies the type of metadata property to index.",
@@ -32,7 +32,7 @@ export const vectorize_create_metadata_index_request: JsonSchema = {
 /**
  * The schema of `vectorize_delete-metadata-index-request`.
  */
-export const vectorize_delete_metadata_index_request: JsonSchema = {
+export const vectorize_delete$$metadata$$index$$request: JsonSchema = {
   "properties": {
     "propertyName": {
       "description": "Specifies the metadata property for which the index must be deleted.",

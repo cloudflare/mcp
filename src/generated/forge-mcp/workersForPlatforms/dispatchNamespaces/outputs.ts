@@ -4,16 +4,9 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `workers_dispatch_namespace_name` in responses.
- */
-export const workers_dispatch_namespace_name_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `workers_namespace-list-response` in responses.
  */
-export const workers_namespace_list_response_output: JsonSchema = {
+export const workers_namespace$$list$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/workers_api-response-common"
@@ -35,31 +28,33 @@ export const workers_namespace_list_response_output: JsonSchema = {
 /**
  * The schema of `workers_namespace-response` in responses.
  */
-export const workers_namespace_response_output: JsonSchema = {
+export const workers_namespace$$response: JsonSchema = {
   "properties": {
     "created_by": {
-      "$ref": "#/$defs/workers_identifier"
+      "type": "string"
     },
     "created_on": {
-      "$ref": "#/$defs/workers_created_on"
+      "format": "date-time",
+      "type": "string"
     },
     "modified_by": {
-      "$ref": "#/$defs/workers_identifier"
+      "type": "string"
     },
     "modified_on": {
-      "$ref": "#/$defs/workers_modified_on"
+      "format": "date-time",
+      "type": "string"
     },
     "namespace_id": {
-      "$ref": "#/$defs/workers_uuid"
+      "type": "string"
     },
     "namespace_name": {
-      "$ref": "#/$defs/workers_dispatch_namespace_name"
+      "type": "string"
     },
     "script_count": {
-      "$ref": "#/$defs/workers_script_count"
+      "type": "integer"
     },
     "trusted_workers": {
-      "$ref": "#/$defs/workers_trusted_workers"
+      "type": "boolean"
     }
   },
   "type": "object"
@@ -68,7 +63,7 @@ export const workers_namespace_response_output: JsonSchema = {
 /**
  * The schema of `workers_namespace-single-response` in responses.
  */
-export const workers_namespace_single_response_output: JsonSchema = {
+export const workers_namespace$$single$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/workers_api-response-common"
@@ -82,25 +77,4 @@ export const workers_namespace_single_response_output: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `workers_script_count` in responses.
- */
-export const workers_script_count_output: JsonSchema = {
-  "type": "integer"
-};
-
-/**
- * The schema of `workers_trusted_workers` in responses.
- */
-export const workers_trusted_workers_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `workers_uuid` in responses.
- */
-export const workers_uuid_output: JsonSchema = {
-  "type": "string"
 };

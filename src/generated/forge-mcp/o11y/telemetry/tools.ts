@@ -3,18 +3,18 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  workers_observability_distribution_result_output,
-  workers_observability_filter_leaf_output,
-  workers_observability_filter_node_output,
-  workers_observability_performance_information_output,
-  workers_observability_query_output,
-  workers_observability_query_results_output,
-  workers_observability_query_run_output,
-  workers_observability_telemetry_event_output,
+  workers$$observability_distribution_result,
+  workers$$observability_filter_leaf,
+  workers$$observability_filter_node,
+  workers$$observability_performance_information,
+  workers$$observability_query,
+  workers$$observability_query_results,
+  workers$$observability_query_run,
+  workers$$observability_telemetry_event,
 } from "../outputs.js";
 import {
-  workers_observability_filter_leaf,
-  workers_observability_filter_node,
+  workers$$observability_filter_leaf as workers$$observability_filter_leaf$,
+  workers$$observability_filter_node as workers$$observability_filter_node$,
 } from "../schemas.js";
 
 /**
@@ -24,14 +24,10 @@ export const tools: readonly Tool[] = [
   {
     name: "o11y_telemetry_heartbeat",
     title: "Live tail heartbeat",
-    description: "Notify live tail that user is still eligible to receive live events.",
+    description: "Notify live tail that user is still eligible to receive live events.\n\nPOST /accounts/{account_id}/workers/observability/telemetry/live-tail/heartbeat",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Your Cloudflare account ID.",
-          "type": "string"
-        },
         "body": {
           "description": "Keep your live tail connection alive.",
           "properties": {
@@ -40,12 +36,26 @@ export const tools: readonly Tool[] = [
             }
           },
           "type": "object"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Your Cloudflare account ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -270,14 +280,10 @@ export const tools: readonly Tool[] = [
   {
     name: "o11y_telemetry_keys",
     title: "List keys",
-    description: "List all the keys in your telemetry events.",
+    description: "List all the keys in your telemetry events.\n\nPOST /accounts/{account_id}/workers/observability/telemetry/keys",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Your Cloudflare account ID.",
-          "type": "string"
-        },
         "body": {
           "description": "Find keys in your telemetry events matching a specific filter or needle.",
           "properties": {
@@ -431,15 +437,29 @@ export const tools: readonly Tool[] = [
             }
           },
           "type": "object"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Your Cloudflare account ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "workers-observability_filter_leaf": workers_observability_filter_leaf,
-        "workers-observability_filter_node": workers_observability_filter_node,
+        "workers-observability_filter_leaf": workers$$observability_filter_leaf$,
+        "workers-observability_filter_node": workers$$observability_filter_node$,
       },
     },
     outputSchema: {
@@ -911,16 +931,12 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "o11y_telemetry_live_tail",
+    name: "o11y_telemetry_liveTail",
     title: "Prepare live tail",
-    description: "Prepare websocket server for live tail.",
+    description: "Prepare websocket server for live tail.\n\nPOST /accounts/{account_id}/workers/observability/telemetry/live-tail",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Your Cloudflare account ID.",
-          "type": "string"
-        },
         "body": {
           "description": "Create websocket server for live tail.",
           "properties": {
@@ -994,15 +1010,29 @@ export const tools: readonly Tool[] = [
             }
           },
           "type": "object"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Your Cloudflare account ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "workers-observability_filter_leaf": workers_observability_filter_leaf,
-        "workers-observability_filter_node": workers_observability_filter_node,
+        "workers-observability_filter_leaf": workers$$observability_filter_leaf$,
+        "workers-observability_filter_node": workers$$observability_filter_node$,
       },
     },
     outputSchema: {
@@ -1294,14 +1324,10 @@ export const tools: readonly Tool[] = [
   {
     name: "o11y_telemetry_query",
     title: "Run a query",
-    description: "Run a temporary or saved query.",
+    description: "Run a temporary or saved query.\n\nPOST /accounts/{account_id}/workers/observability/telemetry/query",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Your Cloudflare account ID.",
-          "type": "string"
-        },
         "body": {
           "description": "Query your observability events, requests, and traces to build visualizations and identify insights.",
           "properties": {
@@ -1711,15 +1737,29 @@ export const tools: readonly Tool[] = [
             "timeframe"
           ],
           "type": "object"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Your Cloudflare account ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "workers-observability_filter_leaf": workers_observability_filter_leaf,
-        "workers-observability_filter_node": workers_observability_filter_node,
+        "workers-observability_filter_leaf": workers$$observability_filter_leaf$,
+        "workers-observability_filter_node": workers$$observability_filter_node$,
       },
     },
     outputSchema: {
@@ -1773,14 +1813,14 @@ export const tools: readonly Tool[] = [
       ],
       "type": "object",
       $defs: {
-        "workers-observability_distribution_result": workers_observability_distribution_result_output,
-        "workers-observability_filter_leaf": workers_observability_filter_leaf_output,
-        "workers-observability_filter_node": workers_observability_filter_node_output,
-        "workers-observability_performance_information": workers_observability_performance_information_output,
-        "workers-observability_query": workers_observability_query_output,
-        "workers-observability_query_results": workers_observability_query_results_output,
-        "workers-observability_query_run": workers_observability_query_run_output,
-        "workers-observability_telemetry_event": workers_observability_telemetry_event_output,
+        "workers-observability_distribution_result": workers$$observability_distribution_result,
+        "workers-observability_filter_leaf": workers$$observability_filter_leaf,
+        "workers-observability_filter_node": workers$$observability_filter_node,
+        "workers-observability_performance_information": workers$$observability_performance_information,
+        "workers-observability_query": workers$$observability_query,
+        "workers-observability_query_results": workers$$observability_query_results,
+        "workers-observability_query_run": workers$$observability_query_run,
+        "workers-observability_telemetry_event": workers$$observability_telemetry_event,
       },
     },
     annotations: {
@@ -2147,14 +2187,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "workers-observability_distribution_result": workers_observability_distribution_result_output,
-        "workers-observability_filter_leaf": workers_observability_filter_leaf_output,
-        "workers-observability_filter_node": workers_observability_filter_node_output,
-        "workers-observability_performance_information": workers_observability_performance_information_output,
-        "workers-observability_query": workers_observability_query_output,
-        "workers-observability_query_results": workers_observability_query_results_output,
-        "workers-observability_query_run": workers_observability_query_run_output,
-        "workers-observability_telemetry_event": workers_observability_telemetry_event_output,
+        "workers-observability_distribution_result": workers$$observability_distribution_result,
+        "workers-observability_filter_leaf": workers$$observability_filter_leaf,
+        "workers-observability_filter_node": workers$$observability_filter_node,
+        "workers-observability_performance_information": workers$$observability_performance_information,
+        "workers-observability_query": workers$$observability_query,
+        "workers-observability_query_results": workers$$observability_query_results,
+        "workers-observability_query_run": workers$$observability_query_run,
+        "workers-observability_telemetry_event": workers$$observability_telemetry_event,
       },
     },
     request: (args) => ({
@@ -2165,14 +2205,10 @@ export const tools: readonly Tool[] = [
   {
     name: "o11y_telemetry_values",
     title: "List values",
-    description: "List unique values found in your events.",
+    description: "List unique values found in your events.\n\nPOST /accounts/{account_id}/workers/observability/telemetry/values",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Your Cloudflare account ID.",
-          "type": "string"
-        },
         "body": {
           "description": "Retrieve values from your telemetry events.",
           "properties": {
@@ -2313,15 +2349,29 @@ export const tools: readonly Tool[] = [
             "type"
           ],
           "type": "object"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Your Cloudflare account ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "workers-observability_filter_leaf": workers_observability_filter_leaf,
-        "workers-observability_filter_node": workers_observability_filter_node,
+        "workers-observability_filter_leaf": workers$$observability_filter_leaf$,
+        "workers-observability_filter_node": workers$$observability_filter_node$,
       },
     },
     outputSchema: {

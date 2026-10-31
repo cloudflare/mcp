@@ -6,10 +6,10 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `cc_ContainersDeleteImageRegistryResponseBody` in responses.
  */
-export const cc_ContainersDeleteImageRegistryResponseBody_output: JsonSchema = {
+export const cc_ContainersDeleteImageRegistryResponseBody: JsonSchema = {
   "properties": {
     "domain": {
-      "$ref": "#/$defs/cc_Domain"
+      "type": "string"
     }
   },
   "required": [
@@ -21,21 +21,29 @@ export const cc_ContainersDeleteImageRegistryResponseBody_output: JsonSchema = {
 /**
  * The schema of `cc_CustomerImageRegistry` in responses.
  */
-export const cc_CustomerImageRegistry_output: JsonSchema = {
+export const cc_CustomerImageRegistry: JsonSchema = {
   "properties": {
     "created_at": {
-      "$ref": "#/$defs/cc_ISO8601Timestamp"
+      "type": "string"
     },
     "domain": {
-      "$ref": "#/$defs/cc_Domain"
+      "type": "string"
     },
     "kind": {
       "oneOf": [
         {
-          "$ref": "#/$defs/cc_ExternalRegistryKind"
+          "enum": [
+            "ECR",
+            "DockerHub",
+            "GAR"
+          ],
+          "type": "string"
         },
         {
-          "$ref": "#/$defs/cc_DefaultImageRegistryKind"
+          "enum": [
+            "default"
+          ],
+          "type": "string"
         }
       ]
     },
@@ -48,33 +56,4 @@ export const cc_CustomerImageRegistry_output: JsonSchema = {
     "domain"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `cc_DefaultImageRegistryKind` in responses.
- */
-export const cc_DefaultImageRegistryKind_output: JsonSchema = {
-  "enum": [
-    "default"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `cc_Domain` in responses.
- */
-export const cc_Domain_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `cc_ExternalRegistryKind` in responses.
- */
-export const cc_ExternalRegistryKind_output: JsonSchema = {
-  "enum": [
-    "ECR",
-    "DockerHub",
-    "GAR"
-  ],
-  "type": "string"
 };

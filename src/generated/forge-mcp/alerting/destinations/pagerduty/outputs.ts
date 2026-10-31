@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `aaa_components-schemas-response_collection` in responses.
  */
-export const aaa_components_schemas_response_collection_output: JsonSchema = {
+export const aaa_components$$schemas$$response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/aaa_api-response-common-2"
@@ -26,22 +26,15 @@ export const aaa_components_schemas_response_collection_output: JsonSchema = {
 };
 
 /**
- * The schema of `aaa_name` in responses.
- */
-export const aaa_name_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `aaa_pagerduty` in responses.
  */
-export const aaa_pagerduty_output: JsonSchema = {
+export const aaa_pagerduty: JsonSchema = {
   "properties": {
     "id": {
-      "$ref": "#/$defs/aaa_uuid"
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/aaa_name"
+      "type": "string"
     }
   },
   "type": "object"
@@ -50,7 +43,7 @@ export const aaa_pagerduty_output: JsonSchema = {
 /**
  * The schema of `aaa_sensitive_id_response` in responses.
  */
-export const aaa_sensitive_id_response_output: JsonSchema = {
+export const aaa_sensitive_id_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/aaa_api-response-single"
@@ -60,7 +53,7 @@ export const aaa_sensitive_id_response_output: JsonSchema = {
         "result": {
           "properties": {
             "id": {
-              "$ref": "#/$defs/aaa_token"
+              "type": "string"
             }
           },
           "type": "object"
@@ -69,11 +62,4 @@ export const aaa_sensitive_id_response_output: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `aaa_token` in responses.
- */
-export const aaa_token_output: JsonSchema = {
-  "type": "string"
 };

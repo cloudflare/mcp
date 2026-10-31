@@ -6,28 +6,36 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `email_catch_all_rule` in responses.
  */
-export const email_catch_all_rule_output: JsonSchema = {
+export const email_catch_all_rule: JsonSchema = {
   "properties": {
     "actions": {
       "$ref": "#/$defs/email_rule_catchall-actions"
     },
     "enabled": {
-      "$ref": "#/$defs/email_rule_enabled"
+      "enum": [
+        true,
+        false
+      ],
+      "type": "boolean"
     },
     "id": {
-      "$ref": "#/$defs/email_rule_identifier"
+      "type": "string"
     },
     "matchers": {
       "$ref": "#/$defs/email_rule_catchall-matchers"
     },
     "name": {
-      "$ref": "#/$defs/email_rule_name"
+      "type": "string"
     },
     "source": {
-      "$ref": "#/$defs/email_rule_source"
+      "enum": [
+        "api",
+        "wrangler"
+      ],
+      "type": "string"
     },
     "tag": {
-      "$ref": "#/$defs/email_rule_tag"
+      "type": "string"
     }
   },
   "type": "object"
@@ -36,7 +44,7 @@ export const email_catch_all_rule_output: JsonSchema = {
 /**
  * The schema of `email_catch_all_rule_response_single` in responses.
  */
-export const email_catch_all_rule_response_single_output: JsonSchema = {
+export const email_catch_all_rule_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/email_api-response-single"

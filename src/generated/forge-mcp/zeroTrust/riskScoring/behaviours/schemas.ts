@@ -12,7 +12,12 @@ export const dlp_UpdateBehavior: JsonSchema = {
       "type": "boolean"
     },
     "risk_level": {
-      "$ref": "#/$defs/dlp_RiskLevel"
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "type": "string"
     }
   },
   "required": [

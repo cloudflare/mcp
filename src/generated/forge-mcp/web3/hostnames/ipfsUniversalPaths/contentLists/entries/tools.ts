@@ -3,84 +3,74 @@
 
 import { type Tool, pathParam } from "../../../../../_/tool.js";
 import {
-  web3_api_response_collection_output,
-  web3_api_response_common_failure_output,
-  web3_api_response_common_output,
-  web3_api_response_single_id_output,
-  web3_api_response_single_output,
-  web3_identifier_output,
-  web3_messages_output,
-  web3_result_info_output,
-  web3_timestamp_output,
+  web3_api$$response$$collection,
+  web3_api$$response$$common,
+  web3_api$$response$$common$$failure,
+  web3_api$$response$$single,
+  web3_api$$response$$single$$id,
+  web3_messages,
+  web3_result_info,
 } from "../../../outputs.js";
-import { web3_identifier } from "../../../schemas.js";
 import {
-  web3_content_list_entries_output,
-  web3_content_list_entry_content_output,
-  web3_content_list_entry_description_output,
-  web3_content_list_entry_output,
-  web3_content_list_entry_type_output,
+  web3_content_list_entries,
+  web3_content_list_entry,
 } from "../outputs.js";
 import {
-  web3_content_list_entry_content,
-  web3_content_list_entry_description,
-  web3_content_list_entry_type,
-} from "../schemas.js";
-import {
-  web3_content_list_entry_collection_response_output,
-  web3_content_list_entry_single_response_output,
+  web3_content_list_entry_collection_response,
+  web3_content_list_entry_single_response,
 } from "./outputs.js";
 import { web3_content_list_entry_create_request } from "./schemas.js";
 
 /**
- * The tools of `web3.hostnames.ipfs_universal_paths.content_lists.entries`.
+ * The tools of `web3.hostnames.ipfsUniversalPaths.contentLists.entries`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "web3_hostnames_ipfs_universal_paths_content_lists_entries_create",
+    name: "web3_hostnames_ipfsUniversalPaths_contentLists_entries_create",
     title: "Create IPFS Universal Path Gateway Content List Entry",
-    description: "Create IPFS Universal Path Gateway Content List Entry",
+    description: "Create IPFS Universal Path Gateway Content List Entry\n\nPOST /zones/{zone_id}/web3/hostnames/{identifier}/ipfs_universal_path/content_list/entries",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "$ref": "#/$defs/web3_content_list_entry_create_request"
         },
-        "identifier": {
-          "$ref": "#/$defs/web3_identifier",
-          "description": "Specify the identifier of the hostname."
-        },
-        "zone_id": {
-          "$ref": "#/$defs/web3_identifier",
-          "description": "Specify the identifier of the hostname."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "identifier": {
+              "description": "Specify the identifier of the hostname.",
+              "type": "string"
+            },
+            "zone_id": {
+              "description": "Specify the identifier of the hostname.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id",
+            "identifier"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
-        "identifier",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "web3_content_list_entry_content": web3_content_list_entry_content,
         "web3_content_list_entry_create_request": web3_content_list_entry_create_request,
-        "web3_content_list_entry_description": web3_content_list_entry_description,
-        "web3_content_list_entry_type": web3_content_list_entry_type,
-        "web3_identifier": web3_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/web3_content_list_entry_single_response",
       $defs: {
-        "web3_api-response-common": web3_api_response_common_output,
-        "web3_api-response-single": web3_api_response_single_output,
-        "web3_content_list_entry": web3_content_list_entry_output,
-        "web3_content_list_entry_content": web3_content_list_entry_content_output,
-        "web3_content_list_entry_description": web3_content_list_entry_description_output,
-        "web3_content_list_entry_single_response": web3_content_list_entry_single_response_output,
-        "web3_content_list_entry_type": web3_content_list_entry_type_output,
-        "web3_identifier": web3_identifier_output,
-        "web3_messages": web3_messages_output,
-        "web3_timestamp": web3_timestamp_output,
+        "web3_api-response-common": web3_api$$response$$common,
+        "web3_api-response-single": web3_api$$response$$single,
+        "web3_content_list_entry": web3_content_list_entry,
+        "web3_content_list_entry_single_response": web3_content_list_entry_single_response,
+        "web3_messages": web3_messages,
       },
     },
     annotations: {
@@ -127,17 +117,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "web3_api-response-common": web3_api_response_common_output,
-        "web3_api-response-common-failure": web3_api_response_common_failure_output,
-        "web3_api-response-single": web3_api_response_single_output,
-        "web3_content_list_entry": web3_content_list_entry_output,
-        "web3_content_list_entry_content": web3_content_list_entry_content_output,
-        "web3_content_list_entry_description": web3_content_list_entry_description_output,
-        "web3_content_list_entry_single_response": web3_content_list_entry_single_response_output,
-        "web3_content_list_entry_type": web3_content_list_entry_type_output,
-        "web3_identifier": web3_identifier_output,
-        "web3_messages": web3_messages_output,
-        "web3_timestamp": web3_timestamp_output,
+        "web3_api-response-common": web3_api$$response$$common,
+        "web3_api-response-common-failure": web3_api$$response$$common$$failure,
+        "web3_api-response-single": web3_api$$response$$single,
+        "web3_content_list_entry": web3_content_list_entry,
+        "web3_content_list_entry_single_response": web3_content_list_entry_single_response,
+        "web3_messages": web3_messages,
       },
     },
     request: (args) => ({
@@ -146,43 +131,49 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "web3_hostnames_ipfs_universal_paths_content_lists_entries_delete",
+    name: "web3_hostnames_ipfsUniversalPaths_contentLists_entries_delete",
     title: "Delete IPFS Universal Path Gateway Content List Entry",
-    description: "Delete IPFS Universal Path Gateway Content List Entry",
+    description: "Delete IPFS Universal Path Gateway Content List Entry\n\nDELETE /zones/{zone_id}/web3/hostnames/{identifier}/ipfs_universal_path/content_list/entries/{content_list_entry_identifier}",
     inputSchema: {
       type: "object",
       properties: {
         "body": {},
-        "content_list_entry_identifier": {
-          "$ref": "#/$defs/web3_identifier",
-          "description": "Specify the identifier of the hostname."
-        },
-        "identifier": {
-          "$ref": "#/$defs/web3_identifier",
-          "description": "Specify the identifier of the hostname."
-        },
-        "zone_id": {
-          "$ref": "#/$defs/web3_identifier",
-          "description": "Specify the identifier of the hostname."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "content_list_entry_identifier": {
+              "description": "Specify the identifier of the hostname.",
+              "type": "string"
+            },
+            "identifier": {
+              "description": "Specify the identifier of the hostname.",
+              "type": "string"
+            },
+            "zone_id": {
+              "description": "Specify the identifier of the hostname.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id",
+            "identifier",
+            "content_list_entry_identifier"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
-        "identifier",
-        "content_list_entry_identifier",
+        "path",
         "body"
       ],
-      $defs: {
-        "web3_identifier": web3_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/web3_api-response-single-id",
       $defs: {
-        "web3_api-response-common": web3_api_response_common_output,
-        "web3_api-response-single-id": web3_api_response_single_id_output,
-        "web3_identifier": web3_identifier_output,
-        "web3_messages": web3_messages_output,
+        "web3_api-response-common": web3_api$$response$$common,
+        "web3_api-response-single-id": web3_api$$response$$single$$id,
+        "web3_messages": web3_messages,
       },
     },
     annotations: {
@@ -232,11 +223,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "web3_api-response-common": web3_api_response_common_output,
-        "web3_api-response-common-failure": web3_api_response_common_failure_output,
-        "web3_api-response-single-id": web3_api_response_single_id_output,
-        "web3_identifier": web3_identifier_output,
-        "web3_messages": web3_messages_output,
+        "web3_api-response-common": web3_api$$response$$common,
+        "web3_api-response-common-failure": web3_api$$response$$common$$failure,
+        "web3_api-response-single-id": web3_api$$response$$single$$id,
+        "web3_messages": web3_messages,
       },
     },
     request: (args) => ({
@@ -245,47 +235,49 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "web3_hostnames_ipfs_universal_paths_content_lists_entries_get",
+    name: "web3_hostnames_ipfsUniversalPaths_contentLists_entries_get",
     title: "IPFS Universal Path Gateway Content List Entry Details",
-    description: "IPFS Universal Path Gateway Content List Entry Details",
+    description: "IPFS Universal Path Gateway Content List Entry Details\n\nGET /zones/{zone_id}/web3/hostnames/{identifier}/ipfs_universal_path/content_list/entries/{content_list_entry_identifier}",
     inputSchema: {
       type: "object",
       properties: {
-        "content_list_entry_identifier": {
-          "$ref": "#/$defs/web3_identifier",
-          "description": "Specify the identifier of the hostname."
-        },
-        "identifier": {
-          "$ref": "#/$defs/web3_identifier",
-          "description": "Specify the identifier of the hostname."
-        },
-        "zone_id": {
-          "$ref": "#/$defs/web3_identifier",
-          "description": "Specify the identifier of the hostname."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "content_list_entry_identifier": {
+              "description": "Specify the identifier of the hostname.",
+              "type": "string"
+            },
+            "identifier": {
+              "description": "Specify the identifier of the hostname.",
+              "type": "string"
+            },
+            "zone_id": {
+              "description": "Specify the identifier of the hostname.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id",
+            "identifier",
+            "content_list_entry_identifier"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
-        "identifier",
-        "content_list_entry_identifier"
+        "path"
       ],
-      $defs: {
-        "web3_identifier": web3_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/web3_content_list_entry_single_response",
       $defs: {
-        "web3_api-response-common": web3_api_response_common_output,
-        "web3_api-response-single": web3_api_response_single_output,
-        "web3_content_list_entry": web3_content_list_entry_output,
-        "web3_content_list_entry_content": web3_content_list_entry_content_output,
-        "web3_content_list_entry_description": web3_content_list_entry_description_output,
-        "web3_content_list_entry_single_response": web3_content_list_entry_single_response_output,
-        "web3_content_list_entry_type": web3_content_list_entry_type_output,
-        "web3_identifier": web3_identifier_output,
-        "web3_messages": web3_messages_output,
-        "web3_timestamp": web3_timestamp_output,
+        "web3_api-response-common": web3_api$$response$$common,
+        "web3_api-response-single": web3_api$$response$$single,
+        "web3_content_list_entry": web3_content_list_entry,
+        "web3_content_list_entry_single_response": web3_content_list_entry_single_response,
+        "web3_messages": web3_messages,
       },
     },
     annotations: {
@@ -336,17 +328,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "web3_api-response-common": web3_api_response_common_output,
-        "web3_api-response-common-failure": web3_api_response_common_failure_output,
-        "web3_api-response-single": web3_api_response_single_output,
-        "web3_content_list_entry": web3_content_list_entry_output,
-        "web3_content_list_entry_content": web3_content_list_entry_content_output,
-        "web3_content_list_entry_description": web3_content_list_entry_description_output,
-        "web3_content_list_entry_single_response": web3_content_list_entry_single_response_output,
-        "web3_content_list_entry_type": web3_content_list_entry_type_output,
-        "web3_identifier": web3_identifier_output,
-        "web3_messages": web3_messages_output,
-        "web3_timestamp": web3_timestamp_output,
+        "web3_api-response-common": web3_api$$response$$common,
+        "web3_api-response-common-failure": web3_api$$response$$common$$failure,
+        "web3_api-response-single": web3_api$$response$$single,
+        "web3_content_list_entry": web3_content_list_entry,
+        "web3_content_list_entry_single_response": web3_content_list_entry_single_response,
+        "web3_messages": web3_messages,
       },
     },
     request: (args) => ({
@@ -354,44 +341,46 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "web3_hostnames_ipfs_universal_paths_content_lists_entries_list",
+    name: "web3_hostnames_ipfsUniversalPaths_contentLists_entries_list",
     title: "List IPFS Universal Path Gateway Content List Entries",
-    description: "List IPFS Universal Path Gateway Content List Entries",
+    description: "List IPFS Universal Path Gateway Content List Entries\n\nGET /zones/{zone_id}/web3/hostnames/{identifier}/ipfs_universal_path/content_list/entries",
     inputSchema: {
       type: "object",
       properties: {
-        "identifier": {
-          "$ref": "#/$defs/web3_identifier",
-          "description": "Specify the identifier of the hostname."
-        },
-        "zone_id": {
-          "$ref": "#/$defs/web3_identifier",
-          "description": "Specify the identifier of the hostname."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "identifier": {
+              "description": "Specify the identifier of the hostname.",
+              "type": "string"
+            },
+            "zone_id": {
+              "description": "Specify the identifier of the hostname.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id",
+            "identifier"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
-        "identifier"
+        "path"
       ],
-      $defs: {
-        "web3_identifier": web3_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/web3_content_list_entry_collection_response",
       $defs: {
-        "web3_api-response-collection": web3_api_response_collection_output,
-        "web3_api-response-common": web3_api_response_common_output,
-        "web3_content_list_entries": web3_content_list_entries_output,
-        "web3_content_list_entry": web3_content_list_entry_output,
-        "web3_content_list_entry_collection_response": web3_content_list_entry_collection_response_output,
-        "web3_content_list_entry_content": web3_content_list_entry_content_output,
-        "web3_content_list_entry_description": web3_content_list_entry_description_output,
-        "web3_content_list_entry_type": web3_content_list_entry_type_output,
-        "web3_identifier": web3_identifier_output,
-        "web3_messages": web3_messages_output,
-        "web3_result_info": web3_result_info_output,
-        "web3_timestamp": web3_timestamp_output,
+        "web3_api-response-collection": web3_api$$response$$collection,
+        "web3_api-response-common": web3_api$$response$$common,
+        "web3_content_list_entries": web3_content_list_entries,
+        "web3_content_list_entry": web3_content_list_entry,
+        "web3_content_list_entry_collection_response": web3_content_list_entry_collection_response,
+        "web3_messages": web3_messages,
+        "web3_result_info": web3_result_info,
       },
     },
     annotations: {
@@ -442,19 +431,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "web3_api-response-collection": web3_api_response_collection_output,
-        "web3_api-response-common": web3_api_response_common_output,
-        "web3_api-response-common-failure": web3_api_response_common_failure_output,
-        "web3_content_list_entries": web3_content_list_entries_output,
-        "web3_content_list_entry": web3_content_list_entry_output,
-        "web3_content_list_entry_collection_response": web3_content_list_entry_collection_response_output,
-        "web3_content_list_entry_content": web3_content_list_entry_content_output,
-        "web3_content_list_entry_description": web3_content_list_entry_description_output,
-        "web3_content_list_entry_type": web3_content_list_entry_type_output,
-        "web3_identifier": web3_identifier_output,
-        "web3_messages": web3_messages_output,
-        "web3_result_info": web3_result_info_output,
-        "web3_timestamp": web3_timestamp_output,
+        "web3_api-response-collection": web3_api$$response$$collection,
+        "web3_api-response-common": web3_api$$response$$common,
+        "web3_api-response-common-failure": web3_api$$response$$common$$failure,
+        "web3_content_list_entries": web3_content_list_entries,
+        "web3_content_list_entry": web3_content_list_entry,
+        "web3_content_list_entry_collection_response": web3_content_list_entry_collection_response,
+        "web3_messages": web3_messages,
+        "web3_result_info": web3_result_info,
       },
     },
     request: (args) => ({
@@ -462,55 +446,56 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "web3_hostnames_ipfs_universal_paths_content_lists_entries_update",
+    name: "web3_hostnames_ipfsUniversalPaths_contentLists_entries_update",
     title: "Edit IPFS Universal Path Gateway Content List Entry",
-    description: "Edit IPFS Universal Path Gateway Content List Entry",
+    description: "Edit IPFS Universal Path Gateway Content List Entry\n\nPUT /zones/{zone_id}/web3/hostnames/{identifier}/ipfs_universal_path/content_list/entries/{content_list_entry_identifier}",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "$ref": "#/$defs/web3_content_list_entry_create_request"
         },
-        "content_list_entry_identifier": {
-          "$ref": "#/$defs/web3_identifier",
-          "description": "Specify the identifier of the hostname."
-        },
-        "identifier": {
-          "$ref": "#/$defs/web3_identifier",
-          "description": "Specify the identifier of the hostname."
-        },
-        "zone_id": {
-          "$ref": "#/$defs/web3_identifier",
-          "description": "Specify the identifier of the hostname."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "content_list_entry_identifier": {
+              "description": "Specify the identifier of the hostname.",
+              "type": "string"
+            },
+            "identifier": {
+              "description": "Specify the identifier of the hostname.",
+              "type": "string"
+            },
+            "zone_id": {
+              "description": "Specify the identifier of the hostname.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id",
+            "identifier",
+            "content_list_entry_identifier"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
-        "identifier",
-        "content_list_entry_identifier",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "web3_content_list_entry_content": web3_content_list_entry_content,
         "web3_content_list_entry_create_request": web3_content_list_entry_create_request,
-        "web3_content_list_entry_description": web3_content_list_entry_description,
-        "web3_content_list_entry_type": web3_content_list_entry_type,
-        "web3_identifier": web3_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/web3_content_list_entry_single_response",
       $defs: {
-        "web3_api-response-common": web3_api_response_common_output,
-        "web3_api-response-single": web3_api_response_single_output,
-        "web3_content_list_entry": web3_content_list_entry_output,
-        "web3_content_list_entry_content": web3_content_list_entry_content_output,
-        "web3_content_list_entry_description": web3_content_list_entry_description_output,
-        "web3_content_list_entry_single_response": web3_content_list_entry_single_response_output,
-        "web3_content_list_entry_type": web3_content_list_entry_type_output,
-        "web3_identifier": web3_identifier_output,
-        "web3_messages": web3_messages_output,
-        "web3_timestamp": web3_timestamp_output,
+        "web3_api-response-common": web3_api$$response$$common,
+        "web3_api-response-single": web3_api$$response$$single,
+        "web3_content_list_entry": web3_content_list_entry,
+        "web3_content_list_entry_single_response": web3_content_list_entry_single_response,
+        "web3_messages": web3_messages,
       },
     },
     annotations: {
@@ -560,17 +545,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "web3_api-response-common": web3_api_response_common_output,
-        "web3_api-response-common-failure": web3_api_response_common_failure_output,
-        "web3_api-response-single": web3_api_response_single_output,
-        "web3_content_list_entry": web3_content_list_entry_output,
-        "web3_content_list_entry_content": web3_content_list_entry_content_output,
-        "web3_content_list_entry_description": web3_content_list_entry_description_output,
-        "web3_content_list_entry_single_response": web3_content_list_entry_single_response_output,
-        "web3_content_list_entry_type": web3_content_list_entry_type_output,
-        "web3_identifier": web3_identifier_output,
-        "web3_messages": web3_messages_output,
-        "web3_timestamp": web3_timestamp_output,
+        "web3_api-response-common": web3_api$$response$$common,
+        "web3_api-response-common-failure": web3_api$$response$$common$$failure,
+        "web3_api-response-single": web3_api$$response$$single,
+        "web3_content_list_entry": web3_content_list_entry,
+        "web3_content_list_entry_single_response": web3_content_list_entry_single_response,
+        "web3_messages": web3_messages,
       },
     },
     request: (args) => ({

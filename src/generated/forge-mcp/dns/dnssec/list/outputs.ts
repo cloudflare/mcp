@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `dnssec_dnskey_record` in responses.
  */
-export const dnssec_dnskey_record_output: JsonSchema = {
+export const dnssec_dnskey_record: JsonSchema = {
   "properties": {
     "Algorithm": {
       "oneOf": [
@@ -58,7 +58,7 @@ export const dnssec_dnskey_record_output: JsonSchema = {
 /**
  * The schema of `dnssec_dnskey_record_header` in responses.
  */
-export const dnssec_dnskey_record_header_output: JsonSchema = {
+export const dnssec_dnskey_record_header: JsonSchema = {
   "properties": {
     "Class": {
       "oneOf": [
@@ -117,7 +117,7 @@ export const dnssec_dnskey_record_header_output: JsonSchema = {
 /**
  * The schema of `dnssec_dnskey_signing_key` in responses.
  */
-export const dnssec_dnskey_signing_key_output: JsonSchema = {
+export const dnssec_dnskey_signing_key: JsonSchema = {
   "properties": {
     "kek": {
       "oneOf": [
@@ -155,30 +155,19 @@ export const dnssec_dnskey_signing_key_output: JsonSchema = {
 };
 
 /**
- * The schema of `dnssec_dnssec_key_state` in responses.
- */
-export const dnssec_dnssec_key_state_output: JsonSchema = {
-  "enum": [
-    "active",
-    "publish",
-    "external",
-    "retired",
-    "revoked",
-    "removed"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `dnssec_dnssec_zsk` in responses.
  */
-export const dnssec_dnssec_zsk_output: JsonSchema = {
+export const dnssec_dnssec_zsk: JsonSchema = {
   "properties": {
     "DNSKEY": {
       "$ref": "#/$defs/dnssec_dnskey_record"
     },
     "Location": {
-      "$ref": "#/$defs/dnssec_key_storage_location"
+      "enum": [
+        "database",
+        "vault"
+      ],
+      "type": "string"
     },
     "Name": {
       "type": "string"
@@ -187,7 +176,15 @@ export const dnssec_dnssec_zsk_output: JsonSchema = {
       "$ref": "#/$defs/dnssec_dnskey_signing_key"
     },
     "Tag": {
-      "$ref": "#/$defs/dnssec_dnssec_key_state"
+      "enum": [
+        "active",
+        "publish",
+        "external",
+        "retired",
+        "revoked",
+        "removed"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
@@ -196,7 +193,7 @@ export const dnssec_dnssec_zsk_output: JsonSchema = {
 /**
  * The schema of `dnssec_dnssec_zsk_response_collection` in responses.
  */
-export const dnssec_dnssec_zsk_response_collection_output: JsonSchema = {
+export const dnssec_dnssec_zsk_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dnssec_api-response-single"
@@ -213,15 +210,4 @@ export const dnssec_dnssec_zsk_response_collection_output: JsonSchema = {
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `dnssec_key_storage_location` in responses.
- */
-export const dnssec_key_storage_location_output: JsonSchema = {
-  "enum": [
-    "database",
-    "vault"
-  ],
-  "type": "string"
 };

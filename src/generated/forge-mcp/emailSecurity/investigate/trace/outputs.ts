@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `email-security_MessageTrace` in responses.
  */
-export const email_security_MessageTrace_output: JsonSchema = {
+export const email$$security_MessageTrace: JsonSchema = {
   "properties": {
     "inbound": {
       "properties": {
@@ -75,7 +75,7 @@ export const email_security_MessageTrace_output: JsonSchema = {
 /**
  * The schema of `email-security_TraceLine` in responses.
  */
-export const email_security_TraceLine_output: JsonSchema = {
+export const email$$security_TraceLine: JsonSchema = {
   "properties": {
     "lineno": {
       "type": "integer"

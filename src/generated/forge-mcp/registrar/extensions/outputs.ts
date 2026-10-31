@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `registrar-api_extension-item` in responses.
  */
-export const registrar_api_extension_item_output: JsonSchema = {
+export const registrar$$api_extension$$item: JsonSchema = {
   "properties": {
     "metadata": {
       "properties": {
@@ -41,7 +41,7 @@ export const registrar_api_extension_item_output: JsonSchema = {
 /**
  * The schema of `registrar-api_extension-response-collection` in responses.
  */
-export const registrar_api_extension_response_collection_output: JsonSchema = {
+export const registrar$$api_extension$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/registrar-api_api-response-common"
@@ -77,7 +77,7 @@ export const registrar_api_extension_response_collection_output: JsonSchema = {
 /**
  * The schema of `registrar-api_extension-response-single` in responses.
  */
-export const registrar_api_extension_response_single_output: JsonSchema = {
+export const registrar$$api_extension$$response$$single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/registrar-api_api-response-common"

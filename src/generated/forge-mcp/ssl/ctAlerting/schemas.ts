@@ -6,8 +6,8 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `tls-certificates-and-hostnames_ct_alerting_emails`.
  */
-export const tls_certificates_and_hostnames_ct_alerting_emails: JsonSchema = {
-  "description": "Email addresses that receive CT alert notifications for the zone. A maximum of 100 addresses may be configured. Each address must be a valid RFC 5322 email address and must not contain a comma.\n",
+export const tls$$certificates$$and$$hostnames_ct_alerting_emails: JsonSchema = {
+  "description": "Email addresses that receive CT alert notifications for the zone. A maximum of 100 addresses may be configured. Each address must be a valid RFC 5322 email address and must not contain a comma.",
   "items": {
     "type": "string"
   },
@@ -16,27 +16,19 @@ export const tls_certificates_and_hostnames_ct_alerting_emails: JsonSchema = {
 };
 
 /**
- * The schema of `tls-certificates-and-hostnames_ct_alerting_enabled`.
- */
-export const tls_certificates_and_hostnames_ct_alerting_enabled: JsonSchema = {
-  "description": "Whether CT alerting is enabled for the zone.",
-  "type": "boolean"
-};
-
-/**
  * The schema of
  * `tls-certificates-and-hostnames_ct_alerting_subscription_update`.
  */
-export const tls_certificates_and_hostnames_ct_alerting_subscription_update: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_ct_alerting_subscription_update: JsonSchema = {
   "description": "Request body for updating CT alerting subscription settings.",
   "properties": {
     "emails": {
       "$ref": "#/$defs/tls-certificates-and-hostnames_ct_alerting_emails",
-      "description": "Email addresses that receive CT alert notifications for the zone. A maximum of 100 addresses may be configured. Each address must be a valid RFC 5322 email address and must not contain a comma.\n"
+      "description": "Email addresses that receive CT alert notifications for the zone. A maximum of 100 addresses may be configured. Each address must be a valid RFC 5322 email address and must not contain a comma."
     },
     "enabled": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_ct_alerting_enabled",
-      "description": "Whether CT alerting is enabled for the zone."
+      "description": "Whether CT alerting is enabled for the zone.",
+      "type": "boolean"
     }
   },
   "required": [

@@ -3,20 +3,15 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  tls_certificates_and_hostnames_api_response_common_failure_output,
-  tls_certificates_and_hostnames_api_response_single_output,
-  tls_certificates_and_hostnames_messages_output,
+  tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
+  tls$$certificates$$and$$hostnames_api$$response$$single,
+  tls$$certificates$$and$$hostnames_messages,
 } from "../../../outputs.js";
-import { tls_certificates_and_hostnames_identifier } from "../../../schemas.js";
 import {
-  tls_certificates_and_hostnames_enabled_2_output,
-  tls_certificates_and_hostnames_ssl_universal_settings_response_output,
-  tls_certificates_and_hostnames_universal_output,
+  tls$$certificates$$and$$hostnames_ssl_universal_settings_response,
+  tls$$certificates$$and$$hostnames_universal,
 } from "./outputs.js";
-import {
-  tls_certificates_and_hostnames_enabled_2,
-  tls_certificates_and_hostnames_universal,
-} from "./schemas.js";
+import { tls$$certificates$$and$$hostnames_universal as tls$$certificates$$and$$hostnames_universal$ } from "./schemas.js";
 
 /**
  * The tools of `ssl.universal.settings`.
@@ -25,36 +20,43 @@ export const tools: readonly Tool[] = [
   {
     name: "ssl_universal_settings_edit",
     title: "Edit Universal SSL Settings",
-    description: "Patch Universal SSL Settings for a Zone.",
+    description: "Patch Universal SSL Settings for a Zone.\n\nPATCH /zones/{zone_id}/ssl/universal/settings",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "$ref": "#/$defs/tls-certificates-and-hostnames_universal"
         },
-        "zone_id": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "tls-certificates-and-hostnames_enabled-2": tls_certificates_and_hostnames_enabled_2,
-        "tls-certificates-and-hostnames_identifier": tls_certificates_and_hostnames_identifier,
-        "tls-certificates-and-hostnames_universal": tls_certificates_and_hostnames_universal,
+        "tls-certificates-and-hostnames_universal": tls$$certificates$$and$$hostnames_universal$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_ssl_universal_settings_response",
       $defs: {
-        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
-        "tls-certificates-and-hostnames_enabled-2": tls_certificates_and_hostnames_enabled_2_output,
-        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
-        "tls-certificates-and-hostnames_ssl_universal_settings_response": tls_certificates_and_hostnames_ssl_universal_settings_response_output,
-        "tls-certificates-and-hostnames_universal": tls_certificates_and_hostnames_universal_output,
+        "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
+        "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
+        "tls-certificates-and-hostnames_ssl_universal_settings_response": tls$$certificates$$and$$hostnames_ssl_universal_settings_response,
+        "tls-certificates-and-hostnames_universal": tls$$certificates$$and$$hostnames_universal,
       },
     },
     annotations: {
@@ -100,12 +102,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
-        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
-        "tls-certificates-and-hostnames_enabled-2": tls_certificates_and_hostnames_enabled_2_output,
-        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
-        "tls-certificates-and-hostnames_ssl_universal_settings_response": tls_certificates_and_hostnames_ssl_universal_settings_response_output,
-        "tls-certificates-and-hostnames_universal": tls_certificates_and_hostnames_universal_output,
+        "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
+        "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
+        "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
+        "tls-certificates-and-hostnames_ssl_universal_settings_response": tls$$certificates$$and$$hostnames_ssl_universal_settings_response,
+        "tls-certificates-and-hostnames_universal": tls$$certificates$$and$$hostnames_universal,
       },
     },
     request: (args) => ({
@@ -116,30 +117,36 @@ export const tools: readonly Tool[] = [
   {
     name: "ssl_universal_settings_get",
     title: "Universal SSL Settings Details",
-    description: "Get Universal SSL Settings for a Zone.",
+    description: "Get Universal SSL Settings for a Zone.\n\nGET /zones/{zone_id}/ssl/universal/settings",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
-      $defs: {
-        "tls-certificates-and-hostnames_identifier": tls_certificates_and_hostnames_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_ssl_universal_settings_response",
       $defs: {
-        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
-        "tls-certificates-and-hostnames_enabled-2": tls_certificates_and_hostnames_enabled_2_output,
-        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
-        "tls-certificates-and-hostnames_ssl_universal_settings_response": tls_certificates_and_hostnames_ssl_universal_settings_response_output,
-        "tls-certificates-and-hostnames_universal": tls_certificates_and_hostnames_universal_output,
+        "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
+        "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
+        "tls-certificates-and-hostnames_ssl_universal_settings_response": tls$$certificates$$and$$hostnames_ssl_universal_settings_response,
+        "tls-certificates-and-hostnames_universal": tls$$certificates$$and$$hostnames_universal,
       },
     },
     annotations: {
@@ -185,12 +192,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
-        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
-        "tls-certificates-and-hostnames_enabled-2": tls_certificates_and_hostnames_enabled_2_output,
-        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
-        "tls-certificates-and-hostnames_ssl_universal_settings_response": tls_certificates_and_hostnames_ssl_universal_settings_response_output,
-        "tls-certificates-and-hostnames_universal": tls_certificates_and_hostnames_universal_output,
+        "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
+        "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
+        "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
+        "tls-certificates-and-hostnames_ssl_universal_settings_response": tls$$certificates$$and$$hostnames_ssl_universal_settings_response,
+        "tls-certificates-and-hostnames_universal": tls$$certificates$$and$$hostnames_universal,
       },
     },
     request: (args) => ({

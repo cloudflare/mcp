@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `bill-subs-api_cancel_reason_request`.
  */
-export const bill_subs_api_cancel_reason_request: JsonSchema = {
+export const bill$$subs$$api_cancel_reason_request: JsonSchema = {
   "properties": {
     "other": {
       "description": "Additional cancellation details.",

@@ -7,31 +7,42 @@ import type { JsonSchema } from "../../../_/tool.js";
  * The schema of `tls-certificates-and-hostnames_certificateObject-2` in
  * responses.
  */
-export const tls_certificates_and_hostnames_certificateObject_2_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_certificateObject$$2: JsonSchema = {
   "properties": {
     "certificate": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_certificate-6"
+      "type": "string"
     },
     "expires_on": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_expires_on-5"
+      "format": "date-time",
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_hostname_aop_certificate_identifier"
+      "type": "string"
     },
     "issuer": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_issuer"
+      "type": "string"
     },
     "serial_number": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_serial_number"
+      "type": "string"
     },
     "signature": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_signature"
+      "type": "string"
     },
     "status": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_status-9"
+      "enum": [
+        "initializing",
+        "pending_deployment",
+        "pending_deletion",
+        "active",
+        "deleted",
+        "deployment_timed_out",
+        "deletion_timed_out"
+      ],
+      "type": "string"
     },
     "uploaded_on": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_uploaded_on-3"
+      "format": "date-time",
+      "type": "string"
     }
   },
   "type": "object"
@@ -42,7 +53,7 @@ export const tls_certificates_and_hostnames_certificateObject_2_output: JsonSche
  * `tls-certificates-and-hostnames_certificate_response_collection-4` in
  * responses.
  */
-export const tls_certificates_and_hostnames_certificate_response_collection_4_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_certificate_response_collection$$4: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-collection"
@@ -65,7 +76,7 @@ export const tls_certificates_and_hostnames_certificate_response_collection_4_ou
  * The schema of `tls-certificates-and-hostnames_certificate_response_single-4`
  * in responses.
  */
-export const tls_certificates_and_hostnames_certificate_response_single_4_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_certificate_response_single$$4: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-single"

@@ -4,21 +4,9 @@
 import type { JsonSchema } from "../../../../_/tool.js";
 
 /**
- * The schema of `posture-api_RemediationJobActorTypeEnum`.
- */
-export const posture_api_RemediationJobActorTypeEnum: JsonSchema = {
-  "description": "Type of actor that triggered the remediation job.",
-  "enum": [
-    "user",
-    "account_token"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `posture-api_RemediationJobsCreateRequest`.
  */
-export const posture_api_RemediationJobsCreateRequest: JsonSchema = {
+export const posture$$api_RemediationJobsCreateRequest: JsonSchema = {
   "description": "Request body for creating remediation jobs.",
   "properties": {
     "finding_instance_ids": {
@@ -45,7 +33,7 @@ export const posture_api_RemediationJobsCreateRequest: JsonSchema = {
 /**
  * The schema of `posture-api_RemediationJobsExportFilterRequest`.
  */
-export const posture_api_RemediationJobsExportFilterRequest: JsonSchema = {
+export const posture$$api_RemediationJobsExportFilterRequest: JsonSchema = {
   "description": "Filter specification for remediation jobs export.",
   "properties": {
     "integration_id": {
@@ -81,7 +69,15 @@ export const posture_api_RemediationJobsExportFilterRequest: JsonSchema = {
     "status": {
       "description": "Filter by remediation job status.",
       "items": {
-        "$ref": "#/$defs/posture-api_RemediationJobStatusEnum"
+        "description": "Status of a remediation job.",
+        "enum": [
+          "pending",
+          "processing",
+          "completed",
+          "failed",
+          "validating"
+        ],
+        "type": "string"
       },
       "type": "array"
     }
@@ -92,12 +88,16 @@ export const posture_api_RemediationJobsExportFilterRequest: JsonSchema = {
 /**
  * The schema of `posture-api_RemediationJobsExportOrderFilterRequest`.
  */
-export const posture_api_RemediationJobsExportOrderFilterRequest: JsonSchema = {
+export const posture$$api_RemediationJobsExportOrderFilterRequest: JsonSchema = {
   "description": "Order specification for remediation jobs exports.",
   "properties": {
     "direction": {
-      "$ref": "#/$defs/posture-api_DirectionEnum",
-      "description": "Sort direction."
+      "description": "Sort direction.",
+      "enum": [
+        "asc",
+        "desc"
+      ],
+      "type": "string"
     },
     "name": {
       "description": "Which field to use when ordering the remediation jobs.",

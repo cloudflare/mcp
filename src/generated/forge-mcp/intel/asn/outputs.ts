@@ -4,16 +4,9 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `intel_asn` in responses.
- */
-export const intel_asn_output: JsonSchema = {
-  "type": "integer"
-};
-
-/**
  * The schema of `intel_asn_components-schemas-response` in responses.
  */
-export const intel_asn_components_schemas_response_output: JsonSchema = {
+export const intel_asn_components$$schemas$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/intel_api-response-single"
@@ -21,7 +14,7 @@ export const intel_asn_components_schemas_response_output: JsonSchema = {
     {
       "properties": {
         "result": {
-          "$ref": "#/$defs/intel_asn"
+          "type": "integer"
         }
       },
       "type": "object"

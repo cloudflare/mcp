@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `posture-api_DeletePolicyResponse` in responses.
  */
-export const posture_api_DeletePolicyResponse_output: JsonSchema = {
+export const posture$$api_DeletePolicyResponse: JsonSchema = {
   "properties": {
     "id": {
       "format": "uuid",
@@ -22,7 +22,7 @@ export const posture_api_DeletePolicyResponse_output: JsonSchema = {
 /**
  * The schema of `posture-api_PolicyActionsResponse` in responses.
  */
-export const posture_api_PolicyActionsResponse_output: JsonSchema = {
+export const posture$$api_PolicyActionsResponse: JsonSchema = {
   "properties": {
     "remediation_types": {
       "items": {
@@ -47,7 +47,7 @@ export const posture_api_PolicyActionsResponse_output: JsonSchema = {
 /**
  * The schema of `posture-api_PolicyRemediationTypeResponse` in responses.
  */
-export const posture_api_PolicyRemediationTypeResponse_output: JsonSchema = {
+export const posture$$api_PolicyRemediationTypeResponse: JsonSchema = {
   "properties": {
     "display_name": {
       "type": "string"
@@ -71,7 +71,7 @@ export const posture_api_PolicyRemediationTypeResponse_output: JsonSchema = {
 /**
  * The schema of `posture-api_PolicyResponse` in responses.
  */
-export const posture_api_PolicyResponse_output: JsonSchema = {
+export const posture$$api_PolicyResponse: JsonSchema = {
   "properties": {
     "actions": {
       "$ref": "#/$defs/posture-api_PolicyActionsResponse"
@@ -138,7 +138,7 @@ export const posture_api_PolicyResponse_output: JsonSchema = {
 /**
  * The schema of `posture-api_PolicyWebhookConfigResponse` in responses.
  */
-export const posture_api_PolicyWebhookConfigResponse_output: JsonSchema = {
+export const posture$$api_PolicyWebhookConfigResponse: JsonSchema = {
   "properties": {
     "display_name": {
       "type": "string"

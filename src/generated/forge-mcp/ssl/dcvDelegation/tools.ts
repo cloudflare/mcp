@@ -3,48 +3,52 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  tls_certificates_and_hostnames_api_response_common_failure_output,
-  tls_certificates_and_hostnames_api_response_single_output,
-  tls_certificates_and_hostnames_messages_output,
+  tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
+  tls$$certificates$$and$$hostnames_api$$response$$single,
+  tls$$certificates$$and$$hostnames_messages,
 } from "../../outputs.js";
-import { tls_certificates_and_hostnames_identifier } from "../../schemas.js";
 import {
-  tls_certificates_and_hostnames_dcv_delegation_response_output,
-  tls_certificates_and_hostnames_uuidObject_output,
-  tls_certificates_and_hostnames_uuid_output,
+  tls$$certificates$$and$$hostnames_dcv_delegation_response,
+  tls$$certificates$$and$$hostnames_uuidObject,
 } from "./outputs.js";
 
 /**
- * The tools of `ssl.dcv_delegation`.
+ * The tools of `ssl.dcvDelegation`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "ssl_dcv_delegation_get",
+    name: "ssl_dcvDelegation_get",
     title: "Retrieve the DCV Delegation unique identifier.",
-    description: "Retrieve the account and zone specific unique identifier used as part of the CNAME target for DCV Delegation.",
+    description: "Retrieve the account and zone specific unique identifier used as part of the CNAME target for DCV Delegation.\n\nGET /zones/{zone_id}/dcv_delegation/uuid",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
-      $defs: {
-        "tls-certificates-and-hostnames_identifier": tls_certificates_and_hostnames_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_dcv_delegation_response",
       $defs: {
-        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
-        "tls-certificates-and-hostnames_dcv_delegation_response": tls_certificates_and_hostnames_dcv_delegation_response_output,
-        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
-        "tls-certificates-and-hostnames_uuid": tls_certificates_and_hostnames_uuid_output,
-        "tls-certificates-and-hostnames_uuidObject": tls_certificates_and_hostnames_uuidObject_output,
+        "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
+        "tls-certificates-and-hostnames_dcv_delegation_response": tls$$certificates$$and$$hostnames_dcv_delegation_response,
+        "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
+        "tls-certificates-and-hostnames_uuidObject": tls$$certificates$$and$$hostnames_uuidObject,
       },
     },
     annotations: {
@@ -85,12 +89,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
-        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
-        "tls-certificates-and-hostnames_dcv_delegation_response": tls_certificates_and_hostnames_dcv_delegation_response_output,
-        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
-        "tls-certificates-and-hostnames_uuid": tls_certificates_and_hostnames_uuid_output,
-        "tls-certificates-and-hostnames_uuidObject": tls_certificates_and_hostnames_uuidObject_output,
+        "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
+        "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
+        "tls-certificates-and-hostnames_dcv_delegation_response": tls$$certificates$$and$$hostnames_dcv_delegation_response,
+        "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
+        "tls-certificates-and-hostnames_uuidObject": tls$$certificates$$and$$hostnames_uuidObject,
       },
     },
     request: (args) => ({

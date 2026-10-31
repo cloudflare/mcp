@@ -7,7 +7,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
  * The schema of `digital-experience-monitoring_commands_devices_response` in
  * responses.
  */
-export const digital_experience_monitoring_commands_devices_response_output: JsonSchema = {
+export const digital$$experience$$monitoring_commands_devices_response: JsonSchema = {
   "properties": {
     "devices": {
       "items": {
@@ -28,19 +28,19 @@ export const digital_experience_monitoring_commands_devices_response_output: Jso
             "type": "string"
           },
           "platform": {
-            "$ref": "#/$defs/digital-experience-monitoring_platform"
+            "type": "string"
           },
           "registrationId": {
             "type": "string"
           },
           "status": {
-            "$ref": "#/$defs/digital-experience-monitoring_status"
+            "type": "string"
           },
           "timestamp": {
-            "$ref": "#/$defs/digital-experience-monitoring_timestamp"
+            "type": "string"
           },
           "version": {
-            "$ref": "#/$defs/digital-experience-monitoring_version"
+            "type": "string"
           }
         },
         "type": "object"

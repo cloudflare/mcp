@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `cache_auto_origin_tls_kex_failure_response` in responses.
  */
-export const cache_auto_origin_tls_kex_failure_response_output: JsonSchema = {
+export const cache_auto_origin_tls_kex_failure_response: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/cache_messages"
@@ -33,7 +33,7 @@ export const cache_auto_origin_tls_kex_failure_response_output: JsonSchema = {
 /**
  * The schema of `cache_auto_origin_tls_kex_response` in responses.
  */
-export const cache_auto_origin_tls_kex_response_output: JsonSchema = {
+export const cache_auto_origin_tls_kex_response: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/cache_messages"
@@ -60,10 +60,10 @@ export const cache_auto_origin_tls_kex_response_output: JsonSchema = {
 /**
  * The schema of `cache_auto_origin_tls_kex_result` in responses.
  */
-export const cache_auto_origin_tls_kex_result_output: JsonSchema = {
+export const cache_auto_origin_tls_kex_result: JsonSchema = {
   "properties": {
     "enabled": {
-      "$ref": "#/$defs/cache_auto_origin_tls_kex_value"
+      "type": "boolean"
     },
     "id": {
       "type": "string"
@@ -79,11 +79,4 @@ export const cache_auto_origin_tls_kex_result_output: JsonSchema = {
     "modified_on"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `cache_auto_origin_tls_kex_value` in responses.
- */
-export const cache_auto_origin_tls_kex_value_output: JsonSchema = {
-  "type": "boolean"
 };

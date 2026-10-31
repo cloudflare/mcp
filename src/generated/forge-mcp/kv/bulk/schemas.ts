@@ -6,9 +6,10 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `workers-kv_bulk_delete`.
  */
-export const workers_kv_bulk_delete: JsonSchema = {
+export const workers$$kv_bulk_delete: JsonSchema = {
   "items": {
-    "$ref": "#/$defs/workers-kv_key_name_bulk"
+    "description": "A key's name. The name may be at most 512 bytes. All printable, non-whitespace characters are valid.",
+    "type": "string"
   },
   "maxItems": 10000,
   "type": "array"
@@ -17,7 +18,7 @@ export const workers_kv_bulk_delete: JsonSchema = {
 /**
  * The schema of `workers-kv_bulk_write`.
  */
-export const workers_kv_bulk_write: JsonSchema = {
+export const workers$$kv_bulk_write: JsonSchema = {
   "items": {
     "properties": {
       "base64": {
@@ -26,16 +27,16 @@ export const workers_kv_bulk_write: JsonSchema = {
         "type": "boolean"
       },
       "expiration": {
-        "$ref": "#/$defs/workers-kv_expiration",
-        "description": "Expires the key at a certain time, measured in number of seconds since the UNIX epoch."
+        "description": "Expires the key at a certain time, measured in number of seconds since the UNIX epoch.",
+        "type": "number"
       },
       "expiration_ttl": {
-        "$ref": "#/$defs/workers-kv_expiration_ttl",
-        "description": "Number of seconds until the key expires. Must be at least 60. Takes precedence over `expiration` when both are specified."
+        "description": "Number of seconds until the key expires. Must be at least 60. Takes precedence over `expiration` when both are specified.",
+        "type": "number"
       },
       "key": {
-        "$ref": "#/$defs/workers-kv_key_name_bulk",
-        "description": "A key's name. The name may be at most 512 bytes. All printable, non-whitespace characters are valid."
+        "description": "A key's name. The name may be at most 512 bytes. All printable, non-whitespace characters are valid.",
+        "type": "string"
       },
       "metadata": {
         "$ref": "#/$defs/workers-kv_list_metadata",
@@ -54,12 +55,4 @@ export const workers_kv_bulk_write: JsonSchema = {
   },
   "maxItems": 10000,
   "type": "array"
-};
-
-/**
- * The schema of `workers-kv_key_name_bulk`.
- */
-export const workers_kv_key_name_bulk: JsonSchema = {
-  "description": "A key's name. The name may be at most 512 bytes. All printable, non-whitespace characters are valid.",
-  "type": "string"
 };

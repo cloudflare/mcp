@@ -3,12 +3,11 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  speed_api_response_common_failure_output,
-  speed_api_response_common_output,
-  speed_messages_output,
+  speed_api$$response$$common,
+  speed_api$$response$$common$$failure,
+  speed_messages,
 } from "../../outputs.js";
-import { speed_identifier } from "../../schemas.js";
-import { speed_zone_config_item_output } from "./outputs.js";
+import { speed_zone_config_item } from "./outputs.js";
 
 /**
  * The tools of `accounts.transformations`.
@@ -17,21 +16,28 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_transformations_list",
     title: "List Image Resizing configurations for account",
-    description: "Returns a list of Image Resizing configurations across all zones for the account.\nThis endpoint is useful for retrieving the transformations (image_resizing) state\nfor all zones belonging to an account.",
+    description: "Returns a list of Image Resizing configurations across all zones for the account.\nThis endpoint is useful for retrieving the transformations (image_resizing) state\nfor all zones belonging to an account.\n\nGET /accounts/{account_id}/settings/transformations",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/speed_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
-      $defs: {
-        "speed_identifier": speed_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -51,9 +57,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "speed_api-response-common": speed_api_response_common_output,
-        "speed_messages": speed_messages_output,
-        "speed_zone_config_item": speed_zone_config_item_output,
+        "speed_api-response-common": speed_api$$response$$common,
+        "speed_messages": speed_messages,
+        "speed_zone_config_item": speed_zone_config_item,
       },
     },
     annotations: {
@@ -101,10 +107,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "speed_api-response-common": speed_api_response_common_output,
-        "speed_api-response-common-failure": speed_api_response_common_failure_output,
-        "speed_messages": speed_messages_output,
-        "speed_zone_config_item": speed_zone_config_item_output,
+        "speed_api-response-common": speed_api$$response$$common,
+        "speed_api-response-common-failure": speed_api$$response$$common$$failure,
+        "speed_messages": speed_messages,
+        "speed_zone_config_item": speed_zone_config_item,
       },
     },
     request: (args) => ({

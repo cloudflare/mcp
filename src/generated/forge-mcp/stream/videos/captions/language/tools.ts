@@ -3,22 +3,13 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  stream_api_response_common_failure_output,
-  stream_api_response_common_output,
-  stream_api_response_single_output,
-  stream_messages_output,
+  stream_api$$response$$common,
+  stream_api$$response$$common$$failure,
+  stream_api$$response$$single,
+  stream_messages,
 } from "../../../outputs.js";
-import { stream_identifier_2 } from "../../../schemas.js";
-import { stream_identifier } from "../../schemas.js";
-import {
-  stream_caption_status_output,
-  stream_captions_output,
-  stream_generated_caption_output,
-  stream_label_output,
-  stream_language_output,
-} from "../outputs.js";
-import { stream_language } from "../schemas.js";
-import { stream_language_response_single_output } from "./outputs.js";
+import { stream_captions } from "../outputs.js";
+import { stream_language_response_single } from "./outputs.js";
 
 /**
  * The tools of `stream.videos.captions.language`.
@@ -27,33 +18,38 @@ export const tools: readonly Tool[] = [
   {
     name: "stream_videos_captions_language_delete",
     title: "Delete captions or subtitles",
-    description: "Removes the captions or subtitles from a video.\n\nConfirm with the user before calling this tool. Remove this caption?",
+    description: "Removes the captions or subtitles from a video.\n\nConfirm with the user before calling this tool. Remove this caption?\n\nDELETE /accounts/{account_id}/stream/{identifier}/captions/{language}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/stream_identifier-2",
-          "description": "Identifier."
-        },
-        "identifier": {
-          "$ref": "#/$defs/stream_identifier",
-          "description": "A Cloudflare-generated unique identifier for a media item."
-        },
-        "language": {
-          "$ref": "#/$defs/stream_language",
-          "description": "The language tag in BCP 47 format."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            },
+            "identifier": {
+              "description": "A Cloudflare-generated unique identifier for a media item.",
+              "type": "string"
+            },
+            "language": {
+              "description": "The language tag in BCP 47 format.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "identifier",
+            "language"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "identifier",
-        "language"
+        "path"
       ],
-      $defs: {
-        "stream_identifier": stream_identifier,
-        "stream_identifier-2": stream_identifier_2,
-        "stream_language": stream_language,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -70,8 +66,8 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "stream_api-response-common": stream_api_response_common_output,
-        "stream_messages": stream_messages_output,
+        "stream_api-response-common": stream_api$$response$$common,
+        "stream_messages": stream_messages,
       },
     },
     annotations: {
@@ -110,9 +106,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "stream_api-response-common": stream_api_response_common_output,
-        "stream_api-response-common-failure": stream_api_response_common_failure_output,
-        "stream_messages": stream_messages_output,
+        "stream_api-response-common": stream_api$$response$$common,
+        "stream_api-response-common-failure": stream_api$$response$$common$$failure,
+        "stream_messages": stream_messages,
       },
     },
     request: (args) => ({
@@ -122,45 +118,46 @@ export const tools: readonly Tool[] = [
   {
     name: "stream_videos_captions_language_generate",
     title: "Generate captions or subtitles for a provided language via AI",
-    description: "Generate captions or subtitles for provided language via AI.",
+    description: "Generate captions or subtitles for provided language via AI.\n\nPOST /accounts/{account_id}/stream/{identifier}/captions/{language}/generate",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/stream_identifier-2",
-          "description": "Identifier."
-        },
-        "identifier": {
-          "$ref": "#/$defs/stream_identifier",
-          "description": "A Cloudflare-generated unique identifier for a media item."
-        },
-        "language": {
-          "$ref": "#/$defs/stream_language",
-          "description": "The language tag in BCP 47 format."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            },
+            "identifier": {
+              "description": "A Cloudflare-generated unique identifier for a media item.",
+              "type": "string"
+            },
+            "language": {
+              "description": "The language tag in BCP 47 format.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "identifier",
+            "language"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "identifier",
-        "language"
+        "path"
       ],
-      $defs: {
-        "stream_identifier": stream_identifier,
-        "stream_identifier-2": stream_identifier_2,
-        "stream_language": stream_language,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/stream_language_response_single",
       $defs: {
-        "stream_api-response-single": stream_api_response_single_output,
-        "stream_caption_status": stream_caption_status_output,
-        "stream_captions": stream_captions_output,
-        "stream_generated_caption": stream_generated_caption_output,
-        "stream_label": stream_label_output,
-        "stream_language": stream_language_output,
-        "stream_language_response_single": stream_language_response_single_output,
-        "stream_messages": stream_messages_output,
+        "stream_api-response-single": stream_api$$response$$single,
+        "stream_captions": stream_captions,
+        "stream_language_response_single": stream_language_response_single,
+        "stream_messages": stream_messages,
       },
     },
     annotations: {
@@ -182,15 +179,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "stream_api-response-common-failure": stream_api_response_common_failure_output,
-        "stream_api-response-single": stream_api_response_single_output,
-        "stream_caption_status": stream_caption_status_output,
-        "stream_captions": stream_captions_output,
-        "stream_generated_caption": stream_generated_caption_output,
-        "stream_label": stream_label_output,
-        "stream_language": stream_language_output,
-        "stream_language_response_single": stream_language_response_single_output,
-        "stream_messages": stream_messages_output,
+        "stream_api-response-common-failure": stream_api$$response$$common$$failure,
+        "stream_api-response-single": stream_api$$response$$single,
+        "stream_captions": stream_captions,
+        "stream_language_response_single": stream_language_response_single,
+        "stream_messages": stream_messages,
       },
     },
     request: (args) => ({
@@ -200,45 +193,46 @@ export const tools: readonly Tool[] = [
   {
     name: "stream_videos_captions_language_get",
     title: "List captions or subtitles for a provided language",
-    description: "Lists the captions or subtitles for provided language.",
+    description: "Lists the captions or subtitles for provided language.\n\nGET /accounts/{account_id}/stream/{identifier}/captions/{language}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/stream_identifier-2",
-          "description": "Identifier."
-        },
-        "identifier": {
-          "$ref": "#/$defs/stream_identifier",
-          "description": "A Cloudflare-generated unique identifier for a media item."
-        },
-        "language": {
-          "$ref": "#/$defs/stream_language",
-          "description": "The language tag in BCP 47 format."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            },
+            "identifier": {
+              "description": "A Cloudflare-generated unique identifier for a media item.",
+              "type": "string"
+            },
+            "language": {
+              "description": "The language tag in BCP 47 format.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "identifier",
+            "language"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "identifier",
-        "language"
+        "path"
       ],
-      $defs: {
-        "stream_identifier": stream_identifier,
-        "stream_identifier-2": stream_identifier_2,
-        "stream_language": stream_language,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/stream_language_response_single",
       $defs: {
-        "stream_api-response-single": stream_api_response_single_output,
-        "stream_caption_status": stream_caption_status_output,
-        "stream_captions": stream_captions_output,
-        "stream_generated_caption": stream_generated_caption_output,
-        "stream_label": stream_label_output,
-        "stream_language": stream_language_output,
-        "stream_language_response_single": stream_language_response_single_output,
-        "stream_messages": stream_messages_output,
+        "stream_api-response-single": stream_api$$response$$single,
+        "stream_captions": stream_captions,
+        "stream_language_response_single": stream_language_response_single,
+        "stream_messages": stream_messages,
       },
     },
     annotations: {
@@ -266,15 +260,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "stream_api-response-common-failure": stream_api_response_common_failure_output,
-        "stream_api-response-single": stream_api_response_single_output,
-        "stream_caption_status": stream_caption_status_output,
-        "stream_captions": stream_captions_output,
-        "stream_generated_caption": stream_generated_caption_output,
-        "stream_label": stream_label_output,
-        "stream_language": stream_language_output,
-        "stream_language_response_single": stream_language_response_single_output,
-        "stream_messages": stream_messages_output,
+        "stream_api-response-common-failure": stream_api$$response$$common$$failure,
+        "stream_api-response-single": stream_api$$response$$single,
+        "stream_captions": stream_captions,
+        "stream_language_response_single": stream_language_response_single,
+        "stream_messages": stream_messages,
       },
     },
     request: (args) => ({

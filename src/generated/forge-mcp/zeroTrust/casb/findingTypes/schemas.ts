@@ -4,35 +4,9 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `posture-api_FindingTypeOriginEnum`.
- */
-export const posture_api_FindingTypeOriginEnum: JsonSchema = {
-  "description": "Finding type origins for list filters.",
-  "enum": [
-    "custom",
-    "system"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `posture-api_FindingTypeSeverityEnum`.
- */
-export const posture_api_FindingTypeSeverityEnum: JsonSchema = {
-  "description": "Finding type severities for list filters.",
-  "enum": [
-    "critical",
-    "high",
-    "medium",
-    "low"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `posture-api_create-finding-type-request`.
  */
-export const posture_api_create_finding_type_request: JsonSchema = {
+export const posture$$api_create$$finding$$type$$request: JsonSchema = {
   "properties": {
     "applies_to_all_integrations": {
       "description": "When true, this finding type applies to every current and future integration of the vendor.",
@@ -45,7 +19,26 @@ export const posture_api_create_finding_type_request: JsonSchema = {
     "asset_vendor": {
       "allOf": [
         {
-          "$ref": "#/$defs/posture-api_FindingTypeVendorsEnum"
+          "description": "Vendors whose assets a finding type can evaluate.",
+          "enum": [
+            "ANTHROPIC",
+            "AWS",
+            "BITBUCKET",
+            "BOX",
+            "CONFLUENCE",
+            "DROPBOX",
+            "GITHUB",
+            "GOOGLE_CLOUD_PLATFORM",
+            "GOOGLE_WORKSPACE",
+            "JIRA",
+            "MICROSOFT",
+            "OPENAI",
+            "SALESFORCE",
+            "SERVICENOW",
+            "SLACK",
+            "ZOOM"
+          ],
+          "type": "string"
         },
         {
           "type": "string"
@@ -75,7 +68,14 @@ export const posture_api_create_finding_type_request: JsonSchema = {
     "severity": {
       "allOf": [
         {
-          "$ref": "#/$defs/posture-api_SeverityEnum"
+          "description": "The severity level of a finding.",
+          "enum": [
+            "Critical",
+            "High",
+            "Medium",
+            "Low"
+          ],
+          "type": "string"
         },
         {
           "type": "string"
@@ -98,7 +98,7 @@ export const posture_api_create_finding_type_request: JsonSchema = {
 /**
  * The schema of `posture-api_update-finding-type-request`.
  */
-export const posture_api_update_finding_type_request: JsonSchema = {
+export const posture$$api_update$$finding$$type$$request: JsonSchema = {
   "properties": {
     "applies_to_all_integrations": {
       "description": "When true, this finding type applies to every current and future integration of the vendor.",
@@ -123,7 +123,14 @@ export const posture_api_update_finding_type_request: JsonSchema = {
     "severity": {
       "allOf": [
         {
-          "$ref": "#/$defs/posture-api_SeverityEnum"
+          "description": "The severity level of a finding.",
+          "enum": [
+            "Critical",
+            "High",
+            "Medium",
+            "Low"
+          ],
+          "type": "string"
         },
         {
           "type": "string"

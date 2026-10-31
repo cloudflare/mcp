@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `dlp_RiskEvent` in responses.
  */
-export const dlp_RiskEvent_output: JsonSchema = {
+export const dlp_RiskEvent: JsonSchema = {
   "properties": {
     "event_details": {
       "type": "object"
@@ -18,7 +18,12 @@ export const dlp_RiskEvent_output: JsonSchema = {
       "type": "string"
     },
     "risk_level": {
-      "$ref": "#/$defs/dlp_RiskLevel"
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "type": "string"
     },
     "timestamp": {
       "format": "date-time",
@@ -37,7 +42,7 @@ export const dlp_RiskEvent_output: JsonSchema = {
 /**
  * The schema of `dlp_RiskEvents` in responses.
  */
-export const dlp_RiskEvents_output: JsonSchema = {
+export const dlp_RiskEvents: JsonSchema = {
   "properties": {
     "email": {
       "type": "string"
@@ -63,7 +68,12 @@ export const dlp_RiskEvents_output: JsonSchema = {
       "type": "string"
     },
     "risk_level": {
-      "$ref": "#/$defs/dlp_RiskLevel"
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "type": "string"
     }
   },
   "required": [
@@ -75,21 +85,9 @@ export const dlp_RiskEvents_output: JsonSchema = {
 };
 
 /**
- * The schema of `dlp_RiskLevel` in responses.
- */
-export const dlp_RiskLevel_output: JsonSchema = {
-  "enum": [
-    "low",
-    "medium",
-    "high"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `dlp_api-response-collection` in responses.
  */
-export const dlp_api_response_collection_output: JsonSchema = {
+export const dlp_api$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dlp_api-response-common"
@@ -125,7 +123,7 @@ export const dlp_api_response_collection_output: JsonSchema = {
 /**
  * The schema of `dlp_api-response-common` in responses.
  */
-export const dlp_api_response_common_output: JsonSchema = {
+export const dlp_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/dlp_messages"

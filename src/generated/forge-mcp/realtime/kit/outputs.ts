@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `realtimekit_ActiveSession` in responses.
  */
-export const realtimekit_ActiveSession_output: JsonSchema = {
+export const realtimekit_ActiveSession: JsonSchema = {
   "properties": {
     "associated_id": {
       "type": "string"
@@ -83,7 +83,7 @@ export const realtimekit_ActiveSession_output: JsonSchema = {
 /**
  * The schema of `realtimekit_AudioConfig` in responses.
  */
-export const realtimekit_AudioConfig_output: JsonSchema = {
+export const realtimekit_AudioConfig: JsonSchema = {
   "properties": {
     "channel": {
       "enum": [
@@ -109,7 +109,7 @@ export const realtimekit_AudioConfig_output: JsonSchema = {
 /**
  * The schema of `realtimekit_ErrorResponse` in responses.
  */
-export const realtimekit_ErrorResponse_output: JsonSchema = {
+export const realtimekit_ErrorResponse: JsonSchema = {
   "properties": {
     "error": {
       "properties": {
@@ -140,7 +140,7 @@ export const realtimekit_ErrorResponse_output: JsonSchema = {
 /**
  * The schema of `realtimekit_GenericErrorResponse` in responses.
  */
-export const realtimekit_GenericErrorResponse_output: JsonSchema = {
+export const realtimekit_GenericErrorResponse: JsonSchema = {
   "properties": {
     "error": {
       "properties": {
@@ -187,7 +187,7 @@ export const realtimekit_GenericErrorResponse_output: JsonSchema = {
 /**
  * The schema of `realtimekit_GenericSuccessResponse` in responses.
  */
-export const realtimekit_GenericSuccessResponse_output: JsonSchema = {
+export const realtimekit_GenericSuccessResponse: JsonSchema = {
   "properties": {
     "data": {
       "type": "object"
@@ -205,7 +205,7 @@ export const realtimekit_GenericSuccessResponse_output: JsonSchema = {
 /**
  * The schema of `realtimekit_Livestream` in responses.
  */
-export const realtimekit_Livestream_output: JsonSchema = {
+export const realtimekit_Livestream: JsonSchema = {
   "properties": {
     "created_at": {
       "format": "date-time",
@@ -288,7 +288,7 @@ export const realtimekit_Livestream_output: JsonSchema = {
 /**
  * The schema of `realtimekit_LivestreamSession` in responses.
  */
-export const realtimekit_LivestreamSession_output: JsonSchema = {
+export const realtimekit_LivestreamSession: JsonSchema = {
   "properties": {
     "created_at": {
       "format": "date-time",
@@ -374,7 +374,7 @@ export const realtimekit_LivestreamSession_output: JsonSchema = {
 /**
  * The schema of `realtimekit_LivestreamingConfig` in responses.
  */
-export const realtimekit_LivestreamingConfig_output: JsonSchema = {
+export const realtimekit_LivestreamingConfig: JsonSchema = {
   "properties": {
     "rtmp_url": {
       "type": "string"
@@ -386,7 +386,7 @@ export const realtimekit_LivestreamingConfig_output: JsonSchema = {
 /**
  * The schema of `realtimekit_Meeting` in responses.
  */
-export const realtimekit_Meeting_output: JsonSchema = {
+export const realtimekit_Meeting: JsonSchema = {
   "properties": {
     "created_at": {
       "format": "date-time",
@@ -443,7 +443,7 @@ export const realtimekit_Meeting_output: JsonSchema = {
 /**
  * The schema of `realtimekit_PagingInfo` in responses.
  */
-export const realtimekit_PagingInfo_output: JsonSchema = {
+export const realtimekit_PagingInfo: JsonSchema = {
   "properties": {
     "end_offset": {
       "type": "number"
@@ -466,7 +466,7 @@ export const realtimekit_PagingInfo_output: JsonSchema = {
 /**
  * The schema of `realtimekit_PagingResponse` in responses.
  */
-export const realtimekit_PagingResponse_output: JsonSchema = {
+export const realtimekit_PagingResponse: JsonSchema = {
   "properties": {
     "data": {
       "items": {
@@ -492,7 +492,7 @@ export const realtimekit_PagingResponse_output: JsonSchema = {
 /**
  * The schema of `realtimekit_RecordingConfig` in responses.
  */
-export const realtimekit_RecordingConfig_output: JsonSchema = {
+export const realtimekit_RecordingConfig: JsonSchema = {
   "properties": {
     "audio_config": {
       "$ref": "#/$defs/realtimekit_AudioConfig"
@@ -522,7 +522,7 @@ export const realtimekit_RecordingConfig_output: JsonSchema = {
 /**
  * The schema of `realtimekit_StorageConfig` in responses.
  */
-export const realtimekit_StorageConfig_output: JsonSchema = {
+export const realtimekit_StorageConfig: JsonSchema = {
   "oneOf": [
     {
       "allOf": [
@@ -674,7 +674,7 @@ export const realtimekit_StorageConfig_output: JsonSchema = {
 /**
  * The schema of `realtimekit_ValidationIssue` in responses.
  */
-export const realtimekit_ValidationIssue_output: JsonSchema = {
+export const realtimekit_ValidationIssue: JsonSchema = {
   "properties": {
     "code": {
       "type": "string"
@@ -706,7 +706,7 @@ export const realtimekit_ValidationIssue_output: JsonSchema = {
 /**
  * The schema of `realtimekit_VideoConfig` in responses.
  */
-export const realtimekit_VideoConfig_output: JsonSchema = {
+export const realtimekit_VideoConfig: JsonSchema = {
   "properties": {
     "codec": {
       "enum": [
@@ -760,7 +760,7 @@ export const realtimekit_VideoConfig_output: JsonSchema = {
 /**
  * The schema of `realtimekit_realtimekitBucketConfig` in responses.
  */
-export const realtimekit_realtimekitBucketConfig_output: JsonSchema = {
+export const realtimekit_realtimekitBucketConfig: JsonSchema = {
   "properties": {
     "enabled": {
       "type": "boolean"

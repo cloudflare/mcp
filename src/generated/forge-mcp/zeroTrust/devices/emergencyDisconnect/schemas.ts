@@ -4,38 +4,22 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `teams-devices_disconnect`.
- */
-export const teams_devices_disconnect: JsonSchema = {
-  "description": "Disconnects all devices on the account using Global WARP override.",
-  "type": "boolean"
-};
-
-/**
  * The schema of `teams-devices_global_warp_override_request`.
  */
-export const teams_devices_global_warp_override_request: JsonSchema = {
+export const teams$$devices_global_warp_override_request: JsonSchema = {
   "description": "Global WARP override request",
   "properties": {
     "disconnect": {
-      "$ref": "#/$defs/teams-devices_disconnect",
-      "description": "Disconnects all devices on the account using Global WARP override."
+      "description": "Disconnects all devices on the account using Global WARP override.",
+      "type": "boolean"
     },
     "justification": {
-      "$ref": "#/$defs/teams-devices_justification",
-      "description": "Reasoning for setting the Global WARP override state. This will be surfaced in the audit log."
+      "description": "Reasoning for setting the Global WARP override state. This will be surfaced in the audit log.",
+      "type": "string"
     }
   },
   "required": [
     "disconnect"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `teams-devices_justification`.
- */
-export const teams_devices_justification: JsonSchema = {
-  "description": "Reasoning for setting the Global WARP override state. This will be surfaced in the audit log.",
-  "type": "string"
 };

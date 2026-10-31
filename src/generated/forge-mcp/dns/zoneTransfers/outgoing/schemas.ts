@@ -6,11 +6,11 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `secondary-dns_single_request_outgoing`.
  */
-export const secondary_dns_single_request_outgoing: JsonSchema = {
+export const secondary$$dns_single_request_outgoing: JsonSchema = {
   "properties": {
     "name": {
-      "$ref": "#/$defs/secondary-dns_name",
-      "description": "Zone name."
+      "description": "Zone name.",
+      "type": "string"
     },
     "peers": {
       "$ref": "#/$defs/secondary-dns_peers",

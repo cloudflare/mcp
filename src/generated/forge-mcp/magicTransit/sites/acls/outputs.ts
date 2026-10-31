@@ -6,16 +6,16 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `magic_acl` in responses.
  */
-export const magic_acl_output: JsonSchema = {
+export const magic_acl: JsonSchema = {
   "properties": {
     "description": {
       "type": "string"
     },
     "forward_locally": {
-      "$ref": "#/$defs/magic_forward_locally"
+      "type": "boolean"
     },
     "id": {
-      "$ref": "#/$defs/magic_identifier"
+      "type": "string"
     },
     "lan_1": {
       "$ref": "#/$defs/magic_lan-acl-configuration"
@@ -38,37 +38,16 @@ export const magic_acl_output: JsonSchema = {
       "type": "array"
     },
     "unidirectional": {
-      "$ref": "#/$defs/magic_unidirectional"
+      "type": "boolean"
     }
   },
   "type": "object"
 };
 
 /**
- * The schema of `magic_acl-port-range` in responses.
- */
-export const magic_acl_port_range_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `magic_acl-subnet` in responses.
- */
-export const magic_acl_subnet_output: JsonSchema = {
-  "oneOf": [
-    {
-      "$ref": "#/$defs/magic_ip-address"
-    },
-    {
-      "$ref": "#/$defs/magic_cidr"
-    }
-  ]
-};
-
-/**
  * The schema of `magic_acl_deleted_response` in responses.
  */
-export const magic_acl_deleted_response_output: JsonSchema = {
+export const magic_acl_deleted_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"
@@ -87,7 +66,7 @@ export const magic_acl_deleted_response_output: JsonSchema = {
 /**
  * The schema of `magic_acl_modified_response` in responses.
  */
-export const magic_acl_modified_response_output: JsonSchema = {
+export const magic_acl_modified_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"
@@ -106,7 +85,7 @@ export const magic_acl_modified_response_output: JsonSchema = {
 /**
  * The schema of `magic_acl_single_response` in responses.
  */
-export const magic_acl_single_response_output: JsonSchema = {
+export const magic_acl_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"
@@ -125,7 +104,7 @@ export const magic_acl_single_response_output: JsonSchema = {
 /**
  * The schema of `magic_acls_collection_response` in responses.
  */
-export const magic_acls_collection_response_output: JsonSchema = {
+export const magic_acls_collection_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"
@@ -145,16 +124,9 @@ export const magic_acls_collection_response_output: JsonSchema = {
 };
 
 /**
- * The schema of `magic_forward_locally` in responses.
- */
-export const magic_forward_locally_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `magic_lan-acl-configuration` in responses.
  */
-export const magic_lan_acl_configuration_output: JsonSchema = {
+export const magic_lan$$acl$$configuration: JsonSchema = {
   "properties": {
     "lan_id": {
       "type": "string"
@@ -164,19 +136,26 @@ export const magic_lan_acl_configuration_output: JsonSchema = {
     },
     "port_ranges": {
       "items": {
-        "$ref": "#/$defs/magic_acl-port-range"
+        "type": "string"
       },
       "type": "array"
     },
     "ports": {
       "items": {
-        "$ref": "#/$defs/magic_port"
+        "type": "integer"
       },
       "type": "array"
     },
     "subnets": {
       "items": {
-        "$ref": "#/$defs/magic_acl-subnet"
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string"
+          }
+        ]
       },
       "type": "array"
     }
@@ -185,11 +164,4 @@ export const magic_lan_acl_configuration_output: JsonSchema = {
     "lan_id"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `magic_unidirectional` in responses.
- */
-export const magic_unidirectional_output: JsonSchema = {
-  "type": "boolean"
 };

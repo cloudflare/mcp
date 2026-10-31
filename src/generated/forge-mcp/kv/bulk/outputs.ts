@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `workers-kv_bulk-get-result` in responses.
  */
-export const workers_kv_bulk_get_result_output: JsonSchema = {
+export const workers$$kv_bulk$$get$$result: JsonSchema = {
   "properties": {
     "values": {
       "additionalProperties": {
@@ -34,7 +34,7 @@ export const workers_kv_bulk_get_result_output: JsonSchema = {
 /**
  * The schema of `workers-kv_bulk-get-result-with-metadata` in responses.
  */
-export const workers_kv_bulk_get_result_with_metadata_output: JsonSchema = {
+export const workers$$kv_bulk$$get$$result$$with$$metadata: JsonSchema = {
   "properties": {
     "values": {
       "additionalProperties": {
@@ -42,7 +42,7 @@ export const workers_kv_bulk_get_result_with_metadata_output: JsonSchema = {
           {
             "properties": {
               "expiration": {
-                "$ref": "#/$defs/workers-kv_expiration"
+                "type": "number"
               },
               "metadata": {
                 "$ref": "#/$defs/workers-kv_any"
@@ -71,7 +71,7 @@ export const workers_kv_bulk_get_result_with_metadata_output: JsonSchema = {
 /**
  * The schema of `workers-kv_bulk-result` in responses.
  */
-export const workers_kv_bulk_result_output: JsonSchema = {
+export const workers$$kv_bulk$$result: JsonSchema = {
   "properties": {
     "successful_key_count": {
       "type": "number"

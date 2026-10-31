@@ -3,41 +3,43 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  cloud_connector_api_response_common_failure_output,
-  cloud_connector_api_response_common_output,
-  cloud_connector_messages_output,
-  cloud_connector_provider_output,
-  cloud_connector_rule_output,
-  cloud_connector_rules_output,
+  cloud$$connector_api$$response$$common,
+  cloud$$connector_api$$response$$common$$failure,
+  cloud$$connector_messages,
+  cloud$$connector_rule,
+  cloud$$connector_rules,
 } from "./outputs.js";
-import {
-  cloud_connector_identifier,
-  cloud_connector_provider,
-  cloud_connector_rule,
-} from "./schemas.js";
+import { cloud$$connector_rule as cloud$$connector_rule$ } from "./schemas.js";
 
 /**
- * The tools of `cloud_connector.rules`.
+ * The tools of `cloudConnector.rules`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "cloud_connector_rules_list",
+    name: "cloudConnector_rules_list",
     title: "Rules",
-    description: "Retrieves the Cloud Connector rules configured for a zone. Rules define how traffic is routed to cloud services.",
+    description: "Retrieves the Cloud Connector rules configured for a zone. Rules define how traffic is routed to cloud services.\n\nGET /zones/{zone_id}/cloud_connector/rules",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/cloud-connector_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
-      $defs: {
-        "cloud-connector_identifier": cloud_connector_identifier,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -54,11 +56,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "cloud-connector_api-response-common": cloud_connector_api_response_common_output,
-        "cloud-connector_messages": cloud_connector_messages_output,
-        "cloud-connector_provider": cloud_connector_provider_output,
-        "cloud-connector_rule": cloud_connector_rule_output,
-        "cloud-connector_rules": cloud_connector_rules_output,
+        "cloud-connector_api-response-common": cloud$$connector_api$$response$$common,
+        "cloud-connector_messages": cloud$$connector_messages,
+        "cloud-connector_rule": cloud$$connector_rule,
+        "cloud-connector_rules": cloud$$connector_rules,
       },
     },
     annotations: {
@@ -107,12 +108,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cloud-connector_api-response-common": cloud_connector_api_response_common_output,
-        "cloud-connector_api-response-common-failure": cloud_connector_api_response_common_failure_output,
-        "cloud-connector_messages": cloud_connector_messages_output,
-        "cloud-connector_provider": cloud_connector_provider_output,
-        "cloud-connector_rule": cloud_connector_rule_output,
-        "cloud-connector_rules": cloud_connector_rules_output,
+        "cloud-connector_api-response-common": cloud$$connector_api$$response$$common,
+        "cloud-connector_api-response-common-failure": cloud$$connector_api$$response$$common$$failure,
+        "cloud-connector_messages": cloud$$connector_messages,
+        "cloud-connector_rule": cloud$$connector_rule,
+        "cloud-connector_rules": cloud$$connector_rules,
       },
     },
     request: (args) => ({
@@ -120,9 +120,9 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "cloud_connector_rules_update",
+    name: "cloudConnector_rules_update",
     title: "Put Rules",
-    description: "Updates Cloud Connector rules for a zone, replacing the existing rule configuration.",
+    description: "Updates Cloud Connector rules for a zone, replacing the existing rule configuration.\n\nPUT /zones/{zone_id}/cloud_connector/rules",
     inputSchema: {
       type: "object",
       properties: {
@@ -132,19 +132,27 @@ export const tools: readonly Tool[] = [
           },
           "type": "array"
         },
-        "zone_id": {
-          "$ref": "#/$defs/cloud-connector_identifier",
-          "description": "Identifier."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "cloud-connector_identifier": cloud_connector_identifier,
-        "cloud-connector_provider": cloud_connector_provider,
-        "cloud-connector_rule": cloud_connector_rule,
+        "cloud-connector_rule": cloud$$connector_rule$,
       },
     },
     outputSchema: {
@@ -162,11 +170,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "cloud-connector_api-response-common": cloud_connector_api_response_common_output,
-        "cloud-connector_messages": cloud_connector_messages_output,
-        "cloud-connector_provider": cloud_connector_provider_output,
-        "cloud-connector_rule": cloud_connector_rule_output,
-        "cloud-connector_rules": cloud_connector_rules_output,
+        "cloud-connector_api-response-common": cloud$$connector_api$$response$$common,
+        "cloud-connector_messages": cloud$$connector_messages,
+        "cloud-connector_rule": cloud$$connector_rule,
+        "cloud-connector_rules": cloud$$connector_rules,
       },
     },
     annotations: {
@@ -214,12 +221,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cloud-connector_api-response-common": cloud_connector_api_response_common_output,
-        "cloud-connector_api-response-common-failure": cloud_connector_api_response_common_failure_output,
-        "cloud-connector_messages": cloud_connector_messages_output,
-        "cloud-connector_provider": cloud_connector_provider_output,
-        "cloud-connector_rule": cloud_connector_rule_output,
-        "cloud-connector_rules": cloud_connector_rules_output,
+        "cloud-connector_api-response-common": cloud$$connector_api$$response$$common,
+        "cloud-connector_api-response-common-failure": cloud$$connector_api$$response$$common$$failure,
+        "cloud-connector_messages": cloud$$connector_messages,
+        "cloud-connector_rule": cloud$$connector_rule,
+        "cloud-connector_rules": cloud$$connector_rules,
       },
     },
     request: (args) => ({

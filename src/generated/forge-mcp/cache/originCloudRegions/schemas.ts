@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `cache-settings_origin_cloud_region_v2_request`.
  */
-export const cache_settings_origin_cloud_region_v2_request: JsonSchema = {
+export const cache$$settings_origin_cloud_region_v2_request: JsonSchema = {
   "description": "Request body for creating or replacing an origin cloud region mapping.",
   "properties": {
     "origin_ip": {

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `workers_PreviewDeployment` in responses.
  */
-export const workers_PreviewDeployment_output: JsonSchema = {
+export const workers_PreviewDeployment: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/workers_PreviewDeploymentRequest"
@@ -65,7 +65,7 @@ export const workers_PreviewDeployment_output: JsonSchema = {
 /**
  * The schema of `workers_PreviewDeploymentConfig` in responses.
  */
-export const workers_PreviewDeploymentConfig_output: JsonSchema = {
+export const workers_PreviewDeploymentConfig: JsonSchema = {
   "properties": {
     "annotations": {
       "properties": {
@@ -106,7 +106,7 @@ export const workers_PreviewDeploymentConfig_output: JsonSchema = {
       "$ref": "#/$defs/workers_cache_options"
     },
     "compatibility_date": {
-      "$ref": "#/$defs/workers_compatibility_date"
+      "type": "string"
     },
     "compatibility_flags": {
       "$ref": "#/$defs/workers_compatibility_flags"
@@ -162,7 +162,7 @@ export const workers_PreviewDeploymentConfig_output: JsonSchema = {
 /**
  * The schema of `workers_PreviewDeploymentRequest` in responses.
  */
-export const workers_PreviewDeploymentRequest_output: JsonSchema = {
+export const workers_PreviewDeploymentRequest: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/workers_PreviewDeploymentConfig"
@@ -201,7 +201,7 @@ export const workers_PreviewDeploymentRequest_output: JsonSchema = {
 /**
  * The schema of `workers_assets` in responses.
  */
-export const workers_assets_output: JsonSchema = {
+export const workers_assets: JsonSchema = {
   "properties": {
     "config": {
       "properties": {

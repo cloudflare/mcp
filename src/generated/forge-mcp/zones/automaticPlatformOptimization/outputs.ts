@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `speed_automatic_platform_optimization_response` in responses.
  */
-export const speed_automatic_platform_optimization_response_output: JsonSchema = {
+export const speed_automatic_platform_optimization_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/speed_base"
@@ -31,7 +31,7 @@ export const speed_automatic_platform_optimization_response_output: JsonSchema =
 /**
  * The schema of `speed_automatic_platform_optimization_value` in responses.
  */
-export const speed_automatic_platform_optimization_value_output: JsonSchema = {
+export const speed_automatic_platform_optimization_value: JsonSchema = {
   "oneOf": [
     {
       "properties": {

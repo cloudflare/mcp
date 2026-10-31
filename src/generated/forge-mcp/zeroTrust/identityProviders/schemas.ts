@@ -132,7 +132,7 @@ export const access_cloudflare: JsonSchema = {
 /**
  * The schema of `access_custom-claims-support`.
  */
-export const access_custom_claims_support: JsonSchema = {
+export const access_custom$$claims$$support: JsonSchema = {
   "properties": {
     "claims": {
       "description": "Custom claims",
@@ -212,7 +212,7 @@ export const access_facebook: JsonSchema = {
 /**
  * The schema of `access_generic-oauth-config`.
  */
-export const access_generic_oauth_config: JsonSchema = {
+export const access_generic$$oauth$$config: JsonSchema = {
   "properties": {
     "client_id": {
       "description": "Your OAuth Client ID",
@@ -276,7 +276,7 @@ export const access_google: JsonSchema = {
 /**
  * The schema of `access_google-apps`.
  */
-export const access_google_apps: JsonSchema = {
+export const access_google$$apps: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_identity-provider"
@@ -325,22 +325,22 @@ export const access_google_apps: JsonSchema = {
 /**
  * The schema of `access_identity-provider`.
  */
-export const access_identity_provider: JsonSchema = {
+export const access_identity$$provider: JsonSchema = {
   "properties": {
     "config": {
       "description": "The configuration parameters for the identity provider. To view the required parameters for a specific provider, refer to our [developer documentation](https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/).",
       "type": "object"
     },
     "id": {
-      "$ref": "#/$defs/access_uuid",
-      "description": "UUID."
+      "description": "UUID.",
+      "type": "string"
     },
     "name": {
-      "$ref": "#/$defs/access_name-3",
-      "description": "The name of the identity provider, shown to users on the login page."
+      "description": "The name of the identity provider, shown to users on the login page.",
+      "type": "string"
     },
     "saml_certificate_set_id": {
-      "description": "The UID of the SAML encryption certificate set assigned to this Identity Provider.\nOnly present for SAML identity providers with encryption configured.\nCreate a certificate set via POST to `/identity_providers/{id}/saml_certificate`.\n",
+      "description": "The UID of the SAML encryption certificate set assigned to this Identity Provider.\nOnly present for SAML identity providers with encryption configured.\nCreate a certificate set via POST to `/identity_providers/{id}/saml_certificate`.",
       "format": "uuid",
       "type": "string"
     },
@@ -410,7 +410,7 @@ export const access_identity_provider: JsonSchema = {
 /**
  * The schema of `access_identity-providers`.
  */
-export const access_identity_providers: JsonSchema = {
+export const access_identity$$providers: JsonSchema = {
   "anyOf": [
     {
       "$ref": "#/$defs/access_azureAD"
@@ -484,14 +484,6 @@ export const access_linkedin: JsonSchema = {
     }
   ],
   "description": "LinkedIn"
-};
-
-/**
- * The schema of `access_name-3`.
- */
-export const access_name_3: JsonSchema = {
-  "description": "The name of the identity provider, shown to users on the login page.",
-  "type": "string"
 };
 
 /**
@@ -745,7 +737,7 @@ export const access_saml: JsonSchema = {
             },
             "enable_encryption": {
               "default": false,
-              "description": "Enable SAML assertion encryption. When enabled, the Identity Provider will encrypt \nSAML assertions using the certificate from the assigned certificate set.\n\nTo enable encryption:\n1. Create a certificate set via POST to `/identity_providers/{id}/saml_certificate`\n2. Set this field to `true` and include `saml_certificate_set_id` in the PUT request\n3. Configure the public certificate in your external Identity Provider\n\nNote: Requires `saml_certificate_set_id` to be set when `true`.\n",
+              "description": "Enable SAML assertion encryption. When enabled, the Identity Provider will encrypt \nSAML assertions using the certificate from the assigned certificate set.\n\nTo enable encryption:\n1. Create a certificate set via POST to `/identity_providers/{id}/saml_certificate`\n2. Set this field to `true` and include `saml_certificate_set_id` in the PUT request\n3. Configure the public certificate in your external Identity Provider\n\nNote: Requires `saml_certificate_set_id` to be set when `true`.",
               "type": "boolean"
             },
             "force_authn": {
@@ -782,7 +774,7 @@ export const access_saml: JsonSchema = {
               "type": "string"
             },
             "max_sso_url_length": {
-              "description": "The maximum URL length the IdP accepts for the SSO redirect URL.\nWhen the constructed SSO URL would exceed this length, the RelayState\nis stored server-side and a short nonce is passed to the IdP instead.\nSet this if your IdP enforces a URL length limit.\n",
+              "description": "The maximum URL length the IdP accepts for the SSO redirect URL.\nWhen the constructed SSO URL would exceed this length, the RelayState\nis stored server-side and a short nonce is passed to the IdP instead.\nSet this if your IdP enforces a URL length limit.",
               "type": "integer"
             },
             "sign_request": {

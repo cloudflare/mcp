@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `r2_add_custom_domain_response` in responses.
  */
-export const r2_add_custom_domain_response_output: JsonSchema = {
+export const r2_add_custom_domain_response: JsonSchema = {
   "properties": {
     "ciphers": {
       "items": {
@@ -44,7 +44,7 @@ export const r2_add_custom_domain_response_output: JsonSchema = {
 /**
  * The schema of `r2_edit_custom_domain_response` in responses.
  */
-export const r2_edit_custom_domain_response_output: JsonSchema = {
+export const r2_edit_custom_domain_response: JsonSchema = {
   "properties": {
     "ciphers": {
       "items": {
@@ -77,7 +77,7 @@ export const r2_edit_custom_domain_response_output: JsonSchema = {
 /**
  * The schema of `r2_get_custom_domain_response` in responses.
  */
-export const r2_get_custom_domain_response_output: JsonSchema = {
+export const r2_get_custom_domain_response: JsonSchema = {
   "properties": {
     "ciphers": {
       "items": {
@@ -149,7 +149,7 @@ export const r2_get_custom_domain_response_output: JsonSchema = {
 /**
  * The schema of `r2_list_custom_domains_response` in responses.
  */
-export const r2_list_custom_domains_response_output: JsonSchema = {
+export const r2_list_custom_domains_response: JsonSchema = {
   "properties": {
     "domains": {
       "items": {
@@ -232,7 +232,7 @@ export const r2_list_custom_domains_response_output: JsonSchema = {
 /**
  * The schema of `r2_remove_custom_domain_response` in responses.
  */
-export const r2_remove_custom_domain_response_output: JsonSchema = {
+export const r2_remove_custom_domain_response: JsonSchema = {
   "properties": {
     "domain": {
       "type": "string"

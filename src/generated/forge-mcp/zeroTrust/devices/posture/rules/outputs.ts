@@ -7,7 +7,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
  * The schema of `teams-devices_access_serial_number_list_input_request` in
  * responses.
  */
-export const teams_devices_access_serial_number_list_input_request_output: JsonSchema = {
+export const teams$$devices_access_serial_number_list_input_request: JsonSchema = {
   "properties": {
     "id": {
       "type": "string"
@@ -22,7 +22,7 @@ export const teams_devices_access_serial_number_list_input_request_output: JsonS
 /**
  * The schema of `teams-devices_antivirus_input_request` in responses.
  */
-export const teams_devices_antivirus_input_request_output: JsonSchema = {
+export const teams$$devices_antivirus_input_request: JsonSchema = {
   "properties": {
     "update_window_days": {
       "type": "number"
@@ -34,7 +34,7 @@ export const teams_devices_antivirus_input_request_output: JsonSchema = {
 /**
  * The schema of `teams-devices_application_input_request` in responses.
  */
-export const teams_devices_application_input_request_output: JsonSchema = {
+export const teams$$devices_application_input_request: JsonSchema = {
   "properties": {
     "operating_system": {
       "enum": [
@@ -64,7 +64,7 @@ export const teams_devices_application_input_request_output: JsonSchema = {
 /**
  * The schema of `teams-devices_carbonblack_input_request` in responses.
  */
-export const teams_devices_carbonblack_input_request_output: JsonSchema = {
+export const teams$$devices_carbonblack_input_request: JsonSchema = {
   "properties": {
     "operating_system": {
       "enum": [
@@ -94,7 +94,7 @@ export const teams_devices_carbonblack_input_request_output: JsonSchema = {
 /**
  * The schema of `teams-devices_checkDisks` in responses.
  */
-export const teams_devices_checkDisks_output: JsonSchema = {
+export const teams$$devices_checkDisks: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -104,7 +104,7 @@ export const teams_devices_checkDisks_output: JsonSchema = {
 /**
  * The schema of `teams-devices_client_certificate_input_request` in responses.
  */
-export const teams_devices_client_certificate_input_request_output: JsonSchema = {
+export const teams$$devices_client_certificate_input_request: JsonSchema = {
   "properties": {
     "certificate_id": {
       "type": "string"
@@ -124,7 +124,7 @@ export const teams_devices_client_certificate_input_request_output: JsonSchema =
  * The schema of `teams-devices_client_certificate_v2_input_request` in
  * responses.
  */
-export const teams_devices_client_certificate_v2_input_request_output: JsonSchema = {
+export const teams$$devices_client_certificate_v2_input_request: JsonSchema = {
   "properties": {
     "certificate_id": {
       "type": "string"
@@ -137,7 +137,11 @@ export const teams_devices_client_certificate_v2_input_request_output: JsonSchem
     },
     "extended_key_usage": {
       "items": {
-        "$ref": "#/$defs/teams-devices_extended_key_usage_enum"
+        "enum": [
+          "clientAuth",
+          "emailProtection"
+        ],
+        "type": "string"
       },
       "type": "array"
     },
@@ -178,7 +182,7 @@ export const teams_devices_client_certificate_v2_input_request_output: JsonSchem
 /**
  * The schema of `teams-devices_crowdstrike_input_request` in responses.
  */
-export const teams_devices_crowdstrike_input_request_output: JsonSchema = {
+export const teams$$devices_crowdstrike_input_request: JsonSchema = {
   "properties": {
     "connection_id": {
       "type": "string"
@@ -236,7 +240,7 @@ export const teams_devices_crowdstrike_input_request_output: JsonSchema = {
 /**
  * The schema of `teams-devices_custom_s2s_input_request` in responses.
  */
-export const teams_devices_custom_s2s_input_request_output: JsonSchema = {
+export const teams$$devices_custom_s2s_input_request: JsonSchema = {
   "properties": {
     "connection_id": {
       "type": "string"
@@ -264,28 +268,21 @@ export const teams_devices_custom_s2s_input_request_output: JsonSchema = {
 };
 
 /**
- * The schema of `teams-devices_description` in responses.
- */
-export const teams_devices_description_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `teams-devices_device-posture-rules` in responses.
  */
-export const teams_devices_device_posture_rules_output: JsonSchema = {
+export const teams$$devices_device$$posture$$rules: JsonSchema = {
   "properties": {
     "description": {
-      "$ref": "#/$defs/teams-devices_description"
+      "type": "string"
     },
     "enabled": {
       "type": "boolean"
     },
     "expiration": {
-      "$ref": "#/$defs/teams-devices_expiration"
+      "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/teams-devices_uuid"
+      "type": "string"
     },
     "input": {
       "$ref": "#/$defs/teams-devices_input"
@@ -294,13 +291,38 @@ export const teams_devices_device_posture_rules_output: JsonSchema = {
       "$ref": "#/$defs/teams-devices_match"
     },
     "name": {
-      "$ref": "#/$defs/teams-devices_name"
+      "type": "string"
     },
     "schedule": {
-      "$ref": "#/$defs/teams-devices_schedule"
+      "type": "string"
     },
     "type": {
-      "$ref": "#/$defs/teams-devices_type"
+      "enum": [
+        "file",
+        "application",
+        "tanium",
+        "gateway",
+        "warp",
+        "disk_encryption",
+        "serial_number",
+        "sentinelone",
+        "carbonblack",
+        "firewall",
+        "os_version",
+        "domain_joined",
+        "client_certificate",
+        "client_certificate_v2",
+        "antivirus",
+        "unique_client_id",
+        "kolide",
+        "tanium_s2s",
+        "crowdstrike_s2s",
+        "intune",
+        "workspace_one",
+        "sentinelone_s2s",
+        "custom_s2s"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
@@ -309,13 +331,13 @@ export const teams_devices_device_posture_rules_output: JsonSchema = {
 /**
  * The schema of `teams-devices_disk_encryption_input_request` in responses.
  */
-export const teams_devices_disk_encryption_input_request_output: JsonSchema = {
+export const teams$$devices_disk_encryption_input_request: JsonSchema = {
   "properties": {
     "checkDisks": {
       "$ref": "#/$defs/teams-devices_checkDisks"
     },
     "requireAll": {
-      "$ref": "#/$defs/teams-devices_requireAll"
+      "type": "boolean"
     }
   },
   "type": "object"
@@ -324,7 +346,7 @@ export const teams_devices_disk_encryption_input_request_output: JsonSchema = {
 /**
  * The schema of `teams-devices_domain_joined_input_request` in responses.
  */
-export const teams_devices_domain_joined_input_request_output: JsonSchema = {
+export const teams$$devices_domain_joined_input_request: JsonSchema = {
   "properties": {
     "domain": {
       "type": "string"
@@ -343,27 +365,9 @@ export const teams_devices_domain_joined_input_request_output: JsonSchema = {
 };
 
 /**
- * The schema of `teams-devices_expiration` in responses.
- */
-export const teams_devices_expiration_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `teams-devices_extended_key_usage_enum` in responses.
- */
-export const teams_devices_extended_key_usage_enum_output: JsonSchema = {
-  "enum": [
-    "clientAuth",
-    "emailProtection"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `teams-devices_file_input_request` in responses.
  */
-export const teams_devices_file_input_request_output: JsonSchema = {
+export const teams$$devices_file_input_request: JsonSchema = {
   "properties": {
     "exists": {
       "type": "boolean"
@@ -396,7 +400,7 @@ export const teams_devices_file_input_request_output: JsonSchema = {
 /**
  * The schema of `teams-devices_firewall_input_request` in responses.
  */
-export const teams_devices_firewall_input_request_output: JsonSchema = {
+export const teams$$devices_firewall_input_request: JsonSchema = {
   "properties": {
     "enabled": {
       "type": "boolean"
@@ -419,7 +423,7 @@ export const teams_devices_firewall_input_request_output: JsonSchema = {
 /**
  * The schema of `teams-devices_id_response` in responses.
  */
-export const teams_devices_id_response_output: JsonSchema = {
+export const teams$$devices_id_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/teams-devices_api-response-single"
@@ -429,7 +433,7 @@ export const teams_devices_id_response_output: JsonSchema = {
         "result": {
           "properties": {
             "id": {
-              "$ref": "#/$defs/teams-devices_uuid"
+              "type": "string"
             }
           },
           "type": "object"
@@ -443,7 +447,7 @@ export const teams_devices_id_response_output: JsonSchema = {
 /**
  * The schema of `teams-devices_input` in responses.
  */
-export const teams_devices_input_output: JsonSchema = {
+export const teams$$devices_input: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/teams-devices_file_input_request"
@@ -511,7 +515,7 @@ export const teams_devices_input_output: JsonSchema = {
 /**
  * The schema of `teams-devices_intune_input_request` in responses.
  */
-export const teams_devices_intune_input_request_output: JsonSchema = {
+export const teams$$devices_intune_input_request: JsonSchema = {
   "properties": {
     "compliance_status": {
       "enum": [
@@ -538,7 +542,7 @@ export const teams_devices_intune_input_request_output: JsonSchema = {
 /**
  * The schema of `teams-devices_kolide_input_request` in responses.
  */
-export const teams_devices_kolide_input_request_output: JsonSchema = {
+export const teams$$devices_kolide_input_request: JsonSchema = {
   "properties": {
     "auth_state": {
       "items": {
@@ -579,7 +583,7 @@ export const teams_devices_kolide_input_request_output: JsonSchema = {
 /**
  * The schema of `teams-devices_match` in responses.
  */
-export const teams_devices_match_output: JsonSchema = {
+export const teams$$devices_match: JsonSchema = {
   "items": {
     "$ref": "#/$defs/teams-devices_match_item"
   },
@@ -589,26 +593,27 @@ export const teams_devices_match_output: JsonSchema = {
 /**
  * The schema of `teams-devices_match_item` in responses.
  */
-export const teams_devices_match_item_output: JsonSchema = {
+export const teams$$devices_match_item: JsonSchema = {
   "properties": {
     "platform": {
-      "$ref": "#/$defs/teams-devices_platform"
+      "enum": [
+        "windows",
+        "mac",
+        "linux",
+        "android",
+        "ios",
+        "chromeos"
+      ],
+      "type": "string"
     }
   },
   "type": "object"
 };
 
 /**
- * The schema of `teams-devices_name` in responses.
- */
-export const teams_devices_name_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `teams-devices_os_version_input_request` in responses.
  */
-export const teams_devices_os_version_input_request_output: JsonSchema = {
+export const teams$$devices_os_version_input_request: JsonSchema = {
   "properties": {
     "operating_system": {
       "enum": [
@@ -650,7 +655,7 @@ export const teams_devices_os_version_input_request_output: JsonSchema = {
 /**
  * The schema of `teams-devices_paths` in responses.
  */
-export const teams_devices_paths_output: JsonSchema = {
+export const teams$$devices_paths: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -658,31 +663,9 @@ export const teams_devices_paths_output: JsonSchema = {
 };
 
 /**
- * The schema of `teams-devices_platform` in responses.
- */
-export const teams_devices_platform_output: JsonSchema = {
-  "enum": [
-    "windows",
-    "mac",
-    "linux",
-    "android",
-    "ios",
-    "chromeos"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `teams-devices_requireAll` in responses.
- */
-export const teams_devices_requireAll_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
  * The schema of `teams-devices_response_collection` in responses.
  */
-export const teams_devices_response_collection_output: JsonSchema = {
+export const teams$$devices_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/teams-devices_api-response-collection"
@@ -702,16 +685,9 @@ export const teams_devices_response_collection_output: JsonSchema = {
 };
 
 /**
- * The schema of `teams-devices_schedule` in responses.
- */
-export const teams_devices_schedule_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `teams-devices_sentinelone_input_request` in responses.
  */
-export const teams_devices_sentinelone_input_request_output: JsonSchema = {
+export const teams$$devices_sentinelone_input_request: JsonSchema = {
   "properties": {
     "operating_system": {
       "enum": [
@@ -741,7 +717,7 @@ export const teams_devices_sentinelone_input_request_output: JsonSchema = {
 /**
  * The schema of `teams-devices_sentinelone_s2s_input_request` in responses.
  */
-export const teams_devices_sentinelone_s2s_input_request_output: JsonSchema = {
+export const teams$$devices_sentinelone_s2s_input_request: JsonSchema = {
   "properties": {
     "active_threats": {
       "type": "number"
@@ -796,7 +772,7 @@ export const teams_devices_sentinelone_s2s_input_request_output: JsonSchema = {
 /**
  * The schema of `teams-devices_single_response` in responses.
  */
-export const teams_devices_single_response_output: JsonSchema = {
+export const teams$$devices_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/teams-devices_api-response-single"
@@ -815,7 +791,7 @@ export const teams_devices_single_response_output: JsonSchema = {
 /**
  * The schema of `teams-devices_tanium_input_request` in responses.
  */
-export const teams_devices_tanium_input_request_output: JsonSchema = {
+export const teams$$devices_tanium_input_request: JsonSchema = {
   "properties": {
     "connection_id": {
       "type": "string"
@@ -865,60 +841,21 @@ export const teams_devices_tanium_input_request_output: JsonSchema = {
 /**
  * The schema of `teams-devices_trust_stores` in responses.
  */
-export const teams_devices_trust_stores_output: JsonSchema = {
+export const teams$$devices_trust_stores: JsonSchema = {
   "items": {
-    "$ref": "#/$defs/teams-devices_trust_stores_enum"
+    "enum": [
+      "system",
+      "user"
+    ],
+    "type": "string"
   },
   "type": "array"
 };
 
 /**
- * The schema of `teams-devices_trust_stores_enum` in responses.
- */
-export const teams_devices_trust_stores_enum_output: JsonSchema = {
-  "enum": [
-    "system",
-    "user"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `teams-devices_type` in responses.
- */
-export const teams_devices_type_output: JsonSchema = {
-  "enum": [
-    "file",
-    "application",
-    "tanium",
-    "gateway",
-    "warp",
-    "disk_encryption",
-    "serial_number",
-    "sentinelone",
-    "carbonblack",
-    "firewall",
-    "os_version",
-    "domain_joined",
-    "client_certificate",
-    "client_certificate_v2",
-    "antivirus",
-    "unique_client_id",
-    "kolide",
-    "tanium_s2s",
-    "crowdstrike_s2s",
-    "intune",
-    "workspace_one",
-    "sentinelone_s2s",
-    "custom_s2s"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `teams-devices_unique_client_id_input_request` in responses.
  */
-export const teams_devices_unique_client_id_input_request_output: JsonSchema = {
+export const teams$$devices_unique_client_id_input_request: JsonSchema = {
   "properties": {
     "id": {
       "type": "string"
@@ -942,7 +879,7 @@ export const teams_devices_unique_client_id_input_request_output: JsonSchema = {
 /**
  * The schema of `teams-devices_workspace_one_input_request` in responses.
  */
-export const teams_devices_workspace_one_input_request_output: JsonSchema = {
+export const teams$$devices_workspace_one_input_request: JsonSchema = {
   "properties": {
     "compliance_status": {
       "enum": [

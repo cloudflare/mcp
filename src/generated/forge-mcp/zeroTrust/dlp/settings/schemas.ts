@@ -41,28 +41,21 @@ export const dlp_DlpSettingsUpdate: JsonSchema = {
 };
 
 /**
- * The schema of `dlp_PayloadLogMaskingLevel`.
- */
-export const dlp_PayloadLogMaskingLevel: JsonSchema = {
-  "description": "Masking level for payload logs.\n\n- `full`: The entire payload is masked.\n- `partial`: Only partial payload content is masked.\n- `clear`: No masking is applied to the payload content.\n- `default`: DLP uses its default masking behavior.",
-  "enum": [
-    "full",
-    "partial",
-    "clear",
-    "default"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `dlp_PayloadLogSettingUpdate`.
  */
 export const dlp_PayloadLogSettingUpdate: JsonSchema = {
   "description": "Request model for payload log settings within the DLP settings endpoint.\nUnlike the legacy endpoint, null and missing are treated identically here\n(both mean \"not provided\" for PATCH, \"reset to default\" for PUT).",
   "properties": {
     "masking_level": {
-      "$ref": "#/$defs/dlp_PayloadLogMaskingLevel",
-      "default": "default"
+      "default": "default",
+      "description": "Masking level for payload logs.\n\n- `full`: The entire payload is masked.\n- `partial`: Only partial payload content is masked.\n- `clear`: No masking is applied to the payload content.\n- `default`: DLP uses its default masking behavior.",
+      "enum": [
+        "full",
+        "partial",
+        "clear",
+        "default"
+      ],
+      "type": "string"
     },
     "public_key": {
       "description": "Base64-encoded public key for encrypting payload logs.\n\n- Set to a non-empty base64 string to enable payload logging with the given key.\n- Set to an empty string to disable payload logging.\n- Omit or set to null to leave unchanged (PATCH) or reset to disabled (PUT).",

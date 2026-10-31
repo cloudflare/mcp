@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `realtimekit_Webhook` in responses.
  */
-export const realtimekit_Webhook_output: JsonSchema = {
+export const realtimekit_Webhook: JsonSchema = {
   "properties": {
     "created_at": {
       "format": "date-time",
@@ -62,7 +62,7 @@ export const realtimekit_Webhook_output: JsonSchema = {
 /**
  * The schema of `realtimekit_WebhookSuccessResponse` in responses.
  */
-export const realtimekit_WebhookSuccessResponse_output: JsonSchema = {
+export const realtimekit_WebhookSuccessResponse: JsonSchema = {
   "properties": {
     "data": {
       "$ref": "#/$defs/realtimekit_Webhook"
@@ -81,7 +81,7 @@ export const realtimekit_WebhookSuccessResponse_output: JsonSchema = {
 /**
  * The schema of `realtimekit_WebhooksListSuccessResponse` in responses.
  */
-export const realtimekit_WebhooksListSuccessResponse_output: JsonSchema = {
+export const realtimekit_WebhooksListSuccessResponse: JsonSchema = {
   "properties": {
     "data": {
       "items": {

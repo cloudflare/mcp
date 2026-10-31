@@ -3,35 +3,32 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  tunnel_api_response_common_failure_output,
-  tunnel_api_response_common_output,
-  tunnel_messages_output,
-  tunnel_tunnel_response_token_output,
-  tunnel_tunnel_token_output,
+  tunnel_api$$response$$common,
+  tunnel_api$$response$$common$$failure,
+  tunnel_messages,
+  tunnel_tunnel_response_token,
 } from "../../outputs.js";
-import { tunnel_account_id, tunnel_tunnel_id } from "../../schemas.js";
-import { tunnel_management_resources } from "./schemas.js";
 
 /**
- * The tools of `tunnels.management_token`.
+ * The tools of `tunnels.managementToken`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "tunnels_management_token_create",
+    name: "tunnels_managementToken_create",
     title: "Get a Cloudflare Tunnel management token",
-    description: "Creates a short-lived management token for the requested Tunnel management resources, such as streaming logs. Treat the token as a secret.",
+    description: "Creates a short-lived management token for the requested Tunnel management resources, such as streaming logs. Treat the token as a secret.\n\nPOST /accounts/{account_id}/cfd_tunnel/{tunnel_id}/management",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/tunnel_account_id",
-          "description": "Cloudflare account ID"
-        },
         "body": {
           "properties": {
             "resources": {
               "items": {
-                "$ref": "#/$defs/tunnel_management-resources"
+                "description": "Management resources the token will have access to.",
+                "enum": [
+                  "logs"
+                ],
+                "type": "string"
               },
               "type": "array"
             }
@@ -41,29 +38,38 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "tunnel_id": {
-          "$ref": "#/$defs/tunnel_tunnel_id",
-          "description": "UUID of the tunnel."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID",
+              "type": "string"
+            },
+            "tunnel_id": {
+              "description": "UUID of the tunnel.",
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "tunnel_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "tunnel_id",
+        "path",
         "body"
       ],
-      $defs: {
-        "tunnel_account_id": tunnel_account_id,
-        "tunnel_management-resources": tunnel_management_resources,
-        "tunnel_tunnel_id": tunnel_tunnel_id,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "$ref": "#/$defs/tunnel_tunnel_response_token",
       $defs: {
-        "tunnel_api-response-common": tunnel_api_response_common_output,
-        "tunnel_messages": tunnel_messages_output,
-        "tunnel_tunnel_response_token": tunnel_tunnel_response_token_output,
-        "tunnel_tunnel_token": tunnel_tunnel_token_output,
+        "tunnel_api-response-common": tunnel_api$$response$$common,
+        "tunnel_messages": tunnel_messages,
+        "tunnel_tunnel_response_token": tunnel_tunnel_response_token,
       },
     },
     annotations: {
@@ -99,11 +105,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "tunnel_api-response-common": tunnel_api_response_common_output,
-        "tunnel_api-response-common-failure": tunnel_api_response_common_failure_output,
-        "tunnel_messages": tunnel_messages_output,
-        "tunnel_tunnel_response_token": tunnel_tunnel_response_token_output,
-        "tunnel_tunnel_token": tunnel_tunnel_token_output,
+        "tunnel_api-response-common": tunnel_api$$response$$common,
+        "tunnel_api-response-common-failure": tunnel_api$$response$$common$$failure,
+        "tunnel_messages": tunnel_messages,
+        "tunnel_tunnel_response_token": tunnel_tunnel_response_token,
       },
     },
     request: (args) => ({

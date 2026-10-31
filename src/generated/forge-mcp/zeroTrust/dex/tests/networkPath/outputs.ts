@@ -8,13 +8,13 @@ import type { JsonSchema } from "../../../../_/tool.js";
  * `digital-experience-monitoring_traceroute_test_network_path_response` in
  * responses.
  */
-export const digital_experience_monitoring_traceroute_test_network_path_response_output: JsonSchema = {
+export const digital$$experience$$monitoring_traceroute_test_network_path_response: JsonSchema = {
   "properties": {
     "deviceName": {
       "type": "string"
     },
     "id": {
-      "$ref": "#/$defs/digital-experience-monitoring_uuid"
+      "type": "string"
     },
     "interval": {
       "type": "string"
@@ -101,7 +101,7 @@ export const digital_experience_monitoring_traceroute_test_network_path_response
                     ]
                   },
                   "id": {
-                    "$ref": "#/$defs/digital-experience-monitoring_uuid"
+                    "type": "string"
                   },
                   "timestamp": {
                     "type": "string"

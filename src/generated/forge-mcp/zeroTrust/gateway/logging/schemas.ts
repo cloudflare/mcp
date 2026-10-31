@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `zero-trust-gateway_account-log-options`.
  */
-export const zero_trust_gateway_account_log_options: JsonSchema = {
+export const zero$$trust$$gateway_account$$log$$options: JsonSchema = {
   "properties": {
     "log_all": {
       "default": false,
@@ -25,7 +25,7 @@ export const zero_trust_gateway_account_log_options: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_gateway-account-logging-settings`.
  */
-export const zero_trust_gateway_gateway_account_logging_settings: JsonSchema = {
+export const zero$$trust$$gateway_gateway$$account$$logging$$settings: JsonSchema = {
   "properties": {
     "redact_pii": {
       "default": false,

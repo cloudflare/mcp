@@ -35,8 +35,8 @@ export const iam_permission_group_ids: JsonSchema = {
   "items": {
     "properties": {
       "id": {
-        "$ref": "#/$defs/iam_permission_group_identifier",
-        "description": "Permission Group identifier tag."
+        "description": "Permission Group identifier tag.",
+        "type": "string"
       }
     },
     "required": [
@@ -55,8 +55,8 @@ export const iam_resource_group_ids: JsonSchema = {
   "items": {
     "properties": {
       "id": {
-        "$ref": "#/$defs/iam_resource_group_identifier",
-        "description": "Resource Group identifier tag."
+        "description": "Resource Group identifier tag.",
+        "type": "string"
       }
     },
     "required": [
@@ -105,21 +105,17 @@ export const iam_update_user_group_body: JsonSchema = {
 };
 
 /**
- * The schema of `iam_user_group_identifier`.
- */
-export const iam_user_group_identifier: JsonSchema = {
-  "$ref": "#/$defs/iam_common_components-schemas-identifier",
-  "description": "User Group identifier tag."
-};
-
-/**
  * The schema of `iam_user_group_policy_write_body`.
  */
 export const iam_user_group_policy_write_body: JsonSchema = {
   "properties": {
     "access": {
-      "$ref": "#/$defs/iam_access",
-      "description": "Allow or deny operations against the resources."
+      "description": "Allow or deny operations against the resources.",
+      "enum": [
+        "allow",
+        "deny"
+      ],
+      "type": "string"
     },
     "permission_groups": {
       "$ref": "#/$defs/iam_permission_group_ids",

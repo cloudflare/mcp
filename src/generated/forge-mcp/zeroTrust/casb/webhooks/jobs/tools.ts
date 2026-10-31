@@ -3,60 +3,64 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  posture_api_api_response_common_output,
-  posture_api_error_response_output,
-  posture_api_messages_output,
+  posture$$api_api$$response$$common,
+  posture$$api_error$$response,
+  posture$$api_messages,
 } from "../../outputs.js";
 import {
-  posture_api_CreateWebhookJobsResponse_output,
-  posture_api_WebhookJobActorTypeEnum_output,
-  posture_api_WebhookJobFailureReasonEnum_output,
-  posture_api_WebhookJobFailure_output,
-  posture_api_WebhookJobParameters_output,
-  posture_api_WebhookJobStatusEnum_output,
-  posture_api_WebhookJob_output,
+  posture$$api_CreateWebhookJobsResponse,
+  posture$$api_WebhookJob,
+  posture$$api_WebhookJobFailure,
+  posture$$api_WebhookJobParameters,
 } from "./outputs.js";
-import { posture_api_CreateWebhookJobsRequest } from "./schemas.js";
+import { posture$$api_CreateWebhookJobsRequest } from "./schemas.js";
 
 /**
- * The tools of `zero_trust.casb.webhooks.jobs`.
+ * The tools of `zeroTrust.casb.webhooks.jobs`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zero_trust_casb_webhooks_jobs_create",
+    name: "zeroTrust_casb_webhooks_jobs_create",
     title: "Create webhook jobs",
-    description: "Creates webhook jobs to send a finding instance to one or more configured webhooks.",
+    description: "Creates webhook jobs to send a finding instance to one or more configured webhooks.\n\nPOST /accounts/{account_id}/data-security/posture/webhooks/jobs",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare account ID for the user making the request.",
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/posture-api_CreateWebhookJobsRequest"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID for the user making the request.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "posture-api_CreateWebhookJobsRequest": posture_api_CreateWebhookJobsRequest,
+        "posture-api_CreateWebhookJobsRequest": posture$$api_CreateWebhookJobsRequest,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/posture-api_CreateWebhookJobsResponse",
       $defs: {
-        "posture-api_CreateWebhookJobsResponse": posture_api_CreateWebhookJobsResponse_output,
-        "posture-api_WebhookJob": posture_api_WebhookJob_output,
-        "posture-api_WebhookJobActorTypeEnum": posture_api_WebhookJobActorTypeEnum_output,
-        "posture-api_WebhookJobFailure": posture_api_WebhookJobFailure_output,
-        "posture-api_WebhookJobFailureReasonEnum": posture_api_WebhookJobFailureReasonEnum_output,
-        "posture-api_WebhookJobParameters": posture_api_WebhookJobParameters_output,
-        "posture-api_WebhookJobStatusEnum": posture_api_WebhookJobStatusEnum_output,
-        "posture-api_api-response-common": posture_api_api_response_common_output,
-        "posture-api_messages": posture_api_messages_output,
+        "posture-api_CreateWebhookJobsResponse": posture$$api_CreateWebhookJobsResponse,
+        "posture-api_WebhookJob": posture$$api_WebhookJob,
+        "posture-api_WebhookJobFailure": posture$$api_WebhookJobFailure,
+        "posture-api_WebhookJobParameters": posture$$api_WebhookJobParameters,
+        "posture-api_api-response-common": posture$$api_api$$response$$common,
+        "posture-api_messages": posture$$api_messages,
       },
     },
     annotations: {
@@ -95,16 +99,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "posture-api_CreateWebhookJobsResponse": posture_api_CreateWebhookJobsResponse_output,
-        "posture-api_WebhookJob": posture_api_WebhookJob_output,
-        "posture-api_WebhookJobActorTypeEnum": posture_api_WebhookJobActorTypeEnum_output,
-        "posture-api_WebhookJobFailure": posture_api_WebhookJobFailure_output,
-        "posture-api_WebhookJobFailureReasonEnum": posture_api_WebhookJobFailureReasonEnum_output,
-        "posture-api_WebhookJobParameters": posture_api_WebhookJobParameters_output,
-        "posture-api_WebhookJobStatusEnum": posture_api_WebhookJobStatusEnum_output,
-        "posture-api_api-response-common": posture_api_api_response_common_output,
-        "posture-api_error-response": posture_api_error_response_output,
-        "posture-api_messages": posture_api_messages_output,
+        "posture-api_CreateWebhookJobsResponse": posture$$api_CreateWebhookJobsResponse,
+        "posture-api_WebhookJob": posture$$api_WebhookJob,
+        "posture-api_WebhookJobFailure": posture$$api_WebhookJobFailure,
+        "posture-api_WebhookJobParameters": posture$$api_WebhookJobParameters,
+        "posture-api_api-response-common": posture$$api_api$$response$$common,
+        "posture-api_error-response": posture$$api_error$$response,
+        "posture-api_messages": posture$$api_messages,
       },
     },
     request: (args) => ({

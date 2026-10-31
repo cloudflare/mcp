@@ -4,30 +4,40 @@
 import { type Tool, pathParam } from "../../../../../_/tool.js";
 
 /**
- * The tools of `cloudforce_one.threat_intel.events.target_industries.legacy`.
+ * The tools of `cloudforceOne.threatIntel.events.targetIndustries.legacy`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "cloudforce_one_threat_intel_events_target_industries_legacy_list",
+    name: "cloudforceOne_threatIntel_events_targetIndustries_legacy_list",
     title: "List target industries in a dataset (legacy)",
-    description: "Legacy. Use `threat-intel events target-industries list` (`GET /events/targetIndustries`) instead.\n\nThis method is deprecated.",
+    description: "Legacy. Use `threat-intel events target-industries list` (`GET /events/targetIndustries`) instead.\n\nThis method is deprecated.\n\nGET /accounts/{account_id}/cloudforce-one/events/dataset/{dataset_id}/targetIndustries",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account ID.",
-          "type": "string"
-        },
-        "dataset_id": {
-          "description": "Dataset UUID.",
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account ID.",
+              "type": "string"
+            },
+            "dataset_id": {
+              "description": "Dataset UUID.",
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "dataset_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "dataset_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {

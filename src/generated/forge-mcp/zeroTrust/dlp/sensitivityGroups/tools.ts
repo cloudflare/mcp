@@ -3,51 +3,61 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  dlp_Empty_output,
-  dlp_api_response_common_failure_output,
-  dlp_api_response_single_output,
-  dlp_messages_output,
+  dlp_Empty,
+  dlp_api$$response$$common$$failure,
+  dlp_api$$response$$single,
+  dlp_messages,
 } from "../../outputs.js";
-import { dlp_SensitivityLevel_output } from "../outputs.js";
+import { dlp_SensitivityLevel } from "../outputs.js";
 import {
   dlp_NewSensitivityLevel,
   dlp_SensitivityLevelUpdate,
 } from "../schemas.js";
 import {
-  dlp_SensitivityGroupArray_output,
-  dlp_SensitivityGroup_output,
-  dlp_SensitivityLevelOrder_output,
+  dlp_SensitivityGroup,
+  dlp_SensitivityGroupArray,
+  dlp_SensitivityLevelOrder,
 } from "./outputs.js";
 import {
   dlp_NewSensitivityGroup,
   dlp_SensitivityGroupLevelUpdate,
   dlp_SensitivityGroupUpdate,
-  dlp_SensitivityLevelOrder,
+  dlp_SensitivityLevelOrder as dlp_SensitivityLevelOrder$,
 } from "./schemas.js";
 
 /**
- * The tools of `zero_trust.dlp.sensitivity_groups`.
+ * The tools of `zeroTrust.dlp.sensitivityGroups`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zero_trust_dlp_sensitivity_groups_create",
+    name: "zeroTrust_dlp_sensitivityGroups_create",
     title: "Creates a new sensitivity group.",
-    description: "Creates a sensitivity group, optionally from a template.",
+    description: "Creates a sensitivity group, optionally from a template.\n\nPOST /accounts/{account_id}/dlp/sensitivity_groups",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/dlp_NewSensitivityGroup",
           "description": "Attributes of the new sensitivity group."
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dlp_NewSensitivityGroup": dlp_NewSensitivityGroup,
         "dlp_NewSensitivityLevel": dlp_NewSensitivityLevel,
@@ -68,10 +78,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_SensitivityGroup": dlp_SensitivityGroup_output,
-        "dlp_SensitivityLevel": dlp_SensitivityLevel_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_SensitivityGroup": dlp_SensitivityGroup,
+        "dlp_SensitivityLevel": dlp_SensitivityLevel,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -110,11 +120,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_SensitivityGroup": dlp_SensitivityGroup_output,
-        "dlp_SensitivityLevel": dlp_SensitivityLevel_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_SensitivityGroup": dlp_SensitivityGroup,
+        "dlp_SensitivityLevel": dlp_SensitivityLevel,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -123,24 +133,34 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_dlp_sensitivity_groups_delete",
+    name: "zeroTrust_dlp_sensitivityGroups_delete",
     title: "Delete a single sensitivity group.",
-    description: "Deletes a sensitivity group and its levels.",
+    description: "Deletes a sensitivity group and its levels.\n\nDELETE /accounts/{account_id}/dlp/sensitivity_groups/{sensitivity_group_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
-        "sensitivity_group_id": {
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "sensitivity_group_id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "sensitivity_group_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "sensitivity_group_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -157,9 +177,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_Empty": dlp_Empty_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_Empty": dlp_Empty,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -198,10 +218,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_Empty": dlp_Empty_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_Empty": dlp_Empty,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -209,24 +229,34 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_dlp_sensitivity_groups_get",
+    name: "zeroTrust_dlp_sensitivityGroups_get",
     title: "Retrieve a specific sensitivity group.",
-    description: "Gets a sensitivity group and its levels.",
+    description: "Gets a sensitivity group and its levels.\n\nGET /accounts/{account_id}/dlp/sensitivity_groups/{sensitivity_group_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
-        "sensitivity_group_id": {
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "sensitivity_group_id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "sensitivity_group_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "sensitivity_group_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -243,10 +273,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_SensitivityGroup": dlp_SensitivityGroup_output,
-        "dlp_SensitivityLevel": dlp_SensitivityLevel_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_SensitivityGroup": dlp_SensitivityGroup,
+        "dlp_SensitivityLevel": dlp_SensitivityLevel,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -286,11 +316,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_SensitivityGroup": dlp_SensitivityGroup_output,
-        "dlp_SensitivityLevel": dlp_SensitivityLevel_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_SensitivityGroup": dlp_SensitivityGroup,
+        "dlp_SensitivityLevel": dlp_SensitivityLevel,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -298,24 +328,34 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_dlp_sensitivity_groups_get_level_order",
+    name: "zeroTrust_dlp_sensitivityGroups_getLevelOrder",
     title: "Retrieve the ordered list of level IDs for a sensitivity group.",
-    description: "Gets the current order of sensitivity levels in a group.",
+    description: "Gets the current order of sensitivity levels in a group.\n\nGET /accounts/{account_id}/dlp/sensitivity_groups/{sensitivity_group_id}/level_order",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
-        "sensitivity_group_id": {
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "sensitivity_group_id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "sensitivity_group_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "sensitivity_group_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -332,9 +372,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_SensitivityLevelOrder": dlp_SensitivityLevelOrder_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_SensitivityLevelOrder": dlp_SensitivityLevelOrder,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -374,10 +414,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_SensitivityLevelOrder": dlp_SensitivityLevelOrder_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_SensitivityLevelOrder": dlp_SensitivityLevelOrder,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -385,19 +425,29 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_dlp_sensitivity_groups_list",
+    name: "zeroTrust_dlp_sensitivityGroups_list",
     title: "Retrieve all sensitivity groups in an account",
-    description: "Lists sensitivity groups configured for the account.",
+    description: "Lists sensitivity groups configured for the account.\n\nGET /accounts/{account_id}/dlp/sensitivity_groups",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -414,11 +464,11 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_SensitivityGroup": dlp_SensitivityGroup_output,
-        "dlp_SensitivityGroupArray": dlp_SensitivityGroupArray_output,
-        "dlp_SensitivityLevel": dlp_SensitivityLevel_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_SensitivityGroup": dlp_SensitivityGroup,
+        "dlp_SensitivityGroupArray": dlp_SensitivityGroupArray,
+        "dlp_SensitivityLevel": dlp_SensitivityLevel,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -458,12 +508,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_SensitivityGroup": dlp_SensitivityGroup_output,
-        "dlp_SensitivityGroupArray": dlp_SensitivityGroupArray_output,
-        "dlp_SensitivityLevel": dlp_SensitivityLevel_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_SensitivityGroup": dlp_SensitivityGroup,
+        "dlp_SensitivityGroupArray": dlp_SensitivityGroupArray,
+        "dlp_SensitivityLevel": dlp_SensitivityLevel,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -471,29 +521,39 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_dlp_sensitivity_groups_update",
+    name: "zeroTrust_dlp_sensitivityGroups_update",
     title: "Update the attributes of a single sensitivity group.",
-    description: "Updates a sensitivity group and its levels.",
+    description: "Updates a sensitivity group and its levels.\n\nPUT /accounts/{account_id}/dlp/sensitivity_groups/{sensitivity_group_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/dlp_SensitivityGroupUpdate",
           "description": "Attributes of the sensitivity group to update."
         },
-        "sensitivity_group_id": {
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "sensitivity_group_id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "sensitivity_group_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "sensitivity_group_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
         "dlp_SensitivityGroupLevelUpdate": dlp_SensitivityGroupLevelUpdate,
         "dlp_SensitivityGroupUpdate": dlp_SensitivityGroupUpdate,
@@ -515,10 +575,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_SensitivityGroup": dlp_SensitivityGroup_output,
-        "dlp_SensitivityLevel": dlp_SensitivityLevel_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_SensitivityGroup": dlp_SensitivityGroup,
+        "dlp_SensitivityLevel": dlp_SensitivityLevel,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -557,11 +617,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_SensitivityGroup": dlp_SensitivityGroup_output,
-        "dlp_SensitivityLevel": dlp_SensitivityLevel_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_SensitivityGroup": dlp_SensitivityGroup,
+        "dlp_SensitivityLevel": dlp_SensitivityLevel,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -570,31 +630,41 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_dlp_sensitivity_groups_update_level_order",
+    name: "zeroTrust_dlp_sensitivityGroups_updateLevelOrder",
     title: "Set the ordering of levels within a sensitivity group.",
-    description: "Updates the order of sensitivity levels in a group.",
+    description: "Updates the order of sensitivity levels in a group.\n\nPUT /accounts/{account_id}/dlp/sensitivity_groups/{sensitivity_group_id}/level_order",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/dlp_SensitivityLevelOrder",
           "description": "Desired ordered list of level IDs."
         },
-        "sensitivity_group_id": {
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "sensitivity_group_id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "sensitivity_group_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "sensitivity_group_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "dlp_SensitivityLevelOrder": dlp_SensitivityLevelOrder,
+        "dlp_SensitivityLevelOrder": dlp_SensitivityLevelOrder$,
       },
     },
     outputSchema: {
@@ -612,9 +682,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_SensitivityLevelOrder": dlp_SensitivityLevelOrder_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_SensitivityLevelOrder": dlp_SensitivityLevelOrder,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -653,10 +723,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_SensitivityLevelOrder": dlp_SensitivityLevelOrder_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_SensitivityLevelOrder": dlp_SensitivityLevelOrder,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({

@@ -3,45 +3,49 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
-  rulesets_Errors_output,
-  rulesets_Message_output,
-  rulesets_Messages_output,
-  rulesets_Response_output,
+  rulesets_Errors,
+  rulesets_Message,
+  rulesets_Messages,
+  rulesets_Response,
 } from "../outputs.js";
-import { rulesets_ZoneId } from "../schemas.js";
-import {
-  rulesets_ManagedTransformId_output,
-  rulesets_ManagedTransform_output,
-  rulesets_ManagedTransforms_output,
-} from "./outputs.js";
 import {
   rulesets_ManagedTransform,
-  rulesets_ManagedTransformId,
+  rulesets_ManagedTransforms,
+} from "./outputs.js";
+import {
+  rulesets_ManagedTransform as rulesets_ManagedTransform$,
   rulesets_ManagedTransformsPatch,
 } from "./schemas.js";
 
 /**
- * The tools of `managed_transforms`.
+ * The tools of `managedTransforms`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "managed_transforms_delete",
+    name: "managedTransforms_delete",
     title: "Delete Managed Transforms",
-    description: "Disables all Managed Transforms.",
+    description: "Disables all Managed Transforms.\n\nDELETE /zones/{zone_id}/managed_headers",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/rulesets_ZoneId",
-          "description": "The unique ID of the zone."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "The unique ID of the zone.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
-      $defs: {
-        "rulesets_ZoneId": rulesets_ZoneId,
-      },
+      additionalProperties: false,
     },
     annotations: {
       "destructiveHint": true,
@@ -109,10 +113,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "rulesets_Errors": rulesets_Errors_output,
-        "rulesets_Message": rulesets_Message_output,
-        "rulesets_Messages": rulesets_Messages_output,
-        "rulesets_Response": rulesets_Response_output,
+        "rulesets_Errors": rulesets_Errors,
+        "rulesets_Message": rulesets_Message,
+        "rulesets_Messages": rulesets_Messages,
+        "rulesets_Response": rulesets_Response,
       },
     },
     request: (args) => ({
@@ -120,23 +124,30 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "managed_transforms_list",
+    name: "managedTransforms_list",
     title: "List Managed Transforms",
-    description: "Fetches a list of all Managed Transforms.",
+    description: "Fetches a list of all Managed Transforms.\n\nGET /zones/{zone_id}/managed_headers",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/rulesets_ZoneId",
-          "description": "The unique ID of the zone."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "The unique ID of the zone.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
-      $defs: {
-        "rulesets_ZoneId": rulesets_ZoneId,
-      },
+      additionalProperties: false,
     },
     outputSchema: {
       "allOf": [
@@ -160,13 +171,12 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "rulesets_Errors": rulesets_Errors_output,
-        "rulesets_ManagedTransform": rulesets_ManagedTransform_output,
-        "rulesets_ManagedTransformId": rulesets_ManagedTransformId_output,
-        "rulesets_ManagedTransforms": rulesets_ManagedTransforms_output,
-        "rulesets_Message": rulesets_Message_output,
-        "rulesets_Messages": rulesets_Messages_output,
-        "rulesets_Response": rulesets_Response_output,
+        "rulesets_Errors": rulesets_Errors,
+        "rulesets_ManagedTransform": rulesets_ManagedTransform,
+        "rulesets_ManagedTransforms": rulesets_ManagedTransforms,
+        "rulesets_Message": rulesets_Message,
+        "rulesets_Messages": rulesets_Messages,
+        "rulesets_Response": rulesets_Response,
       },
     },
     annotations: {
@@ -277,13 +287,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "rulesets_Errors": rulesets_Errors_output,
-        "rulesets_ManagedTransform": rulesets_ManagedTransform_output,
-        "rulesets_ManagedTransformId": rulesets_ManagedTransformId_output,
-        "rulesets_ManagedTransforms": rulesets_ManagedTransforms_output,
-        "rulesets_Message": rulesets_Message_output,
-        "rulesets_Messages": rulesets_Messages_output,
-        "rulesets_Response": rulesets_Response_output,
+        "rulesets_Errors": rulesets_Errors,
+        "rulesets_ManagedTransform": rulesets_ManagedTransform,
+        "rulesets_ManagedTransforms": rulesets_ManagedTransforms,
+        "rulesets_Message": rulesets_Message,
+        "rulesets_Messages": rulesets_Messages,
+        "rulesets_Response": rulesets_Response,
       },
     },
     request: (args) => ({
@@ -291,29 +300,37 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "managed_transforms_update",
+    name: "managedTransforms_update",
     title: "Update Managed Transforms",
-    description: "Updates the status of one or more Managed Transforms.",
+    description: "Updates the status of one or more Managed Transforms.\n\nPATCH /zones/{zone_id}/managed_headers",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "$ref": "#/$defs/rulesets_ManagedTransformsPatch"
         },
-        "zone_id": {
-          "$ref": "#/$defs/rulesets_ZoneId",
-          "description": "The unique ID of the zone."
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "The unique ID of the zone.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
+      additionalProperties: false,
       $defs: {
-        "rulesets_ManagedTransform": rulesets_ManagedTransform,
-        "rulesets_ManagedTransformId": rulesets_ManagedTransformId,
+        "rulesets_ManagedTransform": rulesets_ManagedTransform$,
         "rulesets_ManagedTransformsPatch": rulesets_ManagedTransformsPatch,
-        "rulesets_ZoneId": rulesets_ZoneId,
       },
     },
     outputSchema: {
@@ -338,13 +355,12 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "rulesets_Errors": rulesets_Errors_output,
-        "rulesets_ManagedTransform": rulesets_ManagedTransform_output,
-        "rulesets_ManagedTransformId": rulesets_ManagedTransformId_output,
-        "rulesets_ManagedTransforms": rulesets_ManagedTransforms_output,
-        "rulesets_Message": rulesets_Message_output,
-        "rulesets_Messages": rulesets_Messages_output,
-        "rulesets_Response": rulesets_Response_output,
+        "rulesets_Errors": rulesets_Errors,
+        "rulesets_ManagedTransform": rulesets_ManagedTransform,
+        "rulesets_ManagedTransforms": rulesets_ManagedTransforms,
+        "rulesets_Message": rulesets_Message,
+        "rulesets_Messages": rulesets_Messages,
+        "rulesets_Response": rulesets_Response,
       },
     },
     annotations: {
@@ -434,13 +450,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "rulesets_Errors": rulesets_Errors_output,
-        "rulesets_ManagedTransform": rulesets_ManagedTransform_output,
-        "rulesets_ManagedTransformId": rulesets_ManagedTransformId_output,
-        "rulesets_ManagedTransforms": rulesets_ManagedTransforms_output,
-        "rulesets_Message": rulesets_Message_output,
-        "rulesets_Messages": rulesets_Messages_output,
-        "rulesets_Response": rulesets_Response_output,
+        "rulesets_Errors": rulesets_Errors,
+        "rulesets_ManagedTransform": rulesets_ManagedTransform,
+        "rulesets_ManagedTransforms": rulesets_ManagedTransforms,
+        "rulesets_Message": rulesets_Message,
+        "rulesets_Messages": rulesets_Messages,
+        "rulesets_Response": rulesets_Response,
       },
     },
     request: (args) => ({

@@ -10,14 +10,10 @@ export const tools: readonly Tool[] = [
   {
     name: "artifacts_namespaces_tokens_create",
     title: "Create a repository token",
-    description: "Creates a scoped Git token for a repository.\n\nThis method is beta.",
+    description: "Creates a scoped Git token for a repository.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/artifacts/namespaces/{namespace}/tokens",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare account ID.",
-          "type": "string"
-        },
         "body": {
           "properties": {
             "repo": {
@@ -39,16 +35,30 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "namespace": {
-          "description": "Artifacts namespace name.",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID.",
+              "type": "string"
+            },
+            "namespace": {
+              "description": "Artifacts namespace name.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "namespace"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "namespace",
+        "path",
         "body"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
@@ -899,28 +909,38 @@ export const tools: readonly Tool[] = [
   {
     name: "artifacts_namespaces_tokens_revoke",
     title: "Revoke a token",
-    description: "Revokes an Artifacts repository token. Token IDs are resolved through an eventually consistent index, so revoking a token within about a second of creating it can return 404; retry after a short delay.\n\nThis method is beta.",
+    description: "Revokes an Artifacts repository token. Token IDs are resolved through an eventually consistent index, so revoking a token within about a second of creating it can return 404; retry after a short delay.\n\nThis method is beta.\n\nDELETE /accounts/{account_id}/artifacts/namespaces/{namespace}/tokens/{id}",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare account ID.",
-          "type": "string"
-        },
-        "id": {
-          "description": "Token ID. Must match /^[0-9a-z]{16}$/.",
-          "type": "string"
-        },
-        "namespace": {
-          "description": "Artifacts namespace name.",
-          "type": "string"
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID.",
+              "type": "string"
+            },
+            "id": {
+              "description": "Token ID. Must match /^[0-9a-z]{16}$/.",
+              "type": "string"
+            },
+            "namespace": {
+              "description": "Artifacts namespace name.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "namespace",
+            "id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "namespace",
-        "id"
+        "path"
       ],
+      additionalProperties: false,
     },
     outputSchema: {
       "properties": {
