@@ -73,7 +73,7 @@ afterEach(async () => {
 describe('direct tools/list fast path', () => {
   for (const [mode, query] of [
     ['mcp-tools.json', '?codemode=false'],
-    ['forge', '?codemode=false&experimentalForge=true']
+    ['forge', '?codemode=false']
   ] as const) {
     it(`lists the same tools as the SDK (${mode})`, async () => {
       const fast = await listTools(query, { id: 7 })

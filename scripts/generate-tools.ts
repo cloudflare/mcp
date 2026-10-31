@@ -1,6 +1,6 @@
 /**
  * Regenerates `src/generated/forge-mcp`, the direct tools served at
- * `/mcp?codemode=false&experimentalForge=true`, with forge's MCP target:
+ * `/mcp?codemode=false`, with forge's MCP target:
  *
  *   FORGE_BINARY=path/to/forge npm run generate:tools [-- --spec openapi.forge.json --release <tag>] [-- --summary summary.md]
  *
@@ -14,7 +14,8 @@
  *
  * The same release's spec artifacts go to `src/generated/spec` as text
  * modules: `spec.json` for Code Mode's `search`, `products.json`, and
- * `mcp-tools.json` for the endpoint tools. The forge tools service serves
+ * `permissions.json`, each operation's accepted permissions, for explaining a
+ * refused `execute` request. The forge tools service serves
  * them, so every deploy carries the spec it was reviewed with.
  */
 import { execFileSync } from 'node:child_process'
@@ -31,7 +32,7 @@ import {
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { parseArgs } from 'node:util'
-import { buildMcpTools, type OperationInfo } from '../src/openapi'
+import type { OperationInfo } from '../src/openapi'
 import { extractProducts, processSpec } from '../src/spec-processor'
 import type { SpecArtifactName } from '../src/spec-release'
 
@@ -41,8 +42,27 @@ function buildSpecArtifacts(rawSpec: Record<string, unknown>): Record<SpecArtifa
   return {
     'spec.json': JSON.stringify(processed),
     'products.json': JSON.stringify(extractProducts(rawSpec)),
-    'mcp-tools.json': JSON.stringify(buildMcpTools(processed.paths))
+    'permissions.json': JSON.stringify(permissionPaths(processed.paths))
   }
+}
+
+/** Each operation's `x-api-token-group`, by path template and method. */
+function permissionPaths(
+  paths: Record<string, Record<string, OperationInfo>>
+): Record<string, Record<string, Pick<OperationInfo, 'x-api-token-group'>>> {
+  return Object.fromEntries(
+    Object.entries(paths).map(([path, operations]) => [
+      path,
+      Object.fromEntries(
+        Object.entries(operations).map(([method, operation]) => [
+          method,
+          operation['x-api-token-group']
+            ? { 'x-api-token-group': operation['x-api-token-group'] }
+            : {}
+        ])
+      )
+    ])
+  )
 }
 
 const LATEST_RELEASE = 'https://api.github.com/repos/cloudflare/forge/releases/latest'

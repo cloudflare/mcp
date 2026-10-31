@@ -23,7 +23,7 @@ export interface ApiCall {
 /**
  * The tool result for a direct tool's Cloudflare API request, shared by the
  * endpoint tools (`?codemode=false`) and the forge tools
- * (`?codemode=false&experimentalForge=true`).
+ * (`?codemode=false`).
  *
  * A refusal, including a list Cloudflare emptied by permission (see
  * `refusalFor`), is an error naming the method, path and status, explained,

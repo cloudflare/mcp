@@ -1,7 +1,6 @@
 import { env } from 'cloudflare:workers'
 import { isolate } from './lib/isolate'
 import type { Tool } from '@modelcontextprotocol/server'
-import type { McpTool } from './openapi'
 import type { SpecArtifactName } from './spec-release'
 import {
   SKILLS_MANIFEST_KEY,
@@ -13,7 +12,7 @@ import {
 
 /**
  * In-isolate cache for what the forge tools service serves (two of the pinned
- * spec's artifacts, `products.json` and `mcp-tools.json`, and the tool list;
+ * spec's artifacts, `products.json` and `permissions.json`, and the tool list;
  * `search` runs in the service, so this Worker never loads `spec.json`) and the
  * skills the scheduled handler writes to R2 (the manifest and
  * files).
@@ -50,30 +49,21 @@ export function setSpecArtifactSource(source?: SpecArtifactSource): void {
 }
 
 /**
- * `mcp-tools.json` ready to serve: the `tools/list` payload, built once per
- * isolate, and a name lookup for `tools/call`.
+ * Each operation's accepted permissions by path template and method, as
+ * `permissions.json` lists them, in the spec's `x-api-token-group`: any one
+ * is enough. Operations without permissions are listed too, so a request
+ * still finds its template.
  */
-export interface McpTools {
-  list: Tool[]
-  byName: Map<string, McpTool>
-}
+export type PermissionPaths = Record<string, Record<string, { 'x-api-token-group'?: string[] }>>
 
-const mcpTools = artifact(async (): Promise<McpTools> => {
-  const tools = JSON.parse(await specArtifactSource('mcp-tools.json')) as McpTool[]
-  return {
-    list: tools.map(({ name, title, description, inputSchema }) => ({
-      name,
-      ...(title ? { title } : {}),
-      description,
-      inputSchema
-    })),
-    byName: new Map(tools.map((tool) => [tool.name, tool]))
-  }
-})
+const permissionPaths = artifact(
+  async (): Promise<PermissionPaths> =>
+    JSON.parse(await specArtifactSource('permissions.json')) as PermissionPaths
+)
 
-/** The direct tools, served exactly as `mcp-tools.json` lists them. */
-export function getMcpTools(): Promise<McpTools> {
-  return mcpTools.get()
+/** Every operation's accepted permissions, for explaining a refused `execute` request. */
+export function getPermissionPaths(): Promise<PermissionPaths> {
+  return permissionPaths.get()
 }
 
 const forgeToolList = artifact(
@@ -86,7 +76,7 @@ const forgeToolListWithOutput = artifact(
 )
 
 /**
- * The generated tools (`?codemode=false&experimentalForge=true`) as
+ * The generated tools (`?codemode=false`) as
  * `tools/list` sends them, from the forge tools service. The service sends one
  * JSON string, which is parsed here once per isolate: decoding ~3,000 nested
  * objects over RPC costs every `tools/list` hundreds of milliseconds of CPU.

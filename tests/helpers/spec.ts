@@ -1,7 +1,7 @@
 import { env } from 'cloudflare:workers'
 import { setSpecArtifactSource, type SpecArtifactSource } from '../../src/isolate-cache'
 import { clearR2 } from './r2'
-import { buildMcpTools, type OperationInfo } from '../../src/openapi'
+import type { OperationInfo } from '../../src/openapi'
 import type { SpecArtifactName } from '../../src/spec-release'
 
 /**
@@ -21,18 +21,32 @@ function fixtureSource(artifacts: Partial<Record<SpecArtifactName, string>>): Sp
   }
 }
 
-/** Serve `products.json` and the `mcp-tools.json` built from `paths`. */
+/** Serve `products.json` and the `permissions.json` built from `paths`. */
 export async function seedSpec(paths: SpecPaths, products: string[] = ['workers']): Promise<void> {
   setSpecArtifactSource(
     fixtureSource({
       'products.json': JSON.stringify(products),
-      'mcp-tools.json': JSON.stringify(buildMcpTools(paths))
+      'permissions.json': JSON.stringify(
+        Object.fromEntries(
+          Object.entries(paths).map(([path, operations]) => [
+            path,
+            Object.fromEntries(
+              Object.entries(operations).map(([method, operation]) => [
+                method,
+                operation['x-api-token-group']
+                  ? { 'x-api-token-group': operation['x-api-token-group'] }
+                  : {}
+              ])
+            )
+          ])
+        )
+      )
     })
   )
 }
 
-/** Serve the products but no `mcp-tools.json`. */
-export async function removeMcpTools(): Promise<void> {
+/** Serve the products but no `permissions.json`. */
+export async function removePermissions(): Promise<void> {
   setSpecArtifactSource(fixtureSource({ 'products.json': '[]' }))
 }
 

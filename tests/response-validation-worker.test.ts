@@ -10,9 +10,7 @@ import source from '../src/generated/forge-mcp/source.json'
 import { stringifyResponse } from '../src/truncate'
 
 /**
- * Response schema checks through the real worker, for both direct-tool
- * surfaces, against the response schemas forge generated: `d1_list` backs
- * both the endpoint tool `get_accounts_d1_database` and the forge tool. The
+ * Response schema checks through the real worker, for the direct tools, against the response schemas forge generated. The
  * Cloudflare API is the only mocked boundary (MSW); the forge tools service
  * runs for real. Checks run in `waitUntil` after the result is built, so tests
  * wait for the datapoint.
@@ -36,9 +34,8 @@ async function call(query: string, name: string, args: Record<string, unknown> =
   return parseMcpResult(await exports.default.fetch(request))
 }
 
-const endpointTool = () => call('codemode=false', 'get_accounts_d1_database')
 const forgeTool = (name = 'd1_list', args: Record<string, unknown> = {}) =>
-  call('codemode=false&experimentalForge=true', name, args)
+  call('codemode=false', name, args)
 
 /** Background work has no handle; give it time to finish before asserting nothing happened. */
 const settle = () => new Promise((resolve) => setTimeout(resolve, 200))
@@ -49,12 +46,6 @@ beforeEach(async () => {
   await seedSpec({
     '/accounts/{account_id}/d1/database': {
       get: { summary: 'List D1 Databases', parameters: [{ name: 'account_id', in: 'path' }] }
-    },
-    '/accounts/{account_id}/not-generated': {
-      get: {
-        summary: 'Not in the generated tools',
-        parameters: [{ name: 'account_id', in: 'path' }]
-      }
     }
   })
   mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
@@ -68,13 +59,13 @@ afterEach(async () => {
 })
 
 describe('direct-tool response schema checks', () => {
-  it('records one mismatch for an endpoint tool and leaves its result unchanged', async () => {
+  it('records one mismatch for a direct tool and leaves its result unchanged', async () => {
     const body = cfSuccess([{ uuid: 42, name: SECRET }, { uuid: 7 }])
     server.use(http.get(D1_URL, () => HttpResponse.json(body)))
     const writeSpy = vi.spyOn(env.MCP_METRICS, 'writeDataPoint')
     const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
 
-    const result = await endpointTool()
+    const result = await forgeTool()
 
     expect(result.result?.isError).toBeFalsy()
     expect(toolText(result)).toBe(stringifyResponse(body))
@@ -85,7 +76,7 @@ describe('direct-tool response schema checks', () => {
         'cloudflare-api',
         expect.any(String),
         null, // account token: no user
-        'get_accounts_d1_database',
+        'd1_list',
         'GET',
         '/accounts/{account_id}/d1/database',
         'd1',
@@ -113,28 +104,6 @@ describe('direct-tool response schema checks', () => {
     // Neither the datapoint nor the log line carries response values.
     expect(JSON.stringify(writeSpy.mock.calls)).not.toContain(SECRET)
     expect(logged.join('\n')).not.toContain(SECRET)
-  })
-
-  it('checks forge tool responses against the same generated schema', async () => {
-    const body = cfSuccess([{ uuid: 42 }])
-    server.use(http.get(D1_URL, () => HttpResponse.json(body)))
-    const writeSpy = vi.spyOn(env.MCP_METRICS, 'writeDataPoint')
-    vi.spyOn(console, 'warn').mockImplementation(() => {})
-
-    const result = await forgeTool()
-
-    expect(toolText(result)).toBe(stringifyResponse(body))
-    await vi.waitFor(() => expect(mismatches(writeSpy)).toHaveLength(1))
-    expect(mismatches(writeSpy)[0].blobs?.slice(3, 11)).toEqual([
-      'd1_list',
-      'GET',
-      '/accounts/{account_id}/d1/database',
-      'd1',
-      'd1_list',
-      '200',
-      'type',
-      '#/components/schemas/d1_database-response/properties/uuid/type'
-    ])
   })
 
   it('finds the schema of a forge tool on a merged account-or-zone path', async () => {
@@ -197,7 +166,7 @@ describe('direct-tool response schema checks', () => {
     const writeSpy = vi.spyOn(env.MCP_METRICS, 'writeDataPoint')
     vi.spyOn(console, 'warn').mockImplementation(() => {})
 
-    const result = await endpointTool()
+    const result = await forgeTool()
 
     expect(result.result?.isError).toBe(true)
     expect(toolText(result)).toContain('returned HTTP 403')
@@ -212,17 +181,11 @@ describe('direct-tool response schema checks', () => {
     expect(dp.doubles?.[1]).toBe(403)
   })
 
-  it('records nothing for a response that matches, or an operation with no generated tool', async () => {
-    server.use(
-      http.get(D1_URL, () => HttpResponse.json(cfSuccess([{ uuid: 'db-1' }]))),
-      http.get(`${API_BASE}/accounts/${ACCOUNT_ID}/not-generated`, () =>
-        HttpResponse.json(cfSuccess(42))
-      )
-    )
+  it('records nothing for a response that matches', async () => {
+    server.use(http.get(D1_URL, () => HttpResponse.json(cfSuccess([{ uuid: 'db-1' }]))))
     const writeSpy = vi.spyOn(env.MCP_METRICS, 'writeDataPoint')
 
-    const matching = await endpointTool()
-    await call('codemode=false', 'get_accounts_not_generated')
+    const matching = await forgeTool()
     await settle()
 
     expect(toolText(matching)).toContain('db-1')
@@ -238,7 +201,7 @@ describe('direct-tool response schema checks', () => {
     vi.spyOn(console, 'warn').mockImplementation(() => {})
     vi.spyOn(console, 'error').mockImplementation(() => {})
 
-    const result = await endpointTool()
+    const result = await forgeTool()
 
     expect(toolText(result)).toBe(stringifyResponse(body))
     await vi.waitFor(() => expect(mismatches(writeSpy)).toHaveLength(1))
