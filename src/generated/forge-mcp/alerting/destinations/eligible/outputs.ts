@@ -36,6 +36,31 @@ export const aaa_ready_output: JsonSchema = {
 };
 
 /**
+ * The schema of `aaa_schemas-response_collection` in responses.
+ */
+export const aaa_schemas_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/aaa_api-response-common-2"
+    },
+    {
+      "properties": {
+        "result": {
+          "additionalProperties": {
+            "items": {
+              "$ref": "#/$defs/aaa_eligibility"
+            },
+            "type": "array"
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `aaa_schemas-type` in responses.
  */
 export const aaa_schemas_type_output: JsonSchema = {

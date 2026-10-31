@@ -18,8 +18,7 @@ import type { AuthProps } from '../auth/types'
 import { acceptedPermissions, type Connection } from '../api-permissions'
 import { apiCallResult } from './api-call-result'
 import type { ScopeChallenge } from '../scope-challenge'
-import type { ToolCallPlan } from '../forge-tools/worker'
-import { payloadOf } from '../forge-tools/envelope'
+import type { CallPlan } from '../forge-tools/plan'
 import { FORGE_ACCOUNT_DISCOVERY_GUIDANCE, PERMISSIONS_EXTENSION } from '../forge-tools/policy'
 
 /** The forge tools service, which holds the generated tools (`src/forge-tools/worker.ts`). */
@@ -81,7 +80,7 @@ export function registerForgeTools(
         const plan = (await forgeTools().plan(name, args, {
           baseUrl: env.CLOUDFLARE_API_BASE,
           ...(sessionAccountId && { sessionAccountId })
-        })) as ToolCallPlan
+        })) as CallPlan
         result = await callForgeTool(name, plan, props, formatResult, {
           connection,
           scopeChallenge,
@@ -99,7 +98,7 @@ export function registerForgeTools(
 
 async function callForgeTool(
   name: string,
-  plan: ToolCallPlan,
+  plan: CallPlan,
   props: AuthProps,
   formatResult: FormatToolResult,
   {
@@ -158,9 +157,8 @@ async function callForgeTool(
     { connection, scopeChallenge, formatResult }
   )
   if (!structured || !json || toolResult.isError) return toolResult
-  // What the output schema describes: the envelope's payload (src/forge-tools/envelope.ts).
-  const structuredContent = plan.payload ? payloadOf(result, plan.payload).payload : result
-  return { ...toolResult, structuredContent }
+  // The output schema describes the whole body, as the API sends it.
+  return { ...toolResult, structuredContent: result }
 }
 
 /**

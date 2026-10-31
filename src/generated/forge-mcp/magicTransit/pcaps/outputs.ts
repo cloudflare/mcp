@@ -4,6 +4,81 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `magic-visibility-pcaps_api-response-collection` in responses.
+ */
+export const magic_visibility_pcaps_api_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic-visibility-pcaps_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "items": {
+                "type": "object"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "result_info": {
+          "$ref": "#/$defs/magic-visibility-pcaps_result_info"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `magic-visibility-pcaps_api-response-common` in responses.
+ */
+export const magic_visibility_pcaps_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/magic-visibility-pcaps_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/magic-visibility-pcaps_messages"
+    },
+    "result": {
+      "anyOf": [
+        {
+          "type": "object"
+        },
+        {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `magic-visibility-pcaps_api-response-common-failure` in
  * responses.
  */
@@ -34,6 +109,32 @@ export const magic_visibility_pcaps_api_response_common_failure_output: JsonSche
 };
 
 /**
+ * The schema of `magic-visibility-pcaps_api-response-single` in responses.
+ */
+export const magic_visibility_pcaps_api_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic-visibility-pcaps_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `magic-visibility-pcaps_messages` in responses.
  */
 export const magic_visibility_pcaps_messages_output: JsonSchema = {
@@ -60,6 +161,36 @@ export const magic_visibility_pcaps_messages_output: JsonSchema = {
  */
 export const magic_visibility_pcaps_pcaps_byte_limit_output: JsonSchema = {
   "type": "number"
+};
+
+/**
+ * The schema of `magic-visibility-pcaps_pcaps_collection_response` in
+ * responses.
+ */
+export const magic_visibility_pcaps_pcaps_collection_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic-visibility-pcaps_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/magic-visibility-pcaps_pcaps_response_simple"
+              },
+              {
+                "$ref": "#/$defs/magic-visibility-pcaps_pcaps_response_full"
+              }
+            ]
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**
@@ -208,6 +339,32 @@ export const magic_visibility_pcaps_pcaps_response_simple_output: JsonSchema = {
     }
   },
   "type": "object"
+};
+
+/**
+ * The schema of `magic-visibility-pcaps_pcaps_single_response` in responses.
+ */
+export const magic_visibility_pcaps_pcaps_single_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic-visibility-pcaps_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/magic-visibility-pcaps_pcaps_response_simple"
+            },
+            {
+              "$ref": "#/$defs/magic-visibility-pcaps_pcaps_response_full"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**

@@ -4,8 +4,12 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   load_balancing_api_response_common_failure_output,
+  load_balancing_api_response_common_output,
+  load_balancing_api_response_single_output,
   load_balancing_messages_output,
 } from "../../../outputs.js";
+import { load_balancing_components_schemas_identifier } from "../../schemas.js";
+import { load_balancing_load_balancer_components_schemas_usage_response_output } from "./outputs.js";
 
 /**
  * The tools of `load_balancers.account.usage`.
@@ -19,44 +23,25 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/load-balancing_components-schemas-identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "load-balancing_components-schemas-identifier": load_balancing_components_schemas_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "load_balancers": {
-          "type": "integer"
-        },
-        "max_origins_per_pool": {
-          "type": "integer"
-        },
-        "minimum_monitor_interval": {
-          "type": "integer"
-        },
-        "monitors": {
-          "type": "integer"
-        },
-        "origins": {
-          "type": "integer"
-        },
-        "pools": {
-          "type": "integer"
-        }
+      "$ref": "#/$defs/load-balancing_load-balancer_components-schemas-usage_response",
+      $defs: {
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
+        "load-balancing_api-response-single": load_balancing_api_response_single_output,
+        "load-balancing_load-balancer_components-schemas-usage_response": load_balancing_load_balancer_components_schemas_usage_response_output,
+        "load-balancing_messages": load_balancing_messages_output,
       },
-      "required": [
-        "load_balancers",
-        "max_origins_per_pool",
-        "minimum_monitor_interval",
-        "monitors",
-        "origins",
-        "pools"
-      ],
-      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -76,42 +61,17 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "load_balancers": {
-              "type": "integer"
-            },
-            "max_origins_per_pool": {
-              "type": "integer"
-            },
-            "minimum_monitor_interval": {
-              "type": "integer"
-            },
-            "monitors": {
-              "type": "integer"
-            },
-            "origins": {
-              "type": "integer"
-            },
-            "pools": {
-              "type": "integer"
-            }
-          },
-          "required": [
-            "load_balancers",
-            "max_origins_per_pool",
-            "minimum_monitor_interval",
-            "monitors",
-            "origins",
-            "pools"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/load-balancing_load-balancer_components-schemas-usage_response"
         },
         "4XX": {
           "$ref": "#/$defs/load-balancing_api-response-common-failure"
         }
       },
       $defs: {
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
         "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
+        "load-balancing_api-response-single": load_balancing_api_response_single_output,
+        "load-balancing_load-balancer_components-schemas-usage_response": load_balancing_load_balancer_components_schemas_usage_response_output,
         "load-balancing_messages": load_balancing_messages_output,
       },
     },

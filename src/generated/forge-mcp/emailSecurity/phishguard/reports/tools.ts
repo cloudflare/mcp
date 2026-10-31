@@ -4,13 +4,14 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   email_security_DispositionLabel_output,
+  email_security_api_response_collection_output,
   email_security_api_response_common_failure_output,
+  email_security_api_response_common_output,
   email_security_messages_output,
 } from "../../outputs.js";
 import { email_security_identifier } from "../../schemas.js";
 import {
   email_security_PhishGuardReportTag_output,
-  email_security_PhishGuardReport_fields_output,
   email_security_PhishGuardReport_output,
 } from "./outputs.js";
 
@@ -70,40 +71,32 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/email-security_PhishGuardReport"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-security_api-response-collection"
         },
-        "result_info": {
+        {
           "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
+            "result": {
+              "items": {
+                "$ref": "#/$defs/email-security_PhishGuardReport"
+              },
+              "type": "array"
             }
           },
+          "required": [
+            "result"
+          ],
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
         "email-security_DispositionLabel": email_security_DispositionLabel_output,
         "email-security_PhishGuardReport": email_security_PhishGuardReport_output,
         "email-security_PhishGuardReportTag": email_security_PhishGuardReportTag_output,
-        "email-security_PhishGuardReport_fields": email_security_PhishGuardReport_fields_output,
+        "email-security_api-response-collection": email_security_api_response_collection_output,
+        "email-security_api-response-common": email_security_api_response_common_output,
+        "email-security_messages": email_security_messages_output,
       },
     },
     annotations: {
@@ -125,35 +118,25 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/email-security_PhishGuardReport"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-security_api-response-collection"
             },
-            "result_info": {
+            {
               "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/email-security_PhishGuardReport"
+                  },
+                  "type": "array"
                 }
               },
+              "required": [
+                "result"
+              ],
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-security_api-response-common-failure"
@@ -163,7 +146,8 @@ export const tools: readonly Tool[] = [
         "email-security_DispositionLabel": email_security_DispositionLabel_output,
         "email-security_PhishGuardReport": email_security_PhishGuardReport_output,
         "email-security_PhishGuardReportTag": email_security_PhishGuardReportTag_output,
-        "email-security_PhishGuardReport_fields": email_security_PhishGuardReport_fields_output,
+        "email-security_api-response-collection": email_security_api_response_collection_output,
+        "email-security_api-response-common": email_security_api_response_common_output,
         "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
         "email-security_messages": email_security_messages_output,
       },

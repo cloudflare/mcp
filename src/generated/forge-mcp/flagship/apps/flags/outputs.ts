@@ -148,7 +148,18 @@ export const flagship_Rule_output: JsonSchema = {
       "type": "integer"
     },
     "rollout": {
-      "$ref": "#/$defs/flagship_Rule_rollout"
+      "properties": {
+        "attribute": {
+          "type": "string"
+        },
+        "percentage": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "percentage"
+      ],
+      "type": "object"
     },
     "serve_variation": {
       "type": "string"
@@ -158,24 +169,6 @@ export const flagship_Rule_output: JsonSchema = {
     "conditions",
     "priority",
     "serve_variation"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `flagship_Rule_rollout` in responses.
- */
-export const flagship_Rule_rollout_output: JsonSchema = {
-  "properties": {
-    "attribute": {
-      "type": "string"
-    },
-    "percentage": {
-      "type": "number"
-    }
-  },
-  "required": [
-    "percentage"
   ],
   "type": "object"
 };

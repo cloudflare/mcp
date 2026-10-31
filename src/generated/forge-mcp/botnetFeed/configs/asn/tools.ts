@@ -3,9 +3,14 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  dos_api_response_common_failure_output,
-  dos_messages_output,
-} from "../../../outputs.js";
+  botnet_feed_api_api_response_common_failure_output,
+  botnet_feed_api_api_response_common_output,
+  botnet_feed_api_messages_output,
+} from "../../outputs.js";
+import {
+  botnet_feed_api_asn,
+  botnet_feed_api_identifier,
+} from "../../schemas.js";
 
 /**
  * The tools of `botnet_feed.configs.asn`.
@@ -19,25 +24,45 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/botnet-feed-api_identifier",
+          "description": "Identifier."
         },
         "asn_id": {
-          "type": "string"
+          "$ref": "#/$defs/botnet-feed-api_asn"
         }
       },
       required: [
         "account_id",
         "asn_id"
       ],
+      $defs: {
+        "botnet-feed-api_asn": botnet_feed_api_asn,
+        "botnet-feed-api_identifier": botnet_feed_api_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "asn": {
-          "type": "integer"
+      "allOf": [
+        {
+          "$ref": "#/$defs/botnet-feed-api_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "properties": {
+                "asn": {
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
         }
+      ],
+      $defs: {
+        "botnet-feed-api_api-response-common": botnet_feed_api_api_response_common_output,
+        "botnet-feed-api_messages": botnet_feed_api_messages_output,
       },
-      "type": "object",
     },
     annotations: {
       "destructiveHint": true,
@@ -56,20 +81,33 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "asn": {
-              "type": "integer"
+          "allOf": [
+            {
+              "$ref": "#/$defs/botnet-feed-api_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "asn": {
+                      "type": "integer"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
             }
-          },
-          "type": "object"
+          ]
         },
         "4XX": {
-          "$ref": "#/$defs/dos_api-response-common-failure"
+          "$ref": "#/$defs/botnet-feed-api_api-response-common-failure"
         }
       },
       $defs: {
-        "dos_api-response-common-failure": dos_api_response_common_failure_output,
-        "dos_messages": dos_messages_output,
+        "botnet-feed-api_api-response-common": botnet_feed_api_api_response_common_output,
+        "botnet-feed-api_api-response-common-failure": botnet_feed_api_api_response_common_failure_output,
+        "botnet-feed-api_messages": botnet_feed_api_messages_output,
       },
     },
     request: (args) => ({
@@ -84,21 +122,40 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/botnet-feed-api_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "botnet-feed-api_identifier": botnet_feed_api_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "asn": {
-          "type": "integer"
+      "allOf": [
+        {
+          "$ref": "#/$defs/botnet-feed-api_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "properties": {
+                "asn": {
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
         }
+      ],
+      $defs: {
+        "botnet-feed-api_api-response-common": botnet_feed_api_api_response_common_output,
+        "botnet-feed-api_messages": botnet_feed_api_messages_output,
       },
-      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -118,20 +175,33 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "asn": {
-              "type": "integer"
+          "allOf": [
+            {
+              "$ref": "#/$defs/botnet-feed-api_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "asn": {
+                      "type": "integer"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
             }
-          },
-          "type": "object"
+          ]
         },
         "4XX": {
-          "$ref": "#/$defs/dos_api-response-common-failure"
+          "$ref": "#/$defs/botnet-feed-api_api-response-common-failure"
         }
       },
       $defs: {
-        "dos_api-response-common-failure": dos_api_response_common_failure_output,
-        "dos_messages": dos_messages_output,
+        "botnet-feed-api_api-response-common": botnet_feed_api_api_response_common_output,
+        "botnet-feed-api_api-response-common-failure": botnet_feed_api_api_response_common_failure_output,
+        "botnet-feed-api_messages": botnet_feed_api_messages_output,
       },
     },
     request: (args) => ({

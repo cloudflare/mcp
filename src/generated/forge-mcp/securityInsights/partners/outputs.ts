@@ -4,6 +4,28 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `security-center_partnerAssetResultInfo` in responses.
+ */
+export const security_center_partnerAssetResultInfo_output: JsonSchema = {
+  "properties": {
+    "count": {
+      "type": "integer"
+    },
+    "cursor": {
+      "type": "string"
+    },
+    "per_page": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "count",
+    "per_page"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `security-center_partnerEntitlement` in responses.
  */
 export const security_center_partnerEntitlement_output: JsonSchema = {
@@ -54,4 +76,53 @@ export const security_center_shadowHost_output: JsonSchema = {
     "ip_address"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `security-center_shadowHostsResponse` in responses.
+ */
+export const security_center_shadowHostsResponse_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/security-center_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "collection_truncated": {
+              "type": "boolean"
+            },
+            "domain": {
+              "type": "string"
+            },
+            "entitlement": {
+              "$ref": "#/$defs/security-center_partnerEntitlement"
+            },
+            "items": {
+              "items": {
+                "$ref": "#/$defs/security-center_shadowHost"
+              },
+              "type": "array"
+            },
+            "total_count": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "collection_truncated",
+            "domain",
+            "entitlement",
+            "items",
+            "total_count"
+          ],
+          "type": "object"
+        },
+        "result_info": {
+          "$ref": "#/$defs/security-center_partnerAssetResultInfo"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };

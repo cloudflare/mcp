@@ -79,42 +79,75 @@ export const one_Instructions_output: JsonSchema = {
 };
 
 /**
- * The schema of `one_PaginatedAuthMethodDetailList_result_info` in responses.
+ * The schema of `one_PaginatedAuthMethodDetailList` in responses.
  */
-export const one_PaginatedAuthMethodDetailList_result_info_output: JsonSchema = {
+export const one_PaginatedAuthMethodDetailList_output: JsonSchema = {
   "properties": {
-    "count": {
-      "type": "integer"
+    "errors": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
     },
-    "next": {
-      "oneOf": [
-        {
-          "type": "string"
+    "messages": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "result": {
+      "items": {
+        "$ref": "#/$defs/one_AuthMethodDetail"
+      },
+      "type": "array"
+    },
+    "result_info": {
+      "properties": {
+        "count": {
+          "type": "integer"
         },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "page": {
-      "type": "integer"
-    },
-    "per_page": {
-      "type": "integer"
-    },
-    "previous": {
-      "oneOf": [
-        {
-          "type": "string"
+        "next": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
-        {
-          "type": "null"
+        "page": {
+          "type": "integer"
+        },
+        "per_page": {
+          "type": "integer"
+        },
+        "previous": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "total_count": {
+          "type": "integer"
         }
-      ]
+      },
+      "type": "object"
     },
-    "total_count": {
-      "type": "integer"
+    "success": {
+      "type": "boolean"
     }
   },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "result_info",
+    "success"
+  ],
   "type": "object"
 };

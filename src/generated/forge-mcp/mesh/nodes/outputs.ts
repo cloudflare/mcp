@@ -77,66 +77,41 @@ export const tunnel_tunnel_warp_connector_client_output: JsonSchema = {
  * The schema of `tunnel_warp-connector-response-collection` in responses.
  */
 export const tunnel_warp_connector_response_collection_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/tunnel_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/tunnel_api-response-collection"
     },
-    "messages": {
-      "$ref": "#/$defs/tunnel_messages"
-    },
-    "result": {
-      "items": {
-        "$ref": "#/$defs/tunnel_warp_connector_tunnel"
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/tunnel_warp_connector_tunnel"
+          },
+          "type": "array"
+        }
       },
-      "type": "array"
-    },
-    "result_info": {
-      "$ref": "#/$defs/tunnel_result_info"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `tunnel_warp-connector-response-single` in responses.
  */
 export const tunnel_warp_connector_response_single_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/tunnel_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/tunnel_api-response-common"
     },
-    "messages": {
-      "$ref": "#/$defs/tunnel_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/tunnel_warp_connector_tunnel"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/tunnel_warp_connector_tunnel"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**

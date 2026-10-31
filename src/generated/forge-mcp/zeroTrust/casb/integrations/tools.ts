@@ -3,11 +3,14 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  one_IntegrationV2Detail_authorization_link_output,
+  one_IntegrationCreateResponse_output,
+  one_IntegrationDetailResponse_output,
+  one_IntegrationPauseResponse_output,
+  one_IntegrationResumeResponse_output,
+  one_IntegrationUpdateResponse_output,
   one_IntegrationV2Detail_output,
-  one_IntegrationV2ListItem_auth_method_output,
   one_IntegrationV2ListItem_output,
-  one_PaginatedIntegrationV2ListItemList_result_info_output,
+  one_PaginatedIntegrationV2ListItemList_output,
 } from "./outputs.js";
 import {
   one_IntegrationV2CreateRequest,
@@ -42,10 +45,10 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/one_IntegrationV2Detail",
+      "$ref": "#/$defs/one_IntegrationCreateResponse",
       $defs: {
+        "one_IntegrationCreateResponse": one_IntegrationCreateResponse_output,
         "one_IntegrationV2Detail": one_IntegrationV2Detail_output,
-        "one_IntegrationV2Detail_authorization_link": one_IntegrationV2Detail_authorization_link_output,
       },
     },
     annotations: {
@@ -63,13 +66,13 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "201": {
-          "$ref": "#/$defs/one_IntegrationV2Detail"
+          "$ref": "#/$defs/one_IntegrationCreateResponse"
         },
         "400": null
       },
       $defs: {
+        "one_IntegrationCreateResponse": one_IntegrationCreateResponse_output,
         "one_IntegrationV2Detail": one_IntegrationV2Detail_output,
-        "one_IntegrationV2Detail_authorization_link": one_IntegrationV2Detail_authorization_link_output,
       },
     },
     request: (args) => ({
@@ -142,10 +145,10 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/one_IntegrationV2Detail",
+      "$ref": "#/$defs/one_IntegrationDetailResponse",
       $defs: {
+        "one_IntegrationDetailResponse": one_IntegrationDetailResponse_output,
         "one_IntegrationV2Detail": one_IntegrationV2Detail_output,
-        "one_IntegrationV2Detail_authorization_link": one_IntegrationV2Detail_authorization_link_output,
       },
     },
     annotations: {
@@ -163,13 +166,13 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/one_IntegrationV2Detail"
+          "$ref": "#/$defs/one_IntegrationDetailResponse"
         },
         "404": null
       },
       $defs: {
+        "one_IntegrationDetailResponse": one_IntegrationDetailResponse_output,
         "one_IntegrationV2Detail": one_IntegrationV2Detail_output,
-        "one_IntegrationV2Detail_authorization_link": one_IntegrationV2Detail_authorization_link_output,
       },
     },
     request: (args) => ({
@@ -245,25 +248,10 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/one_IntegrationV2ListItem"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "$ref": "#/$defs/one_PaginatedIntegrationV2ListItemList_result_info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/one_PaginatedIntegrationV2ListItemList",
       $defs: {
         "one_IntegrationV2ListItem": one_IntegrationV2ListItem_output,
-        "one_IntegrationV2ListItem_auth_method": one_IntegrationV2ListItem_auth_method_output,
-        "one_PaginatedIntegrationV2ListItemList_result_info": one_PaginatedIntegrationV2ListItemList_result_info_output,
+        "one_PaginatedIntegrationV2ListItemList": one_PaginatedIntegrationV2ListItemList_output,
       },
     },
     annotations: {
@@ -281,28 +269,13 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/one_IntegrationV2ListItem"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/one_PaginatedIntegrationV2ListItemList_result_info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/one_PaginatedIntegrationV2ListItemList"
         },
         "400": null
       },
       $defs: {
         "one_IntegrationV2ListItem": one_IntegrationV2ListItem_output,
-        "one_IntegrationV2ListItem_auth_method": one_IntegrationV2ListItem_auth_method_output,
-        "one_PaginatedIntegrationV2ListItemList_result_info": one_PaginatedIntegrationV2ListItemList_result_info_output,
+        "one_PaginatedIntegrationV2ListItemList": one_PaginatedIntegrationV2ListItemList_output,
       },
     },
     request: (args) => ({
@@ -342,10 +315,10 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/one_IntegrationV2Detail",
+      "$ref": "#/$defs/one_IntegrationPauseResponse",
       $defs: {
+        "one_IntegrationPauseResponse": one_IntegrationPauseResponse_output,
         "one_IntegrationV2Detail": one_IntegrationV2Detail_output,
-        "one_IntegrationV2Detail_authorization_link": one_IntegrationV2Detail_authorization_link_output,
       },
     },
     annotations: {
@@ -363,13 +336,13 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/one_IntegrationV2Detail"
+          "$ref": "#/$defs/one_IntegrationPauseResponse"
         },
         "400": null
       },
       $defs: {
+        "one_IntegrationPauseResponse": one_IntegrationPauseResponse_output,
         "one_IntegrationV2Detail": one_IntegrationV2Detail_output,
-        "one_IntegrationV2Detail_authorization_link": one_IntegrationV2Detail_authorization_link_output,
       },
     },
     request: (args) => ({
@@ -398,10 +371,10 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/one_IntegrationV2Detail",
+      "$ref": "#/$defs/one_IntegrationResumeResponse",
       $defs: {
+        "one_IntegrationResumeResponse": one_IntegrationResumeResponse_output,
         "one_IntegrationV2Detail": one_IntegrationV2Detail_output,
-        "one_IntegrationV2Detail_authorization_link": one_IntegrationV2Detail_authorization_link_output,
       },
     },
     annotations: {
@@ -419,13 +392,13 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/one_IntegrationV2Detail"
+          "$ref": "#/$defs/one_IntegrationResumeResponse"
         },
         "400": null
       },
       $defs: {
+        "one_IntegrationResumeResponse": one_IntegrationResumeResponse_output,
         "one_IntegrationV2Detail": one_IntegrationV2Detail_output,
-        "one_IntegrationV2Detail_authorization_link": one_IntegrationV2Detail_authorization_link_output,
       },
     },
     request: (args) => ({
@@ -460,10 +433,10 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/one_IntegrationV2Detail",
+      "$ref": "#/$defs/one_IntegrationUpdateResponse",
       $defs: {
+        "one_IntegrationUpdateResponse": one_IntegrationUpdateResponse_output,
         "one_IntegrationV2Detail": one_IntegrationV2Detail_output,
-        "one_IntegrationV2Detail_authorization_link": one_IntegrationV2Detail_authorization_link_output,
       },
     },
     annotations: {
@@ -481,13 +454,13 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/one_IntegrationV2Detail"
+          "$ref": "#/$defs/one_IntegrationUpdateResponse"
         },
         "400": null
       },
       $defs: {
+        "one_IntegrationUpdateResponse": one_IntegrationUpdateResponse_output,
         "one_IntegrationV2Detail": one_IntegrationV2Detail_output,
-        "one_IntegrationV2Detail_authorization_link": one_IntegrationV2Detail_authorization_link_output,
       },
     },
     request: (args) => ({

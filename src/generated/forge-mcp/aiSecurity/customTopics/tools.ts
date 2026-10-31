@@ -2,8 +2,13 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
-import { waf_product_api_bundle_messages_output } from "../../outputs.js";
+import {
+  waf_product_api_bundle_api_response_common_output,
+  waf_product_api_bundle_api_response_single_output,
+  waf_product_api_bundle_messages_output,
+} from "../../outputs.js";
 import { waf_product_api_bundle_api_response_common_failure_3_output } from "../outputs.js";
+import { waf_product_api_bundle_zone_id } from "../schemas.js";
 import {
   waf_product_api_bundle_custom_topic_output,
   waf_product_api_bundle_custom_topics_output,
@@ -26,19 +31,26 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "description": "Defines the zone.",
-          "type": "string"
+          "$ref": "#/$defs/waf-product-api-bundle_zone_id",
+          "description": "Defines the zone."
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "waf-product-api-bundle_zone_id": waf_product_api_bundle_zone_id,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/waf-product-api-bundle_custom-topics",
+      "$ref": "#/$defs/waf-product-api-bundle_response-custom-topics",
       $defs: {
+        "waf-product-api-bundle_api-response-common": waf_product_api_bundle_api_response_common_output,
+        "waf-product-api-bundle_api-response-single": waf_product_api_bundle_api_response_single_output,
         "waf-product-api-bundle_custom-topic": waf_product_api_bundle_custom_topic_output,
         "waf-product-api-bundle_custom-topics": waf_product_api_bundle_custom_topics_output,
+        "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
+        "waf-product-api-bundle_response-custom-topics": waf_product_api_bundle_response_custom_topics_output,
       },
     },
     annotations: {
@@ -53,7 +65,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/waf-product-api-bundle_custom-topics"
+          "$ref": "#/$defs/waf-product-api-bundle_response-custom-topics"
         },
         "4XX": {
           "allOf": [
@@ -67,7 +79,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "waf-product-api-bundle_api-response-common": waf_product_api_bundle_api_response_common_output,
         "waf-product-api-bundle_api-response-common-failure-3": waf_product_api_bundle_api_response_common_failure_3_output,
+        "waf-product-api-bundle_api-response-single": waf_product_api_bundle_api_response_single_output,
         "waf-product-api-bundle_custom-topic": waf_product_api_bundle_custom_topic_output,
         "waf-product-api-bundle_custom-topics": waf_product_api_bundle_custom_topics_output,
         "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
@@ -89,8 +103,8 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/waf-product-api-bundle_custom-topics"
         },
         "zone_id": {
-          "description": "Defines the zone.",
-          "type": "string"
+          "$ref": "#/$defs/waf-product-api-bundle_zone_id",
+          "description": "Defines the zone."
         }
       },
       required: [
@@ -100,13 +114,18 @@ export const tools: readonly Tool[] = [
       $defs: {
         "waf-product-api-bundle_custom-topic": waf_product_api_bundle_custom_topic,
         "waf-product-api-bundle_custom-topics": waf_product_api_bundle_custom_topics,
+        "waf-product-api-bundle_zone_id": waf_product_api_bundle_zone_id,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/waf-product-api-bundle_custom-topics",
+      "$ref": "#/$defs/waf-product-api-bundle_response-custom-topics",
       $defs: {
+        "waf-product-api-bundle_api-response-common": waf_product_api_bundle_api_response_common_output,
+        "waf-product-api-bundle_api-response-single": waf_product_api_bundle_api_response_single_output,
         "waf-product-api-bundle_custom-topic": waf_product_api_bundle_custom_topic_output,
         "waf-product-api-bundle_custom-topics": waf_product_api_bundle_custom_topics_output,
+        "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
+        "waf-product-api-bundle_response-custom-topics": waf_product_api_bundle_response_custom_topics_output,
       },
     },
     annotations: {
@@ -121,7 +140,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/waf-product-api-bundle_custom-topics"
+          "$ref": "#/$defs/waf-product-api-bundle_response-custom-topics"
         },
         "4XX": {
           "allOf": [
@@ -135,7 +154,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "waf-product-api-bundle_api-response-common": waf_product_api_bundle_api_response_common_output,
         "waf-product-api-bundle_api-response-common-failure-3": waf_product_api_bundle_api_response_common_failure_3_output,
+        "waf-product-api-bundle_api-response-single": waf_product_api_bundle_api_response_single_output,
         "waf-product-api-bundle_custom-topic": waf_product_api_bundle_custom_topic_output,
         "waf-product-api-bundle_custom-topics": waf_product_api_bundle_custom_topics_output,
         "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,

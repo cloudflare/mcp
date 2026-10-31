@@ -4,6 +4,38 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
+ * The schema of `monetization_api-response-common` in responses.
+ */
+export const monetization_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "items": {
+        "$ref": "#/$defs/monetization_response-info"
+      },
+      "type": "array"
+    },
+    "messages": {
+      "items": {
+        "$ref": "#/$defs/monetization_response-info"
+      },
+      "type": "array"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `monetization_api-response-common-failure` in responses.
  */
 export const monetization_api_response_common_failure_output: JsonSchema = {

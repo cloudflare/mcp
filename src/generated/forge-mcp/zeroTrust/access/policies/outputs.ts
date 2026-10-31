@@ -11,46 +11,94 @@ export const access_app_count_output: JsonSchema = {
 };
 
 /**
+ * The schema of `access_id_response-4` in responses.
+ */
+export const access_id_response_4_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/access_uuid-2"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `access_response_collection-10` in responses.
+ */
+export const access_response_collection_10_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/access_reusable_policy_resp"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `access_reusable_policy_resp` in responses.
  */
 export const access_reusable_policy_resp_output: JsonSchema = {
-  "properties": {
-    "account_id": {
-      "$ref": "#/$defs/access_identifier"
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_policy_resp"
     },
-    "app_count": {
-      "$ref": "#/$defs/access_app_count"
-    },
-    "approval_groups": {
-      "$ref": "#/$defs/access_approval_groups"
-    },
-    "approval_required": {
-      "$ref": "#/$defs/access_approval_required"
-    },
-    "connection_rules": {
-      "$ref": "#/$defs/access_connection_rules"
-    },
-    "isolation_required": {
-      "$ref": "#/$defs/access_isolation_required"
-    },
-    "mfa_config": {
-      "$ref": "#/$defs/access_mfa_config"
-    },
-    "purpose_justification_prompt": {
-      "$ref": "#/$defs/access_purpose_justification_prompt"
-    },
-    "purpose_justification_required": {
-      "$ref": "#/$defs/access_purpose_justification_required"
-    },
-    "reusable": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    },
-    "session_duration": {
-      "$ref": "#/$defs/access_session_duration-3"
+    {
+      "properties": {
+        "account_id": {
+          "$ref": "#/$defs/access_identifier"
+        },
+        "app_count": {
+          "$ref": "#/$defs/access_app_count"
+        },
+        "reusable": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
+};
+
+/**
+ * The schema of `access_single_response-11` in responses.
+ */
+export const access_single_response_11_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/access_reusable_policy_resp"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };

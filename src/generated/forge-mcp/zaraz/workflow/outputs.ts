@@ -13,3 +13,22 @@ export const zaraz_zaraz_workflow_output: JsonSchema = {
   ],
   "type": "string"
 };
+
+/**
+ * The schema of `zaraz_zaraz-workflow-response` in responses.
+ */
+export const zaraz_zaraz_workflow_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/zaraz_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/zaraz_zaraz-workflow"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};

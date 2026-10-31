@@ -111,593 +111,20 @@ export const access_app_launcher_logo_url_output: JsonSchema = {
 };
 
 /**
- * The schema of `access_app_launcher_visible` in responses.
+ * The schema of `access_app_launcher_props` in responses.
  */
-export const access_app_launcher_visible_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `access_app_policy_response` in responses.
- */
-export const access_app_policy_response_output: JsonSchema = {
-  "properties": {
-    "account_id": {
-      "$ref": "#/$defs/access_identifier"
-    },
-    "approval_groups": {
-      "$ref": "#/$defs/access_approval_groups"
-    },
-    "approval_required": {
-      "$ref": "#/$defs/access_approval_required"
-    },
-    "connection_rules": {
-      "$ref": "#/$defs/access_connection_rules"
-    },
-    "isolation_required": {
-      "$ref": "#/$defs/access_isolation_required"
-    },
-    "mfa_config": {
-      "$ref": "#/$defs/access_mfa_config"
-    },
-    "precedence": {
-      "$ref": "#/$defs/access_precedence"
-    },
-    "purpose_justification_prompt": {
-      "$ref": "#/$defs/access_purpose_justification_prompt"
-    },
-    "purpose_justification_required": {
-      "$ref": "#/$defs/access_purpose_justification_required"
-    },
-    "session_duration": {
-      "$ref": "#/$defs/access_session_duration-3"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `access_app_response` in responses.
- */
-export const access_app_response_output: JsonSchema = {
-  "anyOf": [
+export const access_app_launcher_props_output: JsonSchema = {
+  "allOf": [
     {
-      "properties": {
-        "allowed_idps": {
-          "$ref": "#/$defs/access_allowed_idps"
-        },
-        "aud": {
-          "$ref": "#/$defs/access_aud-2"
-        },
-        "created_at": {
-          "$ref": "#/$defs/access_created_at"
-        },
-        "destinations": {
-          "$ref": "#/$defs/access_end_user_destinations"
-        },
-        "domain": {
-          "$ref": "#/$defs/access_domain"
-        },
-        "id": {
-          "$ref": "#/$defs/access_uuid"
-        },
-        "name": {
-          "$ref": "#/$defs/access_name-8"
-        },
-        "oauth_configuration": {
-          "$ref": "#/$defs/access_end_user_oauth_configuration"
-        },
-        "self_hosted_domains": {
-          "$ref": "#/$defs/access_self_hosted_domains"
-        },
-        "type": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/access_type"
-            },
-            {
-              "enum": [
-                "end_user"
-              ],
-              "type": "string"
-            }
-          ]
-        },
-        "updated_at": {
-          "$ref": "#/$defs/access_updated_at"
-        },
-        "user_populations": {
-          "items": {
-            "$ref": "#/$defs/access_uuid"
-          },
-          "maxItems": 1,
-          "minItems": 1,
-          "type": "array"
-        }
-      },
-      "required": [
-        "oauth_configuration",
-        "type",
-        "user_populations"
-      ],
-      "type": "object"
+      "$ref": "#/$defs/access_feature_app_props"
     },
     {
       "properties": {
-        "allow_authenticate_via_warp": {
-          "$ref": "#/$defs/access_allow_authenticate_via_warp-2"
-        },
-        "allow_iframe": {
-          "$ref": "#/$defs/access_allow_iframe"
-        },
-        "allowed_idps": {
-          "$ref": "#/$defs/access_allowed_idps"
-        },
-        "app_launcher_visible": {
-          "$ref": "#/$defs/access_app_launcher_visible"
-        },
-        "aud": {
-          "$ref": "#/$defs/access_aud-2"
-        },
-        "auto_redirect_to_identity": {
-          "$ref": "#/$defs/access_auto_redirect_to_identity-2"
-        },
-        "cors_headers": {
-          "$ref": "#/$defs/access_cors_headers"
-        },
-        "created_at": {
-          "$ref": "#/$defs/access_created_at"
-        },
-        "custom_deny_message": {
-          "$ref": "#/$defs/access_custom_deny_message"
-        },
-        "custom_deny_url": {
-          "$ref": "#/$defs/access_custom_deny_url"
-        },
-        "custom_non_identity_deny_url": {
-          "$ref": "#/$defs/access_custom_non_identity_deny_url"
-        },
-        "custom_pages": {
-          "$ref": "#/$defs/access_custom_pages-2"
-        },
-        "destinations": {
-          "$ref": "#/$defs/access_destinations"
-        },
-        "domain": {
-          "$ref": "#/$defs/access_domain"
-        },
-        "eager_redirect_cookie_setting": {
-          "$ref": "#/$defs/access_eager_redirect_cookie_setting"
-        },
-        "enable_binding_cookie": {
-          "$ref": "#/$defs/access_enable_binding_cookie"
-        },
-        "http_only_cookie_attribute": {
-          "$ref": "#/$defs/access_http_only_cookie_attribute"
-        },
-        "id": {
-          "$ref": "#/$defs/access_uuid"
-        },
-        "logo_url": {
-          "$ref": "#/$defs/access_logo_url"
-        },
-        "mfa_config": {
-          "$ref": "#/$defs/access_mfa_config"
-        },
-        "name": {
-          "$ref": "#/$defs/access_name-8"
-        },
-        "oauth_configuration": {
-          "$ref": "#/$defs/access_oauth_configuration"
-        },
-        "options_preflight_bypass": {
-          "$ref": "#/$defs/access_options_preflight_bypass"
-        },
-        "path_cookie_attribute": {
-          "$ref": "#/$defs/access_path_cookie_attribute"
-        },
-        "policies": {
-          "items": {
-            "$ref": "#/$defs/access_app_policy_response"
-          },
-          "type": "array"
-        },
-        "read_service_tokens_from_header": {
-          "$ref": "#/$defs/access_read_service_tokens_from_header"
-        },
-        "same_site_cookie_attribute": {
-          "$ref": "#/$defs/access_same_site_cookie_attribute"
-        },
-        "scim_config": {
-          "$ref": "#/$defs/access_scim_config"
-        },
-        "self_hosted_domains": {
-          "$ref": "#/$defs/access_self_hosted_domains"
-        },
-        "service_auth_401_redirect": {
-          "$ref": "#/$defs/access_service_auth_401_redirect"
-        },
-        "session_duration": {
-          "$ref": "#/$defs/access_session_duration-2"
-        },
-        "skip_interstitial": {
-          "$ref": "#/$defs/access_skip_interstitial"
-        },
-        "tags": {
-          "$ref": "#/$defs/access_tags"
-        },
-        "type": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/access_type"
-            },
-            {
-              "type": "string"
-            }
-          ]
-        },
-        "updated_at": {
-          "$ref": "#/$defs/access_updated_at"
-        },
-        "use_clientless_isolation_app_launcher_url": {
-          "$ref": "#/$defs/access_use_clientless_isolation_app_launcher_url"
-        }
-      },
-      "required": [
-        "domain",
-        "type"
-      ],
-      "type": "object"
-    },
-    {
-      "properties": {
-        "allowed_idps": {
-          "$ref": "#/$defs/access_allowed_idps"
-        },
-        "app_launcher_visible": {
-          "$ref": "#/$defs/access_app_launcher_visible"
-        },
-        "aud": {
-          "$ref": "#/$defs/access_aud-2"
-        },
-        "auto_redirect_to_identity": {
-          "$ref": "#/$defs/access_auto_redirect_to_identity-2"
-        },
-        "created_at": {
-          "$ref": "#/$defs/access_created_at"
-        },
-        "custom_pages": {
-          "$ref": "#/$defs/access_custom_pages-2"
-        },
-        "id": {
-          "$ref": "#/$defs/access_uuid"
-        },
-        "logo_url": {
-          "$ref": "#/$defs/access_logo_url"
-        },
-        "name": {
-          "$ref": "#/$defs/access_name-8"
-        },
-        "policies": {
-          "items": {
-            "$ref": "#/$defs/access_app_policy_response"
-          },
-          "type": "array"
-        },
-        "saas_app": {
-          "oneOf": [
-            {
-              "$ref": "#/$defs/access_saml_saas_app"
-            },
-            {
-              "$ref": "#/$defs/access_oidc_saas_app"
-            }
-          ]
-        },
-        "scim_config": {
-          "$ref": "#/$defs/access_scim_config"
-        },
-        "tags": {
-          "$ref": "#/$defs/access_tags"
-        },
-        "type": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/access_type"
-            },
-            {
-              "type": "string"
-            }
-          ]
-        },
-        "updated_at": {
-          "$ref": "#/$defs/access_updated_at"
-        }
-      },
-      "type": "object"
-    },
-    {
-      "properties": {
-        "allow_authenticate_via_warp": {
-          "$ref": "#/$defs/access_allow_authenticate_via_warp-2"
-        },
-        "allow_iframe": {
-          "$ref": "#/$defs/access_allow_iframe"
-        },
-        "allowed_idps": {
-          "$ref": "#/$defs/access_allowed_idps"
-        },
-        "app_launcher_visible": {
-          "$ref": "#/$defs/access_app_launcher_visible"
-        },
-        "aud": {
-          "$ref": "#/$defs/access_aud-2"
-        },
-        "auto_redirect_to_identity": {
-          "$ref": "#/$defs/access_auto_redirect_to_identity-2"
-        },
-        "cors_headers": {
-          "$ref": "#/$defs/access_cors_headers"
-        },
-        "created_at": {
-          "$ref": "#/$defs/access_created_at"
-        },
-        "custom_deny_message": {
-          "$ref": "#/$defs/access_custom_deny_message"
-        },
-        "custom_deny_url": {
-          "$ref": "#/$defs/access_custom_deny_url"
-        },
-        "custom_non_identity_deny_url": {
-          "$ref": "#/$defs/access_custom_non_identity_deny_url"
-        },
-        "custom_pages": {
-          "$ref": "#/$defs/access_custom_pages-2"
-        },
-        "destinations": {
-          "$ref": "#/$defs/access_destinations"
-        },
-        "domain": {
-          "$ref": "#/$defs/access_domain"
-        },
-        "eager_redirect_cookie_setting": {
-          "$ref": "#/$defs/access_eager_redirect_cookie_setting"
-        },
-        "enable_binding_cookie": {
-          "$ref": "#/$defs/access_enable_binding_cookie"
-        },
-        "http_only_cookie_attribute": {
-          "$ref": "#/$defs/access_http_only_cookie_attribute"
-        },
-        "id": {
-          "$ref": "#/$defs/access_uuid"
-        },
-        "logo_url": {
-          "$ref": "#/$defs/access_logo_url"
-        },
-        "mfa_config": {
-          "$ref": "#/$defs/access_mfa_config"
-        },
-        "name": {
-          "$ref": "#/$defs/access_name-8"
-        },
-        "oauth_configuration": {
-          "$ref": "#/$defs/access_oauth_configuration"
-        },
-        "options_preflight_bypass": {
-          "$ref": "#/$defs/access_options_preflight_bypass"
-        },
-        "path_cookie_attribute": {
-          "$ref": "#/$defs/access_path_cookie_attribute"
-        },
-        "policies": {
-          "items": {
-            "$ref": "#/$defs/access_app_policy_response"
-          },
-          "type": "array"
-        },
-        "read_service_tokens_from_header": {
-          "$ref": "#/$defs/access_read_service_tokens_from_header"
-        },
-        "same_site_cookie_attribute": {
-          "$ref": "#/$defs/access_same_site_cookie_attribute"
-        },
-        "scim_config": {
-          "$ref": "#/$defs/access_scim_config"
-        },
-        "self_hosted_domains": {
-          "$ref": "#/$defs/access_self_hosted_domains"
-        },
-        "service_auth_401_redirect": {
-          "$ref": "#/$defs/access_service_auth_401_redirect"
-        },
-        "session_duration": {
-          "$ref": "#/$defs/access_session_duration-2"
-        },
-        "skip_interstitial": {
-          "$ref": "#/$defs/access_skip_interstitial"
-        },
-        "tags": {
-          "$ref": "#/$defs/access_tags"
-        },
-        "type": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/access_type"
-            },
-            {
-              "type": "string"
-            }
-          ]
-        },
-        "updated_at": {
-          "$ref": "#/$defs/access_updated_at"
-        },
-        "use_clientless_isolation_app_launcher_url": {
-          "$ref": "#/$defs/access_use_clientless_isolation_app_launcher_url"
-        }
-      },
-      "required": [
-        "domain",
-        "type"
-      ],
-      "type": "object"
-    },
-    {
-      "properties": {
-        "allow_authenticate_via_warp": {
-          "$ref": "#/$defs/access_allow_authenticate_via_warp-2"
-        },
-        "allow_iframe": {
-          "$ref": "#/$defs/access_allow_iframe"
-        },
-        "allowed_idps": {
-          "$ref": "#/$defs/access_allowed_idps"
-        },
-        "app_launcher_visible": {
-          "$ref": "#/$defs/access_app_launcher_visible"
-        },
-        "aud": {
-          "$ref": "#/$defs/access_aud-2"
-        },
-        "auto_redirect_to_identity": {
-          "$ref": "#/$defs/access_auto_redirect_to_identity-2"
-        },
-        "cors_headers": {
-          "$ref": "#/$defs/access_cors_headers"
-        },
-        "created_at": {
-          "$ref": "#/$defs/access_created_at"
-        },
-        "custom_deny_message": {
-          "$ref": "#/$defs/access_custom_deny_message"
-        },
-        "custom_deny_url": {
-          "$ref": "#/$defs/access_custom_deny_url"
-        },
-        "custom_non_identity_deny_url": {
-          "$ref": "#/$defs/access_custom_non_identity_deny_url"
-        },
-        "custom_pages": {
-          "$ref": "#/$defs/access_custom_pages-2"
-        },
-        "destinations": {
-          "$ref": "#/$defs/access_destinations"
-        },
-        "domain": {
-          "$ref": "#/$defs/access_domain"
-        },
-        "eager_redirect_cookie_setting": {
-          "$ref": "#/$defs/access_eager_redirect_cookie_setting"
-        },
-        "enable_binding_cookie": {
-          "$ref": "#/$defs/access_enable_binding_cookie"
-        },
-        "http_only_cookie_attribute": {
-          "$ref": "#/$defs/access_http_only_cookie_attribute"
-        },
-        "id": {
-          "$ref": "#/$defs/access_uuid"
-        },
-        "logo_url": {
-          "$ref": "#/$defs/access_logo_url"
-        },
-        "mfa_config": {
-          "$ref": "#/$defs/access_mfa_config"
-        },
-        "name": {
-          "$ref": "#/$defs/access_name-8"
-        },
-        "oauth_configuration": {
-          "$ref": "#/$defs/access_oauth_configuration"
-        },
-        "options_preflight_bypass": {
-          "$ref": "#/$defs/access_options_preflight_bypass"
-        },
-        "path_cookie_attribute": {
-          "$ref": "#/$defs/access_path_cookie_attribute"
-        },
-        "policies": {
-          "items": {
-            "$ref": "#/$defs/access_app_policy_response"
-          },
-          "type": "array"
-        },
-        "read_service_tokens_from_header": {
-          "$ref": "#/$defs/access_read_service_tokens_from_header"
-        },
-        "same_site_cookie_attribute": {
-          "$ref": "#/$defs/access_same_site_cookie_attribute"
-        },
-        "scim_config": {
-          "$ref": "#/$defs/access_scim_config"
-        },
-        "self_hosted_domains": {
-          "$ref": "#/$defs/access_self_hosted_domains"
-        },
-        "service_auth_401_redirect": {
-          "$ref": "#/$defs/access_service_auth_401_redirect"
-        },
-        "session_duration": {
-          "$ref": "#/$defs/access_session_duration-2"
-        },
-        "skip_interstitial": {
-          "$ref": "#/$defs/access_skip_interstitial"
-        },
-        "tags": {
-          "$ref": "#/$defs/access_tags"
-        },
-        "type": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/access_type"
-            },
-            {
-              "type": "string"
-            }
-          ]
-        },
-        "updated_at": {
-          "$ref": "#/$defs/access_updated_at"
-        },
-        "use_clientless_isolation_app_launcher_url": {
-          "$ref": "#/$defs/access_use_clientless_isolation_app_launcher_url"
-        }
-      },
-      "required": [
-        "domain",
-        "type"
-      ],
-      "type": "object"
-    },
-    {
-      "properties": {
-        "allowed_idps": {
-          "$ref": "#/$defs/access_allowed_idps"
-        },
         "app_launcher_logo_url": {
           "$ref": "#/$defs/access_app_launcher_logo_url"
         },
-        "aud": {
-          "$ref": "#/$defs/access_aud-2"
-        },
-        "auto_redirect_to_identity": {
-          "$ref": "#/$defs/access_auto_redirect_to_identity-2"
-        },
         "bg_color": {
           "$ref": "#/$defs/access_bg_color"
-        },
-        "created_at": {
-          "$ref": "#/$defs/access_created_at"
-        },
-        "custom_deny_url": {
-          "$ref": "#/$defs/access_custom_deny_url"
-        },
-        "custom_non_identity_deny_url": {
-          "$ref": "#/$defs/access_custom_non_identity_deny_url"
-        },
-        "custom_pages": {
-          "$ref": "#/$defs/access_custom_pages-2"
         },
         "domain": {
           "type": "string"
@@ -708,23 +135,11 @@ export const access_app_response_output: JsonSchema = {
         "header_bg_color": {
           "$ref": "#/$defs/access_header_bg_color"
         },
-        "id": {
-          "$ref": "#/$defs/access_uuid"
-        },
         "landing_page_design": {
           "$ref": "#/$defs/access_landing_page_design"
         },
         "name": {
           "type": "string"
-        },
-        "policies": {
-          "items": {
-            "$ref": "#/$defs/access_app_policy_response"
-          },
-          "type": "array"
-        },
-        "session_duration": {
-          "$ref": "#/$defs/access_session_duration-2"
         },
         "skip_app_launcher_login_page": {
           "$ref": "#/$defs/access_skip_app_launcher_login_page"
@@ -738,606 +153,271 @@ export const access_app_response_output: JsonSchema = {
               "type": "string"
             }
           ]
-        },
-        "updated_at": {
-          "$ref": "#/$defs/access_updated_at"
         }
       },
-      "required": [
-        "type"
-      ],
       "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `access_app_launcher_visible` in responses.
+ */
+export const access_app_launcher_visible_output: JsonSchema = {
+  "type": "boolean"
+};
+
+/**
+ * The schema of `access_app_policy_response` in responses.
+ */
+export const access_app_policy_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_policy_resp"
     },
     {
       "properties": {
-        "allowed_idps": {
-          "$ref": "#/$defs/access_allowed_idps"
+        "account_id": {
+          "$ref": "#/$defs/access_identifier"
         },
-        "aud": {
-          "$ref": "#/$defs/access_aud-2"
-        },
-        "auto_redirect_to_identity": {
-          "$ref": "#/$defs/access_auto_redirect_to_identity-2"
-        },
-        "created_at": {
-          "$ref": "#/$defs/access_created_at"
-        },
-        "custom_deny_url": {
-          "$ref": "#/$defs/access_custom_deny_url"
-        },
-        "custom_non_identity_deny_url": {
-          "$ref": "#/$defs/access_custom_non_identity_deny_url"
-        },
-        "custom_pages": {
-          "$ref": "#/$defs/access_custom_pages-2"
-        },
-        "domain": {
-          "type": "string"
-        },
-        "id": {
-          "$ref": "#/$defs/access_uuid"
-        },
-        "name": {
-          "type": "string"
-        },
-        "policies": {
-          "items": {
-            "$ref": "#/$defs/access_app_policy_response"
-          },
-          "type": "array"
-        },
-        "session_duration": {
-          "$ref": "#/$defs/access_session_duration-2"
-        },
-        "type": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/access_type"
-            },
-            {
-              "type": "string"
-            }
-          ]
-        },
-        "updated_at": {
-          "$ref": "#/$defs/access_updated_at"
+        "precedence": {
+          "$ref": "#/$defs/access_precedence"
         }
       },
-      "required": [
-        "type"
-      ],
       "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `access_app_resp_embedded_policies` in responses.
+ */
+export const access_app_resp_embedded_policies_output: JsonSchema = {
+  "properties": {
+    "policies": {
+      "items": {
+        "$ref": "#/$defs/access_app_policy_response"
+      },
+      "type": "array"
+    }
+  },
+  "type": "object"
+};
+
+/**
+ * The schema of `access_app_resp_embedded_target_criteria_infra` in responses.
+ */
+export const access_app_resp_embedded_target_criteria_infra_output: JsonSchema = {
+  "properties": {
+    "target_criteria": {
+      "items": {
+        "$ref": "#/$defs/access_target_criteria_infra_app"
+      },
+      "type": "array"
+    }
+  },
+  "type": "object"
+};
+
+/**
+ * The schema of `access_app_resp_embedded_target_criteria_self_hosted` in
+ * responses.
+ */
+export const access_app_resp_embedded_target_criteria_self_hosted_output: JsonSchema = {
+  "properties": {
+    "target_criteria": {
+      "items": {
+        "$ref": "#/$defs/access_target_criteria_self_hosted_app"
+      },
+      "type": "array"
+    }
+  },
+  "type": "object"
+};
+
+/**
+ * The schema of `access_app_response` in responses.
+ */
+export const access_app_response_output: JsonSchema = {
+  "anyOf": [
+    {
+      "allOf": [
+        {
+          "$ref": "#/$defs/access_basic_app_response_props"
+        },
+        {
+          "$ref": "#/$defs/access_end_user_props"
+        }
+      ]
     },
     {
-      "properties": {
-        "allowed_idps": {
-          "$ref": "#/$defs/access_allowed_idps"
+      "allOf": [
+        {
+          "$ref": "#/$defs/access_basic_app_response_props"
         },
-        "aud": {
-          "$ref": "#/$defs/access_aud-2"
+        {
+          "$ref": "#/$defs/access_self_hosted_props"
         },
-        "auto_redirect_to_identity": {
-          "$ref": "#/$defs/access_auto_redirect_to_identity-2"
-        },
-        "created_at": {
-          "$ref": "#/$defs/access_created_at"
-        },
-        "custom_deny_url": {
-          "$ref": "#/$defs/access_custom_deny_url"
-        },
-        "custom_non_identity_deny_url": {
-          "$ref": "#/$defs/access_custom_non_identity_deny_url"
-        },
-        "custom_pages": {
-          "$ref": "#/$defs/access_custom_pages-2"
-        },
-        "domain": {
-          "type": "string"
-        },
-        "id": {
-          "$ref": "#/$defs/access_uuid"
-        },
-        "name": {
-          "type": "string"
-        },
-        "policies": {
-          "items": {
-            "$ref": "#/$defs/access_app_policy_response"
-          },
-          "type": "array"
-        },
-        "session_duration": {
-          "$ref": "#/$defs/access_session_duration-2"
-        },
-        "type": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/access_type"
-            },
-            {
-              "type": "string"
-            }
-          ]
-        },
-        "updated_at": {
-          "$ref": "#/$defs/access_updated_at"
+        {
+          "$ref": "#/$defs/access_app_resp_embedded_policies"
         }
-      },
-      "required": [
-        "type"
-      ],
-      "type": "object"
+      ]
     },
     {
-      "properties": {
-        "allowed_idps": {
-          "$ref": "#/$defs/access_allowed_idps"
+      "allOf": [
+        {
+          "$ref": "#/$defs/access_basic_app_response_props"
         },
-        "aud": {
-          "$ref": "#/$defs/access_aud-2"
+        {
+          "$ref": "#/$defs/access_saas_props"
         },
-        "auto_redirect_to_identity": {
-          "$ref": "#/$defs/access_auto_redirect_to_identity-2"
-        },
-        "created_at": {
-          "$ref": "#/$defs/access_created_at"
-        },
-        "custom_deny_url": {
-          "$ref": "#/$defs/access_custom_deny_url"
-        },
-        "custom_non_identity_deny_url": {
-          "$ref": "#/$defs/access_custom_non_identity_deny_url"
-        },
-        "custom_pages": {
-          "$ref": "#/$defs/access_custom_pages-2"
-        },
-        "domain": {
-          "type": "string"
-        },
-        "id": {
-          "$ref": "#/$defs/access_uuid"
-        },
-        "name": {
-          "type": "string"
-        },
-        "policies": {
-          "items": {
-            "$ref": "#/$defs/access_app_policy_response"
-          },
-          "type": "array"
-        },
-        "session_duration": {
-          "$ref": "#/$defs/access_session_duration-2"
-        },
-        "type": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/access_type"
-            },
-            {
-              "type": "string"
-            }
-          ]
-        },
-        "updated_at": {
-          "$ref": "#/$defs/access_updated_at"
+        {
+          "$ref": "#/$defs/access_app_resp_embedded_policies"
         }
-      },
-      "required": [
-        "type"
-      ],
-      "type": "object"
+      ]
     },
     {
-      "properties": {
-        "app_launcher_visible": {
-          "$ref": "#/$defs/access_app_launcher_visible"
+      "allOf": [
+        {
+          "$ref": "#/$defs/access_basic_app_response_props"
         },
-        "aud": {
-          "$ref": "#/$defs/access_aud-2"
+        {
+          "$ref": "#/$defs/access_ssh_props"
         },
-        "created_at": {
-          "$ref": "#/$defs/access_created_at"
-        },
-        "domain": {
-          "type": "string"
-        },
-        "id": {
-          "$ref": "#/$defs/access_uuid"
-        },
-        "logo_url": {
-          "$ref": "#/$defs/access_logo_url"
-        },
-        "name": {
-          "$ref": "#/$defs/access_name-8"
-        },
-        "policies": {
-          "items": {
-            "$ref": "#/$defs/access_app_policy_response"
-          },
-          "type": "array"
-        },
-        "tags": {
-          "$ref": "#/$defs/access_tags"
-        },
-        "type": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/access_type"
-            },
-            {
-              "type": "string"
-            }
-          ]
-        },
-        "updated_at": {
-          "$ref": "#/$defs/access_updated_at"
+        {
+          "$ref": "#/$defs/access_app_resp_embedded_policies"
         }
-      },
-      "type": "object"
+      ]
     },
     {
-      "properties": {
-        "aud": {
-          "$ref": "#/$defs/access_aud-2"
+      "allOf": [
+        {
+          "$ref": "#/$defs/access_basic_app_response_props"
         },
-        "created_at": {
-          "$ref": "#/$defs/access_created_at"
+        {
+          "$ref": "#/$defs/access_vnc_props"
         },
-        "id": {
-          "$ref": "#/$defs/access_uuid"
-        },
-        "mfa_config": {
-          "$ref": "#/$defs/access_infra_mfa_config"
-        },
-        "name": {
-          "$ref": "#/$defs/access_name-8"
-        },
-        "policies": {
-          "items": {
-            "$ref": "#/$defs/access_infra_policy_resp"
-          },
-          "type": "array"
-        },
-        "session_duration": {
-          "type": "string"
-        },
-        "target_criteria": {
-          "items": {
-            "$ref": "#/$defs/access_target_criteria_infra_app"
-          },
-          "type": "array"
-        },
-        "type": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/access_type"
-            },
-            {
-              "type": "string"
-            }
-          ]
-        },
-        "updated_at": {
-          "$ref": "#/$defs/access_updated_at"
+        {
+          "$ref": "#/$defs/access_app_resp_embedded_policies"
         }
-      },
-      "required": [
-        "type",
-        "target_criteria"
-      ],
-      "type": "object"
+      ]
     },
     {
-      "properties": {
-        "allow_authenticate_via_warp": {
-          "$ref": "#/$defs/access_allow_authenticate_via_warp-2"
+      "allOf": [
+        {
+          "$ref": "#/$defs/access_basic_app_response_props"
         },
-        "allow_iframe": {
-          "$ref": "#/$defs/access_allow_iframe"
+        {
+          "$ref": "#/$defs/access_app_launcher_props"
         },
-        "allowed_idps": {
-          "$ref": "#/$defs/access_allowed_idps"
-        },
-        "app_launcher_visible": {
-          "$ref": "#/$defs/access_app_launcher_visible"
-        },
-        "aud": {
-          "$ref": "#/$defs/access_aud-2"
-        },
-        "auto_redirect_to_identity": {
-          "$ref": "#/$defs/access_auto_redirect_to_identity-2"
-        },
-        "cors_headers": {
-          "$ref": "#/$defs/access_cors_headers"
-        },
-        "created_at": {
-          "$ref": "#/$defs/access_created_at"
-        },
-        "custom_deny_message": {
-          "$ref": "#/$defs/access_custom_deny_message"
-        },
-        "custom_deny_url": {
-          "$ref": "#/$defs/access_custom_deny_url"
-        },
-        "custom_non_identity_deny_url": {
-          "$ref": "#/$defs/access_custom_non_identity_deny_url"
-        },
-        "custom_pages": {
-          "$ref": "#/$defs/access_custom_pages-2"
-        },
-        "destinations": {
-          "$ref": "#/$defs/access_destinations"
-        },
-        "domain": {
-          "$ref": "#/$defs/access_domain"
-        },
-        "eager_redirect_cookie_setting": {
-          "$ref": "#/$defs/access_eager_redirect_cookie_setting"
-        },
-        "enable_binding_cookie": {
-          "$ref": "#/$defs/access_enable_binding_cookie"
-        },
-        "http_only_cookie_attribute": {
-          "$ref": "#/$defs/access_http_only_cookie_attribute"
-        },
-        "id": {
-          "$ref": "#/$defs/access_uuid"
-        },
-        "logo_url": {
-          "$ref": "#/$defs/access_logo_url"
-        },
-        "mfa_config": {
-          "$ref": "#/$defs/access_mfa_config"
-        },
-        "name": {
-          "$ref": "#/$defs/access_name-8"
-        },
-        "oauth_configuration": {
-          "$ref": "#/$defs/access_oauth_configuration"
-        },
-        "options_preflight_bypass": {
-          "$ref": "#/$defs/access_options_preflight_bypass"
-        },
-        "path_cookie_attribute": {
-          "$ref": "#/$defs/access_path_cookie_attribute"
-        },
-        "policies": {
-          "items": {
-            "$ref": "#/$defs/access_app_policy_response"
-          },
-          "type": "array"
-        },
-        "read_service_tokens_from_header": {
-          "$ref": "#/$defs/access_read_service_tokens_from_header"
-        },
-        "same_site_cookie_attribute": {
-          "$ref": "#/$defs/access_same_site_cookie_attribute"
-        },
-        "scim_config": {
-          "$ref": "#/$defs/access_scim_config"
-        },
-        "self_hosted_domains": {
-          "$ref": "#/$defs/access_self_hosted_domains"
-        },
-        "service_auth_401_redirect": {
-          "$ref": "#/$defs/access_service_auth_401_redirect"
-        },
-        "session_duration": {
-          "$ref": "#/$defs/access_session_duration-2"
-        },
-        "skip_interstitial": {
-          "$ref": "#/$defs/access_skip_interstitial"
-        },
-        "tags": {
-          "$ref": "#/$defs/access_tags"
-        },
-        "target_criteria": {
-          "items": {
-            "$ref": "#/$defs/access_target_criteria_self_hosted_app"
-          },
-          "type": "array"
-        },
-        "type": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/access_type"
-            },
-            {
-              "type": "string"
-            }
-          ]
-        },
-        "updated_at": {
-          "$ref": "#/$defs/access_updated_at"
-        },
-        "use_clientless_isolation_app_launcher_url": {
-          "$ref": "#/$defs/access_use_clientless_isolation_app_launcher_url"
+        {
+          "$ref": "#/$defs/access_app_resp_embedded_policies"
         }
-      },
-      "required": [
-        "target_criteria",
-        "domain",
-        "type"
-      ],
-      "type": "object"
+      ]
     },
     {
-      "properties": {
-        "allow_authenticate_via_warp": {
-          "$ref": "#/$defs/access_allow_authenticate_via_warp-2"
+      "allOf": [
+        {
+          "$ref": "#/$defs/access_basic_app_response_props"
         },
-        "allowed_idps": {
-          "$ref": "#/$defs/access_allowed_idps"
+        {
+          "$ref": "#/$defs/access_warp_props"
         },
-        "aud": {
-          "$ref": "#/$defs/access_aud-2"
-        },
-        "auto_redirect_to_identity": {
-          "$ref": "#/$defs/access_auto_redirect_to_identity-2"
-        },
-        "created_at": {
-          "$ref": "#/$defs/access_created_at"
-        },
-        "custom_deny_message": {
-          "$ref": "#/$defs/access_custom_deny_message"
-        },
-        "custom_deny_url": {
-          "$ref": "#/$defs/access_custom_deny_url"
-        },
-        "custom_non_identity_deny_url": {
-          "$ref": "#/$defs/access_custom_non_identity_deny_url"
-        },
-        "custom_pages": {
-          "$ref": "#/$defs/access_custom_pages-2"
-        },
-        "destinations": {
-          "$ref": "#/$defs/access_destinations"
-        },
-        "http_only_cookie_attribute": {
-          "$ref": "#/$defs/access_http_only_cookie_attribute"
-        },
-        "id": {
-          "$ref": "#/$defs/access_uuid"
-        },
-        "logo_url": {
-          "$ref": "#/$defs/access_logo_url"
-        },
-        "name": {
-          "$ref": "#/$defs/access_name-8"
-        },
-        "oauth_configuration": {
-          "$ref": "#/$defs/access_oauth_configuration"
-        },
-        "options_preflight_bypass": {
-          "$ref": "#/$defs/access_options_preflight_bypass"
-        },
-        "policies": {
-          "items": {
-            "$ref": "#/$defs/access_app_policy_response"
-          },
-          "type": "array"
-        },
-        "same_site_cookie_attribute": {
-          "$ref": "#/$defs/access_same_site_cookie_attribute"
-        },
-        "scim_config": {
-          "$ref": "#/$defs/access_scim_config"
-        },
-        "session_duration": {
-          "$ref": "#/$defs/access_session_duration-2"
-        },
-        "tags": {
-          "$ref": "#/$defs/access_tags"
-        },
-        "type": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/access_type"
-            },
-            {
-              "type": "string"
-            }
-          ]
-        },
-        "updated_at": {
-          "$ref": "#/$defs/access_updated_at"
+        {
+          "$ref": "#/$defs/access_app_resp_embedded_policies"
         }
-      },
-      "required": [
-        "type"
-      ],
-      "type": "object"
+      ]
     },
     {
-      "properties": {
-        "allow_authenticate_via_warp": {
-          "$ref": "#/$defs/access_allow_authenticate_via_warp-2"
+      "allOf": [
+        {
+          "$ref": "#/$defs/access_basic_app_response_props"
         },
-        "allowed_idps": {
-          "$ref": "#/$defs/access_allowed_idps"
+        {
+          "$ref": "#/$defs/access_biso_props"
         },
-        "aud": {
-          "$ref": "#/$defs/access_aud-2"
-        },
-        "auto_redirect_to_identity": {
-          "$ref": "#/$defs/access_auto_redirect_to_identity-2"
-        },
-        "created_at": {
-          "$ref": "#/$defs/access_created_at"
-        },
-        "custom_deny_message": {
-          "$ref": "#/$defs/access_custom_deny_message"
-        },
-        "custom_deny_url": {
-          "$ref": "#/$defs/access_custom_deny_url"
-        },
-        "custom_non_identity_deny_url": {
-          "$ref": "#/$defs/access_custom_non_identity_deny_url"
-        },
-        "custom_pages": {
-          "$ref": "#/$defs/access_custom_pages-2"
-        },
-        "destinations": {
-          "$ref": "#/$defs/access_destinations"
-        },
-        "domain": {
-          "$ref": "#/$defs/access_domain"
-        },
-        "http_only_cookie_attribute": {
-          "$ref": "#/$defs/access_http_only_cookie_attribute"
-        },
-        "id": {
-          "$ref": "#/$defs/access_uuid"
-        },
-        "logo_url": {
-          "$ref": "#/$defs/access_logo_url"
-        },
-        "name": {
-          "$ref": "#/$defs/access_name-8"
-        },
-        "oauth_configuration": {
-          "$ref": "#/$defs/access_oauth_configuration"
-        },
-        "options_preflight_bypass": {
-          "$ref": "#/$defs/access_options_preflight_bypass"
-        },
-        "policies": {
-          "items": {
-            "$ref": "#/$defs/access_app_policy_response"
-          },
-          "type": "array"
-        },
-        "same_site_cookie_attribute": {
-          "$ref": "#/$defs/access_same_site_cookie_attribute"
-        },
-        "scim_config": {
-          "$ref": "#/$defs/access_scim_config"
-        },
-        "session_duration": {
-          "$ref": "#/$defs/access_session_duration-2"
-        },
-        "tags": {
-          "$ref": "#/$defs/access_tags"
-        },
-        "type": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/access_type"
-            },
-            {
-              "type": "string"
-            }
-          ]
-        },
-        "updated_at": {
-          "$ref": "#/$defs/access_updated_at"
+        {
+          "$ref": "#/$defs/access_app_resp_embedded_policies"
         }
-      },
-      "required": [
-        "type"
-      ],
-      "type": "object"
+      ]
+    },
+    {
+      "allOf": [
+        {
+          "$ref": "#/$defs/access_basic_app_response_props"
+        },
+        {
+          "$ref": "#/$defs/access_proxy_endpoint_props"
+        },
+        {
+          "$ref": "#/$defs/access_app_resp_embedded_policies"
+        }
+      ]
+    },
+    {
+      "allOf": [
+        {
+          "$ref": "#/$defs/access_basic_app_response_props"
+        },
+        {
+          "$ref": "#/$defs/access_bookmark_props"
+        },
+        {
+          "$ref": "#/$defs/access_app_resp_embedded_policies"
+        }
+      ]
+    },
+    {
+      "allOf": [
+        {
+          "$ref": "#/$defs/access_basic_app_response_props"
+        },
+        {
+          "$ref": "#/$defs/access_infra_props"
+        },
+        {
+          "$ref": "#/$defs/access_infra_app_resp_embedded_policies"
+        }
+      ]
+    },
+    {
+      "allOf": [
+        {
+          "$ref": "#/$defs/access_basic_app_response_props"
+        },
+        {
+          "$ref": "#/$defs/access_rdp_props"
+        },
+        {
+          "$ref": "#/$defs/access_app_resp_embedded_policies"
+        }
+      ]
+    },
+    {
+      "allOf": [
+        {
+          "$ref": "#/$defs/access_basic_app_response_props"
+        },
+        {
+          "$ref": "#/$defs/access_mcp_props"
+        },
+        {
+          "$ref": "#/$defs/access_app_resp_embedded_policies"
+        }
+      ]
+    },
+    {
+      "allOf": [
+        {
+          "$ref": "#/$defs/access_basic_app_response_props"
+        },
+        {
+          "$ref": "#/$defs/access_mcp_portal_props"
+        },
+        {
+          "$ref": "#/$defs/access_app_resp_embedded_policies"
+        }
+      ]
     }
   ]
 };
@@ -1357,36 +437,21 @@ export const access_auto_redirect_to_identity_2_output: JsonSchema = {
 };
 
 /**
- * The schema of `access_base_policy_resp` in responses.
+ * The schema of `access_basic_app_response_props` in responses.
  */
-export const access_base_policy_resp_output: JsonSchema = {
+export const access_basic_app_response_props_output: JsonSchema = {
   "properties": {
+    "aud": {
+      "$ref": "#/$defs/access_aud-2"
+    },
     "created_at": {
-      "$ref": "#/$defs/access_timestamp"
-    },
-    "decision": {
-      "$ref": "#/$defs/access_decision"
-    },
-    "exclude": {
-      "$ref": "#/$defs/access_exclude-2"
+      "$ref": "#/$defs/access_created_at"
     },
     "id": {
-      "$ref": "#/$defs/access_uuid-2"
-    },
-    "include": {
-      "$ref": "#/$defs/access_include-2"
-    },
-    "name": {
-      "$ref": "#/$defs/access_name-9"
-    },
-    "policy_resolution_account_id": {
-      "$ref": "#/$defs/access_policy_resolution_account_id"
-    },
-    "require": {
-      "$ref": "#/$defs/access_require-2"
+      "$ref": "#/$defs/access_uuid"
     },
     "updated_at": {
-      "$ref": "#/$defs/access_timestamp"
+      "$ref": "#/$defs/access_updated_at"
     }
   },
   "type": "object"
@@ -1397,6 +462,72 @@ export const access_base_policy_resp_output: JsonSchema = {
  */
 export const access_bg_color_output: JsonSchema = {
   "type": "string"
+};
+
+/**
+ * The schema of `access_biso_props` in responses.
+ */
+export const access_biso_props_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_feature_app_props"
+    },
+    {
+      "properties": {
+        "domain": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/access_type"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `access_bookmark_props` in responses.
+ */
+export const access_bookmark_props_output: JsonSchema = {
+  "properties": {
+    "app_launcher_visible": {
+      "$ref": "#/$defs/access_app_launcher_visible"
+    },
+    "domain": {
+      "type": "string"
+    },
+    "logo_url": {
+      "$ref": "#/$defs/access_logo_url"
+    },
+    "name": {
+      "$ref": "#/$defs/access_name-8"
+    },
+    "tags": {
+      "$ref": "#/$defs/access_tags-2"
+    },
+    "type": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/access_type"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    }
+  },
+  "type": "object"
 };
 
 /**
@@ -1696,6 +827,32 @@ export const access_eager_redirect_cookie_setting_output: JsonSchema = {
 };
 
 /**
+ * The schema of `access_empty_response-2` in responses.
+ */
+export const access_empty_response_2_output: JsonSchema = {
+  "properties": {
+    "result": {
+      "oneOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "success": {
+      "enum": [
+        true,
+        false
+      ],
+      "type": "boolean"
+    }
+  },
+  "type": "object"
+};
+
+/**
  * The schema of `access_enable_binding_cookie` in responses.
  */
 export const access_enable_binding_cookie_output: JsonSchema = {
@@ -1774,21 +931,22 @@ export const access_end_user_destinations_output: JsonSchema = {
  * The schema of `access_end_user_oauth_configuration` in responses.
  */
 export const access_end_user_oauth_configuration_output: JsonSchema = {
-  "properties": {
-    "dynamic_client_registration": {
-      "$ref": "#/$defs/access_oauth_configuration_dynamic_client_registration"
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_oauth_configuration"
     },
-    "enabled": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    },
-    "grant": {
-      "$ref": "#/$defs/access_oauth_configuration_grant"
+    {
+      "properties": {
+        "enabled": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };
 
 /**
@@ -1812,6 +970,59 @@ export const access_end_user_preview_worker_destination_output: JsonSchema = {
   "required": [
     "type",
     "worker_id"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `access_end_user_props` in responses.
+ */
+export const access_end_user_props_output: JsonSchema = {
+  "properties": {
+    "allowed_idps": {
+      "$ref": "#/$defs/access_allowed_idps"
+    },
+    "destinations": {
+      "$ref": "#/$defs/access_end_user_destinations"
+    },
+    "domain": {
+      "$ref": "#/$defs/access_domain"
+    },
+    "name": {
+      "$ref": "#/$defs/access_name-8"
+    },
+    "oauth_configuration": {
+      "$ref": "#/$defs/access_end_user_oauth_configuration"
+    },
+    "self_hosted_domains": {
+      "$ref": "#/$defs/access_self_hosted_domains"
+    },
+    "type": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/access_type"
+        },
+        {
+          "enum": [
+            "end_user"
+          ],
+          "type": "string"
+        }
+      ]
+    },
+    "user_populations": {
+      "items": {
+        "$ref": "#/$defs/access_uuid"
+      },
+      "maxItems": 1,
+      "minItems": 1,
+      "type": "array"
+    }
+  },
+  "required": [
+    "oauth_configuration",
+    "type",
+    "user_populations"
   ],
   "type": "object"
 };
@@ -1866,6 +1077,45 @@ export const access_end_user_worker_destination_output: JsonSchema = {
 };
 
 /**
+ * The schema of `access_feature_app_props` in responses.
+ */
+export const access_feature_app_props_output: JsonSchema = {
+  "properties": {
+    "allowed_idps": {
+      "$ref": "#/$defs/access_allowed_idps"
+    },
+    "auto_redirect_to_identity": {
+      "$ref": "#/$defs/access_auto_redirect_to_identity-2"
+    },
+    "custom_deny_url": {
+      "$ref": "#/$defs/access_custom_deny_url"
+    },
+    "custom_non_identity_deny_url": {
+      "$ref": "#/$defs/access_custom_non_identity_deny_url"
+    },
+    "custom_pages": {
+      "$ref": "#/$defs/access_custom_pages-2"
+    },
+    "domain": {
+      "$ref": "#/$defs/access_domain"
+    },
+    "name": {
+      "$ref": "#/$defs/access_name-8"
+    },
+    "session_duration": {
+      "$ref": "#/$defs/access_session_duration-2"
+    },
+    "type": {
+      "$ref": "#/$defs/access_type"
+    }
+  },
+  "required": [
+    "type"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `access_footer_links` in responses.
  */
 export const access_footer_links_output: JsonSchema = {
@@ -1906,6 +1156,21 @@ export const access_http_only_cookie_attribute_output: JsonSchema = {
  */
 export const access_image_url_output: JsonSchema = {
   "type": "string"
+};
+
+/**
+ * The schema of `access_infra_app_resp_embedded_policies` in responses.
+ */
+export const access_infra_app_resp_embedded_policies_output: JsonSchema = {
+  "properties": {
+    "policies": {
+      "items": {
+        "$ref": "#/$defs/access_infra_policy_resp"
+      },
+      "type": "array"
+    }
+  },
+  "type": "object"
 };
 
 /**
@@ -1956,6 +1221,41 @@ export const access_infra_policy_resp_output: JsonSchema = {
 };
 
 /**
+ * The schema of `access_infra_props` in responses.
+ */
+export const access_infra_props_output: JsonSchema = {
+  "allOf": [
+    {
+      "properties": {
+        "mfa_config": {
+          "$ref": "#/$defs/access_infra_mfa_config"
+        },
+        "name": {
+          "$ref": "#/$defs/access_name-8"
+        },
+        "session_duration": {
+          "type": "string"
+        },
+        "type": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/access_type"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    },
+    {
+      "$ref": "#/$defs/access_app_resp_embedded_target_criteria_infra"
+    }
+  ]
+};
+
+/**
  * The schema of `access_landing_page_design` in responses.
  */
 export const access_landing_page_design_output: JsonSchema = {
@@ -1994,6 +1294,155 @@ export const access_max_age_output: JsonSchema = {
 };
 
 /**
+ * The schema of `access_mcp_portal_props` in responses.
+ */
+export const access_mcp_portal_props_output: JsonSchema = {
+  "properties": {
+    "allow_authenticate_via_warp": {
+      "$ref": "#/$defs/access_allow_authenticate_via_warp-2"
+    },
+    "allowed_idps": {
+      "$ref": "#/$defs/access_allowed_idps"
+    },
+    "auto_redirect_to_identity": {
+      "$ref": "#/$defs/access_auto_redirect_to_identity-2"
+    },
+    "custom_deny_message": {
+      "$ref": "#/$defs/access_custom_deny_message"
+    },
+    "custom_deny_url": {
+      "$ref": "#/$defs/access_custom_deny_url"
+    },
+    "custom_non_identity_deny_url": {
+      "$ref": "#/$defs/access_custom_non_identity_deny_url"
+    },
+    "custom_pages": {
+      "$ref": "#/$defs/access_custom_pages-2"
+    },
+    "destinations": {
+      "$ref": "#/$defs/access_destinations"
+    },
+    "domain": {
+      "$ref": "#/$defs/access_domain"
+    },
+    "http_only_cookie_attribute": {
+      "$ref": "#/$defs/access_http_only_cookie_attribute"
+    },
+    "logo_url": {
+      "$ref": "#/$defs/access_logo_url"
+    },
+    "name": {
+      "$ref": "#/$defs/access_name-8"
+    },
+    "oauth_configuration": {
+      "$ref": "#/$defs/access_oauth_configuration"
+    },
+    "options_preflight_bypass": {
+      "$ref": "#/$defs/access_options_preflight_bypass"
+    },
+    "same_site_cookie_attribute": {
+      "$ref": "#/$defs/access_same_site_cookie_attribute"
+    },
+    "scim_config": {
+      "$ref": "#/$defs/access_scim_config"
+    },
+    "session_duration": {
+      "$ref": "#/$defs/access_session_duration-2"
+    },
+    "tags": {
+      "$ref": "#/$defs/access_tags-2"
+    },
+    "type": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/access_type"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    }
+  },
+  "required": [
+    "type"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `access_mcp_props` in responses.
+ */
+export const access_mcp_props_output: JsonSchema = {
+  "properties": {
+    "allow_authenticate_via_warp": {
+      "$ref": "#/$defs/access_allow_authenticate_via_warp-2"
+    },
+    "allowed_idps": {
+      "$ref": "#/$defs/access_allowed_idps"
+    },
+    "auto_redirect_to_identity": {
+      "$ref": "#/$defs/access_auto_redirect_to_identity-2"
+    },
+    "custom_deny_message": {
+      "$ref": "#/$defs/access_custom_deny_message"
+    },
+    "custom_deny_url": {
+      "$ref": "#/$defs/access_custom_deny_url"
+    },
+    "custom_non_identity_deny_url": {
+      "$ref": "#/$defs/access_custom_non_identity_deny_url"
+    },
+    "custom_pages": {
+      "$ref": "#/$defs/access_custom_pages-2"
+    },
+    "destinations": {
+      "$ref": "#/$defs/access_destinations"
+    },
+    "http_only_cookie_attribute": {
+      "$ref": "#/$defs/access_http_only_cookie_attribute"
+    },
+    "logo_url": {
+      "$ref": "#/$defs/access_logo_url"
+    },
+    "name": {
+      "$ref": "#/$defs/access_name-8"
+    },
+    "oauth_configuration": {
+      "$ref": "#/$defs/access_oauth_configuration"
+    },
+    "options_preflight_bypass": {
+      "$ref": "#/$defs/access_options_preflight_bypass"
+    },
+    "same_site_cookie_attribute": {
+      "$ref": "#/$defs/access_same_site_cookie_attribute"
+    },
+    "scim_config": {
+      "$ref": "#/$defs/access_scim_config"
+    },
+    "session_duration": {
+      "$ref": "#/$defs/access_session_duration-2"
+    },
+    "tags": {
+      "$ref": "#/$defs/access_tags-2"
+    },
+    "type": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/access_type"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    }
+  },
+  "required": [
+    "type"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `access_message` in responses.
  */
 export const access_message_output: JsonSchema = {
@@ -2013,53 +1462,38 @@ export const access_name_8_output: JsonSchema = {
 export const access_oauth_configuration_output: JsonSchema = {
   "properties": {
     "dynamic_client_registration": {
-      "$ref": "#/$defs/access_oauth_configuration_dynamic_client_registration"
+      "properties": {
+        "allow_any_on_localhost": {
+          "type": "boolean"
+        },
+        "allow_any_on_loopback": {
+          "type": "boolean"
+        },
+        "allowed_uris": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "enabled": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
     },
     "enabled": {
       "type": "boolean"
     },
     "grant": {
-      "$ref": "#/$defs/access_oauth_configuration_grant"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `access_oauth_configuration_dynamic_client_registration` in
- * responses.
- */
-export const access_oauth_configuration_dynamic_client_registration_output: JsonSchema = {
-  "properties": {
-    "allow_any_on_localhost": {
-      "type": "boolean"
-    },
-    "allow_any_on_loopback": {
-      "type": "boolean"
-    },
-    "allowed_uris": {
-      "items": {
-        "type": "string"
+      "properties": {
+        "access_token_lifetime": {
+          "type": "string"
+        },
+        "session_duration": {
+          "type": "string"
+        }
       },
-      "type": "array"
-    },
-    "enabled": {
-      "type": "boolean"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `access_oauth_configuration_grant` in responses.
- */
-export const access_oauth_configuration_grant_output: JsonSchema = {
-  "properties": {
-    "access_token_lifetime": {
-      "type": "string"
-    },
-    "session_duration": {
-      "type": "string"
+      "type": "object"
     }
   },
   "type": "object"
@@ -2097,7 +1531,38 @@ export const access_oidc_saas_app_output: JsonSchema = {
     },
     "custom_claims": {
       "items": {
-        "$ref": "#/$defs/access_oidc_saas_app_custom_claimsItem"
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "scope": {
+            "enum": [
+              "groups",
+              "profile",
+              "email",
+              "openid"
+            ],
+            "type": "string"
+          },
+          "source": {
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "name_by_idp": {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "type": "object"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "type": "object"
       },
       "type": "array"
     },
@@ -2118,7 +1583,15 @@ export const access_oidc_saas_app_output: JsonSchema = {
       "type": "string"
     },
     "hybrid_and_implicit_options": {
-      "$ref": "#/$defs/access_oidc_saas_app_hybrid_and_implicit_options"
+      "properties": {
+        "return_access_token_from_authorization_endpoint": {
+          "type": "boolean"
+        },
+        "return_id_token_from_authorization_endpoint": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
     },
     "public_key": {
       "type": "string"
@@ -2130,7 +1603,12 @@ export const access_oidc_saas_app_output: JsonSchema = {
       "type": "array"
     },
     "refresh_token_options": {
-      "$ref": "#/$defs/access_oidc_saas_app_refresh_token_options"
+      "properties": {
+        "lifetime": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "scopes": {
       "items": {
@@ -2152,79 +1630,6 @@ export const access_oidc_saas_app_output: JsonSchema = {
 };
 
 /**
- * The schema of `access_oidc_saas_app_custom_claimsItem` in responses.
- */
-export const access_oidc_saas_app_custom_claimsItem_output: JsonSchema = {
-  "properties": {
-    "name": {
-      "type": "string"
-    },
-    "required": {
-      "type": "boolean"
-    },
-    "scope": {
-      "enum": [
-        "groups",
-        "profile",
-        "email",
-        "openid"
-      ],
-      "type": "string"
-    },
-    "source": {
-      "$ref": "#/$defs/access_oidc_saas_app_custom_claimsItem_source"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `access_oidc_saas_app_custom_claimsItem_source` in responses.
- */
-export const access_oidc_saas_app_custom_claimsItem_source_output: JsonSchema = {
-  "properties": {
-    "name": {
-      "type": "string"
-    },
-    "name_by_idp": {
-      "additionalProperties": {
-        "type": "string"
-      },
-      "type": "object"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `access_oidc_saas_app_hybrid_and_implicit_options` in
- * responses.
- */
-export const access_oidc_saas_app_hybrid_and_implicit_options_output: JsonSchema = {
-  "properties": {
-    "return_access_token_from_authorization_endpoint": {
-      "type": "boolean"
-    },
-    "return_id_token_from_authorization_endpoint": {
-      "type": "boolean"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `access_oidc_saas_app_refresh_token_options` in responses.
- */
-export const access_oidc_saas_app_refresh_token_options_output: JsonSchema = {
-  "properties": {
-    "lifetime": {
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
  * The schema of `access_options_preflight_bypass` in responses.
  */
 export const access_options_preflight_bypass_output: JsonSchema = {
@@ -2236,6 +1641,13 @@ export const access_options_preflight_bypass_output: JsonSchema = {
  */
 export const access_path_cookie_attribute_output: JsonSchema = {
   "type": "boolean"
+};
+
+/**
+ * The schema of `access_port` in responses.
+ */
+export const access_port_output: JsonSchema = {
+  "type": "integer"
 };
 
 /**
@@ -2266,10 +1678,146 @@ export const access_protocol_self_hosted_app_output: JsonSchema = {
 };
 
 /**
+ * The schema of `access_proxy_endpoint_props` in responses.
+ */
+export const access_proxy_endpoint_props_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_feature_app_props"
+    },
+    {
+      "properties": {
+        "domain": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/access_type"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `access_rdp_props` in responses.
+ */
+export const access_rdp_props_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_app_resp_embedded_target_criteria_self_hosted"
+    },
+    {
+      "$ref": "#/$defs/access_self_hosted_props"
+    },
+    {
+      "properties": {
+        "type": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/access_type"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `access_read_service_tokens_from_header` in responses.
  */
 export const access_read_service_tokens_from_header_output: JsonSchema = {
   "type": "string"
+};
+
+/**
+ * The schema of `access_response_collection-8` in responses.
+ */
+export const access_response_collection_8_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/access_app_response"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `access_saas_props` in responses.
+ */
+export const access_saas_props_output: JsonSchema = {
+  "properties": {
+    "allowed_idps": {
+      "$ref": "#/$defs/access_allowed_idps"
+    },
+    "app_launcher_visible": {
+      "$ref": "#/$defs/access_app_launcher_visible"
+    },
+    "auto_redirect_to_identity": {
+      "$ref": "#/$defs/access_auto_redirect_to_identity-2"
+    },
+    "custom_pages": {
+      "$ref": "#/$defs/access_custom_pages-2"
+    },
+    "logo_url": {
+      "$ref": "#/$defs/access_logo_url"
+    },
+    "name": {
+      "$ref": "#/$defs/access_name-8"
+    },
+    "saas_app": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/access_saml_saas_app"
+        },
+        {
+          "$ref": "#/$defs/access_oidc_saas_app"
+        }
+      ]
+    },
+    "scim_config": {
+      "$ref": "#/$defs/access_scim_config"
+    },
+    "tags": {
+      "$ref": "#/$defs/access_tags-2"
+    },
+    "type": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/access_type"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    }
+  },
+  "type": "object"
 };
 
 /**
@@ -2299,7 +1847,48 @@ export const access_saml_saas_app_output: JsonSchema = {
     },
     "custom_attributes": {
       "items": {
-        "$ref": "#/$defs/access_saml_saas_app_custom_attributesItem"
+        "properties": {
+          "friendly_name": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "name_format": {
+            "enum": [
+              "urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified",
+              "urn:oasis:names:tc:SAML:2.0:attrname-format:basic",
+              "urn:oasis:names:tc:SAML:2.0:attrname-format:uri"
+            ],
+            "type": "string"
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "source": {
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "name_by_idp": {
+                "items": {
+                  "properties": {
+                    "idp_id": {
+                      "type": "string"
+                    },
+                    "source_name": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "type": "object"
       },
       "type": "array"
     },
@@ -2339,77 +1928,19 @@ export const access_saml_saas_app_output: JsonSchema = {
 };
 
 /**
- * The schema of `access_saml_saas_app_custom_attributesItem` in responses.
- */
-export const access_saml_saas_app_custom_attributesItem_output: JsonSchema = {
-  "properties": {
-    "friendly_name": {
-      "type": "string"
-    },
-    "name": {
-      "type": "string"
-    },
-    "name_format": {
-      "enum": [
-        "urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified",
-        "urn:oasis:names:tc:SAML:2.0:attrname-format:basic",
-        "urn:oasis:names:tc:SAML:2.0:attrname-format:uri"
-      ],
-      "type": "string"
-    },
-    "required": {
-      "type": "boolean"
-    },
-    "source": {
-      "$ref": "#/$defs/access_saml_saas_app_custom_attributesItem_source"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `access_saml_saas_app_custom_attributesItem_source` in
- * responses.
- */
-export const access_saml_saas_app_custom_attributesItem_source_output: JsonSchema = {
-  "properties": {
-    "name": {
-      "type": "string"
-    },
-    "name_by_idp": {
-      "items": {
-        "$ref": "#/$defs/access_saml_saas_app_custom_attributesItem_source_name_by_idpItem"
-      },
-      "type": "array"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of
- * `access_saml_saas_app_custom_attributesItem_source_name_by_idpItem` in
- * responses.
- */
-export const access_saml_saas_app_custom_attributesItem_source_name_by_idpItem_output: JsonSchema = {
-  "properties": {
-    "idp_id": {
-      "type": "string"
-    },
-    "source_name": {
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
  * The schema of `access_scim_config` in responses.
  */
 export const access_scim_config_output: JsonSchema = {
   "properties": {
     "authentication": {
-      "$ref": "#/$defs/access_scim_config_authentication"
+      "oneOf": [
+        {
+          "$ref": "#/$defs/access_scim_config_single_authentication"
+        },
+        {
+          "$ref": "#/$defs/access_scim_config_multi_authentication"
+        }
+      ]
     },
     "deactivate_on_delete": {
       "type": "boolean"
@@ -2435,20 +1966,6 @@ export const access_scim_config_output: JsonSchema = {
     "remote_uri"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `access_scim_config_authentication` in responses.
- */
-export const access_scim_config_authentication_output: JsonSchema = {
-  "oneOf": [
-    {
-      "$ref": "#/$defs/access_scim_config_single_authentication"
-    },
-    {
-      "$ref": "#/$defs/access_scim_config_multi_authentication"
-    }
-  ]
 };
 
 /**
@@ -2579,7 +2096,18 @@ export const access_scim_config_mapping_output: JsonSchema = {
       "type": "string"
     },
     "operations": {
-      "$ref": "#/$defs/access_scim_config_mapping_operations"
+      "properties": {
+        "create": {
+          "type": "boolean"
+        },
+        "delete": {
+          "type": "boolean"
+        },
+        "update": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
     },
     "schema": {
       "type": "string"
@@ -2598,24 +2126,6 @@ export const access_scim_config_mapping_output: JsonSchema = {
   "required": [
     "schema"
   ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_scim_config_mapping_operations` in responses.
- */
-export const access_scim_config_mapping_operations_output: JsonSchema = {
-  "properties": {
-    "create": {
-      "type": "boolean"
-    },
-    "delete": {
-      "type": "boolean"
-    },
-    "update": {
-      "type": "boolean"
-    }
-  },
   "type": "object"
 };
 
@@ -2660,6 +2170,119 @@ export const access_self_hosted_domains_output: JsonSchema = {
 };
 
 /**
+ * The schema of `access_self_hosted_props` in responses.
+ */
+export const access_self_hosted_props_output: JsonSchema = {
+  "properties": {
+    "allow_authenticate_via_warp": {
+      "$ref": "#/$defs/access_allow_authenticate_via_warp-2"
+    },
+    "allow_iframe": {
+      "$ref": "#/$defs/access_allow_iframe"
+    },
+    "allowed_idps": {
+      "$ref": "#/$defs/access_allowed_idps"
+    },
+    "app_launcher_visible": {
+      "$ref": "#/$defs/access_app_launcher_visible"
+    },
+    "auto_redirect_to_identity": {
+      "$ref": "#/$defs/access_auto_redirect_to_identity-2"
+    },
+    "cors_headers": {
+      "$ref": "#/$defs/access_cors_headers"
+    },
+    "custom_deny_message": {
+      "$ref": "#/$defs/access_custom_deny_message"
+    },
+    "custom_deny_url": {
+      "$ref": "#/$defs/access_custom_deny_url"
+    },
+    "custom_non_identity_deny_url": {
+      "$ref": "#/$defs/access_custom_non_identity_deny_url"
+    },
+    "custom_pages": {
+      "$ref": "#/$defs/access_custom_pages-2"
+    },
+    "destinations": {
+      "$ref": "#/$defs/access_destinations"
+    },
+    "domain": {
+      "$ref": "#/$defs/access_domain"
+    },
+    "eager_redirect_cookie_setting": {
+      "$ref": "#/$defs/access_eager_redirect_cookie_setting"
+    },
+    "enable_binding_cookie": {
+      "$ref": "#/$defs/access_enable_binding_cookie"
+    },
+    "http_only_cookie_attribute": {
+      "$ref": "#/$defs/access_http_only_cookie_attribute"
+    },
+    "logo_url": {
+      "$ref": "#/$defs/access_logo_url"
+    },
+    "mfa_config": {
+      "$ref": "#/$defs/access_mfa_config"
+    },
+    "name": {
+      "$ref": "#/$defs/access_name-8"
+    },
+    "oauth_configuration": {
+      "$ref": "#/$defs/access_oauth_configuration"
+    },
+    "options_preflight_bypass": {
+      "$ref": "#/$defs/access_options_preflight_bypass"
+    },
+    "path_cookie_attribute": {
+      "$ref": "#/$defs/access_path_cookie_attribute"
+    },
+    "read_service_tokens_from_header": {
+      "$ref": "#/$defs/access_read_service_tokens_from_header"
+    },
+    "same_site_cookie_attribute": {
+      "$ref": "#/$defs/access_same_site_cookie_attribute"
+    },
+    "scim_config": {
+      "$ref": "#/$defs/access_scim_config"
+    },
+    "self_hosted_domains": {
+      "$ref": "#/$defs/access_self_hosted_domains"
+    },
+    "service_auth_401_redirect": {
+      "$ref": "#/$defs/access_service_auth_401_redirect"
+    },
+    "session_duration": {
+      "$ref": "#/$defs/access_session_duration-2"
+    },
+    "skip_interstitial": {
+      "$ref": "#/$defs/access_skip_interstitial"
+    },
+    "tags": {
+      "$ref": "#/$defs/access_tags-2"
+    },
+    "type": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/access_type"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "use_clientless_isolation_app_launcher_url": {
+      "$ref": "#/$defs/access_use_clientless_isolation_app_launcher_url"
+    }
+  },
+  "required": [
+    "domain",
+    "type"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `access_service_auth_401_redirect` in responses.
  */
 export const access_service_auth_401_redirect_output: JsonSchema = {
@@ -2671,6 +2294,25 @@ export const access_service_auth_401_redirect_output: JsonSchema = {
  */
 export const access_session_duration_2_output: JsonSchema = {
   "type": "string"
+};
+
+/**
+ * The schema of `access_single_response-9` in responses.
+ */
+export const access_single_response_9_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/access_app_response"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**
@@ -2688,9 +2330,35 @@ export const access_skip_interstitial_output: JsonSchema = {
 };
 
 /**
- * The schema of `access_tags` in responses.
+ * The schema of `access_ssh_props` in responses.
  */
-export const access_tags_output: JsonSchema = {
+export const access_ssh_props_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_self_hosted_props"
+    },
+    {
+      "properties": {
+        "type": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/access_type"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `access_tags-2` in responses.
+ */
+export const access_tags_2_output: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -2698,17 +2366,52 @@ export const access_tags_output: JsonSchema = {
 };
 
 /**
+ * The schema of `access_target_attributes` in responses.
+ */
+export const access_target_attributes_output: JsonSchema = {
+  "additionalProperties": {
+    "items": {
+      "type": "string"
+    },
+    "type": "array"
+  },
+  "type": "object"
+};
+
+/**
+ * The schema of `access_target_criteria_base` in responses.
+ */
+export const access_target_criteria_base_output: JsonSchema = {
+  "properties": {
+    "exclude": {
+      "$ref": "#/$defs/access_target_rule"
+    },
+    "include": {
+      "$ref": "#/$defs/access_target_rule"
+    },
+    "port": {
+      "$ref": "#/$defs/access_port"
+    },
+    "require": {
+      "$ref": "#/$defs/access_target_rule"
+    },
+    "target_attributes": {
+      "$ref": "#/$defs/access_target_attributes"
+    }
+  },
+  "required": [
+    "port"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `access_target_criteria_infra_app` in responses.
  */
 export const access_target_criteria_infra_app_output: JsonSchema = {
-  "oneOf": [
+  "allOf": [
     {
-      "properties": {
-        "protocol": {
-          "$ref": "#/$defs/access_protocol_infra_app"
-        }
-      },
-      "type": "object"
+      "$ref": "#/$defs/access_target_criteria_base"
     },
     {
       "properties": {
@@ -2725,14 +2428,9 @@ export const access_target_criteria_infra_app_output: JsonSchema = {
  * The schema of `access_target_criteria_self_hosted_app` in responses.
  */
 export const access_target_criteria_self_hosted_app_output: JsonSchema = {
-  "oneOf": [
+  "allOf": [
     {
-      "properties": {
-        "protocol": {
-          "$ref": "#/$defs/access_protocol_self_hosted_app"
-        }
-      },
-      "type": "object"
+      "$ref": "#/$defs/access_target_criteria_base"
     },
     {
       "properties": {
@@ -2743,6 +2441,46 @@ export const access_target_criteria_self_hosted_app_output: JsonSchema = {
       "type": "object"
     }
   ]
+};
+
+/**
+ * The schema of `access_target_rule` in responses.
+ */
+export const access_target_rule_output: JsonSchema = {
+  "properties": {
+    "tags": {
+      "additionalProperties": {
+        "items": {
+          "type": "string"
+        },
+        "maxItems": 50,
+        "minItems": 1,
+        "type": "array"
+      },
+      "type": "object"
+    },
+    "target_attributes": {
+      "$ref": "#/$defs/access_target_rule_attributes"
+    }
+  },
+  "type": "object"
+};
+
+/**
+ * The schema of `access_target_rule_attributes` in responses.
+ */
+export const access_target_rule_attributes_output: JsonSchema = {
+  "properties": {
+    "hostname": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 5000,
+      "minItems": 1,
+      "type": "array"
+    }
+  },
+  "type": "object"
 };
 
 /**
@@ -2792,4 +2530,62 @@ export const access_usernames_output: JsonSchema = {
     "type": "string"
   },
   "type": "array"
+};
+
+/**
+ * The schema of `access_vnc_props` in responses.
+ */
+export const access_vnc_props_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_self_hosted_props"
+    },
+    {
+      "properties": {
+        "type": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/access_type"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `access_warp_props` in responses.
+ */
+export const access_warp_props_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_feature_app_props"
+    },
+    {
+      "properties": {
+        "domain": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/access_type"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
 };

@@ -7,8 +7,10 @@ import {
   zero_trust_gateway_messages_output,
   zero_trust_gateway_read_only_timestamp_output,
 } from "../../../outputs.js";
+import { zero_trust_gateway_identifier_2 } from "../../../schemas.js";
 import {
   zero_trust_gateway_api_response_collection_output,
+  zero_trust_gateway_api_response_common_output,
   zero_trust_gateway_result_info_output,
 } from "../../outputs.js";
 import {
@@ -16,6 +18,7 @@ import {
   zero_trust_gateway_items_output,
   zero_trust_gateway_value_output,
 } from "../outputs.js";
+import { zero_trust_gateway_uuid_2 } from "../schemas.js";
 import { zero_trust_gateway_list_item_response_collection_output } from "./outputs.js";
 
 /**
@@ -30,12 +33,12 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Specify the Cloudflare account identifier.",
-          "type": "string"
+          "$ref": "#/$defs/zero-trust-gateway_identifier-2",
+          "description": "Specify the Cloudflare account identifier."
         },
         "list_id": {
-          "description": "Identify the API resource with a UUID.",
-          "type": "string"
+          "$ref": "#/$defs/zero-trust-gateway_uuid-2",
+          "description": "Identify the API resource with a UUID."
         },
         "page": {
           "default": 1,
@@ -52,41 +55,22 @@ export const tools: readonly Tool[] = [
         "account_id",
         "list_id"
       ],
+      $defs: {
+        "zero-trust-gateway_identifier-2": zero_trust_gateway_identifier_2,
+        "zero-trust-gateway_uuid-2": zero_trust_gateway_uuid_2,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "$ref": "#/$defs/zero-trust-gateway_items"
-        },
-        "result_info": {
-          "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/zero-trust-gateway_list_item_response_collection",
       $defs: {
+        "zero-trust-gateway_api-response-collection": zero_trust_gateway_api_response_collection_output,
+        "zero-trust-gateway_api-response-common": zero_trust_gateway_api_response_common_output,
         "zero-trust-gateway_description_item": zero_trust_gateway_description_item_output,
         "zero-trust-gateway_items": zero_trust_gateway_items_output,
+        "zero-trust-gateway_list_item_response_collection": zero_trust_gateway_list_item_response_collection_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
         "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
+        "zero-trust-gateway_result_info": zero_trust_gateway_result_info_output,
         "zero-trust-gateway_value": zero_trust_gateway_value_output,
       },
     },
@@ -102,35 +86,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "$ref": "#/$defs/zero-trust-gateway_items"
-            },
-            "result_info": {
-              "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/zero-trust-gateway_list_item_response_collection"
         },
         "4XX": {
           "allOf": [
@@ -145,6 +101,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "zero-trust-gateway_api-response-collection": zero_trust_gateway_api_response_collection_output,
+        "zero-trust-gateway_api-response-common": zero_trust_gateway_api_response_common_output,
         "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
         "zero-trust-gateway_description_item": zero_trust_gateway_description_item_output,
         "zero-trust-gateway_items": zero_trust_gateway_items_output,

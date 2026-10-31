@@ -4,8 +4,11 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   logpush_api_response_common_failure_output,
+  logpush_api_response_common_output,
+  logpush_api_response_single_output,
   logpush_messages_output,
 } from "../outputs.js";
+import { logpush_identifier } from "../schemas.js";
 import {
   logpush_destination_conf_2_output,
   logpush_fields_output,
@@ -47,8 +50,8 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/logpush_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -58,23 +61,20 @@ export const tools: readonly Tool[] = [
       $defs: {
         "logpush_fields": logpush_fields,
         "logpush_filter-2": logpush_filter_2,
+        "logpush_identifier": logpush_identifier,
         "logpush_sample": logpush_sample,
       },
     },
     outputSchema: {
-      "oneOf": [
-        {
-          "$ref": "#/$defs/logpush_instant_logs_job"
-        },
-        {
-          "type": "null"
-        }
-      ],
+      "$ref": "#/$defs/logpush_instant_logs_job_response_single",
       $defs: {
+        "logpush_api-response-single": logpush_api_response_single_output,
         "logpush_destination_conf-2": logpush_destination_conf_2_output,
         "logpush_fields": logpush_fields_output,
         "logpush_filter-2": logpush_filter_2_output,
         "logpush_instant_logs_job": logpush_instant_logs_job_output,
+        "logpush_instant_logs_job_response_single": logpush_instant_logs_job_response_single_output,
+        "logpush_messages": logpush_messages_output,
         "logpush_sample": logpush_sample_output,
         "logpush_session_id": logpush_session_id_output,
       },
@@ -95,12 +95,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#logs:read"
-        ],
-        "x-fern-enum": {
-          "#logs:read": {
-            "name": "logs_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -112,14 +107,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "oneOf": [
-            {
-              "$ref": "#/$defs/logpush_instant_logs_job"
-            },
-            {
-              "type": "null"
-            }
-          ]
+          "$ref": "#/$defs/logpush_instant_logs_job_response_single"
         },
         "4XX": {
           "allOf": [
@@ -134,6 +122,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "logpush_api-response-common-failure": logpush_api_response_common_failure_output,
+        "logpush_api-response-single": logpush_api_response_single_output,
         "logpush_destination_conf-2": logpush_destination_conf_2_output,
         "logpush_fields": logpush_fields_output,
         "logpush_filter-2": logpush_filter_2_output,
@@ -157,42 +146,27 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/logpush_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "logpush_identifier": logpush_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "oneOf": [
-              {
-                "$ref": "#/$defs/logpush_instant_logs_job"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/logpush_instant_logs_job_response_collection",
       $defs: {
+        "logpush_api-response-common": logpush_api_response_common_output,
         "logpush_destination_conf-2": logpush_destination_conf_2_output,
         "logpush_fields": logpush_fields_output,
         "logpush_filter-2": logpush_filter_2_output,
         "logpush_instant_logs_job": logpush_instant_logs_job_output,
+        "logpush_instant_logs_job_response_collection": logpush_instant_logs_job_response_collection_output,
+        "logpush_messages": logpush_messages_output,
         "logpush_sample": logpush_sample_output,
         "logpush_session_id": logpush_session_id_output,
       },
@@ -213,12 +187,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#logs:read"
-        ],
-        "x-fern-enum": {
-          "#logs:read": {
-            "name": "logs_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -230,28 +199,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "oneOf": [
-                  {
-                    "$ref": "#/$defs/logpush_instant_logs_job"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/logpush_instant_logs_job_response_collection"
         },
         "4XX": {
           "allOf": [
@@ -265,6 +213,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "logpush_api-response-common": logpush_api_response_common_output,
         "logpush_api-response-common-failure": logpush_api_response_common_failure_output,
         "logpush_destination_conf-2": logpush_destination_conf_2_output,
         "logpush_fields": logpush_fields_output,

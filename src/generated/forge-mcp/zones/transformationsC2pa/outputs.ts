@@ -7,36 +7,25 @@ import type { JsonSchema } from "../../_/tool.js";
  * The schema of `speed_transformations_c2pa_response` in responses.
  */
 export const speed_transformations_c2pa_response_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/speed_base"
     },
-    "id": {
-      "enum": [
-        "image_resizing_c2pa"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "image_resizing_c2pa"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/speed_transformations_c2pa_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/speed_transformations_c2pa_value"
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };
 
 /**

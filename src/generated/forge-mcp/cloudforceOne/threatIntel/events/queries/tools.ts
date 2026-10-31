@@ -256,7 +256,7 @@ export const tools: readonly Tool[] = [
         },
         "query_id": {
           "description": "Event query ID",
-          "type": "string"
+          "type": "integer"
         }
       },
       required: [
@@ -330,7 +330,7 @@ export const tools: readonly Tool[] = [
         },
         "query_id": {
           "description": "Event query ID",
-          "type": "string"
+          "type": "integer"
         }
       },
       required: [
@@ -765,7 +765,7 @@ export const tools: readonly Tool[] = [
         },
         "query_id": {
           "description": "Event query ID",
-          "type": "string"
+          "type": "integer"
         }
       },
       required: [

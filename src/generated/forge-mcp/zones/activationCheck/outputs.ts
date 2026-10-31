@@ -34,6 +34,32 @@ export const zone_activation_api_response_common_failure_output: JsonSchema = {
 };
 
 /**
+ * The schema of `zone-activation_api-response-single` in responses.
+ */
+export const zone_activation_api_response_single_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/zone-activation_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/zone-activation_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `zone-activation_identifier` in responses.
  */
 export const zone_activation_identifier_output: JsonSchema = {

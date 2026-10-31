@@ -27,6 +27,36 @@ export const pay_per_crawl_PPUOperatorConfiguration_output: JsonSchema = {
 };
 
 /**
+ * The schema of `pay-per-crawl_PPUOperatorConfigurationResponse` in responses.
+ */
+export const pay_per_crawl_PPUOperatorConfigurationResponse_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "items": {
+        "$ref": "#/$defs/pay-per-crawl_Msg"
+      },
+      "type": "array"
+    },
+    "messages": {
+      "items": {
+        "$ref": "#/$defs/pay-per-crawl_Msg"
+      },
+      "type": "array"
+    },
+    "result": {
+      "$ref": "#/$defs/pay-per-crawl_PPUOperatorConfiguration"
+    },
+    "result_info": {
+      "$ref": "#/$defs/pay-per-crawl_ResultInfo"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "type": "object"
+};
+
+/**
  * The schema of `pay-per-crawl_PPUOperatorConfigurationResult` in responses.
  */
 export const pay_per_crawl_PPUOperatorConfigurationResult_output: JsonSchema = {
@@ -58,5 +88,36 @@ export const pay_per_crawl_PPUOperatorConfigurationResult_output: JsonSchema = {
     "name",
     "non_billable_since"
   ],
+  "type": "object"
+};
+
+/**
+ * The schema of `pay-per-crawl_PPUOperatorConfigurationResultResponse` in
+ * responses.
+ */
+export const pay_per_crawl_PPUOperatorConfigurationResultResponse_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "items": {
+        "$ref": "#/$defs/pay-per-crawl_Msg"
+      },
+      "type": "array"
+    },
+    "messages": {
+      "items": {
+        "$ref": "#/$defs/pay-per-crawl_Msg"
+      },
+      "type": "array"
+    },
+    "result": {
+      "$ref": "#/$defs/pay-per-crawl_PPUOperatorConfigurationResult"
+    },
+    "result_info": {
+      "$ref": "#/$defs/pay-per-crawl_ResultInfo"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
   "type": "object"
 };

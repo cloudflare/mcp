@@ -18,3 +18,11 @@ export const workers_tag_patch: JsonSchema = {
   ],
   "type": "object"
 };
+
+/**
+ * The schema of `workers_typed_tag_key`.
+ */
+export const workers_typed_tag_key: JsonSchema = {
+  "description": "A typed tag key containing only Unicode letters or numbers, underscores, periods, or hyphens. The complete UTF-8 encoded tag (the key plus `=` and the value when the value is non-empty) must not exceed 1024 bytes. Cloudflare-reserved prefixes are not accepted.",
+  "type": "string"
+};

@@ -5,8 +5,10 @@ import { type Tool, pathParam } from "../_/tool.js";
 import {
   security_center_api_response_common_failure_output,
   security_center_api_response_common_output,
+  security_center_api_response_single_output,
   security_center_messages_output,
 } from "../outputs.js";
+import { security_center_identifier } from "../schemas.js";
 import { security_center_securityTxt_output } from "./outputs.js";
 import { security_center_securityTxt } from "./schemas.js";
 
@@ -22,18 +24,21 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/security-center_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "security-center_identifier": security_center_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/security-center_api-response-common",
+      "$ref": "#/$defs/security-center_api-response-single",
       $defs: {
-        "security-center_api-response-common": security_center_api_response_common_output,
+        "security-center_api-response-single": security_center_api_response_single_output,
         "security-center_messages": security_center_messages_output,
       },
     },
@@ -54,15 +59,15 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/security-center_api-response-common"
+          "$ref": "#/$defs/security-center_api-response-single"
         },
         "4XX": {
           "$ref": "#/$defs/security-center_api-response-common-failure"
         }
       },
       $defs: {
-        "security-center_api-response-common": security_center_api_response_common_output,
         "security-center_api-response-common-failure": security_center_api_response_common_failure_output,
+        "security-center_api-response-single": security_center_api_response_single_output,
         "security-center_messages": security_center_messages_output,
       },
     },
@@ -78,17 +83,34 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/security-center_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "security-center_identifier": security_center_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/security-center_securityTxt",
+      "allOf": [
+        {
+          "$ref": "#/$defs/security-center_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/security-center_securityTxt"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "security-center_api-response-common": security_center_api_response_common_output,
+        "security-center_messages": security_center_messages_output,
         "security-center_securityTxt": security_center_securityTxt_output,
       },
     },
@@ -110,13 +132,26 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/security-center_securityTxt"
+          "allOf": [
+            {
+              "$ref": "#/$defs/security-center_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/security-center_securityTxt"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/security-center_api-response-common-failure"
         }
       },
       $defs: {
+        "security-center_api-response-common": security_center_api_response_common_output,
         "security-center_api-response-common-failure": security_center_api_response_common_failure_output,
         "security-center_messages": security_center_messages_output,
         "security-center_securityTxt": security_center_securityTxt_output,
@@ -137,8 +172,8 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/security-center_securityTxt"
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/security-center_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -146,13 +181,14 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "security-center_identifier": security_center_identifier,
         "security-center_securityTxt": security_center_securityTxt,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/security-center_api-response-common",
+      "$ref": "#/$defs/security-center_api-response-single",
       $defs: {
-        "security-center_api-response-common": security_center_api_response_common_output,
+        "security-center_api-response-single": security_center_api_response_single_output,
         "security-center_messages": security_center_messages_output,
       },
     },
@@ -173,15 +209,15 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/security-center_api-response-common"
+          "$ref": "#/$defs/security-center_api-response-single"
         },
         "4XX": {
           "$ref": "#/$defs/security-center_api-response-common-failure"
         }
       },
       $defs: {
-        "security-center_api-response-common": security_center_api_response_common_output,
         "security-center_api-response-common-failure": security_center_api_response_common_failure_output,
+        "security-center_api-response-single": security_center_api_response_single_output,
         "security-center_messages": security_center_messages_output,
       },
     },

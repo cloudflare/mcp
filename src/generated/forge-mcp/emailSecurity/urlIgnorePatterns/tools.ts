@@ -3,7 +3,10 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  email_security_api_response_collection_output,
   email_security_api_response_common_failure_output,
+  email_security_api_response_common_output,
+  email_security_api_response_single_output,
   email_security_messages_output,
 } from "../outputs.js";
 import { email_security_identifier } from "../schemas.js";
@@ -62,8 +65,7 @@ export const tools: readonly Tool[] = [
                   {
                     "properties": {
                       "id": {
-                        "$ref": "#/$defs/email-security_UrlIgnorePatternId",
-                        "description": "URL ignore pattern identifier."
+                        "$ref": "#/$defs/email-security_UrlIgnorePatternId"
                       }
                     },
                     "required": [
@@ -94,8 +96,7 @@ export const tools: readonly Tool[] = [
                   {
                     "properties": {
                       "id": {
-                        "$ref": "#/$defs/email-security_UrlIgnorePatternId",
-                        "description": "URL ignore pattern identifier."
+                        "$ref": "#/$defs/email-security_UrlIgnorePatternId"
                       }
                     },
                     "required": [
@@ -130,43 +131,60 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "deletes": {
-          "items": {
-            "$ref": "#/$defs/email-security_DeletedUrlIgnorePattern"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-security_api-response-common"
         },
-        "patches": {
-          "items": {
-            "$ref": "#/$defs/email-security_UrlIgnorePattern"
+        {
+          "properties": {
+            "result": {
+              "properties": {
+                "deletes": {
+                  "items": {
+                    "$ref": "#/$defs/email-security_DeletedUrlIgnorePattern"
+                  },
+                  "type": "array"
+                },
+                "patches": {
+                  "items": {
+                    "$ref": "#/$defs/email-security_UrlIgnorePattern"
+                  },
+                  "type": "array"
+                },
+                "posts": {
+                  "items": {
+                    "$ref": "#/$defs/email-security_UrlIgnorePattern"
+                  },
+                  "type": "array"
+                },
+                "puts": {
+                  "items": {
+                    "$ref": "#/$defs/email-security_UrlIgnorePattern"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "deletes",
+                "patches",
+                "posts",
+                "puts"
+              ],
+              "type": "object"
+            }
           },
-          "type": "array"
-        },
-        "posts": {
-          "items": {
-            "$ref": "#/$defs/email-security_UrlIgnorePattern"
-          },
-          "type": "array"
-        },
-        "puts": {
-          "items": {
-            "$ref": "#/$defs/email-security_UrlIgnorePattern"
-          },
-          "type": "array"
+          "required": [
+            "result"
+          ],
+          "type": "object"
         }
-      },
-      "required": [
-        "deletes",
-        "patches",
-        "posts",
-        "puts"
       ],
-      "type": "object",
       $defs: {
         "email-security_DeletedUrlIgnorePattern": email_security_DeletedUrlIgnorePattern_output,
         "email-security_UrlIgnorePattern": email_security_UrlIgnorePattern_output,
         "email-security_UrlIgnorePatternId": email_security_UrlIgnorePatternId_output,
+        "email-security_api-response-common": email_security_api_response_common_output,
+        "email-security_messages": email_security_messages_output,
       },
     },
     annotations: {
@@ -187,39 +205,54 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "deletes": {
-              "items": {
-                "$ref": "#/$defs/email-security_DeletedUrlIgnorePattern"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-security_api-response-common"
             },
-            "patches": {
-              "items": {
-                "$ref": "#/$defs/email-security_UrlIgnorePattern"
+            {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "deletes": {
+                      "items": {
+                        "$ref": "#/$defs/email-security_DeletedUrlIgnorePattern"
+                      },
+                      "type": "array"
+                    },
+                    "patches": {
+                      "items": {
+                        "$ref": "#/$defs/email-security_UrlIgnorePattern"
+                      },
+                      "type": "array"
+                    },
+                    "posts": {
+                      "items": {
+                        "$ref": "#/$defs/email-security_UrlIgnorePattern"
+                      },
+                      "type": "array"
+                    },
+                    "puts": {
+                      "items": {
+                        "$ref": "#/$defs/email-security_UrlIgnorePattern"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "deletes",
+                    "patches",
+                    "posts",
+                    "puts"
+                  ],
+                  "type": "object"
+                }
               },
-              "type": "array"
-            },
-            "posts": {
-              "items": {
-                "$ref": "#/$defs/email-security_UrlIgnorePattern"
-              },
-              "type": "array"
-            },
-            "puts": {
-              "items": {
-                "$ref": "#/$defs/email-security_UrlIgnorePattern"
-              },
-              "type": "array"
+              "required": [
+                "result"
+              ],
+              "type": "object"
             }
-          },
-          "required": [
-            "deletes",
-            "patches",
-            "posts",
-            "puts"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-security_api-response-common-failure"
@@ -229,6 +262,7 @@ export const tools: readonly Tool[] = [
         "email-security_DeletedUrlIgnorePattern": email_security_DeletedUrlIgnorePattern_output,
         "email-security_UrlIgnorePattern": email_security_UrlIgnorePattern_output,
         "email-security_UrlIgnorePatternId": email_security_UrlIgnorePatternId_output,
+        "email-security_api-response-common": email_security_api_response_common_output,
         "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
         "email-security_messages": email_security_messages_output,
       },
@@ -263,10 +297,24 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/email-security_UrlIgnorePattern",
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-security_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/email-security_UrlIgnorePattern"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "email-security_UrlIgnorePattern": email_security_UrlIgnorePattern_output,
         "email-security_UrlIgnorePatternId": email_security_UrlIgnorePatternId_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
+        "email-security_messages": email_security_messages_output,
       },
     },
     annotations: {
@@ -287,7 +335,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "201": {
-          "$ref": "#/$defs/email-security_UrlIgnorePattern"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-security_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/email-security_UrlIgnorePattern"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-security_api-response-common-failure"
@@ -297,6 +357,7 @@ export const tools: readonly Tool[] = [
         "email-security_UrlIgnorePattern": email_security_UrlIgnorePattern_output,
         "email-security_UrlIgnorePatternId": email_security_UrlIgnorePatternId_output,
         "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
         "email-security_messages": email_security_messages_output,
       },
     },
@@ -331,10 +392,24 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/email-security_DeletedUrlIgnorePattern",
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-security_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/email-security_DeletedUrlIgnorePattern"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "email-security_DeletedUrlIgnorePattern": email_security_DeletedUrlIgnorePattern_output,
         "email-security_UrlIgnorePatternId": email_security_UrlIgnorePatternId_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
+        "email-security_messages": email_security_messages_output,
       },
     },
     annotations: {
@@ -355,7 +430,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/email-security_DeletedUrlIgnorePattern"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-security_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/email-security_DeletedUrlIgnorePattern"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-security_api-response-common-failure"
@@ -365,6 +452,7 @@ export const tools: readonly Tool[] = [
         "email-security_DeletedUrlIgnorePattern": email_security_DeletedUrlIgnorePattern_output,
         "email-security_UrlIgnorePatternId": email_security_UrlIgnorePatternId_output,
         "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
         "email-security_messages": email_security_messages_output,
       },
     },
@@ -403,10 +491,24 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/email-security_UrlIgnorePattern",
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-security_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/email-security_UrlIgnorePattern"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "email-security_UrlIgnorePattern": email_security_UrlIgnorePattern_output,
         "email-security_UrlIgnorePatternId": email_security_UrlIgnorePatternId_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
+        "email-security_messages": email_security_messages_output,
       },
     },
     annotations: {
@@ -427,7 +529,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/email-security_UrlIgnorePattern"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-security_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/email-security_UrlIgnorePattern"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-security_api-response-common-failure"
@@ -437,6 +551,7 @@ export const tools: readonly Tool[] = [
         "email-security_UrlIgnorePattern": email_security_UrlIgnorePattern_output,
         "email-security_UrlIgnorePatternId": email_security_UrlIgnorePatternId_output,
         "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
         "email-security_messages": email_security_messages_output,
       },
     },
@@ -471,10 +586,24 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/email-security_UrlIgnorePattern",
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-security_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/email-security_UrlIgnorePattern"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "email-security_UrlIgnorePattern": email_security_UrlIgnorePattern_output,
         "email-security_UrlIgnorePatternId": email_security_UrlIgnorePatternId_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
+        "email-security_messages": email_security_messages_output,
       },
     },
     annotations: {
@@ -496,7 +625,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/email-security_UrlIgnorePattern"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-security_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/email-security_UrlIgnorePattern"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-security_api-response-common-failure"
@@ -506,6 +647,7 @@ export const tools: readonly Tool[] = [
         "email-security_UrlIgnorePattern": email_security_UrlIgnorePattern_output,
         "email-security_UrlIgnorePatternId": email_security_UrlIgnorePatternId_output,
         "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
         "email-security_messages": email_security_messages_output,
       },
     },
@@ -543,38 +685,28 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/email-security_UrlIgnorePattern"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-security_api-response-collection"
         },
-        "result_info": {
+        {
           "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
+            "result": {
+              "items": {
+                "$ref": "#/$defs/email-security_UrlIgnorePattern"
+              },
+              "type": "array"
             }
           },
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
         "email-security_UrlIgnorePattern": email_security_UrlIgnorePattern_output,
         "email-security_UrlIgnorePatternId": email_security_UrlIgnorePatternId_output,
+        "email-security_api-response-collection": email_security_api_response_collection_output,
+        "email-security_api-response-common": email_security_api_response_common_output,
+        "email-security_messages": email_security_messages_output,
       },
     },
     annotations: {
@@ -596,35 +728,22 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/email-security_UrlIgnorePattern"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-security_api-response-collection"
             },
-            "result_info": {
+            {
               "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/email-security_UrlIgnorePattern"
+                  },
+                  "type": "array"
                 }
               },
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-security_api-response-common-failure"
@@ -633,6 +752,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email-security_UrlIgnorePattern": email_security_UrlIgnorePattern_output,
         "email-security_UrlIgnorePatternId": email_security_UrlIgnorePatternId_output,
+        "email-security_api-response-collection": email_security_api_response_collection_output,
+        "email-security_api-response-common": email_security_api_response_common_output,
         "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
         "email-security_messages": email_security_messages_output,
       },

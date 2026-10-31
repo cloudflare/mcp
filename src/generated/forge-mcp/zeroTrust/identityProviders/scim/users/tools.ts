@@ -3,12 +3,17 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
+  access_api_response_collection_output,
   access_api_response_common_failure_output,
+  access_api_response_common_output,
+  access_api_response_single_output,
   access_messages_output,
 } from "../../../outputs.js";
+import { access_identifier, access_uuid } from "../../../schemas.js";
 import { access_id_output, access_meta_output } from "../outputs.js";
 import {
-  access_users_emailsItem_output,
+  access_scim_user_response_output,
+  access_scim_users_response_output,
   access_users_output,
 } from "./outputs.js";
 import {
@@ -31,16 +36,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         },
         "identity_provider_id": {
-          "description": "UUID.",
-          "type": "string"
+          "$ref": "#/$defs/access_uuid",
+          "description": "UUID."
         },
         "user_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -48,6 +53,10 @@ export const tools: readonly Tool[] = [
         "identity_provider_id",
         "user_id"
       ],
+      $defs: {
+        "access_identifier": access_identifier,
+        "access_uuid": access_uuid,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -87,16 +96,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         },
         "identity_provider_id": {
-          "description": "UUID.",
-          "type": "string"
+          "$ref": "#/$defs/access_uuid",
+          "description": "UUID."
         },
         "user_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -104,14 +113,20 @@ export const tools: readonly Tool[] = [
         "identity_provider_id",
         "user_id"
       ],
+      $defs: {
+        "access_identifier": access_identifier,
+        "access_uuid": access_uuid,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/access_users",
+      "$ref": "#/$defs/access_scim_user_response",
       $defs: {
+        "access_api-response-single": access_api_response_single_output,
         "access_id": access_id_output,
+        "access_messages": access_messages_output,
         "access_meta": access_meta_output,
+        "access_scim_user_response": access_scim_user_response_output,
         "access_users": access_users_output,
-        "access_users_emailsItem": access_users_emailsItem_output,
       },
     },
     annotations: {
@@ -132,7 +147,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/access_users"
+          "$ref": "#/$defs/access_scim_user_response"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -140,11 +155,12 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_id": access_id_output,
         "access_messages": access_messages_output,
         "access_meta": access_meta_output,
+        "access_scim_user_response": access_scim_user_response_output,
         "access_users": access_users_output,
-        "access_users_emailsItem": access_users_emailsItem_output,
       },
     },
     request: (args) => ({
@@ -159,8 +175,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         },
         "cf_resource_id": {
           "$ref": "#/$defs/access_cf_resource_id-2",
@@ -171,8 +187,8 @@ export const tools: readonly Tool[] = [
           "description": "The email address of the SCIM User resource."
         },
         "identity_provider_id": {
-          "description": "UUID.",
-          "type": "string"
+          "$ref": "#/$defs/access_uuid",
+          "description": "UUID."
         },
         "idp_resource_id": {
           "$ref": "#/$defs/access_idp_resource_id-2",
@@ -204,49 +220,23 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_cf_resource_id-2": access_cf_resource_id_2,
         "access_email": access_email,
+        "access_identifier": access_identifier,
         "access_idp_resource_id-2": access_idp_resource_id_2,
         "access_name-5": access_name_5,
         "access_username": access_username,
+        "access_uuid": access_uuid,
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/access_users"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/access_scim_users_response",
       $defs: {
+        "access_api-response-collection": access_api_response_collection_output,
+        "access_api-response-common": access_api_response_common_output,
         "access_id": access_id_output,
+        "access_messages": access_messages_output,
         "access_meta": access_meta_output,
+        "access_scim_users_response": access_scim_users_response_output,
         "access_users": access_users_output,
-        "access_users_emailsItem": access_users_emailsItem_output,
       },
     },
     annotations: {
@@ -267,50 +257,21 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/access_users"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/access_scim_users_response"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
         }
       },
       $defs: {
+        "access_api-response-collection": access_api_response_collection_output,
+        "access_api-response-common": access_api_response_common_output,
         "access_api-response-common-failure": access_api_response_common_failure_output,
         "access_id": access_id_output,
         "access_messages": access_messages_output,
         "access_meta": access_meta_output,
+        "access_scim_users_response": access_scim_users_response_output,
         "access_users": access_users_output,
-        "access_users_emailsItem": access_users_emailsItem_output,
       },
     },
     request: (args) => ({

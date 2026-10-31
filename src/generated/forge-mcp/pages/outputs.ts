@@ -4,6 +4,68 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
+ * The schema of `pages_api-response-collection` in responses.
+ */
+export const pages_api_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/pages_api-response-common"
+    },
+    {
+      "properties": {
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `pages_api-response-common` in responses.
+ */
+export const pages_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/pages_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/pages_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `pages_api-response-common-failure` in responses.
  */
 export const pages_api_response_common_failure_output: JsonSchema = {
@@ -132,7 +194,44 @@ export const pages_deployment_output: JsonSchema = {
       "type": "string"
     },
     "deployment_trigger": {
-      "$ref": "#/$defs/pages_deployment_deployment_trigger"
+      "properties": {
+        "metadata": {
+          "properties": {
+            "branch": {
+              "type": "string"
+            },
+            "commit_dirty": {
+              "type": "boolean"
+            },
+            "commit_hash": {
+              "type": "string"
+            },
+            "commit_message": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "branch",
+            "commit_dirty",
+            "commit_hash",
+            "commit_message"
+          ],
+          "type": "object"
+        },
+        "type": {
+          "enum": [
+            "github:push",
+            "ad_hoc",
+            "deploy_hook"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "metadata",
+        "type"
+      ],
+      "type": "object"
     },
     "env_vars": {
       "$ref": "#/$defs/pages_env_vars"
@@ -353,7 +452,15 @@ export const pages_deployment_config_values_output: JsonSchema = {
       "type": "object"
     },
     "limits": {
-      "$ref": "#/$defs/pages_deployment_config_values_limits"
+      "properties": {
+        "cpu_ms": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "cpu_ms"
+      ],
+      "type": "object"
     },
     "mtls_certificates": {
       "additionalProperties": {
@@ -370,7 +477,15 @@ export const pages_deployment_config_values_output: JsonSchema = {
       "type": "object"
     },
     "placement": {
-      "$ref": "#/$defs/pages_deployment_config_values_placement"
+      "properties": {
+        "mode": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "mode"
+      ],
+      "type": "object"
     },
     "queue_producers": {
       "additionalProperties": {
@@ -477,87 +592,6 @@ export const pages_deployment_config_values_output: JsonSchema = {
 };
 
 /**
- * The schema of `pages_deployment_config_values_limits` in responses.
- */
-export const pages_deployment_config_values_limits_output: JsonSchema = {
-  "properties": {
-    "cpu_ms": {
-      "type": "integer"
-    }
-  },
-  "required": [
-    "cpu_ms"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `pages_deployment_config_values_placement` in responses.
- */
-export const pages_deployment_config_values_placement_output: JsonSchema = {
-  "properties": {
-    "mode": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "mode"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `pages_deployment_deployment_trigger` in responses.
- */
-export const pages_deployment_deployment_trigger_output: JsonSchema = {
-  "properties": {
-    "metadata": {
-      "$ref": "#/$defs/pages_deployment_deployment_trigger_metadata"
-    },
-    "type": {
-      "enum": [
-        "github:push",
-        "ad_hoc",
-        "deploy_hook"
-      ],
-      "type": "string"
-    }
-  },
-  "required": [
-    "metadata",
-    "type"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `pages_deployment_deployment_trigger_metadata` in responses.
- */
-export const pages_deployment_deployment_trigger_metadata_output: JsonSchema = {
-  "properties": {
-    "branch": {
-      "type": "string"
-    },
-    "commit_dirty": {
-      "type": "boolean"
-    },
-    "commit_hash": {
-      "type": "string"
-    },
-    "commit_message": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "branch",
-    "commit_dirty",
-    "commit_hash",
-    "commit_message"
-  ],
-  "type": "object"
-};
-
-/**
  * The schema of `pages_env_vars` in responses.
  */
 export const pages_env_vars_output: JsonSchema = {
@@ -659,7 +693,19 @@ export const pages_project_output: JsonSchema = {
       "$ref": "#/$defs/pages_build_config"
     },
     "build_image_auto_upgrade": {
-      "$ref": "#/$defs/pages_project_build_image_auto_upgrade"
+      "properties": {
+        "from_version": {
+          "type": "integer"
+        },
+        "to_version": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "from_version",
+        "to_version"
+      ],
+      "type": "object"
     },
     "canonical_deployment": {
       "$ref": "#/$defs/pages_deployment"
@@ -669,7 +715,19 @@ export const pages_project_output: JsonSchema = {
       "type": "string"
     },
     "deployment_configs": {
-      "$ref": "#/$defs/pages_project_deployment_configs"
+      "properties": {
+        "preview": {
+          "$ref": "#/$defs/pages_deployment_config_values"
+        },
+        "production": {
+          "$ref": "#/$defs/pages_deployment_config_values"
+        }
+      },
+      "required": [
+        "preview",
+        "production"
+      ],
+      "type": "object"
     },
     "domains": {
       "items": {
@@ -731,44 +789,6 @@ export const pages_project_output: JsonSchema = {
     "production_branch",
     "production_script_name",
     "uses_functions"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `pages_project_build_image_auto_upgrade` in responses.
- */
-export const pages_project_build_image_auto_upgrade_output: JsonSchema = {
-  "properties": {
-    "from_version": {
-      "type": "integer"
-    },
-    "to_version": {
-      "type": "integer"
-    }
-  },
-  "required": [
-    "from_version",
-    "to_version"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `pages_project_deployment_configs` in responses.
- */
-export const pages_project_deployment_configs_output: JsonSchema = {
-  "properties": {
-    "preview": {
-      "$ref": "#/$defs/pages_deployment_config_values"
-    },
-    "production": {
-      "$ref": "#/$defs/pages_deployment_config_values"
-    }
-  },
-  "required": [
-    "preview",
-    "production"
   ],
   "type": "object"
 };

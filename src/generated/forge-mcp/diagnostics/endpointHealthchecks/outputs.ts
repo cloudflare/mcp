@@ -4,32 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `magic-transit_api-response-common` in responses.
- */
-export const magic_transit_api_response_common_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/magic-transit_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/magic-transit_messages"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
  * The schema of `magic-transit_check_type` in responses.
  */
 export const magic_transit_check_type_output: JsonSchema = {
@@ -40,9 +14,9 @@ export const magic_transit_check_type_output: JsonSchema = {
 };
 
 /**
- * The schema of `magic-transit_endpoint_health_check_response` in responses.
+ * The schema of `magic-transit_endpoint_health_check` in responses.
  */
-export const magic_transit_endpoint_health_check_response_output: JsonSchema = {
+export const magic_transit_endpoint_health_check_output: JsonSchema = {
   "properties": {
     "check_type": {
       "$ref": "#/$defs/magic-transit_check_type"
@@ -50,19 +24,77 @@ export const magic_transit_endpoint_health_check_response_output: JsonSchema = {
     "endpoint": {
       "type": "string"
     },
-    "id": {
-      "$ref": "#/$defs/magic-transit_uuid"
-    },
     "name": {
       "type": "string"
     }
   },
   "required": [
     "check_type",
-    "endpoint",
-    "id"
+    "endpoint"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `magic-transit_endpoint_health_check_response` in responses.
+ */
+export const magic_transit_endpoint_health_check_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic-transit_endpoint_health_check"
+    },
+    {
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/magic-transit_uuid"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `magic-transit_endpoint_health_check_response_collection` in
+ * responses.
+ */
+export const magic_transit_endpoint_health_check_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic-transit_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/magic-transit_endpoint_health_check_response"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `magic-transit_endpoint_health_check_response_single` in
+ * responses.
+ */
+export const magic_transit_endpoint_health_check_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic-transit_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/magic-transit_endpoint_health_check_response"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**

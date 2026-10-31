@@ -39,3 +39,11 @@ export const magic_transit_endpoint_health_check: JsonSchema = {
   ],
   "type": "object"
 };
+
+/**
+ * The schema of `magic-transit_uuid`.
+ */
+export const magic_transit_uuid: JsonSchema = {
+  "description": "UUID.",
+  "type": "string"
+};

@@ -7,7 +7,9 @@ import {
   usage_analytics_api_message_output,
   usage_analytics_error_response_output,
   usage_analytics_stream_usage_data_point_output,
+  usage_analytics_stream_usage_response_output,
 } from "../../outputs.js";
+import { usage_analytics_identifier } from "../../schemas.js";
 
 /**
  * The tools of `media.usage`.
@@ -29,8 +31,8 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/usage-analytics_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "filters": {
           "description": "Filter expressions to apply to the query. Format: field==value. Multiple filters can be combined.\n",
@@ -73,25 +75,17 @@ export const tools: readonly Tool[] = [
         "account_or_zone",
         "account_or_zone_id"
       ],
+      $defs: {
+        "usage-analytics_identifier": usage_analytics_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/usage-analytics_stream_usage_data_point"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/usage-analytics_stream_usage_response",
       $defs: {
+        "usage-analytics_api_error": usage_analytics_api_error_output,
+        "usage-analytics_api_message": usage_analytics_api_message_output,
         "usage-analytics_stream_usage_data_point": usage_analytics_stream_usage_data_point_output,
+        "usage-analytics_stream_usage_response": usage_analytics_stream_usage_response_output,
       },
     },
     annotations: {
@@ -111,21 +105,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/usage-analytics_stream_usage_data_point"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/usage-analytics_stream_usage_response"
         },
         "400": {
           "$ref": "#/$defs/usage-analytics_error_response"
@@ -142,6 +122,7 @@ export const tools: readonly Tool[] = [
         "usage-analytics_api_message": usage_analytics_api_message_output,
         "usage-analytics_error_response": usage_analytics_error_response_output,
         "usage-analytics_stream_usage_data_point": usage_analytics_stream_usage_data_point_output,
+        "usage-analytics_stream_usage_response": usage_analytics_stream_usage_response_output,
       },
     },
     request: (args) => ({

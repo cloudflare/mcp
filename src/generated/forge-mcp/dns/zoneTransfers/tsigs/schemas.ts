@@ -12,6 +12,13 @@ export const secondary_dns_algo: JsonSchema = {
 };
 
 /**
+ * The schema of `secondary-dns_identifier-2`.
+ */
+export const secondary_dns_identifier_2: JsonSchema = {
+  "type": "string"
+};
+
+/**
  * The schema of `secondary-dns_name-2`.
  */
 export const secondary_dns_name_2: JsonSchema = {

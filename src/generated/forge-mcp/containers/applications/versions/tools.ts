@@ -6,6 +6,7 @@ import {
   cc_Image_output,
   cc_Messages_output,
   cc_V4BaseErrorResponse_output,
+  cc_V4BaseResponse_output,
 } from "../../outputs.js";
 import {
   cc_Command_output,
@@ -21,6 +22,7 @@ import {
   cc_SSHPublicKey_output,
   cc_UserSSHPublicKey_output,
 } from "../outputs.js";
+import { cc_ApplicationID } from "../schemas.js";
 import { cc_ApplicationVersion_output } from "./outputs.js";
 
 /**
@@ -39,31 +41,38 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "application_id": {
-          "description": "An Application ID represents an identifier of an application.",
-          "type": "string"
+          "$ref": "#/$defs/cc_ApplicationID",
+          "description": "An Application ID represents an identifier of an application."
         }
       },
       required: [
         "account_id",
         "application_id"
       ],
+      $defs: {
+        "cc_ApplicationID": cc_ApplicationID,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/cc_ApplicationVersion"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/cc_V4BaseResponse"
         },
-        "result_info": {
+        {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/cc_ApplicationVersion"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "result"
+          ],
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
         "cc_ApplicationVersion": cc_ApplicationVersion_output,
         "cc_Command": cc_Command_output,
@@ -75,10 +84,12 @@ export const tools: readonly Tool[] = [
         "cc_ExecFormParam": cc_ExecFormParam_output,
         "cc_Image": cc_Image_output,
         "cc_InstanceType": cc_InstanceType_output,
+        "cc_Messages": cc_Messages_output,
         "cc_ModifyUserDeploymentConfiguration": cc_ModifyUserDeploymentConfiguration_output,
         "cc_ObservabilityLogs": cc_ObservabilityLogs_output,
         "cc_SSHPublicKey": cc_SSHPublicKey_output,
         "cc_UserSSHPublicKey": cc_UserSSHPublicKey_output,
+        "cc_V4BaseResponse": cc_V4BaseResponse_output,
       },
     },
     annotations: {
@@ -99,21 +110,25 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/cc_ApplicationVersion"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/cc_V4BaseResponse"
             },
-            "result_info": {
+            {
+              "properties": {
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/cc_ApplicationVersion"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "result"
+              ],
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "401": {
           "$ref": "#/$defs/cc_V4BaseErrorResponse"
@@ -142,6 +157,7 @@ export const tools: readonly Tool[] = [
         "cc_SSHPublicKey": cc_SSHPublicKey_output,
         "cc_UserSSHPublicKey": cc_UserSSHPublicKey_output,
         "cc_V4BaseErrorResponse": cc_V4BaseErrorResponse_output,
+        "cc_V4BaseResponse": cc_V4BaseResponse_output,
       },
     },
     request: (args) => ({

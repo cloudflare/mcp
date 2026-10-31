@@ -6,6 +6,7 @@ import {
   bot_management_api_response_common_failure_output,
   bot_management_messages_output,
 } from "../outputs.js";
+import { bot_management_identifier } from "../schemas.js";
 import {
   bot_management_feedback_report_output,
   bot_management_feedback_type_output,
@@ -38,8 +39,8 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/bot-management_feedback_report"
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/bot-management_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -49,6 +50,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "bot-management_feedback_report": bot_management_feedback_report,
         "bot-management_feedback_type": bot_management_feedback_type,
+        "bot-management_identifier": bot_management_identifier,
         "bot-management_metric_requests": bot_management_metric_requests,
         "bot-management_requests_by_attribute": bot_management_requests_by_attribute,
         "bot-management_requests_by_score": bot_management_requests_by_score,
@@ -103,13 +105,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/bot-management_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "bot-management_identifier": bot_management_identifier,
+      },
     },
     outputSchema: {
       "items": {

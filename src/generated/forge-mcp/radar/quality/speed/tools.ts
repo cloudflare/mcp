@@ -76,235 +76,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "histogram_0": {
-          "properties": {
-            "bandwidthDownload": {
-              "items": {
-                "type": "string"
-              },
-              "type": "array"
-            },
-            "bandwidthUpload": {
-              "items": {
-                "type": "string"
-              },
-              "type": "array"
-            },
-            "bucketMin": {
-              "items": {
-                "type": "string"
-              },
-              "type": "array"
-            }
-          },
-          "required": [
-            "bandwidthDownload",
-            "bandwidthUpload",
-            "bucketMin"
-          ],
-          "type": "object"
-        },
-        "meta": {
-          "properties": {
-            "bucketSize": {
-              "type": "integer"
-            },
-            "confidenceInfo": {
-              "properties": {
-                "annotations": {
-                  "items": {
-                    "properties": {
-                      "dataSource": {
-                        "enum": [
-                          "ALL",
-                          "AI_BOTS",
-                          "AI_GATEWAY",
-                          "BGP",
-                          "BOTS",
-                          "CONNECTION_ANOMALY",
-                          "CT",
-                          "DNS",
-                          "DNS_MAGNITUDE",
-                          "DNS_AS112",
-                          "DOS",
-                          "EMAIL_ROUTING",
-                          "EMAIL_SECURITY",
-                          "FW",
-                          "FW_PG",
-                          "HTTP",
-                          "HTTP_CONTROL",
-                          "HTTP_CRAWLER_REFERER",
-                          "HTTP_ORIGINS",
-                          "IQI",
-                          "LEAKED_CREDENTIALS",
-                          "NET",
-                          "ROBOTS_TXT",
-                          "SPEED",
-                          "WORKERS_AI"
-                        ],
-                        "type": "string"
-                      },
-                      "description": {
-                        "type": "string"
-                      },
-                      "endDate": {
-                        "format": "date-time",
-                        "type": "string"
-                      },
-                      "eventType": {
-                        "enum": [
-                          "GENERAL",
-                          "OUTAGE",
-                          "PARTIAL_PROJECTION",
-                          "PIPELINE",
-                          "TRAFFIC_ANOMALY"
-                        ],
-                        "type": "string"
-                      },
-                      "isInstantaneous": {
-                        "type": "boolean"
-                      },
-                      "linkedUrl": {
-                        "type": "string"
-                      },
-                      "startDate": {
-                        "format": "date-time",
-                        "type": "string"
-                      },
-                      "tags": {
-                        "items": {
-                          "type": "string"
-                        },
-                        "type": "array"
-                      }
-                    },
-                    "required": [
-                      "dataSource",
-                      "description",
-                      "endDate",
-                      "eventType",
-                      "isInstantaneous",
-                      "linkedUrl",
-                      "startDate"
-                    ],
-                    "type": "object"
-                  },
-                  "type": "array"
-                },
-                "level": {
-                  "type": "integer"
-                }
-              },
-              "required": [
-                "annotations",
-                "level"
-              ],
-              "type": "object"
-            },
-            "dateRange": {
-              "items": {
-                "properties": {
-                  "endTime": {
-                    "format": "date-time",
-                    "type": "string"
-                  },
-                  "startTime": {
-                    "format": "date-time",
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "endTime",
-                  "startTime"
-                ],
-                "type": "object"
-              },
-              "type": "array"
-            },
-            "lastUpdated": {
-              "format": "date-time",
-              "type": "string"
-            },
-            "normalization": {
-              "enum": [
-                "PERCENTAGE",
-                "MIN0_MAX",
-                "MIN_MAX",
-                "RAW_VALUES",
-                "PERCENTAGE_CHANGE",
-                "ROLLING_AVERAGE",
-                "OVERLAPPED_PERCENTAGE",
-                "RATIO"
-              ],
-              "type": "string"
-            },
-            "totalTests": {
-              "items": {
-                "type": "integer"
-              },
-              "type": "array"
-            },
-            "units": {
-              "items": {
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "value": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "name",
-                  "value"
-                ],
-                "type": "object"
-              },
-              "type": "array"
-            }
-          },
-          "required": [
-            "bucketSize",
-            "confidenceInfo",
-            "dateRange",
-            "lastUpdated",
-            "normalization",
-            "totalTests",
-            "units"
-          ],
-          "type": "object"
-        }
-      },
-      "required": [
-        "histogram_0",
-        "meta"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get speed tests histogram"
-    },
-    method: "GET",
-    path: "/radar/quality/speed/histogram",
-    extensions: {
-      "x-api-token-group": [
-        "User Details Write",
-        "User Details Read"
-      ],
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "histogram_0": {
               "properties": {
@@ -511,6 +283,258 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get speed tests histogram"
+    },
+    method: "GET",
+    path: "/radar/quality/speed/histogram",
+    extensions: {
+      "x-api-token-group": [
+        "User Details Write",
+        "User Details Read"
+      ],
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "histogram_0": {
+                  "properties": {
+                    "bandwidthDownload": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "bandwidthUpload": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "bucketMin": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "bandwidthDownload",
+                    "bandwidthUpload",
+                    "bucketMin"
+                  ],
+                  "type": "object"
+                },
+                "meta": {
+                  "properties": {
+                    "bucketSize": {
+                      "type": "integer"
+                    },
+                    "confidenceInfo": {
+                      "properties": {
+                        "annotations": {
+                          "items": {
+                            "properties": {
+                              "dataSource": {
+                                "enum": [
+                                  "ALL",
+                                  "AI_BOTS",
+                                  "AI_GATEWAY",
+                                  "BGP",
+                                  "BOTS",
+                                  "CONNECTION_ANOMALY",
+                                  "CT",
+                                  "DNS",
+                                  "DNS_MAGNITUDE",
+                                  "DNS_AS112",
+                                  "DOS",
+                                  "EMAIL_ROUTING",
+                                  "EMAIL_SECURITY",
+                                  "FW",
+                                  "FW_PG",
+                                  "HTTP",
+                                  "HTTP_CONTROL",
+                                  "HTTP_CRAWLER_REFERER",
+                                  "HTTP_ORIGINS",
+                                  "IQI",
+                                  "LEAKED_CREDENTIALS",
+                                  "NET",
+                                  "ROBOTS_TXT",
+                                  "SPEED",
+                                  "WORKERS_AI"
+                                ],
+                                "type": "string"
+                              },
+                              "description": {
+                                "type": "string"
+                              },
+                              "endDate": {
+                                "format": "date-time",
+                                "type": "string"
+                              },
+                              "eventType": {
+                                "enum": [
+                                  "GENERAL",
+                                  "OUTAGE",
+                                  "PARTIAL_PROJECTION",
+                                  "PIPELINE",
+                                  "TRAFFIC_ANOMALY"
+                                ],
+                                "type": "string"
+                              },
+                              "isInstantaneous": {
+                                "type": "boolean"
+                              },
+                              "linkedUrl": {
+                                "type": "string"
+                              },
+                              "startDate": {
+                                "format": "date-time",
+                                "type": "string"
+                              },
+                              "tags": {
+                                "items": {
+                                  "type": "string"
+                                },
+                                "type": "array"
+                              }
+                            },
+                            "required": [
+                              "dataSource",
+                              "description",
+                              "endDate",
+                              "eventType",
+                              "isInstantaneous",
+                              "linkedUrl",
+                              "startDate"
+                            ],
+                            "type": "object"
+                          },
+                          "type": "array"
+                        },
+                        "level": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "annotations",
+                        "level"
+                      ],
+                      "type": "object"
+                    },
+                    "dateRange": {
+                      "items": {
+                        "properties": {
+                          "endTime": {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "startTime": {
+                            "format": "date-time",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "endTime",
+                          "startTime"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "lastUpdated": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "normalization": {
+                      "enum": [
+                        "PERCENTAGE",
+                        "MIN0_MAX",
+                        "MIN_MAX",
+                        "RAW_VALUES",
+                        "PERCENTAGE_CHANGE",
+                        "ROLLING_AVERAGE",
+                        "OVERLAPPED_PERCENTAGE",
+                        "RATIO"
+                      ],
+                      "type": "string"
+                    },
+                    "totalTests": {
+                      "items": {
+                        "type": "integer"
+                      },
+                      "type": "array"
+                    },
+                    "units": {
+                      "items": {
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "value": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "name",
+                          "value"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "bucketSize",
+                    "confidenceInfo",
+                    "dateRange",
+                    "lastUpdated",
+                    "normalization",
+                    "totalTests",
+                    "units"
+                  ],
+                  "type": "object"
+                }
+              },
+              "required": [
+                "histogram_0",
+                "meta"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
+          ],
+          "type": "object"
+        },
         "400": {
           "properties": {
             "errors": {
@@ -612,231 +636,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "meta": {
-          "properties": {
-            "confidenceInfo": {
-              "properties": {
-                "annotations": {
-                  "items": {
-                    "properties": {
-                      "dataSource": {
-                        "enum": [
-                          "ALL",
-                          "AI_BOTS",
-                          "AI_GATEWAY",
-                          "BGP",
-                          "BOTS",
-                          "CONNECTION_ANOMALY",
-                          "CT",
-                          "DNS",
-                          "DNS_MAGNITUDE",
-                          "DNS_AS112",
-                          "DOS",
-                          "EMAIL_ROUTING",
-                          "EMAIL_SECURITY",
-                          "FW",
-                          "FW_PG",
-                          "HTTP",
-                          "HTTP_CONTROL",
-                          "HTTP_CRAWLER_REFERER",
-                          "HTTP_ORIGINS",
-                          "IQI",
-                          "LEAKED_CREDENTIALS",
-                          "NET",
-                          "ROBOTS_TXT",
-                          "SPEED",
-                          "WORKERS_AI"
-                        ],
-                        "type": "string"
-                      },
-                      "description": {
-                        "type": "string"
-                      },
-                      "endDate": {
-                        "format": "date-time",
-                        "type": "string"
-                      },
-                      "eventType": {
-                        "enum": [
-                          "GENERAL",
-                          "OUTAGE",
-                          "PARTIAL_PROJECTION",
-                          "PIPELINE",
-                          "TRAFFIC_ANOMALY"
-                        ],
-                        "type": "string"
-                      },
-                      "isInstantaneous": {
-                        "type": "boolean"
-                      },
-                      "linkedUrl": {
-                        "type": "string"
-                      },
-                      "startDate": {
-                        "format": "date-time",
-                        "type": "string"
-                      },
-                      "tags": {
-                        "items": {
-                          "type": "string"
-                        },
-                        "type": "array"
-                      }
-                    },
-                    "required": [
-                      "dataSource",
-                      "description",
-                      "endDate",
-                      "eventType",
-                      "isInstantaneous",
-                      "linkedUrl",
-                      "startDate"
-                    ],
-                    "type": "object"
-                  },
-                  "type": "array"
-                },
-                "level": {
-                  "type": "integer"
-                }
-              },
-              "required": [
-                "annotations",
-                "level"
-              ],
-              "type": "object"
-            },
-            "dateRange": {
-              "items": {
-                "properties": {
-                  "endTime": {
-                    "format": "date-time",
-                    "type": "string"
-                  },
-                  "startTime": {
-                    "format": "date-time",
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "endTime",
-                  "startTime"
-                ],
-                "type": "object"
-              },
-              "type": "array"
-            },
-            "lastUpdated": {
-              "format": "date-time",
-              "type": "string"
-            },
-            "normalization": {
-              "enum": [
-                "PERCENTAGE",
-                "MIN0_MAX",
-                "MIN_MAX",
-                "RAW_VALUES",
-                "PERCENTAGE_CHANGE",
-                "ROLLING_AVERAGE",
-                "OVERLAPPED_PERCENTAGE",
-                "RATIO"
-              ],
-              "type": "string"
-            },
-            "units": {
-              "items": {
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "value": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "name",
-                  "value"
-                ],
-                "type": "object"
-              },
-              "type": "array"
-            }
-          },
-          "required": [
-            "confidenceInfo",
-            "dateRange",
-            "lastUpdated",
-            "normalization",
-            "units"
-          ],
-          "type": "object"
-        },
-        "summary_0": {
-          "properties": {
-            "bandwidthDownload": {
-              "type": "string"
-            },
-            "bandwidthUpload": {
-              "type": "string"
-            },
-            "jitterIdle": {
-              "type": "string"
-            },
-            "jitterLoaded": {
-              "type": "string"
-            },
-            "latencyIdle": {
-              "type": "string"
-            },
-            "latencyLoaded": {
-              "type": "string"
-            },
-            "packetLoss": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "bandwidthDownload",
-            "bandwidthUpload",
-            "jitterIdle",
-            "jitterLoaded",
-            "latencyIdle",
-            "latencyLoaded",
-            "packetLoss"
-          ],
-          "type": "object"
-        }
-      },
-      "required": [
-        "meta",
-        "summary_0"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get speed tests summary"
-    },
-    method: "GET",
-    path: "/radar/quality/speed/summary",
-    extensions: {
-      "x-api-token-group": [
-        "User Details Write",
-        "User Details Read"
-      ],
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "meta": {
               "properties": {
@@ -1036,6 +836,254 @@ export const tools: readonly Tool[] = [
           "required": [
             "meta",
             "summary_0"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get speed tests summary"
+    },
+    method: "GET",
+    path: "/radar/quality/speed/summary",
+    extensions: {
+      "x-api-token-group": [
+        "User Details Write",
+        "User Details Read"
+      ],
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "meta": {
+                  "properties": {
+                    "confidenceInfo": {
+                      "properties": {
+                        "annotations": {
+                          "items": {
+                            "properties": {
+                              "dataSource": {
+                                "enum": [
+                                  "ALL",
+                                  "AI_BOTS",
+                                  "AI_GATEWAY",
+                                  "BGP",
+                                  "BOTS",
+                                  "CONNECTION_ANOMALY",
+                                  "CT",
+                                  "DNS",
+                                  "DNS_MAGNITUDE",
+                                  "DNS_AS112",
+                                  "DOS",
+                                  "EMAIL_ROUTING",
+                                  "EMAIL_SECURITY",
+                                  "FW",
+                                  "FW_PG",
+                                  "HTTP",
+                                  "HTTP_CONTROL",
+                                  "HTTP_CRAWLER_REFERER",
+                                  "HTTP_ORIGINS",
+                                  "IQI",
+                                  "LEAKED_CREDENTIALS",
+                                  "NET",
+                                  "ROBOTS_TXT",
+                                  "SPEED",
+                                  "WORKERS_AI"
+                                ],
+                                "type": "string"
+                              },
+                              "description": {
+                                "type": "string"
+                              },
+                              "endDate": {
+                                "format": "date-time",
+                                "type": "string"
+                              },
+                              "eventType": {
+                                "enum": [
+                                  "GENERAL",
+                                  "OUTAGE",
+                                  "PARTIAL_PROJECTION",
+                                  "PIPELINE",
+                                  "TRAFFIC_ANOMALY"
+                                ],
+                                "type": "string"
+                              },
+                              "isInstantaneous": {
+                                "type": "boolean"
+                              },
+                              "linkedUrl": {
+                                "type": "string"
+                              },
+                              "startDate": {
+                                "format": "date-time",
+                                "type": "string"
+                              },
+                              "tags": {
+                                "items": {
+                                  "type": "string"
+                                },
+                                "type": "array"
+                              }
+                            },
+                            "required": [
+                              "dataSource",
+                              "description",
+                              "endDate",
+                              "eventType",
+                              "isInstantaneous",
+                              "linkedUrl",
+                              "startDate"
+                            ],
+                            "type": "object"
+                          },
+                          "type": "array"
+                        },
+                        "level": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "annotations",
+                        "level"
+                      ],
+                      "type": "object"
+                    },
+                    "dateRange": {
+                      "items": {
+                        "properties": {
+                          "endTime": {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "startTime": {
+                            "format": "date-time",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "endTime",
+                          "startTime"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "lastUpdated": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "normalization": {
+                      "enum": [
+                        "PERCENTAGE",
+                        "MIN0_MAX",
+                        "MIN_MAX",
+                        "RAW_VALUES",
+                        "PERCENTAGE_CHANGE",
+                        "ROLLING_AVERAGE",
+                        "OVERLAPPED_PERCENTAGE",
+                        "RATIO"
+                      ],
+                      "type": "string"
+                    },
+                    "units": {
+                      "items": {
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "value": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "name",
+                          "value"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "confidenceInfo",
+                    "dateRange",
+                    "lastUpdated",
+                    "normalization",
+                    "units"
+                  ],
+                  "type": "object"
+                },
+                "summary_0": {
+                  "properties": {
+                    "bandwidthDownload": {
+                      "type": "string"
+                    },
+                    "bandwidthUpload": {
+                      "type": "string"
+                    },
+                    "jitterIdle": {
+                      "type": "string"
+                    },
+                    "jitterLoaded": {
+                      "type": "string"
+                    },
+                    "latencyIdle": {
+                      "type": "string"
+                    },
+                    "latencyLoaded": {
+                      "type": "string"
+                    },
+                    "packetLoss": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "bandwidthDownload",
+                    "bandwidthUpload",
+                    "jitterIdle",
+                    "jitterLoaded",
+                    "latencyIdle",
+                    "latencyLoaded",
+                    "packetLoss"
+                  ],
+                  "type": "object"
+                }
+              },
+              "required": [
+                "meta",
+                "summary_0"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },

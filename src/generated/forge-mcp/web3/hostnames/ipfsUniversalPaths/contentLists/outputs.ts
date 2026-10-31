@@ -29,43 +29,19 @@ export const web3_content_list_details_output: JsonSchema = {
  * The schema of `web3_content_list_details_response` in responses.
  */
 export const web3_content_list_details_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/web3_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/web3_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/web3_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/web3_content_list_details"
-    },
-    "result_info": {
-      "anyOf": [
-        {
-          "type": "object"
-        },
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/web3_content_list_details"
         }
-      ]
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**

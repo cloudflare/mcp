@@ -23,6 +23,14 @@ export const cc_ApplicationConstraints: JsonSchema = {
 };
 
 /**
+ * The schema of `cc_ApplicationID`.
+ */
+export const cc_ApplicationID: JsonSchema = {
+  "description": "An Application ID represents an identifier of an application.",
+  "type": "string"
+};
+
+/**
  * The schema of `cc_ApplicationJurisdiction`.
  */
 export const cc_ApplicationJurisdiction: JsonSchema = {
@@ -288,22 +296,14 @@ export const cc_DurableObjectApplicationObservability: JsonSchema = {
   "description": "Application-wide logging settings for a Durable Object-managed application.\nThe application publishes these settings to its runtime metadata. Updating\nthem does not create a deployment or rollout.\n",
   "properties": {
     "logs": {
-      "$ref": "#/$defs/cc_DurableObjectApplicationObservability_logs",
-      "description": "Application-wide logging settings."
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `cc_DurableObjectApplicationObservability_logs`.
- */
-export const cc_DurableObjectApplicationObservability_logs: JsonSchema = {
-  "description": "Application-wide logging settings.",
-  "properties": {
-    "enabled": {
-      "default": false,
-      "type": "boolean"
+      "description": "Application-wide logging settings.",
+      "properties": {
+        "enabled": {
+          "default": false,
+          "type": "boolean"
+        }
+      },
+      "type": "object"
     }
   },
   "type": "object"

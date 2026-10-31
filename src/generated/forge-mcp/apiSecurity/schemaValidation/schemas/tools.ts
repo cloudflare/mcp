@@ -3,6 +3,7 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  api_shield_api_response_collection_output,
   api_shield_api_response_common_failure_output,
   api_shield_api_response_common_output,
   api_shield_messages_output,
@@ -17,15 +18,11 @@ import {
   api_shield_uuid,
   api_shield_uuid_2,
 } from "../../../schemas.js";
-import {
-  api_shield_api_response_collection_output,
-  api_shield_api_response_collection_result_info_output,
-} from "../../outputs.js";
+import { api_shield_api_response_single_output } from "../../outputs.js";
 import {
   api_shield_public_schema_output,
   api_shield_public_schema_success_result_output,
   api_shield_schema_issue_notification_output,
-  api_shield_schema_issue_notification_source_output,
 } from "./outputs.js";
 
 /**
@@ -109,11 +106,11 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
         "api-shield_messages": api_shield_messages_output,
         "api-shield_public_schema": api_shield_public_schema_output,
         "api-shield_public_schema_success_result": api_shield_public_schema_success_result_output,
         "api-shield_schema_issue_notification": api_shield_schema_issue_notification_output,
-        "api-shield_schema_issue_notification_source": api_shield_schema_issue_notification_source_output,
         "api-shield_timestamp": api_shield_timestamp_output,
         "api-shield_timestamp-2": api_shield_timestamp_2_output,
         "api-shield_uuid": api_shield_uuid_output,
@@ -193,12 +190,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
         "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
         "api-shield_messages": api_shield_messages_output,
         "api-shield_public_schema": api_shield_public_schema_output,
         "api-shield_public_schema_success_result": api_shield_public_schema_success_result_output,
         "api-shield_schema_issue_notification": api_shield_schema_issue_notification_output,
-        "api-shield_schema_issue_notification_source": api_shield_schema_issue_notification_source_output,
         "api-shield_timestamp": api_shield_timestamp_output,
         "api-shield_timestamp-2": api_shield_timestamp_2_output,
         "api-shield_uuid": api_shield_uuid_output,
@@ -247,7 +244,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "allOf": [
         {
-          "$ref": "#/$defs/api-shield_api-response-common"
+          "$ref": "#/$defs/api-shield_api-response-single"
         },
         {
           "properties": {
@@ -269,7 +266,7 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "api-shield_api-response-common": api_shield_api_response_common_output,
+        "api-shield_api-response-single": api_shield_api_response_single_output,
         "api-shield_messages": api_shield_messages_output,
       },
     },
@@ -293,7 +290,7 @@ export const tools: readonly Tool[] = [
         "200": {
           "allOf": [
             {
-              "$ref": "#/$defs/api-shield_api-response-common"
+              "$ref": "#/$defs/api-shield_api-response-single"
             },
             {
               "properties": {
@@ -320,8 +317,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "api-shield_api-response-common": api_shield_api_response_common_output,
         "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
+        "api-shield_api-response-single": api_shield_api_response_single_output,
         "api-shield_messages": api_shield_messages_output,
       },
     },
@@ -371,6 +368,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/api-shield_public_schema_success_result",
       $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
         "api-shield_messages": api_shield_messages_output,
         "api-shield_public_schema": api_shield_public_schema_output,
         "api-shield_public_schema_success_result": api_shield_public_schema_success_result_output,
@@ -407,6 +405,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
         "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
         "api-shield_messages": api_shield_messages_output,
         "api-shield_public_schema": api_shield_public_schema_output,
@@ -484,7 +483,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "api-shield_api-response-collection": api_shield_api_response_collection_output,
-        "api-shield_api-response-collection_result_info": api_shield_api_response_collection_result_info_output,
+        "api-shield_api-response-common": api_shield_api_response_common_output,
         "api-shield_messages": api_shield_messages_output,
         "api-shield_public_schema": api_shield_public_schema_output,
         "api-shield_timestamp": api_shield_timestamp_output,
@@ -539,7 +538,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "api-shield_api-response-collection": api_shield_api_response_collection_output,
-        "api-shield_api-response-collection_result_info": api_shield_api_response_collection_result_info_output,
+        "api-shield_api-response-common": api_shield_api_response_common_output,
         "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
         "api-shield_messages": api_shield_messages_output,
         "api-shield_public_schema": api_shield_public_schema_output,
@@ -606,6 +605,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/api-shield_public_schema_success_result",
       $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
         "api-shield_messages": api_shield_messages_output,
         "api-shield_public_schema": api_shield_public_schema_output,
         "api-shield_public_schema_success_result": api_shield_public_schema_success_result_output,
@@ -640,6 +640,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
         "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
         "api-shield_messages": api_shield_messages_output,
         "api-shield_public_schema": api_shield_public_schema_output,

@@ -4,8 +4,11 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   rum_api_response_common_failure_output,
+  rum_api_response_common_output,
   rum_messages_2_output,
+  rum_messages_output,
 } from "../../outputs.js";
+import { rum_identifier } from "../../schemas.js";
 import {
   rum_rule_identifier_output,
   rum_rule_output,
@@ -18,11 +21,17 @@ import {
 import { rum_zone_tag } from "../schemas.js";
 import {
   rum_auto_install_output,
+  rum_empty_response_output,
   rum_result_info_output,
   rum_site_output,
+  rum_site_response_single_output,
+  rum_site_tag_list_response_output,
   rum_site_tag_output,
+  rum_site_tag_response_single_output,
   rum_site_token_output,
+  rum_sites_response_collection_output,
   rum_snippet_output,
+  rum_zone_tag_list_response_output,
 } from "./outputs.js";
 import {
   rum_auto_install,
@@ -48,8 +57,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/rum_identifier",
+          "description": "Identifier."
         },
         "body": {
           "$ref": "#/$defs/rum_create-site-request"
@@ -63,19 +72,23 @@ export const tools: readonly Tool[] = [
         "rum_auto_install": rum_auto_install,
         "rum_create-site-request": rum_create_site_request,
         "rum_host": rum_host,
+        "rum_identifier": rum_identifier,
         "rum_zone_tag": rum_zone_tag,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/rum_site",
+      "$ref": "#/$defs/rum_site-response-single",
       $defs: {
+        "rum_api-response-common": rum_api_response_common_output,
         "rum_auto_install": rum_auto_install_output,
+        "rum_messages": rum_messages_output,
         "rum_rule": rum_rule_output,
         "rum_rule_identifier": rum_rule_identifier_output,
         "rum_rules": rum_rules_output,
         "rum_ruleset": rum_ruleset_output,
         "rum_ruleset_identifier": rum_ruleset_identifier_output,
         "rum_site": rum_site_output,
+        "rum_site-response-single": rum_site_response_single_output,
         "rum_site_tag": rum_site_tag_output,
         "rum_site_token": rum_site_token_output,
         "rum_snippet": rum_snippet_output,
@@ -106,15 +119,17 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/rum_site"
+          "$ref": "#/$defs/rum_site-response-single"
         },
         "4XX": {
           "$ref": "#/$defs/rum_api-response-common-failure"
         }
       },
       $defs: {
+        "rum_api-response-common": rum_api_response_common_output,
         "rum_api-response-common-failure": rum_api_response_common_failure_output,
         "rum_auto_install": rum_auto_install_output,
+        "rum_messages": rum_messages_output,
         "rum_messages-2": rum_messages_2_output,
         "rum_rule": rum_rule_output,
         "rum_rule_identifier": rum_rule_identifier_output,
@@ -122,6 +137,7 @@ export const tools: readonly Tool[] = [
         "rum_ruleset": rum_ruleset_output,
         "rum_ruleset_identifier": rum_ruleset_identifier_output,
         "rum_site": rum_site_output,
+        "rum_site-response-single": rum_site_response_single_output,
         "rum_site_tag": rum_site_tag_output,
         "rum_site_token": rum_site_token_output,
         "rum_snippet": rum_snippet_output,
@@ -142,27 +158,28 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/rum_identifier",
+          "description": "Identifier."
         },
         "site_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/rum_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "account_id",
         "site_id"
       ],
+      $defs: {
+        "rum_identifier": rum_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "site_tag": {
-          "$ref": "#/$defs/rum_site_tag"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/rum_site-tag-response-single",
       $defs: {
+        "rum_api-response-common": rum_api_response_common_output,
+        "rum_messages": rum_messages_output,
+        "rum_site-tag-response-single": rum_site_tag_response_single_output,
         "rum_site_tag": rum_site_tag_output,
       },
     },
@@ -189,20 +206,18 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "site_tag": {
-              "$ref": "#/$defs/rum_site_tag"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/rum_site-tag-response-single"
         },
         "4XX": {
           "$ref": "#/$defs/rum_api-response-common-failure"
         }
       },
       $defs: {
+        "rum_api-response-common": rum_api_response_common_output,
         "rum_api-response-common-failure": rum_api_response_common_failure_output,
+        "rum_messages": rum_messages_output,
         "rum_messages-2": rum_messages_2_output,
+        "rum_site-tag-response-single": rum_site_tag_response_single_output,
         "rum_site_tag": rum_site_tag_output,
       },
     },
@@ -218,29 +233,35 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/rum_identifier",
+          "description": "Identifier."
         },
         "site_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/rum_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "account_id",
         "site_id"
       ],
+      $defs: {
+        "rum_identifier": rum_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/rum_site",
+      "$ref": "#/$defs/rum_site-response-single",
       $defs: {
+        "rum_api-response-common": rum_api_response_common_output,
         "rum_auto_install": rum_auto_install_output,
+        "rum_messages": rum_messages_output,
         "rum_rule": rum_rule_output,
         "rum_rule_identifier": rum_rule_identifier_output,
         "rum_rules": rum_rules_output,
         "rum_ruleset": rum_ruleset_output,
         "rum_ruleset_identifier": rum_ruleset_identifier_output,
         "rum_site": rum_site_output,
+        "rum_site-response-single": rum_site_response_single_output,
         "rum_site_tag": rum_site_tag_output,
         "rum_site_token": rum_site_token_output,
         "rum_snippet": rum_snippet_output,
@@ -271,15 +292,17 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/rum_site"
+          "$ref": "#/$defs/rum_site-response-single"
         },
         "4XX": {
           "$ref": "#/$defs/rum_api-response-common-failure"
         }
       },
       $defs: {
+        "rum_api-response-common": rum_api_response_common_output,
         "rum_api-response-common-failure": rum_api_response_common_failure_output,
         "rum_auto_install": rum_auto_install_output,
+        "rum_messages": rum_messages_output,
         "rum_messages-2": rum_messages_2_output,
         "rum_rule": rum_rule_output,
         "rum_rule_identifier": rum_rule_identifier_output,
@@ -287,6 +310,7 @@ export const tools: readonly Tool[] = [
         "rum_ruleset": rum_ruleset_output,
         "rum_ruleset_identifier": rum_ruleset_identifier_output,
         "rum_site": rum_site_output,
+        "rum_site-response-single": rum_site_response_single_output,
         "rum_site_tag": rum_site_tag_output,
         "rum_site_token": rum_site_token_output,
         "rum_snippet": rum_snippet_output,
@@ -306,8 +330,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/rum_identifier",
+          "description": "Identifier."
         },
         "order_by": {
           "$ref": "#/$defs/rum_order_by",
@@ -326,29 +350,18 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
       $defs: {
+        "rum_identifier": rum_identifier,
         "rum_order_by": rum_order_by,
         "rum_page": rum_page,
         "rum_per_page": rum_per_page,
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/rum_site"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "$ref": "#/$defs/rum_result_info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/rum_sites-response-collection",
       $defs: {
+        "rum_api-response-common": rum_api_response_common_output,
         "rum_auto_install": rum_auto_install_output,
+        "rum_messages": rum_messages_output,
         "rum_result_info": rum_result_info_output,
         "rum_rule": rum_rule_output,
         "rum_rule_identifier": rum_rule_identifier_output,
@@ -358,6 +371,7 @@ export const tools: readonly Tool[] = [
         "rum_site": rum_site_output,
         "rum_site_tag": rum_site_tag_output,
         "rum_site_token": rum_site_token_output,
+        "rum_sites-response-collection": rum_sites_response_collection_output,
         "rum_snippet": rum_snippet_output,
         "rum_timestamp": rum_timestamp_output,
         "rum_zone_tag": rum_zone_tag_output,
@@ -386,29 +400,17 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/rum_site"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/rum_result_info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/rum_sites-response-collection"
         },
         "4XX": {
           "$ref": "#/$defs/rum_api-response-common-failure"
         }
       },
       $defs: {
+        "rum_api-response-common": rum_api_response_common_output,
         "rum_api-response-common-failure": rum_api_response_common_failure_output,
         "rum_auto_install": rum_auto_install_output,
+        "rum_messages": rum_messages_output,
         "rum_messages-2": rum_messages_2_output,
         "rum_result_info": rum_result_info_output,
         "rum_rule": rum_rule_output,
@@ -419,6 +421,7 @@ export const tools: readonly Tool[] = [
         "rum_site": rum_site_output,
         "rum_site_tag": rum_site_tag_output,
         "rum_site_token": rum_site_token_output,
+        "rum_sites-response-collection": rum_sites_response_collection_output,
         "rum_snippet": rum_snippet_output,
         "rum_timestamp": rum_timestamp_output,
         "rum_zone_tag": rum_zone_tag_output,
@@ -441,8 +444,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/rum_identifier",
+          "description": "Identifier."
         },
         "all": {
           "description": "When true, includes sites that are disabled or paused.",
@@ -452,24 +455,16 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+      $defs: {
+        "rum_identifier": rum_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/rum_site_tag"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/rum_site-tag-list-response",
       $defs: {
+        "rum_api-response-common": rum_api_response_common_output,
+        "rum_messages": rum_messages_output,
+        "rum_site-tag-list-response": rum_site_tag_list_response_output,
         "rum_site_tag": rum_site_tag_output,
       },
     },
@@ -496,29 +491,18 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/rum_site_tag"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/rum_site-tag-list-response"
         },
         "4XX": {
           "$ref": "#/$defs/rum_api-response-common-failure"
         }
       },
       $defs: {
+        "rum_api-response-common": rum_api_response_common_output,
         "rum_api-response-common-failure": rum_api_response_common_failure_output,
+        "rum_messages": rum_messages_output,
         "rum_messages-2": rum_messages_2_output,
+        "rum_site-tag-list-response": rum_site_tag_list_response_output,
         "rum_site_tag": rum_site_tag_output,
       },
     },
@@ -537,31 +521,23 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/rum_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "rum_identifier": rum_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/rum_zone_tag"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/rum_zone-tag-list-response",
       $defs: {
+        "rum_api-response-common": rum_api_response_common_output,
+        "rum_messages": rum_messages_output,
+        "rum_zone-tag-list-response": rum_zone_tag_list_response_output,
         "rum_zone_tag": rum_zone_tag_output,
       },
     },
@@ -588,29 +564,18 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/rum_zone_tag"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/rum_zone-tag-list-response"
         },
         "4XX": {
           "$ref": "#/$defs/rum_api-response-common-failure"
         }
       },
       $defs: {
+        "rum_api-response-common": rum_api_response_common_output,
         "rum_api-response-common-failure": rum_api_response_common_failure_output,
+        "rum_messages": rum_messages_output,
         "rum_messages-2": rum_messages_2_output,
+        "rum_zone-tag-list-response": rum_zone_tag_list_response_output,
         "rum_zone_tag": rum_zone_tag_output,
       },
     },
@@ -626,15 +591,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/rum_identifier",
+          "description": "Identifier."
         },
         "body": {
           "$ref": "#/$defs/rum_update-site-request"
         },
         "site_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/rum_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -646,21 +611,25 @@ export const tools: readonly Tool[] = [
         "rum_auto_install": rum_auto_install,
         "rum_enabled": rum_enabled,
         "rum_host": rum_host,
+        "rum_identifier": rum_identifier,
         "rum_lite": rum_lite,
         "rum_update-site-request": rum_update_site_request,
         "rum_zone_tag": rum_zone_tag,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/rum_site",
+      "$ref": "#/$defs/rum_site-response-single",
       $defs: {
+        "rum_api-response-common": rum_api_response_common_output,
         "rum_auto_install": rum_auto_install_output,
+        "rum_messages": rum_messages_output,
         "rum_rule": rum_rule_output,
         "rum_rule_identifier": rum_rule_identifier_output,
         "rum_rules": rum_rules_output,
         "rum_ruleset": rum_ruleset_output,
         "rum_ruleset_identifier": rum_ruleset_identifier_output,
         "rum_site": rum_site_output,
+        "rum_site-response-single": rum_site_response_single_output,
         "rum_site_tag": rum_site_tag_output,
         "rum_site_token": rum_site_token_output,
         "rum_snippet": rum_snippet_output,
@@ -691,15 +660,17 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/rum_site"
+          "$ref": "#/$defs/rum_site-response-single"
         },
         "4XX": {
           "$ref": "#/$defs/rum_api-response-common-failure"
         }
       },
       $defs: {
+        "rum_api-response-common": rum_api_response_common_output,
         "rum_api-response-common-failure": rum_api_response_common_failure_output,
         "rum_auto_install": rum_auto_install_output,
+        "rum_messages": rum_messages_output,
         "rum_messages-2": rum_messages_2_output,
         "rum_rule": rum_rule_output,
         "rum_rule_identifier": rum_rule_identifier_output,
@@ -707,6 +678,7 @@ export const tools: readonly Tool[] = [
         "rum_ruleset": rum_ruleset_output,
         "rum_ruleset_identifier": rum_ruleset_identifier_output,
         "rum_site": rum_site_output,
+        "rum_site-response-single": rum_site_response_single_output,
         "rum_site_tag": rum_site_tag_output,
         "rum_site_token": rum_site_token_output,
         "rum_snippet": rum_snippet_output,
@@ -727,8 +699,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/rum_identifier",
+          "description": "Identifier."
         },
         "hostname": {
           "description": "The hostname to validate (e.g. example.com). The `pattern` below validates the hostname's structure (label syntax) only. In addition, the hostname must end in a valid public suffix (TLD). For the list of valid suffixes and how it is used, see the Public Suffix List: https://wiki.mozilla.org/Public_Suffix_List/Use_Cases\n",
@@ -739,9 +711,17 @@ export const tools: readonly Tool[] = [
         "account_id",
         "hostname"
       ],
+      $defs: {
+        "rum_identifier": rum_identifier,
+      },
     },
     outputSchema: {
-      "type": "object",
+      "$ref": "#/$defs/rum_empty-response",
+      $defs: {
+        "rum_api-response-common": rum_api_response_common_output,
+        "rum_empty-response": rum_empty_response_output,
+        "rum_messages": rum_messages_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -766,14 +746,17 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "type": "object"
+          "$ref": "#/$defs/rum_empty-response"
         },
         "4XX": {
           "$ref": "#/$defs/rum_api-response-common-failure"
         }
       },
       $defs: {
+        "rum_api-response-common": rum_api_response_common_output,
         "rum_api-response-common-failure": rum_api_response_common_failure_output,
+        "rum_empty-response": rum_empty_response_output,
+        "rum_messages": rum_messages_output,
         "rum_messages-2": rum_messages_2_output,
       },
     },

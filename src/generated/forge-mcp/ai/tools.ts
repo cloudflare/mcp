@@ -30,85 +30,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "input": {
-          "properties": {
-            "additionalProperties": {
-              "type": "boolean"
-            },
-            "description": {
-              "type": "string"
-            },
-            "type": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "additionalProperties",
-            "description",
-            "type"
-          ],
-          "type": "object"
-        },
-        "output": {
-          "properties": {
-            "additionalProperties": {
-              "type": "boolean"
-            },
-            "description": {
-              "type": "string"
-            },
-            "type": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "additionalProperties",
-            "description",
-            "type"
-          ],
-          "type": "object"
-        }
-      },
-      "required": [
-        "input",
-        "output"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get an AI model's input and output schemas"
-    },
-    method: "GET",
-    path: "/accounts/{account_id}/ai/models/schema",
-    extensions: {
-      "x-api-token-group": [
-        "Workers AI Write",
-        "Workers AI Read"
-      ],
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.ai"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai": {
-            "name": "com_cloudflare_api_account_ai"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "input": {
               "properties": {
@@ -152,6 +74,103 @@ export const tools: readonly Tool[] = [
           "required": [
             "input",
             "output"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get an AI model's input and output schemas"
+    },
+    method: "GET",
+    path: "/accounts/{account_id}/ai/models/schema",
+    extensions: {
+      "x-api-token-group": [
+        "Workers AI Write",
+        "Workers AI Read"
+      ],
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.ai"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "input": {
+                  "properties": {
+                    "additionalProperties": {
+                      "type": "boolean"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "additionalProperties",
+                    "description",
+                    "type"
+                  ],
+                  "type": "object"
+                },
+                "output": {
+                  "properties": {
+                    "additionalProperties": {
+                      "type": "boolean"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "additionalProperties",
+                    "description",
+                    "type"
+                  ],
+                  "type": "object"
+                }
+              },
+              "required": [
+                "input",
+                "output"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -230,12 +249,13 @@ export const tools: readonly Tool[] = [
           },
           "type": "array"
         },
-        "result_info": {
-          "type": "object"
+        "success": {
+          "type": "boolean"
         }
       },
       "required": [
-        "result"
+        "result",
+        "success"
       ],
       "type": "object",
     },
@@ -256,12 +276,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.ai"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai": {
-            "name": "com_cloudflare_api_account_ai"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -292,12 +307,13 @@ export const tools: readonly Tool[] = [
               },
               "type": "array"
             },
-            "result_info": {
-              "type": "object"
+            "success": {
+              "type": "boolean"
             }
           },
           "required": [
-            "result"
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -400,6 +416,32 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
+      "properties": {
+        "errors": {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
       "type": "object",
     },
     annotations: {
@@ -419,12 +461,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.ai"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai": {
-            "name": "com_cloudflare_api_account_ai"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -436,6 +473,32 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
           "type": "object"
         },
         "400": {
@@ -1528,12 +1591,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.ai"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai": {
-            "name": "com_cloudflare_api_account_ai"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -1857,12 +1915,13 @@ export const tools: readonly Tool[] = [
           },
           "type": "array"
         },
-        "result_info": {
-          "type": "object"
+        "success": {
+          "type": "boolean"
         }
       },
       "required": [
-        "result"
+        "result",
+        "success"
       ],
       "type": "object",
     },
@@ -1883,12 +1942,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.ai"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai": {
-            "name": "com_cloudflare_api_account_ai"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -1931,12 +1985,13 @@ export const tools: readonly Tool[] = [
               },
               "type": "array"
             },
-            "result_info": {
-              "type": "object"
+            "success": {
+              "type": "boolean"
             }
           },
           "required": [
-            "result"
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -2103,12 +2158,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.ai"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai": {
-            "name": "com_cloudflare_api_account_ai"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,

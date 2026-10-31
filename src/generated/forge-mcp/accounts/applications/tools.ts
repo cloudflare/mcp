@@ -3,7 +3,9 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  alexandria_api_response_collection_output,
   alexandria_api_response_common_failure_output,
+  alexandria_api_response_common_output,
   alexandria_category_id_output,
   alexandria_messages_output,
 } from "../outputs.js";
@@ -30,13 +32,15 @@ import {
   alexandria_application_updated_at_output,
   alexandria_application_version_output,
   alexandria_applications_output,
-  alexandria_delete_application_conflict_response_errorsItem_meta_output,
-  alexandria_delete_application_conflict_response_errorsItem_output,
   alexandria_delete_application_conflict_response_output,
+  alexandria_delete_application_response_output,
+  alexandria_get_application_response_output,
+  alexandria_get_applications_response_output,
 } from "./outputs.js";
 import {
   alexandria_application_hostnames,
   alexandria_application_human_id,
+  alexandria_application_id,
   alexandria_application_ip_subnets,
   alexandria_application_name,
   alexandria_application_port_protocols,
@@ -81,8 +85,9 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/alexandria_application",
+      "$ref": "#/$defs/alexandria_get_application_response",
       $defs: {
+        "alexandria_api-response-common": alexandria_api_response_common_output,
         "alexandria_application": alexandria_application_output,
         "alexandria_application_confidence_score": alexandria_application_confidence_score_output,
         "alexandria_application_created_at": alexandria_application_created_at_output,
@@ -102,6 +107,8 @@ export const tools: readonly Tool[] = [
         "alexandria_application_updated_at": alexandria_application_updated_at_output,
         "alexandria_application_version": alexandria_application_version_output,
         "alexandria_category_id": alexandria_category_id_output,
+        "alexandria_get_application_response": alexandria_get_application_response_output,
+        "alexandria_messages": alexandria_messages_output,
       },
     },
     annotations: {
@@ -113,16 +120,23 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/resource-library/applications",
+    extensions: {
+      "x-api-token-group": [
+        "Zero Trust Write",
+        "Resource Library Write"
+      ]
+    },
     responses: {
       schemas: {
         "201": {
-          "$ref": "#/$defs/alexandria_application"
+          "$ref": "#/$defs/alexandria_get_application_response"
         },
         "4XX": {
           "$ref": "#/$defs/alexandria_api_response_common_failure"
         }
       },
       $defs: {
+        "alexandria_api-response-common": alexandria_api_response_common_output,
         "alexandria_api_response_common_failure": alexandria_api_response_common_failure_output,
         "alexandria_application": alexandria_application_output,
         "alexandria_application_confidence_score": alexandria_application_confidence_score_output,
@@ -143,6 +157,7 @@ export const tools: readonly Tool[] = [
         "alexandria_application_updated_at": alexandria_application_updated_at_output,
         "alexandria_application_version": alexandria_application_version_output,
         "alexandria_category_id": alexandria_category_id_output,
+        "alexandria_get_application_response": alexandria_get_application_response_output,
         "alexandria_messages": alexandria_messages_output,
       },
     },
@@ -163,17 +178,25 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "id": {
-          "description": "Application ID.",
-          "type": "string"
+          "$ref": "#/$defs/alexandria_application_id",
+          "description": "Application ID."
         }
       },
       required: [
         "account_id",
         "id"
       ],
+      $defs: {
+        "alexandria_application_id": alexandria_application_id,
+      },
     },
     outputSchema: {
-      "type": "null",
+      "$ref": "#/$defs/alexandria_delete_application_response",
+      $defs: {
+        "alexandria_api-response-common": alexandria_api_response_common_output,
+        "alexandria_delete_application_response": alexandria_delete_application_response_output,
+        "alexandria_messages": alexandria_messages_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -184,10 +207,16 @@ export const tools: readonly Tool[] = [
     },
     method: "DELETE",
     path: "/accounts/{account_id}/resource-library/applications/{id}",
+    extensions: {
+      "x-api-token-group": [
+        "Zero Trust Write",
+        "Resource Library Write"
+      ]
+    },
     responses: {
       schemas: {
         "200": {
-          "type": "null"
+          "$ref": "#/$defs/alexandria_delete_application_response"
         },
         "409": {
           "$ref": "#/$defs/alexandria_delete_application_conflict_response"
@@ -200,11 +229,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "alexandria_api-response-common": alexandria_api_response_common_output,
         "alexandria_api_response_common_failure": alexandria_api_response_common_failure_output,
         "alexandria_application_reference": alexandria_application_reference_output,
         "alexandria_delete_application_conflict_response": alexandria_delete_application_conflict_response_output,
-        "alexandria_delete_application_conflict_response_errorsItem": alexandria_delete_application_conflict_response_errorsItem_output,
-        "alexandria_delete_application_conflict_response_errorsItem_meta": alexandria_delete_application_conflict_response_errorsItem_meta_output,
+        "alexandria_delete_application_response": alexandria_delete_application_response_output,
         "alexandria_messages": alexandria_messages_output,
       },
     },
@@ -224,18 +253,22 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "id": {
-          "description": "Application ID.",
-          "type": "string"
+          "$ref": "#/$defs/alexandria_application_id",
+          "description": "Application ID."
         }
       },
       required: [
         "account_id",
         "id"
       ],
+      $defs: {
+        "alexandria_application_id": alexandria_application_id,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/alexandria_application",
+      "$ref": "#/$defs/alexandria_get_application_response",
       $defs: {
+        "alexandria_api-response-common": alexandria_api_response_common_output,
         "alexandria_application": alexandria_application_output,
         "alexandria_application_confidence_score": alexandria_application_confidence_score_output,
         "alexandria_application_created_at": alexandria_application_created_at_output,
@@ -255,6 +288,8 @@ export const tools: readonly Tool[] = [
         "alexandria_application_updated_at": alexandria_application_updated_at_output,
         "alexandria_application_version": alexandria_application_version_output,
         "alexandria_category_id": alexandria_category_id_output,
+        "alexandria_get_application_response": alexandria_get_application_response_output,
+        "alexandria_messages": alexandria_messages_output,
       },
     },
     annotations: {
@@ -266,16 +301,25 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/resource-library/applications/{id}",
+    extensions: {
+      "x-api-token-group": [
+        "Zero Trust Read",
+        "Zero Trust Write",
+        "Resource Library Read",
+        "Resource Library Write"
+      ]
+    },
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/alexandria_application"
+          "$ref": "#/$defs/alexandria_get_application_response"
         },
         "4XX": {
           "$ref": "#/$defs/alexandria_api_response_common_failure"
         }
       },
       $defs: {
+        "alexandria_api-response-common": alexandria_api_response_common_output,
         "alexandria_api_response_common_failure": alexandria_api_response_common_failure_output,
         "alexandria_application": alexandria_application_output,
         "alexandria_application_confidence_score": alexandria_application_confidence_score_output,
@@ -296,6 +340,7 @@ export const tools: readonly Tool[] = [
         "alexandria_application_updated_at": alexandria_application_updated_at_output,
         "alexandria_application_version": alexandria_application_version_output,
         "alexandria_category_id": alexandria_category_id_output,
+        "alexandria_get_application_response": alexandria_get_application_response_output,
         "alexandria_messages": alexandria_messages_output,
       },
     },
@@ -354,39 +399,10 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "$ref": "#/$defs/alexandria_applications"
-        },
-        "result_info": {
-          "properties": {
-            "count": {
-              "type": "number"
-            },
-            "cursor": {
-              "type": "string"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/alexandria_get_applications_response",
       $defs: {
+        "alexandria_api-response-collection": alexandria_api_response_collection_output,
+        "alexandria_api-response-common": alexandria_api_response_common_output,
         "alexandria_application_confidence_score": alexandria_application_confidence_score_output,
         "alexandria_application_created_at": alexandria_application_created_at_output,
         "alexandria_application_gen_ai_score": alexandria_application_gen_ai_score_output,
@@ -407,6 +423,8 @@ export const tools: readonly Tool[] = [
         "alexandria_application_version": alexandria_application_version_output,
         "alexandria_applications": alexandria_applications_output,
         "alexandria_category_id": alexandria_category_id_output,
+        "alexandria_get_applications_response": alexandria_get_applications_response_output,
+        "alexandria_messages": alexandria_messages_output,
       },
     },
     annotations: {
@@ -418,41 +436,18 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/resource-library/applications",
+    extensions: {
+      "x-api-token-group": [
+        "Zero Trust Read",
+        "Zero Trust Write",
+        "Resource Library Read",
+        "Resource Library Write"
+      ]
+    },
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "$ref": "#/$defs/alexandria_applications"
-            },
-            "result_info": {
-              "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "cursor": {
-                  "type": "string"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/alexandria_get_applications_response"
         },
         "403": {
           "$ref": "#/$defs/alexandria_api_response_common_failure"
@@ -468,6 +463,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "alexandria_api-response-collection": alexandria_api_response_collection_output,
+        "alexandria_api-response-common": alexandria_api_response_common_output,
         "alexandria_api_response_common_failure": alexandria_api_response_common_failure_output,
         "alexandria_application_confidence_score": alexandria_application_confidence_score_output,
         "alexandria_application_created_at": alexandria_application_created_at_output,
@@ -489,6 +486,7 @@ export const tools: readonly Tool[] = [
         "alexandria_application_version": alexandria_application_version_output,
         "alexandria_applications": alexandria_applications_output,
         "alexandria_category_id": alexandria_category_id_output,
+        "alexandria_get_applications_response": alexandria_get_applications_response_output,
         "alexandria_messages": alexandria_messages_output,
       },
     },
@@ -543,39 +541,10 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "$ref": "#/$defs/alexandria_applications"
-        },
-        "result_info": {
-          "properties": {
-            "count": {
-              "type": "number"
-            },
-            "cursor": {
-              "type": "string"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/alexandria_get_applications_response",
       $defs: {
+        "alexandria_api-response-collection": alexandria_api_response_collection_output,
+        "alexandria_api-response-common": alexandria_api_response_common_output,
         "alexandria_application_confidence_score": alexandria_application_confidence_score_output,
         "alexandria_application_created_at": alexandria_application_created_at_output,
         "alexandria_application_gen_ai_score": alexandria_application_gen_ai_score_output,
@@ -596,6 +565,8 @@ export const tools: readonly Tool[] = [
         "alexandria_application_version": alexandria_application_version_output,
         "alexandria_applications": alexandria_applications_output,
         "alexandria_category_id": alexandria_category_id_output,
+        "alexandria_get_applications_response": alexandria_get_applications_response_output,
+        "alexandria_messages": alexandria_messages_output,
       },
     },
     annotations: {
@@ -607,41 +578,18 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/resource-library/applications/lookup",
+    extensions: {
+      "x-api-token-group": [
+        "Zero Trust Read",
+        "Zero Trust Write",
+        "Resource Library Read",
+        "Resource Library Write"
+      ]
+    },
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "$ref": "#/$defs/alexandria_applications"
-            },
-            "result_info": {
-              "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "cursor": {
-                  "type": "string"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/alexandria_get_applications_response"
         },
         "403": {
           "$ref": "#/$defs/alexandria_api_response_common_failure"
@@ -657,6 +605,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "alexandria_api-response-collection": alexandria_api_response_collection_output,
+        "alexandria_api-response-common": alexandria_api_response_common_output,
         "alexandria_api_response_common_failure": alexandria_api_response_common_failure_output,
         "alexandria_application_confidence_score": alexandria_application_confidence_score_output,
         "alexandria_application_created_at": alexandria_application_created_at_output,
@@ -678,6 +628,7 @@ export const tools: readonly Tool[] = [
         "alexandria_application_version": alexandria_application_version_output,
         "alexandria_applications": alexandria_applications_output,
         "alexandria_category_id": alexandria_category_id_output,
+        "alexandria_get_applications_response": alexandria_get_applications_response_output,
         "alexandria_messages": alexandria_messages_output,
       },
     },
@@ -706,8 +657,8 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/alexandria_update_application_request"
         },
         "id": {
-          "description": "Application ID.",
-          "type": "string"
+          "$ref": "#/$defs/alexandria_application_id",
+          "description": "Application ID."
         }
       },
       required: [
@@ -717,6 +668,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "alexandria_application_hostnames": alexandria_application_hostnames,
+        "alexandria_application_id": alexandria_application_id,
         "alexandria_application_ip_subnets": alexandria_application_ip_subnets,
         "alexandria_application_port_protocols": alexandria_application_port_protocols,
         "alexandria_application_support_domains": alexandria_application_support_domains,
@@ -724,8 +676,9 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/alexandria_application",
+      "$ref": "#/$defs/alexandria_get_application_response",
       $defs: {
+        "alexandria_api-response-common": alexandria_api_response_common_output,
         "alexandria_application": alexandria_application_output,
         "alexandria_application_confidence_score": alexandria_application_confidence_score_output,
         "alexandria_application_created_at": alexandria_application_created_at_output,
@@ -745,6 +698,8 @@ export const tools: readonly Tool[] = [
         "alexandria_application_updated_at": alexandria_application_updated_at_output,
         "alexandria_application_version": alexandria_application_version_output,
         "alexandria_category_id": alexandria_category_id_output,
+        "alexandria_get_application_response": alexandria_get_application_response_output,
+        "alexandria_messages": alexandria_messages_output,
       },
     },
     annotations: {
@@ -756,16 +711,23 @@ export const tools: readonly Tool[] = [
     },
     method: "PATCH",
     path: "/accounts/{account_id}/resource-library/applications/{id}",
+    extensions: {
+      "x-api-token-group": [
+        "Zero Trust Write",
+        "Resource Library Write"
+      ]
+    },
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/alexandria_application"
+          "$ref": "#/$defs/alexandria_get_application_response"
         },
         "4XX": {
           "$ref": "#/$defs/alexandria_api_response_common_failure"
         }
       },
       $defs: {
+        "alexandria_api-response-common": alexandria_api_response_common_output,
         "alexandria_api_response_common_failure": alexandria_api_response_common_failure_output,
         "alexandria_application": alexandria_application_output,
         "alexandria_application_confidence_score": alexandria_application_confidence_score_output,
@@ -786,6 +748,7 @@ export const tools: readonly Tool[] = [
         "alexandria_application_updated_at": alexandria_application_updated_at_output,
         "alexandria_application_version": alexandria_application_version_output,
         "alexandria_category_id": alexandria_category_id_output,
+        "alexandria_get_application_response": alexandria_get_application_response_output,
         "alexandria_messages": alexandria_messages_output,
       },
     },

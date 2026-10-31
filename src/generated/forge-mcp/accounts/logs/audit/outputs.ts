@@ -9,7 +9,15 @@ import type { JsonSchema } from "../../../_/tool.js";
 export const aaa_audit_logs_v2_output: JsonSchema = {
   "properties": {
     "account": {
-      "$ref": "#/$defs/aaa_audit-logs-v2_account"
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "action": {
       "$ref": "#/$defs/aaa_audit-log-action"
@@ -43,10 +51,96 @@ export const aaa_audit_logs_v2_output: JsonSchema = {
       "$ref": "#/$defs/aaa_audit-log-raw"
     },
     "resource": {
-      "$ref": "#/$defs/aaa_audit-logs-v2_resource"
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "product": {
+          "type": "string"
+        },
+        "request": {
+          "type": "object"
+        },
+        "response": {
+          "type": "object"
+        },
+        "scope": {
+          "type": "object"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "zone": {
-      "$ref": "#/$defs/aaa_audit-logs-v2_zone"
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "type": "object"
+};
+
+/**
+ * The schema of `aaa_audit-logs-v2-history-response-collection` in responses.
+ */
+export const aaa_audit_logs_v2_history_response_collection_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/aaa_messages-2"
+    },
+    "result": {
+      "items": {
+        "$ref": "#/$defs/aaa_audit-logs-v2"
+      },
+      "type": "array"
+    },
+    "result_info": {
+      "$ref": "#/$defs/aaa_audit-logs-v2-history-result-info"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "result",
+    "result_info",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `aaa_audit-logs-v2-product-categories-response-collection` in
+ * responses.
+ */
+export const aaa_audit_logs_v2_product_categories_response_collection_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/aaa_messages-2"
+    },
+    "result": {
+      "items": {
+        "$ref": "#/$defs/aaa_audit-logs-v2-product-category"
+      },
+      "type": "array"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
     }
   },
   "type": "object"
@@ -89,58 +183,23 @@ export const aaa_audit_logs_v2_product_category_item_output: JsonSchema = {
 };
 
 /**
- * The schema of `aaa_audit-logs-v2_account` in responses.
+ * The schema of `aaa_audit-logs-v2-response-collection` in responses.
  */
-export const aaa_audit_logs_v2_account_output: JsonSchema = {
-  "properties": {
-    "id": {
-      "type": "string"
+export const aaa_audit_logs_v2_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/aaa_audit-logs-response-collection"
     },
-    "name": {
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `aaa_audit-logs-v2_resource` in responses.
- */
-export const aaa_audit_logs_v2_resource_output: JsonSchema = {
-  "properties": {
-    "id": {
-      "type": "string"
-    },
-    "product": {
-      "type": "string"
-    },
-    "request": {
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/aaa_audit-logs-v2"
+          },
+          "type": "array"
+        }
+      },
       "type": "object"
-    },
-    "response": {
-      "type": "object"
-    },
-    "scope": {
-      "type": "object"
-    },
-    "type": {
-      "type": "string"
     }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `aaa_audit-logs-v2_zone` in responses.
- */
-export const aaa_audit_logs_v2_zone_output: JsonSchema = {
-  "properties": {
-    "id": {
-      "type": "string"
-    },
-    "name": {
-      "type": "string"
-    }
-  },
-  "type": "object"
+  ]
 };

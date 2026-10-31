@@ -11,6 +11,25 @@ export const rum_auto_install_output: JsonSchema = {
 };
 
 /**
+ * The schema of `rum_empty-response` in responses.
+ */
+export const rum_empty_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/rum_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `rum_result_info` in responses.
  */
 export const rum_result_info_output: JsonSchema = {
@@ -72,6 +91,71 @@ export const rum_site_output: JsonSchema = {
 };
 
 /**
+ * The schema of `rum_site-response-single` in responses.
+ */
+export const rum_site_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/rum_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/rum_site"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `rum_site-tag-list-response` in responses.
+ */
+export const rum_site_tag_list_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/rum_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/rum_site_tag"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `rum_site-tag-response-single` in responses.
+ */
+export const rum_site_tag_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/rum_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "site_tag": {
+              "$ref": "#/$defs/rum_site_tag"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `rum_site_tag` in responses.
  */
 export const rum_site_tag_output: JsonSchema = {
@@ -86,8 +170,55 @@ export const rum_site_token_output: JsonSchema = {
 };
 
 /**
+ * The schema of `rum_sites-response-collection` in responses.
+ */
+export const rum_sites_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/rum_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/rum_site"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/rum_result_info"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `rum_snippet` in responses.
  */
 export const rum_snippet_output: JsonSchema = {
   "type": "string"
+};
+
+/**
+ * The schema of `rum_zone-tag-list-response` in responses.
+ */
+export const rum_zone_tag_list_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/rum_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/rum_zone_tag"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };

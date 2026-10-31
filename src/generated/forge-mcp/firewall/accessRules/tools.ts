@@ -3,7 +3,10 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  firewall_api_response_collection_output,
   firewall_api_response_common_failure_output,
+  firewall_api_response_common_output,
+  firewall_api_response_single_output,
   firewall_asn_configuration_output,
   firewall_cidr_configuration_output,
   firewall_configuration_output,
@@ -13,6 +16,7 @@ import {
   firewall_messages_output,
   firewall_notes_output,
   firewall_result_info_output,
+  firewall_rule_output,
   firewall_schemas_identifier_output,
   firewall_schemas_mode_output,
 } from "../../outputs.js";
@@ -24,13 +28,18 @@ import {
   firewall_ip_configuration,
   firewall_ipv6_configuration,
   firewall_notes,
+  firewall_rule,
+  firewall_rule_identifier,
   firewall_schemas_mode,
 } from "../../schemas.js";
+import { firewall_identifier_output } from "../outputs.js";
+import { firewall_account_identifier } from "../schemas.js";
 import {
+  firewall_api_response_single_id_output,
   firewall_email_output,
-  firewall_identifier_output,
+  firewall_response_collection_output,
+  firewall_response_single_output,
   firewall_schemas_rule_output,
-  firewall_schemas_rule_scope_output,
 } from "./outputs.js";
 import { firewall_schemas_rule } from "./schemas.js";
 
@@ -54,8 +63,8 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/firewall_account_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "body": {
           "properties": {
@@ -84,6 +93,7 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "firewall_account_identifier": firewall_account_identifier,
         "firewall_asn_configuration": firewall_asn_configuration,
         "firewall_cidr_configuration": firewall_cidr_configuration,
         "firewall_configuration": firewall_configuration,
@@ -95,8 +105,10 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/firewall_schemas-rule",
+      "$ref": "#/$defs/firewall_response_single",
       $defs: {
+        "firewall_api-response-common": firewall_api_response_common_output,
+        "firewall_api-response-single": firewall_api_response_single_output,
         "firewall_asn_configuration": firewall_asn_configuration_output,
         "firewall_cidr_configuration": firewall_cidr_configuration_output,
         "firewall_configuration": firewall_configuration_output,
@@ -105,11 +117,13 @@ export const tools: readonly Tool[] = [
         "firewall_identifier": firewall_identifier_output,
         "firewall_ip_configuration": firewall_ip_configuration_output,
         "firewall_ipv6_configuration": firewall_ipv6_configuration_output,
+        "firewall_messages": firewall_messages_output,
         "firewall_notes": firewall_notes_output,
+        "firewall_response_single": firewall_response_single_output,
+        "firewall_rule": firewall_rule_output,
         "firewall_schemas-identifier": firewall_schemas_identifier_output,
         "firewall_schemas-mode": firewall_schemas_mode_output,
         "firewall_schemas-rule": firewall_schemas_rule_output,
-        "firewall_schemas-rule_scope": firewall_schemas_rule_scope_output,
       },
     },
     annotations: {
@@ -128,12 +142,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#waf:edit"
-        ],
-        "x-fern-enum": {
-          "#waf:edit": {
-            "name": "waf_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -145,14 +154,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/firewall_schemas-rule"
+          "$ref": "#/$defs/firewall_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/firewall_api-response-common-failure"
         }
       },
       $defs: {
+        "firewall_api-response-common": firewall_api_response_common_output,
         "firewall_api-response-common-failure": firewall_api_response_common_failure_output,
+        "firewall_api-response-single": firewall_api_response_single_output,
         "firewall_asn_configuration": firewall_asn_configuration_output,
         "firewall_cidr_configuration": firewall_cidr_configuration_output,
         "firewall_configuration": firewall_configuration_output,
@@ -163,10 +174,11 @@ export const tools: readonly Tool[] = [
         "firewall_ipv6_configuration": firewall_ipv6_configuration_output,
         "firewall_messages": firewall_messages_output,
         "firewall_notes": firewall_notes_output,
+        "firewall_response_single": firewall_response_single_output,
+        "firewall_rule": firewall_rule_output,
         "firewall_schemas-identifier": firewall_schemas_identifier_output,
         "firewall_schemas-mode": firewall_schemas_mode_output,
         "firewall_schemas-rule": firewall_schemas_rule_output,
-        "firewall_schemas-rule_scope": firewall_schemas_rule_scope_output,
       },
     },
     request: (args) => ({
@@ -190,12 +202,12 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/firewall_account_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "rule_id": {
-          "description": "Unique identifier for a rule.",
-          "type": "string"
+          "$ref": "#/$defs/firewall_rule_identifier",
+          "description": "Unique identifier for a rule."
         }
       },
       required: [
@@ -203,26 +215,18 @@ export const tools: readonly Tool[] = [
         "account_or_zone_id",
         "rule_id"
       ],
+      $defs: {
+        "firewall_account_identifier": firewall_account_identifier,
+        "firewall_rule_identifier": firewall_rule_identifier,
+      },
     },
     outputSchema: {
-      "oneOf": [
-        {
-          "properties": {
-            "id": {
-              "$ref": "#/$defs/firewall_identifier"
-            }
-          },
-          "required": [
-            "id"
-          ],
-          "type": "object"
-        },
-        {
-          "type": "null"
-        }
-      ],
+      "$ref": "#/$defs/firewall_api-response-single-id",
       $defs: {
+        "firewall_api-response-common": firewall_api_response_common_output,
+        "firewall_api-response-single-id": firewall_api_response_single_id_output,
         "firewall_identifier": firewall_identifier_output,
+        "firewall_messages": firewall_messages_output,
       },
     },
     annotations: {
@@ -241,12 +245,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#waf:edit"
-        ],
-        "x-fern-enum": {
-          "#waf:edit": {
-            "name": "waf_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -258,29 +257,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "oneOf": [
-            {
-              "properties": {
-                "id": {
-                  "$ref": "#/$defs/firewall_identifier"
-                }
-              },
-              "required": [
-                "id"
-              ],
-              "type": "object"
-            },
-            {
-              "type": "null"
-            }
-          ]
+          "$ref": "#/$defs/firewall_api-response-single-id"
         },
         "4XX": {
           "$ref": "#/$defs/firewall_api-response-common-failure"
         }
       },
       $defs: {
+        "firewall_api-response-common": firewall_api_response_common_output,
         "firewall_api-response-common-failure": firewall_api_response_common_failure_output,
+        "firewall_api-response-single-id": firewall_api_response_single_id_output,
         "firewall_identifier": firewall_identifier_output,
         "firewall_messages": firewall_messages_output,
       },
@@ -305,15 +291,15 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/firewall_account_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "body": {
           "$ref": "#/$defs/firewall_schemas-rule"
         },
         "rule_id": {
-          "description": "Unique identifier for a rule.",
-          "type": "string"
+          "$ref": "#/$defs/firewall_rule_identifier",
+          "description": "Unique identifier for a rule."
         }
       },
       required: [
@@ -323,6 +309,7 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "firewall_account_identifier": firewall_account_identifier,
         "firewall_asn_configuration": firewall_asn_configuration,
         "firewall_cidr_configuration": firewall_cidr_configuration,
         "firewall_configuration": firewall_configuration,
@@ -330,13 +317,17 @@ export const tools: readonly Tool[] = [
         "firewall_ip_configuration": firewall_ip_configuration,
         "firewall_ipv6_configuration": firewall_ipv6_configuration,
         "firewall_notes": firewall_notes,
+        "firewall_rule": firewall_rule,
+        "firewall_rule_identifier": firewall_rule_identifier,
         "firewall_schemas-mode": firewall_schemas_mode,
         "firewall_schemas-rule": firewall_schemas_rule,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/firewall_schemas-rule",
+      "$ref": "#/$defs/firewall_response_single",
       $defs: {
+        "firewall_api-response-common": firewall_api_response_common_output,
+        "firewall_api-response-single": firewall_api_response_single_output,
         "firewall_asn_configuration": firewall_asn_configuration_output,
         "firewall_cidr_configuration": firewall_cidr_configuration_output,
         "firewall_configuration": firewall_configuration_output,
@@ -345,11 +336,13 @@ export const tools: readonly Tool[] = [
         "firewall_identifier": firewall_identifier_output,
         "firewall_ip_configuration": firewall_ip_configuration_output,
         "firewall_ipv6_configuration": firewall_ipv6_configuration_output,
+        "firewall_messages": firewall_messages_output,
         "firewall_notes": firewall_notes_output,
+        "firewall_response_single": firewall_response_single_output,
+        "firewall_rule": firewall_rule_output,
         "firewall_schemas-identifier": firewall_schemas_identifier_output,
         "firewall_schemas-mode": firewall_schemas_mode_output,
         "firewall_schemas-rule": firewall_schemas_rule_output,
-        "firewall_schemas-rule_scope": firewall_schemas_rule_scope_output,
       },
     },
     annotations: {
@@ -368,12 +361,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#waf:edit"
-        ],
-        "x-fern-enum": {
-          "#waf:edit": {
-            "name": "waf_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -385,14 +373,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/firewall_schemas-rule"
+          "$ref": "#/$defs/firewall_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/firewall_api-response-common-failure"
         }
       },
       $defs: {
+        "firewall_api-response-common": firewall_api_response_common_output,
         "firewall_api-response-common-failure": firewall_api_response_common_failure_output,
+        "firewall_api-response-single": firewall_api_response_single_output,
         "firewall_asn_configuration": firewall_asn_configuration_output,
         "firewall_cidr_configuration": firewall_cidr_configuration_output,
         "firewall_configuration": firewall_configuration_output,
@@ -403,10 +393,11 @@ export const tools: readonly Tool[] = [
         "firewall_ipv6_configuration": firewall_ipv6_configuration_output,
         "firewall_messages": firewall_messages_output,
         "firewall_notes": firewall_notes_output,
+        "firewall_response_single": firewall_response_single_output,
+        "firewall_rule": firewall_rule_output,
         "firewall_schemas-identifier": firewall_schemas_identifier_output,
         "firewall_schemas-mode": firewall_schemas_mode_output,
         "firewall_schemas-rule": firewall_schemas_rule_output,
-        "firewall_schemas-rule_scope": firewall_schemas_rule_scope_output,
       },
     },
     request: (args) => ({
@@ -430,12 +421,12 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/firewall_account_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "rule_id": {
-          "description": "Unique identifier for a rule.",
-          "type": "string"
+          "$ref": "#/$defs/firewall_rule_identifier",
+          "description": "Unique identifier for a rule."
         }
       },
       required: [
@@ -443,10 +434,16 @@ export const tools: readonly Tool[] = [
         "account_or_zone_id",
         "rule_id"
       ],
+      $defs: {
+        "firewall_account_identifier": firewall_account_identifier,
+        "firewall_rule_identifier": firewall_rule_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/firewall_schemas-rule",
+      "$ref": "#/$defs/firewall_response_single",
       $defs: {
+        "firewall_api-response-common": firewall_api_response_common_output,
+        "firewall_api-response-single": firewall_api_response_single_output,
         "firewall_asn_configuration": firewall_asn_configuration_output,
         "firewall_cidr_configuration": firewall_cidr_configuration_output,
         "firewall_configuration": firewall_configuration_output,
@@ -455,11 +452,13 @@ export const tools: readonly Tool[] = [
         "firewall_identifier": firewall_identifier_output,
         "firewall_ip_configuration": firewall_ip_configuration_output,
         "firewall_ipv6_configuration": firewall_ipv6_configuration_output,
+        "firewall_messages": firewall_messages_output,
         "firewall_notes": firewall_notes_output,
+        "firewall_response_single": firewall_response_single_output,
+        "firewall_rule": firewall_rule_output,
         "firewall_schemas-identifier": firewall_schemas_identifier_output,
         "firewall_schemas-mode": firewall_schemas_mode_output,
         "firewall_schemas-rule": firewall_schemas_rule_output,
-        "firewall_schemas-rule_scope": firewall_schemas_rule_scope_output,
       },
     },
     annotations: {
@@ -479,12 +478,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#waf:read"
-        ],
-        "x-fern-enum": {
-          "#waf:read": {
-            "name": "waf_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -496,14 +490,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/firewall_schemas-rule"
+          "$ref": "#/$defs/firewall_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/firewall_api-response-common-failure"
         }
       },
       $defs: {
+        "firewall_api-response-common": firewall_api_response_common_output,
         "firewall_api-response-common-failure": firewall_api_response_common_failure_output,
+        "firewall_api-response-single": firewall_api_response_single_output,
         "firewall_asn_configuration": firewall_asn_configuration_output,
         "firewall_cidr_configuration": firewall_cidr_configuration_output,
         "firewall_configuration": firewall_configuration_output,
@@ -514,10 +510,11 @@ export const tools: readonly Tool[] = [
         "firewall_ipv6_configuration": firewall_ipv6_configuration_output,
         "firewall_messages": firewall_messages_output,
         "firewall_notes": firewall_notes_output,
+        "firewall_response_single": firewall_response_single_output,
+        "firewall_rule": firewall_rule_output,
         "firewall_schemas-identifier": firewall_schemas_identifier_output,
         "firewall_schemas-mode": firewall_schemas_mode_output,
         "firewall_schemas-rule": firewall_schemas_rule_output,
-        "firewall_schemas-rule_scope": firewall_schemas_rule_scope_output,
       },
     },
     request: (args) => ({
@@ -544,8 +541,8 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/firewall_account_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "configuration_target": {
           "description": "Defines the target to search in existing rules.",
@@ -605,26 +602,15 @@ export const tools: readonly Tool[] = [
         "account_or_zone_id"
       ],
       $defs: {
+        "firewall_account_identifier": firewall_account_identifier,
         "firewall_schemas-mode": firewall_schemas_mode,
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/firewall_schemas-rule"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "$ref": "#/$defs/firewall_result_info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/firewall_response_collection",
       $defs: {
+        "firewall_api-response-collection": firewall_api_response_collection_output,
+        "firewall_api-response-common": firewall_api_response_common_output,
         "firewall_asn_configuration": firewall_asn_configuration_output,
         "firewall_cidr_configuration": firewall_cidr_configuration_output,
         "firewall_configuration": firewall_configuration_output,
@@ -633,12 +619,14 @@ export const tools: readonly Tool[] = [
         "firewall_identifier": firewall_identifier_output,
         "firewall_ip_configuration": firewall_ip_configuration_output,
         "firewall_ipv6_configuration": firewall_ipv6_configuration_output,
+        "firewall_messages": firewall_messages_output,
         "firewall_notes": firewall_notes_output,
+        "firewall_response_collection": firewall_response_collection_output,
         "firewall_result_info": firewall_result_info_output,
+        "firewall_rule": firewall_rule_output,
         "firewall_schemas-identifier": firewall_schemas_identifier_output,
         "firewall_schemas-mode": firewall_schemas_mode_output,
         "firewall_schemas-rule": firewall_schemas_rule_output,
-        "firewall_schemas-rule_scope": firewall_schemas_rule_scope_output,
       },
     },
     annotations: {
@@ -658,12 +646,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#waf:read"
-        ],
-        "x-fern-enum": {
-          "#waf:read": {
-            "name": "waf_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -675,27 +658,15 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/firewall_schemas-rule"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/firewall_result_info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/firewall_response_collection"
         },
         "4XX": {
           "$ref": "#/$defs/firewall_api-response-common-failure"
         }
       },
       $defs: {
+        "firewall_api-response-collection": firewall_api_response_collection_output,
+        "firewall_api-response-common": firewall_api_response_common_output,
         "firewall_api-response-common-failure": firewall_api_response_common_failure_output,
         "firewall_asn_configuration": firewall_asn_configuration_output,
         "firewall_cidr_configuration": firewall_cidr_configuration_output,
@@ -707,11 +678,12 @@ export const tools: readonly Tool[] = [
         "firewall_ipv6_configuration": firewall_ipv6_configuration_output,
         "firewall_messages": firewall_messages_output,
         "firewall_notes": firewall_notes_output,
+        "firewall_response_collection": firewall_response_collection_output,
         "firewall_result_info": firewall_result_info_output,
+        "firewall_rule": firewall_rule_output,
         "firewall_schemas-identifier": firewall_schemas_identifier_output,
         "firewall_schemas-mode": firewall_schemas_mode_output,
         "firewall_schemas-rule": firewall_schemas_rule_output,
-        "firewall_schemas-rule_scope": firewall_schemas_rule_scope_output,
       },
     },
     request: (args) => ({

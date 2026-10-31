@@ -9,19 +9,140 @@ import type { JsonSchema } from "../../_/tool.js";
 export const workers_observability_issue_occurrence_output: JsonSchema = {
   "properties": {
     "context": {
-      "$ref": "#/$defs/workers-observability_issue_occurrence_context"
+      "properties": {
+        "account": {
+          "type": "string"
+        },
+        "session": {
+          "type": "string"
+        },
+        "user": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "error": {
-      "$ref": "#/$defs/workers-observability_issue_occurrence_error"
+      "properties": {
+        "handled": {
+          "type": "boolean"
+        },
+        "mechanism": {
+          "enum": [
+            "structured-log",
+            "error-log",
+            "stack-log",
+            "http-status",
+            "exception",
+            "outcome"
+          ],
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "signature": {
+          "type": "string"
+        },
+        "stack": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "handled",
+        "mechanism",
+        "message",
+        "name",
+        "signature"
+      ],
+      "type": "object"
     },
     "id": {
       "type": "string"
     },
     "invocation": {
-      "$ref": "#/$defs/workers-observability_issue_occurrence_invocation"
+      "properties": {
+        "batchSize": {
+          "type": "number"
+        },
+        "cron": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "jsrpcMethod": {
+          "type": "string"
+        },
+        "mailFrom": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "queue": {
+          "type": "string"
+        },
+        "rawSize": {
+          "type": "number"
+        },
+        "rayId": {
+          "type": "string"
+        },
+        "rcptTo": {
+          "type": "string"
+        },
+        "scheduledTime": {
+          "type": "number"
+        },
+        "spanId": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "integer"
+        },
+        "traceId": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "websocketCloseCode": {
+          "type": "number"
+        },
+        "websocketEvent": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "traceId",
+        "type"
+      ],
+      "type": "object"
     },
     "request": {
-      "$ref": "#/$defs/workers-observability_issue_occurrence_request"
+      "properties": {
+        "headers": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "headers"
+      ],
+      "type": "object"
     },
     "timestamp": {
       "type": "number"
@@ -93,7 +214,46 @@ export const workers_observability_issue_occurrence_output: JsonSchema = {
       "type": "array"
     },
     "worker": {
-      "$ref": "#/$defs/workers-observability_issue_occurrence_worker"
+      "properties": {
+        "dispatchNamespace": {
+          "type": "string"
+        },
+        "entrypoint": {
+          "type": "string"
+        },
+        "executionModel": {
+          "type": "string"
+        },
+        "scriptName": {
+          "type": "string"
+        },
+        "scriptTags": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "scriptVersion": {
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "tag": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "executionModel",
+        "scriptName",
+        "scriptTags"
+      ],
+      "type": "object"
     }
   },
   "required": [
@@ -103,210 +263,6 @@ export const workers_observability_issue_occurrence_output: JsonSchema = {
     "timestamp",
     "trail",
     "worker"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `workers-observability_issue_occurrence_context` in responses.
- */
-export const workers_observability_issue_occurrence_context_output: JsonSchema = {
-  "properties": {
-    "account": {
-      "type": "string"
-    },
-    "session": {
-      "type": "string"
-    },
-    "user": {
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers-observability_issue_occurrence_error` in responses.
- */
-export const workers_observability_issue_occurrence_error_output: JsonSchema = {
-  "properties": {
-    "handled": {
-      "type": "boolean"
-    },
-    "mechanism": {
-      "enum": [
-        "structured-log",
-        "error-log",
-        "stack-log",
-        "http-status",
-        "exception",
-        "outcome"
-      ],
-      "type": "string"
-    },
-    "message": {
-      "type": "string"
-    },
-    "name": {
-      "type": "string"
-    },
-    "signature": {
-      "type": "string"
-    },
-    "stack": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "handled",
-    "mechanism",
-    "message",
-    "name",
-    "signature"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `workers-observability_issue_occurrence_invocation` in
- * responses.
- */
-export const workers_observability_issue_occurrence_invocation_output: JsonSchema = {
-  "properties": {
-    "batchSize": {
-      "type": "number"
-    },
-    "cron": {
-      "type": "string"
-    },
-    "id": {
-      "type": "string"
-    },
-    "jsrpcMethod": {
-      "type": "string"
-    },
-    "mailFrom": {
-      "type": "string"
-    },
-    "method": {
-      "type": "string"
-    },
-    "path": {
-      "type": "string"
-    },
-    "queue": {
-      "type": "string"
-    },
-    "rawSize": {
-      "type": "number"
-    },
-    "rayId": {
-      "type": "string"
-    },
-    "rcptTo": {
-      "type": "string"
-    },
-    "scheduledTime": {
-      "type": "number"
-    },
-    "spanId": {
-      "type": "string"
-    },
-    "statusCode": {
-      "type": "integer"
-    },
-    "traceId": {
-      "type": "string"
-    },
-    "type": {
-      "type": "string"
-    },
-    "url": {
-      "type": "string"
-    },
-    "websocketCloseCode": {
-      "type": "number"
-    },
-    "websocketEvent": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "id",
-    "traceId",
-    "type"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `workers-observability_issue_occurrence_request` in responses.
- */
-export const workers_observability_issue_occurrence_request_output: JsonSchema = {
-  "properties": {
-    "headers": {
-      "additionalProperties": {
-        "type": "string"
-      },
-      "type": "object"
-    }
-  },
-  "required": [
-    "headers"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `workers-observability_issue_occurrence_worker` in responses.
- */
-export const workers_observability_issue_occurrence_worker_output: JsonSchema = {
-  "properties": {
-    "dispatchNamespace": {
-      "type": "string"
-    },
-    "entrypoint": {
-      "type": "string"
-    },
-    "executionModel": {
-      "type": "string"
-    },
-    "scriptName": {
-      "type": "string"
-    },
-    "scriptTags": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "scriptVersion": {
-      "$ref": "#/$defs/workers-observability_issue_occurrence_worker_scriptVersion"
-    }
-  },
-  "required": [
-    "executionModel",
-    "scriptName",
-    "scriptTags"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `workers-observability_issue_occurrence_worker_scriptVersion`
- * in responses.
- */
-export const workers_observability_issue_occurrence_worker_scriptVersion_output: JsonSchema = {
-  "properties": {
-    "id": {
-      "type": "string"
-    },
-    "tag": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "id"
   ],
   "type": "object"
 };

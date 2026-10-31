@@ -132,6 +132,92 @@ export const zones_always_use_https_output: JsonSchema = {
 };
 
 /**
+ * The schema of `zones_api-response-common-2` in responses.
+ */
+export const zones_api_response_common_2_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/zones_messages-2"
+    },
+    "messages": {
+      "$ref": "#/$defs/zones_messages-2"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `zones_api-response-single` in responses.
+ */
+export const zones_api_response_single_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/zones_messages-2"
+    },
+    "messages": {
+      "$ref": "#/$defs/zones_messages-2"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `zones_api-response-single-id-2` in responses.
+ */
+export const zones_api_response_single_id_2_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_api-response-common-2"
+    },
+    {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "properties": {
+                "id": {
+                  "$ref": "#/$defs/zones_identifier-2"
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `zones_automatic_https_rewrites` in responses.
  */
 export const zones_automatic_https_rewrites_output: JsonSchema = {
@@ -267,180 +353,122 @@ export const zones_cache_key_fields_output: JsonSchema = {
       "type": "string"
     },
     "value": {
-      "$ref": "#/$defs/zones_cache_key_fields_value"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `zones_cache_key_fields_value` in responses.
- */
-export const zones_cache_key_fields_value_output: JsonSchema = {
-  "properties": {
-    "cookie": {
-      "$ref": "#/$defs/zones_cache_key_fields_value_cookie"
-    },
-    "header": {
-      "$ref": "#/$defs/zones_cache_key_fields_value_header"
-    },
-    "host": {
-      "$ref": "#/$defs/zones_cache_key_fields_value_host"
-    },
-    "query_string": {
-      "$ref": "#/$defs/zones_cache_key_fields_value_query_string"
-    },
-    "user": {
-      "$ref": "#/$defs/zones_cache_key_fields_value_user"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `zones_cache_key_fields_value_cookie` in responses.
- */
-export const zones_cache_key_fields_value_cookie_output: JsonSchema = {
-  "properties": {
-    "check_presence": {
-      "items": {
-        "type": "string"
+      "properties": {
+        "cookie": {
+          "properties": {
+            "check_presence": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 50,
+              "minItems": 1,
+              "type": "array"
+            },
+            "include": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 50,
+              "minItems": 1,
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "header": {
+          "properties": {
+            "check_presence": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 50,
+              "minItems": 1,
+              "type": "array"
+            },
+            "exclude": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 50,
+              "minItems": 1,
+              "type": "array"
+            },
+            "include": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 50,
+              "minItems": 1,
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "host": {
+          "properties": {
+            "resolved": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "query_string": {
+          "properties": {
+            "exclude": {
+              "oneOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "maxItems": 50,
+                  "minItems": 1,
+                  "type": "array"
+                },
+                {
+                  "enum": [
+                    "*"
+                  ],
+                  "type": "string"
+                }
+              ]
+            },
+            "include": {
+              "oneOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "maxItems": 50,
+                  "minItems": 1,
+                  "type": "array"
+                },
+                {
+                  "enum": [
+                    "*"
+                  ],
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "type": "object"
+        },
+        "user": {
+          "properties": {
+            "device_type": {
+              "type": "boolean"
+            },
+            "geo": {
+              "type": "boolean"
+            },
+            "lang": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
       },
-      "maxItems": 50,
-      "minItems": 1,
-      "type": "array"
-    },
-    "include": {
-      "items": {
-        "type": "string"
-      },
-      "maxItems": 50,
-      "minItems": 1,
-      "type": "array"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `zones_cache_key_fields_value_header` in responses.
- */
-export const zones_cache_key_fields_value_header_output: JsonSchema = {
-  "properties": {
-    "check_presence": {
-      "items": {
-        "type": "string"
-      },
-      "maxItems": 50,
-      "minItems": 1,
-      "type": "array"
-    },
-    "exclude": {
-      "items": {
-        "type": "string"
-      },
-      "maxItems": 50,
-      "minItems": 1,
-      "type": "array"
-    },
-    "include": {
-      "items": {
-        "type": "string"
-      },
-      "maxItems": 50,
-      "minItems": 1,
-      "type": "array"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `zones_cache_key_fields_value_host` in responses.
- */
-export const zones_cache_key_fields_value_host_output: JsonSchema = {
-  "properties": {
-    "resolved": {
-      "type": "boolean"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `zones_cache_key_fields_value_query_string` in responses.
- */
-export const zones_cache_key_fields_value_query_string_output: JsonSchema = {
-  "properties": {
-    "exclude": {
-      "$ref": "#/$defs/zones_cache_key_fields_value_query_string_exclude"
-    },
-    "include": {
-      "$ref": "#/$defs/zones_cache_key_fields_value_query_string_include"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `zones_cache_key_fields_value_query_string_exclude` in
- * responses.
- */
-export const zones_cache_key_fields_value_query_string_exclude_output: JsonSchema = {
-  "oneOf": [
-    {
-      "items": {
-        "type": "string"
-      },
-      "maxItems": 50,
-      "minItems": 1,
-      "type": "array"
-    },
-    {
-      "enum": [
-        "*"
-      ],
-      "type": "string"
-    }
-  ]
-};
-
-/**
- * The schema of `zones_cache_key_fields_value_query_string_include` in
- * responses.
- */
-export const zones_cache_key_fields_value_query_string_include_output: JsonSchema = {
-  "oneOf": [
-    {
-      "items": {
-        "type": "string"
-      },
-      "maxItems": 50,
-      "minItems": 1,
-      "type": "array"
-    },
-    {
-      "enum": [
-        "*"
-      ],
-      "type": "string"
-    }
-  ]
-};
-
-/**
- * The schema of `zones_cache_key_fields_value_user` in responses.
- */
-export const zones_cache_key_fields_value_user_output: JsonSchema = {
-  "properties": {
-    "device_type": {
-      "type": "boolean"
-    },
-    "geo": {
-      "type": "boolean"
-    },
-    "lang": {
-      "type": "boolean"
+      "type": "object"
     }
   },
   "type": "object"
@@ -697,13 +725,6 @@ export const zones_host_header_override_output: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `zones_identifier-2` in responses.
- */
-export const zones_identifier_2_output: JsonSchema = {
-  "type": "string"
 };
 
 /**

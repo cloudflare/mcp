@@ -187,26 +187,21 @@ export const resource_tagging_set_tags_request_account_level: JsonSchema = {
  * The schema of `resource-tagging_set_tags_request_account_level_base`.
  */
 export const resource_tagging_set_tags_request_account_level_base: JsonSchema = {
-  "description": "Request body schema for setting tags on account-level resources with no extra requirements.",
-  "properties": {
-    "resource_id": {
-      "$ref": "#/$defs/resource-tagging_resource_id",
-      "description": "Identifies the unique resource."
+  "allOf": [
+    {
+      "$ref": "#/$defs/resource-tagging_delete_tags_request_account_level_base"
     },
-    "resource_type": {
-      "$ref": "#/$defs/resource-tagging_account_resource_type_base_enum",
-      "description": "Enum for base account-level resource types (those with no extra required fields)."
-    },
-    "tags": {
-      "$ref": "#/$defs/resource-tagging_tags",
-      "description": "Contains key-value pairs of tags. Keys may contain at most 256 characters. Values may contain at most 1024 characters and may be empty for key-only tags."
+    {
+      "properties": {
+        "tags": {
+          "$ref": "#/$defs/resource-tagging_tags",
+          "description": "Contains key-value pairs of tags. Keys may contain at most 256 characters. Values may contain at most 1024 characters and may be empty for key-only tags."
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "resource_id",
-    "resource_type"
   ],
-  "type": "object"
+  "description": "Request body schema for setting tags on account-level resources with no extra requirements."
 };
 
 /**
@@ -214,29 +209,19 @@ export const resource_tagging_set_tags_request_account_level_base: JsonSchema = 
  * `resource-tagging_set_tags_request_account_level_worker_version`.
  */
 export const resource_tagging_set_tags_request_account_level_worker_version: JsonSchema = {
-  "description": "Request body schema for setting tags on worker_version resources.",
-  "properties": {
-    "resource_id": {
-      "$ref": "#/$defs/resource-tagging_resource_id",
-      "description": "Identifies the unique resource."
+  "allOf": [
+    {
+      "$ref": "#/$defs/resource-tagging_delete_tags_request_account_level_worker_version"
     },
-    "resource_type": {
-      "$ref": "#/$defs/resource-tagging_account_resource_type_worker_version_enum",
-      "description": "Enum for worker_version resource type."
-    },
-    "tags": {
-      "$ref": "#/$defs/resource-tagging_tags",
-      "description": "Contains key-value pairs of tags. Keys may contain at most 256 characters. Values may contain at most 1024 characters and may be empty for key-only tags."
-    },
-    "worker_id": {
-      "$ref": "#/$defs/resource-tagging_worker_id",
-      "description": "Worker ID is required only for worker_version resources"
+    {
+      "properties": {
+        "tags": {
+          "$ref": "#/$defs/resource-tagging_tags",
+          "description": "Contains key-value pairs of tags. Keys may contain at most 256 characters. Values may contain at most 1024 characters and may be empty for key-only tags."
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "resource_id",
-    "resource_type",
-    "worker_id"
   ],
-  "type": "object"
+  "description": "Request body schema for setting tags on worker_version resources."
 };

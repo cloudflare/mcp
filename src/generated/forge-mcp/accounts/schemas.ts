@@ -21,16 +21,27 @@ export const iam_account: JsonSchema = {
       "description": "Identifier"
     },
     "managed_by": {
-      "$ref": "#/$defs/iam_account_managed_by",
-      "description": "Parent container details"
+      "description": "Parent container details",
+      "type": "object"
     },
     "name": {
       "description": "Account name",
       "type": "string"
     },
     "settings": {
-      "$ref": "#/$defs/iam_account_settings",
-      "description": "Account settings"
+      "description": "Account settings",
+      "properties": {
+        "abuse_contact_email": {
+          "description": "Sets an abuse contact email to notify for abuse reports.",
+          "type": "string"
+        },
+        "enforce_twofactor": {
+          "default": false,
+          "description": "Indicates whether membership in this account requires that\nTwo-Factor Authentication is enabled",
+          "type": "boolean"
+        }
+      },
+      "type": "object"
     },
     "type": {
       "$ref": "#/$defs/iam_account-type"
@@ -45,13 +56,33 @@ export const iam_account: JsonSchema = {
 };
 
 /**
+ * The schema of `iam_components-schemas-account`.
+ */
+export const iam_components_schemas_account: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/iam_account"
+    },
+    {
+      "properties": {
+        "name": {
+          "description": "Account name, limited to 65 UTF-8 bytes.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `iam_create-account`.
  */
 export const iam_create_account: JsonSchema = {
   "description": "Create Account",
   "properties": {
     "name": {
-      "description": "Account name",
+      "description": "Account name, limited to 65 UTF-8 bytes.",
       "type": "string"
     },
     "standalone": {
@@ -65,27 +96,19 @@ export const iam_create_account: JsonSchema = {
       "$ref": "#/$defs/iam_account-type"
     },
     "unit": {
-      "$ref": "#/$defs/iam_create-account_unit",
-      "description": "Information related to the tenant unit. Provide its ID and omit `standalone` to create the Account within an Organization. See https://developers.cloudflare.com/tenant/how-to/manage-accounts/."
+      "description": "Information related to the tenant unit. Provide its ID and omit `standalone` to create the Account within an Organization. See https://developers.cloudflare.com/tenant/how-to/manage-accounts/.",
+      "properties": {
+        "id": {
+          "description": "Tenant unit ID",
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
   },
   "required": [
     "name"
   ],
-  "type": "object"
-};
-
-/**
- * The schema of `iam_create-account_unit`.
- */
-export const iam_create_account_unit: JsonSchema = {
-  "description": "Information related to the tenant unit. Provide its ID and omit `standalone` to create the Account within an Organization. See https://developers.cloudflare.com/tenant/how-to/manage-accounts/.",
-  "properties": {
-    "id": {
-      "description": "Tenant unit ID",
-      "type": "string"
-    }
-  },
   "type": "object"
 };
 

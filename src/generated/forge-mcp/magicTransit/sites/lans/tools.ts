@@ -4,11 +4,13 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   magic_api_response_common_failure_output,
+  magic_api_response_common_output,
+  magic_api_response_single_output,
   magic_cidr_output,
   magic_identifier_output,
   magic_messages_output,
 } from "../../outputs.js";
-import { magic_cidr } from "../../schemas.js";
+import { magic_cidr, magic_identifier } from "../../schemas.js";
 import {
   magic_ip_address_output,
   magic_port_output,
@@ -18,11 +20,16 @@ import { magic_ip_address, magic_port, magic_vlan_tag } from "../schemas.js";
 import {
   magic_bond_id_output,
   magic_dhcp_option_output,
+  magic_lan_deleted_response_output,
   magic_lan_dhcp_relay_output,
   magic_lan_dhcp_server_output,
+  magic_lan_modified_response_output,
   magic_lan_output,
+  magic_lan_single_response_output,
   magic_lan_static_addressing_output,
+  magic_lans_collection_response_output,
   magic_nat_output,
+  magic_remote_subnet_output,
   magic_routed_subnet_output,
 } from "./outputs.js";
 import {
@@ -34,6 +41,7 @@ import {
   magic_lan_update_request,
   magic_lans_add_single_request,
   magic_nat,
+  magic_remote_subnet,
   magic_routed_subnet,
 } from "./schemas.js";
 
@@ -49,15 +57,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "body": {
           "$ref": "#/$defs/magic_lans_add_single_request"
         },
         "site_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         }
       },
       required: [
@@ -69,6 +77,7 @@ export const tools: readonly Tool[] = [
         "magic_bond_id": magic_bond_id,
         "magic_cidr": magic_cidr,
         "magic_dhcp_option": magic_dhcp_option,
+        "magic_identifier": magic_identifier,
         "magic_ip-address": magic_ip_address,
         "magic_lan_dhcp_relay": magic_lan_dhcp_relay,
         "magic_lan_dhcp_server": magic_lan_dhcp_server,
@@ -76,27 +85,16 @@ export const tools: readonly Tool[] = [
         "magic_lans_add_single_request": magic_lans_add_single_request,
         "magic_nat": magic_nat,
         "magic_port": magic_port,
+        "magic_remote_subnet": magic_remote_subnet,
         "magic_routed_subnet": magic_routed_subnet,
         "magic_vlan_tag": magic_vlan_tag,
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/magic_lan"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/magic_lans_collection_response",
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_bond_id": magic_bond_id_output,
         "magic_cidr": magic_cidr_output,
         "magic_dhcp_option": magic_dhcp_option_output,
@@ -106,8 +104,11 @@ export const tools: readonly Tool[] = [
         "magic_lan_dhcp_relay": magic_lan_dhcp_relay_output,
         "magic_lan_dhcp_server": magic_lan_dhcp_server_output,
         "magic_lan_static_addressing": magic_lan_static_addressing_output,
+        "magic_lans_collection_response": magic_lans_collection_response_output,
+        "magic_messages": magic_messages_output,
         "magic_nat": magic_nat_output,
         "magic_port": magic_port_output,
+        "magic_remote_subnet": magic_remote_subnet_output,
         "magic_routed_subnet": magic_routed_subnet_output,
         "magic_vlan_tag": magic_vlan_tag_output,
       },
@@ -136,28 +137,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/magic_lan"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/magic_lans_collection_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
         }
       },
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_bond_id": magic_bond_id_output,
         "magic_cidr": magic_cidr_output,
         "magic_dhcp_option": magic_dhcp_option_output,
@@ -167,9 +156,11 @@ export const tools: readonly Tool[] = [
         "magic_lan_dhcp_relay": magic_lan_dhcp_relay_output,
         "magic_lan_dhcp_server": magic_lan_dhcp_server_output,
         "magic_lan_static_addressing": magic_lan_static_addressing_output,
+        "magic_lans_collection_response": magic_lans_collection_response_output,
         "magic_messages": magic_messages_output,
         "magic_nat": magic_nat_output,
         "magic_port": magic_port_output,
+        "magic_remote_subnet": magic_remote_subnet_output,
         "magic_routed_subnet": magic_routed_subnet_output,
         "magic_vlan_tag": magic_vlan_tag_output,
       },
@@ -187,16 +178,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "lan_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "site_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         }
       },
       required: [
@@ -204,21 +195,29 @@ export const tools: readonly Tool[] = [
         "site_id",
         "lan_id"
       ],
+      $defs: {
+        "magic_identifier": magic_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/magic_lan",
+      "$ref": "#/$defs/magic_lan_deleted_response",
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_bond_id": magic_bond_id_output,
         "magic_cidr": magic_cidr_output,
         "magic_dhcp_option": magic_dhcp_option_output,
         "magic_identifier": magic_identifier_output,
         "magic_ip-address": magic_ip_address_output,
         "magic_lan": magic_lan_output,
+        "magic_lan_deleted_response": magic_lan_deleted_response_output,
         "magic_lan_dhcp_relay": magic_lan_dhcp_relay_output,
         "magic_lan_dhcp_server": magic_lan_dhcp_server_output,
         "magic_lan_static_addressing": magic_lan_static_addressing_output,
+        "magic_messages": magic_messages_output,
         "magic_nat": magic_nat_output,
         "magic_port": magic_port_output,
+        "magic_remote_subnet": magic_remote_subnet_output,
         "magic_routed_subnet": magic_routed_subnet_output,
         "magic_vlan_tag": magic_vlan_tag_output,
       },
@@ -240,12 +239,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#organization:edit"
-        ],
-        "x-fern-enum": {
-          "#organization:edit": {
-            "name": "organization_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -257,26 +251,30 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/magic_lan"
+          "$ref": "#/$defs/magic_lan_deleted_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
         }
       },
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_bond_id": magic_bond_id_output,
         "magic_cidr": magic_cidr_output,
         "magic_dhcp_option": magic_dhcp_option_output,
         "magic_identifier": magic_identifier_output,
         "magic_ip-address": magic_ip_address_output,
         "magic_lan": magic_lan_output,
+        "magic_lan_deleted_response": magic_lan_deleted_response_output,
         "magic_lan_dhcp_relay": magic_lan_dhcp_relay_output,
         "magic_lan_dhcp_server": magic_lan_dhcp_server_output,
         "magic_lan_static_addressing": magic_lan_static_addressing_output,
         "magic_messages": magic_messages_output,
         "magic_nat": magic_nat_output,
         "magic_port": magic_port_output,
+        "magic_remote_subnet": magic_remote_subnet_output,
         "magic_routed_subnet": magic_routed_subnet_output,
         "magic_vlan_tag": magic_vlan_tag_output,
       },
@@ -293,19 +291,19 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "body": {
           "$ref": "#/$defs/magic_lan_update_request"
         },
         "lan_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "site_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         }
       },
       required: [
@@ -318,6 +316,7 @@ export const tools: readonly Tool[] = [
         "magic_bond_id": magic_bond_id,
         "magic_cidr": magic_cidr,
         "magic_dhcp_option": magic_dhcp_option,
+        "magic_identifier": magic_identifier,
         "magic_ip-address": magic_ip_address,
         "magic_lan_dhcp_relay": magic_lan_dhcp_relay,
         "magic_lan_dhcp_server": magic_lan_dhcp_server,
@@ -325,13 +324,16 @@ export const tools: readonly Tool[] = [
         "magic_lan_update_request": magic_lan_update_request,
         "magic_nat": magic_nat,
         "magic_port": magic_port,
+        "magic_remote_subnet": magic_remote_subnet,
         "magic_routed_subnet": magic_routed_subnet,
         "magic_vlan_tag": magic_vlan_tag,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/magic_lan",
+      "$ref": "#/$defs/magic_lan_modified_response",
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_bond_id": magic_bond_id_output,
         "magic_cidr": magic_cidr_output,
         "magic_dhcp_option": magic_dhcp_option_output,
@@ -340,9 +342,12 @@ export const tools: readonly Tool[] = [
         "magic_lan": magic_lan_output,
         "magic_lan_dhcp_relay": magic_lan_dhcp_relay_output,
         "magic_lan_dhcp_server": magic_lan_dhcp_server_output,
+        "magic_lan_modified_response": magic_lan_modified_response_output,
         "magic_lan_static_addressing": magic_lan_static_addressing_output,
+        "magic_messages": magic_messages_output,
         "magic_nat": magic_nat_output,
         "magic_port": magic_port_output,
+        "magic_remote_subnet": magic_remote_subnet_output,
         "magic_routed_subnet": magic_routed_subnet_output,
         "magic_vlan_tag": magic_vlan_tag_output,
       },
@@ -364,12 +369,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#organization:edit"
-        ],
-        "x-fern-enum": {
-          "#organization:edit": {
-            "name": "organization_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -381,14 +381,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/magic_lan"
+          "$ref": "#/$defs/magic_lan_modified_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
         }
       },
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_bond_id": magic_bond_id_output,
         "magic_cidr": magic_cidr_output,
         "magic_dhcp_option": magic_dhcp_option_output,
@@ -397,10 +399,12 @@ export const tools: readonly Tool[] = [
         "magic_lan": magic_lan_output,
         "magic_lan_dhcp_relay": magic_lan_dhcp_relay_output,
         "magic_lan_dhcp_server": magic_lan_dhcp_server_output,
+        "magic_lan_modified_response": magic_lan_modified_response_output,
         "magic_lan_static_addressing": magic_lan_static_addressing_output,
         "magic_messages": magic_messages_output,
         "magic_nat": magic_nat_output,
         "magic_port": magic_port_output,
+        "magic_remote_subnet": magic_remote_subnet_output,
         "magic_routed_subnet": magic_routed_subnet_output,
         "magic_vlan_tag": magic_vlan_tag_output,
       },
@@ -418,16 +422,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "lan_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "site_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         }
       },
       required: [
@@ -435,10 +439,15 @@ export const tools: readonly Tool[] = [
         "site_id",
         "lan_id"
       ],
+      $defs: {
+        "magic_identifier": magic_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/magic_lan",
+      "$ref": "#/$defs/magic_lan_single_response",
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_bond_id": magic_bond_id_output,
         "magic_cidr": magic_cidr_output,
         "magic_dhcp_option": magic_dhcp_option_output,
@@ -447,9 +456,12 @@ export const tools: readonly Tool[] = [
         "magic_lan": magic_lan_output,
         "magic_lan_dhcp_relay": magic_lan_dhcp_relay_output,
         "magic_lan_dhcp_server": magic_lan_dhcp_server_output,
+        "magic_lan_single_response": magic_lan_single_response_output,
         "magic_lan_static_addressing": magic_lan_static_addressing_output,
+        "magic_messages": magic_messages_output,
         "magic_nat": magic_nat_output,
         "magic_port": magic_port_output,
+        "magic_remote_subnet": magic_remote_subnet_output,
         "magic_routed_subnet": magic_routed_subnet_output,
         "magic_vlan_tag": magic_vlan_tag_output,
       },
@@ -473,12 +485,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#organization:read"
-        ],
-        "x-fern-enum": {
-          "#organization:read": {
-            "name": "organization_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -490,14 +497,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/magic_lan"
+          "$ref": "#/$defs/magic_lan_single_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
         }
       },
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_bond_id": magic_bond_id_output,
         "magic_cidr": magic_cidr_output,
         "magic_dhcp_option": magic_dhcp_option_output,
@@ -506,10 +515,12 @@ export const tools: readonly Tool[] = [
         "magic_lan": magic_lan_output,
         "magic_lan_dhcp_relay": magic_lan_dhcp_relay_output,
         "magic_lan_dhcp_server": magic_lan_dhcp_server_output,
+        "magic_lan_single_response": magic_lan_single_response_output,
         "magic_lan_static_addressing": magic_lan_static_addressing_output,
         "magic_messages": magic_messages_output,
         "magic_nat": magic_nat_output,
         "magic_port": magic_port_output,
+        "magic_remote_subnet": magic_remote_subnet_output,
         "magic_routed_subnet": magic_routed_subnet_output,
         "magic_vlan_tag": magic_vlan_tag_output,
       },
@@ -526,36 +537,27 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "site_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         }
       },
       required: [
         "account_id",
         "site_id"
       ],
+      $defs: {
+        "magic_identifier": magic_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/magic_lan"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/magic_lans_collection_response",
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_bond_id": magic_bond_id_output,
         "magic_cidr": magic_cidr_output,
         "magic_dhcp_option": magic_dhcp_option_output,
@@ -565,8 +567,11 @@ export const tools: readonly Tool[] = [
         "magic_lan_dhcp_relay": magic_lan_dhcp_relay_output,
         "magic_lan_dhcp_server": magic_lan_dhcp_server_output,
         "magic_lan_static_addressing": magic_lan_static_addressing_output,
+        "magic_lans_collection_response": magic_lans_collection_response_output,
+        "magic_messages": magic_messages_output,
         "magic_nat": magic_nat_output,
         "magic_port": magic_port_output,
+        "magic_remote_subnet": magic_remote_subnet_output,
         "magic_routed_subnet": magic_routed_subnet_output,
         "magic_vlan_tag": magic_vlan_tag_output,
       },
@@ -597,28 +602,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/magic_lan"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/magic_lans_collection_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
         }
       },
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_bond_id": magic_bond_id_output,
         "magic_cidr": magic_cidr_output,
         "magic_dhcp_option": magic_dhcp_option_output,
@@ -628,9 +621,11 @@ export const tools: readonly Tool[] = [
         "magic_lan_dhcp_relay": magic_lan_dhcp_relay_output,
         "magic_lan_dhcp_server": magic_lan_dhcp_server_output,
         "magic_lan_static_addressing": magic_lan_static_addressing_output,
+        "magic_lans_collection_response": magic_lans_collection_response_output,
         "magic_messages": magic_messages_output,
         "magic_nat": magic_nat_output,
         "magic_port": magic_port_output,
+        "magic_remote_subnet": magic_remote_subnet_output,
         "magic_routed_subnet": magic_routed_subnet_output,
         "magic_vlan_tag": magic_vlan_tag_output,
       },
@@ -647,19 +642,19 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "body": {
           "$ref": "#/$defs/magic_lan_update_request"
         },
         "lan_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "site_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         }
       },
       required: [
@@ -672,6 +667,7 @@ export const tools: readonly Tool[] = [
         "magic_bond_id": magic_bond_id,
         "magic_cidr": magic_cidr,
         "magic_dhcp_option": magic_dhcp_option,
+        "magic_identifier": magic_identifier,
         "magic_ip-address": magic_ip_address,
         "magic_lan_dhcp_relay": magic_lan_dhcp_relay,
         "magic_lan_dhcp_server": magic_lan_dhcp_server,
@@ -679,13 +675,16 @@ export const tools: readonly Tool[] = [
         "magic_lan_update_request": magic_lan_update_request,
         "magic_nat": magic_nat,
         "magic_port": magic_port,
+        "magic_remote_subnet": magic_remote_subnet,
         "magic_routed_subnet": magic_routed_subnet,
         "magic_vlan_tag": magic_vlan_tag,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/magic_lan",
+      "$ref": "#/$defs/magic_lan_modified_response",
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_bond_id": magic_bond_id_output,
         "magic_cidr": magic_cidr_output,
         "magic_dhcp_option": magic_dhcp_option_output,
@@ -694,9 +693,12 @@ export const tools: readonly Tool[] = [
         "magic_lan": magic_lan_output,
         "magic_lan_dhcp_relay": magic_lan_dhcp_relay_output,
         "magic_lan_dhcp_server": magic_lan_dhcp_server_output,
+        "magic_lan_modified_response": magic_lan_modified_response_output,
         "magic_lan_static_addressing": magic_lan_static_addressing_output,
+        "magic_messages": magic_messages_output,
         "magic_nat": magic_nat_output,
         "magic_port": magic_port_output,
+        "magic_remote_subnet": magic_remote_subnet_output,
         "magic_routed_subnet": magic_routed_subnet_output,
         "magic_vlan_tag": magic_vlan_tag_output,
       },
@@ -718,12 +720,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#organization:edit"
-        ],
-        "x-fern-enum": {
-          "#organization:edit": {
-            "name": "organization_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -735,14 +732,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/magic_lan"
+          "$ref": "#/$defs/magic_lan_modified_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
         }
       },
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_bond_id": magic_bond_id_output,
         "magic_cidr": magic_cidr_output,
         "magic_dhcp_option": magic_dhcp_option_output,
@@ -751,10 +750,12 @@ export const tools: readonly Tool[] = [
         "magic_lan": magic_lan_output,
         "magic_lan_dhcp_relay": magic_lan_dhcp_relay_output,
         "magic_lan_dhcp_server": magic_lan_dhcp_server_output,
+        "magic_lan_modified_response": magic_lan_modified_response_output,
         "magic_lan_static_addressing": magic_lan_static_addressing_output,
         "magic_messages": magic_messages_output,
         "magic_nat": magic_nat_output,
         "magic_port": magic_port_output,
+        "magic_remote_subnet": magic_remote_subnet_output,
         "magic_routed_subnet": magic_routed_subnet_output,
         "magic_vlan_tag": magic_vlan_tag_output,
       },

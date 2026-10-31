@@ -206,8 +206,17 @@ export const pages_deployment_config_values_request: JsonSchema = {
       "type": "object"
     },
     "limits": {
-      "$ref": "#/$defs/pages_deployment_config_values_request_limits",
-      "description": "Limits for Pages Functions."
+      "description": "Limits for Pages Functions.",
+      "properties": {
+        "cpu_ms": {
+          "description": "CPU time limit in milliseconds.",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "cpu_ms"
+      ],
+      "type": "object"
     },
     "mtls_certificates": {
       "additionalProperties": {
@@ -232,8 +241,17 @@ export const pages_deployment_config_values_request: JsonSchema = {
       "type": "object"
     },
     "placement": {
-      "$ref": "#/$defs/pages_deployment_config_values_request_placement",
-      "description": "Placement setting used for Pages Functions."
+      "description": "Placement setting used for Pages Functions.",
+      "properties": {
+        "mode": {
+          "description": "Placement mode.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "mode"
+      ],
+      "type": "object"
     },
     "queue_producers": {
       "additionalProperties": {
@@ -372,37 +390,11 @@ export const pages_deployment_config_values_request: JsonSchema = {
 };
 
 /**
- * The schema of `pages_deployment_config_values_request_limits`.
+ * The schema of `pages_identifier`.
  */
-export const pages_deployment_config_values_request_limits: JsonSchema = {
-  "description": "Limits for Pages Functions.",
-  "properties": {
-    "cpu_ms": {
-      "description": "CPU time limit in milliseconds.",
-      "type": "integer"
-    }
-  },
-  "required": [
-    "cpu_ms"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `pages_deployment_config_values_request_placement`.
- */
-export const pages_deployment_config_values_request_placement: JsonSchema = {
-  "description": "Placement setting used for Pages Functions.",
-  "properties": {
-    "mode": {
-      "description": "Placement mode.",
-      "type": "string"
-    }
-  },
-  "required": [
-    "mode"
-  ],
-  "type": "object"
+export const pages_identifier: JsonSchema = {
+  "description": "Identifier.",
+  "type": "string"
 };
 
 /**
@@ -434,6 +426,14 @@ export const pages_plain_text_env_var: JsonSchema = {
       "type": "null"
     }
   ]
+};
+
+/**
+ * The schema of `pages_project_name`.
+ */
+export const pages_project_name: JsonSchema = {
+  "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens.",
+  "type": "string"
 };
 
 /**

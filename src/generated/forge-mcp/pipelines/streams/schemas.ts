@@ -55,49 +55,9 @@ export const cloudflare_pipelines_Format: JsonSchema = {
 };
 
 /**
- * The schema of `cloudflare-pipelines_JsonFormat`.
+ * The schema of `cloudflare-pipelines_workers-pipelines-stream-id`.
  */
-export const cloudflare_pipelines_JsonFormat: JsonSchema = {
-  "properties": {
-    "decimal_encoding": {
-      "$ref": "#/$defs/cloudflare-pipelines_DecimalEncoding"
-    },
-    "timestamp_format": {
-      "$ref": "#/$defs/cloudflare-pipelines_TimestampFormat"
-    },
-    "unstructured": {
-      "type": "boolean"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `cloudflare-pipelines_ParquetFormat`.
- */
-export const cloudflare_pipelines_ParquetFormat: JsonSchema = {
-  "properties": {
-    "compression": {
-      "$ref": "#/$defs/cloudflare-pipelines_ParquetCompression"
-    },
-    "row_group_bytes": {
-      "oneOf": [
-        {
-          "type": "integer"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `cloudflare-pipelines_workers-pipelines-pipeline-id`.
- */
-export const cloudflare_pipelines_workers_pipelines_pipeline_id: JsonSchema = {
-  "description": "Specifies the public ID of the pipeline.",
+export const cloudflare_pipelines_workers_pipelines_stream_id: JsonSchema = {
+  "description": "Specifies the public ID of the stream.",
   "type": "string"
 };

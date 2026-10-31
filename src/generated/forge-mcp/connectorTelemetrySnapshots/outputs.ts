@@ -4,6 +4,28 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
+ * The schema of `mconn-telemetry_customer_snapshots_get_success` in responses.
+ */
+export const mconn_telemetry_customer_snapshots_get_success_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/mconn-telemetry_envelope"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/mconn-telemetry_snapshot"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `mconn-telemetry_customer_snapshots_list_result` in responses.
  */
 export const mconn_telemetry_customer_snapshots_list_result_output: JsonSchema = {
@@ -26,6 +48,28 @@ export const mconn_telemetry_customer_snapshots_list_result_output: JsonSchema =
     "items"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `mconn-telemetry_customer_snapshots_list_success` in responses.
+ */
+export const mconn_telemetry_customer_snapshots_list_success_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/mconn-telemetry_envelope"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/mconn-telemetry_customer_snapshots_list_result"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object"
+    }
+  ]
 };
 
 /**

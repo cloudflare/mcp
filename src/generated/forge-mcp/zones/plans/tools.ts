@@ -3,12 +3,16 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  bill_subs_api_api_response_collection_output,
   bill_subs_api_api_response_common_failure_output,
+  bill_subs_api_api_response_common_output,
+  bill_subs_api_api_response_single_output,
   bill_subs_api_currency_output,
   bill_subs_api_identifier_output,
   bill_subs_api_messages_output,
   bill_subs_api_result_info_output,
 } from "../../outputs.js";
+import { bill_subs_api_identifier } from "../../schemas.js";
 import {
   bill_subs_api_schemas_frequency_output,
   bill_subs_api_schemas_name_output,
@@ -34,22 +38,39 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "plan_identifier": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/bill-subs-api_identifier",
+          "description": "Identifier"
         },
         "zone_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/bill-subs-api_identifier",
+          "description": "Identifier"
         }
       },
       required: [
         "zone_id",
         "plan_identifier"
       ],
+      $defs: {
+        "bill-subs-api_identifier": bill_subs_api_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/bill-subs-api_available-rate-plan",
+      "allOf": [
+        {
+          "$ref": "#/$defs/bill-subs-api_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/bill-subs-api_available-rate-plan"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
+        "bill-subs-api_api-response-single": bill_subs_api_api_response_single_output,
         "bill-subs-api_available-rate-plan": bill_subs_api_available_rate_plan_output,
         "bill-subs-api_can_subscribe": bill_subs_api_can_subscribe_output,
         "bill-subs-api_currency": bill_subs_api_currency_output,
@@ -57,6 +78,7 @@ export const tools: readonly Tool[] = [
         "bill-subs-api_identifier": bill_subs_api_identifier_output,
         "bill-subs-api_is_subscribed": bill_subs_api_is_subscribed_output,
         "bill-subs-api_legacy_id": bill_subs_api_legacy_id_output,
+        "bill-subs-api_messages": bill_subs_api_messages_output,
         "bill-subs-api_schemas-frequency": bill_subs_api_schemas_frequency_output,
         "bill-subs-api_schemas-name": bill_subs_api_schemas_name_output,
         "bill-subs-api_schemas-price": bill_subs_api_schemas_price_output,
@@ -79,12 +101,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#billing:read"
-        ],
-        "x-fern-enum": {
-          "#billing:read": {
-            "name": "billing_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -96,14 +113,28 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/bill-subs-api_available-rate-plan"
+          "allOf": [
+            {
+              "$ref": "#/$defs/bill-subs-api_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/bill-subs-api_available-rate-plan"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
         }
       },
       $defs: {
+        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
         "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
+        "bill-subs-api_api-response-single": bill_subs_api_api_response_single_output,
         "bill-subs-api_available-rate-plan": bill_subs_api_available_rate_plan_output,
         "bill-subs-api_can_subscribe": bill_subs_api_can_subscribe_output,
         "bill-subs-api_currency": bill_subs_api_currency_output,
@@ -129,31 +160,37 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/bill-subs-api_identifier",
+          "description": "Identifier"
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "bill-subs-api_identifier": bill_subs_api_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/bill-subs-api_available-rate-plan"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/bill-subs-api_api-response-collection"
         },
-        "result_info": {
-          "$ref": "#/$defs/bill-subs-api_result_info"
+        {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/bill-subs-api_available-rate-plan"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
+        "bill-subs-api_api-response-collection": bill_subs_api_api_response_collection_output,
+        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
         "bill-subs-api_available-rate-plan": bill_subs_api_available_rate_plan_output,
         "bill-subs-api_can_subscribe": bill_subs_api_can_subscribe_output,
         "bill-subs-api_currency": bill_subs_api_currency_output,
@@ -161,6 +198,7 @@ export const tools: readonly Tool[] = [
         "bill-subs-api_identifier": bill_subs_api_identifier_output,
         "bill-subs-api_is_subscribed": bill_subs_api_is_subscribed_output,
         "bill-subs-api_legacy_id": bill_subs_api_legacy_id_output,
+        "bill-subs-api_messages": bill_subs_api_messages_output,
         "bill-subs-api_result_info": bill_subs_api_result_info_output,
         "bill-subs-api_schemas-frequency": bill_subs_api_schemas_frequency_output,
         "bill-subs-api_schemas-name": bill_subs_api_schemas_name_output,
@@ -184,12 +222,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#billing:read"
-        ],
-        "x-fern-enum": {
-          "#billing:read": {
-            "name": "billing_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -201,27 +234,30 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/bill-subs-api_available-rate-plan"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/bill-subs-api_api-response-collection"
             },
-            "result_info": {
-              "$ref": "#/$defs/bill-subs-api_result_info"
+            {
+              "properties": {
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/bill-subs-api_available-rate-plan"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
         }
       },
       $defs: {
+        "bill-subs-api_api-response-collection": bill_subs_api_api_response_collection_output,
+        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
         "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
         "bill-subs-api_available-rate-plan": bill_subs_api_available_rate_plan_output,
         "bill-subs-api_can_subscribe": bill_subs_api_can_subscribe_output,

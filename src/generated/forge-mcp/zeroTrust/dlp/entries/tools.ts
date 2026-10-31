@@ -5,6 +5,7 @@ import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   dlp_Empty_output,
   dlp_api_response_common_failure_output,
+  dlp_api_response_single_output,
   dlp_messages_output,
 } from "../../outputs.js";
 import {
@@ -61,11 +62,25 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/dlp_CustomEntry",
+      "allOf": [
+        {
+          "$ref": "#/$defs/dlp_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/dlp_CustomEntry"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "dlp_CustomEntry": dlp_CustomEntry_output,
         "dlp_Pattern": dlp_Pattern_output,
         "dlp_Validation": dlp_Validation_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
+        "dlp_messages": dlp_messages_output,
       },
     },
     annotations: {
@@ -85,7 +100,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dlp_CustomEntry"
+          "allOf": [
+            {
+              "$ref": "#/$defs/dlp_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/dlp_CustomEntry"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/dlp_api-response-common-failure"
@@ -96,6 +123,7 @@ export const tools: readonly Tool[] = [
         "dlp_Pattern": dlp_Pattern_output,
         "dlp_Validation": dlp_Validation_output,
         "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
         "dlp_messages": dlp_messages_output,
       },
     },
@@ -125,9 +153,23 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/dlp_Empty",
+      "allOf": [
+        {
+          "$ref": "#/$defs/dlp_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/dlp_Empty"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "dlp_Empty": dlp_Empty_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
+        "dlp_messages": dlp_messages_output,
       },
     },
     annotations: {
@@ -147,7 +189,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dlp_Empty"
+          "allOf": [
+            {
+              "$ref": "#/$defs/dlp_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/dlp_Empty"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/dlp_api-response-common-failure"
@@ -156,6 +210,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dlp_Empty": dlp_Empty_output,
         "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
         "dlp_messages": dlp_messages_output,
       },
     },
@@ -184,15 +239,29 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/dlp_EntryWithSharedProfiles",
+      "allOf": [
+        {
+          "$ref": "#/$defs/dlp_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/dlp_EntryWithSharedProfiles"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "dlp_CustomEntry": dlp_CustomEntry_output,
         "dlp_CustomPromptTopicEntry": dlp_CustomPromptTopicEntry_output,
         "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus_output,
         "dlp_DocumentFingerprintEntry": dlp_DocumentFingerprintEntry_output,
+        "dlp_Entry": dlp_Entry_output,
         "dlp_EntryConfidence": dlp_EntryConfidence_output,
         "dlp_EntryProfile": dlp_EntryProfile_output,
         "dlp_EntryWithSharedProfiles": dlp_EntryWithSharedProfiles_output,
+        "dlp_EntryWithUploadStatus": dlp_EntryWithUploadStatus_output,
         "dlp_ExactDataEntry": dlp_ExactDataEntry_output,
         "dlp_IntegrationEntry": dlp_IntegrationEntry_output,
         "dlp_Pattern": dlp_Pattern_output,
@@ -201,6 +270,8 @@ export const tools: readonly Tool[] = [
         "dlp_PromptTopicType": dlp_PromptTopicType_output,
         "dlp_Validation": dlp_Validation_output,
         "dlp_WordListEntry": dlp_WordListEntry_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
+        "dlp_messages": dlp_messages_output,
       },
     },
     annotations: {
@@ -221,7 +292,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dlp_EntryWithSharedProfiles"
+          "allOf": [
+            {
+              "$ref": "#/$defs/dlp_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/dlp_EntryWithSharedProfiles"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/dlp_api-response-common-failure"
@@ -232,9 +315,11 @@ export const tools: readonly Tool[] = [
         "dlp_CustomPromptTopicEntry": dlp_CustomPromptTopicEntry_output,
         "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus_output,
         "dlp_DocumentFingerprintEntry": dlp_DocumentFingerprintEntry_output,
+        "dlp_Entry": dlp_Entry_output,
         "dlp_EntryConfidence": dlp_EntryConfidence_output,
         "dlp_EntryProfile": dlp_EntryProfile_output,
         "dlp_EntryWithSharedProfiles": dlp_EntryWithSharedProfiles_output,
+        "dlp_EntryWithUploadStatus": dlp_EntryWithUploadStatus_output,
         "dlp_ExactDataEntry": dlp_ExactDataEntry_output,
         "dlp_IntegrationEntry": dlp_IntegrationEntry_output,
         "dlp_Pattern": dlp_Pattern_output,
@@ -244,6 +329,7 @@ export const tools: readonly Tool[] = [
         "dlp_Validation": dlp_Validation_output,
         "dlp_WordListEntry": dlp_WordListEntry_output,
         "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
         "dlp_messages": dlp_messages_output,
       },
     },
@@ -267,26 +353,28 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/dlp_EntryWithUploadStatus"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/dlp_api-response-single"
         },
-        "result_info": {
+        {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/dlp_EntryWithUploadStatus"
+              },
+              "type": "array"
+            }
+          },
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
         "dlp_CustomEntry": dlp_CustomEntry_output,
         "dlp_CustomPromptTopicEntry": dlp_CustomPromptTopicEntry_output,
         "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus_output,
         "dlp_DocumentFingerprintEntry": dlp_DocumentFingerprintEntry_output,
+        "dlp_Entry": dlp_Entry_output,
         "dlp_EntryConfidence": dlp_EntryConfidence_output,
         "dlp_EntryWithUploadStatus": dlp_EntryWithUploadStatus_output,
         "dlp_ExactDataEntry": dlp_ExactDataEntry_output,
@@ -297,6 +385,8 @@ export const tools: readonly Tool[] = [
         "dlp_PromptTopicType": dlp_PromptTopicType_output,
         "dlp_Validation": dlp_Validation_output,
         "dlp_WordListEntry": dlp_WordListEntry_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
+        "dlp_messages": dlp_messages_output,
       },
     },
     annotations: {
@@ -317,21 +407,22 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/dlp_EntryWithUploadStatus"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/dlp_api-response-single"
             },
-            "result_info": {
+            {
+              "properties": {
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/dlp_EntryWithUploadStatus"
+                  },
+                  "type": "array"
+                }
+              },
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/dlp_api-response-common-failure"
@@ -342,6 +433,7 @@ export const tools: readonly Tool[] = [
         "dlp_CustomPromptTopicEntry": dlp_CustomPromptTopicEntry_output,
         "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus_output,
         "dlp_DocumentFingerprintEntry": dlp_DocumentFingerprintEntry_output,
+        "dlp_Entry": dlp_Entry_output,
         "dlp_EntryConfidence": dlp_EntryConfidence_output,
         "dlp_EntryWithUploadStatus": dlp_EntryWithUploadStatus_output,
         "dlp_ExactDataEntry": dlp_ExactDataEntry_output,
@@ -353,6 +445,7 @@ export const tools: readonly Tool[] = [
         "dlp_Validation": dlp_Validation_output,
         "dlp_WordListEntry": dlp_WordListEntry_output,
         "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
         "dlp_messages": dlp_messages_output,
       },
     },
@@ -391,7 +484,19 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/dlp_Entry",
+      "allOf": [
+        {
+          "$ref": "#/$defs/dlp_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/dlp_Entry"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "dlp_CustomEntry": dlp_CustomEntry_output,
         "dlp_CustomPromptTopicEntry": dlp_CustomPromptTopicEntry_output,
@@ -406,6 +511,8 @@ export const tools: readonly Tool[] = [
         "dlp_PromptTopicType": dlp_PromptTopicType_output,
         "dlp_Validation": dlp_Validation_output,
         "dlp_WordListEntry": dlp_WordListEntry_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
+        "dlp_messages": dlp_messages_output,
       },
     },
     annotations: {
@@ -425,7 +532,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dlp_Entry"
+          "allOf": [
+            {
+              "$ref": "#/$defs/dlp_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/dlp_Entry"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/dlp_api-response-common-failure"
@@ -446,6 +565,7 @@ export const tools: readonly Tool[] = [
         "dlp_Validation": dlp_Validation_output,
         "dlp_WordListEntry": dlp_WordListEntry_output,
         "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
         "dlp_messages": dlp_messages_output,
       },
     },

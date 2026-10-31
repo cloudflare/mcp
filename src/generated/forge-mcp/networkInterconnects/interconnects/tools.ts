@@ -3,6 +3,7 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import { nsc_FacilityInfo_output } from "../outputs.js";
+import { nsc_AccountTag } from "../schemas.js";
 import {
   nsc_ApiBandwidth_output,
   nsc_CloudflareSite_output,
@@ -32,8 +33,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Customer account tag",
-          "type": "string"
+          "$ref": "#/$defs/nsc_AccountTag",
+          "description": "Customer account tag"
         },
         "body": {
           "$ref": "#/$defs/nsc_InterconnectCreate"
@@ -44,6 +45,7 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "nsc_AccountTag": nsc_AccountTag,
         "nsc_ApiBandwidth": nsc_ApiBandwidth,
         "nsc_InterconnectCreate": nsc_InterconnectCreate,
         "nsc_InterconnectCreate_GcpPartner_Body": nsc_InterconnectCreate_GcpPartner_Body,
@@ -106,8 +108,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Customer account tag",
-          "type": "string"
+          "$ref": "#/$defs/nsc_AccountTag",
+          "description": "Customer account tag"
         },
         "icon": {
           "description": "Interconnect name to retrieve information about",
@@ -118,6 +120,9 @@ export const tools: readonly Tool[] = [
         "account_id",
         "icon"
       ],
+      $defs: {
+        "nsc_AccountTag": nsc_AccountTag,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -154,8 +159,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Customer account tag",
-          "type": "string"
+          "$ref": "#/$defs/nsc_AccountTag",
+          "description": "Customer account tag"
         },
         "icon": {
           "description": "Interconnect name to retrieve information about",
@@ -166,6 +171,9 @@ export const tools: readonly Tool[] = [
         "account_id",
         "icon"
       ],
+      $defs: {
+        "nsc_AccountTag": nsc_AccountTag,
+      },
     },
     outputSchema: {
       "$ref": "#/$defs/nsc_Interconnect",
@@ -225,8 +233,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Customer account tag",
-          "type": "string"
+          "$ref": "#/$defs/nsc_AccountTag",
+          "description": "Customer account tag"
         },
         "cursor": {
           "oneOf": [
@@ -274,6 +282,9 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+      $defs: {
+        "nsc_AccountTag": nsc_AccountTag,
+      },
     },
     outputSchema: {
       "$ref": "#/$defs/nsc_InterconnectList",
@@ -340,8 +351,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Customer account tag",
-          "type": "string"
+          "$ref": "#/$defs/nsc_AccountTag",
+          "description": "Customer account tag"
         },
         "icon": {
           "description": "Interconnect name to retrieve information about",
@@ -363,6 +374,9 @@ export const tools: readonly Tool[] = [
         "account_id",
         "icon"
       ],
+      $defs: {
+        "nsc_AccountTag": nsc_AccountTag,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -404,8 +418,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Customer account tag",
-          "type": "string"
+          "$ref": "#/$defs/nsc_AccountTag",
+          "description": "Customer account tag"
         },
         "icon": {
           "description": "Interconnect name to retrieve information about",
@@ -416,6 +430,9 @@ export const tools: readonly Tool[] = [
         "account_id",
         "icon"
       ],
+      $defs: {
+        "nsc_AccountTag": nsc_AccountTag,
+      },
     },
     outputSchema: {
       "$ref": "#/$defs/nsc_DefaultNameResponse",
@@ -465,8 +482,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Customer account tag",
-          "type": "string"
+          "$ref": "#/$defs/nsc_AccountTag",
+          "description": "Customer account tag"
         },
         "icon": {
           "description": "Interconnect name to retrieve information about",
@@ -477,6 +494,9 @@ export const tools: readonly Tool[] = [
         "account_id",
         "icon"
       ],
+      $defs: {
+        "nsc_AccountTag": nsc_AccountTag,
+      },
     },
     outputSchema: {
       "$ref": "#/$defs/nsc_StatusInfo",

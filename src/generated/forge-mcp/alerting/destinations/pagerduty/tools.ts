@@ -5,16 +5,20 @@ import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   aaa_api_response_common_2_output,
   aaa_api_response_common_failure_3_output,
+  aaa_api_response_single_output,
   aaa_id_response_output,
-  aaa_id_response_result_output,
   aaa_messages_3_output,
   aaa_uuid_output,
 } from "../../outputs.js";
+import { aaa_account_id } from "../../schemas.js";
 import {
+  aaa_components_schemas_response_collection_output,
   aaa_name_output,
   aaa_pagerduty_output,
+  aaa_sensitive_id_response_output,
   aaa_token_output,
 } from "./outputs.js";
+import { aaa_integration_token } from "./schemas.js";
 
 /**
  * The tools of `alerting.destinations.pagerduty`.
@@ -28,22 +32,23 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "The account id",
-          "type": "string"
+          "$ref": "#/$defs/aaa_account-id",
+          "description": "The account id"
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "aaa_account-id": aaa_account_id,
+      },
     },
     outputSchema: {
-      "properties": {
-        "id": {
-          "$ref": "#/$defs/aaa_token"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/aaa_sensitive_id_response",
       $defs: {
+        "aaa_api-response-single": aaa_api_response_single_output,
+        "aaa_messages-3": aaa_messages_3_output,
+        "aaa_sensitive_id_response": aaa_sensitive_id_response_output,
         "aaa_token": aaa_token_output,
       },
     },
@@ -65,12 +70,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "201": {
-          "properties": {
-            "id": {
-              "$ref": "#/$defs/aaa_token"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/aaa_sensitive_id_response"
         },
         "4XX": {
           "allOf": [
@@ -85,9 +85,10 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "aaa_api-response-common-failure-3": aaa_api_response_common_failure_3_output,
+        "aaa_api-response-single": aaa_api_response_single_output,
         "aaa_id_response": aaa_id_response_output,
-        "aaa_id_response_result": aaa_id_response_result_output,
         "aaa_messages-3": aaa_messages_3_output,
+        "aaa_sensitive_id_response": aaa_sensitive_id_response_output,
         "aaa_token": aaa_token_output,
         "aaa_uuid": aaa_uuid_output,
       },
@@ -104,13 +105,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "The account id",
-          "type": "string"
+          "$ref": "#/$defs/aaa_account-id",
+          "description": "The account id"
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "aaa_account-id": aaa_account_id,
+      },
     },
     outputSchema: {
       "$ref": "#/$defs/aaa_api-response-common-2",
@@ -161,31 +165,23 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "The account id",
-          "type": "string"
+          "$ref": "#/$defs/aaa_account-id",
+          "description": "The account id"
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "aaa_account-id": aaa_account_id,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/aaa_pagerduty"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/aaa_components-schemas-response_collection",
       $defs: {
+        "aaa_api-response-common-2": aaa_api_response_common_2_output,
+        "aaa_components-schemas-response_collection": aaa_components_schemas_response_collection_output,
+        "aaa_messages-3": aaa_messages_3_output,
         "aaa_name": aaa_name_output,
         "aaa_pagerduty": aaa_pagerduty_output,
         "aaa_uuid": aaa_uuid_output,
@@ -218,28 +214,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/aaa_pagerduty"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/aaa_components-schemas-response_collection"
         },
         "4XX": {
           "$ref": "#/$defs/aaa_api-response-common-failure-3"
         }
       },
       $defs: {
+        "aaa_api-response-common-2": aaa_api_response_common_2_output,
         "aaa_api-response-common-failure-3": aaa_api_response_common_failure_3_output,
+        "aaa_components-schemas-response_collection": aaa_components_schemas_response_collection_output,
         "aaa_messages-3": aaa_messages_3_output,
         "aaa_name": aaa_name_output,
         "aaa_pagerduty": aaa_pagerduty_output,
@@ -258,27 +242,29 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "The account id",
-          "type": "string"
+          "$ref": "#/$defs/aaa_account-id",
+          "description": "The account id"
         },
         "token_id": {
-          "description": "The token integration key",
-          "type": "string"
+          "$ref": "#/$defs/aaa_integration-token",
+          "description": "The token integration key"
         }
       },
       required: [
         "account_id",
         "token_id"
       ],
+      $defs: {
+        "aaa_account-id": aaa_account_id,
+        "aaa_integration-token": aaa_integration_token,
+      },
     },
     outputSchema: {
-      "properties": {
-        "id": {
-          "$ref": "#/$defs/aaa_uuid"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/aaa_id_response",
       $defs: {
+        "aaa_api-response-single": aaa_api_response_single_output,
+        "aaa_id_response": aaa_id_response_output,
+        "aaa_messages-3": aaa_messages_3_output,
         "aaa_uuid": aaa_uuid_output,
       },
     },
@@ -300,12 +286,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "id": {
-              "$ref": "#/$defs/aaa_uuid"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/aaa_id_response"
         },
         "4XX": {
           "allOf": [
@@ -320,8 +301,8 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "aaa_api-response-common-failure-3": aaa_api_response_common_failure_3_output,
+        "aaa_api-response-single": aaa_api_response_single_output,
         "aaa_id_response": aaa_id_response_output,
-        "aaa_id_response_result": aaa_id_response_result_output,
         "aaa_messages-3": aaa_messages_3_output,
         "aaa_uuid": aaa_uuid_output,
       },

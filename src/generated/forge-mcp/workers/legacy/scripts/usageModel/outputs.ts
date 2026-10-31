@@ -4,6 +4,36 @@
 import type { JsonSchema } from "../../../../_/tool.js";
 
 /**
+ * The schema of `workers_usage-model-response` in responses.
+ */
+export const workers_usage_model_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/workers_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "usage_model": {
+              "$ref": "#/$defs/workers_usage_model"
+            },
+            "user_limits": {
+              "$ref": "#/$defs/workers_user_limits"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `workers_user_limits` in responses.
  */
 export const workers_user_limits_output: JsonSchema = {

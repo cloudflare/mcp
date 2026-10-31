@@ -7,38 +7,19 @@ import type { JsonSchema } from "../../_/tool.js";
  * The schema of `api-shield_full_label` in responses.
  */
 export const api_shield_full_label_output: JsonSchema = {
-  "properties": {
-    "created_at": {
-      "$ref": "#/$defs/api-shield_timestamp-2"
+  "allOf": [
+    {
+      "$ref": "#/$defs/api-shield_label"
     },
-    "description": {
-      "$ref": "#/$defs/api-shield_label_description"
-    },
-    "last_updated": {
-      "$ref": "#/$defs/api-shield_timestamp-2"
-    },
-    "mapped_resources": {
-      "$ref": "#/$defs/api-shield_label_mapped_resources"
-    },
-    "metadata": {
-      "$ref": "#/$defs/api-shield_label_metadata"
-    },
-    "name": {
-      "$ref": "#/$defs/api-shield_label_name"
-    },
-    "source": {
-      "$ref": "#/$defs/api-shield_label_source"
+    {
+      "properties": {
+        "mapped_resources": {
+          "$ref": "#/$defs/api-shield_label_mapped_resources"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "created_at",
-    "description",
-    "last_updated",
-    "metadata",
-    "name",
-    "source"
-  ],
-  "type": "object"
+  ]
 };
 
 /**

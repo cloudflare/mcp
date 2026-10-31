@@ -3,7 +3,10 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  firewall_api_response_collection_output,
   firewall_api_response_common_failure_output,
+  firewall_api_response_common_output,
+  firewall_api_response_single_output,
   firewall_asn_configuration_output,
   firewall_cidr_configuration_output,
   firewall_configuration_output,
@@ -13,6 +16,7 @@ import {
   firewall_messages_output,
   firewall_notes_output,
   firewall_result_info_output,
+  firewall_rule_output,
   firewall_schemas_identifier_output,
   firewall_schemas_mode_output,
 } from "../../../outputs.js";
@@ -24,9 +28,14 @@ import {
   firewall_ip_configuration,
   firewall_ipv6_configuration,
   firewall_notes,
+  firewall_rule_identifier,
   firewall_schemas_mode,
 } from "../../../schemas.js";
-import { firewall_rule_output } from "./outputs.js";
+import {
+  firewall_rule_collection_response_output,
+  firewall_rule_single_id_response_output,
+  firewall_rule_single_response_output,
+} from "./outputs.js";
 
 /**
  * The tools of `user.firewall.access_rules`.
@@ -75,16 +84,20 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/firewall_rule",
+      "$ref": "#/$defs/firewall_rule_single_response",
       $defs: {
+        "firewall_api-response-common": firewall_api_response_common_output,
+        "firewall_api-response-single": firewall_api_response_single_output,
         "firewall_asn_configuration": firewall_asn_configuration_output,
         "firewall_cidr_configuration": firewall_cidr_configuration_output,
         "firewall_configuration": firewall_configuration_output,
         "firewall_country_configuration": firewall_country_configuration_output,
         "firewall_ip_configuration": firewall_ip_configuration_output,
         "firewall_ipv6_configuration": firewall_ipv6_configuration_output,
+        "firewall_messages": firewall_messages_output,
         "firewall_notes": firewall_notes_output,
         "firewall_rule": firewall_rule_output,
+        "firewall_rule_single_response": firewall_rule_single_response_output,
         "firewall_schemas-identifier": firewall_schemas_identifier_output,
         "firewall_schemas-mode": firewall_schemas_mode_output,
       },
@@ -112,14 +125,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/firewall_rule"
+          "$ref": "#/$defs/firewall_rule_single_response"
         },
         "4XX": {
           "$ref": "#/$defs/firewall_api-response-common-failure"
         }
       },
       $defs: {
+        "firewall_api-response-common": firewall_api_response_common_output,
         "firewall_api-response-common-failure": firewall_api_response_common_failure_output,
+        "firewall_api-response-single": firewall_api_response_single_output,
         "firewall_asn_configuration": firewall_asn_configuration_output,
         "firewall_cidr_configuration": firewall_cidr_configuration_output,
         "firewall_configuration": firewall_configuration_output,
@@ -129,6 +144,7 @@ export const tools: readonly Tool[] = [
         "firewall_messages": firewall_messages_output,
         "firewall_notes": firewall_notes_output,
         "firewall_rule": firewall_rule_output,
+        "firewall_rule_single_response": firewall_rule_single_response_output,
         "firewall_schemas-identifier": firewall_schemas_identifier_output,
         "firewall_schemas-mode": firewall_schemas_mode_output,
       },
@@ -146,22 +162,24 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "rule_id": {
-          "description": "Unique identifier for a rule.",
-          "type": "string"
+          "$ref": "#/$defs/firewall_rule_identifier",
+          "description": "Unique identifier for a rule."
         }
       },
       required: [
         "rule_id"
       ],
+      $defs: {
+        "firewall_rule_identifier": firewall_rule_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "id": {
-          "$ref": "#/$defs/firewall_schemas-identifier"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/firewall_rule_single_id_response",
       $defs: {
+        "firewall_api-response-common": firewall_api_response_common_output,
+        "firewall_api-response-single": firewall_api_response_single_output,
+        "firewall_messages": firewall_messages_output,
+        "firewall_rule_single_id_response": firewall_rule_single_id_response_output,
         "firewall_schemas-identifier": firewall_schemas_identifier_output,
       },
     },
@@ -188,20 +206,18 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "id": {
-              "$ref": "#/$defs/firewall_schemas-identifier"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/firewall_rule_single_id_response"
         },
         "4XX": {
           "$ref": "#/$defs/firewall_api-response-common-failure"
         }
       },
       $defs: {
+        "firewall_api-response-common": firewall_api_response_common_output,
         "firewall_api-response-common-failure": firewall_api_response_common_failure_output,
+        "firewall_api-response-single": firewall_api_response_single_output,
         "firewall_messages": firewall_messages_output,
+        "firewall_rule_single_id_response": firewall_rule_single_id_response_output,
         "firewall_schemas-identifier": firewall_schemas_identifier_output,
       },
     },
@@ -229,8 +245,8 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "rule_id": {
-          "description": "Unique identifier for a rule.",
-          "type": "string"
+          "$ref": "#/$defs/firewall_rule_identifier",
+          "description": "Unique identifier for a rule."
         }
       },
       required: [
@@ -239,20 +255,25 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "firewall_notes": firewall_notes,
+        "firewall_rule_identifier": firewall_rule_identifier,
         "firewall_schemas-mode": firewall_schemas_mode,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/firewall_rule",
+      "$ref": "#/$defs/firewall_rule_single_response",
       $defs: {
+        "firewall_api-response-common": firewall_api_response_common_output,
+        "firewall_api-response-single": firewall_api_response_single_output,
         "firewall_asn_configuration": firewall_asn_configuration_output,
         "firewall_cidr_configuration": firewall_cidr_configuration_output,
         "firewall_configuration": firewall_configuration_output,
         "firewall_country_configuration": firewall_country_configuration_output,
         "firewall_ip_configuration": firewall_ip_configuration_output,
         "firewall_ipv6_configuration": firewall_ipv6_configuration_output,
+        "firewall_messages": firewall_messages_output,
         "firewall_notes": firewall_notes_output,
         "firewall_rule": firewall_rule_output,
+        "firewall_rule_single_response": firewall_rule_single_response_output,
         "firewall_schemas-identifier": firewall_schemas_identifier_output,
         "firewall_schemas-mode": firewall_schemas_mode_output,
       },
@@ -280,14 +301,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/firewall_rule"
+          "$ref": "#/$defs/firewall_rule_single_response"
         },
         "4XX": {
           "$ref": "#/$defs/firewall_api-response-common-failure"
         }
       },
       $defs: {
+        "firewall_api-response-common": firewall_api_response_common_output,
         "firewall_api-response-common-failure": firewall_api_response_common_failure_output,
+        "firewall_api-response-single": firewall_api_response_single_output,
         "firewall_asn_configuration": firewall_asn_configuration_output,
         "firewall_cidr_configuration": firewall_cidr_configuration_output,
         "firewall_configuration": firewall_configuration_output,
@@ -297,6 +320,7 @@ export const tools: readonly Tool[] = [
         "firewall_messages": firewall_messages_output,
         "firewall_notes": firewall_notes_output,
         "firewall_rule": firewall_rule_output,
+        "firewall_rule_single_response": firewall_rule_single_response_output,
         "firewall_schemas-identifier": firewall_schemas_identifier_output,
         "firewall_schemas-mode": firewall_schemas_mode_output,
       },
@@ -314,25 +338,32 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "rule_id": {
-          "description": "Unique identifier for a rule.",
-          "type": "string"
+          "$ref": "#/$defs/firewall_rule_identifier",
+          "description": "Unique identifier for a rule."
         }
       },
       required: [
         "rule_id"
       ],
+      $defs: {
+        "firewall_rule_identifier": firewall_rule_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/firewall_rule",
+      "$ref": "#/$defs/firewall_rule_single_response",
       $defs: {
+        "firewall_api-response-common": firewall_api_response_common_output,
+        "firewall_api-response-single": firewall_api_response_single_output,
         "firewall_asn_configuration": firewall_asn_configuration_output,
         "firewall_cidr_configuration": firewall_cidr_configuration_output,
         "firewall_configuration": firewall_configuration_output,
         "firewall_country_configuration": firewall_country_configuration_output,
         "firewall_ip_configuration": firewall_ip_configuration_output,
         "firewall_ipv6_configuration": firewall_ipv6_configuration_output,
+        "firewall_messages": firewall_messages_output,
         "firewall_notes": firewall_notes_output,
         "firewall_rule": firewall_rule_output,
+        "firewall_rule_single_response": firewall_rule_single_response_output,
         "firewall_schemas-identifier": firewall_schemas_identifier_output,
         "firewall_schemas-mode": firewall_schemas_mode_output,
       },
@@ -361,14 +392,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/firewall_rule"
+          "$ref": "#/$defs/firewall_rule_single_response"
         },
         "4XX": {
           "$ref": "#/$defs/firewall_api-response-common-failure"
         }
       },
       $defs: {
+        "firewall_api-response-common": firewall_api_response_common_output,
         "firewall_api-response-common-failure": firewall_api_response_common_failure_output,
+        "firewall_api-response-single": firewall_api_response_single_output,
         "firewall_asn_configuration": firewall_asn_configuration_output,
         "firewall_cidr_configuration": firewall_cidr_configuration_output,
         "firewall_configuration": firewall_configuration_output,
@@ -378,6 +411,7 @@ export const tools: readonly Tool[] = [
         "firewall_messages": firewall_messages_output,
         "firewall_notes": firewall_notes_output,
         "firewall_rule": firewall_rule_output,
+        "firewall_rule_single_response": firewall_rule_single_response_output,
         "firewall_schemas-identifier": firewall_schemas_identifier_output,
         "firewall_schemas-mode": firewall_schemas_mode_output,
       },
@@ -455,31 +489,21 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/firewall_rule"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "$ref": "#/$defs/firewall_result_info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/firewall_rule_collection_response",
       $defs: {
+        "firewall_api-response-collection": firewall_api_response_collection_output,
+        "firewall_api-response-common": firewall_api_response_common_output,
         "firewall_asn_configuration": firewall_asn_configuration_output,
         "firewall_cidr_configuration": firewall_cidr_configuration_output,
         "firewall_configuration": firewall_configuration_output,
         "firewall_country_configuration": firewall_country_configuration_output,
         "firewall_ip_configuration": firewall_ip_configuration_output,
         "firewall_ipv6_configuration": firewall_ipv6_configuration_output,
+        "firewall_messages": firewall_messages_output,
         "firewall_notes": firewall_notes_output,
         "firewall_result_info": firewall_result_info_output,
         "firewall_rule": firewall_rule_output,
+        "firewall_rule_collection_response": firewall_rule_collection_response_output,
         "firewall_schemas-identifier": firewall_schemas_identifier_output,
         "firewall_schemas-mode": firewall_schemas_mode_output,
       },
@@ -508,27 +532,15 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/firewall_rule"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/firewall_result_info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/firewall_rule_collection_response"
         },
         "4XX": {
           "$ref": "#/$defs/firewall_api-response-common-failure"
         }
       },
       $defs: {
+        "firewall_api-response-collection": firewall_api_response_collection_output,
+        "firewall_api-response-common": firewall_api_response_common_output,
         "firewall_api-response-common-failure": firewall_api_response_common_failure_output,
         "firewall_asn_configuration": firewall_asn_configuration_output,
         "firewall_cidr_configuration": firewall_cidr_configuration_output,
@@ -540,6 +552,7 @@ export const tools: readonly Tool[] = [
         "firewall_notes": firewall_notes_output,
         "firewall_result_info": firewall_result_info_output,
         "firewall_rule": firewall_rule_output,
+        "firewall_rule_collection_response": firewall_rule_collection_response_output,
         "firewall_schemas-identifier": firewall_schemas_identifier_output,
         "firewall_schemas-mode": firewall_schemas_mode_output,
       },

@@ -42,29 +42,19 @@ export const aaa_silence_id_output: JsonSchema = {
  * responses.
  */
 export const aaa_silence_components_schemas_response_collection_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/aaa_messages-3"
+  "allOf": [
+    {
+      "$ref": "#/$defs/aaa_api-response-common-2"
     },
-    "messages": {
-      "$ref": "#/$defs/aaa_messages-3"
-    },
-    "result": {
-      "$ref": "#/$defs/aaa_silence"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/aaa_silence"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -72,30 +62,20 @@ export const aaa_silence_components_schemas_response_collection_output: JsonSche
  * responses.
  */
 export const aaa_silences_components_schemas_response_collection_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/aaa_messages-3"
+  "allOf": [
+    {
+      "$ref": "#/$defs/aaa_api-response-common-2"
     },
-    "messages": {
-      "$ref": "#/$defs/aaa_messages-3"
-    },
-    "result": {
-      "items": {
-        "$ref": "#/$defs/aaa_silence"
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/aaa_silence"
+          },
+          "type": "array"
+        }
       },
-      "type": "array"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };

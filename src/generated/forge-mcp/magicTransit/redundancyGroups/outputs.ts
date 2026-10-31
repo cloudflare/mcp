@@ -4,6 +4,37 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `magic_delete_redundancy_group_response` in responses.
+ */
+export const magic_delete_redundancy_group_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "deleted": {
+              "type": "boolean"
+            },
+            "deleted_redundancy_group": {
+              "$ref": "#/$defs/magic_redundancy_group"
+            }
+          },
+          "required": [
+            "deleted",
+            "deleted_redundancy_group"
+          ],
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `magic_redundancy_group` in responses.
  */
 export const magic_redundancy_group_output: JsonSchema = {
@@ -30,35 +61,90 @@ export const magic_redundancy_group_output: JsonSchema = {
 };
 
 /**
+ * The schema of `magic_redundancy_group_single_response` in responses.
+ */
+export const magic_redundancy_group_single_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/magic_redundancy_group"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `magic_redundancy_group_with_members` in responses.
  */
 export const magic_redundancy_group_with_members_output: JsonSchema = {
-  "properties": {
-    "created_on": {
-      "format": "date-time",
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_redundancy_group"
     },
-    "description": {
-      "type": "string"
-    },
-    "id": {
-      "type": "string"
-    },
-    "member_data": {
-      "items": {
-        "$ref": "#/$defs/magic_redundancy_member_data"
+    {
+      "properties": {
+        "member_data": {
+          "items": {
+            "$ref": "#/$defs/magic_redundancy_member_data"
+          },
+          "type": "array"
+        }
       },
-      "type": "array"
-    },
-    "modified_on": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "name": {
-      "type": "string"
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
+};
+
+/**
+ * The schema of `magic_redundancy_group_with_members_response` in responses.
+ */
+export const magic_redundancy_group_with_members_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/magic_redundancy_group_with_members"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `magic_redundancy_groups_collection_response` in responses.
+ */
+export const magic_redundancy_groups_collection_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "redundancy_groups": {
+              "items": {
+                "$ref": "#/$defs/magic_redundancy_group_with_members"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**

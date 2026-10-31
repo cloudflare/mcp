@@ -17,3 +17,23 @@ export const email_sending_subdomain_reputation_complaints_output: JsonSchema = 
   ],
   "type": "object"
 };
+
+/**
+ * The schema of `email_sending_subdomain_reputation_complaints_response` in
+ * responses.
+ */
+export const email_sending_subdomain_reputation_complaints_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/email_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/email_sending_subdomain_reputation_complaints"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};

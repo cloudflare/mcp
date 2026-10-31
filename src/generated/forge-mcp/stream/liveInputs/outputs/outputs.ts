@@ -39,6 +39,47 @@ export const stream_output_identifier_output: JsonSchema = {
 };
 
 /**
+ * The schema of `stream_output_response_collection` in responses.
+ */
+export const stream_output_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/stream_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/stream_output"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `stream_output_response_single` in responses.
+ */
+export const stream_output_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/stream_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/stream_output"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `stream_output_streamKey` in responses.
  */
 export const stream_output_streamKey_output: JsonSchema = {

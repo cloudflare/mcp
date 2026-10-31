@@ -2,7 +2,12 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../_/tool.js";
-import { waf_product_api_bundle_messages_output } from "../outputs.js";
+import {
+  waf_product_api_bundle_api_response_common_output,
+  waf_product_api_bundle_api_response_single_output,
+  waf_product_api_bundle_messages_output,
+} from "../outputs.js";
+import { waf_product_api_bundle_identifier } from "../schemas.js";
 import {
   waf_product_api_bundle_api_response_common_failure_output,
   waf_product_api_bundle_response_status_output,
@@ -22,17 +27,24 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "description": "Defines an identifier.",
-          "type": "string"
+          "$ref": "#/$defs/waf-product-api-bundle_identifier",
+          "description": "Defines an identifier."
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "waf-product-api-bundle_identifier": waf_product_api_bundle_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/waf-product-api-bundle_status",
+      "$ref": "#/$defs/waf-product-api-bundle_response-status",
       $defs: {
+        "waf-product-api-bundle_api-response-common": waf_product_api_bundle_api_response_common_output,
+        "waf-product-api-bundle_api-response-single": waf_product_api_bundle_api_response_single_output,
+        "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
+        "waf-product-api-bundle_response-status": waf_product_api_bundle_response_status_output,
         "waf-product-api-bundle_status": waf_product_api_bundle_status_output,
       },
     },
@@ -56,7 +68,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/waf-product-api-bundle_status"
+          "$ref": "#/$defs/waf-product-api-bundle_response-status"
         },
         "4XX": {
           "allOf": [
@@ -70,7 +82,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "waf-product-api-bundle_api-response-common": waf_product_api_bundle_api_response_common_output,
         "waf-product-api-bundle_api-response-common-failure": waf_product_api_bundle_api_response_common_failure_output,
+        "waf-product-api-bundle_api-response-single": waf_product_api_bundle_api_response_single_output,
         "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
         "waf-product-api-bundle_response-status": waf_product_api_bundle_response_status_output,
         "waf-product-api-bundle_status": waf_product_api_bundle_status_output,
@@ -91,8 +105,8 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/waf-product-api-bundle_status"
         },
         "zone_id": {
-          "description": "Defines an identifier.",
-          "type": "string"
+          "$ref": "#/$defs/waf-product-api-bundle_identifier",
+          "description": "Defines an identifier."
         }
       },
       required: [
@@ -100,12 +114,17 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "waf-product-api-bundle_identifier": waf_product_api_bundle_identifier,
         "waf-product-api-bundle_status": waf_product_api_bundle_status,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/waf-product-api-bundle_status",
+      "$ref": "#/$defs/waf-product-api-bundle_response-status",
       $defs: {
+        "waf-product-api-bundle_api-response-common": waf_product_api_bundle_api_response_common_output,
+        "waf-product-api-bundle_api-response-single": waf_product_api_bundle_api_response_single_output,
+        "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
+        "waf-product-api-bundle_response-status": waf_product_api_bundle_response_status_output,
         "waf-product-api-bundle_status": waf_product_api_bundle_status_output,
       },
     },
@@ -127,7 +146,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/waf-product-api-bundle_status"
+          "$ref": "#/$defs/waf-product-api-bundle_response-status"
         },
         "4XX": {
           "allOf": [
@@ -141,7 +160,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "waf-product-api-bundle_api-response-common": waf_product_api_bundle_api_response_common_output,
         "waf-product-api-bundle_api-response-common-failure": waf_product_api_bundle_api_response_common_failure_output,
+        "waf-product-api-bundle_api-response-single": waf_product_api_bundle_api_response_single_output,
         "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
         "waf-product-api-bundle_response-status": waf_product_api_bundle_response_status_output,
         "waf-product-api-bundle_status": waf_product_api_bundle_status_output,

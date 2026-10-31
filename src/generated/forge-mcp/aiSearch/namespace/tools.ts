@@ -142,173 +142,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "created_at": {
-          "oneOf": [
-            {
-              "format": "date-time",
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "description": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "name": {
-          "type": "string"
-        },
-        "public_endpoint_id": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "public_endpoint_params": {
-          "oneOf": [
-            {
-              "properties": {
-                "authorized_hosts": {
-                  "items": {
-                    "type": "string"
-                  },
-                  "type": "array"
-                },
-                "chat_completions_endpoint": {
-                  "properties": {
-                    "disabled": {
-                      "type": "boolean"
-                    }
-                  },
-                  "type": "object"
-                },
-                "custom_domains": {
-                  "oneOf": [
-                    {
-                      "items": {
-                        "type": "string"
-                      },
-                      "maxItems": 1,
-                      "type": "array"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "default_domain_enabled": {
-                  "type": "boolean"
-                },
-                "enabled": {
-                  "type": "boolean"
-                },
-                "instances_allowed": {
-                  "items": {
-                    "type": "string"
-                  },
-                  "maxItems": 10,
-                  "type": "array"
-                },
-                "mcp": {
-                  "properties": {
-                    "description": {
-                      "type": "string"
-                    },
-                    "disabled": {
-                      "type": "boolean"
-                    }
-                  },
-                  "type": "object"
-                },
-                "rate_limit": {
-                  "properties": {
-                    "period_ms": {
-                      "type": "integer"
-                    },
-                    "requests": {
-                      "type": "integer"
-                    },
-                    "technique": {
-                      "enum": [
-                        "fixed",
-                        "sliding"
-                      ],
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                },
-                "search_endpoint": {
-                  "properties": {
-                    "disabled": {
-                      "type": "boolean"
-                    }
-                  },
-                  "type": "object"
-                }
-              },
-              "type": "object"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        }
-      },
-      "required": [
-        "created_at",
-        "name"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Create a namespace"
-    },
-    method: "POST",
-    path: "/accounts/{account_id}/ai-search/namespaces",
-    extensions: {
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.ai-search"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai-search": {
-            "name": "com_cloudflare_api_account_ai_search"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      },
-      "x-forge-params": {
-        "name": {
-          "description": "Name for the new namespace.",
-          "positional": true
-        }
-      }
-    },
-    responses: {
-      schemas: {
-        "201": {
+        "result": {
           "properties": {
             "created_at": {
               "oneOf": [
@@ -438,6 +272,197 @@ export const tools: readonly Tool[] = [
           "required": [
             "created_at",
             "name"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Create a namespace"
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/ai-search/namespaces",
+    extensions: {
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.ai-search"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      },
+      "x-forge-params": {
+        "name": {
+          "description": "Name for the new namespace.",
+          "positional": true
+        }
+      }
+    },
+    responses: {
+      schemas: {
+        "201": {
+          "properties": {
+            "result": {
+              "properties": {
+                "created_at": {
+                  "oneOf": [
+                    {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "description": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "name": {
+                  "type": "string"
+                },
+                "public_endpoint_id": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "public_endpoint_params": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "authorized_hosts": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
+                        "chat_completions_endpoint": {
+                          "properties": {
+                            "disabled": {
+                              "type": "boolean"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "custom_domains": {
+                          "oneOf": [
+                            {
+                              "items": {
+                                "type": "string"
+                              },
+                              "maxItems": 1,
+                              "type": "array"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "default_domain_enabled": {
+                          "type": "boolean"
+                        },
+                        "enabled": {
+                          "type": "boolean"
+                        },
+                        "instances_allowed": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "maxItems": 10,
+                          "type": "array"
+                        },
+                        "mcp": {
+                          "properties": {
+                            "description": {
+                              "type": "string"
+                            },
+                            "disabled": {
+                              "type": "boolean"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "rate_limit": {
+                          "properties": {
+                            "period_ms": {
+                              "type": "integer"
+                            },
+                            "requests": {
+                              "type": "integer"
+                            },
+                            "technique": {
+                              "enum": [
+                                "fixed",
+                                "sliding"
+                              ],
+                              "type": "string"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "search_endpoint": {
+                          "properties": {
+                            "disabled": {
+                              "type": "boolean"
+                            }
+                          },
+                          "type": "object"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "created_at",
+                "name"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -567,6 +592,21 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
+      "properties": {
+        "result": {
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
       "type": "object",
     },
     annotations: {
@@ -582,12 +622,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.ai-search"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai-search": {
-            "name": "com_cloudflare_api_account_ai_search"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -604,6 +639,21 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
+          "properties": {
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
+          ],
           "type": "object"
         },
         "400": {
@@ -732,172 +782,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "created_at": {
-          "oneOf": [
-            {
-              "format": "date-time",
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "description": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "name": {
-          "type": "string"
-        },
-        "public_endpoint_id": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "public_endpoint_params": {
-          "oneOf": [
-            {
-              "properties": {
-                "authorized_hosts": {
-                  "items": {
-                    "type": "string"
-                  },
-                  "type": "array"
-                },
-                "chat_completions_endpoint": {
-                  "properties": {
-                    "disabled": {
-                      "type": "boolean"
-                    }
-                  },
-                  "type": "object"
-                },
-                "custom_domains": {
-                  "oneOf": [
-                    {
-                      "items": {
-                        "type": "string"
-                      },
-                      "maxItems": 1,
-                      "type": "array"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "default_domain_enabled": {
-                  "type": "boolean"
-                },
-                "enabled": {
-                  "type": "boolean"
-                },
-                "instances_allowed": {
-                  "items": {
-                    "type": "string"
-                  },
-                  "maxItems": 10,
-                  "type": "array"
-                },
-                "mcp": {
-                  "properties": {
-                    "description": {
-                      "type": "string"
-                    },
-                    "disabled": {
-                      "type": "boolean"
-                    }
-                  },
-                  "type": "object"
-                },
-                "rate_limit": {
-                  "properties": {
-                    "period_ms": {
-                      "type": "integer"
-                    },
-                    "requests": {
-                      "type": "integer"
-                    },
-                    "technique": {
-                      "enum": [
-                        "fixed",
-                        "sliding"
-                      ],
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                },
-                "search_endpoint": {
-                  "properties": {
-                    "disabled": {
-                      "type": "boolean"
-                    }
-                  },
-                  "type": "object"
-                }
-              },
-              "type": "object"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        }
-      },
-      "required": [
-        "created_at",
-        "name"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get a namespace"
-    },
-    method: "GET",
-    path: "/accounts/{account_id}/ai-search/namespaces/{name}",
-    extensions: {
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.ai-search"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai-search": {
-            "name": "com_cloudflare_api_account_ai_search"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      },
-      "x-forge-params": {
-        "name": {
-          "description": "Namespace to retrieve."
-        }
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "created_at": {
               "oneOf": [
@@ -1027,6 +912,196 @@ export const tools: readonly Tool[] = [
           "required": [
             "created_at",
             "name"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get a namespace"
+    },
+    method: "GET",
+    path: "/accounts/{account_id}/ai-search/namespaces/{name}",
+    extensions: {
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.ai-search"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      },
+      "x-forge-params": {
+        "name": {
+          "description": "Namespace to retrieve."
+        }
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "created_at": {
+                  "oneOf": [
+                    {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "description": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "name": {
+                  "type": "string"
+                },
+                "public_endpoint_id": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "public_endpoint_params": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "authorized_hosts": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
+                        "chat_completions_endpoint": {
+                          "properties": {
+                            "disabled": {
+                              "type": "boolean"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "custom_domains": {
+                          "oneOf": [
+                            {
+                              "items": {
+                                "type": "string"
+                              },
+                              "maxItems": 1,
+                              "type": "array"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "default_domain_enabled": {
+                          "type": "boolean"
+                        },
+                        "enabled": {
+                          "type": "boolean"
+                        },
+                        "instances_allowed": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "maxItems": 10,
+                          "type": "array"
+                        },
+                        "mcp": {
+                          "properties": {
+                            "description": {
+                              "type": "string"
+                            },
+                            "disabled": {
+                              "type": "boolean"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "rate_limit": {
+                          "properties": {
+                            "period_ms": {
+                              "type": "integer"
+                            },
+                            "requests": {
+                              "type": "integer"
+                            },
+                            "technique": {
+                              "enum": [
+                                "fixed",
+                                "sliding"
+                              ],
+                              "type": "string"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "search_endpoint": {
+                          "properties": {
+                            "disabled": {
+                              "type": "boolean"
+                            }
+                          },
+                          "type": "object"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "created_at",
+                "name"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -1258,10 +1333,18 @@ export const tools: readonly Tool[] = [
             "total_count"
           ],
           "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
         }
       },
       "required": [
-        "result"
+        "result",
+        "result_info",
+        "success"
       ],
       "type": "object",
     },
@@ -1278,12 +1361,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.ai-search"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai-search": {
-            "name": "com_cloudflare_api_account_ai_search"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -1454,10 +1532,18 @@ export const tools: readonly Tool[] = [
                 "total_count"
               ],
               "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
             }
           },
           "required": [
-            "result"
+            "result",
+            "result_info",
+            "success"
           ],
           "type": "object"
         },
@@ -1652,172 +1738,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "created_at": {
-          "oneOf": [
-            {
-              "format": "date-time",
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "description": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "name": {
-          "type": "string"
-        },
-        "public_endpoint_id": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "public_endpoint_params": {
-          "oneOf": [
-            {
-              "properties": {
-                "authorized_hosts": {
-                  "items": {
-                    "type": "string"
-                  },
-                  "type": "array"
-                },
-                "chat_completions_endpoint": {
-                  "properties": {
-                    "disabled": {
-                      "type": "boolean"
-                    }
-                  },
-                  "type": "object"
-                },
-                "custom_domains": {
-                  "oneOf": [
-                    {
-                      "items": {
-                        "type": "string"
-                      },
-                      "maxItems": 1,
-                      "type": "array"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "default_domain_enabled": {
-                  "type": "boolean"
-                },
-                "enabled": {
-                  "type": "boolean"
-                },
-                "instances_allowed": {
-                  "items": {
-                    "type": "string"
-                  },
-                  "maxItems": 10,
-                  "type": "array"
-                },
-                "mcp": {
-                  "properties": {
-                    "description": {
-                      "type": "string"
-                    },
-                    "disabled": {
-                      "type": "boolean"
-                    }
-                  },
-                  "type": "object"
-                },
-                "rate_limit": {
-                  "properties": {
-                    "period_ms": {
-                      "type": "integer"
-                    },
-                    "requests": {
-                      "type": "integer"
-                    },
-                    "technique": {
-                      "enum": [
-                        "fixed",
-                        "sliding"
-                      ],
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                },
-                "search_endpoint": {
-                  "properties": {
-                    "disabled": {
-                      "type": "boolean"
-                    }
-                  },
-                  "type": "object"
-                }
-              },
-              "type": "object"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        }
-      },
-      "required": [
-        "created_at",
-        "name"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": true,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Update a namespace"
-    },
-    method: "PUT",
-    path: "/accounts/{account_id}/ai-search/namespaces/{name}",
-    extensions: {
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.ai-search"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai-search": {
-            "name": "com_cloudflare_api_account_ai_search"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      },
-      "x-forge-params": {
-        "name": {
-          "description": "Namespace to update."
-        }
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "created_at": {
               "oneOf": [
@@ -1947,6 +1868,196 @@ export const tools: readonly Tool[] = [
           "required": [
             "created_at",
             "name"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Update a namespace"
+    },
+    method: "PUT",
+    path: "/accounts/{account_id}/ai-search/namespaces/{name}",
+    extensions: {
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.ai-search"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      },
+      "x-forge-params": {
+        "name": {
+          "description": "Namespace to update."
+        }
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "created_at": {
+                  "oneOf": [
+                    {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "description": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "name": {
+                  "type": "string"
+                },
+                "public_endpoint_id": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "public_endpoint_params": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "authorized_hosts": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
+                        "chat_completions_endpoint": {
+                          "properties": {
+                            "disabled": {
+                              "type": "boolean"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "custom_domains": {
+                          "oneOf": [
+                            {
+                              "items": {
+                                "type": "string"
+                              },
+                              "maxItems": 1,
+                              "type": "array"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "default_domain_enabled": {
+                          "type": "boolean"
+                        },
+                        "enabled": {
+                          "type": "boolean"
+                        },
+                        "instances_allowed": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "maxItems": 10,
+                          "type": "array"
+                        },
+                        "mcp": {
+                          "properties": {
+                            "description": {
+                              "type": "string"
+                            },
+                            "disabled": {
+                              "type": "boolean"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "rate_limit": {
+                          "properties": {
+                            "period_ms": {
+                              "type": "integer"
+                            },
+                            "requests": {
+                              "type": "integer"
+                            },
+                            "technique": {
+                              "enum": [
+                                "fixed",
+                                "sliding"
+                              ],
+                              "type": "string"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "search_endpoint": {
+                          "properties": {
+                            "disabled": {
+                              "type": "boolean"
+                            }
+                          },
+                          "type": "object"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "created_at",
+                "name"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },

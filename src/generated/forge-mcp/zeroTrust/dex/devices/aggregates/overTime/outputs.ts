@@ -4,6 +4,48 @@
 import type { JsonSchema } from "../../../../../_/tool.js";
 
 /**
+ * The schema of `digital-experience-monitoring_fleet_status_over_time_response`
+ * in responses.
+ */
+export const digital_experience_monitoring_fleet_status_over_time_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/digital-experience-monitoring_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "deviceStats": {
+              "properties": {
+                "byMode": {
+                  "items": {
+                    "$ref": "#/$defs/digital-experience-monitoring_schemas-aggregate_stat"
+                  },
+                  "type": "array"
+                },
+                "byStatus": {
+                  "items": {
+                    "$ref": "#/$defs/digital-experience-monitoring_schemas-aggregate_stat"
+                  },
+                  "type": "array"
+                },
+                "uniqueDevicesTotal": {
+                  "$ref": "#/$defs/digital-experience-monitoring_uniqueDevicesTotal"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `digital-experience-monitoring_schemas-aggregate_stat` in
  * responses.
  */

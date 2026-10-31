@@ -26,7 +26,46 @@ export const email_security_PhishGuardReport_output: JsonSchema = {
       "$ref": "#/$defs/email-security_DispositionLabel"
     },
     "fields": {
-      "$ref": "#/$defs/email-security_PhishGuardReport_fields"
+      "properties": {
+        "from": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "occurred_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "postfix_id": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "to": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "ts": {
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "required": [
+        "to"
+      ],
+      "type": "object"
     },
     "id": {
       "type": "integer"
@@ -92,52 +131,6 @@ export const email_security_PhishGuardReportTag_output: JsonSchema = {
   "required": [
     "category",
     "value"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `email-security_PhishGuardReport_fields` in responses.
- */
-export const email_security_PhishGuardReport_fields_output: JsonSchema = {
-  "properties": {
-    "from": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "occurred_at": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "postfix_id": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "to": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "ts": {
-      "format": "date-time",
-      "type": "string"
-    }
-  },
-  "required": [
-    "to"
   ],
   "type": "object"
 };

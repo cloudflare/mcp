@@ -4,6 +4,7 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   email_security_api_response_common_failure_output,
+  email_security_api_response_single_output,
   email_security_messages_output,
 } from "../../outputs.js";
 import { email_security_identifier } from "../../schemas.js";
@@ -32,26 +33,42 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "by_month": {
-          "additionalProperties": {
-            "items": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-security_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
               "properties": {
-                "disposition": {
-                  "type": "string"
-                },
-                "total": {
-                  "type": "integer"
+                "by_month": {
+                  "additionalProperties": {
+                    "items": {
+                      "properties": {
+                        "disposition": {
+                          "type": "string"
+                        },
+                        "total": {
+                          "type": "integer"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "type": "object"
                 }
               },
               "type": "object"
-            },
-            "type": "array"
+            }
           },
           "type": "object"
         }
+      ],
+      $defs: {
+        "email-security_api-response-single": email_security_api_response_single_output,
+        "email-security_messages": email_security_messages_output,
       },
-      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -69,26 +86,38 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "by_month": {
-              "additionalProperties": {
-                "items": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-security_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
                   "properties": {
-                    "disposition": {
-                      "type": "string"
-                    },
-                    "total": {
-                      "type": "integer"
+                    "by_month": {
+                      "additionalProperties": {
+                        "items": {
+                          "properties": {
+                            "disposition": {
+                              "type": "string"
+                            },
+                            "total": {
+                              "type": "integer"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      "type": "object"
                     }
                   },
                   "type": "object"
-                },
-                "type": "array"
+                }
               },
               "type": "object"
             }
-          },
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-security_api-response-common-failure"
@@ -96,6 +125,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
         "email-security_messages": email_security_messages_output,
       },
     },

@@ -6,6 +6,10 @@ import {
   workers_api_response_common_failure_output,
   workers_messages_output,
 } from "../../../../outputs.js";
+import {
+  workers_identifier,
+  workers_script_name,
+} from "../../../../schemas.js";
 
 /**
  * The tools of `workers.legacy.scripts.content`.
@@ -19,18 +23,22 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         },
         "script_name": {
-          "description": "Name of the script.",
-          "type": "string"
+          "$ref": "#/$defs/workers_script_name",
+          "description": "Name of the script."
         }
       },
       required: [
         "account_id",
         "script_name"
       ],
+      $defs: {
+        "workers_identifier": workers_identifier,
+        "workers_script_name": workers_script_name,
+      },
     },
     annotations: {
       "destructiveHint": false,

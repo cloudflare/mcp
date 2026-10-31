@@ -38,6 +38,14 @@ export const firewall_ip_search: JsonSchema = {
 };
 
 /**
+ * The schema of `firewall_lockdowns_components-schemas-id`.
+ */
+export const firewall_lockdowns_components_schemas_id: JsonSchema = {
+  "description": "The unique identifier of the Zone Lockdown rule.",
+  "type": "string"
+};
+
+/**
  * The schema of `firewall_modified_on`.
  */
 export const firewall_modified_on: JsonSchema = {

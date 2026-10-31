@@ -11,63 +11,54 @@ export const digital_experience_monitoring_get_commands_response_output: JsonSch
   "properties": {
     "commands": {
       "items": {
-        "$ref": "#/$defs/digital-experience-monitoring_get_commands_response_commandsItem"
+        "properties": {
+          "completed_date": {
+            "oneOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "created_date": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "device_id": {
+            "type": "string"
+          },
+          "filename": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "id": {
+            "type": "string"
+          },
+          "registration_id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "user_email": {
+            "type": "string"
+          }
+        },
+        "type": "object"
       },
       "type": "array"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of
- * `digital-experience-monitoring_get_commands_response_commandsItem` in
- * responses.
- */
-export const digital_experience_monitoring_get_commands_response_commandsItem_output: JsonSchema = {
-  "properties": {
-    "completed_date": {
-      "oneOf": [
-        {
-          "format": "date-time",
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "created_date": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "device_id": {
-      "type": "string"
-    },
-    "filename": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "id": {
-      "type": "string"
-    },
-    "registration_id": {
-      "type": "string"
-    },
-    "status": {
-      "type": "string"
-    },
-    "type": {
-      "type": "string"
-    },
-    "user_email": {
-      "type": "string"
     }
   },
   "type": "object"
@@ -81,47 +72,38 @@ export const digital_experience_monitoring_post_commands_response_output: JsonSc
   "properties": {
     "commands": {
       "items": {
-        "$ref": "#/$defs/digital-experience-monitoring_post_commands_response_commandsItem"
+        "properties": {
+          "args": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object"
+          },
+          "device_id": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "registration_id": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "PENDING_EXEC",
+              "PENDING_UPLOAD",
+              "SUCCESS",
+              "FAILED"
+            ],
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          }
+        },
+        "type": "object"
       },
       "type": "array"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of
- * `digital-experience-monitoring_post_commands_response_commandsItem` in
- * responses.
- */
-export const digital_experience_monitoring_post_commands_response_commandsItem_output: JsonSchema = {
-  "properties": {
-    "args": {
-      "additionalProperties": {
-        "type": "string"
-      },
-      "type": "object"
-    },
-    "device_id": {
-      "type": "string"
-    },
-    "id": {
-      "type": "string"
-    },
-    "registration_id": {
-      "type": "string"
-    },
-    "status": {
-      "enum": [
-        "PENDING_EXEC",
-        "PENDING_UPLOAD",
-        "SUCCESS",
-        "FAILED"
-      ],
-      "type": "string"
-    },
-    "type": {
-      "type": "string"
     }
   },
   "type": "object"

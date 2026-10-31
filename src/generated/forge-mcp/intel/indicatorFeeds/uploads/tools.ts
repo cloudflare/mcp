@@ -4,11 +4,16 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   custom_indicator_feeds_api_response_common_failure_output,
+  custom_indicator_feeds_api_response_single_output,
+  custom_indicator_feeds_feed_id_output,
   custom_indicator_feeds_messages_2_output,
   custom_indicator_feeds_messages_output,
 } from "../outputs.js";
 import {
-  custom_indicator_feeds_feed_id_output,
+  custom_indicator_feeds_feed_id,
+  custom_indicator_feeds_identifier,
+} from "../schemas.js";
+import {
   custom_indicator_feeds_upload_status_output,
   custom_indicator_feeds_upload_status_response_output,
 } from "./outputs.js";
@@ -25,15 +30,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/custom-indicator-feeds_identifier",
+          "description": "Identifier"
         },
         "feed_id": {
-          "description": "Indicator feed ID",
-          "type": "string"
+          "$ref": "#/$defs/custom-indicator-feeds_feed_id",
+          "description": "Indicator feed ID"
         },
         "upload_id": {
-          "type": "string"
+          "type": "integer"
         }
       },
       required: [
@@ -41,12 +46,19 @@ export const tools: readonly Tool[] = [
         "feed_id",
         "upload_id"
       ],
+      $defs: {
+        "custom-indicator-feeds_feed_id": custom_indicator_feeds_feed_id,
+        "custom-indicator-feeds_identifier": custom_indicator_feeds_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/custom-indicator-feeds_upload_status",
+      "$ref": "#/$defs/custom-indicator-feeds_upload_status_response",
       $defs: {
+        "custom-indicator-feeds_api-response-single": custom_indicator_feeds_api_response_single_output,
         "custom-indicator-feeds_feed_id": custom_indicator_feeds_feed_id_output,
+        "custom-indicator-feeds_messages-2": custom_indicator_feeds_messages_2_output,
         "custom-indicator-feeds_upload_status": custom_indicator_feeds_upload_status_output,
+        "custom-indicator-feeds_upload_status_response": custom_indicator_feeds_upload_status_response_output,
       },
     },
     annotations: {
@@ -67,7 +79,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/custom-indicator-feeds_upload_status"
+          "$ref": "#/$defs/custom-indicator-feeds_upload_status_response"
         },
         "4XX": {
           "allOf": [
@@ -81,6 +93,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "custom-indicator-feeds_api-response-single": custom_indicator_feeds_api_response_single_output,
         "custom-indicator-feeds_api_response_common_failure": custom_indicator_feeds_api_response_common_failure_output,
         "custom-indicator-feeds_feed_id": custom_indicator_feeds_feed_id_output,
         "custom-indicator-feeds_messages": custom_indicator_feeds_messages_output,

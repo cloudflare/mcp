@@ -52,9 +52,33 @@ export const workers_kv_expiration_ttl: JsonSchema = {
 };
 
 /**
+ * The schema of `workers-kv_identifier`.
+ */
+export const workers_kv_identifier: JsonSchema = {
+  "description": "ID of the Cloudflare account that owns the Workers KV namespaces.",
+  "type": "string"
+};
+
+/**
+ * The schema of `workers-kv_key_name`.
+ */
+export const workers_kv_key_name: JsonSchema = {
+  "description": "A key's name. The name may be at most 512 bytes. All printable, non-whitespace characters are valid. Use percent-encoding to define key names as part of a URL.",
+  "type": "string"
+};
+
+/**
  * The schema of `workers-kv_list_metadata`.
  */
 export const workers_kv_list_metadata: JsonSchema = {
   "$ref": "#/$defs/workers-kv_any",
   "description": "Arbitrary JSON that is associated with a key."
+};
+
+/**
+ * The schema of `workers-kv_namespace_identifier`.
+ */
+export const workers_kv_namespace_identifier: JsonSchema = {
+  "description": "ID of the Workers KV namespace.",
+  "type": "string"
 };

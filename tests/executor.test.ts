@@ -79,7 +79,7 @@ describe('codemode tool titles', () => {
 })
 
 describe('execute: REST responses', () => {
-  it('returns the success envelope with the response status', async () => {
+  it('returns the success envelope as the API sends it', async () => {
     const text = await runExecute(
       `/accounts/${ACCOUNT_ID}/tokens/verify`,
       cfSuccess({ status: 'active' })
@@ -140,7 +140,7 @@ describe('execute: REST responses', () => {
       })`
     })
     expect(result.result?.isError).toBeFalsy()
-    expect(JSON.parse(toolText(result))).toEqual({ success: true, status: 200, result: body })
+    expect(JSON.parse(toolText(result))).toEqual(body)
   })
 
   it.each([
@@ -151,11 +151,12 @@ describe('execute: REST responses', () => {
     { name: 'string', body: 'value' },
     { name: 'empty object', body: {} },
     { name: 'domain fields', body: { success: 0, status: 'ready', result: [1], errors: [] } }
-  ])('preserves a direct JSON $name as result', async ({ body }) => {
+  ])('returns a bare JSON $name as it is', async ({ body }) => {
     const text = await runExecute('/direct-json', JSON.stringify(body), {
       headers: { 'Content-Type': 'application/json' }
     })
-    expect(JSON.parse(text)).toEqual({ success: true, status: 200, result: body })
+    // The tool prints a string result as it is, and anything else as JSON.
+    expect(typeof body === 'string' ? text : JSON.parse(text)).toEqual(body)
   })
 
   it.each(['application/scim+json', 'Application/SCIM+JSON; charset=utf-8'])(
@@ -165,18 +166,18 @@ describe('execute: REST responses', () => {
       const text = await runExecute('/scim/Groups', body, {
         headers: { 'Content-Type': contentType }
       })
-      expect(JSON.parse(text)).toEqual({ success: true, status: 200, result: body })
+      expect(JSON.parse(text)).toEqual(body)
     }
   )
 
-  it('preserves all fields of a traditional success envelope', async () => {
+  it('returns a success envelope whole, without adding to it', async () => {
     const body = {
       ...cfSuccess([{ id: 'one' }]),
       result_info: { page: 1, total_pages: 2 },
       extra: { retained: true }
     }
     const text = await runExecute('/envelope', body, { status: 201 })
-    expect(JSON.parse(text)).toEqual({ ...body, status: 201 })
+    expect(JSON.parse(text)).toEqual(body)
   })
 
   it('rejects an explicit failure envelope even with HTTP 200', async () => {
@@ -198,7 +199,7 @@ describe('execute: REST responses', () => {
     const text = await runExecute('/analytics/sql', body, {
       headers: { 'Content-Type': 'text/plain; charset=utf-8' }
     })
-    expect(JSON.parse(text)).toEqual({ success: true, status: 200, result: body })
+    expect(text).toBe(body)
   })
 })
 
@@ -312,7 +313,7 @@ describe('execute: binary responses', () => {
       const result = await callTool(API_TOKEN, 'execute', {
         code: `async () => cloudflare.request({ method: "GET", path: "${PATH}" })`
       })
-      const { result: bytes } = JSON.parse(toolText(result))
+      const bytes = JSON.parse(toolText(result))
       expect(bytes).toEqual({ base64: btoa(String.fromCharCode(...JPEG)), byteLength: JPEG.length })
     }
   )
@@ -321,7 +322,7 @@ describe('execute: binary responses', () => {
     serve('image/jpeg')
     const result = await callTool(API_TOKEN, 'execute', {
       code: `async () => {
-        const { result } = await cloudflare.request({ method: "GET", path: "${PATH}" });
+        const result = await cloudflare.request({ method: "GET", path: "${PATH}" });
         return { isBytes: result instanceof Uint8Array, first: result[0], length: result.length };
       }`
     })
@@ -340,14 +341,14 @@ describe('execute: binary responses', () => {
         headers: { 'Content-Type': 'application/octet-stream' }
       }
     )
-    expect(JSON.parse(text).result).toBe('hello, kv ✓')
+    expect(text).toBe('hello, kv ✓')
   })
 
   it('returns an image as bytes even when they are valid UTF-8', async () => {
     const text = await runExecute(`/accounts/${ACCOUNT_ID}/images/v1/i/blob`, 'GIF89a', {
       headers: { 'Content-Type': 'image/gif' }
     })
-    expect(JSON.parse(text).result).toEqual({ base64: btoa('GIF89a'), byteLength: 6 })
+    expect(JSON.parse(text)).toEqual({ base64: btoa('GIF89a'), byteLength: 6 })
   })
 
   it.each(['text/csv', 'application/xml', 'application/x-ndjson', 'application/x-pem-file'])(
@@ -356,7 +357,7 @@ describe('execute: binary responses', () => {
       const text = await runExecute(`/accounts/${ACCOUNT_ID}/export`, 'a,b\n1,2', {
         headers: { 'Content-Type': type }
       })
-      expect(JSON.parse(text).result).toBe('a,b\n1,2')
+      expect(text).toBe('a,b\n1,2')
     }
   )
 })
@@ -456,19 +457,17 @@ describe('execute: GraphQL responses', () => {
     return toolText(result)
   }
 
-  it('normalizes a successful GraphQL response (result = data.data)', async () => {
-    const text = await runGraphql({ data: { viewer: { __typename: 'Viewer' } } })
-    expect(text).toContain('"viewer"')
-    expect(text).toContain('"success": true')
+  it('returns a successful GraphQL response as the API sends it', async () => {
+    const body = { data: { viewer: { __typename: 'Viewer' } } }
+    expect(JSON.parse(await runGraphql(body))).toEqual(body)
   })
 
-  it('returns a partial response (data + errors) with the error path', async () => {
-    const text = await runGraphql({
+  it('returns a partial response, data and errors, as the API sends it', async () => {
+    const body = {
       data: { viewer: null },
       errors: [{ message: 'boom', path: ['viewer', 'zones'], extensions: { code: 'X' } }]
-    })
-    expect(text).toContain('(at viewer.zones)')
-    expect(text).toContain('Partial response')
+    }
+    expect(JSON.parse(await runGraphql(body))).toEqual(body)
   })
 
   it('throws "GraphQL error" on complete failure (no data, only errors)', async () => {

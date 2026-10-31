@@ -4,13 +4,70 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
+ * The schema of `moq_api-response-common` in responses.
+ */
+export const moq_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "items": {
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "messages": {
+      "items": {
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `moq_api-response-error` in responses.
  */
 export const moq_api_response_error_output: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
-        "$ref": "#/$defs/moq_api-response-error_errorsItem"
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ],
+        "type": "object"
       },
       "type": "array"
     },
@@ -38,25 +95,6 @@ export const moq_api_response_error_output: JsonSchema = {
     "errors",
     "messages",
     "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `moq_api-response-error_errorsItem` in responses.
- */
-export const moq_api_response_error_errorsItem_output: JsonSchema = {
-  "properties": {
-    "code": {
-      "type": "integer"
-    },
-    "message": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "code",
-    "message"
   ],
   "type": "object"
 };

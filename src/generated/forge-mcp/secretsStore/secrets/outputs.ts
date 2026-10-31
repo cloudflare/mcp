@@ -16,10 +16,62 @@ export const secrets_store_SecretStatus_output: JsonSchema = {
 };
 
 /**
+ * The schema of `secrets-store_api-response-single` in responses.
+ */
+export const secrets_store_api_response_single_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/secrets-store_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/secrets-store_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `secrets-store_comment` in responses.
  */
 export const secrets_store_comment_output: JsonSchema = {
   "type": "string"
+};
+
+/**
+ * The schema of `secrets-store_delete_response` in responses.
+ */
+export const secrets_store_delete_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/secrets-store_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**
@@ -100,4 +152,45 @@ export const secrets_store_secretObject_output: JsonSchema = {
  */
 export const secrets_store_secret_name_output: JsonSchema = {
   "type": "string"
+};
+
+/**
+ * The schema of `secrets-store_secret_response` in responses.
+ */
+export const secrets_store_secret_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/secrets-store_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/secrets-store_secretObject"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `secrets-store_secrets_response_collection` in responses.
+ */
+export const secrets_store_secrets_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/secrets-store_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/secrets-store_secretObject"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };

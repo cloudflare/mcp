@@ -6,7 +6,9 @@ import {
   intel_api_response_common_failure_output,
   intel_messages_output,
 } from "../../outputs.js";
+import { intel_identifier } from "../../schemas.js";
 import { intel_asn_output } from "../outputs.js";
+import { intel_asn } from "../schemas.js";
 import {
   intel_count_output,
   intel_page_output,
@@ -25,17 +27,21 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/intel_identifier",
+          "description": "Identifier."
         },
         "asn": {
-          "type": "string"
+          "$ref": "#/$defs/intel_asn"
         }
       },
       required: [
         "account_id",
         "asn"
       ],
+      $defs: {
+        "intel_asn": intel_asn,
+        "intel_identifier": intel_identifier,
+      },
     },
     outputSchema: {
       "properties": {

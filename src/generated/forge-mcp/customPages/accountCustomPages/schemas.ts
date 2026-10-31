@@ -4,6 +4,26 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `custom-pages_error_page_type`.
+ */
+export const custom_pages_error_page_type: JsonSchema = {
+  "description": "Custom page type.",
+  "enum": [
+    "1000_errors",
+    "500_errors",
+    "basic_challenge",
+    "country_challenge",
+    "ip_block",
+    "managed_challenge",
+    "ratelimit_block",
+    "under_attack",
+    "waf_block",
+    "waf_challenge"
+  ],
+  "type": "string"
+};
+
+/**
  * The schema of `custom-pages_state`.
  */
 export const custom_pages_state: JsonSchema = {

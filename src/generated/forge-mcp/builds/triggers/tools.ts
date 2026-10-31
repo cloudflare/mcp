@@ -3,6 +3,7 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  builds_APIResponse_output,
   builds_ApiError_output,
   builds_ErrorResponse_output,
   builds_PaginationInfo_output,
@@ -46,7 +47,6 @@ import {
   builds_trigger_name,
   builds_trigger_uuid,
 } from "../../schemas.js";
-import { builds_APIResponse_output } from "../outputs.js";
 import { builds_TriggerResponse_output } from "./outputs.js";
 import {
   builds_CreateTriggerRequest,
@@ -94,8 +94,23 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/builds_TriggerResponse",
+      "allOf": [
+        {
+          "$ref": "#/$defs/builds_APIResponse"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/builds_TriggerResponse"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
+        "builds_ApiError": builds_ApiError_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
         "builds_SCMProviderType": builds_SCMProviderType_output,
         "builds_TriggerResponse": builds_TriggerResponse_output,
         "builds_UpsertRepoConnectionResponse": builds_UpsertRepoConnectionResponse_output,
@@ -139,15 +154,29 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/builds_TriggerResponse"
+          "allOf": [
+            {
+              "$ref": "#/$defs/builds_APIResponse"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/builds_TriggerResponse"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "401": {
           "$ref": "#/$defs/builds_ErrorResponse"
         }
       },
       $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
         "builds_ApiError": builds_ApiError_output,
         "builds_ErrorResponse": builds_ErrorResponse_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
         "builds_SCMProviderType": builds_SCMProviderType_output,
         "builds_TriggerResponse": builds_TriggerResponse_output,
         "builds_UpsertRepoConnectionResponse": builds_UpsertRepoConnectionResponse_output,
@@ -261,8 +290,8 @@ export const tools: readonly Tool[] = [
           "description": "Account identifier."
         },
         "external_script_id": {
-          "description": "System-generated tag of the Worker. This is not the Worker name.",
-          "type": "string"
+          "$ref": "#/$defs/builds_external_script_id",
+          "description": "System-generated tag of the Worker. This is not the Worker name."
         }
       },
       required: [
@@ -271,25 +300,29 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "builds_account_id": builds_account_id,
+        "builds_external_script_id": builds_external_script_id,
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/builds_TriggerResponse"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/builds_APIResponse"
         },
-        "result_info": {
-          "$ref": "#/$defs/builds_PaginationInfo"
+        {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/builds_TriggerResponse"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
+        "builds_ApiError": builds_ApiError_output,
         "builds_PaginationInfo": builds_PaginationInfo_output,
         "builds_SCMProviderType": builds_SCMProviderType_output,
         "builds_TriggerResponse": builds_TriggerResponse_output,
@@ -335,27 +368,29 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/builds_TriggerResponse"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/builds_APIResponse"
             },
-            "result_info": {
-              "$ref": "#/$defs/builds_PaginationInfo"
+            {
+              "properties": {
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/builds_TriggerResponse"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "401": {
           "$ref": "#/$defs/builds_ErrorResponse"
         }
       },
       $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
         "builds_ApiError": builds_ApiError_output,
         "builds_ErrorResponse": builds_ErrorResponse_output,
         "builds_PaginationInfo": builds_PaginationInfo_output,
@@ -430,8 +465,23 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/builds_TriggerResponse",
+      "allOf": [
+        {
+          "$ref": "#/$defs/builds_APIResponse"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/builds_TriggerResponse"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
+        "builds_ApiError": builds_ApiError_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
         "builds_SCMProviderType": builds_SCMProviderType_output,
         "builds_TriggerResponse": builds_TriggerResponse_output,
         "builds_UpsertRepoConnectionResponse": builds_UpsertRepoConnectionResponse_output,
@@ -475,7 +525,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/builds_TriggerResponse"
+          "allOf": [
+            {
+              "$ref": "#/$defs/builds_APIResponse"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/builds_TriggerResponse"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "401": {
           "$ref": "#/$defs/builds_ErrorResponse"
@@ -485,8 +547,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
         "builds_ApiError": builds_ApiError_output,
         "builds_ErrorResponse": builds_ErrorResponse_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
         "builds_SCMProviderType": builds_SCMProviderType_output,
         "builds_TriggerResponse": builds_TriggerResponse_output,
         "builds_UpsertRepoConnectionResponse": builds_UpsertRepoConnectionResponse_output,

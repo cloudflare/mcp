@@ -20,6 +20,20 @@ export const access_gateway_seat: JsonSchema = {
 };
 
 /**
+ * The schema of `access_identifier-2`.
+ */
+export const access_identifier_2: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_identifier"
+    },
+    {
+      "type": "string"
+    }
+  ]
+};
+
+/**
  * The schema of `access_seat`.
  */
 export const access_seat: JsonSchema = {

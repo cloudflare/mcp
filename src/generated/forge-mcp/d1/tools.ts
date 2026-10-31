@@ -4,6 +4,7 @@
 import { type Tool, pathParam } from "../_/tool.js";
 import {
   d1_api_response_common_failure_output,
+  d1_api_response_common_output,
   d1_created_at_output,
   d1_database_details_response_output,
   d1_database_identifier_output,
@@ -14,17 +15,17 @@ import {
   d1_jurisdiction_nullable_output,
   d1_messages_output,
   d1_query_meta_output,
-  d1_query_meta_timings_output,
   d1_query_result_response_output,
   d1_raw_result_response_output,
-  d1_raw_result_response_results_output,
   d1_read_replication_details_for_response_output,
   d1_served_by_colo_output,
   d1_served_by_region_output,
   d1_table_count_output,
 } from "./outputs.js";
 import {
+  d1_account_identifier,
   d1_batch_query,
+  d1_database_identifier,
   d1_database_name,
   d1_database_update_partial_request_body,
   d1_database_update_request_body,
@@ -48,8 +49,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/d1_account-identifier",
+          "description": "Account identifier tag."
         },
         "body": {
           "properties": {
@@ -81,6 +82,7 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "d1_account-identifier": d1_account_identifier,
         "d1_database-name": d1_database_name,
         "d1_jurisdiction": d1_jurisdiction,
         "d1_primary-location-hint": d1_primary_location_hint,
@@ -88,8 +90,21 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/d1_database-details-response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/d1_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/d1_database-details-response"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "d1_api-response-common": d1_api_response_common_output,
         "d1_created-at": d1_created_at_output,
         "d1_database-details-response": d1_database_details_response_output,
         "d1_database-identifier": d1_database_identifier_output,
@@ -97,6 +112,7 @@ export const tools: readonly Tool[] = [
         "d1_database-version": d1_database_version_output,
         "d1_file-size": d1_file_size_output,
         "d1_jurisdiction-nullable": d1_jurisdiction_nullable_output,
+        "d1_messages": d1_messages_output,
         "d1_read-replication-details-for-response": d1_read_replication_details_for_response_output,
         "d1_table-count": d1_table_count_output,
       },
@@ -119,13 +135,26 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/d1_database-details-response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/d1_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/d1_database-details-response"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/d1_api-response-common-failure"
         }
       },
       $defs: {
+        "d1_api-response-common": d1_api_response_common_output,
         "d1_api-response-common-failure": d1_api_response_common_failure_output,
         "d1_created-at": d1_created_at_output,
         "d1_database-details-response": d1_database_details_response_output,
@@ -152,21 +181,41 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/d1_account-identifier",
+          "description": "Account identifier tag."
         },
         "database_id": {
-          "description": "D1 database identifier (UUID).",
-          "type": "string"
+          "$ref": "#/$defs/d1_database-identifier",
+          "description": "D1 database identifier (UUID)."
         }
       },
       required: [
         "account_id",
         "database_id"
       ],
+      $defs: {
+        "d1_account-identifier": d1_account_identifier,
+        "d1_database-identifier": d1_database_identifier,
+      },
     },
     outputSchema: {
-      "type": "null",
+      "allOf": [
+        {
+          "$ref": "#/$defs/d1_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "type": "null"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "d1_api-response-common": d1_api_response_common_output,
+        "d1_messages": d1_messages_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -186,13 +235,26 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "type": "null"
+          "allOf": [
+            {
+              "$ref": "#/$defs/d1_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "type": "null"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/d1_api-response-common-failure"
         }
       },
       $defs: {
+        "d1_api-response-common": d1_api_response_common_output,
         "d1_api-response-common-failure": d1_api_response_common_failure_output,
         "d1_messages": d1_messages_output,
       },
@@ -209,15 +271,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/d1_account-identifier",
+          "description": "Account identifier tag."
         },
         "body": {
           "$ref": "#/$defs/d1_database-update-partial-request-body"
         },
         "database_id": {
-          "description": "D1 database identifier (UUID).",
-          "type": "string"
+          "$ref": "#/$defs/d1_database-identifier",
+          "description": "D1 database identifier (UUID)."
         }
       },
       required: [
@@ -226,13 +288,28 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "d1_account-identifier": d1_account_identifier,
+        "d1_database-identifier": d1_database_identifier,
         "d1_database-update-partial-request-body": d1_database_update_partial_request_body,
         "d1_read-replication-details-for-request": d1_read_replication_details_for_request,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/d1_database-details-response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/d1_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/d1_database-details-response"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "d1_api-response-common": d1_api_response_common_output,
         "d1_created-at": d1_created_at_output,
         "d1_database-details-response": d1_database_details_response_output,
         "d1_database-identifier": d1_database_identifier_output,
@@ -240,6 +317,7 @@ export const tools: readonly Tool[] = [
         "d1_database-version": d1_database_version_output,
         "d1_file-size": d1_file_size_output,
         "d1_jurisdiction-nullable": d1_jurisdiction_nullable_output,
+        "d1_messages": d1_messages_output,
         "d1_read-replication-details-for-response": d1_read_replication_details_for_response_output,
         "d1_table-count": d1_table_count_output,
       },
@@ -261,13 +339,26 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/d1_database-details-response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/d1_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/d1_database-details-response"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/d1_api-response-common-failure"
         }
       },
       $defs: {
+        "d1_api-response-common": d1_api_response_common_output,
         "d1_api-response-common-failure": d1_api_response_common_failure_output,
         "d1_created-at": d1_created_at_output,
         "d1_database-details-response": d1_database_details_response_output,
@@ -294,11 +385,18 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/d1_account-identifier",
+          "description": "Account identifier tag."
         },
         "database_id": {
-          "type": "string"
+          "oneOf": [
+            {
+              "$ref": "#/$defs/d1_database-identifier"
+            },
+            {
+              "$ref": "#/$defs/d1_database-name"
+            }
+          ]
         },
         "fields": {
           "description": "Comma-separated list of fields to include in the response. When omitted,\nall fields are returned.\n",
@@ -323,10 +421,28 @@ export const tools: readonly Tool[] = [
         "account_id",
         "database_id"
       ],
+      $defs: {
+        "d1_account-identifier": d1_account_identifier,
+        "d1_database-identifier": d1_database_identifier,
+        "d1_database-name": d1_database_name,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/d1_database-details-response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/d1_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/d1_database-details-response"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "d1_api-response-common": d1_api_response_common_output,
         "d1_created-at": d1_created_at_output,
         "d1_database-details-response": d1_database_details_response_output,
         "d1_database-identifier": d1_database_identifier_output,
@@ -334,6 +450,7 @@ export const tools: readonly Tool[] = [
         "d1_database-version": d1_database_version_output,
         "d1_file-size": d1_file_size_output,
         "d1_jurisdiction-nullable": d1_jurisdiction_nullable_output,
+        "d1_messages": d1_messages_output,
         "d1_read-replication-details-for-response": d1_read_replication_details_for_response_output,
         "d1_table-count": d1_table_count_output,
       },
@@ -357,13 +474,26 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/d1_database-details-response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/d1_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/d1_database-details-response"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/d1_api-response-common-failure"
         }
       },
       $defs: {
+        "d1_api-response-common": d1_api_response_common_output,
         "d1_api-response-common-failure": d1_api_response_common_failure_output,
         "d1_created-at": d1_created_at_output,
         "d1_database-details-response": d1_database_details_response_output,
@@ -392,8 +522,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/d1_account-identifier",
+          "description": "Account identifier tag."
         },
         "name": {
           "description": "a database name to search for.",
@@ -413,65 +543,16 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+      $defs: {
+        "d1_account-identifier": d1_account_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/d1_database-response"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/d1_api-response-common"
         },
-        "result_info": {
-          "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
-      $defs: {
-        "d1_created-at": d1_created_at_output,
-        "d1_database-identifier": d1_database_identifier_output,
-        "d1_database-name": d1_database_name_output,
-        "d1_database-response": d1_database_response_output,
-        "d1_database-version": d1_database_version_output,
-        "d1_jurisdiction-nullable": d1_jurisdiction_nullable_output,
-      },
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "List D1 Databases"
-    },
-    method: "GET",
-    path: "/accounts/{account_id}/d1/database",
-    extensions: {
-      "x-api-token-group": [
-        "D1 Read",
-        "D1 Write"
-      ],
-      "x-forge-epilogue": "This command acts on remote D1 Databases."
-    },
-    responses: {
-      schemas: {
-        "200": {
+        {
           "properties": {
             "result": {
               "items": {
@@ -497,16 +578,79 @@ export const tools: readonly Tool[] = [
               "type": "object"
             }
           },
-          "required": [
-            "result"
-          ],
           "type": "object"
+        }
+      ],
+      $defs: {
+        "d1_api-response-common": d1_api_response_common_output,
+        "d1_created-at": d1_created_at_output,
+        "d1_database-identifier": d1_database_identifier_output,
+        "d1_database-name": d1_database_name_output,
+        "d1_database-response": d1_database_response_output,
+        "d1_database-version": d1_database_version_output,
+        "d1_jurisdiction-nullable": d1_jurisdiction_nullable_output,
+        "d1_messages": d1_messages_output,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "List D1 Databases"
+    },
+    method: "GET",
+    path: "/accounts/{account_id}/d1/database",
+    extensions: {
+      "x-api-token-group": [
+        "D1 Read",
+        "D1 Write"
+      ],
+      "x-forge-epilogue": "This command acts on remote D1 Databases."
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/d1_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/d1_database-response"
+                  },
+                  "type": "array"
+                },
+                "result_info": {
+                  "properties": {
+                    "count": {
+                      "type": "number"
+                    },
+                    "page": {
+                      "type": "number"
+                    },
+                    "per_page": {
+                      "type": "number"
+                    },
+                    "total_count": {
+                      "type": "number"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/d1_api-response-common-failure"
         }
       },
       $defs: {
+        "d1_api-response-common": d1_api_response_common_output,
         "d1_api-response-common-failure": d1_api_response_common_failure_output,
         "d1_created-at": d1_created_at_output,
         "d1_database-identifier": d1_database_identifier_output,
@@ -534,15 +678,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/d1_account-identifier",
+          "description": "Account identifier tag."
         },
         "body": {
           "$ref": "#/$defs/d1_batch-query"
         },
         "database_id": {
-          "description": "D1 database identifier (UUID).",
-          "type": "string"
+          "$ref": "#/$defs/d1_database-identifier",
+          "description": "D1 database identifier (UUID)."
         }
       },
       required: [
@@ -551,31 +695,35 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "d1_account-identifier": d1_account_identifier,
         "d1_batch-query": d1_batch_query,
+        "d1_database-identifier": d1_database_identifier,
         "d1_params": d1_params,
         "d1_single-query": d1_single_query,
         "d1_sql": d1_sql,
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/d1_query-result-response"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/d1_api-response-common"
         },
-        "result_info": {
+        {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/d1_query-result-response"
+              },
+              "type": "array"
+            }
+          },
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
+        "d1_api-response-common": d1_api_response_common_output,
+        "d1_messages": d1_messages_output,
         "d1_query-meta": d1_query_meta_output,
-        "d1_query-meta_timings": d1_query_meta_timings_output,
         "d1_query-result-response": d1_query_result_response_output,
         "d1_served-by-colo": d1_served_by_colo_output,
         "d1_served-by-region": d1_served_by_region_output,
@@ -600,31 +748,32 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/d1_query-result-response"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/d1_api-response-common"
             },
-            "result_info": {
+            {
+              "properties": {
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/d1_query-result-response"
+                  },
+                  "type": "array"
+                }
+              },
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/d1_api-response-common-failure"
         }
       },
       $defs: {
+        "d1_api-response-common": d1_api_response_common_output,
         "d1_api-response-common-failure": d1_api_response_common_failure_output,
         "d1_messages": d1_messages_output,
         "d1_query-meta": d1_query_meta_output,
-        "d1_query-meta_timings": d1_query_meta_timings_output,
         "d1_query-result-response": d1_query_result_response_output,
         "d1_served-by-colo": d1_served_by_colo_output,
         "d1_served-by-region": d1_served_by_region_output,
@@ -643,15 +792,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/d1_account-identifier",
+          "description": "Account identifier tag."
         },
         "body": {
           "$ref": "#/$defs/d1_batch-query"
         },
         "database_id": {
-          "description": "D1 database identifier (UUID).",
-          "type": "string"
+          "$ref": "#/$defs/d1_database-identifier",
+          "description": "D1 database identifier (UUID)."
         }
       },
       required: [
@@ -660,33 +809,36 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "d1_account-identifier": d1_account_identifier,
         "d1_batch-query": d1_batch_query,
+        "d1_database-identifier": d1_database_identifier,
         "d1_params": d1_params,
         "d1_single-query": d1_single_query,
         "d1_sql": d1_sql,
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/d1_raw-result-response"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/d1_api-response-common"
         },
-        "result_info": {
+        {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/d1_raw-result-response"
+              },
+              "type": "array"
+            }
+          },
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
+        "d1_api-response-common": d1_api_response_common_output,
+        "d1_messages": d1_messages_output,
         "d1_query-meta": d1_query_meta_output,
-        "d1_query-meta_timings": d1_query_meta_timings_output,
         "d1_raw-result-response": d1_raw_result_response_output,
-        "d1_raw-result-response_results": d1_raw_result_response_results_output,
         "d1_served-by-colo": d1_served_by_colo_output,
         "d1_served-by-region": d1_served_by_region_output,
       },
@@ -710,33 +862,33 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/d1_raw-result-response"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/d1_api-response-common"
             },
-            "result_info": {
+            {
+              "properties": {
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/d1_raw-result-response"
+                  },
+                  "type": "array"
+                }
+              },
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/d1_api-response-common-failure"
         }
       },
       $defs: {
+        "d1_api-response-common": d1_api_response_common_output,
         "d1_api-response-common-failure": d1_api_response_common_failure_output,
         "d1_messages": d1_messages_output,
         "d1_query-meta": d1_query_meta_output,
-        "d1_query-meta_timings": d1_query_meta_timings_output,
         "d1_raw-result-response": d1_raw_result_response_output,
-        "d1_raw-result-response_results": d1_raw_result_response_results_output,
         "d1_served-by-colo": d1_served_by_colo_output,
         "d1_served-by-region": d1_served_by_region_output,
       },
@@ -754,8 +906,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/d1_account-identifier",
+          "description": "Account identifier tag."
         },
         "body": {
           "properties": {
@@ -767,8 +919,8 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "database_id": {
-          "description": "D1 database identifier (UUID).",
-          "type": "string"
+          "$ref": "#/$defs/d1_database-identifier",
+          "description": "D1 database identifier (UUID)."
         }
       },
       required: [
@@ -776,12 +928,27 @@ export const tools: readonly Tool[] = [
         "database_id"
       ],
       $defs: {
+        "d1_account-identifier": d1_account_identifier,
+        "d1_database-identifier": d1_database_identifier,
         "d1_database-name": d1_database_name,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/d1_database-details-response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/d1_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/d1_database-details-response"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "d1_api-response-common": d1_api_response_common_output,
         "d1_created-at": d1_created_at_output,
         "d1_database-details-response": d1_database_details_response_output,
         "d1_database-identifier": d1_database_identifier_output,
@@ -789,6 +956,7 @@ export const tools: readonly Tool[] = [
         "d1_database-version": d1_database_version_output,
         "d1_file-size": d1_file_size_output,
         "d1_jurisdiction-nullable": d1_jurisdiction_nullable_output,
+        "d1_messages": d1_messages_output,
         "d1_read-replication-details-for-response": d1_read_replication_details_for_response_output,
         "d1_table-count": d1_table_count_output,
       },
@@ -808,13 +976,26 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/d1_database-details-response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/d1_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/d1_database-details-response"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/d1_api-response-common-failure"
         }
       },
       $defs: {
+        "d1_api-response-common": d1_api_response_common_output,
         "d1_api-response-common-failure": d1_api_response_common_failure_output,
         "d1_created-at": d1_created_at_output,
         "d1_database-details-response": d1_database_details_response_output,
@@ -841,15 +1022,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/d1_account-identifier",
+          "description": "Account identifier tag."
         },
         "body": {
           "$ref": "#/$defs/d1_database-update-request-body"
         },
         "database_id": {
-          "description": "D1 database identifier (UUID).",
-          "type": "string"
+          "$ref": "#/$defs/d1_database-identifier",
+          "description": "D1 database identifier (UUID)."
         }
       },
       required: [
@@ -858,13 +1039,28 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "d1_account-identifier": d1_account_identifier,
+        "d1_database-identifier": d1_database_identifier,
         "d1_database-update-request-body": d1_database_update_request_body,
         "d1_read-replication-details-for-request": d1_read_replication_details_for_request,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/d1_database-details-response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/d1_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/d1_database-details-response"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "d1_api-response-common": d1_api_response_common_output,
         "d1_created-at": d1_created_at_output,
         "d1_database-details-response": d1_database_details_response_output,
         "d1_database-identifier": d1_database_identifier_output,
@@ -872,6 +1068,7 @@ export const tools: readonly Tool[] = [
         "d1_database-version": d1_database_version_output,
         "d1_file-size": d1_file_size_output,
         "d1_jurisdiction-nullable": d1_jurisdiction_nullable_output,
+        "d1_messages": d1_messages_output,
         "d1_read-replication-details-for-response": d1_read_replication_details_for_response_output,
         "d1_table-count": d1_table_count_output,
       },
@@ -894,13 +1091,26 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/d1_database-details-response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/d1_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/d1_database-details-response"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/d1_api-response-common-failure"
         }
       },
       $defs: {
+        "d1_api-response-common": d1_api_response_common_output,
         "d1_api-response-common-failure": d1_api_response_common_failure_output,
         "d1_created-at": d1_created_at_output,
         "d1_database-details-response": d1_database_details_response_output,

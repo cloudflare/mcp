@@ -4,6 +4,57 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `api-shield_multiple-operation-response` in responses.
+ */
+export const api_shield_multiple_operation_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/api-shield_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/api-shield_operation"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `api-shield_multiple-operation-response-paginated` in
+ * responses.
+ */
+export const api_shield_multiple_operation_response_paginated_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/api-shield_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/api-shield_operation"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `api-shield_operation_schema_fragment` in responses.
  */
 export const api_shield_operation_schema_fragment_output: JsonSchema = {
@@ -41,4 +92,38 @@ export const api_shield_operation_schemas_output: JsonSchema = {
     }
   },
   "type": "object"
+};
+
+/**
+ * The schema of `api-shield_single-operation-response` in responses.
+ */
+export const api_shield_single_operation_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/api-shield_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/api-shield_operation"
+            },
+            {
+              "properties": {
+                "schemas": {
+                  "$ref": "#/$defs/api-shield_operation_schemas"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object"
+    }
+  ]
 };

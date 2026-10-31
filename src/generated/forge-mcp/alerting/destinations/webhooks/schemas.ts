@@ -26,3 +26,11 @@ export const aaa_url: JsonSchema = {
   "description": "The POST endpoint to call when dispatching a notification.",
   "type": "string"
 };
+
+/**
+ * The schema of `aaa_webhook-id`.
+ */
+export const aaa_webhook_id: JsonSchema = {
+  "description": "The unique identifier of a webhook",
+  "type": "string"
+};

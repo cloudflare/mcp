@@ -4,9 +4,11 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   stream_api_response_common_failure_output,
+  stream_api_response_common_output,
+  stream_api_response_single_output,
   stream_messages_output,
 } from "../outputs.js";
-import { stream_include_counts } from "../schemas.js";
+import { stream_identifier_2, stream_include_counts } from "../schemas.js";
 import {
   stream_input_rtmps_output,
   stream_input_rtmps_stream_key_output,
@@ -17,7 +19,6 @@ import {
   stream_input_srt_url_output,
   stream_input_webrtc_output,
   stream_input_webrtc_url_output,
-  stream_live_input_alt_output,
   stream_live_input_created_output,
   stream_live_input_enabled_output,
   stream_live_input_identifier_output,
@@ -25,6 +26,7 @@ import {
   stream_live_input_metadata_output,
   stream_live_input_modified_output,
   stream_live_input_object_without_url_output,
+  stream_live_input_output,
   stream_live_input_playback_output,
   stream_live_input_prefer_low_latency_output,
   stream_live_input_recording_allowedOrigins_output,
@@ -34,6 +36,8 @@ import {
   stream_live_input_recording_requireSignedURLs_output,
   stream_live_input_recording_settings_output,
   stream_live_input_recording_timeoutSeconds_output,
+  stream_live_input_response_collection_output,
+  stream_live_input_response_single_output,
   stream_live_input_status_output,
   stream_playback_dash_url_output,
   stream_playback_hls_url_output,
@@ -51,6 +55,7 @@ import {
   stream_create_input_request,
   stream_live_input_default_creator,
   stream_live_input_enabled,
+  stream_live_input_identifier,
   stream_live_input_metadata,
   stream_live_input_prefer_low_latency,
   stream_live_input_recording_allowedOrigins,
@@ -75,8 +80,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/stream_identifier-2",
+          "description": "Identifier."
         },
         "body": {
           "$ref": "#/$defs/stream_create_input_request"
@@ -92,6 +97,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "stream_create_input_request": stream_create_input_request,
+        "stream_identifier-2": stream_identifier_2,
         "stream_live_input_default_creator": stream_live_input_default_creator,
         "stream_live_input_enabled": stream_live_input_enabled,
         "stream_live_input_metadata": stream_live_input_metadata,
@@ -106,8 +112,9 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/stream_live_input_alt",
+      "$ref": "#/$defs/stream_live_input_response_single",
       $defs: {
+        "stream_api-response-single": stream_api_response_single_output,
         "stream_input_rtmps": stream_input_rtmps_output,
         "stream_input_rtmps_stream_key": stream_input_rtmps_stream_key_output,
         "stream_input_rtmps_url": stream_input_rtmps_url_output,
@@ -117,7 +124,7 @@ export const tools: readonly Tool[] = [
         "stream_input_srt_url": stream_input_srt_url_output,
         "stream_input_webrtc": stream_input_webrtc_output,
         "stream_input_webrtc_url": stream_input_webrtc_url_output,
-        "stream_live_input_alt": stream_live_input_alt_output,
+        "stream_live_input": stream_live_input_output,
         "stream_live_input_created": stream_live_input_created_output,
         "stream_live_input_enabled": stream_live_input_enabled_output,
         "stream_live_input_identifier": stream_live_input_identifier_output,
@@ -133,7 +140,9 @@ export const tools: readonly Tool[] = [
         "stream_live_input_recording_requireSignedURLs": stream_live_input_recording_requireSignedURLs_output,
         "stream_live_input_recording_settings": stream_live_input_recording_settings_output,
         "stream_live_input_recording_timeoutSeconds": stream_live_input_recording_timeoutSeconds_output,
+        "stream_live_input_response_single": stream_live_input_response_single_output,
         "stream_live_input_status": stream_live_input_status_output,
+        "stream_messages": stream_messages_output,
         "stream_playback_dash_url": stream_playback_dash_url_output,
         "stream_playback_hls_url": stream_playback_hls_url_output,
         "stream_playback_rtmps": stream_playback_rtmps_output,
@@ -164,7 +173,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/stream_live_input_alt"
+          "$ref": "#/$defs/stream_live_input_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/stream_api-response-common-failure"
@@ -172,6 +181,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "stream_api-response-common-failure": stream_api_response_common_failure_output,
+        "stream_api-response-single": stream_api_response_single_output,
         "stream_input_rtmps": stream_input_rtmps_output,
         "stream_input_rtmps_stream_key": stream_input_rtmps_stream_key_output,
         "stream_input_rtmps_url": stream_input_rtmps_url_output,
@@ -181,7 +191,7 @@ export const tools: readonly Tool[] = [
         "stream_input_srt_url": stream_input_srt_url_output,
         "stream_input_webrtc": stream_input_webrtc_output,
         "stream_input_webrtc_url": stream_input_webrtc_url_output,
-        "stream_live_input_alt": stream_live_input_alt_output,
+        "stream_live_input": stream_live_input_output,
         "stream_live_input_created": stream_live_input_created_output,
         "stream_live_input_enabled": stream_live_input_enabled_output,
         "stream_live_input_identifier": stream_live_input_identifier_output,
@@ -197,6 +207,7 @@ export const tools: readonly Tool[] = [
         "stream_live_input_recording_requireSignedURLs": stream_live_input_recording_requireSignedURLs_output,
         "stream_live_input_recording_settings": stream_live_input_recording_settings_output,
         "stream_live_input_recording_timeoutSeconds": stream_live_input_recording_timeoutSeconds_output,
+        "stream_live_input_response_single": stream_live_input_response_single_output,
         "stream_live_input_status": stream_live_input_status_output,
         "stream_messages": stream_messages_output,
         "stream_playback_dash_url": stream_playback_dash_url_output,
@@ -228,18 +239,22 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/stream_identifier-2",
+          "description": "Identifier."
         },
         "live_input_identifier": {
-          "description": "A unique identifier for a live input.",
-          "type": "string"
+          "$ref": "#/$defs/stream_live_input_identifier",
+          "description": "A unique identifier for a live input."
         }
       },
       required: [
         "account_id",
         "live_input_identifier"
       ],
+      $defs: {
+        "stream_identifier-2": stream_identifier_2,
+        "stream_live_input_identifier": stream_live_input_identifier,
+      },
     },
     outputSchema: {
     },
@@ -275,22 +290,27 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/stream_identifier-2",
+          "description": "Identifier."
         },
         "live_input_identifier": {
-          "description": "A unique identifier for a live input.",
-          "type": "string"
+          "$ref": "#/$defs/stream_live_input_identifier",
+          "description": "A unique identifier for a live input."
         }
       },
       required: [
         "account_id",
         "live_input_identifier"
       ],
+      $defs: {
+        "stream_identifier-2": stream_identifier_2,
+        "stream_live_input_identifier": stream_live_input_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/stream_live_input_alt",
+      "$ref": "#/$defs/stream_live_input_response_single",
       $defs: {
+        "stream_api-response-single": stream_api_response_single_output,
         "stream_input_rtmps": stream_input_rtmps_output,
         "stream_input_rtmps_stream_key": stream_input_rtmps_stream_key_output,
         "stream_input_rtmps_url": stream_input_rtmps_url_output,
@@ -300,7 +320,7 @@ export const tools: readonly Tool[] = [
         "stream_input_srt_url": stream_input_srt_url_output,
         "stream_input_webrtc": stream_input_webrtc_output,
         "stream_input_webrtc_url": stream_input_webrtc_url_output,
-        "stream_live_input_alt": stream_live_input_alt_output,
+        "stream_live_input": stream_live_input_output,
         "stream_live_input_created": stream_live_input_created_output,
         "stream_live_input_enabled": stream_live_input_enabled_output,
         "stream_live_input_identifier": stream_live_input_identifier_output,
@@ -316,7 +336,9 @@ export const tools: readonly Tool[] = [
         "stream_live_input_recording_requireSignedURLs": stream_live_input_recording_requireSignedURLs_output,
         "stream_live_input_recording_settings": stream_live_input_recording_settings_output,
         "stream_live_input_recording_timeoutSeconds": stream_live_input_recording_timeoutSeconds_output,
+        "stream_live_input_response_single": stream_live_input_response_single_output,
         "stream_live_input_status": stream_live_input_status_output,
+        "stream_messages": stream_messages_output,
         "stream_playback_dash_url": stream_playback_dash_url_output,
         "stream_playback_hls_url": stream_playback_hls_url_output,
         "stream_playback_rtmps": stream_playback_rtmps_output,
@@ -342,7 +364,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/stream_live_input_alt"
+          "$ref": "#/$defs/stream_live_input_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/stream_api-response-common-failure"
@@ -350,6 +372,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "stream_api-response-common-failure": stream_api_response_common_failure_output,
+        "stream_api-response-single": stream_api_response_single_output,
         "stream_input_rtmps": stream_input_rtmps_output,
         "stream_input_rtmps_stream_key": stream_input_rtmps_stream_key_output,
         "stream_input_rtmps_url": stream_input_rtmps_url_output,
@@ -359,7 +382,7 @@ export const tools: readonly Tool[] = [
         "stream_input_srt_url": stream_input_srt_url_output,
         "stream_input_webrtc": stream_input_webrtc_output,
         "stream_input_webrtc_url": stream_input_webrtc_url_output,
-        "stream_live_input_alt": stream_live_input_alt_output,
+        "stream_live_input": stream_live_input_output,
         "stream_live_input_created": stream_live_input_created_output,
         "stream_live_input_enabled": stream_live_input_enabled_output,
         "stream_live_input_identifier": stream_live_input_identifier_output,
@@ -375,6 +398,7 @@ export const tools: readonly Tool[] = [
         "stream_live_input_recording_requireSignedURLs": stream_live_input_recording_requireSignedURLs_output,
         "stream_live_input_recording_settings": stream_live_input_recording_settings_output,
         "stream_live_input_recording_timeoutSeconds": stream_live_input_recording_timeoutSeconds_output,
+        "stream_live_input_response_single": stream_live_input_response_single_output,
         "stream_live_input_status": stream_live_input_status_output,
         "stream_messages": stream_messages_output,
         "stream_playback_dash_url": stream_playback_dash_url_output,
@@ -402,22 +426,27 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/stream_identifier-2",
+          "description": "Identifier."
         },
         "live_input_identifier": {
-          "description": "A unique identifier for a live input.",
-          "type": "string"
+          "$ref": "#/$defs/stream_live_input_identifier",
+          "description": "A unique identifier for a live input."
         }
       },
       required: [
         "account_id",
         "live_input_identifier"
       ],
+      $defs: {
+        "stream_identifier-2": stream_identifier_2,
+        "stream_live_input_identifier": stream_live_input_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/stream_live_input_alt",
+      "$ref": "#/$defs/stream_live_input_response_single",
       $defs: {
+        "stream_api-response-single": stream_api_response_single_output,
         "stream_input_rtmps": stream_input_rtmps_output,
         "stream_input_rtmps_stream_key": stream_input_rtmps_stream_key_output,
         "stream_input_rtmps_url": stream_input_rtmps_url_output,
@@ -427,7 +456,7 @@ export const tools: readonly Tool[] = [
         "stream_input_srt_url": stream_input_srt_url_output,
         "stream_input_webrtc": stream_input_webrtc_output,
         "stream_input_webrtc_url": stream_input_webrtc_url_output,
-        "stream_live_input_alt": stream_live_input_alt_output,
+        "stream_live_input": stream_live_input_output,
         "stream_live_input_created": stream_live_input_created_output,
         "stream_live_input_enabled": stream_live_input_enabled_output,
         "stream_live_input_identifier": stream_live_input_identifier_output,
@@ -443,7 +472,9 @@ export const tools: readonly Tool[] = [
         "stream_live_input_recording_requireSignedURLs": stream_live_input_recording_requireSignedURLs_output,
         "stream_live_input_recording_settings": stream_live_input_recording_settings_output,
         "stream_live_input_recording_timeoutSeconds": stream_live_input_recording_timeoutSeconds_output,
+        "stream_live_input_response_single": stream_live_input_response_single_output,
         "stream_live_input_status": stream_live_input_status_output,
+        "stream_messages": stream_messages_output,
         "stream_playback_dash_url": stream_playback_dash_url_output,
         "stream_playback_hls_url": stream_playback_hls_url_output,
         "stream_playback_rtmps": stream_playback_rtmps_output,
@@ -469,7 +500,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/stream_live_input_alt"
+          "$ref": "#/$defs/stream_live_input_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/stream_api-response-common-failure"
@@ -477,6 +508,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "stream_api-response-common-failure": stream_api_response_common_failure_output,
+        "stream_api-response-single": stream_api_response_single_output,
         "stream_input_rtmps": stream_input_rtmps_output,
         "stream_input_rtmps_stream_key": stream_input_rtmps_stream_key_output,
         "stream_input_rtmps_url": stream_input_rtmps_url_output,
@@ -486,7 +518,7 @@ export const tools: readonly Tool[] = [
         "stream_input_srt_url": stream_input_srt_url_output,
         "stream_input_webrtc": stream_input_webrtc_output,
         "stream_input_webrtc_url": stream_input_webrtc_url_output,
-        "stream_live_input_alt": stream_live_input_alt_output,
+        "stream_live_input": stream_live_input_output,
         "stream_live_input_created": stream_live_input_created_output,
         "stream_live_input_enabled": stream_live_input_enabled_output,
         "stream_live_input_identifier": stream_live_input_identifier_output,
@@ -502,6 +534,7 @@ export const tools: readonly Tool[] = [
         "stream_live_input_recording_requireSignedURLs": stream_live_input_recording_requireSignedURLs_output,
         "stream_live_input_recording_settings": stream_live_input_recording_settings_output,
         "stream_live_input_recording_timeoutSeconds": stream_live_input_recording_timeoutSeconds_output,
+        "stream_live_input_response_single": stream_live_input_response_single_output,
         "stream_live_input_status": stream_live_input_status_output,
         "stream_messages": stream_messages_output,
         "stream_playback_dash_url": stream_playback_dash_url_output,
@@ -529,22 +562,27 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/stream_identifier-2",
+          "description": "Identifier."
         },
         "live_input_identifier": {
-          "description": "A unique identifier for a live input.",
-          "type": "string"
+          "$ref": "#/$defs/stream_live_input_identifier",
+          "description": "A unique identifier for a live input."
         }
       },
       required: [
         "account_id",
         "live_input_identifier"
       ],
+      $defs: {
+        "stream_identifier-2": stream_identifier_2,
+        "stream_live_input_identifier": stream_live_input_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/stream_live_input_alt",
+      "$ref": "#/$defs/stream_live_input_response_single",
       $defs: {
+        "stream_api-response-single": stream_api_response_single_output,
         "stream_input_rtmps": stream_input_rtmps_output,
         "stream_input_rtmps_stream_key": stream_input_rtmps_stream_key_output,
         "stream_input_rtmps_url": stream_input_rtmps_url_output,
@@ -554,7 +592,7 @@ export const tools: readonly Tool[] = [
         "stream_input_srt_url": stream_input_srt_url_output,
         "stream_input_webrtc": stream_input_webrtc_output,
         "stream_input_webrtc_url": stream_input_webrtc_url_output,
-        "stream_live_input_alt": stream_live_input_alt_output,
+        "stream_live_input": stream_live_input_output,
         "stream_live_input_created": stream_live_input_created_output,
         "stream_live_input_enabled": stream_live_input_enabled_output,
         "stream_live_input_identifier": stream_live_input_identifier_output,
@@ -570,7 +608,9 @@ export const tools: readonly Tool[] = [
         "stream_live_input_recording_requireSignedURLs": stream_live_input_recording_requireSignedURLs_output,
         "stream_live_input_recording_settings": stream_live_input_recording_settings_output,
         "stream_live_input_recording_timeoutSeconds": stream_live_input_recording_timeoutSeconds_output,
+        "stream_live_input_response_single": stream_live_input_response_single_output,
         "stream_live_input_status": stream_live_input_status_output,
+        "stream_messages": stream_messages_output,
         "stream_playback_dash_url": stream_playback_dash_url_output,
         "stream_playback_hls_url": stream_playback_hls_url_output,
         "stream_playback_rtmps": stream_playback_rtmps_output,
@@ -602,7 +642,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/stream_live_input_alt"
+          "$ref": "#/$defs/stream_live_input_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/stream_api-response-common-failure"
@@ -610,6 +650,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "stream_api-response-common-failure": stream_api_response_common_failure_output,
+        "stream_api-response-single": stream_api_response_single_output,
         "stream_input_rtmps": stream_input_rtmps_output,
         "stream_input_rtmps_stream_key": stream_input_rtmps_stream_key_output,
         "stream_input_rtmps_url": stream_input_rtmps_url_output,
@@ -619,7 +660,7 @@ export const tools: readonly Tool[] = [
         "stream_input_srt_url": stream_input_srt_url_output,
         "stream_input_webrtc": stream_input_webrtc_output,
         "stream_input_webrtc_url": stream_input_webrtc_url_output,
-        "stream_live_input_alt": stream_live_input_alt_output,
+        "stream_live_input": stream_live_input_output,
         "stream_live_input_created": stream_live_input_created_output,
         "stream_live_input_enabled": stream_live_input_enabled_output,
         "stream_live_input_identifier": stream_live_input_identifier_output,
@@ -635,6 +676,7 @@ export const tools: readonly Tool[] = [
         "stream_live_input_recording_requireSignedURLs": stream_live_input_recording_requireSignedURLs_output,
         "stream_live_input_recording_settings": stream_live_input_recording_settings_output,
         "stream_live_input_recording_timeoutSeconds": stream_live_input_recording_timeoutSeconds_output,
+        "stream_live_input_response_single": stream_live_input_response_single_output,
         "stream_live_input_status": stream_live_input_status_output,
         "stream_messages": stream_messages_output,
         "stream_playback_dash_url": stream_playback_dash_url_output,
@@ -662,8 +704,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/stream_identifier-2",
+          "description": "Identifier."
         },
         "include_counts": {
           "$ref": "#/$defs/stream_include_counts",
@@ -675,26 +717,14 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
       $defs: {
+        "stream_identifier-2": stream_identifier_2,
         "stream_include_counts": stream_include_counts,
       },
     },
     outputSchema: {
-      "properties": {
-        "liveInputs": {
-          "items": {
-            "$ref": "#/$defs/stream_live_input_object_without_url"
-          },
-          "type": "array"
-        },
-        "range": {
-          "type": "integer"
-        },
-        "total": {
-          "type": "integer"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/stream_live_input_response_collection",
       $defs: {
+        "stream_api-response-common": stream_api_response_common_output,
         "stream_live_input_created": stream_live_input_created_output,
         "stream_live_input_enabled": stream_live_input_enabled_output,
         "stream_live_input_identifier": stream_live_input_identifier_output,
@@ -702,6 +732,8 @@ export const tools: readonly Tool[] = [
         "stream_live_input_modified": stream_live_input_modified_output,
         "stream_live_input_object_without_url": stream_live_input_object_without_url_output,
         "stream_live_input_recording_deletion": stream_live_input_recording_deletion_output,
+        "stream_live_input_response_collection": stream_live_input_response_collection_output,
+        "stream_messages": stream_messages_output,
       },
     },
     annotations: {
@@ -722,27 +754,14 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "liveInputs": {
-              "items": {
-                "$ref": "#/$defs/stream_live_input_object_without_url"
-              },
-              "type": "array"
-            },
-            "range": {
-              "type": "integer"
-            },
-            "total": {
-              "type": "integer"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/stream_live_input_response_collection"
         },
         "4XX": {
           "$ref": "#/$defs/stream_api-response-common-failure"
         }
       },
       $defs: {
+        "stream_api-response-common": stream_api_response_common_output,
         "stream_api-response-common-failure": stream_api_response_common_failure_output,
         "stream_live_input_created": stream_live_input_created_output,
         "stream_live_input_enabled": stream_live_input_enabled_output,
@@ -751,6 +770,7 @@ export const tools: readonly Tool[] = [
         "stream_live_input_modified": stream_live_input_modified_output,
         "stream_live_input_object_without_url": stream_live_input_object_without_url_output,
         "stream_live_input_recording_deletion": stream_live_input_recording_deletion_output,
+        "stream_live_input_response_collection": stream_live_input_response_collection_output,
         "stream_messages": stream_messages_output,
       },
     },
@@ -769,22 +789,27 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/stream_identifier-2",
+          "description": "Identifier."
         },
         "live_input_identifier": {
-          "description": "A unique identifier for a live input.",
-          "type": "string"
+          "$ref": "#/$defs/stream_live_input_identifier",
+          "description": "A unique identifier for a live input."
         }
       },
       required: [
         "account_id",
         "live_input_identifier"
       ],
+      $defs: {
+        "stream_identifier-2": stream_identifier_2,
+        "stream_live_input_identifier": stream_live_input_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/stream_live_input_alt",
+      "$ref": "#/$defs/stream_live_input_response_single",
       $defs: {
+        "stream_api-response-single": stream_api_response_single_output,
         "stream_input_rtmps": stream_input_rtmps_output,
         "stream_input_rtmps_stream_key": stream_input_rtmps_stream_key_output,
         "stream_input_rtmps_url": stream_input_rtmps_url_output,
@@ -794,7 +819,7 @@ export const tools: readonly Tool[] = [
         "stream_input_srt_url": stream_input_srt_url_output,
         "stream_input_webrtc": stream_input_webrtc_output,
         "stream_input_webrtc_url": stream_input_webrtc_url_output,
-        "stream_live_input_alt": stream_live_input_alt_output,
+        "stream_live_input": stream_live_input_output,
         "stream_live_input_created": stream_live_input_created_output,
         "stream_live_input_enabled": stream_live_input_enabled_output,
         "stream_live_input_identifier": stream_live_input_identifier_output,
@@ -810,7 +835,9 @@ export const tools: readonly Tool[] = [
         "stream_live_input_recording_requireSignedURLs": stream_live_input_recording_requireSignedURLs_output,
         "stream_live_input_recording_settings": stream_live_input_recording_settings_output,
         "stream_live_input_recording_timeoutSeconds": stream_live_input_recording_timeoutSeconds_output,
+        "stream_live_input_response_single": stream_live_input_response_single_output,
         "stream_live_input_status": stream_live_input_status_output,
+        "stream_messages": stream_messages_output,
         "stream_playback_dash_url": stream_playback_dash_url_output,
         "stream_playback_hls_url": stream_playback_hls_url_output,
         "stream_playback_rtmps": stream_playback_rtmps_output,
@@ -836,7 +863,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/stream_live_input_alt"
+          "$ref": "#/$defs/stream_live_input_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/stream_api-response-common-failure"
@@ -844,6 +871,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "stream_api-response-common-failure": stream_api_response_common_failure_output,
+        "stream_api-response-single": stream_api_response_single_output,
         "stream_input_rtmps": stream_input_rtmps_output,
         "stream_input_rtmps_stream_key": stream_input_rtmps_stream_key_output,
         "stream_input_rtmps_url": stream_input_rtmps_url_output,
@@ -853,7 +881,7 @@ export const tools: readonly Tool[] = [
         "stream_input_srt_url": stream_input_srt_url_output,
         "stream_input_webrtc": stream_input_webrtc_output,
         "stream_input_webrtc_url": stream_input_webrtc_url_output,
-        "stream_live_input_alt": stream_live_input_alt_output,
+        "stream_live_input": stream_live_input_output,
         "stream_live_input_created": stream_live_input_created_output,
         "stream_live_input_enabled": stream_live_input_enabled_output,
         "stream_live_input_identifier": stream_live_input_identifier_output,
@@ -869,6 +897,7 @@ export const tools: readonly Tool[] = [
         "stream_live_input_recording_requireSignedURLs": stream_live_input_recording_requireSignedURLs_output,
         "stream_live_input_recording_settings": stream_live_input_recording_settings_output,
         "stream_live_input_recording_timeoutSeconds": stream_live_input_recording_timeoutSeconds_output,
+        "stream_live_input_response_single": stream_live_input_response_single_output,
         "stream_live_input_status": stream_live_input_status_output,
         "stream_messages": stream_messages_output,
         "stream_playback_dash_url": stream_playback_dash_url_output,
@@ -896,15 +925,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/stream_identifier-2",
+          "description": "Identifier."
         },
         "body": {
           "$ref": "#/$defs/stream_update_input_request"
         },
         "live_input_identifier": {
-          "description": "A unique identifier for a live input.",
-          "type": "string"
+          "$ref": "#/$defs/stream_live_input_identifier",
+          "description": "A unique identifier for a live input."
         }
       },
       required: [
@@ -913,8 +942,10 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "stream_identifier-2": stream_identifier_2,
         "stream_live_input_default_creator": stream_live_input_default_creator,
         "stream_live_input_enabled": stream_live_input_enabled,
+        "stream_live_input_identifier": stream_live_input_identifier,
         "stream_live_input_metadata": stream_live_input_metadata,
         "stream_live_input_prefer_low_latency": stream_live_input_prefer_low_latency,
         "stream_live_input_recording_allowedOrigins": stream_live_input_recording_allowedOrigins,
@@ -928,8 +959,9 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/stream_live_input_alt",
+      "$ref": "#/$defs/stream_live_input_response_single",
       $defs: {
+        "stream_api-response-single": stream_api_response_single_output,
         "stream_input_rtmps": stream_input_rtmps_output,
         "stream_input_rtmps_stream_key": stream_input_rtmps_stream_key_output,
         "stream_input_rtmps_url": stream_input_rtmps_url_output,
@@ -939,7 +971,7 @@ export const tools: readonly Tool[] = [
         "stream_input_srt_url": stream_input_srt_url_output,
         "stream_input_webrtc": stream_input_webrtc_output,
         "stream_input_webrtc_url": stream_input_webrtc_url_output,
-        "stream_live_input_alt": stream_live_input_alt_output,
+        "stream_live_input": stream_live_input_output,
         "stream_live_input_created": stream_live_input_created_output,
         "stream_live_input_enabled": stream_live_input_enabled_output,
         "stream_live_input_identifier": stream_live_input_identifier_output,
@@ -955,7 +987,9 @@ export const tools: readonly Tool[] = [
         "stream_live_input_recording_requireSignedURLs": stream_live_input_recording_requireSignedURLs_output,
         "stream_live_input_recording_settings": stream_live_input_recording_settings_output,
         "stream_live_input_recording_timeoutSeconds": stream_live_input_recording_timeoutSeconds_output,
+        "stream_live_input_response_single": stream_live_input_response_single_output,
         "stream_live_input_status": stream_live_input_status_output,
+        "stream_messages": stream_messages_output,
         "stream_playback_dash_url": stream_playback_dash_url_output,
         "stream_playback_hls_url": stream_playback_hls_url_output,
         "stream_playback_rtmps": stream_playback_rtmps_output,
@@ -986,7 +1020,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/stream_live_input_alt"
+          "$ref": "#/$defs/stream_live_input_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/stream_api-response-common-failure"
@@ -994,6 +1028,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "stream_api-response-common-failure": stream_api_response_common_failure_output,
+        "stream_api-response-single": stream_api_response_single_output,
         "stream_input_rtmps": stream_input_rtmps_output,
         "stream_input_rtmps_stream_key": stream_input_rtmps_stream_key_output,
         "stream_input_rtmps_url": stream_input_rtmps_url_output,
@@ -1003,7 +1038,7 @@ export const tools: readonly Tool[] = [
         "stream_input_srt_url": stream_input_srt_url_output,
         "stream_input_webrtc": stream_input_webrtc_output,
         "stream_input_webrtc_url": stream_input_webrtc_url_output,
-        "stream_live_input_alt": stream_live_input_alt_output,
+        "stream_live_input": stream_live_input_output,
         "stream_live_input_created": stream_live_input_created_output,
         "stream_live_input_enabled": stream_live_input_enabled_output,
         "stream_live_input_identifier": stream_live_input_identifier_output,
@@ -1019,6 +1054,7 @@ export const tools: readonly Tool[] = [
         "stream_live_input_recording_requireSignedURLs": stream_live_input_recording_requireSignedURLs_output,
         "stream_live_input_recording_settings": stream_live_input_recording_settings_output,
         "stream_live_input_recording_timeoutSeconds": stream_live_input_recording_timeoutSeconds_output,
+        "stream_live_input_response_single": stream_live_input_response_single_output,
         "stream_live_input_status": stream_live_input_status_output,
         "stream_messages": stream_messages_output,
         "stream_playback_dash_url": stream_playback_dash_url_output,

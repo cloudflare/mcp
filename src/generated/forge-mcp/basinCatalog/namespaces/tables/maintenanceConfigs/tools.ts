@@ -3,8 +3,11 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  r2_data_catalog_api_response_common_failure_errorsItem_output,
   r2_data_catalog_api_response_common_failure_output,
+  r2_data_catalog_api_response_errors_output,
+  r2_data_catalog_api_response_messages_output,
+  r2_data_catalog_api_response_single_output,
+  r2_data_catalog_api_response_success_output,
   r2_data_catalog_catalog_maintenance_state_output,
   r2_data_catalog_catalog_target_file_size_output,
   r2_data_catalog_maintenance_interval_output,
@@ -15,6 +18,8 @@ import {
   r2_data_catalog_table_snapshot_expiration_config_output,
 } from "../../../../outputs.js";
 import {
+  r2_data_catalog_account_id,
+  r2_data_catalog_bucket_name,
   r2_data_catalog_catalog_maintenance_state,
   r2_data_catalog_catalog_target_file_size,
   r2_data_catalog_queue_maintenance_request,
@@ -35,12 +40,12 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifies the account.",
-          "type": "string"
+          "$ref": "#/$defs/r2-data-catalog_account-id",
+          "description": "Identifies the account."
         },
         "bucket_name": {
-          "description": "Specifies the R2 bucket name.",
-          "type": "string"
+          "$ref": "#/$defs/r2-data-catalog_bucket-name",
+          "description": "Specifies the R2 bucket name."
         },
         "namespace": {
           "description": "The namespace identifier (use %1F as separator for nested namespaces).",
@@ -57,10 +62,30 @@ export const tools: readonly Tool[] = [
         "namespace",
         "table_name"
       ],
+      $defs: {
+        "r2-data-catalog_account-id": r2_data_catalog_account_id,
+        "r2-data-catalog_bucket-name": r2_data_catalog_bucket_name,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/r2-data-catalog_table-maintenance-config-response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/r2-data-catalog_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/r2-data-catalog_table-maintenance-config-response"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "r2-data-catalog_api-response-errors": r2_data_catalog_api_response_errors_output,
+        "r2-data-catalog_api-response-messages": r2_data_catalog_api_response_messages_output,
+        "r2-data-catalog_api-response-single": r2_data_catalog_api_response_single_output,
+        "r2-data-catalog_api-response-success": r2_data_catalog_api_response_success_output,
         "r2-data-catalog_catalog-maintenance-state": r2_data_catalog_catalog_maintenance_state_output,
         "r2-data-catalog_catalog-target-file-size": r2_data_catalog_catalog_target_file_size_output,
         "r2-data-catalog_maintenance-interval": r2_data_catalog_maintenance_interval_output,
@@ -88,7 +113,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/r2-data-catalog_table-maintenance-config-response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/r2-data-catalog_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/r2-data-catalog_table-maintenance-config-response"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "400": {
           "$ref": "#/$defs/r2-data-catalog_api-response-common-failure"
@@ -108,7 +145,10 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "r2-data-catalog_api-response-common-failure": r2_data_catalog_api_response_common_failure_output,
-        "r2-data-catalog_api-response-common-failure_errorsItem": r2_data_catalog_api_response_common_failure_errorsItem_output,
+        "r2-data-catalog_api-response-errors": r2_data_catalog_api_response_errors_output,
+        "r2-data-catalog_api-response-messages": r2_data_catalog_api_response_messages_output,
+        "r2-data-catalog_api-response-single": r2_data_catalog_api_response_single_output,
+        "r2-data-catalog_api-response-success": r2_data_catalog_api_response_success_output,
         "r2-data-catalog_catalog-maintenance-state": r2_data_catalog_catalog_maintenance_state_output,
         "r2-data-catalog_catalog-target-file-size": r2_data_catalog_catalog_target_file_size_output,
         "r2-data-catalog_maintenance-interval": r2_data_catalog_maintenance_interval_output,
@@ -130,15 +170,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Use this to identify the account.",
-          "type": "string"
+          "$ref": "#/$defs/r2-data-catalog_account-id",
+          "description": "Use this to identify the account."
         },
         "body": {
           "$ref": "#/$defs/r2-data-catalog_queue-maintenance-request"
         },
         "bucket_name": {
-          "description": "Specifies the R2 bucket name.",
-          "type": "string"
+          "$ref": "#/$defs/r2-data-catalog_bucket-name",
+          "description": "Specifies the R2 bucket name."
         },
         "configuration_type": {
           "enum": [
@@ -163,12 +203,30 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "r2-data-catalog_account-id": r2_data_catalog_account_id,
+        "r2-data-catalog_bucket-name": r2_data_catalog_bucket_name,
         "r2-data-catalog_queue-maintenance-request": r2_data_catalog_queue_maintenance_request,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/r2-data-catalog_queue-maintenance-response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/r2-data-catalog_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/r2-data-catalog_queue-maintenance-response"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "r2-data-catalog_api-response-errors": r2_data_catalog_api_response_errors_output,
+        "r2-data-catalog_api-response-messages": r2_data_catalog_api_response_messages_output,
+        "r2-data-catalog_api-response-single": r2_data_catalog_api_response_single_output,
+        "r2-data-catalog_api-response-success": r2_data_catalog_api_response_success_output,
         "r2-data-catalog_queue-maintenance-response": r2_data_catalog_queue_maintenance_response_output,
       },
     },
@@ -184,7 +242,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "202": {
-          "$ref": "#/$defs/r2-data-catalog_queue-maintenance-response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/r2-data-catalog_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/r2-data-catalog_queue-maintenance-response"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "400": {
           "$ref": "#/$defs/r2-data-catalog_api-response-common-failure"
@@ -204,7 +274,10 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "r2-data-catalog_api-response-common-failure": r2_data_catalog_api_response_common_failure_output,
-        "r2-data-catalog_api-response-common-failure_errorsItem": r2_data_catalog_api_response_common_failure_errorsItem_output,
+        "r2-data-catalog_api-response-errors": r2_data_catalog_api_response_errors_output,
+        "r2-data-catalog_api-response-messages": r2_data_catalog_api_response_messages_output,
+        "r2-data-catalog_api-response-single": r2_data_catalog_api_response_single_output,
+        "r2-data-catalog_api-response-success": r2_data_catalog_api_response_success_output,
         "r2-data-catalog_queue-maintenance-response": r2_data_catalog_queue_maintenance_response_output,
       },
     },
@@ -221,15 +294,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifies the account.",
-          "type": "string"
+          "$ref": "#/$defs/r2-data-catalog_account-id",
+          "description": "Identifies the account."
         },
         "body": {
           "$ref": "#/$defs/r2-data-catalog_table-maintenance-update-request"
         },
         "bucket_name": {
-          "description": "Specifies the R2 bucket name.",
-          "type": "string"
+          "$ref": "#/$defs/r2-data-catalog_bucket-name",
+          "description": "Specifies the R2 bucket name."
         },
         "namespace": {
           "description": "The namespace identifier (use %1F as separator for nested namespaces).",
@@ -248,6 +321,8 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "r2-data-catalog_account-id": r2_data_catalog_account_id,
+        "r2-data-catalog_bucket-name": r2_data_catalog_bucket_name,
         "r2-data-catalog_catalog-maintenance-state": r2_data_catalog_catalog_maintenance_state,
         "r2-data-catalog_catalog-target-file-size": r2_data_catalog_catalog_target_file_size,
         "r2-data-catalog_snapshot-expiration-update-params": r2_data_catalog_snapshot_expiration_update_params,
@@ -256,8 +331,24 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/r2-data-catalog_table-maintenance-config",
+      "allOf": [
+        {
+          "$ref": "#/$defs/r2-data-catalog_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/r2-data-catalog_table-maintenance-config"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "r2-data-catalog_api-response-errors": r2_data_catalog_api_response_errors_output,
+        "r2-data-catalog_api-response-messages": r2_data_catalog_api_response_messages_output,
+        "r2-data-catalog_api-response-single": r2_data_catalog_api_response_single_output,
+        "r2-data-catalog_api-response-success": r2_data_catalog_api_response_success_output,
         "r2-data-catalog_catalog-maintenance-state": r2_data_catalog_catalog_maintenance_state_output,
         "r2-data-catalog_catalog-target-file-size": r2_data_catalog_catalog_target_file_size_output,
         "r2-data-catalog_maintenance-interval": r2_data_catalog_maintenance_interval_output,
@@ -283,7 +374,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/r2-data-catalog_table-maintenance-config"
+          "allOf": [
+            {
+              "$ref": "#/$defs/r2-data-catalog_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/r2-data-catalog_table-maintenance-config"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "400": {
           "$ref": "#/$defs/r2-data-catalog_api-response-common-failure"
@@ -303,7 +406,10 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "r2-data-catalog_api-response-common-failure": r2_data_catalog_api_response_common_failure_output,
-        "r2-data-catalog_api-response-common-failure_errorsItem": r2_data_catalog_api_response_common_failure_errorsItem_output,
+        "r2-data-catalog_api-response-errors": r2_data_catalog_api_response_errors_output,
+        "r2-data-catalog_api-response-messages": r2_data_catalog_api_response_messages_output,
+        "r2-data-catalog_api-response-single": r2_data_catalog_api_response_single_output,
+        "r2-data-catalog_api-response-success": r2_data_catalog_api_response_success_output,
         "r2-data-catalog_catalog-maintenance-state": r2_data_catalog_catalog_maintenance_state_output,
         "r2-data-catalog_catalog-target-file-size": r2_data_catalog_catalog_target_file_size_output,
         "r2-data-catalog_maintenance-interval": r2_data_catalog_maintenance_interval_output,

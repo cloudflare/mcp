@@ -22,7 +22,6 @@ import {
   flagship_Flag_output,
   flagship_ResultInfo_output,
   flagship_Rule_output,
-  flagship_Rule_rollout_output,
 } from "../outputs.js";
 import {
   flagship_ChangelogEntry_output,
@@ -69,15 +68,50 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
+        "errors": {
+          "items": {
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
         "result": {
           "$ref": "#/$defs/flagship_ChangelogPage"
         },
         "result_info": {
           "$ref": "#/$defs/flagship_ResultInfo"
+        },
+        "success": {
+          "type": "boolean"
         }
       },
       "required": [
-        "result"
+        "errors",
+        "messages",
+        "result",
+        "result_info",
+        "success"
       ],
       "type": "object",
       $defs: {
@@ -98,7 +132,6 @@ export const tools: readonly Tool[] = [
         "flagship_LogicalCondition4": flagship_LogicalCondition4_output,
         "flagship_ResultInfo": flagship_ResultInfo_output,
         "flagship_Rule": flagship_Rule_output,
-        "flagship_Rule_rollout": flagship_Rule_rollout_output,
       },
     },
     annotations: {
@@ -118,12 +151,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.flagship.app.read"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.flagship.app.read": {
-            "name": "com_cloudflare_api_account_flagship_app_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -136,15 +164,50 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
             "result": {
               "$ref": "#/$defs/flagship_ChangelogPage"
             },
             "result_info": {
               "$ref": "#/$defs/flagship_ResultInfo"
+            },
+            "success": {
+              "type": "boolean"
             }
           },
           "required": [
-            "result"
+            "errors",
+            "messages",
+            "result",
+            "result_info",
+            "success"
           ],
           "type": "object"
         },
@@ -187,7 +250,6 @@ export const tools: readonly Tool[] = [
         "flagship_LogicalCondition4": flagship_LogicalCondition4_output,
         "flagship_ResultInfo": flagship_ResultInfo_output,
         "flagship_Rule": flagship_Rule_output,
-        "flagship_Rule_rollout": flagship_Rule_rollout_output,
       },
     },
     request: (args) => ({

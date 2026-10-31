@@ -11,6 +11,32 @@ export const logcontrol_allow_out_of_region_access_output: JsonSchema = {
 };
 
 /**
+ * The schema of `logcontrol_api-response-common` in responses.
+ */
+export const logcontrol_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/logcontrol_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/logcontrol_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `logcontrol_cmb_config` in responses.
  */
 export const logcontrol_cmb_config_output: JsonSchema = {
@@ -28,6 +54,32 @@ export const logcontrol_cmb_config_output: JsonSchema = {
     },
     {
       "type": "null"
+    }
+  ]
+};
+
+/**
+ * The schema of `logcontrol_cmb_config_response_single` in responses.
+ */
+export const logcontrol_cmb_config_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/logcontrol_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/logcontrol_cmb_config"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object"
     }
   ]
 };

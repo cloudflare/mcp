@@ -24,6 +24,29 @@ export const bill_subs_api_schemas_name_output: JsonSchema = {
 };
 
 /**
+ * The schema of `zones_api-response-common` in responses.
+ */
+export const zones_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/zones_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/zones_messages"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `zones_api-response-common-failure` in responses.
  */
 export const zones_api_response_common_failure_output: JsonSchema = {
@@ -55,6 +78,40 @@ export const zones_api_response_common_failure_output: JsonSchema = {
     "success"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `zones_api-response-single-id` in responses.
+ */
+export const zones_api_response_single_id_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "properties": {
+                "id": {
+                  "$ref": "#/$defs/zones_identifier"
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**
@@ -136,7 +193,15 @@ export const zones_type_output: JsonSchema = {
 export const zones_zone_output: JsonSchema = {
   "properties": {
     "account": {
-      "$ref": "#/$defs/zones_zone_account"
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "activated_on": {
       "oneOf": [
@@ -163,7 +228,30 @@ export const zones_zone_output: JsonSchema = {
       "type": "string"
     },
     "meta": {
-      "$ref": "#/$defs/zones_zone_meta"
+      "properties": {
+        "cdn_only": {
+          "type": "boolean"
+        },
+        "custom_certificate_quota": {
+          "type": "integer"
+        },
+        "dns_only": {
+          "type": "boolean"
+        },
+        "foundation_dns": {
+          "type": "boolean"
+        },
+        "page_rule_quota": {
+          "type": "integer"
+        },
+        "phishing_detected": {
+          "type": "boolean"
+        },
+        "step": {
+          "type": "integer"
+        }
+      },
+      "type": "object"
     },
     "modified_on": {
       "format": "date-time",
@@ -212,7 +300,18 @@ export const zones_zone_output: JsonSchema = {
       ]
     },
     "owner": {
-      "$ref": "#/$defs/zones_zone_owner"
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/zones_identifier"
+        },
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "paused": {
       "$ref": "#/$defs/zones_paused"
@@ -315,68 +414,5 @@ export const zones_zone_output: JsonSchema = {
     "owner",
     "plan"
   ],
-  "type": "object"
-};
-
-/**
- * The schema of `zones_zone_account` in responses.
- */
-export const zones_zone_account_output: JsonSchema = {
-  "properties": {
-    "id": {
-      "type": "string"
-    },
-    "name": {
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `zones_zone_meta` in responses.
- */
-export const zones_zone_meta_output: JsonSchema = {
-  "properties": {
-    "cdn_only": {
-      "type": "boolean"
-    },
-    "custom_certificate_quota": {
-      "type": "integer"
-    },
-    "dns_only": {
-      "type": "boolean"
-    },
-    "foundation_dns": {
-      "type": "boolean"
-    },
-    "page_rule_quota": {
-      "type": "integer"
-    },
-    "phishing_detected": {
-      "type": "boolean"
-    },
-    "step": {
-      "type": "integer"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `zones_zone_owner` in responses.
- */
-export const zones_zone_owner_output: JsonSchema = {
-  "properties": {
-    "id": {
-      "$ref": "#/$defs/zones_identifier"
-    },
-    "name": {
-      "type": "string"
-    },
-    "type": {
-      "type": "string"
-    }
-  },
   "type": "object"
 };

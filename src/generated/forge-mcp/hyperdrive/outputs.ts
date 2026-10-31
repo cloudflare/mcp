@@ -4,6 +4,51 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
+ * The schema of `hyperdrive_api-response-collection` in responses.
+ */
+export const hyperdrive_api_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/hyperdrive_api-response-common"
+    },
+    {
+      "properties": {
+        "result_info": {
+          "$ref": "#/$defs/hyperdrive_result_info"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `hyperdrive_api-response-common` in responses.
+ */
+export const hyperdrive_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/hyperdrive_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/hyperdrive_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `hyperdrive_api-response-common-failure` in responses.
  */
 export const hyperdrive_api_response_common_failure_output: JsonSchema = {
@@ -28,6 +73,32 @@ export const hyperdrive_api_response_common_failure_output: JsonSchema = {
     "errors",
     "messages",
     "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `hyperdrive_api-response-single` in responses.
+ */
+export const hyperdrive_api_response_single_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/hyperdrive_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/hyperdrive_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
     "success"
   ],
   "type": "object"
@@ -110,6 +181,33 @@ export const hyperdrive_hyperdrive_config_response_output: JsonSchema = {
 };
 
 /**
+ * The schema of `hyperdrive_hyperdrive-database-full` in responses.
+ */
+export const hyperdrive_hyperdrive_database_full_output: JsonSchema = {
+  "properties": {
+    "database": {
+      "type": "string"
+    },
+    "password": {
+      "type": "string"
+    },
+    "scheme": {
+      "$ref": "#/$defs/hyperdrive_hyperdrive-scheme"
+    },
+    "user": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "database",
+    "password",
+    "scheme",
+    "user"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `hyperdrive_hyperdrive-integration-provider` in responses.
  */
 export const hyperdrive_hyperdrive_integration_provider_output: JsonSchema = {
@@ -157,97 +255,34 @@ export const hyperdrive_hyperdrive_origin_connection_limit_output: JsonSchema = 
 export const hyperdrive_hyperdrive_origin_full_output: JsonSchema = {
   "oneOf": [
     {
-      "properties": {
-        "database": {
-          "type": "string"
+      "allOf": [
+        {
+          "$ref": "#/$defs/hyperdrive_hyperdrive-database-full"
         },
-        "host": {
-          "type": "string"
-        },
-        "password": {
-          "type": "string"
-        },
-        "port": {
-          "type": "integer"
-        },
-        "scheme": {
-          "$ref": "#/$defs/hyperdrive_hyperdrive-scheme"
-        },
-        "user": {
-          "type": "string"
+        {
+          "$ref": "#/$defs/hyperdrive_internet-origin"
         }
-      },
-      "required": [
-        "database",
-        "password",
-        "scheme",
-        "user",
-        "host",
-        "port"
-      ],
-      "type": "object"
+      ]
     },
     {
-      "properties": {
-        "access_client_id": {
-          "type": "string"
+      "allOf": [
+        {
+          "$ref": "#/$defs/hyperdrive_hyperdrive-database-full"
         },
-        "access_client_secret": {
-          "type": "string"
-        },
-        "database": {
-          "type": "string"
-        },
-        "host": {
-          "type": "string"
-        },
-        "password": {
-          "type": "string"
-        },
-        "scheme": {
-          "$ref": "#/$defs/hyperdrive_hyperdrive-scheme"
-        },
-        "user": {
-          "type": "string"
+        {
+          "$ref": "#/$defs/hyperdrive_over-access-origin"
         }
-      },
-      "required": [
-        "database",
-        "password",
-        "scheme",
-        "user",
-        "access_client_id",
-        "access_client_secret",
-        "host"
-      ],
-      "type": "object"
+      ]
     },
     {
-      "properties": {
-        "database": {
-          "type": "string"
+      "allOf": [
+        {
+          "$ref": "#/$defs/hyperdrive_hyperdrive-database-full"
         },
-        "password": {
-          "type": "string"
-        },
-        "scheme": {
-          "$ref": "#/$defs/hyperdrive_hyperdrive-scheme"
-        },
-        "service_id": {
-          "type": "string"
-        },
-        "user": {
-          "type": "string"
+        {
+          "$ref": "#/$defs/hyperdrive_vpc-service-origin"
         }
-      },
-      "required": [
-        "database",
-        "password",
-        "scheme",
-        "user",
-        "service_id"
-      ],
-      "type": "object"
+      ]
     }
   ]
 };
@@ -306,6 +341,25 @@ export const hyperdrive_identifier_output: JsonSchema = {
 };
 
 /**
+ * The schema of `hyperdrive_internet-origin` in responses.
+ */
+export const hyperdrive_internet_origin_output: JsonSchema = {
+  "properties": {
+    "host": {
+      "type": "string"
+    },
+    "port": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "host",
+    "port"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `hyperdrive_messages` in responses.
  */
 export const hyperdrive_messages_output: JsonSchema = {
@@ -328,6 +382,29 @@ export const hyperdrive_messages_output: JsonSchema = {
 };
 
 /**
+ * The schema of `hyperdrive_over-access-origin` in responses.
+ */
+export const hyperdrive_over_access_origin_output: JsonSchema = {
+  "properties": {
+    "access_client_id": {
+      "type": "string"
+    },
+    "access_client_secret": {
+      "type": "string"
+    },
+    "host": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "access_client_id",
+    "access_client_secret",
+    "host"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `hyperdrive_result_info` in responses.
  */
 export const hyperdrive_result_info_output: JsonSchema = {
@@ -345,5 +422,20 @@ export const hyperdrive_result_info_output: JsonSchema = {
       "type": "number"
     }
   },
+  "type": "object"
+};
+
+/**
+ * The schema of `hyperdrive_vpc-service-origin` in responses.
+ */
+export const hyperdrive_vpc_service_origin_output: JsonSchema = {
+  "properties": {
+    "service_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "service_id"
+  ],
   "type": "object"
 };

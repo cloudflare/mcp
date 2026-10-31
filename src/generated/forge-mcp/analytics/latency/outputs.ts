@@ -4,6 +4,47 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `argo-analytics_api-response-common` in responses.
+ */
+export const argo_analytics_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/argo-analytics_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/argo-analytics_messages"
+    },
+    "result": {
+      "anyOf": [
+        {
+          "type": "object"
+        },
+        {
+          "items": {},
+          "type": "array"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `argo-analytics_api-response-common-failure` in responses.
  */
 export const argo_analytics_api_response_common_failure_output: JsonSchema = {
@@ -34,6 +75,35 @@ export const argo_analytics_api_response_common_failure_output: JsonSchema = {
 };
 
 /**
+ * The schema of `argo-analytics_api-response-single` in responses.
+ */
+export const argo_analytics_api_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/argo-analytics_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `argo-analytics_messages` in responses.
  */
 export const argo_analytics_messages_output: JsonSchema = {
@@ -59,28 +129,17 @@ export const argo_analytics_messages_output: JsonSchema = {
  * The schema of `argo-analytics_response_single` in responses.
  */
 export const argo_analytics_response_single_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/argo-analytics_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/argo-analytics_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/argo-analytics_messages"
-    },
-    "result": {
+    {
+      "properties": {
+        "result": {
+          "type": "object"
+        }
+      },
       "type": "object"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
+  ]
 };

@@ -4,15 +4,16 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   tls_certificates_and_hostnames_api_response_common_failure_output,
+  tls_certificates_and_hostnames_api_response_single_output,
   tls_certificates_and_hostnames_messages_output,
 } from "../../outputs.js";
+import { tls_certificates_and_hostnames_identifier } from "../../schemas.js";
 import {
   tls_certificates_and_hostnames_brand_check_output,
   tls_certificates_and_hostnames_cert_pack_uuid_output,
   tls_certificates_and_hostnames_certificate_status_output,
   tls_certificates_and_hostnames_signature_2_output,
   tls_certificates_and_hostnames_ssl_validation_method_response_collection_output,
-  tls_certificates_and_hostnames_ssl_validation_method_response_collection_result_output,
   tls_certificates_and_hostnames_ssl_verification_response_collection_output,
   tls_certificates_and_hostnames_status_6_output,
   tls_certificates_and_hostnames_validation_method_2_output,
@@ -23,6 +24,7 @@ import {
   tls_certificates_and_hostnames_verification_type_output,
 } from "./outputs.js";
 import {
+  tls_certificates_and_hostnames_cert_pack_uuid,
   tls_certificates_and_hostnames_validation_method_3,
   tls_certificates_and_hostnames_validation_method_definition,
 } from "./schemas.js";
@@ -42,12 +44,12 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/tls-certificates-and-hostnames_validation_method-3"
         },
         "certificate_pack_id": {
-          "description": "Certificate Pack UUID.",
-          "type": "string"
+          "$ref": "#/$defs/tls-certificates-and-hostnames_cert_pack_uuid",
+          "description": "Certificate Pack UUID."
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -56,21 +58,18 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "tls-certificates-and-hostnames_cert_pack_uuid": tls_certificates_and_hostnames_cert_pack_uuid,
+        "tls-certificates-and-hostnames_identifier": tls_certificates_and_hostnames_identifier,
         "tls-certificates-and-hostnames_validation_method-3": tls_certificates_and_hostnames_validation_method_3,
         "tls-certificates-and-hostnames_validation_method_definition": tls_certificates_and_hostnames_validation_method_definition,
       },
     },
     outputSchema: {
-      "properties": {
-        "status": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_status-6"
-        },
-        "validation_method": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_validation_method_definition"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/tls-certificates-and-hostnames_ssl_validation_method_response_collection",
       $defs: {
+        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
+        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
+        "tls-certificates-and-hostnames_ssl_validation_method_response_collection": tls_certificates_and_hostnames_ssl_validation_method_response_collection_output,
         "tls-certificates-and-hostnames_status-6": tls_certificates_and_hostnames_status_6_output,
         "tls-certificates-and-hostnames_validation_method_definition": tls_certificates_and_hostnames_validation_method_definition_output,
       },
@@ -95,15 +94,7 @@ export const tools: readonly Tool[] = [
         "enum": [
           "#ssl:read",
           "#ssl:edit"
-        ],
-        "x-fern-enum": {
-          "#ssl:edit": {
-            "name": "ssl_edit"
-          },
-          "#ssl:read": {
-            "name": "ssl_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -115,15 +106,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "status": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_status-6"
-            },
-            "validation_method": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_validation_method_definition"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/tls-certificates-and-hostnames_ssl_validation_method_response_collection"
         },
         "4XX": {
           "allOf": [
@@ -138,9 +121,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
+        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
         "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
         "tls-certificates-and-hostnames_ssl_validation_method_response_collection": tls_certificates_and_hostnames_ssl_validation_method_response_collection_output,
-        "tls-certificates-and-hostnames_ssl_validation_method_response_collection_result": tls_certificates_and_hostnames_ssl_validation_method_response_collection_result_output,
         "tls-certificates-and-hostnames_status-6": tls_certificates_and_hostnames_status_6_output,
         "tls-certificates-and-hostnames_validation_method_definition": tls_certificates_and_hostnames_validation_method_definition_output,
       },
@@ -165,13 +148,16 @@ export const tools: readonly Tool[] = [
           "type": "boolean"
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "tls-certificates-and-hostnames_identifier": tls_certificates_and_hostnames_identifier,
+      },
     },
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_ssl_verification_response_collection",
@@ -207,12 +193,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#ssl:read"
-        ],
-        "x-fern-enum": {
-          "#ssl:read": {
-            "name": "ssl_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,

@@ -4,6 +4,68 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
+ * The schema of `custom-pages_api-response-collection` in responses.
+ */
+export const custom_pages_api_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/custom-pages_api-response-common"
+    },
+    {
+      "properties": {
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `custom-pages_api-response-common` in responses.
+ */
+export const custom_pages_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/custom-pages_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/custom-pages_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `custom-pages_api-response-common-failure` in responses.
  */
 export const custom_pages_api_response_common_failure_output: JsonSchema = {
@@ -28,6 +90,32 @@ export const custom_pages_api_response_common_failure_output: JsonSchema = {
     "errors",
     "messages",
     "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `custom-pages_api-response-single` in responses.
+ */
+export const custom_pages_api_response_single_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/custom-pages_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/custom-pages_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
     "success"
   ],
   "type": "object"

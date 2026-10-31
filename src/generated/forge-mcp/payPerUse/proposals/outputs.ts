@@ -66,3 +66,33 @@ export const pay_per_crawl_PPUProposals_output: JsonSchema = {
   ],
   "type": "object"
 };
+
+/**
+ * The schema of `pay-per-crawl_PPUProposalsResponse` in responses.
+ */
+export const pay_per_crawl_PPUProposalsResponse_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "items": {
+        "$ref": "#/$defs/pay-per-crawl_Msg"
+      },
+      "type": "array"
+    },
+    "messages": {
+      "items": {
+        "$ref": "#/$defs/pay-per-crawl_Msg"
+      },
+      "type": "array"
+    },
+    "result": {
+      "$ref": "#/$defs/pay-per-crawl_PPUProposals"
+    },
+    "result_info": {
+      "$ref": "#/$defs/pay-per-crawl_ResultInfo"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "type": "object"
+};

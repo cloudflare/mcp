@@ -10,27 +10,20 @@ export const access_access_group_rule: JsonSchema = {
   "description": "Matches an Access group.",
   "properties": {
     "group": {
-      "$ref": "#/$defs/access_access_group_rule_group"
+      "properties": {
+        "id": {
+          "description": "The ID of a previously created Access group.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "type": "object"
     }
   },
   "required": [
     "group"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_access_group_rule_group`.
- */
-export const access_access_group_rule_group: JsonSchema = {
-  "properties": {
-    "id": {
-      "description": "The ID of a previously created Access group.",
-      "type": "string"
-    }
-  },
-  "required": [
-    "id"
   ],
   "type": "object"
 };
@@ -128,37 +121,30 @@ export const access_auth_context_rule: JsonSchema = {
   "description": "Matches an Azure Authentication Context.\nRequires an Azure identity provider.",
   "properties": {
     "auth_context": {
-      "$ref": "#/$defs/access_auth_context_rule_auth_context"
+      "properties": {
+        "ac_id": {
+          "description": "The ACID of an Authentication context.",
+          "type": "string"
+        },
+        "id": {
+          "description": "The ID of an Authentication context.",
+          "type": "string"
+        },
+        "identity_provider_id": {
+          "description": "The ID of your Azure identity provider.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "ac_id",
+        "id",
+        "identity_provider_id"
+      ],
+      "type": "object"
     }
   },
   "required": [
     "auth_context"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_auth_context_rule_auth_context`.
- */
-export const access_auth_context_rule_auth_context: JsonSchema = {
-  "properties": {
-    "ac_id": {
-      "description": "The ACID of an Authentication context.",
-      "type": "string"
-    },
-    "id": {
-      "description": "The ID of an Authentication context.",
-      "type": "string"
-    },
-    "identity_provider_id": {
-      "description": "The ID of your Azure identity provider.",
-      "type": "string"
-    }
-  },
-  "required": [
-    "ac_id",
-    "id",
-    "identity_provider_id"
   ],
   "type": "object"
 };
@@ -170,23 +156,16 @@ export const access_authentication_method_rule: JsonSchema = {
   "description": "Enforce different MFA options",
   "properties": {
     "auth_method": {
-      "$ref": "#/$defs/access_authentication_method_rule_auth_method"
-    }
-  },
-  "required": [
-    "auth_method"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_authentication_method_rule_auth_method`.
- */
-export const access_authentication_method_rule_auth_method: JsonSchema = {
-  "properties": {
-    "auth_method": {
-      "description": "The type of authentication method https://datatracker.ietf.org/doc/html/rfc8176#section-2.",
-      "type": "string"
+      "properties": {
+        "auth_method": {
+          "description": "The type of authentication method https://datatracker.ietf.org/doc/html/rfc8176#section-2.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "auth_method"
+      ],
+      "type": "object"
     }
   },
   "required": [
@@ -202,32 +181,25 @@ export const access_azure_group_rule: JsonSchema = {
   "description": "Matches an Azure group.\nRequires an Azure identity provider.",
   "properties": {
     "azureAD": {
-      "$ref": "#/$defs/access_azure_group_rule_azureAD"
+      "properties": {
+        "id": {
+          "description": "The ID of an Azure group.",
+          "type": "string"
+        },
+        "identity_provider_id": {
+          "description": "The ID of your Azure identity provider.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "identity_provider_id"
+      ],
+      "type": "object"
     }
   },
   "required": [
     "azureAD"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_azure_group_rule_azureAD`.
- */
-export const access_azure_group_rule_azureAD: JsonSchema = {
-  "properties": {
-    "id": {
-      "description": "The ID of an Azure group.",
-      "type": "string"
-    },
-    "identity_provider_id": {
-      "description": "The ID of your Azure identity provider.",
-      "type": "string"
-    }
-  },
-  "required": [
-    "id",
-    "identity_provider_id"
   ],
   "type": "object"
 };
@@ -296,26 +268,18 @@ export const access_cloudflare_account_member_rule: JsonSchema = {
   "description": "Matches users who are members of a specific Cloudflare account.\nRequires a Cloudflare identity provider.",
   "properties": {
     "cloudflare_account_member": {
-      "$ref": "#/$defs/access_cloudflare_account_member_rule_cloudflare_account_member"
+      "properties": {
+        "account_id": {
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
+        }
+      },
+      "type": "object"
     }
   },
   "required": [
     "cloudflare_account_member"
   ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `access_cloudflare_account_member_rule_cloudflare_account_member`.
- */
-export const access_cloudflare_account_member_rule_cloudflare_account_member: JsonSchema = {
-  "properties": {
-    "account_id": {
-      "$ref": "#/$defs/access_identifier",
-      "description": "Identifier."
-    }
-  },
   "type": "object"
 };
 
@@ -326,23 +290,16 @@ export const access_common_name_rule: JsonSchema = {
   "description": "Matches a specific common name.",
   "properties": {
     "common_name": {
-      "$ref": "#/$defs/access_common_name_rule_common_name"
-    }
-  },
-  "required": [
-    "common_name"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_common_name_rule_common_name`.
- */
-export const access_common_name_rule_common_name: JsonSchema = {
-  "properties": {
-    "common_name": {
-      "description": "The common name to match.",
-      "type": "string"
+      "properties": {
+        "common_name": {
+          "description": "The common name to match.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "common_name"
+      ],
+      "type": "object"
     }
   },
   "required": [
@@ -390,27 +347,20 @@ export const access_country_rule: JsonSchema = {
   "description": "Matches a specific country",
   "properties": {
     "geo": {
-      "$ref": "#/$defs/access_country_rule_geo"
+      "properties": {
+        "country_code": {
+          "description": "The country code that should be matched.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "country_code"
+      ],
+      "type": "object"
     }
   },
   "required": [
     "geo"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_country_rule_geo`.
- */
-export const access_country_rule_geo: JsonSchema = {
-  "properties": {
-    "country_code": {
-      "description": "The country code that should be matched.",
-      "type": "string"
-    }
-  },
-  "required": [
-    "country_code"
   ],
   "type": "object"
 };
@@ -436,31 +386,24 @@ export const access_device_posture_rule: JsonSchema = {
   "description": "Enforces a device posture rule has run successfully",
   "properties": {
     "device_posture": {
-      "$ref": "#/$defs/access_device_posture_rule_device_posture"
+      "properties": {
+        "account_id": {
+          "$ref": "#/$defs/access_identifier",
+          "description": "The ID of the account that owns the device posture integration."
+        },
+        "integration_uid": {
+          "description": "The ID of a device posture integration.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "integration_uid"
+      ],
+      "type": "object"
     }
   },
   "required": [
     "device_posture"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_device_posture_rule_device_posture`.
- */
-export const access_device_posture_rule_device_posture: JsonSchema = {
-  "properties": {
-    "account_id": {
-      "$ref": "#/$defs/access_identifier",
-      "description": "The ID of the account that owns the device posture integration."
-    },
-    "integration_uid": {
-      "description": "The ID of a device posture integration.",
-      "type": "string"
-    }
-  },
-  "required": [
-    "integration_uid"
   ],
   "type": "object"
 };
@@ -472,27 +415,20 @@ export const access_domain_rule: JsonSchema = {
   "description": "Match an entire email domain.",
   "properties": {
     "email_domain": {
-      "$ref": "#/$defs/access_domain_rule_email_domain"
+      "properties": {
+        "domain": {
+          "description": "The email domain to match.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "domain"
+      ],
+      "type": "object"
     }
   },
   "required": [
     "email_domain"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_domain_rule_email_domain`.
- */
-export const access_domain_rule_email_domain: JsonSchema = {
-  "properties": {
-    "domain": {
-      "description": "The email domain to match.",
-      "type": "string"
-    }
-  },
-  "required": [
-    "domain"
   ],
   "type": "object"
 };
@@ -512,27 +448,20 @@ export const access_email_list_rule: JsonSchema = {
   "description": "Matches an email address from a list.",
   "properties": {
     "email_list": {
-      "$ref": "#/$defs/access_email_list_rule_email_list"
+      "properties": {
+        "id": {
+          "description": "The ID of a previously created email list.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "type": "object"
     }
   },
   "required": [
     "email_list"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_email_list_rule_email_list`.
- */
-export const access_email_list_rule_email_list: JsonSchema = {
-  "properties": {
-    "id": {
-      "description": "The ID of a previously created email list.",
-      "type": "string"
-    }
-  },
-  "required": [
-    "id"
   ],
   "type": "object"
 };
@@ -544,23 +473,16 @@ export const access_email_rule: JsonSchema = {
   "description": "Matches a specific email.",
   "properties": {
     "email": {
-      "$ref": "#/$defs/access_email_rule_email"
-    }
-  },
-  "required": [
-    "email"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_email_rule_email`.
- */
-export const access_email_rule_email: JsonSchema = {
-  "properties": {
-    "email": {
-      "description": "The email of the user.",
-      "type": "string"
+      "properties": {
+        "email": {
+          "description": "The email of the user.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "email"
+      ],
+      "type": "object"
     }
   },
   "required": [
@@ -604,32 +526,25 @@ export const access_external_evaluation_rule: JsonSchema = {
   "description": "Create Allow or Block policies which evaluate the user based on custom criteria.",
   "properties": {
     "external_evaluation": {
-      "$ref": "#/$defs/access_external_evaluation_rule_external_evaluation"
+      "properties": {
+        "evaluate_url": {
+          "description": "The API endpoint containing your business logic.",
+          "type": "string"
+        },
+        "keys_url": {
+          "description": "The API endpoint containing the key that Access uses to verify that the response came from your API.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "evaluate_url",
+        "keys_url"
+      ],
+      "type": "object"
     }
   },
   "required": [
     "external_evaluation"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_external_evaluation_rule_external_evaluation`.
- */
-export const access_external_evaluation_rule_external_evaluation: JsonSchema = {
-  "properties": {
-    "evaluate_url": {
-      "description": "The API endpoint containing your business logic.",
-      "type": "string"
-    },
-    "keys_url": {
-      "description": "The API endpoint containing the key that Access uses to verify that the response came from your API.",
-      "type": "string"
-    }
-  },
-  "required": [
-    "evaluate_url",
-    "keys_url"
   ],
   "type": "object"
 };
@@ -641,36 +556,29 @@ export const access_github_organization_rule: JsonSchema = {
   "description": "Matches a Github organization.\nRequires a Github identity provider.",
   "properties": {
     "github-organization": {
-      "$ref": "#/$defs/access_github_organization_rule_github-organization"
+      "properties": {
+        "identity_provider_id": {
+          "description": "The ID of your Github identity provider.",
+          "type": "string"
+        },
+        "name": {
+          "description": "The name of the organization.",
+          "type": "string"
+        },
+        "team": {
+          "description": "The name of the team",
+          "type": "string"
+        }
+      },
+      "required": [
+        "identity_provider_id",
+        "name"
+      ],
+      "type": "object"
     }
   },
   "required": [
     "github-organization"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_github_organization_rule_github-organization`.
- */
-export const access_github_organization_rule_github_organization: JsonSchema = {
-  "properties": {
-    "identity_provider_id": {
-      "description": "The ID of your Github identity provider.",
-      "type": "string"
-    },
-    "name": {
-      "description": "The name of the organization.",
-      "type": "string"
-    },
-    "team": {
-      "description": "The name of the team",
-      "type": "string"
-    }
-  },
-  "required": [
-    "identity_provider_id",
-    "name"
   ],
   "type": "object"
 };
@@ -682,32 +590,25 @@ export const access_gsuite_group_rule: JsonSchema = {
   "description": "Matches a group in Google Workspace.\nRequires a Google Workspace identity provider.",
   "properties": {
     "gsuite": {
-      "$ref": "#/$defs/access_gsuite_group_rule_gsuite"
+      "properties": {
+        "email": {
+          "description": "The email of the Google Workspace group.",
+          "type": "string"
+        },
+        "identity_provider_id": {
+          "description": "The ID of your Google Workspace identity provider.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "email",
+        "identity_provider_id"
+      ],
+      "type": "object"
     }
   },
   "required": [
     "gsuite"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_gsuite_group_rule_gsuite`.
- */
-export const access_gsuite_group_rule_gsuite: JsonSchema = {
-  "properties": {
-    "email": {
-      "description": "The email of the Google Workspace group.",
-      "type": "string"
-    },
-    "identity_provider_id": {
-      "description": "The ID of your Google Workspace identity provider.",
-      "type": "string"
-    }
-  },
-  "required": [
-    "email",
-    "identity_provider_id"
   ],
   "type": "object"
 };
@@ -730,27 +631,20 @@ export const access_ip_list_rule: JsonSchema = {
   "description": "Matches an IP address from a list.",
   "properties": {
     "ip_list": {
-      "$ref": "#/$defs/access_ip_list_rule_ip_list"
+      "properties": {
+        "id": {
+          "description": "The ID of a previously created IP list.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "type": "object"
     }
   },
   "required": [
     "ip_list"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_ip_list_rule_ip_list`.
- */
-export const access_ip_list_rule_ip_list: JsonSchema = {
-  "properties": {
-    "id": {
-      "description": "The ID of a previously created IP list.",
-      "type": "string"
-    }
-  },
-  "required": [
-    "id"
   ],
   "type": "object"
 };
@@ -762,23 +656,16 @@ export const access_ip_rule: JsonSchema = {
   "description": "Matches an IP address block.",
   "properties": {
     "ip": {
-      "$ref": "#/$defs/access_ip_rule_ip"
-    }
-  },
-  "required": [
-    "ip"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_ip_rule_ip`.
- */
-export const access_ip_rule_ip: JsonSchema = {
-  "properties": {
-    "ip": {
-      "description": "An IPv4 or IPv6 CIDR block.",
-      "type": "string"
+      "properties": {
+        "ip": {
+          "description": "An IPv4 or IPv6 CIDR block.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "ip"
+      ],
+      "type": "object"
     }
   },
   "required": [
@@ -802,27 +689,20 @@ export const access_linked_app_token_rule: JsonSchema = {
   "description": "Matches OAuth 2.0 access tokens issued by the specified Access OIDC SaaS application. Only compatible with non_identity and bypass decisions.",
   "properties": {
     "linked_app_token": {
-      "$ref": "#/$defs/access_linked_app_token_rule_linked_app_token"
+      "properties": {
+        "app_uid": {
+          "description": "The ID of an Access OIDC SaaS application",
+          "type": "string"
+        }
+      },
+      "required": [
+        "app_uid"
+      ],
+      "type": "object"
     }
   },
   "required": [
     "linked_app_token"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_linked_app_token_rule_linked_app_token`.
- */
-export const access_linked_app_token_rule_linked_app_token: JsonSchema = {
-  "properties": {
-    "app_uid": {
-      "description": "The ID of an Access OIDC SaaS application",
-      "type": "string"
-    }
-  },
-  "required": [
-    "app_uid"
   ],
   "type": "object"
 };
@@ -834,27 +714,20 @@ export const access_login_method_rule: JsonSchema = {
   "description": "Matches a specific identity provider id.",
   "properties": {
     "login_method": {
-      "$ref": "#/$defs/access_login_method_rule_login_method"
+      "properties": {
+        "id": {
+          "description": "The ID of an identity provider.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "type": "object"
     }
   },
   "required": [
     "login_method"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_login_method_rule_login_method`.
- */
-export const access_login_method_rule_login_method: JsonSchema = {
-  "properties": {
-    "id": {
-      "description": "The ID of an identity provider.",
-      "type": "string"
-    }
-  },
-  "required": [
-    "id"
   ],
   "type": "object"
 };
@@ -912,37 +785,30 @@ export const access_oidc_claim_rule: JsonSchema = {
   "description": "Matches an OIDC claim.\nRequires an OIDC identity provider.",
   "properties": {
     "oidc": {
-      "$ref": "#/$defs/access_oidc_claim_rule_oidc"
+      "properties": {
+        "claim_name": {
+          "description": "The name of the OIDC claim.",
+          "type": "string"
+        },
+        "claim_value": {
+          "description": "The OIDC claim value to look for.",
+          "type": "string"
+        },
+        "identity_provider_id": {
+          "description": "The ID of your OIDC identity provider.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "claim_name",
+        "claim_value",
+        "identity_provider_id"
+      ],
+      "type": "object"
     }
   },
   "required": [
     "oidc"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_oidc_claim_rule_oidc`.
- */
-export const access_oidc_claim_rule_oidc: JsonSchema = {
-  "properties": {
-    "claim_name": {
-      "description": "The name of the OIDC claim.",
-      "type": "string"
-    },
-    "claim_value": {
-      "description": "The OIDC claim value to look for.",
-      "type": "string"
-    },
-    "identity_provider_id": {
-      "description": "The ID of your OIDC identity provider.",
-      "type": "string"
-    }
-  },
-  "required": [
-    "claim_name",
-    "claim_value",
-    "identity_provider_id"
   ],
   "type": "object"
 };
@@ -954,32 +820,25 @@ export const access_okta_group_rule: JsonSchema = {
   "description": "Matches an Okta group.\nRequires an Okta identity provider.",
   "properties": {
     "okta": {
-      "$ref": "#/$defs/access_okta_group_rule_okta"
+      "properties": {
+        "identity_provider_id": {
+          "description": "The ID of your Okta identity provider.",
+          "type": "string"
+        },
+        "name": {
+          "description": "The name of the Okta group.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "identity_provider_id",
+        "name"
+      ],
+      "type": "object"
     }
   },
   "required": [
     "okta"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_okta_group_rule_okta`.
- */
-export const access_okta_group_rule_okta: JsonSchema = {
-  "properties": {
-    "identity_provider_id": {
-      "description": "The ID of your Okta identity provider.",
-      "type": "string"
-    },
-    "name": {
-      "description": "The name of the Okta group.",
-      "type": "string"
-    }
-  },
-  "required": [
-    "identity_provider_id",
-    "name"
   ],
   "type": "object"
 };
@@ -1154,6 +1013,9 @@ export const access_rule: JsonSchema = {
       "$ref": "#/$defs/access_service_token_rule"
     },
     {
+      "$ref": "#/$defs/access_service_token_tag_rule"
+    },
+    {
       "$ref": "#/$defs/access_linked_app_token_rule"
     },
     {
@@ -1172,37 +1034,30 @@ export const access_saml_group_rule: JsonSchema = {
   "description": "Matches a SAML group.\nRequires a SAML identity provider.",
   "properties": {
     "saml": {
-      "$ref": "#/$defs/access_saml_group_rule_saml"
+      "properties": {
+        "attribute_name": {
+          "description": "The name of the SAML attribute.",
+          "type": "string"
+        },
+        "attribute_value": {
+          "description": "The SAML attribute value to look for.",
+          "type": "string"
+        },
+        "identity_provider_id": {
+          "description": "The ID of your SAML identity provider.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "attribute_name",
+        "attribute_value",
+        "identity_provider_id"
+      ],
+      "type": "object"
     }
   },
   "required": [
     "saml"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_saml_group_rule_saml`.
- */
-export const access_saml_group_rule_saml: JsonSchema = {
-  "properties": {
-    "attribute_name": {
-      "description": "The name of the SAML attribute.",
-      "type": "string"
-    },
-    "attribute_value": {
-      "description": "The SAML attribute value to look for.",
-      "type": "string"
-    },
-    "identity_provider_id": {
-      "description": "The ID of your SAML identity provider.",
-      "type": "string"
-    }
-  },
-  "required": [
-    "attribute_name",
-    "attribute_value",
-    "identity_provider_id"
   ],
   "type": "object"
 };
@@ -1214,7 +1069,16 @@ export const access_service_token_rule: JsonSchema = {
   "description": "Matches a specific Access Service Token",
   "properties": {
     "service_token": {
-      "$ref": "#/$defs/access_service_token_rule_service_token"
+      "properties": {
+        "token_id": {
+          "description": "The ID of a Service Token.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "token_id"
+      ],
+      "type": "object"
     }
   },
   "required": [
@@ -1224,17 +1088,31 @@ export const access_service_token_rule: JsonSchema = {
 };
 
 /**
- * The schema of `access_service_token_rule_service_token`.
+ * The schema of `access_service_token_tag_rule`.
  */
-export const access_service_token_rule_service_token: JsonSchema = {
+export const access_service_token_tag_rule: JsonSchema = {
+  "description": "Matches an Access service token with the specified tag key and value. Only compatible with non_identity decisions.",
   "properties": {
-    "token_id": {
-      "description": "The ID of a Service Token.",
-      "type": "string"
+    "service_token_tag": {
+      "properties": {
+        "key": {
+          "description": "The tag key to match. Keys are case-sensitive and may contain Unicode letters and digits, underscores, periods, and hyphens.",
+          "type": "string"
+        },
+        "value": {
+          "description": "The tag value to match. Values are case-sensitive, preserve whitespace, and must not contain NUL characters.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "key",
+        "value"
+      ],
+      "type": "object"
     }
   },
   "required": [
-    "token_id"
+    "service_token_tag"
   ],
   "type": "object"
 };
@@ -1261,33 +1139,26 @@ export const access_user_risk_score_rule: JsonSchema = {
   "description": "Matches a user's risk score.",
   "properties": {
     "user_risk_score": {
-      "$ref": "#/$defs/access_user_risk_score_rule_user_risk_score"
-    }
-  },
-  "required": [
-    "user_risk_score"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_user_risk_score_rule_user_risk_score`.
- */
-export const access_user_risk_score_rule_user_risk_score: JsonSchema = {
-  "properties": {
-    "user_risk_score": {
-      "description": "A list of risk score levels to match. Values can be low, medium, high, or unscored.",
-      "items": {
-        "enum": [
-          "low",
-          "medium",
-          "high",
-          "unscored"
-        ],
-        "type": "string"
+      "properties": {
+        "user_risk_score": {
+          "description": "A list of risk score levels to match. Values can be low, medium, high, or unscored.",
+          "items": {
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              "unscored"
+            ],
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array"
+        }
       },
-      "minItems": 1,
-      "type": "array"
+      "required": [
+        "user_risk_score"
+      ],
+      "type": "object"
     }
   },
   "required": [

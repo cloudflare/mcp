@@ -16,3 +16,44 @@ export const access_app_policy_result_output: JsonSchema = {
     }
   ]
 };
+
+/**
+ * The schema of `access_response_collection-9` in responses.
+ */
+export const access_response_collection_9_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/access_app_policy_result"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `access_single_response-10` in responses.
+ */
+export const access_single_response_10_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/access_app_policy_result"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};

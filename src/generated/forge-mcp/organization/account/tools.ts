@@ -3,12 +3,17 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  organizations_api_Account_output,
-  organizations_api_Account_settings_output,
   organizations_api_V4ErrorResponse_output,
   organizations_api_V4Message_output,
 } from "../../outputs.js";
+import { organizations_api_OrganizationID } from "../../schemas.js";
 import { organizations_api_PageTokenResultInfo_output } from "../outputs.js";
+import {
+  organizations_api_AccountListResultInfo_output,
+  organizations_api_Account_output,
+  organizations_api_LegacyAccount_output,
+  organizations_api_LegacyPaginationResultInfo_output,
+} from "./outputs.js";
 
 /**
  * The tools of `organization.account`.
@@ -17,13 +22,17 @@ export const tools: readonly Tool[] = [
   {
     name: "organization_account_list",
     title: "List organization accounts",
-    description: "Retrieve the accounts immediately attached to a specific organization. Accounts\nattached to sub-organizations are not included.",
+    description: "Retrieve the accounts immediately attached to a specific organization. Accounts\nattached to sub-organizations are not included. Use `page_token` and `page_size` for cursor\npagination, or provide `page` and `per_page` together for legacy offset pagination. Cursor\npagination takes precedence when requested. The default response uses Account fields;\n`Accept: application/json; legacy=true` requests the LegacyAccount representation.",
     inputSchema: {
       type: "object",
       properties: {
+        "accept": {
+          "description": "Request `application/json; legacy=true` for the LegacyAccount representation.",
+          "type": "string"
+        },
         "account_pubname": {
           "deprecated": true,
-          "description": "(case-insensitive) Filter the list of accounts to where the account_pubname is equal to\na particular string.",
+          "description": "(case-sensitive) Filter the list of accounts to where the account_pubname is equal to\na particular string.",
           "type": "string"
         },
         "account_pubname_contains": {
@@ -59,7 +68,7 @@ export const tools: readonly Tool[] = [
           "type": "boolean"
         },
         "name": {
-          "description": "(case-insensitive) Filter the list of accounts to where the name is equal to a\nparticular string.",
+          "description": "(case-sensitive) Filter the list of accounts to where the name is equal to a\nparticular string.",
           "type": "string"
         },
         "name_contains": {
@@ -75,15 +84,19 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "order_by": {
-          "description": "Field to order results by. Currently supported values: `account_name`.\nWhen not specified, results are ordered by internal account ID.",
+          "description": "Field to order results by. Currently supported values: `account_name`.",
           "enum": [
             "account_name"
           ],
           "type": "string"
         },
         "organization_id": {
-          "description": "The ID of the organization to retrieve a list of accounts for.",
-          "type": "string"
+          "$ref": "#/$defs/organizations-api_OrganizationID",
+          "description": "The ID of the organization to retrieve a list of accounts for."
+        },
+        "page": {
+          "description": "Legacy offset page number. Must be provided with `per_page`. Values below 1 are treated as\n1. Cursor pagination takes precedence when requested.",
+          "type": "integer"
         },
         "page_size": {
           "description": "The amount of items to return. Defaults to 10.",
@@ -92,32 +105,80 @@ export const tools: readonly Tool[] = [
         "page_token": {
           "description": "An opaque token returned from the last list response that when\nprovided will retrieve the next page.\n\nParameters used to filter the retrieved list must remain in subsequent\nrequests with a page token.",
           "type": "string"
+        },
+        "per_page": {
+          "description": "Legacy offset page size. Must be provided with `page`. Values are clamped to the range\n1-100. Cursor pagination takes precedence when requested.",
+          "type": "integer"
+        },
+        "status": {
+          "description": "Filter accounts by lifecycle status. Defaults to `active`.",
+          "enum": [
+            "active",
+            "deleted"
+          ],
+          "type": "string"
         }
       },
       required: [
         "organization_id"
       ],
+      $defs: {
+        "organizations-api_OrganizationID": organizations_api_OrganizationID,
+      },
     },
     outputSchema: {
       "properties": {
+        "errors": {
+          "items": {
+            "type": "object"
+          },
+          "maxItems": 0,
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "$ref": "#/$defs/organizations-api_V4Message"
+          },
+          "type": "array"
+        },
         "result": {
           "items": {
-            "$ref": "#/$defs/organizations-api_Account"
+            "anyOf": [
+              {
+                "$ref": "#/$defs/organizations-api_Account"
+              },
+              {
+                "$ref": "#/$defs/organizations-api_LegacyAccount"
+              }
+            ]
           },
           "type": "array"
         },
         "result_info": {
-          "$ref": "#/$defs/organizations-api_PageTokenResultInfo"
+          "$ref": "#/$defs/organizations-api_AccountListResultInfo"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
         }
       },
       "required": [
-        "result"
+        "errors",
+        "messages",
+        "result",
+        "result_info",
+        "success"
       ],
       "type": "object",
       $defs: {
         "organizations-api_Account": organizations_api_Account_output,
-        "organizations-api_Account_settings": organizations_api_Account_settings_output,
+        "organizations-api_AccountListResultInfo": organizations_api_AccountListResultInfo_output,
+        "organizations-api_LegacyAccount": organizations_api_LegacyAccount_output,
+        "organizations-api_LegacyPaginationResultInfo": organizations_api_LegacyPaginationResultInfo_output,
         "organizations-api_PageTokenResultInfo": organizations_api_PageTokenResultInfo_output,
+        "organizations-api_V4Message": organizations_api_V4Message_output,
       },
     },
     annotations: {
@@ -133,28 +194,63 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
+            "errors": {
+              "items": {
+                "type": "object"
+              },
+              "maxItems": 0,
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "$ref": "#/$defs/organizations-api_V4Message"
+              },
+              "type": "array"
+            },
             "result": {
               "items": {
-                "$ref": "#/$defs/organizations-api_Account"
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/organizations-api_Account"
+                  },
+                  {
+                    "$ref": "#/$defs/organizations-api_LegacyAccount"
+                  }
+                ]
               },
               "type": "array"
             },
             "result_info": {
-              "$ref": "#/$defs/organizations-api_PageTokenResultInfo"
+              "$ref": "#/$defs/organizations-api_AccountListResultInfo"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
             }
           },
           "required": [
-            "result"
+            "errors",
+            "messages",
+            "result",
+            "result_info",
+            "success"
           ],
           "type": "object"
         },
         "4XX": {
           "$ref": "#/$defs/organizations-api_V4ErrorResponse"
+        },
+        "5XX": {
+          "$ref": "#/$defs/organizations-api_V4ErrorResponse"
         }
       },
       $defs: {
         "organizations-api_Account": organizations_api_Account_output,
-        "organizations-api_Account_settings": organizations_api_Account_settings_output,
+        "organizations-api_AccountListResultInfo": organizations_api_AccountListResultInfo_output,
+        "organizations-api_LegacyAccount": organizations_api_LegacyAccount_output,
+        "organizations-api_LegacyPaginationResultInfo": organizations_api_LegacyPaginationResultInfo_output,
         "organizations-api_PageTokenResultInfo": organizations_api_PageTokenResultInfo_output,
         "organizations-api_V4ErrorResponse": organizations_api_V4ErrorResponse_output,
         "organizations-api_V4Message": organizations_api_V4Message_output,
@@ -171,12 +267,18 @@ export const tools: readonly Tool[] = [
         ["name.startsWith", args["name_starts_with"], false],
         ["name.endsWith", args["name_ends_with"], false],
         ["name.contains", args["name_contains"], false],
+        ["status", args["status"], false],
         ["order_by", args["order_by"], false],
         ["direction", args["direction"], false],
         ["include_tags", args["include_tags"], false],
         ["include_total", args["include_total"], false],
+        ["page", args["page"], false],
+        ["per_page", args["per_page"], false],
         ["page_token", args["page_token"], false],
         ["page_size", args["page_size"], false],
+      ],
+      headers: [
+        ["Accept", args["accept"]],
       ],
     }),
   },

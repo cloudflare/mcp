@@ -3,12 +3,12 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  builds_APIResponse_output,
   builds_ApiError_output,
   builds_ErrorResponse_output,
   builds_PaginationInfo_output,
 } from "../../../outputs.js";
 import { builds_account_id, builds_trigger_uuid } from "../../../schemas.js";
-import { builds_APIResponse_output } from "../../outputs.js";
 
 /**
  * The tools of `builds.triggers.cache`.

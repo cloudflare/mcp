@@ -48,6 +48,51 @@ export const dnssec_api_response_common_failure_output: JsonSchema = {
 };
 
 /**
+ * The schema of `dnssec_api-response-single` in responses.
+ */
+export const dnssec_api_response_single_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/dnssec_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/dnssec_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `dnssec_delete_dnssec_response_single` in responses.
+ */
+export const dnssec_delete_dnssec_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/dnssec_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `dnssec_digest` in responses.
  */
 export const dnssec_digest_output: JsonSchema = {
@@ -152,6 +197,25 @@ export const dnssec_dnssec_multi_signer_output: JsonSchema = {
  */
 export const dnssec_dnssec_presigned_output: JsonSchema = {
   "type": "boolean"
+};
+
+/**
+ * The schema of `dnssec_dnssec_response_single` in responses.
+ */
+export const dnssec_dnssec_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/dnssec_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/dnssec_dnssec"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**

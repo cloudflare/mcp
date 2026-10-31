@@ -3,12 +3,14 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  posture_api_BaseFindingType_output,
   posture_api_FindingCategoryTypeEnum_output,
   posture_api_FindingCategory_output,
   posture_api_FindingTypeVendorsEnum_output,
   posture_api_ObservationEnum_output,
   posture_api_ProductEnum_output,
   posture_api_SeverityEnum_output,
+  posture_api_api_response_collection_output,
   posture_api_api_response_common_output,
   posture_api_error_response_output,
   posture_api_messages_output,
@@ -20,10 +22,13 @@ import {
   posture_api_SeverityEnum,
 } from "../schemas.js";
 import {
-  posture_api_BaseFindingType_output,
   posture_api_FindingTypeValidationError_output,
+  posture_api_ValidateFindingTypeResponse_output,
   posture_api_ValidateFindingTypeResult_output,
   posture_api_custom_finding_type_response_output,
+  posture_api_custom_finding_type_single_response_output,
+  posture_api_finding_type_response_output,
+  posture_api_paginated_finding_type_list_output,
 } from "./outputs.js";
 import {
   posture_api_FindingTypeOriginEnum,
@@ -62,7 +67,7 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/posture-api_custom-finding-type-response",
+      "$ref": "#/$defs/posture-api_custom-finding-type-single-response",
       $defs: {
         "posture-api_FindingCategory": posture_api_FindingCategory_output,
         "posture-api_FindingCategoryTypeEnum": posture_api_FindingCategoryTypeEnum_output,
@@ -70,7 +75,10 @@ export const tools: readonly Tool[] = [
         "posture-api_ObservationEnum": posture_api_ObservationEnum_output,
         "posture-api_ProductEnum": posture_api_ProductEnum_output,
         "posture-api_SeverityEnum": posture_api_SeverityEnum_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
         "posture-api_custom-finding-type-response": posture_api_custom_finding_type_response_output,
+        "posture-api_custom-finding-type-single-response": posture_api_custom_finding_type_single_response_output,
+        "posture-api_messages": posture_api_messages_output,
       },
     },
     annotations: {
@@ -90,7 +98,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "201": {
-          "$ref": "#/$defs/posture-api_custom-finding-type-response"
+          "$ref": "#/$defs/posture-api_custom-finding-type-single-response"
         },
         "400": {
           "$ref": "#/$defs/posture-api_error-response"
@@ -123,6 +131,7 @@ export const tools: readonly Tool[] = [
         "posture-api_SeverityEnum": posture_api_SeverityEnum_output,
         "posture-api_api-response-common": posture_api_api_response_common_output,
         "posture-api_custom-finding-type-response": posture_api_custom_finding_type_response_output,
+        "posture-api_custom-finding-type-single-response": posture_api_custom_finding_type_single_response_output,
         "posture-api_error-response": posture_api_error_response_output,
         "posture-api_messages": posture_api_messages_output,
       },
@@ -223,7 +232,7 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/posture-api_BaseFindingType",
+      "$ref": "#/$defs/posture-api_finding-type-response",
       $defs: {
         "posture-api_BaseFindingType": posture_api_BaseFindingType_output,
         "posture-api_FindingCategory": posture_api_FindingCategory_output,
@@ -232,6 +241,9 @@ export const tools: readonly Tool[] = [
         "posture-api_ObservationEnum": posture_api_ObservationEnum_output,
         "posture-api_ProductEnum": posture_api_ProductEnum_output,
         "posture-api_SeverityEnum": posture_api_SeverityEnum_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
+        "posture-api_finding-type-response": posture_api_finding_type_response_output,
+        "posture-api_messages": posture_api_messages_output,
       },
     },
     annotations: {
@@ -252,7 +264,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/posture-api_BaseFindingType"
+          "$ref": "#/$defs/posture-api_finding-type-response"
         },
         "400": null,
         "404": null,
@@ -269,6 +281,7 @@ export const tools: readonly Tool[] = [
         "posture-api_ProductEnum": posture_api_ProductEnum_output,
         "posture-api_SeverityEnum": posture_api_SeverityEnum_output,
         "posture-api_api-response-common": posture_api_api_response_common_output,
+        "posture-api_finding-type-response": posture_api_finding_type_response_output,
         "posture-api_messages": posture_api_messages_output,
       },
     },
@@ -375,21 +388,7 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/posture-api_BaseFindingType"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "$ref": "#/$defs/posture-api_result-info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/posture-api_paginated-finding-type-list",
       $defs: {
         "posture-api_BaseFindingType": posture_api_BaseFindingType_output,
         "posture-api_FindingCategory": posture_api_FindingCategory_output,
@@ -398,6 +397,9 @@ export const tools: readonly Tool[] = [
         "posture-api_ObservationEnum": posture_api_ObservationEnum_output,
         "posture-api_ProductEnum": posture_api_ProductEnum_output,
         "posture-api_SeverityEnum": posture_api_SeverityEnum_output,
+        "posture-api_api-response-collection": posture_api_api_response_collection_output,
+        "posture-api_messages": posture_api_messages_output,
+        "posture-api_paginated-finding-type-list": posture_api_paginated_finding_type_list_output,
         "posture-api_result-info": posture_api_result_info_output,
       },
     },
@@ -419,21 +421,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/posture-api_BaseFindingType"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/posture-api_result-info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/posture-api_paginated-finding-type-list"
         },
         "400": null,
         "403": {
@@ -451,9 +439,11 @@ export const tools: readonly Tool[] = [
         "posture-api_ObservationEnum": posture_api_ObservationEnum_output,
         "posture-api_ProductEnum": posture_api_ProductEnum_output,
         "posture-api_SeverityEnum": posture_api_SeverityEnum_output,
+        "posture-api_api-response-collection": posture_api_api_response_collection_output,
         "posture-api_api-response-common": posture_api_api_response_common_output,
         "posture-api_error-response": posture_api_error_response_output,
         "posture-api_messages": posture_api_messages_output,
+        "posture-api_paginated-finding-type-list": posture_api_paginated_finding_type_list_output,
         "posture-api_result-info": posture_api_result_info_output,
       },
     },
@@ -506,7 +496,7 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/posture-api_custom-finding-type-response",
+      "$ref": "#/$defs/posture-api_custom-finding-type-single-response",
       $defs: {
         "posture-api_FindingCategory": posture_api_FindingCategory_output,
         "posture-api_FindingCategoryTypeEnum": posture_api_FindingCategoryTypeEnum_output,
@@ -514,7 +504,10 @@ export const tools: readonly Tool[] = [
         "posture-api_ObservationEnum": posture_api_ObservationEnum_output,
         "posture-api_ProductEnum": posture_api_ProductEnum_output,
         "posture-api_SeverityEnum": posture_api_SeverityEnum_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
         "posture-api_custom-finding-type-response": posture_api_custom_finding_type_response_output,
+        "posture-api_custom-finding-type-single-response": posture_api_custom_finding_type_single_response_output,
+        "posture-api_messages": posture_api_messages_output,
       },
     },
     annotations: {
@@ -534,7 +527,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/posture-api_custom-finding-type-response"
+          "$ref": "#/$defs/posture-api_custom-finding-type-single-response"
         },
         "400": {
           "$ref": "#/$defs/posture-api_error-response"
@@ -570,6 +563,7 @@ export const tools: readonly Tool[] = [
         "posture-api_SeverityEnum": posture_api_SeverityEnum_output,
         "posture-api_api-response-common": posture_api_api_response_common_output,
         "posture-api_custom-finding-type-response": posture_api_custom_finding_type_response_output,
+        "posture-api_custom-finding-type-single-response": posture_api_custom_finding_type_single_response_output,
         "posture-api_error-response": posture_api_error_response_output,
         "posture-api_messages": posture_api_messages_output,
       },
@@ -605,10 +599,13 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/posture-api_ValidateFindingTypeResult",
+      "$ref": "#/$defs/posture-api_ValidateFindingTypeResponse",
       $defs: {
         "posture-api_FindingTypeValidationError": posture_api_FindingTypeValidationError_output,
+        "posture-api_ValidateFindingTypeResponse": posture_api_ValidateFindingTypeResponse_output,
         "posture-api_ValidateFindingTypeResult": posture_api_ValidateFindingTypeResult_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
+        "posture-api_messages": posture_api_messages_output,
       },
     },
     annotations: {
@@ -628,7 +625,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/posture-api_ValidateFindingTypeResult"
+          "$ref": "#/$defs/posture-api_ValidateFindingTypeResponse"
         },
         "400": {
           "$ref": "#/$defs/posture-api_error-response"
@@ -648,6 +645,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "posture-api_FindingTypeValidationError": posture_api_FindingTypeValidationError_output,
+        "posture-api_ValidateFindingTypeResponse": posture_api_ValidateFindingTypeResponse_output,
         "posture-api_ValidateFindingTypeResult": posture_api_ValidateFindingTypeResult_output,
         "posture-api_api-response-common": posture_api_api_response_common_output,
         "posture-api_error-response": posture_api_error_response_output,

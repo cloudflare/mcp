@@ -4,11 +4,14 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   registrar_api_api_response_common_failure_output,
+  registrar_api_api_response_common_output,
   registrar_api_messages_output,
 } from "../outputs.js";
+import { registrar_api_identifier } from "../schemas.js";
 import {
-  registrar_api_extension_item_metadata_output,
   registrar_api_extension_item_output,
+  registrar_api_extension_response_collection_output,
+  registrar_api_extension_response_single_output,
 } from "./outputs.js";
 
 /**
@@ -23,8 +26,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/registrar-api_identifier",
+          "description": "Identifier."
         },
         "extension": {
           "description": "The extension name (e.g., `com`, `co.uk`).",
@@ -35,12 +38,17 @@ export const tools: readonly Tool[] = [
         "account_id",
         "extension"
       ],
+      $defs: {
+        "registrar-api_identifier": registrar_api_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/registrar-api_extension-item",
+      "$ref": "#/$defs/registrar-api_extension-response-single",
       $defs: {
+        "registrar-api_api-response-common": registrar_api_api_response_common_output,
         "registrar-api_extension-item": registrar_api_extension_item_output,
-        "registrar-api_extension-item_metadata": registrar_api_extension_item_metadata_output,
+        "registrar-api_extension-response-single": registrar_api_extension_response_single_output,
+        "registrar-api_messages": registrar_api_messages_output,
       },
     },
     annotations: {
@@ -55,7 +63,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/registrar-api_extension-item"
+          "$ref": "#/$defs/registrar-api_extension-response-single"
         },
         "304": null,
         "4XX": {
@@ -63,9 +71,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "registrar-api_api-response-common": registrar_api_api_response_common_output,
         "registrar-api_api-response-common-failure": registrar_api_api_response_common_failure_output,
         "registrar-api_extension-item": registrar_api_extension_item_output,
-        "registrar-api_extension-item_metadata": registrar_api_extension_item_metadata_output,
+        "registrar-api_extension-response-single": registrar_api_extension_response_single_output,
         "registrar-api_messages": registrar_api_messages_output,
       },
     },
@@ -81,8 +90,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/registrar-api_identifier",
+          "description": "Identifier."
         },
         "cursor": {
           "description": "Opaque token from a previous response's `result_info.cursor`.\nPass this value to fetch the next page of results. Omit (or\npass an empty string) for the first page.\n",
@@ -120,37 +129,17 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+      $defs: {
+        "registrar-api_identifier": registrar_api_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/registrar-api_extension-item"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "properties": {
-            "count": {
-              "type": "integer"
-            },
-            "cursor": {
-              "type": "string"
-            },
-            "per_page": {
-              "type": "integer"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/registrar-api_extension-response-collection",
       $defs: {
+        "registrar-api_api-response-common": registrar_api_api_response_common_output,
         "registrar-api_extension-item": registrar_api_extension_item_output,
-        "registrar-api_extension-item_metadata": registrar_api_extension_item_metadata_output,
+        "registrar-api_extension-response-collection": registrar_api_extension_response_collection_output,
+        "registrar-api_messages": registrar_api_messages_output,
       },
     },
     annotations: {
@@ -165,32 +154,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/registrar-api_extension-item"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "properties": {
-                "count": {
-                  "type": "integer"
-                },
-                "cursor": {
-                  "type": "string"
-                },
-                "per_page": {
-                  "type": "integer"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/registrar-api_extension-response-collection"
         },
         "304": null,
         "4XX": {
@@ -198,9 +162,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "registrar-api_api-response-common": registrar_api_api_response_common_output,
         "registrar-api_api-response-common-failure": registrar_api_api_response_common_failure_output,
         "registrar-api_extension-item": registrar_api_extension_item_output,
-        "registrar-api_extension-item_metadata": registrar_api_extension_item_metadata_output,
+        "registrar-api_extension-response-collection": registrar_api_extension_response_collection_output,
         "registrar-api_messages": registrar_api_messages_output,
       },
     },

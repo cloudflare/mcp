@@ -94,3 +94,11 @@ export const workers_query_param: JsonSchema = {
     }
   ]
 };
+
+/**
+ * The schema of `workers_schemas-id`.
+ */
+export const workers_schemas_id: JsonSchema = {
+  "description": "ID of the namespace.",
+  "type": "string"
+};

@@ -4,13 +4,16 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   tunnel_api_response_common_failure_2_output,
+  tunnel_api_response_single_2_output,
   tunnel_created_at_output,
   tunnel_messages_2_output,
   tunnel_tunnel_id_2_output,
 } from "../../../outputs.js";
+import { tunnel_identifier, tunnel_tunnel_id_2 } from "../../../schemas.js";
 import {
   tunnel_mesh_aws_config_output,
   tunnel_mesh_configuration_response_output,
+  tunnel_mesh_configuration_response_single_output,
   tunnel_mesh_ha_mode_output,
   tunnel_mesh_local_config_output,
   tunnel_mesh_vip_entry_output,
@@ -36,28 +39,35 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/tunnel_identifier",
+          "description": "Identifier."
         },
         "tunnel_id": {
-          "description": "UUID of the tunnel.",
-          "type": "string"
+          "$ref": "#/$defs/tunnel_tunnel_id-2",
+          "description": "UUID of the tunnel."
         }
       },
       required: [
         "account_id",
         "tunnel_id"
       ],
+      $defs: {
+        "tunnel_identifier": tunnel_identifier,
+        "tunnel_tunnel_id-2": tunnel_tunnel_id_2,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/tunnel_mesh_configuration_response",
+      "$ref": "#/$defs/tunnel_mesh_configuration_response_single",
       $defs: {
+        "tunnel_api-response-single-2": tunnel_api_response_single_2_output,
         "tunnel_created_at": tunnel_created_at_output,
         "tunnel_mesh_aws_config": tunnel_mesh_aws_config_output,
         "tunnel_mesh_configuration_response": tunnel_mesh_configuration_response_output,
+        "tunnel_mesh_configuration_response_single": tunnel_mesh_configuration_response_single_output,
         "tunnel_mesh_ha_mode": tunnel_mesh_ha_mode_output,
         "tunnel_mesh_local_config": tunnel_mesh_local_config_output,
         "tunnel_mesh_vip_entry": tunnel_mesh_vip_entry_output,
+        "tunnel_messages-2": tunnel_messages_2_output,
         "tunnel_tunnel_id-2": tunnel_tunnel_id_2_output,
         "tunnel_updated_at": tunnel_updated_at_output,
       },
@@ -82,7 +92,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/tunnel_mesh_configuration_response"
+          "$ref": "#/$defs/tunnel_mesh_configuration_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/tunnel_api-response-common-failure-2"
@@ -90,9 +100,11 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "tunnel_api-response-common-failure-2": tunnel_api_response_common_failure_2_output,
+        "tunnel_api-response-single-2": tunnel_api_response_single_2_output,
         "tunnel_created_at": tunnel_created_at_output,
         "tunnel_mesh_aws_config": tunnel_mesh_aws_config_output,
         "tunnel_mesh_configuration_response": tunnel_mesh_configuration_response_output,
+        "tunnel_mesh_configuration_response_single": tunnel_mesh_configuration_response_single_output,
         "tunnel_mesh_ha_mode": tunnel_mesh_ha_mode_output,
         "tunnel_mesh_local_config": tunnel_mesh_local_config_output,
         "tunnel_mesh_vip_entry": tunnel_mesh_vip_entry_output,
@@ -113,15 +125,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/tunnel_identifier",
+          "description": "Identifier."
         },
         "body": {
           "$ref": "#/$defs/tunnel_mesh_configuration_request_body"
         },
         "tunnel_id": {
-          "description": "UUID of the tunnel.",
-          "type": "string"
+          "$ref": "#/$defs/tunnel_tunnel_id-2",
+          "description": "UUID of the tunnel."
         }
       },
       required: [
@@ -130,22 +142,27 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "tunnel_identifier": tunnel_identifier,
         "tunnel_mesh_aws_config": tunnel_mesh_aws_config,
         "tunnel_mesh_configuration_request_body": tunnel_mesh_configuration_request_body,
         "tunnel_mesh_ha_mode": tunnel_mesh_ha_mode,
         "tunnel_mesh_local_config": tunnel_mesh_local_config,
         "tunnel_mesh_vip_entry": tunnel_mesh_vip_entry,
+        "tunnel_tunnel_id-2": tunnel_tunnel_id_2,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/tunnel_mesh_configuration_response",
+      "$ref": "#/$defs/tunnel_mesh_configuration_response_single",
       $defs: {
+        "tunnel_api-response-single-2": tunnel_api_response_single_2_output,
         "tunnel_created_at": tunnel_created_at_output,
         "tunnel_mesh_aws_config": tunnel_mesh_aws_config_output,
         "tunnel_mesh_configuration_response": tunnel_mesh_configuration_response_output,
+        "tunnel_mesh_configuration_response_single": tunnel_mesh_configuration_response_single_output,
         "tunnel_mesh_ha_mode": tunnel_mesh_ha_mode_output,
         "tunnel_mesh_local_config": tunnel_mesh_local_config_output,
         "tunnel_mesh_vip_entry": tunnel_mesh_vip_entry_output,
+        "tunnel_messages-2": tunnel_messages_2_output,
         "tunnel_tunnel_id-2": tunnel_tunnel_id_2_output,
         "tunnel_updated_at": tunnel_updated_at_output,
       },
@@ -168,7 +185,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/tunnel_mesh_configuration_response"
+          "$ref": "#/$defs/tunnel_mesh_configuration_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/tunnel_api-response-common-failure-2"
@@ -176,9 +193,11 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "tunnel_api-response-common-failure-2": tunnel_api_response_common_failure_2_output,
+        "tunnel_api-response-single-2": tunnel_api_response_single_2_output,
         "tunnel_created_at": tunnel_created_at_output,
         "tunnel_mesh_aws_config": tunnel_mesh_aws_config_output,
         "tunnel_mesh_configuration_response": tunnel_mesh_configuration_response_output,
+        "tunnel_mesh_configuration_response_single": tunnel_mesh_configuration_response_single_output,
         "tunnel_mesh_ha_mode": tunnel_mesh_ha_mode_output,
         "tunnel_mesh_local_config": tunnel_mesh_local_config_output,
         "tunnel_mesh_vip_entry": tunnel_mesh_vip_entry_output,

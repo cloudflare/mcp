@@ -34,6 +34,32 @@ export const email_auth_api_response_common_failure_output: JsonSchema = {
 };
 
 /**
+ * The schema of `email-auth_api-response-single` in responses.
+ */
+export const email_auth_api_response_single_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/email-auth_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/email-auth_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `email-auth_messages` in responses.
  */
 export const email_auth_messages_output: JsonSchema = {

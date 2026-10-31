@@ -49,9 +49,49 @@ export const bill_subs_api_plan_component_value_output: JsonSchema = {
 };
 
 /**
- * The schema of `bill-subs-api_plan_rate_plan` in responses.
+ * The schema of `bill-subs-api_plan_response_collection` in responses.
  */
-export const bill_subs_api_plan_rate_plan_output: JsonSchema = {
+export const bill_subs_api_plan_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/bill-subs-api_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/bill-subs-api_schemas-rate-plan"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `bill-subs-api_rate-plan_components-schemas-identifier` in
+ * responses.
+ */
+export const bill_subs_api_rate_plan_components_schemas_identifier_output: JsonSchema = {
+  "type": "string"
+};
+
+/**
+ * The schema of `bill-subs-api_schemas-component_values` in responses.
+ */
+export const bill_subs_api_schemas_component_values_output: JsonSchema = {
+  "items": {
+    "$ref": "#/$defs/bill-subs-api_plan_component_value"
+  },
+  "type": "array"
+};
+
+/**
+ * The schema of `bill-subs-api_schemas-rate-plan` in responses.
+ */
+export const bill_subs_api_schemas_rate_plan_output: JsonSchema = {
   "properties": {
     "components": {
       "$ref": "#/$defs/bill-subs-api_schemas-component_values"
@@ -73,24 +113,6 @@ export const bill_subs_api_plan_rate_plan_output: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `bill-subs-api_rate-plan_components-schemas-identifier` in
- * responses.
- */
-export const bill_subs_api_rate_plan_components_schemas_identifier_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `bill-subs-api_schemas-component_values` in responses.
- */
-export const bill_subs_api_schemas_component_values_output: JsonSchema = {
-  "items": {
-    "$ref": "#/$defs/bill-subs-api_plan_component_value"
-  },
-  "type": "array"
 };
 
 /**

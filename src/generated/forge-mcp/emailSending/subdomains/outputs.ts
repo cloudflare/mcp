@@ -4,62 +4,44 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `email_api-response-common` in responses.
+ * The schema of `email_sending_subdomain` in responses.
  */
-export const email_api_response_common_output: JsonSchema = {
+export const email_sending_subdomain_output: JsonSchema = {
   "properties": {
-    "errors": {
-      "$ref": "#/$defs/email_messages"
+    "created": {
+      "$ref": "#/$defs/email_created"
     },
-    "messages": {
-      "$ref": "#/$defs/email_messages"
+    "dkim_selector": {
+      "type": "string"
     },
-    "success": {
-      "enum": [
-        true
-      ],
+    "drop_suppressed_recipients": {
       "type": "boolean"
+    },
+    "enabled": {
+      "type": "boolean"
+    },
+    "modified": {
+      "$ref": "#/$defs/email_modified"
+    },
+    "name": {
+      "type": "string"
+    },
+    "preview_enabled": {
+      "type": "boolean"
+    },
+    "return_path_domain": {
+      "type": "string"
+    },
+    "tag": {
+      "$ref": "#/$defs/email_sending_subdomain_identifier"
     }
   },
   "required": [
-    "errors",
-    "messages",
-    "success"
+    "enabled",
+    "name",
+    "tag"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `email_messages` in responses.
- */
-export const email_messages_output: JsonSchema = {
-  "items": {
-    "properties": {
-      "code": {
-        "type": "integer"
-      },
-      "documentation_url": {
-        "type": "string"
-      },
-      "message": {
-        "type": "string"
-      },
-      "source": {
-        "properties": {
-          "pointer": {
-            "type": "string"
-          }
-        },
-        "type": "object"
-      }
-    },
-    "required": [
-      "code",
-      "message"
-    ],
-    "type": "object"
-  },
-  "type": "array"
 };
 
 /**
@@ -114,42 +96,75 @@ export const email_sending_subdomain_identifier_output: JsonSchema = {
 };
 
 /**
- * The schema of `email_sending_subdomain_properties` in responses.
+ * The schema of `email_sending_subdomain_preview_response` in responses.
  */
-export const email_sending_subdomain_properties_output: JsonSchema = {
-  "properties": {
-    "created": {
-      "$ref": "#/$defs/email_created"
+export const email_sending_subdomain_preview_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/email_api-response-single"
     },
-    "dkim_selector": {
-      "type": "string"
-    },
-    "drop_suppressed_recipients": {
-      "type": "boolean"
-    },
-    "enabled": {
-      "type": "boolean"
-    },
-    "modified": {
-      "$ref": "#/$defs/email_modified"
-    },
-    "name": {
-      "type": "string"
-    },
-    "preview_enabled": {
-      "type": "boolean"
-    },
-    "return_path_domain": {
-      "type": "string"
-    },
-    "tag": {
-      "$ref": "#/$defs/email_sending_subdomain_identifier"
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "errors": {
+              "items": {
+                "$ref": "#/$defs/email_sending_subdomain_config_error"
+              },
+              "type": "array"
+            },
+            "records": {
+              "items": {
+                "$ref": "#/$defs/email_dns_record"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "enabled",
-    "name",
-    "tag"
-  ],
-  "type": "object"
+  ]
+};
+
+/**
+ * The schema of `email_sending_subdomain_response_single` in responses.
+ */
+export const email_sending_subdomain_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/email_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/email_sending_subdomain"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `email_sending_subdomains_response_collection` in responses.
+ */
+export const email_sending_subdomains_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/email_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/email_sending_subdomain"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };

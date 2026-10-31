@@ -51,6 +51,15 @@ export const tls_certificates_and_hostnames_hostname_2: JsonSchema = {
 };
 
 /**
+ * The schema of
+ * `tls-certificates-and-hostnames_hostname_aop_certificate_identifier`.
+ */
+export const tls_certificates_and_hostnames_hostname_aop_certificate_identifier: JsonSchema = {
+  "description": "Certificate identifier tag.",
+  "type": "string"
+};
+
+/**
  * The schema of `tls-certificates-and-hostnames_private_key-3`.
  */
 export const tls_certificates_and_hostnames_private_key_3: JsonSchema = {

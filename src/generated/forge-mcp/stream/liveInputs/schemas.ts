@@ -55,6 +55,14 @@ export const stream_live_input_enabled: JsonSchema = {
 };
 
 /**
+ * The schema of `stream_live_input_identifier`.
+ */
+export const stream_live_input_identifier: JsonSchema = {
+  "description": "A unique identifier for a live input.",
+  "type": "string"
+};
+
+/**
  * The schema of `stream_live_input_metadata`.
  */
 export const stream_live_input_metadata: JsonSchema = {

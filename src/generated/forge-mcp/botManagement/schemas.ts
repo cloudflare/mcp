@@ -4,6 +4,49 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
+ * The schema of `bot-management_ai_agent_action`.
+ */
+export const bot_management_ai_agent_action: JsonSchema = {
+  "description": "Action to apply to one supported personal AI agent.",
+  "enum": [
+    "disabled",
+    "block",
+    "only_on_ad_pages"
+  ],
+  "type": "string"
+};
+
+/**
+ * The schema of `bot-management_ai_agents`.
+ */
+export const bot_management_ai_agents: JsonSchema = {
+  "description": "Configure blocking behavior for supported personal AI agents.",
+  "properties": {
+    "anthropic_agent": {
+      "$ref": "#/$defs/bot-management_ai_agent_action",
+      "description": "Action to apply to one supported personal AI agent."
+    },
+    "google_agent": {
+      "$ref": "#/$defs/bot-management_ai_agent_action",
+      "description": "Action to apply to one supported personal AI agent."
+    },
+    "instinct": {
+      "$ref": "#/$defs/bot-management_ai_agent_action",
+      "description": "Action to apply to one supported personal AI agent."
+    },
+    "muse": {
+      "$ref": "#/$defs/bot-management_ai_agent_action",
+      "description": "Action to apply to one supported personal AI agent."
+    },
+    "openai_agent": {
+      "$ref": "#/$defs/bot-management_ai_agent_action",
+      "description": "Action to apply to one supported personal AI agent."
+    }
+  },
+  "type": "object"
+};
+
+/**
  * The schema of `bot-management_ai_bots_migration_opt_out`.
  */
 export const bot_management_ai_bots_migration_opt_out: JsonSchema = {
@@ -78,6 +121,10 @@ export const bot_management_auto_update_model: JsonSchema = {
 export const bot_management_base_config: JsonSchema = {
   "description": "Shared Config",
   "properties": {
+    "ai_agents": {
+      "$ref": "#/$defs/bot-management_ai_agents",
+      "description": "Configure blocking behavior for supported personal AI agents."
+    },
     "ai_bots_migration_opt_out": {
       "$ref": "#/$defs/bot-management_ai_bots_migration_opt_out",
       "default": false,
@@ -269,6 +316,14 @@ export const bot_management_enable_js: JsonSchema = {
 export const bot_management_fight_mode: JsonSchema = {
   "description": "Whether to enable Bot Fight Mode.",
   "type": "boolean"
+};
+
+/**
+ * The schema of `bot-management_identifier`.
+ */
+export const bot_management_identifier: JsonSchema = {
+  "description": "Identifier.",
+  "type": "string"
 };
 
 /**

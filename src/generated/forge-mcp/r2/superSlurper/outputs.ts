@@ -68,3 +68,24 @@ export const r2_slurper_api_v4_message_output: JsonSchema = {
   },
   "type": "array"
 };
+
+/**
+ * The schema of `r2-slurper_api-v4-success` in responses.
+ */
+export const r2_slurper_api_v4_success_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/r2-slurper_api-v4-error"
+    },
+    "messages": {
+      "$ref": "#/$defs/r2-slurper_api-v4-message"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "type": "object"
+};

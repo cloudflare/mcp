@@ -3,11 +3,14 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  aaa_api_response_common_2_output,
   aaa_api_response_common_failure_3_output,
   aaa_messages_3_output,
 } from "../outputs.js";
+import { aaa_account_id } from "../schemas.js";
 import {
   aaa_alert_types_output,
+  aaa_alerts_response_collection_output,
   aaa_description_output,
   aaa_display_name_output,
   aaa_filter_options_output,
@@ -26,27 +29,27 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "The account id",
-          "type": "string"
+          "$ref": "#/$defs/aaa_account-id",
+          "description": "The account id"
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "aaa_account-id": aaa_account_id,
+      },
     },
     outputSchema: {
-      "additionalProperties": {
-        "items": {
-          "$ref": "#/$defs/aaa_alert-types"
-        },
-        "type": "array"
-      },
-      "type": "object",
+      "$ref": "#/$defs/aaa_alerts-response_collection",
       $defs: {
         "aaa_alert-types": aaa_alert_types_output,
+        "aaa_alerts-response_collection": aaa_alerts_response_collection_output,
+        "aaa_api-response-common-2": aaa_api_response_common_2_output,
         "aaa_description": aaa_description_output,
         "aaa_display_name": aaa_display_name_output,
         "aaa_filter_options": aaa_filter_options_output,
+        "aaa_messages-3": aaa_messages_3_output,
         "aaa_type": aaa_type_output,
       },
     },
@@ -71,13 +74,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "additionalProperties": {
-            "items": {
-              "$ref": "#/$defs/aaa_alert-types"
-            },
-            "type": "array"
-          },
-          "type": "object"
+          "$ref": "#/$defs/aaa_alerts-response_collection"
         },
         "4XX": {
           "$ref": "#/$defs/aaa_api-response-common-failure-3"
@@ -85,6 +82,8 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "aaa_alert-types": aaa_alert_types_output,
+        "aaa_alerts-response_collection": aaa_alerts_response_collection_output,
+        "aaa_api-response-common-2": aaa_api_response_common_2_output,
         "aaa_api-response-common-failure-3": aaa_api_response_common_failure_3_output,
         "aaa_description": aaa_description_output,
         "aaa_display_name": aaa_display_name_output,

@@ -253,6 +253,28 @@ export const magic_transit_target_summary_output: JsonSchema = {
 };
 
 /**
+ * The schema of `magic-transit_traceroute_response_collection` in responses.
+ */
+export const magic_transit_traceroute_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic-transit_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/magic-transit_target_result"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `magic-transit_traceroute_time_ms` in responses.
  */
 export const magic_transit_traceroute_time_ms_output: JsonSchema = {

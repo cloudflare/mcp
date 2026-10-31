@@ -4,32 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `iam_api-response-common` in responses.
- */
-export const iam_api_response_common_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/iam_messages-2"
-    },
-    "messages": {
-      "$ref": "#/$defs/iam_messages-2"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
  * The schema of `iam_dns_verification_code` in responses.
  */
 export const iam_dns_verification_code_output: JsonSchema = {
@@ -69,10 +43,51 @@ export const iam_sso_connector_output: JsonSchema = {
 };
 
 /**
+ * The schema of `iam_sso_connector_collection_response` in responses.
+ */
+export const iam_sso_connector_collection_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/iam_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/iam_sso_connector"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `iam_sso_connector_identifier` in responses.
  */
 export const iam_sso_connector_identifier_output: JsonSchema = {
   "$ref": "#/$defs/iam_common_components-schemas-identifier"
+};
+
+/**
+ * The schema of `iam_sso_connector_response` in responses.
+ */
+export const iam_sso_connector_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/iam_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/iam_sso_connector"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**

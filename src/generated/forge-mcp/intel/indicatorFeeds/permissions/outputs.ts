@@ -35,61 +35,41 @@ export const custom_indicator_feeds_permission_list_item_output: JsonSchema = {
  * responses.
  */
 export const custom_indicator_feeds_permission_list_item_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/custom-indicator-feeds_messages-2"
+  "allOf": [
+    {
+      "$ref": "#/$defs/custom-indicator-feeds_api-response-common"
     },
-    "messages": {
-      "$ref": "#/$defs/custom-indicator-feeds_messages-2"
-    },
-    "result": {
-      "items": {
-        "$ref": "#/$defs/custom-indicator-feeds_permission_list_item"
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/custom-indicator-feeds_permission_list_item"
+          },
+          "type": "array"
+        }
       },
-      "type": "array"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `custom-indicator-feeds_permissions_response` in responses.
  */
 export const custom_indicator_feeds_permissions_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/custom-indicator-feeds_messages-2"
+  "allOf": [
+    {
+      "$ref": "#/$defs/custom-indicator-feeds_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/custom-indicator-feeds_messages-2"
-    },
-    "result": {
-      "$ref": "#/$defs/custom-indicator-feeds_permissions_update"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/custom-indicator-feeds_permissions_update"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**

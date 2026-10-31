@@ -55,29 +55,19 @@ export const aaa_last_success_output: JsonSchema = {
  * The schema of `aaa_schemas-single_response` in responses.
  */
 export const aaa_schemas_single_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/aaa_messages-3"
+  "allOf": [
+    {
+      "$ref": "#/$defs/aaa_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/aaa_messages-3"
-    },
-    "result": {
-      "$ref": "#/$defs/aaa_webhooks"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/aaa_webhooks"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -139,30 +129,20 @@ export const aaa_webhooks_output: JsonSchema = {
  * responses.
  */
 export const aaa_webhooks_components_schemas_response_collection_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/aaa_messages-3"
+  "allOf": [
+    {
+      "$ref": "#/$defs/aaa_api-response-common-2"
     },
-    "messages": {
-      "$ref": "#/$defs/aaa_messages-3"
-    },
-    "result": {
-      "items": {
-        "$ref": "#/$defs/aaa_webhooks"
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/aaa_webhooks"
+          },
+          "type": "array"
+        }
       },
-      "type": "array"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };

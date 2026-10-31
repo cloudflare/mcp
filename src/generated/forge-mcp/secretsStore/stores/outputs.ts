@@ -46,3 +46,44 @@ export const secrets_store_storeObject_output: JsonSchema = {
 export const secrets_store_store_name_output: JsonSchema = {
   "type": "string"
 };
+
+/**
+ * The schema of `secrets-store_store_response` in responses.
+ */
+export const secrets_store_store_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/secrets-store_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/secrets-store_storeObject"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `secrets-store_stores_response_collection` in responses.
+ */
+export const secrets_store_stores_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/secrets-store_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/secrets-store_storeObject"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};

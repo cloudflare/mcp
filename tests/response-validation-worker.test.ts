@@ -155,12 +155,12 @@ describe('direct-tool response schema checks', () => {
       'zero_trust_access_applications_list',
       '200',
       'type',
-      '#/responses/200/schema/properties/result/type',
+      '#/components/schemas/access_response_collection-8/allOf/1/properties/result/type',
       '/result'
     ])
   })
 
-  it('checks the result of a success body whose schema describes only the result', async () => {
+  it('checks a success body against its schema, envelope included', async () => {
     let result: unknown = { subdomain: 'acme' }
     server.use(
       http.get(`${API_BASE}/accounts/${ACCOUNT_ID}/workers/subdomain`, () =>

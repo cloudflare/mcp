@@ -5,7 +5,7 @@ import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
   one_AuthMethodDetail_output,
   one_Instructions_output,
-  one_PaginatedAuthMethodDetailList_result_info_output,
+  one_PaginatedAuthMethodDetailList_output,
 } from "./outputs.js";
 
 /**
@@ -60,25 +60,11 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/one_AuthMethodDetail"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "$ref": "#/$defs/one_PaginatedAuthMethodDetailList_result_info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/one_PaginatedAuthMethodDetailList",
       $defs: {
         "one_AuthMethodDetail": one_AuthMethodDetail_output,
         "one_Instructions": one_Instructions_output,
-        "one_PaginatedAuthMethodDetailList_result_info": one_PaginatedAuthMethodDetailList_result_info_output,
+        "one_PaginatedAuthMethodDetailList": one_PaginatedAuthMethodDetailList_output,
       },
     },
     annotations: {
@@ -96,28 +82,14 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/one_AuthMethodDetail"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/one_PaginatedAuthMethodDetailList_result_info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/one_PaginatedAuthMethodDetailList"
         },
         "404": null
       },
       $defs: {
         "one_AuthMethodDetail": one_AuthMethodDetail_output,
         "one_Instructions": one_Instructions_output,
-        "one_PaginatedAuthMethodDetailList_result_info": one_PaginatedAuthMethodDetailList_result_info_output,
+        "one_PaginatedAuthMethodDetailList": one_PaginatedAuthMethodDetailList_output,
       },
     },
     request: (args) => ({

@@ -4,8 +4,11 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   bill_subs_api_api_response_common_failure_output,
+  bill_subs_api_api_response_common_output,
+  bill_subs_api_api_response_single_output,
   bill_subs_api_messages_output,
 } from "../../outputs.js";
+import { bill_subs_api_rate_plan_simple_response_output } from "./outputs.js";
 
 /**
  * The tools of `billing.rate_plans`.
@@ -28,24 +31,13 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "properties": {
-        "components": {
-          "items": {
-            "type": "object"
-          },
-          "type": "array"
-        },
-        "currency": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "public_name": {
-          "type": "string"
-        }
+      "$ref": "#/$defs/bill-subs-api_rate_plan_simple_response",
+      $defs: {
+        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
+        "bill-subs-api_api-response-single": bill_subs_api_api_response_single_output,
+        "bill-subs-api_messages": bill_subs_api_messages_output,
+        "bill-subs-api_rate_plan_simple_response": bill_subs_api_rate_plan_simple_response_output,
       },
-      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -67,32 +59,18 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "components": {
-              "items": {
-                "type": "object"
-              },
-              "type": "array"
-            },
-            "currency": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "public_name": {
-              "type": "string"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/bill-subs-api_rate_plan_simple_response"
         },
         "4XX": {
           "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
         }
       },
       $defs: {
+        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
         "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
+        "bill-subs-api_api-response-single": bill_subs_api_api_response_single_output,
         "bill-subs-api_messages": bill_subs_api_messages_output,
+        "bill-subs-api_rate_plan_simple_response": bill_subs_api_rate_plan_simple_response_output,
       },
     },
     request: (args) => ({

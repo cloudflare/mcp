@@ -37,3 +37,64 @@ export const resource_sharing_share_excluded_recipient_object_output: JsonSchema
   ],
   "type": "object"
 };
+
+/**
+ * The schema of `resource-sharing_share_excluded_recipient_response_collection`
+ * in responses.
+ */
+export const resource_sharing_share_excluded_recipient_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/resource-sharing_api-response-collection"
+    },
+    {
+      "$ref": "#/$defs/resource-sharing_share_excluded_recipient_response_collection_result"
+    }
+  ]
+};
+
+/**
+ * The schema of
+ * `resource-sharing_share_excluded_recipient_response_collection_result` in
+ * responses.
+ */
+export const resource_sharing_share_excluded_recipient_response_collection_result_output: JsonSchema = {
+  "properties": {
+    "result": {
+      "items": {
+        "$ref": "#/$defs/resource-sharing_share_excluded_recipient_object"
+      },
+      "type": "array"
+    }
+  },
+  "type": "object"
+};
+
+/**
+ * The schema of `resource-sharing_share_excluded_recipient_response_single` in
+ * responses.
+ */
+export const resource_sharing_share_excluded_recipient_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/resource-sharing_api-response-common"
+    },
+    {
+      "$ref": "#/$defs/resource-sharing_share_excluded_recipient_response_single_result"
+    }
+  ]
+};
+
+/**
+ * The schema of
+ * `resource-sharing_share_excluded_recipient_response_single_result` in
+ * responses.
+ */
+export const resource_sharing_share_excluded_recipient_response_single_result_output: JsonSchema = {
+  "properties": {
+    "result": {
+      "$ref": "#/$defs/resource-sharing_share_excluded_recipient_object"
+    }
+  },
+  "type": "object"
+};

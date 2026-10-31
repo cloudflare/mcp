@@ -3,7 +3,10 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  email_security_api_response_collection_output,
   email_security_api_response_common_failure_output,
+  email_security_api_response_common_output,
+  email_security_api_response_single_output,
   email_security_messages_output,
   email_security_timestamp_output,
 } from "../outputs.js";
@@ -64,8 +67,7 @@ export const tools: readonly Tool[] = [
                   {
                     "properties": {
                       "id": {
-                        "$ref": "#/$defs/email-security_TrustedDomainId",
-                        "description": "Trusted domain identifier."
+                        "$ref": "#/$defs/email-security_TrustedDomainId"
                       }
                     },
                     "required": [
@@ -96,8 +98,7 @@ export const tools: readonly Tool[] = [
                   {
                     "properties": {
                       "id": {
-                        "$ref": "#/$defs/email-security_TrustedDomainId",
-                        "description": "Trusted domain identifier."
+                        "$ref": "#/$defs/email-security_TrustedDomainId"
                       }
                     },
                     "required": [
@@ -132,29 +133,43 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "deletes": {
-          "items": {
-            "$ref": "#/$defs/email-security_DeletedTrustedDomain"
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-security_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "properties": {
+                "deletes": {
+                  "items": {
+                    "$ref": "#/$defs/email-security_DeletedTrustedDomain"
+                  },
+                  "type": "array"
+                },
+                "patches": {
+                  "$ref": "#/$defs/email-security_TrustedDomainList"
+                },
+                "posts": {
+                  "$ref": "#/$defs/email-security_TrustedDomainList"
+                },
+                "puts": {
+                  "$ref": "#/$defs/email-security_TrustedDomainList"
+                }
+              },
+              "type": "object"
+            }
           },
-          "type": "array"
-        },
-        "patches": {
-          "$ref": "#/$defs/email-security_TrustedDomainList"
-        },
-        "posts": {
-          "$ref": "#/$defs/email-security_TrustedDomainList"
-        },
-        "puts": {
-          "$ref": "#/$defs/email-security_TrustedDomainList"
+          "type": "object"
         }
-      },
-      "type": "object",
+      ],
       $defs: {
         "email-security_DeletedTrustedDomain": email_security_DeletedTrustedDomain_output,
         "email-security_TrustedDomain": email_security_TrustedDomain_output,
         "email-security_TrustedDomainId": email_security_TrustedDomainId_output,
         "email-security_TrustedDomainList": email_security_TrustedDomainList_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
+        "email-security_messages": email_security_messages_output,
         "email-security_timestamp": email_security_timestamp_output,
       },
     },
@@ -176,24 +191,36 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "deletes": {
-              "items": {
-                "$ref": "#/$defs/email-security_DeletedTrustedDomain"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-security_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "deletes": {
+                      "items": {
+                        "$ref": "#/$defs/email-security_DeletedTrustedDomain"
+                      },
+                      "type": "array"
+                    },
+                    "patches": {
+                      "$ref": "#/$defs/email-security_TrustedDomainList"
+                    },
+                    "posts": {
+                      "$ref": "#/$defs/email-security_TrustedDomainList"
+                    },
+                    "puts": {
+                      "$ref": "#/$defs/email-security_TrustedDomainList"
+                    }
+                  },
+                  "type": "object"
+                }
               },
-              "type": "array"
-            },
-            "patches": {
-              "$ref": "#/$defs/email-security_TrustedDomainList"
-            },
-            "posts": {
-              "$ref": "#/$defs/email-security_TrustedDomainList"
-            },
-            "puts": {
-              "$ref": "#/$defs/email-security_TrustedDomainList"
+              "type": "object"
             }
-          },
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-security_api-response-common-failure"
@@ -205,6 +232,7 @@ export const tools: readonly Tool[] = [
         "email-security_TrustedDomainId": email_security_TrustedDomainId_output,
         "email-security_TrustedDomainList": email_security_TrustedDomainList_output,
         "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
         "email-security_messages": email_security_messages_output,
         "email-security_timestamp": email_security_timestamp_output,
       },
@@ -239,10 +267,24 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/email-security_TrustedDomain",
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-security_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/email-security_TrustedDomain"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "email-security_TrustedDomain": email_security_TrustedDomain_output,
         "email-security_TrustedDomainId": email_security_TrustedDomainId_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
+        "email-security_messages": email_security_messages_output,
         "email-security_timestamp": email_security_timestamp_output,
       },
     },
@@ -264,7 +306,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "201": {
-          "$ref": "#/$defs/email-security_TrustedDomain"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-security_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/email-security_TrustedDomain"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-security_api-response-common-failure"
@@ -274,6 +328,7 @@ export const tools: readonly Tool[] = [
         "email-security_TrustedDomain": email_security_TrustedDomain_output,
         "email-security_TrustedDomainId": email_security_TrustedDomainId_output,
         "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
         "email-security_messages": email_security_messages_output,
         "email-security_timestamp": email_security_timestamp_output,
       },
@@ -309,10 +364,24 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/email-security_DeletedTrustedDomain",
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-security_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/email-security_DeletedTrustedDomain"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "email-security_DeletedTrustedDomain": email_security_DeletedTrustedDomain_output,
         "email-security_TrustedDomainId": email_security_TrustedDomainId_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
+        "email-security_messages": email_security_messages_output,
       },
     },
     annotations: {
@@ -333,7 +402,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/email-security_DeletedTrustedDomain"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-security_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/email-security_DeletedTrustedDomain"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-security_api-response-common-failure"
@@ -343,6 +424,7 @@ export const tools: readonly Tool[] = [
         "email-security_DeletedTrustedDomain": email_security_DeletedTrustedDomain_output,
         "email-security_TrustedDomainId": email_security_TrustedDomainId_output,
         "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
         "email-security_messages": email_security_messages_output,
       },
     },
@@ -381,10 +463,24 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/email-security_TrustedDomain",
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-security_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/email-security_TrustedDomain"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "email-security_TrustedDomain": email_security_TrustedDomain_output,
         "email-security_TrustedDomainId": email_security_TrustedDomainId_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
+        "email-security_messages": email_security_messages_output,
         "email-security_timestamp": email_security_timestamp_output,
       },
     },
@@ -406,7 +502,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/email-security_TrustedDomain"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-security_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/email-security_TrustedDomain"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-security_api-response-common-failure"
@@ -416,6 +524,7 @@ export const tools: readonly Tool[] = [
         "email-security_TrustedDomain": email_security_TrustedDomain_output,
         "email-security_TrustedDomainId": email_security_TrustedDomainId_output,
         "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
         "email-security_messages": email_security_messages_output,
         "email-security_timestamp": email_security_timestamp_output,
       },
@@ -451,10 +560,24 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/email-security_TrustedDomain",
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-security_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/email-security_TrustedDomain"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "email-security_TrustedDomain": email_security_TrustedDomain_output,
         "email-security_TrustedDomainId": email_security_TrustedDomainId_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
+        "email-security_messages": email_security_messages_output,
         "email-security_timestamp": email_security_timestamp_output,
       },
     },
@@ -477,7 +600,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/email-security_TrustedDomain"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-security_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/email-security_TrustedDomain"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-security_api-response-common-failure"
@@ -487,6 +622,7 @@ export const tools: readonly Tool[] = [
         "email-security_TrustedDomain": email_security_TrustedDomain_output,
         "email-security_TrustedDomainId": email_security_TrustedDomainId_output,
         "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
         "email-security_messages": email_security_messages_output,
         "email-security_timestamp": email_security_timestamp_output,
       },
@@ -556,36 +692,26 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "$ref": "#/$defs/email-security_TrustedDomainList"
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-security_api-response-collection"
         },
-        "result_info": {
+        {
           "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
+            "result": {
+              "$ref": "#/$defs/email-security_TrustedDomainList"
             }
           },
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
         "email-security_TrustedDomain": email_security_TrustedDomain_output,
         "email-security_TrustedDomainId": email_security_TrustedDomainId_output,
         "email-security_TrustedDomainList": email_security_TrustedDomainList_output,
+        "email-security_api-response-collection": email_security_api_response_collection_output,
+        "email-security_api-response-common": email_security_api_response_common_output,
+        "email-security_messages": email_security_messages_output,
         "email-security_timestamp": email_security_timestamp_output,
       },
     },
@@ -608,32 +734,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "$ref": "#/$defs/email-security_TrustedDomainList"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-security_api-response-collection"
             },
-            "result_info": {
+            {
               "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
+                "result": {
+                  "$ref": "#/$defs/email-security_TrustedDomainList"
                 }
               },
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-security_api-response-common-failure"
@@ -643,6 +756,8 @@ export const tools: readonly Tool[] = [
         "email-security_TrustedDomain": email_security_TrustedDomain_output,
         "email-security_TrustedDomainId": email_security_TrustedDomainId_output,
         "email-security_TrustedDomainList": email_security_TrustedDomainList_output,
+        "email-security_api-response-collection": email_security_api_response_collection_output,
+        "email-security_api-response-common": email_security_api_response_common_output,
         "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
         "email-security_messages": email_security_messages_output,
         "email-security_timestamp": email_security_timestamp_output,
@@ -693,10 +808,24 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/email-security_TrustedDomain",
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-security_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/email-security_TrustedDomain"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "email-security_TrustedDomain": email_security_TrustedDomain_output,
         "email-security_TrustedDomainId": email_security_TrustedDomainId_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
+        "email-security_messages": email_security_messages_output,
         "email-security_timestamp": email_security_timestamp_output,
       },
     },
@@ -715,7 +844,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/email-security_TrustedDomain"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-security_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/email-security_TrustedDomain"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-security_api-response-common-failure"
@@ -725,6 +866,7 @@ export const tools: readonly Tool[] = [
         "email-security_TrustedDomain": email_security_TrustedDomain_output,
         "email-security_TrustedDomainId": email_security_TrustedDomainId_output,
         "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
         "email-security_messages": email_security_messages_output,
         "email-security_timestamp": email_security_timestamp_output,
       },

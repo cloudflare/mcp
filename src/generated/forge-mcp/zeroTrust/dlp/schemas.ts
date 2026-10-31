@@ -4,6 +4,35 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `dlp_DataTagUpdate`.
+ */
+export const dlp_DataTagUpdate: JsonSchema = {
+  "properties": {
+    "description": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "name": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "type": "object"
+};
+
+/**
  * The schema of `dlp_NewDataTag`.
  */
 export const dlp_NewDataTag: JsonSchema = {
@@ -90,6 +119,35 @@ export const dlp_SensitivityLevelRef: JsonSchema = {
     "group_id",
     "level_id"
   ],
+  "type": "object"
+};
+
+/**
+ * The schema of `dlp_SensitivityLevelUpdate`.
+ */
+export const dlp_SensitivityLevelUpdate: JsonSchema = {
+  "properties": {
+    "description": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "name": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
   "type": "object"
 };
 

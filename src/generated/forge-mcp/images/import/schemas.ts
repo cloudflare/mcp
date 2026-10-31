@@ -33,6 +33,15 @@ export const images_sourcingkit_conflict_behaviour: JsonSchema = {
 };
 
 /**
+ * The schema of `images_sourcingkit_identifier`.
+ */
+export const images_sourcingkit_identifier: JsonSchema = {
+  "description": "Sourcing kit resource identifier.",
+  "format": "uuid",
+  "type": "string"
+};
+
+/**
  * The schema of `images_sourcingkit_migration_create_request`.
  */
 export const images_sourcingkit_migration_create_request: JsonSchema = {

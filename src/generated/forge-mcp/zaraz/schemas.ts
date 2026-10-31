@@ -4,111 +4,138 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
- * The schema of `zaraz_click-listener-rule`.
+ * The schema of `zaraz_base-mc`.
  */
-export const zaraz_click_listener_rule: JsonSchema = {
-  "properties": {
-    "action": {
-      "enum": [
-        "clickListener"
-      ],
-      "type": "string"
+export const zaraz_base_mc: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/zaraz_base-tool"
     },
-    "id": {
-      "type": "string"
-    },
-    "settings": {
-      "$ref": "#/$defs/zaraz_click-listener-rule_settings"
-    }
-  },
-  "required": [
-    "action",
-    "id",
-    "settings"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `zaraz_click-listener-rule_settings`.
- */
-export const zaraz_click_listener_rule_settings: JsonSchema = {
-  "properties": {
-    "selector": {
-      "type": "string"
-    },
-    "type": {
-      "enum": [
-        "xpath",
-        "css"
-      ],
-      "type": "string"
-    },
-    "waitForTags": {
-      "type": "integer"
-    }
-  },
-  "required": [
-    "selector",
-    "type",
-    "waitForTags"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `zaraz_custom-managed-component`.
- */
-export const zaraz_custom_managed_component: JsonSchema = {
-  "properties": {
-    "actions": {
-      "additionalProperties": {
-        "properties": {
-          "actionType": {
-            "description": "Tool event type.",
-            "type": "string"
-          },
-          "blockingTriggers": {
-            "description": "List of blocking triggers IDs.",
-            "items": {
-              "type": "string"
+    {
+      "properties": {
+        "actions": {
+          "additionalProperties": {
+            "properties": {
+              "actionType": {
+                "description": "Tool event type.",
+                "type": "string"
+              },
+              "blockingTriggers": {
+                "description": "List of blocking triggers IDs.",
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "data": {
+                "description": "Event payload.",
+                "type": "object"
+              },
+              "firingTriggers": {
+                "description": "List of firing triggers IDs.",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1,
+                "type": "array"
+              }
             },
-            "type": "array"
-          },
-          "data": {
-            "description": "Event payload.",
+            "required": [
+              "actionType",
+              "blockingTriggers",
+              "data",
+              "firingTriggers"
+            ],
             "type": "object"
           },
-          "firingTriggers": {
-            "description": "List of firing triggers IDs.",
-            "items": {
-              "type": "string"
-            },
-            "minItems": 1,
-            "type": "array"
-          }
+          "description": "Actions configured on a tool. Either this or neoEvents field is required.",
+          "type": "object"
         },
-        "required": [
-          "actionType",
-          "blockingTriggers",
-          "data",
-          "firingTriggers"
-        ],
-        "type": "object"
+        "component": {
+          "description": "Tool's internal name.",
+          "type": "string"
+        },
+        "neoEvents": {
+          "description": "DEPRECATED - List of actions configured on a tool. Either this or actions field is required. If both are present, actions field will take precedence.",
+          "items": {
+            "properties": {
+              "actionType": {
+                "description": "Tool event type.",
+                "type": "string"
+              },
+              "blockingTriggers": {
+                "description": "List of blocking triggers IDs.",
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "data": {
+                "description": "Event payload.",
+                "type": "object"
+              },
+              "firingTriggers": {
+                "description": "List of firing triggers IDs.",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1,
+                "type": "array"
+              }
+            },
+            "required": [
+              "actionType",
+              "blockingTriggers",
+              "data",
+              "firingTriggers"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "permissions": {
+          "description": "List of permissions granted to the component.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "settings": {
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "boolean"
+              }
+            ]
+          },
+          "description": "Tool's settings.",
+          "type": "object"
+        }
       },
-      "description": "Actions configured on a tool. Either this or neoEvents field is required.",
+      "required": [
+        "component",
+        "permissions",
+        "settings"
+      ],
       "type": "object"
-    },
+    }
+  ]
+};
+
+/**
+ * The schema of `zaraz_base-tool`.
+ */
+export const zaraz_base_tool: JsonSchema = {
+  "properties": {
     "blockingTriggers": {
       "description": "List of blocking trigger IDs.",
       "items": {
         "type": "string"
       },
       "type": "array"
-    },
-    "component": {
-      "description": "Tool's internal name.",
-      "type": "string"
     },
     "defaultFields": {
       "additionalProperties": {
@@ -136,40 +163,6 @@ export const zaraz_custom_managed_component: JsonSchema = {
       "description": "Tool's name defined by the user.",
       "type": "string"
     },
-    "neoEvents": {
-      "description": "DEPRECATED - List of actions configured on a tool. Either this or actions field is required. If both are present, actions field will take precedence.",
-      "items": {
-        "$ref": "#/$defs/zaraz_custom-managed-component_neoEventsItem"
-      },
-      "type": "array"
-    },
-    "permissions": {
-      "description": "List of permissions granted to the component.",
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "settings": {
-      "additionalProperties": {
-        "anyOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "boolean"
-          }
-        ]
-      },
-      "description": "Tool's settings.",
-      "type": "object"
-    },
-    "type": {
-      "enum": [
-        "custom-mc"
-      ],
-      "type": "string"
-    },
     "vendorName": {
       "description": "Vendor name for TCF compliant consent modal, required for Custom Managed Components and Custom HTML tool with a defaultPurpose assigned.",
       "type": "string"
@@ -177,82 +170,103 @@ export const zaraz_custom_managed_component: JsonSchema = {
     "vendorPolicyUrl": {
       "description": "Vendor's Privacy Policy URL for TCF compliant consent modal, required for Custom Managed Components and Custom HTML tool with a defaultPurpose assigned.",
       "type": "string"
-    },
-    "worker": {
-      "$ref": "#/$defs/zaraz_custom-managed-component_worker",
-      "description": "Cloudflare worker that acts as a managed component."
     }
   },
   "required": [
     "blockingTriggers",
     "defaultFields",
     "enabled",
-    "name",
-    "component",
-    "permissions",
-    "settings",
-    "type",
-    "worker"
+    "name"
   ],
   "type": "object"
 };
 
 /**
- * The schema of `zaraz_custom-managed-component_neoEventsItem`.
+ * The schema of `zaraz_click-listener-rule`.
  */
-export const zaraz_custom_managed_component_neoEventsItem: JsonSchema = {
+export const zaraz_click_listener_rule: JsonSchema = {
   "properties": {
-    "actionType": {
-      "description": "Tool event type.",
+    "action": {
+      "enum": [
+        "clickListener"
+      ],
       "type": "string"
     },
-    "blockingTriggers": {
-      "description": "List of blocking triggers IDs.",
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
+    "id": {
+      "type": "string"
     },
-    "data": {
-      "description": "Event payload.",
+    "settings": {
+      "properties": {
+        "selector": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "xpath",
+            "css"
+          ],
+          "type": "string"
+        },
+        "waitForTags": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "selector",
+        "type",
+        "waitForTags"
+      ],
       "type": "object"
-    },
-    "firingTriggers": {
-      "description": "List of firing triggers IDs.",
-      "items": {
-        "type": "string"
-      },
-      "minItems": 1,
-      "type": "array"
     }
   },
   "required": [
-    "actionType",
-    "blockingTriggers",
-    "data",
-    "firingTriggers"
+    "action",
+    "id",
+    "settings"
   ],
   "type": "object"
 };
 
 /**
- * The schema of `zaraz_custom-managed-component_worker`.
+ * The schema of `zaraz_custom-managed-component`.
  */
-export const zaraz_custom_managed_component_worker: JsonSchema = {
-  "description": "Cloudflare worker that acts as a managed component.",
-  "properties": {
-    "escapedWorkerName": {
-      "type": "string"
+export const zaraz_custom_managed_component: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/zaraz_base-mc"
     },
-    "workerTag": {
-      "type": "string"
+    {
+      "properties": {
+        "type": {
+          "enum": [
+            "custom-mc"
+          ],
+          "type": "string"
+        },
+        "worker": {
+          "description": "Cloudflare worker that acts as a managed component.",
+          "properties": {
+            "escapedWorkerName": {
+              "type": "string"
+            },
+            "workerTag": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "escapedWorkerName",
+            "workerTag"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "type",
+        "worker"
+      ],
+      "type": "object"
     }
-  },
-  "required": [
-    "escapedWorkerName",
-    "workerTag"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -270,28 +284,21 @@ export const zaraz_element_visibility_rule: JsonSchema = {
       "type": "string"
     },
     "settings": {
-      "$ref": "#/$defs/zaraz_element-visibility-rule_settings"
+      "properties": {
+        "selector": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "selector"
+      ],
+      "type": "object"
     }
   },
   "required": [
     "action",
     "id",
     "settings"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `zaraz_element-visibility-rule_settings`.
- */
-export const zaraz_element_visibility_rule_settings: JsonSchema = {
-  "properties": {
-    "selector": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "selector"
   ],
   "type": "object"
 };
@@ -311,7 +318,19 @@ export const zaraz_form_submission_rule: JsonSchema = {
       "type": "string"
     },
     "settings": {
-      "$ref": "#/$defs/zaraz_form-submission-rule_settings"
+      "properties": {
+        "selector": {
+          "type": "string"
+        },
+        "validate": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "selector",
+        "validate"
+      ],
+      "type": "object"
     }
   },
   "required": [
@@ -323,22 +342,11 @@ export const zaraz_form_submission_rule: JsonSchema = {
 };
 
 /**
- * The schema of `zaraz_form-submission-rule_settings`.
+ * The schema of `zaraz_identifier`.
  */
-export const zaraz_form_submission_rule_settings: JsonSchema = {
-  "properties": {
-    "selector": {
-      "type": "string"
-    },
-    "validate": {
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "selector",
-    "validate"
-  ],
-  "type": "object"
+export const zaraz_identifier: JsonSchema = {
+  "description": "Identifier.",
+  "type": "string"
 };
 
 /**
@@ -384,174 +392,25 @@ export const zaraz_load_rule: JsonSchema = {
  * The schema of `zaraz_managed-component`.
  */
 export const zaraz_managed_component: JsonSchema = {
-  "properties": {
-    "actions": {
-      "additionalProperties": {
-        "properties": {
-          "actionType": {
-            "description": "Tool event type.",
-            "type": "string"
-          },
-          "blockingTriggers": {
-            "description": "List of blocking triggers IDs.",
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
-          },
-          "data": {
-            "description": "Event payload.",
-            "type": "object"
-          },
-          "firingTriggers": {
-            "description": "List of firing triggers IDs.",
-            "items": {
-              "type": "string"
-            },
-            "minItems": 1,
-            "type": "array"
-          }
-        },
-        "required": [
-          "actionType",
-          "blockingTriggers",
-          "data",
-          "firingTriggers"
-        ],
-        "type": "object"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zaraz_base-mc"
+    },
+    {
+      "properties": {
+        "type": {
+          "enum": [
+            "component"
+          ],
+          "type": "string"
+        }
       },
-      "description": "Actions configured on a tool. Either this or neoEvents field is required.",
-      "type": "object"
-    },
-    "blockingTriggers": {
-      "description": "List of blocking trigger IDs.",
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "component": {
-      "description": "Tool's internal name.",
-      "type": "string"
-    },
-    "defaultFields": {
-      "additionalProperties": {
-        "anyOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "boolean"
-          }
-        ]
-      },
-      "description": "Default fields for tool's actions.",
-      "type": "object"
-    },
-    "defaultPurpose": {
-      "description": "Default consent purpose ID.",
-      "type": "string"
-    },
-    "enabled": {
-      "description": "Whether tool is enabled.",
-      "type": "boolean"
-    },
-    "name": {
-      "description": "Tool's name defined by the user.",
-      "type": "string"
-    },
-    "neoEvents": {
-      "description": "DEPRECATED - List of actions configured on a tool. Either this or actions field is required. If both are present, actions field will take precedence.",
-      "items": {
-        "$ref": "#/$defs/zaraz_managed-component_neoEventsItem"
-      },
-      "type": "array"
-    },
-    "permissions": {
-      "description": "List of permissions granted to the component.",
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "settings": {
-      "additionalProperties": {
-        "anyOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "boolean"
-          }
-        ]
-      },
-      "description": "Tool's settings.",
-      "type": "object"
-    },
-    "type": {
-      "enum": [
-        "component"
+      "required": [
+        "type"
       ],
-      "type": "string"
-    },
-    "vendorName": {
-      "description": "Vendor name for TCF compliant consent modal, required for Custom Managed Components and Custom HTML tool with a defaultPurpose assigned.",
-      "type": "string"
-    },
-    "vendorPolicyUrl": {
-      "description": "Vendor's Privacy Policy URL for TCF compliant consent modal, required for Custom Managed Components and Custom HTML tool with a defaultPurpose assigned.",
-      "type": "string"
-    }
-  },
-  "required": [
-    "blockingTriggers",
-    "defaultFields",
-    "enabled",
-    "name",
-    "component",
-    "permissions",
-    "settings",
-    "type"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `zaraz_managed-component_neoEventsItem`.
- */
-export const zaraz_managed_component_neoEventsItem: JsonSchema = {
-  "properties": {
-    "actionType": {
-      "description": "Tool event type.",
-      "type": "string"
-    },
-    "blockingTriggers": {
-      "description": "List of blocking triggers IDs.",
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "data": {
-      "description": "Event payload.",
       "type": "object"
-    },
-    "firingTriggers": {
-      "description": "List of firing triggers IDs.",
-      "items": {
-        "type": "string"
-      },
-      "minItems": 1,
-      "type": "array"
     }
-  },
-  "required": [
-    "actionType",
-    "blockingTriggers",
-    "data",
-    "firingTriggers"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -569,28 +428,21 @@ export const zaraz_scroll_depth_rule: JsonSchema = {
       "type": "string"
     },
     "settings": {
-      "$ref": "#/$defs/zaraz_scroll-depth-rule_settings"
+      "properties": {
+        "positions": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "positions"
+      ],
+      "type": "object"
     }
   },
   "required": [
     "action",
     "id",
     "settings"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `zaraz_scroll-depth-rule_settings`.
- */
-export const zaraz_scroll_depth_rule_settings: JsonSchema = {
-  "properties": {
-    "positions": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "positions"
   ],
   "type": "object"
 };
@@ -662,32 +514,25 @@ export const zaraz_timer_rule: JsonSchema = {
       "type": "string"
     },
     "settings": {
-      "$ref": "#/$defs/zaraz_timer-rule_settings"
+      "properties": {
+        "interval": {
+          "type": "integer"
+        },
+        "limit": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "interval",
+        "limit"
+      ],
+      "type": "object"
     }
   },
   "required": [
     "action",
     "id",
     "settings"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `zaraz_timer-rule_settings`.
- */
-export const zaraz_timer_rule_settings: JsonSchema = {
-  "properties": {
-    "interval": {
-      "type": "integer"
-    },
-    "limit": {
-      "type": "integer"
-    }
-  },
-  "required": [
-    "interval",
-    "limit"
   ],
   "type": "object"
 };
@@ -707,32 +552,25 @@ export const zaraz_variable_match_rule: JsonSchema = {
       "type": "string"
     },
     "settings": {
-      "$ref": "#/$defs/zaraz_variable-match-rule_settings"
+      "properties": {
+        "match": {
+          "type": "string"
+        },
+        "variable": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "match",
+        "variable"
+      ],
+      "type": "object"
     }
   },
   "required": [
     "action",
     "id",
     "settings"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `zaraz_variable-match-rule_settings`.
- */
-export const zaraz_variable_match_rule_settings: JsonSchema = {
-  "properties": {
-    "match": {
-      "type": "string"
-    },
-    "variable": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "match",
-    "variable"
   ],
   "type": "object"
 };
@@ -752,7 +590,19 @@ export const zaraz_worker_variable: JsonSchema = {
       "type": "string"
     },
     "value": {
-      "$ref": "#/$defs/zaraz_worker_variable_value"
+      "properties": {
+        "escapedWorkerName": {
+          "type": "string"
+        },
+        "workerTag": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "escapedWorkerName",
+        "workerTag"
+      ],
+      "type": "object"
     }
   },
   "required": [
@@ -764,272 +614,363 @@ export const zaraz_worker_variable: JsonSchema = {
 };
 
 /**
- * The schema of `zaraz_worker_variable_value`.
+ * The schema of `zaraz_zaraz-config-base`.
  */
-export const zaraz_worker_variable_value: JsonSchema = {
+export const zaraz_zaraz_config_base: JsonSchema = {
+  "description": "Zaraz configuration.",
   "properties": {
-    "escapedWorkerName": {
-      "type": "string"
-    },
-    "workerTag": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "escapedWorkerName",
-    "workerTag"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `zaraz_zaraz-config-base_analytics`.
- */
-export const zaraz_zaraz_config_base_analytics: JsonSchema = {
-  "description": "Cloudflare Monitoring settings.",
-  "properties": {
-    "defaultPurpose": {
-      "description": "Consent purpose assigned to Monitoring.",
-      "type": "string"
-    },
-    "enabled": {
-      "description": "Whether Advanced Monitoring reports are enabled.",
-      "type": "boolean"
-    },
-    "sessionExpTime": {
-      "description": "Session expiration time (seconds).",
-      "type": "integer"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `zaraz_zaraz-config-base_consent`.
- */
-export const zaraz_zaraz_config_base_consent: JsonSchema = {
-  "description": "Consent management configuration.",
-  "properties": {
-    "buttonTextTranslations": {
-      "$ref": "#/$defs/zaraz_zaraz-config-base_consent_buttonTextTranslations"
-    },
-    "companyEmail": {
-      "type": "string"
-    },
-    "companyName": {
-      "type": "string"
-    },
-    "companyStreetAddress": {
-      "type": "string"
-    },
-    "consentModalIntroHTML": {
-      "type": "string"
-    },
-    "consentModalIntroHTMLWithTranslations": {
-      "additionalProperties": {
-        "type": "string"
+    "analytics": {
+      "description": "Cloudflare Monitoring settings.",
+      "properties": {
+        "defaultPurpose": {
+          "description": "Consent purpose assigned to Monitoring.",
+          "type": "string"
+        },
+        "enabled": {
+          "description": "Whether Advanced Monitoring reports are enabled.",
+          "type": "boolean"
+        },
+        "sessionExpTime": {
+          "description": "Session expiration time (seconds).",
+          "type": "integer"
+        }
       },
-      "description": "Object where keys are language codes.",
       "type": "object"
     },
-    "cookieName": {
-      "type": "string"
+    "consent": {
+      "description": "Consent management configuration.",
+      "properties": {
+        "buttonTextTranslations": {
+          "properties": {
+            "accept_all": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "description": "Object where keys are language codes.",
+              "type": "object"
+            },
+            "confirm_my_choices": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "description": "Object where keys are language codes.",
+              "type": "object"
+            },
+            "reject_all": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "description": "Object where keys are language codes.",
+              "type": "object"
+            }
+          },
+          "required": [
+            "accept_all",
+            "confirm_my_choices",
+            "reject_all"
+          ],
+          "type": "object"
+        },
+        "companyEmail": {
+          "type": "string"
+        },
+        "companyName": {
+          "type": "string"
+        },
+        "companyStreetAddress": {
+          "type": "string"
+        },
+        "consentModalIntroHTML": {
+          "type": "string"
+        },
+        "consentModalIntroHTMLWithTranslations": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Object where keys are language codes.",
+          "type": "object"
+        },
+        "cookieName": {
+          "type": "string"
+        },
+        "customCSS": {
+          "type": "string"
+        },
+        "customIntroDisclaimerDismissed": {
+          "type": "boolean"
+        },
+        "defaultLanguage": {
+          "type": "string"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "hideModal": {
+          "type": "boolean"
+        },
+        "purposes": {
+          "additionalProperties": {
+            "properties": {
+              "description": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "description",
+              "name"
+            ],
+            "type": "object"
+          },
+          "description": "Object where keys are purpose alpha-numeric IDs.",
+          "type": "object"
+        },
+        "purposesWithTranslations": {
+          "additionalProperties": {
+            "properties": {
+              "description": {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "description": "Object where keys are language codes.",
+                "type": "object"
+              },
+              "name": {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "description": "Object where keys are language codes.",
+                "type": "object"
+              },
+              "order": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "description",
+              "name",
+              "order"
+            ],
+            "type": "object"
+          },
+          "description": "Object where keys are purpose alpha-numeric IDs.",
+          "type": "object"
+        },
+        "tcfCompliant": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "enabled"
+      ],
+      "type": "object"
     },
-    "customCSS": {
-      "type": "string"
-    },
-    "customIntroDisclaimerDismissed": {
+    "dataLayer": {
+      "description": "Data layer compatibility mode enabled.",
       "type": "boolean"
     },
-    "defaultLanguage": {
+    "debugKey": {
+      "description": "The key for Zaraz debug mode.",
       "type": "string"
     },
-    "enabled": {
+    "historyChange": {
+      "description": "Single Page Application support enabled.",
       "type": "boolean"
     },
-    "hideModal": {
-      "type": "boolean"
+    "settings": {
+      "description": "General Zaraz settings.",
+      "properties": {
+        "autoInjectScript": {
+          "description": "Automatic injection of Zaraz scripts enabled.",
+          "type": "boolean"
+        },
+        "contextEnricher": {
+          "description": "Details of the worker that receives and edits Zaraz Context object.",
+          "properties": {
+            "escapedWorkerName": {
+              "type": "string"
+            },
+            "workerTag": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "escapedWorkerName",
+            "workerTag"
+          ],
+          "type": "object"
+        },
+        "cookieDomain": {
+          "description": "The domain Zaraz will use for writing and reading its cookies.",
+          "type": "string"
+        },
+        "ecommerce": {
+          "description": "Ecommerce API enabled.",
+          "type": "boolean"
+        },
+        "eventsApiPath": {
+          "description": "Custom endpoint for server-side track events.",
+          "type": "string"
+        },
+        "hideExternalReferer": {
+          "description": "Hiding external referrer URL enabled.",
+          "type": "boolean"
+        },
+        "hideIPAddress": {
+          "description": "Trimming IP address enabled.",
+          "type": "boolean"
+        },
+        "hideQueryParams": {
+          "description": "Removing URL query params enabled.",
+          "type": "boolean"
+        },
+        "hideUserAgent": {
+          "description": "Removing sensitive data from User Agent string enabled.",
+          "type": "boolean"
+        },
+        "initPath": {
+          "description": "Custom endpoint for Zaraz init script.",
+          "type": "string"
+        },
+        "injectIframes": {
+          "description": "Injection of Zaraz scripts into iframes enabled.",
+          "type": "boolean"
+        },
+        "mcRootPath": {
+          "description": "Custom path for Managed Components server functionalities.",
+          "type": "string"
+        },
+        "scriptPath": {
+          "description": "Custom endpoint for Zaraz main script.",
+          "type": "string"
+        },
+        "trackPath": {
+          "description": "Custom endpoint for Zaraz tracking requests.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "autoInjectScript"
+      ],
+      "type": "object"
     },
-    "purposes": {
+    "triggers": {
       "additionalProperties": {
         "properties": {
           "description": {
+            "description": "Trigger description.",
             "type": "string"
           },
+          "excludeRules": {
+            "description": "Rules defining when the trigger is not fired.",
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/zaraz_load-rule"
+                },
+                {
+                  "$ref": "#/$defs/zaraz_click-listener-rule"
+                },
+                {
+                  "$ref": "#/$defs/zaraz_timer-rule"
+                },
+                {
+                  "$ref": "#/$defs/zaraz_form-submission-rule"
+                },
+                {
+                  "$ref": "#/$defs/zaraz_variable-match-rule"
+                },
+                {
+                  "$ref": "#/$defs/zaraz_scroll-depth-rule"
+                },
+                {
+                  "$ref": "#/$defs/zaraz_element-visibility-rule"
+                }
+              ]
+            },
+            "type": "array"
+          },
+          "loadRules": {
+            "description": "Rules defining when the trigger is fired.",
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/zaraz_load-rule"
+                },
+                {
+                  "$ref": "#/$defs/zaraz_click-listener-rule"
+                },
+                {
+                  "$ref": "#/$defs/zaraz_timer-rule"
+                },
+                {
+                  "$ref": "#/$defs/zaraz_form-submission-rule"
+                },
+                {
+                  "$ref": "#/$defs/zaraz_variable-match-rule"
+                },
+                {
+                  "$ref": "#/$defs/zaraz_scroll-depth-rule"
+                },
+                {
+                  "$ref": "#/$defs/zaraz_element-visibility-rule"
+                }
+              ]
+            },
+            "type": "array"
+          },
           "name": {
+            "description": "Trigger name.",
+            "type": "string"
+          },
+          "system": {
+            "enum": [
+              "pageload"
+            ],
             "type": "string"
           }
         },
         "required": [
-          "description",
+          "excludeRules",
+          "loadRules",
           "name"
         ],
         "type": "object"
       },
-      "description": "Object where keys are purpose alpha-numeric IDs.",
+      "description": "Triggers set up under Zaraz configuration, where key is the trigger alpha-numeric ID and value is the trigger configuration.",
       "type": "object"
     },
-    "purposesWithTranslations": {
+    "variables": {
       "additionalProperties": {
-        "properties": {
-          "description": {
-            "additionalProperties": {
-              "type": "string"
-            },
-            "description": "Object where keys are language codes.",
-            "type": "object"
+        "anyOf": [
+          {
+            "$ref": "#/$defs/zaraz_string_variable"
           },
-          "name": {
-            "additionalProperties": {
-              "type": "string"
-            },
-            "description": "Object where keys are language codes.",
-            "type": "object"
+          {
+            "$ref": "#/$defs/zaraz_secret_variable"
           },
-          "order": {
-            "type": "integer"
+          {
+            "$ref": "#/$defs/zaraz_worker_variable"
           }
-        },
-        "required": [
-          "description",
-          "name",
-          "order"
-        ],
-        "type": "object"
+        ]
       },
-      "description": "Object where keys are purpose alpha-numeric IDs.",
+      "description": "Variables set up under Zaraz configuration, where key is the variable alpha-numeric ID and value is the variable configuration. Values of variables of type secret are not included.",
       "type": "object"
     },
-    "tcfCompliant": {
-      "type": "boolean"
+    "zarazVersion": {
+      "description": "Zaraz internal version of the config.",
+      "type": "integer"
     }
   },
   "required": [
-    "enabled"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `zaraz_zaraz-config-base_consent_buttonTextTranslations`.
- */
-export const zaraz_zaraz_config_base_consent_buttonTextTranslations: JsonSchema = {
-  "properties": {
-    "accept_all": {
-      "additionalProperties": {
-        "type": "string"
-      },
-      "description": "Object where keys are language codes.",
-      "type": "object"
-    },
-    "confirm_my_choices": {
-      "additionalProperties": {
-        "type": "string"
-      },
-      "description": "Object where keys are language codes.",
-      "type": "object"
-    },
-    "reject_all": {
-      "additionalProperties": {
-        "type": "string"
-      },
-      "description": "Object where keys are language codes.",
-      "type": "object"
-    }
-  },
-  "required": [
-    "accept_all",
-    "confirm_my_choices",
-    "reject_all"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `zaraz_zaraz-config-base_settings`.
- */
-export const zaraz_zaraz_config_base_settings: JsonSchema = {
-  "description": "General Zaraz settings.",
-  "properties": {
-    "autoInjectScript": {
-      "description": "Automatic injection of Zaraz scripts enabled.",
-      "type": "boolean"
-    },
-    "contextEnricher": {
-      "$ref": "#/$defs/zaraz_zaraz-config-base_settings_contextEnricher",
-      "description": "Details of the worker that receives and edits Zaraz Context object."
-    },
-    "cookieDomain": {
-      "description": "The domain Zaraz will use for writing and reading its cookies.",
-      "type": "string"
-    },
-    "ecommerce": {
-      "description": "Ecommerce API enabled.",
-      "type": "boolean"
-    },
-    "eventsApiPath": {
-      "description": "Custom endpoint for server-side track events.",
-      "type": "string"
-    },
-    "hideExternalReferer": {
-      "description": "Hiding external referrer URL enabled.",
-      "type": "boolean"
-    },
-    "hideIPAddress": {
-      "description": "Trimming IP address enabled.",
-      "type": "boolean"
-    },
-    "hideQueryParams": {
-      "description": "Removing URL query params enabled.",
-      "type": "boolean"
-    },
-    "hideUserAgent": {
-      "description": "Removing sensitive data from User Agent string enabled.",
-      "type": "boolean"
-    },
-    "initPath": {
-      "description": "Custom endpoint for Zaraz init script.",
-      "type": "string"
-    },
-    "injectIframes": {
-      "description": "Injection of Zaraz scripts into iframes enabled.",
-      "type": "boolean"
-    },
-    "mcRootPath": {
-      "description": "Custom path for Managed Components server functionalities.",
-      "type": "string"
-    },
-    "scriptPath": {
-      "description": "Custom endpoint for Zaraz main script.",
-      "type": "string"
-    },
-    "trackPath": {
-      "description": "Custom endpoint for Zaraz tracking requests.",
-      "type": "string"
-    }
-  },
-  "required": [
-    "autoInjectScript"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `zaraz_zaraz-config-base_settings_contextEnricher`.
- */
-export const zaraz_zaraz_config_base_settings_contextEnricher: JsonSchema = {
-  "description": "Details of the worker that receives and edits Zaraz Context object.",
-  "properties": {
-    "escapedWorkerName": {
-      "type": "string"
-    },
-    "workerTag": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "escapedWorkerName",
-    "workerTag"
+    "dataLayer",
+    "debugKey",
+    "settings",
+    "triggers",
+    "variables",
+    "zarazVersion"
   ],
   "type": "object"
 };

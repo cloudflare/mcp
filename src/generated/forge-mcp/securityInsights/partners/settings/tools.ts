@@ -4,10 +4,15 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   security_center_api_response_common_failure_output,
+  security_center_api_response_common_output,
   security_center_messages_output,
 } from "../../../outputs.js";
-import { security_center_identifier } from "../schemas.js";
-import { security_center_partnerSettings_output } from "./outputs.js";
+import { security_center_identifier } from "../../../schemas.js";
+import {
+  security_center_partnerSettingsGetResponse_output,
+  security_center_partnerSettingsPostResponse_output,
+  security_center_partnerSettings_output,
+} from "./outputs.js";
 import { security_center_partnerSettings } from "./schemas.js";
 
 /**
@@ -42,24 +47,12 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "enabled": {
-          "type": "boolean"
-        },
-        "resolution_status": {
-          "enum": [
-            "resolved",
-            "not_found",
-            "no_zones",
-            "pending"
-          ],
-          "type": "string"
-        }
+      "$ref": "#/$defs/security-center_partnerSettingsGetResponse",
+      $defs: {
+        "security-center_api-response-common": security_center_api_response_common_output,
+        "security-center_messages": security_center_messages_output,
+        "security-center_partnerSettingsGetResponse": security_center_partnerSettingsGetResponse_output,
       },
-      "required": [
-        "enabled"
-      ],
-      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -73,32 +66,17 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "enabled": {
-              "type": "boolean"
-            },
-            "resolution_status": {
-              "enum": [
-                "resolved",
-                "not_found",
-                "no_zones",
-                "pending"
-              ],
-              "type": "string"
-            }
-          },
-          "required": [
-            "enabled"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/security-center_partnerSettingsGetResponse"
         },
         "4XX": {
           "$ref": "#/$defs/security-center_api-response-common-failure"
         }
       },
       $defs: {
+        "security-center_api-response-common": security_center_api_response_common_output,
         "security-center_api-response-common-failure": security_center_api_response_common_failure_output,
         "security-center_messages": security_center_messages_output,
+        "security-center_partnerSettingsGetResponse": security_center_partnerSettingsGetResponse_output,
       },
     },
     request: (args) => ({
@@ -138,9 +116,12 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/security-center_partnerSettings",
+      "$ref": "#/$defs/security-center_partnerSettingsPostResponse",
       $defs: {
+        "security-center_api-response-common": security_center_api_response_common_output,
+        "security-center_messages": security_center_messages_output,
         "security-center_partnerSettings": security_center_partnerSettings_output,
+        "security-center_partnerSettingsPostResponse": security_center_partnerSettingsPostResponse_output,
       },
     },
     annotations: {
@@ -155,16 +136,18 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/security-center_partnerSettings"
+          "$ref": "#/$defs/security-center_partnerSettingsPostResponse"
         },
         "4XX": {
           "$ref": "#/$defs/security-center_api-response-common-failure"
         }
       },
       $defs: {
+        "security-center_api-response-common": security_center_api_response_common_output,
         "security-center_api-response-common-failure": security_center_api_response_common_failure_output,
         "security-center_messages": security_center_messages_output,
         "security-center_partnerSettings": security_center_partnerSettings_output,
+        "security-center_partnerSettingsPostResponse": security_center_partnerSettingsPostResponse_output,
       },
     },
     request: (args) => ({

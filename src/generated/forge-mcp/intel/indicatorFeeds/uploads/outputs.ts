@@ -4,13 +4,6 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `custom-indicator-feeds_feed_id` in responses.
- */
-export const custom_indicator_feeds_feed_id_output: JsonSchema = {
-  "type": "integer"
-};
-
-/**
  * The schema of `custom-indicator-feeds_upload_status` in responses.
  */
 export const custom_indicator_feeds_upload_status_output: JsonSchema = {
@@ -71,27 +64,17 @@ export const custom_indicator_feeds_upload_status_output: JsonSchema = {
  * The schema of `custom-indicator-feeds_upload_status_response` in responses.
  */
 export const custom_indicator_feeds_upload_status_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/custom-indicator-feeds_messages-2"
+  "allOf": [
+    {
+      "$ref": "#/$defs/custom-indicator-feeds_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/custom-indicator-feeds_messages-2"
-    },
-    "result": {
-      "$ref": "#/$defs/custom-indicator-feeds_upload_status"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/custom-indicator-feeds_upload_status"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };

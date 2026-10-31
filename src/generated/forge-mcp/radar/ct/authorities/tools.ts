@@ -33,194 +33,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "certificateAuthority": {
-          "properties": {
-            "appleStatus": {
-              "enum": [
-                "INCLUDED",
-                "NOT_YET_INCLUDED",
-                "NOT_INCLUDED",
-                "NOT_BEFORE",
-                "REMOVED",
-                "DISABLED",
-                "BLOCKED"
-              ],
-              "type": "string"
-            },
-            "authorityKeyIdentifier": {
-              "type": "string"
-            },
-            "certificateRecordType": {
-              "enum": [
-                "ROOT_CERTIFICATE",
-                "INTERMEDIATE_CERTIFICATE"
-              ],
-              "type": "string"
-            },
-            "chromeStatus": {
-              "enum": [
-                "INCLUDED",
-                "NOT_YET_INCLUDED",
-                "NOT_INCLUDED",
-                "NOT_BEFORE",
-                "REMOVED",
-                "DISABLED",
-                "BLOCKED"
-              ],
-              "type": "string"
-            },
-            "country": {
-              "type": "string"
-            },
-            "countryName": {
-              "type": "string"
-            },
-            "microsoftStatus": {
-              "enum": [
-                "INCLUDED",
-                "NOT_YET_INCLUDED",
-                "NOT_INCLUDED",
-                "NOT_BEFORE",
-                "REMOVED",
-                "DISABLED",
-                "BLOCKED"
-              ],
-              "type": "string"
-            },
-            "mozillaStatus": {
-              "enum": [
-                "INCLUDED",
-                "NOT_YET_INCLUDED",
-                "NOT_INCLUDED",
-                "NOT_BEFORE",
-                "REMOVED",
-                "DISABLED",
-                "BLOCKED"
-              ],
-              "type": "string"
-            },
-            "name": {
-              "type": "string"
-            },
-            "owner": {
-              "type": "string"
-            },
-            "parentName": {
-              "type": "string"
-            },
-            "parentSha256Fingerprint": {
-              "type": "string"
-            },
-            "related": {
-              "items": {
-                "properties": {
-                  "certificateRecordType": {
-                    "enum": [
-                      "ROOT_CERTIFICATE",
-                      "INTERMEDIATE_CERTIFICATE"
-                    ],
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "revocationStatus": {
-                    "enum": [
-                      "NOT_REVOKED",
-                      "REVOKED",
-                      "PARENT_CERT_REVOKED"
-                    ],
-                    "type": "string"
-                  },
-                  "sha256Fingerprint": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "certificateRecordType",
-                  "name",
-                  "revocationStatus",
-                  "sha256Fingerprint"
-                ],
-                "type": "object"
-              },
-              "type": "array"
-            },
-            "revocationStatus": {
-              "enum": [
-                "NOT_REVOKED",
-                "REVOKED",
-                "PARENT_CERT_REVOKED"
-              ],
-              "type": "string"
-            },
-            "sha256Fingerprint": {
-              "type": "string"
-            },
-            "subjectKeyIdentifier": {
-              "type": "string"
-            },
-            "validFrom": {
-              "format": "date",
-              "type": "string"
-            },
-            "validTo": {
-              "format": "date",
-              "type": "string"
-            }
-          },
-          "required": [
-            "appleStatus",
-            "authorityKeyIdentifier",
-            "certificateRecordType",
-            "chromeStatus",
-            "country",
-            "countryName",
-            "microsoftStatus",
-            "mozillaStatus",
-            "name",
-            "owner",
-            "parentName",
-            "parentSha256Fingerprint",
-            "related",
-            "revocationStatus",
-            "sha256Fingerprint",
-            "subjectKeyIdentifier",
-            "validFrom",
-            "validTo"
-          ],
-          "type": "object"
-        }
-      },
-      "required": [
-        "certificateAuthority"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get certificate authority details"
-    },
-    method: "GET",
-    path: "/radar/ct/authorities/{ca_slug}",
-    extensions: {
-      "x-api-token-group": [
-        "User Details Write",
-        "User Details Read"
-      ],
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "certificateAuthority": {
               "properties": {
@@ -386,6 +199,217 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get certificate authority details"
+    },
+    method: "GET",
+    path: "/radar/ct/authorities/{ca_slug}",
+    extensions: {
+      "x-api-token-group": [
+        "User Details Write",
+        "User Details Read"
+      ],
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "certificateAuthority": {
+                  "properties": {
+                    "appleStatus": {
+                      "enum": [
+                        "INCLUDED",
+                        "NOT_YET_INCLUDED",
+                        "NOT_INCLUDED",
+                        "NOT_BEFORE",
+                        "REMOVED",
+                        "DISABLED",
+                        "BLOCKED"
+                      ],
+                      "type": "string"
+                    },
+                    "authorityKeyIdentifier": {
+                      "type": "string"
+                    },
+                    "certificateRecordType": {
+                      "enum": [
+                        "ROOT_CERTIFICATE",
+                        "INTERMEDIATE_CERTIFICATE"
+                      ],
+                      "type": "string"
+                    },
+                    "chromeStatus": {
+                      "enum": [
+                        "INCLUDED",
+                        "NOT_YET_INCLUDED",
+                        "NOT_INCLUDED",
+                        "NOT_BEFORE",
+                        "REMOVED",
+                        "DISABLED",
+                        "BLOCKED"
+                      ],
+                      "type": "string"
+                    },
+                    "country": {
+                      "type": "string"
+                    },
+                    "countryName": {
+                      "type": "string"
+                    },
+                    "microsoftStatus": {
+                      "enum": [
+                        "INCLUDED",
+                        "NOT_YET_INCLUDED",
+                        "NOT_INCLUDED",
+                        "NOT_BEFORE",
+                        "REMOVED",
+                        "DISABLED",
+                        "BLOCKED"
+                      ],
+                      "type": "string"
+                    },
+                    "mozillaStatus": {
+                      "enum": [
+                        "INCLUDED",
+                        "NOT_YET_INCLUDED",
+                        "NOT_INCLUDED",
+                        "NOT_BEFORE",
+                        "REMOVED",
+                        "DISABLED",
+                        "BLOCKED"
+                      ],
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "owner": {
+                      "type": "string"
+                    },
+                    "parentName": {
+                      "type": "string"
+                    },
+                    "parentSha256Fingerprint": {
+                      "type": "string"
+                    },
+                    "related": {
+                      "items": {
+                        "properties": {
+                          "certificateRecordType": {
+                            "enum": [
+                              "ROOT_CERTIFICATE",
+                              "INTERMEDIATE_CERTIFICATE"
+                            ],
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "revocationStatus": {
+                            "enum": [
+                              "NOT_REVOKED",
+                              "REVOKED",
+                              "PARENT_CERT_REVOKED"
+                            ],
+                            "type": "string"
+                          },
+                          "sha256Fingerprint": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "certificateRecordType",
+                          "name",
+                          "revocationStatus",
+                          "sha256Fingerprint"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "revocationStatus": {
+                      "enum": [
+                        "NOT_REVOKED",
+                        "REVOKED",
+                        "PARENT_CERT_REVOKED"
+                      ],
+                      "type": "string"
+                    },
+                    "sha256Fingerprint": {
+                      "type": "string"
+                    },
+                    "subjectKeyIdentifier": {
+                      "type": "string"
+                    },
+                    "validFrom": {
+                      "format": "date",
+                      "type": "string"
+                    },
+                    "validTo": {
+                      "format": "date",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "appleStatus",
+                    "authorityKeyIdentifier",
+                    "certificateRecordType",
+                    "chromeStatus",
+                    "country",
+                    "countryName",
+                    "microsoftStatus",
+                    "mozillaStatus",
+                    "name",
+                    "owner",
+                    "parentName",
+                    "parentSha256Fingerprint",
+                    "related",
+                    "revocationStatus",
+                    "sha256Fingerprint",
+                    "subjectKeyIdentifier",
+                    "validFrom",
+                    "validTo"
+                  ],
+                  "type": "object"
+                }
+              },
+              "required": [
+                "certificateAuthority"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
+          ],
+          "type": "object"
+        },
         "404": {
           "properties": {
             "error": {
@@ -434,91 +458,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "certificateAuthorities": {
-          "items": {
-            "properties": {
-              "certificateRecordType": {
-                "enum": [
-                  "ROOT_CERTIFICATE",
-                  "INTERMEDIATE_CERTIFICATE"
-                ],
-                "type": "string"
-              },
-              "country": {
-                "type": "string"
-              },
-              "countryName": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "owner": {
-                "type": "string"
-              },
-              "parentName": {
-                "type": "string"
-              },
-              "parentSha256Fingerprint": {
-                "type": "string"
-              },
-              "revocationStatus": {
-                "enum": [
-                  "NOT_REVOKED",
-                  "REVOKED",
-                  "PARENT_CERT_REVOKED"
-                ],
-                "type": "string"
-              },
-              "sha256Fingerprint": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "certificateRecordType",
-              "country",
-              "countryName",
-              "name",
-              "owner",
-              "parentName",
-              "parentSha256Fingerprint",
-              "revocationStatus",
-              "sha256Fingerprint"
-            ],
-            "type": "object"
-          },
-          "type": "array"
-        }
-      },
-      "required": [
-        "certificateAuthorities"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "List certificate authorities"
-    },
-    method: "GET",
-    path: "/radar/ct/authorities",
-    extensions: {
-      "x-api-token-group": [
-        "User Details Write",
-        "User Details Read"
-      ],
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "certificateAuthorities": {
               "items": {
@@ -578,6 +518,114 @@ export const tools: readonly Tool[] = [
           },
           "required": [
             "certificateAuthorities"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "List certificate authorities"
+    },
+    method: "GET",
+    path: "/radar/ct/authorities",
+    extensions: {
+      "x-api-token-group": [
+        "User Details Write",
+        "User Details Read"
+      ],
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "certificateAuthorities": {
+                  "items": {
+                    "properties": {
+                      "certificateRecordType": {
+                        "enum": [
+                          "ROOT_CERTIFICATE",
+                          "INTERMEDIATE_CERTIFICATE"
+                        ],
+                        "type": "string"
+                      },
+                      "country": {
+                        "type": "string"
+                      },
+                      "countryName": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "owner": {
+                        "type": "string"
+                      },
+                      "parentName": {
+                        "type": "string"
+                      },
+                      "parentSha256Fingerprint": {
+                        "type": "string"
+                      },
+                      "revocationStatus": {
+                        "enum": [
+                          "NOT_REVOKED",
+                          "REVOKED",
+                          "PARENT_CERT_REVOKED"
+                        ],
+                        "type": "string"
+                      },
+                      "sha256Fingerprint": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "certificateRecordType",
+                      "country",
+                      "countryName",
+                      "name",
+                      "owner",
+                      "parentName",
+                      "parentSha256Fingerprint",
+                      "revocationStatus",
+                      "sha256Fingerprint"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "certificateAuthorities"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },

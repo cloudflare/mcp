@@ -4,6 +4,101 @@
 import type { JsonSchema } from "../../../../../_/tool.js";
 
 /**
+ * The schema of `digital-experience-monitoring_fleet_status_live_response` in
+ * responses.
+ */
+export const digital_experience_monitoring_fleet_status_live_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/digital-experience-monitoring_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "deviceStats": {
+              "properties": {
+                "byColo": {
+                  "oneOf": [
+                    {
+                      "items": {
+                        "$ref": "#/$defs/digital-experience-monitoring_live_stat"
+                      },
+                      "type": "array"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "byMode": {
+                  "oneOf": [
+                    {
+                      "items": {
+                        "$ref": "#/$defs/digital-experience-monitoring_live_stat"
+                      },
+                      "type": "array"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "byPlatform": {
+                  "oneOf": [
+                    {
+                      "items": {
+                        "$ref": "#/$defs/digital-experience-monitoring_live_stat"
+                      },
+                      "type": "array"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "byStatus": {
+                  "oneOf": [
+                    {
+                      "items": {
+                        "$ref": "#/$defs/digital-experience-monitoring_live_stat"
+                      },
+                      "type": "array"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "byVersion": {
+                  "oneOf": [
+                    {
+                      "items": {
+                        "$ref": "#/$defs/digital-experience-monitoring_live_stat"
+                      },
+                      "type": "array"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "uniqueDevicesTotal": {
+                  "$ref": "#/$defs/digital-experience-monitoring_uniqueDevicesTotal"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `digital-experience-monitoring_live_stat` in responses.
  */
 export const digital_experience_monitoring_live_stat_output: JsonSchema = {

@@ -4,9 +4,14 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   custom_pages_api_response_common_failure_output,
+  custom_pages_api_response_single_output,
   custom_pages_messages_output,
 } from "../../outputs.js";
-import { custom_pages_preview_token_output } from "./outputs.js";
+import { custom_pages_identifier } from "../../schemas.js";
+import {
+  custom_pages_preview_token_output,
+  custom_pages_preview_token_result_output,
+} from "./outputs.js";
 import { custom_pages_preview_request } from "./schemas.js";
 
 /**
@@ -29,8 +34,8 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/custom-pages_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "body": {
           "$ref": "#/$defs/custom-pages_preview_request"
@@ -42,13 +47,17 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "custom-pages_identifier": custom_pages_identifier,
         "custom-pages_preview_request": custom_pages_preview_request,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/custom-pages_preview_token",
+      "$ref": "#/$defs/custom-pages_preview_token_result",
       $defs: {
+        "custom-pages_api-response-single": custom_pages_api_response_single_output,
+        "custom-pages_messages": custom_pages_messages_output,
         "custom-pages_preview_token": custom_pages_preview_token_output,
+        "custom-pages_preview_token_result": custom_pages_preview_token_result_output,
       },
     },
     annotations: {
@@ -71,12 +80,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#organization:edit"
-        ],
-        "x-fern-enum": {
-          "#organization:edit": {
-            "name": "organization_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -88,7 +92,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/custom-pages_preview_token"
+          "$ref": "#/$defs/custom-pages_preview_token_result"
         },
         "4XX": {
           "$ref": "#/$defs/custom-pages_api-response-common-failure"
@@ -96,8 +100,10 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "custom-pages_api-response-common-failure": custom_pages_api_response_common_failure_output,
+        "custom-pages_api-response-single": custom_pages_api_response_single_output,
         "custom-pages_messages": custom_pages_messages_output,
         "custom-pages_preview_token": custom_pages_preview_token_output,
+        "custom-pages_preview_token_result": custom_pages_preview_token_result_output,
       },
     },
     request: (args) => ({

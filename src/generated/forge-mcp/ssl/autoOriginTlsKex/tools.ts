@@ -3,8 +3,10 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import { cache_messages_output } from "../outputs.js";
+import { cache_identifier } from "../schemas.js";
 import {
   cache_auto_origin_tls_kex_failure_response_output,
+  cache_auto_origin_tls_kex_response_output,
   cache_auto_origin_tls_kex_result_output,
   cache_auto_origin_tls_kex_value_output,
 } from "./outputs.js";
@@ -28,7 +30,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/cache_auto_origin_tls_kex_patch"
         },
         "zone_id": {
-          "type": "string"
+          "$ref": "#/$defs/cache_identifier"
         }
       },
       required: [
@@ -38,13 +40,16 @@ export const tools: readonly Tool[] = [
       $defs: {
         "cache_auto_origin_tls_kex_patch": cache_auto_origin_tls_kex_patch,
         "cache_auto_origin_tls_kex_value": cache_auto_origin_tls_kex_value,
+        "cache_identifier": cache_identifier,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/cache_auto_origin_tls_kex_result",
+      "$ref": "#/$defs/cache_auto_origin_tls_kex_response",
       $defs: {
+        "cache_auto_origin_tls_kex_response": cache_auto_origin_tls_kex_response_output,
         "cache_auto_origin_tls_kex_result": cache_auto_origin_tls_kex_result_output,
         "cache_auto_origin_tls_kex_value": cache_auto_origin_tls_kex_value_output,
+        "cache_messages": cache_messages_output,
       },
     },
     annotations: {
@@ -67,7 +72,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/cache_auto_origin_tls_kex_result"
+          "$ref": "#/$defs/cache_auto_origin_tls_kex_response"
         },
         "4XX": {
           "$ref": "#/$defs/cache_auto_origin_tls_kex_failure_response"
@@ -75,6 +80,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "cache_auto_origin_tls_kex_failure_response": cache_auto_origin_tls_kex_failure_response_output,
+        "cache_auto_origin_tls_kex_response": cache_auto_origin_tls_kex_response_output,
         "cache_auto_origin_tls_kex_result": cache_auto_origin_tls_kex_result_output,
         "cache_auto_origin_tls_kex_value": cache_auto_origin_tls_kex_value_output,
         "cache_messages": cache_messages_output,
@@ -93,18 +99,23 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "type": "string"
+          "$ref": "#/$defs/cache_identifier"
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "cache_identifier": cache_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/cache_auto_origin_tls_kex_result",
+      "$ref": "#/$defs/cache_auto_origin_tls_kex_response",
       $defs: {
+        "cache_auto_origin_tls_kex_response": cache_auto_origin_tls_kex_response_output,
         "cache_auto_origin_tls_kex_result": cache_auto_origin_tls_kex_result_output,
         "cache_auto_origin_tls_kex_value": cache_auto_origin_tls_kex_value_output,
+        "cache_messages": cache_messages_output,
       },
     },
     annotations: {
@@ -127,7 +138,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/cache_auto_origin_tls_kex_result"
+          "$ref": "#/$defs/cache_auto_origin_tls_kex_response"
         },
         "4XX": {
           "$ref": "#/$defs/cache_auto_origin_tls_kex_failure_response"
@@ -135,6 +146,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "cache_auto_origin_tls_kex_failure_response": cache_auto_origin_tls_kex_failure_response_output,
+        "cache_auto_origin_tls_kex_response": cache_auto_origin_tls_kex_response_output,
         "cache_auto_origin_tls_kex_result": cache_auto_origin_tls_kex_result_output,
         "cache_auto_origin_tls_kex_value": cache_auto_origin_tls_kex_value_output,
         "cache_messages": cache_messages_output,

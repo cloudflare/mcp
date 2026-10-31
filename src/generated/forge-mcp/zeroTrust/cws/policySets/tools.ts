@@ -6,10 +6,16 @@ import {
   cws_DeletedResult_output,
   cws_ErrorResponse_output,
   cws_MessageSource_output,
+  cws_ResponseDeletedResult_output,
   cws_ResponseMessage_output,
   cws_ResultInfo_output,
 } from "../outputs.js";
-import { cws_PolicySetPolicy_output, cws_PolicySet_output } from "./outputs.js";
+import {
+  cws_PageResponsePolicySet_output,
+  cws_PolicySetPolicy_output,
+  cws_PolicySet_output,
+  cws_ResponsePolicySet_output,
+} from "./outputs.js";
 import {
   cws_CreatePolicySetInputBody,
   cws_PolicySetPolicyInput,
@@ -45,10 +51,13 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/cws_PolicySet",
+      "$ref": "#/$defs/cws_ResponsePolicySet",
       $defs: {
+        "cws_MessageSource": cws_MessageSource_output,
         "cws_PolicySet": cws_PolicySet_output,
         "cws_PolicySetPolicy": cws_PolicySetPolicy_output,
+        "cws_ResponseMessage": cws_ResponseMessage_output,
+        "cws_ResponsePolicySet": cws_ResponsePolicySet_output,
       },
     },
     annotations: {
@@ -66,7 +75,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "201": {
-          "$ref": "#/$defs/cws_PolicySet"
+          "$ref": "#/$defs/cws_ResponsePolicySet"
         },
         "4XX": {
           "$ref": "#/$defs/cws_ErrorResponse"
@@ -81,6 +90,7 @@ export const tools: readonly Tool[] = [
         "cws_PolicySet": cws_PolicySet_output,
         "cws_PolicySetPolicy": cws_PolicySetPolicy_output,
         "cws_ResponseMessage": cws_ResponseMessage_output,
+        "cws_ResponsePolicySet": cws_ResponsePolicySet_output,
       },
     },
     request: (args) => ({
@@ -111,9 +121,12 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/cws_DeletedResult",
+      "$ref": "#/$defs/cws_ResponseDeletedResult",
       $defs: {
         "cws_DeletedResult": cws_DeletedResult_output,
+        "cws_MessageSource": cws_MessageSource_output,
+        "cws_ResponseDeletedResult": cws_ResponseDeletedResult_output,
+        "cws_ResponseMessage": cws_ResponseMessage_output,
       },
     },
     annotations: {
@@ -131,7 +144,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/cws_DeletedResult"
+          "$ref": "#/$defs/cws_ResponseDeletedResult"
         },
         "4XX": {
           "$ref": "#/$defs/cws_ErrorResponse"
@@ -144,6 +157,7 @@ export const tools: readonly Tool[] = [
         "cws_DeletedResult": cws_DeletedResult_output,
         "cws_ErrorResponse": cws_ErrorResponse_output,
         "cws_MessageSource": cws_MessageSource_output,
+        "cws_ResponseDeletedResult": cws_ResponseDeletedResult_output,
         "cws_ResponseMessage": cws_ResponseMessage_output,
       },
     },
@@ -174,10 +188,13 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/cws_PolicySet",
+      "$ref": "#/$defs/cws_ResponsePolicySet",
       $defs: {
+        "cws_MessageSource": cws_MessageSource_output,
         "cws_PolicySet": cws_PolicySet_output,
         "cws_PolicySetPolicy": cws_PolicySetPolicy_output,
+        "cws_ResponseMessage": cws_ResponseMessage_output,
+        "cws_ResponsePolicySet": cws_ResponsePolicySet_output,
       },
     },
     annotations: {
@@ -195,7 +212,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/cws_PolicySet"
+          "$ref": "#/$defs/cws_ResponsePolicySet"
         },
         "4XX": {
           "$ref": "#/$defs/cws_ErrorResponse"
@@ -210,6 +227,7 @@ export const tools: readonly Tool[] = [
         "cws_PolicySet": cws_PolicySet_output,
         "cws_PolicySetPolicy": cws_PolicySetPolicy_output,
         "cws_ResponseMessage": cws_ResponseMessage_output,
+        "cws_ResponsePolicySet": cws_ResponsePolicySet_output,
       },
     },
     request: (args) => ({
@@ -270,31 +288,13 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "oneOf": [
-            {
-              "items": {
-                "$ref": "#/$defs/cws_PolicySet"
-              },
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "result_info": {
-          "$ref": "#/$defs/cws_ResultInfo"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/cws_PageResponsePolicySet",
       $defs: {
+        "cws_MessageSource": cws_MessageSource_output,
+        "cws_PageResponsePolicySet": cws_PageResponsePolicySet_output,
         "cws_PolicySet": cws_PolicySet_output,
         "cws_PolicySetPolicy": cws_PolicySetPolicy_output,
+        "cws_ResponseMessage": cws_ResponseMessage_output,
         "cws_ResultInfo": cws_ResultInfo_output,
       },
     },
@@ -313,28 +313,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "oneOf": [
-                {
-                  "items": {
-                    "$ref": "#/$defs/cws_PolicySet"
-                  },
-                  "type": "array"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "result_info": {
-              "$ref": "#/$defs/cws_ResultInfo"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/cws_PageResponsePolicySet"
         },
         "4XX": {
           "$ref": "#/$defs/cws_ErrorResponse"
@@ -346,6 +325,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "cws_ErrorResponse": cws_ErrorResponse_output,
         "cws_MessageSource": cws_MessageSource_output,
+        "cws_PageResponsePolicySet": cws_PageResponsePolicySet_output,
         "cws_PolicySet": cws_PolicySet_output,
         "cws_PolicySetPolicy": cws_PolicySetPolicy_output,
         "cws_ResponseMessage": cws_ResponseMessage_output,
@@ -395,10 +375,13 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/cws_PolicySet",
+      "$ref": "#/$defs/cws_ResponsePolicySet",
       $defs: {
+        "cws_MessageSource": cws_MessageSource_output,
         "cws_PolicySet": cws_PolicySet_output,
         "cws_PolicySetPolicy": cws_PolicySetPolicy_output,
+        "cws_ResponseMessage": cws_ResponseMessage_output,
+        "cws_ResponsePolicySet": cws_ResponsePolicySet_output,
       },
     },
     annotations: {
@@ -416,7 +399,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/cws_PolicySet"
+          "$ref": "#/$defs/cws_ResponsePolicySet"
         },
         "4XX": {
           "$ref": "#/$defs/cws_ErrorResponse"
@@ -431,6 +414,7 @@ export const tools: readonly Tool[] = [
         "cws_PolicySet": cws_PolicySet_output,
         "cws_PolicySetPolicy": cws_PolicySetPolicy_output,
         "cws_ResponseMessage": cws_ResponseMessage_output,
+        "cws_ResponsePolicySet": cws_ResponsePolicySet_output,
       },
     },
     request: (args) => ({

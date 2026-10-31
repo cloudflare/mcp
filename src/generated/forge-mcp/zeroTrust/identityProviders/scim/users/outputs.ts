@@ -4,6 +4,47 @@
 import type { JsonSchema } from "../../../../_/tool.js";
 
 /**
+ * The schema of `access_scim_user_response` in responses.
+ */
+export const access_scim_user_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/access_users"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `access_scim_users_response` in responses.
+ */
+export const access_scim_users_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/access_users"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `access_users` in responses.
  */
 export const access_users_output: JsonSchema = {
@@ -16,7 +57,18 @@ export const access_users_output: JsonSchema = {
     },
     "emails": {
       "items": {
-        "$ref": "#/$defs/access_users_emailsItem"
+        "properties": {
+          "primary": {
+            "type": "boolean"
+          },
+          "type": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "type": "object"
       },
       "type": "array"
     },
@@ -34,24 +86,6 @@ export const access_users_output: JsonSchema = {
         "type": "string"
       },
       "type": "array"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `access_users_emailsItem` in responses.
- */
-export const access_users_emailsItem_output: JsonSchema = {
-  "properties": {
-    "primary": {
-      "type": "boolean"
-    },
-    "type": {
-      "type": "string"
-    },
-    "value": {
-      "type": "string"
     }
   },
   "type": "object"

@@ -73,6 +73,18 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
+      "properties": {
+        "result": {
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
       "type": "object",
     },
     annotations: {
@@ -93,6 +105,18 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
+          "properties": {
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
+          ],
           "type": "object"
         },
         "400": {
@@ -193,7 +217,15 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "deleted": {
+        "result": {
+          "properties": {
+            "deleted": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "success": {
           "type": "boolean"
         }
       },
@@ -217,7 +249,15 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
-            "deleted": {
+            "result": {
+              "properties": {
+                "deleted": {
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            },
+            "success": {
               "type": "boolean"
             }
           },
@@ -367,62 +407,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "counts": {
-          "type": "object"
-        },
-        "cursor": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "entities": {
-          "items": {
-            "$ref": "#/$defs/cloudforce-one-events_HydratedEntity"
-          },
-          "type": "array"
-        },
-        "hasMore": {
-          "type": "boolean"
-        },
-        "hydrationErrors": {
-          "type": "object"
-        },
-        "relationships": {
-          "items": {
-            "$ref": "#/$defs/cloudforce-one-events_RelationshipEdge"
-          },
-          "type": "array"
-        }
-      },
-      "type": "object",
-      $defs: {
-        "cloudforce-one-events_HydratedEntity": cloudforce_one_events_HydratedEntity_output,
-        "cloudforce-one-events_RelationshipEdge": cloudforce_one_events_RelationshipEdge_output,
-      },
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "List indicator relationships"
-    },
-    method: "GET",
-    path: "/accounts/{account_id}/cloudforce-one/events/dataset/{dataset_id}/indicators/{indicator_id}/relationships",
-    extensions: {
-      "x-api-token-group": [
-        "Cloudforce One Write",
-        "Cloudforce One Read"
-      ]
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "counts": {
               "type": "object"
@@ -454,6 +439,77 @@ export const tools: readonly Tool[] = [
                 "$ref": "#/$defs/cloudforce-one-events_RelationshipEdge"
               },
               "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "type": "object",
+      $defs: {
+        "cloudforce-one-events_HydratedEntity": cloudforce_one_events_HydratedEntity_output,
+        "cloudforce-one-events_RelationshipEdge": cloudforce_one_events_RelationshipEdge_output,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "List indicator relationships"
+    },
+    method: "GET",
+    path: "/accounts/{account_id}/cloudforce-one/events/dataset/{dataset_id}/indicators/{indicator_id}/relationships",
+    extensions: {
+      "x-api-token-group": [
+        "Cloudforce One Write",
+        "Cloudforce One Read"
+      ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "counts": {
+                  "type": "object"
+                },
+                "cursor": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "entities": {
+                  "items": {
+                    "$ref": "#/$defs/cloudforce-one-events_HydratedEntity"
+                  },
+                  "type": "array"
+                },
+                "hasMore": {
+                  "type": "boolean"
+                },
+                "hydrationErrors": {
+                  "type": "object"
+                },
+                "relationships": {
+                  "items": {
+                    "$ref": "#/$defs/cloudforce-one-events_RelationshipEdge"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
             }
           },
           "type": "object"
@@ -569,6 +625,18 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
+      "properties": {
+        "result": {
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
       "type": "object",
     },
     annotations: {
@@ -588,6 +656,18 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
+          "properties": {
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
+          ],
           "type": "object"
         },
         "400": {

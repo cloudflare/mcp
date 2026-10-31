@@ -44,6 +44,7 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "show_historic": {
+          "default": "false",
           "description": "Include scanned images without domain metadata (historic data). Default: false (only show images with domain)",
           "type": "string"
         }

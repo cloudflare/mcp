@@ -6,7 +6,11 @@ import {
   dlp_api_response_common_failure_output,
   dlp_messages_output,
 } from "../../outputs.js";
-import { dlp_RiskLevel_output } from "../outputs.js";
+import {
+  dlp_RiskLevel_output,
+  dlp_api_response_collection_output,
+  dlp_api_response_common_output,
+} from "../outputs.js";
 import { dlp_RiskSummary_output, dlp_UserRiskInfo_output } from "./outputs.js";
 
 /**
@@ -29,11 +33,26 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/dlp_RiskSummary",
+      "allOf": [
+        {
+          "$ref": "#/$defs/dlp_api-response-collection"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/dlp_RiskSummary"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "dlp_RiskLevel": dlp_RiskLevel_output,
         "dlp_RiskSummary": dlp_RiskSummary_output,
         "dlp_UserRiskInfo": dlp_UserRiskInfo_output,
+        "dlp_api-response-collection": dlp_api_response_collection_output,
+        "dlp_api-response-common": dlp_api_response_common_output,
+        "dlp_messages": dlp_messages_output,
       },
     },
     annotations: {
@@ -53,7 +72,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dlp_RiskSummary"
+          "allOf": [
+            {
+              "$ref": "#/$defs/dlp_api-response-collection"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/dlp_RiskSummary"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/dlp_api-response-common-failure"
@@ -63,6 +94,8 @@ export const tools: readonly Tool[] = [
         "dlp_RiskLevel": dlp_RiskLevel_output,
         "dlp_RiskSummary": dlp_RiskSummary_output,
         "dlp_UserRiskInfo": dlp_UserRiskInfo_output,
+        "dlp_api-response-collection": dlp_api_response_collection_output,
+        "dlp_api-response-common": dlp_api_response_common_output,
         "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
         "dlp_messages": dlp_messages_output,
       },

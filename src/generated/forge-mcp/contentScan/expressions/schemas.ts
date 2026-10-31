@@ -4,6 +4,14 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `waf-product-api-bundle_custom-scan-id`.
+ */
+export const waf_product_api_bundle_custom_scan_id: JsonSchema = {
+  "$ref": "#/$defs/waf-product-api-bundle_identifier",
+  "description": "Defines the unique ID for this Content Scanning custom expression."
+};
+
+/**
  * The schema of `waf-product-api-bundle_custom-scan-payload`.
  */
 export const waf_product_api_bundle_custom_scan_payload: JsonSchema = {

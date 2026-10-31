@@ -27,6 +27,39 @@ export const registrar_api_sandbox_cursor_result_info_output: JsonSchema = {
 };
 
 /**
+ * The schema of `registrar-api-sandbox_domain_check_response` in responses.
+ */
+export const registrar_api_sandbox_domain_check_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/registrar-api-sandbox_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "domains": {
+              "items": {
+                "$ref": "#/$defs/registrar-api-sandbox_domain_check_result"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "domains"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `registrar-api-sandbox_domain_check_result` in responses.
  */
 export const registrar_api_sandbox_domain_check_result_output: JsonSchema = {
@@ -73,6 +106,39 @@ export const registrar_api_sandbox_domain_name_output: JsonSchema = {
 };
 
 /**
+ * The schema of `registrar-api-sandbox_domain_search_response` in responses.
+ */
+export const registrar_api_sandbox_domain_search_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/registrar-api-sandbox_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "domains": {
+              "items": {
+                "$ref": "#/$defs/registrar-api-sandbox_domain_search_result"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "domains"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `registrar-api-sandbox_domain_search_result` in responses.
  */
 export const registrar_api_sandbox_domain_search_result_output: JsonSchema = {
@@ -112,14 +178,11 @@ export const registrar_api_sandbox_domain_search_result_output: JsonSchema = {
 };
 
 /**
- * The schema of `registrar-api-sandbox_pricing_registration` in responses.
+ * The schema of `registrar-api-sandbox_pricing_base` in responses.
  */
-export const registrar_api_sandbox_pricing_registration_output: JsonSchema = {
+export const registrar_api_sandbox_pricing_base_output: JsonSchema = {
   "properties": {
     "currency": {
-      "type": "string"
-    },
-    "registration_cost": {
       "type": "string"
     },
     "renewal_cost": {
@@ -128,10 +191,31 @@ export const registrar_api_sandbox_pricing_registration_output: JsonSchema = {
   },
   "required": [
     "currency",
-    "renewal_cost",
-    "registration_cost"
+    "renewal_cost"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `registrar-api-sandbox_pricing_registration` in responses.
+ */
+export const registrar_api_sandbox_pricing_registration_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/registrar-api-sandbox_pricing_base"
+    },
+    {
+      "properties": {
+        "registration_cost": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "registration_cost"
+      ],
+      "type": "object"
+    }
+  ]
 };
 
 /**
@@ -193,6 +277,76 @@ export const registrar_api_sandbox_registration_output: JsonSchema = {
     "status"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `registrar-api-sandbox_registration-response-collection` in
+ * responses.
+ */
+export const registrar_api_sandbox_registration_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/registrar-api-sandbox_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/registrar-api-sandbox_registration"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/registrar-api-sandbox_cursor_result_info"
+        }
+      },
+      "required": [
+        "result",
+        "result_info"
+      ],
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `registrar-api-sandbox_registration-response-single` in
+ * responses.
+ */
+export const registrar_api_sandbox_registration_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/registrar-api-sandbox_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/registrar-api-sandbox_registration"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `registrar-api-sandbox_workflow-status-response-single` in
+ * responses.
+ */
+export const registrar_api_sandbox_workflow_status_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/registrar-api-sandbox_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/registrar-api-sandbox_workflow_status"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**

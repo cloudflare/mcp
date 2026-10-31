@@ -6,6 +6,7 @@ import {
   cc_AccountID_output,
   cc_Messages_output,
   cc_V4BaseErrorResponse_output,
+  cc_V4BaseResponse_output,
 } from "../../outputs.js";
 import { cc_ContainersAccountRegistryToken_output } from "./outputs.js";
 import {
@@ -47,10 +48,27 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/cc_ContainersAccountRegistryToken",
+      "allOf": [
+        {
+          "$ref": "#/$defs/cc_V4BaseResponse"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/cc_ContainersAccountRegistryToken"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
       $defs: {
         "cc_AccountID": cc_AccountID_output,
         "cc_ContainersAccountRegistryToken": cc_ContainersAccountRegistryToken_output,
+        "cc_Messages": cc_Messages_output,
+        "cc_V4BaseResponse": cc_V4BaseResponse_output,
       },
     },
     annotations: {
@@ -65,7 +83,22 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "201": {
-          "$ref": "#/$defs/cc_ContainersAccountRegistryToken"
+          "allOf": [
+            {
+              "$ref": "#/$defs/cc_V4BaseResponse"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/cc_ContainersAccountRegistryToken"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
         },
         "400": {
           "$ref": "#/$defs/cc_V4BaseErrorResponse"
@@ -88,6 +121,7 @@ export const tools: readonly Tool[] = [
         "cc_ContainersAccountRegistryToken": cc_ContainersAccountRegistryToken_output,
         "cc_Messages": cc_Messages_output,
         "cc_V4BaseErrorResponse": cc_V4BaseErrorResponse_output,
+        "cc_V4BaseResponse": cc_V4BaseResponse_output,
       },
     },
     request: (args) => ({

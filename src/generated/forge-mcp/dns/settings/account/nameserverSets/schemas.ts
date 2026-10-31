@@ -69,6 +69,14 @@ export const dns_settings_nameserver_set_create_member: JsonSchema = {
 };
 
 /**
+ * The schema of `dns-settings_nameserver-set-id`.
+ */
+export const dns_settings_nameserver_set_id: JsonSchema = {
+  "description": "Identifier for a nameserver set.",
+  "type": "string"
+};
+
+/**
  * The schema of `dns-settings_nameserver-set-ip-count`.
  */
 export const dns_settings_nameserver_set_ip_count: JsonSchema = {

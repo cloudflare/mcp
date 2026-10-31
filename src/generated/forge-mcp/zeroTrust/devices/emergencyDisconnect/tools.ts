@@ -4,11 +4,15 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   teams_devices_api_response_common_failure_output,
+  teams_devices_api_response_common_output,
+  teams_devices_api_response_single_output,
   teams_devices_messages_output,
 } from "../outputs.js";
+import { teams_devices_identifier } from "../schemas.js";
 import {
   teams_devices_disconnect_output,
   teams_devices_global_warp_override_output,
+  teams_devices_global_warp_override_response_output,
   teams_devices_timestamp_output,
 } from "./outputs.js";
 import {
@@ -29,18 +33,25 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "type": "string"
+          "$ref": "#/$defs/teams-devices_identifier"
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "teams-devices_identifier": teams_devices_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/teams-devices_global_warp_override",
+      "$ref": "#/$defs/teams-devices_global_warp_override_response",
       $defs: {
+        "teams-devices_api-response-common": teams_devices_api_response_common_output,
+        "teams-devices_api-response-single": teams_devices_api_response_single_output,
         "teams-devices_disconnect": teams_devices_disconnect_output,
         "teams-devices_global_warp_override": teams_devices_global_warp_override_output,
+        "teams-devices_global_warp_override_response": teams_devices_global_warp_override_response_output,
+        "teams-devices_messages": teams_devices_messages_output,
         "teams-devices_timestamp": teams_devices_timestamp_output,
       },
     },
@@ -64,16 +75,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/teams-devices_global_warp_override"
+          "$ref": "#/$defs/teams-devices_global_warp_override_response"
         },
         "4XX": {
           "$ref": "#/$defs/teams-devices_api-response-common-failure"
         }
       },
       $defs: {
+        "teams-devices_api-response-common": teams_devices_api_response_common_output,
         "teams-devices_api-response-common-failure": teams_devices_api_response_common_failure_output,
+        "teams-devices_api-response-single": teams_devices_api_response_single_output,
         "teams-devices_disconnect": teams_devices_disconnect_output,
         "teams-devices_global_warp_override": teams_devices_global_warp_override_output,
+        "teams-devices_global_warp_override_response": teams_devices_global_warp_override_response_output,
         "teams-devices_messages": teams_devices_messages_output,
         "teams-devices_timestamp": teams_devices_timestamp_output,
       },
@@ -90,7 +104,7 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "type": "string"
+          "$ref": "#/$defs/teams-devices_identifier"
         },
         "body": {
           "$ref": "#/$defs/teams-devices_global_warp_override_request"
@@ -103,14 +117,19 @@ export const tools: readonly Tool[] = [
       $defs: {
         "teams-devices_disconnect": teams_devices_disconnect,
         "teams-devices_global_warp_override_request": teams_devices_global_warp_override_request,
+        "teams-devices_identifier": teams_devices_identifier,
         "teams-devices_justification": teams_devices_justification,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/teams-devices_global_warp_override",
+      "$ref": "#/$defs/teams-devices_global_warp_override_response",
       $defs: {
+        "teams-devices_api-response-common": teams_devices_api_response_common_output,
+        "teams-devices_api-response-single": teams_devices_api_response_single_output,
         "teams-devices_disconnect": teams_devices_disconnect_output,
         "teams-devices_global_warp_override": teams_devices_global_warp_override_output,
+        "teams-devices_global_warp_override_response": teams_devices_global_warp_override_response_output,
+        "teams-devices_messages": teams_devices_messages_output,
         "teams-devices_timestamp": teams_devices_timestamp_output,
       },
     },
@@ -131,16 +150,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/teams-devices_global_warp_override"
+          "$ref": "#/$defs/teams-devices_global_warp_override_response"
         },
         "4XX": {
           "$ref": "#/$defs/teams-devices_api-response-common-failure"
         }
       },
       $defs: {
+        "teams-devices_api-response-common": teams_devices_api_response_common_output,
         "teams-devices_api-response-common-failure": teams_devices_api_response_common_failure_output,
+        "teams-devices_api-response-single": teams_devices_api_response_single_output,
         "teams-devices_disconnect": teams_devices_disconnect_output,
         "teams-devices_global_warp_override": teams_devices_global_warp_override_output,
+        "teams-devices_global_warp_override_response": teams_devices_global_warp_override_response_output,
         "teams-devices_messages": teams_devices_messages_output,
         "teams-devices_timestamp": teams_devices_timestamp_output,
       },

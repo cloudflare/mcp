@@ -42,28 +42,17 @@ export const waf_product_api_bundle_custom_topics_output: JsonSchema = {
  * The schema of `waf-product-api-bundle_response-custom-topics` in responses.
  */
 export const waf_product_api_bundle_response_custom_topics_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/waf-product-api-bundle_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/waf-product-api-bundle_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/waf-product-api-bundle_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/waf-product-api-bundle_custom-topics"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/waf-product-api-bundle_custom-topics"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
+  ]
 };

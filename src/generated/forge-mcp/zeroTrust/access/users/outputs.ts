@@ -18,6 +18,32 @@ export const access_active_device_count_output: JsonSchema = {
 };
 
 /**
+ * The schema of `access_delete_user_response` in responses.
+ */
+export const access_delete_user_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `access_device_posture_check` in responses.
  */
 export const access_device_posture_check_output: JsonSchema = {
@@ -81,6 +107,29 @@ export const access_device_session_output: JsonSchema = {
 };
 
 /**
+ * The schema of `access_empty_response` in responses.
+ */
+export const access_empty_response_output: JsonSchema = {
+  "properties": {
+    "result": {
+      "enum": [
+        true,
+        false
+      ],
+      "type": "boolean"
+    },
+    "success": {
+      "enum": [
+        true,
+        false
+      ],
+      "type": "boolean"
+    }
+  },
+  "type": "object"
+};
+
+/**
  * The schema of `access_gateway_seat-2` in responses.
  */
 export const access_gateway_seat_2_output: JsonSchema = {
@@ -135,7 +184,15 @@ export const access_identity_output: JsonSchema = {
       "type": "number"
     },
     "idp": {
-      "$ref": "#/$defs/access_identity_idp"
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "ip": {
       "type": "string"
@@ -147,7 +204,24 @@ export const access_identity_output: JsonSchema = {
       "type": "boolean"
     },
     "mtls_auth": {
-      "$ref": "#/$defs/access_identity_mtls_auth"
+      "properties": {
+        "auth_status": {
+          "type": "string"
+        },
+        "cert_issuer_dn": {
+          "type": "string"
+        },
+        "cert_issuer_ski": {
+          "type": "string"
+        },
+        "cert_presented": {
+          "type": "boolean"
+        },
+        "cert_serial": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "service_token_id": {
       "type": "string"
@@ -166,45 +240,6 @@ export const access_identity_output: JsonSchema = {
 };
 
 /**
- * The schema of `access_identity_idp` in responses.
- */
-export const access_identity_idp_output: JsonSchema = {
-  "properties": {
-    "id": {
-      "type": "string"
-    },
-    "type": {
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `access_identity_mtls_auth` in responses.
- */
-export const access_identity_mtls_auth_output: JsonSchema = {
-  "properties": {
-    "auth_status": {
-      "type": "string"
-    },
-    "cert_issuer_dn": {
-      "type": "string"
-    },
-    "cert_issuer_ski": {
-      "type": "string"
-    },
-    "cert_presented": {
-      "type": "boolean"
-    },
-    "cert_serial": {
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
  * The schema of `access_last_successful_login` in responses.
  */
 export const access_last_successful_login_output: JsonSchema = {
@@ -213,10 +248,73 @@ export const access_last_successful_login_output: JsonSchema = {
 };
 
 /**
+ * The schema of `access_response_collection-25` in responses.
+ */
+export const access_response_collection_25_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-collection"
+    },
+    {
+      "properties": {
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "integer"
+            },
+            "page": {
+              "type": "integer"
+            },
+            "per_page": {
+              "type": "integer"
+            },
+            "total_count": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/access_users-2"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `access_seat_uid-2` in responses.
  */
 export const access_seat_uid_2_output: JsonSchema = {
   "type": "string"
+};
+
+/**
+ * The schema of `access_single_user_response` in responses.
+ */
+export const access_single_user_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/access_users-2"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**

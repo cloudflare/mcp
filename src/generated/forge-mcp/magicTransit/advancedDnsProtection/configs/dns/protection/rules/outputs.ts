@@ -4,9 +4,9 @@
 import type { JsonSchema } from "../../../../../../_/tool.js";
 
 /**
- * The schema of `dos_DnsProtectionRule` in responses.
+ * The schema of `advanced-ddos-protection_DnsProtectionRule` in responses.
  */
-export const dos_DnsProtectionRule_output: JsonSchema = {
+export const advanced_ddos_protection_DnsProtectionRule_output: JsonSchema = {
   "properties": {
     "block_any_queries": {
       "type": "boolean"
@@ -54,4 +54,47 @@ export const dos_DnsProtectionRule_output: JsonSchema = {
     "scope"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `advanced-ddos-protection_dns-protection-rule-list-response` in
+ * responses.
+ */
+export const advanced_ddos_protection_dns_protection_rule_list_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/advanced-ddos-protection_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/advanced-ddos-protection_DnsProtectionRule"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `advanced-ddos-protection_dns-protection-rule-response` in
+ * responses.
+ */
+export const advanced_ddos_protection_dns_protection_rule_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/advanced-ddos-protection_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/advanced-ddos-protection_DnsProtectionRule"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };

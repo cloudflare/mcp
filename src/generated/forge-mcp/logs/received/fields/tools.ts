@@ -6,6 +6,7 @@ import {
   logshare_api_response_common_failure_output,
   logshare_messages_output,
 } from "../../outputs.js";
+import { logshare_zone_identifier } from "../../schemas.js";
 import { logshare_fields_response_output } from "./outputs.js";
 
 /**
@@ -20,13 +21,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/logshare_zone_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "logshare_zone_identifier": logshare_zone_identifier,
+      },
     },
     outputSchema: {
       "$ref": "#/$defs/logshare_fields_response",

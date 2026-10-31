@@ -55,86 +55,65 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "config": {
-          "oneOf": [
-            {
-              "type": "string"
+        "errors": {
+          "items": {
+            "properties": {
+              "message": {
+                "type": "string"
+              }
             },
-            {
-              "type": "null"
-            }
-          ]
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        "created_at": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "is_active": {
-          "type": "integer"
-        },
-        "name": {
-          "type": "string"
-        },
-        "output_schema": {
-          "oneOf": [
-            {
-              "type": "string"
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "custom_feed_count": {
+                "type": "integer"
+              },
+              "custom_feed_limit": {
+                "type": "integer"
+              },
+              "expected": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "path": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "reason": {
+                "enum": [
+                  "threat_signals_feed_limit",
+                  "free_custom_skills_disabled",
+                  "free_skill_run_disabled",
+                  "free_tier_reconciliation_in_progress",
+                  "free_tier_reconciliation_failed",
+                  "raw_content_expired",
+                  "curated_visibility_changed"
+                ],
+                "type": "string"
+              }
             },
-            {
-              "type": "null"
-            }
-          ]
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        "prompt": {
-          "type": "string"
-        },
-        "source": {
-          "enum": [
-            "default",
-            "custom"
-          ],
-          "type": "string"
-        },
-        "type": {
-          "type": "string"
-        },
-        "updated_at": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "config",
-        "created_at",
-        "id",
-        "is_active",
-        "name",
-        "output_schema",
-        "prompt",
-        "source",
-        "type",
-        "updated_at"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Create Threat Signals skill"
-    },
-    method: "POST",
-    path: "/accounts/{account_id}/cloudforce-one/v2/threat-signals/skills",
-    extensions: {
-      "x-api-token-group": [
-        "Cloudforce One Write"
-      ]
-    },
-    responses: {
-      schemas: {
-        "201": {
+        "result": {
           "properties": {
             "config": {
               "oneOf": [
@@ -196,6 +175,177 @@ export const tools: readonly Tool[] = [
             "source",
             "type",
             "updated_at"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Create Threat Signals skill"
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/cloudforce-one/v2/threat-signals/skills",
+    extensions: {
+      "x-api-token-group": [
+        "Cloudforce One Write"
+      ]
+    },
+    responses: {
+      schemas: {
+        "201": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "custom_feed_count": {
+                    "type": "integer"
+                  },
+                  "custom_feed_limit": {
+                    "type": "integer"
+                  },
+                  "expected": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "reason": {
+                    "enum": [
+                      "threat_signals_feed_limit",
+                      "free_custom_skills_disabled",
+                      "free_skill_run_disabled",
+                      "free_tier_reconciliation_in_progress",
+                      "free_tier_reconciliation_failed",
+                      "raw_content_expired",
+                      "curated_visibility_changed"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "config": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "created_at": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "is_active": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "output_schema": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "prompt": {
+                  "type": "string"
+                },
+                "source": {
+                  "enum": [
+                    "default",
+                    "custom"
+                  ],
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "updated_at": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "config",
+                "created_at",
+                "id",
+                "is_active",
+                "name",
+                "output_schema",
+                "prompt",
+                "source",
+                "type",
+                "updated_at"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -229,86 +379,65 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "config": {
-          "oneOf": [
-            {
-              "type": "string"
+        "errors": {
+          "items": {
+            "properties": {
+              "message": {
+                "type": "string"
+              }
             },
-            {
-              "type": "null"
-            }
-          ]
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        "created_at": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "is_active": {
-          "type": "integer"
-        },
-        "name": {
-          "type": "string"
-        },
-        "output_schema": {
-          "oneOf": [
-            {
-              "type": "string"
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "custom_feed_count": {
+                "type": "integer"
+              },
+              "custom_feed_limit": {
+                "type": "integer"
+              },
+              "expected": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "path": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "reason": {
+                "enum": [
+                  "threat_signals_feed_limit",
+                  "free_custom_skills_disabled",
+                  "free_skill_run_disabled",
+                  "free_tier_reconciliation_in_progress",
+                  "free_tier_reconciliation_failed",
+                  "raw_content_expired",
+                  "curated_visibility_changed"
+                ],
+                "type": "string"
+              }
             },
-            {
-              "type": "null"
-            }
-          ]
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        "prompt": {
-          "type": "string"
-        },
-        "source": {
-          "enum": [
-            "default",
-            "custom"
-          ],
-          "type": "string"
-        },
-        "type": {
-          "type": "string"
-        },
-        "updated_at": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "config",
-        "created_at",
-        "id",
-        "is_active",
-        "name",
-        "output_schema",
-        "prompt",
-        "source",
-        "type",
-        "updated_at"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": true,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Delete Threat Signals skill"
-    },
-    method: "DELETE",
-    path: "/accounts/{account_id}/cloudforce-one/v2/threat-signals/skills/{skill_id}",
-    extensions: {
-      "x-api-token-group": [
-        "Cloudforce One Write"
-      ]
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "config": {
               "oneOf": [
@@ -373,6 +502,177 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Delete Threat Signals skill"
+    },
+    method: "DELETE",
+    path: "/accounts/{account_id}/cloudforce-one/v2/threat-signals/skills/{skill_id}",
+    extensions: {
+      "x-api-token-group": [
+        "Cloudforce One Write"
+      ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "custom_feed_count": {
+                    "type": "integer"
+                  },
+                  "custom_feed_limit": {
+                    "type": "integer"
+                  },
+                  "expected": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "reason": {
+                    "enum": [
+                      "threat_signals_feed_limit",
+                      "free_custom_skills_disabled",
+                      "free_skill_run_disabled",
+                      "free_tier_reconciliation_in_progress",
+                      "free_tier_reconciliation_failed",
+                      "raw_content_expired",
+                      "curated_visibility_changed"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "config": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "created_at": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "is_active": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "output_schema": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "prompt": {
+                  "type": "string"
+                },
+                "source": {
+                  "enum": [
+                    "default",
+                    "custom"
+                  ],
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "updated_at": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "config",
+                "created_at",
+                "id",
+                "is_active",
+                "name",
+                "output_schema",
+                "prompt",
+                "source",
+                "type",
+                "updated_at"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        },
         "4XX": null
       },
     },
@@ -402,87 +702,65 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "config": {
-          "oneOf": [
-            {
-              "type": "string"
+        "errors": {
+          "items": {
+            "properties": {
+              "message": {
+                "type": "string"
+              }
             },
-            {
-              "type": "null"
-            }
-          ]
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        "created_at": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "is_active": {
-          "type": "integer"
-        },
-        "name": {
-          "type": "string"
-        },
-        "output_schema": {
-          "oneOf": [
-            {
-              "type": "string"
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "custom_feed_count": {
+                "type": "integer"
+              },
+              "custom_feed_limit": {
+                "type": "integer"
+              },
+              "expected": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "path": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "reason": {
+                "enum": [
+                  "threat_signals_feed_limit",
+                  "free_custom_skills_disabled",
+                  "free_skill_run_disabled",
+                  "free_tier_reconciliation_in_progress",
+                  "free_tier_reconciliation_failed",
+                  "raw_content_expired",
+                  "curated_visibility_changed"
+                ],
+                "type": "string"
+              }
             },
-            {
-              "type": "null"
-            }
-          ]
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        "prompt": {
-          "type": "string"
-        },
-        "source": {
-          "enum": [
-            "default",
-            "custom"
-          ],
-          "type": "string"
-        },
-        "type": {
-          "type": "string"
-        },
-        "updated_at": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "config",
-        "created_at",
-        "id",
-        "is_active",
-        "name",
-        "output_schema",
-        "prompt",
-        "source",
-        "type",
-        "updated_at"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get Threat Signals skill"
-    },
-    method: "GET",
-    path: "/accounts/{account_id}/cloudforce-one/v2/threat-signals/skills/{skill_id}",
-    extensions: {
-      "x-api-token-group": [
-        "Cloudforce One Write",
-        "Cloudforce One Read"
-      ]
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "config": {
               "oneOf": [
@@ -544,6 +822,178 @@ export const tools: readonly Tool[] = [
             "source",
             "type",
             "updated_at"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get Threat Signals skill"
+    },
+    method: "GET",
+    path: "/accounts/{account_id}/cloudforce-one/v2/threat-signals/skills/{skill_id}",
+    extensions: {
+      "x-api-token-group": [
+        "Cloudforce One Write",
+        "Cloudforce One Read"
+      ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "custom_feed_count": {
+                    "type": "integer"
+                  },
+                  "custom_feed_limit": {
+                    "type": "integer"
+                  },
+                  "expected": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "reason": {
+                    "enum": [
+                      "threat_signals_feed_limit",
+                      "free_custom_skills_disabled",
+                      "free_skill_run_disabled",
+                      "free_tier_reconciliation_in_progress",
+                      "free_tier_reconciliation_failed",
+                      "raw_content_expired",
+                      "curated_visibility_changed"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "config": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "created_at": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "is_active": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "output_schema": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "prompt": {
+                  "type": "string"
+                },
+                "source": {
+                  "enum": [
+                    "default",
+                    "custom"
+                  ],
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "updated_at": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "config",
+                "created_at",
+                "id",
+                "is_active",
+                "name",
+                "output_schema",
+                "prompt",
+                "source",
+                "type",
+                "updated_at"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -581,118 +1031,65 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "count": {
-          "type": "integer"
-        },
-        "custom_skills_available": {
-          "type": "boolean"
-        },
-        "page": {
-          "type": "integer"
-        },
-        "per_page": {
-          "type": "integer"
-        },
-        "skills": {
+        "errors": {
           "items": {
             "properties": {
-              "config": {
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "created_at": {
-                "type": "string"
-              },
-              "id": {
-                "type": "string"
-              },
-              "is_active": {
-                "type": "integer"
-              },
-              "name": {
-                "type": "string"
-              },
-              "output_schema": {
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "prompt": {
-                "type": "string"
-              },
-              "source": {
-                "enum": [
-                  "default",
-                  "custom"
-                ],
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "updated_at": {
+              "message": {
                 "type": "string"
               }
             },
             "required": [
-              "config",
-              "created_at",
-              "id",
-              "is_active",
-              "name",
-              "output_schema",
-              "prompt",
-              "source",
-              "type",
-              "updated_at"
+              "message"
             ],
             "type": "object"
           },
           "type": "array"
         },
-        "total_count": {
-          "type": "integer"
-        }
-      },
-      "required": [
-        "count",
-        "custom_skills_available",
-        "page",
-        "per_page",
-        "skills",
-        "total_count"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "List Threat Signals skills"
-    },
-    method: "GET",
-    path: "/accounts/{account_id}/cloudforce-one/v2/threat-signals/skills",
-    extensions: {
-      "x-api-token-group": [
-        "Cloudforce One Write",
-        "Cloudforce One Read"
-      ]
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "custom_feed_count": {
+                "type": "integer"
+              },
+              "custom_feed_limit": {
+                "type": "integer"
+              },
+              "expected": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "path": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "reason": {
+                "enum": [
+                  "threat_signals_feed_limit",
+                  "free_custom_skills_disabled",
+                  "free_skill_run_disabled",
+                  "free_tier_reconciliation_in_progress",
+                  "free_tier_reconciliation_failed",
+                  "raw_content_expired",
+                  "curated_visibility_changed"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
           "properties": {
             "count": {
               "type": "integer"
@@ -788,6 +1185,209 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "List Threat Signals skills"
+    },
+    method: "GET",
+    path: "/accounts/{account_id}/cloudforce-one/v2/threat-signals/skills",
+    extensions: {
+      "x-api-token-group": [
+        "Cloudforce One Write",
+        "Cloudforce One Read"
+      ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "custom_feed_count": {
+                    "type": "integer"
+                  },
+                  "custom_feed_limit": {
+                    "type": "integer"
+                  },
+                  "expected": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "reason": {
+                    "enum": [
+                      "threat_signals_feed_limit",
+                      "free_custom_skills_disabled",
+                      "free_skill_run_disabled",
+                      "free_tier_reconciliation_in_progress",
+                      "free_tier_reconciliation_failed",
+                      "raw_content_expired",
+                      "curated_visibility_changed"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "custom_skills_available": {
+                  "type": "boolean"
+                },
+                "page": {
+                  "type": "integer"
+                },
+                "per_page": {
+                  "type": "integer"
+                },
+                "skills": {
+                  "items": {
+                    "properties": {
+                      "config": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "is_active": {
+                        "type": "integer"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "output_schema": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "prompt": {
+                        "type": "string"
+                      },
+                      "source": {
+                        "enum": [
+                          "default",
+                          "custom"
+                        ],
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string"
+                      },
+                      "updated_at": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "config",
+                      "created_at",
+                      "id",
+                      "is_active",
+                      "name",
+                      "output_schema",
+                      "prompt",
+                      "source",
+                      "type",
+                      "updated_at"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "total_count": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "count",
+                "custom_skills_available",
+                "page",
+                "per_page",
+                "skills",
+                "total_count"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        },
         "4XX": null
       },
     },
@@ -846,86 +1446,65 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "config": {
-          "oneOf": [
-            {
-              "type": "string"
+        "errors": {
+          "items": {
+            "properties": {
+              "message": {
+                "type": "string"
+              }
             },
-            {
-              "type": "null"
-            }
-          ]
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        "created_at": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "is_active": {
-          "type": "integer"
-        },
-        "name": {
-          "type": "string"
-        },
-        "output_schema": {
-          "oneOf": [
-            {
-              "type": "string"
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "custom_feed_count": {
+                "type": "integer"
+              },
+              "custom_feed_limit": {
+                "type": "integer"
+              },
+              "expected": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "path": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "reason": {
+                "enum": [
+                  "threat_signals_feed_limit",
+                  "free_custom_skills_disabled",
+                  "free_skill_run_disabled",
+                  "free_tier_reconciliation_in_progress",
+                  "free_tier_reconciliation_failed",
+                  "raw_content_expired",
+                  "curated_visibility_changed"
+                ],
+                "type": "string"
+              }
             },
-            {
-              "type": "null"
-            }
-          ]
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        "prompt": {
-          "type": "string"
-        },
-        "source": {
-          "enum": [
-            "default",
-            "custom"
-          ],
-          "type": "string"
-        },
-        "type": {
-          "type": "string"
-        },
-        "updated_at": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "config",
-        "created_at",
-        "id",
-        "is_active",
-        "name",
-        "output_schema",
-        "prompt",
-        "source",
-        "type",
-        "updated_at"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Update Threat Signals skill"
-    },
-    method: "PATCH",
-    path: "/accounts/{account_id}/cloudforce-one/v2/threat-signals/skills/{skill_id}",
-    extensions: {
-      "x-api-token-group": [
-        "Cloudforce One Write"
-      ]
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "config": {
               "oneOf": [
@@ -987,6 +1566,177 @@ export const tools: readonly Tool[] = [
             "source",
             "type",
             "updated_at"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Update Threat Signals skill"
+    },
+    method: "PATCH",
+    path: "/accounts/{account_id}/cloudforce-one/v2/threat-signals/skills/{skill_id}",
+    extensions: {
+      "x-api-token-group": [
+        "Cloudforce One Write"
+      ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "custom_feed_count": {
+                    "type": "integer"
+                  },
+                  "custom_feed_limit": {
+                    "type": "integer"
+                  },
+                  "expected": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "reason": {
+                    "enum": [
+                      "threat_signals_feed_limit",
+                      "free_custom_skills_disabled",
+                      "free_skill_run_disabled",
+                      "free_tier_reconciliation_in_progress",
+                      "free_tier_reconciliation_failed",
+                      "raw_content_expired",
+                      "curated_visibility_changed"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "config": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "created_at": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "is_active": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "output_schema": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "prompt": {
+                  "type": "string"
+                },
+                "source": {
+                  "enum": [
+                    "default",
+                    "custom"
+                  ],
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "updated_at": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "config",
+                "created_at",
+                "id",
+                "is_active",
+                "name",
+                "output_schema",
+                "prompt",
+                "source",
+                "type",
+                "updated_at"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },

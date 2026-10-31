@@ -4,6 +4,7 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   api_shield_api_response_common_failure_output,
+  api_shield_api_response_common_output,
   api_shield_messages_output,
 } from "../../outputs.js";
 import {
@@ -54,6 +55,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/api-shield_configuration-single-response",
       $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
         "api-shield_auth_id_characteristic": api_shield_auth_id_characteristic_output,
         "api-shield_auth_id_characteristic_jwt_claim": api_shield_auth_id_characteristic_jwt_claim_output,
         "api-shield_auth_id_characteristics": api_shield_auth_id_characteristics_output,
@@ -89,6 +91,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
         "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
         "api-shield_auth_id_characteristic": api_shield_auth_id_characteristic_output,
         "api-shield_auth_id_characteristic_jwt_claim": api_shield_auth_id_characteristic_jwt_claim_output,
@@ -139,6 +142,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/api-shield_configuration-single-response",
       $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
         "api-shield_auth_id_characteristic": api_shield_auth_id_characteristic_output,
         "api-shield_auth_id_characteristic_jwt_claim": api_shield_auth_id_characteristic_jwt_claim_output,
         "api-shield_auth_id_characteristics": api_shield_auth_id_characteristics_output,
@@ -172,6 +176,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
         "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
         "api-shield_auth_id_characteristic": api_shield_auth_id_characteristic_output,
         "api-shield_auth_id_characteristic_jwt_claim": api_shield_auth_id_characteristic_jwt_claim_output,

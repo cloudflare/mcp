@@ -28,14 +28,6 @@ export const iam_create_user_group_body: JsonSchema = {
 };
 
 /**
- * The schema of `iam_permission_group_identifier`.
- */
-export const iam_permission_group_identifier: JsonSchema = {
-  "$ref": "#/$defs/iam_common_components-schemas-identifier",
-  "description": "Permission Group identifier tag."
-};
-
-/**
  * The schema of `iam_permission_group_ids`.
  */
 export const iam_permission_group_ids: JsonSchema = {

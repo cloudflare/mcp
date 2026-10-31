@@ -2,6 +2,14 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import {
+  realtimekit_GenericErrorResponse_output,
+  realtimekit_ValidationIssue_output,
+} from "../../outputs.js";
+import {
+  realtimekit_account_identifier,
+  realtimekit_app_id,
+} from "../../schemas.js";
 import { realtimekit_TranscriptSummary_output } from "./outputs.js";
 
 /**
@@ -16,12 +24,12 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "The account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/realtimekit_account_identifier",
+          "description": "The account identifier tag."
         },
         "app_id": {
-          "description": "The app identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/realtimekit_app_id",
+          "description": "The app identifier tag."
         },
         "session_id": {
           "format": "uuid",
@@ -33,6 +41,10 @@ export const tools: readonly Tool[] = [
         "app_id",
         "session_id"
       ],
+      $defs: {
+        "realtimekit_account_identifier": realtimekit_account_identifier,
+        "realtimekit_app_id": realtimekit_app_id,
+      },
     },
     outputSchema: {
       "properties": {
@@ -75,10 +87,15 @@ export const tools: readonly Tool[] = [
             }
           },
           "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
         }
       },
       $defs: {
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
         "realtimekit_TranscriptSummary": realtimekit_TranscriptSummary_output,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
       },
     },
     request: (args) => ({
@@ -93,12 +110,12 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "The account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/realtimekit_account_identifier",
+          "description": "The account identifier tag."
         },
         "app_id": {
-          "description": "The app identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/realtimekit_app_id",
+          "description": "The app identifier tag."
         },
         "session_id": {
           "format": "uuid",
@@ -110,6 +127,10 @@ export const tools: readonly Tool[] = [
         "app_id",
         "session_id"
       ],
+      $defs: {
+        "realtimekit_account_identifier": realtimekit_account_identifier,
+        "realtimekit_app_id": realtimekit_app_id,
+      },
     },
     outputSchema: {
       "properties": {
@@ -167,7 +188,14 @@ export const tools: readonly Tool[] = [
             }
           },
           "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
         }
+      },
+      $defs: {
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
       },
     },
     request: (args) => ({

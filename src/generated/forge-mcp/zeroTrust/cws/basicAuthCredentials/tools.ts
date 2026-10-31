@@ -6,10 +6,15 @@ import {
   cws_DeletedResult_output,
   cws_ErrorResponse_output,
   cws_MessageSource_output,
+  cws_ResponseDeletedResult_output,
   cws_ResponseMessage_output,
   cws_ResultInfo_output,
 } from "../outputs.js";
-import { cws_BasicAuthCredential_output } from "./outputs.js";
+import {
+  cws_BasicAuthCredential_output,
+  cws_PageResponseBasicAuthCredential_output,
+  cws_ResponseBasicAuthCredential_output,
+} from "./outputs.js";
 import { cws_CreateBasicAuthCredentialInputBody } from "./schemas.js";
 
 /**
@@ -40,9 +45,12 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/cws_BasicAuthCredential",
+      "$ref": "#/$defs/cws_ResponseBasicAuthCredential",
       $defs: {
         "cws_BasicAuthCredential": cws_BasicAuthCredential_output,
+        "cws_MessageSource": cws_MessageSource_output,
+        "cws_ResponseBasicAuthCredential": cws_ResponseBasicAuthCredential_output,
+        "cws_ResponseMessage": cws_ResponseMessage_output,
       },
     },
     annotations: {
@@ -60,7 +68,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "201": {
-          "$ref": "#/$defs/cws_BasicAuthCredential"
+          "$ref": "#/$defs/cws_ResponseBasicAuthCredential"
         },
         "4XX": {
           "$ref": "#/$defs/cws_ErrorResponse"
@@ -73,6 +81,7 @@ export const tools: readonly Tool[] = [
         "cws_BasicAuthCredential": cws_BasicAuthCredential_output,
         "cws_ErrorResponse": cws_ErrorResponse_output,
         "cws_MessageSource": cws_MessageSource_output,
+        "cws_ResponseBasicAuthCredential": cws_ResponseBasicAuthCredential_output,
         "cws_ResponseMessage": cws_ResponseMessage_output,
       },
     },
@@ -104,9 +113,12 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/cws_DeletedResult",
+      "$ref": "#/$defs/cws_ResponseDeletedResult",
       $defs: {
         "cws_DeletedResult": cws_DeletedResult_output,
+        "cws_MessageSource": cws_MessageSource_output,
+        "cws_ResponseDeletedResult": cws_ResponseDeletedResult_output,
+        "cws_ResponseMessage": cws_ResponseMessage_output,
       },
     },
     annotations: {
@@ -124,7 +136,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/cws_DeletedResult"
+          "$ref": "#/$defs/cws_ResponseDeletedResult"
         },
         "4XX": {
           "$ref": "#/$defs/cws_ErrorResponse"
@@ -137,6 +149,7 @@ export const tools: readonly Tool[] = [
         "cws_DeletedResult": cws_DeletedResult_output,
         "cws_ErrorResponse": cws_ErrorResponse_output,
         "cws_MessageSource": cws_MessageSource_output,
+        "cws_ResponseDeletedResult": cws_ResponseDeletedResult_output,
         "cws_ResponseMessage": cws_ResponseMessage_output,
       },
     },
@@ -167,9 +180,12 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/cws_BasicAuthCredential",
+      "$ref": "#/$defs/cws_ResponseBasicAuthCredential",
       $defs: {
         "cws_BasicAuthCredential": cws_BasicAuthCredential_output,
+        "cws_MessageSource": cws_MessageSource_output,
+        "cws_ResponseBasicAuthCredential": cws_ResponseBasicAuthCredential_output,
+        "cws_ResponseMessage": cws_ResponseMessage_output,
       },
     },
     annotations: {
@@ -187,7 +203,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/cws_BasicAuthCredential"
+          "$ref": "#/$defs/cws_ResponseBasicAuthCredential"
         },
         "4XX": {
           "$ref": "#/$defs/cws_ErrorResponse"
@@ -200,6 +216,7 @@ export const tools: readonly Tool[] = [
         "cws_BasicAuthCredential": cws_BasicAuthCredential_output,
         "cws_ErrorResponse": cws_ErrorResponse_output,
         "cws_MessageSource": cws_MessageSource_output,
+        "cws_ResponseBasicAuthCredential": cws_ResponseBasicAuthCredential_output,
         "cws_ResponseMessage": cws_ResponseMessage_output,
       },
     },
@@ -261,30 +278,12 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "oneOf": [
-            {
-              "items": {
-                "$ref": "#/$defs/cws_BasicAuthCredential"
-              },
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "result_info": {
-          "$ref": "#/$defs/cws_ResultInfo"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/cws_PageResponseBasicAuthCredential",
       $defs: {
         "cws_BasicAuthCredential": cws_BasicAuthCredential_output,
+        "cws_MessageSource": cws_MessageSource_output,
+        "cws_PageResponseBasicAuthCredential": cws_PageResponseBasicAuthCredential_output,
+        "cws_ResponseMessage": cws_ResponseMessage_output,
         "cws_ResultInfo": cws_ResultInfo_output,
       },
     },
@@ -303,28 +302,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "oneOf": [
-                {
-                  "items": {
-                    "$ref": "#/$defs/cws_BasicAuthCredential"
-                  },
-                  "type": "array"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "result_info": {
-              "$ref": "#/$defs/cws_ResultInfo"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/cws_PageResponseBasicAuthCredential"
         },
         "4XX": {
           "$ref": "#/$defs/cws_ErrorResponse"
@@ -337,6 +315,7 @@ export const tools: readonly Tool[] = [
         "cws_BasicAuthCredential": cws_BasicAuthCredential_output,
         "cws_ErrorResponse": cws_ErrorResponse_output,
         "cws_MessageSource": cws_MessageSource_output,
+        "cws_PageResponseBasicAuthCredential": cws_PageResponseBasicAuthCredential_output,
         "cws_ResponseMessage": cws_ResponseMessage_output,
         "cws_ResultInfo": cws_ResultInfo_output,
       },

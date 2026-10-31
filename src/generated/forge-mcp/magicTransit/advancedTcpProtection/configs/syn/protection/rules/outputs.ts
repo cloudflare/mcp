@@ -4,9 +4,9 @@
 import type { JsonSchema } from "../../../../../../_/tool.js";
 
 /**
- * The schema of `dos_SynProtectionRule` in responses.
+ * The schema of `advanced-ddos-protection_SynProtectionRule` in responses.
  */
-export const dos_SynProtectionRule_output: JsonSchema = {
+export const advanced_ddos_protection_SynProtectionRule_output: JsonSchema = {
   "properties": {
     "burst_sensitivity": {
       "type": "string"
@@ -50,4 +50,47 @@ export const dos_SynProtectionRule_output: JsonSchema = {
     "scope"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `advanced-ddos-protection_syn-protection-rule-list-response` in
+ * responses.
+ */
+export const advanced_ddos_protection_syn_protection_rule_list_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/advanced-ddos-protection_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/advanced-ddos-protection_SynProtectionRule"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `advanced-ddos-protection_syn-protection-rule-response` in
+ * responses.
+ */
+export const advanced_ddos_protection_syn_protection_rule_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/advanced-ddos-protection_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/advanced-ddos-protection_SynProtectionRule"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };

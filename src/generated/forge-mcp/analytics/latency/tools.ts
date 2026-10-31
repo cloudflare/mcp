@@ -4,9 +4,12 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   argo_analytics_api_response_common_failure_output,
+  argo_analytics_api_response_common_output,
+  argo_analytics_api_response_single_output,
   argo_analytics_messages_output,
   argo_analytics_response_single_output,
 } from "./outputs.js";
+import { argo_analytics_identifier } from "./schemas.js";
 
 /**
  * The tools of `analytics.latency`.
@@ -23,16 +26,25 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "zone_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/argo-analytics_identifier",
+          "description": "Identifier"
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "argo-analytics_identifier": argo_analytics_identifier,
+      },
     },
     outputSchema: {
-      "type": "object",
+      "$ref": "#/$defs/argo-analytics_response_single",
+      $defs: {
+        "argo-analytics_api-response-common": argo_analytics_api_response_common_output,
+        "argo-analytics_api-response-single": argo_analytics_api_response_single_output,
+        "argo-analytics_messages": argo_analytics_messages_output,
+        "argo-analytics_response_single": argo_analytics_response_single_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -50,12 +62,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#analytics:read"
-        ],
-        "x-fern-enum": {
-          "#analytics:read": {
-            "name": "analytics_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -67,7 +74,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "type": "object"
+          "$ref": "#/$defs/argo-analytics_response_single"
         },
         "4XX": {
           "allOf": [
@@ -81,7 +88,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "argo-analytics_api-response-common": argo_analytics_api_response_common_output,
         "argo-analytics_api-response-common-failure": argo_analytics_api_response_common_failure_output,
+        "argo-analytics_api-response-single": argo_analytics_api_response_single_output,
         "argo-analytics_messages": argo_analytics_messages_output,
         "argo-analytics_response_single": argo_analytics_response_single_output,
       },

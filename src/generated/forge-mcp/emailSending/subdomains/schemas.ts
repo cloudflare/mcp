@@ -20,6 +20,14 @@ export const email_create_sending_subdomain_properties: JsonSchema = {
 };
 
 /**
+ * The schema of `email_sending_subdomain_identifier`.
+ */
+export const email_sending_subdomain_identifier: JsonSchema = {
+  "description": "Sending subdomain identifier.",
+  "type": "string"
+};
+
+/**
  * The schema of `email_update_sending_subdomain_properties`.
  */
 export const email_update_sending_subdomain_properties: JsonSchema = {

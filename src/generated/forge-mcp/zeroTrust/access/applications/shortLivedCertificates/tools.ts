@@ -3,14 +3,21 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
+  access_api_response_collection_output,
   access_api_response_common_failure_output,
+  access_api_response_common_output,
+  access_api_response_single_output,
   access_messages_output,
 } from "../../../outputs.js";
+import { access_identifier, access_uuid } from "../../../schemas.js";
 import {
   access_aud_output,
   access_ca_output,
   access_id_2_output,
+  access_id_response_2_output,
   access_public_key_output,
+  access_response_collection_5_output,
+  access_single_response_6_output,
 } from "./outputs.js";
 
 /**
@@ -33,12 +40,12 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "app_id": {
-          "description": "UUID.",
-          "type": "string"
+          "$ref": "#/$defs/access_uuid",
+          "description": "UUID."
         }
       },
       required: [
@@ -46,14 +53,21 @@ export const tools: readonly Tool[] = [
         "account_or_zone_id",
         "app_id"
       ],
+      $defs: {
+        "access_identifier": access_identifier,
+        "access_uuid": access_uuid,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/access_ca",
+      "$ref": "#/$defs/access_single_response-6",
       $defs: {
+        "access_api-response-single": access_api_response_single_output,
         "access_aud": access_aud_output,
         "access_ca": access_ca_output,
         "access_id-2": access_id_2_output,
+        "access_messages": access_messages_output,
         "access_public_key": access_public_key_output,
+        "access_single_response-6": access_single_response_6_output,
       },
     },
     annotations: {
@@ -73,7 +87,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/access_ca"
+          "$ref": "#/$defs/access_single_response-6"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -81,11 +95,13 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_aud": access_aud_output,
         "access_ca": access_ca_output,
         "access_id-2": access_id_2_output,
         "access_messages": access_messages_output,
         "access_public_key": access_public_key_output,
+        "access_single_response-6": access_single_response_6_output,
       },
     },
     request: (args) => ({
@@ -108,12 +124,12 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "app_id": {
-          "description": "UUID.",
-          "type": "string"
+          "$ref": "#/$defs/access_uuid",
+          "description": "UUID."
         }
       },
       required: [
@@ -121,16 +137,18 @@ export const tools: readonly Tool[] = [
         "account_or_zone_id",
         "app_id"
       ],
+      $defs: {
+        "access_identifier": access_identifier,
+        "access_uuid": access_uuid,
+      },
     },
     outputSchema: {
-      "properties": {
-        "id": {
-          "$ref": "#/$defs/access_id-2"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/access_id_response-2",
       $defs: {
+        "access_api-response-single": access_api_response_single_output,
         "access_id-2": access_id_2_output,
+        "access_id_response-2": access_id_response_2_output,
+        "access_messages": access_messages_output,
       },
     },
     annotations: {
@@ -150,12 +168,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "202": {
-          "properties": {
-            "id": {
-              "$ref": "#/$defs/access_id-2"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/access_id_response-2"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -163,7 +176,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_id-2": access_id_2_output,
+        "access_id_response-2": access_id_response_2_output,
         "access_messages": access_messages_output,
       },
     },
@@ -187,12 +202,12 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "app_id": {
-          "description": "UUID.",
-          "type": "string"
+          "$ref": "#/$defs/access_uuid",
+          "description": "UUID."
         }
       },
       required: [
@@ -200,14 +215,21 @@ export const tools: readonly Tool[] = [
         "account_or_zone_id",
         "app_id"
       ],
+      $defs: {
+        "access_identifier": access_identifier,
+        "access_uuid": access_uuid,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/access_ca",
+      "$ref": "#/$defs/access_single_response-6",
       $defs: {
+        "access_api-response-single": access_api_response_single_output,
         "access_aud": access_aud_output,
         "access_ca": access_ca_output,
         "access_id-2": access_id_2_output,
+        "access_messages": access_messages_output,
         "access_public_key": access_public_key_output,
+        "access_single_response-6": access_single_response_6_output,
       },
     },
     annotations: {
@@ -228,7 +250,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/access_ca"
+          "$ref": "#/$defs/access_single_response-6"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -236,11 +258,13 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_aud": access_aud_output,
         "access_ca": access_ca_output,
         "access_id-2": access_id_2_output,
         "access_messages": access_messages_output,
         "access_public_key": access_public_key_output,
+        "access_single_response-6": access_single_response_6_output,
       },
     },
     request: (args) => ({
@@ -263,8 +287,8 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "page": {
           "default": 1,
@@ -281,45 +305,21 @@ export const tools: readonly Tool[] = [
         "account_or_zone",
         "account_or_zone_id"
       ],
+      $defs: {
+        "access_identifier": access_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/access_ca"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/access_response_collection-5",
       $defs: {
+        "access_api-response-collection": access_api_response_collection_output,
+        "access_api-response-common": access_api_response_common_output,
         "access_aud": access_aud_output,
         "access_ca": access_ca_output,
         "access_id-2": access_id_2_output,
+        "access_messages": access_messages_output,
         "access_public_key": access_public_key_output,
+        "access_response_collection-5": access_response_collection_5_output,
       },
     },
     annotations: {
@@ -340,50 +340,22 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/access_ca"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/access_response_collection-5"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
         }
       },
       $defs: {
+        "access_api-response-collection": access_api_response_collection_output,
+        "access_api-response-common": access_api_response_common_output,
         "access_api-response-common-failure": access_api_response_common_failure_output,
         "access_aud": access_aud_output,
         "access_ca": access_ca_output,
         "access_id-2": access_id_2_output,
         "access_messages": access_messages_output,
         "access_public_key": access_public_key_output,
+        "access_response_collection-5": access_response_collection_5_output,
       },
     },
     request: (args) => ({

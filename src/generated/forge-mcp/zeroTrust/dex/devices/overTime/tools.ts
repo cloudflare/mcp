@@ -4,9 +4,11 @@
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
   digital_experience_monitoring_api_response_common_failure_output,
+  digital_experience_monitoring_api_response_single_output,
   digital_experience_monitoring_messages_output,
 } from "../../outputs.js";
 import {
+  digital_experience_monitoring_account_identifier,
   digital_experience_monitoring_colo,
   digital_experience_monitoring_timestamp,
 } from "../../schemas.js";
@@ -17,6 +19,7 @@ import {
   digital_experience_monitoring_rtt_stats_output,
   digital_experience_monitoring_tunnel_stats_output,
 } from "../outputs.js";
+import { digital_experience_monitoring_device_id } from "../schemas.js";
 import {
   digital_experience_monitoring_device_state_over_time_output,
   digital_experience_monitoring_device_state_top_networks_summary_output,
@@ -42,16 +45,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Unique Cloudflare account ID.",
-          "type": "string"
+          "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
+          "description": "Unique Cloudflare account ID."
         },
         "colo": {
           "$ref": "#/$defs/digital-experience-monitoring_colo",
           "description": "List of data centers to filter results."
         },
         "device_id": {
-          "description": "Device-specific ID, given as UUID.",
-          "type": "string"
+          "$ref": "#/$defs/digital-experience-monitoring_device_id",
+          "description": "Device-specific ID, given as UUID."
         },
         "from": {
           "$ref": "#/$defs/digital-experience-monitoring_timestamp",
@@ -78,18 +81,34 @@ export const tools: readonly Tool[] = [
         "interval"
       ],
       $defs: {
+        "digital-experience-monitoring_account_identifier": digital_experience_monitoring_account_identifier,
         "digital-experience-monitoring_colo": digital_experience_monitoring_colo,
+        "digital-experience-monitoring_device_id": digital_experience_monitoring_device_id,
         "digital-experience-monitoring_timestamp": digital_experience_monitoring_timestamp,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/digital-experience-monitoring_device_status_over_time_result",
+      "allOf": [
+        {
+          "$ref": "#/$defs/digital-experience-monitoring_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/digital-experience-monitoring_device_status_over_time_result"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "digital-experience-monitoring_api-response-single": digital_experience_monitoring_api_response_single_output,
         "digital-experience-monitoring_cpu_pct_by_app": digital_experience_monitoring_cpu_pct_by_app_output,
         "digital-experience-monitoring_device_state_over_time": digital_experience_monitoring_device_state_over_time_output,
         "digital-experience-monitoring_device_state_top_networks_summary": digital_experience_monitoring_device_state_top_networks_summary_output,
         "digital-experience-monitoring_device_status_over_time_result": digital_experience_monitoring_device_status_over_time_result_output,
         "digital-experience-monitoring_directional_stat": digital_experience_monitoring_directional_stat_output,
+        "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
         "digital-experience-monitoring_ram_used_pct_by_app": digital_experience_monitoring_ram_used_pct_by_app_output,
         "digital-experience-monitoring_rtt_stats": digital_experience_monitoring_rtt_stats_output,
         "digital-experience-monitoring_timeslot_cpu_apps": digital_experience_monitoring_timeslot_cpu_apps_output,
@@ -122,7 +141,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/digital-experience-monitoring_device_status_over_time_result"
+          "allOf": [
+            {
+              "$ref": "#/$defs/digital-experience-monitoring_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/digital-experience-monitoring_device_status_over_time_result"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/digital-experience-monitoring_api-response-common-failure"
@@ -130,6 +161,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "digital-experience-monitoring_api-response-common-failure": digital_experience_monitoring_api_response_common_failure_output,
+        "digital-experience-monitoring_api-response-single": digital_experience_monitoring_api_response_single_output,
         "digital-experience-monitoring_cpu_pct_by_app": digital_experience_monitoring_cpu_pct_by_app_output,
         "digital-experience-monitoring_device_state_over_time": digital_experience_monitoring_device_state_over_time_output,
         "digital-experience-monitoring_device_state_top_networks_summary": digital_experience_monitoring_device_state_top_networks_summary_output,

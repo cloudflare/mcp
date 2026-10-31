@@ -5,35 +5,38 @@ import { type Tool, pathParam } from "../../_/tool.js";
 import {
   cloudflare_pipelines_ConnectionSchema_output,
   cloudflare_pipelines_DecimalEncoding_output,
+  cloudflare_pipelines_FieldType_output,
+  cloudflare_pipelines_JsonFormat_output,
   cloudflare_pipelines_ListField_output,
   cloudflare_pipelines_ParquetCompression_output,
+  cloudflare_pipelines_ParquetFormat_output,
   cloudflare_pipelines_SourceField_output,
   cloudflare_pipelines_StructField_output,
   cloudflare_pipelines_TimestampField_output,
   cloudflare_pipelines_TimestampFormat_output,
   cloudflare_pipelines_TimestampUnit_output,
+  cloudflare_pipelines_worker_pipelines_common_success_output,
 } from "../outputs.js";
 import {
   cloudflare_pipelines_ConnectionSchema,
   cloudflare_pipelines_DecimalEncoding,
+  cloudflare_pipelines_FieldType,
+  cloudflare_pipelines_JsonFormat,
   cloudflare_pipelines_ListField,
   cloudflare_pipelines_ParquetCompression,
+  cloudflare_pipelines_ParquetFormat,
   cloudflare_pipelines_SourceField,
   cloudflare_pipelines_StructField,
   cloudflare_pipelines_TimestampField,
   cloudflare_pipelines_TimestampFormat,
   cloudflare_pipelines_TimestampUnit,
+  cloudflare_pipelines_workers_pipelines_account_id,
+  cloudflare_pipelines_workers_pipelines_pipeline_id,
 } from "../schemas.js";
-import {
-  cloudflare_pipelines_Format_output,
-  cloudflare_pipelines_JsonFormat_output,
-  cloudflare_pipelines_ParquetFormat_output,
-} from "./outputs.js";
+import { cloudflare_pipelines_Format_output } from "./outputs.js";
 import {
   cloudflare_pipelines_Format,
-  cloudflare_pipelines_JsonFormat,
-  cloudflare_pipelines_ParquetFormat,
-  cloudflare_pipelines_workers_pipelines_pipeline_id,
+  cloudflare_pipelines_workers_pipelines_stream_id,
 } from "./schemas.js";
 
 /**
@@ -48,8 +51,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Specifies the public ID of the account.",
-          "type": "string"
+          "$ref": "#/$defs/cloudflare-pipelines_workers-pipelines-account-id",
+          "description": "Specifies the public ID of the account."
         },
         "body": {
           "properties": {
@@ -127,6 +130,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "cloudflare-pipelines_ConnectionSchema": cloudflare_pipelines_ConnectionSchema,
         "cloudflare-pipelines_DecimalEncoding": cloudflare_pipelines_DecimalEncoding,
+        "cloudflare-pipelines_FieldType": cloudflare_pipelines_FieldType,
         "cloudflare-pipelines_Format": cloudflare_pipelines_Format,
         "cloudflare-pipelines_JsonFormat": cloudflare_pipelines_JsonFormat,
         "cloudflare-pipelines_ListField": cloudflare_pipelines_ListField,
@@ -137,123 +141,12 @@ export const tools: readonly Tool[] = [
         "cloudflare-pipelines_TimestampField": cloudflare_pipelines_TimestampField,
         "cloudflare-pipelines_TimestampFormat": cloudflare_pipelines_TimestampFormat,
         "cloudflare-pipelines_TimestampUnit": cloudflare_pipelines_TimestampUnit,
+        "cloudflare-pipelines_workers-pipelines-account-id": cloudflare_pipelines_workers_pipelines_account_id,
       },
     },
     outputSchema: {
       "properties": {
-        "created_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "endpoint": {
-          "type": "string"
-        },
-        "format": {
-          "$ref": "#/$defs/cloudflare-pipelines_Format"
-        },
-        "http": {
-          "properties": {
-            "authentication": {
-              "type": "boolean"
-            },
-            "cors": {
-              "properties": {
-                "origins": {
-                  "items": {
-                    "type": "string"
-                  },
-                  "maxItems": 5,
-                  "type": "array"
-                }
-              },
-              "type": "object"
-            },
-            "enabled": {
-              "type": "boolean"
-            }
-          },
-          "required": [
-            "authentication",
-            "enabled"
-          ],
-          "type": "object"
-        },
-        "id": {
-          "type": "string"
-        },
-        "modified_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "schema": {
-          "$ref": "#/$defs/cloudflare-pipelines_ConnectionSchema"
-        },
-        "version": {
-          "type": "integer"
-        },
-        "worker_binding": {
-          "properties": {
-            "enabled": {
-              "type": "boolean"
-            }
-          },
-          "required": [
-            "enabled"
-          ],
-          "type": "object"
-        }
-      },
-      "required": [
-        "created_at",
-        "http",
-        "id",
-        "modified_at",
-        "name",
-        "version",
-        "worker_binding"
-      ],
-      "type": "object",
-      $defs: {
-        "cloudflare-pipelines_ConnectionSchema": cloudflare_pipelines_ConnectionSchema_output,
-        "cloudflare-pipelines_DecimalEncoding": cloudflare_pipelines_DecimalEncoding_output,
-        "cloudflare-pipelines_Format": cloudflare_pipelines_Format_output,
-        "cloudflare-pipelines_JsonFormat": cloudflare_pipelines_JsonFormat_output,
-        "cloudflare-pipelines_ListField": cloudflare_pipelines_ListField_output,
-        "cloudflare-pipelines_ParquetCompression": cloudflare_pipelines_ParquetCompression_output,
-        "cloudflare-pipelines_ParquetFormat": cloudflare_pipelines_ParquetFormat_output,
-        "cloudflare-pipelines_SourceField": cloudflare_pipelines_SourceField_output,
-        "cloudflare-pipelines_StructField": cloudflare_pipelines_StructField_output,
-        "cloudflare-pipelines_TimestampField": cloudflare_pipelines_TimestampField_output,
-        "cloudflare-pipelines_TimestampFormat": cloudflare_pipelines_TimestampFormat_output,
-        "cloudflare-pipelines_TimestampUnit": cloudflare_pipelines_TimestampUnit_output,
-      },
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Create Stream"
-    },
-    method: "POST",
-    path: "/accounts/{account_id}/pipelines/v1/streams",
-    extensions: {
-      "x-api-token-group": [
-        "Pipelines Write"
-      ],
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": false,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "created_at": {
               "format": "date-time",
@@ -331,11 +224,19 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "4XX": null
+        "success": {
+          "$ref": "#/$defs/cloudflare-pipelines_worker-pipelines-common-success"
+        }
       },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
       $defs: {
         "cloudflare-pipelines_ConnectionSchema": cloudflare_pipelines_ConnectionSchema_output,
         "cloudflare-pipelines_DecimalEncoding": cloudflare_pipelines_DecimalEncoding_output,
+        "cloudflare-pipelines_FieldType": cloudflare_pipelines_FieldType_output,
         "cloudflare-pipelines_Format": cloudflare_pipelines_Format_output,
         "cloudflare-pipelines_JsonFormat": cloudflare_pipelines_JsonFormat_output,
         "cloudflare-pipelines_ListField": cloudflare_pipelines_ListField_output,
@@ -346,6 +247,138 @@ export const tools: readonly Tool[] = [
         "cloudflare-pipelines_TimestampField": cloudflare_pipelines_TimestampField_output,
         "cloudflare-pipelines_TimestampFormat": cloudflare_pipelines_TimestampFormat_output,
         "cloudflare-pipelines_TimestampUnit": cloudflare_pipelines_TimestampUnit_output,
+        "cloudflare-pipelines_worker-pipelines-common-success": cloudflare_pipelines_worker_pipelines_common_success_output,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Create Stream"
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/pipelines/v1/streams",
+    extensions: {
+      "x-api-token-group": [
+        "Pipelines Write"
+      ],
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": false,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "endpoint": {
+                  "type": "string"
+                },
+                "format": {
+                  "$ref": "#/$defs/cloudflare-pipelines_Format"
+                },
+                "http": {
+                  "properties": {
+                    "authentication": {
+                      "type": "boolean"
+                    },
+                    "cors": {
+                      "properties": {
+                        "origins": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "maxItems": 5,
+                          "type": "array"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "enabled": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "authentication",
+                    "enabled"
+                  ],
+                  "type": "object"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "modified_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "schema": {
+                  "$ref": "#/$defs/cloudflare-pipelines_ConnectionSchema"
+                },
+                "version": {
+                  "type": "integer"
+                },
+                "worker_binding": {
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "enabled"
+                  ],
+                  "type": "object"
+                }
+              },
+              "required": [
+                "created_at",
+                "http",
+                "id",
+                "modified_at",
+                "name",
+                "version",
+                "worker_binding"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "$ref": "#/$defs/cloudflare-pipelines_worker-pipelines-common-success"
+            }
+          },
+          "required": [
+            "result",
+            "success"
+          ],
+          "type": "object"
+        },
+        "4XX": null
+      },
+      $defs: {
+        "cloudflare-pipelines_ConnectionSchema": cloudflare_pipelines_ConnectionSchema_output,
+        "cloudflare-pipelines_DecimalEncoding": cloudflare_pipelines_DecimalEncoding_output,
+        "cloudflare-pipelines_FieldType": cloudflare_pipelines_FieldType_output,
+        "cloudflare-pipelines_Format": cloudflare_pipelines_Format_output,
+        "cloudflare-pipelines_JsonFormat": cloudflare_pipelines_JsonFormat_output,
+        "cloudflare-pipelines_ListField": cloudflare_pipelines_ListField_output,
+        "cloudflare-pipelines_ParquetCompression": cloudflare_pipelines_ParquetCompression_output,
+        "cloudflare-pipelines_ParquetFormat": cloudflare_pipelines_ParquetFormat_output,
+        "cloudflare-pipelines_SourceField": cloudflare_pipelines_SourceField_output,
+        "cloudflare-pipelines_StructField": cloudflare_pipelines_StructField_output,
+        "cloudflare-pipelines_TimestampField": cloudflare_pipelines_TimestampField_output,
+        "cloudflare-pipelines_TimestampFormat": cloudflare_pipelines_TimestampFormat_output,
+        "cloudflare-pipelines_TimestampUnit": cloudflare_pipelines_TimestampUnit_output,
+        "cloudflare-pipelines_worker-pipelines-common-success": cloudflare_pipelines_worker_pipelines_common_success_output,
       },
     },
     request: (args) => ({
@@ -361,21 +394,40 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Specifies the public ID of the account.",
-          "type": "string"
+          "$ref": "#/$defs/cloudflare-pipelines_workers-pipelines-account-id",
+          "description": "Specifies the public ID of the account."
         },
         "stream_id": {
-          "description": "Specifies the public ID of the stream.",
-          "type": "string"
+          "$ref": "#/$defs/cloudflare-pipelines_workers-pipelines-stream-id",
+          "description": "Specifies the public ID of the stream."
         }
       },
       required: [
         "account_id",
         "stream_id"
       ],
+      $defs: {
+        "cloudflare-pipelines_workers-pipelines-account-id": cloudflare_pipelines_workers_pipelines_account_id,
+        "cloudflare-pipelines_workers-pipelines-stream-id": cloudflare_pipelines_workers_pipelines_stream_id,
+      },
     },
     outputSchema: {
+      "properties": {
+        "result": {
+          "type": "object"
+        },
+        "success": {
+          "$ref": "#/$defs/cloudflare-pipelines_worker-pipelines-common-success"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
       "type": "object",
+      $defs: {
+        "cloudflare-pipelines_worker-pipelines-common-success": cloudflare_pipelines_worker_pipelines_common_success_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -397,9 +449,24 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
+          "properties": {
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "$ref": "#/$defs/cloudflare-pipelines_worker-pipelines-common-success"
+            }
+          },
+          "required": [
+            "result",
+            "success"
+          ],
           "type": "object"
         },
         "4XX": null
+      },
+      $defs: {
+        "cloudflare-pipelines_worker-pipelines-common-success": cloudflare_pipelines_worker_pipelines_common_success_output,
       },
     },
     request: (args) => ({
@@ -414,99 +481,116 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Specifies the public ID of the account.",
-          "type": "string"
+          "$ref": "#/$defs/cloudflare-pipelines_workers-pipelines-account-id",
+          "description": "Specifies the public ID of the account."
         },
         "stream_id": {
-          "description": "Specifies the public ID of the stream.",
-          "type": "string"
+          "$ref": "#/$defs/cloudflare-pipelines_workers-pipelines-stream-id",
+          "description": "Specifies the public ID of the stream."
         }
       },
       required: [
         "account_id",
         "stream_id"
       ],
+      $defs: {
+        "cloudflare-pipelines_workers-pipelines-account-id": cloudflare_pipelines_workers_pipelines_account_id,
+        "cloudflare-pipelines_workers-pipelines-stream-id": cloudflare_pipelines_workers_pipelines_stream_id,
+      },
     },
     outputSchema: {
       "properties": {
-        "created_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "endpoint": {
-          "type": "string"
-        },
-        "format": {
-          "$ref": "#/$defs/cloudflare-pipelines_Format"
-        },
-        "http": {
+        "result": {
           "properties": {
-            "authentication": {
-              "type": "boolean"
+            "created_at": {
+              "format": "date-time",
+              "type": "string"
             },
-            "cors": {
+            "endpoint": {
+              "type": "string"
+            },
+            "format": {
+              "$ref": "#/$defs/cloudflare-pipelines_Format"
+            },
+            "http": {
               "properties": {
-                "origins": {
-                  "items": {
-                    "type": "string"
+                "authentication": {
+                  "type": "boolean"
+                },
+                "cors": {
+                  "properties": {
+                    "origins": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "maxItems": 5,
+                      "type": "array"
+                    }
                   },
-                  "maxItems": 5,
-                  "type": "array"
+                  "type": "object"
+                },
+                "enabled": {
+                  "type": "boolean"
                 }
               },
+              "required": [
+                "authentication",
+                "enabled"
+              ],
               "type": "object"
             },
-            "enabled": {
-              "type": "boolean"
+            "id": {
+              "type": "string"
+            },
+            "modified_at": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "schema": {
+              "$ref": "#/$defs/cloudflare-pipelines_ConnectionSchema"
+            },
+            "version": {
+              "type": "integer"
+            },
+            "worker_binding": {
+              "properties": {
+                "enabled": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "enabled"
+              ],
+              "type": "object"
             }
           },
           "required": [
-            "authentication",
-            "enabled"
+            "created_at",
+            "http",
+            "id",
+            "modified_at",
+            "name",
+            "version",
+            "worker_binding"
           ],
           "type": "object"
         },
-        "id": {
-          "type": "string"
-        },
-        "modified_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "schema": {
-          "$ref": "#/$defs/cloudflare-pipelines_ConnectionSchema"
-        },
-        "version": {
-          "type": "integer"
-        },
-        "worker_binding": {
-          "properties": {
-            "enabled": {
-              "type": "boolean"
-            }
-          },
-          "required": [
-            "enabled"
-          ],
-          "type": "object"
+        "success": {
+          "$ref": "#/$defs/cloudflare-pipelines_worker-pipelines-common-success"
         }
       },
       "required": [
-        "created_at",
-        "http",
-        "id",
-        "modified_at",
-        "name",
-        "version",
-        "worker_binding"
+        "result",
+        "success"
       ],
       "type": "object",
       $defs: {
         "cloudflare-pipelines_ConnectionSchema": cloudflare_pipelines_ConnectionSchema_output,
         "cloudflare-pipelines_DecimalEncoding": cloudflare_pipelines_DecimalEncoding_output,
+        "cloudflare-pipelines_FieldType": cloudflare_pipelines_FieldType_output,
         "cloudflare-pipelines_Format": cloudflare_pipelines_Format_output,
         "cloudflare-pipelines_JsonFormat": cloudflare_pipelines_JsonFormat_output,
         "cloudflare-pipelines_ListField": cloudflare_pipelines_ListField_output,
@@ -517,6 +601,7 @@ export const tools: readonly Tool[] = [
         "cloudflare-pipelines_TimestampField": cloudflare_pipelines_TimestampField_output,
         "cloudflare-pipelines_TimestampFormat": cloudflare_pipelines_TimestampFormat_output,
         "cloudflare-pipelines_TimestampUnit": cloudflare_pipelines_TimestampUnit_output,
+        "cloudflare-pipelines_worker-pipelines-common-success": cloudflare_pipelines_worker_pipelines_common_success_output,
       },
     },
     annotations: {
@@ -544,79 +629,91 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
-            "created_at": {
-              "format": "date-time",
-              "type": "string"
-            },
-            "endpoint": {
-              "type": "string"
-            },
-            "format": {
-              "$ref": "#/$defs/cloudflare-pipelines_Format"
-            },
-            "http": {
+            "result": {
               "properties": {
-                "authentication": {
-                  "type": "boolean"
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
                 },
-                "cors": {
+                "endpoint": {
+                  "type": "string"
+                },
+                "format": {
+                  "$ref": "#/$defs/cloudflare-pipelines_Format"
+                },
+                "http": {
                   "properties": {
-                    "origins": {
-                      "items": {
-                        "type": "string"
+                    "authentication": {
+                      "type": "boolean"
+                    },
+                    "cors": {
+                      "properties": {
+                        "origins": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "maxItems": 5,
+                          "type": "array"
+                        }
                       },
-                      "maxItems": 5,
-                      "type": "array"
+                      "type": "object"
+                    },
+                    "enabled": {
+                      "type": "boolean"
                     }
                   },
+                  "required": [
+                    "authentication",
+                    "enabled"
+                  ],
                   "type": "object"
                 },
-                "enabled": {
-                  "type": "boolean"
+                "id": {
+                  "type": "string"
+                },
+                "modified_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "schema": {
+                  "$ref": "#/$defs/cloudflare-pipelines_ConnectionSchema"
+                },
+                "version": {
+                  "type": "integer"
+                },
+                "worker_binding": {
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "enabled"
+                  ],
+                  "type": "object"
                 }
               },
               "required": [
-                "authentication",
-                "enabled"
+                "created_at",
+                "http",
+                "id",
+                "modified_at",
+                "name",
+                "version",
+                "worker_binding"
               ],
               "type": "object"
             },
-            "id": {
-              "type": "string"
-            },
-            "modified_at": {
-              "format": "date-time",
-              "type": "string"
-            },
-            "name": {
-              "type": "string"
-            },
-            "schema": {
-              "$ref": "#/$defs/cloudflare-pipelines_ConnectionSchema"
-            },
-            "version": {
-              "type": "integer"
-            },
-            "worker_binding": {
-              "properties": {
-                "enabled": {
-                  "type": "boolean"
-                }
-              },
-              "required": [
-                "enabled"
-              ],
-              "type": "object"
+            "success": {
+              "$ref": "#/$defs/cloudflare-pipelines_worker-pipelines-common-success"
             }
           },
           "required": [
-            "created_at",
-            "http",
-            "id",
-            "modified_at",
-            "name",
-            "version",
-            "worker_binding"
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -625,6 +722,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "cloudflare-pipelines_ConnectionSchema": cloudflare_pipelines_ConnectionSchema_output,
         "cloudflare-pipelines_DecimalEncoding": cloudflare_pipelines_DecimalEncoding_output,
+        "cloudflare-pipelines_FieldType": cloudflare_pipelines_FieldType_output,
         "cloudflare-pipelines_Format": cloudflare_pipelines_Format_output,
         "cloudflare-pipelines_JsonFormat": cloudflare_pipelines_JsonFormat_output,
         "cloudflare-pipelines_ListField": cloudflare_pipelines_ListField_output,
@@ -635,6 +733,7 @@ export const tools: readonly Tool[] = [
         "cloudflare-pipelines_TimestampField": cloudflare_pipelines_TimestampField_output,
         "cloudflare-pipelines_TimestampFormat": cloudflare_pipelines_TimestampFormat_output,
         "cloudflare-pipelines_TimestampUnit": cloudflare_pipelines_TimestampUnit_output,
+        "cloudflare-pipelines_worker-pipelines-common-success": cloudflare_pipelines_worker_pipelines_common_success_output,
       },
     },
     request: (args) => ({
@@ -649,8 +748,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Specifies the public ID of the account.",
-          "type": "string"
+          "$ref": "#/$defs/cloudflare-pipelines_workers-pipelines-account-id",
+          "description": "Specifies the public ID of the account."
         },
         "direction": {
           "default": "asc",
@@ -689,6 +788,7 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
       $defs: {
+        "cloudflare-pipelines_workers-pipelines-account-id": cloudflare_pipelines_workers_pipelines_account_id,
         "cloudflare-pipelines_workers-pipelines-pipeline-id": cloudflare_pipelines_workers_pipelines_pipeline_id,
       },
     },
@@ -797,15 +897,21 @@ export const tools: readonly Tool[] = [
             "total_count"
           ],
           "type": "object"
+        },
+        "success": {
+          "$ref": "#/$defs/cloudflare-pipelines_worker-pipelines-common-success"
         }
       },
       "required": [
-        "result"
+        "result",
+        "result_info",
+        "success"
       ],
       "type": "object",
       $defs: {
         "cloudflare-pipelines_ConnectionSchema": cloudflare_pipelines_ConnectionSchema_output,
         "cloudflare-pipelines_DecimalEncoding": cloudflare_pipelines_DecimalEncoding_output,
+        "cloudflare-pipelines_FieldType": cloudflare_pipelines_FieldType_output,
         "cloudflare-pipelines_Format": cloudflare_pipelines_Format_output,
         "cloudflare-pipelines_JsonFormat": cloudflare_pipelines_JsonFormat_output,
         "cloudflare-pipelines_ListField": cloudflare_pipelines_ListField_output,
@@ -816,6 +922,7 @@ export const tools: readonly Tool[] = [
         "cloudflare-pipelines_TimestampField": cloudflare_pipelines_TimestampField_output,
         "cloudflare-pipelines_TimestampFormat": cloudflare_pipelines_TimestampFormat_output,
         "cloudflare-pipelines_TimestampUnit": cloudflare_pipelines_TimestampUnit_output,
+        "cloudflare-pipelines_worker-pipelines-common-success": cloudflare_pipelines_worker_pipelines_common_success_output,
       },
     },
     annotations: {
@@ -946,10 +1053,15 @@ export const tools: readonly Tool[] = [
                 "total_count"
               ],
               "type": "object"
+            },
+            "success": {
+              "$ref": "#/$defs/cloudflare-pipelines_worker-pipelines-common-success"
             }
           },
           "required": [
-            "result"
+            "result",
+            "result_info",
+            "success"
           ],
           "type": "object"
         },
@@ -958,6 +1070,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "cloudflare-pipelines_ConnectionSchema": cloudflare_pipelines_ConnectionSchema_output,
         "cloudflare-pipelines_DecimalEncoding": cloudflare_pipelines_DecimalEncoding_output,
+        "cloudflare-pipelines_FieldType": cloudflare_pipelines_FieldType_output,
         "cloudflare-pipelines_Format": cloudflare_pipelines_Format_output,
         "cloudflare-pipelines_JsonFormat": cloudflare_pipelines_JsonFormat_output,
         "cloudflare-pipelines_ListField": cloudflare_pipelines_ListField_output,
@@ -968,6 +1081,7 @@ export const tools: readonly Tool[] = [
         "cloudflare-pipelines_TimestampField": cloudflare_pipelines_TimestampField_output,
         "cloudflare-pipelines_TimestampFormat": cloudflare_pipelines_TimestampFormat_output,
         "cloudflare-pipelines_TimestampUnit": cloudflare_pipelines_TimestampUnit_output,
+        "cloudflare-pipelines_worker-pipelines-common-success": cloudflare_pipelines_worker_pipelines_common_success_output,
       },
     },
     request: (args) => ({
@@ -990,8 +1104,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Specifies the public ID of the account.",
-          "type": "string"
+          "$ref": "#/$defs/cloudflare-pipelines_workers-pipelines-account-id",
+          "description": "Specifies the public ID of the account."
         },
         "body": {
           "properties": {
@@ -1041,127 +1155,22 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "stream_id": {
-          "description": "Specifies the public ID of the stream.",
-          "type": "string"
+          "$ref": "#/$defs/cloudflare-pipelines_workers-pipelines-stream-id",
+          "description": "Specifies the public ID of the stream."
         }
       },
       required: [
         "account_id",
         "stream_id"
       ],
+      $defs: {
+        "cloudflare-pipelines_workers-pipelines-account-id": cloudflare_pipelines_workers_pipelines_account_id,
+        "cloudflare-pipelines_workers-pipelines-stream-id": cloudflare_pipelines_workers_pipelines_stream_id,
+      },
     },
     outputSchema: {
       "properties": {
-        "created_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "endpoint": {
-          "type": "string"
-        },
-        "format": {
-          "$ref": "#/$defs/cloudflare-pipelines_Format"
-        },
-        "http": {
-          "properties": {
-            "authentication": {
-              "type": "boolean"
-            },
-            "cors": {
-              "properties": {
-                "origins": {
-                  "items": {
-                    "type": "string"
-                  },
-                  "maxItems": 5,
-                  "type": "array"
-                }
-              },
-              "type": "object"
-            },
-            "enabled": {
-              "type": "boolean"
-            }
-          },
-          "required": [
-            "authentication",
-            "enabled"
-          ],
-          "type": "object"
-        },
-        "id": {
-          "type": "string"
-        },
-        "modified_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "schema": {
-          "$ref": "#/$defs/cloudflare-pipelines_ConnectionSchema"
-        },
-        "version": {
-          "type": "integer"
-        },
-        "worker_binding": {
-          "properties": {
-            "enabled": {
-              "type": "boolean"
-            }
-          },
-          "required": [
-            "enabled"
-          ],
-          "type": "object"
-        }
-      },
-      "required": [
-        "created_at",
-        "http",
-        "id",
-        "modified_at",
-        "name",
-        "version",
-        "worker_binding"
-      ],
-      "type": "object",
-      $defs: {
-        "cloudflare-pipelines_ConnectionSchema": cloudflare_pipelines_ConnectionSchema_output,
-        "cloudflare-pipelines_DecimalEncoding": cloudflare_pipelines_DecimalEncoding_output,
-        "cloudflare-pipelines_Format": cloudflare_pipelines_Format_output,
-        "cloudflare-pipelines_JsonFormat": cloudflare_pipelines_JsonFormat_output,
-        "cloudflare-pipelines_ListField": cloudflare_pipelines_ListField_output,
-        "cloudflare-pipelines_ParquetCompression": cloudflare_pipelines_ParquetCompression_output,
-        "cloudflare-pipelines_ParquetFormat": cloudflare_pipelines_ParquetFormat_output,
-        "cloudflare-pipelines_SourceField": cloudflare_pipelines_SourceField_output,
-        "cloudflare-pipelines_StructField": cloudflare_pipelines_StructField_output,
-        "cloudflare-pipelines_TimestampField": cloudflare_pipelines_TimestampField_output,
-        "cloudflare-pipelines_TimestampFormat": cloudflare_pipelines_TimestampFormat_output,
-        "cloudflare-pipelines_TimestampUnit": cloudflare_pipelines_TimestampUnit_output,
-      },
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Update Stream"
-    },
-    method: "PATCH",
-    path: "/accounts/{account_id}/pipelines/v1/streams/{stream_id}",
-    extensions: {
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": false,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "created_at": {
               "format": "date-time",
@@ -1239,11 +1248,19 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "4XX": null
+        "success": {
+          "$ref": "#/$defs/cloudflare-pipelines_worker-pipelines-common-success"
+        }
       },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
       $defs: {
         "cloudflare-pipelines_ConnectionSchema": cloudflare_pipelines_ConnectionSchema_output,
         "cloudflare-pipelines_DecimalEncoding": cloudflare_pipelines_DecimalEncoding_output,
+        "cloudflare-pipelines_FieldType": cloudflare_pipelines_FieldType_output,
         "cloudflare-pipelines_Format": cloudflare_pipelines_Format_output,
         "cloudflare-pipelines_JsonFormat": cloudflare_pipelines_JsonFormat_output,
         "cloudflare-pipelines_ListField": cloudflare_pipelines_ListField_output,
@@ -1254,6 +1271,135 @@ export const tools: readonly Tool[] = [
         "cloudflare-pipelines_TimestampField": cloudflare_pipelines_TimestampField_output,
         "cloudflare-pipelines_TimestampFormat": cloudflare_pipelines_TimestampFormat_output,
         "cloudflare-pipelines_TimestampUnit": cloudflare_pipelines_TimestampUnit_output,
+        "cloudflare-pipelines_worker-pipelines-common-success": cloudflare_pipelines_worker_pipelines_common_success_output,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Update Stream"
+    },
+    method: "PATCH",
+    path: "/accounts/{account_id}/pipelines/v1/streams/{stream_id}",
+    extensions: {
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": false,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "endpoint": {
+                  "type": "string"
+                },
+                "format": {
+                  "$ref": "#/$defs/cloudflare-pipelines_Format"
+                },
+                "http": {
+                  "properties": {
+                    "authentication": {
+                      "type": "boolean"
+                    },
+                    "cors": {
+                      "properties": {
+                        "origins": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "maxItems": 5,
+                          "type": "array"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "enabled": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "authentication",
+                    "enabled"
+                  ],
+                  "type": "object"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "modified_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "schema": {
+                  "$ref": "#/$defs/cloudflare-pipelines_ConnectionSchema"
+                },
+                "version": {
+                  "type": "integer"
+                },
+                "worker_binding": {
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "enabled"
+                  ],
+                  "type": "object"
+                }
+              },
+              "required": [
+                "created_at",
+                "http",
+                "id",
+                "modified_at",
+                "name",
+                "version",
+                "worker_binding"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "$ref": "#/$defs/cloudflare-pipelines_worker-pipelines-common-success"
+            }
+          },
+          "required": [
+            "result",
+            "success"
+          ],
+          "type": "object"
+        },
+        "4XX": null
+      },
+      $defs: {
+        "cloudflare-pipelines_ConnectionSchema": cloudflare_pipelines_ConnectionSchema_output,
+        "cloudflare-pipelines_DecimalEncoding": cloudflare_pipelines_DecimalEncoding_output,
+        "cloudflare-pipelines_FieldType": cloudflare_pipelines_FieldType_output,
+        "cloudflare-pipelines_Format": cloudflare_pipelines_Format_output,
+        "cloudflare-pipelines_JsonFormat": cloudflare_pipelines_JsonFormat_output,
+        "cloudflare-pipelines_ListField": cloudflare_pipelines_ListField_output,
+        "cloudflare-pipelines_ParquetCompression": cloudflare_pipelines_ParquetCompression_output,
+        "cloudflare-pipelines_ParquetFormat": cloudflare_pipelines_ParquetFormat_output,
+        "cloudflare-pipelines_SourceField": cloudflare_pipelines_SourceField_output,
+        "cloudflare-pipelines_StructField": cloudflare_pipelines_StructField_output,
+        "cloudflare-pipelines_TimestampField": cloudflare_pipelines_TimestampField_output,
+        "cloudflare-pipelines_TimestampFormat": cloudflare_pipelines_TimestampFormat_output,
+        "cloudflare-pipelines_TimestampUnit": cloudflare_pipelines_TimestampUnit_output,
+        "cloudflare-pipelines_worker-pipelines-common-success": cloudflare_pipelines_worker_pipelines_common_success_output,
       },
     },
     request: (args) => ({

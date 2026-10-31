@@ -21,3 +21,25 @@ export const logpush_transformer_version_output: JsonSchema = {
   },
   "type": "object"
 };
+
+/**
+ * The schema of `logpush_transformer_version_response_collection` in responses.
+ */
+export const logpush_transformer_version_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/logpush_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/logpush_transformer_version"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};

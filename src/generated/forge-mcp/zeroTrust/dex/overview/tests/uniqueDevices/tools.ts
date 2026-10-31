@@ -4,8 +4,10 @@
 import { type Tool, pathParam } from "../../../../../_/tool.js";
 import {
   digital_experience_monitoring_api_response_common_failure_output,
+  digital_experience_monitoring_api_response_single_output,
   digital_experience_monitoring_messages_output,
 } from "../../../outputs.js";
+import { digital_experience_monitoring_account_identifier } from "../../../schemas.js";
 import { digital_experience_monitoring_unique_devices_response_output } from "./outputs.js";
 
 /**
@@ -20,8 +22,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Unique Cloudflare account ID.",
-          "type": "string"
+          "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
+          "description": "Unique Cloudflare account ID."
         },
         "device_id": {
           "description": "Optionally filter result stats to a specific device(s). Cannot be used in combination with colo param.",
@@ -38,10 +40,27 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+      $defs: {
+        "digital-experience-monitoring_account_identifier": digital_experience_monitoring_account_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/digital-experience-monitoring_unique_devices_response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/digital-experience-monitoring_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/digital-experience-monitoring_unique_devices_response"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "digital-experience-monitoring_api-response-single": digital_experience_monitoring_api_response_single_output,
+        "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
         "digital-experience-monitoring_unique_devices_response": digital_experience_monitoring_unique_devices_response_output,
       },
     },
@@ -65,7 +84,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/digital-experience-monitoring_unique_devices_response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/digital-experience-monitoring_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/digital-experience-monitoring_unique_devices_response"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/digital-experience-monitoring_api-response-common-failure"
@@ -73,6 +104,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "digital-experience-monitoring_api-response-common-failure": digital_experience_monitoring_api_response_common_failure_output,
+        "digital-experience-monitoring_api-response-single": digital_experience_monitoring_api_response_single_output,
         "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
         "digital-experience-monitoring_unique_devices_response": digital_experience_monitoring_unique_devices_response_output,
       },

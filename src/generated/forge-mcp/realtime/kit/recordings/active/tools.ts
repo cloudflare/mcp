@@ -3,10 +3,14 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  realtimekit_GenericErrorResponse_error_output,
   realtimekit_GenericErrorResponse_output,
   realtimekit_GenericSuccessResponse_output,
+  realtimekit_ValidationIssue_output,
 } from "../../outputs.js";
+import {
+  realtimekit_account_identifier,
+  realtimekit_app_id,
+} from "../../schemas.js";
 import { realtimekit_Recording_output } from "../outputs.js";
 
 /**
@@ -21,12 +25,12 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "The account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/realtimekit_account_identifier",
+          "description": "The account identifier tag."
         },
         "app_id": {
-          "description": "The app identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/realtimekit_app_id",
+          "description": "The app identifier tag."
         },
         "meeting_id": {
           "description": "ID of the meeting",
@@ -38,6 +42,10 @@ export const tools: readonly Tool[] = [
         "app_id",
         "meeting_id"
       ],
+      $defs: {
+        "realtimekit_account_identifier": realtimekit_account_identifier,
+        "realtimekit_app_id": realtimekit_app_id,
+      },
     },
     outputSchema: {
       "allOf": [
@@ -102,9 +110,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
-        "realtimekit_GenericErrorResponse_error": realtimekit_GenericErrorResponse_error_output,
         "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
         "realtimekit_Recording": realtimekit_Recording_output,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
       },
     },
     request: (args) => ({

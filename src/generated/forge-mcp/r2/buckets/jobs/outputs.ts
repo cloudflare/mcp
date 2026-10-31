@@ -64,7 +64,49 @@ export const r2_storage_class_migration_job_output: JsonSchema = {
       "$ref": "#/$defs/r2_r2_bucket_job_status"
     },
     "storageClassMigration": {
-      "$ref": "#/$defs/r2_storage_class_migration_job_storageClassMigration"
+      "properties": {
+        "destinationStorageClass": {
+          "enum": [
+            "Standard",
+            "InfrequentAccess"
+          ],
+          "type": "string"
+        },
+        "failedBytes": {
+          "type": "integer"
+        },
+        "failedObjects": {
+          "type": "integer"
+        },
+        "migratedBytes": {
+          "type": "integer"
+        },
+        "migratedMetadataBytes": {
+          "type": "integer"
+        },
+        "migratedObjects": {
+          "type": "integer"
+        },
+        "skippedBytes": {
+          "type": "integer"
+        },
+        "skippedObjects": {
+          "type": "integer"
+        },
+        "sourceStorageClass": {
+          "enum": [
+            "Standard",
+            "InfrequentAccess"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "destinationStorageClass",
+        "migratedObjects",
+        "sourceStorageClass"
+      ],
+      "type": "object"
     }
   },
   "required": [
@@ -73,56 +115,6 @@ export const r2_storage_class_migration_job_output: JsonSchema = {
     "startTime",
     "status",
     "storageClassMigration"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `r2_storage_class_migration_job_storageClassMigration` in
- * responses.
- */
-export const r2_storage_class_migration_job_storageClassMigration_output: JsonSchema = {
-  "properties": {
-    "destinationStorageClass": {
-      "enum": [
-        "Standard",
-        "InfrequentAccess"
-      ],
-      "type": "string"
-    },
-    "failedBytes": {
-      "type": "integer"
-    },
-    "failedObjects": {
-      "type": "integer"
-    },
-    "migratedBytes": {
-      "type": "integer"
-    },
-    "migratedMetadataBytes": {
-      "type": "integer"
-    },
-    "migratedObjects": {
-      "type": "integer"
-    },
-    "skippedBytes": {
-      "type": "integer"
-    },
-    "skippedObjects": {
-      "type": "integer"
-    },
-    "sourceStorageClass": {
-      "enum": [
-        "Standard",
-        "InfrequentAccess"
-      ],
-      "type": "string"
-    }
-  },
-  "required": [
-    "destinationStorageClass",
-    "migratedObjects",
-    "sourceStorageClass"
   ],
   "type": "object"
 };

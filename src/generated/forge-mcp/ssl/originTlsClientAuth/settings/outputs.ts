@@ -7,40 +7,22 @@ import type { JsonSchema } from "../../../_/tool.js";
  * The schema of `tls-certificates-and-hostnames_enabled_response` in responses.
  */
 export const tls_certificates_and_hostnames_enabled_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_enabled_response_result"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "enabled": {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_enabled-4"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_enabled_response_result` in
- * responses.
- */
-export const tls_certificates_and_hostnames_enabled_response_result_output: JsonSchema = {
-  "properties": {
-    "enabled": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_enabled-4"
-    }
-  },
-  "type": "object"
+  ]
 };

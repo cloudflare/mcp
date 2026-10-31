@@ -57,7 +57,19 @@ export const cloudflare_k2_K2MonitoredSubscription_output: JsonSchema = {
       "type": "string"
     },
     "start_at": {
-      "$ref": "#/$defs/cloudflare-k2_K2MonitoredSubscription_start_at"
+      "properties": {
+        "type": {
+          "enum": [
+            "earliest",
+            "latest"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "type": "object"
     }
   },
   "required": [
@@ -72,20 +84,32 @@ export const cloudflare_k2_K2MonitoredSubscription_output: JsonSchema = {
 };
 
 /**
- * The schema of `cloudflare-k2_K2MonitoredSubscription_start_at` in responses.
+ * The schema of `cloudflare-k2_K2MonitoredSubscriptionListResponse` in
+ * responses.
  */
-export const cloudflare_k2_K2MonitoredSubscription_start_at_output: JsonSchema = {
+export const cloudflare_k2_K2MonitoredSubscriptionListResponse_output: JsonSchema = {
   "properties": {
-    "type": {
-      "enum": [
-        "earliest",
-        "latest"
-      ],
-      "type": "string"
+    "errors": {
+      "$ref": "#/$defs/cloudflare-k2_workers-k2-messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/cloudflare-k2_workers-k2-messages"
+    },
+    "result": {
+      "items": {
+        "$ref": "#/$defs/cloudflare-k2_K2MonitoredSubscription"
+      },
+      "type": "array"
+    },
+    "success": {
+      "$ref": "#/$defs/cloudflare-k2_workers-k2-common-success"
     }
   },
   "required": [
-    "type"
+    "errors",
+    "messages",
+    "result",
+    "success"
   ],
   "type": "object"
 };

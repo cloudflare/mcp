@@ -9,7 +9,17 @@ import type { JsonSchema } from "../../../_/tool.js";
 export const r2_bucket_lock_rule: JsonSchema = {
   "properties": {
     "condition": {
-      "$ref": "#/$defs/r2_bucket-lock-rule_condition"
+      "oneOf": [
+        {
+          "$ref": "#/$defs/r2_lock-rule-age-condition"
+        },
+        {
+          "$ref": "#/$defs/r2_lock-rule-date-condition"
+        },
+        {
+          "$ref": "#/$defs/r2_lock-rule-indefinite-condition"
+        }
+      ]
     },
     "enabled": {
       "description": "Whether or not this rule is in effect.",
@@ -30,23 +40,6 @@ export const r2_bucket_lock_rule: JsonSchema = {
     "id"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `r2_bucket-lock-rule_condition`.
- */
-export const r2_bucket_lock_rule_condition: JsonSchema = {
-  "oneOf": [
-    {
-      "$ref": "#/$defs/r2_lock-rule-age-condition"
-    },
-    {
-      "$ref": "#/$defs/r2_lock-rule-date-condition"
-    },
-    {
-      "$ref": "#/$defs/r2_lock-rule-indefinite-condition"
-    }
-  ]
 };
 
 /**

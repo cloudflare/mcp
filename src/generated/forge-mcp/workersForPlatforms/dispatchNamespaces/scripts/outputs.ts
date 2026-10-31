@@ -10,7 +10,12 @@ export const workers_namespace_script_delete_bulk_response_output: JsonSchema = 
   "properties": {
     "deleted": {
       "items": {
-        "$ref": "#/$defs/workers_namespace-script-delete-bulk-response_deletedItem"
+        "properties": {
+          "id": {
+            "$ref": "#/$defs/workers_uuid"
+          }
+        },
+        "type": "object"
       },
       "type": "array"
     },
@@ -19,19 +24,6 @@ export const workers_namespace_script_delete_bulk_response_output: JsonSchema = 
     },
     "has_more": {
       "type": "boolean"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_namespace-script-delete-bulk-response_deletedItem` in
- * responses.
- */
-export const workers_namespace_script_delete_bulk_response_deletedItem_output: JsonSchema = {
-  "properties": {
-    "id": {
-      "$ref": "#/$defs/workers_uuid"
     }
   },
   "type": "object"
@@ -56,4 +48,26 @@ export const workers_namespace_script_response_output: JsonSchema = {
     }
   },
   "type": "object"
+};
+
+/**
+ * The schema of `workers_namespace-script-response-single` in responses.
+ */
+export const workers_namespace_script_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/workers_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/workers_namespace-script-response"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object"
+    }
+  ]
 };

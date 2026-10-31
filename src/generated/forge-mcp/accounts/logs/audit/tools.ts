@@ -3,12 +3,11 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  aaa_api_response_common_failure_2_errorsItem_output,
-  aaa_api_response_common_failure_2_messagesItem_output,
   aaa_api_response_common_failure_2_output,
   aaa_audit_log_action_output,
   aaa_audit_log_actor_base_output,
   aaa_audit_log_raw_output,
+  aaa_audit_logs_response_collection_output,
   aaa_audit_logs_v2_history_not_found_output,
   aaa_audit_logs_v2_history_result_info_output,
   aaa_history_status_output,
@@ -17,12 +16,12 @@ import {
   aaa_result_info_output,
 } from "../../../outputs.js";
 import {
-  aaa_audit_logs_v2_account_output,
+  aaa_audit_logs_v2_history_response_collection_output,
   aaa_audit_logs_v2_output,
+  aaa_audit_logs_v2_product_categories_response_collection_output,
   aaa_audit_logs_v2_product_category_item_output,
   aaa_audit_logs_v2_product_category_output,
-  aaa_audit_logs_v2_resource_output,
-  aaa_audit_logs_v2_zone_output,
+  aaa_audit_logs_v2_response_collection_output,
 } from "./outputs.js";
 
 /**
@@ -88,32 +87,17 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/aaa_audit-logs-v2"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "$ref": "#/$defs/aaa_audit-logs-v2-history-result-info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/aaa_audit-logs-v2-history-response-collection",
       $defs: {
         "aaa_audit-log-action": aaa_audit_log_action_output,
         "aaa_audit-log-actor-base": aaa_audit_log_actor_base_output,
         "aaa_audit-log-raw": aaa_audit_log_raw_output,
         "aaa_audit-logs-v2": aaa_audit_logs_v2_output,
+        "aaa_audit-logs-v2-history-response-collection": aaa_audit_logs_v2_history_response_collection_output,
         "aaa_audit-logs-v2-history-result-info": aaa_audit_logs_v2_history_result_info_output,
-        "aaa_audit-logs-v2_account": aaa_audit_logs_v2_account_output,
-        "aaa_audit-logs-v2_resource": aaa_audit_logs_v2_resource_output,
-        "aaa_audit-logs-v2_zone": aaa_audit_logs_v2_zone_output,
         "aaa_history-status": aaa_history_status_output,
         "aaa_identifier-2": aaa_identifier_2_output,
+        "aaa_messages-2": aaa_messages_2_output,
       },
     },
     annotations: {
@@ -140,21 +124,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/aaa_audit-logs-v2"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/aaa_audit-logs-v2-history-result-info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/aaa_audit-logs-v2-history-response-collection"
         },
         "404": {
           "$ref": "#/$defs/aaa_audit-logs-v2-history-not-found"
@@ -165,17 +135,13 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "aaa_api-response-common-failure-2": aaa_api_response_common_failure_2_output,
-        "aaa_api-response-common-failure-2_errorsItem": aaa_api_response_common_failure_2_errorsItem_output,
-        "aaa_api-response-common-failure-2_messagesItem": aaa_api_response_common_failure_2_messagesItem_output,
         "aaa_audit-log-action": aaa_audit_log_action_output,
         "aaa_audit-log-actor-base": aaa_audit_log_actor_base_output,
         "aaa_audit-log-raw": aaa_audit_log_raw_output,
         "aaa_audit-logs-v2": aaa_audit_logs_v2_output,
         "aaa_audit-logs-v2-history-not-found": aaa_audit_logs_v2_history_not_found_output,
+        "aaa_audit-logs-v2-history-response-collection": aaa_audit_logs_v2_history_response_collection_output,
         "aaa_audit-logs-v2-history-result-info": aaa_audit_logs_v2_history_result_info_output,
-        "aaa_audit-logs-v2_account": aaa_audit_logs_v2_account_output,
-        "aaa_audit-logs-v2_resource": aaa_audit_logs_v2_resource_output,
-        "aaa_audit-logs-v2_zone": aaa_audit_logs_v2_zone_output,
         "aaa_history-status": aaa_history_status_output,
         "aaa_identifier-2": aaa_identifier_2_output,
         "aaa_messages-2": aaa_messages_2_output,
@@ -617,30 +583,16 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/aaa_audit-logs-v2"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "$ref": "#/$defs/aaa_result_info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/aaa_audit-logs-v2-response-collection",
       $defs: {
         "aaa_audit-log-action": aaa_audit_log_action_output,
         "aaa_audit-log-actor-base": aaa_audit_log_actor_base_output,
         "aaa_audit-log-raw": aaa_audit_log_raw_output,
+        "aaa_audit-logs-response-collection": aaa_audit_logs_response_collection_output,
         "aaa_audit-logs-v2": aaa_audit_logs_v2_output,
-        "aaa_audit-logs-v2_account": aaa_audit_logs_v2_account_output,
-        "aaa_audit-logs-v2_resource": aaa_audit_logs_v2_resource_output,
-        "aaa_audit-logs-v2_zone": aaa_audit_logs_v2_zone_output,
+        "aaa_audit-logs-v2-response-collection": aaa_audit_logs_v2_response_collection_output,
         "aaa_identifier-2": aaa_identifier_2_output,
+        "aaa_messages-2": aaa_messages_2_output,
         "aaa_result_info": aaa_result_info_output,
       },
     },
@@ -668,21 +620,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/aaa_audit-logs-v2"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/aaa_result_info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/aaa_audit-logs-v2-response-collection"
         },
         "4XX": {
           "$ref": "#/$defs/aaa_api-response-common-failure-2"
@@ -690,16 +628,14 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "aaa_api-response-common-failure-2": aaa_api_response_common_failure_2_output,
-        "aaa_api-response-common-failure-2_errorsItem": aaa_api_response_common_failure_2_errorsItem_output,
-        "aaa_api-response-common-failure-2_messagesItem": aaa_api_response_common_failure_2_messagesItem_output,
         "aaa_audit-log-action": aaa_audit_log_action_output,
         "aaa_audit-log-actor-base": aaa_audit_log_actor_base_output,
         "aaa_audit-log-raw": aaa_audit_log_raw_output,
+        "aaa_audit-logs-response-collection": aaa_audit_logs_response_collection_output,
         "aaa_audit-logs-v2": aaa_audit_logs_v2_output,
-        "aaa_audit-logs-v2_account": aaa_audit_logs_v2_account_output,
-        "aaa_audit-logs-v2_resource": aaa_audit_logs_v2_resource_output,
-        "aaa_audit-logs-v2_zone": aaa_audit_logs_v2_zone_output,
+        "aaa_audit-logs-v2-response-collection": aaa_audit_logs_v2_response_collection_output,
         "aaa_identifier-2": aaa_identifier_2_output,
+        "aaa_messages-2": aaa_messages_2_output,
         "aaa_result_info": aaa_result_info_output,
       },
     },
@@ -776,24 +712,12 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/aaa_audit-logs-v2-product-category"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/aaa_audit-logs-v2-product-categories-response-collection",
       $defs: {
+        "aaa_audit-logs-v2-product-categories-response-collection": aaa_audit_logs_v2_product_categories_response_collection_output,
         "aaa_audit-logs-v2-product-category": aaa_audit_logs_v2_product_category_output,
         "aaa_audit-logs-v2-product-category-item": aaa_audit_logs_v2_product_category_item_output,
+        "aaa_messages-2": aaa_messages_2_output,
       },
     },
     annotations: {
@@ -820,21 +744,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/aaa_audit-logs-v2-product-category"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/aaa_audit-logs-v2-product-categories-response-collection"
         },
         "4XX": {
           "$ref": "#/$defs/aaa_api-response-common-failure-2"
@@ -842,10 +752,10 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "aaa_api-response-common-failure-2": aaa_api_response_common_failure_2_output,
-        "aaa_api-response-common-failure-2_errorsItem": aaa_api_response_common_failure_2_errorsItem_output,
-        "aaa_api-response-common-failure-2_messagesItem": aaa_api_response_common_failure_2_messagesItem_output,
+        "aaa_audit-logs-v2-product-categories-response-collection": aaa_audit_logs_v2_product_categories_response_collection_output,
         "aaa_audit-logs-v2-product-category": aaa_audit_logs_v2_product_category_output,
         "aaa_audit-logs-v2-product-category-item": aaa_audit_logs_v2_product_category_item_output,
+        "aaa_messages-2": aaa_messages_2_output,
       },
     },
     request: (args) => ({

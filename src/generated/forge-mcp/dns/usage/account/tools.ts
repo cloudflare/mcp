@@ -4,8 +4,11 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   dns_records_api_response_common_failure_output,
+  dns_records_api_response_single_output,
   dns_records_messages_output,
 } from "../../outputs.js";
+import { dns_records_identifier } from "../../schemas.js";
+import { dns_records_dns_response_account_usage_output } from "./outputs.js";
 
 /**
  * The tools of `dns.usage.account`.
@@ -27,42 +30,25 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/dns-records_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         }
       },
       required: [
         "account_or_zone",
         "account_or_zone_id"
       ],
+      $defs: {
+        "dns-records_identifier": dns_records_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "internal_record_quota": {
-          "type": "integer"
-        },
-        "internal_record_usage": {
-          "type": "integer"
-        },
-        "record_quota": {
-          "oneOf": [
-            {
-              "type": "integer"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "record_usage": {
-          "type": "integer"
-        }
+      "$ref": "#/$defs/dns-records_dns_response_account_usage",
+      $defs: {
+        "dns-records_api-response-single": dns_records_api_response_single_output,
+        "dns-records_dns_response_account_usage": dns_records_dns_response_account_usage_output,
+        "dns-records_messages": dns_records_messages_output,
       },
-      "required": [
-        "record_quota",
-        "record_usage"
-      ],
-      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -81,12 +67,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#dns_records:read"
-        ],
-        "x-fern-enum": {
-          "#dns_records:read": {
-            "name": "dns_records_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -98,32 +79,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "internal_record_quota": {
-              "type": "integer"
-            },
-            "internal_record_usage": {
-              "type": "integer"
-            },
-            "record_quota": {
-              "oneOf": [
-                {
-                  "type": "integer"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "record_usage": {
-              "type": "integer"
-            }
-          },
-          "required": [
-            "record_quota",
-            "record_usage"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/dns-records_dns_response_account_usage"
         },
         "4XX": {
           "$ref": "#/$defs/dns-records_api-response-common-failure"
@@ -131,6 +87,8 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "dns-records_api-response-common-failure": dns_records_api_response_common_failure_output,
+        "dns-records_api-response-single": dns_records_api_response_single_output,
+        "dns-records_dns_response_account_usage": dns_records_dns_response_account_usage_output,
         "dns-records_messages": dns_records_messages_output,
       },
     },

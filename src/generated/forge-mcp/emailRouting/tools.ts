@@ -3,6 +3,11 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
+  email_api_response_single_output,
+  email_messages_output,
+} from "../outputs.js";
+import { email_identifier } from "../schemas.js";
+import {
   email_email_setting_created_output,
   email_email_setting_enabled_output,
   email_email_setting_identifier_output,
@@ -12,7 +17,8 @@ import {
   email_email_setting_status_output,
   email_email_setting_support_subaddress_output,
   email_email_setting_tag_output,
-  email_email_settings_properties_output,
+  email_email_settings_response_single_output,
+  email_settings_output,
 } from "./outputs.js";
 import {
   email_email_setting_dns_request_body,
@@ -34,8 +40,8 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/email_email_setting_dns_request_body"
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/email_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -44,11 +50,13 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email_email_setting_dns_request_body": email_email_setting_dns_request_body,
         "email_email_setting_name": email_email_setting_name,
+        "email_identifier": email_identifier,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/email_email_settings_properties",
+      "$ref": "#/$defs/email_email_settings_response_single",
       $defs: {
+        "email_api-response-single": email_api_response_single_output,
         "email_email_setting_created": email_email_setting_created_output,
         "email_email_setting_enabled": email_email_setting_enabled_output,
         "email_email_setting_identifier": email_email_setting_identifier_output,
@@ -58,7 +66,9 @@ export const tools: readonly Tool[] = [
         "email_email_setting_status": email_email_setting_status_output,
         "email_email_setting_support_subaddress": email_email_setting_support_subaddress_output,
         "email_email_setting_tag": email_email_setting_tag_output,
-        "email_email_settings_properties": email_email_settings_properties_output,
+        "email_email_settings_response_single": email_email_settings_response_single_output,
+        "email_messages": email_messages_output,
+        "email_settings": email_settings_output,
       },
     },
     annotations: {
@@ -84,11 +94,12 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/email_email_settings_properties"
+          "$ref": "#/$defs/email_email_settings_response_single"
         },
         "403": null
       },
       $defs: {
+        "email_api-response-single": email_api_response_single_output,
         "email_email_setting_created": email_email_setting_created_output,
         "email_email_setting_enabled": email_email_setting_enabled_output,
         "email_email_setting_identifier": email_email_setting_identifier_output,
@@ -98,7 +109,9 @@ export const tools: readonly Tool[] = [
         "email_email_setting_status": email_email_setting_status_output,
         "email_email_setting_support_subaddress": email_email_setting_support_subaddress_output,
         "email_email_setting_tag": email_email_setting_tag_output,
-        "email_email_settings_properties": email_email_settings_properties_output,
+        "email_email_settings_response_single": email_email_settings_response_single_output,
+        "email_messages": email_messages_output,
+        "email_settings": email_settings_output,
       },
     },
     request: (args) => ({
@@ -117,8 +130,8 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/email_email_setting_dns_request_body"
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/email_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -127,11 +140,13 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email_email_setting_dns_request_body": email_email_setting_dns_request_body,
         "email_email_setting_name": email_email_setting_name,
+        "email_identifier": email_identifier,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/email_email_settings_properties",
+      "$ref": "#/$defs/email_email_settings_response_single",
       $defs: {
+        "email_api-response-single": email_api_response_single_output,
         "email_email_setting_created": email_email_setting_created_output,
         "email_email_setting_enabled": email_email_setting_enabled_output,
         "email_email_setting_identifier": email_email_setting_identifier_output,
@@ -141,7 +156,9 @@ export const tools: readonly Tool[] = [
         "email_email_setting_status": email_email_setting_status_output,
         "email_email_setting_support_subaddress": email_email_setting_support_subaddress_output,
         "email_email_setting_tag": email_email_setting_tag_output,
-        "email_email_settings_properties": email_email_settings_properties_output,
+        "email_email_settings_response_single": email_email_settings_response_single_output,
+        "email_messages": email_messages_output,
+        "email_settings": email_settings_output,
       },
     },
     annotations: {
@@ -160,12 +177,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.zone.email.routing.config.update"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.zone.email.routing.config.update": {
-            "name": "com_cloudflare_api_account_zone_email_routing_config_update"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -177,11 +189,12 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/email_email_settings_properties"
+          "$ref": "#/$defs/email_email_settings_response_single"
         },
         "403": null
       },
       $defs: {
+        "email_api-response-single": email_api_response_single_output,
         "email_email_setting_created": email_email_setting_created_output,
         "email_email_setting_enabled": email_email_setting_enabled_output,
         "email_email_setting_identifier": email_email_setting_identifier_output,
@@ -191,7 +204,9 @@ export const tools: readonly Tool[] = [
         "email_email_setting_status": email_email_setting_status_output,
         "email_email_setting_support_subaddress": email_email_setting_support_subaddress_output,
         "email_email_setting_tag": email_email_setting_tag_output,
-        "email_email_settings_properties": email_email_settings_properties_output,
+        "email_email_settings_response_single": email_email_settings_response_single_output,
+        "email_messages": email_messages_output,
+        "email_settings": email_settings_output,
       },
     },
     request: (args) => ({

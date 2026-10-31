@@ -2,16 +2,8 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
-import {
-  cloudforce_one_events_FieldDefinition_annotations_output,
-  cloudforce_one_events_FieldDefinition_numberConstraint_output,
-  cloudforce_one_events_FieldDefinition_output,
-} from "./outputs.js";
-import {
-  cloudforce_one_events_FieldDefinition,
-  cloudforce_one_events_FieldDefinition_annotations,
-  cloudforce_one_events_FieldDefinition_numberConstraint,
-} from "./schemas.js";
+import { cloudforce_one_events_FieldDefinition_output } from "./outputs.js";
+import { cloudforce_one_events_FieldDefinition } from "./schemas.js";
 
 /**
  * The tools of `cloudforce_one.threat_intel.tags.categories`.
@@ -55,8 +47,6 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "cloudforce-one-events_FieldDefinition": cloudforce_one_events_FieldDefinition,
-        "cloudforce-one-events_FieldDefinition_annotations": cloudforce_one_events_FieldDefinition_annotations,
-        "cloudforce-one-events_FieldDefinition_numberConstraint": cloudforce_one_events_FieldDefinition_numberConstraint,
       },
     },
     outputSchema: {
@@ -97,8 +87,6 @@ export const tools: readonly Tool[] = [
       "type": "object",
       $defs: {
         "cloudforce-one-events_FieldDefinition": cloudforce_one_events_FieldDefinition_output,
-        "cloudforce-one-events_FieldDefinition_annotations": cloudforce_one_events_FieldDefinition_annotations_output,
-        "cloudforce-one-events_FieldDefinition_numberConstraint": cloudforce_one_events_FieldDefinition_numberConstraint_output,
       },
     },
     annotations: {
@@ -218,8 +206,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "cloudforce-one-events_FieldDefinition": cloudforce_one_events_FieldDefinition_output,
-        "cloudforce-one-events_FieldDefinition_annotations": cloudforce_one_events_FieldDefinition_annotations_output,
-        "cloudforce-one-events_FieldDefinition_numberConstraint": cloudforce_one_events_FieldDefinition_numberConstraint_output,
       },
     },
     request: (args) => ({
@@ -411,8 +397,6 @@ export const tools: readonly Tool[] = [
       "type": "object",
       $defs: {
         "cloudforce-one-events_FieldDefinition": cloudforce_one_events_FieldDefinition_output,
-        "cloudforce-one-events_FieldDefinition_annotations": cloudforce_one_events_FieldDefinition_annotations_output,
-        "cloudforce-one-events_FieldDefinition_numberConstraint": cloudforce_one_events_FieldDefinition_numberConstraint_output,
       },
     },
     annotations: {
@@ -502,8 +486,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "cloudforce-one-events_FieldDefinition": cloudforce_one_events_FieldDefinition_output,
-        "cloudforce-one-events_FieldDefinition_annotations": cloudforce_one_events_FieldDefinition_annotations_output,
-        "cloudforce-one-events_FieldDefinition_numberConstraint": cloudforce_one_events_FieldDefinition_numberConstraint_output,
       },
     },
     request: (args) => ({
@@ -578,8 +560,6 @@ export const tools: readonly Tool[] = [
       "type": "object",
       $defs: {
         "cloudforce-one-events_FieldDefinition": cloudforce_one_events_FieldDefinition_output,
-        "cloudforce-one-events_FieldDefinition_annotations": cloudforce_one_events_FieldDefinition_annotations_output,
-        "cloudforce-one-events_FieldDefinition_numberConstraint": cloudforce_one_events_FieldDefinition_numberConstraint_output,
       },
     },
     annotations: {
@@ -680,8 +660,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "cloudforce-one-events_FieldDefinition": cloudforce_one_events_FieldDefinition_output,
-        "cloudforce-one-events_FieldDefinition_annotations": cloudforce_one_events_FieldDefinition_annotations_output,
-        "cloudforce-one-events_FieldDefinition_numberConstraint": cloudforce_one_events_FieldDefinition_numberConstraint_output,
       },
     },
     request: (args) => ({
@@ -731,8 +709,6 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "cloudforce-one-events_FieldDefinition": cloudforce_one_events_FieldDefinition,
-        "cloudforce-one-events_FieldDefinition_annotations": cloudforce_one_events_FieldDefinition_annotations,
-        "cloudforce-one-events_FieldDefinition_numberConstraint": cloudforce_one_events_FieldDefinition_numberConstraint,
       },
     },
     outputSchema: {
@@ -773,8 +749,6 @@ export const tools: readonly Tool[] = [
       "type": "object",
       $defs: {
         "cloudforce-one-events_FieldDefinition": cloudforce_one_events_FieldDefinition_output,
-        "cloudforce-one-events_FieldDefinition_annotations": cloudforce_one_events_FieldDefinition_annotations_output,
-        "cloudforce-one-events_FieldDefinition_numberConstraint": cloudforce_one_events_FieldDefinition_numberConstraint_output,
       },
     },
     annotations: {
@@ -923,8 +897,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "cloudforce-one-events_FieldDefinition": cloudforce_one_events_FieldDefinition_output,
-        "cloudforce-one-events_FieldDefinition_annotations": cloudforce_one_events_FieldDefinition_annotations_output,
-        "cloudforce-one-events_FieldDefinition_numberConstraint": cloudforce_one_events_FieldDefinition_numberConstraint_output,
       },
     },
     request: (args) => ({

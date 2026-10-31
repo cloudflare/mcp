@@ -3,7 +3,10 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  access_api_response_collection_output,
   access_api_response_common_failure_output,
+  access_api_response_common_output,
+  access_api_response_single_output,
   access_created_at_output,
   access_messages_output,
   access_timestamp_output,
@@ -12,16 +15,21 @@ import {
 } from "../../outputs.js";
 import {
   access_created_at,
+  access_identifier,
   access_timestamp,
   access_updated_at,
   access_uuid,
 } from "../../schemas.js";
+import { access_id_response_3_output } from "../outputs.js";
 import {
   access_app_count_2_output,
   access_contract_version_output,
   access_custom_page_output,
   access_custom_page_without_html_output,
   access_name_11_output,
+  access_response_collection_11_output,
+  access_single_response_12_output,
+  access_single_response_without_html_output,
   access_template_violation_output,
   access_type_2_output,
   access_validate_response_output,
@@ -48,8 +56,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         },
         "body": {
           "$ref": "#/$defs/access_custom_page"
@@ -63,6 +71,7 @@ export const tools: readonly Tool[] = [
         "access_contract_version": access_contract_version,
         "access_created_at": access_created_at,
         "access_custom_page": access_custom_page,
+        "access_identifier": access_identifier,
         "access_name-11": access_name_11,
         "access_timestamp": access_timestamp,
         "access_type-2": access_type_2,
@@ -71,13 +80,16 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/access_custom_page_without_html",
+      "$ref": "#/$defs/access_single_response_without_html",
       $defs: {
+        "access_api-response-single": access_api_response_single_output,
         "access_app_count-2": access_app_count_2_output,
         "access_contract_version": access_contract_version_output,
         "access_created_at": access_created_at_output,
         "access_custom_page_without_html": access_custom_page_without_html_output,
+        "access_messages": access_messages_output,
         "access_name-11": access_name_11_output,
+        "access_single_response_without_html": access_single_response_without_html_output,
         "access_template_violation": access_template_violation_output,
         "access_timestamp": access_timestamp_output,
         "access_type-2": access_type_2_output,
@@ -102,7 +114,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "201": {
-          "$ref": "#/$defs/access_custom_page_without_html"
+          "$ref": "#/$defs/access_single_response_without_html"
         },
         "422": {
           "$ref": "#/$defs/access_validate_response"
@@ -113,12 +125,14 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_app_count-2": access_app_count_2_output,
         "access_contract_version": access_contract_version_output,
         "access_created_at": access_created_at_output,
         "access_custom_page_without_html": access_custom_page_without_html_output,
         "access_messages": access_messages_output,
         "access_name-11": access_name_11_output,
+        "access_single_response_without_html": access_single_response_without_html_output,
         "access_template_violation": access_template_violation_output,
         "access_timestamp": access_timestamp_output,
         "access_type-2": access_type_2_output,
@@ -141,27 +155,29 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         },
         "custom_page_id": {
-          "description": "UUID.",
-          "type": "string"
+          "$ref": "#/$defs/access_uuid",
+          "description": "UUID."
         }
       },
       required: [
         "account_id",
         "custom_page_id"
       ],
+      $defs: {
+        "access_identifier": access_identifier,
+        "access_uuid": access_uuid,
+      },
     },
     outputSchema: {
-      "properties": {
-        "id": {
-          "$ref": "#/$defs/access_uuid"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/access_id_response-3",
       $defs: {
+        "access_api-response-common": access_api_response_common_output,
+        "access_id_response-3": access_id_response_3_output,
+        "access_messages": access_messages_output,
         "access_uuid": access_uuid_output,
       },
     },
@@ -182,19 +198,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "202": {
-          "properties": {
-            "id": {
-              "$ref": "#/$defs/access_uuid"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/access_id_response-3"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
         }
       },
       $defs: {
+        "access_api-response-common": access_api_response_common_output,
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_id_response-3": access_id_response_3_output,
         "access_messages": access_messages_output,
         "access_uuid": access_uuid_output,
       },
@@ -211,27 +224,34 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         },
         "custom_page_id": {
-          "description": "UUID.",
-          "type": "string"
+          "$ref": "#/$defs/access_uuid",
+          "description": "UUID."
         }
       },
       required: [
         "account_id",
         "custom_page_id"
       ],
+      $defs: {
+        "access_identifier": access_identifier,
+        "access_uuid": access_uuid,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/access_custom_page",
+      "$ref": "#/$defs/access_single_response-12",
       $defs: {
+        "access_api-response-single": access_api_response_single_output,
         "access_app_count-2": access_app_count_2_output,
         "access_contract_version": access_contract_version_output,
         "access_created_at": access_created_at_output,
         "access_custom_page": access_custom_page_output,
+        "access_messages": access_messages_output,
         "access_name-11": access_name_11_output,
+        "access_single_response-12": access_single_response_12_output,
         "access_timestamp": access_timestamp_output,
         "access_type-2": access_type_2_output,
         "access_updated_at": access_updated_at_output,
@@ -256,7 +276,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/access_custom_page"
+          "$ref": "#/$defs/access_single_response-12"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -264,12 +284,14 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_app_count-2": access_app_count_2_output,
         "access_contract_version": access_contract_version_output,
         "access_created_at": access_created_at_output,
         "access_custom_page": access_custom_page_output,
         "access_messages": access_messages_output,
         "access_name-11": access_name_11_output,
+        "access_single_response-12": access_single_response_12_output,
         "access_timestamp": access_timestamp_output,
         "access_type-2": access_type_2_output,
         "access_updated_at": access_updated_at_output,
@@ -288,8 +310,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         },
         "page": {
           "default": 1,
@@ -305,46 +327,22 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+      $defs: {
+        "access_identifier": access_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/access_custom_page_without_html"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/access_response_collection-11",
       $defs: {
+        "access_api-response-collection": access_api_response_collection_output,
+        "access_api-response-common": access_api_response_common_output,
         "access_app_count-2": access_app_count_2_output,
         "access_contract_version": access_contract_version_output,
         "access_created_at": access_created_at_output,
         "access_custom_page_without_html": access_custom_page_without_html_output,
+        "access_messages": access_messages_output,
         "access_name-11": access_name_11_output,
+        "access_response_collection-11": access_response_collection_11_output,
         "access_template_violation": access_template_violation_output,
         "access_timestamp": access_timestamp_output,
         "access_type-2": access_type_2_output,
@@ -370,44 +368,15 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/access_custom_page_without_html"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/access_response_collection-11"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
         }
       },
       $defs: {
+        "access_api-response-collection": access_api_response_collection_output,
+        "access_api-response-common": access_api_response_common_output,
         "access_api-response-common-failure": access_api_response_common_failure_output,
         "access_app_count-2": access_app_count_2_output,
         "access_contract_version": access_contract_version_output,
@@ -415,6 +384,7 @@ export const tools: readonly Tool[] = [
         "access_custom_page_without_html": access_custom_page_without_html_output,
         "access_messages": access_messages_output,
         "access_name-11": access_name_11_output,
+        "access_response_collection-11": access_response_collection_11_output,
         "access_template_violation": access_template_violation_output,
         "access_timestamp": access_timestamp_output,
         "access_type-2": access_type_2_output,
@@ -438,15 +408,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         },
         "body": {
           "$ref": "#/$defs/access_custom_page"
         },
         "custom_page_id": {
-          "description": "UUID.",
-          "type": "string"
+          "$ref": "#/$defs/access_uuid",
+          "description": "UUID."
         }
       },
       required: [
@@ -458,6 +428,7 @@ export const tools: readonly Tool[] = [
         "access_contract_version": access_contract_version,
         "access_created_at": access_created_at,
         "access_custom_page": access_custom_page,
+        "access_identifier": access_identifier,
         "access_name-11": access_name_11,
         "access_timestamp": access_timestamp,
         "access_type-2": access_type_2,
@@ -466,13 +437,16 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/access_custom_page_without_html",
+      "$ref": "#/$defs/access_single_response_without_html",
       $defs: {
+        "access_api-response-single": access_api_response_single_output,
         "access_app_count-2": access_app_count_2_output,
         "access_contract_version": access_contract_version_output,
         "access_created_at": access_created_at_output,
         "access_custom_page_without_html": access_custom_page_without_html_output,
+        "access_messages": access_messages_output,
         "access_name-11": access_name_11_output,
+        "access_single_response_without_html": access_single_response_without_html_output,
         "access_template_violation": access_template_violation_output,
         "access_timestamp": access_timestamp_output,
         "access_type-2": access_type_2_output,
@@ -497,7 +471,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/access_custom_page_without_html"
+          "$ref": "#/$defs/access_single_response_without_html"
         },
         "422": {
           "$ref": "#/$defs/access_validate_response"
@@ -508,12 +482,14 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_app_count-2": access_app_count_2_output,
         "access_contract_version": access_contract_version_output,
         "access_created_at": access_created_at_output,
         "access_custom_page_without_html": access_custom_page_without_html_output,
         "access_messages": access_messages_output,
         "access_name-11": access_name_11_output,
+        "access_single_response_without_html": access_single_response_without_html_output,
         "access_template_violation": access_template_violation_output,
         "access_timestamp": access_timestamp_output,
         "access_type-2": access_type_2_output,
@@ -536,8 +512,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         },
         "body": {
           "$ref": "#/$defs/access_custom_page_validate"
@@ -548,14 +524,18 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "access_custom_page_validate": access_custom_page_validate,
+        "access_identifier": access_identifier,
         "access_type-2": access_type_2,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/access_validation_result",
+      "$ref": "#/$defs/access_validate_response",
       $defs: {
+        "access_api-response-single": access_api_response_single_output,
+        "access_messages": access_messages_output,
         "access_template_violation": access_template_violation_output,
         "access_type-2": access_type_2_output,
+        "access_validate_response": access_validate_response_output,
         "access_validation_result": access_validation_result_output,
       },
     },
@@ -576,7 +556,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/access_validation_result"
+          "$ref": "#/$defs/access_validate_response"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -584,9 +564,11 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_messages": access_messages_output,
         "access_template_violation": access_template_violation_output,
         "access_type-2": access_type_2_output,
+        "access_validate_response": access_validate_response_output,
         "access_validation_result": access_validation_result_output,
       },
     },

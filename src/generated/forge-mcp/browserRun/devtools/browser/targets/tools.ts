@@ -63,12 +63,7 @@ export const tools: readonly Tool[] = [
         "enum": [
           "com.cloudflare.api.account.brapi.read"
         ],
-        "type": "string",
-        "x-fern-enum": {
-          "com.cloudflare.api.account.brapi.read": {
-            "name": "com_cloudflare_api_account_brapi_read"
-          }
-        }
+        "type": "string"
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -239,12 +234,7 @@ export const tools: readonly Tool[] = [
         "enum": [
           "com.cloudflare.api.account.brapi.read"
         ],
-        "type": "string",
-        "x-fern-enum": {
-          "com.cloudflare.api.account.brapi.read": {
-            "name": "com_cloudflare_api_account_brapi_read"
-          }
-        }
+        "type": "string"
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -434,12 +424,7 @@ export const tools: readonly Tool[] = [
         "enum": [
           "com.cloudflare.api.account.brapi.read"
         ],
-        "type": "string",
-        "x-fern-enum": {
-          "com.cloudflare.api.account.brapi.read": {
-            "name": "com_cloudflare_api_account_brapi_read"
-          }
-        }
+        "type": "string"
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -625,12 +610,7 @@ export const tools: readonly Tool[] = [
         "enum": [
           "com.cloudflare.api.account.brapi.read"
         ],
-        "type": "string",
-        "x-fern-enum": {
-          "com.cloudflare.api.account.brapi.read": {
-            "name": "com_cloudflare_api_account_brapi_read"
-          }
-        }
+        "type": "string"
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -844,12 +824,7 @@ export const tools: readonly Tool[] = [
         "enum": [
           "com.cloudflare.api.account.brapi.read"
         ],
-        "type": "string",
-        "x-fern-enum": {
-          "com.cloudflare.api.account.brapi.read": {
-            "name": "com_cloudflare_api_account_brapi_read"
-          }
-        }
+        "type": "string"
       },
       "x-cfPlanAvailability": {
         "business": true,

@@ -39,58 +39,38 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "breakdown": {
+        "errors": {
           "items": {
             "properties": {
-              "bin": {
-                "type": "string"
-              },
-              "count": {
-                "type": "number"
-              },
-              "dataset": {
-                "type": "string"
-              },
-              "eventSize": {
-                "type": "number"
-              },
-              "service": {
+              "message": {
                 "type": "string"
               }
             },
             "required": [
-              "bin",
-              "count",
-              "dataset",
-              "eventSize",
-              "service"
+              "message"
             ],
             "type": "object"
           },
           "type": "array"
         },
-        "events": {
-          "type": "number"
-        }
-      },
-      "required": [
-        "breakdown",
-        "events"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get event count"
-    },
-    method: "GET",
-    path: "/accounts/{account_id}/workers/observability/usage",
-    responses: {
-      schemas: {
-        "200": {
+        "messages": {
+          "items": {
+            "properties": {
+              "message": {
+                "enum": [
+                  "Successful request"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
           "properties": {
             "breakdown": {
               "items": {
@@ -129,6 +109,122 @@ export const tools: readonly Tool[] = [
           "required": [
             "breakdown",
             "events"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get event count"
+    },
+    method: "GET",
+    path: "/accounts/{account_id}/workers/observability/usage",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "enum": [
+                      "Successful request"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "breakdown": {
+                  "items": {
+                    "properties": {
+                      "bin": {
+                        "type": "string"
+                      },
+                      "count": {
+                        "type": "number"
+                      },
+                      "dataset": {
+                        "type": "string"
+                      },
+                      "eventSize": {
+                        "type": "number"
+                      },
+                      "service": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "bin",
+                      "count",
+                      "dataset",
+                      "eventSize",
+                      "service"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "events": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "breakdown",
+                "events"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },

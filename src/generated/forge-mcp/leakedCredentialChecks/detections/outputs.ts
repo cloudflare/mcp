@@ -4,22 +4,30 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `waf-product-api-bundle_api-response-common_result` in
- * responses.
+ * The schema of `waf-product-api-bundle_api-response-collection` in responses.
  */
-export const waf_product_api_bundle_api_response_common_result_output: JsonSchema = {
-  "anyOf": [
+export const waf_product_api_bundle_api_response_collection_output: JsonSchema = {
+  "allOf": [
     {
-      "type": "object"
+      "$ref": "#/$defs/waf-product-api-bundle_api-response-common"
     },
     {
-      "items": {
-        "type": "object"
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "items": {
+                "type": "object"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
       },
-      "type": "array"
-    },
-    {
-      "type": "string"
+      "type": "object"
     }
   ]
 };
@@ -54,30 +62,19 @@ export const waf_product_api_bundle_detection_id_output: JsonSchema = {
  * responses.
  */
 export const waf_product_api_bundle_response_custom_detection_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/waf-product-api-bundle_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/waf-product-api-bundle_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/waf-product-api-bundle_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/waf-product-api-bundle_custom-detection"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/waf-product-api-bundle_custom-detection"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -85,31 +82,20 @@ export const waf_product_api_bundle_response_custom_detection_output: JsonSchema
  * in responses.
  */
 export const waf_product_api_bundle_response_custom_detection_collection_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/waf-product-api-bundle_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/waf-product-api-bundle_api-response-collection"
     },
-    "messages": {
-      "$ref": "#/$defs/waf-product-api-bundle_messages"
-    },
-    "result": {
-      "items": {
-        "$ref": "#/$defs/waf-product-api-bundle_custom-detection"
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/waf-product-api-bundle_custom-detection"
+          },
+          "type": "array"
+        }
       },
-      "type": "array"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
+  ]
 };

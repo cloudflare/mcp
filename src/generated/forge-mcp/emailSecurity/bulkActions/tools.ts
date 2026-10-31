@@ -8,6 +8,8 @@ import {
   email_security_MailboxDestination_output,
   email_security_MessageDeliveryStatus_output,
   email_security_api_response_common_failure_output,
+  email_security_api_response_common_output,
+  email_security_api_response_single_output,
   email_security_messages_output,
 } from "../outputs.js";
 import {
@@ -59,7 +61,22 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/email-security_BulkJobDetail",
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-security_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/email-security_BulkJobDetail"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
       $defs: {
         "email-security_BulkJobActionParams": email_security_BulkJobActionParams_output,
         "email-security_BulkJobDetail": email_security_BulkJobDetail_output,
@@ -68,6 +85,8 @@ export const tools: readonly Tool[] = [
         "email-security_DispositionLabel": email_security_DispositionLabel_output,
         "email-security_MailboxDestination": email_security_MailboxDestination_output,
         "email-security_MessageDeliveryStatus": email_security_MessageDeliveryStatus_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
+        "email-security_messages": email_security_messages_output,
       },
     },
     annotations: {
@@ -88,7 +107,22 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/email-security_BulkJobDetail"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-security_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/email-security_BulkJobDetail"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-security_api-response-common-failure"
@@ -103,6 +137,7 @@ export const tools: readonly Tool[] = [
         "email-security_MailboxDestination": email_security_MailboxDestination_output,
         "email-security_MessageDeliveryStatus": email_security_MessageDeliveryStatus_output,
         "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
         "email-security_messages": email_security_messages_output,
       },
     },
@@ -139,7 +174,22 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/email-security_BulkJobDetail",
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-security_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/email-security_BulkJobDetail"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
       $defs: {
         "email-security_BulkJobActionParams": email_security_BulkJobActionParams_output,
         "email-security_BulkJobDetail": email_security_BulkJobDetail_output,
@@ -148,6 +198,8 @@ export const tools: readonly Tool[] = [
         "email-security_DispositionLabel": email_security_DispositionLabel_output,
         "email-security_MailboxDestination": email_security_MailboxDestination_output,
         "email-security_MessageDeliveryStatus": email_security_MessageDeliveryStatus_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
+        "email-security_messages": email_security_messages_output,
       },
     },
     annotations: {
@@ -168,7 +220,22 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "201": {
-          "$ref": "#/$defs/email-security_BulkJobDetail"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-security_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/email-security_BulkJobDetail"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-security_api-response-common-failure"
@@ -183,6 +250,7 @@ export const tools: readonly Tool[] = [
         "email-security_MailboxDestination": email_security_MailboxDestination_output,
         "email-security_MessageDeliveryStatus": email_security_MessageDeliveryStatus_output,
         "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
         "email-security_messages": email_security_messages_output,
       },
     },
@@ -217,16 +285,35 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "id": {
-          "format": "uuid",
-          "type": "string"
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-security_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "properties": {
+                "id": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
         }
-      },
-      "required": [
-        "id"
       ],
-      "type": "object",
+      $defs: {
+        "email-security_api-response-single": email_security_api_response_single_output,
+        "email-security_messages": email_security_messages_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -243,16 +330,31 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "id": {
-              "format": "uuid",
-              "type": "string"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-security_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "id": {
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id"
+                  ],
+                  "type": "object"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
             }
-          },
-          "required": [
-            "id"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-security_api-response-common-failure"
@@ -260,6 +362,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
         "email-security_messages": email_security_messages_output,
       },
     },
@@ -293,7 +396,22 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/email-security_BulkJobDetail",
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-security_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/email-security_BulkJobDetail"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
       $defs: {
         "email-security_BulkJobActionParams": email_security_BulkJobActionParams_output,
         "email-security_BulkJobDetail": email_security_BulkJobDetail_output,
@@ -302,6 +420,8 @@ export const tools: readonly Tool[] = [
         "email-security_DispositionLabel": email_security_DispositionLabel_output,
         "email-security_MailboxDestination": email_security_MailboxDestination_output,
         "email-security_MessageDeliveryStatus": email_security_MessageDeliveryStatus_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
+        "email-security_messages": email_security_messages_output,
       },
     },
     annotations: {
@@ -323,7 +443,22 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/email-security_BulkJobDetail"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-security_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/email-security_BulkJobDetail"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-security_api-response-common-failure"
@@ -338,6 +473,7 @@ export const tools: readonly Tool[] = [
         "email-security_MailboxDestination": email_security_MailboxDestination_output,
         "email-security_MessageDeliveryStatus": email_security_MessageDeliveryStatus_output,
         "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
         "email-security_messages": email_security_messages_output,
       },
     },
@@ -388,21 +524,29 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/email-security_BulkJobDetail"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-security_api-response-common"
         },
-        "result_info": {
-          "$ref": "#/$defs/email-security_CursorResultInfo"
+        {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/email-security_BulkJobDetail"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/email-security_CursorResultInfo"
+            }
+          },
+          "required": [
+            "result",
+            "result_info"
+          ],
+          "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
         "email-security_BulkJobActionParams": email_security_BulkJobActionParams_output,
         "email-security_BulkJobDetail": email_security_BulkJobDetail_output,
@@ -412,6 +556,8 @@ export const tools: readonly Tool[] = [
         "email-security_DispositionLabel": email_security_DispositionLabel_output,
         "email-security_MailboxDestination": email_security_MailboxDestination_output,
         "email-security_MessageDeliveryStatus": email_security_MessageDeliveryStatus_output,
+        "email-security_api-response-common": email_security_api_response_common_output,
+        "email-security_messages": email_security_messages_output,
       },
     },
     annotations: {
@@ -433,21 +579,29 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/email-security_BulkJobDetail"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-security_api-response-common"
             },
-            "result_info": {
-              "$ref": "#/$defs/email-security_CursorResultInfo"
+            {
+              "properties": {
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/email-security_BulkJobDetail"
+                  },
+                  "type": "array"
+                },
+                "result_info": {
+                  "$ref": "#/$defs/email-security_CursorResultInfo"
+                }
+              },
+              "required": [
+                "result",
+                "result_info"
+              ],
+              "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-security_api-response-common-failure"
@@ -462,6 +616,7 @@ export const tools: readonly Tool[] = [
         "email-security_DispositionLabel": email_security_DispositionLabel_output,
         "email-security_MailboxDestination": email_security_MailboxDestination_output,
         "email-security_MessageDeliveryStatus": email_security_MessageDeliveryStatus_output,
+        "email-security_api-response-common": email_security_api_response_common_output,
         "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
         "email-security_messages": email_security_messages_output,
       },

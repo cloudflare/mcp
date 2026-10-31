@@ -4,9 +4,13 @@
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
   access_api_response_common_failure_output,
+  access_api_response_single_output,
   access_messages_output,
   access_uuid_output,
 } from "../../../outputs.js";
+import { access_identifier, access_uuid } from "../../../schemas.js";
+import { access_app_id } from "../schemas.js";
+import { access_policy_check_response_output } from "./outputs.js";
 
 /**
  * The tools of `zero_trust.access.applications.user_policy_checks`.
@@ -28,11 +32,11 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "app_id": {
-          "type": "string"
+          "$ref": "#/$defs/access_app_id"
         }
       },
       required: [
@@ -40,81 +44,18 @@ export const tools: readonly Tool[] = [
         "account_or_zone_id",
         "app_id"
       ],
+      $defs: {
+        "access_app_id": access_app_id,
+        "access_identifier": access_identifier,
+        "access_uuid": access_uuid,
+      },
     },
     outputSchema: {
-      "properties": {
-        "app_state": {
-          "properties": {
-            "app_uid": {
-              "$ref": "#/$defs/access_uuid"
-            },
-            "aud": {
-              "type": "string"
-            },
-            "hostname": {
-              "type": "string"
-            },
-            "name": {
-              "type": "string"
-            },
-            "policies": {
-              "items": {
-                "type": "object"
-              },
-              "type": "array"
-            },
-            "status": {
-              "type": "string"
-            }
-          },
-          "type": "object"
-        },
-        "user_identity": {
-          "properties": {
-            "account_id": {
-              "type": "string"
-            },
-            "device_sessions": {
-              "type": "object"
-            },
-            "email": {
-              "type": "string"
-            },
-            "geo": {
-              "properties": {
-                "country": {
-                  "type": "string"
-                }
-              },
-              "type": "object"
-            },
-            "iat": {
-              "type": "integer"
-            },
-            "id": {
-              "type": "string"
-            },
-            "is_gateway": {
-              "type": "boolean"
-            },
-            "is_warp": {
-              "type": "boolean"
-            },
-            "name": {
-              "type": "string"
-            },
-            "user_uuid": {
-              "$ref": "#/$defs/access_uuid"
-            },
-            "version": {
-              "type": "integer"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/access_policy_check_response",
       $defs: {
+        "access_api-response-single": access_api_response_single_output,
+        "access_messages": access_messages_output,
+        "access_policy_check_response": access_policy_check_response_output,
         "access_uuid": access_uuid_output,
       },
     },
@@ -136,78 +77,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "app_state": {
-              "properties": {
-                "app_uid": {
-                  "$ref": "#/$defs/access_uuid"
-                },
-                "aud": {
-                  "type": "string"
-                },
-                "hostname": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "policies": {
-                  "items": {
-                    "type": "object"
-                  },
-                  "type": "array"
-                },
-                "status": {
-                  "type": "string"
-                }
-              },
-              "type": "object"
-            },
-            "user_identity": {
-              "properties": {
-                "account_id": {
-                  "type": "string"
-                },
-                "device_sessions": {
-                  "type": "object"
-                },
-                "email": {
-                  "type": "string"
-                },
-                "geo": {
-                  "properties": {
-                    "country": {
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                },
-                "iat": {
-                  "type": "integer"
-                },
-                "id": {
-                  "type": "string"
-                },
-                "is_gateway": {
-                  "type": "boolean"
-                },
-                "is_warp": {
-                  "type": "boolean"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "user_uuid": {
-                  "$ref": "#/$defs/access_uuid"
-                },
-                "version": {
-                  "type": "integer"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/access_policy_check_response"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -215,7 +85,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_messages": access_messages_output,
+        "access_policy_check_response": access_policy_check_response_output,
         "access_uuid": access_uuid_output,
       },
     },

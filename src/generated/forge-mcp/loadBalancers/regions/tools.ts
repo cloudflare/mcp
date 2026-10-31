@@ -4,9 +4,15 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   load_balancing_api_response_common_failure_output,
+  load_balancing_api_response_common_output,
+  load_balancing_api_response_single_output,
   load_balancing_messages_output,
+  load_balancing_region_components_schemas_response_collection_output,
 } from "../../outputs.js";
 import { load_balancing_subdivision_code_a2 } from "../../schemas.js";
+import { load_balancing_components_schemas_identifier } from "../schemas.js";
+import { load_balancing_components_schemas_single_response_output } from "./outputs.js";
+import { load_balancing_region_code } from "./schemas.js";
 
 /**
  * The tools of `load_balancers.regions`.
@@ -20,21 +26,31 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/load-balancing_components-schemas-identifier",
+          "description": "Identifier."
         },
         "region_id": {
-          "description": "A list of Cloudflare regions. WNAM: Western North America, ENAM: Eastern North America, WEU: Western Europe, EEU: Eastern Europe, NSAM: Northern South America, SSAM: Southern South America, OC: Oceania, ME: Middle East, NAF: North Africa, SAF: South Africa, SAS: Southern Asia, SEAS: South East Asia, NEAS: North East Asia).",
-          "type": "string"
+          "$ref": "#/$defs/load-balancing_region_code",
+          "description": "A list of Cloudflare regions. WNAM: Western North America, ENAM: Eastern North America, WEU: Western Europe, EEU: Eastern Europe, NSAM: Northern South America, SSAM: Southern South America, OC: Oceania, ME: Middle East, NAF: North Africa, SAF: South Africa, SAS: Southern Asia, SEAS: South East Asia, NEAS: North East Asia)."
         }
       },
       required: [
         "account_id",
         "region_id"
       ],
+      $defs: {
+        "load-balancing_components-schemas-identifier": load_balancing_components_schemas_identifier,
+        "load-balancing_region_code": load_balancing_region_code,
+      },
     },
     outputSchema: {
-      "type": "object",
+      "$ref": "#/$defs/load-balancing_components-schemas-single_response",
+      $defs: {
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
+        "load-balancing_api-response-single": load_balancing_api_response_single_output,
+        "load-balancing_components-schemas-single_response": load_balancing_components_schemas_single_response_output,
+        "load-balancing_messages": load_balancing_messages_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -54,14 +70,17 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "type": "object"
+          "$ref": "#/$defs/load-balancing_components-schemas-single_response"
         },
         "4XX": {
           "$ref": "#/$defs/load-balancing_api-response-common-failure"
         }
       },
       $defs: {
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
         "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
+        "load-balancing_api-response-single": load_balancing_api_response_single_output,
+        "load-balancing_components-schemas-single_response": load_balancing_components_schemas_single_response_output,
         "load-balancing_messages": load_balancing_messages_output,
       },
     },
@@ -77,8 +96,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/load-balancing_components-schemas-identifier",
+          "description": "Identifier."
         },
         "country_code_a2": {
           "description": "Two-letter alpha-2 country code followed in ISO 3166-1.",
@@ -97,11 +116,18 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
       $defs: {
+        "load-balancing_components-schemas-identifier": load_balancing_components_schemas_identifier,
         "load-balancing_subdivision_code_a2": load_balancing_subdivision_code_a2,
       },
     },
     outputSchema: {
-      "type": "object",
+      "$ref": "#/$defs/load-balancing_region_components-schemas-response_collection",
+      $defs: {
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
+        "load-balancing_api-response-single": load_balancing_api_response_single_output,
+        "load-balancing_messages": load_balancing_messages_output,
+        "load-balancing_region_components-schemas-response_collection": load_balancing_region_components_schemas_response_collection_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -121,15 +147,18 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "type": "object"
+          "$ref": "#/$defs/load-balancing_region_components-schemas-response_collection"
         },
         "4XX": {
           "$ref": "#/$defs/load-balancing_api-response-common-failure"
         }
       },
       $defs: {
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
         "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
+        "load-balancing_api-response-single": load_balancing_api_response_single_output,
         "load-balancing_messages": load_balancing_messages_output,
+        "load-balancing_region_components-schemas-response_collection": load_balancing_region_components_schemas_response_collection_output,
       },
     },
     request: (args) => ({

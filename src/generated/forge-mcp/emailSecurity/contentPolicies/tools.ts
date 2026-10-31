@@ -3,7 +3,10 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  email_security_api_response_collection_output,
   email_security_api_response_common_failure_output,
+  email_security_api_response_common_output,
+  email_security_api_response_single_output,
   email_security_messages_output,
   email_security_timestamp_output,
 } from "../outputs.js";
@@ -66,8 +69,7 @@ export const tools: readonly Tool[] = [
                   {
                     "properties": {
                       "id": {
-                        "$ref": "#/$defs/email-security_ContentPolicyId",
-                        "description": "Content policy identifier."
+                        "$ref": "#/$defs/email-security_ContentPolicyId"
                       }
                     },
                     "required": [
@@ -98,8 +100,7 @@ export const tools: readonly Tool[] = [
                   {
                     "properties": {
                       "id": {
-                        "$ref": "#/$defs/email-security_ContentPolicyId",
-                        "description": "Content policy identifier."
+                        "$ref": "#/$defs/email-security_ContentPolicyId"
                       }
                     },
                     "required": [
@@ -135,30 +136,44 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "deletes": {
-          "items": {
-            "$ref": "#/$defs/email-security_DeletedContentPolicy"
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-security_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "properties": {
+                "deletes": {
+                  "items": {
+                    "$ref": "#/$defs/email-security_DeletedContentPolicy"
+                  },
+                  "type": "array"
+                },
+                "patches": {
+                  "$ref": "#/$defs/email-security_ContentPolicyList"
+                },
+                "posts": {
+                  "$ref": "#/$defs/email-security_ContentPolicyList"
+                },
+                "puts": {
+                  "$ref": "#/$defs/email-security_ContentPolicyList"
+                }
+              },
+              "type": "object"
+            }
           },
-          "type": "array"
-        },
-        "patches": {
-          "$ref": "#/$defs/email-security_ContentPolicyList"
-        },
-        "posts": {
-          "$ref": "#/$defs/email-security_ContentPolicyList"
-        },
-        "puts": {
-          "$ref": "#/$defs/email-security_ContentPolicyList"
+          "type": "object"
         }
-      },
-      "type": "object",
+      ],
       $defs: {
         "email-security_ContentPolicy": email_security_ContentPolicy_output,
         "email-security_ContentPolicyId": email_security_ContentPolicyId_output,
         "email-security_ContentPolicyList": email_security_ContentPolicyList_output,
         "email-security_ContentPolicyTarget": email_security_ContentPolicyTarget_output,
         "email-security_DeletedContentPolicy": email_security_DeletedContentPolicy_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
+        "email-security_messages": email_security_messages_output,
         "email-security_timestamp": email_security_timestamp_output,
       },
     },
@@ -180,24 +195,36 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "deletes": {
-              "items": {
-                "$ref": "#/$defs/email-security_DeletedContentPolicy"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-security_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "deletes": {
+                      "items": {
+                        "$ref": "#/$defs/email-security_DeletedContentPolicy"
+                      },
+                      "type": "array"
+                    },
+                    "patches": {
+                      "$ref": "#/$defs/email-security_ContentPolicyList"
+                    },
+                    "posts": {
+                      "$ref": "#/$defs/email-security_ContentPolicyList"
+                    },
+                    "puts": {
+                      "$ref": "#/$defs/email-security_ContentPolicyList"
+                    }
+                  },
+                  "type": "object"
+                }
               },
-              "type": "array"
-            },
-            "patches": {
-              "$ref": "#/$defs/email-security_ContentPolicyList"
-            },
-            "posts": {
-              "$ref": "#/$defs/email-security_ContentPolicyList"
-            },
-            "puts": {
-              "$ref": "#/$defs/email-security_ContentPolicyList"
+              "type": "object"
             }
-          },
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-security_api-response-common-failure"
@@ -210,6 +237,7 @@ export const tools: readonly Tool[] = [
         "email-security_ContentPolicyTarget": email_security_ContentPolicyTarget_output,
         "email-security_DeletedContentPolicy": email_security_DeletedContentPolicy_output,
         "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
         "email-security_messages": email_security_messages_output,
         "email-security_timestamp": email_security_timestamp_output,
       },
@@ -245,11 +273,25 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/email-security_ContentPolicy",
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-security_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/email-security_ContentPolicy"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "email-security_ContentPolicy": email_security_ContentPolicy_output,
         "email-security_ContentPolicyId": email_security_ContentPolicyId_output,
         "email-security_ContentPolicyTarget": email_security_ContentPolicyTarget_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
+        "email-security_messages": email_security_messages_output,
         "email-security_timestamp": email_security_timestamp_output,
       },
     },
@@ -271,7 +313,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "201": {
-          "$ref": "#/$defs/email-security_ContentPolicy"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-security_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/email-security_ContentPolicy"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-security_api-response-common-failure"
@@ -282,6 +336,7 @@ export const tools: readonly Tool[] = [
         "email-security_ContentPolicyId": email_security_ContentPolicyId_output,
         "email-security_ContentPolicyTarget": email_security_ContentPolicyTarget_output,
         "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
         "email-security_messages": email_security_messages_output,
         "email-security_timestamp": email_security_timestamp_output,
       },
@@ -317,10 +372,24 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/email-security_DeletedContentPolicy",
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-security_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/email-security_DeletedContentPolicy"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "email-security_ContentPolicyId": email_security_ContentPolicyId_output,
         "email-security_DeletedContentPolicy": email_security_DeletedContentPolicy_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
+        "email-security_messages": email_security_messages_output,
       },
     },
     annotations: {
@@ -341,7 +410,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/email-security_DeletedContentPolicy"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-security_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/email-security_DeletedContentPolicy"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-security_api-response-common-failure"
@@ -351,6 +432,7 @@ export const tools: readonly Tool[] = [
         "email-security_ContentPolicyId": email_security_ContentPolicyId_output,
         "email-security_DeletedContentPolicy": email_security_DeletedContentPolicy_output,
         "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
         "email-security_messages": email_security_messages_output,
       },
     },
@@ -390,11 +472,25 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/email-security_ContentPolicy",
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-security_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/email-security_ContentPolicy"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "email-security_ContentPolicy": email_security_ContentPolicy_output,
         "email-security_ContentPolicyId": email_security_ContentPolicyId_output,
         "email-security_ContentPolicyTarget": email_security_ContentPolicyTarget_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
+        "email-security_messages": email_security_messages_output,
         "email-security_timestamp": email_security_timestamp_output,
       },
     },
@@ -416,7 +512,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/email-security_ContentPolicy"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-security_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/email-security_ContentPolicy"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-security_api-response-common-failure"
@@ -427,6 +535,7 @@ export const tools: readonly Tool[] = [
         "email-security_ContentPolicyId": email_security_ContentPolicyId_output,
         "email-security_ContentPolicyTarget": email_security_ContentPolicyTarget_output,
         "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
         "email-security_messages": email_security_messages_output,
         "email-security_timestamp": email_security_timestamp_output,
       },
@@ -462,11 +571,25 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/email-security_ContentPolicy",
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-security_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/email-security_ContentPolicy"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "email-security_ContentPolicy": email_security_ContentPolicy_output,
         "email-security_ContentPolicyId": email_security_ContentPolicyId_output,
         "email-security_ContentPolicyTarget": email_security_ContentPolicyTarget_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
+        "email-security_messages": email_security_messages_output,
         "email-security_timestamp": email_security_timestamp_output,
       },
     },
@@ -489,7 +612,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/email-security_ContentPolicy"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-security_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/email-security_ContentPolicy"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-security_api-response-common-failure"
@@ -500,6 +635,7 @@ export const tools: readonly Tool[] = [
         "email-security_ContentPolicyId": email_security_ContentPolicyId_output,
         "email-security_ContentPolicyTarget": email_security_ContentPolicyTarget_output,
         "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
         "email-security_messages": email_security_messages_output,
         "email-security_timestamp": email_security_timestamp_output,
       },
@@ -570,37 +706,27 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "$ref": "#/$defs/email-security_ContentPolicyList"
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-security_api-response-collection"
         },
-        "result_info": {
+        {
           "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
+            "result": {
+              "$ref": "#/$defs/email-security_ContentPolicyList"
             }
           },
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
         "email-security_ContentPolicy": email_security_ContentPolicy_output,
         "email-security_ContentPolicyId": email_security_ContentPolicyId_output,
         "email-security_ContentPolicyList": email_security_ContentPolicyList_output,
         "email-security_ContentPolicyTarget": email_security_ContentPolicyTarget_output,
+        "email-security_api-response-collection": email_security_api_response_collection_output,
+        "email-security_api-response-common": email_security_api_response_common_output,
+        "email-security_messages": email_security_messages_output,
         "email-security_timestamp": email_security_timestamp_output,
       },
     },
@@ -623,32 +749,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "$ref": "#/$defs/email-security_ContentPolicyList"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-security_api-response-collection"
             },
-            "result_info": {
+            {
               "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
+                "result": {
+                  "$ref": "#/$defs/email-security_ContentPolicyList"
                 }
               },
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-security_api-response-common-failure"
@@ -659,6 +772,8 @@ export const tools: readonly Tool[] = [
         "email-security_ContentPolicyId": email_security_ContentPolicyId_output,
         "email-security_ContentPolicyList": email_security_ContentPolicyList_output,
         "email-security_ContentPolicyTarget": email_security_ContentPolicyTarget_output,
+        "email-security_api-response-collection": email_security_api_response_collection_output,
+        "email-security_api-response-common": email_security_api_response_common_output,
         "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
         "email-security_messages": email_security_messages_output,
         "email-security_timestamp": email_security_timestamp_output,

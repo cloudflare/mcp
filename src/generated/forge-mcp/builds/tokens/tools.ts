@@ -3,14 +3,18 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  builds_APIResponse_output,
   builds_ApiError_output,
   builds_ErrorResponse_output,
   builds_PaginationInfo_output,
   builds_build_token_name_output,
   builds_build_token_uuid_output,
 } from "../../outputs.js";
-import { builds_account_id, builds_build_token_name } from "../../schemas.js";
-import { builds_APIResponse_output } from "../outputs.js";
+import {
+  builds_account_id,
+  builds_build_token_name,
+  builds_build_token_uuid,
+} from "../../schemas.js";
 import {
   builds_CreateBuildTokenResponse_output,
   builds_ListTokensResponse_output,
@@ -53,9 +57,24 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/builds_CreateBuildTokenResponse",
+      "allOf": [
+        {
+          "$ref": "#/$defs/builds_APIResponse"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/builds_CreateBuildTokenResponse"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
+        "builds_ApiError": builds_ApiError_output,
         "builds_CreateBuildTokenResponse": builds_CreateBuildTokenResponse_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
         "builds_build_token_name": builds_build_token_name_output,
         "builds_build_token_uuid": builds_build_token_uuid_output,
         "builds_cloudflare_token_id": builds_cloudflare_token_id_output,
@@ -79,16 +98,30 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/builds_CreateBuildTokenResponse"
+          "allOf": [
+            {
+              "$ref": "#/$defs/builds_APIResponse"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/builds_CreateBuildTokenResponse"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "401": {
           "$ref": "#/$defs/builds_ErrorResponse"
         }
       },
       $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
         "builds_ApiError": builds_ApiError_output,
         "builds_CreateBuildTokenResponse": builds_CreateBuildTokenResponse_output,
         "builds_ErrorResponse": builds_ErrorResponse_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
         "builds_build_token_name": builds_build_token_name_output,
         "builds_build_token_uuid": builds_build_token_uuid_output,
         "builds_cloudflare_token_id": builds_cloudflare_token_id_output,
@@ -112,8 +145,8 @@ export const tools: readonly Tool[] = [
           "description": "Account identifier."
         },
         "build_token_uuid": {
-          "description": "UUID of the build token used when deploying the Worker.",
-          "type": "string"
+          "$ref": "#/$defs/builds_build_token_uuid",
+          "description": "UUID of the build token used when deploying the Worker."
         }
       },
       required: [
@@ -122,6 +155,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "builds_account_id": builds_account_id,
+        "builds_build_token_uuid": builds_build_token_uuid,
       },
     },
     outputSchema: {
@@ -199,22 +233,28 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/builds_ListTokensResponse"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/builds_APIResponse"
         },
-        "result_info": {
-          "$ref": "#/$defs/builds_PaginationInfo"
+        {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/builds_ListTokensResponse"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/builds_PaginationInfo"
+            }
+          },
+          "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
+        "builds_ApiError": builds_ApiError_output,
         "builds_ListTokensResponse": builds_ListTokensResponse_output,
         "builds_PaginationInfo": builds_PaginationInfo_output,
         "builds_build_token_name": builds_build_token_name_output,
@@ -241,27 +281,32 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/builds_ListTokensResponse"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/builds_APIResponse"
             },
-            "result_info": {
-              "$ref": "#/$defs/builds_PaginationInfo"
+            {
+              "properties": {
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/builds_ListTokensResponse"
+                  },
+                  "type": "array"
+                },
+                "result_info": {
+                  "$ref": "#/$defs/builds_PaginationInfo"
+                }
+              },
+              "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "401": {
           "$ref": "#/$defs/builds_ErrorResponse"
         }
       },
       $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
         "builds_ApiError": builds_ApiError_output,
         "builds_ErrorResponse": builds_ErrorResponse_output,
         "builds_ListTokensResponse": builds_ListTokensResponse_output,

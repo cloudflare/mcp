@@ -12,6 +12,14 @@ export const rum_rule_identifier: JsonSchema = {
 };
 
 /**
+ * The schema of `rum_ruleset_identifier`.
+ */
+export const rum_ruleset_identifier: JsonSchema = {
+  "description": "The Web Analytics ruleset identifier.",
+  "type": "string"
+};
+
+/**
  * The schema of `rum_zone_tag`.
  */
 export const rum_zone_tag: JsonSchema = {

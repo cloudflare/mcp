@@ -5,12 +5,15 @@ import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   dls_bad_response_output,
   dls_coded_message_output,
-  dls_none_output,
-} from "../../outputs.js";
-import {
-  dls_PrefixBindingPaginatedListResponse_result_info_output,
-  dls_PrefixBinding_output,
   dls_good_response_output,
+  dls_none_output,
+  dls_response_output,
+} from "../../outputs.js";
+import { dls_account_identifier } from "../../schemas.js";
+import {
+  dls_PrefixBindingPaginatedListResponse_output,
+  dls_PrefixBindingResponse_output,
+  dls_PrefixBinding_output,
 } from "./outputs.js";
 import {
   dls_CreatePrefixBindingInput,
@@ -29,8 +32,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier of a Cloudflare account.",
-          "type": "string"
+          "$ref": "#/$defs/dls_account_identifier",
+          "description": "Identifier of a Cloudflare account."
         },
         "body": {
           "$ref": "#/$defs/dls_CreatePrefixBindingInput"
@@ -42,12 +45,17 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "dls_CreatePrefixBindingInput": dls_CreatePrefixBindingInput,
+        "dls_account_identifier": dls_account_identifier,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/dls_PrefixBinding",
+      "$ref": "#/$defs/dls_PrefixBindingResponse",
       $defs: {
         "dls_PrefixBinding": dls_PrefixBinding_output,
+        "dls_PrefixBindingResponse": dls_PrefixBindingResponse_output,
+        "dls_coded_message": dls_coded_message_output,
+        "dls_good_response": dls_good_response_output,
+        "dls_response": dls_response_output,
       },
     },
     annotations: {
@@ -68,7 +76,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "201": {
-          "$ref": "#/$defs/dls_PrefixBinding"
+          "$ref": "#/$defs/dls_PrefixBindingResponse"
         },
         "400": {
           "$ref": "#/$defs/dls_bad_response"
@@ -88,9 +96,12 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "dls_PrefixBinding": dls_PrefixBinding_output,
+        "dls_PrefixBindingResponse": dls_PrefixBindingResponse_output,
         "dls_bad_response": dls_bad_response_output,
         "dls_coded_message": dls_coded_message_output,
+        "dls_good_response": dls_good_response_output,
         "dls_none": dls_none_output,
+        "dls_response": dls_response_output,
       },
     },
     request: (args) => ({
@@ -106,8 +117,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier of a Cloudflare account.",
-          "type": "string"
+          "$ref": "#/$defs/dls_account_identifier",
+          "description": "Identifier of a Cloudflare account."
         },
         "binding_id": {
           "description": "Unique identifier for the prefix binding.",
@@ -118,12 +129,16 @@ export const tools: readonly Tool[] = [
         "account_id",
         "binding_id"
       ],
+      $defs: {
+        "dls_account_identifier": dls_account_identifier,
+      },
     },
     outputSchema: {
       "$ref": "#/$defs/dls_good_response",
       $defs: {
         "dls_coded_message": dls_coded_message_output,
         "dls_good_response": dls_good_response_output,
+        "dls_response": dls_response_output,
       },
     },
     annotations: {
@@ -164,6 +179,7 @@ export const tools: readonly Tool[] = [
         "dls_coded_message": dls_coded_message_output,
         "dls_good_response": dls_good_response_output,
         "dls_none": dls_none_output,
+        "dls_response": dls_response_output,
       },
     },
     request: (args) => ({
@@ -178,8 +194,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier of a Cloudflare account.",
-          "type": "string"
+          "$ref": "#/$defs/dls_account_identifier",
+          "description": "Identifier of a Cloudflare account."
         },
         "binding_id": {
           "description": "Unique identifier for the prefix binding.",
@@ -196,12 +212,17 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "dls_UpdatePrefixBindingInput": dls_UpdatePrefixBindingInput,
+        "dls_account_identifier": dls_account_identifier,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/dls_PrefixBinding",
+      "$ref": "#/$defs/dls_PrefixBindingResponse",
       $defs: {
         "dls_PrefixBinding": dls_PrefixBinding_output,
+        "dls_PrefixBindingResponse": dls_PrefixBindingResponse_output,
+        "dls_coded_message": dls_coded_message_output,
+        "dls_good_response": dls_good_response_output,
+        "dls_response": dls_response_output,
       },
     },
     annotations: {
@@ -222,7 +243,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dls_PrefixBinding"
+          "$ref": "#/$defs/dls_PrefixBindingResponse"
         },
         "400": {
           "$ref": "#/$defs/dls_bad_response"
@@ -242,9 +263,12 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "dls_PrefixBinding": dls_PrefixBinding_output,
+        "dls_PrefixBindingResponse": dls_PrefixBindingResponse_output,
         "dls_bad_response": dls_bad_response_output,
         "dls_coded_message": dls_coded_message_output,
+        "dls_good_response": dls_good_response_output,
         "dls_none": dls_none_output,
+        "dls_response": dls_response_output,
       },
     },
     request: (args) => ({
@@ -260,8 +284,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier of a Cloudflare account.",
-          "type": "string"
+          "$ref": "#/$defs/dls_account_identifier",
+          "description": "Identifier of a Cloudflare account."
         },
         "binding_id": {
           "description": "Unique identifier for the prefix binding.",
@@ -272,11 +296,18 @@ export const tools: readonly Tool[] = [
         "account_id",
         "binding_id"
       ],
+      $defs: {
+        "dls_account_identifier": dls_account_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/dls_PrefixBinding",
+      "$ref": "#/$defs/dls_PrefixBindingResponse",
       $defs: {
         "dls_PrefixBinding": dls_PrefixBinding_output,
+        "dls_PrefixBindingResponse": dls_PrefixBindingResponse_output,
+        "dls_coded_message": dls_coded_message_output,
+        "dls_good_response": dls_good_response_output,
+        "dls_response": dls_response_output,
       },
     },
     annotations: {
@@ -297,7 +328,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dls_PrefixBinding"
+          "$ref": "#/$defs/dls_PrefixBindingResponse"
         },
         "401": {
           "$ref": "#/$defs/dls_bad_response"
@@ -314,9 +345,12 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "dls_PrefixBinding": dls_PrefixBinding_output,
+        "dls_PrefixBindingResponse": dls_PrefixBindingResponse_output,
         "dls_bad_response": dls_bad_response_output,
         "dls_coded_message": dls_coded_message_output,
+        "dls_good_response": dls_good_response_output,
         "dls_none": dls_none_output,
+        "dls_response": dls_response_output,
       },
     },
     request: (args) => ({
@@ -331,8 +365,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier of a Cloudflare account.",
-          "type": "string"
+          "$ref": "#/$defs/dls_account_identifier",
+          "description": "Identifier of a Cloudflare account."
         },
         "cursor": {
           "description": "Opaque token for cursor-based pagination. Omit for the first page. Pass the value from a previous response to fetch the next page.",
@@ -346,26 +380,16 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+      $defs: {
+        "dls_account_identifier": dls_account_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/dls_PrefixBinding"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "$ref": "#/$defs/dls_PrefixBindingPaginatedListResponse_result_info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/dls_PrefixBindingPaginatedListResponse",
       $defs: {
         "dls_PrefixBinding": dls_PrefixBinding_output,
-        "dls_PrefixBindingPaginatedListResponse_result_info": dls_PrefixBindingPaginatedListResponse_result_info_output,
+        "dls_PrefixBindingPaginatedListResponse": dls_PrefixBindingPaginatedListResponse_output,
+        "dls_coded_message": dls_coded_message_output,
       },
     },
     annotations: {
@@ -386,21 +410,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/dls_PrefixBinding"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/dls_PrefixBindingPaginatedListResponse_result_info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/dls_PrefixBindingPaginatedListResponse"
         },
         "400": {
           "$ref": "#/$defs/dls_bad_response"
@@ -417,10 +427,11 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "dls_PrefixBinding": dls_PrefixBinding_output,
-        "dls_PrefixBindingPaginatedListResponse_result_info": dls_PrefixBindingPaginatedListResponse_result_info_output,
+        "dls_PrefixBindingPaginatedListResponse": dls_PrefixBindingPaginatedListResponse_output,
         "dls_bad_response": dls_bad_response_output,
         "dls_coded_message": dls_coded_message_output,
         "dls_none": dls_none_output,
+        "dls_response": dls_response_output,
       },
     },
     request: (args) => ({

@@ -4,22 +4,17 @@
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
   infra_api_response_common_failure_output,
+  infra_api_response_single_output,
   infra_messages_output,
 } from "../../../../outputs.js";
+import { infra_AccountTag } from "../../../../schemas.js";
 import {
-  infra_IPInfo_ipv4_output,
-  infra_IPInfo_ipv6_output,
   infra_IPInfo_output,
   infra_TargetArray_output,
   infra_TargetId_output,
   infra_Target_output,
 } from "../outputs.js";
-import {
-  infra_IPInfo,
-  infra_IPInfo_ipv4,
-  infra_IPInfo_ipv6,
-  infra_TargetId,
-} from "../schemas.js";
+import { infra_IPInfo, infra_TargetId } from "../schemas.js";
 import { infra_BatchReplaceTargetTagsItem } from "./schemas.js";
 
 /**
@@ -34,8 +29,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier",
-          "type": "string"
+          "$ref": "#/$defs/infra_AccountTag",
+          "description": "Account identifier"
         },
         "body": {
           "properties": {
@@ -58,6 +53,7 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "infra_AccountTag": infra_AccountTag,
         "infra_TargetId": infra_TargetId,
       },
     },
@@ -95,8 +91,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier",
-          "type": "string"
+          "$ref": "#/$defs/infra_AccountTag",
+          "description": "Account identifier"
         },
         "body": {
           "properties": {
@@ -118,30 +114,32 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "infra_AccountTag": infra_AccountTag,
         "infra_BatchReplaceTargetTagsItem": infra_BatchReplaceTargetTagsItem,
         "infra_TargetId": infra_TargetId,
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "$ref": "#/$defs/infra_TargetArray"
+      "allOf": [
+        {
+          "$ref": "#/$defs/infra_api-response-single"
         },
-        "result_info": {
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/infra_TargetArray"
+            }
+          },
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
         "infra_IPInfo": infra_IPInfo_output,
-        "infra_IPInfo_ipv4": infra_IPInfo_ipv4_output,
-        "infra_IPInfo_ipv6": infra_IPInfo_ipv6_output,
         "infra_Target": infra_Target_output,
         "infra_TargetArray": infra_TargetArray_output,
         "infra_TargetId": infra_TargetId_output,
+        "infra_api-response-single": infra_api_response_single_output,
+        "infra_messages": infra_messages_output,
       },
     },
     annotations: {
@@ -161,18 +159,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "$ref": "#/$defs/infra_TargetArray"
+          "allOf": [
+            {
+              "$ref": "#/$defs/infra_api-response-single"
             },
-            "result_info": {
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/infra_TargetArray"
+                }
+              },
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/infra_api-response-common-failure"
@@ -180,12 +179,11 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "infra_IPInfo": infra_IPInfo_output,
-        "infra_IPInfo_ipv4": infra_IPInfo_ipv4_output,
-        "infra_IPInfo_ipv6": infra_IPInfo_ipv6_output,
         "infra_Target": infra_Target_output,
         "infra_TargetArray": infra_TargetArray_output,
         "infra_TargetId": infra_TargetId_output,
         "infra_api-response-common-failure": infra_api_response_common_failure_output,
+        "infra_api-response-single": infra_api_response_single_output,
         "infra_messages": infra_messages_output,
       },
     },
@@ -202,8 +200,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier",
-          "type": "string"
+          "$ref": "#/$defs/infra_AccountTag",
+          "description": "Account identifier"
         },
         "body": {
           "items": {
@@ -245,31 +243,31 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "infra_AccountTag": infra_AccountTag,
         "infra_IPInfo": infra_IPInfo,
-        "infra_IPInfo_ipv4": infra_IPInfo_ipv4,
-        "infra_IPInfo_ipv6": infra_IPInfo_ipv6,
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "$ref": "#/$defs/infra_TargetArray"
+      "allOf": [
+        {
+          "$ref": "#/$defs/infra_api-response-single"
         },
-        "result_info": {
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/infra_TargetArray"
+            }
+          },
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
         "infra_IPInfo": infra_IPInfo_output,
-        "infra_IPInfo_ipv4": infra_IPInfo_ipv4_output,
-        "infra_IPInfo_ipv6": infra_IPInfo_ipv6_output,
         "infra_Target": infra_Target_output,
         "infra_TargetArray": infra_TargetArray_output,
         "infra_TargetId": infra_TargetId_output,
+        "infra_api-response-single": infra_api_response_single_output,
+        "infra_messages": infra_messages_output,
       },
     },
     annotations: {
@@ -289,18 +287,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "$ref": "#/$defs/infra_TargetArray"
+          "allOf": [
+            {
+              "$ref": "#/$defs/infra_api-response-single"
             },
-            "result_info": {
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/infra_TargetArray"
+                }
+              },
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/infra_api-response-common-failure"
@@ -308,12 +307,11 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "infra_IPInfo": infra_IPInfo_output,
-        "infra_IPInfo_ipv4": infra_IPInfo_ipv4_output,
-        "infra_IPInfo_ipv6": infra_IPInfo_ipv6_output,
         "infra_Target": infra_Target_output,
         "infra_TargetArray": infra_TargetArray_output,
         "infra_TargetId": infra_TargetId_output,
         "infra_api-response-common-failure": infra_api_response_common_failure_output,
+        "infra_api-response-single": infra_api_response_single_output,
         "infra_messages": infra_messages_output,
       },
     },

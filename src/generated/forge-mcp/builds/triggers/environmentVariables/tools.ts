@@ -3,6 +3,7 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  builds_APIResponse_output,
   builds_ApiError_output,
   builds_EnvironmentVariablesResponse_output,
   builds_ErrorResponse_output,
@@ -15,8 +16,8 @@ import {
   builds_is_secret,
   builds_trigger_uuid,
 } from "../../../schemas.js";
-import { builds_APIResponse_output } from "../../outputs.js";
 import { builds_EnvironmentVariablesRequest } from "../../schemas.js";
+import { builds_environment_variable_key } from "./schemas.js";
 
 /**
  * The tools of `builds.triggers.environment_variables`.
@@ -34,8 +35,8 @@ export const tools: readonly Tool[] = [
           "description": "Account identifier."
         },
         "environment_variable_key": {
-          "description": "Environment variable key.",
-          "type": "string"
+          "$ref": "#/$defs/builds_environment_variable_key",
+          "description": "Environment variable key."
         },
         "trigger_uuid": {
           "$ref": "#/$defs/builds_trigger_uuid",
@@ -49,6 +50,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "builds_account_id": builds_account_id,
+        "builds_environment_variable_key": builds_environment_variable_key,
         "builds_trigger_uuid": builds_trigger_uuid,
       },
     },
@@ -123,9 +125,24 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/builds_EnvironmentVariablesResponse",
+      "allOf": [
+        {
+          "$ref": "#/$defs/builds_APIResponse"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/builds_EnvironmentVariablesResponse"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
+        "builds_ApiError": builds_ApiError_output,
         "builds_EnvironmentVariablesResponse": builds_EnvironmentVariablesResponse_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
         "builds_created_on": builds_created_on_output,
         "builds_is_secret": builds_is_secret_output,
       },
@@ -148,16 +165,30 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/builds_EnvironmentVariablesResponse"
+          "allOf": [
+            {
+              "$ref": "#/$defs/builds_APIResponse"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/builds_EnvironmentVariablesResponse"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "401": {
           "$ref": "#/$defs/builds_ErrorResponse"
         }
       },
       $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
         "builds_ApiError": builds_ApiError_output,
         "builds_EnvironmentVariablesResponse": builds_EnvironmentVariablesResponse_output,
         "builds_ErrorResponse": builds_ErrorResponse_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
         "builds_created_on": builds_created_on_output,
         "builds_is_secret": builds_is_secret_output,
       },
@@ -198,9 +229,24 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/builds_EnvironmentVariablesResponse",
+      "allOf": [
+        {
+          "$ref": "#/$defs/builds_APIResponse"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/builds_EnvironmentVariablesResponse"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
+        "builds_ApiError": builds_ApiError_output,
         "builds_EnvironmentVariablesResponse": builds_EnvironmentVariablesResponse_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
         "builds_created_on": builds_created_on_output,
         "builds_is_secret": builds_is_secret_output,
       },
@@ -222,7 +268,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/builds_EnvironmentVariablesResponse"
+          "allOf": [
+            {
+              "$ref": "#/$defs/builds_APIResponse"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/builds_EnvironmentVariablesResponse"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "401": {
           "$ref": "#/$defs/builds_ErrorResponse"
@@ -232,9 +290,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
         "builds_ApiError": builds_ApiError_output,
         "builds_EnvironmentVariablesResponse": builds_EnvironmentVariablesResponse_output,
         "builds_ErrorResponse": builds_ErrorResponse_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
         "builds_created_on": builds_created_on_output,
         "builds_is_secret": builds_is_secret_output,
       },

@@ -7,6 +7,7 @@ import {
   cc_Image_output,
   cc_Messages_output,
   cc_V4BaseErrorResponse_output,
+  cc_V4BaseResponse_output,
 } from "../../outputs.js";
 import { cc_Image } from "../../schemas.js";
 import {
@@ -33,6 +34,7 @@ import {
   cc_UserSSHPublicKey_output,
 } from "../outputs.js";
 import {
+  cc_ApplicationID,
   cc_Command,
   cc_DeploymentObservability,
   cc_Entrypoint,
@@ -48,16 +50,12 @@ import {
 } from "../schemas.js";
 import {
   cc_ApplicationRolloutProgress_output,
-  cc_ApplicationRolloutProgress_version_distribution_output,
   cc_ApplicationRollout_output,
-  cc_ApplicationRollout_version_distribution_output,
   cc_RolloutStep_output,
-  cc_RolloutStep_step_size_output,
 } from "./outputs.js";
 import {
   cc_ContainersCreateApplicationRolloutRequest,
   cc_RolloutStepRequest,
-  cc_RolloutStepRequest_step_size,
 } from "./schemas.js";
 
 /**
@@ -76,8 +74,8 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "application_id": {
-          "description": "An Application ID represents an identifier of an application.",
-          "type": "string"
+          "$ref": "#/$defs/cc_ApplicationID",
+          "description": "An Application ID represents an identifier of an application."
         },
         "body": {
           "$ref": "#/$defs/cc_ContainersCreateApplicationRolloutRequest"
@@ -89,6 +87,7 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "cc_ApplicationID": cc_ApplicationID,
         "cc_Command": cc_Command,
         "cc_ContainersCreateApplicationRolloutRequest": cc_ContainersCreateApplicationRolloutRequest,
         "cc_DeploymentObservability": cc_DeploymentObservability,
@@ -102,13 +101,27 @@ export const tools: readonly Tool[] = [
         "cc_ModifyUserDeploymentConfiguration": cc_ModifyUserDeploymentConfiguration,
         "cc_ObservabilityLogs": cc_ObservabilityLogs,
         "cc_RolloutStepRequest": cc_RolloutStepRequest,
-        "cc_RolloutStepRequest_step_size": cc_RolloutStepRequest_step_size,
         "cc_SSHPublicKey": cc_SSHPublicKey,
         "cc_UserSSHPublicKey": cc_UserSSHPublicKey,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/cc_ApplicationRollout",
+      "allOf": [
+        {
+          "$ref": "#/$defs/cc_V4BaseResponse"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/cc_ApplicationRollout"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
       $defs: {
         "cc_ApplicationHealth": cc_ApplicationHealth_output,
         "cc_ApplicationHealthError": cc_ApplicationHealthError_output,
@@ -116,8 +129,6 @@ export const tools: readonly Tool[] = [
         "cc_ApplicationHealthInstances": cc_ApplicationHealthInstances_output,
         "cc_ApplicationRollout": cc_ApplicationRollout_output,
         "cc_ApplicationRolloutProgress": cc_ApplicationRolloutProgress_output,
-        "cc_ApplicationRolloutProgress_version_distribution": cc_ApplicationRolloutProgress_version_distribution_output,
-        "cc_ApplicationRollout_version_distribution": cc_ApplicationRollout_version_distribution_output,
         "cc_Command": cc_Command_output,
         "cc_DeploymentObservability": cc_DeploymentObservability_output,
         "cc_Entrypoint": cc_Entrypoint_output,
@@ -131,14 +142,15 @@ export const tools: readonly Tool[] = [
         "cc_Image": cc_Image_output,
         "cc_InstanceID": cc_InstanceID_output,
         "cc_InstanceType": cc_InstanceType_output,
+        "cc_Messages": cc_Messages_output,
         "cc_ModifyUserDeploymentConfiguration": cc_ModifyUserDeploymentConfiguration_output,
         "cc_ObservabilityLogs": cc_ObservabilityLogs_output,
         "cc_PlacementEvent": cc_PlacementEvent_output,
         "cc_RolloutID": cc_RolloutID_output,
         "cc_RolloutStep": cc_RolloutStep_output,
-        "cc_RolloutStep_step_size": cc_RolloutStep_step_size_output,
         "cc_SSHPublicKey": cc_SSHPublicKey_output,
         "cc_UserSSHPublicKey": cc_UserSSHPublicKey_output,
+        "cc_V4BaseResponse": cc_V4BaseResponse_output,
       },
     },
     annotations: {
@@ -153,7 +165,22 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "201": {
-          "$ref": "#/$defs/cc_ApplicationRollout"
+          "allOf": [
+            {
+              "$ref": "#/$defs/cc_V4BaseResponse"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/cc_ApplicationRollout"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
         },
         "400": {
           "$ref": "#/$defs/cc_V4BaseErrorResponse"
@@ -178,8 +205,6 @@ export const tools: readonly Tool[] = [
         "cc_ApplicationHealthInstances": cc_ApplicationHealthInstances_output,
         "cc_ApplicationRollout": cc_ApplicationRollout_output,
         "cc_ApplicationRolloutProgress": cc_ApplicationRolloutProgress_output,
-        "cc_ApplicationRolloutProgress_version_distribution": cc_ApplicationRolloutProgress_version_distribution_output,
-        "cc_ApplicationRollout_version_distribution": cc_ApplicationRollout_version_distribution_output,
         "cc_Command": cc_Command_output,
         "cc_DeploymentObservability": cc_DeploymentObservability_output,
         "cc_Entrypoint": cc_Entrypoint_output,
@@ -199,10 +224,10 @@ export const tools: readonly Tool[] = [
         "cc_PlacementEvent": cc_PlacementEvent_output,
         "cc_RolloutID": cc_RolloutID_output,
         "cc_RolloutStep": cc_RolloutStep_output,
-        "cc_RolloutStep_step_size": cc_RolloutStep_step_size_output,
         "cc_SSHPublicKey": cc_SSHPublicKey_output,
         "cc_UserSSHPublicKey": cc_UserSSHPublicKey_output,
         "cc_V4BaseErrorResponse": cc_V4BaseErrorResponse_output,
+        "cc_V4BaseResponse": cc_V4BaseResponse_output,
       },
     },
     request: (args) => ({

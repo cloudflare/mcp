@@ -4,16 +4,16 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   cloud_connector_api_response_common_failure_output,
+  cloud_connector_api_response_common_output,
   cloud_connector_messages_output,
   cloud_connector_provider_output,
   cloud_connector_rule_output,
-  cloud_connector_rule_parameters_output,
   cloud_connector_rules_output,
 } from "./outputs.js";
 import {
+  cloud_connector_identifier,
   cloud_connector_provider,
   cloud_connector_rule,
-  cloud_connector_rule_parameters,
 } from "./schemas.js";
 
 /**
@@ -28,31 +28,36 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/cloud-connector_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "cloud-connector_identifier": cloud_connector_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "$ref": "#/$defs/cloud-connector_rules"
+      "allOf": [
+        {
+          "$ref": "#/$defs/cloud-connector_api-response-common"
         },
-        "result_info": {
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/cloud-connector_rules"
+            }
+          },
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
+        "cloud-connector_api-response-common": cloud_connector_api_response_common_output,
+        "cloud-connector_messages": cloud_connector_messages_output,
         "cloud-connector_provider": cloud_connector_provider_output,
         "cloud-connector_rule": cloud_connector_rule_output,
-        "cloud-connector_rule_parameters": cloud_connector_rule_parameters_output,
         "cloud-connector_rules": cloud_connector_rules_output,
       },
     },
@@ -80,18 +85,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "$ref": "#/$defs/cloud-connector_rules"
+          "allOf": [
+            {
+              "$ref": "#/$defs/cloud-connector_api-response-common"
             },
-            "result_info": {
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/cloud-connector_rules"
+                }
+              },
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/cloud-connector_api-response-common-failure"
@@ -101,11 +107,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "cloud-connector_api-response-common": cloud_connector_api_response_common_output,
         "cloud-connector_api-response-common-failure": cloud_connector_api_response_common_failure_output,
         "cloud-connector_messages": cloud_connector_messages_output,
         "cloud-connector_provider": cloud_connector_provider_output,
         "cloud-connector_rule": cloud_connector_rule_output,
-        "cloud-connector_rule_parameters": cloud_connector_rule_parameters_output,
         "cloud-connector_rules": cloud_connector_rules_output,
       },
     },
@@ -127,8 +133,8 @@ export const tools: readonly Tool[] = [
           "type": "array"
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/cloud-connector_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -136,28 +142,30 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "cloud-connector_identifier": cloud_connector_identifier,
         "cloud-connector_provider": cloud_connector_provider,
         "cloud-connector_rule": cloud_connector_rule,
-        "cloud-connector_rule_parameters": cloud_connector_rule_parameters,
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "$ref": "#/$defs/cloud-connector_rules"
+      "allOf": [
+        {
+          "$ref": "#/$defs/cloud-connector_api-response-common"
         },
-        "result_info": {
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/cloud-connector_rules"
+            }
+          },
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
+        "cloud-connector_api-response-common": cloud_connector_api_response_common_output,
+        "cloud-connector_messages": cloud_connector_messages_output,
         "cloud-connector_provider": cloud_connector_provider_output,
         "cloud-connector_rule": cloud_connector_rule_output,
-        "cloud-connector_rule_parameters": cloud_connector_rule_parameters_output,
         "cloud-connector_rules": cloud_connector_rules_output,
       },
     },
@@ -184,18 +192,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "$ref": "#/$defs/cloud-connector_rules"
+          "allOf": [
+            {
+              "$ref": "#/$defs/cloud-connector_api-response-common"
             },
-            "result_info": {
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/cloud-connector_rules"
+                }
+              },
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/cloud-connector_api-response-common-failure"
@@ -205,11 +214,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "cloud-connector_api-response-common": cloud_connector_api_response_common_output,
         "cloud-connector_api-response-common-failure": cloud_connector_api_response_common_failure_output,
         "cloud-connector_messages": cloud_connector_messages_output,
         "cloud-connector_provider": cloud_connector_provider_output,
         "cloud-connector_rule": cloud_connector_rule_output,
-        "cloud-connector_rule_parameters": cloud_connector_rule_parameters_output,
         "cloud-connector_rules": cloud_connector_rules_output,
       },
     },

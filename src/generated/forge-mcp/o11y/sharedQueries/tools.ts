@@ -5,50 +5,15 @@ import { type Tool, pathParam } from "../../_/tool.js";
 import {
   workers_observability_distribution_result_output,
   workers_observability_filter_leaf_output,
-  workers_observability_filter_leaf_value_output,
   workers_observability_filter_node_output,
   workers_observability_performance_information_output,
   workers_observability_query_output,
-  workers_observability_query_parameters_groupBysItem_output,
-  workers_observability_query_parameters_havingsItem_output,
-  workers_observability_query_parameters_needle_output,
-  workers_observability_query_parameters_orderBy_output,
-  workers_observability_query_parameters_output,
-  workers_observability_query_results_agentsItem_output,
-  workers_observability_query_results_calculationsItem_aggregatesItem_groupsItem_output,
-  workers_observability_query_results_calculationsItem_aggregatesItem_groupsItem_value_output,
-  workers_observability_query_results_calculationsItem_aggregatesItem_output,
-  workers_observability_query_results_calculationsItem_output,
-  workers_observability_query_results_calculationsItem_seriesItem_dataItem_groupsItem_output,
-  workers_observability_query_results_calculationsItem_seriesItem_dataItem_groupsItem_value_output,
-  workers_observability_query_results_calculationsItem_seriesItem_dataItem_output,
-  workers_observability_query_results_calculationsItem_seriesItem_output,
-  workers_observability_query_results_compareItem_aggregatesItem_groupsItem_output,
-  workers_observability_query_results_compareItem_aggregatesItem_groupsItem_value_output,
-  workers_observability_query_results_compareItem_aggregatesItem_output,
-  workers_observability_query_results_compareItem_output,
-  workers_observability_query_results_compareItem_seriesItem_dataItem_groupsItem_output,
-  workers_observability_query_results_compareItem_seriesItem_dataItem_groupsItem_value_output,
-  workers_observability_query_results_compareItem_seriesItem_dataItem_output,
-  workers_observability_query_results_compareItem_seriesItem_output,
-  workers_observability_query_results_events_fieldsItem_output,
-  workers_observability_query_results_events_output,
-  workers_observability_query_results_events_seriesItem_dataItem_aggregates_output,
-  workers_observability_query_results_events_seriesItem_dataItem_output,
-  workers_observability_query_results_events_seriesItem_output,
   workers_observability_query_results_output,
-  workers_observability_query_results_tracesItem_output,
   workers_observability_query_run_output,
-  workers_observability_query_run_statistics_output,
-  workers_observability_query_run_timeframe_output,
-  workers_observability_telemetry_event__metadata_output,
-  workers_observability_telemetry_event__workers_output,
   workers_observability_telemetry_event_output,
-  workers_observability_telemetry_event_source_output,
 } from "../outputs.js";
 import {
   workers_observability_filter_leaf,
-  workers_observability_filter_leaf_value,
   workers_observability_filter_node,
 } from "../schemas.js";
 
@@ -484,18 +449,65 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "workers-observability_filter_leaf": workers_observability_filter_leaf,
-        "workers-observability_filter_leaf_value": workers_observability_filter_leaf_value,
         "workers-observability_filter_node": workers_observability_filter_node,
       },
     },
     outputSchema: {
       "properties": {
-        "id": {
-          "type": "string"
+        "errors": {
+          "items": {
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "message": {
+                "enum": [
+                  "Successful request"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
+          "properties": {
+            "id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
         }
       },
       "required": [
-        "id"
+        "errors",
+        "messages",
+        "result",
+        "success"
       ],
       "type": "object",
     },
@@ -512,12 +524,60 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
-            "id": {
-              "type": "string"
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "enum": [
+                      "Successful request"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
             }
           },
           "required": [
-            "id"
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -759,50 +819,64 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/workers-observability_query_results",
+      "properties": {
+        "errors": {
+          "items": {
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "message": {
+                "enum": [
+                  "Successful request"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
+          "$ref": "#/$defs/workers-observability_query_results"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
       $defs: {
         "workers-observability_distribution_result": workers_observability_distribution_result_output,
         "workers-observability_filter_leaf": workers_observability_filter_leaf_output,
-        "workers-observability_filter_leaf_value": workers_observability_filter_leaf_value_output,
         "workers-observability_filter_node": workers_observability_filter_node_output,
         "workers-observability_performance_information": workers_observability_performance_information_output,
         "workers-observability_query": workers_observability_query_output,
-        "workers-observability_query_parameters": workers_observability_query_parameters_output,
-        "workers-observability_query_parameters_groupBysItem": workers_observability_query_parameters_groupBysItem_output,
-        "workers-observability_query_parameters_havingsItem": workers_observability_query_parameters_havingsItem_output,
-        "workers-observability_query_parameters_needle": workers_observability_query_parameters_needle_output,
-        "workers-observability_query_parameters_orderBy": workers_observability_query_parameters_orderBy_output,
         "workers-observability_query_results": workers_observability_query_results_output,
-        "workers-observability_query_results_agentsItem": workers_observability_query_results_agentsItem_output,
-        "workers-observability_query_results_calculationsItem": workers_observability_query_results_calculationsItem_output,
-        "workers-observability_query_results_calculationsItem_aggregatesItem": workers_observability_query_results_calculationsItem_aggregatesItem_output,
-        "workers-observability_query_results_calculationsItem_aggregatesItem_groupsItem": workers_observability_query_results_calculationsItem_aggregatesItem_groupsItem_output,
-        "workers-observability_query_results_calculationsItem_aggregatesItem_groupsItem_value": workers_observability_query_results_calculationsItem_aggregatesItem_groupsItem_value_output,
-        "workers-observability_query_results_calculationsItem_seriesItem": workers_observability_query_results_calculationsItem_seriesItem_output,
-        "workers-observability_query_results_calculationsItem_seriesItem_dataItem": workers_observability_query_results_calculationsItem_seriesItem_dataItem_output,
-        "workers-observability_query_results_calculationsItem_seriesItem_dataItem_groupsItem": workers_observability_query_results_calculationsItem_seriesItem_dataItem_groupsItem_output,
-        "workers-observability_query_results_calculationsItem_seriesItem_dataItem_groupsItem_value": workers_observability_query_results_calculationsItem_seriesItem_dataItem_groupsItem_value_output,
-        "workers-observability_query_results_compareItem": workers_observability_query_results_compareItem_output,
-        "workers-observability_query_results_compareItem_aggregatesItem": workers_observability_query_results_compareItem_aggregatesItem_output,
-        "workers-observability_query_results_compareItem_aggregatesItem_groupsItem": workers_observability_query_results_compareItem_aggregatesItem_groupsItem_output,
-        "workers-observability_query_results_compareItem_aggregatesItem_groupsItem_value": workers_observability_query_results_compareItem_aggregatesItem_groupsItem_value_output,
-        "workers-observability_query_results_compareItem_seriesItem": workers_observability_query_results_compareItem_seriesItem_output,
-        "workers-observability_query_results_compareItem_seriesItem_dataItem": workers_observability_query_results_compareItem_seriesItem_dataItem_output,
-        "workers-observability_query_results_compareItem_seriesItem_dataItem_groupsItem": workers_observability_query_results_compareItem_seriesItem_dataItem_groupsItem_output,
-        "workers-observability_query_results_compareItem_seriesItem_dataItem_groupsItem_value": workers_observability_query_results_compareItem_seriesItem_dataItem_groupsItem_value_output,
-        "workers-observability_query_results_events": workers_observability_query_results_events_output,
-        "workers-observability_query_results_events_fieldsItem": workers_observability_query_results_events_fieldsItem_output,
-        "workers-observability_query_results_events_seriesItem": workers_observability_query_results_events_seriesItem_output,
-        "workers-observability_query_results_events_seriesItem_dataItem": workers_observability_query_results_events_seriesItem_dataItem_output,
-        "workers-observability_query_results_events_seriesItem_dataItem_aggregates": workers_observability_query_results_events_seriesItem_dataItem_aggregates_output,
-        "workers-observability_query_results_tracesItem": workers_observability_query_results_tracesItem_output,
         "workers-observability_query_run": workers_observability_query_run_output,
-        "workers-observability_query_run_statistics": workers_observability_query_run_statistics_output,
-        "workers-observability_query_run_timeframe": workers_observability_query_run_timeframe_output,
         "workers-observability_telemetry_event": workers_observability_telemetry_event_output,
-        "workers-observability_telemetry_event__metadata": workers_observability_telemetry_event__metadata_output,
-        "workers-observability_telemetry_event__workers": workers_observability_telemetry_event__workers_output,
-        "workers-observability_telemetry_event_source": workers_observability_telemetry_event_source_output,
       },
     },
     annotations: {
@@ -817,7 +891,55 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/workers-observability_query_results"
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "enum": [
+                      "Successful request"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "$ref": "#/$defs/workers-observability_query_results"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
+          "type": "object"
         },
         "400": {
           "properties": {
@@ -1023,46 +1145,12 @@ export const tools: readonly Tool[] = [
       $defs: {
         "workers-observability_distribution_result": workers_observability_distribution_result_output,
         "workers-observability_filter_leaf": workers_observability_filter_leaf_output,
-        "workers-observability_filter_leaf_value": workers_observability_filter_leaf_value_output,
         "workers-observability_filter_node": workers_observability_filter_node_output,
         "workers-observability_performance_information": workers_observability_performance_information_output,
         "workers-observability_query": workers_observability_query_output,
-        "workers-observability_query_parameters": workers_observability_query_parameters_output,
-        "workers-observability_query_parameters_groupBysItem": workers_observability_query_parameters_groupBysItem_output,
-        "workers-observability_query_parameters_havingsItem": workers_observability_query_parameters_havingsItem_output,
-        "workers-observability_query_parameters_needle": workers_observability_query_parameters_needle_output,
-        "workers-observability_query_parameters_orderBy": workers_observability_query_parameters_orderBy_output,
         "workers-observability_query_results": workers_observability_query_results_output,
-        "workers-observability_query_results_agentsItem": workers_observability_query_results_agentsItem_output,
-        "workers-observability_query_results_calculationsItem": workers_observability_query_results_calculationsItem_output,
-        "workers-observability_query_results_calculationsItem_aggregatesItem": workers_observability_query_results_calculationsItem_aggregatesItem_output,
-        "workers-observability_query_results_calculationsItem_aggregatesItem_groupsItem": workers_observability_query_results_calculationsItem_aggregatesItem_groupsItem_output,
-        "workers-observability_query_results_calculationsItem_aggregatesItem_groupsItem_value": workers_observability_query_results_calculationsItem_aggregatesItem_groupsItem_value_output,
-        "workers-observability_query_results_calculationsItem_seriesItem": workers_observability_query_results_calculationsItem_seriesItem_output,
-        "workers-observability_query_results_calculationsItem_seriesItem_dataItem": workers_observability_query_results_calculationsItem_seriesItem_dataItem_output,
-        "workers-observability_query_results_calculationsItem_seriesItem_dataItem_groupsItem": workers_observability_query_results_calculationsItem_seriesItem_dataItem_groupsItem_output,
-        "workers-observability_query_results_calculationsItem_seriesItem_dataItem_groupsItem_value": workers_observability_query_results_calculationsItem_seriesItem_dataItem_groupsItem_value_output,
-        "workers-observability_query_results_compareItem": workers_observability_query_results_compareItem_output,
-        "workers-observability_query_results_compareItem_aggregatesItem": workers_observability_query_results_compareItem_aggregatesItem_output,
-        "workers-observability_query_results_compareItem_aggregatesItem_groupsItem": workers_observability_query_results_compareItem_aggregatesItem_groupsItem_output,
-        "workers-observability_query_results_compareItem_aggregatesItem_groupsItem_value": workers_observability_query_results_compareItem_aggregatesItem_groupsItem_value_output,
-        "workers-observability_query_results_compareItem_seriesItem": workers_observability_query_results_compareItem_seriesItem_output,
-        "workers-observability_query_results_compareItem_seriesItem_dataItem": workers_observability_query_results_compareItem_seriesItem_dataItem_output,
-        "workers-observability_query_results_compareItem_seriesItem_dataItem_groupsItem": workers_observability_query_results_compareItem_seriesItem_dataItem_groupsItem_output,
-        "workers-observability_query_results_compareItem_seriesItem_dataItem_groupsItem_value": workers_observability_query_results_compareItem_seriesItem_dataItem_groupsItem_value_output,
-        "workers-observability_query_results_events": workers_observability_query_results_events_output,
-        "workers-observability_query_results_events_fieldsItem": workers_observability_query_results_events_fieldsItem_output,
-        "workers-observability_query_results_events_seriesItem": workers_observability_query_results_events_seriesItem_output,
-        "workers-observability_query_results_events_seriesItem_dataItem": workers_observability_query_results_events_seriesItem_dataItem_output,
-        "workers-observability_query_results_events_seriesItem_dataItem_aggregates": workers_observability_query_results_events_seriesItem_dataItem_aggregates_output,
-        "workers-observability_query_results_tracesItem": workers_observability_query_results_tracesItem_output,
         "workers-observability_query_run": workers_observability_query_run_output,
-        "workers-observability_query_run_statistics": workers_observability_query_run_statistics_output,
-        "workers-observability_query_run_timeframe": workers_observability_query_run_timeframe_output,
         "workers-observability_telemetry_event": workers_observability_telemetry_event_output,
-        "workers-observability_telemetry_event__metadata": workers_observability_telemetry_event__metadata_output,
-        "workers-observability_telemetry_event__workers": workers_observability_telemetry_event__workers_output,
-        "workers-observability_telemetry_event_source": workers_observability_telemetry_event_source_output,
       },
     },
     request: (args) => ({

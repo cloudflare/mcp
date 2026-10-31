@@ -4,8 +4,10 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   d1_api_response_common_failure_output,
+  d1_api_response_common_output,
   d1_messages_output,
 } from "../outputs.js";
+import { d1_account_identifier, d1_database_identifier } from "../schemas.js";
 import {
   d1_time_travel_bookmark_output,
   d1_time_travel_restore_response_output,
@@ -27,12 +29,12 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/d1_account-identifier",
+          "description": "Account identifier tag."
         },
         "database_id": {
-          "description": "D1 database identifier (UUID).",
-          "type": "string"
+          "$ref": "#/$defs/d1_database-identifier",
+          "description": "D1 database identifier (UUID)."
         },
         "timestamp": {
           "$ref": "#/$defs/d1_time-travel-timestamp",
@@ -44,17 +46,33 @@ export const tools: readonly Tool[] = [
         "database_id"
       ],
       $defs: {
+        "d1_account-identifier": d1_account_identifier,
+        "d1_database-identifier": d1_database_identifier,
         "d1_time-travel-timestamp": d1_time_travel_timestamp,
       },
     },
     outputSchema: {
-      "properties": {
-        "bookmark": {
-          "$ref": "#/$defs/d1_time-travel-bookmark"
+      "allOf": [
+        {
+          "$ref": "#/$defs/d1_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "properties": {
+                "bookmark": {
+                  "$ref": "#/$defs/d1_time-travel-bookmark"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
         }
-      },
-      "type": "object",
+      ],
       $defs: {
+        "d1_api-response-common": d1_api_response_common_output,
+        "d1_messages": d1_messages_output,
         "d1_time-travel-bookmark": d1_time_travel_bookmark_output,
       },
     },
@@ -77,18 +95,31 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "bookmark": {
-              "$ref": "#/$defs/d1_time-travel-bookmark"
+          "allOf": [
+            {
+              "$ref": "#/$defs/d1_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "bookmark": {
+                      "$ref": "#/$defs/d1_time-travel-bookmark"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
             }
-          },
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/d1_api-response-common-failure"
         }
       },
       $defs: {
+        "d1_api-response-common": d1_api_response_common_output,
         "d1_api-response-common-failure": d1_api_response_common_failure_output,
         "d1_messages": d1_messages_output,
         "d1_time-travel-bookmark": d1_time_travel_bookmark_output,
@@ -109,16 +140,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/d1_account-identifier",
+          "description": "Account identifier tag."
         },
         "bookmark": {
           "$ref": "#/$defs/d1_time-travel-bookmark",
           "description": "A bookmark to restore the database to. Required if `timestamp` is not provided."
         },
         "database_id": {
-          "description": "D1 database identifier (UUID).",
-          "type": "string"
+          "$ref": "#/$defs/d1_database-identifier",
+          "description": "D1 database identifier (UUID)."
         },
         "timestamp": {
           "$ref": "#/$defs/d1_time-travel-timestamp",
@@ -130,13 +161,29 @@ export const tools: readonly Tool[] = [
         "database_id"
       ],
       $defs: {
+        "d1_account-identifier": d1_account_identifier,
+        "d1_database-identifier": d1_database_identifier,
         "d1_time-travel-bookmark": d1_time_travel_bookmark,
         "d1_time-travel-timestamp": d1_time_travel_timestamp,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/d1_time-travel-restore-response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/d1_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/d1_time-travel-restore-response"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "d1_api-response-common": d1_api_response_common_output,
+        "d1_messages": d1_messages_output,
         "d1_time-travel-bookmark": d1_time_travel_bookmark_output,
         "d1_time-travel-restore-response": d1_time_travel_restore_response_output,
       },
@@ -156,13 +203,26 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/d1_time-travel-restore-response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/d1_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/d1_time-travel-restore-response"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/d1_api-response-common-failure"
         }
       },
       $defs: {
+        "d1_api-response-common": d1_api_response_common_output,
         "d1_api-response-common-failure": d1_api_response_common_failure_output,
         "d1_messages": d1_messages_output,
         "d1_time-travel-bookmark": d1_time_travel_bookmark_output,

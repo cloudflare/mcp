@@ -3,13 +3,15 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  waf_product_api_bundle_api_response_common_output,
+  waf_product_api_bundle_api_response_single_output,
   waf_product_api_bundle_identifier_output,
   waf_product_api_bundle_messages_output,
 } from "../../outputs.js";
 import { waf_product_api_bundle_identifier } from "../../schemas.js";
 import { waf_product_api_bundle_api_response_common_failure_output } from "../outputs.js";
 import {
-  waf_product_api_bundle_api_response_common_result_output,
+  waf_product_api_bundle_api_response_collection_output,
   waf_product_api_bundle_custom_detection_output,
   waf_product_api_bundle_detection_id_output,
   waf_product_api_bundle_response_custom_detection_collection_output,
@@ -35,8 +37,8 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/waf-product-api-bundle_custom-detection"
         },
         "zone_id": {
-          "description": "Defines an identifier.",
-          "type": "string"
+          "$ref": "#/$defs/waf-product-api-bundle_identifier",
+          "description": "Defines an identifier."
         }
       },
       required: [
@@ -50,11 +52,15 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/waf-product-api-bundle_custom-detection",
+      "$ref": "#/$defs/waf-product-api-bundle_response-custom-detection",
       $defs: {
+        "waf-product-api-bundle_api-response-common": waf_product_api_bundle_api_response_common_output,
+        "waf-product-api-bundle_api-response-single": waf_product_api_bundle_api_response_single_output,
         "waf-product-api-bundle_custom-detection": waf_product_api_bundle_custom_detection_output,
         "waf-product-api-bundle_detection-id": waf_product_api_bundle_detection_id_output,
         "waf-product-api-bundle_identifier": waf_product_api_bundle_identifier_output,
+        "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
+        "waf-product-api-bundle_response-custom-detection": waf_product_api_bundle_response_custom_detection_output,
       },
     },
     annotations: {
@@ -75,7 +81,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/waf-product-api-bundle_custom-detection"
+          "$ref": "#/$defs/waf-product-api-bundle_response-custom-detection"
         },
         "4XX": {
           "allOf": [
@@ -89,7 +95,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "waf-product-api-bundle_api-response-common": waf_product_api_bundle_api_response_common_output,
         "waf-product-api-bundle_api-response-common-failure": waf_product_api_bundle_api_response_common_failure_output,
+        "waf-product-api-bundle_api-response-single": waf_product_api_bundle_api_response_single_output,
         "waf-product-api-bundle_custom-detection": waf_product_api_bundle_custom_detection_output,
         "waf-product-api-bundle_detection-id": waf_product_api_bundle_detection_id_output,
         "waf-product-api-bundle_identifier": waf_product_api_bundle_identifier_output,
@@ -110,34 +118,28 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "detection_id": {
-          "description": "Defines the unique ID for this custom detection.",
-          "type": "string"
+          "$ref": "#/$defs/waf-product-api-bundle_detection-id",
+          "description": "Defines the unique ID for this custom detection."
         },
         "zone_id": {
-          "description": "Defines an identifier.",
-          "type": "string"
+          "$ref": "#/$defs/waf-product-api-bundle_identifier",
+          "description": "Defines an identifier."
         }
       },
       required: [
         "zone_id",
         "detection_id"
       ],
+      $defs: {
+        "waf-product-api-bundle_detection-id": waf_product_api_bundle_detection_id,
+        "waf-product-api-bundle_identifier": waf_product_api_bundle_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "$ref": "#/$defs/waf-product-api-bundle_api-response-common_result"
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/waf-product-api-bundle_api-response-common",
       $defs: {
-        "waf-product-api-bundle_api-response-common_result": waf_product_api_bundle_api_response_common_result_output,
+        "waf-product-api-bundle_api-response-common": waf_product_api_bundle_api_response_common_output,
+        "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
       },
     },
     annotations: {
@@ -158,26 +160,15 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "$ref": "#/$defs/waf-product-api-bundle_api-response-common_result"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/waf-product-api-bundle_api-response-common"
         },
         "4XX": {
           "$ref": "#/$defs/waf-product-api-bundle_api-response-common-failure"
         }
       },
       $defs: {
+        "waf-product-api-bundle_api-response-common": waf_product_api_bundle_api_response_common_output,
         "waf-product-api-bundle_api-response-common-failure": waf_product_api_bundle_api_response_common_failure_output,
-        "waf-product-api-bundle_api-response-common_result": waf_product_api_bundle_api_response_common_result_output,
         "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
       },
     },
@@ -193,25 +184,33 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "detection_id": {
-          "description": "Defines the unique ID for this custom detection.",
-          "type": "string"
+          "$ref": "#/$defs/waf-product-api-bundle_detection-id",
+          "description": "Defines the unique ID for this custom detection."
         },
         "zone_id": {
-          "description": "Defines an identifier.",
-          "type": "string"
+          "$ref": "#/$defs/waf-product-api-bundle_identifier",
+          "description": "Defines an identifier."
         }
       },
       required: [
         "zone_id",
         "detection_id"
       ],
+      $defs: {
+        "waf-product-api-bundle_detection-id": waf_product_api_bundle_detection_id,
+        "waf-product-api-bundle_identifier": waf_product_api_bundle_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/waf-product-api-bundle_custom-detection",
+      "$ref": "#/$defs/waf-product-api-bundle_response-custom-detection",
       $defs: {
+        "waf-product-api-bundle_api-response-common": waf_product_api_bundle_api_response_common_output,
+        "waf-product-api-bundle_api-response-single": waf_product_api_bundle_api_response_single_output,
         "waf-product-api-bundle_custom-detection": waf_product_api_bundle_custom_detection_output,
         "waf-product-api-bundle_detection-id": waf_product_api_bundle_detection_id_output,
         "waf-product-api-bundle_identifier": waf_product_api_bundle_identifier_output,
+        "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
+        "waf-product-api-bundle_response-custom-detection": waf_product_api_bundle_response_custom_detection_output,
       },
     },
     annotations: {
@@ -234,7 +233,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/waf-product-api-bundle_custom-detection"
+          "$ref": "#/$defs/waf-product-api-bundle_response-custom-detection"
         },
         "4XX": {
           "allOf": [
@@ -248,7 +247,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "waf-product-api-bundle_api-response-common": waf_product_api_bundle_api_response_common_output,
         "waf-product-api-bundle_api-response-common-failure": waf_product_api_bundle_api_response_common_failure_output,
+        "waf-product-api-bundle_api-response-single": waf_product_api_bundle_api_response_single_output,
         "waf-product-api-bundle_custom-detection": waf_product_api_bundle_custom_detection_output,
         "waf-product-api-bundle_detection-id": waf_product_api_bundle_detection_id_output,
         "waf-product-api-bundle_identifier": waf_product_api_bundle_identifier_output,
@@ -268,34 +269,27 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "description": "Defines an identifier.",
-          "type": "string"
+          "$ref": "#/$defs/waf-product-api-bundle_identifier",
+          "description": "Defines an identifier."
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "waf-product-api-bundle_identifier": waf_product_api_bundle_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/waf-product-api-bundle_custom-detection"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/waf-product-api-bundle_response-custom-detection-collection",
       $defs: {
+        "waf-product-api-bundle_api-response-collection": waf_product_api_bundle_api_response_collection_output,
+        "waf-product-api-bundle_api-response-common": waf_product_api_bundle_api_response_common_output,
         "waf-product-api-bundle_custom-detection": waf_product_api_bundle_custom_detection_output,
         "waf-product-api-bundle_detection-id": waf_product_api_bundle_detection_id_output,
         "waf-product-api-bundle_identifier": waf_product_api_bundle_identifier_output,
+        "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
+        "waf-product-api-bundle_response-custom-detection-collection": waf_product_api_bundle_response_custom_detection_collection_output,
       },
     },
     annotations: {
@@ -318,21 +312,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/waf-product-api-bundle_custom-detection"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/waf-product-api-bundle_response-custom-detection-collection"
         },
         "4XX": {
           "allOf": [
@@ -346,6 +326,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "waf-product-api-bundle_api-response-collection": waf_product_api_bundle_api_response_collection_output,
+        "waf-product-api-bundle_api-response-common": waf_product_api_bundle_api_response_common_output,
         "waf-product-api-bundle_api-response-common-failure": waf_product_api_bundle_api_response_common_failure_output,
         "waf-product-api-bundle_custom-detection": waf_product_api_bundle_custom_detection_output,
         "waf-product-api-bundle_detection-id": waf_product_api_bundle_detection_id_output,
@@ -369,12 +351,12 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/waf-product-api-bundle_custom-detection"
         },
         "detection_id": {
-          "description": "Defines the unique ID for this custom detection.",
-          "type": "string"
+          "$ref": "#/$defs/waf-product-api-bundle_detection-id",
+          "description": "Defines the unique ID for this custom detection."
         },
         "zone_id": {
-          "description": "Defines an identifier.",
-          "type": "string"
+          "$ref": "#/$defs/waf-product-api-bundle_identifier",
+          "description": "Defines an identifier."
         }
       },
       required: [
@@ -389,11 +371,15 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/waf-product-api-bundle_custom-detection",
+      "$ref": "#/$defs/waf-product-api-bundle_response-custom-detection",
       $defs: {
+        "waf-product-api-bundle_api-response-common": waf_product_api_bundle_api_response_common_output,
+        "waf-product-api-bundle_api-response-single": waf_product_api_bundle_api_response_single_output,
         "waf-product-api-bundle_custom-detection": waf_product_api_bundle_custom_detection_output,
         "waf-product-api-bundle_detection-id": waf_product_api_bundle_detection_id_output,
         "waf-product-api-bundle_identifier": waf_product_api_bundle_identifier_output,
+        "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
+        "waf-product-api-bundle_response-custom-detection": waf_product_api_bundle_response_custom_detection_output,
       },
     },
     annotations: {
@@ -414,7 +400,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/waf-product-api-bundle_custom-detection"
+          "$ref": "#/$defs/waf-product-api-bundle_response-custom-detection"
         },
         "4XX": {
           "allOf": [
@@ -428,7 +414,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "waf-product-api-bundle_api-response-common": waf_product_api_bundle_api_response_common_output,
         "waf-product-api-bundle_api-response-common-failure": waf_product_api_bundle_api_response_common_failure_output,
+        "waf-product-api-bundle_api-response-single": waf_product_api_bundle_api_response_single_output,
         "waf-product-api-bundle_custom-detection": waf_product_api_bundle_custom_detection_output,
         "waf-product-api-bundle_detection-id": waf_product_api_bundle_detection_id_output,
         "waf-product-api-bundle_identifier": waf_product_api_bundle_identifier_output,

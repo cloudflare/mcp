@@ -4,13 +4,6 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `aaa_account-id` in responses.
- */
-export const aaa_account_id_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `aaa_unsubscribe_email` in responses.
  */
 export const aaa_unsubscribe_email_output: JsonSchema = {
@@ -50,4 +43,42 @@ export const aaa_unsubscribe_email_post_output: JsonSchema = {
     }
   },
   "type": "object"
+};
+
+/**
+ * The schema of `aaa_unsubscribe_email_post_single_response` in responses.
+ */
+export const aaa_unsubscribe_email_post_single_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/aaa_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/aaa_unsubscribe_email_post"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `aaa_unsubscribe_email_single_response` in responses.
+ */
+export const aaa_unsubscribe_email_single_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/aaa_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/aaa_unsubscribe_email"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };

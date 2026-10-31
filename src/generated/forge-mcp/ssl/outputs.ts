@@ -31,6 +31,33 @@ export const cache_api_response_common_failure_output: JsonSchema = {
 };
 
 /**
+ * The schema of `cache_api-response-single-id` in responses.
+ */
+export const cache_api_response_single_id_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/cache_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/cache_messages"
+    },
+    "result": {
+      "$ref": "#/$defs/cache_result"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `cache_messages` in responses.
  */
 export const cache_messages_output: JsonSchema = {
@@ -96,9 +123,36 @@ export const cache_result_output: JsonSchema = {
 };
 
 /**
- * The schema of `tls-certificates-and-hostnames_base` in responses.
+ * The schema of `tls-certificates-and-hostnames_bundle_method` in responses.
  */
-export const tls_certificates_and_hostnames_base_output: JsonSchema = {
+export const tls_certificates_and_hostnames_bundle_method_output: JsonSchema = {
+  "enum": [
+    "ubiquitous",
+    "optimal",
+    "force"
+  ],
+  "type": "string"
+};
+
+/**
+ * The schema of `tls-certificates-and-hostnames_enabled` in responses.
+ */
+export const tls_certificates_and_hostnames_enabled_output: JsonSchema = {
+  "type": "boolean"
+};
+
+/**
+ * The schema of `tls-certificates-and-hostnames_host` in responses.
+ */
+export const tls_certificates_and_hostnames_host_output: JsonSchema = {
+  "type": "string"
+};
+
+/**
+ * The schema of `tls-certificates-and-hostnames_keyless-certificate` in
+ * responses.
+ */
+export const tls_certificates_and_hostnames_keyless_certificate_output: JsonSchema = {
   "properties": {
     "created_on": {
       "format": "date-time",
@@ -148,39 +202,6 @@ export const tls_certificates_and_hostnames_base_output: JsonSchema = {
     "status"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_bundle_method` in responses.
- */
-export const tls_certificates_and_hostnames_bundle_method_output: JsonSchema = {
-  "enum": [
-    "ubiquitous",
-    "optimal",
-    "force"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_enabled` in responses.
- */
-export const tls_certificates_and_hostnames_enabled_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_host` in responses.
- */
-export const tls_certificates_and_hostnames_host_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_identifier` in responses.
- */
-export const tls_certificates_and_hostnames_identifier_output: JsonSchema = {
-  "type": "string"
 };
 
 /**

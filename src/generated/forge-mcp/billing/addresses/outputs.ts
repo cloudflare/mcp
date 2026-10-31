@@ -4,6 +4,34 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `bill-subs-api_address_validation_response_single` in
+ * responses.
+ */
+export const bill_subs_api_address_validation_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/bill-subs-api_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "validated_addresses": {
+              "items": {
+                "$ref": "#/$defs/bill-subs-api_validated_address"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `bill-subs-api_validated_address` in responses.
  */
 export const bill_subs_api_validated_address_output: JsonSchema = {

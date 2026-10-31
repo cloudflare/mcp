@@ -3,9 +3,15 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  digital_experience_monitoring_api_response_collection_output,
   digital_experience_monitoring_api_response_common_failure_output,
+  digital_experience_monitoring_api_response_common_output,
   digital_experience_monitoring_messages_output,
 } from "../outputs.js";
+import {
+  digital_experience_monitoring_account_identifier,
+  digital_experience_monitoring_uuid,
+} from "../schemas.js";
 import {
   digital_experience_monitoring_device_isp_output,
   digital_experience_monitoring_device_isps_response_output,
@@ -25,16 +31,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Unique Cloudflare account ID.",
-          "type": "string"
+          "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
+          "description": "Unique Cloudflare account ID."
         },
         "cursor": {
           "description": "Cursor for cursor-based pagination. Mutually exclusive with page.",
           "type": "string"
         },
         "device_id": {
-          "description": "Device-specific ID, given as UUID.",
-          "type": "string"
+          "$ref": "#/$defs/digital-experience-monitoring_uuid",
+          "description": "Device-specific ID, given as UUID."
         },
         "from": {
           "description": "Start time for the query in ISO 8601 format.",
@@ -78,14 +84,33 @@ export const tools: readonly Tool[] = [
         "device_id",
         "per_page"
       ],
+      $defs: {
+        "digital-experience-monitoring_account_identifier": digital_experience_monitoring_account_identifier,
+        "digital-experience-monitoring_uuid": digital_experience_monitoring_uuid,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/digital-experience-monitoring_device_isps_response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/digital-experience-monitoring_api-response-collection"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/digital-experience-monitoring_device_isps_response"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "digital-experience-monitoring_api-response-collection": digital_experience_monitoring_api_response_collection_output,
+        "digital-experience-monitoring_api-response-common": digital_experience_monitoring_api_response_common_output,
         "digital-experience-monitoring_device_isp": digital_experience_monitoring_device_isp_output,
         "digital-experience-monitoring_device_isps_response": digital_experience_monitoring_device_isps_response_output,
         "digital-experience-monitoring_ip_info": digital_experience_monitoring_ip_info_output,
         "digital-experience-monitoring_ip_location": digital_experience_monitoring_ip_location_output,
+        "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
       },
     },
     annotations: {
@@ -108,13 +133,27 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/digital-experience-monitoring_device_isps_response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/digital-experience-monitoring_api-response-collection"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/digital-experience-monitoring_device_isps_response"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/digital-experience-monitoring_api-response-common-failure"
         }
       },
       $defs: {
+        "digital-experience-monitoring_api-response-collection": digital_experience_monitoring_api_response_collection_output,
+        "digital-experience-monitoring_api-response-common": digital_experience_monitoring_api_response_common_output,
         "digital-experience-monitoring_api-response-common-failure": digital_experience_monitoring_api_response_common_failure_output,
         "digital-experience-monitoring_device_isp": digital_experience_monitoring_device_isp_output,
         "digital-experience-monitoring_device_isps_response": digital_experience_monitoring_device_isps_response_output,

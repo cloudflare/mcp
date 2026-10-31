@@ -33,7 +33,12 @@ export const iam_scim_user_output: JsonSchema = {
       "type": "string"
     },
     "meta": {
-      "$ref": "#/$defs/iam_scim_user_meta"
+      "properties": {
+        "resourceType": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "name": {
       "$ref": "#/$defs/iam_scim_user_name_object"
@@ -110,18 +115,6 @@ export const iam_scim_user_list_response_output: JsonSchema = {
     "schemas",
     "totalResults"
   ],
-  "type": "object"
-};
-
-/**
- * The schema of `iam_scim_user_meta` in responses.
- */
-export const iam_scim_user_meta_output: JsonSchema = {
-  "properties": {
-    "resourceType": {
-      "type": "string"
-    }
-  },
   "type": "object"
 };
 

@@ -7,31 +7,36 @@ import type { JsonSchema } from "../../_/tool.js";
  * The schema of `cache-settings_aegis` in responses.
  */
 export const cache_settings_aegis_output: JsonSchema = {
-  "properties": {
-    "id": {
-      "enum": [
-        "aegis"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/cache-settings_base"
     },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "aegis"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/cache-settings_aegis_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/cache-settings_aegis_value"
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `cache-settings_aegis_response_value` in responses.
+ */
+export const cache_settings_aegis_response_value_output: JsonSchema = {
+  "properties": {
+    "result": {
+      "$ref": "#/$defs/cache-settings_aegis"
     }
   },
-  "required": [
-    "id"
-  ],
   "type": "object"
 };
 

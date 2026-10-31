@@ -4,10 +4,15 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   dns_firewall_api_response_common_failure_output,
+  dns_firewall_api_response_single_output,
   dns_firewall_messages_output,
 } from "../outputs.js";
-import { dns_firewall_dns_firewall_reverse_dns_response_output } from "./outputs.js";
-import { dns_firewall_dns_firewall_reverse_dns } from "./schemas.js";
+import { dns_firewall_identifier } from "../schemas.js";
+import {
+  dns_firewall_dns_firewall_reverse_dns_response_output,
+  dns_firewall_dns_firewall_reverse_dns_response_output$,
+} from "./outputs.js";
+import { dns_firewall_dns_firewall_reverse_dns_patch } from "./schemas.js";
 
 /**
  * The tools of `dns_firewall.reverse_dns`.
@@ -21,15 +26,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/dns-firewall_identifier",
+          "description": "Identifier."
         },
         "body": {
-          "$ref": "#/$defs/dns-firewall_dns-firewall-reverse-dns"
+          "$ref": "#/$defs/dns-firewall_dns-firewall-reverse-dns-patch"
         },
         "dns_firewall_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/dns-firewall_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -38,13 +43,17 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
-        "dns-firewall_dns-firewall-reverse-dns": dns_firewall_dns_firewall_reverse_dns,
+        "dns-firewall_dns-firewall-reverse-dns-patch": dns_firewall_dns_firewall_reverse_dns_patch,
+        "dns-firewall_identifier": dns_firewall_identifier,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/dns-firewall_dns-firewall-reverse-dns-response",
+      "$ref": "#/$defs/dns-firewall_dns_firewall_reverse_dns_response",
       $defs: {
+        "dns-firewall_api-response-single": dns_firewall_api_response_single_output,
         "dns-firewall_dns-firewall-reverse-dns-response": dns_firewall_dns_firewall_reverse_dns_response_output,
+        "dns-firewall_dns_firewall_reverse_dns_response": dns_firewall_dns_firewall_reverse_dns_response_output$,
+        "dns-firewall_messages": dns_firewall_messages_output,
       },
     },
     annotations: {
@@ -63,12 +72,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#dns_records:edit"
-        ],
-        "x-fern-enum": {
-          "#dns_records:edit": {
-            "name": "dns_records_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -80,7 +84,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dns-firewall_dns-firewall-reverse-dns-response"
+          "$ref": "#/$defs/dns-firewall_dns_firewall_reverse_dns_response"
         },
         "4XX": {
           "$ref": "#/$defs/dns-firewall_api-response-common-failure"
@@ -88,7 +92,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "dns-firewall_api-response-common-failure": dns_firewall_api_response_common_failure_output,
+        "dns-firewall_api-response-single": dns_firewall_api_response_single_output,
         "dns-firewall_dns-firewall-reverse-dns-response": dns_firewall_dns_firewall_reverse_dns_response_output,
+        "dns-firewall_dns_firewall_reverse_dns_response": dns_firewall_dns_firewall_reverse_dns_response_output$,
         "dns-firewall_messages": dns_firewall_messages_output,
       },
     },
@@ -105,23 +111,29 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/dns-firewall_identifier",
+          "description": "Identifier."
         },
         "dns_firewall_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/dns-firewall_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "account_id",
         "dns_firewall_id"
       ],
+      $defs: {
+        "dns-firewall_identifier": dns_firewall_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/dns-firewall_dns-firewall-reverse-dns-response",
+      "$ref": "#/$defs/dns-firewall_dns_firewall_reverse_dns_response",
       $defs: {
+        "dns-firewall_api-response-single": dns_firewall_api_response_single_output,
         "dns-firewall_dns-firewall-reverse-dns-response": dns_firewall_dns_firewall_reverse_dns_response_output,
+        "dns-firewall_dns_firewall_reverse_dns_response": dns_firewall_dns_firewall_reverse_dns_response_output$,
+        "dns-firewall_messages": dns_firewall_messages_output,
       },
     },
     annotations: {
@@ -141,12 +153,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#dns_records:read"
-        ],
-        "x-fern-enum": {
-          "#dns_records:read": {
-            "name": "dns_records_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -158,7 +165,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dns-firewall_dns-firewall-reverse-dns-response"
+          "$ref": "#/$defs/dns-firewall_dns_firewall_reverse_dns_response"
         },
         "4XX": {
           "$ref": "#/$defs/dns-firewall_api-response-common-failure"
@@ -166,7 +173,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "dns-firewall_api-response-common-failure": dns_firewall_api_response_common_failure_output,
+        "dns-firewall_api-response-single": dns_firewall_api_response_single_output,
         "dns-firewall_dns-firewall-reverse-dns-response": dns_firewall_dns_firewall_reverse_dns_response_output,
+        "dns-firewall_dns_firewall_reverse_dns_response": dns_firewall_dns_firewall_reverse_dns_response_output$,
         "dns-firewall_messages": dns_firewall_messages_output,
       },
     },

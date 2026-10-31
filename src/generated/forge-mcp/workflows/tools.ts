@@ -28,25 +28,107 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "status": {
-          "enum": [
-            "ok"
+        "errors": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "maxItems": 0,
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
+          "properties": {
+            "status": {
+              "enum": [
+                "ok"
+              ],
+              "type": "string"
+            },
+            "success": {
+              "oneOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "status",
+            "success"
           ],
-          "type": "string"
+          "type": "object"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "cursor": {
+              "type": "string"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "count",
+            "per_page",
+            "total_count"
+          ],
+          "type": "object"
         },
         "success": {
-          "oneOf": [
-            {
-              "type": "boolean"
-            },
-            {
-              "type": "null"
-            }
-          ]
+          "enum": [
+            true
+          ],
+          "type": "boolean"
         }
       },
       "required": [
-        "status",
+        "errors",
+        "messages",
+        "result",
         "success"
       ],
       "type": "object",
@@ -68,15 +150,7 @@ export const tools: readonly Tool[] = [
         "enum": [
           "com.cloudflare.api.workers.write",
           "com.cloudflare.api.workers.read"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.workers.read": {
-            "name": "com_cloudflare_api_workers_read"
-          },
-          "com.cloudflare.api.workers.write": {
-            "name": "com_cloudflare_api_workers_write"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -89,25 +163,107 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
-            "status": {
-              "enum": [
-                "ok"
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "maxItems": 0,
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "status": {
+                  "enum": [
+                    "ok"
+                  ],
+                  "type": "string"
+                },
+                "success": {
+                  "oneOf": [
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "status",
+                "success"
               ],
-              "type": "string"
+              "type": "object"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "cursor": {
+                  "type": "string"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "count",
+                "per_page",
+                "total_count"
+              ],
+              "type": "object"
             },
             "success": {
-              "oneOf": [
-                {
-                  "type": "boolean"
-                },
-                {
-                  "type": "null"
-                }
-              ]
+              "enum": [
+                true
+              ],
+              "type": "boolean"
             }
           },
           "required": [
-            "status",
+            "errors",
+            "messages",
+            "result",
             "success"
           ],
           "type": "object"
@@ -227,132 +383,44 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "class_name": {
-          "type": "string"
-        },
-        "created_on": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "id": {
-          "format": "uuid",
-          "type": "string"
-        },
-        "instances": {
-          "additionalProperties": {
-            "type": "number"
-          },
-          "type": "object"
-        },
-        "jurisdiction": {
-          "oneOf": [
-            {
-              "enum": [
-                "eu",
-                "fedramp",
-                "us"
-              ],
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "modified_on": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "schedules": {
+        "errors": {
           "items": {
             "properties": {
-              "cron": {
-                "type": "string"
+              "code": {
+                "type": "number"
               },
-              "next_instance": {
+              "message": {
                 "type": "string"
               }
             },
             "required": [
-              "cron",
-              "next_instance"
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "maxItems": 0,
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message"
             ],
             "type": "object"
           },
           "type": "array"
         },
-        "script_deleted": {
-          "type": "boolean"
-        },
-        "script_name": {
-          "type": "string"
-        },
-        "triggered_on": {
-          "oneOf": [
-            {
-              "format": "date-time",
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        }
-      },
-      "required": [
-        "class_name",
-        "created_on",
-        "id",
-        "instances",
-        "modified_on",
-        "name",
-        "script_name",
-        "triggered_on"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get Workflow details"
-    },
-    method: "GET",
-    path: "/accounts/{account_id}/workflows/{workflow_name}",
-    extensions: {
-      "x-api-token-group": [
-        "Workers Tail Read",
-        "Workers Scripts Write",
-        "Workers Scripts Read"
-      ],
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.workers.write",
-          "com.cloudflare.api.workers.read"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.workers.read": {
-            "name": "com_cloudflare_api_workers_read"
-          },
-          "com.cloudflare.api.workers.write": {
-            "name": "com_cloudflare_api_workers_write"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "class_name": {
               "type": "string"
@@ -438,6 +506,250 @@ export const tools: readonly Tool[] = [
             "name",
             "script_name",
             "triggered_on"
+          ],
+          "type": "object"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "cursor": {
+              "type": "string"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "count",
+            "per_page",
+            "total_count"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get Workflow details"
+    },
+    method: "GET",
+    path: "/accounts/{account_id}/workflows/{workflow_name}",
+    extensions: {
+      "x-api-token-group": [
+        "Workers Tail Read",
+        "Workers Scripts Write",
+        "Workers Scripts Read"
+      ],
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.workers.write",
+          "com.cloudflare.api.workers.read"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "maxItems": 0,
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "class_name": {
+                  "type": "string"
+                },
+                "created_on": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "id": {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                "instances": {
+                  "additionalProperties": {
+                    "type": "number"
+                  },
+                  "type": "object"
+                },
+                "jurisdiction": {
+                  "oneOf": [
+                    {
+                      "enum": [
+                        "eu",
+                        "fedramp",
+                        "us"
+                      ],
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "modified_on": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "schedules": {
+                  "items": {
+                    "properties": {
+                      "cron": {
+                        "type": "string"
+                      },
+                      "next_instance": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "cron",
+                      "next_instance"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "script_deleted": {
+                  "type": "boolean"
+                },
+                "script_name": {
+                  "type": "string"
+                },
+                "triggered_on": {
+                  "oneOf": [
+                    {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "class_name",
+                "created_on",
+                "id",
+                "instances",
+                "modified_on",
+                "name",
+                "script_name",
+                "triggered_on"
+              ],
+              "type": "object"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "cursor": {
+                  "type": "string"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "count",
+                "per_page",
+                "total_count"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -564,6 +876,43 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
+        "errors": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "maxItems": 0,
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
         "result": {
           "items": {
             "properties": {
@@ -683,10 +1032,19 @@ export const tools: readonly Tool[] = [
             "total_count"
           ],
           "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
         }
       },
       "required": [
-        "result"
+        "errors",
+        "messages",
+        "result",
+        "success"
       ],
       "type": "object",
     },
@@ -709,15 +1067,7 @@ export const tools: readonly Tool[] = [
         "enum": [
           "com.cloudflare.api.workers.write",
           "com.cloudflare.api.workers.read"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.workers.read": {
-            "name": "com_cloudflare_api_workers_read"
-          },
-          "com.cloudflare.api.workers.write": {
-            "name": "com_cloudflare_api_workers_write"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -730,6 +1080,43 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "maxItems": 0,
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
             "result": {
               "items": {
                 "properties": {
@@ -849,10 +1236,19 @@ export const tools: readonly Tool[] = [
                 "total_count"
               ],
               "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
             }
           },
           "required": [
-            "result"
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },

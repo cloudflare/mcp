@@ -7,36 +7,25 @@ import type { JsonSchema } from "../../_/tool.js";
  * The schema of `speed_h2_prioritization_response` in responses.
  */
 export const speed_h2_prioritization_response_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/speed_base"
     },
-    "id": {
-      "enum": [
-        "h2_prioritization"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "h2_prioritization"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/speed_h2_prioritization_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/speed_h2_prioritization_value"
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };
 
 /**

@@ -89,6 +89,37 @@ export const one_ApplicationDetail_output: JsonSchema = {
 };
 
 /**
+ * The schema of `one_ApplicationDetailResponse` in responses.
+ */
+export const one_ApplicationDetailResponse_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "messages": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "result": {
+      "$ref": "#/$defs/one_ApplicationDetail"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `one_ApplicationList` in responses.
  */
 export const one_ApplicationList_output: JsonSchema = {
@@ -256,43 +287,76 @@ export const one_FeatureScope_output: JsonSchema = {
 };
 
 /**
- * The schema of `one_PaginatedApplicationListList_result_info` in responses.
+ * The schema of `one_PaginatedApplicationListList` in responses.
  */
-export const one_PaginatedApplicationListList_result_info_output: JsonSchema = {
+export const one_PaginatedApplicationListList_output: JsonSchema = {
   "properties": {
-    "count": {
-      "type": "integer"
+    "errors": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
     },
-    "next": {
-      "oneOf": [
-        {
-          "type": "string"
+    "messages": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "result": {
+      "items": {
+        "$ref": "#/$defs/one_ApplicationList"
+      },
+      "type": "array"
+    },
+    "result_info": {
+      "properties": {
+        "count": {
+          "type": "integer"
         },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "page": {
-      "type": "integer"
-    },
-    "per_page": {
-      "type": "integer"
-    },
-    "previous": {
-      "oneOf": [
-        {
-          "type": "string"
+        "next": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
-        {
-          "type": "null"
+        "page": {
+          "type": "integer"
+        },
+        "per_page": {
+          "type": "integer"
+        },
+        "previous": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "total_count": {
+          "type": "integer"
         }
-      ]
+      },
+      "type": "object"
     },
-    "total_count": {
-      "type": "integer"
+    "success": {
+      "type": "boolean"
     }
   },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "result_info",
+    "success"
+  ],
   "type": "object"
 };
 

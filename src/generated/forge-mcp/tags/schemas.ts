@@ -4,6 +4,21 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
+ * The schema of `resource-tagging_account_id`.
+ */
+export const resource_tagging_account_id: JsonSchema = {
+  "$ref": "#/$defs/resource-tagging_identifier"
+};
+
+/**
+ * The schema of `resource-tagging_identifier`.
+ */
+export const resource_tagging_identifier: JsonSchema = {
+  "description": "Identifier.",
+  "type": "string"
+};
+
+/**
  * The schema of `resource-tagging_resource_id`.
  */
 export const resource_tagging_resource_id: JsonSchema = {

@@ -48,78 +48,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "anchorTs": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "asns": {
-          "items": {
-            "properties": {
-              "asn": {
-                "type": "integer"
-              },
-              "v4_24s": {
-                "type": "integer"
-              },
-              "v6_48s": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "asn",
-              "v4_24s",
-              "v6_48s"
-            ],
-            "type": "object"
-          },
-          "type": "array"
-        },
-        "country": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "metric": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "anchorTs",
-        "asns",
-        "country",
-        "metric"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get top ASes by announced IP space"
-    },
-    method: "GET",
-    path: "/radar/bgp/ips/top/ases",
-    extensions: {
-      "x-api-token-group": [
-        "User Details Write",
-        "User Details Read"
-      ],
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "anchorTs": {
               "format": "date-time",
@@ -166,6 +95,101 @@ export const tools: readonly Tool[] = [
             "asns",
             "country",
             "metric"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get top ASes by announced IP space"
+    },
+    method: "GET",
+    path: "/radar/bgp/ips/top/ases",
+    extensions: {
+      "x-api-token-group": [
+        "User Details Write",
+        "User Details Read"
+      ],
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "anchorTs": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "asns": {
+                  "items": {
+                    "properties": {
+                      "asn": {
+                        "type": "integer"
+                      },
+                      "v4_24s": {
+                        "type": "integer"
+                      },
+                      "v6_48s": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "asn",
+                      "v4_24s",
+                      "v6_48s"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "country": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "metric": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "anchorTs",
+                "asns",
+                "country",
+                "metric"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },

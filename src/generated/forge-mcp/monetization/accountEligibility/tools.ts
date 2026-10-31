@@ -4,10 +4,18 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   monetization_api_response_common_failure_output,
+  monetization_api_response_common_output,
   monetization_response_info_output,
 } from "../outputs.js";
-import { monetization_monetization_eligibility_result_output } from "./outputs.js";
-import { monetization_monetization_account_eligibility_check_input } from "./schemas.js";
+import {
+  monetization_monetization_account_eligibility_check_response_output,
+  monetization_monetization_eligibility_response_output,
+  monetization_monetization_eligibility_result_output,
+} from "./outputs.js";
+import {
+  monetization_account_identifier,
+  monetization_monetization_account_eligibility_check_input,
+} from "./schemas.js";
 
 /**
  * The tools of `monetization.account_eligibility`.
@@ -29,8 +37,8 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/monetization_account-identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "body": {
           "$ref": "#/$defs/monetization_monetization-account-eligibility-check-input"
@@ -42,13 +50,17 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "monetization_account-identifier": monetization_account_identifier,
         "monetization_monetization-account-eligibility-check-input": monetization_monetization_account_eligibility_check_input,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/monetization_monetization-eligibility-result",
+      "$ref": "#/$defs/monetization_monetization-account-eligibility-check-response",
       $defs: {
+        "monetization_api-response-common": monetization_api_response_common_output,
+        "monetization_monetization-account-eligibility-check-response": monetization_monetization_account_eligibility_check_response_output,
         "monetization_monetization-eligibility-result": monetization_monetization_eligibility_result_output,
+        "monetization_response-info": monetization_response_info_output,
       },
     },
     annotations: {
@@ -66,7 +78,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/monetization_monetization-eligibility-result"
+          "$ref": "#/$defs/monetization_monetization-account-eligibility-check-response"
         },
         "4XX": {
           "$ref": "#/$defs/monetization_api-response-common-failure"
@@ -76,7 +88,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "monetization_api-response-common": monetization_api_response_common_output,
         "monetization_api-response-common-failure": monetization_api_response_common_failure_output,
+        "monetization_monetization-account-eligibility-check-response": monetization_monetization_account_eligibility_check_response_output,
         "monetization_monetization-eligibility-result": monetization_monetization_eligibility_result_output,
         "monetization_response-info": monetization_response_info_output,
       },
@@ -102,19 +116,25 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/monetization_account-identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         }
       },
       required: [
         "account_or_zone",
         "account_or_zone_id"
       ],
+      $defs: {
+        "monetization_account-identifier": monetization_account_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/monetization_monetization-eligibility-result",
+      "$ref": "#/$defs/monetization_monetization-eligibility-response",
       $defs: {
+        "monetization_api-response-common": monetization_api_response_common_output,
+        "monetization_monetization-eligibility-response": monetization_monetization_eligibility_response_output,
         "monetization_monetization-eligibility-result": monetization_monetization_eligibility_result_output,
+        "monetization_response-info": monetization_response_info_output,
       },
     },
     annotations: {
@@ -132,7 +152,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/monetization_monetization-eligibility-result"
+          "$ref": "#/$defs/monetization_monetization-eligibility-response"
         },
         "404": {
           "$ref": "#/$defs/monetization_api-response-common-failure"
@@ -145,7 +165,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "monetization_api-response-common": monetization_api_response_common_output,
         "monetization_api-response-common-failure": monetization_api_response_common_failure_output,
+        "monetization_monetization-eligibility-response": monetization_monetization_eligibility_response_output,
         "monetization_monetization-eligibility-result": monetization_monetization_eligibility_result_output,
         "monetization_response-info": monetization_response_info_output,
       },

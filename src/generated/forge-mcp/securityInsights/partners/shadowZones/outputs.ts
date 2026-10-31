@@ -26,3 +26,48 @@ export const security_center_shadowZone_output: JsonSchema = {
   ],
   "type": "object"
 };
+
+/**
+ * The schema of `security-center_shadowZonesResponse` in responses.
+ */
+export const security_center_shadowZonesResponse_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/security-center_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "collection_truncated": {
+              "type": "boolean"
+            },
+            "entitlement": {
+              "$ref": "#/$defs/security-center_partnerEntitlement"
+            },
+            "items": {
+              "items": {
+                "$ref": "#/$defs/security-center_shadowZone"
+              },
+              "type": "array"
+            },
+            "total_count": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "collection_truncated",
+            "entitlement",
+            "items",
+            "total_count"
+          ],
+          "type": "object"
+        },
+        "result_info": {
+          "$ref": "#/$defs/security-center_partnerAssetResultInfo"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};

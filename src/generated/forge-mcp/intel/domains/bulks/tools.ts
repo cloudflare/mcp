@@ -3,11 +3,14 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  intel_api_response_collection_output,
   intel_api_response_common_failure_output,
+  intel_api_response_common_output,
   intel_domain_name_output,
   intel_messages_output,
   intel_result_info_output,
 } from "../../outputs.js";
+import { intel_identifier } from "../../schemas.js";
 import {
   intel_additional_information_output,
   intel_application_output,
@@ -18,10 +21,7 @@ import {
   intel_popularity_rank_output,
   intel_risk_score_output,
 } from "../outputs.js";
-import {
-  intel_collection_response_output,
-  intel_collection_response_resultItem_output,
-} from "./outputs.js";
+import { intel_collection_response_output } from "./outputs.js";
 
 /**
  * The tools of `intel.domains.bulks`.
@@ -35,8 +35,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/intel_identifier",
+          "description": "Identifier."
         },
         "domain": {
           "description": "Accepts multiple values like `?domain=cloudflare.com&domain=example.com`.",
@@ -59,63 +59,24 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+      $defs: {
+        "intel_identifier": intel_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "properties": {
-              "additional_information": {
-                "$ref": "#/$defs/intel_additional_information"
-              },
-              "application": {
-                "$ref": "#/$defs/intel_application"
-              },
-              "content_categories": {
-                "$ref": "#/$defs/intel_content_categories"
-              },
-              "domain": {
-                "$ref": "#/$defs/intel_domain_name"
-              },
-              "inherited_content_categories": {
-                "$ref": "#/$defs/intel_categories_with_super_category_ids_example_empty"
-              },
-              "inherited_from": {
-                "$ref": "#/$defs/intel_inherited_from"
-              },
-              "inherited_risk_types": {
-                "$ref": "#/$defs/intel_categories_with_super_category_ids_example_empty"
-              },
-              "popularity_rank": {
-                "$ref": "#/$defs/intel_popularity_rank"
-              },
-              "risk_score": {
-                "$ref": "#/$defs/intel_risk_score"
-              },
-              "risk_types": {
-                "$ref": "#/$defs/intel_categories_with_super_category_ids_example_empty"
-              }
-            },
-            "type": "object"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "$ref": "#/$defs/intel_result_info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/intel_collection_response",
       $defs: {
         "intel_additional_information": intel_additional_information_output,
+        "intel_api-response-collection": intel_api_response_collection_output,
+        "intel_api-response-common": intel_api_response_common_output,
         "intel_application": intel_application_output,
         "intel_categories_with_super_category_ids_example_empty": intel_categories_with_super_category_ids_example_empty_output,
         "intel_category_with_super_category_id": intel_category_with_super_category_id_output,
+        "intel_collection_response": intel_collection_response_output,
         "intel_content_categories": intel_content_categories_output,
         "intel_domain_name": intel_domain_name_output,
         "intel_inherited_from": intel_inherited_from_output,
+        "intel_messages": intel_messages_output,
         "intel_popularity_rank": intel_popularity_rank_output,
         "intel_result_info": intel_result_info_output,
         "intel_risk_score": intel_risk_score_output,
@@ -139,53 +100,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "properties": {
-                  "additional_information": {
-                    "$ref": "#/$defs/intel_additional_information"
-                  },
-                  "application": {
-                    "$ref": "#/$defs/intel_application"
-                  },
-                  "content_categories": {
-                    "$ref": "#/$defs/intel_content_categories"
-                  },
-                  "domain": {
-                    "$ref": "#/$defs/intel_domain_name"
-                  },
-                  "inherited_content_categories": {
-                    "$ref": "#/$defs/intel_categories_with_super_category_ids_example_empty"
-                  },
-                  "inherited_from": {
-                    "$ref": "#/$defs/intel_inherited_from"
-                  },
-                  "inherited_risk_types": {
-                    "$ref": "#/$defs/intel_categories_with_super_category_ids_example_empty"
-                  },
-                  "popularity_rank": {
-                    "$ref": "#/$defs/intel_popularity_rank"
-                  },
-                  "risk_score": {
-                    "$ref": "#/$defs/intel_risk_score"
-                  },
-                  "risk_types": {
-                    "$ref": "#/$defs/intel_categories_with_super_category_ids_example_empty"
-                  }
-                },
-                "type": "object"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/intel_result_info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/intel_collection_response"
         },
         "4XX": {
           "allOf": [
@@ -200,12 +115,13 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "intel_additional_information": intel_additional_information_output,
+        "intel_api-response-collection": intel_api_response_collection_output,
+        "intel_api-response-common": intel_api_response_common_output,
         "intel_api-response-common-failure": intel_api_response_common_failure_output,
         "intel_application": intel_application_output,
         "intel_categories_with_super_category_ids_example_empty": intel_categories_with_super_category_ids_example_empty_output,
         "intel_category_with_super_category_id": intel_category_with_super_category_id_output,
         "intel_collection_response": intel_collection_response_output,
-        "intel_collection_response_resultItem": intel_collection_response_resultItem_output,
         "intel_content_categories": intel_content_categories_output,
         "intel_domain_name": intel_domain_name_output,
         "intel_inherited_from": intel_inherited_from_output,

@@ -28,6 +28,14 @@ export const tls_certificates_and_hostnames_certificate_authority_2: JsonSchema 
 };
 
 /**
+ * The schema of `tls-certificates-and-hostnames_certificate_pack_identifier`.
+ */
+export const tls_certificates_and_hostnames_certificate_pack_identifier: JsonSchema = {
+  "description": "The unique identifier for a certificate_pack.",
+  "type": "string"
+};
+
+/**
  * The schema of `tls-certificates-and-hostnames_cloudflare_branding`.
  */
 export const tls_certificates_and_hostnames_cloudflare_branding: JsonSchema = {

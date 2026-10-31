@@ -4,6 +4,8 @@
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
   workers_api_response_common_failure_output,
+  workers_api_response_common_output,
+  workers_api_response_null_result_output,
   workers_binding_kind_secret_key_output,
   workers_binding_kind_secret_text_output,
   workers_binding_name_output,
@@ -15,10 +17,14 @@ import {
   workers_binding_kind_secret_key,
   workers_binding_kind_secret_text,
   workers_binding_name,
+  workers_identifier,
+  workers_script_name,
   workers_secret,
+  workers_secret_name,
   workers_secret_name_url_encoded,
   workers_secret_patch_request,
 } from "../../../../schemas.js";
+import { workers_dispatch_namespace_name } from "../../schemas.js";
 
 /**
  * The tools of `workers_for_platforms.dispatch_namespaces.scripts.secrets`.
@@ -32,19 +38,19 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         },
         "body": {
           "$ref": "#/$defs/workers_secret-patch-request"
         },
         "dispatch_namespace": {
-          "description": "Name of the Workers for Platforms dispatch namespace.",
-          "type": "string"
+          "$ref": "#/$defs/workers_dispatch_namespace_name",
+          "description": "Name of the Workers for Platforms dispatch namespace."
         },
         "script_name": {
-          "description": "Name of the script.",
-          "type": "string"
+          "$ref": "#/$defs/workers_script_name",
+          "description": "Name of the script."
         }
       },
       required: [
@@ -57,16 +63,36 @@ export const tools: readonly Tool[] = [
         "workers_binding_kind_secret_key": workers_binding_kind_secret_key,
         "workers_binding_kind_secret_text": workers_binding_kind_secret_text,
         "workers_binding_name": workers_binding_name,
+        "workers_dispatch_namespace_name": workers_dispatch_namespace_name,
+        "workers_identifier": workers_identifier,
+        "workers_script_name": workers_script_name,
         "workers_secret": workers_secret,
         "workers_secret-patch-request": workers_secret_patch_request,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/workers_secret-patch-response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/workers_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/workers_secret-patch-response"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_binding_kind_secret_key": workers_binding_kind_secret_key_output,
         "workers_binding_kind_secret_text": workers_binding_kind_secret_text_output,
         "workers_binding_name": workers_binding_name_output,
+        "workers_messages": workers_messages_output,
         "workers_secret": workers_secret_output,
         "workers_secret-patch-response": workers_secret_patch_response_output,
       },
@@ -83,7 +109,22 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/workers_secret-patch-response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/workers_secret-patch-response"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
         },
         "429": {
           "$ref": "#/$defs/workers_api-response-common-failure"
@@ -93,6 +134,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_api-response-common-failure": workers_api_response_common_failure_output,
         "workers_binding_kind_secret_key": workers_binding_kind_secret_key_output,
         "workers_binding_kind_secret_text": workers_binding_kind_secret_text_output,
@@ -115,20 +157,20 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         },
         "dispatch_namespace": {
-          "description": "Name of the Workers for Platforms dispatch namespace.",
-          "type": "string"
+          "$ref": "#/$defs/workers_dispatch_namespace_name",
+          "description": "Name of the Workers for Platforms dispatch namespace."
         },
         "script_name": {
-          "description": "Name of the script.",
-          "type": "string"
+          "$ref": "#/$defs/workers_script_name",
+          "description": "Name of the script."
         },
         "secret_name": {
-          "description": "A JavaScript variable name for the secret binding.",
-          "type": "string"
+          "$ref": "#/$defs/workers_secret_name",
+          "description": "A JavaScript variable name for the secret binding."
         },
         "url_encoded": {
           "$ref": "#/$defs/workers_secret_name_url_encoded",
@@ -142,11 +184,20 @@ export const tools: readonly Tool[] = [
         "secret_name"
       ],
       $defs: {
+        "workers_dispatch_namespace_name": workers_dispatch_namespace_name,
+        "workers_identifier": workers_identifier,
+        "workers_script_name": workers_script_name,
+        "workers_secret_name": workers_secret_name,
         "workers_secret_name_url_encoded": workers_secret_name_url_encoded,
       },
     },
     outputSchema: {
-      "type": "null",
+      "$ref": "#/$defs/workers_api-response-null-result",
+      $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
+        "workers_api-response-null-result": workers_api_response_null_result_output,
+        "workers_messages": workers_messages_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -165,14 +216,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "type": "null"
+          "$ref": "#/$defs/workers_api-response-null-result"
         },
         "4XX": {
           "$ref": "#/$defs/workers_api-response-common-failure"
         }
       },
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_api-response-null-result": workers_api_response_null_result_output,
         "workers_messages": workers_messages_output,
       },
     },
@@ -191,20 +244,20 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         },
         "dispatch_namespace": {
-          "description": "Name of the Workers for Platforms dispatch namespace.",
-          "type": "string"
+          "$ref": "#/$defs/workers_dispatch_namespace_name",
+          "description": "Name of the Workers for Platforms dispatch namespace."
         },
         "script_name": {
-          "description": "Name of the script.",
-          "type": "string"
+          "$ref": "#/$defs/workers_script_name",
+          "description": "Name of the script."
         },
         "secret_name": {
-          "description": "A JavaScript variable name for the secret binding.",
-          "type": "string"
+          "$ref": "#/$defs/workers_secret_name",
+          "description": "A JavaScript variable name for the secret binding."
         },
         "url_encoded": {
           "$ref": "#/$defs/workers_secret_name_url_encoded",
@@ -218,15 +271,36 @@ export const tools: readonly Tool[] = [
         "secret_name"
       ],
       $defs: {
+        "workers_dispatch_namespace_name": workers_dispatch_namespace_name,
+        "workers_identifier": workers_identifier,
+        "workers_script_name": workers_script_name,
+        "workers_secret_name": workers_secret_name,
         "workers_secret_name_url_encoded": workers_secret_name_url_encoded,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/workers_secret",
+      "allOf": [
+        {
+          "$ref": "#/$defs/workers_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/workers_secret"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_binding_kind_secret_key": workers_binding_kind_secret_key_output,
         "workers_binding_kind_secret_text": workers_binding_kind_secret_text_output,
         "workers_binding_name": workers_binding_name_output,
+        "workers_messages": workers_messages_output,
         "workers_secret": workers_secret_output,
       },
     },
@@ -249,13 +323,29 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/workers_secret"
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/workers_secret"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/workers_api-response-common-failure"
         }
       },
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_api-response-common-failure": workers_api_response_common_failure_output,
         "workers_binding_kind_secret_key": workers_binding_kind_secret_key_output,
         "workers_binding_kind_secret_text": workers_binding_kind_secret_text_output,
@@ -279,16 +369,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         },
         "dispatch_namespace": {
-          "description": "Name of the Workers for Platforms dispatch namespace.",
-          "type": "string"
+          "$ref": "#/$defs/workers_dispatch_namespace_name",
+          "description": "Name of the Workers for Platforms dispatch namespace."
         },
         "script_name": {
-          "description": "Name of the script.",
-          "type": "string"
+          "$ref": "#/$defs/workers_script_name",
+          "description": "Name of the script."
         }
       },
       required: [
@@ -296,27 +386,38 @@ export const tools: readonly Tool[] = [
         "dispatch_namespace",
         "script_name"
       ],
+      $defs: {
+        "workers_dispatch_namespace_name": workers_dispatch_namespace_name,
+        "workers_identifier": workers_identifier,
+        "workers_script_name": workers_script_name,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/workers_secret"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/workers_api-response-common"
         },
-        "result_info": {
+        {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/workers_secret"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "result"
+          ],
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_binding_kind_secret_key": workers_binding_kind_secret_key_output,
         "workers_binding_kind_secret_text": workers_binding_kind_secret_text_output,
         "workers_binding_name": workers_binding_name_output,
+        "workers_messages": workers_messages_output,
         "workers_secret": workers_secret_output,
       },
     },
@@ -339,27 +440,32 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/workers_secret"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-common"
             },
-            "result_info": {
+            {
+              "properties": {
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/workers_secret"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "result"
+              ],
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/workers_api-response-common-failure"
         }
       },
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_api-response-common-failure": workers_api_response_common_failure_output,
         "workers_binding_kind_secret_key": workers_binding_kind_secret_key_output,
         "workers_binding_kind_secret_text": workers_binding_kind_secret_text_output,
@@ -380,19 +486,19 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         },
         "body": {
           "$ref": "#/$defs/workers_secret"
         },
         "dispatch_namespace": {
-          "description": "Name of the Workers for Platforms dispatch namespace.",
-          "type": "string"
+          "$ref": "#/$defs/workers_dispatch_namespace_name",
+          "description": "Name of the Workers for Platforms dispatch namespace."
         },
         "script_name": {
-          "description": "Name of the script.",
-          "type": "string"
+          "$ref": "#/$defs/workers_script_name",
+          "description": "Name of the script."
         }
       },
       required: [
@@ -405,15 +511,35 @@ export const tools: readonly Tool[] = [
         "workers_binding_kind_secret_key": workers_binding_kind_secret_key,
         "workers_binding_kind_secret_text": workers_binding_kind_secret_text,
         "workers_binding_name": workers_binding_name,
+        "workers_dispatch_namespace_name": workers_dispatch_namespace_name,
+        "workers_identifier": workers_identifier,
+        "workers_script_name": workers_script_name,
         "workers_secret": workers_secret,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/workers_secret",
+      "allOf": [
+        {
+          "$ref": "#/$defs/workers_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/workers_secret"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_binding_kind_secret_key": workers_binding_kind_secret_key_output,
         "workers_binding_kind_secret_text": workers_binding_kind_secret_text_output,
         "workers_binding_name": workers_binding_name_output,
+        "workers_messages": workers_messages_output,
         "workers_secret": workers_secret_output,
       },
     },
@@ -434,7 +560,22 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/workers_secret"
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/workers_secret"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
         },
         "429": {
           "$ref": "#/$defs/workers_api-response-common-failure"
@@ -444,6 +585,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_api-response-common-failure": workers_api_response_common_failure_output,
         "workers_binding_kind_secret_key": workers_binding_kind_secret_key_output,
         "workers_binding_kind_secret_text": workers_binding_kind_secret_text_output,

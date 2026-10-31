@@ -2,16 +2,27 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
-import { email_created_output, email_modified_output } from "../../outputs.js";
 import {
+  email_api_response_collection_output,
+  email_api_response_common_output,
+  email_api_response_single_output,
+  email_created_output,
+  email_messages_output,
+  email_modified_output,
+} from "../../outputs.js";
+import { email_identifier } from "../../schemas.js";
+import {
+  email_addresses_output,
   email_destination_address_identifier_output,
-  email_destination_address_properties_output,
+  email_destination_address_response_single_output,
   email_destination_address_tag_output,
+  email_destination_addresses_response_collection_output,
   email_email_output,
   email_verified_output,
 } from "./outputs.js";
 import {
   email_create_destination_address_properties,
+  email_destination_address_identifier,
   email_email,
   email_update_destination_address_properties,
 } from "./schemas.js";
@@ -28,8 +39,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/email_identifier",
+          "description": "Identifier."
         },
         "body": {
           "$ref": "#/$defs/email_create_destination_address_properties"
@@ -42,16 +53,20 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email_create_destination_address_properties": email_create_destination_address_properties,
         "email_email": email_email,
+        "email_identifier": email_identifier,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/email_destination_address_properties",
+      "$ref": "#/$defs/email_destination_address_response_single",
       $defs: {
+        "email_addresses": email_addresses_output,
+        "email_api-response-single": email_api_response_single_output,
         "email_created": email_created_output,
         "email_destination_address_identifier": email_destination_address_identifier_output,
-        "email_destination_address_properties": email_destination_address_properties_output,
+        "email_destination_address_response_single": email_destination_address_response_single_output,
         "email_destination_address_tag": email_destination_address_tag_output,
         "email_email": email_email_output,
+        "email_messages": email_messages_output,
         "email_modified": email_modified_output,
         "email_verified": email_verified_output,
       },
@@ -72,12 +87,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.email.routing.address.create"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.email.routing.address.create": {
-            "name": "com_cloudflare_api_account_email_routing_address_create"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -89,16 +99,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/email_destination_address_properties"
+          "$ref": "#/$defs/email_destination_address_response_single"
         },
         "422": null
       },
       $defs: {
+        "email_addresses": email_addresses_output,
+        "email_api-response-single": email_api_response_single_output,
         "email_created": email_created_output,
         "email_destination_address_identifier": email_destination_address_identifier_output,
-        "email_destination_address_properties": email_destination_address_properties_output,
+        "email_destination_address_response_single": email_destination_address_response_single_output,
         "email_destination_address_tag": email_destination_address_tag_output,
         "email_email": email_email_output,
+        "email_messages": email_messages_output,
         "email_modified": email_modified_output,
         "email_verified": email_verified_output,
       },
@@ -116,27 +129,34 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/email_identifier",
+          "description": "Identifier."
         },
         "destination_address_identifier": {
-          "description": "Destination address identifier.",
-          "type": "string"
+          "$ref": "#/$defs/email_destination_address_identifier",
+          "description": "Destination address identifier."
         }
       },
       required: [
         "account_id",
         "destination_address_identifier"
       ],
+      $defs: {
+        "email_destination_address_identifier": email_destination_address_identifier,
+        "email_identifier": email_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/email_destination_address_properties",
+      "$ref": "#/$defs/email_destination_address_response_single",
       $defs: {
+        "email_addresses": email_addresses_output,
+        "email_api-response-single": email_api_response_single_output,
         "email_created": email_created_output,
         "email_destination_address_identifier": email_destination_address_identifier_output,
-        "email_destination_address_properties": email_destination_address_properties_output,
+        "email_destination_address_response_single": email_destination_address_response_single_output,
         "email_destination_address_tag": email_destination_address_tag_output,
         "email_email": email_email_output,
+        "email_messages": email_messages_output,
         "email_modified": email_modified_output,
         "email_verified": email_verified_output,
       },
@@ -157,12 +177,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.email.routing.address.delete"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.email.routing.address.delete": {
-            "name": "com_cloudflare_api_account_email_routing_address_delete"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -174,16 +189,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/email_destination_address_properties"
+          "$ref": "#/$defs/email_destination_address_response_single"
         },
         "404": null
       },
       $defs: {
+        "email_addresses": email_addresses_output,
+        "email_api-response-single": email_api_response_single_output,
         "email_created": email_created_output,
         "email_destination_address_identifier": email_destination_address_identifier_output,
-        "email_destination_address_properties": email_destination_address_properties_output,
+        "email_destination_address_response_single": email_destination_address_response_single_output,
         "email_destination_address_tag": email_destination_address_tag_output,
         "email_email": email_email_output,
+        "email_messages": email_messages_output,
         "email_modified": email_modified_output,
         "email_verified": email_verified_output,
       },
@@ -200,27 +218,34 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/email_identifier",
+          "description": "Identifier."
         },
         "destination_address_identifier": {
-          "description": "Destination address identifier.",
-          "type": "string"
+          "$ref": "#/$defs/email_destination_address_identifier",
+          "description": "Destination address identifier."
         }
       },
       required: [
         "account_id",
         "destination_address_identifier"
       ],
+      $defs: {
+        "email_destination_address_identifier": email_destination_address_identifier,
+        "email_identifier": email_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/email_destination_address_properties",
+      "$ref": "#/$defs/email_destination_address_response_single",
       $defs: {
+        "email_addresses": email_addresses_output,
+        "email_api-response-single": email_api_response_single_output,
         "email_created": email_created_output,
         "email_destination_address_identifier": email_destination_address_identifier_output,
-        "email_destination_address_properties": email_destination_address_properties_output,
+        "email_destination_address_response_single": email_destination_address_response_single_output,
         "email_destination_address_tag": email_destination_address_tag_output,
         "email_email": email_email_output,
+        "email_messages": email_messages_output,
         "email_modified": email_modified_output,
         "email_verified": email_verified_output,
       },
@@ -242,12 +267,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.email.routing.address.read"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.email.routing.address.read": {
-            "name": "com_cloudflare_api_account_email_routing_address_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -259,16 +279,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/email_destination_address_properties"
+          "$ref": "#/$defs/email_destination_address_response_single"
         },
         "404": null
       },
       $defs: {
+        "email_addresses": email_addresses_output,
+        "email_api-response-single": email_api_response_single_output,
         "email_created": email_created_output,
         "email_destination_address_identifier": email_destination_address_identifier_output,
-        "email_destination_address_properties": email_destination_address_properties_output,
+        "email_destination_address_response_single": email_destination_address_response_single_output,
         "email_destination_address_tag": email_destination_address_tag_output,
         "email_email": email_email_output,
+        "email_messages": email_messages_output,
         "email_modified": email_modified_output,
         "email_verified": email_verified_output,
       },
@@ -285,8 +308,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/email_identifier",
+          "description": "Identifier."
         },
         "direction": {
           "default": "asc",
@@ -320,43 +343,22 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+      $defs: {
+        "email_identifier": email_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/email_destination_address_properties"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/email_destination_addresses_response_collection",
       $defs: {
+        "email_addresses": email_addresses_output,
+        "email_api-response-collection": email_api_response_collection_output,
+        "email_api-response-common": email_api_response_common_output,
         "email_created": email_created_output,
         "email_destination_address_identifier": email_destination_address_identifier_output,
-        "email_destination_address_properties": email_destination_address_properties_output,
         "email_destination_address_tag": email_destination_address_tag_output,
+        "email_destination_addresses_response_collection": email_destination_addresses_response_collection_output,
         "email_email": email_email_output,
+        "email_messages": email_messages_output,
         "email_modified": email_modified_output,
         "email_verified": email_verified_output,
       },
@@ -378,12 +380,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.email.routing.address.list"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.email.routing.address.list": {
-            "name": "com_cloudflare_api_account_email_routing_address_list"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -395,44 +392,20 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/email_destination_address_properties"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/email_destination_addresses_response_collection"
         },
         "403": null
       },
       $defs: {
+        "email_addresses": email_addresses_output,
+        "email_api-response-collection": email_api_response_collection_output,
+        "email_api-response-common": email_api_response_common_output,
         "email_created": email_created_output,
         "email_destination_address_identifier": email_destination_address_identifier_output,
-        "email_destination_address_properties": email_destination_address_properties_output,
         "email_destination_address_tag": email_destination_address_tag_output,
+        "email_destination_addresses_response_collection": email_destination_addresses_response_collection_output,
         "email_email": email_email_output,
+        "email_messages": email_messages_output,
         "email_modified": email_modified_output,
         "email_verified": email_verified_output,
       },
@@ -455,15 +428,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/email_identifier",
+          "description": "Identifier."
         },
         "body": {
           "$ref": "#/$defs/email_update_destination_address_properties"
         },
         "destination_address_identifier": {
-          "description": "Destination address identifier.",
-          "type": "string"
+          "$ref": "#/$defs/email_destination_address_identifier",
+          "description": "Destination address identifier."
         }
       },
       required: [
@@ -472,17 +445,22 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "email_destination_address_identifier": email_destination_address_identifier,
+        "email_identifier": email_identifier,
         "email_update_destination_address_properties": email_update_destination_address_properties,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/email_destination_address_properties",
+      "$ref": "#/$defs/email_destination_address_response_single",
       $defs: {
+        "email_addresses": email_addresses_output,
+        "email_api-response-single": email_api_response_single_output,
         "email_created": email_created_output,
         "email_destination_address_identifier": email_destination_address_identifier_output,
-        "email_destination_address_properties": email_destination_address_properties_output,
+        "email_destination_address_response_single": email_destination_address_response_single_output,
         "email_destination_address_tag": email_destination_address_tag_output,
         "email_email": email_email_output,
+        "email_messages": email_messages_output,
         "email_modified": email_modified_output,
         "email_verified": email_verified_output,
       },
@@ -503,12 +481,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.email.routing.address.update"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.email.routing.address.update": {
-            "name": "com_cloudflare_api_account_email_routing_address_update"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -520,16 +493,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/email_destination_address_properties"
+          "$ref": "#/$defs/email_destination_address_response_single"
         },
         "404": null
       },
       $defs: {
+        "email_addresses": email_addresses_output,
+        "email_api-response-single": email_api_response_single_output,
         "email_created": email_created_output,
         "email_destination_address_identifier": email_destination_address_identifier_output,
-        "email_destination_address_properties": email_destination_address_properties_output,
+        "email_destination_address_response_single": email_destination_address_response_single_output,
         "email_destination_address_tag": email_destination_address_tag_output,
         "email_email": email_email_output,
+        "email_messages": email_messages_output,
         "email_modified": email_modified_output,
         "email_verified": email_verified_output,
       },

@@ -21,35 +21,22 @@ export const iam_api_access_enabled_output: JsonSchema = {
  * The schema of `iam_collection_membership_response` in responses.
  */
 export const iam_collection_membership_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/iam_messages-2"
+  "allOf": [
+    {
+      "$ref": "#/$defs/iam_api-response-collection"
     },
-    "messages": {
-      "$ref": "#/$defs/iam_messages-2"
-    },
-    "result": {
-      "items": {
-        "$ref": "#/$defs/iam_membership"
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/iam_membership"
+          },
+          "type": "array"
+        }
       },
-      "type": "array"
-    },
-    "result_info": {
-      "$ref": "#/$defs/iam_result_info"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -57,35 +44,22 @@ export const iam_collection_membership_response_output: JsonSchema = {
  * responses.
  */
 export const iam_collection_membership_response_with_policies_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/iam_messages-2"
+  "allOf": [
+    {
+      "$ref": "#/$defs/iam_api-response-collection"
     },
-    "messages": {
-      "$ref": "#/$defs/iam_messages-2"
-    },
-    "result": {
-      "items": {
-        "$ref": "#/$defs/iam_membership-with-policies"
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/iam_membership-with-policies"
+          },
+          "type": "array"
+        }
       },
-      "type": "array"
-    },
-    "result_info": {
-      "$ref": "#/$defs/iam_result_info"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -161,13 +135,35 @@ export const iam_schemas_account_output: JsonSchema = {
       "$ref": "#/$defs/iam_common_components-schemas-identifier"
     },
     "managed_by": {
-      "$ref": "#/$defs/iam_account_managed_by"
+      "properties": {
+        "parent_org_id": {
+          "type": "string"
+        },
+        "parent_org_name": {
+          "type": "string"
+        },
+        "root_org_id": {
+          "type": "string"
+        },
+        "should_display_parent_orgs": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
     },
     "name": {
       "type": "string"
     },
     "settings": {
-      "$ref": "#/$defs/iam_account_settings"
+      "properties": {
+        "abuse_contact_email": {
+          "type": "string"
+        },
+        "enforce_twofactor": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
     },
     "type": {
       "$ref": "#/$defs/iam_account-type"
@@ -191,4 +187,23 @@ export const iam_schemas_status_output: JsonSchema = {
     "rejected"
   ],
   "type": "string"
+};
+
+/**
+ * The schema of `iam_single_membership_response_with_policies` in responses.
+ */
+export const iam_single_membership_response_with_policies_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/iam_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/iam_membership-with-policies"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };

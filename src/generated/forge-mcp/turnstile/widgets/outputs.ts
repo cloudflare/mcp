@@ -4,6 +4,29 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `turnstile_api-response-common` in responses.
+ */
+export const turnstile_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/turnstile_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/turnstile_messages"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `turnstile_api-response-common-failure` in responses.
  */
 export const turnstile_api_response_common_failure_output: JsonSchema = {

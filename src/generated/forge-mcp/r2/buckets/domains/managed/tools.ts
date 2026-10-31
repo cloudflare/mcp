@@ -6,7 +6,9 @@ import {
   r2_errors_output,
   r2_messages_output,
   r2_v4_response_failure_output,
+  r2_v4_response_output,
 } from "../../../outputs.js";
+import { r2_account_identifier, r2_bucket_name } from "../../../schemas.js";
 import { r2_managed_domain_response_output } from "./outputs.js";
 import { r2_edit_managed_domain_request } from "./schemas.js";
 
@@ -22,14 +24,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Cloudflare account ID that owns the R2 resource.",
-          "type": "string"
+          "$ref": "#/$defs/r2_account_identifier",
+          "description": "Cloudflare account ID that owns the R2 resource."
         },
         "bucket_name": {
-          "description": "Name of the bucket.",
-          "type": "string"
+          "$ref": "#/$defs/r2_bucket_name",
+          "description": "Name of the bucket."
         },
         "cf_r2_jurisdiction": {
+          "default": "default",
           "description": "Jurisdiction where objects in this bucket are guaranteed to be stored.",
           "enum": [
             "default",
@@ -45,11 +48,30 @@ export const tools: readonly Tool[] = [
         "account_id",
         "bucket_name"
       ],
+      $defs: {
+        "r2_account_identifier": r2_account_identifier,
+        "r2_bucket_name": r2_bucket_name,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/r2_managed_domain_response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/r2_v4_response"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/r2_managed_domain_response"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "r2_errors": r2_errors_output,
         "r2_managed_domain_response": r2_managed_domain_response_output,
+        "r2_messages": r2_messages_output,
+        "r2_v4_response": r2_v4_response_output,
       },
     },
     annotations: {
@@ -65,18 +87,25 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.edge.r2.bucket.read"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.edge.r2.bucket.read": {
-            "name": "com_cloudflare_edge_r2_bucket_read"
-          }
-        }
+        ]
       }
     },
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/r2_managed_domain_response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/r2_v4_response"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/r2_managed_domain_response"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/r2_v4_response_failure"
@@ -86,6 +115,7 @@ export const tools: readonly Tool[] = [
         "r2_errors": r2_errors_output,
         "r2_managed_domain_response": r2_managed_domain_response_output,
         "r2_messages": r2_messages_output,
+        "r2_v4_response": r2_v4_response_output,
         "r2_v4_response_failure": r2_v4_response_failure_output,
       },
     },
@@ -104,17 +134,18 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Cloudflare account ID that owns the R2 resource.",
-          "type": "string"
+          "$ref": "#/$defs/r2_account_identifier",
+          "description": "Cloudflare account ID that owns the R2 resource."
         },
         "body": {
           "$ref": "#/$defs/r2_edit_managed_domain_request"
         },
         "bucket_name": {
-          "description": "Name of the bucket.",
-          "type": "string"
+          "$ref": "#/$defs/r2_bucket_name",
+          "description": "Name of the bucket."
         },
         "cf_r2_jurisdiction": {
+          "default": "default",
           "description": "Jurisdiction where objects in this bucket are guaranteed to be stored.",
           "enum": [
             "default",
@@ -132,13 +163,30 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "r2_account_identifier": r2_account_identifier,
+        "r2_bucket_name": r2_bucket_name,
         "r2_edit_managed_domain_request": r2_edit_managed_domain_request,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/r2_managed_domain_response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/r2_v4_response"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/r2_managed_domain_response"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "r2_errors": r2_errors_output,
         "r2_managed_domain_response": r2_managed_domain_response_output,
+        "r2_messages": r2_messages_output,
+        "r2_v4_response": r2_v4_response_output,
       },
     },
     annotations: {
@@ -154,18 +202,25 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.edge.r2.bucket.write"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.edge.r2.bucket.write": {
-            "name": "com_cloudflare_edge_r2_bucket_write"
-          }
-        }
+        ]
       }
     },
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/r2_managed_domain_response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/r2_v4_response"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/r2_managed_domain_response"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/r2_v4_response_failure"
@@ -175,6 +230,7 @@ export const tools: readonly Tool[] = [
         "r2_errors": r2_errors_output,
         "r2_managed_domain_response": r2_managed_domain_response_output,
         "r2_messages": r2_messages_output,
+        "r2_v4_response": r2_v4_response_output,
         "r2_v4_response_failure": r2_v4_response_failure_output,
       },
     },

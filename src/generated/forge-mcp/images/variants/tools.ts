@@ -4,9 +4,12 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   images_api_response_common_failure_output,
+  images_api_response_common_output,
+  images_api_response_single_output,
   images_deleted_response_output,
   images_messages_output,
 } from "../outputs.js";
+import { images_account_identifier } from "../schemas.js";
 import {
   images_image_variant_definition_output,
   images_image_variant_fit_output,
@@ -15,7 +18,6 @@ import {
   images_image_variant_list_response_output,
   images_image_variant_neverRequireSignedURLs_output,
   images_image_variant_options_output,
-  images_image_variant_public_request_hero_output,
   images_image_variant_public_request_output,
   images_image_variant_response_output,
   images_image_variant_schemas_metadata_output,
@@ -47,8 +49,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/images_account_identifier",
+          "description": "Account identifier tag."
         },
         "body": {
           "$ref": "#/$defs/images_image_variant_definition"
@@ -59,6 +61,7 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "images_account_identifier": images_account_identifier,
         "images_image_variant_definition": images_image_variant_definition,
         "images_image_variant_fit": images_image_variant_fit,
         "images_image_variant_height": images_image_variant_height,
@@ -70,8 +73,10 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/images_image_variant_response",
+      "$ref": "#/$defs/images_image_variant_simple_response",
       $defs: {
+        "images_api-response-common": images_api_response_common_output,
+        "images_api-response-single": images_api_response_single_output,
         "images_image_variant_definition": images_image_variant_definition_output,
         "images_image_variant_fit": images_image_variant_fit_output,
         "images_image_variant_height": images_image_variant_height_output,
@@ -80,7 +85,9 @@ export const tools: readonly Tool[] = [
         "images_image_variant_options": images_image_variant_options_output,
         "images_image_variant_response": images_image_variant_response_output,
         "images_image_variant_schemas_metadata": images_image_variant_schemas_metadata_output,
+        "images_image_variant_simple_response": images_image_variant_simple_response_output,
         "images_image_variant_width": images_image_variant_width_output,
+        "images_messages": images_messages_output,
       },
     },
     annotations: {
@@ -100,7 +107,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/images_image_variant_response"
+          "$ref": "#/$defs/images_image_variant_simple_response"
         },
         "4XX": {
           "anyOf": [
@@ -114,7 +121,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "images_api-response-common": images_api_response_common_output,
         "images_api-response-common-failure": images_api_response_common_failure_output,
+        "images_api-response-single": images_api_response_single_output,
         "images_image_variant_definition": images_image_variant_definition_output,
         "images_image_variant_fit": images_image_variant_fit_output,
         "images_image_variant_height": images_image_variant_height_output,
@@ -141,20 +150,30 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/images_account_identifier",
+          "description": "Account identifier tag."
         },
         "variant_id": {
-          "type": "string"
+          "$ref": "#/$defs/images_image_variant_identifier"
         }
       },
       required: [
         "account_id",
         "variant_id"
       ],
+      $defs: {
+        "images_account_identifier": images_account_identifier,
+        "images_image_variant_identifier": images_image_variant_identifier,
+      },
     },
     outputSchema: {
-      "type": "object",
+      "$ref": "#/$defs/images_deleted_response",
+      $defs: {
+        "images_api-response-common": images_api_response_common_output,
+        "images_api-response-single": images_api_response_single_output,
+        "images_deleted_response": images_deleted_response_output,
+        "images_messages": images_messages_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -173,7 +192,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "type": "object"
+          "$ref": "#/$defs/images_deleted_response"
         },
         "4XX": {
           "anyOf": [
@@ -187,7 +206,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "images_api-response-common": images_api_response_common_output,
         "images_api-response-common-failure": images_api_response_common_failure_output,
+        "images_api-response-single": images_api_response_single_output,
         "images_deleted_response": images_deleted_response_output,
         "images_messages": images_messages_output,
       },
@@ -204,14 +225,14 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/images_account_identifier",
+          "description": "Account identifier tag."
         },
         "body": {
           "$ref": "#/$defs/images_image_variant_patch_request"
         },
         "variant_id": {
-          "type": "string"
+          "$ref": "#/$defs/images_image_variant_identifier"
         }
       },
       required: [
@@ -220,8 +241,10 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "images_account_identifier": images_account_identifier,
         "images_image_variant_fit": images_image_variant_fit,
         "images_image_variant_height": images_image_variant_height,
+        "images_image_variant_identifier": images_image_variant_identifier,
         "images_image_variant_neverRequireSignedURLs": images_image_variant_neverRequireSignedURLs,
         "images_image_variant_options": images_image_variant_options,
         "images_image_variant_patch_request": images_image_variant_patch_request,
@@ -230,8 +253,10 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/images_image_variant_response",
+      "$ref": "#/$defs/images_image_variant_simple_response",
       $defs: {
+        "images_api-response-common": images_api_response_common_output,
+        "images_api-response-single": images_api_response_single_output,
         "images_image_variant_definition": images_image_variant_definition_output,
         "images_image_variant_fit": images_image_variant_fit_output,
         "images_image_variant_height": images_image_variant_height_output,
@@ -240,7 +265,9 @@ export const tools: readonly Tool[] = [
         "images_image_variant_options": images_image_variant_options_output,
         "images_image_variant_response": images_image_variant_response_output,
         "images_image_variant_schemas_metadata": images_image_variant_schemas_metadata_output,
+        "images_image_variant_simple_response": images_image_variant_simple_response_output,
         "images_image_variant_width": images_image_variant_width_output,
+        "images_messages": images_messages_output,
       },
     },
     annotations: {
@@ -260,7 +287,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/images_image_variant_response"
+          "$ref": "#/$defs/images_image_variant_simple_response"
         },
         "4XX": {
           "anyOf": [
@@ -274,7 +301,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "images_api-response-common": images_api_response_common_output,
         "images_api-response-common-failure": images_api_response_common_failure_output,
+        "images_api-response-single": images_api_response_single_output,
         "images_image_variant_definition": images_image_variant_definition_output,
         "images_image_variant_fit": images_image_variant_fit_output,
         "images_image_variant_height": images_image_variant_height_output,
@@ -301,21 +330,27 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/images_account_identifier",
+          "description": "Account identifier tag."
         },
         "variant_id": {
-          "type": "string"
+          "$ref": "#/$defs/images_image_variant_identifier"
         }
       },
       required: [
         "account_id",
         "variant_id"
       ],
+      $defs: {
+        "images_account_identifier": images_account_identifier,
+        "images_image_variant_identifier": images_image_variant_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/images_image_variant_response",
+      "$ref": "#/$defs/images_image_variant_simple_response",
       $defs: {
+        "images_api-response-common": images_api_response_common_output,
+        "images_api-response-single": images_api_response_single_output,
         "images_image_variant_definition": images_image_variant_definition_output,
         "images_image_variant_fit": images_image_variant_fit_output,
         "images_image_variant_height": images_image_variant_height_output,
@@ -324,7 +359,9 @@ export const tools: readonly Tool[] = [
         "images_image_variant_options": images_image_variant_options_output,
         "images_image_variant_response": images_image_variant_response_output,
         "images_image_variant_schemas_metadata": images_image_variant_schemas_metadata_output,
+        "images_image_variant_simple_response": images_image_variant_simple_response_output,
         "images_image_variant_width": images_image_variant_width_output,
+        "images_messages": images_messages_output,
       },
     },
     annotations: {
@@ -345,7 +382,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/images_image_variant_response"
+          "$ref": "#/$defs/images_image_variant_simple_response"
         },
         "4XX": {
           "anyOf": [
@@ -359,7 +396,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "images_api-response-common": images_api_response_common_output,
         "images_api-response-common-failure": images_api_response_common_failure_output,
+        "images_api-response-single": images_api_response_single_output,
         "images_image_variant_definition": images_image_variant_definition_output,
         "images_image_variant_fit": images_image_variant_fit_output,
         "images_image_variant_height": images_image_variant_height_output,
@@ -385,27 +424,32 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/images_account_identifier",
+          "description": "Account identifier tag."
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "images_account_identifier": images_account_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/images_image_variants_response",
+      "$ref": "#/$defs/images_image_variant_list_response",
       $defs: {
+        "images_api-response-common": images_api_response_common_output,
         "images_image_variant_fit": images_image_variant_fit_output,
         "images_image_variant_height": images_image_variant_height_output,
         "images_image_variant_identifier": images_image_variant_identifier_output,
+        "images_image_variant_list_response": images_image_variant_list_response_output,
         "images_image_variant_neverRequireSignedURLs": images_image_variant_neverRequireSignedURLs_output,
         "images_image_variant_options": images_image_variant_options_output,
         "images_image_variant_public_request": images_image_variant_public_request_output,
-        "images_image_variant_public_request_hero": images_image_variant_public_request_hero_output,
         "images_image_variant_schemas_metadata": images_image_variant_schemas_metadata_output,
         "images_image_variant_width": images_image_variant_width_output,
         "images_image_variants_response": images_image_variants_response_output,
+        "images_messages": images_messages_output,
       },
     },
     annotations: {
@@ -426,7 +470,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/images_image_variants_response"
+          "$ref": "#/$defs/images_image_variant_list_response"
         },
         "4XX": {
           "anyOf": [
@@ -440,6 +484,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "images_api-response-common": images_api_response_common_output,
         "images_api-response-common-failure": images_api_response_common_failure_output,
         "images_image_variant_fit": images_image_variant_fit_output,
         "images_image_variant_height": images_image_variant_height_output,
@@ -448,7 +493,6 @@ export const tools: readonly Tool[] = [
         "images_image_variant_neverRequireSignedURLs": images_image_variant_neverRequireSignedURLs_output,
         "images_image_variant_options": images_image_variant_options_output,
         "images_image_variant_public_request": images_image_variant_public_request_output,
-        "images_image_variant_public_request_hero": images_image_variant_public_request_hero_output,
         "images_image_variant_schemas_metadata": images_image_variant_schemas_metadata_output,
         "images_image_variant_width": images_image_variant_width_output,
         "images_image_variants_response": images_image_variants_response_output,

@@ -3,10 +3,13 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  digital_experience_monitoring_api_response_collection_output,
   digital_experience_monitoring_api_response_common_failure_output,
+  digital_experience_monitoring_api_response_common_output,
   digital_experience_monitoring_messages_output,
   digital_experience_monitoring_uuid_output,
 } from "../outputs.js";
+import { digital_experience_monitoring_account_identifier } from "../schemas.js";
 import {
   digital_experience_monitoring_timestamp_datetime_output,
   digital_experience_monitoring_warp_config_change_event_output,
@@ -27,8 +30,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Unique Cloudflare account ID.",
-          "type": "string"
+          "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
+          "description": "Unique Cloudflare account ID."
         },
         "account_name": {
           "description": "Filter events by account name.",
@@ -88,38 +91,28 @@ export const tools: readonly Tool[] = [
         "from",
         "to"
       ],
+      $defs: {
+        "digital-experience-monitoring_account_identifier": digital_experience_monitoring_account_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "$ref": "#/$defs/digital-experience-monitoring_warp_events_response"
+      "allOf": [
+        {
+          "$ref": "#/$defs/digital-experience-monitoring_api-response-collection"
         },
-        "result_info": {
+        {
           "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
+            "result": {
+              "$ref": "#/$defs/digital-experience-monitoring_warp_events_response"
             }
           },
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
+        "digital-experience-monitoring_api-response-collection": digital_experience_monitoring_api_response_collection_output,
+        "digital-experience-monitoring_api-response-common": digital_experience_monitoring_api_response_common_output,
+        "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
         "digital-experience-monitoring_timestamp_datetime": digital_experience_monitoring_timestamp_datetime_output,
         "digital-experience-monitoring_uuid": digital_experience_monitoring_uuid_output,
         "digital-experience-monitoring_warp_config_change_event": digital_experience_monitoring_warp_config_change_event_output,
@@ -148,41 +141,27 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "$ref": "#/$defs/digital-experience-monitoring_warp_events_response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/digital-experience-monitoring_api-response-collection"
             },
-            "result_info": {
+            {
               "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
+                "result": {
+                  "$ref": "#/$defs/digital-experience-monitoring_warp_events_response"
                 }
               },
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/digital-experience-monitoring_api-response-common-failure"
         }
       },
       $defs: {
+        "digital-experience-monitoring_api-response-collection": digital_experience_monitoring_api_response_collection_output,
+        "digital-experience-monitoring_api-response-common": digital_experience_monitoring_api_response_common_output,
         "digital-experience-monitoring_api-response-common-failure": digital_experience_monitoring_api_response_common_failure_output,
         "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
         "digital-experience-monitoring_timestamp_datetime": digital_experience_monitoring_timestamp_datetime_output,

@@ -32,3 +32,22 @@ export const email_catch_all_rule_output: JsonSchema = {
   },
   "type": "object"
 };
+
+/**
+ * The schema of `email_catch_all_rule_response_single` in responses.
+ */
+export const email_catch_all_rule_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/email_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/email_catch_all_rule"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};

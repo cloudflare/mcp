@@ -50,3 +50,25 @@ export const workers_script_settings_item_output: JsonSchema = {
   },
   "type": "object"
 };
+
+/**
+ * The schema of `workers_script-settings-response` in responses.
+ */
+export const workers_script_settings_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/workers_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/workers_script-settings-item"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object"
+    }
+  ]
+};

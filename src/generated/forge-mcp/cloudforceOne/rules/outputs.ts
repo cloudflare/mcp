@@ -426,7 +426,17 @@ export const cloudforce_one_RuleMetaEntry_output: JsonSchema = {
       "type": "string"
     },
     "value": {
-      "$ref": "#/$defs/cloudforce-one_RuleMetaEntry_value"
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "number"
+        }
+      ]
     }
   },
   "required": [
@@ -435,23 +445,6 @@ export const cloudforce_one_RuleMetaEntry_output: JsonSchema = {
     "value"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `cloudforce-one_RuleMetaEntry_value` in responses.
- */
-export const cloudforce_one_RuleMetaEntry_value_output: JsonSchema = {
-  "anyOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "boolean"
-    },
-    {
-      "type": "number"
-    }
-  ]
 };
 
 /**
@@ -551,126 +544,42 @@ export const cloudforce_one_RulePreview_output: JsonSchema = {
  * The schema of `cloudforce-one_RuleSearchResult` in responses.
  */
 export const cloudforce_one_RuleSearchResult_output: JsonSchema = {
-  "properties": {
-    "content": {
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/cloudforce-one_RulePreview"
     },
-    "created_at": {
-      "type": "number"
-    },
-    "created_by": {
-      "type": "string"
-    },
-    "description": {
-      "type": "string"
-    },
-    "enabled": {
-      "type": "boolean"
-    },
-    "id": {
-      "format": "uuid",
-      "type": "string"
-    },
-    "is_public": {
-      "type": "boolean"
-    },
-    "meta": {
-      "items": {
-        "$ref": "#/$defs/cloudforce-one_RuleMetaEntry"
-      },
-      "type": "array"
-    },
-    "name": {
-      "type": "string"
-    },
-    "namespaces": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "path": {
-      "type": "string"
-    },
-    "pending_approval_id": {
-      "oneOf": [
-        {
+    {
+      "properties": {
+        "score": {
           "type": "number"
         },
-        {
-          "type": "null"
+        "scoring_details": {
+          "properties": {
+            "fusion_method": {
+              "type": "string"
+            },
+            "keyword_rank": {
+              "type": "number"
+            },
+            "keyword_score": {
+              "type": "number"
+            },
+            "reranking_score": {
+              "type": "number"
+            },
+            "vector_rank": {
+              "type": "number"
+            },
+            "vector_score": {
+              "type": "number"
+            }
+          },
+          "type": "object"
         }
-      ]
-    },
-    "pending_change": {
-      "$ref": "#/$defs/cloudforce-one_PendingRuleChange"
-    },
-    "score": {
-      "type": "number"
-    },
-    "scoring_details": {
-      "$ref": "#/$defs/cloudforce-one_RuleSearchResult_scoring_details"
-    },
-    "structured_source": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "updated_at": {
-      "type": "number"
-    },
-    "updated_by": {
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "created_at",
-    "created_by",
-    "description",
-    "enabled",
-    "id",
-    "is_public",
-    "name",
-    "namespaces",
-    "path",
-    "pending_approval_id",
-    "pending_change",
-    "updated_at",
-    "updated_by"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `cloudforce-one_RuleSearchResult_scoring_details` in responses.
- */
-export const cloudforce_one_RuleSearchResult_scoring_details_output: JsonSchema = {
-  "properties": {
-    "fusion_method": {
-      "type": "string"
-    },
-    "keyword_rank": {
-      "type": "number"
-    },
-    "keyword_score": {
-      "type": "number"
-    },
-    "reranking_score": {
-      "type": "number"
-    },
-    "vector_rank": {
-      "type": "number"
-    },
-    "vector_score": {
-      "type": "number"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**
@@ -704,7 +613,28 @@ export const cloudforce_one_RulesSearchResponse_output: JsonSchema = {
       "type": "boolean"
     },
     "interpreted": {
-      "$ref": "#/$defs/cloudforce-one_RulesSearchResponse_interpreted"
+      "properties": {
+        "filters": {
+          "additionalProperties": {
+            "oneOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "type": "object"
+        },
+        "retrieval_type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "retrieval_type"
+      ],
+      "type": "object"
     },
     "mode": {
       "type": "string"
@@ -723,34 +653,6 @@ export const cloudforce_one_RulesSearchResponse_output: JsonSchema = {
     "mode",
     "results",
     "total"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `cloudforce-one_RulesSearchResponse_interpreted` in responses.
- */
-export const cloudforce_one_RulesSearchResponse_interpreted_output: JsonSchema = {
-  "properties": {
-    "filters": {
-      "additionalProperties": {
-        "oneOf": [
-          {
-            "type": "object"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "type": "object"
-    },
-    "retrieval_type": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "retrieval_type"
   ],
   "type": "object"
 };

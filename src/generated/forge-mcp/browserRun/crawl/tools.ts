@@ -716,7 +716,37 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "type": "string",
+      "properties": {
+        "errors": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
+          "type": "string"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -735,12 +765,7 @@ export const tools: readonly Tool[] = [
         "enum": [
           "com.cloudflare.api.account.brapi.read"
         ],
-        "type": "string",
-        "x-fern-enum": {
-          "com.cloudflare.api.account.brapi.read": {
-            "name": "com_cloudflare_api_account_brapi_read"
-          }
-        }
+        "type": "string"
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -752,7 +777,37 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "type": "string"
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "string"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
+          ],
+          "type": "object"
         },
         "400": {
           "properties": {
@@ -874,16 +929,46 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "job_id": {
-          "type": "string"
+        "errors": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        "message": {
-          "type": "string"
+        "result": {
+          "properties": {
+            "job_id": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "job_id",
+            "message"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
         }
       },
       "required": [
-        "job_id",
-        "message"
+        "result",
+        "success"
       ],
       "type": "object",
     },
@@ -901,12 +986,7 @@ export const tools: readonly Tool[] = [
         "enum": [
           "com.cloudflare.api.account.brapi.read"
         ],
-        "type": "string",
-        "x-fern-enum": {
-          "com.cloudflare.api.account.brapi.read": {
-            "name": "com_cloudflare_api_account_brapi_read"
-          }
-        }
+        "type": "string"
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -919,16 +999,46 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
-            "job_id": {
-              "type": "string"
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
             },
-            "message": {
-              "type": "string"
+            "result": {
+              "properties": {
+                "job_id": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "job_id",
+                "message"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
             }
           },
           "required": [
-            "job_id",
-            "message"
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -1075,200 +1185,25 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "browserSecondsUsed": {
-          "type": "number"
-        },
-        "cursor": {
-          "type": "string"
-        },
-        "finished": {
-          "type": "number"
-        },
-        "id": {
-          "type": "string"
-        },
-        "records": {
+        "errors": {
           "items": {
             "properties": {
-              "html": {
-                "type": "string"
-              },
-              "json": {
-                "additionalProperties": {
-                  "oneOf": [
-                    {
-                      "type": "object"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "type": "object"
-              },
-              "markdown": {
-                "type": "string"
-              },
-              "metadata": {
-                "properties": {
-                  "lastModified": {
-                    "type": "string"
-                  },
-                  "og:description": {
-                    "type": "string"
-                  },
-                  "og:image": {
-                    "type": "string"
-                  },
-                  "og:site_name": {
-                    "type": "string"
-                  },
-                  "og:title": {
-                    "type": "string"
-                  },
-                  "og:type": {
-                    "type": "string"
-                  },
-                  "status": {
-                    "type": "number"
-                  },
-                  "title": {
-                    "type": "string"
-                  },
-                  "url": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "status",
-                  "url"
-                ],
-                "type": "object"
-              },
-              "outcome": {
-                "enum": [
-                  "success",
-                  "robots_disallowed",
-                  "crawl_purpose_disallowed",
-                  "content_use_disallowed",
-                  "connection_error",
-                  "timeout",
-                  "browser_unavailable",
-                  "format_generation_error",
-                  "unsupported_content_type",
-                  "unclassified_error",
-                  "page_error",
-                  "too_large"
-                ],
-                "type": "string"
-              },
-              "status": {
-                "enum": [
-                  "queued",
-                  "errored",
-                  "completed",
-                  "disallowed",
-                  "skipped",
-                  "cancelled"
-                ],
-                "type": "string"
-              },
-              "url": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "status",
-              "url"
-            ],
-            "type": "object"
-          },
-          "type": "array"
-        },
-        "robots": {
-          "items": {
-            "properties": {
-              "origin": {
-                "type": "string"
-              },
-              "state": {
-                "enum": [
-                  "available",
-                  "absent",
-                  "fetch_failed"
-                ],
-                "type": "string"
-              },
-              "status": {
+              "code": {
                 "type": "number"
+              },
+              "message": {
+                "type": "string"
               }
             },
             "required": [
-              "origin",
-              "state"
+              "code",
+              "message"
             ],
             "type": "object"
           },
-          "maxItems": 50,
           "type": "array"
         },
-        "skipped": {
-          "type": "number"
-        },
-        "status": {
-          "type": "string"
-        },
-        "total": {
-          "type": "number"
-        }
-      },
-      "required": [
-        "browserSecondsUsed",
-        "finished",
-        "id",
-        "records",
-        "robots",
-        "skipped",
-        "status",
-        "total"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get crawl result."
-    },
-    method: "GET",
-    path: "/accounts/{account_id}/browser-rendering/crawl/{job_id}",
-    extensions: {
-      "x-api-token-group": [
-        "Browser Rendering Write",
-        "Browser Rendering Read"
-      ],
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.brapi.read"
-        ],
-        "type": "string",
-        "x-fern-enum": {
-          "com.cloudflare.api.account.brapi.read": {
-            "name": "com_cloudflare_api_account_brapi_read"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "browserSecondsUsed": {
               "type": "number"
@@ -1426,6 +1361,236 @@ export const tools: readonly Tool[] = [
             "skipped",
             "status",
             "total"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get crawl result."
+    },
+    method: "GET",
+    path: "/accounts/{account_id}/browser-rendering/crawl/{job_id}",
+    extensions: {
+      "x-api-token-group": [
+        "Browser Rendering Write",
+        "Browser Rendering Read"
+      ],
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.brapi.read"
+        ],
+        "type": "string"
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "browserSecondsUsed": {
+                  "type": "number"
+                },
+                "cursor": {
+                  "type": "string"
+                },
+                "finished": {
+                  "type": "number"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "records": {
+                  "items": {
+                    "properties": {
+                      "html": {
+                        "type": "string"
+                      },
+                      "json": {
+                        "additionalProperties": {
+                          "oneOf": [
+                            {
+                              "type": "object"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "type": "object"
+                      },
+                      "markdown": {
+                        "type": "string"
+                      },
+                      "metadata": {
+                        "properties": {
+                          "lastModified": {
+                            "type": "string"
+                          },
+                          "og:description": {
+                            "type": "string"
+                          },
+                          "og:image": {
+                            "type": "string"
+                          },
+                          "og:site_name": {
+                            "type": "string"
+                          },
+                          "og:title": {
+                            "type": "string"
+                          },
+                          "og:type": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "number"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "url": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "status",
+                          "url"
+                        ],
+                        "type": "object"
+                      },
+                      "outcome": {
+                        "enum": [
+                          "success",
+                          "robots_disallowed",
+                          "crawl_purpose_disallowed",
+                          "content_use_disallowed",
+                          "connection_error",
+                          "timeout",
+                          "browser_unavailable",
+                          "format_generation_error",
+                          "unsupported_content_type",
+                          "unclassified_error",
+                          "page_error",
+                          "too_large"
+                        ],
+                        "type": "string"
+                      },
+                      "status": {
+                        "enum": [
+                          "queued",
+                          "errored",
+                          "completed",
+                          "disallowed",
+                          "skipped",
+                          "cancelled"
+                        ],
+                        "type": "string"
+                      },
+                      "url": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "status",
+                      "url"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "robots": {
+                  "items": {
+                    "properties": {
+                      "origin": {
+                        "type": "string"
+                      },
+                      "state": {
+                        "enum": [
+                          "available",
+                          "absent",
+                          "fetch_failed"
+                        ],
+                        "type": "string"
+                      },
+                      "status": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "origin",
+                      "state"
+                    ],
+                    "type": "object"
+                  },
+                  "maxItems": 50,
+                  "type": "array"
+                },
+                "skipped": {
+                  "type": "number"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "total": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "browserSecondsUsed",
+                "finished",
+                "id",
+                "records",
+                "robots",
+                "skipped",
+                "status",
+                "total"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },

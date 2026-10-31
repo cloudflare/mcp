@@ -4,10 +4,22 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   cache_settings_api_response_common_failure_output,
+  cache_settings_api_response_common_output,
+  cache_settings_base_output,
+  cache_settings_editable_output,
   cache_settings_messages_output,
+  cache_settings_modified_on_output,
+  cache_settings_result_object_delete_output,
+  cache_settings_result_object_output,
+  cache_settings_setting_id_output,
+  cache_settings_setting_value_output,
+  cache_settings_zone_cache_settings_delete_response_single_output,
+  cache_settings_zone_cache_settings_response_single_output,
 } from "../../../outputs.js";
+import { cache_settings_identifier } from "../../../schemas.js";
 import {
   cache_settings_smart_tiered_cache_output,
+  cache_settings_smart_tiered_cache_response_value_output,
   cache_settings_smart_tiered_cache_value_output,
 } from "./outputs.js";
 import { cache_settings_smart_tiered_cache_patch } from "./schemas.js";
@@ -27,8 +39,8 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/cache-settings_smart_tiered_cache_patch"
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/cache-settings_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -36,29 +48,32 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "cache-settings_identifier": cache_settings_identifier,
         "cache-settings_smart_tiered_cache_patch": cache_settings_smart_tiered_cache_patch,
       },
     },
     outputSchema: {
       "allOf": [
         {
-          "$ref": "#/$defs/cache-settings_smart_tiered_cache"
+          "$ref": "#/$defs/cache-settings_zone_cache_settings_response_single"
         },
         {
-          "properties": {
-            "value": {
-              "$ref": "#/$defs/cache-settings_smart_tiered_cache_value"
-            }
-          },
-          "required": [
-            "value"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/cache-settings_smart_tiered_cache_response_value"
         }
       ],
       $defs: {
+        "cache-settings_api-response-common": cache_settings_api_response_common_output,
+        "cache-settings_base": cache_settings_base_output,
+        "cache-settings_editable": cache_settings_editable_output,
+        "cache-settings_messages": cache_settings_messages_output,
+        "cache-settings_modified_on": cache_settings_modified_on_output,
+        "cache-settings_result-object": cache_settings_result_object_output,
+        "cache-settings_setting_id": cache_settings_setting_id_output,
+        "cache-settings_setting_value": cache_settings_setting_value_output,
         "cache-settings_smart_tiered_cache": cache_settings_smart_tiered_cache_output,
+        "cache-settings_smart_tiered_cache_response_value": cache_settings_smart_tiered_cache_response_value_output,
         "cache-settings_smart_tiered_cache_value": cache_settings_smart_tiered_cache_value_output,
+        "cache-settings_zone_cache_settings_response_single": cache_settings_zone_cache_settings_response_single_output,
       },
     },
     annotations: {
@@ -79,15 +94,7 @@ export const tools: readonly Tool[] = [
         "enum": [
           "#zone_settings:read",
           "#zone_settings:edit"
-        ],
-        "x-fern-enum": {
-          "#zone_settings:edit": {
-            "name": "zone_settings_edit"
-          },
-          "#zone_settings:read": {
-            "name": "zone_settings_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -101,18 +108,10 @@ export const tools: readonly Tool[] = [
         "200": {
           "allOf": [
             {
-              "$ref": "#/$defs/cache-settings_smart_tiered_cache"
+              "$ref": "#/$defs/cache-settings_zone_cache_settings_response_single"
             },
             {
-              "properties": {
-                "value": {
-                  "$ref": "#/$defs/cache-settings_smart_tiered_cache_value"
-                }
-              },
-              "required": [
-                "value"
-              ],
-              "type": "object"
+              "$ref": "#/$defs/cache-settings_smart_tiered_cache_response_value"
             }
           ]
         },
@@ -121,10 +120,19 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "cache-settings_api-response-common": cache_settings_api_response_common_output,
         "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
+        "cache-settings_base": cache_settings_base_output,
+        "cache-settings_editable": cache_settings_editable_output,
         "cache-settings_messages": cache_settings_messages_output,
+        "cache-settings_modified_on": cache_settings_modified_on_output,
+        "cache-settings_result-object": cache_settings_result_object_output,
+        "cache-settings_setting_id": cache_settings_setting_id_output,
+        "cache-settings_setting_value": cache_settings_setting_value_output,
         "cache-settings_smart_tiered_cache": cache_settings_smart_tiered_cache_output,
+        "cache-settings_smart_tiered_cache_response_value": cache_settings_smart_tiered_cache_response_value_output,
         "cache-settings_smart_tiered_cache_value": cache_settings_smart_tiered_cache_value_output,
+        "cache-settings_zone_cache_settings_response_single": cache_settings_zone_cache_settings_response_single_output,
       },
     },
     request: (args) => ({
@@ -140,18 +148,41 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/cache-settings_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "cache-settings_identifier": cache_settings_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/cache-settings_smart_tiered_cache",
+      "allOf": [
+        {
+          "$ref": "#/$defs/cache-settings_zone_cache_settings_delete_response_single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/cache-settings_smart_tiered_cache"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "cache-settings_api-response-common": cache_settings_api_response_common_output,
+        "cache-settings_base": cache_settings_base_output,
+        "cache-settings_editable": cache_settings_editable_output,
+        "cache-settings_messages": cache_settings_messages_output,
+        "cache-settings_modified_on": cache_settings_modified_on_output,
+        "cache-settings_result-object-delete": cache_settings_result_object_delete_output,
+        "cache-settings_setting_id": cache_settings_setting_id_output,
         "cache-settings_smart_tiered_cache": cache_settings_smart_tiered_cache_output,
+        "cache-settings_zone_cache_settings_delete_response_single": cache_settings_zone_cache_settings_delete_response_single_output,
       },
     },
     annotations: {
@@ -171,12 +202,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#zone_settings:edit"
-        ],
-        "x-fern-enum": {
-          "#zone_settings:edit": {
-            "name": "zone_settings_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -188,16 +214,35 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/cache-settings_smart_tiered_cache"
+          "allOf": [
+            {
+              "$ref": "#/$defs/cache-settings_zone_cache_settings_delete_response_single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/cache-settings_smart_tiered_cache"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/cache-settings_api-response-common-failure"
         }
       },
       $defs: {
+        "cache-settings_api-response-common": cache_settings_api_response_common_output,
         "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
+        "cache-settings_base": cache_settings_base_output,
+        "cache-settings_editable": cache_settings_editable_output,
         "cache-settings_messages": cache_settings_messages_output,
+        "cache-settings_modified_on": cache_settings_modified_on_output,
+        "cache-settings_result-object-delete": cache_settings_result_object_delete_output,
+        "cache-settings_setting_id": cache_settings_setting_id_output,
         "cache-settings_smart_tiered_cache": cache_settings_smart_tiered_cache_output,
+        "cache-settings_zone_cache_settings_delete_response_single": cache_settings_zone_cache_settings_delete_response_single_output,
       },
     },
     request: (args) => ({
@@ -215,8 +260,8 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/cache-settings_smart_tiered_cache_patch"
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/cache-settings_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -224,29 +269,32 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "cache-settings_identifier": cache_settings_identifier,
         "cache-settings_smart_tiered_cache_patch": cache_settings_smart_tiered_cache_patch,
       },
     },
     outputSchema: {
       "allOf": [
         {
-          "$ref": "#/$defs/cache-settings_smart_tiered_cache"
+          "$ref": "#/$defs/cache-settings_zone_cache_settings_response_single"
         },
         {
-          "properties": {
-            "value": {
-              "$ref": "#/$defs/cache-settings_smart_tiered_cache_value"
-            }
-          },
-          "required": [
-            "value"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/cache-settings_smart_tiered_cache_response_value"
         }
       ],
       $defs: {
+        "cache-settings_api-response-common": cache_settings_api_response_common_output,
+        "cache-settings_base": cache_settings_base_output,
+        "cache-settings_editable": cache_settings_editable_output,
+        "cache-settings_messages": cache_settings_messages_output,
+        "cache-settings_modified_on": cache_settings_modified_on_output,
+        "cache-settings_result-object": cache_settings_result_object_output,
+        "cache-settings_setting_id": cache_settings_setting_id_output,
+        "cache-settings_setting_value": cache_settings_setting_value_output,
         "cache-settings_smart_tiered_cache": cache_settings_smart_tiered_cache_output,
+        "cache-settings_smart_tiered_cache_response_value": cache_settings_smart_tiered_cache_response_value_output,
         "cache-settings_smart_tiered_cache_value": cache_settings_smart_tiered_cache_value_output,
+        "cache-settings_zone_cache_settings_response_single": cache_settings_zone_cache_settings_response_single_output,
       },
     },
     annotations: {
@@ -267,15 +315,7 @@ export const tools: readonly Tool[] = [
         "enum": [
           "#zone_settings:read",
           "#zone_settings:edit"
-        ],
-        "x-fern-enum": {
-          "#zone_settings:edit": {
-            "name": "zone_settings_edit"
-          },
-          "#zone_settings:read": {
-            "name": "zone_settings_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -289,18 +329,10 @@ export const tools: readonly Tool[] = [
         "200": {
           "allOf": [
             {
-              "$ref": "#/$defs/cache-settings_smart_tiered_cache"
+              "$ref": "#/$defs/cache-settings_zone_cache_settings_response_single"
             },
             {
-              "properties": {
-                "value": {
-                  "$ref": "#/$defs/cache-settings_smart_tiered_cache_value"
-                }
-              },
-              "required": [
-                "value"
-              ],
-              "type": "object"
+              "$ref": "#/$defs/cache-settings_smart_tiered_cache_response_value"
             }
           ]
         },
@@ -309,10 +341,19 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "cache-settings_api-response-common": cache_settings_api_response_common_output,
         "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
+        "cache-settings_base": cache_settings_base_output,
+        "cache-settings_editable": cache_settings_editable_output,
         "cache-settings_messages": cache_settings_messages_output,
+        "cache-settings_modified_on": cache_settings_modified_on_output,
+        "cache-settings_result-object": cache_settings_result_object_output,
+        "cache-settings_setting_id": cache_settings_setting_id_output,
+        "cache-settings_setting_value": cache_settings_setting_value_output,
         "cache-settings_smart_tiered_cache": cache_settings_smart_tiered_cache_output,
+        "cache-settings_smart_tiered_cache_response_value": cache_settings_smart_tiered_cache_response_value_output,
         "cache-settings_smart_tiered_cache_value": cache_settings_smart_tiered_cache_value_output,
+        "cache-settings_zone_cache_settings_response_single": cache_settings_zone_cache_settings_response_single_output,
       },
     },
     request: (args) => ({
@@ -328,34 +369,39 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/cache-settings_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "cache-settings_identifier": cache_settings_identifier,
+      },
     },
     outputSchema: {
       "allOf": [
         {
-          "$ref": "#/$defs/cache-settings_smart_tiered_cache"
+          "$ref": "#/$defs/cache-settings_zone_cache_settings_response_single"
         },
         {
-          "properties": {
-            "value": {
-              "$ref": "#/$defs/cache-settings_smart_tiered_cache_value"
-            }
-          },
-          "required": [
-            "value"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/cache-settings_smart_tiered_cache_response_value"
         }
       ],
       $defs: {
+        "cache-settings_api-response-common": cache_settings_api_response_common_output,
+        "cache-settings_base": cache_settings_base_output,
+        "cache-settings_editable": cache_settings_editable_output,
+        "cache-settings_messages": cache_settings_messages_output,
+        "cache-settings_modified_on": cache_settings_modified_on_output,
+        "cache-settings_result-object": cache_settings_result_object_output,
+        "cache-settings_setting_id": cache_settings_setting_id_output,
+        "cache-settings_setting_value": cache_settings_setting_value_output,
         "cache-settings_smart_tiered_cache": cache_settings_smart_tiered_cache_output,
+        "cache-settings_smart_tiered_cache_response_value": cache_settings_smart_tiered_cache_response_value_output,
         "cache-settings_smart_tiered_cache_value": cache_settings_smart_tiered_cache_value_output,
+        "cache-settings_zone_cache_settings_response_single": cache_settings_zone_cache_settings_response_single_output,
       },
     },
     annotations: {
@@ -377,12 +423,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#zone_settings:read"
-        ],
-        "x-fern-enum": {
-          "#zone_settings:read": {
-            "name": "zone_settings_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -396,18 +437,10 @@ export const tools: readonly Tool[] = [
         "200": {
           "allOf": [
             {
-              "$ref": "#/$defs/cache-settings_smart_tiered_cache"
+              "$ref": "#/$defs/cache-settings_zone_cache_settings_response_single"
             },
             {
-              "properties": {
-                "value": {
-                  "$ref": "#/$defs/cache-settings_smart_tiered_cache_value"
-                }
-              },
-              "required": [
-                "value"
-              ],
-              "type": "object"
+              "$ref": "#/$defs/cache-settings_smart_tiered_cache_response_value"
             }
           ]
         },
@@ -416,10 +449,19 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "cache-settings_api-response-common": cache_settings_api_response_common_output,
         "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
+        "cache-settings_base": cache_settings_base_output,
+        "cache-settings_editable": cache_settings_editable_output,
         "cache-settings_messages": cache_settings_messages_output,
+        "cache-settings_modified_on": cache_settings_modified_on_output,
+        "cache-settings_result-object": cache_settings_result_object_output,
+        "cache-settings_setting_id": cache_settings_setting_id_output,
+        "cache-settings_setting_value": cache_settings_setting_value_output,
         "cache-settings_smart_tiered_cache": cache_settings_smart_tiered_cache_output,
+        "cache-settings_smart_tiered_cache_response_value": cache_settings_smart_tiered_cache_response_value_output,
         "cache-settings_smart_tiered_cache_value": cache_settings_smart_tiered_cache_value_output,
+        "cache-settings_zone_cache_settings_response_single": cache_settings_zone_cache_settings_response_single_output,
       },
     },
     request: (args) => ({

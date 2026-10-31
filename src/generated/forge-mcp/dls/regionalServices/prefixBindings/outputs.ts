@@ -31,33 +31,9 @@ export const dls_PrefixBinding_output: JsonSchema = {
 };
 
 /**
- * The schema of `dls_PrefixBindingPaginatedListResponse_result_info` in
- * responses.
+ * The schema of `dls_PrefixBindingPaginatedListResponse` in responses.
  */
-export const dls_PrefixBindingPaginatedListResponse_result_info_output: JsonSchema = {
-  "properties": {
-    "count": {
-      "type": "integer"
-    },
-    "cursor": {
-      "type": "string"
-    },
-    "per_page": {
-      "type": "integer"
-    }
-  },
-  "required": [
-    "count",
-    "cursor",
-    "per_page"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `dls_good_response` in responses.
- */
-export const dls_good_response_output: JsonSchema = {
+export const dls_PrefixBindingPaginatedListResponse_output: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -71,13 +47,63 @@ export const dls_good_response_output: JsonSchema = {
       },
       "type": "array"
     },
+    "result": {
+      "items": {
+        "$ref": "#/$defs/dls_PrefixBinding"
+      },
+      "type": "array"
+    },
+    "result_info": {
+      "properties": {
+        "count": {
+          "type": "integer"
+        },
+        "cursor": {
+          "type": "string"
+        },
+        "per_page": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "count",
+        "cursor",
+        "per_page"
+      ],
+      "type": "object"
+    },
     "success": {
       "type": "boolean"
     }
   },
   "required": [
+    "errors",
     "messages",
+    "result",
+    "result_info",
     "success"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `dls_PrefixBindingResponse` in responses.
+ */
+export const dls_PrefixBindingResponse_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/dls_good_response"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/dls_PrefixBinding"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object"
+    }
+  ]
 };

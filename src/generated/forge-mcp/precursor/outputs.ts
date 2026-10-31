@@ -34,6 +34,32 @@ export const precursor_api_response_common_failure_output: JsonSchema = {
 };
 
 /**
+ * The schema of `precursor_api-response-single` in responses.
+ */
+export const precursor_api_response_single_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/precursor_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/precursor_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `precursor_messages` in responses.
  */
 export const precursor_messages_output: JsonSchema = {
@@ -88,29 +114,19 @@ export const precursor_precursor_config_output: JsonSchema = {
  * The schema of `precursor_precursor_config_response_body` in responses.
  */
 export const precursor_precursor_config_response_body_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/precursor_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/precursor_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/precursor_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/precursor_precursor_config"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/precursor_precursor_config"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**

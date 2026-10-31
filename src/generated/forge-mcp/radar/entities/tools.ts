@@ -33,75 +33,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "ip": {
-          "properties": {
-            "asn": {
-              "type": "string"
-            },
-            "asnLocation": {
-              "type": "string"
-            },
-            "asnName": {
-              "type": "string"
-            },
-            "asnOrgName": {
-              "type": "string"
-            },
-            "ip": {
-              "type": "string"
-            },
-            "ipVersion": {
-              "type": "string"
-            },
-            "location": {
-              "type": "string"
-            },
-            "locationName": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "asn",
-            "asnLocation",
-            "asnName",
-            "asnOrgName",
-            "ip",
-            "ipVersion",
-            "location",
-            "locationName"
-          ],
-          "type": "object"
-        }
-      },
-      "required": [
-        "ip"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get IP address details"
-    },
-    method: "GET",
-    path: "/radar/entities/ip",
-    extensions: {
-      "x-api-token-group": [
-        "User Details Write",
-        "User Details Read"
-      ],
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "ip": {
               "properties": {
@@ -145,6 +77,98 @@ export const tools: readonly Tool[] = [
           },
           "required": [
             "ip"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get IP address details"
+    },
+    method: "GET",
+    path: "/radar/entities/ip",
+    extensions: {
+      "x-api-token-group": [
+        "User Details Write",
+        "User Details Read"
+      ],
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "ip": {
+                  "properties": {
+                    "asn": {
+                      "type": "string"
+                    },
+                    "asnLocation": {
+                      "type": "string"
+                    },
+                    "asnName": {
+                      "type": "string"
+                    },
+                    "asnOrgName": {
+                      "type": "string"
+                    },
+                    "ip": {
+                      "type": "string"
+                    },
+                    "ipVersion": {
+                      "type": "string"
+                    },
+                    "location": {
+                      "type": "string"
+                    },
+                    "locationName": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "asn",
+                    "asnLocation",
+                    "asnName",
+                    "asnOrgName",
+                    "ip",
+                    "ipVersion",
+                    "location",
+                    "locationName"
+                  ],
+                  "type": "object"
+                }
+              },
+              "required": [
+                "ip"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },

@@ -4,6 +4,28 @@
 import type { JsonSchema } from "../../../../_/tool.js";
 
 /**
+ * The schema of `posture-api_PaginatedRemediationTypeList` in responses.
+ */
+export const posture_api_PaginatedRemediationTypeList_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/posture-api_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/posture-api_RemediationType"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `posture-api_RemediationType` in responses.
  */
 export const posture_api_RemediationType_output: JsonSchema = {

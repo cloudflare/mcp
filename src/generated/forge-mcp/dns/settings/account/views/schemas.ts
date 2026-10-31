@@ -16,9 +16,9 @@ export const dns_settings_direction: JsonSchema = {
 };
 
 /**
- * The schema of `dns-settings_dns-view`.
+ * The schema of `dns-settings_dns-view-patch`.
  */
-export const dns_settings_dns_view: JsonSchema = {
+export const dns_settings_dns_view_patch: JsonSchema = {
   "properties": {
     "name": {
       "$ref": "#/$defs/dns-settings_name",

@@ -4,44 +4,6 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `realtimekit_ErrorResponse` in responses.
- */
-export const realtimekit_ErrorResponse_output: JsonSchema = {
-  "properties": {
-    "error": {
-      "$ref": "#/$defs/realtimekit_ErrorResponse_error"
-    },
-    "success": {
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "error",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `realtimekit_ErrorResponse_error` in responses.
- */
-export const realtimekit_ErrorResponse_error_output: JsonSchema = {
-  "properties": {
-    "code": {
-      "type": "number"
-    },
-    "message": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "code",
-    "message"
-  ],
-  "type": "object"
-};
-
-/**
  * The schema of `realtimekit_Webhook` in responses.
  */
 export const realtimekit_Webhook_output: JsonSchema = {

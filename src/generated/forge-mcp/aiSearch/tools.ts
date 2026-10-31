@@ -297,6 +297,7 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "namespace": {
+          "default": "default",
           "description": "Namespace name.",
           "type": "string"
         }
@@ -548,12 +549,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.ai-search"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai-search": {
-            "name": "com_cloudflare_api_account_ai_search"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -566,6 +562,7 @@ export const tools: readonly Tool[] = [
           "description": "AI Search instance ID."
         },
         "namespace": {
+          "default": "default",
           "description": "Namespace to use for this operation."
         }
       }
@@ -1428,6 +1425,7 @@ export const tools: readonly Tool[] = [
                       "type": "string"
                     },
                     "r2_jurisdiction": {
+                      "default": "default",
                       "type": "string"
                     },
                     "web_crawler": {
@@ -1587,6 +1585,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "namespace": {
+          "default": "default",
           "description": "Namespace name.",
           "type": "string"
         }
@@ -1598,609 +1597,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "ai_gateway_id": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "ai_search_model": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "cache": {
-          "type": "boolean"
-        },
-        "cache_threshold": {
-          "enum": [
-            "super_strict_match",
-            "close_enough",
-            "flexible_friend",
-            "anything_goes"
-          ],
-          "type": "string"
-        },
-        "cache_ttl": {
-          "enum": [
-            600,
-            1800,
-            3600,
-            7200,
-            21600,
-            43200,
-            86400,
-            172800,
-            259200,
-            518400
-          ],
-          "type": "integer"
-        },
-        "chunk_overlap": {
-          "type": "integer"
-        },
-        "chunk_size": {
-          "type": "integer"
-        },
-        "created_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "created_by": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "custom_metadata": {
-          "items": {
-            "properties": {
-              "data_type": {
-                "enum": [
-                  "text",
-                  "number",
-                  "boolean",
-                  "datetime"
-                ],
-                "type": "string"
-              },
-              "field_name": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "data_type",
-              "field_name"
-            ],
-            "type": "object"
-          },
-          "maxItems": 5,
-          "type": "array"
-        },
-        "embedding_model": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "enable": {
-          "type": "boolean"
-        },
-        "engine_version": {
-          "type": "number"
-        },
-        "fusion_method": {
-          "enum": [
-            "max",
-            "rrf"
-          ],
-          "type": "string"
-        },
-        "hybrid_search_enabled": {
-          "type": "boolean"
-        },
-        "id": {
-          "type": "string"
-        },
-        "index_method": {
-          "properties": {
-            "keyword": {
-              "type": "boolean"
-            },
-            "vector": {
-              "type": "boolean"
-            }
-          },
-          "required": [
-            "keyword",
-            "vector"
-          ],
-          "type": "object"
-        },
-        "indexing_options": {
-          "oneOf": [
-            {
-              "properties": {
-                "keyword_tokenizer": {
-                  "enum": [
-                    "porter",
-                    "trigram"
-                  ],
-                  "type": "string"
-                },
-                "use_ocr": {
-                  "type": "boolean"
-                }
-              },
-              "type": "object"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "last_activity": {
-          "oneOf": [
-            {
-              "format": "date-time",
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "max_num_results": {
-          "type": "integer"
-        },
-        "metadata": {
-          "properties": {
-            "created_from_aisearch_wizard": {
-              "type": "boolean"
-            },
-            "created_from_emdash_plugin": {
-              "properties": {
-                "type": {
-                  "enum": [
-                    "native",
-                    "rest"
-                  ],
-                  "type": "string"
-                },
-                "version": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "type",
-                "version"
-              ],
-              "type": "object"
-            },
-            "worker_domain": {
-              "type": "string"
-            }
-          },
-          "type": "object"
-        },
-        "modified_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "modified_by": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "namespace": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "paused": {
-          "type": "boolean"
-        },
-        "public_endpoint_id": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "public_endpoint_params": {
-          "properties": {
-            "authorized_hosts": {
-              "items": {
-                "type": "string"
-              },
-              "type": "array"
-            },
-            "chat_completions_endpoint": {
-              "properties": {
-                "disabled": {
-                  "type": "boolean"
-                }
-              },
-              "type": "object"
-            },
-            "custom_domains": {
-              "oneOf": [
-                {
-                  "items": {
-                    "type": "string"
-                  },
-                  "maxItems": 1,
-                  "type": "array"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "default_domain_enabled": {
-              "type": "boolean"
-            },
-            "enabled": {
-              "type": "boolean"
-            },
-            "mcp": {
-              "properties": {
-                "description": {
-                  "type": "string"
-                },
-                "disabled": {
-                  "type": "boolean"
-                }
-              },
-              "type": "object"
-            },
-            "rate_limit": {
-              "properties": {
-                "period_ms": {
-                  "type": "integer"
-                },
-                "requests": {
-                  "type": "integer"
-                },
-                "technique": {
-                  "enum": [
-                    "fixed",
-                    "sliding"
-                  ],
-                  "type": "string"
-                }
-              },
-              "type": "object"
-            },
-            "search_endpoint": {
-              "properties": {
-                "disabled": {
-                  "type": "boolean"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "type": "object"
-        },
-        "reranking": {
-          "type": "boolean"
-        },
-        "reranking_model": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "retrieval_options": {
-          "oneOf": [
-            {
-              "properties": {
-                "boost_by": {
-                  "items": {
-                    "properties": {
-                      "direction": {
-                        "enum": [
-                          "asc",
-                          "desc",
-                          "exists",
-                          "not_exists"
-                        ],
-                        "type": "string"
-                      },
-                      "field": {
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "field"
-                    ],
-                    "type": "object"
-                  },
-                  "maxItems": 3,
-                  "type": "array"
-                },
-                "keyword_match_mode": {
-                  "enum": [
-                    "and",
-                    "or"
-                  ],
-                  "type": "string"
-                }
-              },
-              "type": "object"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "rewrite_model": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "rewrite_query": {
-          "type": "boolean"
-        },
-        "score_threshold": {
-          "type": "number"
-        },
-        "source": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "source_params": {
-          "oneOf": [
-            {
-              "properties": {
-                "exclude_items": {
-                  "items": {
-                    "type": "string"
-                  },
-                  "maxItems": 10,
-                  "type": "array"
-                },
-                "include_items": {
-                  "items": {
-                    "type": "string"
-                  },
-                  "maxItems": 10,
-                  "type": "array"
-                },
-                "prefix": {
-                  "type": "string"
-                },
-                "r2_jurisdiction": {
-                  "type": "string"
-                },
-                "web_crawler": {
-                  "properties": {
-                    "discover_options": {
-                      "properties": {
-                        "depth": {
-                          "type": "number"
-                        },
-                        "include_external_links": {
-                          "type": "boolean"
-                        },
-                        "include_subdomains": {
-                          "type": "boolean"
-                        },
-                        "limit": {
-                          "type": "number"
-                        },
-                        "max_age": {
-                          "type": "number"
-                        },
-                        "source": {
-                          "enum": [
-                            "all",
-                            "sitemaps",
-                            "links"
-                          ],
-                          "type": "string"
-                        }
-                      },
-                      "type": "object"
-                    },
-                    "parse_options": {
-                      "properties": {
-                        "content_selector": {
-                          "items": {
-                            "properties": {
-                              "path": {
-                                "type": "string"
-                              },
-                              "selector": {
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "path",
-                              "selector"
-                            ],
-                            "type": "object"
-                          },
-                          "maxItems": 10,
-                          "minItems": 1,
-                          "type": "array"
-                        },
-                        "include_headers": {
-                          "additionalProperties": {
-                            "type": "string"
-                          },
-                          "type": "object"
-                        },
-                        "include_images": {
-                          "type": "boolean"
-                        },
-                        "specific_sitemaps": {
-                          "items": {
-                            "type": "string"
-                          },
-                          "maxItems": 10,
-                          "type": "array"
-                        },
-                        "use_browser_rendering": {
-                          "type": "boolean"
-                        }
-                      },
-                      "type": "object"
-                    },
-                    "parse_type": {
-                      "enum": [
-                        "sitemap",
-                        "discover"
-                      ],
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                }
-              },
-              "type": "object"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "status": {
-          "type": "string"
-        },
-        "sync_interval": {
-          "enum": [
-            900,
-            1800,
-            3600,
-            7200,
-            14400,
-            21600,
-            43200,
-            86400
-          ],
-          "type": "integer"
-        },
-        "token_id": {
-          "format": "uuid",
-          "type": "string"
-        },
-        "type": {
-          "oneOf": [
-            {
-              "enum": [
-                "r2",
-                "web-crawler"
-              ],
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        }
-      },
-      "required": [
-        "created_at",
-        "id",
-        "modified_at"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Create an AI Search instance."
-    },
-    method: "POST",
-    path: "/accounts/{account_id}/ai-search/namespaces/{namespace}/instances",
-    extensions: {
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.ai-search"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai-search": {
-            "name": "com_cloudflare_api_account_ai_search"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      },
-      "x-forge-params": {
-        "id": {
-          "description": "Unique ID for the new AI Search instance.",
-          "positional": true
-        },
-        "namespace": {
-          "description": "Namespace to use for this operation."
-        },
-        "source": {
-          "description": "R2 bucket name or HTTP(S) root website URL to index. When type is omitted, the source determines it."
-        },
-        "source_params": {
-          "description": "Optional data source settings as a JSON object."
-        },
-        "type": {
-          "description": "Data source type: r2 or web-crawler."
-        }
-      }
-    },
-    responses: {
-      schemas: {
-        "201": {
+        "result": {
           "properties": {
             "ai_gateway_id": {
               "oneOf": [
@@ -2754,6 +2151,628 @@ export const tools: readonly Tool[] = [
             "created_at",
             "id",
             "modified_at"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Create an AI Search instance."
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/ai-search/namespaces/{namespace}/instances",
+    extensions: {
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.ai-search"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      },
+      "x-forge-params": {
+        "id": {
+          "description": "Unique ID for the new AI Search instance.",
+          "positional": true
+        },
+        "namespace": {
+          "default": "default",
+          "description": "Namespace to use for this operation."
+        },
+        "source": {
+          "description": "R2 bucket name or HTTP(S) root website URL to index. When type is omitted, the source determines it."
+        },
+        "source_params": {
+          "description": "Optional data source settings as a JSON object."
+        },
+        "type": {
+          "description": "Data source type: r2 or web-crawler."
+        }
+      }
+    },
+    responses: {
+      schemas: {
+        "201": {
+          "properties": {
+            "result": {
+              "properties": {
+                "ai_gateway_id": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "ai_search_model": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "cache": {
+                  "type": "boolean"
+                },
+                "cache_threshold": {
+                  "enum": [
+                    "super_strict_match",
+                    "close_enough",
+                    "flexible_friend",
+                    "anything_goes"
+                  ],
+                  "type": "string"
+                },
+                "cache_ttl": {
+                  "enum": [
+                    600,
+                    1800,
+                    3600,
+                    7200,
+                    21600,
+                    43200,
+                    86400,
+                    172800,
+                    259200,
+                    518400
+                  ],
+                  "type": "integer"
+                },
+                "chunk_overlap": {
+                  "type": "integer"
+                },
+                "chunk_size": {
+                  "type": "integer"
+                },
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "created_by": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "custom_metadata": {
+                  "items": {
+                    "properties": {
+                      "data_type": {
+                        "enum": [
+                          "text",
+                          "number",
+                          "boolean",
+                          "datetime"
+                        ],
+                        "type": "string"
+                      },
+                      "field_name": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "data_type",
+                      "field_name"
+                    ],
+                    "type": "object"
+                  },
+                  "maxItems": 5,
+                  "type": "array"
+                },
+                "embedding_model": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "enable": {
+                  "type": "boolean"
+                },
+                "engine_version": {
+                  "type": "number"
+                },
+                "fusion_method": {
+                  "enum": [
+                    "max",
+                    "rrf"
+                  ],
+                  "type": "string"
+                },
+                "hybrid_search_enabled": {
+                  "type": "boolean"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "index_method": {
+                  "properties": {
+                    "keyword": {
+                      "type": "boolean"
+                    },
+                    "vector": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "keyword",
+                    "vector"
+                  ],
+                  "type": "object"
+                },
+                "indexing_options": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "keyword_tokenizer": {
+                          "enum": [
+                            "porter",
+                            "trigram"
+                          ],
+                          "type": "string"
+                        },
+                        "use_ocr": {
+                          "type": "boolean"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "last_activity": {
+                  "oneOf": [
+                    {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "max_num_results": {
+                  "type": "integer"
+                },
+                "metadata": {
+                  "properties": {
+                    "created_from_aisearch_wizard": {
+                      "type": "boolean"
+                    },
+                    "created_from_emdash_plugin": {
+                      "properties": {
+                        "type": {
+                          "enum": [
+                            "native",
+                            "rest"
+                          ],
+                          "type": "string"
+                        },
+                        "version": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "type",
+                        "version"
+                      ],
+                      "type": "object"
+                    },
+                    "worker_domain": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "modified_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "modified_by": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "namespace": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "paused": {
+                  "type": "boolean"
+                },
+                "public_endpoint_id": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "public_endpoint_params": {
+                  "properties": {
+                    "authorized_hosts": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "chat_completions_endpoint": {
+                      "properties": {
+                        "disabled": {
+                          "type": "boolean"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "custom_domains": {
+                      "oneOf": [
+                        {
+                          "items": {
+                            "type": "string"
+                          },
+                          "maxItems": 1,
+                          "type": "array"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "default_domain_enabled": {
+                      "type": "boolean"
+                    },
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "mcp": {
+                      "properties": {
+                        "description": {
+                          "type": "string"
+                        },
+                        "disabled": {
+                          "type": "boolean"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "rate_limit": {
+                      "properties": {
+                        "period_ms": {
+                          "type": "integer"
+                        },
+                        "requests": {
+                          "type": "integer"
+                        },
+                        "technique": {
+                          "enum": [
+                            "fixed",
+                            "sliding"
+                          ],
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "search_endpoint": {
+                      "properties": {
+                        "disabled": {
+                          "type": "boolean"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                },
+                "reranking": {
+                  "type": "boolean"
+                },
+                "reranking_model": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "retrieval_options": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "boost_by": {
+                          "items": {
+                            "properties": {
+                              "direction": {
+                                "enum": [
+                                  "asc",
+                                  "desc",
+                                  "exists",
+                                  "not_exists"
+                                ],
+                                "type": "string"
+                              },
+                              "field": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "field"
+                            ],
+                            "type": "object"
+                          },
+                          "maxItems": 3,
+                          "type": "array"
+                        },
+                        "keyword_match_mode": {
+                          "enum": [
+                            "and",
+                            "or"
+                          ],
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "rewrite_model": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "rewrite_query": {
+                  "type": "boolean"
+                },
+                "score_threshold": {
+                  "type": "number"
+                },
+                "source": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "source_params": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "exclude_items": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "maxItems": 10,
+                          "type": "array"
+                        },
+                        "include_items": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "maxItems": 10,
+                          "type": "array"
+                        },
+                        "prefix": {
+                          "type": "string"
+                        },
+                        "r2_jurisdiction": {
+                          "type": "string"
+                        },
+                        "web_crawler": {
+                          "properties": {
+                            "discover_options": {
+                              "properties": {
+                                "depth": {
+                                  "type": "number"
+                                },
+                                "include_external_links": {
+                                  "type": "boolean"
+                                },
+                                "include_subdomains": {
+                                  "type": "boolean"
+                                },
+                                "limit": {
+                                  "type": "number"
+                                },
+                                "max_age": {
+                                  "type": "number"
+                                },
+                                "source": {
+                                  "enum": [
+                                    "all",
+                                    "sitemaps",
+                                    "links"
+                                  ],
+                                  "type": "string"
+                                }
+                              },
+                              "type": "object"
+                            },
+                            "parse_options": {
+                              "properties": {
+                                "content_selector": {
+                                  "items": {
+                                    "properties": {
+                                      "path": {
+                                        "type": "string"
+                                      },
+                                      "selector": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "path",
+                                      "selector"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  "maxItems": 10,
+                                  "minItems": 1,
+                                  "type": "array"
+                                },
+                                "include_headers": {
+                                  "additionalProperties": {
+                                    "type": "string"
+                                  },
+                                  "type": "object"
+                                },
+                                "include_images": {
+                                  "type": "boolean"
+                                },
+                                "specific_sitemaps": {
+                                  "items": {
+                                    "type": "string"
+                                  },
+                                  "maxItems": 10,
+                                  "type": "array"
+                                },
+                                "use_browser_rendering": {
+                                  "type": "boolean"
+                                }
+                              },
+                              "type": "object"
+                            },
+                            "parse_type": {
+                              "enum": [
+                                "sitemap",
+                                "discover"
+                              ],
+                              "type": "string"
+                            }
+                          },
+                          "type": "object"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "status": {
+                  "type": "string"
+                },
+                "sync_interval": {
+                  "enum": [
+                    900,
+                    1800,
+                    3600,
+                    7200,
+                    14400,
+                    21600,
+                    43200,
+                    86400
+                  ],
+                  "type": "integer"
+                },
+                "token_id": {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                "type": {
+                  "oneOf": [
+                    {
+                      "enum": [
+                        "r2",
+                        "web-crawler"
+                      ],
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "created_at",
+                "id",
+                "modified_at"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -2953,6 +2972,7 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "namespace": {
+          "default": "default",
           "description": "Namespace name.",
           "type": "string"
         }
@@ -2965,599 +2985,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "ai_gateway_id": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "ai_search_model": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "cache": {
-          "type": "boolean"
-        },
-        "cache_threshold": {
-          "enum": [
-            "super_strict_match",
-            "close_enough",
-            "flexible_friend",
-            "anything_goes"
-          ],
-          "type": "string"
-        },
-        "cache_ttl": {
-          "enum": [
-            600,
-            1800,
-            3600,
-            7200,
-            21600,
-            43200,
-            86400,
-            172800,
-            259200,
-            518400
-          ],
-          "type": "integer"
-        },
-        "chunk_overlap": {
-          "type": "integer"
-        },
-        "chunk_size": {
-          "type": "integer"
-        },
-        "created_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "created_by": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "custom_metadata": {
-          "items": {
-            "properties": {
-              "data_type": {
-                "enum": [
-                  "text",
-                  "number",
-                  "boolean",
-                  "datetime"
-                ],
-                "type": "string"
-              },
-              "field_name": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "data_type",
-              "field_name"
-            ],
-            "type": "object"
-          },
-          "maxItems": 5,
-          "type": "array"
-        },
-        "embedding_model": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "enable": {
-          "type": "boolean"
-        },
-        "engine_version": {
-          "type": "number"
-        },
-        "fusion_method": {
-          "enum": [
-            "max",
-            "rrf"
-          ],
-          "type": "string"
-        },
-        "hybrid_search_enabled": {
-          "type": "boolean"
-        },
-        "id": {
-          "type": "string"
-        },
-        "index_method": {
-          "properties": {
-            "keyword": {
-              "type": "boolean"
-            },
-            "vector": {
-              "type": "boolean"
-            }
-          },
-          "required": [
-            "keyword",
-            "vector"
-          ],
-          "type": "object"
-        },
-        "indexing_options": {
-          "oneOf": [
-            {
-              "properties": {
-                "keyword_tokenizer": {
-                  "enum": [
-                    "porter",
-                    "trigram"
-                  ],
-                  "type": "string"
-                },
-                "use_ocr": {
-                  "type": "boolean"
-                }
-              },
-              "type": "object"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "last_activity": {
-          "oneOf": [
-            {
-              "format": "date-time",
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "max_num_results": {
-          "type": "integer"
-        },
-        "metadata": {
-          "properties": {
-            "created_from_aisearch_wizard": {
-              "type": "boolean"
-            },
-            "created_from_emdash_plugin": {
-              "properties": {
-                "type": {
-                  "enum": [
-                    "native",
-                    "rest"
-                  ],
-                  "type": "string"
-                },
-                "version": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "type",
-                "version"
-              ],
-              "type": "object"
-            },
-            "worker_domain": {
-              "type": "string"
-            }
-          },
-          "type": "object"
-        },
-        "modified_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "modified_by": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "namespace": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "paused": {
-          "type": "boolean"
-        },
-        "public_endpoint_id": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "public_endpoint_params": {
-          "properties": {
-            "authorized_hosts": {
-              "items": {
-                "type": "string"
-              },
-              "type": "array"
-            },
-            "chat_completions_endpoint": {
-              "properties": {
-                "disabled": {
-                  "type": "boolean"
-                }
-              },
-              "type": "object"
-            },
-            "custom_domains": {
-              "oneOf": [
-                {
-                  "items": {
-                    "type": "string"
-                  },
-                  "maxItems": 1,
-                  "type": "array"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "default_domain_enabled": {
-              "type": "boolean"
-            },
-            "enabled": {
-              "type": "boolean"
-            },
-            "mcp": {
-              "properties": {
-                "description": {
-                  "type": "string"
-                },
-                "disabled": {
-                  "type": "boolean"
-                }
-              },
-              "type": "object"
-            },
-            "rate_limit": {
-              "properties": {
-                "period_ms": {
-                  "type": "integer"
-                },
-                "requests": {
-                  "type": "integer"
-                },
-                "technique": {
-                  "enum": [
-                    "fixed",
-                    "sliding"
-                  ],
-                  "type": "string"
-                }
-              },
-              "type": "object"
-            },
-            "search_endpoint": {
-              "properties": {
-                "disabled": {
-                  "type": "boolean"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "type": "object"
-        },
-        "reranking": {
-          "type": "boolean"
-        },
-        "reranking_model": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "retrieval_options": {
-          "oneOf": [
-            {
-              "properties": {
-                "boost_by": {
-                  "items": {
-                    "properties": {
-                      "direction": {
-                        "enum": [
-                          "asc",
-                          "desc",
-                          "exists",
-                          "not_exists"
-                        ],
-                        "type": "string"
-                      },
-                      "field": {
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "field"
-                    ],
-                    "type": "object"
-                  },
-                  "maxItems": 3,
-                  "type": "array"
-                },
-                "keyword_match_mode": {
-                  "enum": [
-                    "and",
-                    "or"
-                  ],
-                  "type": "string"
-                }
-              },
-              "type": "object"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "rewrite_model": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "rewrite_query": {
-          "type": "boolean"
-        },
-        "score_threshold": {
-          "type": "number"
-        },
-        "source": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "source_params": {
-          "oneOf": [
-            {
-              "properties": {
-                "exclude_items": {
-                  "items": {
-                    "type": "string"
-                  },
-                  "maxItems": 10,
-                  "type": "array"
-                },
-                "include_items": {
-                  "items": {
-                    "type": "string"
-                  },
-                  "maxItems": 10,
-                  "type": "array"
-                },
-                "prefix": {
-                  "type": "string"
-                },
-                "r2_jurisdiction": {
-                  "type": "string"
-                },
-                "web_crawler": {
-                  "properties": {
-                    "discover_options": {
-                      "properties": {
-                        "depth": {
-                          "type": "number"
-                        },
-                        "include_external_links": {
-                          "type": "boolean"
-                        },
-                        "include_subdomains": {
-                          "type": "boolean"
-                        },
-                        "limit": {
-                          "type": "number"
-                        },
-                        "max_age": {
-                          "type": "number"
-                        },
-                        "source": {
-                          "enum": [
-                            "all",
-                            "sitemaps",
-                            "links"
-                          ],
-                          "type": "string"
-                        }
-                      },
-                      "type": "object"
-                    },
-                    "parse_options": {
-                      "properties": {
-                        "content_selector": {
-                          "items": {
-                            "properties": {
-                              "path": {
-                                "type": "string"
-                              },
-                              "selector": {
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "path",
-                              "selector"
-                            ],
-                            "type": "object"
-                          },
-                          "maxItems": 10,
-                          "minItems": 1,
-                          "type": "array"
-                        },
-                        "include_headers": {
-                          "additionalProperties": {
-                            "type": "string"
-                          },
-                          "type": "object"
-                        },
-                        "include_images": {
-                          "type": "boolean"
-                        },
-                        "specific_sitemaps": {
-                          "items": {
-                            "type": "string"
-                          },
-                          "maxItems": 10,
-                          "type": "array"
-                        },
-                        "use_browser_rendering": {
-                          "type": "boolean"
-                        }
-                      },
-                      "type": "object"
-                    },
-                    "parse_type": {
-                      "enum": [
-                        "sitemap",
-                        "discover"
-                      ],
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                }
-              },
-              "type": "object"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "status": {
-          "type": "string"
-        },
-        "sync_interval": {
-          "enum": [
-            900,
-            1800,
-            3600,
-            7200,
-            14400,
-            21600,
-            43200,
-            86400
-          ],
-          "type": "integer"
-        },
-        "token_id": {
-          "format": "uuid",
-          "type": "string"
-        },
-        "type": {
-          "oneOf": [
-            {
-              "enum": [
-                "r2",
-                "web-crawler"
-              ],
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        }
-      },
-      "required": [
-        "created_at",
-        "id",
-        "modified_at"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": true,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Delete an AI Search instance."
-    },
-    method: "DELETE",
-    path: "/accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}",
-    extensions: {
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.ai-search"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai-search": {
-            "name": "com_cloudflare_api_account_ai_search"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      },
-      "x-forge-params": {
-        "id": {
-          "description": "AI Search instance ID."
-        },
-        "namespace": {
-          "description": "Namespace to use for this operation."
-        }
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "ai_gateway_id": {
               "oneOf": [
@@ -4111,6 +3539,618 @@ export const tools: readonly Tool[] = [
             "created_at",
             "id",
             "modified_at"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Delete an AI Search instance."
+    },
+    method: "DELETE",
+    path: "/accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}",
+    extensions: {
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.ai-search"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      },
+      "x-forge-params": {
+        "id": {
+          "description": "AI Search instance ID."
+        },
+        "namespace": {
+          "default": "default",
+          "description": "Namespace to use for this operation."
+        }
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "ai_gateway_id": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "ai_search_model": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "cache": {
+                  "type": "boolean"
+                },
+                "cache_threshold": {
+                  "enum": [
+                    "super_strict_match",
+                    "close_enough",
+                    "flexible_friend",
+                    "anything_goes"
+                  ],
+                  "type": "string"
+                },
+                "cache_ttl": {
+                  "enum": [
+                    600,
+                    1800,
+                    3600,
+                    7200,
+                    21600,
+                    43200,
+                    86400,
+                    172800,
+                    259200,
+                    518400
+                  ],
+                  "type": "integer"
+                },
+                "chunk_overlap": {
+                  "type": "integer"
+                },
+                "chunk_size": {
+                  "type": "integer"
+                },
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "created_by": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "custom_metadata": {
+                  "items": {
+                    "properties": {
+                      "data_type": {
+                        "enum": [
+                          "text",
+                          "number",
+                          "boolean",
+                          "datetime"
+                        ],
+                        "type": "string"
+                      },
+                      "field_name": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "data_type",
+                      "field_name"
+                    ],
+                    "type": "object"
+                  },
+                  "maxItems": 5,
+                  "type": "array"
+                },
+                "embedding_model": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "enable": {
+                  "type": "boolean"
+                },
+                "engine_version": {
+                  "type": "number"
+                },
+                "fusion_method": {
+                  "enum": [
+                    "max",
+                    "rrf"
+                  ],
+                  "type": "string"
+                },
+                "hybrid_search_enabled": {
+                  "type": "boolean"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "index_method": {
+                  "properties": {
+                    "keyword": {
+                      "type": "boolean"
+                    },
+                    "vector": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "keyword",
+                    "vector"
+                  ],
+                  "type": "object"
+                },
+                "indexing_options": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "keyword_tokenizer": {
+                          "enum": [
+                            "porter",
+                            "trigram"
+                          ],
+                          "type": "string"
+                        },
+                        "use_ocr": {
+                          "type": "boolean"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "last_activity": {
+                  "oneOf": [
+                    {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "max_num_results": {
+                  "type": "integer"
+                },
+                "metadata": {
+                  "properties": {
+                    "created_from_aisearch_wizard": {
+                      "type": "boolean"
+                    },
+                    "created_from_emdash_plugin": {
+                      "properties": {
+                        "type": {
+                          "enum": [
+                            "native",
+                            "rest"
+                          ],
+                          "type": "string"
+                        },
+                        "version": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "type",
+                        "version"
+                      ],
+                      "type": "object"
+                    },
+                    "worker_domain": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "modified_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "modified_by": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "namespace": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "paused": {
+                  "type": "boolean"
+                },
+                "public_endpoint_id": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "public_endpoint_params": {
+                  "properties": {
+                    "authorized_hosts": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "chat_completions_endpoint": {
+                      "properties": {
+                        "disabled": {
+                          "type": "boolean"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "custom_domains": {
+                      "oneOf": [
+                        {
+                          "items": {
+                            "type": "string"
+                          },
+                          "maxItems": 1,
+                          "type": "array"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "default_domain_enabled": {
+                      "type": "boolean"
+                    },
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "mcp": {
+                      "properties": {
+                        "description": {
+                          "type": "string"
+                        },
+                        "disabled": {
+                          "type": "boolean"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "rate_limit": {
+                      "properties": {
+                        "period_ms": {
+                          "type": "integer"
+                        },
+                        "requests": {
+                          "type": "integer"
+                        },
+                        "technique": {
+                          "enum": [
+                            "fixed",
+                            "sliding"
+                          ],
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "search_endpoint": {
+                      "properties": {
+                        "disabled": {
+                          "type": "boolean"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                },
+                "reranking": {
+                  "type": "boolean"
+                },
+                "reranking_model": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "retrieval_options": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "boost_by": {
+                          "items": {
+                            "properties": {
+                              "direction": {
+                                "enum": [
+                                  "asc",
+                                  "desc",
+                                  "exists",
+                                  "not_exists"
+                                ],
+                                "type": "string"
+                              },
+                              "field": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "field"
+                            ],
+                            "type": "object"
+                          },
+                          "maxItems": 3,
+                          "type": "array"
+                        },
+                        "keyword_match_mode": {
+                          "enum": [
+                            "and",
+                            "or"
+                          ],
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "rewrite_model": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "rewrite_query": {
+                  "type": "boolean"
+                },
+                "score_threshold": {
+                  "type": "number"
+                },
+                "source": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "source_params": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "exclude_items": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "maxItems": 10,
+                          "type": "array"
+                        },
+                        "include_items": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "maxItems": 10,
+                          "type": "array"
+                        },
+                        "prefix": {
+                          "type": "string"
+                        },
+                        "r2_jurisdiction": {
+                          "type": "string"
+                        },
+                        "web_crawler": {
+                          "properties": {
+                            "discover_options": {
+                              "properties": {
+                                "depth": {
+                                  "type": "number"
+                                },
+                                "include_external_links": {
+                                  "type": "boolean"
+                                },
+                                "include_subdomains": {
+                                  "type": "boolean"
+                                },
+                                "limit": {
+                                  "type": "number"
+                                },
+                                "max_age": {
+                                  "type": "number"
+                                },
+                                "source": {
+                                  "enum": [
+                                    "all",
+                                    "sitemaps",
+                                    "links"
+                                  ],
+                                  "type": "string"
+                                }
+                              },
+                              "type": "object"
+                            },
+                            "parse_options": {
+                              "properties": {
+                                "content_selector": {
+                                  "items": {
+                                    "properties": {
+                                      "path": {
+                                        "type": "string"
+                                      },
+                                      "selector": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "path",
+                                      "selector"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  "maxItems": 10,
+                                  "minItems": 1,
+                                  "type": "array"
+                                },
+                                "include_headers": {
+                                  "additionalProperties": {
+                                    "type": "string"
+                                  },
+                                  "type": "object"
+                                },
+                                "include_images": {
+                                  "type": "boolean"
+                                },
+                                "specific_sitemaps": {
+                                  "items": {
+                                    "type": "string"
+                                  },
+                                  "maxItems": 10,
+                                  "type": "array"
+                                },
+                                "use_browser_rendering": {
+                                  "type": "boolean"
+                                }
+                              },
+                              "type": "object"
+                            },
+                            "parse_type": {
+                              "enum": [
+                                "sitemap",
+                                "discover"
+                              ],
+                              "type": "string"
+                            }
+                          },
+                          "type": "object"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "status": {
+                  "type": "string"
+                },
+                "sync_interval": {
+                  "enum": [
+                    900,
+                    1800,
+                    3600,
+                    7200,
+                    14400,
+                    21600,
+                    43200,
+                    86400
+                  ],
+                  "type": "integer"
+                },
+                "token_id": {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                "type": {
+                  "oneOf": [
+                    {
+                      "enum": [
+                        "r2",
+                        "web-crawler"
+                      ],
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "created_at",
+                "id",
+                "modified_at"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -4200,6 +4240,7 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "namespace": {
+          "default": "default",
           "description": "Namespace name.",
           "type": "string"
         }
@@ -4212,599 +4253,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "ai_gateway_id": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "ai_search_model": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "cache": {
-          "type": "boolean"
-        },
-        "cache_threshold": {
-          "enum": [
-            "super_strict_match",
-            "close_enough",
-            "flexible_friend",
-            "anything_goes"
-          ],
-          "type": "string"
-        },
-        "cache_ttl": {
-          "enum": [
-            600,
-            1800,
-            3600,
-            7200,
-            21600,
-            43200,
-            86400,
-            172800,
-            259200,
-            518400
-          ],
-          "type": "integer"
-        },
-        "chunk_overlap": {
-          "type": "integer"
-        },
-        "chunk_size": {
-          "type": "integer"
-        },
-        "created_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "created_by": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "custom_metadata": {
-          "items": {
-            "properties": {
-              "data_type": {
-                "enum": [
-                  "text",
-                  "number",
-                  "boolean",
-                  "datetime"
-                ],
-                "type": "string"
-              },
-              "field_name": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "data_type",
-              "field_name"
-            ],
-            "type": "object"
-          },
-          "maxItems": 5,
-          "type": "array"
-        },
-        "embedding_model": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "enable": {
-          "type": "boolean"
-        },
-        "engine_version": {
-          "type": "number"
-        },
-        "fusion_method": {
-          "enum": [
-            "max",
-            "rrf"
-          ],
-          "type": "string"
-        },
-        "hybrid_search_enabled": {
-          "type": "boolean"
-        },
-        "id": {
-          "type": "string"
-        },
-        "index_method": {
-          "properties": {
-            "keyword": {
-              "type": "boolean"
-            },
-            "vector": {
-              "type": "boolean"
-            }
-          },
-          "required": [
-            "keyword",
-            "vector"
-          ],
-          "type": "object"
-        },
-        "indexing_options": {
-          "oneOf": [
-            {
-              "properties": {
-                "keyword_tokenizer": {
-                  "enum": [
-                    "porter",
-                    "trigram"
-                  ],
-                  "type": "string"
-                },
-                "use_ocr": {
-                  "type": "boolean"
-                }
-              },
-              "type": "object"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "last_activity": {
-          "oneOf": [
-            {
-              "format": "date-time",
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "max_num_results": {
-          "type": "integer"
-        },
-        "metadata": {
-          "properties": {
-            "created_from_aisearch_wizard": {
-              "type": "boolean"
-            },
-            "created_from_emdash_plugin": {
-              "properties": {
-                "type": {
-                  "enum": [
-                    "native",
-                    "rest"
-                  ],
-                  "type": "string"
-                },
-                "version": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "type",
-                "version"
-              ],
-              "type": "object"
-            },
-            "worker_domain": {
-              "type": "string"
-            }
-          },
-          "type": "object"
-        },
-        "modified_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "modified_by": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "namespace": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "paused": {
-          "type": "boolean"
-        },
-        "public_endpoint_id": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "public_endpoint_params": {
-          "properties": {
-            "authorized_hosts": {
-              "items": {
-                "type": "string"
-              },
-              "type": "array"
-            },
-            "chat_completions_endpoint": {
-              "properties": {
-                "disabled": {
-                  "type": "boolean"
-                }
-              },
-              "type": "object"
-            },
-            "custom_domains": {
-              "oneOf": [
-                {
-                  "items": {
-                    "type": "string"
-                  },
-                  "maxItems": 1,
-                  "type": "array"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "default_domain_enabled": {
-              "type": "boolean"
-            },
-            "enabled": {
-              "type": "boolean"
-            },
-            "mcp": {
-              "properties": {
-                "description": {
-                  "type": "string"
-                },
-                "disabled": {
-                  "type": "boolean"
-                }
-              },
-              "type": "object"
-            },
-            "rate_limit": {
-              "properties": {
-                "period_ms": {
-                  "type": "integer"
-                },
-                "requests": {
-                  "type": "integer"
-                },
-                "technique": {
-                  "enum": [
-                    "fixed",
-                    "sliding"
-                  ],
-                  "type": "string"
-                }
-              },
-              "type": "object"
-            },
-            "search_endpoint": {
-              "properties": {
-                "disabled": {
-                  "type": "boolean"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "type": "object"
-        },
-        "reranking": {
-          "type": "boolean"
-        },
-        "reranking_model": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "retrieval_options": {
-          "oneOf": [
-            {
-              "properties": {
-                "boost_by": {
-                  "items": {
-                    "properties": {
-                      "direction": {
-                        "enum": [
-                          "asc",
-                          "desc",
-                          "exists",
-                          "not_exists"
-                        ],
-                        "type": "string"
-                      },
-                      "field": {
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "field"
-                    ],
-                    "type": "object"
-                  },
-                  "maxItems": 3,
-                  "type": "array"
-                },
-                "keyword_match_mode": {
-                  "enum": [
-                    "and",
-                    "or"
-                  ],
-                  "type": "string"
-                }
-              },
-              "type": "object"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "rewrite_model": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "rewrite_query": {
-          "type": "boolean"
-        },
-        "score_threshold": {
-          "type": "number"
-        },
-        "source": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "source_params": {
-          "oneOf": [
-            {
-              "properties": {
-                "exclude_items": {
-                  "items": {
-                    "type": "string"
-                  },
-                  "maxItems": 10,
-                  "type": "array"
-                },
-                "include_items": {
-                  "items": {
-                    "type": "string"
-                  },
-                  "maxItems": 10,
-                  "type": "array"
-                },
-                "prefix": {
-                  "type": "string"
-                },
-                "r2_jurisdiction": {
-                  "type": "string"
-                },
-                "web_crawler": {
-                  "properties": {
-                    "discover_options": {
-                      "properties": {
-                        "depth": {
-                          "type": "number"
-                        },
-                        "include_external_links": {
-                          "type": "boolean"
-                        },
-                        "include_subdomains": {
-                          "type": "boolean"
-                        },
-                        "limit": {
-                          "type": "number"
-                        },
-                        "max_age": {
-                          "type": "number"
-                        },
-                        "source": {
-                          "enum": [
-                            "all",
-                            "sitemaps",
-                            "links"
-                          ],
-                          "type": "string"
-                        }
-                      },
-                      "type": "object"
-                    },
-                    "parse_options": {
-                      "properties": {
-                        "content_selector": {
-                          "items": {
-                            "properties": {
-                              "path": {
-                                "type": "string"
-                              },
-                              "selector": {
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "path",
-                              "selector"
-                            ],
-                            "type": "object"
-                          },
-                          "maxItems": 10,
-                          "minItems": 1,
-                          "type": "array"
-                        },
-                        "include_headers": {
-                          "additionalProperties": {
-                            "type": "string"
-                          },
-                          "type": "object"
-                        },
-                        "include_images": {
-                          "type": "boolean"
-                        },
-                        "specific_sitemaps": {
-                          "items": {
-                            "type": "string"
-                          },
-                          "maxItems": 10,
-                          "type": "array"
-                        },
-                        "use_browser_rendering": {
-                          "type": "boolean"
-                        }
-                      },
-                      "type": "object"
-                    },
-                    "parse_type": {
-                      "enum": [
-                        "sitemap",
-                        "discover"
-                      ],
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                }
-              },
-              "type": "object"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "status": {
-          "type": "string"
-        },
-        "sync_interval": {
-          "enum": [
-            900,
-            1800,
-            3600,
-            7200,
-            14400,
-            21600,
-            43200,
-            86400
-          ],
-          "type": "integer"
-        },
-        "token_id": {
-          "format": "uuid",
-          "type": "string"
-        },
-        "type": {
-          "oneOf": [
-            {
-              "enum": [
-                "r2",
-                "web-crawler"
-              ],
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        }
-      },
-      "required": [
-        "created_at",
-        "id",
-        "modified_at"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get an AI Search instance."
-    },
-    method: "GET",
-    path: "/accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}",
-    extensions: {
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.ai-search"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai-search": {
-            "name": "com_cloudflare_api_account_ai_search"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      },
-      "x-forge-params": {
-        "id": {
-          "description": "AI Search instance ID."
-        },
-        "namespace": {
-          "description": "Namespace to use for this operation."
-        }
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "ai_gateway_id": {
               "oneOf": [
@@ -5361,6 +4810,618 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get an AI Search instance."
+    },
+    method: "GET",
+    path: "/accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}",
+    extensions: {
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.ai-search"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      },
+      "x-forge-params": {
+        "id": {
+          "description": "AI Search instance ID."
+        },
+        "namespace": {
+          "default": "default",
+          "description": "Namespace to use for this operation."
+        }
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "ai_gateway_id": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "ai_search_model": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "cache": {
+                  "type": "boolean"
+                },
+                "cache_threshold": {
+                  "enum": [
+                    "super_strict_match",
+                    "close_enough",
+                    "flexible_friend",
+                    "anything_goes"
+                  ],
+                  "type": "string"
+                },
+                "cache_ttl": {
+                  "enum": [
+                    600,
+                    1800,
+                    3600,
+                    7200,
+                    21600,
+                    43200,
+                    86400,
+                    172800,
+                    259200,
+                    518400
+                  ],
+                  "type": "integer"
+                },
+                "chunk_overlap": {
+                  "type": "integer"
+                },
+                "chunk_size": {
+                  "type": "integer"
+                },
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "created_by": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "custom_metadata": {
+                  "items": {
+                    "properties": {
+                      "data_type": {
+                        "enum": [
+                          "text",
+                          "number",
+                          "boolean",
+                          "datetime"
+                        ],
+                        "type": "string"
+                      },
+                      "field_name": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "data_type",
+                      "field_name"
+                    ],
+                    "type": "object"
+                  },
+                  "maxItems": 5,
+                  "type": "array"
+                },
+                "embedding_model": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "enable": {
+                  "type": "boolean"
+                },
+                "engine_version": {
+                  "type": "number"
+                },
+                "fusion_method": {
+                  "enum": [
+                    "max",
+                    "rrf"
+                  ],
+                  "type": "string"
+                },
+                "hybrid_search_enabled": {
+                  "type": "boolean"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "index_method": {
+                  "properties": {
+                    "keyword": {
+                      "type": "boolean"
+                    },
+                    "vector": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "keyword",
+                    "vector"
+                  ],
+                  "type": "object"
+                },
+                "indexing_options": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "keyword_tokenizer": {
+                          "enum": [
+                            "porter",
+                            "trigram"
+                          ],
+                          "type": "string"
+                        },
+                        "use_ocr": {
+                          "type": "boolean"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "last_activity": {
+                  "oneOf": [
+                    {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "max_num_results": {
+                  "type": "integer"
+                },
+                "metadata": {
+                  "properties": {
+                    "created_from_aisearch_wizard": {
+                      "type": "boolean"
+                    },
+                    "created_from_emdash_plugin": {
+                      "properties": {
+                        "type": {
+                          "enum": [
+                            "native",
+                            "rest"
+                          ],
+                          "type": "string"
+                        },
+                        "version": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "type",
+                        "version"
+                      ],
+                      "type": "object"
+                    },
+                    "worker_domain": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "modified_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "modified_by": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "namespace": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "paused": {
+                  "type": "boolean"
+                },
+                "public_endpoint_id": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "public_endpoint_params": {
+                  "properties": {
+                    "authorized_hosts": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "chat_completions_endpoint": {
+                      "properties": {
+                        "disabled": {
+                          "type": "boolean"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "custom_domains": {
+                      "oneOf": [
+                        {
+                          "items": {
+                            "type": "string"
+                          },
+                          "maxItems": 1,
+                          "type": "array"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "default_domain_enabled": {
+                      "type": "boolean"
+                    },
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "mcp": {
+                      "properties": {
+                        "description": {
+                          "type": "string"
+                        },
+                        "disabled": {
+                          "type": "boolean"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "rate_limit": {
+                      "properties": {
+                        "period_ms": {
+                          "type": "integer"
+                        },
+                        "requests": {
+                          "type": "integer"
+                        },
+                        "technique": {
+                          "enum": [
+                            "fixed",
+                            "sliding"
+                          ],
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "search_endpoint": {
+                      "properties": {
+                        "disabled": {
+                          "type": "boolean"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                },
+                "reranking": {
+                  "type": "boolean"
+                },
+                "reranking_model": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "retrieval_options": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "boost_by": {
+                          "items": {
+                            "properties": {
+                              "direction": {
+                                "enum": [
+                                  "asc",
+                                  "desc",
+                                  "exists",
+                                  "not_exists"
+                                ],
+                                "type": "string"
+                              },
+                              "field": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "field"
+                            ],
+                            "type": "object"
+                          },
+                          "maxItems": 3,
+                          "type": "array"
+                        },
+                        "keyword_match_mode": {
+                          "enum": [
+                            "and",
+                            "or"
+                          ],
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "rewrite_model": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "rewrite_query": {
+                  "type": "boolean"
+                },
+                "score_threshold": {
+                  "type": "number"
+                },
+                "source": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "source_params": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "exclude_items": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "maxItems": 10,
+                          "type": "array"
+                        },
+                        "include_items": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "maxItems": 10,
+                          "type": "array"
+                        },
+                        "prefix": {
+                          "type": "string"
+                        },
+                        "r2_jurisdiction": {
+                          "type": "string"
+                        },
+                        "web_crawler": {
+                          "properties": {
+                            "discover_options": {
+                              "properties": {
+                                "depth": {
+                                  "type": "number"
+                                },
+                                "include_external_links": {
+                                  "type": "boolean"
+                                },
+                                "include_subdomains": {
+                                  "type": "boolean"
+                                },
+                                "limit": {
+                                  "type": "number"
+                                },
+                                "max_age": {
+                                  "type": "number"
+                                },
+                                "source": {
+                                  "enum": [
+                                    "all",
+                                    "sitemaps",
+                                    "links"
+                                  ],
+                                  "type": "string"
+                                }
+                              },
+                              "type": "object"
+                            },
+                            "parse_options": {
+                              "properties": {
+                                "content_selector": {
+                                  "items": {
+                                    "properties": {
+                                      "path": {
+                                        "type": "string"
+                                      },
+                                      "selector": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "path",
+                                      "selector"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  "maxItems": 10,
+                                  "minItems": 1,
+                                  "type": "array"
+                                },
+                                "include_headers": {
+                                  "additionalProperties": {
+                                    "type": "string"
+                                  },
+                                  "type": "object"
+                                },
+                                "include_images": {
+                                  "type": "boolean"
+                                },
+                                "specific_sitemaps": {
+                                  "items": {
+                                    "type": "string"
+                                  },
+                                  "maxItems": 10,
+                                  "type": "array"
+                                },
+                                "use_browser_rendering": {
+                                  "type": "boolean"
+                                }
+                              },
+                              "type": "object"
+                            },
+                            "parse_type": {
+                              "enum": [
+                                "sitemap",
+                                "discover"
+                              ],
+                              "type": "string"
+                            }
+                          },
+                          "type": "object"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "status": {
+                  "type": "string"
+                },
+                "sync_interval": {
+                  "enum": [
+                    900,
+                    1800,
+                    3600,
+                    7200,
+                    14400,
+                    21600,
+                    43200,
+                    86400
+                  ],
+                  "type": "integer"
+                },
+                "token_id": {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                "type": {
+                  "oneOf": [
+                    {
+                      "enum": [
+                        "r2",
+                        "web-crawler"
+                      ],
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "created_at",
+                "id",
+                "modified_at"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
+          ],
+          "type": "object"
+        },
         "404": {
           "properties": {
             "errors": {
@@ -5415,6 +5476,7 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "namespace": {
+          "default": "default",
           "description": "Namespace name.",
           "type": "string"
         },
@@ -6187,10 +6249,18 @@ export const tools: readonly Tool[] = [
             "total_count"
           ],
           "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
         }
       },
       "required": [
-        "result"
+        "result",
+        "result_info",
+        "success"
       ],
       "type": "object",
     },
@@ -6207,12 +6277,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.ai-search"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai-search": {
-            "name": "com_cloudflare_api_account_ai_search"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -6222,6 +6287,7 @@ export const tools: readonly Tool[] = [
       },
       "x-forge-params": {
         "namespace": {
+          "default": "default",
           "description": "Namespace to use for this operation."
         }
       }
@@ -6960,10 +7026,18 @@ export const tools: readonly Tool[] = [
                 "total_count"
               ],
               "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
             }
           },
           "required": [
-            "result"
+            "result",
+            "result_info",
+            "success"
           ],
           "type": "object"
         },
@@ -7059,6 +7133,21 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
+      "properties": {
+        "result": {
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
       "type": "object",
     },
     annotations: {
@@ -7074,12 +7163,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.ai-search"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai-search": {
-            "name": "com_cloudflare_api_account_ai_search"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -7092,6 +7176,7 @@ export const tools: readonly Tool[] = [
           "description": "AI Search instance ID."
         },
         "namespace": {
+          "default": "default",
           "description": "Namespace currently containing the instance."
         },
         "new_namespace": {
@@ -7102,6 +7187,21 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
+          "properties": {
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
+          ],
           "type": "object"
         },
         "400": {
@@ -7804,12 +7904,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.ai-search"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai-search": {
-            "name": "com_cloudflare_api_account_ai_search"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -7819,6 +7914,7 @@ export const tools: readonly Tool[] = [
       },
       "x-forge-params": {
         "name": {
+          "default": "default",
           "description": "Namespace to use for this operation."
         }
       }
@@ -8602,168 +8698,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "chunks": {
-          "items": {
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "instance_id": {
-                "type": "string"
-              },
-              "item": {
-                "properties": {
-                  "key": {
-                    "type": "string"
-                  },
-                  "metadata": {
-                    "type": "object"
-                  },
-                  "timestamp": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "key"
-                ],
-                "type": "object"
-              },
-              "media_end_ms": {
-                "type": "integer"
-              },
-              "media_start_ms": {
-                "type": "integer"
-              },
-              "score": {
-                "type": "number"
-              },
-              "scoring_details": {
-                "properties": {
-                  "fusion_method": {
-                    "enum": [
-                      "rrf",
-                      "max"
-                    ],
-                    "type": "string"
-                  },
-                  "keyword_rank": {
-                    "type": "number"
-                  },
-                  "keyword_score": {
-                    "type": "number"
-                  },
-                  "reranking_score": {
-                    "type": "number"
-                  },
-                  "vector_rank": {
-                    "type": "number"
-                  },
-                  "vector_score": {
-                    "type": "number"
-                  }
-                },
-                "type": "object"
-              },
-              "source_media_type": {
-                "enum": [
-                  "audio",
-                  "video"
-                ],
-                "type": "string"
-              },
-              "text": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id",
-              "instance_id",
-              "score",
-              "text",
-              "type"
-            ],
-            "type": "object"
-          },
-          "type": "array"
-        },
-        "errors": {
-          "items": {
-            "properties": {
-              "instance_id": {
-                "type": "string"
-              },
-              "message": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "instance_id",
-              "message"
-            ],
-            "type": "object"
-          },
-          "type": "array"
-        },
-        "query_kind": {
-          "enum": [
-            "text",
-            "image",
-            "multimodal"
-          ],
-          "type": "string"
-        },
-        "search_query": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "chunks",
-        "query_kind"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Multi-Instance Search"
-    },
-    method: "POST",
-    path: "/accounts/{account_id}/ai-search/namespaces/{name}/search",
-    extensions: {
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.ai-search"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai-search": {
-            "name": "com_cloudflare_api_account_ai_search"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      },
-      "x-forge-params": {
-        "name": {
-          "description": "Namespace to use for this operation."
-        },
-        "query": {
-          "description": "Text to search for.",
-          "positional": true
-        }
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "chunks": {
               "items": {
@@ -8885,6 +8820,187 @@ export const tools: readonly Tool[] = [
           "required": [
             "chunks",
             "query_kind"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Multi-Instance Search"
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/ai-search/namespaces/{name}/search",
+    extensions: {
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.ai-search"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      },
+      "x-forge-params": {
+        "name": {
+          "default": "default",
+          "description": "Namespace to use for this operation."
+        },
+        "query": {
+          "description": "Text to search for.",
+          "positional": true
+        }
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "chunks": {
+                  "items": {
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "instance_id": {
+                        "type": "string"
+                      },
+                      "item": {
+                        "properties": {
+                          "key": {
+                            "type": "string"
+                          },
+                          "metadata": {
+                            "type": "object"
+                          },
+                          "timestamp": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "key"
+                        ],
+                        "type": "object"
+                      },
+                      "media_end_ms": {
+                        "type": "integer"
+                      },
+                      "media_start_ms": {
+                        "type": "integer"
+                      },
+                      "score": {
+                        "type": "number"
+                      },
+                      "scoring_details": {
+                        "properties": {
+                          "fusion_method": {
+                            "enum": [
+                              "rrf",
+                              "max"
+                            ],
+                            "type": "string"
+                          },
+                          "keyword_rank": {
+                            "type": "number"
+                          },
+                          "keyword_score": {
+                            "type": "number"
+                          },
+                          "reranking_score": {
+                            "type": "number"
+                          },
+                          "vector_rank": {
+                            "type": "number"
+                          },
+                          "vector_score": {
+                            "type": "number"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "source_media_type": {
+                        "enum": [
+                          "audio",
+                          "video"
+                        ],
+                        "type": "string"
+                      },
+                      "text": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "instance_id",
+                      "score",
+                      "text",
+                      "type"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "errors": {
+                  "items": {
+                    "properties": {
+                      "instance_id": {
+                        "type": "string"
+                      },
+                      "message": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "instance_id",
+                      "message"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "query_kind": {
+                  "enum": [
+                    "text",
+                    "image",
+                    "multimodal"
+                  ],
+                  "type": "string"
+                },
+                "search_query": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "chunks",
+                "query_kind"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -9092,6 +9208,7 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "namespace": {
+          "default": "default",
           "description": "Namespace name.",
           "type": "string"
         }
@@ -9126,12 +9243,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.ai-search"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai-search": {
-            "name": "com_cloudflare_api_account_ai_search"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -9144,6 +9256,7 @@ export const tools: readonly Tool[] = [
           "description": "AI Search instance ID."
         },
         "namespace": {
+          "default": "default",
           "description": "Namespace to use for this operation."
         }
       }
@@ -9518,6 +9631,7 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "namespace": {
+          "default": "default",
           "description": "Namespace name.",
           "type": "string"
         }
@@ -9530,149 +9644,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "chunks": {
-          "items": {
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "item": {
-                "properties": {
-                  "key": {
-                    "type": "string"
-                  },
-                  "metadata": {
-                    "type": "object"
-                  },
-                  "timestamp": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "key"
-                ],
-                "type": "object"
-              },
-              "media_end_ms": {
-                "type": "integer"
-              },
-              "media_start_ms": {
-                "type": "integer"
-              },
-              "score": {
-                "type": "number"
-              },
-              "scoring_details": {
-                "properties": {
-                  "fusion_method": {
-                    "enum": [
-                      "rrf",
-                      "max"
-                    ],
-                    "type": "string"
-                  },
-                  "keyword_rank": {
-                    "type": "number"
-                  },
-                  "keyword_score": {
-                    "type": "number"
-                  },
-                  "reranking_score": {
-                    "type": "number"
-                  },
-                  "vector_rank": {
-                    "type": "number"
-                  },
-                  "vector_score": {
-                    "type": "number"
-                  }
-                },
-                "type": "object"
-              },
-              "source_media_type": {
-                "enum": [
-                  "audio",
-                  "video"
-                ],
-                "type": "string"
-              },
-              "text": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id",
-              "score",
-              "text",
-              "type"
-            ],
-            "type": "object"
-          },
-          "type": "array"
-        },
-        "query_kind": {
-          "enum": [
-            "text",
-            "image",
-            "multimodal"
-          ],
-          "type": "string"
-        },
-        "search_query": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "chunks",
-        "query_kind"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Search"
-    },
-    method: "POST",
-    path: "/accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}/search",
-    extensions: {
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.ai-search"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai-search": {
-            "name": "com_cloudflare_api_account_ai_search"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      },
-      "x-forge-params": {
-        "id": {
-          "description": "AI Search instance ID."
-        },
-        "namespace": {
-          "description": "Namespace to use for this operation."
-        },
-        "query": {
-          "description": "Text to search for.",
-          "positional": true
-        }
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "chunks": {
               "items": {
@@ -9772,6 +9744,168 @@ export const tools: readonly Tool[] = [
           "required": [
             "chunks",
             "query_kind"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Search"
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}/search",
+    extensions: {
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.ai-search"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      },
+      "x-forge-params": {
+        "id": {
+          "description": "AI Search instance ID."
+        },
+        "namespace": {
+          "default": "default",
+          "description": "Namespace to use for this operation."
+        },
+        "query": {
+          "description": "Text to search for.",
+          "positional": true
+        }
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "chunks": {
+                  "items": {
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "item": {
+                        "properties": {
+                          "key": {
+                            "type": "string"
+                          },
+                          "metadata": {
+                            "type": "object"
+                          },
+                          "timestamp": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "key"
+                        ],
+                        "type": "object"
+                      },
+                      "media_end_ms": {
+                        "type": "integer"
+                      },
+                      "media_start_ms": {
+                        "type": "integer"
+                      },
+                      "score": {
+                        "type": "number"
+                      },
+                      "scoring_details": {
+                        "properties": {
+                          "fusion_method": {
+                            "enum": [
+                              "rrf",
+                              "max"
+                            ],
+                            "type": "string"
+                          },
+                          "keyword_rank": {
+                            "type": "number"
+                          },
+                          "keyword_score": {
+                            "type": "number"
+                          },
+                          "reranking_score": {
+                            "type": "number"
+                          },
+                          "vector_rank": {
+                            "type": "number"
+                          },
+                          "vector_score": {
+                            "type": "number"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "source_media_type": {
+                        "enum": [
+                          "audio",
+                          "video"
+                        ],
+                        "type": "string"
+                      },
+                      "text": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "score",
+                      "text",
+                      "type"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "query_kind": {
+                  "enum": [
+                    "text",
+                    "image",
+                    "multimodal"
+                  ],
+                  "type": "string"
+                },
+                "search_query": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "chunks",
+                "query_kind"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -9979,6 +10113,7 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "namespace": {
+          "default": "default",
           "description": "Namespace name.",
           "type": "string"
         }
@@ -9991,117 +10126,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "completed": {
-          "type": "integer"
-        },
-        "degraded": {
-          "type": "boolean"
-        },
-        "engine": {
-          "properties": {
-            "r2": {
-              "properties": {
-                "metadataSizeBytes": {
-                  "type": "integer"
-                },
-                "objectCount": {
-                  "type": "integer"
-                },
-                "payloadSizeBytes": {
-                  "type": "integer"
-                }
-              },
-              "required": [
-                "metadataSizeBytes",
-                "objectCount",
-                "payloadSizeBytes"
-              ],
-              "type": "object"
-            },
-            "vectorize": {
-              "properties": {
-                "dimensions": {
-                  "type": "integer"
-                },
-                "vectorsCount": {
-                  "type": "integer"
-                }
-              },
-              "required": [
-                "dimensions",
-                "vectorsCount"
-              ],
-              "type": "object"
-            }
-          },
-          "type": "object"
-        },
-        "error": {
-          "type": "integer"
-        },
-        "file_embed_errors": {
-          "type": "object"
-        },
-        "index_source_errors": {
-          "type": "object"
-        },
-        "last_activity": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "outdated": {
-          "type": "integer"
-        },
-        "queued": {
-          "type": "integer"
-        },
-        "running": {
-          "type": "integer"
-        },
-        "skipped": {
-          "type": "integer"
-        }
-      },
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get instance statistics."
-    },
-    method: "GET",
-    path: "/accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}/stats",
-    extensions: {
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.ai-search"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai-search": {
-            "name": "com_cloudflare_api_account_ai_search"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      },
-      "x-forge-params": {
-        "id": {
-          "description": "AI Search instance ID."
-        },
-        "namespace": {
-          "description": "Namespace to use for this operation."
-        }
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "completed": {
               "type": "integer"
@@ -10174,6 +10199,136 @@ export const tools: readonly Tool[] = [
               "type": "integer"
             }
           },
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get instance statistics."
+    },
+    method: "GET",
+    path: "/accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}/stats",
+    extensions: {
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.ai-search"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      },
+      "x-forge-params": {
+        "id": {
+          "description": "AI Search instance ID."
+        },
+        "namespace": {
+          "default": "default",
+          "description": "Namespace to use for this operation."
+        }
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "completed": {
+                  "type": "integer"
+                },
+                "degraded": {
+                  "type": "boolean"
+                },
+                "engine": {
+                  "properties": {
+                    "r2": {
+                      "properties": {
+                        "metadataSizeBytes": {
+                          "type": "integer"
+                        },
+                        "objectCount": {
+                          "type": "integer"
+                        },
+                        "payloadSizeBytes": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "metadataSizeBytes",
+                        "objectCount",
+                        "payloadSizeBytes"
+                      ],
+                      "type": "object"
+                    },
+                    "vectorize": {
+                      "properties": {
+                        "dimensions": {
+                          "type": "integer"
+                        },
+                        "vectorsCount": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "dimensions",
+                        "vectorsCount"
+                      ],
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                },
+                "error": {
+                  "type": "integer"
+                },
+                "file_embed_errors": {
+                  "type": "object"
+                },
+                "index_source_errors": {
+                  "type": "object"
+                },
+                "last_activity": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "outdated": {
+                  "type": "integer"
+                },
+                "queued": {
+                  "type": "integer"
+                },
+                "running": {
+                  "type": "integer"
+                },
+                "skipped": {
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
+          ],
           "type": "object"
         },
         "404": {
@@ -10615,6 +10770,7 @@ export const tools: readonly Tool[] = [
                       "type": "string"
                     },
                     "r2_jurisdiction": {
+                      "default": "default",
                       "type": "string"
                     },
                     "web_crawler": {
@@ -10803,6 +10959,7 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "namespace": {
+          "default": "default",
           "description": "Namespace name.",
           "type": "string"
         }
@@ -10815,605 +10972,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "ai_gateway_id": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "ai_search_model": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "cache": {
-          "type": "boolean"
-        },
-        "cache_threshold": {
-          "enum": [
-            "super_strict_match",
-            "close_enough",
-            "flexible_friend",
-            "anything_goes"
-          ],
-          "type": "string"
-        },
-        "cache_ttl": {
-          "enum": [
-            600,
-            1800,
-            3600,
-            7200,
-            21600,
-            43200,
-            86400,
-            172800,
-            259200,
-            518400
-          ],
-          "type": "integer"
-        },
-        "chunk_overlap": {
-          "type": "integer"
-        },
-        "chunk_size": {
-          "type": "integer"
-        },
-        "created_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "created_by": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "custom_metadata": {
-          "items": {
-            "properties": {
-              "data_type": {
-                "enum": [
-                  "text",
-                  "number",
-                  "boolean",
-                  "datetime"
-                ],
-                "type": "string"
-              },
-              "field_name": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "data_type",
-              "field_name"
-            ],
-            "type": "object"
-          },
-          "maxItems": 5,
-          "type": "array"
-        },
-        "embedding_model": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "enable": {
-          "type": "boolean"
-        },
-        "engine_version": {
-          "type": "number"
-        },
-        "fusion_method": {
-          "enum": [
-            "max",
-            "rrf"
-          ],
-          "type": "string"
-        },
-        "hybrid_search_enabled": {
-          "type": "boolean"
-        },
-        "id": {
-          "type": "string"
-        },
-        "index_method": {
-          "properties": {
-            "keyword": {
-              "type": "boolean"
-            },
-            "vector": {
-              "type": "boolean"
-            }
-          },
-          "required": [
-            "keyword",
-            "vector"
-          ],
-          "type": "object"
-        },
-        "indexing_options": {
-          "oneOf": [
-            {
-              "properties": {
-                "keyword_tokenizer": {
-                  "enum": [
-                    "porter",
-                    "trigram"
-                  ],
-                  "type": "string"
-                },
-                "use_ocr": {
-                  "type": "boolean"
-                }
-              },
-              "type": "object"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "last_activity": {
-          "oneOf": [
-            {
-              "format": "date-time",
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "max_num_results": {
-          "type": "integer"
-        },
-        "metadata": {
-          "properties": {
-            "created_from_aisearch_wizard": {
-              "type": "boolean"
-            },
-            "created_from_emdash_plugin": {
-              "properties": {
-                "type": {
-                  "enum": [
-                    "native",
-                    "rest"
-                  ],
-                  "type": "string"
-                },
-                "version": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "type",
-                "version"
-              ],
-              "type": "object"
-            },
-            "worker_domain": {
-              "type": "string"
-            }
-          },
-          "type": "object"
-        },
-        "modified_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "modified_by": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "namespace": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "paused": {
-          "type": "boolean"
-        },
-        "public_endpoint_id": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "public_endpoint_params": {
-          "properties": {
-            "authorized_hosts": {
-              "items": {
-                "type": "string"
-              },
-              "type": "array"
-            },
-            "chat_completions_endpoint": {
-              "properties": {
-                "disabled": {
-                  "type": "boolean"
-                }
-              },
-              "type": "object"
-            },
-            "custom_domains": {
-              "oneOf": [
-                {
-                  "items": {
-                    "type": "string"
-                  },
-                  "maxItems": 1,
-                  "type": "array"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "default_domain_enabled": {
-              "type": "boolean"
-            },
-            "enabled": {
-              "type": "boolean"
-            },
-            "mcp": {
-              "properties": {
-                "description": {
-                  "type": "string"
-                },
-                "disabled": {
-                  "type": "boolean"
-                }
-              },
-              "type": "object"
-            },
-            "rate_limit": {
-              "properties": {
-                "period_ms": {
-                  "type": "integer"
-                },
-                "requests": {
-                  "type": "integer"
-                },
-                "technique": {
-                  "enum": [
-                    "fixed",
-                    "sliding"
-                  ],
-                  "type": "string"
-                }
-              },
-              "type": "object"
-            },
-            "search_endpoint": {
-              "properties": {
-                "disabled": {
-                  "type": "boolean"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "type": "object"
-        },
-        "reranking": {
-          "type": "boolean"
-        },
-        "reranking_model": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "retrieval_options": {
-          "oneOf": [
-            {
-              "properties": {
-                "boost_by": {
-                  "items": {
-                    "properties": {
-                      "direction": {
-                        "enum": [
-                          "asc",
-                          "desc",
-                          "exists",
-                          "not_exists"
-                        ],
-                        "type": "string"
-                      },
-                      "field": {
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "field"
-                    ],
-                    "type": "object"
-                  },
-                  "maxItems": 3,
-                  "type": "array"
-                },
-                "keyword_match_mode": {
-                  "enum": [
-                    "and",
-                    "or"
-                  ],
-                  "type": "string"
-                }
-              },
-              "type": "object"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "rewrite_model": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "rewrite_query": {
-          "type": "boolean"
-        },
-        "score_threshold": {
-          "type": "number"
-        },
-        "source": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "source_params": {
-          "oneOf": [
-            {
-              "properties": {
-                "exclude_items": {
-                  "items": {
-                    "type": "string"
-                  },
-                  "maxItems": 10,
-                  "type": "array"
-                },
-                "include_items": {
-                  "items": {
-                    "type": "string"
-                  },
-                  "maxItems": 10,
-                  "type": "array"
-                },
-                "prefix": {
-                  "type": "string"
-                },
-                "r2_jurisdiction": {
-                  "type": "string"
-                },
-                "web_crawler": {
-                  "properties": {
-                    "discover_options": {
-                      "properties": {
-                        "depth": {
-                          "type": "number"
-                        },
-                        "include_external_links": {
-                          "type": "boolean"
-                        },
-                        "include_subdomains": {
-                          "type": "boolean"
-                        },
-                        "limit": {
-                          "type": "number"
-                        },
-                        "max_age": {
-                          "type": "number"
-                        },
-                        "source": {
-                          "enum": [
-                            "all",
-                            "sitemaps",
-                            "links"
-                          ],
-                          "type": "string"
-                        }
-                      },
-                      "type": "object"
-                    },
-                    "parse_options": {
-                      "properties": {
-                        "content_selector": {
-                          "items": {
-                            "properties": {
-                              "path": {
-                                "type": "string"
-                              },
-                              "selector": {
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "path",
-                              "selector"
-                            ],
-                            "type": "object"
-                          },
-                          "maxItems": 10,
-                          "minItems": 1,
-                          "type": "array"
-                        },
-                        "include_headers": {
-                          "additionalProperties": {
-                            "type": "string"
-                          },
-                          "type": "object"
-                        },
-                        "include_images": {
-                          "type": "boolean"
-                        },
-                        "specific_sitemaps": {
-                          "items": {
-                            "type": "string"
-                          },
-                          "maxItems": 10,
-                          "type": "array"
-                        },
-                        "use_browser_rendering": {
-                          "type": "boolean"
-                        }
-                      },
-                      "type": "object"
-                    },
-                    "parse_type": {
-                      "enum": [
-                        "sitemap",
-                        "discover"
-                      ],
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                }
-              },
-              "type": "object"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "status": {
-          "type": "string"
-        },
-        "sync_interval": {
-          "enum": [
-            900,
-            1800,
-            3600,
-            7200,
-            14400,
-            21600,
-            43200,
-            86400
-          ],
-          "type": "integer"
-        },
-        "token_id": {
-          "format": "uuid",
-          "type": "string"
-        },
-        "type": {
-          "oneOf": [
-            {
-              "enum": [
-                "r2",
-                "web-crawler"
-              ],
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        }
-      },
-      "required": [
-        "created_at",
-        "id",
-        "modified_at"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": true,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Update an AI Search instance."
-    },
-    method: "PUT",
-    path: "/accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}",
-    extensions: {
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.ai-search"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai-search": {
-            "name": "com_cloudflare_api_account_ai_search"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      },
-      "x-forge-params": {
-        "id": {
-          "description": "AI Search instance ID."
-        },
-        "namespace": {
-          "description": "Namespace to use for this operation."
-        },
-        "source": {
-          "description": "R2 bucket name or HTTP(S) root website URL to index."
-        },
-        "source_params": {
-          "description": "Optional data source settings as a JSON object."
-        }
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "ai_gateway_id": {
               "oneOf": [
@@ -11967,6 +11526,624 @@ export const tools: readonly Tool[] = [
             "created_at",
             "id",
             "modified_at"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Update an AI Search instance."
+    },
+    method: "PUT",
+    path: "/accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}",
+    extensions: {
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.ai-search"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      },
+      "x-forge-params": {
+        "id": {
+          "description": "AI Search instance ID."
+        },
+        "namespace": {
+          "default": "default",
+          "description": "Namespace to use for this operation."
+        },
+        "source": {
+          "description": "R2 bucket name or HTTP(S) root website URL to index."
+        },
+        "source_params": {
+          "description": "Optional data source settings as a JSON object."
+        }
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "ai_gateway_id": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "ai_search_model": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "cache": {
+                  "type": "boolean"
+                },
+                "cache_threshold": {
+                  "enum": [
+                    "super_strict_match",
+                    "close_enough",
+                    "flexible_friend",
+                    "anything_goes"
+                  ],
+                  "type": "string"
+                },
+                "cache_ttl": {
+                  "enum": [
+                    600,
+                    1800,
+                    3600,
+                    7200,
+                    21600,
+                    43200,
+                    86400,
+                    172800,
+                    259200,
+                    518400
+                  ],
+                  "type": "integer"
+                },
+                "chunk_overlap": {
+                  "type": "integer"
+                },
+                "chunk_size": {
+                  "type": "integer"
+                },
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "created_by": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "custom_metadata": {
+                  "items": {
+                    "properties": {
+                      "data_type": {
+                        "enum": [
+                          "text",
+                          "number",
+                          "boolean",
+                          "datetime"
+                        ],
+                        "type": "string"
+                      },
+                      "field_name": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "data_type",
+                      "field_name"
+                    ],
+                    "type": "object"
+                  },
+                  "maxItems": 5,
+                  "type": "array"
+                },
+                "embedding_model": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "enable": {
+                  "type": "boolean"
+                },
+                "engine_version": {
+                  "type": "number"
+                },
+                "fusion_method": {
+                  "enum": [
+                    "max",
+                    "rrf"
+                  ],
+                  "type": "string"
+                },
+                "hybrid_search_enabled": {
+                  "type": "boolean"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "index_method": {
+                  "properties": {
+                    "keyword": {
+                      "type": "boolean"
+                    },
+                    "vector": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "keyword",
+                    "vector"
+                  ],
+                  "type": "object"
+                },
+                "indexing_options": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "keyword_tokenizer": {
+                          "enum": [
+                            "porter",
+                            "trigram"
+                          ],
+                          "type": "string"
+                        },
+                        "use_ocr": {
+                          "type": "boolean"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "last_activity": {
+                  "oneOf": [
+                    {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "max_num_results": {
+                  "type": "integer"
+                },
+                "metadata": {
+                  "properties": {
+                    "created_from_aisearch_wizard": {
+                      "type": "boolean"
+                    },
+                    "created_from_emdash_plugin": {
+                      "properties": {
+                        "type": {
+                          "enum": [
+                            "native",
+                            "rest"
+                          ],
+                          "type": "string"
+                        },
+                        "version": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "type",
+                        "version"
+                      ],
+                      "type": "object"
+                    },
+                    "worker_domain": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "modified_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "modified_by": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "namespace": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "paused": {
+                  "type": "boolean"
+                },
+                "public_endpoint_id": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "public_endpoint_params": {
+                  "properties": {
+                    "authorized_hosts": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "chat_completions_endpoint": {
+                      "properties": {
+                        "disabled": {
+                          "type": "boolean"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "custom_domains": {
+                      "oneOf": [
+                        {
+                          "items": {
+                            "type": "string"
+                          },
+                          "maxItems": 1,
+                          "type": "array"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "default_domain_enabled": {
+                      "type": "boolean"
+                    },
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "mcp": {
+                      "properties": {
+                        "description": {
+                          "type": "string"
+                        },
+                        "disabled": {
+                          "type": "boolean"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "rate_limit": {
+                      "properties": {
+                        "period_ms": {
+                          "type": "integer"
+                        },
+                        "requests": {
+                          "type": "integer"
+                        },
+                        "technique": {
+                          "enum": [
+                            "fixed",
+                            "sliding"
+                          ],
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "search_endpoint": {
+                      "properties": {
+                        "disabled": {
+                          "type": "boolean"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                },
+                "reranking": {
+                  "type": "boolean"
+                },
+                "reranking_model": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "retrieval_options": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "boost_by": {
+                          "items": {
+                            "properties": {
+                              "direction": {
+                                "enum": [
+                                  "asc",
+                                  "desc",
+                                  "exists",
+                                  "not_exists"
+                                ],
+                                "type": "string"
+                              },
+                              "field": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "field"
+                            ],
+                            "type": "object"
+                          },
+                          "maxItems": 3,
+                          "type": "array"
+                        },
+                        "keyword_match_mode": {
+                          "enum": [
+                            "and",
+                            "or"
+                          ],
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "rewrite_model": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "rewrite_query": {
+                  "type": "boolean"
+                },
+                "score_threshold": {
+                  "type": "number"
+                },
+                "source": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "source_params": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "exclude_items": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "maxItems": 10,
+                          "type": "array"
+                        },
+                        "include_items": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "maxItems": 10,
+                          "type": "array"
+                        },
+                        "prefix": {
+                          "type": "string"
+                        },
+                        "r2_jurisdiction": {
+                          "type": "string"
+                        },
+                        "web_crawler": {
+                          "properties": {
+                            "discover_options": {
+                              "properties": {
+                                "depth": {
+                                  "type": "number"
+                                },
+                                "include_external_links": {
+                                  "type": "boolean"
+                                },
+                                "include_subdomains": {
+                                  "type": "boolean"
+                                },
+                                "limit": {
+                                  "type": "number"
+                                },
+                                "max_age": {
+                                  "type": "number"
+                                },
+                                "source": {
+                                  "enum": [
+                                    "all",
+                                    "sitemaps",
+                                    "links"
+                                  ],
+                                  "type": "string"
+                                }
+                              },
+                              "type": "object"
+                            },
+                            "parse_options": {
+                              "properties": {
+                                "content_selector": {
+                                  "items": {
+                                    "properties": {
+                                      "path": {
+                                        "type": "string"
+                                      },
+                                      "selector": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "path",
+                                      "selector"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  "maxItems": 10,
+                                  "minItems": 1,
+                                  "type": "array"
+                                },
+                                "include_headers": {
+                                  "additionalProperties": {
+                                    "type": "string"
+                                  },
+                                  "type": "object"
+                                },
+                                "include_images": {
+                                  "type": "boolean"
+                                },
+                                "specific_sitemaps": {
+                                  "items": {
+                                    "type": "string"
+                                  },
+                                  "maxItems": 10,
+                                  "type": "array"
+                                },
+                                "use_browser_rendering": {
+                                  "type": "boolean"
+                                }
+                              },
+                              "type": "object"
+                            },
+                            "parse_type": {
+                              "enum": [
+                                "sitemap",
+                                "discover"
+                              ],
+                              "type": "string"
+                            }
+                          },
+                          "type": "object"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "status": {
+                  "type": "string"
+                },
+                "sync_interval": {
+                  "enum": [
+                    900,
+                    1800,
+                    3600,
+                    7200,
+                    14400,
+                    21600,
+                    43200,
+                    86400
+                  ],
+                  "type": "integer"
+                },
+                "token_id": {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                "type": {
+                  "oneOf": [
+                    {
+                      "enum": [
+                        "r2",
+                        "web-crawler"
+                      ],
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "created_at",
+                "id",
+                "modified_at"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },

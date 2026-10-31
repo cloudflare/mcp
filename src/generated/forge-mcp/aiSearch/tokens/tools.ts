@@ -47,105 +47,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "cf_api_id": {
-          "type": "string"
-        },
-        "created_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "created_by": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "enabled": {
-          "type": "boolean"
-        },
-        "id": {
-          "format": "uuid",
-          "type": "string"
-        },
-        "legacy": {
-          "type": "boolean"
-        },
-        "modified_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "modified_by": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "name": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "cf_api_id",
-        "created_at",
-        "id",
-        "modified_at",
-        "name"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Create a token"
-    },
-    method: "POST",
-    path: "/accounts/{account_id}/ai-search/tokens",
-    extensions: {
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.ai-search"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai-search": {
-            "name": "com_cloudflare_api_account_ai_search"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      },
-      "x-forge-params": {
-        "cf_api_id": {
-          "description": "Cloudflare API token ID."
-        },
-        "cf_api_key": {
-          "description": "Cloudflare API token value."
-        },
-        "legacy": {
-          "description": "Whether the credential uses the legacy API key format."
-        },
-        "name": {
-          "description": "Human-readable name for the credential.",
-          "positional": true
-        }
-      }
-    },
-    responses: {
-      schemas: {
-        "201": {
+        "result": {
           "properties": {
             "cf_api_id": {
               "type": "string"
@@ -198,6 +100,129 @@ export const tools: readonly Tool[] = [
             "id",
             "modified_at",
             "name"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Create a token"
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/ai-search/tokens",
+    extensions: {
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.ai-search"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      },
+      "x-forge-params": {
+        "cf_api_id": {
+          "description": "Cloudflare API token ID."
+        },
+        "cf_api_key": {
+          "description": "Cloudflare API token value."
+        },
+        "legacy": {
+          "description": "Whether the credential uses the legacy API key format."
+        },
+        "name": {
+          "description": "Human-readable name for the credential.",
+          "positional": true
+        }
+      }
+    },
+    responses: {
+      schemas: {
+        "201": {
+          "properties": {
+            "result": {
+              "properties": {
+                "cf_api_id": {
+                  "type": "string"
+                },
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "created_by": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "id": {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                "legacy": {
+                  "type": "boolean"
+                },
+                "modified_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "modified_by": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "cf_api_id",
+                "created_at",
+                "id",
+                "modified_at",
+                "name"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -262,6 +287,21 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
+      "properties": {
+        "result": {
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
       "type": "object",
     },
     annotations: {
@@ -277,12 +317,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.ai-search"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai-search": {
-            "name": "com_cloudflare_api_account_ai_search"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -299,6 +334,21 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
+          "properties": {
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
+          ],
           "type": "object"
         },
         "400": {
@@ -435,95 +485,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "cf_api_id": {
-          "type": "string"
-        },
-        "created_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "created_by": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "enabled": {
-          "type": "boolean"
-        },
-        "id": {
-          "format": "uuid",
-          "type": "string"
-        },
-        "legacy": {
-          "type": "boolean"
-        },
-        "modified_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "modified_by": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "name": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "cf_api_id",
-        "created_at",
-        "id",
-        "modified_at",
-        "name"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get a token"
-    },
-    method: "GET",
-    path: "/accounts/{account_id}/ai-search/tokens/{id}",
-    extensions: {
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.ai-search"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai-search": {
-            "name": "com_cloudflare_api_account_ai_search"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      },
-      "x-forge-params": {
-        "id": {
-          "description": "Stored credential record ID."
-        }
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "cf_api_id": {
               "type": "string"
@@ -576,6 +538,119 @@ export const tools: readonly Tool[] = [
             "id",
             "modified_at",
             "name"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get a token"
+    },
+    method: "GET",
+    path: "/accounts/{account_id}/ai-search/tokens/{id}",
+    extensions: {
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.ai-search"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      },
+      "x-forge-params": {
+        "id": {
+          "description": "Stored credential record ID."
+        }
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "cf_api_id": {
+                  "type": "string"
+                },
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "created_by": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "id": {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                "legacy": {
+                  "type": "boolean"
+                },
+                "modified_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "modified_by": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "cf_api_id",
+                "created_at",
+                "id",
+                "modified_at",
+                "name"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -770,10 +845,18 @@ export const tools: readonly Tool[] = [
             "total_count"
           ],
           "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
         }
       },
       "required": [
-        "result"
+        "result",
+        "result_info",
+        "success"
       ],
       "type": "object",
     },
@@ -790,12 +873,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.ai-search"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai-search": {
-            "name": "com_cloudflare_api_account_ai_search"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -889,10 +967,18 @@ export const tools: readonly Tool[] = [
                 "total_count"
               ],
               "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
             }
           },
           "required": [
-            "result"
+            "result",
+            "result_info",
+            "success"
           ],
           "type": "object"
         },
@@ -992,107 +1078,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "cf_api_id": {
-          "type": "string"
-        },
-        "created_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "created_by": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "enabled": {
-          "type": "boolean"
-        },
-        "id": {
-          "format": "uuid",
-          "type": "string"
-        },
-        "legacy": {
-          "type": "boolean"
-        },
-        "modified_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "modified_by": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "name": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "cf_api_id",
-        "created_at",
-        "id",
-        "modified_at",
-        "name"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": true,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Update a token"
-    },
-    method: "PUT",
-    path: "/accounts/{account_id}/ai-search/tokens/{id}",
-    extensions: {
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.ai-search"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai-search": {
-            "name": "com_cloudflare_api_account_ai_search"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      },
-      "x-forge-params": {
-        "cf_api_id": {
-          "description": "Cloudflare API token ID."
-        },
-        "cf_api_key": {
-          "description": "Cloudflare API token value."
-        },
-        "id": {
-          "description": "Stored credential record ID."
-        },
-        "legacy": {
-          "description": "Whether the credential uses the legacy API key format."
-        },
-        "name": {
-          "description": "Human-readable name for the credential."
-        }
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "cf_api_id": {
               "type": "string"
@@ -1145,6 +1131,131 @@ export const tools: readonly Tool[] = [
             "id",
             "modified_at",
             "name"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Update a token"
+    },
+    method: "PUT",
+    path: "/accounts/{account_id}/ai-search/tokens/{id}",
+    extensions: {
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.ai-search"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      },
+      "x-forge-params": {
+        "cf_api_id": {
+          "description": "Cloudflare API token ID."
+        },
+        "cf_api_key": {
+          "description": "Cloudflare API token value."
+        },
+        "id": {
+          "description": "Stored credential record ID."
+        },
+        "legacy": {
+          "description": "Whether the credential uses the legacy API key format."
+        },
+        "name": {
+          "description": "Human-readable name for the credential."
+        }
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "cf_api_id": {
+                  "type": "string"
+                },
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "created_by": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "id": {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                "legacy": {
+                  "type": "boolean"
+                },
+                "modified_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "modified_by": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "cf_api_id",
+                "created_at",
+                "id",
+                "modified_at",
+                "name"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },

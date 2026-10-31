@@ -58,35 +58,25 @@ export const aaa_history_output: JsonSchema = {
  * responses.
  */
 export const aaa_history_components_schemas_response_collection_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/aaa_messages-3"
+  "allOf": [
+    {
+      "$ref": "#/$defs/aaa_api-response-collection"
     },
-    "messages": {
-      "$ref": "#/$defs/aaa_messages-3"
-    },
-    "result": {
-      "items": {
-        "$ref": "#/$defs/aaa_history"
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/aaa_history"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "type": "object"
+        }
       },
-      "type": "array"
-    },
-    "result_info": {
       "type": "object"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**

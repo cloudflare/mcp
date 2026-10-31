@@ -76,3 +76,50 @@ export const client_side_security_cookie_output: JsonSchema = {
   ],
   "type": "object"
 };
+
+/**
+ * The schema of `client-side-security_get-zone-cookie-response` in responses.
+ */
+export const client_side_security_get_zone_cookie_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/client-side-security_api-get-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/client-side-security_cookie"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `client-side-security_list-zone-cookies-response` in responses.
+ */
+export const client_side_security_list_zone_cookies_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/client-side-security_api-list-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/client-side-security_cookie"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object"
+    }
+  ]
+};

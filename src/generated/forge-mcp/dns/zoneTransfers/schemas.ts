@@ -4,9 +4,23 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `secondary-dns_account_identifier`.
+ */
+export const secondary_dns_account_identifier: JsonSchema = {
+  "type": "string"
+};
+
+/**
  * The schema of `secondary-dns_identifier`.
  */
 export const secondary_dns_identifier: JsonSchema = {
+  "type": "string"
+};
+
+/**
+ * The schema of `secondary-dns_identifier-3`.
+ */
+export const secondary_dns_identifier_3: JsonSchema = {
   "type": "string"
 };
 

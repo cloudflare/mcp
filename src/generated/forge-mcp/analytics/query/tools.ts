@@ -7,12 +7,16 @@ import {
   art_APIMessage_output,
   art_ErrorResponse_output,
   art_ResultValues_output,
+  art_SummaryResponse_output,
   art_SummaryResult_output,
+  art_TimeseriesResponse_output,
   art_TimeseriesResult_output,
+  art_TopNResponse_output,
 } from "./outputs.js";
 import {
   art_CommonQuery,
   art_Filter,
+  art_QuerySummary,
   art_QueryTimeseries,
   art_QueryTopN,
 } from "./schemas.js";
@@ -33,7 +37,7 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "body": {
-          "$ref": "#/$defs/art_CommonQuery"
+          "$ref": "#/$defs/art_QuerySummary"
         },
         "dataset": {
           "description": "Dataset name to query. Examples: `access-logins`, `gateway-http`, `gateway-dns`, `gateway-http`, `shadow-it`.\n",
@@ -46,14 +50,17 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
-        "art_CommonQuery": art_CommonQuery,
         "art_Filter": art_Filter,
+        "art_QuerySummary": art_QuerySummary,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/art_SummaryResult",
+      "$ref": "#/$defs/art_SummaryResponse",
       $defs: {
+        "art_APIError": art_APIError_output,
+        "art_APIMessage": art_APIMessage_output,
         "art_ResultValues": art_ResultValues_output,
+        "art_SummaryResponse": art_SummaryResponse_output,
         "art_SummaryResult": art_SummaryResult_output,
       },
     },
@@ -75,7 +82,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/art_SummaryResult"
+          "$ref": "#/$defs/art_SummaryResponse"
         },
         "400": {
           "$ref": "#/$defs/art_ErrorResponse"
@@ -92,6 +99,7 @@ export const tools: readonly Tool[] = [
         "art_APIMessage": art_APIMessage_output,
         "art_ErrorResponse": art_ErrorResponse_output,
         "art_ResultValues": art_ResultValues_output,
+        "art_SummaryResponse": art_SummaryResponse_output,
         "art_SummaryResult": art_SummaryResult_output,
       },
     },
@@ -125,14 +133,18 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "art_CommonQuery": art_CommonQuery,
         "art_Filter": art_Filter,
         "art_QueryTimeseries": art_QueryTimeseries,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/art_TimeseriesResult",
+      "$ref": "#/$defs/art_TimeseriesResponse",
       $defs: {
+        "art_APIError": art_APIError_output,
+        "art_APIMessage": art_APIMessage_output,
         "art_ResultValues": art_ResultValues_output,
+        "art_TimeseriesResponse": art_TimeseriesResponse_output,
         "art_TimeseriesResult": art_TimeseriesResult_output,
       },
     },
@@ -154,7 +166,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/art_TimeseriesResult"
+          "$ref": "#/$defs/art_TimeseriesResponse"
         },
         "400": {
           "$ref": "#/$defs/art_ErrorResponse"
@@ -171,6 +183,7 @@ export const tools: readonly Tool[] = [
         "art_APIMessage": art_APIMessage_output,
         "art_ErrorResponse": art_ErrorResponse_output,
         "art_ResultValues": art_ResultValues_output,
+        "art_TimeseriesResponse": art_TimeseriesResponse_output,
         "art_TimeseriesResult": art_TimeseriesResult_output,
       },
     },
@@ -204,28 +217,18 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "art_CommonQuery": art_CommonQuery,
         "art_Filter": art_Filter,
         "art_QueryTopN": art_QueryTopN,
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/art_ResultValues"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/art_TopNResponse",
       $defs: {
+        "art_APIError": art_APIError_output,
+        "art_APIMessage": art_APIMessage_output,
         "art_ResultValues": art_ResultValues_output,
+        "art_TopNResponse": art_TopNResponse_output,
       },
     },
     annotations: {
@@ -246,21 +249,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/art_ResultValues"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/art_TopNResponse"
         },
         "400": {
           "$ref": "#/$defs/art_ErrorResponse"
@@ -277,6 +266,7 @@ export const tools: readonly Tool[] = [
         "art_APIMessage": art_APIMessage_output,
         "art_ErrorResponse": art_ErrorResponse_output,
         "art_ResultValues": art_ResultValues_output,
+        "art_TopNResponse": art_TopNResponse_output,
       },
     },
     request: (args) => ({

@@ -4,12 +4,14 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   waitingroom_api_response_common_failure_output,
+  waitingroom_api_response_common_output,
+  waitingroom_api_response_single_output,
   waitingroom_messages_output,
 } from "../outputs.js";
+import { waitingroom_identifier } from "../schemas.js";
 import {
   waitingroom_search_engine_crawler_bypass_output,
   waitingroom_zone_settings_response_output,
-  waitingroom_zone_settings_response_result_output,
 } from "./outputs.js";
 import {
   waitingroom_search_engine_crawler_bypass,
@@ -31,8 +33,8 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/waitingroom_zone_settings"
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/waitingroom_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -40,22 +42,19 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "waitingroom_identifier": waitingroom_identifier,
         "waitingroom_search_engine_crawler_bypass": waitingroom_search_engine_crawler_bypass,
         "waitingroom_zone_settings": waitingroom_zone_settings,
       },
     },
     outputSchema: {
-      "properties": {
-        "search_engine_crawler_bypass": {
-          "$ref": "#/$defs/waitingroom_search_engine_crawler_bypass"
-        }
-      },
-      "required": [
-        "search_engine_crawler_bypass"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/waitingroom_zone_settings_response",
       $defs: {
+        "waitingroom_api-response-common": waitingroom_api_response_common_output,
+        "waitingroom_api-response-single": waitingroom_api_response_single_output,
+        "waitingroom_messages": waitingroom_messages_output,
         "waitingroom_search_engine_crawler_bypass": waitingroom_search_engine_crawler_bypass_output,
+        "waitingroom_zone_settings_response": waitingroom_zone_settings_response_output,
       },
     },
     annotations: {
@@ -81,15 +80,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "search_engine_crawler_bypass": {
-              "$ref": "#/$defs/waitingroom_search_engine_crawler_bypass"
-            }
-          },
-          "required": [
-            "search_engine_crawler_bypass"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/waitingroom_zone_settings_response"
         },
         "4XX": {
           "allOf": [
@@ -103,11 +94,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "waitingroom_api-response-common": waitingroom_api_response_common_output,
         "waitingroom_api-response-common-failure": waitingroom_api_response_common_failure_output,
+        "waitingroom_api-response-single": waitingroom_api_response_single_output,
         "waitingroom_messages": waitingroom_messages_output,
         "waitingroom_search_engine_crawler_bypass": waitingroom_search_engine_crawler_bypass_output,
         "waitingroom_zone_settings_response": waitingroom_zone_settings_response_output,
-        "waitingroom_zone_settings_response_result": waitingroom_zone_settings_response_result_output,
       },
     },
     request: (args) => ({
@@ -123,26 +115,25 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/waitingroom_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "waitingroom_identifier": waitingroom_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "search_engine_crawler_bypass": {
-          "$ref": "#/$defs/waitingroom_search_engine_crawler_bypass"
-        }
-      },
-      "required": [
-        "search_engine_crawler_bypass"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/waitingroom_zone_settings_response",
       $defs: {
+        "waitingroom_api-response-common": waitingroom_api_response_common_output,
+        "waitingroom_api-response-single": waitingroom_api_response_single_output,
+        "waitingroom_messages": waitingroom_messages_output,
         "waitingroom_search_engine_crawler_bypass": waitingroom_search_engine_crawler_bypass_output,
+        "waitingroom_zone_settings_response": waitingroom_zone_settings_response_output,
       },
     },
     annotations: {
@@ -169,15 +160,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "search_engine_crawler_bypass": {
-              "$ref": "#/$defs/waitingroom_search_engine_crawler_bypass"
-            }
-          },
-          "required": [
-            "search_engine_crawler_bypass"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/waitingroom_zone_settings_response"
         },
         "4XX": {
           "allOf": [
@@ -191,11 +174,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "waitingroom_api-response-common": waitingroom_api_response_common_output,
         "waitingroom_api-response-common-failure": waitingroom_api_response_common_failure_output,
+        "waitingroom_api-response-single": waitingroom_api_response_single_output,
         "waitingroom_messages": waitingroom_messages_output,
         "waitingroom_search_engine_crawler_bypass": waitingroom_search_engine_crawler_bypass_output,
         "waitingroom_zone_settings_response": waitingroom_zone_settings_response_output,
-        "waitingroom_zone_settings_response_result": waitingroom_zone_settings_response_result_output,
       },
     },
     request: (args) => ({
@@ -213,8 +197,8 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/waitingroom_zone_settings"
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/waitingroom_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -222,22 +206,19 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "waitingroom_identifier": waitingroom_identifier,
         "waitingroom_search_engine_crawler_bypass": waitingroom_search_engine_crawler_bypass,
         "waitingroom_zone_settings": waitingroom_zone_settings,
       },
     },
     outputSchema: {
-      "properties": {
-        "search_engine_crawler_bypass": {
-          "$ref": "#/$defs/waitingroom_search_engine_crawler_bypass"
-        }
-      },
-      "required": [
-        "search_engine_crawler_bypass"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/waitingroom_zone_settings_response",
       $defs: {
+        "waitingroom_api-response-common": waitingroom_api_response_common_output,
+        "waitingroom_api-response-single": waitingroom_api_response_single_output,
+        "waitingroom_messages": waitingroom_messages_output,
         "waitingroom_search_engine_crawler_bypass": waitingroom_search_engine_crawler_bypass_output,
+        "waitingroom_zone_settings_response": waitingroom_zone_settings_response_output,
       },
     },
     annotations: {
@@ -263,15 +244,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "search_engine_crawler_bypass": {
-              "$ref": "#/$defs/waitingroom_search_engine_crawler_bypass"
-            }
-          },
-          "required": [
-            "search_engine_crawler_bypass"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/waitingroom_zone_settings_response"
         },
         "4XX": {
           "allOf": [
@@ -285,11 +258,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "waitingroom_api-response-common": waitingroom_api_response_common_output,
         "waitingroom_api-response-common-failure": waitingroom_api_response_common_failure_output,
+        "waitingroom_api-response-single": waitingroom_api_response_single_output,
         "waitingroom_messages": waitingroom_messages_output,
         "waitingroom_search_engine_crawler_bypass": waitingroom_search_engine_crawler_bypass_output,
         "waitingroom_zone_settings_response": waitingroom_zone_settings_response_output,
-        "waitingroom_zone_settings_response_result": waitingroom_zone_settings_response_result_output,
       },
     },
     request: (args) => ({

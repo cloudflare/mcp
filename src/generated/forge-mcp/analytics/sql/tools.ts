@@ -4,7 +4,6 @@
 import type { Tool } from "../../_/tool.js";
 import {
   analytics_sql_ApiErrorResponse_output,
-  analytics_sql_ClickHouseJsonQueryResponse_metaItem_output,
   analytics_sql_ClickHouseJsonQueryResponse_output,
   analytics_sql_GatewayApiErrorResponse_output,
   analytics_sql_LogExplorerQueryResponse_output,
@@ -46,7 +45,6 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "analytics-sql_ClickHouseJsonQueryResponse": analytics_sql_ClickHouseJsonQueryResponse_output,
-        "analytics-sql_ClickHouseJsonQueryResponse_metaItem": analytics_sql_ClickHouseJsonQueryResponse_metaItem_output,
         "analytics-sql_LogExplorerQueryResponse": analytics_sql_LogExplorerQueryResponse_output,
         "analytics-sql_SqlQueryResponse": analytics_sql_SqlQueryResponse_output,
         "analytics-sql_SqlQueryStatistics": analytics_sql_SqlQueryStatistics_output,
@@ -105,7 +103,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "analytics-sql_ApiErrorResponse": analytics_sql_ApiErrorResponse_output,
         "analytics-sql_ClickHouseJsonQueryResponse": analytics_sql_ClickHouseJsonQueryResponse_output,
-        "analytics-sql_ClickHouseJsonQueryResponse_metaItem": analytics_sql_ClickHouseJsonQueryResponse_metaItem_output,
         "analytics-sql_GatewayApiErrorResponse": analytics_sql_GatewayApiErrorResponse_output,
         "analytics-sql_LogExplorerQueryResponse": analytics_sql_LogExplorerQueryResponse_output,
         "analytics-sql_SqlQueryResponse": analytics_sql_SqlQueryResponse_output,

@@ -25,6 +25,28 @@ export const access_policy_users_output: JsonSchema = {
 };
 
 /**
+ * The schema of `access_policy_users_resp` in responses.
+ */
+export const access_policy_users_resp_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/access_policy_users"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `access_user_result` in responses.
  */
 export const access_user_result_output: JsonSchema = {

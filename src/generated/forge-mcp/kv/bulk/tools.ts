@@ -5,6 +5,8 @@ import { type Tool, pathParam } from "../../_/tool.js";
 import {
   workers_kv_any_output,
   workers_kv_api_response_common_failure_output,
+  workers_kv_api_response_common_no_result_output,
+  workers_kv_api_response_common_output,
   workers_kv_expiration_output,
   workers_kv_messages_output,
 } from "../outputs.js";
@@ -12,10 +14,11 @@ import {
   workers_kv_any,
   workers_kv_expiration,
   workers_kv_expiration_ttl,
+  workers_kv_identifier,
   workers_kv_list_metadata,
+  workers_kv_namespace_identifier,
 } from "../schemas.js";
 import {
-  workers_kv_api_response_common_no_result_output,
   workers_kv_bulk_get_result_output,
   workers_kv_bulk_get_result_with_metadata_output,
   workers_kv_bulk_result_output,
@@ -38,15 +41,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "ID of the Cloudflare account that owns the Workers KV namespaces.",
-          "type": "string"
+          "$ref": "#/$defs/workers-kv_identifier",
+          "description": "ID of the Cloudflare account that owns the Workers KV namespaces."
         },
         "body": {
           "$ref": "#/$defs/workers-kv_bulk_delete"
         },
         "namespace_id": {
-          "description": "ID of the Workers KV namespace.",
-          "type": "string"
+          "$ref": "#/$defs/workers-kv_namespace_identifier",
+          "description": "ID of the Workers KV namespace."
         }
       },
       required: [
@@ -56,13 +59,30 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "workers-kv_bulk_delete": workers_kv_bulk_delete,
+        "workers-kv_identifier": workers_kv_identifier,
         "workers-kv_key_name_bulk": workers_kv_key_name_bulk,
+        "workers-kv_namespace_identifier": workers_kv_namespace_identifier,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/workers-kv_bulk-result",
+      "allOf": [
+        {
+          "$ref": "#/$defs/workers-kv_api-response-common-no-result"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/workers-kv_bulk-result"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "workers-kv_api-response-common": workers_kv_api_response_common_output,
+        "workers-kv_api-response-common-no-result": workers_kv_api_response_common_no_result_output,
         "workers-kv_bulk-result": workers_kv_bulk_result_output,
+        "workers-kv_messages": workers_kv_messages_output,
       },
     },
     annotations: {
@@ -82,7 +102,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/workers-kv_bulk-result"
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers-kv_api-response-common-no-result"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/workers-kv_bulk-result"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "allOf": [
@@ -101,6 +133,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "workers-kv_api-response-common": workers_kv_api_response_common_output,
         "workers-kv_api-response-common-no-result": workers_kv_api_response_common_no_result_output,
         "workers-kv_bulk-result": workers_kv_bulk_result_output,
         "workers-kv_messages": workers_kv_messages_output,
@@ -119,8 +152,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "ID of the Cloudflare account that owns the Workers KV namespaces.",
-          "type": "string"
+          "$ref": "#/$defs/workers-kv_identifier",
+          "description": "ID of the Cloudflare account that owns the Workers KV namespaces."
         },
         "body": {
           "properties": {
@@ -153,8 +186,8 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "namespace_id": {
-          "description": "ID of the Workers KV namespace.",
-          "type": "string"
+          "$ref": "#/$defs/workers-kv_namespace_identifier",
+          "description": "ID of the Workers KV namespace."
         }
       },
       required: [
@@ -163,23 +196,40 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "workers-kv_identifier": workers_kv_identifier,
         "workers-kv_key_name_bulk": workers_kv_key_name_bulk,
+        "workers-kv_namespace_identifier": workers_kv_namespace_identifier,
       },
     },
     outputSchema: {
-      "oneOf": [
+      "allOf": [
         {
-          "$ref": "#/$defs/workers-kv_bulk-get-result"
+          "$ref": "#/$defs/workers-kv_api-response-common-no-result"
         },
         {
-          "$ref": "#/$defs/workers-kv_bulk-get-result-with-metadata"
+          "properties": {
+            "result": {
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/workers-kv_bulk-get-result"
+                },
+                {
+                  "$ref": "#/$defs/workers-kv_bulk-get-result-with-metadata"
+                }
+              ]
+            }
+          },
+          "type": "object"
         }
       ],
       $defs: {
         "workers-kv_any": workers_kv_any_output,
+        "workers-kv_api-response-common": workers_kv_api_response_common_output,
+        "workers-kv_api-response-common-no-result": workers_kv_api_response_common_no_result_output,
         "workers-kv_bulk-get-result": workers_kv_bulk_get_result_output,
         "workers-kv_bulk-get-result-with-metadata": workers_kv_bulk_get_result_with_metadata_output,
         "workers-kv_expiration": workers_kv_expiration_output,
+        "workers-kv_messages": workers_kv_messages_output,
       },
     },
     annotations: {
@@ -200,12 +250,24 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "oneOf": [
+          "allOf": [
             {
-              "$ref": "#/$defs/workers-kv_bulk-get-result"
+              "$ref": "#/$defs/workers-kv_api-response-common-no-result"
             },
             {
-              "$ref": "#/$defs/workers-kv_bulk-get-result-with-metadata"
+              "properties": {
+                "result": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/$defs/workers-kv_bulk-get-result"
+                    },
+                    {
+                      "$ref": "#/$defs/workers-kv_bulk-get-result-with-metadata"
+                    }
+                  ]
+                }
+              },
+              "type": "object"
             }
           ]
         },
@@ -215,7 +277,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "workers-kv_any": workers_kv_any_output,
+        "workers-kv_api-response-common": workers_kv_api_response_common_output,
         "workers-kv_api-response-common-failure": workers_kv_api_response_common_failure_output,
+        "workers-kv_api-response-common-no-result": workers_kv_api_response_common_no_result_output,
         "workers-kv_bulk-get-result": workers_kv_bulk_get_result_output,
         "workers-kv_bulk-get-result-with-metadata": workers_kv_bulk_get_result_with_metadata_output,
         "workers-kv_expiration": workers_kv_expiration_output,
@@ -235,15 +299,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "ID of the Cloudflare account that owns the Workers KV namespaces.",
-          "type": "string"
+          "$ref": "#/$defs/workers-kv_identifier",
+          "description": "ID of the Cloudflare account that owns the Workers KV namespaces."
         },
         "body": {
           "$ref": "#/$defs/workers-kv_bulk_write"
         },
         "namespace_id": {
-          "description": "ID of the Workers KV namespace.",
-          "type": "string"
+          "$ref": "#/$defs/workers-kv_namespace_identifier",
+          "description": "ID of the Workers KV namespace."
         }
       },
       required: [
@@ -256,14 +320,31 @@ export const tools: readonly Tool[] = [
         "workers-kv_bulk_write": workers_kv_bulk_write,
         "workers-kv_expiration": workers_kv_expiration,
         "workers-kv_expiration_ttl": workers_kv_expiration_ttl,
+        "workers-kv_identifier": workers_kv_identifier,
         "workers-kv_key_name_bulk": workers_kv_key_name_bulk,
         "workers-kv_list_metadata": workers_kv_list_metadata,
+        "workers-kv_namespace_identifier": workers_kv_namespace_identifier,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/workers-kv_bulk-result",
+      "allOf": [
+        {
+          "$ref": "#/$defs/workers-kv_api-response-common-no-result"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/workers-kv_bulk-result"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "workers-kv_api-response-common": workers_kv_api_response_common_output,
+        "workers-kv_api-response-common-no-result": workers_kv_api_response_common_no_result_output,
         "workers-kv_bulk-result": workers_kv_bulk_result_output,
+        "workers-kv_messages": workers_kv_messages_output,
       },
     },
     annotations: {
@@ -283,7 +364,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/workers-kv_bulk-result"
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers-kv_api-response-common-no-result"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/workers-kv_bulk-result"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "allOf": [
@@ -302,6 +395,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "workers-kv_api-response-common": workers_kv_api_response_common_output,
         "workers-kv_api-response-common-no-result": workers_kv_api_response_common_no_result_output,
         "workers-kv_bulk-result": workers_kv_bulk_result_output,
         "workers-kv_messages": workers_kv_messages_output,

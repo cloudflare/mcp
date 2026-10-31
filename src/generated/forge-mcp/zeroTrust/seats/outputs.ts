@@ -18,6 +18,28 @@ export const access_gateway_seat_output: JsonSchema = {
 };
 
 /**
+ * The schema of `access_response_collection-14` in responses.
+ */
+export const access_response_collection_14_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/access_seats"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `access_seat_uid` in responses.
  */
 export const access_seat_uid_output: JsonSchema = {

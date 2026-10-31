@@ -4,15 +4,19 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   monetization_api_response_common_failure_output,
+  monetization_api_response_common_output,
   monetization_response_info_output,
 } from "../outputs.js";
 import {
   monetization_identifier_output,
   monetization_monetization_price_output,
   monetization_monetization_rule_collection_output,
+  monetization_monetization_rule_collection_response_output,
   monetization_monetization_rule_input_fixed_price_output,
   monetization_monetization_rule_input_origin_controlled_output,
+  monetization_monetization_rule_input_output,
   monetization_monetization_rule_output,
+  monetization_monetization_rule_response_output,
 } from "./outputs.js";
 import {
   monetization_identifier,
@@ -56,14 +60,18 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/monetization_monetization-rule-collection",
+      "$ref": "#/$defs/monetization_monetization-rule-collection-response",
       $defs: {
+        "monetization_api-response-common": monetization_api_response_common_output,
         "monetization_identifier": monetization_identifier_output,
         "monetization_monetization-price": monetization_monetization_price_output,
         "monetization_monetization-rule": monetization_monetization_rule_output,
         "monetization_monetization-rule-collection": monetization_monetization_rule_collection_output,
+        "monetization_monetization-rule-collection-response": monetization_monetization_rule_collection_response_output,
+        "monetization_monetization-rule-input": monetization_monetization_rule_input_output,
         "monetization_monetization-rule-input-fixed-price": monetization_monetization_rule_input_fixed_price_output,
         "monetization_monetization-rule-input-origin-controlled": monetization_monetization_rule_input_origin_controlled_output,
+        "monetization_response-info": monetization_response_info_output,
       },
     },
     annotations: {
@@ -81,7 +89,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/monetization_monetization-rule-collection"
+          "$ref": "#/$defs/monetization_monetization-rule-collection-response"
         },
         "404": {
           "$ref": "#/$defs/monetization_api-response-common-failure"
@@ -94,11 +102,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "monetization_api-response-common": monetization_api_response_common_output,
         "monetization_api-response-common-failure": monetization_api_response_common_failure_output,
         "monetization_identifier": monetization_identifier_output,
         "monetization_monetization-price": monetization_monetization_price_output,
         "monetization_monetization-rule": monetization_monetization_rule_output,
         "monetization_monetization-rule-collection": monetization_monetization_rule_collection_output,
+        "monetization_monetization-rule-collection-response": monetization_monetization_rule_collection_response_output,
+        "monetization_monetization-rule-input": monetization_monetization_rule_input_output,
         "monetization_monetization-rule-input-fixed-price": monetization_monetization_rule_input_fixed_price_output,
         "monetization_monetization-rule-input-origin-controlled": monetization_monetization_rule_input_origin_controlled_output,
         "monetization_response-info": monetization_response_info_output,
@@ -128,14 +139,18 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/monetization_monetization-rule-collection",
+      "$ref": "#/$defs/monetization_monetization-rule-collection-response",
       $defs: {
+        "monetization_api-response-common": monetization_api_response_common_output,
         "monetization_identifier": monetization_identifier_output,
         "monetization_monetization-price": monetization_monetization_price_output,
         "monetization_monetization-rule": monetization_monetization_rule_output,
         "monetization_monetization-rule-collection": monetization_monetization_rule_collection_output,
+        "monetization_monetization-rule-collection-response": monetization_monetization_rule_collection_response_output,
+        "monetization_monetization-rule-input": monetization_monetization_rule_input_output,
         "monetization_monetization-rule-input-fixed-price": monetization_monetization_rule_input_fixed_price_output,
         "monetization_monetization-rule-input-origin-controlled": monetization_monetization_rule_input_origin_controlled_output,
+        "monetization_response-info": monetization_response_info_output,
       },
     },
     annotations: {
@@ -153,7 +168,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/monetization_monetization-rule-collection"
+          "$ref": "#/$defs/monetization_monetization-rule-collection-response"
         },
         "4XX": {
           "$ref": "#/$defs/monetization_api-response-common-failure"
@@ -163,11 +178,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "monetization_api-response-common": monetization_api_response_common_output,
         "monetization_api-response-common-failure": monetization_api_response_common_failure_output,
         "monetization_identifier": monetization_identifier_output,
         "monetization_monetization-price": monetization_monetization_price_output,
         "monetization_monetization-rule": monetization_monetization_rule_output,
         "monetization_monetization-rule-collection": monetization_monetization_rule_collection_output,
+        "monetization_monetization-rule-collection-response": monetization_monetization_rule_collection_response_output,
+        "monetization_monetization-rule-input": monetization_monetization_rule_input_output,
         "monetization_monetization-rule-input-fixed-price": monetization_monetization_rule_input_fixed_price_output,
         "monetization_monetization-rule-input-origin-controlled": monetization_monetization_rule_input_origin_controlled_output,
         "monetization_response-info": monetization_response_info_output,
@@ -210,14 +228,18 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/monetization_monetization-rule-collection",
+      "$ref": "#/$defs/monetization_monetization-rule-collection-response",
       $defs: {
+        "monetization_api-response-common": monetization_api_response_common_output,
         "monetization_identifier": monetization_identifier_output,
         "monetization_monetization-price": monetization_monetization_price_output,
         "monetization_monetization-rule": monetization_monetization_rule_output,
         "monetization_monetization-rule-collection": monetization_monetization_rule_collection_output,
+        "monetization_monetization-rule-collection-response": monetization_monetization_rule_collection_response_output,
+        "monetization_monetization-rule-input": monetization_monetization_rule_input_output,
         "monetization_monetization-rule-input-fixed-price": monetization_monetization_rule_input_fixed_price_output,
         "monetization_monetization-rule-input-origin-controlled": monetization_monetization_rule_input_origin_controlled_output,
+        "monetization_response-info": monetization_response_info_output,
       },
     },
     annotations: {
@@ -235,7 +257,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/monetization_monetization-rule-collection"
+          "$ref": "#/$defs/monetization_monetization-rule-collection-response"
         },
         "403": {
           "$ref": "#/$defs/monetization_api-response-common-failure"
@@ -251,11 +273,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "monetization_api-response-common": monetization_api_response_common_output,
         "monetization_api-response-common-failure": monetization_api_response_common_failure_output,
         "monetization_identifier": monetization_identifier_output,
         "monetization_monetization-price": monetization_monetization_price_output,
         "monetization_monetization-rule": monetization_monetization_rule_output,
         "monetization_monetization-rule-collection": monetization_monetization_rule_collection_output,
+        "monetization_monetization-rule-collection-response": monetization_monetization_rule_collection_response_output,
+        "monetization_monetization-rule-input": monetization_monetization_rule_input_output,
         "monetization_monetization-rule-input-fixed-price": monetization_monetization_rule_input_fixed_price_output,
         "monetization_monetization-rule-input-origin-controlled": monetization_monetization_rule_input_origin_controlled_output,
         "monetization_response-info": monetization_response_info_output,
@@ -292,13 +317,17 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/monetization_monetization-rule",
+      "$ref": "#/$defs/monetization_monetization-rule-response",
       $defs: {
+        "monetization_api-response-common": monetization_api_response_common_output,
         "monetization_identifier": monetization_identifier_output,
         "monetization_monetization-price": monetization_monetization_price_output,
         "monetization_monetization-rule": monetization_monetization_rule_output,
+        "monetization_monetization-rule-input": monetization_monetization_rule_input_output,
         "monetization_monetization-rule-input-fixed-price": monetization_monetization_rule_input_fixed_price_output,
         "monetization_monetization-rule-input-origin-controlled": monetization_monetization_rule_input_origin_controlled_output,
+        "monetization_monetization-rule-response": monetization_monetization_rule_response_output,
+        "monetization_response-info": monetization_response_info_output,
       },
     },
     annotations: {
@@ -316,7 +345,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/monetization_monetization-rule"
+          "$ref": "#/$defs/monetization_monetization-rule-response"
         },
         "404": {
           "$ref": "#/$defs/monetization_api-response-common-failure"
@@ -329,12 +358,15 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "monetization_api-response-common": monetization_api_response_common_output,
         "monetization_api-response-common-failure": monetization_api_response_common_failure_output,
         "monetization_identifier": monetization_identifier_output,
         "monetization_monetization-price": monetization_monetization_price_output,
         "monetization_monetization-rule": monetization_monetization_rule_output,
+        "monetization_monetization-rule-input": monetization_monetization_rule_input_output,
         "monetization_monetization-rule-input-fixed-price": monetization_monetization_rule_input_fixed_price_output,
         "monetization_monetization-rule-input-origin-controlled": monetization_monetization_rule_input_origin_controlled_output,
+        "monetization_monetization-rule-response": monetization_monetization_rule_response_output,
         "monetization_response-info": monetization_response_info_output,
       },
     },
@@ -362,14 +394,18 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/monetization_monetization-rule-collection",
+      "$ref": "#/$defs/monetization_monetization-rule-collection-response",
       $defs: {
+        "monetization_api-response-common": monetization_api_response_common_output,
         "monetization_identifier": monetization_identifier_output,
         "monetization_monetization-price": monetization_monetization_price_output,
         "monetization_monetization-rule": monetization_monetization_rule_output,
         "monetization_monetization-rule-collection": monetization_monetization_rule_collection_output,
+        "monetization_monetization-rule-collection-response": monetization_monetization_rule_collection_response_output,
+        "monetization_monetization-rule-input": monetization_monetization_rule_input_output,
         "monetization_monetization-rule-input-fixed-price": monetization_monetization_rule_input_fixed_price_output,
         "monetization_monetization-rule-input-origin-controlled": monetization_monetization_rule_input_origin_controlled_output,
+        "monetization_response-info": monetization_response_info_output,
       },
     },
     annotations: {
@@ -387,7 +423,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/monetization_monetization-rule-collection"
+          "$ref": "#/$defs/monetization_monetization-rule-collection-response"
         },
         "404": {
           "$ref": "#/$defs/monetization_api-response-common-failure"
@@ -400,11 +436,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "monetization_api-response-common": monetization_api_response_common_output,
         "monetization_api-response-common-failure": monetization_api_response_common_failure_output,
         "monetization_identifier": monetization_identifier_output,
         "monetization_monetization-price": monetization_monetization_price_output,
         "monetization_monetization-rule": monetization_monetization_rule_output,
         "monetization_monetization-rule-collection": monetization_monetization_rule_collection_output,
+        "monetization_monetization-rule-collection-response": monetization_monetization_rule_collection_response_output,
+        "monetization_monetization-rule-input": monetization_monetization_rule_input_output,
         "monetization_monetization-rule-input-fixed-price": monetization_monetization_rule_input_fixed_price_output,
         "monetization_monetization-rule-input-origin-controlled": monetization_monetization_rule_input_origin_controlled_output,
         "monetization_response-info": monetization_response_info_output,
@@ -444,14 +483,18 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/monetization_monetization-rule-collection",
+      "$ref": "#/$defs/monetization_monetization-rule-collection-response",
       $defs: {
+        "monetization_api-response-common": monetization_api_response_common_output,
         "monetization_identifier": monetization_identifier_output,
         "monetization_monetization-price": monetization_monetization_price_output,
         "monetization_monetization-rule": monetization_monetization_rule_output,
         "monetization_monetization-rule-collection": monetization_monetization_rule_collection_output,
+        "monetization_monetization-rule-collection-response": monetization_monetization_rule_collection_response_output,
+        "monetization_monetization-rule-input": monetization_monetization_rule_input_output,
         "monetization_monetization-rule-input-fixed-price": monetization_monetization_rule_input_fixed_price_output,
         "monetization_monetization-rule-input-origin-controlled": monetization_monetization_rule_input_origin_controlled_output,
+        "monetization_response-info": monetization_response_info_output,
       },
     },
     annotations: {
@@ -469,7 +512,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/monetization_monetization-rule-collection"
+          "$ref": "#/$defs/monetization_monetization-rule-collection-response"
         },
         "403": {
           "$ref": "#/$defs/monetization_api-response-common-failure"
@@ -482,11 +525,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "monetization_api-response-common": monetization_api_response_common_output,
         "monetization_api-response-common-failure": monetization_api_response_common_failure_output,
         "monetization_identifier": monetization_identifier_output,
         "monetization_monetization-price": monetization_monetization_price_output,
         "monetization_monetization-rule": monetization_monetization_rule_output,
         "monetization_monetization-rule-collection": monetization_monetization_rule_collection_output,
+        "monetization_monetization-rule-collection-response": monetization_monetization_rule_collection_response_output,
+        "monetization_monetization-rule-input": monetization_monetization_rule_input_output,
         "monetization_monetization-rule-input-fixed-price": monetization_monetization_rule_input_fixed_price_output,
         "monetization_monetization-rule-input-origin-controlled": monetization_monetization_rule_input_origin_controlled_output,
         "monetization_response-info": monetization_response_info_output,

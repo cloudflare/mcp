@@ -10,14 +10,38 @@ export const email_sending_EmailApiError_output: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
-        "$ref": "#/$defs/email-sending_EmailApiError_errorsItem"
+        "properties": {
+          "code": {
+            "type": "number"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ],
+        "type": "object"
       },
       "minItems": 1,
       "type": "array"
     },
     "messages": {
       "items": {
-        "$ref": "#/$defs/email-sending_EmailApiError_messagesItem"
+        "properties": {
+          "code": {
+            "type": "number"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ],
+        "type": "object"
       },
       "type": "array"
     },
@@ -36,44 +60,6 @@ export const email_sending_EmailApiError_output: JsonSchema = {
     "messages",
     "result",
     "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `email-sending_EmailApiError_errorsItem` in responses.
- */
-export const email_sending_EmailApiError_errorsItem_output: JsonSchema = {
-  "properties": {
-    "code": {
-      "type": "number"
-    },
-    "message": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "code",
-    "message"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `email-sending_EmailApiError_messagesItem` in responses.
- */
-export const email_sending_EmailApiError_messagesItem_output: JsonSchema = {
-  "properties": {
-    "code": {
-      "type": "number"
-    },
-    "message": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "code",
-    "message"
   ],
   "type": "object"
 };

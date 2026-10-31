@@ -3,12 +3,17 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  builds_APIResponse_output,
   builds_ApiError_output,
   builds_ErrorResponse_output,
+  builds_PaginationInfo_output,
 } from "../../../outputs.js";
 import {
+  builds_SCMProviderType,
   builds_account_id,
   builds_branch,
+  builds_provider_account_id,
+  builds_repo_id,
   builds_root_directory,
 } from "../../../schemas.js";
 import {
@@ -36,16 +41,16 @@ export const tools: readonly Tool[] = [
           "description": "Git branch name."
         },
         "provider_account_id": {
-          "description": "Provider-specific identifier of the account or namespace that owns the repository.",
-          "type": "string"
+          "$ref": "#/$defs/builds_provider_account_id",
+          "description": "Provider-specific identifier of the account or namespace that owns the repository."
         },
         "provider_type": {
-          "description": "SCM provider type",
-          "type": "string"
+          "$ref": "#/$defs/builds_SCMProviderType",
+          "description": "SCM provider type"
         },
         "repo_id": {
-          "description": "Provider-specific repository identifier.",
-          "type": "string"
+          "$ref": "#/$defs/builds_repo_id",
+          "description": "Provider-specific repository identifier."
         },
         "root_directory": {
           "$ref": "#/$defs/builds_root_directory",
@@ -60,16 +65,34 @@ export const tools: readonly Tool[] = [
         "branch"
       ],
       $defs: {
+        "builds_SCMProviderType": builds_SCMProviderType,
         "builds_account_id": builds_account_id,
         "builds_branch": builds_branch,
+        "builds_provider_account_id": builds_provider_account_id,
+        "builds_repo_id": builds_repo_id,
         "builds_root_directory": builds_root_directory,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/builds_ConfigAutofillResponse",
+      "allOf": [
+        {
+          "$ref": "#/$defs/builds_APIResponse"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/builds_ConfigAutofillResponse"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
+        "builds_ApiError": builds_ApiError_output,
         "builds_ConfigAutofillResponse": builds_ConfigAutofillResponse_output,
         "builds_PackageManager": builds_PackageManager_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
       },
     },
     annotations: {
@@ -90,17 +113,31 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/builds_ConfigAutofillResponse"
+          "allOf": [
+            {
+              "$ref": "#/$defs/builds_APIResponse"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/builds_ConfigAutofillResponse"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "401": {
           "$ref": "#/$defs/builds_ErrorResponse"
         }
       },
       $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
         "builds_ApiError": builds_ApiError_output,
         "builds_ConfigAutofillResponse": builds_ConfigAutofillResponse_output,
         "builds_ErrorResponse": builds_ErrorResponse_output,
         "builds_PackageManager": builds_PackageManager_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
       },
     },
     request: (args) => ({

@@ -5,8 +5,8 @@ import type { Tool } from "../_/tool.js";
 import {
   cps_api_response_common_failure_output,
   cps_api_response_message_output,
-  cps_communication_preferences_email_output,
   cps_communication_preferences_output,
+  cps_communication_preferences_response_output,
   cps_customer_preference_output,
 } from "./outputs.js";
 import { cps_update_communication_preferences_request } from "./schemas.js";
@@ -24,10 +24,11 @@ export const tools: readonly Tool[] = [
       properties: {},
     },
     outputSchema: {
-      "$ref": "#/$defs/cps_communication_preferences",
+      "$ref": "#/$defs/cps_communication_preferences_response",
       $defs: {
+        "cps_api_response_message": cps_api_response_message_output,
         "cps_communication_preferences": cps_communication_preferences_output,
-        "cps_communication_preferences_email": cps_communication_preferences_email_output,
+        "cps_communication_preferences_response": cps_communication_preferences_response_output,
         "cps_customer_preference": cps_customer_preference_output,
       },
     },
@@ -48,7 +49,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/cps_communication_preferences"
+          "$ref": "#/$defs/cps_communication_preferences_response"
         },
         "400": {
           "$ref": "#/$defs/cps_api_response_common_failure"
@@ -70,7 +71,7 @@ export const tools: readonly Tool[] = [
         "cps_api_response_common_failure": cps_api_response_common_failure_output,
         "cps_api_response_message": cps_api_response_message_output,
         "cps_communication_preferences": cps_communication_preferences_output,
-        "cps_communication_preferences_email": cps_communication_preferences_email_output,
+        "cps_communication_preferences_response": cps_communication_preferences_response_output,
         "cps_customer_preference": cps_customer_preference_output,
       },
     },
@@ -97,10 +98,11 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/cps_communication_preferences",
+      "$ref": "#/$defs/cps_communication_preferences_response",
       $defs: {
+        "cps_api_response_message": cps_api_response_message_output,
         "cps_communication_preferences": cps_communication_preferences_output,
-        "cps_communication_preferences_email": cps_communication_preferences_email_output,
+        "cps_communication_preferences_response": cps_communication_preferences_response_output,
         "cps_customer_preference": cps_customer_preference_output,
       },
     },
@@ -121,7 +123,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/cps_communication_preferences"
+          "$ref": "#/$defs/cps_communication_preferences_response"
         },
         "400": {
           "$ref": "#/$defs/cps_api_response_common_failure"
@@ -143,7 +145,7 @@ export const tools: readonly Tool[] = [
         "cps_api_response_common_failure": cps_api_response_common_failure_output,
         "cps_api_response_message": cps_api_response_message_output,
         "cps_communication_preferences": cps_communication_preferences_output,
-        "cps_communication_preferences_email": cps_communication_preferences_email_output,
+        "cps_communication_preferences_response": cps_communication_preferences_response_output,
         "cps_customer_preference": cps_customer_preference_output,
       },
     },

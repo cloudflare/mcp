@@ -7,32 +7,28 @@ import type { JsonSchema } from "../_/tool.js";
  * The schema of `dls_bad_response` in responses.
  */
 export const dls_bad_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "items": {
-        "$ref": "#/$defs/dls_coded_message"
+  "allOf": [
+    {
+      "$ref": "#/$defs/dls_response"
+    },
+    {
+      "properties": {
+        "errors": {
+          "items": {
+            "$ref": "#/$defs/dls_coded_message"
+          },
+          "type": "array"
+        },
+        "result": {
+          "$ref": "#/$defs/dls_none"
+        }
       },
-      "type": "array"
-    },
-    "messages": {
-      "items": {
-        "$ref": "#/$defs/dls_coded_message"
-      },
-      "type": "array"
-    },
-    "result": {
-      "$ref": "#/$defs/dls_none"
-    },
-    "success": {
-      "type": "boolean"
+      "required": [
+        "errors"
+      ],
+      "type": "object"
     }
-  },
-  "required": [
-    "messages",
-    "success",
-    "errors"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -61,6 +57,28 @@ export const dls_coded_message_output: JsonSchema = {
 };
 
 /**
+ * The schema of `dls_good_response` in responses.
+ */
+export const dls_good_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/dls_response"
+    },
+    {
+      "properties": {
+        "errors": {
+          "items": {
+            "$ref": "#/$defs/dls_coded_message"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `dls_none` in responses.
  */
 export const dls_none_output: JsonSchema = {
@@ -72,4 +90,26 @@ export const dls_none_output: JsonSchema = {
       "type": "null"
     }
   ]
+};
+
+/**
+ * The schema of `dls_response` in responses.
+ */
+export const dls_response_output: JsonSchema = {
+  "properties": {
+    "messages": {
+      "items": {
+        "$ref": "#/$defs/dls_coded_message"
+      },
+      "type": "array"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "messages",
+    "success"
+  ],
+  "type": "object"
 };

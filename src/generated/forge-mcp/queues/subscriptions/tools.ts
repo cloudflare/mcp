@@ -6,7 +6,9 @@ import {
   mq_api_v4_error_output,
   mq_api_v4_failure_output,
   mq_api_v4_message_output,
+  mq_api_v4_success_output,
 } from "../outputs.js";
+import { mq_identifier } from "../schemas.js";
 import {
   mq_event_destination_output,
   mq_event_destination_queue_output,
@@ -49,8 +51,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "A Resource identifier.",
-          "type": "string"
+          "$ref": "#/$defs/mq_identifier",
+          "description": "A Resource identifier."
         },
         "body": {
           "properties": {
@@ -99,11 +101,27 @@ export const tools: readonly Tool[] = [
         "mq_event-source-workers-builds-worker": mq_event_source_workers_builds_worker,
         "mq_event-source-workers-script": mq_event_source_workers_script,
         "mq_event-source-workflows-workflow": mq_event_source_workflows_workflow,
+        "mq_identifier": mq_identifier,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/mq_event-subscription",
+      "allOf": [
+        {
+          "$ref": "#/$defs/mq_api-v4-success"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/mq_event-subscription"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "mq_api-v4-error": mq_api_v4_error_output,
+        "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_api-v4-success": mq_api_v4_success_output,
         "mq_event-destination": mq_event_destination_output,
         "mq_event-destination-queue": mq_event_destination_queue_output,
         "mq_event-source": mq_event_source_output,
@@ -137,7 +155,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/mq_event-subscription"
+          "allOf": [
+            {
+              "$ref": "#/$defs/mq_api-v4-success"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/mq_event-subscription"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "400": {
           "$ref": "#/$defs/mq_api-v4-failure"
@@ -153,6 +183,7 @@ export const tools: readonly Tool[] = [
         "mq_api-v4-error": mq_api_v4_error_output,
         "mq_api-v4-failure": mq_api_v4_failure_output,
         "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_api-v4-success": mq_api_v4_success_output,
         "mq_event-destination": mq_event_destination_output,
         "mq_event-destination-queue": mq_event_destination_queue_output,
         "mq_event-source": mq_event_source_output,
@@ -181,22 +212,40 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "A Resource identifier.",
-          "type": "string"
+          "$ref": "#/$defs/mq_identifier",
+          "description": "A Resource identifier."
         },
         "subscription_id": {
-          "description": "A Resource identifier.",
-          "type": "string"
+          "$ref": "#/$defs/mq_identifier",
+          "description": "A Resource identifier."
         }
       },
       required: [
         "account_id",
         "subscription_id"
       ],
+      $defs: {
+        "mq_identifier": mq_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/mq_event-subscription",
+      "allOf": [
+        {
+          "$ref": "#/$defs/mq_api-v4-success"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/mq_event-subscription"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "mq_api-v4-error": mq_api_v4_error_output,
+        "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_api-v4-success": mq_api_v4_success_output,
         "mq_event-destination": mq_event_destination_output,
         "mq_event-destination-queue": mq_event_destination_queue_output,
         "mq_event-source": mq_event_source_output,
@@ -230,7 +279,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/mq_event-subscription"
+          "allOf": [
+            {
+              "$ref": "#/$defs/mq_api-v4-success"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/mq_event-subscription"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/mq_api-v4-failure"
@@ -240,6 +301,7 @@ export const tools: readonly Tool[] = [
         "mq_api-v4-error": mq_api_v4_error_output,
         "mq_api-v4-failure": mq_api_v4_failure_output,
         "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_api-v4-success": mq_api_v4_success_output,
         "mq_event-destination": mq_event_destination_output,
         "mq_event-destination-queue": mq_event_destination_queue_output,
         "mq_event-source": mq_event_source_output,
@@ -267,22 +329,40 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "A Resource identifier.",
-          "type": "string"
+          "$ref": "#/$defs/mq_identifier",
+          "description": "A Resource identifier."
         },
         "subscription_id": {
-          "description": "A Resource identifier.",
-          "type": "string"
+          "$ref": "#/$defs/mq_identifier",
+          "description": "A Resource identifier."
         }
       },
       required: [
         "account_id",
         "subscription_id"
       ],
+      $defs: {
+        "mq_identifier": mq_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/mq_event-subscription",
+      "allOf": [
+        {
+          "$ref": "#/$defs/mq_api-v4-success"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/mq_event-subscription"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "mq_api-v4-error": mq_api_v4_error_output,
+        "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_api-v4-success": mq_api_v4_success_output,
         "mq_event-destination": mq_event_destination_output,
         "mq_event-destination-queue": mq_event_destination_queue_output,
         "mq_event-source": mq_event_source_output,
@@ -316,7 +396,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/mq_event-subscription"
+          "allOf": [
+            {
+              "$ref": "#/$defs/mq_api-v4-success"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/mq_event-subscription"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "404": {
           "$ref": "#/$defs/mq_api-v4-failure"
@@ -326,6 +418,7 @@ export const tools: readonly Tool[] = [
         "mq_api-v4-error": mq_api_v4_error_output,
         "mq_api-v4-failure": mq_api_v4_failure_output,
         "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_api-v4-success": mq_api_v4_success_output,
         "mq_event-destination": mq_event_destination_output,
         "mq_event-destination-queue": mq_event_destination_queue_output,
         "mq_event-source": mq_event_source_output,
@@ -353,8 +446,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "A Resource identifier.",
-          "type": "string"
+          "$ref": "#/$defs/mq_identifier",
+          "description": "A Resource identifier."
         },
         "direction": {
           "default": "asc",
@@ -390,83 +483,16 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+      $defs: {
+        "mq_identifier": mq_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/mq_event-subscription"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/mq_api-v4-success"
         },
-        "result_info": {
-          "properties": {
-            "count": {
-              "type": "integer"
-            },
-            "page": {
-              "type": "integer"
-            },
-            "per_page": {
-              "type": "integer"
-            },
-            "total_count": {
-              "type": "integer"
-            },
-            "total_pages": {
-              "type": "integer"
-            }
-          },
-          "required": [
-            "count",
-            "page",
-            "per_page",
-            "total_count",
-            "total_pages"
-          ],
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
-      $defs: {
-        "mq_event-destination": mq_event_destination_output,
-        "mq_event-destination-queue": mq_event_destination_queue_output,
-        "mq_event-source": mq_event_source_output,
-        "mq_event-source-images": mq_event_source_images_output,
-        "mq_event-source-kv": mq_event_source_kv_output,
-        "mq_event-source-r2": mq_event_source_r2_output,
-        "mq_event-source-super-slurper": mq_event_source_super_slurper_output,
-        "mq_event-source-vectorize": mq_event_source_vectorize_output,
-        "mq_event-source-workers-ai-model": mq_event_source_workers_ai_model_output,
-        "mq_event-source-workers-builds-worker": mq_event_source_workers_builds_worker_output,
-        "mq_event-source-workers-script": mq_event_source_workers_script_output,
-        "mq_event-source-workflows-workflow": mq_event_source_workflows_workflow_output,
-        "mq_event-subscription": mq_event_subscription_output,
-      },
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "List Event Subscriptions"
-    },
-    method: "GET",
-    path: "/accounts/{account_id}/event_subscriptions/subscriptions",
-    extensions: {
-      "x-api-token-group": [
-        "Queues Write",
-        "Queues Read",
-        "Workers Scripts Write",
-        "Workers Scripts Read"
-      ]
-    },
-    responses: {
-      schemas: {
-        "200": {
+        {
           "properties": {
             "result": {
               "items": {
@@ -502,10 +528,91 @@ export const tools: readonly Tool[] = [
               "type": "object"
             }
           },
-          "required": [
-            "result"
-          ],
           "type": "object"
+        }
+      ],
+      $defs: {
+        "mq_api-v4-error": mq_api_v4_error_output,
+        "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_api-v4-success": mq_api_v4_success_output,
+        "mq_event-destination": mq_event_destination_output,
+        "mq_event-destination-queue": mq_event_destination_queue_output,
+        "mq_event-source": mq_event_source_output,
+        "mq_event-source-images": mq_event_source_images_output,
+        "mq_event-source-kv": mq_event_source_kv_output,
+        "mq_event-source-r2": mq_event_source_r2_output,
+        "mq_event-source-super-slurper": mq_event_source_super_slurper_output,
+        "mq_event-source-vectorize": mq_event_source_vectorize_output,
+        "mq_event-source-workers-ai-model": mq_event_source_workers_ai_model_output,
+        "mq_event-source-workers-builds-worker": mq_event_source_workers_builds_worker_output,
+        "mq_event-source-workers-script": mq_event_source_workers_script_output,
+        "mq_event-source-workflows-workflow": mq_event_source_workflows_workflow_output,
+        "mq_event-subscription": mq_event_subscription_output,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "List Event Subscriptions"
+    },
+    method: "GET",
+    path: "/accounts/{account_id}/event_subscriptions/subscriptions",
+    extensions: {
+      "x-api-token-group": [
+        "Queues Write",
+        "Queues Read",
+        "Workers Scripts Write",
+        "Workers Scripts Read"
+      ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/mq_api-v4-success"
+            },
+            {
+              "properties": {
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/mq_event-subscription"
+                  },
+                  "type": "array"
+                },
+                "result_info": {
+                  "properties": {
+                    "count": {
+                      "type": "integer"
+                    },
+                    "page": {
+                      "type": "integer"
+                    },
+                    "per_page": {
+                      "type": "integer"
+                    },
+                    "total_count": {
+                      "type": "integer"
+                    },
+                    "total_pages": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "count",
+                    "page",
+                    "per_page",
+                    "total_count",
+                    "total_pages"
+                  ],
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/mq_api-v4-failure"
@@ -515,6 +622,7 @@ export const tools: readonly Tool[] = [
         "mq_api-v4-error": mq_api_v4_error_output,
         "mq_api-v4-failure": mq_api_v4_failure_output,
         "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_api-v4-success": mq_api_v4_success_output,
         "mq_event-destination": mq_event_destination_output,
         "mq_event-destination-queue": mq_event_destination_queue_output,
         "mq_event-source": mq_event_source_output,
@@ -548,8 +656,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "A Resource identifier.",
-          "type": "string"
+          "$ref": "#/$defs/mq_identifier",
+          "description": "A Resource identifier."
         },
         "body": {
           "properties": {
@@ -577,8 +685,8 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "subscription_id": {
-          "description": "A Resource identifier.",
-          "type": "string"
+          "$ref": "#/$defs/mq_identifier",
+          "description": "A Resource identifier."
         }
       },
       required: [
@@ -589,11 +697,27 @@ export const tools: readonly Tool[] = [
       $defs: {
         "mq_event-destination": mq_event_destination,
         "mq_event-destination-queue": mq_event_destination_queue,
+        "mq_identifier": mq_identifier,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/mq_event-subscription",
+      "allOf": [
+        {
+          "$ref": "#/$defs/mq_api-v4-success"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/mq_event-subscription"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "mq_api-v4-error": mq_api_v4_error_output,
+        "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_api-v4-success": mq_api_v4_success_output,
         "mq_event-destination": mq_event_destination_output,
         "mq_event-destination-queue": mq_event_destination_queue_output,
         "mq_event-source": mq_event_source_output,
@@ -632,7 +756,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/mq_event-subscription"
+          "allOf": [
+            {
+              "$ref": "#/$defs/mq_api-v4-success"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/mq_event-subscription"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "400": {
           "$ref": "#/$defs/mq_api-v4-failure"
@@ -645,6 +781,7 @@ export const tools: readonly Tool[] = [
         "mq_api-v4-error": mq_api_v4_error_output,
         "mq_api-v4-failure": mq_api_v4_failure_output,
         "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_api-v4-success": mq_api_v4_success_output,
         "mq_event-destination": mq_event_destination_output,
         "mq_event-destination-queue": mq_event_destination_queue_output,
         "mq_event-source": mq_event_source_output,

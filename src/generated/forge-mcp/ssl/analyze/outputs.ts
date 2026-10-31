@@ -8,27 +8,17 @@ import type { JsonSchema } from "../../_/tool.js";
  * in responses.
  */
 export const tls_certificates_and_hostnames_certificate_analyze_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_messages"
-    },
-    "result": {
+    {
+      "properties": {
+        "result": {
+          "type": "object"
+        }
+      },
       "type": "object"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };

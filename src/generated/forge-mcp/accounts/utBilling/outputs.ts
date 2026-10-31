@@ -7,36 +7,25 @@ import type { JsonSchema } from "../../_/tool.js";
  * The schema of `speed_ut_billing_response` in responses.
  */
 export const speed_ut_billing_response_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/speed_base"
     },
-    "id": {
-      "enum": [
-        "ut_billing"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "ut_billing"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/speed_ut_billing_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/speed_ut_billing_value"
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };
 
 /**

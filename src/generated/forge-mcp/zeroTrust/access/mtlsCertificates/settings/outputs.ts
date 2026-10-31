@@ -4,6 +4,28 @@
 import type { JsonSchema } from "../../../../_/tool.js";
 
 /**
+ * The schema of `access_response_collection_hostnames` in responses.
+ */
+export const access_response_collection_hostnames_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/access_settings"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `access_settings` in responses.
  */
 export const access_settings_output: JsonSchema = {

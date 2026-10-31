@@ -4,54 +4,88 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `billable-usage-api_usage_info_response_result` in responses.
+ * The schema of `billable-usage-api_usage_info_response` in responses.
  */
-export const billable_usage_api_usage_info_response_result_output: JsonSchema = {
+export const billable_usage_api_usage_info_response_output: JsonSchema = {
   "properties": {
-    "covered": {
-      "type": "boolean"
+    "errors": {
+      "oneOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/billable-usage-api_message"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
-    "subscriptions": {
-      "items": {
-        "$ref": "#/$defs/billable-usage-api_usage_info_response_result_subscriptionsItem"
+    "messages": {
+      "oneOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/billable-usage-api_message"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "result": {
+      "properties": {
+        "covered": {
+          "type": "boolean"
+        },
+        "subscriptions": {
+          "items": {
+            "properties": {
+              "billing_cycle_anchor_timestamp": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "end_timestamp": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "start_timestamp": {
+                "format": "date-time",
+                "type": "string"
+              }
+            },
+            "required": [
+              "billing_cycle_anchor_timestamp",
+              "id",
+              "start_timestamp"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
       },
-      "type": "array"
+      "required": [
+        "covered",
+        "subscriptions"
+      ],
+      "type": "object"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
     }
   },
   "required": [
-    "covered",
-    "subscriptions"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `billable-usage-api_usage_info_response_result_subscriptionsItem` in
- * responses.
- */
-export const billable_usage_api_usage_info_response_result_subscriptionsItem_output: JsonSchema = {
-  "properties": {
-    "billing_cycle_anchor_timestamp": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "end_timestamp": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "id": {
-      "type": "string"
-    },
-    "start_timestamp": {
-      "format": "date-time",
-      "type": "string"
-    }
-  },
-  "required": [
-    "billing_cycle_anchor_timestamp",
-    "id",
-    "start_timestamp"
+    "errors",
+    "messages",
+    "result",
+    "success"
   ],
   "type": "object"
 };
@@ -220,6 +254,59 @@ export const billable_usage_api_usage_record_output: JsonSchema = {
 };
 
 /**
+ * The schema of `billable-usage-api_usage_response` in responses.
+ */
+export const billable_usage_api_usage_response_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "oneOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/billable-usage-api_message"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "messages": {
+      "oneOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/billable-usage-api_message"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "result": {
+      "items": {
+        "$ref": "#/$defs/billable-usage-api_usage_record"
+      },
+      "type": "array"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `billable-usage-api_v2_account_billable_metric` in responses.
  */
 export const billable_usage_api_v2_account_billable_metric_output: JsonSchema = {
@@ -255,6 +342,60 @@ export const billable_usage_api_v2_account_billable_metric_output: JsonSchema = 
     "Name",
     "ProductCategory",
     "ProductFamily"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `billable-usage-api_v2_account_billable_metrics_response` in
+ * responses.
+ */
+export const billable_usage_api_v2_account_billable_metrics_response_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "oneOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/billable-usage-api_message"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "messages": {
+      "oneOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/billable-usage-api_message"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "result": {
+      "items": {
+        "$ref": "#/$defs/billable-usage-api_v2_account_billable_metric"
+      },
+      "type": "array"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
   ],
   "type": "object"
 };
@@ -333,5 +474,40 @@ export const usage_analytics_billing_usage_data_point_output: JsonSchema = {
       "type": "integer"
     }
   },
+  "type": "object"
+};
+
+/**
+ * The schema of `usage-analytics_billing_usage_response` in responses.
+ */
+export const usage_analytics_billing_usage_response_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "items": {
+        "$ref": "#/$defs/usage-analytics_api_error"
+      },
+      "type": "array"
+    },
+    "messages": {
+      "items": {
+        "$ref": "#/$defs/usage-analytics_api_message"
+      },
+      "type": "array"
+    },
+    "result": {
+      "items": {
+        "$ref": "#/$defs/usage-analytics_billing_usage_data_point"
+      },
+      "type": "array"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "result",
+    "success"
+  ],
   "type": "object"
 };

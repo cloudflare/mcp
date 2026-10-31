@@ -4,8 +4,11 @@
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
   load_balancing_api_response_common_failure_output,
+  load_balancing_api_response_common_output,
   load_balancing_messages_output,
+  load_balancing_monitor_references_response_output,
 } from "../../../../outputs.js";
+import { load_balancing_identifier } from "../../../../schemas.js";
 
 /**
  * The tools of `user.load_balancers.monitors.references`.
@@ -19,48 +22,23 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "monitor_id": {
-          "type": "string"
+          "$ref": "#/$defs/load-balancing_identifier"
         }
       },
       required: [
         "monitor_id"
       ],
+      $defs: {
+        "load-balancing_identifier": load_balancing_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "properties": {
-              "reference_type": {
-                "enum": [
-                  "*",
-                  "referral",
-                  "referrer"
-                ],
-                "type": "string"
-              },
-              "resource_id": {
-                "type": "string"
-              },
-              "resource_name": {
-                "type": "string"
-              },
-              "resource_type": {
-                "type": "string"
-              }
-            },
-            "type": "object"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
+      "$ref": "#/$defs/load-balancing_monitor-references-response",
+      $defs: {
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
+        "load-balancing_messages": load_balancing_messages_output,
+        "load-balancing_monitor-references-response": load_balancing_monitor_references_response_output,
       },
-      "required": [
-        "result"
-      ],
-      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -80,48 +58,17 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "properties": {
-                  "reference_type": {
-                    "enum": [
-                      "*",
-                      "referral",
-                      "referrer"
-                    ],
-                    "type": "string"
-                  },
-                  "resource_id": {
-                    "type": "string"
-                  },
-                  "resource_name": {
-                    "type": "string"
-                  },
-                  "resource_type": {
-                    "type": "string"
-                  }
-                },
-                "type": "object"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/load-balancing_monitor-references-response"
         },
         "4XX": {
           "$ref": "#/$defs/load-balancing_api-response-common-failure"
         }
       },
       $defs: {
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
         "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
         "load-balancing_messages": load_balancing_messages_output,
+        "load-balancing_monitor-references-response": load_balancing_monitor_references_response_output,
       },
     },
     request: (args) => ({

@@ -4,9 +4,9 @@
 import type { JsonSchema } from "../../../../../../_/tool.js";
 
 /**
- * The schema of `dos_DnsProtectionRuleUpdate`.
+ * The schema of `advanced-ddos-protection_DnsProtectionRuleUpdate`.
  */
-export const dos_DnsProtectionRuleUpdate: JsonSchema = {
+export const advanced_ddos_protection_DnsProtectionRuleUpdate: JsonSchema = {
   "properties": {
     "block_any_queries": {
       "description": "The new value for whether to block DNS ANY queries. Optional.",
@@ -33,9 +33,9 @@ export const dos_DnsProtectionRuleUpdate: JsonSchema = {
 };
 
 /**
- * The schema of `dos_NewDnsProtectionRule`.
+ * The schema of `advanced-ddos-protection_NewDnsProtectionRule`.
  */
-export const dos_NewDnsProtectionRule: JsonSchema = {
+export const advanced_ddos_protection_NewDnsProtectionRule: JsonSchema = {
   "properties": {
     "block_any_queries": {
       "description": "Whether to block DNS ANY queries. Optional. Defaults to true.",

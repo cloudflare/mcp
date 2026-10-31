@@ -4,6 +4,7 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   tunnel_api_response_common_failure_output,
+  tunnel_api_response_common_output,
   tunnel_created_at_output,
   tunnel_deleted_at_output,
   tunnel_messages_output,
@@ -11,6 +12,7 @@ import {
   tunnel_tunnel_name_output,
   tunnel_tunnel_type_output,
 } from "../../outputs.js";
+import { tunnel_account_id, tunnel_ip } from "../../schemas.js";
 import { tunnel_virtual_network_name_output } from "../outputs.js";
 import { tunnel_virtual_network_id } from "../schemas.js";
 import {
@@ -34,8 +36,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Cloudflare account ID",
-          "type": "string"
+          "$ref": "#/$defs/tunnel_account_id",
+          "description": "Cloudflare account ID"
         },
         "default_virtual_network_fallback": {
           "default": true,
@@ -43,7 +45,7 @@ export const tools: readonly Tool[] = [
           "type": "boolean"
         },
         "ip": {
-          "type": "string"
+          "$ref": "#/$defs/tunnel_ip"
         },
         "virtual_network_id": {
           "$ref": "#/$defs/tunnel_virtual_network_id",
@@ -55,18 +57,23 @@ export const tools: readonly Tool[] = [
         "ip"
       ],
       $defs: {
+        "tunnel_account_id": tunnel_account_id,
+        "tunnel_ip": tunnel_ip,
         "tunnel_virtual_network_id": tunnel_virtual_network_id,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/tunnel_teamnet",
+      "$ref": "#/$defs/tunnel_teamnet_response_single",
       $defs: {
+        "tunnel_api-response-common": tunnel_api_response_common_output,
         "tunnel_created_at": tunnel_created_at_output,
         "tunnel_deleted_at": tunnel_deleted_at_output,
         "tunnel_ip_network": tunnel_ip_network_output,
+        "tunnel_messages": tunnel_messages_output,
         "tunnel_route_comment": tunnel_route_comment_output,
         "tunnel_route_id": tunnel_route_id_output,
         "tunnel_teamnet": tunnel_teamnet_output,
+        "tunnel_teamnet_response_single": tunnel_teamnet_response_single_output,
         "tunnel_tunnel_id": tunnel_tunnel_id_output,
         "tunnel_tunnel_name": tunnel_tunnel_name_output,
         "tunnel_tunnel_type": tunnel_tunnel_type_output,
@@ -94,7 +101,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/tunnel_teamnet"
+          "$ref": "#/$defs/tunnel_teamnet_response_single"
         },
         "4XX": {
           "allOf": [
@@ -108,6 +115,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "tunnel_api-response-common": tunnel_api_response_common_output,
         "tunnel_api-response-common-failure": tunnel_api_response_common_failure_output,
         "tunnel_created_at": tunnel_created_at_output,
         "tunnel_deleted_at": tunnel_deleted_at_output,

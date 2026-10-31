@@ -44,149 +44,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "asnInfo": {
-          "properties": {
-            "13335": {
-              "properties": {
-                "asn": {
-                  "type": "integer"
-                },
-                "country": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "asn",
-                "country",
-                "name"
-              ],
-              "type": "object"
-            }
-          },
-          "required": [
-            "13335"
-          ],
-          "type": "object"
-        },
-        "changes": {
-          "items": {
-            "properties": {
-              "customersAdded": {
-                "type": "integer"
-              },
-              "customersRemoved": {
-                "type": "integer"
-              },
-              "date": {
-                "format": "date-time",
-                "type": "string"
-              },
-              "entries": {
-                "items": {
-                  "properties": {
-                    "customerAsn": {
-                      "type": "integer"
-                    },
-                    "providers": {
-                      "items": {
-                        "type": "integer"
-                      },
-                      "type": "array"
-                    },
-                    "type": {
-                      "enum": [
-                        "CustomerAdded",
-                        "CustomerRemoved",
-                        "ProvidersAdded",
-                        "ProvidersRemoved"
-                      ],
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "customerAsn",
-                    "providers",
-                    "type"
-                  ],
-                  "type": "object"
-                },
-                "type": "array"
-              },
-              "providersAdded": {
-                "type": "integer"
-              },
-              "providersRemoved": {
-                "type": "integer"
-              },
-              "totalCount": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "customersAdded",
-              "customersRemoved",
-              "date",
-              "entries",
-              "providersAdded",
-              "providersRemoved",
-              "totalCount"
-            ],
-            "type": "object"
-          },
-          "type": "array"
-        },
-        "meta": {
-          "properties": {
-            "dataTime": {
-              "format": "date-time",
-              "type": "string"
-            },
-            "queryTime": {
-              "format": "date-time",
-              "type": "string"
-            }
-          },
-          "required": [
-            "dataTime",
-            "queryTime"
-          ],
-          "type": "object"
-        }
-      },
-      "required": [
-        "asnInfo",
-        "changes",
-        "meta"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get ASPA changes over time"
-    },
-    method: "GET",
-    path: "/radar/bgp/rpki/aspa/changes",
-    extensions: {
-      "x-api-token-group": [
-        "User Details Write",
-        "User Details Read"
-      ],
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "asnInfo": {
               "properties": {
@@ -307,6 +165,172 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get ASPA changes over time"
+    },
+    method: "GET",
+    path: "/radar/bgp/rpki/aspa/changes",
+    extensions: {
+      "x-api-token-group": [
+        "User Details Write",
+        "User Details Read"
+      ],
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "asnInfo": {
+                  "properties": {
+                    "13335": {
+                      "properties": {
+                        "asn": {
+                          "type": "integer"
+                        },
+                        "country": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "asn",
+                        "country",
+                        "name"
+                      ],
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "13335"
+                  ],
+                  "type": "object"
+                },
+                "changes": {
+                  "items": {
+                    "properties": {
+                      "customersAdded": {
+                        "type": "integer"
+                      },
+                      "customersRemoved": {
+                        "type": "integer"
+                      },
+                      "date": {
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "entries": {
+                        "items": {
+                          "properties": {
+                            "customerAsn": {
+                              "type": "integer"
+                            },
+                            "providers": {
+                              "items": {
+                                "type": "integer"
+                              },
+                              "type": "array"
+                            },
+                            "type": {
+                              "enum": [
+                                "CustomerAdded",
+                                "CustomerRemoved",
+                                "ProvidersAdded",
+                                "ProvidersRemoved"
+                              ],
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "customerAsn",
+                            "providers",
+                            "type"
+                          ],
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      "providersAdded": {
+                        "type": "integer"
+                      },
+                      "providersRemoved": {
+                        "type": "integer"
+                      },
+                      "totalCount": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "customersAdded",
+                      "customersRemoved",
+                      "date",
+                      "entries",
+                      "providersAdded",
+                      "providersRemoved",
+                      "totalCount"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "meta": {
+                  "properties": {
+                    "dataTime": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "queryTime": {
+                      "format": "date-time",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "dataTime",
+                    "queryTime"
+                  ],
+                  "type": "object"
+                }
+              },
+              "required": [
+                "asnInfo",
+                "changes",
+                "meta"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
+          ],
+          "type": "object"
+        },
         "400": {
           "properties": {
             "errors": {
@@ -386,107 +410,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "asnInfo": {
-          "properties": {
-            "13335": {
-              "properties": {
-                "asn": {
-                  "type": "integer"
-                },
-                "country": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "asn",
-                "country",
-                "name"
-              ],
-              "type": "object"
-            }
-          },
-          "required": [
-            "13335"
-          ],
-          "type": "object"
-        },
-        "aspaObjects": {
-          "items": {
-            "properties": {
-              "customerAsn": {
-                "type": "integer"
-              },
-              "providers": {
-                "items": {
-                  "type": "integer"
-                },
-                "type": "array"
-              }
-            },
-            "required": [
-              "customerAsn",
-              "providers"
-            ],
-            "type": "object"
-          },
-          "type": "array"
-        },
-        "meta": {
-          "properties": {
-            "dataTime": {
-              "format": "date-time",
-              "type": "string"
-            },
-            "queryTime": {
-              "format": "date-time",
-              "type": "string"
-            },
-            "totalCount": {
-              "type": "integer"
-            }
-          },
-          "required": [
-            "dataTime",
-            "queryTime",
-            "totalCount"
-          ],
-          "type": "object"
-        }
-      },
-      "required": [
-        "asnInfo",
-        "aspaObjects",
-        "meta"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get ASPA objects snapshot"
-    },
-    method: "GET",
-    path: "/radar/bgp/rpki/aspa/snapshot",
-    extensions: {
-      "x-api-token-group": [
-        "User Details Write",
-        "User Details Read"
-      ],
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "asnInfo": {
               "properties": {
@@ -562,6 +486,130 @@ export const tools: readonly Tool[] = [
             "asnInfo",
             "aspaObjects",
             "meta"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get ASPA objects snapshot"
+    },
+    method: "GET",
+    path: "/radar/bgp/rpki/aspa/snapshot",
+    extensions: {
+      "x-api-token-group": [
+        "User Details Write",
+        "User Details Read"
+      ],
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "asnInfo": {
+                  "properties": {
+                    "13335": {
+                      "properties": {
+                        "asn": {
+                          "type": "integer"
+                        },
+                        "country": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "asn",
+                        "country",
+                        "name"
+                      ],
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "13335"
+                  ],
+                  "type": "object"
+                },
+                "aspaObjects": {
+                  "items": {
+                    "properties": {
+                      "customerAsn": {
+                        "type": "integer"
+                      },
+                      "providers": {
+                        "items": {
+                          "type": "integer"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "customerAsn",
+                      "providers"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "meta": {
+                  "properties": {
+                    "dataTime": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "queryTime": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "totalCount": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "dataTime",
+                    "queryTime",
+                    "totalCount"
+                  ],
+                  "type": "object"
+                }
+              },
+              "required": [
+                "asnInfo",
+                "aspaObjects",
+                "meta"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -665,76 +713,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "meta": {
-          "properties": {
-            "dataTime": {
-              "format": "date-time",
-              "type": "string"
-            },
-            "queryTime": {
-              "format": "date-time",
-              "type": "string"
-            }
-          },
-          "required": [
-            "dataTime",
-            "queryTime"
-          ],
-          "type": "object"
-        },
-        "serie_0": {
-          "properties": {
-            "timestamps": {
-              "items": {
-                "format": "date-time",
-                "type": "string"
-              },
-              "type": "array"
-            },
-            "values": {
-              "items": {
-                "type": "string"
-              },
-              "type": "array"
-            }
-          },
-          "required": [
-            "timestamps",
-            "values"
-          ],
-          "type": "object"
-        }
-      },
-      "required": [
-        "meta",
-        "serie_0"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get ASPA count time series"
-    },
-    method: "GET",
-    path: "/radar/bgp/rpki/aspa/timeseries",
-    extensions: {
-      "x-api-token-group": [
-        "User Details Write",
-        "User Details Read"
-      ],
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "meta": {
               "properties": {
@@ -779,6 +758,99 @@ export const tools: readonly Tool[] = [
           "required": [
             "meta",
             "serie_0"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get ASPA count time series"
+    },
+    method: "GET",
+    path: "/radar/bgp/rpki/aspa/timeseries",
+    extensions: {
+      "x-api-token-group": [
+        "User Details Write",
+        "User Details Read"
+      ],
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "meta": {
+                  "properties": {
+                    "dataTime": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "queryTime": {
+                      "format": "date-time",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "dataTime",
+                    "queryTime"
+                  ],
+                  "type": "object"
+                },
+                "serie_0": {
+                  "properties": {
+                    "timestamps": {
+                      "items": {
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "values": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "timestamps",
+                    "values"
+                  ],
+                  "type": "object"
+                }
+              },
+              "required": [
+                "meta",
+                "serie_0"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },

@@ -145,11 +145,3 @@ export const billable_usage_api_v2_usage_query: JsonSchema = {
   },
   "type": "object"
 };
-
-/**
- * The schema of `usage-analytics_identifier`.
- */
-export const usage_analytics_identifier: JsonSchema = {
-  "description": "Cloudflare resource identifier.",
-  "type": "string"
-};

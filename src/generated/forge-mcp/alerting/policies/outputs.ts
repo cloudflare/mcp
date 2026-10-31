@@ -89,35 +89,6 @@ export const aaa_alert_type_output: JsonSchema = {
 };
 
 /**
- * The schema of `aaa_api-response-collection` in responses.
- */
-export const aaa_api_response_collection_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/aaa_messages-3"
-    },
-    "messages": {
-      "$ref": "#/$defs/aaa_messages-3"
-    },
-    "result_info": {
-      "$ref": "#/$defs/aaa_result_info-2"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
  * The schema of `aaa_enabled` in responses.
  */
 export const aaa_enabled_output: JsonSchema = {
@@ -414,57 +385,36 @@ export const aaa_mechanisms_output: JsonSchema = {
   "properties": {
     "email": {
       "items": {
-        "$ref": "#/$defs/aaa_mechanisms_emailItem"
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        },
+        "type": "object"
       },
       "type": "array"
     },
     "pagerduty": {
       "items": {
-        "$ref": "#/$defs/aaa_mechanisms_pagerdutyItem"
+        "properties": {
+          "id": {
+            "$ref": "#/$defs/aaa_uuid"
+          }
+        },
+        "type": "object"
       },
       "type": "array"
     },
     "webhooks": {
       "items": {
-        "$ref": "#/$defs/aaa_mechanisms_webhooksItem"
+        "properties": {
+          "id": {
+            "$ref": "#/$defs/aaa_uuid"
+          }
+        },
+        "type": "object"
       },
       "type": "array"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `aaa_mechanisms_emailItem` in responses.
- */
-export const aaa_mechanisms_emailItem_output: JsonSchema = {
-  "properties": {
-    "id": {
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `aaa_mechanisms_pagerdutyItem` in responses.
- */
-export const aaa_mechanisms_pagerdutyItem_output: JsonSchema = {
-  "properties": {
-    "id": {
-      "$ref": "#/$defs/aaa_uuid"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `aaa_mechanisms_webhooksItem` in responses.
- */
-export const aaa_mechanisms_webhooksItem_output: JsonSchema = {
-  "properties": {
-    "id": {
-      "$ref": "#/$defs/aaa_uuid"
     }
   },
   "type": "object"
@@ -510,24 +460,26 @@ export const aaa_policies_output: JsonSchema = {
 };
 
 /**
- * The schema of `aaa_result_info-2` in responses.
+ * The schema of `aaa_policies_components-schemas-response_collection` in
+ * responses.
  */
-export const aaa_result_info_2_output: JsonSchema = {
-  "properties": {
-    "count": {
-      "type": "number"
+export const aaa_policies_components_schemas_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/aaa_api-response-common-2"
     },
-    "page": {
-      "type": "number"
-    },
-    "per_page": {
-      "type": "number"
-    },
-    "total_count": {
-      "type": "number"
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/aaa_policies"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };
 
 /**
@@ -541,29 +493,19 @@ export const aaa_schemas_description_output: JsonSchema = {
  * The schema of `aaa_single_response` in responses.
  */
 export const aaa_single_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/aaa_messages-3"
+  "allOf": [
+    {
+      "$ref": "#/$defs/aaa_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/aaa_messages-3"
-    },
-    "result": {
-      "$ref": "#/$defs/aaa_policies"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/aaa_policies"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**

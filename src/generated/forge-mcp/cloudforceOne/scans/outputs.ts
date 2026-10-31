@@ -4,18 +4,21 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `cloudforce-one-port-scan-api_api-response-common-failure` in
+ * The schema of `cloudforce-one-port-scan-api_api-response-common` in
  * responses.
  */
-export const cloudforce_one_port_scan_api_api_response_common_failure_output: JsonSchema = {
+export const cloudforce_one_port_scan_api_api_response_common_output: JsonSchema = {
   "properties": {
     "errors": {
-      "type": "object"
+      "$ref": "#/$defs/cloudforce-one-port-scan-api_messages"
     },
     "messages": {
       "$ref": "#/$defs/cloudforce-one-port-scan-api_messages"
     },
     "success": {
+      "enum": [
+        true
+      ],
       "type": "boolean"
     }
   },
@@ -25,6 +28,29 @@ export const cloudforce_one_port_scan_api_api_response_common_failure_output: Js
     "success"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `cloudforce-one-port-scan-api_api-response-common-failure` in
+ * responses.
+ */
+export const cloudforce_one_port_scan_api_api_response_common_failure_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/cloudforce-one-port-scan-api_api-response-common"
+    },
+    {
+      "properties": {
+        "errors": {
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**

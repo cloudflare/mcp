@@ -3,8 +3,11 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
-  r2_data_catalog_api_response_common_failure_errorsItem_output,
   r2_data_catalog_api_response_common_failure_output,
+  r2_data_catalog_api_response_errors_output,
+  r2_data_catalog_api_response_messages_output,
+  r2_data_catalog_api_response_single_output,
+  r2_data_catalog_api_response_success_output,
   r2_data_catalog_catalog_activation_response_output,
   r2_data_catalog_catalog_compaction_config_output,
   r2_data_catalog_catalog_list_output,
@@ -18,6 +21,8 @@ import {
   r2_data_catalog_snapshot_expiration_config_output,
 } from "../outputs.js";
 import {
+  r2_data_catalog_account_id,
+  r2_data_catalog_bucket_name,
   r2_data_catalog_catalog_activation_request,
   r2_data_catalog_catalog_credential_request,
 } from "../schemas.js";
@@ -34,12 +39,12 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Use this to identify the account.",
-          "type": "string"
+          "$ref": "#/$defs/r2-data-catalog_account-id",
+          "description": "Use this to identify the account."
         },
         "bucket_name": {
-          "description": "Specifies the R2 bucket name.",
-          "type": "string"
+          "$ref": "#/$defs/r2-data-catalog_bucket-name",
+          "description": "Specifies the R2 bucket name."
         },
         "cascade": {
           "default": false,
@@ -51,6 +56,10 @@ export const tools: readonly Tool[] = [
         "account_id",
         "bucket_name"
       ],
+      $defs: {
+        "r2-data-catalog_account-id": r2_data_catalog_account_id,
+        "r2-data-catalog_bucket-name": r2_data_catalog_bucket_name,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -81,7 +90,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "r2-data-catalog_api-response-common-failure": r2_data_catalog_api_response_common_failure_output,
-        "r2-data-catalog_api-response-common-failure_errorsItem": r2_data_catalog_api_response_common_failure_errorsItem_output,
       },
     },
     request: (args) => ({
@@ -99,18 +107,22 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifies the account.",
-          "type": "string"
+          "$ref": "#/$defs/r2-data-catalog_account-id",
+          "description": "Identifies the account."
         },
         "bucket_name": {
-          "description": "Specifies the R2 bucket name to disable as catalog.",
-          "type": "string"
+          "$ref": "#/$defs/r2-data-catalog_bucket-name",
+          "description": "Specifies the R2 bucket name to disable as catalog."
         }
       },
       required: [
         "account_id",
         "bucket_name"
       ],
+      $defs: {
+        "r2-data-catalog_account-id": r2_data_catalog_account_id,
+        "r2-data-catalog_bucket-name": r2_data_catalog_bucket_name,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -147,7 +159,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "r2-data-catalog_api-response-common-failure": r2_data_catalog_api_response_common_failure_output,
-        "r2-data-catalog_api-response-common-failure_errorsItem": r2_data_catalog_api_response_common_failure_errorsItem_output,
       },
     },
     request: (args) => ({
@@ -162,15 +173,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifies the account.",
-          "type": "string"
+          "$ref": "#/$defs/r2-data-catalog_account-id",
+          "description": "Identifies the account."
         },
         "body": {
           "$ref": "#/$defs/r2-data-catalog_catalog-activation-request"
         },
         "bucket_name": {
-          "description": "Specifies the R2 bucket name to enable as catalog.",
-          "type": "string"
+          "$ref": "#/$defs/r2-data-catalog_bucket-name",
+          "description": "Specifies the R2 bucket name to enable as catalog."
         }
       },
       required: [
@@ -178,13 +189,31 @@ export const tools: readonly Tool[] = [
         "bucket_name"
       ],
       $defs: {
+        "r2-data-catalog_account-id": r2_data_catalog_account_id,
+        "r2-data-catalog_bucket-name": r2_data_catalog_bucket_name,
         "r2-data-catalog_catalog-activation-request": r2_data_catalog_catalog_activation_request,
         "r2-data-catalog_catalog-credential-request": r2_data_catalog_catalog_credential_request,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/r2-data-catalog_catalog-activation-response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/r2-data-catalog_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/r2-data-catalog_catalog-activation-response"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "r2-data-catalog_api-response-errors": r2_data_catalog_api_response_errors_output,
+        "r2-data-catalog_api-response-messages": r2_data_catalog_api_response_messages_output,
+        "r2-data-catalog_api-response-single": r2_data_catalog_api_response_single_output,
+        "r2-data-catalog_api-response-success": r2_data_catalog_api_response_success_output,
         "r2-data-catalog_catalog-activation-response": r2_data_catalog_catalog_activation_response_output,
       },
     },
@@ -205,7 +234,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/r2-data-catalog_catalog-activation-response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/r2-data-catalog_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/r2-data-catalog_catalog-activation-response"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "400": {
           "$ref": "#/$defs/r2-data-catalog_api-response-common-failure"
@@ -228,7 +269,10 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "r2-data-catalog_api-response-common-failure": r2_data_catalog_api_response_common_failure_output,
-        "r2-data-catalog_api-response-common-failure_errorsItem": r2_data_catalog_api_response_common_failure_errorsItem_output,
+        "r2-data-catalog_api-response-errors": r2_data_catalog_api_response_errors_output,
+        "r2-data-catalog_api-response-messages": r2_data_catalog_api_response_messages_output,
+        "r2-data-catalog_api-response-single": r2_data_catalog_api_response_single_output,
+        "r2-data-catalog_api-response-success": r2_data_catalog_api_response_success_output,
         "r2-data-catalog_catalog-activation-response": r2_data_catalog_catalog_activation_response_output,
       },
     },
@@ -245,22 +289,42 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifies the account.",
-          "type": "string"
+          "$ref": "#/$defs/r2-data-catalog_account-id",
+          "description": "Identifies the account."
         },
         "bucket_name": {
-          "description": "Specifies the R2 bucket name.",
-          "type": "string"
+          "$ref": "#/$defs/r2-data-catalog_bucket-name",
+          "description": "Specifies the R2 bucket name."
         }
       },
       required: [
         "account_id",
         "bucket_name"
       ],
+      $defs: {
+        "r2-data-catalog_account-id": r2_data_catalog_account_id,
+        "r2-data-catalog_bucket-name": r2_data_catalog_bucket_name,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/r2-data-catalog_catalog",
+      "allOf": [
+        {
+          "$ref": "#/$defs/r2-data-catalog_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/r2-data-catalog_catalog"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "r2-data-catalog_api-response-errors": r2_data_catalog_api_response_errors_output,
+        "r2-data-catalog_api-response-messages": r2_data_catalog_api_response_messages_output,
+        "r2-data-catalog_api-response-single": r2_data_catalog_api_response_single_output,
+        "r2-data-catalog_api-response-success": r2_data_catalog_api_response_success_output,
         "r2-data-catalog_catalog": r2_data_catalog_catalog_output,
         "r2-data-catalog_catalog-compaction-config": r2_data_catalog_catalog_compaction_config_output,
         "r2-data-catalog_catalog-maintenance-config": r2_data_catalog_catalog_maintenance_config_output,
@@ -290,7 +354,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/r2-data-catalog_catalog"
+          "allOf": [
+            {
+              "$ref": "#/$defs/r2-data-catalog_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/r2-data-catalog_catalog"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "400": {
           "$ref": "#/$defs/r2-data-catalog_api-response-common-failure"
@@ -310,7 +386,10 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "r2-data-catalog_api-response-common-failure": r2_data_catalog_api_response_common_failure_output,
-        "r2-data-catalog_api-response-common-failure_errorsItem": r2_data_catalog_api_response_common_failure_errorsItem_output,
+        "r2-data-catalog_api-response-errors": r2_data_catalog_api_response_errors_output,
+        "r2-data-catalog_api-response-messages": r2_data_catalog_api_response_messages_output,
+        "r2-data-catalog_api-response-single": r2_data_catalog_api_response_single_output,
+        "r2-data-catalog_api-response-success": r2_data_catalog_api_response_success_output,
         "r2-data-catalog_catalog": r2_data_catalog_catalog_output,
         "r2-data-catalog_catalog-compaction-config": r2_data_catalog_catalog_compaction_config_output,
         "r2-data-catalog_catalog-maintenance-config": r2_data_catalog_catalog_maintenance_config_output,
@@ -334,17 +413,36 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifies the account.",
-          "type": "string"
+          "$ref": "#/$defs/r2-data-catalog_account-id",
+          "description": "Identifies the account."
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "r2-data-catalog_account-id": r2_data_catalog_account_id,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/r2-data-catalog_catalog-list",
+      "allOf": [
+        {
+          "$ref": "#/$defs/r2-data-catalog_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/r2-data-catalog_catalog-list"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "r2-data-catalog_api-response-errors": r2_data_catalog_api_response_errors_output,
+        "r2-data-catalog_api-response-messages": r2_data_catalog_api_response_messages_output,
+        "r2-data-catalog_api-response-single": r2_data_catalog_api_response_single_output,
+        "r2-data-catalog_api-response-success": r2_data_catalog_api_response_success_output,
         "r2-data-catalog_catalog": r2_data_catalog_catalog_output,
         "r2-data-catalog_catalog-compaction-config": r2_data_catalog_catalog_compaction_config_output,
         "r2-data-catalog_catalog-list": r2_data_catalog_catalog_list_output,
@@ -375,7 +473,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/r2-data-catalog_catalog-list"
+          "allOf": [
+            {
+              "$ref": "#/$defs/r2-data-catalog_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/r2-data-catalog_catalog-list"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "400": {
           "$ref": "#/$defs/r2-data-catalog_api-response-common-failure"
@@ -392,7 +502,10 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "r2-data-catalog_api-response-common-failure": r2_data_catalog_api_response_common_failure_output,
-        "r2-data-catalog_api-response-common-failure_errorsItem": r2_data_catalog_api_response_common_failure_errorsItem_output,
+        "r2-data-catalog_api-response-errors": r2_data_catalog_api_response_errors_output,
+        "r2-data-catalog_api-response-messages": r2_data_catalog_api_response_messages_output,
+        "r2-data-catalog_api-response-single": r2_data_catalog_api_response_single_output,
+        "r2-data-catalog_api-response-success": r2_data_catalog_api_response_success_output,
         "r2-data-catalog_catalog": r2_data_catalog_catalog_output,
         "r2-data-catalog_catalog-compaction-config": r2_data_catalog_catalog_compaction_config_output,
         "r2-data-catalog_catalog-list": r2_data_catalog_catalog_list_output,

@@ -3,11 +3,20 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
+  access_api_response_collection_output,
   access_api_response_common_failure_output,
+  access_api_response_common_output,
+  access_api_response_single_output,
+  access_id_response_output,
   access_messages_output,
   access_uuid_output,
 } from "../../../outputs.js";
-import { access_certificates_2_output } from "./outputs.js";
+import { access_identifier, access_uuid } from "../../../schemas.js";
+import {
+  access_certificates_2_output,
+  access_response_collection_7_output,
+  access_single_response_8_output,
+} from "./outputs.js";
 
 /**
  * The tools of `zero_trust.access.infrastructure.ssh_ca`.
@@ -21,18 +30,24 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "access_identifier": access_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/access_certificates-2",
+      "$ref": "#/$defs/access_single_response-8",
       $defs: {
+        "access_api-response-single": access_api_response_single_output,
         "access_certificates-2": access_certificates_2_output,
+        "access_messages": access_messages_output,
+        "access_single_response-8": access_single_response_8_output,
       },
     },
     annotations: {
@@ -52,7 +67,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "201": {
-          "$ref": "#/$defs/access_certificates-2"
+          "$ref": "#/$defs/access_single_response-8"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -60,8 +75,10 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_certificates-2": access_certificates_2_output,
         "access_messages": access_messages_output,
+        "access_single_response-8": access_single_response_8_output,
       },
     },
     request: (args) => ({
@@ -76,27 +93,29 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         },
         "certificate_id": {
-          "description": "UUID.",
-          "type": "string"
+          "$ref": "#/$defs/access_uuid",
+          "description": "UUID."
         }
       },
       required: [
         "account_id",
         "certificate_id"
       ],
+      $defs: {
+        "access_identifier": access_identifier,
+        "access_uuid": access_uuid,
+      },
     },
     outputSchema: {
-      "properties": {
-        "id": {
-          "$ref": "#/$defs/access_uuid"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/access_id_response",
       $defs: {
+        "access_api-response-single": access_api_response_single_output,
+        "access_id_response": access_id_response_output,
+        "access_messages": access_messages_output,
         "access_uuid": access_uuid_output,
       },
     },
@@ -117,12 +136,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "id": {
-              "$ref": "#/$defs/access_uuid"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/access_id_response"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -130,6 +144,8 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
+        "access_id_response": access_id_response_output,
         "access_messages": access_messages_output,
         "access_uuid": access_uuid_output,
       },
@@ -146,49 +162,25 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "access_identifier": access_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/access_certificates-2"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/access_response_collection-7",
       $defs: {
+        "access_api-response-collection": access_api_response_collection_output,
+        "access_api-response-common": access_api_response_common_output,
         "access_certificates-2": access_certificates_2_output,
+        "access_messages": access_messages_output,
+        "access_response_collection-7": access_response_collection_7_output,
       },
     },
     annotations: {
@@ -209,47 +201,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/access_certificates-2"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/access_response_collection-7"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
         }
       },
       $defs: {
+        "access_api-response-collection": access_api_response_collection_output,
+        "access_api-response-common": access_api_response_common_output,
         "access_api-response-common-failure": access_api_response_common_failure_output,
         "access_certificates-2": access_certificates_2_output,
         "access_messages": access_messages_output,
+        "access_response_collection-7": access_response_collection_7_output,
       },
     },
     request: (args) => ({

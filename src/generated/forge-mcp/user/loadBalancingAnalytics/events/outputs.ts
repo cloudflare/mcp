@@ -29,6 +29,29 @@ export const load_balancing_analytics_output: JsonSchema = {
 };
 
 /**
+ * The schema of `load-balancing_components-schemas-response_collection` in
+ * responses.
+ */
+export const load_balancing_components_schemas_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/load-balancing_api-paginated-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/load-balancing_analytics"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `load-balancing_origin-analytics` in responses.
  */
 export const load_balancing_origin_analytics_output: JsonSchema = {

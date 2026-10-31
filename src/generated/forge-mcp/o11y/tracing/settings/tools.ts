@@ -25,56 +25,38 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "destinations": {
+        "errors": {
           "items": {
-            "type": "string"
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
           },
-          "maxItems": 100,
           "type": "array"
         },
-        "enabled": {
-          "type": "boolean"
+        "messages": {
+          "items": {
+            "properties": {
+              "message": {
+                "enum": [
+                  "Successful request"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        "forward_context": {
-          "type": "boolean"
-        },
-        "persist": {
-          "type": "boolean"
-        },
-        "propagation_policy": {
-          "enum": [
-            "accept",
-            "authenticated",
-            "reject"
-          ],
-          "type": "string"
-        },
-        "sampling_ratio": {
-          "type": "number"
-        }
-      },
-      "required": [
-        "destinations",
-        "enabled",
-        "forward_context",
-        "persist",
-        "propagation_policy",
-        "sampling_ratio"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": true,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Reset zone tracing settings"
-    },
-    method: "DELETE",
-    path: "/zones/{zone_id}/observability/tracing/settings",
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "destinations": {
               "items": {
@@ -111,6 +93,120 @@ export const tools: readonly Tool[] = [
             "persist",
             "propagation_policy",
             "sampling_ratio"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Reset zone tracing settings"
+    },
+    method: "DELETE",
+    path: "/zones/{zone_id}/observability/tracing/settings",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "enum": [
+                      "Successful request"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "destinations": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "maxItems": 100,
+                  "type": "array"
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "forward_context": {
+                  "type": "boolean"
+                },
+                "persist": {
+                  "type": "boolean"
+                },
+                "propagation_policy": {
+                  "enum": [
+                    "accept",
+                    "authenticated",
+                    "reject"
+                  ],
+                  "type": "string"
+                },
+                "sampling_ratio": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "destinations",
+                "enabled",
+                "forward_context",
+                "persist",
+                "propagation_policy",
+                "sampling_ratio"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -338,56 +434,38 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "destinations": {
+        "errors": {
           "items": {
-            "type": "string"
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
           },
-          "maxItems": 100,
           "type": "array"
         },
-        "enabled": {
-          "type": "boolean"
+        "messages": {
+          "items": {
+            "properties": {
+              "message": {
+                "enum": [
+                  "Successful request"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        "forward_context": {
-          "type": "boolean"
-        },
-        "persist": {
-          "type": "boolean"
-        },
-        "propagation_policy": {
-          "enum": [
-            "accept",
-            "authenticated",
-            "reject"
-          ],
-          "type": "string"
-        },
-        "sampling_ratio": {
-          "type": "number"
-        }
-      },
-      "required": [
-        "destinations",
-        "enabled",
-        "forward_context",
-        "persist",
-        "propagation_policy",
-        "sampling_ratio"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "View zone tracing settings"
-    },
-    method: "GET",
-    path: "/zones/{zone_id}/observability/tracing/settings",
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "destinations": {
               "items": {
@@ -424,6 +502,120 @@ export const tools: readonly Tool[] = [
             "persist",
             "propagation_policy",
             "sampling_ratio"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "View zone tracing settings"
+    },
+    method: "GET",
+    path: "/zones/{zone_id}/observability/tracing/settings",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "enum": [
+                      "Successful request"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "destinations": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "maxItems": 100,
+                  "type": "array"
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "forward_context": {
+                  "type": "boolean"
+                },
+                "persist": {
+                  "type": "boolean"
+                },
+                "propagation_policy": {
+                  "enum": [
+                    "accept",
+                    "authenticated",
+                    "reject"
+                  ],
+                  "type": "string"
+                },
+                "sampling_ratio": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "destinations",
+                "enabled",
+                "forward_context",
+                "persist",
+                "propagation_policy",
+                "sampling_ratio"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -691,56 +883,38 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "destinations": {
+        "errors": {
           "items": {
-            "type": "string"
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
           },
-          "maxItems": 100,
           "type": "array"
         },
-        "enabled": {
-          "type": "boolean"
+        "messages": {
+          "items": {
+            "properties": {
+              "message": {
+                "enum": [
+                  "Successful request"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        "forward_context": {
-          "type": "boolean"
-        },
-        "persist": {
-          "type": "boolean"
-        },
-        "propagation_policy": {
-          "enum": [
-            "accept",
-            "authenticated",
-            "reject"
-          ],
-          "type": "string"
-        },
-        "sampling_ratio": {
-          "type": "number"
-        }
-      },
-      "required": [
-        "destinations",
-        "enabled",
-        "forward_context",
-        "persist",
-        "propagation_policy",
-        "sampling_ratio"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Update zone tracing settings"
-    },
-    method: "PATCH",
-    path: "/zones/{zone_id}/observability/tracing/settings",
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "destinations": {
               "items": {
@@ -777,6 +951,120 @@ export const tools: readonly Tool[] = [
             "persist",
             "propagation_policy",
             "sampling_ratio"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Update zone tracing settings"
+    },
+    method: "PATCH",
+    path: "/zones/{zone_id}/observability/tracing/settings",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "enum": [
+                      "Successful request"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "destinations": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "maxItems": 100,
+                  "type": "array"
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "forward_context": {
+                  "type": "boolean"
+                },
+                "persist": {
+                  "type": "boolean"
+                },
+                "propagation_policy": {
+                  "enum": [
+                    "accept",
+                    "authenticated",
+                    "reject"
+                  ],
+                  "type": "string"
+                },
+                "sampling_ratio": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "destinations",
+                "enabled",
+                "forward_context",
+                "persist",
+                "propagation_policy",
+                "sampling_ratio"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },

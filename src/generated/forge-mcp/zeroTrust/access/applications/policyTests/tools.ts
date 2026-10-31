@@ -4,12 +4,12 @@
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
   access_api_response_common_failure_output,
+  access_api_response_single_output,
   access_messages_output,
 } from "../../../outputs.js";
 import { access_identifier } from "../../../schemas.js";
 import {
   access_access_group_rule,
-  access_access_group_rule_group,
   access_allowed_clipboard_local_to_remote_formats,
   access_allowed_clipboard_remote_to_local_formats,
   access_any_valid_service_token_rule,
@@ -17,54 +17,35 @@ import {
   access_approval_groups,
   access_approval_required,
   access_auth_context_rule,
-  access_auth_context_rule_auth_context,
   access_authentication_method_rule,
-  access_authentication_method_rule_auth_method,
   access_azure_group_rule,
-  access_azure_group_rule_azureAD,
   access_base_policy_req,
   access_certificate_rule,
   access_cloudflare_account_member_rule,
-  access_cloudflare_account_member_rule_cloudflare_account_member,
   access_common_name_rule,
-  access_common_name_rule_common_name,
   access_connection_rules,
   access_connection_rules_rdp,
   access_country_rule,
-  access_country_rule_geo,
   access_decision,
   access_device_posture_rule,
-  access_device_posture_rule_device_posture,
   access_domain_rule,
-  access_domain_rule_email_domain,
   access_email_list_rule,
-  access_email_list_rule_email_list,
   access_email_rule,
-  access_email_rule_email,
   access_everyone_rule,
   access_exclude_2,
   access_external_evaluation_rule,
-  access_external_evaluation_rule_external_evaluation,
   access_github_organization_rule,
-  access_github_organization_rule_github_organization,
   access_gsuite_group_rule,
-  access_gsuite_group_rule_gsuite,
   access_include_2,
   access_ip_list_rule,
-  access_ip_list_rule_ip_list,
   access_ip_rule,
-  access_ip_rule_ip,
   access_isolation_required,
   access_linked_app_token_rule,
-  access_linked_app_token_rule_linked_app_token,
   access_login_method_rule,
-  access_login_method_rule_login_method,
   access_mfa_config,
   access_name_9,
   access_oidc_claim_rule,
-  access_oidc_claim_rule_oidc,
   access_okta_group_rule,
-  access_okta_group_rule_okta,
   access_policy_req,
   access_policy_resolution_account_id,
   access_purpose_justification_prompt,
@@ -73,19 +54,19 @@ import {
   access_require_2,
   access_rule,
   access_saml_group_rule,
-  access_saml_group_rule_saml,
   access_service_token_rule,
-  access_service_token_rule_service_token,
+  access_service_token_tag_rule,
   access_session_duration_3,
   access_user_risk_score_rule,
-  access_user_risk_score_rule_user_risk_score,
 } from "../../schemas.js";
 import {
   access_percent_approved_output,
   access_percent_blocked_output,
   access_percent_errored_output,
   access_percent_users_processed_output,
+  access_policy_init_resp_output,
   access_policy_test_id_output,
+  access_policy_update_resp_output,
   access_status_output,
   access_total_users_output,
   access_update_status_output,
@@ -93,7 +74,7 @@ import {
   access_users_blocked_output,
   access_users_errored_output,
 } from "./outputs.js";
-import { access_policy_init_req } from "./schemas.js";
+import { access_policy_init_req, access_policy_test_id } from "./schemas.js";
 
 /**
  * The tools of `zero_trust.access.applications.policy_tests`.
@@ -107,8 +88,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         },
         "body": {
           "$ref": "#/$defs/access_policy_init_req"
@@ -120,7 +101,6 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "access_access_group_rule": access_access_group_rule,
-        "access_access_group_rule_group": access_access_group_rule_group,
         "access_allowed_clipboard_local_to_remote_formats": access_allowed_clipboard_local_to_remote_formats,
         "access_allowed_clipboard_remote_to_local_formats": access_allowed_clipboard_remote_to_local_formats,
         "access_any_valid_service_token_rule": access_any_valid_service_token_rule,
@@ -128,55 +108,36 @@ export const tools: readonly Tool[] = [
         "access_approval_groups": access_approval_groups,
         "access_approval_required": access_approval_required,
         "access_auth_context_rule": access_auth_context_rule,
-        "access_auth_context_rule_auth_context": access_auth_context_rule_auth_context,
         "access_authentication_method_rule": access_authentication_method_rule,
-        "access_authentication_method_rule_auth_method": access_authentication_method_rule_auth_method,
         "access_azure_group_rule": access_azure_group_rule,
-        "access_azure_group_rule_azureAD": access_azure_group_rule_azureAD,
         "access_base_policy_req": access_base_policy_req,
         "access_certificate_rule": access_certificate_rule,
         "access_cloudflare_account_member_rule": access_cloudflare_account_member_rule,
-        "access_cloudflare_account_member_rule_cloudflare_account_member": access_cloudflare_account_member_rule_cloudflare_account_member,
         "access_common_name_rule": access_common_name_rule,
-        "access_common_name_rule_common_name": access_common_name_rule_common_name,
         "access_connection_rules": access_connection_rules,
         "access_connection_rules_rdp": access_connection_rules_rdp,
         "access_country_rule": access_country_rule,
-        "access_country_rule_geo": access_country_rule_geo,
         "access_decision": access_decision,
         "access_device_posture_rule": access_device_posture_rule,
-        "access_device_posture_rule_device_posture": access_device_posture_rule_device_posture,
         "access_domain_rule": access_domain_rule,
-        "access_domain_rule_email_domain": access_domain_rule_email_domain,
         "access_email_list_rule": access_email_list_rule,
-        "access_email_list_rule_email_list": access_email_list_rule_email_list,
         "access_email_rule": access_email_rule,
-        "access_email_rule_email": access_email_rule_email,
         "access_everyone_rule": access_everyone_rule,
         "access_exclude-2": access_exclude_2,
         "access_external_evaluation_rule": access_external_evaluation_rule,
-        "access_external_evaluation_rule_external_evaluation": access_external_evaluation_rule_external_evaluation,
         "access_github_organization_rule": access_github_organization_rule,
-        "access_github_organization_rule_github-organization": access_github_organization_rule_github_organization,
         "access_gsuite_group_rule": access_gsuite_group_rule,
-        "access_gsuite_group_rule_gsuite": access_gsuite_group_rule_gsuite,
         "access_identifier": access_identifier,
         "access_include-2": access_include_2,
         "access_ip_list_rule": access_ip_list_rule,
-        "access_ip_list_rule_ip_list": access_ip_list_rule_ip_list,
         "access_ip_rule": access_ip_rule,
-        "access_ip_rule_ip": access_ip_rule_ip,
         "access_isolation_required": access_isolation_required,
         "access_linked_app_token_rule": access_linked_app_token_rule,
-        "access_linked_app_token_rule_linked_app_token": access_linked_app_token_rule_linked_app_token,
         "access_login_method_rule": access_login_method_rule,
-        "access_login_method_rule_login_method": access_login_method_rule_login_method,
         "access_mfa_config": access_mfa_config,
         "access_name-9": access_name_9,
         "access_oidc_claim_rule": access_oidc_claim_rule,
-        "access_oidc_claim_rule_oidc": access_oidc_claim_rule_oidc,
         "access_okta_group_rule": access_okta_group_rule,
-        "access_okta_group_rule_okta": access_okta_group_rule_okta,
         "access_policy_init_req": access_policy_init_req,
         "access_policy_req": access_policy_req,
         "access_policy_resolution_account_id": access_policy_resolution_account_id,
@@ -186,25 +147,18 @@ export const tools: readonly Tool[] = [
         "access_require-2": access_require_2,
         "access_rule": access_rule,
         "access_saml_group_rule": access_saml_group_rule,
-        "access_saml_group_rule_saml": access_saml_group_rule_saml,
         "access_service_token_rule": access_service_token_rule,
-        "access_service_token_rule_service_token": access_service_token_rule_service_token,
+        "access_service_token_tag_rule": access_service_token_tag_rule,
         "access_session_duration-3": access_session_duration_3,
         "access_user_risk_score_rule": access_user_risk_score_rule,
-        "access_user_risk_score_rule_user_risk_score": access_user_risk_score_rule_user_risk_score,
       },
     },
     outputSchema: {
-      "properties": {
-        "id": {
-          "$ref": "#/$defs/access_policy_test_id"
-        },
-        "status": {
-          "$ref": "#/$defs/access_status"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/access_policy_init_resp",
       $defs: {
+        "access_api-response-single": access_api_response_single_output,
+        "access_messages": access_messages_output,
+        "access_policy_init_resp": access_policy_init_resp_output,
         "access_policy_test_id": access_policy_test_id_output,
         "access_status": access_status_output,
       },
@@ -226,15 +180,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "id": {
-              "$ref": "#/$defs/access_policy_test_id"
-            },
-            "status": {
-              "$ref": "#/$defs/access_status"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/access_policy_init_resp"
         },
         "400": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -242,7 +188,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_messages": access_messages_output,
+        "access_policy_init_resp": access_policy_init_resp_output,
         "access_policy_test_id": access_policy_test_id_output,
         "access_status": access_status_output,
       },
@@ -260,59 +208,34 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         },
         "policy_test_id": {
-          "description": "The UUID of the policy test.",
-          "type": "string"
+          "$ref": "#/$defs/access_policy_test_id",
+          "description": "The UUID of the policy test."
         }
       },
       required: [
         "account_id",
         "policy_test_id"
       ],
+      $defs: {
+        "access_identifier": access_identifier,
+        "access_policy_test_id": access_policy_test_id,
+      },
     },
     outputSchema: {
-      "properties": {
-        "id": {
-          "$ref": "#/$defs/access_policy_test_id"
-        },
-        "percent_approved": {
-          "$ref": "#/$defs/access_percent_approved"
-        },
-        "percent_blocked": {
-          "$ref": "#/$defs/access_percent_blocked"
-        },
-        "percent_errored": {
-          "$ref": "#/$defs/access_percent_errored"
-        },
-        "percent_users_processed": {
-          "$ref": "#/$defs/access_percent_users_processed"
-        },
-        "status": {
-          "$ref": "#/$defs/access_update_status"
-        },
-        "total_users": {
-          "$ref": "#/$defs/access_total_users"
-        },
-        "users_approved": {
-          "$ref": "#/$defs/access_users_approved"
-        },
-        "users_blocked": {
-          "$ref": "#/$defs/access_users_blocked"
-        },
-        "users_errored": {
-          "$ref": "#/$defs/access_users_errored"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/access_policy_update_resp",
       $defs: {
+        "access_api-response-single": access_api_response_single_output,
+        "access_messages": access_messages_output,
         "access_percent_approved": access_percent_approved_output,
         "access_percent_blocked": access_percent_blocked_output,
         "access_percent_errored": access_percent_errored_output,
         "access_percent_users_processed": access_percent_users_processed_output,
         "access_policy_test_id": access_policy_test_id_output,
+        "access_policy_update_resp": access_policy_update_resp_output,
         "access_total_users": access_total_users_output,
         "access_update_status": access_update_status_output,
         "access_users_approved": access_users_approved_output,
@@ -338,39 +261,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "id": {
-              "$ref": "#/$defs/access_policy_test_id"
-            },
-            "percent_approved": {
-              "$ref": "#/$defs/access_percent_approved"
-            },
-            "percent_blocked": {
-              "$ref": "#/$defs/access_percent_blocked"
-            },
-            "percent_errored": {
-              "$ref": "#/$defs/access_percent_errored"
-            },
-            "percent_users_processed": {
-              "$ref": "#/$defs/access_percent_users_processed"
-            },
-            "status": {
-              "$ref": "#/$defs/access_update_status"
-            },
-            "total_users": {
-              "$ref": "#/$defs/access_total_users"
-            },
-            "users_approved": {
-              "$ref": "#/$defs/access_users_approved"
-            },
-            "users_blocked": {
-              "$ref": "#/$defs/access_users_blocked"
-            },
-            "users_errored": {
-              "$ref": "#/$defs/access_users_errored"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/access_policy_update_resp"
         },
         "400": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -378,12 +269,14 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_messages": access_messages_output,
         "access_percent_approved": access_percent_approved_output,
         "access_percent_blocked": access_percent_blocked_output,
         "access_percent_errored": access_percent_errored_output,
         "access_percent_users_processed": access_percent_users_processed_output,
         "access_policy_test_id": access_policy_test_id_output,
+        "access_policy_update_resp": access_policy_update_resp_output,
         "access_total_users": access_total_users_output,
         "access_update_status": access_update_status_output,
         "access_users_approved": access_users_approved_output,

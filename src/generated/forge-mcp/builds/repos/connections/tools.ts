@@ -3,6 +3,7 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  builds_APIResponse_output,
   builds_ApiError_output,
   builds_ErrorResponse_output,
   builds_PaginationInfo_output,
@@ -26,7 +27,6 @@ import {
   builds_repo_id,
   builds_repo_name,
 } from "../../../schemas.js";
-import { builds_APIResponse_output } from "../../outputs.js";
 import { builds_UpsertRepoConnectionRequest } from "./schemas.js";
 
 /**
@@ -133,8 +133,23 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/builds_UpsertRepoConnectionResponse",
+      "allOf": [
+        {
+          "$ref": "#/$defs/builds_APIResponse"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/builds_UpsertRepoConnectionResponse"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
+        "builds_ApiError": builds_ApiError_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
         "builds_SCMProviderType": builds_SCMProviderType_output,
         "builds_UpsertRepoConnectionResponse": builds_UpsertRepoConnectionResponse_output,
         "builds_created_on": builds_created_on_output,
@@ -164,15 +179,29 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/builds_UpsertRepoConnectionResponse"
+          "allOf": [
+            {
+              "$ref": "#/$defs/builds_APIResponse"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/builds_UpsertRepoConnectionResponse"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "401": {
           "$ref": "#/$defs/builds_ErrorResponse"
         }
       },
       $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
         "builds_ApiError": builds_ApiError_output,
         "builds_ErrorResponse": builds_ErrorResponse_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
         "builds_SCMProviderType": builds_SCMProviderType_output,
         "builds_UpsertRepoConnectionResponse": builds_UpsertRepoConnectionResponse_output,
         "builds_created_on": builds_created_on_output,

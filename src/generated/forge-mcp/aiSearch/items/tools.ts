@@ -29,6 +29,7 @@ export const tools: readonly Tool[] = [
           "type": "integer"
         },
         "namespace": {
+          "default": "default",
           "description": "Namespace name.",
           "type": "string"
         },
@@ -123,10 +124,15 @@ export const tools: readonly Tool[] = [
             "total"
           ],
           "type": "object"
+        },
+        "success": {
+          "type": "boolean"
         }
       },
       "required": [
-        "result"
+        "result",
+        "result_info",
+        "success"
       ],
       "type": "object",
     },
@@ -143,12 +149,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.ai-search"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai-search": {
-            "name": "com_cloudflare_api_account_ai_search"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -164,6 +165,7 @@ export const tools: readonly Tool[] = [
           "description": "Indexed item ID."
         },
         "namespace": {
+          "default": "default",
           "description": "Namespace to use for this operation."
         }
       }
@@ -249,10 +251,15 @@ export const tools: readonly Tool[] = [
                 "total"
               ],
               "type": "object"
+            },
+            "success": {
+              "type": "boolean"
             }
           },
           "required": [
-            "result"
+            "result",
+            "result_info",
+            "success"
           ],
           "type": "object"
         },
@@ -390,6 +397,7 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "namespace": {
+          "default": "default",
           "description": "Namespace name.",
           "type": "string"
         }
@@ -403,12 +411,24 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "key": {
-          "type": "string"
+        "result": {
+          "properties": {
+            "key": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "key"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
         }
       },
       "required": [
-        "key"
+        "result",
+        "success"
       ],
       "type": "object",
     },
@@ -425,12 +445,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.ai-search"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai-search": {
-            "name": "com_cloudflare_api_account_ai_search"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -446,6 +461,7 @@ export const tools: readonly Tool[] = [
           "description": "Indexed item ID."
         },
         "namespace": {
+          "default": "default",
           "description": "Namespace to use for this operation."
         }
       }
@@ -454,12 +470,24 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
-            "key": {
-              "type": "string"
+            "result": {
+              "properties": {
+                "key": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "key"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
             }
           },
           "required": [
-            "key"
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -644,6 +672,7 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "namespace": {
+          "default": "default",
           "description": "Namespace name.",
           "type": "string"
         }
@@ -668,12 +697,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.ai-search"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai-search": {
-            "name": "com_cloudflare_api_account_ai_search"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -689,6 +713,7 @@ export const tools: readonly Tool[] = [
           "description": "Indexed item ID."
         },
         "namespace": {
+          "default": "default",
           "description": "Namespace to use for this operation."
         }
       }
@@ -928,6 +953,7 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "namespace": {
+          "default": "default",
           "description": "Namespace name.",
           "type": "string"
         }
@@ -941,165 +967,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "checksum": {
-          "type": "string"
-        },
-        "chunks_count": {
-          "oneOf": [
-            {
-              "type": "integer"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "created_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "error": {
-          "type": "string"
-        },
-        "file_size": {
-          "oneOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "id": {
-          "type": "string"
-        },
-        "key": {
-          "type": "string"
-        },
-        "last_seen_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "metadata": {
-          "oneOf": [
-            {
-              "additionalProperties": {
-                "anyOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "number"
-                  },
-                  {
-                    "type": "boolean"
-                  }
-                ]
-              },
-              "type": "object"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "namespace": {
-          "type": "string"
-        },
-        "next_action": {
-          "oneOf": [
-            {
-              "enum": [
-                "INDEX",
-                "DELETE"
-              ],
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "source_id": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "status": {
-          "enum": [
-            "queued",
-            "running",
-            "completed",
-            "error",
-            "skipped",
-            "outdated"
-          ],
-          "type": "string"
-        }
-      },
-      "required": [
-        "checksum",
-        "chunks_count",
-        "created_at",
-        "file_size",
-        "id",
-        "key",
-        "last_seen_at",
-        "metadata",
-        "namespace",
-        "next_action",
-        "source_id",
-        "status"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get Item."
-    },
-    method: "GET",
-    path: "/accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}/items/{item_id}",
-    extensions: {
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.ai-search"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai-search": {
-            "name": "com_cloudflare_api_account_ai_search"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      },
-      "x-forge-params": {
-        "id": {
-          "description": "AI Search instance ID."
-        },
-        "item_id": {
-          "description": "Indexed item ID."
-        },
-        "namespace": {
-          "description": "Namespace to use for this operation."
-        }
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "checksum": {
               "type": "string"
@@ -1219,6 +1087,184 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get Item."
+    },
+    method: "GET",
+    path: "/accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}/items/{item_id}",
+    extensions: {
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.ai-search"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      },
+      "x-forge-params": {
+        "id": {
+          "description": "AI Search instance ID."
+        },
+        "item_id": {
+          "description": "Indexed item ID."
+        },
+        "namespace": {
+          "default": "default",
+          "description": "Namespace to use for this operation."
+        }
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "checksum": {
+                  "type": "string"
+                },
+                "chunks_count": {
+                  "oneOf": [
+                    {
+                      "type": "integer"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "error": {
+                  "type": "string"
+                },
+                "file_size": {
+                  "oneOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "id": {
+                  "type": "string"
+                },
+                "key": {
+                  "type": "string"
+                },
+                "last_seen_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "metadata": {
+                  "oneOf": [
+                    {
+                      "additionalProperties": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ]
+                      },
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "namespace": {
+                  "type": "string"
+                },
+                "next_action": {
+                  "oneOf": [
+                    {
+                      "enum": [
+                        "INDEX",
+                        "DELETE"
+                      ],
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "source_id": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "status": {
+                  "enum": [
+                    "queued",
+                    "running",
+                    "completed",
+                    "error",
+                    "skipped",
+                    "outdated"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "checksum",
+                "chunks_count",
+                "created_at",
+                "file_size",
+                "id",
+                "key",
+                "last_seen_at",
+                "metadata",
+                "namespace",
+                "next_action",
+                "source_id",
+                "status"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
+          ],
+          "type": "object"
+        },
         "404": {
           "properties": {
             "errors": {
@@ -1318,6 +1364,7 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "namespace": {
+          "default": "default",
           "description": "Namespace name.",
           "type": "string"
         },
@@ -1509,10 +1556,15 @@ export const tools: readonly Tool[] = [
             "total_count"
           ],
           "type": "object"
+        },
+        "success": {
+          "type": "boolean"
         }
       },
       "required": [
-        "result"
+        "result",
+        "result_info",
+        "success"
       ],
       "type": "object",
     },
@@ -1529,12 +1581,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.ai-search"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai-search": {
-            "name": "com_cloudflare_api_account_ai_search"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -1547,6 +1594,7 @@ export const tools: readonly Tool[] = [
           "description": "AI Search instance ID."
         },
         "namespace": {
+          "default": "default",
           "description": "Namespace to use for this operation."
         }
       }
@@ -1699,10 +1747,15 @@ export const tools: readonly Tool[] = [
                 "total_count"
               ],
               "type": "object"
+            },
+            "success": {
+              "type": "boolean"
             }
           },
           "required": [
-            "result"
+            "result",
+            "result_info",
+            "success"
           ],
           "type": "object"
         },
@@ -1847,6 +1900,7 @@ export const tools: readonly Tool[] = [
           "type": "integer"
         },
         "namespace": {
+          "default": "default",
           "description": "Namespace name.",
           "type": "string"
         }
@@ -1956,10 +2010,15 @@ export const tools: readonly Tool[] = [
             "truncated"
           ],
           "type": "object"
+        },
+        "success": {
+          "type": "boolean"
         }
       },
       "required": [
-        "result"
+        "result",
+        "result_info",
+        "success"
       ],
       "type": "object",
     },
@@ -1976,12 +2035,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.ai-search"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai-search": {
-            "name": "com_cloudflare_api_account_ai_search"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -1997,6 +2051,7 @@ export const tools: readonly Tool[] = [
           "description": "Indexed item ID."
         },
         "namespace": {
+          "default": "default",
           "description": "Namespace to use for this operation."
         }
       }
@@ -2101,10 +2156,15 @@ export const tools: readonly Tool[] = [
                 "truncated"
               ],
               "type": "object"
+            },
+            "success": {
+              "type": "boolean"
             }
           },
           "required": [
-            "result"
+            "result",
+            "result_info",
+            "success"
           ],
           "type": "object"
         },
@@ -2261,6 +2321,7 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "namespace": {
+          "default": "default",
           "description": "Namespace name.",
           "type": "string"
         }
@@ -2274,169 +2335,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "checksum": {
-          "type": "string"
-        },
-        "chunks_count": {
-          "oneOf": [
-            {
-              "type": "integer"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "created_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "error": {
-          "type": "string"
-        },
-        "file_size": {
-          "oneOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "id": {
-          "type": "string"
-        },
-        "key": {
-          "type": "string"
-        },
-        "last_seen_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "metadata": {
-          "oneOf": [
-            {
-              "additionalProperties": {
-                "anyOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "number"
-                  },
-                  {
-                    "type": "boolean"
-                  }
-                ]
-              },
-              "type": "object"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "namespace": {
-          "type": "string"
-        },
-        "next_action": {
-          "oneOf": [
-            {
-              "enum": [
-                "INDEX",
-                "DELETE"
-              ],
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "source_id": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "status": {
-          "enum": [
-            "queued",
-            "running",
-            "completed",
-            "error",
-            "skipped",
-            "outdated"
-          ],
-          "type": "string"
-        }
-      },
-      "required": [
-        "checksum",
-        "chunks_count",
-        "created_at",
-        "file_size",
-        "id",
-        "key",
-        "last_seen_at",
-        "metadata",
-        "namespace",
-        "next_action",
-        "source_id",
-        "status"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Sync Item."
-    },
-    method: "PATCH",
-    path: "/accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}/items/{item_id}",
-    extensions: {
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.ai-search"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai-search": {
-            "name": "com_cloudflare_api_account_ai_search"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      },
-      "x-forge-params": {
-        "id": {
-          "description": "AI Search instance ID."
-        },
-        "item_id": {
-          "description": "Indexed item ID."
-        },
-        "namespace": {
-          "description": "Namespace to use for this operation."
-        },
-        "next_action": {
-          "default": "INDEX",
-          "hidden": true
-        }
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "checksum": {
               "type": "string"
@@ -2553,6 +2452,188 @@ export const tools: readonly Tool[] = [
             "next_action",
             "source_id",
             "status"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Sync Item."
+    },
+    method: "PATCH",
+    path: "/accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}/items/{item_id}",
+    extensions: {
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.ai-search"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      },
+      "x-forge-params": {
+        "id": {
+          "description": "AI Search instance ID."
+        },
+        "item_id": {
+          "description": "Indexed item ID."
+        },
+        "namespace": {
+          "default": "default",
+          "description": "Namespace to use for this operation."
+        },
+        "next_action": {
+          "default": "INDEX",
+          "hidden": true
+        }
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "checksum": {
+                  "type": "string"
+                },
+                "chunks_count": {
+                  "oneOf": [
+                    {
+                      "type": "integer"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "error": {
+                  "type": "string"
+                },
+                "file_size": {
+                  "oneOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "id": {
+                  "type": "string"
+                },
+                "key": {
+                  "type": "string"
+                },
+                "last_seen_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "metadata": {
+                  "oneOf": [
+                    {
+                      "additionalProperties": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ]
+                      },
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "namespace": {
+                  "type": "string"
+                },
+                "next_action": {
+                  "oneOf": [
+                    {
+                      "enum": [
+                        "INDEX",
+                        "DELETE"
+                      ],
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "source_id": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "status": {
+                  "enum": [
+                    "queued",
+                    "running",
+                    "completed",
+                    "error",
+                    "skipped",
+                    "outdated"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "checksum",
+                "chunks_count",
+                "created_at",
+                "file_size",
+                "id",
+                "key",
+                "last_seen_at",
+                "metadata",
+                "namespace",
+                "next_action",
+                "source_id",
+                "status"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -2760,6 +2841,7 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "namespace": {
+          "default": "default",
           "description": "Namespace name.",
           "type": "string"
         }
@@ -2772,216 +2854,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "checksum": {
-          "type": "string"
-        },
-        "chunks_count": {
-          "oneOf": [
-            {
-              "type": "integer"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "created_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "error": {
-          "type": "string"
-        },
-        "file_size": {
-          "oneOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "id": {
-          "type": "string"
-        },
-        "key": {
-          "type": "string"
-        },
-        "last_seen_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "metadata": {
-          "oneOf": [
-            {
-              "additionalProperties": {
-                "anyOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "number"
-                  },
-                  {
-                    "type": "boolean"
-                  }
-                ]
-              },
-              "type": "object"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "namespace": {
-          "type": "string"
-        },
-        "next_action": {
-          "oneOf": [
-            {
-              "enum": [
-                "INDEX",
-                "DELETE"
-              ],
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "source_id": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "status": {
-          "enum": [
-            "queued",
-            "running",
-            "completed",
-            "error",
-            "skipped",
-            "outdated"
-          ],
-          "type": "string"
-        },
-        "warnings": {
-          "items": {
-            "oneOf": [
-              {
-                "properties": {
-                  "code": {
-                    "enum": [
-                      "custom_metadata_value_not_indexed"
-                    ],
-                    "type": "string"
-                  },
-                  "expected_type": {
-                    "enum": [
-                      "text",
-                      "number",
-                      "boolean",
-                      "datetime"
-                    ],
-                    "type": "string"
-                  },
-                  "field": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "code",
-                  "expected_type",
-                  "field"
-                ],
-                "type": "object"
-              },
-              {
-                "properties": {
-                  "code": {
-                    "enum": [
-                      "custom_metadata_field_not_filterable"
-                    ],
-                    "type": "string"
-                  },
-                  "field": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "code",
-                  "field"
-                ],
-                "type": "object"
-              }
-            ]
-          },
-          "maxItems": 10,
-          "type": "array"
-        }
-      },
-      "required": [
-        "checksum",
-        "chunks_count",
-        "created_at",
-        "file_size",
-        "id",
-        "key",
-        "last_seen_at",
-        "metadata",
-        "namespace",
-        "next_action",
-        "source_id",
-        "status"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Upload Item."
-    },
-    method: "POST",
-    path: "/accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}/items",
-    extensions: {
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.ai-search"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai-search": {
-            "name": "com_cloudflare_api_account_ai_search"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      },
-      "x-forge-params": {
-        "id": {
-          "description": "AI Search instance ID."
-        },
-        "namespace": {
-          "description": "Namespace to use for this operation."
-        }
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "checksum": {
               "type": "string"
@@ -3152,6 +3025,235 @@ export const tools: readonly Tool[] = [
             "next_action",
             "source_id",
             "status"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Upload Item."
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}/items",
+    extensions: {
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.ai-search"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      },
+      "x-forge-params": {
+        "id": {
+          "description": "AI Search instance ID."
+        },
+        "namespace": {
+          "default": "default",
+          "description": "Namespace to use for this operation."
+        }
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "checksum": {
+                  "type": "string"
+                },
+                "chunks_count": {
+                  "oneOf": [
+                    {
+                      "type": "integer"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "error": {
+                  "type": "string"
+                },
+                "file_size": {
+                  "oneOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "id": {
+                  "type": "string"
+                },
+                "key": {
+                  "type": "string"
+                },
+                "last_seen_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "metadata": {
+                  "oneOf": [
+                    {
+                      "additionalProperties": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ]
+                      },
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "namespace": {
+                  "type": "string"
+                },
+                "next_action": {
+                  "oneOf": [
+                    {
+                      "enum": [
+                        "INDEX",
+                        "DELETE"
+                      ],
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "source_id": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "status": {
+                  "enum": [
+                    "queued",
+                    "running",
+                    "completed",
+                    "error",
+                    "skipped",
+                    "outdated"
+                  ],
+                  "type": "string"
+                },
+                "warnings": {
+                  "items": {
+                    "oneOf": [
+                      {
+                        "properties": {
+                          "code": {
+                            "enum": [
+                              "custom_metadata_value_not_indexed"
+                            ],
+                            "type": "string"
+                          },
+                          "expected_type": {
+                            "enum": [
+                              "text",
+                              "number",
+                              "boolean",
+                              "datetime"
+                            ],
+                            "type": "string"
+                          },
+                          "field": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "code",
+                          "expected_type",
+                          "field"
+                        ],
+                        "type": "object"
+                      },
+                      {
+                        "properties": {
+                          "code": {
+                            "enum": [
+                              "custom_metadata_field_not_filterable"
+                            ],
+                            "type": "string"
+                          },
+                          "field": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "code",
+                          "field"
+                        ],
+                        "type": "object"
+                      }
+                    ]
+                  },
+                  "maxItems": 10,
+                  "type": "array"
+                }
+              },
+              "required": [
+                "checksum",
+                "chunks_count",
+                "created_at",
+                "file_size",
+                "id",
+                "key",
+                "last_seen_at",
+                "metadata",
+                "namespace",
+                "next_action",
+                "source_id",
+                "status"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -3581,6 +3683,7 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "namespace": {
+          "default": "default",
           "description": "Namespace name.",
           "type": "string"
         }
@@ -3593,166 +3696,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "checksum": {
-          "type": "string"
-        },
-        "chunks_count": {
-          "oneOf": [
-            {
-              "type": "integer"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "created_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "error": {
-          "type": "string"
-        },
-        "file_size": {
-          "oneOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "id": {
-          "type": "string"
-        },
-        "key": {
-          "type": "string"
-        },
-        "last_seen_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "metadata": {
-          "oneOf": [
-            {
-              "additionalProperties": {
-                "anyOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "number"
-                  },
-                  {
-                    "type": "boolean"
-                  }
-                ]
-              },
-              "type": "object"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "namespace": {
-          "type": "string"
-        },
-        "next_action": {
-          "oneOf": [
-            {
-              "enum": [
-                "INDEX",
-                "DELETE"
-              ],
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "source_id": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "status": {
-          "enum": [
-            "queued",
-            "running",
-            "completed",
-            "error",
-            "skipped",
-            "outdated"
-          ],
-          "type": "string"
-        }
-      },
-      "required": [
-        "checksum",
-        "chunks_count",
-        "created_at",
-        "file_size",
-        "id",
-        "key",
-        "last_seen_at",
-        "metadata",
-        "namespace",
-        "next_action",
-        "source_id",
-        "status"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": true,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Create or Update Item."
-    },
-    method: "PUT",
-    path: "/accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}/items",
-    extensions: {
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.ai-search"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai-search": {
-            "name": "com_cloudflare_api_account_ai_search"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      },
-      "x-forge-params": {
-        "id": {
-          "description": "AI Search instance ID."
-        },
-        "namespace": {
-          "description": "Namespace to use for this operation."
-        },
-        "next_action": {
-          "default": "INDEX",
-          "hidden": true
-        }
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "checksum": {
               "type": "string"
@@ -3869,6 +3813,185 @@ export const tools: readonly Tool[] = [
             "next_action",
             "source_id",
             "status"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Create or Update Item."
+    },
+    method: "PUT",
+    path: "/accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}/items",
+    extensions: {
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.ai-search"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      },
+      "x-forge-params": {
+        "id": {
+          "description": "AI Search instance ID."
+        },
+        "namespace": {
+          "default": "default",
+          "description": "Namespace to use for this operation."
+        },
+        "next_action": {
+          "default": "INDEX",
+          "hidden": true
+        }
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "checksum": {
+                  "type": "string"
+                },
+                "chunks_count": {
+                  "oneOf": [
+                    {
+                      "type": "integer"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "error": {
+                  "type": "string"
+                },
+                "file_size": {
+                  "oneOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "id": {
+                  "type": "string"
+                },
+                "key": {
+                  "type": "string"
+                },
+                "last_seen_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "metadata": {
+                  "oneOf": [
+                    {
+                      "additionalProperties": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ]
+                      },
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "namespace": {
+                  "type": "string"
+                },
+                "next_action": {
+                  "oneOf": [
+                    {
+                      "enum": [
+                        "INDEX",
+                        "DELETE"
+                      ],
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "source_id": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "status": {
+                  "enum": [
+                    "queued",
+                    "running",
+                    "completed",
+                    "error",
+                    "skipped",
+                    "outdated"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "checksum",
+                "chunks_count",
+                "created_at",
+                "file_size",
+                "id",
+                "key",
+                "last_seen_at",
+                "metadata",
+                "namespace",
+                "next_action",
+                "source_id",
+                "status"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },

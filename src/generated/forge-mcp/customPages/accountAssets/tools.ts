@@ -3,15 +3,21 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  custom_pages_api_response_collection_output,
   custom_pages_api_response_common_failure_output,
+  custom_pages_api_response_common_output,
+  custom_pages_api_response_single_output,
   custom_pages_messages_output,
   custom_pages_timestamp_output,
 } from "../outputs.js";
+import { custom_pages_identifier } from "../schemas.js";
 import {
   custom_pages_asset_description_output,
   custom_pages_asset_name_output,
   custom_pages_asset_url_output,
   custom_pages_custom_asset_output,
+  custom_pages_custom_asset_result_list_output,
+  custom_pages_custom_asset_result_output,
 } from "./outputs.js";
 import {
   custom_pages_asset_description,
@@ -39,8 +45,8 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/custom-pages_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "body": {
           "properties": {
@@ -74,15 +80,19 @@ export const tools: readonly Tool[] = [
         "custom-pages_asset_description": custom_pages_asset_description,
         "custom-pages_asset_name": custom_pages_asset_name,
         "custom-pages_asset_url": custom_pages_asset_url,
+        "custom-pages_identifier": custom_pages_identifier,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/custom-pages_custom_asset",
+      "$ref": "#/$defs/custom-pages_custom_asset_result",
       $defs: {
+        "custom-pages_api-response-single": custom_pages_api_response_single_output,
         "custom-pages_asset_description": custom_pages_asset_description_output,
         "custom-pages_asset_name": custom_pages_asset_name_output,
         "custom-pages_asset_url": custom_pages_asset_url_output,
         "custom-pages_custom_asset": custom_pages_custom_asset_output,
+        "custom-pages_custom_asset_result": custom_pages_custom_asset_result_output,
+        "custom-pages_messages": custom_pages_messages_output,
         "custom-pages_timestamp": custom_pages_timestamp_output,
       },
     },
@@ -107,7 +117,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/custom-pages_custom_asset"
+          "$ref": "#/$defs/custom-pages_custom_asset_result"
         },
         "4XX": {
           "$ref": "#/$defs/custom-pages_api-response-common-failure"
@@ -115,10 +125,12 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "custom-pages_api-response-common-failure": custom_pages_api_response_common_failure_output,
+        "custom-pages_api-response-single": custom_pages_api_response_single_output,
         "custom-pages_asset_description": custom_pages_asset_description_output,
         "custom-pages_asset_name": custom_pages_asset_name_output,
         "custom-pages_asset_url": custom_pages_asset_url_output,
         "custom-pages_custom_asset": custom_pages_custom_asset_output,
+        "custom-pages_custom_asset_result": custom_pages_custom_asset_result_output,
         "custom-pages_messages": custom_pages_messages_output,
         "custom-pages_timestamp": custom_pages_timestamp_output,
       },
@@ -144,12 +156,12 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/custom-pages_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "asset_name": {
-          "description": "The unique name of the custom asset. Can only contain letters (A-Z, a-z), numbers (0-9), and underscores (_).",
-          "type": "string"
+          "$ref": "#/$defs/custom-pages_asset_name",
+          "description": "The unique name of the custom asset. Can only contain letters (A-Z, a-z), numbers (0-9), and underscores (_)."
         }
       },
       required: [
@@ -157,6 +169,10 @@ export const tools: readonly Tool[] = [
         "account_or_zone_id",
         "asset_name"
       ],
+      $defs: {
+        "custom-pages_asset_name": custom_pages_asset_name,
+        "custom-pages_identifier": custom_pages_identifier,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -208,12 +224,12 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/custom-pages_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "asset_name": {
-          "description": "The unique name of the custom asset. Can only contain letters (A-Z, a-z), numbers (0-9), and underscores (_).",
-          "type": "string"
+          "$ref": "#/$defs/custom-pages_asset_name",
+          "description": "The unique name of the custom asset. Can only contain letters (A-Z, a-z), numbers (0-9), and underscores (_)."
         }
       },
       required: [
@@ -221,14 +237,21 @@ export const tools: readonly Tool[] = [
         "account_or_zone_id",
         "asset_name"
       ],
+      $defs: {
+        "custom-pages_asset_name": custom_pages_asset_name,
+        "custom-pages_identifier": custom_pages_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/custom-pages_custom_asset",
+      "$ref": "#/$defs/custom-pages_custom_asset_result",
       $defs: {
+        "custom-pages_api-response-single": custom_pages_api_response_single_output,
         "custom-pages_asset_description": custom_pages_asset_description_output,
         "custom-pages_asset_name": custom_pages_asset_name_output,
         "custom-pages_asset_url": custom_pages_asset_url_output,
         "custom-pages_custom_asset": custom_pages_custom_asset_output,
+        "custom-pages_custom_asset_result": custom_pages_custom_asset_result_output,
+        "custom-pages_messages": custom_pages_messages_output,
         "custom-pages_timestamp": custom_pages_timestamp_output,
       },
     },
@@ -253,7 +276,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/custom-pages_custom_asset"
+          "$ref": "#/$defs/custom-pages_custom_asset_result"
         },
         "4XX": {
           "$ref": "#/$defs/custom-pages_api-response-common-failure"
@@ -261,10 +284,12 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "custom-pages_api-response-common-failure": custom_pages_api_response_common_failure_output,
+        "custom-pages_api-response-single": custom_pages_api_response_single_output,
         "custom-pages_asset_description": custom_pages_asset_description_output,
         "custom-pages_asset_name": custom_pages_asset_name_output,
         "custom-pages_asset_url": custom_pages_asset_url_output,
         "custom-pages_custom_asset": custom_pages_custom_asset_output,
+        "custom-pages_custom_asset_result": custom_pages_custom_asset_result_output,
         "custom-pages_messages": custom_pages_messages_output,
         "custom-pages_timestamp": custom_pages_timestamp_output,
       },
@@ -289,8 +314,8 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/custom-pages_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "page": {
           "default": 1,
@@ -307,45 +332,21 @@ export const tools: readonly Tool[] = [
         "account_or_zone",
         "account_or_zone_id"
       ],
+      $defs: {
+        "custom-pages_identifier": custom_pages_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/custom-pages_custom_asset"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/custom-pages_custom_asset_result_list",
       $defs: {
+        "custom-pages_api-response-collection": custom_pages_api_response_collection_output,
+        "custom-pages_api-response-common": custom_pages_api_response_common_output,
         "custom-pages_asset_description": custom_pages_asset_description_output,
         "custom-pages_asset_name": custom_pages_asset_name_output,
         "custom-pages_asset_url": custom_pages_asset_url_output,
         "custom-pages_custom_asset": custom_pages_custom_asset_output,
+        "custom-pages_custom_asset_result_list": custom_pages_custom_asset_result_list_output,
+        "custom-pages_messages": custom_pages_messages_output,
         "custom-pages_timestamp": custom_pages_timestamp_output,
       },
     },
@@ -370,49 +371,21 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/custom-pages_custom_asset"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/custom-pages_custom_asset_result_list"
         },
         "4XX": {
           "$ref": "#/$defs/custom-pages_api-response-common-failure"
         }
       },
       $defs: {
+        "custom-pages_api-response-collection": custom_pages_api_response_collection_output,
+        "custom-pages_api-response-common": custom_pages_api_response_common_output,
         "custom-pages_api-response-common-failure": custom_pages_api_response_common_failure_output,
         "custom-pages_asset_description": custom_pages_asset_description_output,
         "custom-pages_asset_name": custom_pages_asset_name_output,
         "custom-pages_asset_url": custom_pages_asset_url_output,
         "custom-pages_custom_asset": custom_pages_custom_asset_output,
+        "custom-pages_custom_asset_result_list": custom_pages_custom_asset_result_list_output,
         "custom-pages_messages": custom_pages_messages_output,
         "custom-pages_timestamp": custom_pages_timestamp_output,
       },
@@ -441,12 +414,12 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/custom-pages_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "asset_name": {
-          "description": "The unique name of the custom asset. Can only contain letters (A-Z, a-z), numbers (0-9), and underscores (_).",
-          "type": "string"
+          "$ref": "#/$defs/custom-pages_asset_name",
+          "description": "The unique name of the custom asset. Can only contain letters (A-Z, a-z), numbers (0-9), and underscores (_)."
         },
         "body": {
           "properties": {
@@ -474,16 +447,21 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "custom-pages_asset_description": custom_pages_asset_description,
+        "custom-pages_asset_name": custom_pages_asset_name,
         "custom-pages_asset_url": custom_pages_asset_url,
+        "custom-pages_identifier": custom_pages_identifier,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/custom-pages_custom_asset",
+      "$ref": "#/$defs/custom-pages_custom_asset_result",
       $defs: {
+        "custom-pages_api-response-single": custom_pages_api_response_single_output,
         "custom-pages_asset_description": custom_pages_asset_description_output,
         "custom-pages_asset_name": custom_pages_asset_name_output,
         "custom-pages_asset_url": custom_pages_asset_url_output,
         "custom-pages_custom_asset": custom_pages_custom_asset_output,
+        "custom-pages_custom_asset_result": custom_pages_custom_asset_result_output,
+        "custom-pages_messages": custom_pages_messages_output,
         "custom-pages_timestamp": custom_pages_timestamp_output,
       },
     },
@@ -508,7 +486,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/custom-pages_custom_asset"
+          "$ref": "#/$defs/custom-pages_custom_asset_result"
         },
         "4XX": {
           "$ref": "#/$defs/custom-pages_api-response-common-failure"
@@ -516,10 +494,12 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "custom-pages_api-response-common-failure": custom_pages_api_response_common_failure_output,
+        "custom-pages_api-response-single": custom_pages_api_response_single_output,
         "custom-pages_asset_description": custom_pages_asset_description_output,
         "custom-pages_asset_name": custom_pages_asset_name_output,
         "custom-pages_asset_url": custom_pages_asset_url_output,
         "custom-pages_custom_asset": custom_pages_custom_asset_output,
+        "custom-pages_custom_asset_result": custom_pages_custom_asset_result_output,
         "custom-pages_messages": custom_pages_messages_output,
         "custom-pages_timestamp": custom_pages_timestamp_output,
       },

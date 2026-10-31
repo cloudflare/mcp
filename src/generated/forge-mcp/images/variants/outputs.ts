@@ -57,30 +57,19 @@ export const images_image_variant_identifier_output: JsonSchema = {
  * The schema of `images_image_variant_list_response` in responses.
  */
 export const images_image_variant_list_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/images_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/images_api-response-common"
     },
-    "messages": {
-      "$ref": "#/$defs/images_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/images_image_variants_response"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/images_image_variants_response"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -123,31 +112,24 @@ export const images_image_variant_options_output: JsonSchema = {
 export const images_image_variant_public_request_output: JsonSchema = {
   "properties": {
     "hero": {
-      "$ref": "#/$defs/images_image_variant_public_request_hero"
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/images_image_variant_identifier"
+        },
+        "neverRequireSignedURLs": {
+          "$ref": "#/$defs/images_image_variant_neverRequireSignedURLs"
+        },
+        "options": {
+          "$ref": "#/$defs/images_image_variant_options"
+        }
+      },
+      "required": [
+        "id",
+        "options"
+      ],
+      "type": "object"
     }
   },
-  "type": "object"
-};
-
-/**
- * The schema of `images_image_variant_public_request_hero` in responses.
- */
-export const images_image_variant_public_request_hero_output: JsonSchema = {
-  "properties": {
-    "id": {
-      "$ref": "#/$defs/images_image_variant_identifier"
-    },
-    "neverRequireSignedURLs": {
-      "$ref": "#/$defs/images_image_variant_neverRequireSignedURLs"
-    },
-    "options": {
-      "$ref": "#/$defs/images_image_variant_options"
-    }
-  },
-  "required": [
-    "id",
-    "options"
-  ],
   "type": "object"
 };
 
@@ -179,30 +161,19 @@ export const images_image_variant_schemas_metadata_output: JsonSchema = {
  * The schema of `images_image_variant_simple_response` in responses.
  */
 export const images_image_variant_simple_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/images_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/images_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/images_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/images_image_variant_response"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/images_image_variant_response"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**

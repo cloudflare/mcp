@@ -61,7 +61,14 @@ export const workers_namespace_script_and_version_settings_item_output: JsonSche
       "$ref": "#/$defs/workers_logpush"
     },
     "migrations": {
-      "$ref": "#/$defs/workers_namespace-script-and-version-settings-item_migrations"
+      "oneOf": [
+        {
+          "$ref": "#/$defs/workers_single_step_migrations"
+        },
+        {
+          "$ref": "#/$defs/workers_multiple_step_migrations"
+        }
+      ]
     },
     "observability": {
       "$ref": "#/$defs/workers_observability-2"
@@ -100,19 +107,4 @@ export const workers_namespace_script_and_version_settings_item_output: JsonSche
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `workers_namespace-script-and-version-settings-item_migrations`
- * in responses.
- */
-export const workers_namespace_script_and_version_settings_item_migrations_output: JsonSchema = {
-  "oneOf": [
-    {
-      "$ref": "#/$defs/workers_single_step_migrations"
-    },
-    {
-      "$ref": "#/$defs/workers_multiple_step_migrations"
-    }
-  ]
 };

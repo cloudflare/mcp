@@ -4,10 +4,12 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   intel_api_response_common_failure_output,
+  intel_api_response_single_output,
   intel_domain_name_output,
   intel_messages_output,
   intel_schemas_messages_output,
 } from "../outputs.js";
+import { intel_identifier } from "../schemas.js";
 import {
   intel_additional_information_output,
   intel_application_output,
@@ -36,8 +38,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/intel_identifier",
+          "description": "Identifier."
         },
         "domain": {
           "type": "string"
@@ -55,11 +57,15 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+      $defs: {
+        "intel_identifier": intel_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/intel_domain",
+      "$ref": "#/$defs/intel_single_response",
       $defs: {
         "intel_additional_information": intel_additional_information_output,
+        "intel_api-response-single": intel_api_response_single_output,
         "intel_application": intel_application_output,
         "intel_categories_with_super_category_ids_example_empty": intel_categories_with_super_category_ids_example_empty_output,
         "intel_category_with_super_category_id": intel_category_with_super_category_id_output,
@@ -71,6 +77,8 @@ export const tools: readonly Tool[] = [
         "intel_resolves_to_ref": intel_resolves_to_ref_output,
         "intel_resolves_to_refs": intel_resolves_to_refs_output,
         "intel_risk_score": intel_risk_score_output,
+        "intel_schemas-messages": intel_schemas_messages_output,
+        "intel_single_response": intel_single_response_output,
         "intel_stix_identifier": intel_stix_identifier_output,
       },
     },
@@ -92,7 +100,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/intel_domain"
+          "$ref": "#/$defs/intel_single_response"
         },
         "4XX": {
           "allOf": [
@@ -108,6 +116,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "intel_additional_information": intel_additional_information_output,
         "intel_api-response-common-failure": intel_api_response_common_failure_output,
+        "intel_api-response-single": intel_api_response_single_output,
         "intel_application": intel_application_output,
         "intel_categories_with_super_category_ids_example_empty": intel_categories_with_super_category_ids_example_empty_output,
         "intel_category_with_super_category_id": intel_category_with_super_category_id_output,

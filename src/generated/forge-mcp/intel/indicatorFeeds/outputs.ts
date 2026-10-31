@@ -4,6 +4,58 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `custom-indicator-feeds_api-response-common` in responses.
+ */
+export const custom_indicator_feeds_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/custom-indicator-feeds_messages-2"
+    },
+    "messages": {
+      "$ref": "#/$defs/custom-indicator-feeds_messages-2"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `custom-indicator-feeds_api-response-single` in responses.
+ */
+export const custom_indicator_feeds_api_response_single_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/custom-indicator-feeds_messages-2"
+    },
+    "messages": {
+      "$ref": "#/$defs/custom-indicator-feeds_messages-2"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `custom-indicator-feeds_api_response_common_failure` in
  * responses.
  */
@@ -38,29 +90,19 @@ export const custom_indicator_feeds_api_response_common_failure_output: JsonSche
  * The schema of `custom-indicator-feeds_create_feed_response` in responses.
  */
 export const custom_indicator_feeds_create_feed_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/custom-indicator-feeds_messages-2"
+  "allOf": [
+    {
+      "$ref": "#/$defs/custom-indicator-feeds_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/custom-indicator-feeds_messages-2"
-    },
-    "result": {
-      "$ref": "#/$defs/custom-indicator-feeds_indicator_feed_item"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/custom-indicator-feeds_indicator_feed_item"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -68,6 +110,13 @@ export const custom_indicator_feeds_create_feed_response_output: JsonSchema = {
  */
 export const custom_indicator_feeds_description_output: JsonSchema = {
   "type": "string"
+};
+
+/**
+ * The schema of `custom-indicator-feeds_feed_id` in responses.
+ */
+export const custom_indicator_feeds_feed_id_output: JsonSchema = {
+  "type": "integer"
 };
 
 /**
@@ -175,61 +224,41 @@ export const custom_indicator_feeds_indicator_feed_metadata_output: JsonSchema =
  * responses.
  */
 export const custom_indicator_feeds_indicator_feed_metadata_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/custom-indicator-feeds_messages-2"
+  "allOf": [
+    {
+      "$ref": "#/$defs/custom-indicator-feeds_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/custom-indicator-feeds_messages-2"
-    },
-    "result": {
-      "$ref": "#/$defs/custom-indicator-feeds_indicator_feed_metadata"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/custom-indicator-feeds_indicator_feed_metadata"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `custom-indicator-feeds_indicator_feed_response` in responses.
  */
 export const custom_indicator_feeds_indicator_feed_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/custom-indicator-feeds_messages-2"
+  "allOf": [
+    {
+      "$ref": "#/$defs/custom-indicator-feeds_api-response-common"
     },
-    "messages": {
-      "$ref": "#/$defs/custom-indicator-feeds_messages-2"
-    },
-    "result": {
-      "items": {
-        "$ref": "#/$defs/custom-indicator-feeds_indicator_feed_item"
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/custom-indicator-feeds_indicator_feed_item"
+          },
+          "type": "array"
+        }
       },
-      "type": "array"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -259,79 +288,55 @@ export const custom_indicator_feeds_is_public_output: JsonSchema = {
 export const custom_indicator_feeds_last_upload_summary_output: JsonSchema = {
   "properties": {
     "persisted": {
-      "$ref": "#/$defs/custom-indicator-feeds_last_upload_summary_persisted"
+      "properties": {
+        "domains_added": {
+          "type": "integer"
+        },
+        "domains_removed": {
+          "type": "integer"
+        },
+        "ips_added": {
+          "type": "integer"
+        },
+        "ips_removed": {
+          "type": "integer"
+        },
+        "urls_added": {
+          "type": "integer"
+        },
+        "urls_removed": {
+          "type": "integer"
+        }
+      },
+      "type": "object"
     },
     "skipped": {
-      "$ref": "#/$defs/custom-indicator-feeds_last_upload_summary_skipped"
+      "properties": {
+        "allowlisted_domains": {
+          "type": "integer"
+        },
+        "expired_indicators": {
+          "type": "integer"
+        },
+        "invalid_indicators": {
+          "type": "integer"
+        }
+      },
+      "type": "object"
     },
     "uploaded": {
-      "$ref": "#/$defs/custom-indicator-feeds_last_upload_summary_uploaded"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `custom-indicator-feeds_last_upload_summary_persisted` in
- * responses.
- */
-export const custom_indicator_feeds_last_upload_summary_persisted_output: JsonSchema = {
-  "properties": {
-    "domains_added": {
-      "type": "integer"
-    },
-    "domains_removed": {
-      "type": "integer"
-    },
-    "ips_added": {
-      "type": "integer"
-    },
-    "ips_removed": {
-      "type": "integer"
-    },
-    "urls_added": {
-      "type": "integer"
-    },
-    "urls_removed": {
-      "type": "integer"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `custom-indicator-feeds_last_upload_summary_skipped` in
- * responses.
- */
-export const custom_indicator_feeds_last_upload_summary_skipped_output: JsonSchema = {
-  "properties": {
-    "allowlisted_domains": {
-      "type": "integer"
-    },
-    "expired_indicators": {
-      "type": "integer"
-    },
-    "invalid_indicators": {
-      "type": "integer"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `custom-indicator-feeds_last_upload_summary_uploaded` in
- * responses.
- */
-export const custom_indicator_feeds_last_upload_summary_uploaded_output: JsonSchema = {
-  "properties": {
-    "domains": {
-      "type": "integer"
-    },
-    "ips": {
-      "type": "integer"
-    },
-    "urls": {
-      "type": "integer"
+      "properties": {
+        "domains": {
+          "type": "integer"
+        },
+        "ips": {
+          "type": "integer"
+        },
+        "urls": {
+          "type": "integer"
+        }
+      },
+      "type": "object"
     }
   },
   "type": "object"
@@ -438,31 +443,40 @@ export const custom_indicator_feeds_update_feed_output: JsonSchema = {
 };
 
 /**
+ * The schema of `custom-indicator-feeds_update_feed_response` in responses.
+ */
+export const custom_indicator_feeds_update_feed_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/custom-indicator-feeds_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/custom-indicator-feeds_update_feed"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `custom-indicator-feeds_update_public_field_response` in
  * responses.
  */
 export const custom_indicator_feeds_update_public_field_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/custom-indicator-feeds_messages-2"
+  "allOf": [
+    {
+      "$ref": "#/$defs/custom-indicator-feeds_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/custom-indicator-feeds_messages-2"
-    },
-    "result": {
-      "$ref": "#/$defs/custom-indicator-feeds_indicator_feed_item"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/custom-indicator-feeds_indicator_feed_item"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };

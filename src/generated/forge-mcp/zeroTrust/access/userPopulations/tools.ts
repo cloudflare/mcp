@@ -3,8 +3,12 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  access_api_response_collection_output,
   access_api_response_common_failure_output,
+  access_api_response_common_output,
+  access_api_response_single_output,
   access_created_at_output,
+  access_id_response_output,
   access_messages_output,
   access_timestamp_output,
   access_updated_at_output,
@@ -12,6 +16,8 @@ import {
 } from "../../outputs.js";
 import { access_identifier, access_uuid } from "../../schemas.js";
 import {
+  access_response_collection_3_output,
+  access_single_response_5_output,
   access_user_population_name_output,
   access_user_population_output,
 } from "./outputs.js";
@@ -50,9 +56,12 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/access_user_population",
+      "$ref": "#/$defs/access_single_response-5",
       $defs: {
+        "access_api-response-single": access_api_response_single_output,
         "access_created_at": access_created_at_output,
+        "access_messages": access_messages_output,
+        "access_single_response-5": access_single_response_5_output,
         "access_timestamp": access_timestamp_output,
         "access_updated_at": access_updated_at_output,
         "access_user_population": access_user_population_output,
@@ -72,7 +81,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "201": {
-          "$ref": "#/$defs/access_user_population"
+          "$ref": "#/$defs/access_single_response-5"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -80,8 +89,10 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_created_at": access_created_at_output,
         "access_messages": access_messages_output,
+        "access_single_response-5": access_single_response_5_output,
         "access_timestamp": access_timestamp_output,
         "access_updated_at": access_updated_at_output,
         "access_user_population": access_user_population_output,
@@ -120,13 +131,11 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "id": {
-          "$ref": "#/$defs/access_uuid"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/access_id_response",
       $defs: {
+        "access_api-response-single": access_api_response_single_output,
+        "access_id_response": access_id_response_output,
+        "access_messages": access_messages_output,
         "access_uuid": access_uuid_output,
       },
     },
@@ -142,12 +151,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "202": {
-          "properties": {
-            "id": {
-              "$ref": "#/$defs/access_uuid"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/access_id_response"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -155,6 +159,8 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
+        "access_id_response": access_id_response_output,
         "access_messages": access_messages_output,
         "access_uuid": access_uuid_output,
       },
@@ -189,9 +195,12 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/access_user_population",
+      "$ref": "#/$defs/access_single_response-5",
       $defs: {
+        "access_api-response-single": access_api_response_single_output,
         "access_created_at": access_created_at_output,
+        "access_messages": access_messages_output,
+        "access_single_response-5": access_single_response_5_output,
         "access_timestamp": access_timestamp_output,
         "access_updated_at": access_updated_at_output,
         "access_user_population": access_user_population_output,
@@ -211,7 +220,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/access_user_population"
+          "$ref": "#/$defs/access_single_response-5"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -219,8 +228,10 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_created_at": access_created_at_output,
         "access_messages": access_messages_output,
+        "access_single_response-5": access_single_response_5_output,
         "access_timestamp": access_timestamp_output,
         "access_updated_at": access_updated_at_output,
         "access_user_population": access_user_population_output,
@@ -262,40 +273,13 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/access_user_population"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/access_response_collection-3",
       $defs: {
+        "access_api-response-collection": access_api_response_collection_output,
+        "access_api-response-common": access_api_response_common_output,
         "access_created_at": access_created_at_output,
+        "access_messages": access_messages_output,
+        "access_response_collection-3": access_response_collection_3_output,
         "access_timestamp": access_timestamp_output,
         "access_updated_at": access_updated_at_output,
         "access_user_population": access_user_population_output,
@@ -315,47 +299,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/access_user_population"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/access_response_collection-3"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
         }
       },
       $defs: {
+        "access_api-response-collection": access_api_response_collection_output,
+        "access_api-response-common": access_api_response_common_output,
         "access_api-response-common-failure": access_api_response_common_failure_output,
         "access_created_at": access_created_at_output,
         "access_messages": access_messages_output,
+        "access_response_collection-3": access_response_collection_3_output,
         "access_timestamp": access_timestamp_output,
         "access_updated_at": access_updated_at_output,
         "access_user_population": access_user_population_output,
@@ -403,9 +359,12 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/access_user_population",
+      "$ref": "#/$defs/access_single_response-5",
       $defs: {
+        "access_api-response-single": access_api_response_single_output,
         "access_created_at": access_created_at_output,
+        "access_messages": access_messages_output,
+        "access_single_response-5": access_single_response_5_output,
         "access_timestamp": access_timestamp_output,
         "access_updated_at": access_updated_at_output,
         "access_user_population": access_user_population_output,
@@ -425,7 +384,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/access_user_population"
+          "$ref": "#/$defs/access_single_response-5"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -433,8 +392,10 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_created_at": access_created_at_output,
         "access_messages": access_messages_output,
+        "access_single_response-5": access_single_response_5_output,
         "access_timestamp": access_timestamp_output,
         "access_updated_at": access_updated_at_output,
         "access_user_population": access_user_population_output,

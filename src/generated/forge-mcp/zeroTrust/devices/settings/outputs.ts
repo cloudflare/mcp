@@ -39,3 +39,23 @@ export const teams_devices_zero_trust_account_device_settings_output: JsonSchema
   },
   "type": "object"
 };
+
+/**
+ * The schema of `teams-devices_zero-trust-account-device-settings-response` in
+ * responses.
+ */
+export const teams_devices_zero_trust_account_device_settings_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/teams-devices_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/teams-devices_zero-trust-account-device-settings"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};

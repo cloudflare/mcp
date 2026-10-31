@@ -4,9 +4,32 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `zero-trust-gateway_identifier`.
+ */
+export const zero_trust_gateway_identifier: JsonSchema = {
+  "description": "Specify the Cloudflare account identifier.",
+  "type": "string"
+};
+
+/**
+ * The schema of `zero-trust-gateway_identifier-3`.
+ */
+export const zero_trust_gateway_identifier_3: JsonSchema = {
+  "description": "Provide the identifier string.",
+  "type": "string"
+};
+
+/**
  * The schema of `zero-trust-gateway_timestamp`.
  */
 export const zero_trust_gateway_timestamp: JsonSchema = {
   "format": "date-time",
+  "type": "string"
+};
+
+/**
+ * The schema of `zero-trust-gateway_uuid-3`.
+ */
+export const zero_trust_gateway_uuid_3: JsonSchema = {
   "type": "string"
 };

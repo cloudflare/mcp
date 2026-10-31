@@ -4,6 +4,68 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
+ * The schema of `access_api-response-collection` in responses.
+ */
+export const access_api_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-common"
+    },
+    {
+      "properties": {
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `access_api-response-common` in responses.
+ */
+export const access_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/access_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/access_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `access_api-response-common-failure` in responses.
  */
 export const access_api_response_common_failure_output: JsonSchema = {
@@ -34,6 +96,39 @@ export const access_api_response_common_failure_output: JsonSchema = {
 };
 
 /**
+ * The schema of `access_api-response-single` in responses.
+ */
+export const access_api_response_single_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/access_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/access_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `access_client_id` in responses.
+ */
+export const access_client_id_output: JsonSchema = {
+  "type": "string"
+};
+
+/**
  * The schema of `access_created_at` in responses.
  */
 export const access_created_at_output: JsonSchema = {
@@ -48,9 +143,69 @@ export const access_created_at_output: JsonSchema = {
 };
 
 /**
+ * The schema of `access_duration` in responses.
+ */
+export const access_duration_output: JsonSchema = {
+  "type": "string"
+};
+
+/**
+ * The schema of `access_enabled` in responses.
+ */
+export const access_enabled_output: JsonSchema = {
+  "type": "boolean"
+};
+
+/**
+ * The schema of `access_id_response` in responses.
+ */
+export const access_id_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/access_uuid"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `access_identifier` in responses.
  */
 export const access_identifier_output: JsonSchema = {
+  "type": "string"
+};
+
+/**
+ * The schema of `access_leak_report_url` in responses.
+ */
+export const access_leak_report_url_output: JsonSchema = {
+  "type": "string"
+};
+
+/**
+ * The schema of `access_leak_reported_at` in responses.
+ */
+export const access_leak_reported_at_output: JsonSchema = {
+  "format": "date-time",
+  "type": "string"
+};
+
+/**
+ * The schema of `access_leak_reporter` in responses.
+ */
+export const access_leak_reporter_output: JsonSchema = {
   "type": "string"
 };
 
@@ -85,6 +240,111 @@ export const access_messages_output: JsonSchema = {
     "type": "object"
   },
   "type": "array"
+};
+
+/**
+ * The schema of `access_name-2` in responses.
+ */
+export const access_name_2_output: JsonSchema = {
+  "type": "string"
+};
+
+/**
+ * The schema of `access_service-tokens` in responses.
+ */
+export const access_service_tokens_output: JsonSchema = {
+  "properties": {
+    "client_id": {
+      "$ref": "#/$defs/access_client_id"
+    },
+    "created_at": {
+      "$ref": "#/$defs/access_created_at"
+    },
+    "duration": {
+      "$ref": "#/$defs/access_duration"
+    },
+    "enabled": {
+      "$ref": "#/$defs/access_enabled"
+    },
+    "expires_at": {
+      "$ref": "#/$defs/access_timestamp"
+    },
+    "id": {
+      "allOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "#/$defs/access_uuid"
+        }
+      ]
+    },
+    "last_seen_at": {
+      "allOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "#/$defs/access_timestamp"
+        }
+      ]
+    },
+    "leak_report_url": {
+      "$ref": "#/$defs/access_leak_report_url"
+    },
+    "leak_reported_at": {
+      "$ref": "#/$defs/access_leak_reported_at"
+    },
+    "leak_reporter": {
+      "$ref": "#/$defs/access_leak_reporter"
+    },
+    "name": {
+      "$ref": "#/$defs/access_name-2"
+    },
+    "tags": {
+      "$ref": "#/$defs/access_tags"
+    },
+    "updated_at": {
+      "$ref": "#/$defs/access_updated_at"
+    }
+  },
+  "type": "object"
+};
+
+/**
+ * The schema of `access_single_response-2` in responses.
+ */
+export const access_single_response_2_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/access_service-tokens"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `access_tags` in responses.
+ */
+export const access_tags_output: JsonSchema = {
+  "oneOf": [
+    {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "type": "object"
+    },
+    {
+      "type": "null"
+    }
+  ]
 };
 
 /**
@@ -161,6 +421,32 @@ export const dlp_api_response_common_failure_output: JsonSchema = {
 };
 
 /**
+ * The schema of `dlp_api-response-single` in responses.
+ */
+export const dlp_api_response_single_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/dlp_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/dlp_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `dlp_messages` in responses.
  */
 export const dlp_messages_output: JsonSchema = {
@@ -218,6 +504,32 @@ export const zero_trust_gateway_api_response_common_failure_output: JsonSchema =
     "errors",
     "messages",
     "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `zero-trust-gateway_api-response-single` in responses.
+ */
+export const zero_trust_gateway_api_response_single_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/zero-trust-gateway_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/zero-trust-gateway_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
     "success"
   ],
   "type": "object"

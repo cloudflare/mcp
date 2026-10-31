@@ -321,31 +321,19 @@ export const smartshield_retries: JsonSchema = {
  * The schema of `smartshield_single_hc_response`.
  */
 export const smartshield_single_hc_response: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/smartshield_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/smartshield_api-response-common"
     },
-    "messages": {
-      "$ref": "#/$defs/smartshield_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/smartshield_healthchecks"
-    },
-    "success": {
-      "description": "Whether the API call was successful.",
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/smartshield_healthchecks"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**

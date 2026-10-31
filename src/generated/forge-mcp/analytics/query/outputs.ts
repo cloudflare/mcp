@@ -80,6 +80,39 @@ export const art_ResultValues_output: JsonSchema = {
 };
 
 /**
+ * The schema of `art_SummaryResponse` in responses.
+ */
+export const art_SummaryResponse_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "items": {
+        "$ref": "#/$defs/art_APIError"
+      },
+      "type": "array"
+    },
+    "messages": {
+      "items": {
+        "$ref": "#/$defs/art_APIMessage"
+      },
+      "type": "array"
+    },
+    "result": {
+      "$ref": "#/$defs/art_SummaryResult"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `art_SummaryResult` in responses.
  */
 export const art_SummaryResult_output: JsonSchema = {
@@ -105,6 +138,39 @@ export const art_SummaryResult_output: JsonSchema = {
 };
 
 /**
+ * The schema of `art_TimeseriesResponse` in responses.
+ */
+export const art_TimeseriesResponse_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "items": {
+        "$ref": "#/$defs/art_APIError"
+      },
+      "type": "array"
+    },
+    "messages": {
+      "items": {
+        "$ref": "#/$defs/art_APIMessage"
+      },
+      "type": "array"
+    },
+    "result": {
+      "$ref": "#/$defs/art_TimeseriesResult"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `art_TimeseriesResult` in responses.
  */
 export const art_TimeseriesResult_output: JsonSchema = {
@@ -122,6 +188,42 @@ export const art_TimeseriesResult_output: JsonSchema = {
   "required": [
     "resolution",
     "slots"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `art_TopNResponse` in responses.
+ */
+export const art_TopNResponse_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "items": {
+        "$ref": "#/$defs/art_APIError"
+      },
+      "type": "array"
+    },
+    "messages": {
+      "items": {
+        "$ref": "#/$defs/art_APIMessage"
+      },
+      "type": "array"
+    },
+    "result": {
+      "items": {
+        "$ref": "#/$defs/art_ResultValues"
+      },
+      "type": "array"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
   ],
   "type": "object"
 };

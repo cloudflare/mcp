@@ -50,6 +50,13 @@ export const waitingroom_event_end_time: JsonSchema = {
 };
 
 /**
+ * The schema of `waitingroom_event_id`.
+ */
+export const waitingroom_event_id: JsonSchema = {
+  "type": "string"
+};
+
+/**
  * The schema of `waitingroom_event_name`.
  */
 export const waitingroom_event_name: JsonSchema = {

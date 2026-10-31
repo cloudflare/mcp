@@ -3,11 +3,15 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
+  posture_api_api_response_collection_output,
   posture_api_api_response_common_output,
   posture_api_messages_output,
   posture_api_result_info_output,
 } from "../../outputs.js";
-import { posture_api_RemediationType_output } from "./outputs.js";
+import {
+  posture_api_PaginatedRemediationTypeList_output,
+  posture_api_RemediationType_output,
+} from "./outputs.js";
 
 /**
  * The tools of `zero_trust.casb.finding_types.remediation_types`.
@@ -53,23 +57,12 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/posture-api_RemediationType"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "$ref": "#/$defs/posture-api_result-info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/posture-api_PaginatedRemediationTypeList",
       $defs: {
+        "posture-api_PaginatedRemediationTypeList": posture_api_PaginatedRemediationTypeList_output,
         "posture-api_RemediationType": posture_api_RemediationType_output,
+        "posture-api_api-response-collection": posture_api_api_response_collection_output,
+        "posture-api_messages": posture_api_messages_output,
         "posture-api_result-info": posture_api_result_info_output,
       },
     },
@@ -91,21 +84,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/posture-api_RemediationType"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/posture-api_result-info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/posture-api_PaginatedRemediationTypeList"
         },
         "400": null,
         "404": null,
@@ -114,7 +93,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "posture-api_PaginatedRemediationTypeList": posture_api_PaginatedRemediationTypeList_output,
         "posture-api_RemediationType": posture_api_RemediationType_output,
+        "posture-api_api-response-collection": posture_api_api_response_collection_output,
         "posture-api_api-response-common": posture_api_api_response_common_output,
         "posture-api_messages": posture_api_messages_output,
         "posture-api_result-info": posture_api_result_info_output,

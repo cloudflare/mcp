@@ -155,6 +155,14 @@ export const healthchecks_http_config: JsonSchema = {
 };
 
 /**
+ * The schema of `healthchecks_identifier`.
+ */
+export const healthchecks_identifier: JsonSchema = {
+  "description": "Identifier",
+  "type": "string"
+};
+
+/**
  * The schema of `healthchecks_interval`.
  */
 export const healthchecks_interval: JsonSchema = {

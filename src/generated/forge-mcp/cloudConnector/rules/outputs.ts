@@ -4,6 +4,32 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `cloud-connector_api-response-common` in responses.
+ */
+export const cloud_connector_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/cloud-connector_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/cloud-connector_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `cloud-connector_api-response-common-failure` in responses.
  */
 export const cloud_connector_api_response_common_failure_output: JsonSchema = {
@@ -98,22 +124,15 @@ export const cloud_connector_rule_output: JsonSchema = {
       "type": "string"
     },
     "parameters": {
-      "$ref": "#/$defs/cloud-connector_rule_parameters"
+      "properties": {
+        "host": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "provider": {
       "$ref": "#/$defs/cloud-connector_provider"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `cloud-connector_rule_parameters` in responses.
- */
-export const cloud_connector_rule_parameters_output: JsonSchema = {
-  "properties": {
-    "host": {
-      "type": "string"
     }
   },
   "type": "object"

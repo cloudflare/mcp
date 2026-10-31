@@ -4,10 +4,14 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   google_tag_gateway_api_response_common_failure_output,
+  google_tag_gateway_api_response_common_output,
   google_tag_gateway_google_tag_gateway_config_output,
   google_tag_gateway_messages_output,
 } from "./outputs.js";
-import { google_tag_gateway_google_tag_gateway_config } from "./schemas.js";
+import {
+  google_tag_gateway_google_tag_gateway_config,
+  google_tag_gateway_identifier,
+} from "./schemas.js";
 
 /**
  * The tools of `google_tag_gateway.config`.
@@ -21,18 +25,35 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/google-tag-gateway_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "google-tag-gateway_identifier": google_tag_gateway_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/google-tag-gateway_google-tag-gateway-config",
+      "allOf": [
+        {
+          "$ref": "#/$defs/google-tag-gateway_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/google-tag-gateway_google-tag-gateway-config"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "google-tag-gateway_api-response-common": google_tag_gateway_api_response_common_output,
         "google-tag-gateway_google-tag-gateway-config": google_tag_gateway_google_tag_gateway_config_output,
+        "google-tag-gateway_messages": google_tag_gateway_messages_output,
       },
     },
     annotations: {
@@ -53,12 +74,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#zaraz:read"
-        ],
-        "x-fern-enum": {
-          "#zaraz:read": {
-            "name": "zaraz_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -70,13 +86,26 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/google-tag-gateway_google-tag-gateway-config"
+          "allOf": [
+            {
+              "$ref": "#/$defs/google-tag-gateway_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/google-tag-gateway_google-tag-gateway-config"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/google-tag-gateway_api-response-common-failure"
         }
       },
       $defs: {
+        "google-tag-gateway_api-response-common": google_tag_gateway_api_response_common_output,
         "google-tag-gateway_api-response-common-failure": google_tag_gateway_api_response_common_failure_output,
         "google-tag-gateway_google-tag-gateway-config": google_tag_gateway_google_tag_gateway_config_output,
         "google-tag-gateway_messages": google_tag_gateway_messages_output,
@@ -97,8 +126,8 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/google-tag-gateway_google-tag-gateway-config"
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/google-tag-gateway_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -107,12 +136,27 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "google-tag-gateway_google-tag-gateway-config": google_tag_gateway_google_tag_gateway_config,
+        "google-tag-gateway_identifier": google_tag_gateway_identifier,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/google-tag-gateway_google-tag-gateway-config",
+      "allOf": [
+        {
+          "$ref": "#/$defs/google-tag-gateway_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/google-tag-gateway_google-tag-gateway-config"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "google-tag-gateway_api-response-common": google_tag_gateway_api_response_common_output,
         "google-tag-gateway_google-tag-gateway-config": google_tag_gateway_google_tag_gateway_config_output,
+        "google-tag-gateway_messages": google_tag_gateway_messages_output,
       },
     },
     annotations: {
@@ -132,12 +176,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#zaraz:edit"
-        ],
-        "x-fern-enum": {
-          "#zaraz:edit": {
-            "name": "zaraz_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -149,13 +188,26 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/google-tag-gateway_google-tag-gateway-config"
+          "allOf": [
+            {
+              "$ref": "#/$defs/google-tag-gateway_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/google-tag-gateway_google-tag-gateway-config"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/google-tag-gateway_api-response-common-failure"
         }
       },
       $defs: {
+        "google-tag-gateway_api-response-common": google_tag_gateway_api_response_common_output,
         "google-tag-gateway_api-response-common-failure": google_tag_gateway_api_response_common_failure_output,
         "google-tag-gateway_google-tag-gateway-config": google_tag_gateway_google_tag_gateway_config_output,
         "google-tag-gateway_messages": google_tag_gateway_messages_output,

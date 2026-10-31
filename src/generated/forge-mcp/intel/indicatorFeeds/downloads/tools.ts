@@ -4,9 +4,16 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   custom_indicator_feeds_api_response_common_failure_output,
+  custom_indicator_feeds_api_response_single_output,
+  custom_indicator_feeds_messages_2_output,
   custom_indicator_feeds_messages_output,
   custom_indicator_feeds_update_feed_output,
+  custom_indicator_feeds_update_feed_response_output,
 } from "../outputs.js";
+import {
+  custom_indicator_feeds_feed_id,
+  custom_indicator_feeds_identifier,
+} from "../schemas.js";
 
 /**
  * The tools of `intel.indicator_feeds.downloads`.
@@ -20,23 +27,30 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/custom-indicator-feeds_identifier",
+          "description": "Identifier"
         },
         "feed_id": {
-          "description": "Indicator feed ID",
-          "type": "string"
+          "$ref": "#/$defs/custom-indicator-feeds_feed_id",
+          "description": "Indicator feed ID"
         }
       },
       required: [
         "account_id",
         "feed_id"
       ],
+      $defs: {
+        "custom-indicator-feeds_feed_id": custom_indicator_feeds_feed_id,
+        "custom-indicator-feeds_identifier": custom_indicator_feeds_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/custom-indicator-feeds_update_feed",
+      "$ref": "#/$defs/custom-indicator-feeds_update_feed_response",
       $defs: {
+        "custom-indicator-feeds_api-response-single": custom_indicator_feeds_api_response_single_output,
+        "custom-indicator-feeds_messages-2": custom_indicator_feeds_messages_2_output,
         "custom-indicator-feeds_update_feed": custom_indicator_feeds_update_feed_output,
+        "custom-indicator-feeds_update_feed_response": custom_indicator_feeds_update_feed_response_output,
       },
     },
     annotations: {
@@ -57,16 +71,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/custom-indicator-feeds_update_feed"
+          "$ref": "#/$defs/custom-indicator-feeds_update_feed_response"
         },
         "4XX": {
           "$ref": "#/$defs/custom-indicator-feeds_api_response_common_failure"
         }
       },
       $defs: {
+        "custom-indicator-feeds_api-response-single": custom_indicator_feeds_api_response_single_output,
         "custom-indicator-feeds_api_response_common_failure": custom_indicator_feeds_api_response_common_failure_output,
         "custom-indicator-feeds_messages": custom_indicator_feeds_messages_output,
+        "custom-indicator-feeds_messages-2": custom_indicator_feeds_messages_2_output,
         "custom-indicator-feeds_update_feed": custom_indicator_feeds_update_feed_output,
+        "custom-indicator-feeds_update_feed_response": custom_indicator_feeds_update_feed_response_output,
       },
     },
     request: (args) => ({

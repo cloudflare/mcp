@@ -3,7 +3,9 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  api_shield_api_response_collection_output,
   api_shield_api_response_common_failure_output,
+  api_shield_api_response_common_output,
   api_shield_messages_output,
   api_shield_timestamp_2_output,
   api_shield_timestamp_output,
@@ -16,6 +18,7 @@ import {
   api_shield_label_description_output,
   api_shield_label_metadata_output,
   api_shield_label_name_output,
+  api_shield_label_output,
   api_shield_label_source_output,
 } from "../outputs.js";
 import { api_shield_label_source } from "../schemas.js";
@@ -91,45 +94,36 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/api-shield_full_label"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/api-shield_api-response-collection"
         },
-        "result_info": {
+        {
           "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
+            "result": {
+              "items": {
+                "$ref": "#/$defs/api-shield_full_label"
+              },
+              "type": "array"
             }
           },
+          "required": [
+            "result"
+          ],
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
+        "api-shield_api-response-collection": api_shield_api_response_collection_output,
+        "api-shield_api-response-common": api_shield_api_response_common_output,
         "api-shield_full_label": api_shield_full_label_output,
+        "api-shield_label": api_shield_label_output,
         "api-shield_label_description": api_shield_label_description_output,
         "api-shield_label_mapped_resources": api_shield_label_mapped_resources_output,
         "api-shield_label_metadata": api_shield_label_metadata_output,
         "api-shield_label_name": api_shield_label_name_output,
         "api-shield_label_source": api_shield_label_source_output,
+        "api-shield_messages": api_shield_messages_output,
         "api-shield_timestamp": api_shield_timestamp_output,
         "api-shield_timestamp-2": api_shield_timestamp_2_output,
       },
@@ -154,46 +148,36 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/api-shield_full_label"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/api-shield_api-response-collection"
             },
-            "result_info": {
+            {
               "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/api-shield_full_label"
+                  },
+                  "type": "array"
                 }
               },
+              "required": [
+                "result"
+              ],
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/api-shield_api-response-common-failure"
         }
       },
       $defs: {
+        "api-shield_api-response-collection": api_shield_api_response_collection_output,
+        "api-shield_api-response-common": api_shield_api_response_common_output,
         "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
         "api-shield_full_label": api_shield_full_label_output,
+        "api-shield_label": api_shield_label_output,
         "api-shield_label_description": api_shield_label_description_output,
         "api-shield_label_mapped_resources": api_shield_label_mapped_resources_output,
         "api-shield_label_metadata": api_shield_label_metadata_output,

@@ -4,6 +4,14 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `cloud-connector_identifier`.
+ */
+export const cloud_connector_identifier: JsonSchema = {
+  "description": "Identifier.",
+  "type": "string"
+};
+
+/**
  * The schema of `cloud-connector_provider`.
  */
 export const cloud_connector_provider: JsonSchema = {
@@ -36,26 +44,18 @@ export const cloud_connector_rule: JsonSchema = {
       "type": "string"
     },
     "parameters": {
-      "$ref": "#/$defs/cloud-connector_rule_parameters",
-      "description": "Parameters of Cloud Connector Rule"
+      "description": "Parameters of Cloud Connector Rule",
+      "properties": {
+        "host": {
+          "description": "Host to perform Cloud Connection to",
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "provider": {
       "$ref": "#/$defs/cloud-connector_provider",
       "description": "Cloud Provider type"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `cloud-connector_rule_parameters`.
- */
-export const cloud_connector_rule_parameters: JsonSchema = {
-  "description": "Parameters of Cloud Connector Rule",
-  "properties": {
-    "host": {
-      "description": "Host to perform Cloud Connection to",
-      "type": "string"
     }
   },
   "type": "object"

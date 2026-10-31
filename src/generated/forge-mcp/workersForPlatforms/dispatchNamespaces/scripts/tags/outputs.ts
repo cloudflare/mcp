@@ -4,62 +4,25 @@
 import type { JsonSchema } from "../../../../_/tool.js";
 
 /**
- * The schema of `workers_api-response-null-result` in responses.
- */
-export const workers_api_response_null_result_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/workers_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/workers_messages"
-    },
-    "result": {
-      "type": "null"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
  * The schema of `workers_tags-kv-response` in responses.
  */
 export const workers_tags_kv_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/workers_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/workers_api-response-common"
     },
-    "messages": {
-      "$ref": "#/$defs/workers_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/workers_tags_kv"
-    },
-    "success": {
-      "enum": [
-        true
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/workers_tags_kv"
+        }
+      },
+      "required": [
+        "result"
       ],
-      "type": "boolean"
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success",
-    "result"
-  ],
-  "type": "object"
+  ]
 };
 
 /**

@@ -4,6 +4,40 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `firewall_api-response-single-id` in responses.
+ */
+export const firewall_api_response_single_id_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/firewall_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "properties": {
+                "id": {
+                  "$ref": "#/$defs/firewall_identifier"
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `firewall_email` in responses.
  */
 export const firewall_email_output: JsonSchema = {
@@ -11,75 +45,76 @@ export const firewall_email_output: JsonSchema = {
 };
 
 /**
- * The schema of `firewall_identifier` in responses.
+ * The schema of `firewall_response_collection` in responses.
  */
-export const firewall_identifier_output: JsonSchema = {
-  "type": "string"
+export const firewall_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/firewall_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/firewall_schemas-rule"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `firewall_response_single` in responses.
+ */
+export const firewall_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/firewall_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/firewall_schemas-rule"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**
  * The schema of `firewall_schemas-rule` in responses.
  */
 export const firewall_schemas_rule_output: JsonSchema = {
-  "properties": {
-    "allowed_modes": {
-      "items": {
-        "$ref": "#/$defs/firewall_schemas-mode"
+  "allOf": [
+    {
+      "$ref": "#/$defs/firewall_rule"
+    },
+    {
+      "properties": {
+        "scope": {
+          "properties": {
+            "email": {
+              "$ref": "#/$defs/firewall_email"
+            },
+            "id": {
+              "$ref": "#/$defs/firewall_identifier"
+            },
+            "type": {
+              "enum": [
+                "user",
+                "organization"
+              ],
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
       },
-      "type": "array"
-    },
-    "configuration": {
-      "$ref": "#/$defs/firewall_configuration"
-    },
-    "created_on": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/firewall_schemas-identifier"
-    },
-    "mode": {
-      "$ref": "#/$defs/firewall_schemas-mode"
-    },
-    "modified_on": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "notes": {
-      "$ref": "#/$defs/firewall_notes"
-    },
-    "scope": {
-      "$ref": "#/$defs/firewall_schemas-rule_scope"
+      "type": "object"
     }
-  },
-  "required": [
-    "allowed_modes",
-    "configuration",
-    "id",
-    "mode",
-    "scope"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `firewall_schemas-rule_scope` in responses.
- */
-export const firewall_schemas_rule_scope_output: JsonSchema = {
-  "properties": {
-    "email": {
-      "$ref": "#/$defs/firewall_email"
-    },
-    "id": {
-      "$ref": "#/$defs/firewall_identifier"
-    },
-    "type": {
-      "enum": [
-        "user",
-        "organization"
-      ],
-      "type": "string"
-    }
-  },
-  "type": "object"
+  ]
 };

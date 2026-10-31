@@ -9,68 +9,52 @@ import type { JsonSchema } from "../../../_/tool.js";
 export const r2_enable_sippy_aws: JsonSchema = {
   "properties": {
     "destination": {
-      "$ref": "#/$defs/r2_enable_sippy_aws_destination",
-      "description": "R2 bucket to copy objects to."
+      "description": "R2 bucket to copy objects to.",
+      "properties": {
+        "accessKeyId": {
+          "description": "ID of a Cloudflare API token.\nThis is the value labelled \"Access Key ID\" when creating an API.\ntoken from the [R2 dashboard](https://dash.cloudflare.com/?to=/:account/r2/api-tokens).\n\nSippy will use this token when writing objects to R2, so it is\nbest to scope this token to the bucket you're enabling Sippy for.\n",
+          "type": "string"
+        },
+        "provider": {
+          "enum": [
+            "r2"
+          ],
+          "type": "string"
+        },
+        "secretAccessKey": {
+          "description": "Value of a Cloudflare API token.\nThis is the value labelled \"Secret Access Key\" when creating an API.\ntoken from the [R2 dashboard](https://dash.cloudflare.com/?to=/:account/r2/api-tokens).\n\nSippy will use this token when writing objects to R2, so it is\nbest to scope this token to the bucket you're enabling Sippy for.\n",
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "source": {
-      "$ref": "#/$defs/r2_enable_sippy_aws_source",
-      "description": "AWS S3 bucket to copy objects from."
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `r2_enable_sippy_aws_destination`.
- */
-export const r2_enable_sippy_aws_destination: JsonSchema = {
-  "description": "R2 bucket to copy objects to.",
-  "properties": {
-    "accessKeyId": {
-      "description": "ID of a Cloudflare API token.\nThis is the value labelled \"Access Key ID\" when creating an API.\ntoken from the [R2 dashboard](https://dash.cloudflare.com/?to=/:account/r2/api-tokens).\n\nSippy will use this token when writing objects to R2, so it is\nbest to scope this token to the bucket you're enabling Sippy for.\n",
-      "type": "string"
-    },
-    "provider": {
-      "enum": [
-        "r2"
-      ],
-      "type": "string"
-    },
-    "secretAccessKey": {
-      "description": "Value of a Cloudflare API token.\nThis is the value labelled \"Secret Access Key\" when creating an API.\ntoken from the [R2 dashboard](https://dash.cloudflare.com/?to=/:account/r2/api-tokens).\n\nSippy will use this token when writing objects to R2, so it is\nbest to scope this token to the bucket you're enabling Sippy for.\n",
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `r2_enable_sippy_aws_source`.
- */
-export const r2_enable_sippy_aws_source: JsonSchema = {
-  "description": "AWS S3 bucket to copy objects from.",
-  "properties": {
-    "accessKeyId": {
-      "description": "Access Key ID of an IAM credential (ideally scoped to a single S3 bucket).",
-      "type": "string"
-    },
-    "bucket": {
-      "description": "Name of the AWS S3 bucket.",
-      "type": "string"
-    },
-    "provider": {
-      "enum": [
-        "aws"
-      ],
-      "type": "string"
-    },
-    "region": {
-      "description": "AWS region containing the source S3 bucket.",
-      "type": "string"
-    },
-    "secretAccessKey": {
-      "description": "Secret Access Key of an IAM credential (ideally scoped to a single S3 bucket).",
-      "type": "string"
+      "description": "AWS S3 bucket to copy objects from.",
+      "properties": {
+        "accessKeyId": {
+          "description": "Access Key ID of an IAM credential (ideally scoped to a single S3 bucket).",
+          "type": "string"
+        },
+        "bucket": {
+          "description": "Name of the AWS S3 bucket.",
+          "type": "string"
+        },
+        "provider": {
+          "enum": [
+            "aws"
+          ],
+          "type": "string"
+        },
+        "region": {
+          "description": "AWS region containing the source S3 bucket.",
+          "type": "string"
+        },
+        "secretAccessKey": {
+          "description": "Secret Access Key of an IAM credential (ideally scoped to a single S3 bucket).",
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
   },
   "type": "object"
@@ -82,68 +66,52 @@ export const r2_enable_sippy_aws_source: JsonSchema = {
 export const r2_enable_sippy_azure: JsonSchema = {
   "properties": {
     "destination": {
-      "$ref": "#/$defs/r2_enable_sippy_azure_destination",
-      "description": "R2 bucket to copy objects to."
+      "description": "R2 bucket to copy objects to.",
+      "properties": {
+        "accessKeyId": {
+          "description": "ID of a Cloudflare API token.\nThis is the value labelled \"Access Key ID\" when creating an API.\ntoken from the [R2 dashboard](https://dash.cloudflare.com/?to=/:account/r2/api-tokens).\n\nSippy will use this token when writing objects to R2, so it is\nbest to scope this token to the bucket you're enabling Sippy for.\n",
+          "type": "string"
+        },
+        "provider": {
+          "enum": [
+            "r2"
+          ],
+          "type": "string"
+        },
+        "secretAccessKey": {
+          "description": "Value of a Cloudflare API token.\nThis is the value labelled \"Secret Access Key\" when creating an API.\ntoken from the [R2 dashboard](https://dash.cloudflare.com/?to=/:account/r2/api-tokens).\n\nSippy will use this token when writing objects to R2, so it is\nbest to scope this token to the bucket you're enabling Sippy for.\n",
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "source": {
-      "$ref": "#/$defs/r2_enable_sippy_azure_source",
-      "description": "Azure Blob Storage container to copy objects from."
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `r2_enable_sippy_azure_destination`.
- */
-export const r2_enable_sippy_azure_destination: JsonSchema = {
-  "description": "R2 bucket to copy objects to.",
-  "properties": {
-    "accessKeyId": {
-      "description": "ID of a Cloudflare API token.\nThis is the value labelled \"Access Key ID\" when creating an API.\ntoken from the [R2 dashboard](https://dash.cloudflare.com/?to=/:account/r2/api-tokens).\n\nSippy will use this token when writing objects to R2, so it is\nbest to scope this token to the bucket you're enabling Sippy for.\n",
-      "type": "string"
-    },
-    "provider": {
-      "enum": [
-        "r2"
-      ],
-      "type": "string"
-    },
-    "secretAccessKey": {
-      "description": "Value of a Cloudflare API token.\nThis is the value labelled \"Secret Access Key\" when creating an API.\ntoken from the [R2 dashboard](https://dash.cloudflare.com/?to=/:account/r2/api-tokens).\n\nSippy will use this token when writing objects to R2, so it is\nbest to scope this token to the bucket you're enabling Sippy for.\n",
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `r2_enable_sippy_azure_source`.
- */
-export const r2_enable_sippy_azure_source: JsonSchema = {
-  "description": "Azure Blob Storage container to copy objects from.",
-  "properties": {
-    "accountKey": {
-      "description": "Access key for the Azure Storage account. Mutually exclusive with sasToken.",
-      "type": "string"
-    },
-    "accountName": {
-      "description": "Name of the Azure Storage account.",
-      "type": "string"
-    },
-    "container": {
-      "description": "Name of the Azure Blob Storage container.",
-      "type": "string"
-    },
-    "provider": {
-      "enum": [
-        "azure"
-      ],
-      "type": "string"
-    },
-    "sasToken": {
-      "description": "Shared Access Signature token for the Azure Storage account. Mutually exclusive with accountKey.",
-      "type": "string"
+      "description": "Azure Blob Storage container to copy objects from.",
+      "properties": {
+        "accountKey": {
+          "description": "Access key for the Azure Storage account. Mutually exclusive with sasToken.",
+          "type": "string"
+        },
+        "accountName": {
+          "description": "Name of the Azure Storage account.",
+          "type": "string"
+        },
+        "container": {
+          "description": "Name of the Azure Blob Storage container.",
+          "type": "string"
+        },
+        "provider": {
+          "enum": [
+            "azure"
+          ],
+          "type": "string"
+        },
+        "sasToken": {
+          "description": "Shared Access Signature token for the Azure Storage account. Mutually exclusive with accountKey.",
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
   },
   "type": "object"
@@ -155,64 +123,48 @@ export const r2_enable_sippy_azure_source: JsonSchema = {
 export const r2_enable_sippy_gcs: JsonSchema = {
   "properties": {
     "destination": {
-      "$ref": "#/$defs/r2_enable_sippy_gcs_destination",
-      "description": "R2 bucket to copy objects to."
+      "description": "R2 bucket to copy objects to.",
+      "properties": {
+        "accessKeyId": {
+          "description": "ID of a Cloudflare API token.\nThis is the value labelled \"Access Key ID\" when creating an API.\ntoken from the [R2 dashboard](https://dash.cloudflare.com/?to=/:account/r2/api-tokens).\n\nSippy will use this token when writing objects to R2, so it is\nbest to scope this token to the bucket you're enabling Sippy for.\n",
+          "type": "string"
+        },
+        "provider": {
+          "enum": [
+            "r2"
+          ],
+          "type": "string"
+        },
+        "secretAccessKey": {
+          "description": "Value of a Cloudflare API token.\nThis is the value labelled \"Secret Access Key\" when creating an API.\ntoken from the [R2 dashboard](https://dash.cloudflare.com/?to=/:account/r2/api-tokens).\n\nSippy will use this token when writing objects to R2, so it is\nbest to scope this token to the bucket you're enabling Sippy for.\n",
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "source": {
-      "$ref": "#/$defs/r2_enable_sippy_gcs_source",
-      "description": "GCS bucket to copy objects from."
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `r2_enable_sippy_gcs_destination`.
- */
-export const r2_enable_sippy_gcs_destination: JsonSchema = {
-  "description": "R2 bucket to copy objects to.",
-  "properties": {
-    "accessKeyId": {
-      "description": "ID of a Cloudflare API token.\nThis is the value labelled \"Access Key ID\" when creating an API.\ntoken from the [R2 dashboard](https://dash.cloudflare.com/?to=/:account/r2/api-tokens).\n\nSippy will use this token when writing objects to R2, so it is\nbest to scope this token to the bucket you're enabling Sippy for.\n",
-      "type": "string"
-    },
-    "provider": {
-      "enum": [
-        "r2"
-      ],
-      "type": "string"
-    },
-    "secretAccessKey": {
-      "description": "Value of a Cloudflare API token.\nThis is the value labelled \"Secret Access Key\" when creating an API.\ntoken from the [R2 dashboard](https://dash.cloudflare.com/?to=/:account/r2/api-tokens).\n\nSippy will use this token when writing objects to R2, so it is\nbest to scope this token to the bucket you're enabling Sippy for.\n",
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `r2_enable_sippy_gcs_source`.
- */
-export const r2_enable_sippy_gcs_source: JsonSchema = {
-  "description": "GCS bucket to copy objects from.",
-  "properties": {
-    "bucket": {
-      "description": "Name of the GCS bucket.",
-      "type": "string"
-    },
-    "clientEmail": {
-      "description": "Client email of an IAM credential (ideally scoped to a single GCS bucket).",
-      "type": "string"
-    },
-    "privateKey": {
-      "description": "Private Key of an IAM credential (ideally scoped to a single GCS bucket).",
-      "type": "string"
-    },
-    "provider": {
-      "enum": [
-        "gcs"
-      ],
-      "type": "string"
+      "description": "GCS bucket to copy objects from.",
+      "properties": {
+        "bucket": {
+          "description": "Name of the GCS bucket.",
+          "type": "string"
+        },
+        "clientEmail": {
+          "description": "Client email of an IAM credential (ideally scoped to a single GCS bucket).",
+          "type": "string"
+        },
+        "privateKey": {
+          "description": "Private Key of an IAM credential (ideally scoped to a single GCS bucket).",
+          "type": "string"
+        },
+        "provider": {
+          "enum": [
+            "gcs"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
   },
   "type": "object"
@@ -224,64 +176,48 @@ export const r2_enable_sippy_gcs_source: JsonSchema = {
 export const r2_enable_sippy_s3: JsonSchema = {
   "properties": {
     "destination": {
-      "$ref": "#/$defs/r2_enable_sippy_s3_destination",
-      "description": "R2 bucket to copy objects to."
+      "description": "R2 bucket to copy objects to.",
+      "properties": {
+        "accessKeyId": {
+          "description": "ID of a Cloudflare API token.\nThis is the value labelled \"Access Key ID\" when creating an API.\ntoken from the [R2 dashboard](https://dash.cloudflare.com/?to=/:account/r2/api-tokens).\n\nSippy will use this token when writing objects to R2, so it is\nbest to scope this token to the bucket you're enabling Sippy for.\n",
+          "type": "string"
+        },
+        "provider": {
+          "enum": [
+            "r2"
+          ],
+          "type": "string"
+        },
+        "secretAccessKey": {
+          "description": "Value of a Cloudflare API token.\nThis is the value labelled \"Secret Access Key\" when creating an API.\ntoken from the [R2 dashboard](https://dash.cloudflare.com/?to=/:account/r2/api-tokens).\n\nSippy will use this token when writing objects to R2, so it is\nbest to scope this token to the bucket you're enabling Sippy for.\n",
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "source": {
-      "$ref": "#/$defs/r2_enable_sippy_s3_source",
-      "description": "General S3-compatible provider to copy objects from."
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `r2_enable_sippy_s3_destination`.
- */
-export const r2_enable_sippy_s3_destination: JsonSchema = {
-  "description": "R2 bucket to copy objects to.",
-  "properties": {
-    "accessKeyId": {
-      "description": "ID of a Cloudflare API token.\nThis is the value labelled \"Access Key ID\" when creating an API.\ntoken from the [R2 dashboard](https://dash.cloudflare.com/?to=/:account/r2/api-tokens).\n\nSippy will use this token when writing objects to R2, so it is\nbest to scope this token to the bucket you're enabling Sippy for.\n",
-      "type": "string"
-    },
-    "provider": {
-      "enum": [
-        "r2"
-      ],
-      "type": "string"
-    },
-    "secretAccessKey": {
-      "description": "Value of a Cloudflare API token.\nThis is the value labelled \"Secret Access Key\" when creating an API.\ntoken from the [R2 dashboard](https://dash.cloudflare.com/?to=/:account/r2/api-tokens).\n\nSippy will use this token when writing objects to R2, so it is\nbest to scope this token to the bucket you're enabling Sippy for.\n",
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `r2_enable_sippy_s3_source`.
- */
-export const r2_enable_sippy_s3_source: JsonSchema = {
-  "description": "General S3-compatible provider to copy objects from.",
-  "properties": {
-    "accessKeyId": {
-      "description": "Access Key ID of an IAM credential (ideally scoped to a single S3 bucket).",
-      "type": "string"
-    },
-    "bucketUrl": {
-      "description": "URL to the S3-compatible API of the bucket.",
-      "type": "string"
-    },
-    "provider": {
-      "enum": [
-        "s3"
-      ],
-      "type": "string"
-    },
-    "secretAccessKey": {
-      "description": "Secret Access Key of an IAM credential (ideally scoped to a single S3 bucket).",
-      "type": "string"
+      "description": "General S3-compatible provider to copy objects from.",
+      "properties": {
+        "accessKeyId": {
+          "description": "Access Key ID of an IAM credential (ideally scoped to a single S3 bucket).",
+          "type": "string"
+        },
+        "bucketUrl": {
+          "description": "URL to the S3-compatible API of the bucket.",
+          "type": "string"
+        },
+        "provider": {
+          "enum": [
+            "s3"
+          ],
+          "type": "string"
+        },
+        "secretAccessKey": {
+          "description": "Secret Access Key of an IAM credential (ideally scoped to a single S3 bucket).",
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
   },
   "type": "object"

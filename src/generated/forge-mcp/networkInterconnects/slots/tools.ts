@@ -3,6 +3,7 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import { nsc_AccountTag_output, nsc_FacilityInfo_output } from "../outputs.js";
+import { nsc_AccountTag } from "../schemas.js";
 import { nsc_SlotInfo_output, nsc_SlotList_output } from "./outputs.js";
 
 /**
@@ -17,8 +18,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Customer account tag",
-          "type": "string"
+          "$ref": "#/$defs/nsc_AccountTag",
+          "description": "Customer account tag"
         },
         "slot": {
           "format": "uuid",
@@ -29,6 +30,9 @@ export const tools: readonly Tool[] = [
         "account_id",
         "slot"
       ],
+      $defs: {
+        "nsc_AccountTag": nsc_AccountTag,
+      },
     },
     outputSchema: {
       "$ref": "#/$defs/nsc_SlotInfo",
@@ -82,8 +86,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Customer account tag",
-          "type": "string"
+          "$ref": "#/$defs/nsc_AccountTag",
+          "description": "Customer account tag"
         },
         "address_contains": {
           "description": "If specified, only show slots with the given text in their address field",
@@ -153,6 +157,9 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+      $defs: {
+        "nsc_AccountTag": nsc_AccountTag,
+      },
     },
     outputSchema: {
       "$ref": "#/$defs/nsc_SlotList",

@@ -18,6 +18,25 @@ export const rum_id_output: JsonSchema = {
 };
 
 /**
+ * The schema of `rum_rum-site-response-single` in responses.
+ */
+export const rum_rum_site_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/rum_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/rum_rum_site"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `rum_rum_site` in responses.
  */
 export const rum_rum_site_output: JsonSchema = {

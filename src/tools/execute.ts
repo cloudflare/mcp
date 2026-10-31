@@ -292,57 +292,34 @@ export default class CodeExecutor extends WorkerEntrypoint {
             const text = await response.text();
             throw apiError(method, path, response, text.slice(0, 500));
           }
-          const result = decodeBody(new Uint8Array(await response.arrayBuffer()), responseType);
-          return { success: true, status: response.status, result };
+          return decodeBody(new Uint8Array(await response.arrayBuffer()), responseType);
         }
 
         const data = await response.json();
 
-        // Handle GraphQL responses (different format than REST)
+        // A GraphQL query that returned no data failed; partial data is
+        // returned with its errors, as the API sends it.
         const cleanPath = path.split('?')[0].replace(/\\/+$/, '');
-        const isGraphQLEndpoint = cleanPath === '/graphql' || cleanPath.endsWith('/graphql');
-
-        if (isGraphQLEndpoint) {
-          const graphqlErrors = Array.isArray(data.errors) ? data.errors : [];
-          const hasData = data.data !== null && data.data !== undefined;
-
-          // Complete failure: no data, only errors
-          if (graphqlErrors.length > 0 && !hasData) {
-            const msgs = graphqlErrors.map(e => e.message).join(", ");
-            const error = new Error("GraphQL error: " + msgs);
+        if (cleanPath === '/graphql' || cleanPath.endsWith('/graphql')) {
+          const graphqlErrors = Array.isArray(data?.errors) ? data.errors : [];
+          if (graphqlErrors.length > 0 && (data.data === null || data.data === undefined)) {
+            const error = new Error("GraphQL error: " + graphqlErrors.map(e => e.message).join(", "));
             error.graphqlRefusal = graphqlRefusal(graphqlErrors);
             throw error;
           }
-
-          // Success or partial success
-          return {
-            success: graphqlErrors.length === 0,
-            status: response.status,
-            result: data.data,
-            errors: graphqlErrors.map(e => ({
-              code: e.extensions?.code || 0,
-              message: e.message + (e.path ? \` (at \${e.path.join('.')})\` : '')
-            })),
-            messages: graphqlErrors.length > 0 ? [{
-              code: 0,
-              message: \`Partial response: \${graphqlErrors.length} error(s)\`
-            }] : []
-          };
+          return data;
         }
 
-        // Some APIs (e.g., SQL and SCIM) return JSON without the REST envelope.
-        const isEnvelope = data !== null && typeof data === "object"
-          && !Array.isArray(data) && typeof data.success === "boolean";
-        if (!response.ok || (isEnvelope && !data.success)) {
+        // A failed request throws; a successful one returns the body as the
+        // API sends it, in Cloudflare's envelope or, for the few APIs without
+        // it, bare.
+        if (!response.ok || data?.success === false) {
           const errorList = Array.isArray(data?.errors) ? data.errors : [];
           const errors = errorList.map(e => (e.code === undefined ? "" : e.code + ": ") + e.message +
             (e.documentation_url ? " (" + e.documentation_url + ")" : "")).join(", ");
           throw apiError(method, path, response, errors);
         }
-
-        return isEnvelope
-          ? { ...data, status: response.status }
-          : { success: true, status: response.status, result: data };
+        return data;
       }
     };
 

@@ -4,12 +4,12 @@
 import { type Tool, pathParam } from "../_/tool.js";
 import {
   field_extractors_ApiError_output,
-  field_extractors_ApiError_source_output,
-  field_extractors_ErrorResponse_messagesItem_output,
+  field_extractors_DeleteResponse_output,
   field_extractors_ErrorResponse_output,
   field_extractors_ExtractorResult_output,
   field_extractors_FieldOutput_output,
   field_extractors_RuleOutput_output,
+  field_extractors_SuccessResponse_output,
 } from "./outputs.js";
 
 /**
@@ -38,14 +38,11 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "oneOf": [
-        {
-          "type": "object"
-        },
-        {
-          "type": "null"
-        }
-      ],
+      "$ref": "#/$defs/field-extractors_DeleteResponse",
+      $defs: {
+        "field-extractors_ApiError": field_extractors_ApiError_output,
+        "field-extractors_DeleteResponse": field_extractors_DeleteResponse_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -59,14 +56,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "oneOf": [
-            {
-              "type": "object"
-            },
-            {
-              "type": "null"
-            }
-          ]
+          "$ref": "#/$defs/field-extractors_DeleteResponse"
         },
         "404": {
           "$ref": "#/$defs/field-extractors_ErrorResponse"
@@ -74,9 +64,8 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "field-extractors_ApiError": field_extractors_ApiError_output,
-        "field-extractors_ApiError_source": field_extractors_ApiError_source_output,
+        "field-extractors_DeleteResponse": field_extractors_DeleteResponse_output,
         "field-extractors_ErrorResponse": field_extractors_ErrorResponse_output,
-        "field-extractors_ErrorResponse_messagesItem": field_extractors_ErrorResponse_messagesItem_output,
       },
     },
     request: (args) => ({
@@ -105,11 +94,13 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/field-extractors_ExtractorResult",
+      "$ref": "#/$defs/field-extractors_SuccessResponse",
       $defs: {
+        "field-extractors_ApiError": field_extractors_ApiError_output,
         "field-extractors_ExtractorResult": field_extractors_ExtractorResult_output,
         "field-extractors_FieldOutput": field_extractors_FieldOutput_output,
         "field-extractors_RuleOutput": field_extractors_RuleOutput_output,
+        "field-extractors_SuccessResponse": field_extractors_SuccessResponse_output,
       },
     },
     annotations: {
@@ -124,7 +115,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/field-extractors_ExtractorResult"
+          "$ref": "#/$defs/field-extractors_SuccessResponse"
         },
         "404": {
           "$ref": "#/$defs/field-extractors_ErrorResponse"
@@ -132,12 +123,11 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "field-extractors_ApiError": field_extractors_ApiError_output,
-        "field-extractors_ApiError_source": field_extractors_ApiError_source_output,
         "field-extractors_ErrorResponse": field_extractors_ErrorResponse_output,
-        "field-extractors_ErrorResponse_messagesItem": field_extractors_ErrorResponse_messagesItem_output,
         "field-extractors_ExtractorResult": field_extractors_ExtractorResult_output,
         "field-extractors_FieldOutput": field_extractors_FieldOutput_output,
         "field-extractors_RuleOutput": field_extractors_RuleOutput_output,
+        "field-extractors_SuccessResponse": field_extractors_SuccessResponse_output,
       },
     },
     request: (args) => ({
@@ -214,11 +204,13 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/field-extractors_ExtractorResult",
+      "$ref": "#/$defs/field-extractors_SuccessResponse",
       $defs: {
+        "field-extractors_ApiError": field_extractors_ApiError_output,
         "field-extractors_ExtractorResult": field_extractors_ExtractorResult_output,
         "field-extractors_FieldOutput": field_extractors_FieldOutput_output,
         "field-extractors_RuleOutput": field_extractors_RuleOutput_output,
+        "field-extractors_SuccessResponse": field_extractors_SuccessResponse_output,
       },
     },
     annotations: {
@@ -233,7 +225,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/field-extractors_ExtractorResult"
+          "$ref": "#/$defs/field-extractors_SuccessResponse"
         },
         "400": {
           "$ref": "#/$defs/field-extractors_ErrorResponse"
@@ -244,12 +236,11 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "field-extractors_ApiError": field_extractors_ApiError_output,
-        "field-extractors_ApiError_source": field_extractors_ApiError_source_output,
         "field-extractors_ErrorResponse": field_extractors_ErrorResponse_output,
-        "field-extractors_ErrorResponse_messagesItem": field_extractors_ErrorResponse_messagesItem_output,
         "field-extractors_ExtractorResult": field_extractors_ExtractorResult_output,
         "field-extractors_FieldOutput": field_extractors_FieldOutput_output,
         "field-extractors_RuleOutput": field_extractors_RuleOutput_output,
+        "field-extractors_SuccessResponse": field_extractors_SuccessResponse_output,
       },
     },
     request: (args) => ({

@@ -11,50 +11,41 @@ export const digital_experience_monitoring_commands_devices_response_output: Jso
   "properties": {
     "devices": {
       "items": {
-        "$ref": "#/$defs/digital-experience-monitoring_commands_devices_response_devicesItem"
+        "properties": {
+          "deviceId": {
+            "type": "string"
+          },
+          "deviceName": {
+            "type": "string"
+          },
+          "eligible": {
+            "type": "boolean"
+          },
+          "ineligibleReason": {
+            "type": "string"
+          },
+          "personEmail": {
+            "type": "string"
+          },
+          "platform": {
+            "$ref": "#/$defs/digital-experience-monitoring_platform"
+          },
+          "registrationId": {
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/$defs/digital-experience-monitoring_status"
+          },
+          "timestamp": {
+            "$ref": "#/$defs/digital-experience-monitoring_timestamp"
+          },
+          "version": {
+            "$ref": "#/$defs/digital-experience-monitoring_version"
+          }
+        },
+        "type": "object"
       },
       "type": "array"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of
- * `digital-experience-monitoring_commands_devices_response_devicesItem` in
- * responses.
- */
-export const digital_experience_monitoring_commands_devices_response_devicesItem_output: JsonSchema = {
-  "properties": {
-    "deviceId": {
-      "type": "string"
-    },
-    "deviceName": {
-      "type": "string"
-    },
-    "eligible": {
-      "type": "boolean"
-    },
-    "ineligibleReason": {
-      "type": "string"
-    },
-    "personEmail": {
-      "type": "string"
-    },
-    "platform": {
-      "$ref": "#/$defs/digital-experience-monitoring_platform"
-    },
-    "registrationId": {
-      "type": "string"
-    },
-    "status": {
-      "$ref": "#/$defs/digital-experience-monitoring_status"
-    },
-    "timestamp": {
-      "$ref": "#/$defs/digital-experience-monitoring_timestamp"
-    },
-    "version": {
-      "$ref": "#/$defs/digital-experience-monitoring_version"
     }
   },
   "type": "object"

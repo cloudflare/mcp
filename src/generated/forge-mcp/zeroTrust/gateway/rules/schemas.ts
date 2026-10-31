@@ -24,7 +24,8 @@ export const zero_trust_gateway_action: JsonSchema = {
     "egress",
     "resolve",
     "quarantine",
-    "redirect"
+    "redirect",
+    "forward"
   ],
   "type": "string"
 };
@@ -222,12 +223,120 @@ export const zero_trust_gateway_rule_settings: JsonSchema = {
       ]
     },
     "biso_admin_controls": {
-      "$ref": "#/$defs/zero-trust-gateway_rule-settings_biso_admin_controls",
-      "description": "Configure browser isolation behavior. Settable only for `http` rules with the action set to `isolate`."
+      "description": "Configure browser isolation behavior. Settable only for `http` rules with the action set to `isolate`.",
+      "properties": {
+        "copy": {
+          "description": "Configure copy behavior. If set to remote_only, users cannot copy isolated content from the remote browser to the local clipboard. If this field is absent, copying remains enabled. Applies only when version == \"v2\".",
+          "enum": [
+            "enabled",
+            "disabled",
+            "remote_only"
+          ],
+          "type": "string"
+        },
+        "dcp": {
+          "description": "Set to false to enable copy-pasting. Only applies when `version == \"v1\"`.",
+          "type": "boolean"
+        },
+        "dd": {
+          "description": "Set to false to enable downloading. Only applies when `version == \"v1\"`.",
+          "type": "boolean"
+        },
+        "dk": {
+          "description": "Set to false to enable keyboard usage. Only applies when `version == \"v1\"`.",
+          "type": "boolean"
+        },
+        "download": {
+          "description": "Configure download behavior. When set to remote_only, users can view downloads but cannot save them. If this field is absent, downloading remains enabled. Applies only when version == \"v2\".",
+          "enum": [
+            "enabled",
+            "disabled",
+            "remote_only"
+          ],
+          "type": "string"
+        },
+        "dp": {
+          "description": "Set to false to enable printing. Only applies when `version == \"v1\"`.",
+          "type": "boolean"
+        },
+        "du": {
+          "description": "Set to false to enable uploading. Only applies when `version == \"v1\"`.",
+          "type": "boolean"
+        },
+        "keyboard": {
+          "description": "Configure keyboard usage behavior. When set to enable_read_only_actions, only approved browser commands (find, copy, print, zoom, and select-all) may execute; other keyboard input is blocked from reaching the page. Copy and print remain subject to their independent controls. If this field is absent, keyboard usage remains enabled. Applies only when version == \"v2\". The enable_read_only_actions value requires an explicit version of \"v2\".",
+          "enum": [
+            "enabled",
+            "disabled",
+            "enable_read_only_actions"
+          ],
+          "type": "string"
+        },
+        "paste": {
+          "description": "Configure paste behavior. If set to remote_only, users cannot paste content from the local clipboard into isolated pages. If this field is absent, pasting remains enabled. Applies only when version == \"v2\".",
+          "enum": [
+            "enabled",
+            "disabled",
+            "remote_only"
+          ],
+          "type": "string"
+        },
+        "printing": {
+          "description": "Configure print behavior. Default, Printing is enabled. Applies only when version == \"v2\".",
+          "enum": [
+            "enabled",
+            "disabled"
+          ],
+          "type": "string"
+        },
+        "upload": {
+          "description": "Configure upload behavior. If this field is absent, uploading remains enabled. Applies only when version == \"v2\".",
+          "enum": [
+            "enabled",
+            "disabled"
+          ],
+          "type": "string"
+        },
+        "version": {
+          "default": "v1",
+          "description": "Indicate which version of the browser isolation controls should apply.",
+          "enum": [
+            "v1",
+            "v2"
+          ],
+          "type": "string"
+        },
+        "wm_id": {
+          "description": "Specify the watermark ID (UUID) to apply to the isolated browser session. When present, enables watermark rendering in the isolated browser.",
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "block_page": {
-      "$ref": "#/$defs/zero-trust-gateway_rule-settings_block_page",
-      "description": "Configure custom block page settings. If missing or null, use the account settings. Settable only for `http` rules with the action set to `block`."
+      "description": "Configure custom block page settings. If missing or null, use the account settings. Settable only for `http` rules with the action set to `block`.",
+      "oneOf": [
+        {
+          "properties": {
+            "include_context": {
+              "description": "Specify whether to pass the context information as query parameters.",
+              "type": "boolean"
+            },
+            "target_uri": {
+              "description": "Specify the URI to which the user is redirected.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "target_uri"
+          ],
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "block_page_enabled": {
       "description": "Enable the custom block page. Settable only for `dns` rules with action `block`.",
@@ -256,8 +365,25 @@ export const zero_trust_gateway_rule_settings: JsonSchema = {
       ]
     },
     "check_session": {
-      "$ref": "#/$defs/zero-trust-gateway_rule-settings_check_session",
-      "description": "Configure session check behavior. Settable only for `l4` and `http` rules with the action set to `allow`."
+      "description": "Configure session check behavior. Settable only for `l4` and `http` rules with the action set to `allow`.",
+      "oneOf": [
+        {
+          "properties": {
+            "duration": {
+              "description": "Sets the required session freshness threshold. The API returns a normalized version of this value.",
+              "type": "string"
+            },
+            "enforce": {
+              "description": "Enable session enforcement.",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "delete_headers": {
       "description": "Remove headers from allowed requests by name. A maximum of 20 header operations (add + set + delete) is allowed per policy. Each header name may not exceed 256 bytes. Settable only for `http` rules with the action set to `allow`.",
@@ -274,16 +400,91 @@ export const zero_trust_gateway_rule_settings: JsonSchema = {
       ]
     },
     "dns_resolvers": {
-      "$ref": "#/$defs/zero-trust-gateway_rule-settings_dns_resolvers",
-      "description": "Configure custom resolvers to route queries that match the resolver policy. Unused with 'resolve_dns_through_cloudflare' or 'resolve_dns_internally' settings. DNS queries get routed to the address closest to their origin. Only valid when a rule's action set to 'resolve'. Settable only for `dns_resolver` rules."
+      "description": "Configure custom resolvers to route queries that match the resolver policy. Unused with 'resolve_dns_through_cloudflare' or 'resolve_dns_internally' settings. DNS queries get routed to the address closest to their origin. Only valid when a rule's action set to 'resolve'. Settable only for `dns_resolver` rules.",
+      "oneOf": [
+        {
+          "properties": {
+            "ipv4": {
+              "items": {
+                "$ref": "#/$defs/zero-trust-gateway_dns_resolver_settings_v4"
+              },
+              "type": "array"
+            },
+            "ipv6": {
+              "items": {
+                "$ref": "#/$defs/zero-trust-gateway_dns_resolver_settings_v6"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "egress": {
-      "$ref": "#/$defs/zero-trust-gateway_rule-settings_egress",
-      "description": "Configure how Gateway Proxy traffic egresses. You can enable this setting for rules with Egress actions and filters, or omit it to indicate local egress via WARP IPs. Settable only for `egress` rules."
+      "description": "Configure how Gateway Proxy traffic egresses. You can enable this setting for rules with Egress actions and filters, or omit it to indicate local egress via WARP IPs. Settable only for `egress` rules.",
+      "oneOf": [
+        {
+          "properties": {
+            "ipv4": {
+              "description": "Specify the IPv4 address to use for egress.",
+              "type": "string"
+            },
+            "ipv4_fallback": {
+              "description": "Specify the fallback IPv4 address to use for egress when the primary IPv4 fails. Set '0.0.0.0' to indicate local egress via WARP IPs.",
+              "type": "string"
+            },
+            "ipv6": {
+              "description": "Specify the IPv6 range to use for egress.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "forensic_copy": {
-      "$ref": "#/$defs/zero-trust-gateway_rule-settings_forensic_copy",
-      "description": "Configure whether a copy of the HTTP request will be sent to storage when the rule matches."
+      "description": "Configure whether a copy of the HTTP request will be sent to storage when the rule matches.",
+      "oneOf": [
+        {
+          "properties": {
+            "enabled": {
+              "description": "Enable sending the copy to storage.",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "forward": {
+      "description": "Forward matching HTTP requests to a Worker. Required for `http` rules with the action set to `forward`.",
+      "oneOf": [
+        {
+          "properties": {
+            "worker_id": {
+              "description": "Specify the public Worker ID of the target Worker.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "worker_id"
+          ],
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "ignore_cname_category_matches": {
       "description": "Ignore category matches at CNAME domains in a response. When off, evaluate categories in this rule against all CNAME domain categories in the response. Settable only for `dns` and `dns_resolver` rules.",
@@ -302,12 +503,54 @@ export const zero_trust_gateway_rule_settings: JsonSchema = {
       "type": "boolean"
     },
     "l4override": {
-      "$ref": "#/$defs/zero-trust-gateway_rule-settings_l4override",
-      "description": "Send matching traffic to the supplied destination IP address and port. Settable only for `l4` rules with the action set to `l4_override`."
+      "description": "Send matching traffic to the supplied destination IP address and port. Settable only for `l4` rules with the action set to `l4_override`.",
+      "oneOf": [
+        {
+          "properties": {
+            "ip": {
+              "description": "Defines the IPv4 or IPv6 address.",
+              "type": "string"
+            },
+            "port": {
+              "description": "Defines a port number to use for TCP/UDP overrides.",
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "notification_settings": {
-      "$ref": "#/$defs/zero-trust-gateway_rule-settings_notification_settings",
-      "description": "Configure a notification to display on the user's device when this rule matched. Settable for all types of rules with the action set to `block`."
+      "description": "Configure a notification to display on the user's device when this rule matched. Settable for all types of rules with the action set to `block`.",
+      "oneOf": [
+        {
+          "properties": {
+            "enabled": {
+              "description": "Enable notification.",
+              "type": "boolean"
+            },
+            "include_context": {
+              "description": "Indicates whether to pass the context information as query parameters.",
+              "type": "boolean"
+            },
+            "msg": {
+              "description": "Customize the message shown in the notification.",
+              "type": "string"
+            },
+            "support_url": {
+              "description": "Defines an optional URL to direct users to additional information. If unset, the notification opens a block page.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "override_host": {
       "description": "Defines a hostname for override, for the matching DNS queries. Settable only for `dns` rules with the action set to `override`.",
@@ -328,20 +571,109 @@ export const zero_trust_gateway_rule_settings: JsonSchema = {
       ]
     },
     "payload_log": {
-      "$ref": "#/$defs/zero-trust-gateway_rule-settings_payload_log",
-      "description": "Configure DLP payload logging. Settable only for `http` rules."
+      "description": "Configure DLP payload logging. Settable only for `http` rules.",
+      "oneOf": [
+        {
+          "properties": {
+            "enabled": {
+              "description": "Enable DLP payload logging for this rule.",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "quarantine": {
-      "$ref": "#/$defs/zero-trust-gateway_rule-settings_quarantine",
-      "description": "Configure settings that apply to quarantine rules. Settable only for `http` rules."
+      "description": "Configure settings that apply to quarantine rules. Settable only for `http` rules.",
+      "oneOf": [
+        {
+          "properties": {
+            "file_types": {
+              "description": "Specify the types of files to sandbox.",
+              "items": {
+                "enum": [
+                  "exe",
+                  "pdf",
+                  "doc",
+                  "docm",
+                  "docx",
+                  "rtf",
+                  "ppt",
+                  "pptx",
+                  "xls",
+                  "xlsm",
+                  "xlsx",
+                  "zip",
+                  "rar"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "redirect": {
-      "$ref": "#/$defs/zero-trust-gateway_rule-settings_redirect",
-      "description": "Apply settings to redirect rules. Settable only for `http` rules with the action set to `redirect`."
+      "description": "Apply settings to redirect rules. Settable only for `http` rules with the action set to `redirect`.",
+      "oneOf": [
+        {
+          "properties": {
+            "include_context": {
+              "description": "Specify whether to pass the context information as query parameters.",
+              "type": "boolean"
+            },
+            "preserve_path_and_query": {
+              "description": "Specify whether to append the path and query parameters from the original request to target_uri.",
+              "type": "boolean"
+            },
+            "target_uri": {
+              "description": "Specify the URI to which the user is redirected.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "target_uri"
+          ],
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "resolve_dns_internally": {
-      "$ref": "#/$defs/zero-trust-gateway_rule-settings_resolve_dns_internally",
-      "description": "Configure to forward the query to the internal DNS service, passing the specified 'view_id' as input. Not used when 'dns_resolvers' is specified or 'resolve_dns_through_cloudflare' is set. Only valid when a rule's action set to 'resolve'. Settable only for `dns_resolver` rules."
+      "description": "Configure to forward the query to the internal DNS service, passing the specified 'view_id' as input. Not used when 'dns_resolvers' is specified or 'resolve_dns_through_cloudflare' is set. Only valid when a rule's action set to 'resolve'. Settable only for `dns_resolver` rules.",
+      "oneOf": [
+        {
+          "properties": {
+            "fallback": {
+              "description": "Specify the fallback behavior to apply when the internal DNS response code differs from 'NOERROR' or when the response data contains only CNAME records for 'A' or 'AAAA' queries.",
+              "enum": [
+                "none",
+                "public_dns"
+              ],
+              "type": "string"
+            },
+            "view_id": {
+              "description": "Specify the internal DNS view identifier to pass to the internal DNS service.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "resolve_dns_through_cloudflare": {
       "description": "Enable to send queries that match the policy to Cloudflare's default 1.1.1.1 DNS resolver. Cannot set when 'dns_resolvers' specified or 'resolve_dns_internally' is set. Only valid when a rule's action set to 'resolve'. Settable only for `dns_resolver` rules.",
@@ -372,443 +704,29 @@ export const zero_trust_gateway_rule_settings: JsonSchema = {
       ]
     },
     "untrusted_cert": {
-      "$ref": "#/$defs/zero-trust-gateway_rule-settings_untrusted_cert",
-      "description": "Configure behavior when an upstream certificate is invalid or an SSL error occurs. Settable only for `http` rules with the action set to `allow`."
+      "description": "Configure behavior when an upstream certificate is invalid or an SSL error occurs. Settable only for `http` rules with the action set to `allow`.",
+      "oneOf": [
+        {
+          "properties": {
+            "action": {
+              "description": "Defines the action performed when an untrusted certificate seen. The default action an error with HTTP code 526.",
+              "enum": [
+                "pass_through",
+                "block",
+                "error"
+              ],
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `zero-trust-gateway_rule-settings_biso_admin_controls`.
- */
-export const zero_trust_gateway_rule_settings_biso_admin_controls: JsonSchema = {
-  "description": "Configure browser isolation behavior. Settable only for `http` rules with the action set to `isolate`.",
-  "properties": {
-    "copy": {
-      "description": "Configure copy behavior. If set to remote_only, users cannot copy isolated content from the remote browser to the local clipboard. If this field is absent, copying remains enabled. Applies only when version == \"v2\".",
-      "enum": [
-        "enabled",
-        "disabled",
-        "remote_only"
-      ],
-      "type": "string"
-    },
-    "dcp": {
-      "description": "Set to false to enable copy-pasting. Only applies when `version == \"v1\"`.",
-      "type": "boolean"
-    },
-    "dd": {
-      "description": "Set to false to enable downloading. Only applies when `version == \"v1\"`.",
-      "type": "boolean"
-    },
-    "dk": {
-      "description": "Set to false to enable keyboard usage. Only applies when `version == \"v1\"`.",
-      "type": "boolean"
-    },
-    "download": {
-      "description": "Configure download behavior. When set to remote_only, users can view downloads but cannot save them. If this field is absent, downloading remains enabled. Applies only when version == \"v2\".",
-      "enum": [
-        "enabled",
-        "disabled",
-        "remote_only"
-      ],
-      "type": "string"
-    },
-    "dp": {
-      "description": "Set to false to enable printing. Only applies when `version == \"v1\"`.",
-      "type": "boolean"
-    },
-    "du": {
-      "description": "Set to false to enable uploading. Only applies when `version == \"v1\"`.",
-      "type": "boolean"
-    },
-    "keyboard": {
-      "description": "Configure keyboard usage behavior. If this field is absent, keyboard usage remains enabled. Applies only when version == \"v2\".",
-      "enum": [
-        "enabled",
-        "disabled"
-      ],
-      "type": "string"
-    },
-    "paste": {
-      "description": "Configure paste behavior. If set to remote_only, users cannot paste content from the local clipboard into isolated pages. If this field is absent, pasting remains enabled. Applies only when version == \"v2\".",
-      "enum": [
-        "enabled",
-        "disabled",
-        "remote_only"
-      ],
-      "type": "string"
-    },
-    "printing": {
-      "description": "Configure print behavior. Default, Printing is enabled. Applies only when version == \"v2\".",
-      "enum": [
-        "enabled",
-        "disabled"
-      ],
-      "type": "string"
-    },
-    "upload": {
-      "description": "Configure upload behavior. If this field is absent, uploading remains enabled. Applies only when version == \"v2\".",
-      "enum": [
-        "enabled",
-        "disabled"
-      ],
-      "type": "string"
-    },
-    "version": {
-      "default": "v1",
-      "description": "Indicate which version of the browser isolation controls should apply.",
-      "enum": [
-        "v1",
-        "v2"
-      ],
-      "type": "string"
-    },
-    "wm_id": {
-      "description": "Specify the watermark ID (UUID) to apply to the isolated browser session. When present, enables watermark rendering in the isolated browser.",
-      "format": "uuid",
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `zero-trust-gateway_rule-settings_block_page`.
- */
-export const zero_trust_gateway_rule_settings_block_page: JsonSchema = {
-  "description": "Configure custom block page settings. If missing or null, use the account settings. Settable only for `http` rules with the action set to `block`.",
-  "oneOf": [
-    {
-      "properties": {
-        "include_context": {
-          "description": "Specify whether to pass the context information as query parameters.",
-          "type": "boolean"
-        },
-        "target_uri": {
-          "description": "Specify the URI to which the user is redirected.",
-          "type": "string"
-        }
-      },
-      "required": [
-        "target_uri"
-      ],
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `zero-trust-gateway_rule-settings_check_session`.
- */
-export const zero_trust_gateway_rule_settings_check_session: JsonSchema = {
-  "description": "Configure session check behavior. Settable only for `l4` and `http` rules with the action set to `allow`.",
-  "oneOf": [
-    {
-      "properties": {
-        "duration": {
-          "description": "Sets the required session freshness threshold. The API returns a normalized version of this value.",
-          "type": "string"
-        },
-        "enforce": {
-          "description": "Enable session enforcement.",
-          "type": "boolean"
-        }
-      },
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `zero-trust-gateway_rule-settings_dns_resolvers`.
- */
-export const zero_trust_gateway_rule_settings_dns_resolvers: JsonSchema = {
-  "description": "Configure custom resolvers to route queries that match the resolver policy. Unused with 'resolve_dns_through_cloudflare' or 'resolve_dns_internally' settings. DNS queries get routed to the address closest to their origin. Only valid when a rule's action set to 'resolve'. Settable only for `dns_resolver` rules.",
-  "oneOf": [
-    {
-      "properties": {
-        "ipv4": {
-          "items": {
-            "$ref": "#/$defs/zero-trust-gateway_dns_resolver_settings_v4"
-          },
-          "type": "array"
-        },
-        "ipv6": {
-          "items": {
-            "$ref": "#/$defs/zero-trust-gateway_dns_resolver_settings_v6"
-          },
-          "type": "array"
-        }
-      },
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `zero-trust-gateway_rule-settings_egress`.
- */
-export const zero_trust_gateway_rule_settings_egress: JsonSchema = {
-  "description": "Configure how Gateway Proxy traffic egresses. You can enable this setting for rules with Egress actions and filters, or omit it to indicate local egress via WARP IPs. Settable only for `egress` rules.",
-  "oneOf": [
-    {
-      "properties": {
-        "ipv4": {
-          "description": "Specify the IPv4 address to use for egress.",
-          "type": "string"
-        },
-        "ipv4_fallback": {
-          "description": "Specify the fallback IPv4 address to use for egress when the primary IPv4 fails. Set '0.0.0.0' to indicate local egress via WARP IPs.",
-          "type": "string"
-        },
-        "ipv6": {
-          "description": "Specify the IPv6 range to use for egress.",
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `zero-trust-gateway_rule-settings_forensic_copy`.
- */
-export const zero_trust_gateway_rule_settings_forensic_copy: JsonSchema = {
-  "description": "Configure whether a copy of the HTTP request will be sent to storage when the rule matches.",
-  "oneOf": [
-    {
-      "properties": {
-        "enabled": {
-          "description": "Enable sending the copy to storage.",
-          "type": "boolean"
-        }
-      },
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `zero-trust-gateway_rule-settings_l4override`.
- */
-export const zero_trust_gateway_rule_settings_l4override: JsonSchema = {
-  "description": "Send matching traffic to the supplied destination IP address and port. Settable only for `l4` rules with the action set to `l4_override`.",
-  "oneOf": [
-    {
-      "properties": {
-        "ip": {
-          "description": "Defines the IPv4 or IPv6 address.",
-          "type": "string"
-        },
-        "port": {
-          "description": "Defines a port number to use for TCP/UDP overrides.",
-          "type": "integer"
-        }
-      },
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `zero-trust-gateway_rule-settings_notification_settings`.
- */
-export const zero_trust_gateway_rule_settings_notification_settings: JsonSchema = {
-  "description": "Configure a notification to display on the user's device when this rule matched. Settable for all types of rules with the action set to `block`.",
-  "oneOf": [
-    {
-      "properties": {
-        "enabled": {
-          "description": "Enable notification.",
-          "type": "boolean"
-        },
-        "include_context": {
-          "description": "Indicates whether to pass the context information as query parameters.",
-          "type": "boolean"
-        },
-        "msg": {
-          "description": "Customize the message shown in the notification.",
-          "type": "string"
-        },
-        "support_url": {
-          "description": "Defines an optional URL to direct users to additional information. If unset, the notification opens a block page.",
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `zero-trust-gateway_rule-settings_payload_log`.
- */
-export const zero_trust_gateway_rule_settings_payload_log: JsonSchema = {
-  "description": "Configure DLP payload logging. Settable only for `http` rules.",
-  "oneOf": [
-    {
-      "properties": {
-        "enabled": {
-          "description": "Enable DLP payload logging for this rule.",
-          "type": "boolean"
-        }
-      },
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `zero-trust-gateway_rule-settings_quarantine`.
- */
-export const zero_trust_gateway_rule_settings_quarantine: JsonSchema = {
-  "description": "Configure settings that apply to quarantine rules. Settable only for `http` rules.",
-  "oneOf": [
-    {
-      "properties": {
-        "file_types": {
-          "description": "Specify the types of files to sandbox.",
-          "items": {
-            "enum": [
-              "exe",
-              "pdf",
-              "doc",
-              "docm",
-              "docx",
-              "rtf",
-              "ppt",
-              "pptx",
-              "xls",
-              "xlsm",
-              "xlsx",
-              "zip",
-              "rar"
-            ],
-            "type": "string"
-          },
-          "type": "array"
-        }
-      },
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `zero-trust-gateway_rule-settings_redirect`.
- */
-export const zero_trust_gateway_rule_settings_redirect: JsonSchema = {
-  "description": "Apply settings to redirect rules. Settable only for `http` rules with the action set to `redirect`.",
-  "oneOf": [
-    {
-      "properties": {
-        "include_context": {
-          "description": "Specify whether to pass the context information as query parameters.",
-          "type": "boolean"
-        },
-        "preserve_path_and_query": {
-          "description": "Specify whether to append the path and query parameters from the original request to target_uri.",
-          "type": "boolean"
-        },
-        "target_uri": {
-          "description": "Specify the URI to which the user is redirected.",
-          "type": "string"
-        }
-      },
-      "required": [
-        "target_uri"
-      ],
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `zero-trust-gateway_rule-settings_resolve_dns_internally`.
- */
-export const zero_trust_gateway_rule_settings_resolve_dns_internally: JsonSchema = {
-  "description": "Configure to forward the query to the internal DNS service, passing the specified 'view_id' as input. Not used when 'dns_resolvers' is specified or 'resolve_dns_through_cloudflare' is set. Only valid when a rule's action set to 'resolve'. Settable only for `dns_resolver` rules.",
-  "oneOf": [
-    {
-      "properties": {
-        "fallback": {
-          "description": "Specify the fallback behavior to apply when the internal DNS response code differs from 'NOERROR' or when the response data contains only CNAME records for 'A' or 'AAAA' queries.",
-          "enum": [
-            "none",
-            "public_dns"
-          ],
-          "type": "string"
-        },
-        "view_id": {
-          "description": "Specify the internal DNS view identifier to pass to the internal DNS service.",
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `zero-trust-gateway_rule-settings_untrusted_cert`.
- */
-export const zero_trust_gateway_rule_settings_untrusted_cert: JsonSchema = {
-  "description": "Configure behavior when an upstream certificate is invalid or an SSL error occurs. Settable only for `http` rules with the action set to `allow`.",
-  "oneOf": [
-    {
-      "properties": {
-        "action": {
-          "description": "Defines the action performed when an untrusted certificate seen. The default action an error with HTTP code 526.",
-          "enum": [
-            "pass_through",
-            "block",
-            "error"
-          ],
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
 };
 
 /**
@@ -865,5 +783,14 @@ export const zero_trust_gateway_schedule: JsonSchema = {
  */
 export const zero_trust_gateway_traffic: JsonSchema = {
   "description": "Specify the wirefilter expression used for traffic matching. The API automatically formats and sanitizes expressions before storing them. To prevent Terraform state drift, use the formatted expression returned in the API response.",
+  "type": "string"
+};
+
+/**
+ * The schema of `zero-trust-gateway_uuid-4`.
+ */
+export const zero_trust_gateway_uuid_4: JsonSchema = {
+  "description": "Identify the API resource with a UUID.",
+  "format": "uuid",
   "type": "string"
 };

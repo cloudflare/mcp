@@ -19,7 +19,24 @@ export const lex_AvailableDestination_output: JsonSchema = {
       "type": "string"
     },
     "schema": {
-      "$ref": "#/$defs/lex_AvailableDestination_schema"
+      "properties": {
+        "properties": {
+          "type": "object"
+        },
+        "required": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "type": {
+          "enum": [
+            "object"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "timestamp_field": {
       "type": "string"
@@ -35,26 +52,76 @@ export const lex_AvailableDestination_output: JsonSchema = {
 };
 
 /**
- * The schema of `lex_AvailableDestination_schema` in responses.
+ * The schema of `lex_AvailableDestinationListResponse` in responses.
  */
-export const lex_AvailableDestination_schema_output: JsonSchema = {
+export const lex_AvailableDestinationListResponse_output: JsonSchema = {
   "properties": {
-    "properties": {
-      "type": "object"
+    "errors": {
+      "items": {
+        "$ref": "#/$defs/lex_V4Error-2"
+      },
+      "type": "array"
     },
-    "required": {
+    "messages": {
       "items": {
         "type": "string"
       },
       "type": "array"
     },
-    "type": {
-      "enum": [
-        "object"
-      ],
-      "type": "string"
+    "result": {
+      "oneOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/lex_AvailableDestination"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "success": {
+      "type": "boolean"
     }
   },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `lex_DatasetDetailResponse` in responses.
+ */
+export const lex_DatasetDetailResponse_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "items": {
+        "$ref": "#/$defs/lex_V4Error-2"
+      },
+      "type": "array"
+    },
+    "messages": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "result": {
+      "$ref": "#/$defs/lex_DatasetResponse"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
   "type": "object"
 };
 
@@ -62,62 +129,31 @@ export const lex_AvailableDestination_schema_output: JsonSchema = {
  * The schema of `lex_DatasetResponse` in responses.
  */
 export const lex_DatasetResponse_output: JsonSchema = {
-  "properties": {
-    "created_at": {
-      "format": "date-time",
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/lex_DatasetSummary"
     },
-    "dataset": {
-      "type": "string"
-    },
-    "dataset_id": {
-      "type": "string"
-    },
-    "deletion_protection": {
-      "type": "boolean"
-    },
-    "enabled": {
-      "type": "boolean"
-    },
-    "fields": {
-      "items": {
-        "$ref": "#/$defs/lex_LogField"
+    {
+      "properties": {
+        "fields": {
+          "items": {
+            "$ref": "#/$defs/lex_LogField"
+          },
+          "type": "array"
+        },
+        "filter": {
+          "type": "string"
+        },
+        "filter_attack_traffic": {
+          "type": "boolean"
+        }
       },
-      "type": "array"
-    },
-    "filter": {
-      "type": "string"
-    },
-    "filter_attack_traffic": {
-      "type": "boolean"
-    },
-    "object_id": {
-      "type": "string"
-    },
-    "object_type": {
-      "enum": [
-        "account",
-        "zone"
+      "required": [
+        "fields"
       ],
-      "type": "string"
-    },
-    "updated_at": {
-      "format": "date-time",
-      "type": "string"
+      "type": "object"
     }
-  },
-  "required": [
-    "created_at",
-    "dataset",
-    "dataset_id",
-    "deletion_protection",
-    "enabled",
-    "object_id",
-    "object_type",
-    "updated_at",
-    "fields"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -165,6 +201,48 @@ export const lex_DatasetSummary_output: JsonSchema = {
     "object_id",
     "object_type",
     "updated_at"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `lex_DatasetSummaryListResponse` in responses.
+ */
+export const lex_DatasetSummaryListResponse_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "items": {
+        "$ref": "#/$defs/lex_V4Error-2"
+      },
+      "type": "array"
+    },
+    "messages": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "result": {
+      "oneOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/lex_DatasetSummary"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
   ],
   "type": "object"
 };

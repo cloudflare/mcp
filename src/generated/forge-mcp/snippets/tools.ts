@@ -13,7 +13,12 @@ import {
   snippets_SnippetName_output,
   snippets_Snippet_output,
 } from "./outputs.js";
-import { snippets_Page, snippets_PerPage } from "./schemas.js";
+import {
+  snippets_Page,
+  snippets_PerPage,
+  snippets_SnippetName,
+  snippets_ZoneId,
+} from "./schemas.js";
 
 /**
  * The tools of `snippets`.
@@ -27,18 +32,22 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "snippet_name": {
-          "description": "Identify the snippet.",
-          "type": "string"
+          "$ref": "#/$defs/snippets_SnippetName",
+          "description": "Identify the snippet."
         },
         "zone_id": {
-          "description": "Use this field to specify the unique ID of the zone.",
-          "type": "string"
+          "$ref": "#/$defs/snippets_ZoneId",
+          "description": "Use this field to specify the unique ID of the zone."
         }
       },
       required: [
         "zone_id",
         "snippet_name"
       ],
+      $defs: {
+        "snippets_SnippetName": snippets_SnippetName,
+        "snippets_ZoneId": snippets_ZoneId,
+      },
     },
     outputSchema: {
       "allOf": [
@@ -174,18 +183,22 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "snippet_name": {
-          "description": "Identify the snippet.",
-          "type": "string"
+          "$ref": "#/$defs/snippets_SnippetName",
+          "description": "Identify the snippet."
         },
         "zone_id": {
-          "description": "Use this field to specify the unique ID of the zone.",
-          "type": "string"
+          "$ref": "#/$defs/snippets_ZoneId",
+          "description": "Use this field to specify the unique ID of the zone."
         }
       },
       required: [
         "zone_id",
         "snippet_name"
       ],
+      $defs: {
+        "snippets_SnippetName": snippets_SnippetName,
+        "snippets_ZoneId": snippets_ZoneId,
+      },
     },
     outputSchema: {
       "allOf": [
@@ -336,8 +349,8 @@ export const tools: readonly Tool[] = [
           "description": "Specifies how many results to return per page."
         },
         "zone_id": {
-          "description": "Use this field to specify the unique ID of the zone.",
-          "type": "string"
+          "$ref": "#/$defs/snippets_ZoneId",
+          "description": "Use this field to specify the unique ID of the zone."
         }
       },
       required: [
@@ -346,6 +359,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "snippets_Page": snippets_Page,
         "snippets_PerPage": snippets_PerPage,
+        "snippets_ZoneId": snippets_ZoneId,
       },
     },
     outputSchema: {

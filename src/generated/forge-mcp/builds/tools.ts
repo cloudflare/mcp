@@ -3,12 +3,10 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
+  builds_APIResponse_output,
   builds_ApiError_output,
   builds_BuildOutcome_output,
-  builds_BuildResponse_deploy_hook_output,
   builds_BuildResponse_output,
-  builds_BuildResponse_pull_request_output,
-  builds_BuildResponse_trigger_output,
   builds_BuildStatus_output,
   builds_BuildTriggerMetadataResponse_output,
   builds_BuildTriggerSource_output,
@@ -51,6 +49,7 @@ import {
   builds_branch,
   builds_build_uuid,
   builds_commit_hash,
+  builds_external_script_id,
   builds_trigger_uuid,
 } from "../schemas.js";
 import { builds_CanceledBuildResponse_output } from "./outputs.js";
@@ -85,10 +84,25 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/builds_CanceledBuildResponse",
+      "allOf": [
+        {
+          "$ref": "#/$defs/builds_APIResponse"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/builds_CanceledBuildResponse"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
+        "builds_ApiError": builds_ApiError_output,
         "builds_BuildOutcome": builds_BuildOutcome_output,
         "builds_CanceledBuildResponse": builds_CanceledBuildResponse_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
         "builds_build_uuid": builds_build_uuid_output,
         "builds_stopped_on": builds_stopped_on_output,
       },
@@ -110,7 +124,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/builds_CanceledBuildResponse"
+          "allOf": [
+            {
+              "$ref": "#/$defs/builds_APIResponse"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/builds_CanceledBuildResponse"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "401": {
           "$ref": "#/$defs/builds_ErrorResponse"
@@ -120,10 +146,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
         "builds_ApiError": builds_ApiError_output,
         "builds_BuildOutcome": builds_BuildOutcome_output,
         "builds_CanceledBuildResponse": builds_CanceledBuildResponse_output,
         "builds_ErrorResponse": builds_ErrorResponse_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
         "builds_build_uuid": builds_build_uuid_output,
         "builds_stopped_on": builds_stopped_on_output,
       },
@@ -167,16 +195,28 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/builds_BuildResponse",
+      "allOf": [
+        {
+          "$ref": "#/$defs/builds_APIResponse"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/builds_BuildResponse"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
+        "builds_ApiError": builds_ApiError_output,
         "builds_BuildOutcome": builds_BuildOutcome_output,
         "builds_BuildResponse": builds_BuildResponse_output,
-        "builds_BuildResponse_deploy_hook": builds_BuildResponse_deploy_hook_output,
-        "builds_BuildResponse_pull_request": builds_BuildResponse_pull_request_output,
-        "builds_BuildResponse_trigger": builds_BuildResponse_trigger_output,
         "builds_BuildStatus": builds_BuildStatus_output,
         "builds_BuildTriggerMetadataResponse": builds_BuildTriggerMetadataResponse_output,
         "builds_BuildTriggerSource": builds_BuildTriggerSource_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
         "builds_SCMProviderType": builds_SCMProviderType_output,
         "builds_UpsertRepoConnectionResponse": builds_UpsertRepoConnectionResponse_output,
         "builds_branch": builds_branch_output,
@@ -224,23 +264,34 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/builds_BuildResponse"
+          "allOf": [
+            {
+              "$ref": "#/$defs/builds_APIResponse"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/builds_BuildResponse"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "401": {
           "$ref": "#/$defs/builds_ErrorResponse"
         }
       },
       $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
         "builds_ApiError": builds_ApiError_output,
         "builds_BuildOutcome": builds_BuildOutcome_output,
         "builds_BuildResponse": builds_BuildResponse_output,
-        "builds_BuildResponse_deploy_hook": builds_BuildResponse_deploy_hook_output,
-        "builds_BuildResponse_pull_request": builds_BuildResponse_pull_request_output,
-        "builds_BuildResponse_trigger": builds_BuildResponse_trigger_output,
         "builds_BuildStatus": builds_BuildStatus_output,
         "builds_BuildTriggerMetadataResponse": builds_BuildTriggerMetadataResponse_output,
         "builds_BuildTriggerSource": builds_BuildTriggerSource_output,
         "builds_ErrorResponse": builds_ErrorResponse_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
         "builds_SCMProviderType": builds_SCMProviderType_output,
         "builds_UpsertRepoConnectionResponse": builds_UpsertRepoConnectionResponse_output,
         "builds_branch": builds_branch_output,
@@ -302,16 +353,28 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/builds_BuildResponse",
+      "allOf": [
+        {
+          "$ref": "#/$defs/builds_APIResponse"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/builds_BuildResponse"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
+        "builds_ApiError": builds_ApiError_output,
         "builds_BuildOutcome": builds_BuildOutcome_output,
         "builds_BuildResponse": builds_BuildResponse_output,
-        "builds_BuildResponse_deploy_hook": builds_BuildResponse_deploy_hook_output,
-        "builds_BuildResponse_pull_request": builds_BuildResponse_pull_request_output,
-        "builds_BuildResponse_trigger": builds_BuildResponse_trigger_output,
         "builds_BuildStatus": builds_BuildStatus_output,
         "builds_BuildTriggerMetadataResponse": builds_BuildTriggerMetadataResponse_output,
         "builds_BuildTriggerSource": builds_BuildTriggerSource_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
         "builds_SCMProviderType": builds_SCMProviderType_output,
         "builds_UpsertRepoConnectionResponse": builds_UpsertRepoConnectionResponse_output,
         "builds_branch": builds_branch_output,
@@ -360,7 +423,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/builds_BuildResponse"
+          "allOf": [
+            {
+              "$ref": "#/$defs/builds_APIResponse"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/builds_BuildResponse"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "401": {
           "$ref": "#/$defs/builds_ErrorResponse"
@@ -370,16 +445,15 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
         "builds_ApiError": builds_ApiError_output,
         "builds_BuildOutcome": builds_BuildOutcome_output,
         "builds_BuildResponse": builds_BuildResponse_output,
-        "builds_BuildResponse_deploy_hook": builds_BuildResponse_deploy_hook_output,
-        "builds_BuildResponse_pull_request": builds_BuildResponse_pull_request_output,
-        "builds_BuildResponse_trigger": builds_BuildResponse_trigger_output,
         "builds_BuildStatus": builds_BuildStatus_output,
         "builds_BuildTriggerMetadataResponse": builds_BuildTriggerMetadataResponse_output,
         "builds_BuildTriggerSource": builds_BuildTriggerSource_output,
         "builds_ErrorResponse": builds_ErrorResponse_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
         "builds_SCMProviderType": builds_SCMProviderType_output,
         "builds_UpsertRepoConnectionResponse": builds_UpsertRepoConnectionResponse_output,
         "builds_branch": builds_branch_output,
@@ -426,8 +500,8 @@ export const tools: readonly Tool[] = [
           "description": "Account identifier."
         },
         "external_script_id": {
-          "description": "System-generated tag of the Worker. This is not the Worker name.",
-          "type": "string"
+          "$ref": "#/$defs/builds_external_script_id",
+          "description": "System-generated tag of the Worker. This is not the Worker name."
         },
         "page": {
           "default": 1,
@@ -446,30 +520,34 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "builds_account_id": builds_account_id,
+        "builds_external_script_id": builds_external_script_id,
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/builds_BuildResponse"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/builds_APIResponse"
         },
-        "result_info": {
-          "$ref": "#/$defs/builds_PaginationInfo"
+        {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/builds_BuildResponse"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/builds_PaginationInfo"
+            }
+          },
+          "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
+        "builds_ApiError": builds_ApiError_output,
         "builds_BuildOutcome": builds_BuildOutcome_output,
         "builds_BuildResponse": builds_BuildResponse_output,
-        "builds_BuildResponse_deploy_hook": builds_BuildResponse_deploy_hook_output,
-        "builds_BuildResponse_pull_request": builds_BuildResponse_pull_request_output,
-        "builds_BuildResponse_trigger": builds_BuildResponse_trigger_output,
         "builds_BuildStatus": builds_BuildStatus_output,
         "builds_BuildTriggerMetadataResponse": builds_BuildTriggerMetadataResponse_output,
         "builds_BuildTriggerSource": builds_BuildTriggerSource_output,
@@ -522,33 +600,35 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/builds_BuildResponse"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/builds_APIResponse"
             },
-            "result_info": {
-              "$ref": "#/$defs/builds_PaginationInfo"
+            {
+              "properties": {
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/builds_BuildResponse"
+                  },
+                  "type": "array"
+                },
+                "result_info": {
+                  "$ref": "#/$defs/builds_PaginationInfo"
+                }
+              },
+              "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "401": {
           "$ref": "#/$defs/builds_ErrorResponse"
         }
       },
       $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
         "builds_ApiError": builds_ApiError_output,
         "builds_BuildOutcome": builds_BuildOutcome_output,
         "builds_BuildResponse": builds_BuildResponse_output,
-        "builds_BuildResponse_deploy_hook": builds_BuildResponse_deploy_hook_output,
-        "builds_BuildResponse_pull_request": builds_BuildResponse_pull_request_output,
-        "builds_BuildResponse_trigger": builds_BuildResponse_trigger_output,
         "builds_BuildStatus": builds_BuildStatus_output,
         "builds_BuildTriggerMetadataResponse": builds_BuildTriggerMetadataResponse_output,
         "builds_BuildTriggerSource": builds_BuildTriggerSource_output,

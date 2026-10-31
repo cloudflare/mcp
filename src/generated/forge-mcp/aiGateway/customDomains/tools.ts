@@ -55,75 +55,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "cname_target": {
-          "type": "string"
-        },
-        "created_at": {
-          "type": "integer"
-        },
-        "gateway_id": {
-          "type": "string"
-        },
-        "hostname": {
-          "type": "string"
-        },
-        "modified_at": {
-          "type": "integer"
-        },
-        "status": {
-          "enum": [
-            "initializing",
-            "pending_dcv",
-            "active",
-            "blocked",
-            "error"
-          ],
-          "type": "string"
-        }
-      },
-      "required": [
-        "cname_target",
-        "created_at",
-        "gateway_id",
-        "hostname",
-        "modified_at",
-        "status"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Create a custom domain for a gateway"
-    },
-    method: "POST",
-    path: "/accounts/{account_id}/ai-gateway/gateways/{gateway_id}/custom-domains",
-    extensions: {
-      "x-api-token-group": [
-        "AI Gateway Write"
-      ],
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.aig"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.aig": {
-            "name": "com_cloudflare_api_account_aig"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "cname_target": {
               "type": "string"
@@ -158,6 +90,99 @@ export const tools: readonly Tool[] = [
             "hostname",
             "modified_at",
             "status"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Create a custom domain for a gateway"
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/ai-gateway/gateways/{gateway_id}/custom-domains",
+    extensions: {
+      "x-api-token-group": [
+        "AI Gateway Write"
+      ],
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.aig"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "cname_target": {
+                  "type": "string"
+                },
+                "created_at": {
+                  "type": "integer"
+                },
+                "gateway_id": {
+                  "type": "string"
+                },
+                "hostname": {
+                  "type": "string"
+                },
+                "modified_at": {
+                  "type": "integer"
+                },
+                "status": {
+                  "enum": [
+                    "initializing",
+                    "pending_dcv",
+                    "active",
+                    "blocked",
+                    "error"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "cname_target",
+                "created_at",
+                "gateway_id",
+                "hostname",
+                "modified_at",
+                "status"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -225,82 +250,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "created_at": {
-          "type": "integer"
-        },
-        "gateway_id": {
-          "type": "string"
-        },
-        "hostname": {
-          "type": "string"
-        },
-        "modified_at": {
-          "type": "integer"
-        },
-        "ssl_hostname_id": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "status": {
-          "enum": [
-            "initializing",
-            "pending_dcv",
-            "active",
-            "blocked",
-            "error"
-          ],
-          "type": "string"
-        }
-      },
-      "required": [
-        "created_at",
-        "gateway_id",
-        "hostname",
-        "modified_at",
-        "ssl_hostname_id",
-        "status"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": true,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Delete a custom domain"
-    },
-    method: "DELETE",
-    path: "/accounts/{account_id}/ai-gateway/gateways/{gateway_id}/custom-domains/{hostname}",
-    extensions: {
-      "x-api-token-group": [
-        "AI Gateway Write"
-      ],
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.aig"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.aig": {
-            "name": "com_cloudflare_api_account_aig"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "created_at": {
               "type": "integer"
@@ -342,6 +292,100 @@ export const tools: readonly Tool[] = [
             "modified_at",
             "ssl_hostname_id",
             "status"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Delete a custom domain"
+    },
+    method: "DELETE",
+    path: "/accounts/{account_id}/ai-gateway/gateways/{gateway_id}/custom-domains/{hostname}",
+    extensions: {
+      "x-api-token-group": [
+        "AI Gateway Write"
+      ],
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.aig"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "created_at": {
+                  "type": "integer"
+                },
+                "gateway_id": {
+                  "type": "string"
+                },
+                "hostname": {
+                  "type": "string"
+                },
+                "modified_at": {
+                  "type": "integer"
+                },
+                "ssl_hostname_id": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "status": {
+                  "enum": [
+                    "initializing",
+                    "pending_dcv",
+                    "active",
+                    "blocked",
+                    "error"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "created_at",
+                "gateway_id",
+                "hostname",
+                "modified_at",
+                "ssl_hostname_id",
+                "status"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -408,83 +452,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "created_at": {
-          "type": "integer"
-        },
-        "gateway_id": {
-          "type": "string"
-        },
-        "hostname": {
-          "type": "string"
-        },
-        "modified_at": {
-          "type": "integer"
-        },
-        "ssl_hostname_id": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "status": {
-          "enum": [
-            "initializing",
-            "pending_dcv",
-            "active",
-            "blocked",
-            "error"
-          ],
-          "type": "string"
-        }
-      },
-      "required": [
-        "created_at",
-        "gateway_id",
-        "hostname",
-        "modified_at",
-        "ssl_hostname_id",
-        "status"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get a custom domain"
-    },
-    method: "GET",
-    path: "/accounts/{account_id}/ai-gateway/gateways/{gateway_id}/custom-domains/{hostname}",
-    extensions: {
-      "x-api-token-group": [
-        "AI Gateway Write",
-        "AI Gateway Read"
-      ],
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.aig"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.aig": {
-            "name": "com_cloudflare_api_account_aig"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "created_at": {
               "type": "integer"
@@ -526,6 +494,101 @@ export const tools: readonly Tool[] = [
             "modified_at",
             "ssl_hostname_id",
             "status"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get a custom domain"
+    },
+    method: "GET",
+    path: "/accounts/{account_id}/ai-gateway/gateways/{gateway_id}/custom-domains/{hostname}",
+    extensions: {
+      "x-api-token-group": [
+        "AI Gateway Write",
+        "AI Gateway Read"
+      ],
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.aig"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "created_at": {
+                  "type": "integer"
+                },
+                "gateway_id": {
+                  "type": "string"
+                },
+                "hostname": {
+                  "type": "string"
+                },
+                "modified_at": {
+                  "type": "integer"
+                },
+                "ssl_hostname_id": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "status": {
+                  "enum": [
+                    "initializing",
+                    "pending_dcv",
+                    "active",
+                    "blocked",
+                    "error"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "created_at",
+                "gateway_id",
+                "hostname",
+                "modified_at",
+                "ssl_hostname_id",
+                "status"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -657,12 +720,13 @@ export const tools: readonly Tool[] = [
           },
           "type": "array"
         },
-        "result_info": {
-          "type": "object"
+        "success": {
+          "type": "boolean"
         }
       },
       "required": [
-        "result"
+        "result",
+        "success"
       ],
       "type": "object",
     },
@@ -683,12 +747,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.aig"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.aig": {
-            "name": "com_cloudflare_api_account_aig"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -749,12 +808,13 @@ export const tools: readonly Tool[] = [
               },
               "type": "array"
             },
-            "result_info": {
-              "type": "object"
+            "success": {
+              "type": "boolean"
             }
           },
           "required": [
-            "result"
+            "result",
+            "success"
           ],
           "type": "object"
         },

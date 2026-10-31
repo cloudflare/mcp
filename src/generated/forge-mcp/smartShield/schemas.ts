@@ -4,6 +4,65 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
+ * The schema of `smartshield_api-response-common`.
+ */
+export const smartshield_api_response_common: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/smartshield_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/smartshield_messages"
+    },
+    "result": {
+      "$ref": "#/$defs/smartshield_api-response-result"
+    },
+    "success": {
+      "description": "Whether the API call was successful.",
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `smartshield_api-response-result`.
+ */
+export const smartshield_api_response_result: JsonSchema = {
+  "anyOf": [
+    {
+      "type": "object"
+    },
+    {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
+    {
+      "type": "string"
+    }
+  ]
+};
+
+/**
+ * The schema of `smartshield_identifier`.
+ */
+export const smartshield_identifier: JsonSchema = {
+  "description": "Identifier.",
+  "type": "string"
+};
+
+/**
  * The schema of `smartshield_messages`.
  */
 export const smartshield_messages: JsonSchema = {
@@ -32,86 +91,56 @@ export const smartshield_smart_shield_settings_patch_body: JsonSchema = {
   "description": "The patch body for Smart Shield.",
   "properties": {
     "cache_reserve": {
-      "$ref": "#/$defs/smartshield_smart_shield_settings_patch_body_cache_reserve"
+      "properties": {
+        "value": {
+          "description": "Specifies the enablement value of Cache Reserve.",
+          "enum": [
+            "on",
+            "off"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "regional_tiered_cache": {
-      "$ref": "#/$defs/smartshield_smart_shield_settings_patch_body_regional_tiered_cache"
+      "properties": {
+        "value": {
+          "description": "Specifies the enablement value of Regional Tiered Cache.",
+          "enum": [
+            "on",
+            "off"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "smart_routing": {
-      "$ref": "#/$defs/smartshield_smart_shield_settings_patch_body_smart_routing"
+      "properties": {
+        "value": {
+          "description": "Specifies the enablement value of Smart Routing.",
+          "enum": [
+            "on",
+            "off"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "smart_tiered_cache": {
-      "$ref": "#/$defs/smartshield_smart_shield_settings_patch_body_smart_tiered_cache"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `smartshield_smart_shield_settings_patch_body_cache_reserve`.
- */
-export const smartshield_smart_shield_settings_patch_body_cache_reserve: JsonSchema = {
-  "properties": {
-    "value": {
-      "description": "Specifies the enablement value of Cache Reserve.",
-      "enum": [
-        "on",
-        "off"
-      ],
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of
- * `smartshield_smart_shield_settings_patch_body_regional_tiered_cache`.
- */
-export const smartshield_smart_shield_settings_patch_body_regional_tiered_cache: JsonSchema = {
-  "properties": {
-    "value": {
-      "description": "Specifies the enablement value of Regional Tiered Cache.",
-      "enum": [
-        "on",
-        "off"
-      ],
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `smartshield_smart_shield_settings_patch_body_smart_routing`.
- */
-export const smartshield_smart_shield_settings_patch_body_smart_routing: JsonSchema = {
-  "properties": {
-    "value": {
-      "description": "Specifies the enablement value of Smart Routing.",
-      "enum": [
-        "on",
-        "off"
-      ],
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of
- * `smartshield_smart_shield_settings_patch_body_smart_tiered_cache`.
- */
-export const smartshield_smart_shield_settings_patch_body_smart_tiered_cache: JsonSchema = {
-  "properties": {
-    "value": {
-      "description": "Specifies the enablement value of Smart Tiered Cache.",
-      "enum": [
-        "on",
-        "off"
-      ],
-      "type": "string"
+      "properties": {
+        "value": {
+          "description": "Specifies the enablement value of Smart Tiered Cache.",
+          "enum": [
+            "on",
+            "off"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
   },
   "type": "object"

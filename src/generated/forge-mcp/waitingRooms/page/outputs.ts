@@ -7,39 +7,24 @@ import type { JsonSchema } from "../../_/tool.js";
  * The schema of `waitingroom_preview_response` in responses.
  */
 export const waitingroom_preview_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/waitingroom_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/waitingroom_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/waitingroom_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/waitingroom_preview_response_result"
-    },
-    "success": {
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "preview_url": {
+              "$ref": "#/$defs/waitingroom_preview_url"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `waitingroom_preview_response_result` in responses.
- */
-export const waitingroom_preview_response_result_output: JsonSchema = {
-  "properties": {
-    "preview_url": {
-      "$ref": "#/$defs/waitingroom_preview_url"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**

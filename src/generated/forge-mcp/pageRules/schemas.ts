@@ -290,197 +290,136 @@ export const zones_cache_key_fields: JsonSchema = {
       "type": "string"
     },
     "value": {
-      "$ref": "#/$defs/zones_cache_key_fields_value"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `zones_cache_key_fields_value`.
- */
-export const zones_cache_key_fields_value: JsonSchema = {
-  "properties": {
-    "cookie": {
-      "$ref": "#/$defs/zones_cache_key_fields_value_cookie",
-      "description": "Controls which cookies appear in the Cache Key.\n"
-    },
-    "header": {
-      "$ref": "#/$defs/zones_cache_key_fields_value_header",
-      "description": "Controls which headers go into the Cache Key. Exactly one of\n`include` or `exclude` is expected.\n"
-    },
-    "host": {
-      "$ref": "#/$defs/zones_cache_key_fields_value_host",
-      "description": "Determines which host header to include in the Cache Key.\n"
-    },
-    "query_string": {
-      "$ref": "#/$defs/zones_cache_key_fields_value_query_string",
-      "description": "Controls which URL query string parameters go into the Cache\nKey. Exactly one of `include` or `exclude` is expected.\n"
-    },
-    "user": {
-      "$ref": "#/$defs/zones_cache_key_fields_value_user",
-      "description": "Feature fields to add features about the end-user (client) into\nthe Cache Key.\n"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `zones_cache_key_fields_value_cookie`.
- */
-export const zones_cache_key_fields_value_cookie: JsonSchema = {
-  "description": "Controls which cookies appear in the Cache Key.\n",
-  "properties": {
-    "check_presence": {
-      "description": "A list of cookies to check for the presence of, without\nincluding their actual values.\n",
-      "items": {
-        "type": "string"
+      "properties": {
+        "cookie": {
+          "description": "Controls which cookies appear in the Cache Key.\n",
+          "properties": {
+            "check_presence": {
+              "description": "A list of cookies to check for the presence of, without\nincluding their actual values.\n",
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 50,
+              "minItems": 1,
+              "type": "array"
+            },
+            "include": {
+              "description": "A list of cookies to include.\n",
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 50,
+              "minItems": 1,
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "header": {
+          "description": "Controls which headers go into the Cache Key. Exactly one of\n`include` or `exclude` is expected.\n",
+          "properties": {
+            "check_presence": {
+              "description": "A list of headers to check for the presence of, without\nincluding their actual values.\n",
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 50,
+              "minItems": 1,
+              "type": "array"
+            },
+            "exclude": {
+              "description": "A list of headers to ignore.\n",
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 50,
+              "minItems": 1,
+              "type": "array"
+            },
+            "include": {
+              "description": "A list of headers to include.\n",
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 50,
+              "minItems": 1,
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "host": {
+          "description": "Determines which host header to include in the Cache Key.\n",
+          "properties": {
+            "resolved": {
+              "description": "Whether to include the Host header in the HTTP request sent\nto the origin.\n",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "query_string": {
+          "description": "Controls which URL query string parameters go into the Cache\nKey. Exactly one of `include` or `exclude` is expected.\n",
+          "properties": {
+            "exclude": {
+              "oneOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "maxItems": 50,
+                  "minItems": 1,
+                  "type": "array"
+                },
+                {
+                  "enum": [
+                    "*"
+                  ],
+                  "type": "string"
+                }
+              ]
+            },
+            "include": {
+              "oneOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "maxItems": 50,
+                  "minItems": 1,
+                  "type": "array"
+                },
+                {
+                  "enum": [
+                    "*"
+                  ],
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "type": "object"
+        },
+        "user": {
+          "description": "Feature fields to add features about the end-user (client) into\nthe Cache Key.\n",
+          "properties": {
+            "device_type": {
+              "description": "Classifies a request as `mobile`, `desktop`, or `tablet`\nbased on the User Agent.\n",
+              "type": "boolean"
+            },
+            "geo": {
+              "description": "Includes the client's country, derived from the IP address.\n",
+              "type": "boolean"
+            },
+            "lang": {
+              "description": "Includes the first language code contained in the\n`Accept-Language` header sent by the client.\n",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
       },
-      "maxItems": 50,
-      "minItems": 1,
-      "type": "array"
-    },
-    "include": {
-      "description": "A list of cookies to include.\n",
-      "items": {
-        "type": "string"
-      },
-      "maxItems": 50,
-      "minItems": 1,
-      "type": "array"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `zones_cache_key_fields_value_header`.
- */
-export const zones_cache_key_fields_value_header: JsonSchema = {
-  "description": "Controls which headers go into the Cache Key. Exactly one of\n`include` or `exclude` is expected.\n",
-  "properties": {
-    "check_presence": {
-      "description": "A list of headers to check for the presence of, without\nincluding their actual values.\n",
-      "items": {
-        "type": "string"
-      },
-      "maxItems": 50,
-      "minItems": 1,
-      "type": "array"
-    },
-    "exclude": {
-      "description": "A list of headers to ignore.\n",
-      "items": {
-        "type": "string"
-      },
-      "maxItems": 50,
-      "minItems": 1,
-      "type": "array"
-    },
-    "include": {
-      "description": "A list of headers to include.\n",
-      "items": {
-        "type": "string"
-      },
-      "maxItems": 50,
-      "minItems": 1,
-      "type": "array"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `zones_cache_key_fields_value_host`.
- */
-export const zones_cache_key_fields_value_host: JsonSchema = {
-  "description": "Determines which host header to include in the Cache Key.\n",
-  "properties": {
-    "resolved": {
-      "description": "Whether to include the Host header in the HTTP request sent\nto the origin.\n",
-      "type": "boolean"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `zones_cache_key_fields_value_query_string`.
- */
-export const zones_cache_key_fields_value_query_string: JsonSchema = {
-  "description": "Controls which URL query string parameters go into the Cache\nKey. Exactly one of `include` or `exclude` is expected.\n",
-  "properties": {
-    "exclude": {
-      "$ref": "#/$defs/zones_cache_key_fields_value_query_string_exclude"
-    },
-    "include": {
-      "$ref": "#/$defs/zones_cache_key_fields_value_query_string_include"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `zones_cache_key_fields_value_query_string_exclude`.
- */
-export const zones_cache_key_fields_value_query_string_exclude: JsonSchema = {
-  "oneOf": [
-    {
-      "items": {
-        "type": "string"
-      },
-      "maxItems": 50,
-      "minItems": 1,
-      "type": "array"
-    },
-    {
-      "enum": [
-        "*"
-      ],
-      "type": "string"
-    }
-  ]
-};
-
-/**
- * The schema of `zones_cache_key_fields_value_query_string_include`.
- */
-export const zones_cache_key_fields_value_query_string_include: JsonSchema = {
-  "oneOf": [
-    {
-      "items": {
-        "type": "string"
-      },
-      "maxItems": 50,
-      "minItems": 1,
-      "type": "array"
-    },
-    {
-      "enum": [
-        "*"
-      ],
-      "type": "string"
-    }
-  ]
-};
-
-/**
- * The schema of `zones_cache_key_fields_value_user`.
- */
-export const zones_cache_key_fields_value_user: JsonSchema = {
-  "description": "Feature fields to add features about the end-user (client) into\nthe Cache Key.\n",
-  "properties": {
-    "device_type": {
-      "description": "Classifies a request as `mobile`, `desktop`, or `tablet`\nbased on the User Agent.\n",
-      "type": "boolean"
-    },
-    "geo": {
-      "description": "Includes the client's country, derived from the IP address.\n",
-      "type": "boolean"
-    },
-    "lang": {
-      "description": "Includes the first language code contained in the\n`Accept-Language` header sent by the client.\n",
-      "type": "boolean"
+      "type": "object"
     }
   },
   "type": "object"

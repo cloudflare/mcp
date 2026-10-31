@@ -38,6 +38,25 @@ export const magic_colo_regions_output: JsonSchema = {
 };
 
 /**
+ * The schema of `magic_create_route_response` in responses.
+ */
+export const magic_create_route_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/magic_route"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `magic_created_on` in responses.
  */
 export const magic_created_on_output: JsonSchema = {
@@ -58,6 +77,66 @@ export const magic_description_output: JsonSchema = {
 export const magic_modified_on_output: JsonSchema = {
   "format": "date-time",
   "type": "string"
+};
+
+/**
+ * The schema of `magic_multiple_route_delete_response` in responses.
+ */
+export const magic_multiple_route_delete_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "deleted": {
+              "type": "boolean"
+            },
+            "deleted_routes": {
+              "items": {
+                "$ref": "#/$defs/magic_route"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `magic_multiple_route_modified_response` in responses.
+ */
+export const magic_multiple_route_modified_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "modified": {
+              "type": "boolean"
+            },
+            "modified_routes": {
+              "items": {
+                "$ref": "#/$defs/magic_route"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**
@@ -121,6 +200,111 @@ export const magic_route_output: JsonSchema = {
     "priority"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `magic_route_deleted_response` in responses.
+ */
+export const magic_route_deleted_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "deleted": {
+              "type": "boolean"
+            },
+            "deleted_route": {
+              "$ref": "#/$defs/magic_route"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `magic_route_modified_response` in responses.
+ */
+export const magic_route_modified_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "modified": {
+              "type": "boolean"
+            },
+            "modified_route": {
+              "$ref": "#/$defs/magic_route"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `magic_route_single_response` in responses.
+ */
+export const magic_route_single_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "route": {
+              "$ref": "#/$defs/magic_route"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `magic_routes_collection_response` in responses.
+ */
+export const magic_routes_collection_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "routes": {
+              "items": {
+                "$ref": "#/$defs/magic_route"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**

@@ -4,9 +4,14 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   zaraz_api_response_common_failure_output,
+  zaraz_api_response_common_output,
   zaraz_messages_output,
 } from "../outputs.js";
-import { zaraz_zaraz_workflow_output } from "./outputs.js";
+import { zaraz_identifier } from "../schemas.js";
+import {
+  zaraz_zaraz_workflow_output,
+  zaraz_zaraz_workflow_response_output,
+} from "./outputs.js";
 import { zaraz_zaraz_workflow } from "./schemas.js";
 
 /**
@@ -21,18 +26,24 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/zaraz_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "zaraz_identifier": zaraz_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/zaraz_zaraz-workflow",
+      "$ref": "#/$defs/zaraz_zaraz-workflow-response",
       $defs: {
+        "zaraz_api-response-common": zaraz_api_response_common_output,
+        "zaraz_messages": zaraz_messages_output,
         "zaraz_zaraz-workflow": zaraz_zaraz_workflow_output,
+        "zaraz_zaraz-workflow-response": zaraz_zaraz_workflow_response_output,
       },
     },
     annotations: {
@@ -54,16 +65,18 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/zaraz_zaraz-workflow"
+          "$ref": "#/$defs/zaraz_zaraz-workflow-response"
         },
         "4XX": {
           "$ref": "#/$defs/zaraz_api-response-common-failure"
         }
       },
       $defs: {
+        "zaraz_api-response-common": zaraz_api_response_common_output,
         "zaraz_api-response-common-failure": zaraz_api_response_common_failure_output,
         "zaraz_messages": zaraz_messages_output,
         "zaraz_zaraz-workflow": zaraz_zaraz_workflow_output,
+        "zaraz_zaraz-workflow-response": zaraz_zaraz_workflow_response_output,
       },
     },
     request: (args) => ({
@@ -81,8 +94,8 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/zaraz_zaraz-workflow"
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/zaraz_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -90,13 +103,17 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "zaraz_identifier": zaraz_identifier,
         "zaraz_zaraz-workflow": zaraz_zaraz_workflow,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/zaraz_zaraz-workflow",
+      "$ref": "#/$defs/zaraz_zaraz-workflow-response",
       $defs: {
+        "zaraz_api-response-common": zaraz_api_response_common_output,
+        "zaraz_messages": zaraz_messages_output,
         "zaraz_zaraz-workflow": zaraz_zaraz_workflow_output,
+        "zaraz_zaraz-workflow-response": zaraz_zaraz_workflow_response_output,
       },
     },
     annotations: {
@@ -117,16 +134,18 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/zaraz_zaraz-workflow"
+          "$ref": "#/$defs/zaraz_zaraz-workflow-response"
         },
         "4XX": {
           "$ref": "#/$defs/zaraz_api-response-common-failure"
         }
       },
       $defs: {
+        "zaraz_api-response-common": zaraz_api_response_common_output,
         "zaraz_api-response-common-failure": zaraz_api_response_common_failure_output,
         "zaraz_messages": zaraz_messages_output,
         "zaraz_zaraz-workflow": zaraz_zaraz_workflow_output,
+        "zaraz_zaraz-workflow-response": zaraz_zaraz_workflow_response_output,
       },
     },
     request: (args) => ({

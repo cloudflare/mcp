@@ -32,10 +32,88 @@ export const access_percent_users_processed_output: JsonSchema = {
 };
 
 /**
+ * The schema of `access_policy_init_resp` in responses.
+ */
+export const access_policy_init_resp_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/access_policy_test_id"
+            },
+            "status": {
+              "$ref": "#/$defs/access_status"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `access_policy_test_id` in responses.
  */
 export const access_policy_test_id_output: JsonSchema = {
   "type": "string"
+};
+
+/**
+ * The schema of `access_policy_update_resp` in responses.
+ */
+export const access_policy_update_resp_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/access_policy_test_id"
+            },
+            "percent_approved": {
+              "$ref": "#/$defs/access_percent_approved"
+            },
+            "percent_blocked": {
+              "$ref": "#/$defs/access_percent_blocked"
+            },
+            "percent_errored": {
+              "$ref": "#/$defs/access_percent_errored"
+            },
+            "percent_users_processed": {
+              "$ref": "#/$defs/access_percent_users_processed"
+            },
+            "status": {
+              "$ref": "#/$defs/access_update_status"
+            },
+            "total_users": {
+              "$ref": "#/$defs/access_total_users"
+            },
+            "users_approved": {
+              "$ref": "#/$defs/access_users_approved"
+            },
+            "users_blocked": {
+              "$ref": "#/$defs/access_users_blocked"
+            },
+            "users_errored": {
+              "$ref": "#/$defs/access_users_errored"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**

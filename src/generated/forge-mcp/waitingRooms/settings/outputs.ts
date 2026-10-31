@@ -14,40 +14,28 @@ export const waitingroom_search_engine_crawler_bypass_output: JsonSchema = {
  * The schema of `waitingroom_zone_settings_response` in responses.
  */
 export const waitingroom_zone_settings_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/waitingroom_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/waitingroom_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/waitingroom_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/waitingroom_zone_settings_response_result"
-    },
-    "success": {
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "search_engine_crawler_bypass": {
+              "$ref": "#/$defs/waitingroom_search_engine_crawler_bypass"
+            }
+          },
+          "required": [
+            "search_engine_crawler_bypass"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `waitingroom_zone_settings_response_result` in responses.
- */
-export const waitingroom_zone_settings_response_result_output: JsonSchema = {
-  "properties": {
-    "search_engine_crawler_bypass": {
-      "$ref": "#/$defs/waitingroom_search_engine_crawler_bypass"
-    }
-  },
-  "required": [
-    "search_engine_crawler_bypass"
-  ],
-  "type": "object"
+  ]
 };

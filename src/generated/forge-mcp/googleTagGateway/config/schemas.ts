@@ -45,3 +45,11 @@ export const google_tag_gateway_google_tag_gateway_config: JsonSchema = {
   ],
   "type": "object"
 };
+
+/**
+ * The schema of `google-tag-gateway_identifier`.
+ */
+export const google_tag_gateway_identifier: JsonSchema = {
+  "description": "Identifier.",
+  "type": "string"
+};

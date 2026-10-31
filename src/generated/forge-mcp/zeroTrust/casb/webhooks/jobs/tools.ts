@@ -8,6 +8,7 @@ import {
   posture_api_messages_output,
 } from "../../outputs.js";
 import {
+  posture_api_CreateWebhookJobsResponse_output,
   posture_api_WebhookJobActorTypeEnum_output,
   posture_api_WebhookJobFailureReasonEnum_output,
   posture_api_WebhookJobFailure_output,
@@ -45,32 +46,17 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "created": {
-          "items": {
-            "$ref": "#/$defs/posture-api_WebhookJob"
-          },
-          "type": "array"
-        },
-        "failed": {
-          "items": {
-            "$ref": "#/$defs/posture-api_WebhookJobFailure"
-          },
-          "type": "array"
-        }
-      },
-      "required": [
-        "created",
-        "failed"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/posture-api_CreateWebhookJobsResponse",
       $defs: {
+        "posture-api_CreateWebhookJobsResponse": posture_api_CreateWebhookJobsResponse_output,
         "posture-api_WebhookJob": posture_api_WebhookJob_output,
         "posture-api_WebhookJobActorTypeEnum": posture_api_WebhookJobActorTypeEnum_output,
         "posture-api_WebhookJobFailure": posture_api_WebhookJobFailure_output,
         "posture-api_WebhookJobFailureReasonEnum": posture_api_WebhookJobFailureReasonEnum_output,
         "posture-api_WebhookJobParameters": posture_api_WebhookJobParameters_output,
         "posture-api_WebhookJobStatusEnum": posture_api_WebhookJobStatusEnum_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
+        "posture-api_messages": posture_api_messages_output,
       },
     },
     annotations: {
@@ -90,25 +76,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "created": {
-              "items": {
-                "$ref": "#/$defs/posture-api_WebhookJob"
-              },
-              "type": "array"
-            },
-            "failed": {
-              "items": {
-                "$ref": "#/$defs/posture-api_WebhookJobFailure"
-              },
-              "type": "array"
-            }
-          },
-          "required": [
-            "created",
-            "failed"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/posture-api_CreateWebhookJobsResponse"
         },
         "400": {
           "$ref": "#/$defs/posture-api_error-response"
@@ -127,6 +95,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "posture-api_CreateWebhookJobsResponse": posture_api_CreateWebhookJobsResponse_output,
         "posture-api_WebhookJob": posture_api_WebhookJob_output,
         "posture-api_WebhookJobActorTypeEnum": posture_api_WebhookJobActorTypeEnum_output,
         "posture-api_WebhookJobFailure": posture_api_WebhookJobFailure_output,

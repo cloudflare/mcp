@@ -32,3 +32,25 @@ export const spectrum_config_app_protocol_output: JsonSchema = {
   ],
   "type": "object"
 };
+
+/**
+ * The schema of `spectrum-config_protocol_collection` in responses.
+ */
+export const spectrum_config_protocol_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/spectrum-config_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/spectrum-config_app_protocol"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};

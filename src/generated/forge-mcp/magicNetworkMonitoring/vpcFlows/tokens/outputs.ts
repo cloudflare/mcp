@@ -8,30 +8,19 @@ import type { JsonSchema } from "../../../_/tool.js";
  * responses.
  */
 export const magic_visibility_mnm_mnm_vpc_flows_single_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/magic-visibility-mnm_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic-visibility-mnm_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/magic-visibility-mnm_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/magic-visibility-mnm_mnm_vpc_flows_token"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/magic-visibility-mnm_mnm_vpc_flows_token"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**

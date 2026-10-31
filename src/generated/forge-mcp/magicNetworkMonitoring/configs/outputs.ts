@@ -66,30 +66,19 @@ export const magic_visibility_mnm_mnm_config_router_ips_output: JsonSchema = {
  * The schema of `magic-visibility-mnm_mnm_config_single_response` in responses.
  */
 export const magic_visibility_mnm_mnm_config_single_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/magic-visibility-mnm_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic-visibility-mnm_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/magic-visibility-mnm_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/magic-visibility-mnm_mnm_config"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/magic-visibility-mnm_mnm_config"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**

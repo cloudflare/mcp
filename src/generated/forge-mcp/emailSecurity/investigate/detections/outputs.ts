@@ -272,7 +272,59 @@ export const email_security_MessageDetectionDetails_output: JsonSchema = {
       "type": "array"
     },
     "sender_info": {
-      "$ref": "#/$defs/email-security_MessageDetectionDetails_sender_info"
+      "properties": {
+        "as_name": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "as_number": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "geo": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "ip": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "pld": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object"
     },
     "threat_categories": {
       "items": {
@@ -294,66 +346,6 @@ export const email_security_MessageDetectionDetails_output: JsonSchema = {
     "threat_categories",
     "validation"
   ],
-  "type": "object"
-};
-
-/**
- * The schema of `email-security_MessageDetectionDetails_sender_info` in
- * responses.
- */
-export const email_security_MessageDetectionDetails_sender_info_output: JsonSchema = {
-  "properties": {
-    "as_name": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "as_number": {
-      "oneOf": [
-        {
-          "type": "integer"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "geo": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "ip": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "pld": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    }
-  },
   "type": "object"
 };
 

@@ -40,7 +40,31 @@ export const abuse_reports_MitigationAppealResult_output: JsonSchema = {
       "type": "array"
     },
     "result_info": {
-      "$ref": "#/$defs/abuse-reports_MitigationAppealResult_result_info"
+      "properties": {
+        "count": {
+          "type": "number"
+        },
+        "page": {
+          "type": "number"
+        },
+        "per_page": {
+          "type": "number"
+        },
+        "total_count": {
+          "type": "number"
+        },
+        "total_pages": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "count",
+        "page",
+        "per_page",
+        "total_count",
+        "total_pages"
+      ],
+      "type": "object"
     },
     "success": {
       "type": "boolean"
@@ -49,38 +73,6 @@ export const abuse_reports_MitigationAppealResult_output: JsonSchema = {
   "required": [
     "result_info",
     "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `abuse-reports_MitigationAppealResult_result_info` in
- * responses.
- */
-export const abuse_reports_MitigationAppealResult_result_info_output: JsonSchema = {
-  "properties": {
-    "count": {
-      "type": "number"
-    },
-    "page": {
-      "type": "number"
-    },
-    "per_page": {
-      "type": "number"
-    },
-    "total_count": {
-      "type": "number"
-    },
-    "total_pages": {
-      "type": "number"
-    }
-  },
-  "required": [
-    "count",
-    "page",
-    "per_page",
-    "total_count",
-    "total_pages"
   ],
   "type": "object"
 };

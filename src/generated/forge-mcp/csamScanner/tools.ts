@@ -5,7 +5,9 @@ import { type Tool, pathParam } from "../_/tool.js";
 import {
   csam_config_service_api_response_common_failure_output,
   csam_config_service_api_response_message_output,
+  csam_config_service_api_response_single_output,
   csam_config_service_csam_scanner_setting_output,
+  csam_config_service_csam_scanner_single_response_output,
   csam_config_service_csam_scanner_value_output,
 } from "./outputs.js";
 import {
@@ -21,7 +23,7 @@ export const tools: readonly Tool[] = [
   {
     name: "csam_scanner_edit",
     title: "Update CSAM Scanner setting",
-    description: "Update the CSAM Scanner configuration for a zone. Allows enabling or\ndisabling CSAM scanning, updating the notification email, and\nconfiguring scanning sources.\n\nWhen a new email is provided, email verification is triggered\nautomatically. The `enabled` field is a toggle; the server may\nadjust it based on whether the notification email is verified.\n\nReturns 403 if the zone or account is locked by Trust & Safety.",
+    description: "Update the CSAM Scanner configuration for a zone. Allows enabling or\ndisabling CSAM scanning, updating the notification email, and\nconfiguring scanning sources.\n\nThis is a partial update: fields omitted from `value` keep their\ncurrent setting, and `sources` is merged per source (`null` clears\nall sources). Send an empty `email` to clear the notification\naddress.\n\nWhen a new email is provided, email verification is triggered\nautomatically. The `enabled` field is a toggle; the server may\nadjust it based on whether the notification email is verified.\n\nReturns 403 if the zone or account is locked by Trust & Safety.",
     inputSchema: {
       type: "object",
       properties: {
@@ -44,9 +46,12 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/csam-config-service_csam_scanner_setting",
+      "$ref": "#/$defs/csam-config-service_csam_scanner_single_response",
       $defs: {
+        "csam-config-service_api_response_message": csam_config_service_api_response_message_output,
+        "csam-config-service_api_response_single": csam_config_service_api_response_single_output,
         "csam-config-service_csam_scanner_setting": csam_config_service_csam_scanner_setting_output,
+        "csam-config-service_csam_scanner_single_response": csam_config_service_csam_scanner_single_response_output,
         "csam-config-service_csam_scanner_value": csam_config_service_csam_scanner_value_output,
       },
     },
@@ -67,7 +72,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/csam-config-service_csam_scanner_setting"
+          "$ref": "#/$defs/csam-config-service_csam_scanner_single_response"
         },
         "400": {
           "$ref": "#/$defs/csam-config-service_api_response_common_failure"
@@ -88,7 +93,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "csam-config-service_api_response_common_failure": csam_config_service_api_response_common_failure_output,
         "csam-config-service_api_response_message": csam_config_service_api_response_message_output,
+        "csam-config-service_api_response_single": csam_config_service_api_response_single_output,
         "csam-config-service_csam_scanner_setting": csam_config_service_csam_scanner_setting_output,
+        "csam-config-service_csam_scanner_single_response": csam_config_service_csam_scanner_single_response_output,
         "csam-config-service_csam_scanner_value": csam_config_service_csam_scanner_value_output,
       },
     },
@@ -117,9 +124,12 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/csam-config-service_csam_scanner_setting",
+      "$ref": "#/$defs/csam-config-service_csam_scanner_single_response",
       $defs: {
+        "csam-config-service_api_response_message": csam_config_service_api_response_message_output,
+        "csam-config-service_api_response_single": csam_config_service_api_response_single_output,
         "csam-config-service_csam_scanner_setting": csam_config_service_csam_scanner_setting_output,
+        "csam-config-service_csam_scanner_single_response": csam_config_service_csam_scanner_single_response_output,
         "csam-config-service_csam_scanner_value": csam_config_service_csam_scanner_value_output,
       },
     },
@@ -140,7 +150,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/csam-config-service_csam_scanner_setting"
+          "$ref": "#/$defs/csam-config-service_csam_scanner_single_response"
         },
         "400": {
           "$ref": "#/$defs/csam-config-service_api_response_common_failure"
@@ -161,7 +171,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "csam-config-service_api_response_common_failure": csam_config_service_api_response_common_failure_output,
         "csam-config-service_api_response_message": csam_config_service_api_response_message_output,
+        "csam-config-service_api_response_single": csam_config_service_api_response_single_output,
         "csam-config-service_csam_scanner_setting": csam_config_service_csam_scanner_setting_output,
+        "csam-config-service_csam_scanner_single_response": csam_config_service_csam_scanner_single_response_output,
         "csam-config-service_csam_scanner_value": csam_config_service_csam_scanner_value_output,
       },
     },

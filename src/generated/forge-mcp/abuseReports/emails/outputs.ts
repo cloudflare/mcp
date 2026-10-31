@@ -35,19 +35,46 @@ export const abuse_reports_EmailListItem_output: JsonSchema = {
 };
 
 /**
- * The schema of `abuse-reports_EmailListResponse_result` in responses.
+ * The schema of `abuse-reports_EmailListResponse` in responses.
  */
-export const abuse_reports_EmailListResponse_result_output: JsonSchema = {
+export const abuse_reports_EmailListResponse_output: JsonSchema = {
   "properties": {
-    "emails": {
+    "errors": {
       "items": {
-        "$ref": "#/$defs/abuse-reports_EmailListItem"
+        "$ref": "#/$defs/abuse-reports_ErrorMessage"
       },
       "type": "array"
+    },
+    "messages": {
+      "items": {
+        "$ref": "#/$defs/abuse-reports_Message"
+      },
+      "type": "array"
+    },
+    "result": {
+      "properties": {
+        "emails": {
+          "items": {
+            "$ref": "#/$defs/abuse-reports_EmailListItem"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "emails"
+      ],
+      "type": "object"
+    },
+    "result_info": {
+      "$ref": "#/$defs/abuse-reports_ResultInfo"
+    },
+    "success": {
+      "type": "boolean"
     }
   },
   "required": [
-    "emails"
+    "result",
+    "success"
   ],
   "type": "object"
 };

@@ -5,10 +5,12 @@ import { type Tool, pathParam } from "../../_/tool.js";
 import {
   pay_per_crawl_ErrorSource_output,
   pay_per_crawl_RESTError_output,
+  pay_per_crawl_ResultInfo_output,
   pay_per_crawl_apiErrorResponse_output,
 } from "../../outputs.js";
 import {
   pay_per_crawl_EnabledDomain_output,
+  pay_per_crawl_EnabledDomainsResponse_output,
   pay_per_crawl_EnabledDomainsResult_output,
 } from "./outputs.js";
 
@@ -42,10 +44,12 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/pay-per-crawl_EnabledDomainsResult",
+      "$ref": "#/$defs/pay-per-crawl_EnabledDomainsResponse",
       $defs: {
         "pay-per-crawl_EnabledDomain": pay_per_crawl_EnabledDomain_output,
+        "pay-per-crawl_EnabledDomainsResponse": pay_per_crawl_EnabledDomainsResponse_output,
         "pay-per-crawl_EnabledDomainsResult": pay_per_crawl_EnabledDomainsResult_output,
+        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
       },
     },
     annotations: {
@@ -60,7 +64,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/pay-per-crawl_EnabledDomainsResult"
+          "$ref": "#/$defs/pay-per-crawl_EnabledDomainsResponse"
         },
         "400": {
           "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
@@ -77,9 +81,11 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "pay-per-crawl_EnabledDomain": pay_per_crawl_EnabledDomain_output,
+        "pay-per-crawl_EnabledDomainsResponse": pay_per_crawl_EnabledDomainsResponse_output,
         "pay-per-crawl_EnabledDomainsResult": pay_per_crawl_EnabledDomainsResult_output,
         "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
         "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
+        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
         "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
       },
     },

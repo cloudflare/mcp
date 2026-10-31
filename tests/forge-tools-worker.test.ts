@@ -112,6 +112,12 @@ describe('generated direct tools (?codemode=false&experimentalForge=true)', () =
     expect(spec.paths['/accounts/{account_id}/d1/database'].get['x-api-token-group']).toContain(
       'D1 Read'
     )
+    // Built with the current processSpec(): schemas are the API's own, envelope included.
+    const subdomain = (spec.paths['/accounts/{account_id}/workers/subdomain'].get as any).responses[
+      '200'
+    ]
+    expect(JSON.stringify(subdomain.content['application/json'].schema)).toContain('"success"')
+    expect(subdomain).not.toHaveProperty('x-result-info')
     expect(JSON.parse(await text('products.json'))).toContain('workers')
     const mcpTools = JSON.parse(await text('mcp-tools.json')) as { name: string }[]
     expect(mcpTools.length).toBeGreaterThan(1000)
@@ -336,7 +342,7 @@ describe('generated direct tools (?codemode=false&experimentalForge=true)', () =
         expect(toolText(result)).toMatch(/--- TRUNCATED ---/)
       })
 
-      it("returns the envelope's result when the output schema describes only the result", async () => {
+      it('returns the whole body, envelope included, as its output schema describes', async () => {
         const subdomain = cfSuccess({ subdomain: 'acme' })
         server.use(
           http.get(`${API_BASE}/accounts/${ACCOUNT_ID}/workers/subdomain`, () =>
@@ -346,8 +352,10 @@ describe('generated direct tools (?codemode=false&experimentalForge=true)', () =
 
         const result = await callModern('workers_subdomains_get', {})
 
-        expect(result.result?.structuredContent).toEqual({ subdomain: 'acme' })
+        expect(result.result?.structuredContent).toEqual(subdomain)
         expect(JSON.parse(toolText(result))).toEqual(subdomain)
+        const tool = generatedTools.find((t) => t.name === 'workers_subdomains_get')!
+        expect(JSON.stringify(tool.outputSchema)).toContain('"result"')
       })
 
       it('leaves structuredContent out of an error', async () => {

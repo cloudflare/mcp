@@ -9,12 +9,81 @@ import type { JsonSchema } from "../../_/tool.js";
 export const workers_Version: JsonSchema = {
   "properties": {
     "annotations": {
-      "$ref": "#/$defs/workers_Version_annotations",
-      "description": "Metadata about the version."
+      "description": "Metadata about the version.",
+      "properties": {
+        "workers/message": {
+          "description": "Human-readable message about the version. Truncated to 1000 bytes if longer.",
+          "type": "string"
+        },
+        "workers/tag": {
+          "description": "User-provided identifier for the version. Maximum 100 bytes.",
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "assets": {
-      "$ref": "#/$defs/workers_Version_assets",
-      "description": "Configuration for assets within a Worker.\n\n[`_headers`](https://developers.cloudflare.com/workers/static-assets/headers/#custom-headers) and\n[`_redirects`](https://developers.cloudflare.com/workers/static-assets/redirects/) files should be\nincluded as modules named `_headers` and `_redirects` with content type `text/plain`.\n"
+      "description": "Configuration for assets within a Worker.\n\n[`_headers`](https://developers.cloudflare.com/workers/static-assets/headers/#custom-headers) and\n[`_redirects`](https://developers.cloudflare.com/workers/static-assets/redirects/) files should be\nincluded as modules named `_headers` and `_redirects` with content type `text/plain`.\n",
+      "properties": {
+        "config": {
+          "description": "Configuration for assets within a Worker.",
+          "properties": {
+            "base_path": {
+              "default": "/",
+              "description": "The public URL path prefix under which assets are served. A null request value resets it to `/`; responses represent the root as `/`. All versions in a gradual deployment must use the same canonical value. To change it, first deploy the version containing the change at 100%.",
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "html_handling": {
+              "default": "auto-trailing-slash",
+              "description": "Determines the redirects and rewrites of requests for HTML content.",
+              "enum": [
+                "auto-trailing-slash",
+                "force-trailing-slash",
+                "drop-trailing-slash",
+                "none"
+              ],
+              "type": "string"
+            },
+            "not_found_handling": {
+              "default": "none",
+              "description": "Determines the response when a request does not match a static asset, and there is no Worker script.",
+              "enum": [
+                "none",
+                "404-page",
+                "single-page-application"
+              ],
+              "type": "string"
+            },
+            "run_worker_first": {
+              "default": false,
+              "oneOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "boolean"
+                }
+              ]
+            }
+          },
+          "type": "object"
+        },
+        "jwt": {
+          "description": "Token provided upon successful upload of all files from a registered manifest.",
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "bindings": {
       "$ref": "#/$defs/workers_bindings",
@@ -46,28 +115,84 @@ export const workers_Version: JsonSchema = {
       "description": "Summary of the declarative exports reconciliation that ran on\nthis upload. Populated only when the uploaded metadata included\nan `exports` block. Durable Object entries drive reconciliation;\n`type: worker` entries do not contribute to this summary.\n"
     },
     "limits": {
-      "$ref": "#/$defs/workers_Version_limits",
-      "description": "Resource limits enforced at runtime."
+      "description": "Resource limits enforced at runtime.",
+      "properties": {
+        "cpu_ms": {
+          "description": "CPU time limit in milliseconds.",
+          "type": "integer"
+        },
+        "subrequests": {
+          "description": "Subrequest limit per request.",
+          "type": "integer"
+        }
+      },
+      "type": "object"
     },
     "main_module": {
       "description": "The name of the main module in the `modules` array (e.g. the name of the module that exports a `fetch` handler).",
       "type": "string"
     },
     "migrations": {
-      "$ref": "#/$defs/workers_Version_migrations",
-      "description": "Migrations for Durable Objects associated with the version. Migrations are applied when the version is deployed."
+      "description": "Migrations for Durable Objects associated with the version. Migrations are applied when the version is deployed.",
+      "oneOf": [
+        {
+          "$ref": "#/$defs/workers_single_step_migrations"
+        },
+        {
+          "$ref": "#/$defs/workers_multiple_step_migrations"
+        }
+      ]
     },
     "modules": {
       "description": "Code, sourcemaps, and other content used at runtime.\n\nThis includes [`_headers`](https://developers.cloudflare.com/workers/static-assets/headers/#custom-headers) and\n[`_redirects`](https://developers.cloudflare.com/workers/static-assets/redirects/) files used to configure\n[Static Assets](https://developers.cloudflare.com/workers/static-assets/). `_headers` and `_redirects` files should be\nincluded as modules named `_headers` and `_redirects` with content type `text/plain`.\n",
       "items": {
-        "$ref": "#/$defs/workers_Version_modulesItem"
+        "properties": {
+          "content_base64": {
+            "contentEncoding": "base64",
+            "description": "The base64-encoded module content.",
+            "type": "string"
+          },
+          "content_type": {
+            "description": "The content type of the module.",
+            "type": "string"
+          },
+          "name": {
+            "description": "The name of the module.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "content_base64",
+          "content_type",
+          "name"
+        ],
+        "type": "object"
       },
       "type": "array"
     },
     "package_dependencies": {
       "description": "The list of npm packages that were installed and used when this Worker\nversion was built.\n",
       "items": {
-        "$ref": "#/$defs/workers_Version_package_dependenciesItem"
+        "properties": {
+          "installedVersion": {
+            "description": "The exact version that was resolved and installed by the package manager.",
+            "type": "string"
+          },
+          "name": {
+            "description": "The npm package name.",
+            "type": "string"
+          },
+          "packageJsonVersion": {
+            "description": "The version constraint as written in package.json.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "installedVersion",
+          "name",
+          "packageJsonVersion"
+        ],
+        "type": "object"
       },
       "type": "array"
     },
@@ -87,191 +212,5 @@ export const workers_Version: JsonSchema = {
       "type": "string"
     }
   },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_Version_annotations`.
- */
-export const workers_Version_annotations: JsonSchema = {
-  "description": "Metadata about the version.",
-  "properties": {
-    "workers/message": {
-      "description": "Human-readable message about the version. Truncated to 1000 bytes if longer.",
-      "type": "string"
-    },
-    "workers/tag": {
-      "description": "User-provided identifier for the version. Maximum 100 bytes.",
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_Version_assets`.
- */
-export const workers_Version_assets: JsonSchema = {
-  "description": "Configuration for assets within a Worker.\n\n[`_headers`](https://developers.cloudflare.com/workers/static-assets/headers/#custom-headers) and\n[`_redirects`](https://developers.cloudflare.com/workers/static-assets/redirects/) files should be\nincluded as modules named `_headers` and `_redirects` with content type `text/plain`.\n",
-  "properties": {
-    "config": {
-      "$ref": "#/$defs/workers_Version_assets_config",
-      "description": "Configuration for assets within a Worker."
-    },
-    "jwt": {
-      "description": "Token provided upon successful upload of all files from a registered manifest.",
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_Version_assets_config`.
- */
-export const workers_Version_assets_config: JsonSchema = {
-  "description": "Configuration for assets within a Worker.",
-  "properties": {
-    "base_path": {
-      "default": "/",
-      "description": "The public URL path prefix under which assets are served. A null request value resets it to `/`; responses represent the root as `/`. All versions in a gradual deployment must use the same canonical value. To change it, first deploy the version containing the change at 100%.",
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "html_handling": {
-      "default": "auto-trailing-slash",
-      "description": "Determines the redirects and rewrites of requests for HTML content.",
-      "enum": [
-        "auto-trailing-slash",
-        "force-trailing-slash",
-        "drop-trailing-slash",
-        "none"
-      ],
-      "type": "string"
-    },
-    "not_found_handling": {
-      "default": "none",
-      "description": "Determines the response when a request does not match a static asset, and there is no Worker script.",
-      "enum": [
-        "none",
-        "404-page",
-        "single-page-application"
-      ],
-      "type": "string"
-    },
-    "run_worker_first": {
-      "$ref": "#/$defs/workers_Version_assets_config_run_worker_first",
-      "default": false
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_Version_assets_config_run_worker_first`.
- */
-export const workers_Version_assets_config_run_worker_first: JsonSchema = {
-  "oneOf": [
-    {
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    {
-      "type": "boolean"
-    }
-  ]
-};
-
-/**
- * The schema of `workers_Version_limits`.
- */
-export const workers_Version_limits: JsonSchema = {
-  "description": "Resource limits enforced at runtime.",
-  "properties": {
-    "cpu_ms": {
-      "description": "CPU time limit in milliseconds.",
-      "type": "integer"
-    },
-    "subrequests": {
-      "description": "Subrequest limit per request.",
-      "type": "integer"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_Version_migrations`.
- */
-export const workers_Version_migrations: JsonSchema = {
-  "description": "Migrations for Durable Objects associated with the version. Migrations are applied when the version is deployed.",
-  "oneOf": [
-    {
-      "$ref": "#/$defs/workers_single_step_migrations"
-    },
-    {
-      "$ref": "#/$defs/workers_multiple_step_migrations"
-    }
-  ]
-};
-
-/**
- * The schema of `workers_Version_modulesItem`.
- */
-export const workers_Version_modulesItem: JsonSchema = {
-  "properties": {
-    "content_base64": {
-      "contentEncoding": "base64",
-      "description": "The base64-encoded module content.",
-      "type": "string"
-    },
-    "content_type": {
-      "description": "The content type of the module.",
-      "type": "string"
-    },
-    "name": {
-      "description": "The name of the module.",
-      "type": "string"
-    }
-  },
-  "required": [
-    "content_base64",
-    "content_type",
-    "name"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `workers_Version_package_dependenciesItem`.
- */
-export const workers_Version_package_dependenciesItem: JsonSchema = {
-  "properties": {
-    "installedVersion": {
-      "description": "The exact version that was resolved and installed by the package manager.",
-      "type": "string"
-    },
-    "name": {
-      "description": "The npm package name.",
-      "type": "string"
-    },
-    "packageJsonVersion": {
-      "description": "The version constraint as written in package.json.",
-      "type": "string"
-    }
-  },
-  "required": [
-    "installedVersion",
-    "name",
-    "packageJsonVersion"
-  ],
   "type": "object"
 };

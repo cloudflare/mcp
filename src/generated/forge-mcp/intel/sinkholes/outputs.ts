@@ -4,7 +4,33 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `intel-sinkholes_api-response-common-failure` in responses.
+ * The schema of `intel-sinkholes_api-response-common` in responses.
+ */
+export const intel_sinkholes_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/intel-sinkholes_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/intel-sinkholes_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `intel-sinkholes_api_response_common_failure` in responses.
  */
 export const intel_sinkholes_api_response_common_failure_output: JsonSchema = {
   "properties": {
@@ -31,6 +57,25 @@ export const intel_sinkholes_api_response_common_failure_output: JsonSchema = {
     "success"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `intel-sinkholes_api_response_single_empty` in responses.
+ */
+export const intel_sinkholes_api_response_single_empty_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/intel-sinkholes_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**
@@ -67,6 +112,28 @@ export const intel_sinkholes_messages_output: JsonSchema = {
 };
 
 /**
+ * The schema of `intel-sinkholes_sinkhole_collection_response` in responses.
+ */
+export const intel_sinkholes_sinkhole_collection_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/intel-sinkholes_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/intel-sinkholes_sinkhole_item"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `intel-sinkholes_sinkhole_item` in responses.
  */
 export const intel_sinkholes_sinkhole_item_output: JsonSchema = {
@@ -96,4 +163,23 @@ export const intel_sinkholes_sinkhole_item_output: JsonSchema = {
     }
   },
   "type": "object"
+};
+
+/**
+ * The schema of `intel-sinkholes_sinkhole_single_response` in responses.
+ */
+export const intel_sinkholes_sinkhole_single_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/intel-sinkholes_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/intel-sinkholes_sinkhole_item"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };

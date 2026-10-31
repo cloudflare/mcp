@@ -4,6 +4,22 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
+ * The schema of `r2_account_identifier`.
+ */
+export const r2_account_identifier: JsonSchema = {
+  "description": "Cloudflare account ID that owns the R2 resource.",
+  "type": "string"
+};
+
+/**
+ * The schema of `r2_bucket_name`.
+ */
+export const r2_bucket_name: JsonSchema = {
+  "description": "Name of the bucket.",
+  "type": "string"
+};
+
+/**
  * The schema of `r2_r2_bucket_job_status`.
  */
 export const r2_r2_bucket_job_status: JsonSchema = {

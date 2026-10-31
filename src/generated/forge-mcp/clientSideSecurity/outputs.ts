@@ -4,6 +4,80 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
+ * The schema of `client-side-security_api-get-response-collection` in
+ * responses.
+ */
+export const client_side_security_api_get_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/client-side-security_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `client-side-security_api-list-response-collection` in
+ * responses.
+ */
+export const client_side_security_api_list_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/client-side-security_api-response-common"
+    },
+    {
+      "properties": {
+        "result_info": {
+          "$ref": "#/$defs/client-side-security_result_info"
+        }
+      },
+      "required": [
+        "result_info"
+      ],
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `client-side-security_api-response-common` in responses.
+ */
+export const client_side_security_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/client-side-security_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/client-side-security_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `client-side-security_api-response-common-failure` in
  * responses.
  */

@@ -6,16 +6,23 @@ import {
   organizations_api_V4ErrorResponse_output,
   organizations_api_V4Message_output,
 } from "../../outputs.js";
+import { organizations_api_OrganizationID } from "../../schemas.js";
 import {
   organizations_api_MemberID_output,
   organizations_api_MemberSubjectUser_output,
-  organizations_api_Member_output,
   organizations_api_PageTokenResultInfo_output,
 } from "../outputs.js";
+import { organizations_api_MemberID } from "../schemas.js";
+import {
+  organizations_api_DeleteOrganizationMemberResult_output,
+  organizations_api_MemberPolicyRole_output,
+  organizations_api_MemberPolicyScope_output,
+  organizations_api_MemberPolicy_output,
+  organizations_api_Member_output,
+} from "./outputs.js";
 import {
   organizations_api_CreateMemberRequest,
   organizations_api_CreateSingleMember,
-  organizations_api_CreateSingleMember_user,
 } from "./schemas.js";
 
 /**
@@ -33,7 +40,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/organizations-api_CreateMemberRequest"
         },
         "organization_id": {
-          "type": "string"
+          "$ref": "#/$defs/organizations-api_OrganizationID"
         }
       },
       required: [
@@ -43,15 +50,49 @@ export const tools: readonly Tool[] = [
       $defs: {
         "organizations-api_CreateMemberRequest": organizations_api_CreateMemberRequest,
         "organizations-api_CreateSingleMember": organizations_api_CreateSingleMember,
-        "organizations-api_CreateSingleMember_user": organizations_api_CreateSingleMember_user,
+        "organizations-api_OrganizationID": organizations_api_OrganizationID,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/organizations-api_Member",
+      "properties": {
+        "errors": {
+          "items": {
+            "type": "object"
+          },
+          "maxItems": 0,
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "$ref": "#/$defs/organizations-api_V4Message"
+          },
+          "type": "array"
+        },
+        "result": {
+          "$ref": "#/$defs/organizations-api_Member"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
       $defs: {
         "organizations-api_Member": organizations_api_Member_output,
         "organizations-api_MemberID": organizations_api_MemberID_output,
+        "organizations-api_MemberPolicy": organizations_api_MemberPolicy_output,
+        "organizations-api_MemberPolicyRole": organizations_api_MemberPolicyRole_output,
+        "organizations-api_MemberPolicyScope": organizations_api_MemberPolicyScope_output,
         "organizations-api_MemberSubjectUser": organizations_api_MemberSubjectUser_output,
+        "organizations-api_V4Message": organizations_api_V4Message_output,
       },
     },
     annotations: {
@@ -66,15 +107,51 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/organizations-api_Member"
+          "properties": {
+            "errors": {
+              "items": {
+                "type": "object"
+              },
+              "maxItems": 0,
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "$ref": "#/$defs/organizations-api_V4Message"
+              },
+              "type": "array"
+            },
+            "result": {
+              "$ref": "#/$defs/organizations-api_Member"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
+          "type": "object"
         },
         "4XX": {
+          "$ref": "#/$defs/organizations-api_V4ErrorResponse"
+        },
+        "5XX": {
           "$ref": "#/$defs/organizations-api_V4ErrorResponse"
         }
       },
       $defs: {
         "organizations-api_Member": organizations_api_Member_output,
         "organizations-api_MemberID": organizations_api_MemberID_output,
+        "organizations-api_MemberPolicy": organizations_api_MemberPolicy_output,
+        "organizations-api_MemberPolicyRole": organizations_api_MemberPolicyRole_output,
+        "organizations-api_MemberPolicyScope": organizations_api_MemberPolicyScope_output,
         "organizations-api_MemberSubjectUser": organizations_api_MemberSubjectUser_output,
         "organizations-api_V4ErrorResponse": organizations_api_V4ErrorResponse_output,
         "organizations-api_V4Message": organizations_api_V4Message_output,
@@ -93,17 +170,58 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "member_id": {
-          "description": "Organization Member ID",
-          "type": "string"
+          "$ref": "#/$defs/organizations-api_MemberID",
+          "description": "Organization Member ID"
         },
         "organization_id": {
-          "type": "string"
+          "$ref": "#/$defs/organizations-api_OrganizationID"
         }
       },
       required: [
         "organization_id",
         "member_id"
       ],
+      $defs: {
+        "organizations-api_MemberID": organizations_api_MemberID,
+        "organizations-api_OrganizationID": organizations_api_OrganizationID,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "errors": {
+          "items": {
+            "type": "object"
+          },
+          "maxItems": 0,
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "$ref": "#/$defs/organizations-api_V4Message"
+          },
+          "type": "array"
+        },
+        "result": {
+          "$ref": "#/$defs/organizations-api_DeleteOrganizationMemberResult"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+      $defs: {
+        "organizations-api_DeleteOrganizationMemberResult": organizations_api_DeleteOrganizationMemberResult_output,
+        "organizations-api_V4Message": organizations_api_V4Message_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -116,12 +234,48 @@ export const tools: readonly Tool[] = [
     path: "/organizations/{organization_id}/members/{member_id}",
     responses: {
       schemas: {
-        "204": null,
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "type": "object"
+              },
+              "maxItems": 0,
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "$ref": "#/$defs/organizations-api_V4Message"
+              },
+              "type": "array"
+            },
+            "result": {
+              "$ref": "#/$defs/organizations-api_DeleteOrganizationMemberResult"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        },
         "4XX": {
+          "$ref": "#/$defs/organizations-api_V4ErrorResponse"
+        },
+        "5XX": {
           "$ref": "#/$defs/organizations-api_V4ErrorResponse"
         }
       },
       $defs: {
+        "organizations-api_DeleteOrganizationMemberResult": organizations_api_DeleteOrganizationMemberResult_output,
         "organizations-api_V4ErrorResponse": organizations_api_V4ErrorResponse_output,
         "organizations-api_V4Message": organizations_api_V4Message_output,
       },
@@ -138,24 +292,62 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "member_id": {
-          "description": "Organization Member ID",
-          "type": "string"
+          "$ref": "#/$defs/organizations-api_MemberID",
+          "description": "Organization Member ID"
         },
         "organization_id": {
-          "type": "string"
+          "$ref": "#/$defs/organizations-api_OrganizationID"
         }
       },
       required: [
         "organization_id",
         "member_id"
       ],
+      $defs: {
+        "organizations-api_MemberID": organizations_api_MemberID,
+        "organizations-api_OrganizationID": organizations_api_OrganizationID,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/organizations-api_Member",
+      "properties": {
+        "errors": {
+          "items": {
+            "type": "object"
+          },
+          "maxItems": 0,
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "$ref": "#/$defs/organizations-api_V4Message"
+          },
+          "type": "array"
+        },
+        "result": {
+          "$ref": "#/$defs/organizations-api_Member"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
       $defs: {
         "organizations-api_Member": organizations_api_Member_output,
         "organizations-api_MemberID": organizations_api_MemberID_output,
+        "organizations-api_MemberPolicy": organizations_api_MemberPolicy_output,
+        "organizations-api_MemberPolicyRole": organizations_api_MemberPolicyRole_output,
+        "organizations-api_MemberPolicyScope": organizations_api_MemberPolicyScope_output,
         "organizations-api_MemberSubjectUser": organizations_api_MemberSubjectUser_output,
+        "organizations-api_V4Message": organizations_api_V4Message_output,
       },
     },
     annotations: {
@@ -170,15 +362,51 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/organizations-api_Member"
+          "properties": {
+            "errors": {
+              "items": {
+                "type": "object"
+              },
+              "maxItems": 0,
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "$ref": "#/$defs/organizations-api_V4Message"
+              },
+              "type": "array"
+            },
+            "result": {
+              "$ref": "#/$defs/organizations-api_Member"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
+          "type": "object"
         },
         "4XX": {
+          "$ref": "#/$defs/organizations-api_V4ErrorResponse"
+        },
+        "5XX": {
           "$ref": "#/$defs/organizations-api_V4ErrorResponse"
         }
       },
       $defs: {
         "organizations-api_Member": organizations_api_Member_output,
         "organizations-api_MemberID": organizations_api_MemberID_output,
+        "organizations-api_MemberPolicy": organizations_api_MemberPolicy_output,
+        "organizations-api_MemberPolicyRole": organizations_api_MemberPolicyRole_output,
+        "organizations-api_MemberPolicyScope": organizations_api_MemberPolicyScope_output,
         "organizations-api_MemberSubjectUser": organizations_api_MemberSubjectUser_output,
         "organizations-api_V4ErrorResponse": organizations_api_V4ErrorResponse_output,
         "organizations-api_V4Message": organizations_api_V4Message_output,
@@ -196,7 +424,7 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "organization_id": {
-          "type": "string"
+          "$ref": "#/$defs/organizations-api_OrganizationID"
         },
         "page_size": {
           "description": "The amount of items to return. Defaults to 10.",
@@ -239,9 +467,25 @@ export const tools: readonly Tool[] = [
       required: [
         "organization_id"
       ],
+      $defs: {
+        "organizations-api_OrganizationID": organizations_api_OrganizationID,
+      },
     },
     outputSchema: {
       "properties": {
+        "errors": {
+          "items": {
+            "type": "object"
+          },
+          "maxItems": 0,
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "$ref": "#/$defs/organizations-api_V4Message"
+          },
+          "type": "array"
+        },
         "result": {
           "items": {
             "$ref": "#/$defs/organizations-api_Member"
@@ -250,17 +494,31 @@ export const tools: readonly Tool[] = [
         },
         "result_info": {
           "$ref": "#/$defs/organizations-api_PageTokenResultInfo"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
         }
       },
       "required": [
-        "result"
+        "errors",
+        "messages",
+        "result",
+        "result_info",
+        "success"
       ],
       "type": "object",
       $defs: {
         "organizations-api_Member": organizations_api_Member_output,
         "organizations-api_MemberID": organizations_api_MemberID_output,
+        "organizations-api_MemberPolicy": organizations_api_MemberPolicy_output,
+        "organizations-api_MemberPolicyRole": organizations_api_MemberPolicyRole_output,
+        "organizations-api_MemberPolicyScope": organizations_api_MemberPolicyScope_output,
         "organizations-api_MemberSubjectUser": organizations_api_MemberSubjectUser_output,
         "organizations-api_PageTokenResultInfo": organizations_api_PageTokenResultInfo_output,
+        "organizations-api_V4Message": organizations_api_V4Message_output,
       },
     },
     annotations: {
@@ -276,6 +534,19 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
+            "errors": {
+              "items": {
+                "type": "object"
+              },
+              "maxItems": 0,
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "$ref": "#/$defs/organizations-api_V4Message"
+              },
+              "type": "array"
+            },
             "result": {
               "items": {
                 "$ref": "#/$defs/organizations-api_Member"
@@ -284,20 +555,36 @@ export const tools: readonly Tool[] = [
             },
             "result_info": {
               "$ref": "#/$defs/organizations-api_PageTokenResultInfo"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
             }
           },
           "required": [
-            "result"
+            "errors",
+            "messages",
+            "result",
+            "result_info",
+            "success"
           ],
           "type": "object"
         },
         "4XX": {
+          "$ref": "#/$defs/organizations-api_V4ErrorResponse"
+        },
+        "5XX": {
           "$ref": "#/$defs/organizations-api_V4ErrorResponse"
         }
       },
       $defs: {
         "organizations-api_Member": organizations_api_Member_output,
         "organizations-api_MemberID": organizations_api_MemberID_output,
+        "organizations-api_MemberPolicy": organizations_api_MemberPolicy_output,
+        "organizations-api_MemberPolicyRole": organizations_api_MemberPolicyRole_output,
+        "organizations-api_MemberPolicyScope": organizations_api_MemberPolicyScope_output,
         "organizations-api_MemberSubjectUser": organizations_api_MemberSubjectUser_output,
         "organizations-api_PageTokenResultInfo": organizations_api_PageTokenResultInfo_output,
         "organizations-api_V4ErrorResponse": organizations_api_V4ErrorResponse_output,

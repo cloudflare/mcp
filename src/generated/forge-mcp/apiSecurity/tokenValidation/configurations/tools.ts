@@ -3,6 +3,7 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  api_shield_api_response_collection_output,
   api_shield_api_response_common_failure_output,
   api_shield_api_response_common_output,
   api_shield_messages_output,
@@ -17,10 +18,6 @@ import {
   api_shield_uuid,
   api_shield_uuid_2,
 } from "../../../schemas.js";
-import {
-  api_shield_api_response_collection_output,
-  api_shield_api_response_collection_result_info_output,
-} from "../../outputs.js";
 import {
   api_shield_TokenConfiguration_output,
   api_shield_cookie_output,
@@ -691,7 +688,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "api-shield_TokenConfiguration": api_shield_TokenConfiguration_output,
         "api-shield_api-response-collection": api_shield_api_response_collection_output,
-        "api-shield_api-response-collection_result_info": api_shield_api_response_collection_result_info_output,
+        "api-shield_api-response-common": api_shield_api_response_common_output,
         "api-shield_cookie": api_shield_cookie_output,
         "api-shield_credentials": api_shield_credentials_output,
         "api-shield_credentials-JWT-Key-EC-ES256": api_shield_credentials_JWT_Key_EC_ES256_output,
@@ -760,7 +757,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "api-shield_TokenConfiguration": api_shield_TokenConfiguration_output,
         "api-shield_api-response-collection": api_shield_api_response_collection_output,
-        "api-shield_api-response-collection_result_info": api_shield_api_response_collection_result_info_output,
+        "api-shield_api-response-common": api_shield_api_response_common_output,
         "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
         "api-shield_cookie": api_shield_cookie_output,
         "api-shield_credentials": api_shield_credentials_output,

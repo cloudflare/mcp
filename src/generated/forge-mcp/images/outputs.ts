@@ -4,6 +4,73 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
+ * The schema of `images_api-response-collection-v2` in responses.
+ */
+export const images_api_response_collection_v2_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/images_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "continuation_token": {
+              "$ref": "#/$defs/images_images_list_continuation_token"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `images_api-response-common` in responses.
+ */
+export const images_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/images_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/images_messages"
+    },
+    "result": {
+      "anyOf": [
+        {
+          "type": "object"
+        },
+        {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `images_api-response-common-failure` in responses.
  */
 export const images_api_response_common_failure_output: JsonSchema = {
@@ -34,33 +101,48 @@ export const images_api_response_common_failure_output: JsonSchema = {
 };
 
 /**
+ * The schema of `images_api-response-single` in responses.
+ */
+export const images_api_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/images_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `images_deleted_response` in responses.
  */
 export const images_deleted_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/images_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/images_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/images_messages"
-    },
-    "result": {
+    {
+      "properties": {
+        "result": {
+          "type": "object"
+        }
+      },
       "type": "object"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -167,30 +249,19 @@ export const images_image_response_blob_output: JsonSchema = {
  * The schema of `images_image_response_single` in responses.
  */
 export const images_image_response_single_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/images_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/images_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/images_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/images_image"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/images_image"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -226,6 +297,47 @@ export const images_image_variants_output: JsonSchema = {
     ]
   },
   "type": "array"
+};
+
+/**
+ * The schema of `images_images_list_continuation_token` in responses.
+ */
+export const images_images_list_continuation_token_output: JsonSchema = {
+  "oneOf": [
+    {
+      "type": "string"
+    },
+    {
+      "type": "null"
+    }
+  ]
+};
+
+/**
+ * The schema of `images_images_list_response_v2` in responses.
+ */
+export const images_images_list_response_v2_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/images_api-response-collection-v2"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "images": {
+              "items": {
+                "$ref": "#/$defs/images_image"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**
@@ -273,30 +385,19 @@ export const images_images_stats_current_output: JsonSchema = {
  * The schema of `images_images_stats_response` in responses.
  */
 export const images_images_stats_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/images_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/images_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/images_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/images_images_stats"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/images_images_stats"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**

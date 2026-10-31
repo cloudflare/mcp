@@ -17,9 +17,6 @@ export const tunnel_config_output: JsonSchema = {
     },
     "originRequest": {
       "$ref": "#/$defs/tunnel_originRequest"
-    },
-    "warp-routing": {
-      "$ref": "#/$defs/tunnel_config_warp-routing"
     }
   },
   "type": "object"
@@ -41,18 +38,6 @@ export const tunnel_config_src_2_output: JsonSchema = {
  */
 export const tunnel_config_version_2_output: JsonSchema = {
   "type": "integer"
-};
-
-/**
- * The schema of `tunnel_config_warp-routing` in responses.
- */
-export const tunnel_config_warp_routing_output: JsonSchema = {
-  "properties": {
-    "enabled": {
-      "type": "boolean"
-    }
-  },
-  "type": "object"
 };
 
 /**
@@ -83,10 +68,22 @@ export const tunnel_configuration_output: JsonSchema = {
 };
 
 /**
- * The schema of `tunnel_identifier` in responses.
+ * The schema of `tunnel_configuration_response` in responses.
  */
-export const tunnel_identifier_output: JsonSchema = {
-  "type": "string"
+export const tunnel_configuration_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/tunnel_api-response-single-2"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/tunnel_configuration"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**
@@ -120,7 +117,25 @@ export const tunnel_ingressRule_output: JsonSchema = {
 export const tunnel_originRequest_output: JsonSchema = {
   "properties": {
     "access": {
-      "$ref": "#/$defs/tunnel_originRequest_access"
+      "properties": {
+        "audTag": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "teamName": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "audTag",
+        "teamName"
+      ],
+      "type": "object"
     },
     "caPool": {
       "type": "string"
@@ -165,31 +180,6 @@ export const tunnel_originRequest_output: JsonSchema = {
       "type": "integer"
     }
   },
-  "type": "object"
-};
-
-/**
- * The schema of `tunnel_originRequest_access` in responses.
- */
-export const tunnel_originRequest_access_output: JsonSchema = {
-  "properties": {
-    "audTag": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "required": {
-      "type": "boolean"
-    },
-    "teamName": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "audTag",
-    "teamName"
-  ],
   "type": "object"
 };
 

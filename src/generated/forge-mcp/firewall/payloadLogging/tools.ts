@@ -4,9 +4,14 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   firewall_api_response_common_failure_output,
+  firewall_api_response_common_output,
   firewall_messages_output,
 } from "../../outputs.js";
-import { firewall_payload_logging_key_output } from "./outputs.js";
+import { firewall_account_identifier } from "../schemas.js";
+import {
+  firewall_payload_logging_key_output,
+  firewall_payload_logging_key_response_single_output,
+} from "./outputs.js";
 import { firewall_payload_logging_key } from "./schemas.js";
 
 /**
@@ -29,19 +34,25 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/firewall_account_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         }
       },
       required: [
         "account_or_zone",
         "account_or_zone_id"
       ],
+      $defs: {
+        "firewall_account_identifier": firewall_account_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/firewall_payload_logging_key",
+      "$ref": "#/$defs/firewall_payload_logging_key_response_single",
       $defs: {
+        "firewall_api-response-common": firewall_api_response_common_output,
+        "firewall_messages": firewall_messages_output,
         "firewall_payload_logging_key": firewall_payload_logging_key_output,
+        "firewall_payload_logging_key_response_single": firewall_payload_logging_key_response_single_output,
       },
     },
     annotations: {
@@ -64,16 +75,18 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/firewall_payload_logging_key"
+          "$ref": "#/$defs/firewall_payload_logging_key_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/firewall_api-response-common-failure"
         }
       },
       $defs: {
+        "firewall_api-response-common": firewall_api_response_common_output,
         "firewall_api-response-common-failure": firewall_api_response_common_failure_output,
         "firewall_messages": firewall_messages_output,
         "firewall_payload_logging_key": firewall_payload_logging_key_output,
+        "firewall_payload_logging_key_response_single": firewall_payload_logging_key_response_single_output,
       },
     },
     request: (args) => ({
@@ -96,19 +109,25 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/firewall_account_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         }
       },
       required: [
         "account_or_zone",
         "account_or_zone_id"
       ],
+      $defs: {
+        "firewall_account_identifier": firewall_account_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/firewall_payload_logging_key",
+      "$ref": "#/$defs/firewall_payload_logging_key_response_single",
       $defs: {
+        "firewall_api-response-common": firewall_api_response_common_output,
+        "firewall_messages": firewall_messages_output,
         "firewall_payload_logging_key": firewall_payload_logging_key_output,
+        "firewall_payload_logging_key_response_single": firewall_payload_logging_key_response_single_output,
       },
     },
     annotations: {
@@ -131,16 +150,18 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/firewall_payload_logging_key"
+          "$ref": "#/$defs/firewall_payload_logging_key_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/firewall_api-response-common-failure"
         }
       },
       $defs: {
+        "firewall_api-response-common": firewall_api_response_common_output,
         "firewall_api-response-common-failure": firewall_api_response_common_failure_output,
         "firewall_messages": firewall_messages_output,
         "firewall_payload_logging_key": firewall_payload_logging_key_output,
+        "firewall_payload_logging_key_response_single": firewall_payload_logging_key_response_single_output,
       },
     },
     request: (args) => ({
@@ -163,8 +184,8 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/firewall_account_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "body": {
           "$ref": "#/$defs/firewall_payload_logging_key"
@@ -176,13 +197,17 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "firewall_account_identifier": firewall_account_identifier,
         "firewall_payload_logging_key": firewall_payload_logging_key,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/firewall_payload_logging_key",
+      "$ref": "#/$defs/firewall_payload_logging_key_response_single",
       $defs: {
+        "firewall_api-response-common": firewall_api_response_common_output,
+        "firewall_messages": firewall_messages_output,
         "firewall_payload_logging_key": firewall_payload_logging_key_output,
+        "firewall_payload_logging_key_response_single": firewall_payload_logging_key_response_single_output,
       },
     },
     annotations: {
@@ -205,16 +230,18 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/firewall_payload_logging_key"
+          "$ref": "#/$defs/firewall_payload_logging_key_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/firewall_api-response-common-failure"
         }
       },
       $defs: {
+        "firewall_api-response-common": firewall_api_response_common_output,
         "firewall_api-response-common-failure": firewall_api_response_common_failure_output,
         "firewall_messages": firewall_messages_output,
         "firewall_payload_logging_key": firewall_payload_logging_key_output,
+        "firewall_payload_logging_key_response_single": firewall_payload_logging_key_response_single_output,
       },
     },
     request: (args) => ({

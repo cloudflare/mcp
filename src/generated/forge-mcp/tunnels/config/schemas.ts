@@ -62,8 +62,28 @@ export const tunnel_originRequest: JsonSchema = {
   "description": "Configuration parameters for the public hostname specific connection settings between cloudflared and origin server.",
   "properties": {
     "access": {
-      "$ref": "#/$defs/tunnel_originRequest_access",
-      "description": "For all L7 requests to this hostname, cloudflared will validate each request's Cf-Access-Jwt-Assertion request header."
+      "description": "For all L7 requests to this hostname, cloudflared will validate each request's Cf-Access-Jwt-Assertion request header.",
+      "properties": {
+        "audTag": {
+          "description": "Access applications that are allowed to reach this hostname for this Tunnel. Audience tags can be identified in the dashboard or via the List Access policies API.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "required": {
+          "description": "Deny traffic that has not fulfilled Access authorization.",
+          "type": "boolean"
+        },
+        "teamName": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "audTag",
+        "teamName"
+      ],
+      "type": "object"
     },
     "caPool": {
       "description": "Path to the certificate authority (CA) for the certificate of your origin. This option should be used only if your certificate is not signed by Cloudflare.",
@@ -122,33 +142,5 @@ export const tunnel_originRequest: JsonSchema = {
       "type": "integer"
     }
   },
-  "type": "object"
-};
-
-/**
- * The schema of `tunnel_originRequest_access`.
- */
-export const tunnel_originRequest_access: JsonSchema = {
-  "description": "For all L7 requests to this hostname, cloudflared will validate each request's Cf-Access-Jwt-Assertion request header.",
-  "properties": {
-    "audTag": {
-      "description": "Access applications that are allowed to reach this hostname for this Tunnel. Audience tags can be identified in the dashboard or via the List Access policies API.",
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "required": {
-      "description": "Deny traffic that has not fulfilled Access authorization.",
-      "type": "boolean"
-    },
-    "teamName": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "audTag",
-    "teamName"
-  ],
   "type": "object"
 };

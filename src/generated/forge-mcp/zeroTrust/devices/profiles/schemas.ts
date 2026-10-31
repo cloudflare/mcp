@@ -330,6 +330,13 @@ export const teams_devices_sccm_vpn_boundary_support: JsonSchema = {
 };
 
 /**
+ * The schema of `teams-devices_schemas-uuid`.
+ */
+export const teams_devices_schemas_uuid: JsonSchema = {
+  "type": "string"
+};
+
+/**
  * The schema of `teams-devices_service_mode_v2`.
  */
 export const teams_devices_service_mode_v2: JsonSchema = {

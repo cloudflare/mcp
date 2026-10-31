@@ -56,6 +56,14 @@ export const stream_end_time_seconds: JsonSchema = {
 };
 
 /**
+ * The schema of `stream_identifier`.
+ */
+export const stream_identifier: JsonSchema = {
+  "description": "A Cloudflare-generated unique identifier for a media item.",
+  "type": "string"
+};
+
+/**
  * The schema of `stream_maxDurationSeconds`.
  */
 export const stream_maxDurationSeconds: JsonSchema = {
@@ -294,7 +302,7 @@ export const stream_video_copy_request: JsonSchema = {
       "type": "string"
     },
     "watermark": {
-      "$ref": "#/$defs/stream_watermark_at_upload_alt"
+      "$ref": "#/$defs/stream_watermark_at_upload"
     }
   },
   "type": "object"
@@ -330,8 +338,50 @@ export const stream_video_update: JsonSchema = {
       "description": "A user modifiable key-value store used to reference other systems of record for managing videos."
     },
     "publicDetails": {
-      "$ref": "#/$defs/stream_video_update_publicDetails",
-      "description": "Public details for the video including title, share link, channel link, and logo."
+      "description": "Public details for the video including title, share link, channel link, and logo.",
+      "properties": {
+        "channel_link": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "logo": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "share_link": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "title": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object"
     },
     "requireSignedURLs": {
       "$ref": "#/$defs/stream_requireSignedURLs",
@@ -360,56 +410,6 @@ export const stream_video_update: JsonSchema = {
 };
 
 /**
- * The schema of `stream_video_update_publicDetails`.
- */
-export const stream_video_update_publicDetails: JsonSchema = {
-  "description": "Public details for the video including title, share link, channel link, and logo.",
-  "properties": {
-    "channel_link": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "logo": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "share_link": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "title": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    }
-  },
-  "type": "object"
-};
-
-/**
  * The schema of `stream_watermarkAtUpload`.
  */
 export const stream_watermarkAtUpload: JsonSchema = {
@@ -423,9 +423,9 @@ export const stream_watermarkAtUpload: JsonSchema = {
 };
 
 /**
- * The schema of `stream_watermark_at_upload_alt`.
+ * The schema of `stream_watermark_at_upload`.
  */
-export const stream_watermark_at_upload_alt: JsonSchema = {
+export const stream_watermark_at_upload: JsonSchema = {
   "properties": {
     "uid": {
       "description": "The unique identifier for the watermark profile.",

@@ -5,11 +5,10 @@ import { type Tool, pathParam } from "../_/tool.js";
 import {
   rulesets_Errors_output,
   rulesets_Message_output,
-  rulesets_Message_source_output,
   rulesets_Messages_output,
   rulesets_Response_output,
-  rulesets_Response_result_output,
 } from "../outputs.js";
+import { rulesets_ZoneId } from "../schemas.js";
 import {
   rulesets_ManagedTransformId_output,
   rulesets_ManagedTransform_output,
@@ -33,13 +32,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "description": "The unique ID of the zone.",
-          "type": "string"
+          "$ref": "#/$defs/rulesets_ZoneId",
+          "description": "The unique ID of the zone."
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "rulesets_ZoneId": rulesets_ZoneId,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -109,10 +111,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "rulesets_Errors": rulesets_Errors_output,
         "rulesets_Message": rulesets_Message_output,
-        "rulesets_Message_source": rulesets_Message_source_output,
         "rulesets_Messages": rulesets_Messages_output,
         "rulesets_Response": rulesets_Response_output,
-        "rulesets_Response_result": rulesets_Response_result_output,
       },
     },
     request: (args) => ({
@@ -127,13 +127,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "description": "The unique ID of the zone.",
-          "type": "string"
+          "$ref": "#/$defs/rulesets_ZoneId",
+          "description": "The unique ID of the zone."
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "rulesets_ZoneId": rulesets_ZoneId,
+      },
     },
     outputSchema: {
       "allOf": [
@@ -162,10 +165,8 @@ export const tools: readonly Tool[] = [
         "rulesets_ManagedTransformId": rulesets_ManagedTransformId_output,
         "rulesets_ManagedTransforms": rulesets_ManagedTransforms_output,
         "rulesets_Message": rulesets_Message_output,
-        "rulesets_Message_source": rulesets_Message_source_output,
         "rulesets_Messages": rulesets_Messages_output,
         "rulesets_Response": rulesets_Response_output,
-        "rulesets_Response_result": rulesets_Response_result_output,
       },
     },
     annotations: {
@@ -281,10 +282,8 @@ export const tools: readonly Tool[] = [
         "rulesets_ManagedTransformId": rulesets_ManagedTransformId_output,
         "rulesets_ManagedTransforms": rulesets_ManagedTransforms_output,
         "rulesets_Message": rulesets_Message_output,
-        "rulesets_Message_source": rulesets_Message_source_output,
         "rulesets_Messages": rulesets_Messages_output,
         "rulesets_Response": rulesets_Response_output,
-        "rulesets_Response_result": rulesets_Response_result_output,
       },
     },
     request: (args) => ({
@@ -302,8 +301,8 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/rulesets_ManagedTransformsPatch"
         },
         "zone_id": {
-          "description": "The unique ID of the zone.",
-          "type": "string"
+          "$ref": "#/$defs/rulesets_ZoneId",
+          "description": "The unique ID of the zone."
         }
       },
       required: [
@@ -314,6 +313,7 @@ export const tools: readonly Tool[] = [
         "rulesets_ManagedTransform": rulesets_ManagedTransform,
         "rulesets_ManagedTransformId": rulesets_ManagedTransformId,
         "rulesets_ManagedTransformsPatch": rulesets_ManagedTransformsPatch,
+        "rulesets_ZoneId": rulesets_ZoneId,
       },
     },
     outputSchema: {
@@ -343,10 +343,8 @@ export const tools: readonly Tool[] = [
         "rulesets_ManagedTransformId": rulesets_ManagedTransformId_output,
         "rulesets_ManagedTransforms": rulesets_ManagedTransforms_output,
         "rulesets_Message": rulesets_Message_output,
-        "rulesets_Message_source": rulesets_Message_source_output,
         "rulesets_Messages": rulesets_Messages_output,
         "rulesets_Response": rulesets_Response_output,
-        "rulesets_Response_result": rulesets_Response_result_output,
       },
     },
     annotations: {
@@ -441,10 +439,8 @@ export const tools: readonly Tool[] = [
         "rulesets_ManagedTransformId": rulesets_ManagedTransformId_output,
         "rulesets_ManagedTransforms": rulesets_ManagedTransforms_output,
         "rulesets_Message": rulesets_Message_output,
-        "rulesets_Message_source": rulesets_Message_source_output,
         "rulesets_Messages": rulesets_Messages_output,
         "rulesets_Response": rulesets_Response_output,
-        "rulesets_Response_result": rulesets_Response_result_output,
       },
     },
     request: (args) => ({

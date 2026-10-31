@@ -4,6 +4,25 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `workers-kv_api-response-collection` in responses.
+ */
+export const workers_kv_api_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/workers-kv_api-response-common"
+    },
+    {
+      "properties": {
+        "result_info": {
+          "$ref": "#/$defs/workers-kv_result_info"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `workers-kv_jurisdiction` in responses.
  */
 export const workers_kv_jurisdiction_output: JsonSchema = {
@@ -41,13 +60,6 @@ export const workers_kv_namespace_output: JsonSchema = {
     "title"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `workers-kv_namespace_identifier` in responses.
- */
-export const workers_kv_namespace_identifier_output: JsonSchema = {
-  "type": "string"
 };
 
 /**

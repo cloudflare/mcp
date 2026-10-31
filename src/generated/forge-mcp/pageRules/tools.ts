@@ -4,11 +4,16 @@
 import { type Tool, pathParam } from "../_/tool.js";
 import {
   zones_api_response_common_failure_2_output,
+  zones_identifier_2_output,
   zones_messages_2_output,
 } from "../outputs.js";
+import { zones_identifier_2 } from "../schemas.js";
 import {
   zones_actions_output,
   zones_always_use_https_output,
+  zones_api_response_common_2_output,
+  zones_api_response_single_id_2_output,
+  zones_api_response_single_output,
   zones_automatic_https_rewrites_output,
   zones_browser_cache_ttl_output,
   zones_browser_check_output,
@@ -16,14 +21,6 @@ import {
   zones_cache_by_device_type_output,
   zones_cache_deception_armor_output,
   zones_cache_key_fields_output,
-  zones_cache_key_fields_value_cookie_output,
-  zones_cache_key_fields_value_header_output,
-  zones_cache_key_fields_value_host_output,
-  zones_cache_key_fields_value_output,
-  zones_cache_key_fields_value_query_string_exclude_output,
-  zones_cache_key_fields_value_query_string_include_output,
-  zones_cache_key_fields_value_query_string_output,
-  zones_cache_key_fields_value_user_output,
   zones_cache_level_output,
   zones_cache_on_cookie_output,
   zones_cache_ttl_by_status_output,
@@ -37,7 +34,6 @@ import {
   zones_explicit_cache_control_output,
   zones_forwarding_url_output,
   zones_host_header_override_output,
-  zones_identifier_2_output,
   zones_ip_geolocation_output,
   zones_mirage_output,
   zones_modified_on_output,
@@ -71,14 +67,6 @@ import {
   zones_cache_by_device_type,
   zones_cache_deception_armor,
   zones_cache_key_fields,
-  zones_cache_key_fields_value,
-  zones_cache_key_fields_value_cookie,
-  zones_cache_key_fields_value_header,
-  zones_cache_key_fields_value_host,
-  zones_cache_key_fields_value_query_string,
-  zones_cache_key_fields_value_query_string_exclude,
-  zones_cache_key_fields_value_query_string_include,
-  zones_cache_key_fields_value_user,
   zones_cache_level,
   zones_cache_on_cookie,
   zones_cache_ttl_by_status,
@@ -152,8 +140,8 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/zones_identifier-2",
+          "description": "Identifier."
         }
       },
       required: [
@@ -170,14 +158,6 @@ export const tools: readonly Tool[] = [
         "zones_cache_by_device_type": zones_cache_by_device_type,
         "zones_cache_deception_armor": zones_cache_deception_armor,
         "zones_cache_key_fields": zones_cache_key_fields,
-        "zones_cache_key_fields_value": zones_cache_key_fields_value,
-        "zones_cache_key_fields_value_cookie": zones_cache_key_fields_value_cookie,
-        "zones_cache_key_fields_value_header": zones_cache_key_fields_value_header,
-        "zones_cache_key_fields_value_host": zones_cache_key_fields_value_host,
-        "zones_cache_key_fields_value_query_string": zones_cache_key_fields_value_query_string,
-        "zones_cache_key_fields_value_query_string_exclude": zones_cache_key_fields_value_query_string_exclude,
-        "zones_cache_key_fields_value_query_string_include": zones_cache_key_fields_value_query_string_include,
-        "zones_cache_key_fields_value_user": zones_cache_key_fields_value_user,
         "zones_cache_level": zones_cache_level,
         "zones_cache_on_cookie": zones_cache_on_cookie,
         "zones_cache_ttl_by_status": zones_cache_ttl_by_status,
@@ -190,6 +170,7 @@ export const tools: readonly Tool[] = [
         "zones_explicit_cache_control": zones_explicit_cache_control,
         "zones_forwarding_url": zones_forwarding_url,
         "zones_host_header_override": zones_host_header_override,
+        "zones_identifier-2": zones_identifier_2,
         "zones_ip_geolocation": zones_ip_geolocation,
         "zones_mirage": zones_mirage,
         "zones_opportunistic_encryption": zones_opportunistic_encryption,
@@ -213,10 +194,23 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/zones_page_rule",
+      "allOf": [
+        {
+          "$ref": "#/$defs/zones_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/zones_page_rule"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "zones_actions": zones_actions_output,
         "zones_always_use_https": zones_always_use_https_output,
+        "zones_api-response-single": zones_api_response_single_output,
         "zones_automatic_https_rewrites": zones_automatic_https_rewrites_output,
         "zones_browser_cache_ttl": zones_browser_cache_ttl_output,
         "zones_browser_check": zones_browser_check_output,
@@ -224,14 +218,6 @@ export const tools: readonly Tool[] = [
         "zones_cache_by_device_type": zones_cache_by_device_type_output,
         "zones_cache_deception_armor": zones_cache_deception_armor_output,
         "zones_cache_key_fields": zones_cache_key_fields_output,
-        "zones_cache_key_fields_value": zones_cache_key_fields_value_output,
-        "zones_cache_key_fields_value_cookie": zones_cache_key_fields_value_cookie_output,
-        "zones_cache_key_fields_value_header": zones_cache_key_fields_value_header_output,
-        "zones_cache_key_fields_value_host": zones_cache_key_fields_value_host_output,
-        "zones_cache_key_fields_value_query_string": zones_cache_key_fields_value_query_string_output,
-        "zones_cache_key_fields_value_query_string_exclude": zones_cache_key_fields_value_query_string_exclude_output,
-        "zones_cache_key_fields_value_query_string_include": zones_cache_key_fields_value_query_string_include_output,
-        "zones_cache_key_fields_value_user": zones_cache_key_fields_value_user_output,
         "zones_cache_level": zones_cache_level_output,
         "zones_cache_on_cookie": zones_cache_on_cookie_output,
         "zones_cache_ttl_by_status": zones_cache_ttl_by_status_output,
@@ -247,6 +233,7 @@ export const tools: readonly Tool[] = [
         "zones_host_header_override": zones_host_header_override_output,
         "zones_identifier-2": zones_identifier_2_output,
         "zones_ip_geolocation": zones_ip_geolocation_output,
+        "zones_messages-2": zones_messages_2_output,
         "zones_mirage": zones_mirage_output,
         "zones_modified_on": zones_modified_on_output,
         "zones_opportunistic_encryption": zones_opportunistic_encryption_output,
@@ -288,7 +275,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/zones_page_rule"
+          "allOf": [
+            {
+              "$ref": "#/$defs/zones_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/zones_page_rule"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/zones_api-response-common-failure-2"
@@ -298,6 +297,7 @@ export const tools: readonly Tool[] = [
         "zones_actions": zones_actions_output,
         "zones_always_use_https": zones_always_use_https_output,
         "zones_api-response-common-failure-2": zones_api_response_common_failure_2_output,
+        "zones_api-response-single": zones_api_response_single_output,
         "zones_automatic_https_rewrites": zones_automatic_https_rewrites_output,
         "zones_browser_cache_ttl": zones_browser_cache_ttl_output,
         "zones_browser_check": zones_browser_check_output,
@@ -305,14 +305,6 @@ export const tools: readonly Tool[] = [
         "zones_cache_by_device_type": zones_cache_by_device_type_output,
         "zones_cache_deception_armor": zones_cache_deception_armor_output,
         "zones_cache_key_fields": zones_cache_key_fields_output,
-        "zones_cache_key_fields_value": zones_cache_key_fields_value_output,
-        "zones_cache_key_fields_value_cookie": zones_cache_key_fields_value_cookie_output,
-        "zones_cache_key_fields_value_header": zones_cache_key_fields_value_header_output,
-        "zones_cache_key_fields_value_host": zones_cache_key_fields_value_host_output,
-        "zones_cache_key_fields_value_query_string": zones_cache_key_fields_value_query_string_output,
-        "zones_cache_key_fields_value_query_string_exclude": zones_cache_key_fields_value_query_string_exclude_output,
-        "zones_cache_key_fields_value_query_string_include": zones_cache_key_fields_value_query_string_include_output,
-        "zones_cache_key_fields_value_user": zones_cache_key_fields_value_user_output,
         "zones_cache_level": zones_cache_level_output,
         "zones_cache_on_cookie": zones_cache_on_cookie_output,
         "zones_cache_ttl_by_status": zones_cache_ttl_by_status_output,
@@ -365,38 +357,29 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "pagerule_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/zones_identifier-2",
+          "description": "Identifier."
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/zones_identifier-2",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id",
         "pagerule_id"
       ],
+      $defs: {
+        "zones_identifier-2": zones_identifier_2,
+      },
     },
     outputSchema: {
-      "oneOf": [
-        {
-          "properties": {
-            "id": {
-              "$ref": "#/$defs/zones_identifier-2"
-            }
-          },
-          "required": [
-            "id"
-          ],
-          "type": "object"
-        },
-        {
-          "type": "null"
-        }
-      ],
+      "$ref": "#/$defs/zones_api-response-single-id-2",
       $defs: {
+        "zones_api-response-common-2": zones_api_response_common_2_output,
+        "zones_api-response-single-id-2": zones_api_response_single_id_2_output,
         "zones_identifier-2": zones_identifier_2_output,
+        "zones_messages-2": zones_messages_2_output,
       },
     },
     annotations: {
@@ -417,29 +400,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "oneOf": [
-            {
-              "properties": {
-                "id": {
-                  "$ref": "#/$defs/zones_identifier-2"
-                }
-              },
-              "required": [
-                "id"
-              ],
-              "type": "object"
-            },
-            {
-              "type": "null"
-            }
-          ]
+          "$ref": "#/$defs/zones_api-response-single-id-2"
         },
         "4XX": {
           "$ref": "#/$defs/zones_api-response-common-failure-2"
         }
       },
       $defs: {
+        "zones_api-response-common-2": zones_api_response_common_2_output,
         "zones_api-response-common-failure-2": zones_api_response_common_failure_2_output,
+        "zones_api-response-single-id-2": zones_api_response_single_id_2_output,
         "zones_identifier-2": zones_identifier_2_output,
         "zones_messages-2": zones_messages_2_output,
       },
@@ -479,12 +449,12 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "pagerule_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/zones_identifier-2",
+          "description": "Identifier."
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/zones_identifier-2",
+          "description": "Identifier."
         }
       },
       required: [
@@ -502,14 +472,6 @@ export const tools: readonly Tool[] = [
         "zones_cache_by_device_type": zones_cache_by_device_type,
         "zones_cache_deception_armor": zones_cache_deception_armor,
         "zones_cache_key_fields": zones_cache_key_fields,
-        "zones_cache_key_fields_value": zones_cache_key_fields_value,
-        "zones_cache_key_fields_value_cookie": zones_cache_key_fields_value_cookie,
-        "zones_cache_key_fields_value_header": zones_cache_key_fields_value_header,
-        "zones_cache_key_fields_value_host": zones_cache_key_fields_value_host,
-        "zones_cache_key_fields_value_query_string": zones_cache_key_fields_value_query_string,
-        "zones_cache_key_fields_value_query_string_exclude": zones_cache_key_fields_value_query_string_exclude,
-        "zones_cache_key_fields_value_query_string_include": zones_cache_key_fields_value_query_string_include,
-        "zones_cache_key_fields_value_user": zones_cache_key_fields_value_user,
         "zones_cache_level": zones_cache_level,
         "zones_cache_on_cookie": zones_cache_on_cookie,
         "zones_cache_ttl_by_status": zones_cache_ttl_by_status,
@@ -522,6 +484,7 @@ export const tools: readonly Tool[] = [
         "zones_explicit_cache_control": zones_explicit_cache_control,
         "zones_forwarding_url": zones_forwarding_url,
         "zones_host_header_override": zones_host_header_override,
+        "zones_identifier-2": zones_identifier_2,
         "zones_ip_geolocation": zones_ip_geolocation,
         "zones_mirage": zones_mirage,
         "zones_opportunistic_encryption": zones_opportunistic_encryption,
@@ -545,10 +508,23 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/zones_page_rule",
+      "allOf": [
+        {
+          "$ref": "#/$defs/zones_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/zones_page_rule"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "zones_actions": zones_actions_output,
         "zones_always_use_https": zones_always_use_https_output,
+        "zones_api-response-single": zones_api_response_single_output,
         "zones_automatic_https_rewrites": zones_automatic_https_rewrites_output,
         "zones_browser_cache_ttl": zones_browser_cache_ttl_output,
         "zones_browser_check": zones_browser_check_output,
@@ -556,14 +532,6 @@ export const tools: readonly Tool[] = [
         "zones_cache_by_device_type": zones_cache_by_device_type_output,
         "zones_cache_deception_armor": zones_cache_deception_armor_output,
         "zones_cache_key_fields": zones_cache_key_fields_output,
-        "zones_cache_key_fields_value": zones_cache_key_fields_value_output,
-        "zones_cache_key_fields_value_cookie": zones_cache_key_fields_value_cookie_output,
-        "zones_cache_key_fields_value_header": zones_cache_key_fields_value_header_output,
-        "zones_cache_key_fields_value_host": zones_cache_key_fields_value_host_output,
-        "zones_cache_key_fields_value_query_string": zones_cache_key_fields_value_query_string_output,
-        "zones_cache_key_fields_value_query_string_exclude": zones_cache_key_fields_value_query_string_exclude_output,
-        "zones_cache_key_fields_value_query_string_include": zones_cache_key_fields_value_query_string_include_output,
-        "zones_cache_key_fields_value_user": zones_cache_key_fields_value_user_output,
         "zones_cache_level": zones_cache_level_output,
         "zones_cache_on_cookie": zones_cache_on_cookie_output,
         "zones_cache_ttl_by_status": zones_cache_ttl_by_status_output,
@@ -579,6 +547,7 @@ export const tools: readonly Tool[] = [
         "zones_host_header_override": zones_host_header_override_output,
         "zones_identifier-2": zones_identifier_2_output,
         "zones_ip_geolocation": zones_ip_geolocation_output,
+        "zones_messages-2": zones_messages_2_output,
         "zones_mirage": zones_mirage_output,
         "zones_modified_on": zones_modified_on_output,
         "zones_opportunistic_encryption": zones_opportunistic_encryption_output,
@@ -620,7 +589,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/zones_page_rule"
+          "allOf": [
+            {
+              "$ref": "#/$defs/zones_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/zones_page_rule"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/zones_api-response-common-failure-2"
@@ -630,6 +611,7 @@ export const tools: readonly Tool[] = [
         "zones_actions": zones_actions_output,
         "zones_always_use_https": zones_always_use_https_output,
         "zones_api-response-common-failure-2": zones_api_response_common_failure_2_output,
+        "zones_api-response-single": zones_api_response_single_output,
         "zones_automatic_https_rewrites": zones_automatic_https_rewrites_output,
         "zones_browser_cache_ttl": zones_browser_cache_ttl_output,
         "zones_browser_check": zones_browser_check_output,
@@ -637,14 +619,6 @@ export const tools: readonly Tool[] = [
         "zones_cache_by_device_type": zones_cache_by_device_type_output,
         "zones_cache_deception_armor": zones_cache_deception_armor_output,
         "zones_cache_key_fields": zones_cache_key_fields_output,
-        "zones_cache_key_fields_value": zones_cache_key_fields_value_output,
-        "zones_cache_key_fields_value_cookie": zones_cache_key_fields_value_cookie_output,
-        "zones_cache_key_fields_value_header": zones_cache_key_fields_value_header_output,
-        "zones_cache_key_fields_value_host": zones_cache_key_fields_value_host_output,
-        "zones_cache_key_fields_value_query_string": zones_cache_key_fields_value_query_string_output,
-        "zones_cache_key_fields_value_query_string_exclude": zones_cache_key_fields_value_query_string_exclude_output,
-        "zones_cache_key_fields_value_query_string_include": zones_cache_key_fields_value_query_string_include_output,
-        "zones_cache_key_fields_value_user": zones_cache_key_fields_value_user_output,
         "zones_cache_level": zones_cache_level_output,
         "zones_cache_on_cookie": zones_cache_on_cookie_output,
         "zones_cache_ttl_by_status": zones_cache_ttl_by_status_output,
@@ -697,24 +671,40 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "pagerule_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/zones_identifier-2",
+          "description": "Identifier."
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/zones_identifier-2",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id",
         "pagerule_id"
       ],
+      $defs: {
+        "zones_identifier-2": zones_identifier_2,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/zones_page_rule",
+      "allOf": [
+        {
+          "$ref": "#/$defs/zones_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/zones_page_rule"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "zones_actions": zones_actions_output,
         "zones_always_use_https": zones_always_use_https_output,
+        "zones_api-response-single": zones_api_response_single_output,
         "zones_automatic_https_rewrites": zones_automatic_https_rewrites_output,
         "zones_browser_cache_ttl": zones_browser_cache_ttl_output,
         "zones_browser_check": zones_browser_check_output,
@@ -722,14 +712,6 @@ export const tools: readonly Tool[] = [
         "zones_cache_by_device_type": zones_cache_by_device_type_output,
         "zones_cache_deception_armor": zones_cache_deception_armor_output,
         "zones_cache_key_fields": zones_cache_key_fields_output,
-        "zones_cache_key_fields_value": zones_cache_key_fields_value_output,
-        "zones_cache_key_fields_value_cookie": zones_cache_key_fields_value_cookie_output,
-        "zones_cache_key_fields_value_header": zones_cache_key_fields_value_header_output,
-        "zones_cache_key_fields_value_host": zones_cache_key_fields_value_host_output,
-        "zones_cache_key_fields_value_query_string": zones_cache_key_fields_value_query_string_output,
-        "zones_cache_key_fields_value_query_string_exclude": zones_cache_key_fields_value_query_string_exclude_output,
-        "zones_cache_key_fields_value_query_string_include": zones_cache_key_fields_value_query_string_include_output,
-        "zones_cache_key_fields_value_user": zones_cache_key_fields_value_user_output,
         "zones_cache_level": zones_cache_level_output,
         "zones_cache_on_cookie": zones_cache_on_cookie_output,
         "zones_cache_ttl_by_status": zones_cache_ttl_by_status_output,
@@ -745,6 +727,7 @@ export const tools: readonly Tool[] = [
         "zones_host_header_override": zones_host_header_override_output,
         "zones_identifier-2": zones_identifier_2_output,
         "zones_ip_geolocation": zones_ip_geolocation_output,
+        "zones_messages-2": zones_messages_2_output,
         "zones_mirage": zones_mirage_output,
         "zones_modified_on": zones_modified_on_output,
         "zones_opportunistic_encryption": zones_opportunistic_encryption_output,
@@ -823,7 +806,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/zones_page_rule"
+          "allOf": [
+            {
+              "$ref": "#/$defs/zones_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/zones_page_rule"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/zones_api-response-common-failure-2"
@@ -833,6 +828,7 @@ export const tools: readonly Tool[] = [
         "zones_actions": zones_actions_output,
         "zones_always_use_https": zones_always_use_https_output,
         "zones_api-response-common-failure-2": zones_api_response_common_failure_2_output,
+        "zones_api-response-single": zones_api_response_single_output,
         "zones_automatic_https_rewrites": zones_automatic_https_rewrites_output,
         "zones_browser_cache_ttl": zones_browser_cache_ttl_output,
         "zones_browser_check": zones_browser_check_output,
@@ -840,14 +836,6 @@ export const tools: readonly Tool[] = [
         "zones_cache_by_device_type": zones_cache_by_device_type_output,
         "zones_cache_deception_armor": zones_cache_deception_armor_output,
         "zones_cache_key_fields": zones_cache_key_fields_output,
-        "zones_cache_key_fields_value": zones_cache_key_fields_value_output,
-        "zones_cache_key_fields_value_cookie": zones_cache_key_fields_value_cookie_output,
-        "zones_cache_key_fields_value_header": zones_cache_key_fields_value_header_output,
-        "zones_cache_key_fields_value_host": zones_cache_key_fields_value_host_output,
-        "zones_cache_key_fields_value_query_string": zones_cache_key_fields_value_query_string_output,
-        "zones_cache_key_fields_value_query_string_exclude": zones_cache_key_fields_value_query_string_exclude_output,
-        "zones_cache_key_fields_value_query_string_include": zones_cache_key_fields_value_query_string_include_output,
-        "zones_cache_key_fields_value_user": zones_cache_key_fields_value_user_output,
         "zones_cache_level": zones_cache_level_output,
         "zones_cache_on_cookie": zones_cache_on_cookie_output,
         "zones_cache_ttl_by_status": zones_cache_ttl_by_status_output,
@@ -935,33 +923,38 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/zones_identifier-2",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "zones_identifier-2": zones_identifier_2,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/zones_page_rule"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/zones_api-response-common-2"
         },
-        "result_info": {
+        {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/zones_page_rule"
+              },
+              "type": "array"
+            }
+          },
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
         "zones_actions": zones_actions_output,
         "zones_always_use_https": zones_always_use_https_output,
+        "zones_api-response-common-2": zones_api_response_common_2_output,
         "zones_automatic_https_rewrites": zones_automatic_https_rewrites_output,
         "zones_browser_cache_ttl": zones_browser_cache_ttl_output,
         "zones_browser_check": zones_browser_check_output,
@@ -969,14 +962,6 @@ export const tools: readonly Tool[] = [
         "zones_cache_by_device_type": zones_cache_by_device_type_output,
         "zones_cache_deception_armor": zones_cache_deception_armor_output,
         "zones_cache_key_fields": zones_cache_key_fields_output,
-        "zones_cache_key_fields_value": zones_cache_key_fields_value_output,
-        "zones_cache_key_fields_value_cookie": zones_cache_key_fields_value_cookie_output,
-        "zones_cache_key_fields_value_header": zones_cache_key_fields_value_header_output,
-        "zones_cache_key_fields_value_host": zones_cache_key_fields_value_host_output,
-        "zones_cache_key_fields_value_query_string": zones_cache_key_fields_value_query_string_output,
-        "zones_cache_key_fields_value_query_string_exclude": zones_cache_key_fields_value_query_string_exclude_output,
-        "zones_cache_key_fields_value_query_string_include": zones_cache_key_fields_value_query_string_include_output,
-        "zones_cache_key_fields_value_user": zones_cache_key_fields_value_user_output,
         "zones_cache_level": zones_cache_level_output,
         "zones_cache_on_cookie": zones_cache_on_cookie_output,
         "zones_cache_ttl_by_status": zones_cache_ttl_by_status_output,
@@ -992,6 +977,7 @@ export const tools: readonly Tool[] = [
         "zones_host_header_override": zones_host_header_override_output,
         "zones_identifier-2": zones_identifier_2_output,
         "zones_ip_geolocation": zones_ip_geolocation_output,
+        "zones_messages-2": zones_messages_2_output,
         "zones_mirage": zones_mirage_output,
         "zones_modified_on": zones_modified_on_output,
         "zones_opportunistic_encryption": zones_opportunistic_encryption_output,
@@ -1035,21 +1021,22 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/zones_page_rule"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/zones_api-response-common-2"
             },
-            "result_info": {
+            {
+              "properties": {
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/zones_page_rule"
+                  },
+                  "type": "array"
+                }
+              },
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/zones_api-response-common-failure-2"
@@ -1058,6 +1045,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "zones_actions": zones_actions_output,
         "zones_always_use_https": zones_always_use_https_output,
+        "zones_api-response-common-2": zones_api_response_common_2_output,
         "zones_api-response-common-failure-2": zones_api_response_common_failure_2_output,
         "zones_automatic_https_rewrites": zones_automatic_https_rewrites_output,
         "zones_browser_cache_ttl": zones_browser_cache_ttl_output,
@@ -1066,14 +1054,6 @@ export const tools: readonly Tool[] = [
         "zones_cache_by_device_type": zones_cache_by_device_type_output,
         "zones_cache_deception_armor": zones_cache_deception_armor_output,
         "zones_cache_key_fields": zones_cache_key_fields_output,
-        "zones_cache_key_fields_value": zones_cache_key_fields_value_output,
-        "zones_cache_key_fields_value_cookie": zones_cache_key_fields_value_cookie_output,
-        "zones_cache_key_fields_value_header": zones_cache_key_fields_value_header_output,
-        "zones_cache_key_fields_value_host": zones_cache_key_fields_value_host_output,
-        "zones_cache_key_fields_value_query_string": zones_cache_key_fields_value_query_string_output,
-        "zones_cache_key_fields_value_query_string_exclude": zones_cache_key_fields_value_query_string_exclude_output,
-        "zones_cache_key_fields_value_query_string_include": zones_cache_key_fields_value_query_string_include_output,
-        "zones_cache_key_fields_value_user": zones_cache_key_fields_value_user_output,
         "zones_cache_level": zones_cache_level_output,
         "zones_cache_on_cookie": zones_cache_on_cookie_output,
         "zones_cache_ttl_by_status": zones_cache_ttl_by_status_output,
@@ -1158,12 +1138,12 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "pagerule_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/zones_identifier-2",
+          "description": "Identifier."
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/zones_identifier-2",
+          "description": "Identifier."
         }
       },
       required: [
@@ -1181,14 +1161,6 @@ export const tools: readonly Tool[] = [
         "zones_cache_by_device_type": zones_cache_by_device_type,
         "zones_cache_deception_armor": zones_cache_deception_armor,
         "zones_cache_key_fields": zones_cache_key_fields,
-        "zones_cache_key_fields_value": zones_cache_key_fields_value,
-        "zones_cache_key_fields_value_cookie": zones_cache_key_fields_value_cookie,
-        "zones_cache_key_fields_value_header": zones_cache_key_fields_value_header,
-        "zones_cache_key_fields_value_host": zones_cache_key_fields_value_host,
-        "zones_cache_key_fields_value_query_string": zones_cache_key_fields_value_query_string,
-        "zones_cache_key_fields_value_query_string_exclude": zones_cache_key_fields_value_query_string_exclude,
-        "zones_cache_key_fields_value_query_string_include": zones_cache_key_fields_value_query_string_include,
-        "zones_cache_key_fields_value_user": zones_cache_key_fields_value_user,
         "zones_cache_level": zones_cache_level,
         "zones_cache_on_cookie": zones_cache_on_cookie,
         "zones_cache_ttl_by_status": zones_cache_ttl_by_status,
@@ -1201,6 +1173,7 @@ export const tools: readonly Tool[] = [
         "zones_explicit_cache_control": zones_explicit_cache_control,
         "zones_forwarding_url": zones_forwarding_url,
         "zones_host_header_override": zones_host_header_override,
+        "zones_identifier-2": zones_identifier_2,
         "zones_ip_geolocation": zones_ip_geolocation,
         "zones_mirage": zones_mirage,
         "zones_opportunistic_encryption": zones_opportunistic_encryption,
@@ -1224,10 +1197,23 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/zones_page_rule",
+      "allOf": [
+        {
+          "$ref": "#/$defs/zones_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/zones_page_rule"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "zones_actions": zones_actions_output,
         "zones_always_use_https": zones_always_use_https_output,
+        "zones_api-response-single": zones_api_response_single_output,
         "zones_automatic_https_rewrites": zones_automatic_https_rewrites_output,
         "zones_browser_cache_ttl": zones_browser_cache_ttl_output,
         "zones_browser_check": zones_browser_check_output,
@@ -1235,14 +1221,6 @@ export const tools: readonly Tool[] = [
         "zones_cache_by_device_type": zones_cache_by_device_type_output,
         "zones_cache_deception_armor": zones_cache_deception_armor_output,
         "zones_cache_key_fields": zones_cache_key_fields_output,
-        "zones_cache_key_fields_value": zones_cache_key_fields_value_output,
-        "zones_cache_key_fields_value_cookie": zones_cache_key_fields_value_cookie_output,
-        "zones_cache_key_fields_value_header": zones_cache_key_fields_value_header_output,
-        "zones_cache_key_fields_value_host": zones_cache_key_fields_value_host_output,
-        "zones_cache_key_fields_value_query_string": zones_cache_key_fields_value_query_string_output,
-        "zones_cache_key_fields_value_query_string_exclude": zones_cache_key_fields_value_query_string_exclude_output,
-        "zones_cache_key_fields_value_query_string_include": zones_cache_key_fields_value_query_string_include_output,
-        "zones_cache_key_fields_value_user": zones_cache_key_fields_value_user_output,
         "zones_cache_level": zones_cache_level_output,
         "zones_cache_on_cookie": zones_cache_on_cookie_output,
         "zones_cache_ttl_by_status": zones_cache_ttl_by_status_output,
@@ -1258,6 +1236,7 @@ export const tools: readonly Tool[] = [
         "zones_host_header_override": zones_host_header_override_output,
         "zones_identifier-2": zones_identifier_2_output,
         "zones_ip_geolocation": zones_ip_geolocation_output,
+        "zones_messages-2": zones_messages_2_output,
         "zones_mirage": zones_mirage_output,
         "zones_modified_on": zones_modified_on_output,
         "zones_opportunistic_encryption": zones_opportunistic_encryption_output,
@@ -1299,7 +1278,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/zones_page_rule"
+          "allOf": [
+            {
+              "$ref": "#/$defs/zones_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/zones_page_rule"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/zones_api-response-common-failure-2"
@@ -1309,6 +1300,7 @@ export const tools: readonly Tool[] = [
         "zones_actions": zones_actions_output,
         "zones_always_use_https": zones_always_use_https_output,
         "zones_api-response-common-failure-2": zones_api_response_common_failure_2_output,
+        "zones_api-response-single": zones_api_response_single_output,
         "zones_automatic_https_rewrites": zones_automatic_https_rewrites_output,
         "zones_browser_cache_ttl": zones_browser_cache_ttl_output,
         "zones_browser_check": zones_browser_check_output,
@@ -1316,14 +1308,6 @@ export const tools: readonly Tool[] = [
         "zones_cache_by_device_type": zones_cache_by_device_type_output,
         "zones_cache_deception_armor": zones_cache_deception_armor_output,
         "zones_cache_key_fields": zones_cache_key_fields_output,
-        "zones_cache_key_fields_value": zones_cache_key_fields_value_output,
-        "zones_cache_key_fields_value_cookie": zones_cache_key_fields_value_cookie_output,
-        "zones_cache_key_fields_value_header": zones_cache_key_fields_value_header_output,
-        "zones_cache_key_fields_value_host": zones_cache_key_fields_value_host_output,
-        "zones_cache_key_fields_value_query_string": zones_cache_key_fields_value_query_string_output,
-        "zones_cache_key_fields_value_query_string_exclude": zones_cache_key_fields_value_query_string_exclude_output,
-        "zones_cache_key_fields_value_query_string_include": zones_cache_key_fields_value_query_string_include_output,
-        "zones_cache_key_fields_value_user": zones_cache_key_fields_value_user_output,
         "zones_cache_level": zones_cache_level_output,
         "zones_cache_on_cookie": zones_cache_on_cookie_output,
         "zones_cache_ttl_by_status": zones_cache_ttl_by_status_output,

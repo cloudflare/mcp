@@ -3,9 +3,13 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  magic_visibility_pcaps_api_response_collection_output,
   magic_visibility_pcaps_api_response_common_failure_output,
+  magic_visibility_pcaps_api_response_common_output,
+  magic_visibility_pcaps_api_response_single_output,
   magic_visibility_pcaps_messages_output,
   magic_visibility_pcaps_pcaps_byte_limit_output,
+  magic_visibility_pcaps_pcaps_collection_response_output,
   magic_visibility_pcaps_pcaps_colo_name_output,
   magic_visibility_pcaps_pcaps_destination_conf_output,
   magic_visibility_pcaps_pcaps_error_message_output,
@@ -15,6 +19,7 @@ import {
   magic_visibility_pcaps_pcaps_packets_captured_output,
   magic_visibility_pcaps_pcaps_response_full_output,
   magic_visibility_pcaps_pcaps_response_simple_output,
+  magic_visibility_pcaps_pcaps_single_response_output,
   magic_visibility_pcaps_pcaps_status_output,
   magic_visibility_pcaps_pcaps_stop_requested_output,
   magic_visibility_pcaps_pcaps_submitted_output,
@@ -25,6 +30,7 @@ import {
   magic_visibility_pcaps_result_info_output,
 } from "./outputs.js";
 import {
+  magic_visibility_pcaps_identifier,
   magic_visibility_pcaps_pcaps_byte_limit,
   magic_visibility_pcaps_pcaps_colo_name,
   magic_visibility_pcaps_pcaps_destination_conf,
@@ -52,8 +58,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/magic-visibility-pcaps_identifier",
+          "description": "Identifier."
         },
         "body": {
           "$ref": "#/$defs/magic-visibility-pcaps_pcaps_request_pcap"
@@ -64,6 +70,7 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "magic-visibility-pcaps_identifier": magic_visibility_pcaps_identifier,
         "magic-visibility-pcaps_pcaps_byte_limit": magic_visibility_pcaps_pcaps_byte_limit,
         "magic-visibility-pcaps_pcaps_colo_name": magic_visibility_pcaps_pcaps_colo_name,
         "magic-visibility-pcaps_pcaps_destination_conf": magic_visibility_pcaps_pcaps_destination_conf,
@@ -80,15 +87,11 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "anyOf": [
-        {
-          "$ref": "#/$defs/magic-visibility-pcaps_pcaps_response_simple"
-        },
-        {
-          "$ref": "#/$defs/magic-visibility-pcaps_pcaps_response_full"
-        }
-      ],
+      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_single_response",
       $defs: {
+        "magic-visibility-pcaps_api-response-common": magic_visibility_pcaps_api_response_common_output,
+        "magic-visibility-pcaps_api-response-single": magic_visibility_pcaps_api_response_single_output,
+        "magic-visibility-pcaps_messages": magic_visibility_pcaps_messages_output,
         "magic-visibility-pcaps_pcaps_byte_limit": magic_visibility_pcaps_pcaps_byte_limit_output,
         "magic-visibility-pcaps_pcaps_colo_name": magic_visibility_pcaps_pcaps_colo_name_output,
         "magic-visibility-pcaps_pcaps_destination_conf": magic_visibility_pcaps_pcaps_destination_conf_output,
@@ -99,6 +102,7 @@ export const tools: readonly Tool[] = [
         "magic-visibility-pcaps_pcaps_packets_captured": magic_visibility_pcaps_pcaps_packets_captured_output,
         "magic-visibility-pcaps_pcaps_response_full": magic_visibility_pcaps_pcaps_response_full_output,
         "magic-visibility-pcaps_pcaps_response_simple": magic_visibility_pcaps_pcaps_response_simple_output,
+        "magic-visibility-pcaps_pcaps_single_response": magic_visibility_pcaps_pcaps_single_response_output,
         "magic-visibility-pcaps_pcaps_status": magic_visibility_pcaps_pcaps_status_output,
         "magic-visibility-pcaps_pcaps_stop_requested": magic_visibility_pcaps_pcaps_stop_requested_output,
         "magic-visibility-pcaps_pcaps_submitted": magic_visibility_pcaps_pcaps_submitted_output,
@@ -131,14 +135,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/magic-visibility-pcaps_pcaps_response_simple"
-            },
-            {
-              "$ref": "#/$defs/magic-visibility-pcaps_pcaps_response_full"
-            }
-          ]
+          "$ref": "#/$defs/magic-visibility-pcaps_pcaps_single_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic-visibility-pcaps_api-response-common-failure"
@@ -148,7 +145,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "magic-visibility-pcaps_api-response-common": magic_visibility_pcaps_api_response_common_output,
         "magic-visibility-pcaps_api-response-common-failure": magic_visibility_pcaps_api_response_common_failure_output,
+        "magic-visibility-pcaps_api-response-single": magic_visibility_pcaps_api_response_single_output,
         "magic-visibility-pcaps_messages": magic_visibility_pcaps_messages_output,
         "magic-visibility-pcaps_pcaps_byte_limit": magic_visibility_pcaps_pcaps_byte_limit_output,
         "magic-visibility-pcaps_pcaps_colo_name": magic_visibility_pcaps_pcaps_colo_name_output,
@@ -160,6 +159,7 @@ export const tools: readonly Tool[] = [
         "magic-visibility-pcaps_pcaps_packets_captured": magic_visibility_pcaps_pcaps_packets_captured_output,
         "magic-visibility-pcaps_pcaps_response_full": magic_visibility_pcaps_pcaps_response_full_output,
         "magic-visibility-pcaps_pcaps_response_simple": magic_visibility_pcaps_pcaps_response_simple_output,
+        "magic-visibility-pcaps_pcaps_single_response": magic_visibility_pcaps_pcaps_single_response_output,
         "magic-visibility-pcaps_pcaps_status": magic_visibility_pcaps_pcaps_status_output,
         "magic-visibility-pcaps_pcaps_stop_requested": magic_visibility_pcaps_pcaps_stop_requested_output,
         "magic-visibility-pcaps_pcaps_submitted": magic_visibility_pcaps_pcaps_submitted_output,
@@ -182,29 +182,28 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/magic-visibility-pcaps_identifier",
+          "description": "Identifier."
         },
         "pcap_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/magic-visibility-pcaps_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "account_id",
         "pcap_id"
       ],
+      $defs: {
+        "magic-visibility-pcaps_identifier": magic_visibility_pcaps_identifier,
+      },
     },
     outputSchema: {
-      "anyOf": [
-        {
-          "$ref": "#/$defs/magic-visibility-pcaps_pcaps_response_simple"
-        },
-        {
-          "$ref": "#/$defs/magic-visibility-pcaps_pcaps_response_full"
-        }
-      ],
+      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_single_response",
       $defs: {
+        "magic-visibility-pcaps_api-response-common": magic_visibility_pcaps_api_response_common_output,
+        "magic-visibility-pcaps_api-response-single": magic_visibility_pcaps_api_response_single_output,
+        "magic-visibility-pcaps_messages": magic_visibility_pcaps_messages_output,
         "magic-visibility-pcaps_pcaps_byte_limit": magic_visibility_pcaps_pcaps_byte_limit_output,
         "magic-visibility-pcaps_pcaps_colo_name": magic_visibility_pcaps_pcaps_colo_name_output,
         "magic-visibility-pcaps_pcaps_destination_conf": magic_visibility_pcaps_pcaps_destination_conf_output,
@@ -215,6 +214,7 @@ export const tools: readonly Tool[] = [
         "magic-visibility-pcaps_pcaps_packets_captured": magic_visibility_pcaps_pcaps_packets_captured_output,
         "magic-visibility-pcaps_pcaps_response_full": magic_visibility_pcaps_pcaps_response_full_output,
         "magic-visibility-pcaps_pcaps_response_simple": magic_visibility_pcaps_pcaps_response_simple_output,
+        "magic-visibility-pcaps_pcaps_single_response": magic_visibility_pcaps_pcaps_single_response_output,
         "magic-visibility-pcaps_pcaps_status": magic_visibility_pcaps_pcaps_status_output,
         "magic-visibility-pcaps_pcaps_stop_requested": magic_visibility_pcaps_pcaps_stop_requested_output,
         "magic-visibility-pcaps_pcaps_submitted": magic_visibility_pcaps_pcaps_submitted_output,
@@ -248,14 +248,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/magic-visibility-pcaps_pcaps_response_simple"
-            },
-            {
-              "$ref": "#/$defs/magic-visibility-pcaps_pcaps_response_full"
-            }
-          ]
+          "$ref": "#/$defs/magic-visibility-pcaps_pcaps_single_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic-visibility-pcaps_api-response-common-failure"
@@ -265,7 +258,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "magic-visibility-pcaps_api-response-common": magic_visibility_pcaps_api_response_common_output,
         "magic-visibility-pcaps_api-response-common-failure": magic_visibility_pcaps_api_response_common_failure_output,
+        "magic-visibility-pcaps_api-response-single": magic_visibility_pcaps_api_response_single_output,
         "magic-visibility-pcaps_messages": magic_visibility_pcaps_messages_output,
         "magic-visibility-pcaps_pcaps_byte_limit": magic_visibility_pcaps_pcaps_byte_limit_output,
         "magic-visibility-pcaps_pcaps_colo_name": magic_visibility_pcaps_pcaps_colo_name_output,
@@ -277,6 +272,7 @@ export const tools: readonly Tool[] = [
         "magic-visibility-pcaps_pcaps_packets_captured": magic_visibility_pcaps_pcaps_packets_captured_output,
         "magic-visibility-pcaps_pcaps_response_full": magic_visibility_pcaps_pcaps_response_full_output,
         "magic-visibility-pcaps_pcaps_response_simple": magic_visibility_pcaps_pcaps_response_simple_output,
+        "magic-visibility-pcaps_pcaps_single_response": magic_visibility_pcaps_pcaps_single_response_output,
         "magic-visibility-pcaps_pcaps_status": magic_visibility_pcaps_pcaps_status_output,
         "magic-visibility-pcaps_pcaps_stop_requested": magic_visibility_pcaps_pcaps_stop_requested_output,
         "magic-visibility-pcaps_pcaps_submitted": magic_visibility_pcaps_pcaps_submitted_output,
@@ -298,39 +294,25 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/magic-visibility-pcaps_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "magic-visibility-pcaps_identifier": magic_visibility_pcaps_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "anyOf": [
-              {
-                "$ref": "#/$defs/magic-visibility-pcaps_pcaps_response_simple"
-              },
-              {
-                "$ref": "#/$defs/magic-visibility-pcaps_pcaps_response_full"
-              }
-            ]
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "$ref": "#/$defs/magic-visibility-pcaps_result_info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_collection_response",
       $defs: {
+        "magic-visibility-pcaps_api-response-collection": magic_visibility_pcaps_api_response_collection_output,
+        "magic-visibility-pcaps_api-response-common": magic_visibility_pcaps_api_response_common_output,
+        "magic-visibility-pcaps_messages": magic_visibility_pcaps_messages_output,
         "magic-visibility-pcaps_pcaps_byte_limit": magic_visibility_pcaps_pcaps_byte_limit_output,
+        "magic-visibility-pcaps_pcaps_collection_response": magic_visibility_pcaps_pcaps_collection_response_output,
         "magic-visibility-pcaps_pcaps_colo_name": magic_visibility_pcaps_pcaps_colo_name_output,
         "magic-visibility-pcaps_pcaps_destination_conf": magic_visibility_pcaps_pcaps_destination_conf_output,
         "magic-visibility-pcaps_pcaps_error_message": magic_visibility_pcaps_pcaps_error_message_output,
@@ -374,28 +356,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "anyOf": [
-                  {
-                    "$ref": "#/$defs/magic-visibility-pcaps_pcaps_response_simple"
-                  },
-                  {
-                    "$ref": "#/$defs/magic-visibility-pcaps_pcaps_response_full"
-                  }
-                ]
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/magic-visibility-pcaps_result_info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/magic-visibility-pcaps_pcaps_collection_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic-visibility-pcaps_api-response-common-failure"
@@ -405,9 +366,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "magic-visibility-pcaps_api-response-collection": magic_visibility_pcaps_api_response_collection_output,
+        "magic-visibility-pcaps_api-response-common": magic_visibility_pcaps_api_response_common_output,
         "magic-visibility-pcaps_api-response-common-failure": magic_visibility_pcaps_api_response_common_failure_output,
         "magic-visibility-pcaps_messages": magic_visibility_pcaps_messages_output,
         "magic-visibility-pcaps_pcaps_byte_limit": magic_visibility_pcaps_pcaps_byte_limit_output,
+        "magic-visibility-pcaps_pcaps_collection_response": magic_visibility_pcaps_pcaps_collection_response_output,
         "magic-visibility-pcaps_pcaps_colo_name": magic_visibility_pcaps_pcaps_colo_name_output,
         "magic-visibility-pcaps_pcaps_destination_conf": magic_visibility_pcaps_pcaps_destination_conf_output,
         "magic-visibility-pcaps_pcaps_error_message": magic_visibility_pcaps_pcaps_error_message_output,
@@ -439,18 +403,21 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/magic-visibility-pcaps_identifier",
+          "description": "Identifier."
         },
         "pcap_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/magic-visibility-pcaps_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "account_id",
         "pcap_id"
       ],
+      $defs: {
+        "magic-visibility-pcaps_identifier": magic_visibility_pcaps_identifier,
+      },
     },
     annotations: {
       "destructiveHint": true,

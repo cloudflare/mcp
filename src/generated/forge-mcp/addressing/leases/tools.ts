@@ -3,7 +3,9 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  addressing_api_response_collection_output,
   addressing_api_response_common_failure_output,
+  addressing_api_response_common_output,
   addressing_messages_output,
 } from "../outputs.js";
 import {
@@ -14,8 +16,8 @@ import {
   addressing_lease_owner_id_output,
   addressing_modified_at_output,
   addressing_response_collection_4_output,
-  addressing_response_collection_4_result_info_output,
 } from "./outputs.js";
+import { addressing_account_identifier_2 } from "./schemas.js";
 
 /**
  * The tools of `addressing.leases`.
@@ -29,54 +31,30 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier of a Cloudflare account.",
-          "type": "string"
+          "$ref": "#/$defs/addressing_account_identifier-2",
+          "description": "Identifier of a Cloudflare account."
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "addressing_account_identifier-2": addressing_account_identifier_2,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/addressing_lease"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/addressing_response_collection-4",
       $defs: {
+        "addressing_api-response-collection": addressing_api_response_collection_output,
+        "addressing_api-response-common": addressing_api_response_common_output,
         "addressing_cidr-2": addressing_cidr_2_output,
         "addressing_created_at": addressing_created_at_output,
         "addressing_lease": addressing_lease_output,
         "addressing_lease_id": addressing_lease_id_output,
         "addressing_lease_owner_id": addressing_lease_owner_id_output,
+        "addressing_messages": addressing_messages_output,
         "addressing_modified_at": addressing_modified_at_output,
+        "addressing_response_collection-4": addressing_response_collection_4_output,
       },
     },
     annotations: {
@@ -94,38 +72,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/addressing_lease"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/addressing_response_collection-4"
         },
         "4XX": {
           "allOf": [
@@ -139,6 +86,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "addressing_api-response-collection": addressing_api_response_collection_output,
+        "addressing_api-response-common": addressing_api_response_common_output,
         "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
         "addressing_cidr-2": addressing_cidr_2_output,
         "addressing_created_at": addressing_created_at_output,
@@ -148,7 +97,6 @@ export const tools: readonly Tool[] = [
         "addressing_messages": addressing_messages_output,
         "addressing_modified_at": addressing_modified_at_output,
         "addressing_response_collection-4": addressing_response_collection_4_output,
-        "addressing_response_collection-4_result_info": addressing_response_collection_4_result_info_output,
       },
     },
     request: (args) => ({

@@ -3,13 +3,16 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  workers_api_response_collection_output,
   workers_api_response_common_failure_output,
+  workers_api_response_common_output,
   workers_created_on_output,
   workers_identifier_output,
   workers_messages_output,
   workers_modified_on_output,
+  workers_script_name_output,
 } from "../../outputs.js";
-import { workers_script_name_output } from "./outputs.js";
+import { workers_identifier } from "../../schemas.js";
 
 /**
  * The tools of `workers.scripts`.
@@ -23,8 +26,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         },
         "id": {
           "description": "Worker ID (also called tag) to search for. Only exact matches are returned.",
@@ -58,103 +61,16 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+      $defs: {
+        "workers_identifier": workers_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "properties": {
-              "created_on": {
-                "$ref": "#/$defs/workers_created_on"
-              },
-              "environment_is_default": {
-                "type": "boolean"
-              },
-              "environment_name": {
-                "type": "string"
-              },
-              "id": {
-                "$ref": "#/$defs/workers_identifier"
-              },
-              "modified_on": {
-                "$ref": "#/$defs/workers_modified_on"
-              },
-              "script_name": {
-                "$ref": "#/$defs/workers_script_name"
-              },
-              "service_name": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "created_on",
-              "id",
-              "modified_on",
-              "script_name"
-            ],
-            "type": "object"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/workers_api-response-collection"
         },
-        "result_info": {
-          "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
-      $defs: {
-        "workers_created_on": workers_created_on_output,
-        "workers_identifier": workers_identifier_output,
-        "workers_modified_on": workers_modified_on_output,
-        "workers_script_name": workers_script_name_output,
-      },
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Search Worker Scripts"
-    },
-    method: "GET",
-    path: "/accounts/{account_id}/workers/scripts-search",
-    extensions: {
-      "x-api-token-group": [
-        "Workers Tail Read",
-        "Workers Scripts Write",
-        "Workers Scripts Read",
-        "Workers Admin",
-        "Workers Editor",
-        "Workers Content Read-Only",
-        "Workers Metadata Read-Only",
-        "Individual Workers Admin",
-        "Individual Workers Editor",
-        "Individual Workers Content Read-Only",
-        "Individual Workers Metadata Read-Only"
-      ]
-    },
-    responses: {
-      schemas: {
-        "200": {
+        {
           "properties": {
             "result": {
               "items": {
@@ -190,38 +106,107 @@ export const tools: readonly Tool[] = [
                 "type": "object"
               },
               "type": "array"
-            },
-            "result_info": {
-              "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
-                }
-              },
-              "type": "object"
             }
           },
           "required": [
             "result"
           ],
           "type": "object"
+        }
+      ],
+      $defs: {
+        "workers_api-response-collection": workers_api_response_collection_output,
+        "workers_api-response-common": workers_api_response_common_output,
+        "workers_created_on": workers_created_on_output,
+        "workers_identifier": workers_identifier_output,
+        "workers_messages": workers_messages_output,
+        "workers_modified_on": workers_modified_on_output,
+        "workers_script_name": workers_script_name_output,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Search Worker Scripts"
+    },
+    method: "GET",
+    path: "/accounts/{account_id}/workers/scripts-search",
+    extensions: {
+      "x-api-token-group": [
+        "Workers Tail Read",
+        "Workers Scripts Write",
+        "Workers Scripts Read",
+        "Workers Admin",
+        "Workers Editor",
+        "Workers Content Read-Only",
+        "Workers Metadata Read-Only",
+        "Individual Workers Admin",
+        "Individual Workers Editor",
+        "Individual Workers Content Read-Only",
+        "Individual Workers Metadata Read-Only"
+      ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-collection"
+            },
+            {
+              "properties": {
+                "result": {
+                  "items": {
+                    "properties": {
+                      "created_on": {
+                        "$ref": "#/$defs/workers_created_on"
+                      },
+                      "environment_is_default": {
+                        "type": "boolean"
+                      },
+                      "environment_name": {
+                        "type": "string"
+                      },
+                      "id": {
+                        "$ref": "#/$defs/workers_identifier"
+                      },
+                      "modified_on": {
+                        "$ref": "#/$defs/workers_modified_on"
+                      },
+                      "script_name": {
+                        "$ref": "#/$defs/workers_script_name"
+                      },
+                      "service_name": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "created_on",
+                      "id",
+                      "modified_on",
+                      "script_name"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/workers_api-response-common-failure"
         }
       },
       $defs: {
+        "workers_api-response-collection": workers_api_response_collection_output,
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_api-response-common-failure": workers_api_response_common_failure_output,
         "workers_created_on": workers_created_on_output,
         "workers_identifier": workers_identifier_output,

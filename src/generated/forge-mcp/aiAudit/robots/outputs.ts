@@ -4,6 +4,36 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `ai-audit_api-response-common` in responses.
+ */
+export const ai_audit_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "items": {
+        "$ref": "#/$defs/ai-audit_api_message"
+      },
+      "maxItems": 0,
+      "type": "array"
+    },
+    "messages": {
+      "items": {
+        "$ref": "#/$defs/ai-audit_api_message"
+      },
+      "type": "array"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `ai-audit_api-response-common-failure` in responses.
  */
 export const ai_audit_api_response_common_failure_output: JsonSchema = {

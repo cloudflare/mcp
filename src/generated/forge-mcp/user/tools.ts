@@ -4,6 +4,7 @@
 import type { Tool } from "../_/tool.js";
 import {
   iam_api_response_common_failure_output,
+  iam_api_response_single_output,
   iam_common_components_schemas_identifier_output,
   iam_first_name_output,
   iam_last_name_output,
@@ -17,6 +18,7 @@ import {
   iam_organization_output,
   iam_schemas_name_output,
   iam_schemas_permissions_output,
+  iam_single_user_response_output,
   iam_telephone_output,
   iam_two_factor_authentication_locked_output,
   iam_zipcode_output,
@@ -72,73 +74,19 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "betas": {
-          "items": {
-            "type": "string"
-          },
-          "type": "array"
-        },
-        "country": {
-          "$ref": "#/$defs/iam_country"
-        },
-        "email": {
-          "type": "string"
-        },
-        "first_name": {
-          "$ref": "#/$defs/iam_first_name"
-        },
-        "has_business_zones": {
-          "type": "boolean"
-        },
-        "has_enterprise_zones": {
-          "type": "boolean"
-        },
-        "has_pro_zones": {
-          "type": "boolean"
-        },
-        "id": {
-          "type": "string"
-        },
-        "last_name": {
-          "$ref": "#/$defs/iam_last_name"
-        },
-        "organizations": {
-          "items": {
-            "$ref": "#/$defs/iam_organization"
-          },
-          "type": "array"
-        },
-        "suspended": {
-          "type": "boolean"
-        },
-        "telephone": {
-          "$ref": "#/$defs/iam_telephone"
-        },
-        "two_factor_authentication_enabled": {
-          "$ref": "#/$defs/iam_two_factor_authentication_enabled"
-        },
-        "two_factor_authentication_locked": {
-          "$ref": "#/$defs/iam_two_factor_authentication_locked"
-        },
-        "zipcode": {
-          "$ref": "#/$defs/iam_zipcode"
-        }
-      },
-      "required": [
-        "email",
-        "id"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/iam_single_user_response",
       $defs: {
+        "iam_api-response-single": iam_api_response_single_output,
         "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
         "iam_components-schemas-status": iam_components_schemas_status_output,
         "iam_country": iam_country_output,
         "iam_first_name": iam_first_name_output,
         "iam_last_name": iam_last_name_output,
+        "iam_messages-2": iam_messages_2_output,
         "iam_organization": iam_organization_output,
         "iam_schemas-name": iam_schemas_name_output,
         "iam_schemas-permissions": iam_schemas_permissions_output,
+        "iam_single_user_response": iam_single_user_response_output,
         "iam_telephone": iam_telephone_output,
         "iam_two_factor_authentication_enabled": iam_two_factor_authentication_enabled_output,
         "iam_two_factor_authentication_locked": iam_two_factor_authentication_locked_output,
@@ -161,12 +109,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.user.update"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.user.update": {
-            "name": "com_cloudflare_api_user_update"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -178,64 +121,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "betas": {
-              "items": {
-                "type": "string"
-              },
-              "type": "array"
-            },
-            "country": {
-              "$ref": "#/$defs/iam_country"
-            },
-            "email": {
-              "type": "string"
-            },
-            "first_name": {
-              "$ref": "#/$defs/iam_first_name"
-            },
-            "has_business_zones": {
-              "type": "boolean"
-            },
-            "has_enterprise_zones": {
-              "type": "boolean"
-            },
-            "has_pro_zones": {
-              "type": "boolean"
-            },
-            "id": {
-              "type": "string"
-            },
-            "last_name": {
-              "$ref": "#/$defs/iam_last_name"
-            },
-            "organizations": {
-              "items": {
-                "$ref": "#/$defs/iam_organization"
-              },
-              "type": "array"
-            },
-            "suspended": {
-              "type": "boolean"
-            },
-            "telephone": {
-              "$ref": "#/$defs/iam_telephone"
-            },
-            "two_factor_authentication_enabled": {
-              "$ref": "#/$defs/iam_two_factor_authentication_enabled"
-            },
-            "two_factor_authentication_locked": {
-              "$ref": "#/$defs/iam_two_factor_authentication_locked"
-            },
-            "zipcode": {
-              "$ref": "#/$defs/iam_zipcode"
-            }
-          },
-          "required": [
-            "email",
-            "id"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/iam_single_user_response"
         },
         "4XX": {
           "$ref": "#/$defs/iam_api-response-common-failure"
@@ -243,6 +129,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_api-response-single": iam_api_response_single_output,
         "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
         "iam_components-schemas-status": iam_components_schemas_status_output,
         "iam_country": iam_country_output,
@@ -252,6 +139,7 @@ export const tools: readonly Tool[] = [
         "iam_organization": iam_organization_output,
         "iam_schemas-name": iam_schemas_name_output,
         "iam_schemas-permissions": iam_schemas_permissions_output,
+        "iam_single_user_response": iam_single_user_response_output,
         "iam_telephone": iam_telephone_output,
         "iam_two_factor_authentication_enabled": iam_two_factor_authentication_enabled_output,
         "iam_two_factor_authentication_locked": iam_two_factor_authentication_locked_output,
@@ -272,73 +160,19 @@ export const tools: readonly Tool[] = [
       properties: {},
     },
     outputSchema: {
-      "properties": {
-        "betas": {
-          "items": {
-            "type": "string"
-          },
-          "type": "array"
-        },
-        "country": {
-          "$ref": "#/$defs/iam_country"
-        },
-        "email": {
-          "type": "string"
-        },
-        "first_name": {
-          "$ref": "#/$defs/iam_first_name"
-        },
-        "has_business_zones": {
-          "type": "boolean"
-        },
-        "has_enterprise_zones": {
-          "type": "boolean"
-        },
-        "has_pro_zones": {
-          "type": "boolean"
-        },
-        "id": {
-          "type": "string"
-        },
-        "last_name": {
-          "$ref": "#/$defs/iam_last_name"
-        },
-        "organizations": {
-          "items": {
-            "$ref": "#/$defs/iam_organization"
-          },
-          "type": "array"
-        },
-        "suspended": {
-          "type": "boolean"
-        },
-        "telephone": {
-          "$ref": "#/$defs/iam_telephone"
-        },
-        "two_factor_authentication_enabled": {
-          "$ref": "#/$defs/iam_two_factor_authentication_enabled"
-        },
-        "two_factor_authentication_locked": {
-          "$ref": "#/$defs/iam_two_factor_authentication_locked"
-        },
-        "zipcode": {
-          "$ref": "#/$defs/iam_zipcode"
-        }
-      },
-      "required": [
-        "email",
-        "id"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/iam_single_user_response",
       $defs: {
+        "iam_api-response-single": iam_api_response_single_output,
         "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
         "iam_components-schemas-status": iam_components_schemas_status_output,
         "iam_country": iam_country_output,
         "iam_first_name": iam_first_name_output,
         "iam_last_name": iam_last_name_output,
+        "iam_messages-2": iam_messages_2_output,
         "iam_organization": iam_organization_output,
         "iam_schemas-name": iam_schemas_name_output,
         "iam_schemas-permissions": iam_schemas_permissions_output,
+        "iam_single_user_response": iam_single_user_response_output,
         "iam_telephone": iam_telephone_output,
         "iam_two_factor_authentication_enabled": iam_two_factor_authentication_enabled_output,
         "iam_two_factor_authentication_locked": iam_two_factor_authentication_locked_output,
@@ -362,12 +196,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.user.read"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.user.read": {
-            "name": "com_cloudflare_api_user_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -379,64 +208,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "betas": {
-              "items": {
-                "type": "string"
-              },
-              "type": "array"
-            },
-            "country": {
-              "$ref": "#/$defs/iam_country"
-            },
-            "email": {
-              "type": "string"
-            },
-            "first_name": {
-              "$ref": "#/$defs/iam_first_name"
-            },
-            "has_business_zones": {
-              "type": "boolean"
-            },
-            "has_enterprise_zones": {
-              "type": "boolean"
-            },
-            "has_pro_zones": {
-              "type": "boolean"
-            },
-            "id": {
-              "type": "string"
-            },
-            "last_name": {
-              "$ref": "#/$defs/iam_last_name"
-            },
-            "organizations": {
-              "items": {
-                "$ref": "#/$defs/iam_organization"
-              },
-              "type": "array"
-            },
-            "suspended": {
-              "type": "boolean"
-            },
-            "telephone": {
-              "$ref": "#/$defs/iam_telephone"
-            },
-            "two_factor_authentication_enabled": {
-              "$ref": "#/$defs/iam_two_factor_authentication_enabled"
-            },
-            "two_factor_authentication_locked": {
-              "$ref": "#/$defs/iam_two_factor_authentication_locked"
-            },
-            "zipcode": {
-              "$ref": "#/$defs/iam_zipcode"
-            }
-          },
-          "required": [
-            "email",
-            "id"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/iam_single_user_response"
         },
         "4XX": {
           "$ref": "#/$defs/iam_api-response-common-failure"
@@ -444,6 +216,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_api-response-single": iam_api_response_single_output,
         "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
         "iam_components-schemas-status": iam_components_schemas_status_output,
         "iam_country": iam_country_output,
@@ -453,6 +226,7 @@ export const tools: readonly Tool[] = [
         "iam_organization": iam_organization_output,
         "iam_schemas-name": iam_schemas_name_output,
         "iam_schemas-permissions": iam_schemas_permissions_output,
+        "iam_single_user_response": iam_single_user_response_output,
         "iam_telephone": iam_telephone_output,
         "iam_two_factor_authentication_enabled": iam_two_factor_authentication_enabled_output,
         "iam_two_factor_authentication_locked": iam_two_factor_authentication_locked_output,

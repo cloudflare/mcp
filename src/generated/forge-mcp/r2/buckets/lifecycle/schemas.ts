@@ -56,16 +56,42 @@ export const r2_lifecycle_date_condition: JsonSchema = {
 export const r2_lifecycle_rule: JsonSchema = {
   "properties": {
     "abortMultipartUploadsTransition": {
-      "$ref": "#/$defs/r2_lifecycle-rule_abortMultipartUploadsTransition",
-      "description": "Transition to abort ongoing multipart uploads."
+      "description": "Transition to abort ongoing multipart uploads.",
+      "properties": {
+        "condition": {
+          "$ref": "#/$defs/r2_lifecycle-age-condition"
+        }
+      },
+      "type": "object"
     },
     "conditions": {
-      "$ref": "#/$defs/r2_lifecycle-rule_conditions",
-      "description": "Conditions that apply to all transitions of this rule."
+      "description": "Conditions that apply to all transitions of this rule.",
+      "properties": {
+        "prefix": {
+          "description": "Transitions will only apply to objects/uploads in the bucket that start with the given prefix, an empty prefix can be provided to scope rule to all objects/uploads.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "prefix"
+      ],
+      "type": "object"
     },
     "deleteObjectsTransition": {
-      "$ref": "#/$defs/r2_lifecycle-rule_deleteObjectsTransition",
-      "description": "Transition to delete objects."
+      "description": "Transition to delete objects.",
+      "properties": {
+        "condition": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/r2_lifecycle-age-condition"
+            },
+            {
+              "$ref": "#/$defs/r2_lifecycle-date-condition"
+            }
+          ]
+        }
+      },
+      "type": "object"
     },
     "enabled": {
       "description": "Whether or not this rule is in effect.",
@@ -92,70 +118,19 @@ export const r2_lifecycle_rule: JsonSchema = {
 };
 
 /**
- * The schema of `r2_lifecycle-rule_abortMultipartUploadsTransition`.
- */
-export const r2_lifecycle_rule_abortMultipartUploadsTransition: JsonSchema = {
-  "description": "Transition to abort ongoing multipart uploads.",
-  "properties": {
-    "condition": {
-      "$ref": "#/$defs/r2_lifecycle-age-condition",
-      "description": "Condition for lifecycle transitions to apply after an object reaches an age in seconds."
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `r2_lifecycle-rule_conditions`.
- */
-export const r2_lifecycle_rule_conditions: JsonSchema = {
-  "description": "Conditions that apply to all transitions of this rule.",
-  "properties": {
-    "prefix": {
-      "description": "Transitions will only apply to objects/uploads in the bucket that start with the given prefix, an empty prefix can be provided to scope rule to all objects/uploads.",
-      "type": "string"
-    }
-  },
-  "required": [
-    "prefix"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `r2_lifecycle-rule_deleteObjectsTransition`.
- */
-export const r2_lifecycle_rule_deleteObjectsTransition: JsonSchema = {
-  "description": "Transition to delete objects.",
-  "properties": {
-    "condition": {
-      "$ref": "#/$defs/r2_lifecycle-rule_deleteObjectsTransition_condition"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `r2_lifecycle-rule_deleteObjectsTransition_condition`.
- */
-export const r2_lifecycle_rule_deleteObjectsTransition_condition: JsonSchema = {
-  "oneOf": [
-    {
-      "$ref": "#/$defs/r2_lifecycle-age-condition"
-    },
-    {
-      "$ref": "#/$defs/r2_lifecycle-date-condition"
-    }
-  ]
-};
-
-/**
  * The schema of `r2_lifecycle-storage-transition`.
  */
 export const r2_lifecycle_storage_transition: JsonSchema = {
   "properties": {
     "condition": {
-      "$ref": "#/$defs/r2_lifecycle-storage-transition_condition"
+      "oneOf": [
+        {
+          "$ref": "#/$defs/r2_lifecycle-age-condition"
+        },
+        {
+          "$ref": "#/$defs/r2_lifecycle-date-condition"
+        }
+      ]
     },
     "storageClass": {
       "enum": [
@@ -169,18 +144,4 @@ export const r2_lifecycle_storage_transition: JsonSchema = {
     "storageClass"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `r2_lifecycle-storage-transition_condition`.
- */
-export const r2_lifecycle_storage_transition_condition: JsonSchema = {
-  "oneOf": [
-    {
-      "$ref": "#/$defs/r2_lifecycle-age-condition"
-    },
-    {
-      "$ref": "#/$defs/r2_lifecycle-date-condition"
-    }
-  ]
 };

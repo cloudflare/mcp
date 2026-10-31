@@ -3,17 +3,17 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
+  digital_experience_monitoring_api_response_collection_output,
   digital_experience_monitoring_api_response_common_failure_output,
+  digital_experience_monitoring_api_response_common_output,
   digital_experience_monitoring_messages_output,
   digital_experience_monitoring_platform_output,
   digital_experience_monitoring_status_output,
   digital_experience_monitoring_timestamp_output,
   digital_experience_monitoring_version_output,
 } from "../../outputs.js";
-import {
-  digital_experience_monitoring_commands_devices_response_devicesItem_output,
-  digital_experience_monitoring_commands_devices_response_output,
-} from "./outputs.js";
+import { digital_experience_monitoring_account_identifier } from "../../schemas.js";
+import { digital_experience_monitoring_commands_devices_response_output } from "./outputs.js";
 
 /**
  * The tools of `zero_trust.dex.commands.eligible_devices`.
@@ -27,8 +27,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Unique Cloudflare account ID.",
-          "type": "string"
+          "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
+          "description": "Unique Cloudflare account ID."
         },
         "page": {
           "default": 1,
@@ -49,12 +49,29 @@ export const tools: readonly Tool[] = [
         "page",
         "per_page"
       ],
+      $defs: {
+        "digital-experience-monitoring_account_identifier": digital_experience_monitoring_account_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/digital-experience-monitoring_commands_devices_response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/digital-experience-monitoring_api-response-collection"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/digital-experience-monitoring_commands_devices_response"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "digital-experience-monitoring_api-response-collection": digital_experience_monitoring_api_response_collection_output,
+        "digital-experience-monitoring_api-response-common": digital_experience_monitoring_api_response_common_output,
         "digital-experience-monitoring_commands_devices_response": digital_experience_monitoring_commands_devices_response_output,
-        "digital-experience-monitoring_commands_devices_response_devicesItem": digital_experience_monitoring_commands_devices_response_devicesItem_output,
+        "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
         "digital-experience-monitoring_platform": digital_experience_monitoring_platform_output,
         "digital-experience-monitoring_status": digital_experience_monitoring_status_output,
         "digital-experience-monitoring_timestamp": digital_experience_monitoring_timestamp_output,
@@ -81,16 +98,29 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/digital-experience-monitoring_commands_devices_response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/digital-experience-monitoring_api-response-collection"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/digital-experience-monitoring_commands_devices_response"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/digital-experience-monitoring_api-response-common-failure"
         }
       },
       $defs: {
+        "digital-experience-monitoring_api-response-collection": digital_experience_monitoring_api_response_collection_output,
+        "digital-experience-monitoring_api-response-common": digital_experience_monitoring_api_response_common_output,
         "digital-experience-monitoring_api-response-common-failure": digital_experience_monitoring_api_response_common_failure_output,
         "digital-experience-monitoring_commands_devices_response": digital_experience_monitoring_commands_devices_response_output,
-        "digital-experience-monitoring_commands_devices_response_devicesItem": digital_experience_monitoring_commands_devices_response_devicesItem_output,
         "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
         "digital-experience-monitoring_platform": digital_experience_monitoring_platform_output,
         "digital-experience-monitoring_status": digital_experience_monitoring_status_output,

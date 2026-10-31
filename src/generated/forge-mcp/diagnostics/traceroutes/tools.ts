@@ -4,8 +4,10 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   magic_transit_api_response_common_failure_output,
+  magic_transit_api_response_common_output,
   magic_transit_messages_output,
 } from "../outputs.js";
+import { magic_transit_identifier } from "../schemas.js";
 import {
   magic_transit_asn_output,
   magic_transit_colo_city_output,
@@ -29,6 +31,7 @@ import {
   magic_transit_target_output,
   magic_transit_target_result_output,
   magic_transit_target_summary_output,
+  magic_transit_traceroute_response_collection_output,
   magic_transit_traceroute_time_ms_output,
 } from "./outputs.js";
 import {
@@ -54,8 +57,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic-transit_identifier",
+          "description": "Identifier"
         },
         "body": {
           "properties": {
@@ -82,6 +85,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "magic-transit_colos": magic_transit_colos,
+        "magic-transit_identifier": magic_transit_identifier,
         "magic-transit_max_ttl": magic_transit_max_ttl,
         "magic-transit_options": magic_transit_options,
         "magic-transit_packet_type": magic_transit_packet_type,
@@ -92,22 +96,9 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/magic-transit_target_result"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/magic-transit_traceroute_response_collection",
       $defs: {
+        "magic-transit_api-response-common": magic_transit_api_response_common_output,
         "magic-transit_asn": magic_transit_asn_output,
         "magic-transit_colo": magic_transit_colo_output,
         "magic-transit_colo_city": magic_transit_colo_city_output,
@@ -119,6 +110,7 @@ export const tools: readonly Tool[] = [
         "magic-transit_labels": magic_transit_labels_output,
         "magic-transit_max_rtt_ms": magic_transit_max_rtt_ms_output,
         "magic-transit_mean_rtt_ms": magic_transit_mean_rtt_ms_output,
+        "magic-transit_messages": magic_transit_messages_output,
         "magic-transit_min_rtt_ms": magic_transit_min_rtt_ms_output,
         "magic-transit_name": magic_transit_name_output,
         "magic-transit_node_result": magic_transit_node_result_output,
@@ -130,6 +122,7 @@ export const tools: readonly Tool[] = [
         "magic-transit_target": magic_transit_target_output,
         "magic-transit_target_result": magic_transit_target_result_output,
         "magic-transit_target_summary": magic_transit_target_summary_output,
+        "magic-transit_traceroute_response_collection": magic_transit_traceroute_response_collection_output,
         "magic-transit_traceroute_time_ms": magic_transit_traceroute_time_ms_output,
       },
     },
@@ -156,27 +149,14 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/magic-transit_target_result"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/magic-transit_traceroute_response_collection"
         },
         "4XX": {
           "$ref": "#/$defs/magic-transit_api-response-common-failure"
         }
       },
       $defs: {
+        "magic-transit_api-response-common": magic_transit_api_response_common_output,
         "magic-transit_api-response-common-failure": magic_transit_api_response_common_failure_output,
         "magic-transit_asn": magic_transit_asn_output,
         "magic-transit_colo": magic_transit_colo_output,
@@ -201,6 +181,7 @@ export const tools: readonly Tool[] = [
         "magic-transit_target": magic_transit_target_output,
         "magic-transit_target_result": magic_transit_target_result_output,
         "magic-transit_target_summary": magic_transit_target_summary_output,
+        "magic-transit_traceroute_response_collection": magic_transit_traceroute_response_collection_output,
         "magic-transit_traceroute_time_ms": magic_transit_traceroute_time_ms_output,
       },
     },

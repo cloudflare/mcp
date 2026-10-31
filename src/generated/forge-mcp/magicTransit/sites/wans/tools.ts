@@ -4,11 +4,13 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   magic_api_response_common_failure_output,
+  magic_api_response_common_output,
+  magic_api_response_single_output,
   magic_cidr_output,
   magic_identifier_output,
   magic_messages_output,
 } from "../../outputs.js";
-import { magic_cidr } from "../../schemas.js";
+import { magic_cidr, magic_identifier } from "../../schemas.js";
 import {
   magic_ip_address_output,
   magic_port_output,
@@ -16,8 +18,12 @@ import {
 } from "../outputs.js";
 import { magic_ip_address, magic_port, magic_vlan_tag } from "../schemas.js";
 import {
+  magic_wan_deleted_response_output,
+  magic_wan_modified_response_output,
   magic_wan_output,
+  magic_wan_single_response_output,
   magic_wan_static_addressing_output,
+  magic_wans_collection_response_output,
 } from "./outputs.js";
 import {
   magic_wan_static_addressing_create_request,
@@ -38,15 +44,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "body": {
           "$ref": "#/$defs/magic_wans_add_single_request"
         },
         "site_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         }
       },
       required: [
@@ -56,6 +62,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "magic_cidr": magic_cidr,
+        "magic_identifier": magic_identifier,
         "magic_ip-address": magic_ip_address,
         "magic_port": magic_port,
         "magic_vlan_tag": magic_vlan_tag,
@@ -64,29 +71,19 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/magic_wan"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/magic_wans_collection_response",
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_cidr": magic_cidr_output,
         "magic_identifier": magic_identifier_output,
         "magic_ip-address": magic_ip_address_output,
+        "magic_messages": magic_messages_output,
         "magic_port": magic_port_output,
         "magic_vlan_tag": magic_vlan_tag_output,
         "magic_wan": magic_wan_output,
         "magic_wan_static_addressing": magic_wan_static_addressing_output,
+        "magic_wans_collection_response": magic_wans_collection_response_output,
       },
     },
     annotations: {
@@ -113,28 +110,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/magic_wan"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/magic_wans_collection_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
         }
       },
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_cidr": magic_cidr_output,
         "magic_identifier": magic_identifier_output,
         "magic_ip-address": magic_ip_address_output,
@@ -143,6 +128,7 @@ export const tools: readonly Tool[] = [
         "magic_vlan_tag": magic_vlan_tag_output,
         "magic_wan": magic_wan_output,
         "magic_wan_static_addressing": magic_wan_static_addressing_output,
+        "magic_wans_collection_response": magic_wans_collection_response_output,
       },
     },
     request: (args) => ({
@@ -158,16 +144,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "site_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "wan_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         }
       },
       required: [
@@ -175,16 +161,23 @@ export const tools: readonly Tool[] = [
         "site_id",
         "wan_id"
       ],
+      $defs: {
+        "magic_identifier": magic_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/magic_wan",
+      "$ref": "#/$defs/magic_wan_deleted_response",
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_cidr": magic_cidr_output,
         "magic_identifier": magic_identifier_output,
         "magic_ip-address": magic_ip_address_output,
+        "magic_messages": magic_messages_output,
         "magic_port": magic_port_output,
         "magic_vlan_tag": magic_vlan_tag_output,
         "magic_wan": magic_wan_output,
+        "magic_wan_deleted_response": magic_wan_deleted_response_output,
         "magic_wan_static_addressing": magic_wan_static_addressing_output,
       },
     },
@@ -205,12 +198,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#organization:edit"
-        ],
-        "x-fern-enum": {
-          "#organization:edit": {
-            "name": "organization_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -222,14 +210,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/magic_wan"
+          "$ref": "#/$defs/magic_wan_deleted_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
         }
       },
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_cidr": magic_cidr_output,
         "magic_identifier": magic_identifier_output,
         "magic_ip-address": magic_ip_address_output,
@@ -237,6 +227,7 @@ export const tools: readonly Tool[] = [
         "magic_port": magic_port_output,
         "magic_vlan_tag": magic_vlan_tag_output,
         "magic_wan": magic_wan_output,
+        "magic_wan_deleted_response": magic_wan_deleted_response_output,
         "magic_wan_static_addressing": magic_wan_static_addressing_output,
       },
     },
@@ -252,19 +243,19 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "body": {
           "$ref": "#/$defs/magic_wan_update_request"
         },
         "site_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "wan_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         }
       },
       required: [
@@ -275,6 +266,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "magic_cidr": magic_cidr,
+        "magic_identifier": magic_identifier,
         "magic_ip-address": magic_ip_address,
         "magic_port": magic_port,
         "magic_vlan_tag": magic_vlan_tag,
@@ -283,14 +275,18 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/magic_wan",
+      "$ref": "#/$defs/magic_wan_modified_response",
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_cidr": magic_cidr_output,
         "magic_identifier": magic_identifier_output,
         "magic_ip-address": magic_ip_address_output,
+        "magic_messages": magic_messages_output,
         "magic_port": magic_port_output,
         "magic_vlan_tag": magic_vlan_tag_output,
         "magic_wan": magic_wan_output,
+        "magic_wan_modified_response": magic_wan_modified_response_output,
         "magic_wan_static_addressing": magic_wan_static_addressing_output,
       },
     },
@@ -311,12 +307,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#organization:edit"
-        ],
-        "x-fern-enum": {
-          "#organization:edit": {
-            "name": "organization_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -328,14 +319,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/magic_wan"
+          "$ref": "#/$defs/magic_wan_modified_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
         }
       },
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_cidr": magic_cidr_output,
         "magic_identifier": magic_identifier_output,
         "magic_ip-address": magic_ip_address_output,
@@ -343,6 +336,7 @@ export const tools: readonly Tool[] = [
         "magic_port": magic_port_output,
         "magic_vlan_tag": magic_vlan_tag_output,
         "magic_wan": magic_wan_output,
+        "magic_wan_modified_response": magic_wan_modified_response_output,
         "magic_wan_static_addressing": magic_wan_static_addressing_output,
       },
     },
@@ -359,16 +353,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "site_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "wan_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         }
       },
       required: [
@@ -376,16 +370,23 @@ export const tools: readonly Tool[] = [
         "site_id",
         "wan_id"
       ],
+      $defs: {
+        "magic_identifier": magic_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/magic_wan",
+      "$ref": "#/$defs/magic_wan_single_response",
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_cidr": magic_cidr_output,
         "magic_identifier": magic_identifier_output,
         "magic_ip-address": magic_ip_address_output,
+        "magic_messages": magic_messages_output,
         "magic_port": magic_port_output,
         "magic_vlan_tag": magic_vlan_tag_output,
         "magic_wan": magic_wan_output,
+        "magic_wan_single_response": magic_wan_single_response_output,
         "magic_wan_static_addressing": magic_wan_static_addressing_output,
       },
     },
@@ -408,12 +409,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#organization:read"
-        ],
-        "x-fern-enum": {
-          "#organization:read": {
-            "name": "organization_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -425,14 +421,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/magic_wan"
+          "$ref": "#/$defs/magic_wan_single_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
         }
       },
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_cidr": magic_cidr_output,
         "magic_identifier": magic_identifier_output,
         "magic_ip-address": magic_ip_address_output,
@@ -440,6 +438,7 @@ export const tools: readonly Tool[] = [
         "magic_port": magic_port_output,
         "magic_vlan_tag": magic_vlan_tag_output,
         "magic_wan": magic_wan_output,
+        "magic_wan_single_response": magic_wan_single_response_output,
         "magic_wan_static_addressing": magic_wan_static_addressing_output,
       },
     },
@@ -455,43 +454,36 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "site_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         }
       },
       required: [
         "account_id",
         "site_id"
       ],
+      $defs: {
+        "magic_identifier": magic_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/magic_wan"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/magic_wans_collection_response",
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_cidr": magic_cidr_output,
         "magic_identifier": magic_identifier_output,
         "magic_ip-address": magic_ip_address_output,
+        "magic_messages": magic_messages_output,
         "magic_port": magic_port_output,
         "magic_vlan_tag": magic_vlan_tag_output,
         "magic_wan": magic_wan_output,
         "magic_wan_static_addressing": magic_wan_static_addressing_output,
+        "magic_wans_collection_response": magic_wans_collection_response_output,
       },
     },
     annotations: {
@@ -520,28 +512,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/magic_wan"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/magic_wans_collection_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
         }
       },
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_cidr": magic_cidr_output,
         "magic_identifier": magic_identifier_output,
         "magic_ip-address": magic_ip_address_output,
@@ -550,6 +530,7 @@ export const tools: readonly Tool[] = [
         "magic_vlan_tag": magic_vlan_tag_output,
         "magic_wan": magic_wan_output,
         "magic_wan_static_addressing": magic_wan_static_addressing_output,
+        "magic_wans_collection_response": magic_wans_collection_response_output,
       },
     },
     request: (args) => ({
@@ -564,19 +545,19 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "body": {
           "$ref": "#/$defs/magic_wan_update_request"
         },
         "site_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "wan_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         }
       },
       required: [
@@ -587,6 +568,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "magic_cidr": magic_cidr,
+        "magic_identifier": magic_identifier,
         "magic_ip-address": magic_ip_address,
         "magic_port": magic_port,
         "magic_vlan_tag": magic_vlan_tag,
@@ -595,14 +577,18 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/magic_wan",
+      "$ref": "#/$defs/magic_wan_modified_response",
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_cidr": magic_cidr_output,
         "magic_identifier": magic_identifier_output,
         "magic_ip-address": magic_ip_address_output,
+        "magic_messages": magic_messages_output,
         "magic_port": magic_port_output,
         "magic_vlan_tag": magic_vlan_tag_output,
         "magic_wan": magic_wan_output,
+        "magic_wan_modified_response": magic_wan_modified_response_output,
         "magic_wan_static_addressing": magic_wan_static_addressing_output,
       },
     },
@@ -623,12 +609,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#organization:edit"
-        ],
-        "x-fern-enum": {
-          "#organization:edit": {
-            "name": "organization_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -640,14 +621,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/magic_wan"
+          "$ref": "#/$defs/magic_wan_modified_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
         }
       },
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_cidr": magic_cidr_output,
         "magic_identifier": magic_identifier_output,
         "magic_ip-address": magic_ip_address_output,
@@ -655,6 +638,7 @@ export const tools: readonly Tool[] = [
         "magic_port": magic_port_output,
         "magic_vlan_tag": magic_vlan_tag_output,
         "magic_wan": magic_wan_output,
+        "magic_wan_modified_response": magic_wan_modified_response_output,
         "magic_wan_static_addressing": magic_wan_static_addressing_output,
       },
     },

@@ -6,8 +6,11 @@ import {
   mconn_telemetry_coded_message_output,
   mconn_telemetry_envelope_output,
 } from "../outputs.js";
+import { mconn_telemetry_account_id } from "../schemas.js";
 import {
+  mconn_telemetry_customer_events_get_success_output,
   mconn_telemetry_customer_events_list_result_output,
+  mconn_telemetry_customer_events_list_success_output,
   mconn_telemetry_event_metadata_output,
   mconn_telemetry_event_output,
   mconn_telemetry_recorded_event_output,
@@ -25,17 +28,17 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier",
-          "type": "string"
+          "$ref": "#/$defs/mconn-telemetry_account_id",
+          "description": "Account identifier"
         },
         "connector_id": {
           "type": "string"
         },
         "event_n": {
-          "type": "string"
+          "type": "number"
         },
         "event_t": {
-          "type": "string"
+          "type": "number"
         }
       },
       required: [
@@ -44,10 +47,16 @@ export const tools: readonly Tool[] = [
         "event_t",
         "event_n"
       ],
+      $defs: {
+        "mconn-telemetry_account_id": mconn_telemetry_account_id,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/mconn-telemetry_recorded_event",
+      "$ref": "#/$defs/mconn-telemetry_customer_events_get_success",
       $defs: {
+        "mconn-telemetry_coded_message": mconn_telemetry_coded_message_output,
+        "mconn-telemetry_customer_events_get_success": mconn_telemetry_customer_events_get_success_output,
+        "mconn-telemetry_envelope": mconn_telemetry_envelope_output,
         "mconn-telemetry_event": mconn_telemetry_event_output,
         "mconn-telemetry_recorded_event": mconn_telemetry_recorded_event_output,
       },
@@ -76,7 +85,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/mconn-telemetry_recorded_event"
+          "$ref": "#/$defs/mconn-telemetry_customer_events_get_success"
         },
         "400": {
           "$ref": "#/$defs/mconn-telemetry_envelope"
@@ -99,6 +108,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "mconn-telemetry_coded_message": mconn_telemetry_coded_message_output,
+        "mconn-telemetry_customer_events_get_success": mconn_telemetry_customer_events_get_success_output,
         "mconn-telemetry_envelope": mconn_telemetry_envelope_output,
         "mconn-telemetry_event": mconn_telemetry_event_output,
         "mconn-telemetry_recorded_event": mconn_telemetry_recorded_event_output,
@@ -116,8 +126,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier",
-          "type": "string"
+          "$ref": "#/$defs/mconn-telemetry_account_id",
+          "description": "Account identifier"
         },
         "connector_id": {
           "type": "string"
@@ -145,11 +155,17 @@ export const tools: readonly Tool[] = [
         "from",
         "to"
       ],
+      $defs: {
+        "mconn-telemetry_account_id": mconn_telemetry_account_id,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/mconn-telemetry_customer_events_list_result",
+      "$ref": "#/$defs/mconn-telemetry_customer_events_list_success",
       $defs: {
+        "mconn-telemetry_coded_message": mconn_telemetry_coded_message_output,
         "mconn-telemetry_customer_events_list_result": mconn_telemetry_customer_events_list_result_output,
+        "mconn-telemetry_customer_events_list_success": mconn_telemetry_customer_events_list_success_output,
+        "mconn-telemetry_envelope": mconn_telemetry_envelope_output,
         "mconn-telemetry_event_metadata": mconn_telemetry_event_metadata_output,
       },
     },
@@ -177,7 +193,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/mconn-telemetry_customer_events_list_result"
+          "$ref": "#/$defs/mconn-telemetry_customer_events_list_success"
         },
         "400": {
           "$ref": "#/$defs/mconn-telemetry_envelope"
@@ -198,6 +214,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "mconn-telemetry_coded_message": mconn_telemetry_coded_message_output,
         "mconn-telemetry_customer_events_list_result": mconn_telemetry_customer_events_list_result_output,
+        "mconn-telemetry_customer_events_list_success": mconn_telemetry_customer_events_list_success_output,
         "mconn-telemetry_envelope": mconn_telemetry_envelope_output,
         "mconn-telemetry_event_metadata": mconn_telemetry_event_metadata_output,
       },

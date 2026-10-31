@@ -53,3 +53,15 @@ export const load_balancing_search_output: JsonSchema = {
   },
   "type": "object"
 };
+
+/**
+ * The schema of `load-balancing_search_result` in responses.
+ */
+export const load_balancing_search_result_output: JsonSchema = {
+  "properties": {
+    "result": {
+      "$ref": "#/$defs/load-balancing_search"
+    }
+  },
+  "type": "object"
+};

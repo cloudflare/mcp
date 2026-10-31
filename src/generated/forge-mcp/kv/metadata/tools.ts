@@ -5,9 +5,15 @@ import { type Tool, pathParam } from "../../_/tool.js";
 import {
   workers_kv_any_output,
   workers_kv_api_response_common_failure_output,
+  workers_kv_api_response_common_output,
   workers_kv_list_metadata_output,
   workers_kv_messages_output,
 } from "../outputs.js";
+import {
+  workers_kv_identifier,
+  workers_kv_key_name,
+  workers_kv_namespace_identifier,
+} from "../schemas.js";
 
 /**
  * The tools of `kv.metadata`.
@@ -21,16 +27,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "ID of the Cloudflare account that owns the Workers KV namespaces.",
-          "type": "string"
+          "$ref": "#/$defs/workers-kv_identifier",
+          "description": "ID of the Cloudflare account that owns the Workers KV namespaces."
         },
         "key_name": {
-          "description": "A key's name. The name may be at most 512 bytes. All printable, non-whitespace characters are valid. Use percent-encoding to define key names as part of a URL.",
-          "type": "string"
+          "$ref": "#/$defs/workers-kv_key_name",
+          "description": "A key's name. The name may be at most 512 bytes. All printable, non-whitespace characters are valid. Use percent-encoding to define key names as part of a URL."
         },
         "namespace_id": {
-          "description": "ID of the Workers KV namespace.",
-          "type": "string"
+          "$ref": "#/$defs/workers-kv_namespace_identifier",
+          "description": "ID of the Workers KV namespace."
         }
       },
       required: [
@@ -38,23 +44,31 @@ export const tools: readonly Tool[] = [
         "namespace_id",
         "key_name"
       ],
+      $defs: {
+        "workers-kv_identifier": workers_kv_identifier,
+        "workers-kv_key_name": workers_kv_key_name,
+        "workers-kv_namespace_identifier": workers_kv_namespace_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "$ref": "#/$defs/workers-kv_list_metadata"
+      "allOf": [
+        {
+          "$ref": "#/$defs/workers-kv_api-response-common"
         },
-        "result_info": {
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/workers-kv_list_metadata"
+            }
+          },
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
         "workers-kv_any": workers_kv_any_output,
+        "workers-kv_api-response-common": workers_kv_api_response_common_output,
         "workers-kv_list_metadata": workers_kv_list_metadata_output,
+        "workers-kv_messages": workers_kv_messages_output,
       },
     },
     annotations: {
@@ -75,18 +89,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "$ref": "#/$defs/workers-kv_list_metadata"
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers-kv_api-response-common"
             },
-            "result_info": {
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/workers-kv_list_metadata"
+                }
+              },
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/workers-kv_api-response-common-failure"
@@ -94,6 +109,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "workers-kv_any": workers_kv_any_output,
+        "workers-kv_api-response-common": workers_kv_api_response_common_output,
         "workers-kv_api-response-common-failure": workers_kv_api_response_common_failure_output,
         "workers-kv_list_metadata": workers_kv_list_metadata_output,
         "workers-kv_messages": workers_kv_messages_output,

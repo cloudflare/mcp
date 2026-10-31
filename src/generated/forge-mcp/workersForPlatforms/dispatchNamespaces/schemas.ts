@@ -4,6 +4,14 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `workers_dispatch_namespace_name`.
+ */
+export const workers_dispatch_namespace_name: JsonSchema = {
+  "description": "Name of the Workers for Platforms dispatch namespace.",
+  "type": "string"
+};
+
+/**
  * The schema of `workers_trusted_workers`.
  */
 export const workers_trusted_workers: JsonSchema = {

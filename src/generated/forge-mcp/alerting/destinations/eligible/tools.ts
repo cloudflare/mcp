@@ -3,13 +3,16 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  aaa_api_response_common_2_output,
   aaa_api_response_common_failure_3_output,
   aaa_messages_3_output,
 } from "../../outputs.js";
+import { aaa_account_id } from "../../schemas.js";
 import {
   aaa_eligibility_output,
   aaa_eligible_output,
   aaa_ready_output,
+  aaa_schemas_response_collection_output,
   aaa_schemas_type_output,
 } from "./outputs.js";
 
@@ -25,26 +28,26 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "The account id",
-          "type": "string"
+          "$ref": "#/$defs/aaa_account-id",
+          "description": "The account id"
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "aaa_account-id": aaa_account_id,
+      },
     },
     outputSchema: {
-      "additionalProperties": {
-        "items": {
-          "$ref": "#/$defs/aaa_eligibility"
-        },
-        "type": "array"
-      },
-      "type": "object",
+      "$ref": "#/$defs/aaa_schemas-response_collection",
       $defs: {
+        "aaa_api-response-common-2": aaa_api_response_common_2_output,
         "aaa_eligibility": aaa_eligibility_output,
         "aaa_eligible": aaa_eligible_output,
+        "aaa_messages-3": aaa_messages_3_output,
         "aaa_ready": aaa_ready_output,
+        "aaa_schemas-response_collection": aaa_schemas_response_collection_output,
         "aaa_schemas-type": aaa_schemas_type_output,
       },
     },
@@ -60,24 +63,20 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "additionalProperties": {
-            "items": {
-              "$ref": "#/$defs/aaa_eligibility"
-            },
-            "type": "array"
-          },
-          "type": "object"
+          "$ref": "#/$defs/aaa_schemas-response_collection"
         },
         "4XX": {
           "$ref": "#/$defs/aaa_api-response-common-failure-3"
         }
       },
       $defs: {
+        "aaa_api-response-common-2": aaa_api_response_common_2_output,
         "aaa_api-response-common-failure-3": aaa_api_response_common_failure_3_output,
         "aaa_eligibility": aaa_eligibility_output,
         "aaa_eligible": aaa_eligible_output,
         "aaa_messages-3": aaa_messages_3_output,
         "aaa_ready": aaa_ready_output,
+        "aaa_schemas-response_collection": aaa_schemas_response_collection_output,
         "aaa_schemas-type": aaa_schemas_type_output,
       },
     },

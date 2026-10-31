@@ -2,6 +2,16 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import {
+  realtimekit_GenericErrorResponse_output,
+  realtimekit_LivestreamSession_output,
+  realtimekit_PagingInfo_output,
+  realtimekit_ValidationIssue_output,
+} from "../../outputs.js";
+import {
+  realtimekit_account_identifier,
+  realtimekit_app_id,
+} from "../../schemas.js";
 
 /**
  * The tools of `realtime.kit.sessions.livestreams`.
@@ -15,12 +25,12 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "The account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/realtimekit_account_identifier",
+          "description": "The account identifier tag."
         },
         "app_id": {
-          "description": "The app identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/realtimekit_app_id",
+          "description": "The app identifier tag."
         },
         "page_no": {
           "description": "The page number from which you want your page search results to be displayed.",
@@ -40,76 +50,44 @@ export const tools: readonly Tool[] = [
         "app_id",
         "session_id"
       ],
+      $defs: {
+        "realtimekit_account_identifier": realtimekit_account_identifier,
+        "realtimekit_app_id": realtimekit_app_id,
+      },
     },
     outputSchema: {
       "properties": {
         "data": {
           "properties": {
-            "created_at": {
-              "format": "date-time",
-              "type": "string"
-            },
-            "err_message": {
-              "enum": [
-                "LIVE",
-                "IDLE",
-                "ERRORED",
-                "INVOKED"
-              ],
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "ingest_seconds": {
-              "type": "number"
-            },
-            "invoked_time": {
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "livestream_id": {
-              "type": "string"
+            "data": {
+              "items": {
+                "$ref": "#/$defs/realtimekit_LivestreamSession"
+              },
+              "type": "array"
             },
             "paging": {
-              "properties": {
-                "end_offset": {
-                  "type": "number"
-                },
-                "start_offset": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                }
-              },
-              "type": "object"
-            },
-            "stopped_time": {
-              "format": "date-time",
-              "type": "string"
-            },
-            "updated_at": {
-              "format": "date-time",
-              "type": "string"
-            },
-            "viewer_seconds": {
-              "type": "number"
+              "$ref": "#/$defs/realtimekit_PagingInfo"
             }
           },
+          "required": [
+            "data",
+            "paging"
+          ],
           "type": "object"
         },
         "success": {
           "type": "boolean"
         }
       },
+      "required": [
+        "data",
+        "success"
+      ],
       "type": "object",
+      $defs: {
+        "realtimekit_LivestreamSession": realtimekit_LivestreamSession_output,
+        "realtimekit_PagingInfo": realtimekit_PagingInfo_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -132,72 +110,41 @@ export const tools: readonly Tool[] = [
           "properties": {
             "data": {
               "properties": {
-                "created_at": {
-                  "format": "date-time",
-                  "type": "string"
-                },
-                "err_message": {
-                  "enum": [
-                    "LIVE",
-                    "IDLE",
-                    "ERRORED",
-                    "INVOKED"
-                  ],
-                  "type": "string"
-                },
-                "id": {
-                  "type": "string"
-                },
-                "ingest_seconds": {
-                  "type": "number"
-                },
-                "invoked_time": {
-                  "oneOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "livestream_id": {
-                  "type": "string"
+                "data": {
+                  "items": {
+                    "$ref": "#/$defs/realtimekit_LivestreamSession"
+                  },
+                  "type": "array"
                 },
                 "paging": {
-                  "properties": {
-                    "end_offset": {
-                      "type": "number"
-                    },
-                    "start_offset": {
-                      "type": "number"
-                    },
-                    "total_count": {
-                      "type": "number"
-                    }
-                  },
-                  "type": "object"
-                },
-                "stopped_time": {
-                  "format": "date-time",
-                  "type": "string"
-                },
-                "updated_at": {
-                  "format": "date-time",
-                  "type": "string"
-                },
-                "viewer_seconds": {
-                  "type": "number"
+                  "$ref": "#/$defs/realtimekit_PagingInfo"
                 }
               },
+              "required": [
+                "data",
+                "paging"
+              ],
               "type": "object"
             },
             "success": {
               "type": "boolean"
             }
           },
+          "required": [
+            "data",
+            "success"
+          ],
           "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
         }
+      },
+      $defs: {
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
+        "realtimekit_LivestreamSession": realtimekit_LivestreamSession_output,
+        "realtimekit_PagingInfo": realtimekit_PagingInfo_output,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
       },
     },
     request: (args) => ({

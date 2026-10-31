@@ -11,6 +11,25 @@ export const magic_cloudflare_gre_endpoint_output: JsonSchema = {
 };
 
 /**
+ * The schema of `magic_create_gre_tunnel_response` in responses.
+ */
+export const magic_create_gre_tunnel_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/magic_gre-tunnel"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `magic_customer_gre_endpoint` in responses.
  */
 export const magic_customer_gre_endpoint_output: JsonSchema = {
@@ -86,6 +105,36 @@ export const magic_gre_tunnel_name_output: JsonSchema = {
 };
 
 /**
+ * The schema of `magic_modified_tunnels_collection_response` in responses.
+ */
+export const magic_modified_tunnels_collection_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "modified": {
+              "type": "boolean"
+            },
+            "modified_gre_tunnels": {
+              "items": {
+                "$ref": "#/$defs/magic_gre-tunnel"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `magic_mtu` in responses.
  */
 export const magic_mtu_output: JsonSchema = {
@@ -104,4 +153,109 @@ export const magic_schemas_description_output: JsonSchema = {
  */
 export const magic_ttl_output: JsonSchema = {
   "type": "integer"
+};
+
+/**
+ * The schema of `magic_tunnel_deleted_response` in responses.
+ */
+export const magic_tunnel_deleted_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "deleted": {
+              "type": "boolean"
+            },
+            "deleted_gre_tunnel": {
+              "$ref": "#/$defs/magic_gre-tunnel"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `magic_tunnel_modified_response` in responses.
+ */
+export const magic_tunnel_modified_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "modified": {
+              "type": "boolean"
+            },
+            "modified_gre_tunnel": {
+              "$ref": "#/$defs/magic_gre-tunnel"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `magic_tunnel_single_response` in responses.
+ */
+export const magic_tunnel_single_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "gre_tunnel": {
+              "$ref": "#/$defs/magic_gre-tunnel"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `magic_tunnels_collection_response` in responses.
+ */
+export const magic_tunnels_collection_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "gre_tunnels": {
+              "items": {
+                "$ref": "#/$defs/magic_gre-tunnel"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };

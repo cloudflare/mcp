@@ -4,6 +4,7 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   email_auth_api_response_common_failure_output,
+  email_auth_api_response_single_output,
   email_auth_messages_output,
 } from "../outputs.js";
 import { email_auth_identifier } from "../schemas.js";
@@ -46,7 +47,19 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/email-auth_DmarcReportResponse",
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-auth_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/email-auth_DmarcReportResponse"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "email-auth_ApprovedSourceResponse": email_auth_ApprovedSourceResponse_output,
         "email-auth_DmarcReportResponse": email_auth_DmarcReportResponse_output,
@@ -54,6 +67,8 @@ export const tools: readonly Tool[] = [
         "email-auth_DnsRecordInfo": email_auth_DnsRecordInfo_output,
         "email-auth_ResolvedDmarcRecord": email_auth_ResolvedDmarcRecord_output,
         "email-auth_ZoneDnsRecords": email_auth_ZoneDnsRecords_output,
+        "email-auth_api-response-single": email_auth_api_response_single_output,
+        "email-auth_messages": email_auth_messages_output,
       },
     },
     annotations: {
@@ -68,7 +83,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/email-auth_DmarcReportResponse"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-auth_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/email-auth_DmarcReportResponse"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-auth_api-response-common-failure"
@@ -82,6 +109,7 @@ export const tools: readonly Tool[] = [
         "email-auth_ResolvedDmarcRecord": email_auth_ResolvedDmarcRecord_output,
         "email-auth_ZoneDnsRecords": email_auth_ZoneDnsRecords_output,
         "email-auth_api-response-common-failure": email_auth_api_response_common_failure_output,
+        "email-auth_api-response-single": email_auth_api_response_single_output,
         "email-auth_messages": email_auth_messages_output,
       },
     },
@@ -110,7 +138,19 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/email-auth_DmarcReportResponse",
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-auth_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/email-auth_DmarcReportResponse"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "email-auth_ApprovedSourceResponse": email_auth_ApprovedSourceResponse_output,
         "email-auth_DmarcReportResponse": email_auth_DmarcReportResponse_output,
@@ -118,6 +158,8 @@ export const tools: readonly Tool[] = [
         "email-auth_DnsRecordInfo": email_auth_DnsRecordInfo_output,
         "email-auth_ResolvedDmarcRecord": email_auth_ResolvedDmarcRecord_output,
         "email-auth_ZoneDnsRecords": email_auth_ZoneDnsRecords_output,
+        "email-auth_api-response-single": email_auth_api_response_single_output,
+        "email-auth_messages": email_auth_messages_output,
       },
     },
     annotations: {
@@ -132,7 +174,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/email-auth_DmarcReportResponse"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-auth_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/email-auth_DmarcReportResponse"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-auth_api-response-common-failure"
@@ -146,6 +200,7 @@ export const tools: readonly Tool[] = [
         "email-auth_ResolvedDmarcRecord": email_auth_ResolvedDmarcRecord_output,
         "email-auth_ZoneDnsRecords": email_auth_ZoneDnsRecords_output,
         "email-auth_api-response-common-failure": email_auth_api_response_common_failure_output,
+        "email-auth_api-response-single": email_auth_api_response_single_output,
         "email-auth_messages": email_auth_messages_output,
       },
     },

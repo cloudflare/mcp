@@ -4,6 +4,8 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   custom_indicator_feeds_api_response_common_failure_output,
+  custom_indicator_feeds_api_response_common_output,
+  custom_indicator_feeds_api_response_single_output,
   custom_indicator_feeds_create_feed_response_output,
   custom_indicator_feeds_description_output,
   custom_indicator_feeds_id_output,
@@ -15,9 +17,6 @@ import {
   custom_indicator_feeds_is_downloadable_output,
   custom_indicator_feeds_is_public_output,
   custom_indicator_feeds_last_upload_summary_output,
-  custom_indicator_feeds_last_upload_summary_persisted_output,
-  custom_indicator_feeds_last_upload_summary_skipped_output,
-  custom_indicator_feeds_last_upload_summary_uploaded_output,
   custom_indicator_feeds_messages_2_output,
   custom_indicator_feeds_messages_output,
   custom_indicator_feeds_name_output,
@@ -28,6 +27,8 @@ import {
 import {
   custom_indicator_feeds_create_feed,
   custom_indicator_feeds_description,
+  custom_indicator_feeds_feed_id,
+  custom_indicator_feeds_identifier,
   custom_indicator_feeds_name,
   custom_indicator_feeds_update_public_field_request,
 } from "./schemas.js";
@@ -44,8 +45,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/custom-indicator-feeds_identifier",
+          "description": "Identifier"
         },
         "body": {
           "$ref": "#/$defs/custom-indicator-feeds_create_feed"
@@ -58,18 +59,22 @@ export const tools: readonly Tool[] = [
       $defs: {
         "custom-indicator-feeds_create_feed": custom_indicator_feeds_create_feed,
         "custom-indicator-feeds_description": custom_indicator_feeds_description,
+        "custom-indicator-feeds_identifier": custom_indicator_feeds_identifier,
         "custom-indicator-feeds_name": custom_indicator_feeds_name,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/custom-indicator-feeds_indicator_feed_item",
+      "$ref": "#/$defs/custom-indicator-feeds_create_feed_response",
       $defs: {
+        "custom-indicator-feeds_api-response-single": custom_indicator_feeds_api_response_single_output,
+        "custom-indicator-feeds_create_feed_response": custom_indicator_feeds_create_feed_response_output,
         "custom-indicator-feeds_description": custom_indicator_feeds_description_output,
         "custom-indicator-feeds_id": custom_indicator_feeds_id_output,
         "custom-indicator-feeds_indicator_feed_item": custom_indicator_feeds_indicator_feed_item_output,
         "custom-indicator-feeds_is_attributable": custom_indicator_feeds_is_attributable_output,
         "custom-indicator-feeds_is_downloadable": custom_indicator_feeds_is_downloadable_output,
         "custom-indicator-feeds_is_public": custom_indicator_feeds_is_public_output,
+        "custom-indicator-feeds_messages-2": custom_indicator_feeds_messages_2_output,
         "custom-indicator-feeds_name": custom_indicator_feeds_name_output,
       },
     },
@@ -85,7 +90,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/custom-indicator-feeds_indicator_feed_item"
+          "$ref": "#/$defs/custom-indicator-feeds_create_feed_response"
         },
         "4XX": {
           "allOf": [
@@ -99,6 +104,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "custom-indicator-feeds_api-response-single": custom_indicator_feeds_api_response_single_output,
         "custom-indicator-feeds_api_response_common_failure": custom_indicator_feeds_api_response_common_failure_output,
         "custom-indicator-feeds_create_feed_response": custom_indicator_feeds_create_feed_response_output,
         "custom-indicator-feeds_description": custom_indicator_feeds_description_output,
@@ -125,18 +131,22 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/custom-indicator-feeds_identifier",
+          "description": "Identifier"
         },
         "feed_id": {
-          "description": "Indicator feed ID",
-          "type": "string"
+          "$ref": "#/$defs/custom-indicator-feeds_feed_id",
+          "description": "Indicator feed ID"
         }
       },
       required: [
         "account_id",
         "feed_id"
       ],
+      $defs: {
+        "custom-indicator-feeds_feed_id": custom_indicator_feeds_feed_id,
+        "custom-indicator-feeds_identifier": custom_indicator_feeds_identifier,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -177,32 +187,36 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/custom-indicator-feeds_identifier",
+          "description": "Identifier"
         },
         "feed_id": {
-          "description": "Indicator feed ID",
-          "type": "string"
+          "$ref": "#/$defs/custom-indicator-feeds_feed_id",
+          "description": "Indicator feed ID"
         }
       },
       required: [
         "account_id",
         "feed_id"
       ],
+      $defs: {
+        "custom-indicator-feeds_feed_id": custom_indicator_feeds_feed_id,
+        "custom-indicator-feeds_identifier": custom_indicator_feeds_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/custom-indicator-feeds_indicator_feed_metadata",
+      "$ref": "#/$defs/custom-indicator-feeds_indicator_feed_metadata_response",
       $defs: {
+        "custom-indicator-feeds_api-response-single": custom_indicator_feeds_api_response_single_output,
         "custom-indicator-feeds_description": custom_indicator_feeds_description_output,
         "custom-indicator-feeds_id": custom_indicator_feeds_id_output,
         "custom-indicator-feeds_indicator_feed_metadata": custom_indicator_feeds_indicator_feed_metadata_output,
+        "custom-indicator-feeds_indicator_feed_metadata_response": custom_indicator_feeds_indicator_feed_metadata_response_output,
         "custom-indicator-feeds_is_attributable": custom_indicator_feeds_is_attributable_output,
         "custom-indicator-feeds_is_downloadable": custom_indicator_feeds_is_downloadable_output,
         "custom-indicator-feeds_is_public": custom_indicator_feeds_is_public_output,
         "custom-indicator-feeds_last_upload_summary": custom_indicator_feeds_last_upload_summary_output,
-        "custom-indicator-feeds_last_upload_summary_persisted": custom_indicator_feeds_last_upload_summary_persisted_output,
-        "custom-indicator-feeds_last_upload_summary_skipped": custom_indicator_feeds_last_upload_summary_skipped_output,
-        "custom-indicator-feeds_last_upload_summary_uploaded": custom_indicator_feeds_last_upload_summary_uploaded_output,
+        "custom-indicator-feeds_messages-2": custom_indicator_feeds_messages_2_output,
         "custom-indicator-feeds_name": custom_indicator_feeds_name_output,
         "custom-indicator-feeds_provider_id": custom_indicator_feeds_provider_id_output,
         "custom-indicator-feeds_provider_name": custom_indicator_feeds_provider_name_output,
@@ -226,7 +240,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/custom-indicator-feeds_indicator_feed_metadata"
+          "$ref": "#/$defs/custom-indicator-feeds_indicator_feed_metadata_response"
         },
         "4XX": {
           "allOf": [
@@ -240,6 +254,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "custom-indicator-feeds_api-response-single": custom_indicator_feeds_api_response_single_output,
         "custom-indicator-feeds_api_response_common_failure": custom_indicator_feeds_api_response_common_failure_output,
         "custom-indicator-feeds_description": custom_indicator_feeds_description_output,
         "custom-indicator-feeds_id": custom_indicator_feeds_id_output,
@@ -249,9 +264,6 @@ export const tools: readonly Tool[] = [
         "custom-indicator-feeds_is_downloadable": custom_indicator_feeds_is_downloadable_output,
         "custom-indicator-feeds_is_public": custom_indicator_feeds_is_public_output,
         "custom-indicator-feeds_last_upload_summary": custom_indicator_feeds_last_upload_summary_output,
-        "custom-indicator-feeds_last_upload_summary_persisted": custom_indicator_feeds_last_upload_summary_persisted_output,
-        "custom-indicator-feeds_last_upload_summary_skipped": custom_indicator_feeds_last_upload_summary_skipped_output,
-        "custom-indicator-feeds_last_upload_summary_uploaded": custom_indicator_feeds_last_upload_summary_uploaded_output,
         "custom-indicator-feeds_messages": custom_indicator_feeds_messages_output,
         "custom-indicator-feeds_messages-2": custom_indicator_feeds_messages_2_output,
         "custom-indicator-feeds_name": custom_indicator_feeds_name_output,
@@ -271,37 +283,29 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/custom-indicator-feeds_identifier",
+          "description": "Identifier"
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "custom-indicator-feeds_identifier": custom_indicator_feeds_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/custom-indicator-feeds_indicator_feed_item"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/custom-indicator-feeds_indicator_feed_response",
       $defs: {
+        "custom-indicator-feeds_api-response-common": custom_indicator_feeds_api_response_common_output,
         "custom-indicator-feeds_description": custom_indicator_feeds_description_output,
         "custom-indicator-feeds_id": custom_indicator_feeds_id_output,
         "custom-indicator-feeds_indicator_feed_item": custom_indicator_feeds_indicator_feed_item_output,
+        "custom-indicator-feeds_indicator_feed_response": custom_indicator_feeds_indicator_feed_response_output,
         "custom-indicator-feeds_is_attributable": custom_indicator_feeds_is_attributable_output,
         "custom-indicator-feeds_is_downloadable": custom_indicator_feeds_is_downloadable_output,
         "custom-indicator-feeds_is_public": custom_indicator_feeds_is_public_output,
+        "custom-indicator-feeds_messages-2": custom_indicator_feeds_messages_2_output,
         "custom-indicator-feeds_name": custom_indicator_feeds_name_output,
       },
     },
@@ -323,21 +327,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/custom-indicator-feeds_indicator_feed_item"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/custom-indicator-feeds_indicator_feed_response"
         },
         "4XX": {
           "allOf": [
@@ -351,6 +341,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "custom-indicator-feeds_api-response-common": custom_indicator_feeds_api_response_common_output,
         "custom-indicator-feeds_api_response_common_failure": custom_indicator_feeds_api_response_common_failure_output,
         "custom-indicator-feeds_description": custom_indicator_feeds_description_output,
         "custom-indicator-feeds_id": custom_indicator_feeds_id_output,
@@ -376,15 +367,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/custom-indicator-feeds_identifier",
+          "description": "Identifier"
         },
         "body": {
           "$ref": "#/$defs/custom-indicator-feeds_update_public_field_request"
         },
         "feed_id": {
-          "description": "Indicator feed ID",
-          "type": "string"
+          "$ref": "#/$defs/custom-indicator-feeds_feed_id",
+          "description": "Indicator feed ID"
         }
       },
       required: [
@@ -393,19 +384,24 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "custom-indicator-feeds_feed_id": custom_indicator_feeds_feed_id,
+        "custom-indicator-feeds_identifier": custom_indicator_feeds_identifier,
         "custom-indicator-feeds_update_public_field_request": custom_indicator_feeds_update_public_field_request,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/custom-indicator-feeds_indicator_feed_item",
+      "$ref": "#/$defs/custom-indicator-feeds_update_public_field_response",
       $defs: {
+        "custom-indicator-feeds_api-response-single": custom_indicator_feeds_api_response_single_output,
         "custom-indicator-feeds_description": custom_indicator_feeds_description_output,
         "custom-indicator-feeds_id": custom_indicator_feeds_id_output,
         "custom-indicator-feeds_indicator_feed_item": custom_indicator_feeds_indicator_feed_item_output,
         "custom-indicator-feeds_is_attributable": custom_indicator_feeds_is_attributable_output,
         "custom-indicator-feeds_is_downloadable": custom_indicator_feeds_is_downloadable_output,
         "custom-indicator-feeds_is_public": custom_indicator_feeds_is_public_output,
+        "custom-indicator-feeds_messages-2": custom_indicator_feeds_messages_2_output,
         "custom-indicator-feeds_name": custom_indicator_feeds_name_output,
+        "custom-indicator-feeds_update_public_field_response": custom_indicator_feeds_update_public_field_response_output,
       },
     },
     annotations: {
@@ -420,7 +416,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/custom-indicator-feeds_indicator_feed_item"
+          "$ref": "#/$defs/custom-indicator-feeds_update_public_field_response"
         },
         "4XX": {
           "allOf": [
@@ -434,6 +430,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "custom-indicator-feeds_api-response-single": custom_indicator_feeds_api_response_single_output,
         "custom-indicator-feeds_api_response_common_failure": custom_indicator_feeds_api_response_common_failure_output,
         "custom-indicator-feeds_description": custom_indicator_feeds_description_output,
         "custom-indicator-feeds_id": custom_indicator_feeds_id_output,

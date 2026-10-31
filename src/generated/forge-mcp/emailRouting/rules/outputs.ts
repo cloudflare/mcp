@@ -7,51 +7,27 @@ import type { JsonSchema } from "../../_/tool.js";
  * The schema of `email_account_rule` in responses.
  */
 export const email_account_rule_output: JsonSchema = {
-  "properties": {
-    "actions": {
-      "$ref": "#/$defs/email_rule_actions"
+  "allOf": [
+    {
+      "$ref": "#/$defs/email_rule_properties"
     },
-    "enabled": {
-      "$ref": "#/$defs/email_rule_enabled"
-    },
-    "id": {
-      "$ref": "#/$defs/email_rule_identifier"
-    },
-    "matchers": {
-      "$ref": "#/$defs/email_rule_matchers"
-    },
-    "name": {
-      "$ref": "#/$defs/email_rule_name"
-    },
-    "priority": {
-      "$ref": "#/$defs/email_rule_priority"
-    },
-    "source": {
-      "$ref": "#/$defs/email_rule_source"
-    },
-    "tag": {
-      "$ref": "#/$defs/email_rule_tag"
-    },
-    "zone": {
-      "$ref": "#/$defs/email_account_rule_zone"
+    {
+      "properties": {
+        "zone": {
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "tag": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `email_account_rule_zone` in responses.
- */
-export const email_account_rule_zone_output: JsonSchema = {
-  "properties": {
-    "name": {
-      "type": "string"
-    },
-    "tag": {
-      "type": "string"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**
@@ -121,6 +97,25 @@ export const email_account_rules_plan_remote_rule_output: JsonSchema = {
 };
 
 /**
+ * The schema of `email_account_rules_plan_response_single` in responses.
+ */
+export const email_account_rules_plan_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/email_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/email_account_rules_plan"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `email_account_rules_plan_zone` in responses.
  */
 export const email_account_rules_plan_zone_output: JsonSchema = {
@@ -139,6 +134,45 @@ export const email_account_rules_plan_zone_output: JsonSchema = {
     }
   },
   "type": "object"
+};
+
+/**
+ * The schema of `email_account_rules_response_collection` in responses.
+ */
+export const email_account_rules_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/email_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/email_account_rule"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**
@@ -351,6 +385,25 @@ export const email_rule_properties_output: JsonSchema = {
 };
 
 /**
+ * The schema of `email_rule_response_single` in responses.
+ */
+export const email_rule_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/email_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/email_rules"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `email_rule_source` in responses.
  */
 export const email_rule_source_output: JsonSchema = {
@@ -366,4 +419,37 @@ export const email_rule_source_output: JsonSchema = {
  */
 export const email_rule_tag_output: JsonSchema = {
   "type": "string"
+};
+
+/**
+ * The schema of `email_rules` in responses.
+ */
+export const email_rules_output: JsonSchema = {
+  "properties": {
+    "actions": {
+      "$ref": "#/$defs/email_rule_actions"
+    },
+    "enabled": {
+      "$ref": "#/$defs/email_rule_enabled"
+    },
+    "id": {
+      "$ref": "#/$defs/email_rule_identifier"
+    },
+    "matchers": {
+      "$ref": "#/$defs/email_rule_matchers"
+    },
+    "name": {
+      "$ref": "#/$defs/email_rule_name"
+    },
+    "priority": {
+      "$ref": "#/$defs/email_rule_priority"
+    },
+    "source": {
+      "$ref": "#/$defs/email_rule_source"
+    },
+    "tag": {
+      "$ref": "#/$defs/email_rule_tag"
+    }
+  },
+  "type": "object"
 };

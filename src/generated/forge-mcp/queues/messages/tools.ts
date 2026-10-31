@@ -6,10 +6,12 @@ import {
   mq_api_v4_error_output,
   mq_api_v4_failure_output,
   mq_api_v4_message_output,
+  mq_api_v4_success_output,
   mq_queue_metrics_output,
 } from "../outputs.js";
 import {
   mq_batch_size,
+  mq_identifier,
   mq_retry_delay,
   mq_visibility_timeout,
 } from "../schemas.js";
@@ -40,8 +42,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "A Resource identifier.",
-          "type": "string"
+          "$ref": "#/$defs/mq_identifier",
+          "description": "A Resource identifier."
         },
         "body": {
           "properties": {
@@ -77,8 +79,8 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "queue_id": {
-          "description": "A Resource identifier.",
-          "type": "string"
+          "$ref": "#/$defs/mq_identifier",
+          "description": "A Resource identifier."
         }
       },
       required: [
@@ -86,26 +88,44 @@ export const tools: readonly Tool[] = [
         "queue_id"
       ],
       $defs: {
+        "mq_identifier": mq_identifier,
         "mq_lease-id": mq_lease_id,
         "mq_retry-delay": mq_retry_delay,
       },
     },
     outputSchema: {
-      "properties": {
-        "ackCount": {
-          "type": "number"
+      "allOf": [
+        {
+          "$ref": "#/$defs/mq_api-v4-success"
         },
-        "retryCount": {
-          "type": "number"
-        },
-        "warnings": {
-          "additionalProperties": {
-            "type": "string"
+        {
+          "properties": {
+            "result": {
+              "properties": {
+                "ackCount": {
+                  "type": "number"
+                },
+                "retryCount": {
+                  "type": "number"
+                },
+                "warnings": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            }
           },
           "type": "object"
         }
+      ],
+      $defs: {
+        "mq_api-v4-error": mq_api_v4_error_output,
+        "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_api-v4-success": mq_api_v4_success_output,
       },
-      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -125,32 +145,39 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.edge.worker.queue.ack"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.edge.worker.queue.ack": {
-            "name": "com_cloudflare_edge_worker_queue_ack"
-          }
-        }
+        ]
       }
     },
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "ackCount": {
-              "type": "number"
+          "allOf": [
+            {
+              "$ref": "#/$defs/mq_api-v4-success"
             },
-            "retryCount": {
-              "type": "number"
-            },
-            "warnings": {
-              "additionalProperties": {
-                "type": "string"
+            {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "ackCount": {
+                      "type": "number"
+                    },
+                    "retryCount": {
+                      "type": "number"
+                    },
+                    "warnings": {
+                      "additionalProperties": {
+                        "type": "string"
+                      },
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                }
               },
               "type": "object"
             }
-          },
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/mq_api-v4-failure"
@@ -160,6 +187,7 @@ export const tools: readonly Tool[] = [
         "mq_api-v4-error": mq_api_v4_error_output,
         "mq_api-v4-failure": mq_api_v4_failure_output,
         "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_api-v4-success": mq_api_v4_success_output,
       },
     },
     request: (args) => ({
@@ -175,15 +203,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "A Resource identifier.",
-          "type": "string"
+          "$ref": "#/$defs/mq_identifier",
+          "description": "A Resource identifier."
         },
         "body": {
           "$ref": "#/$defs/mq_queue-batch"
         },
         "queue_id": {
-          "description": "A Resource identifier.",
-          "type": "string"
+          "$ref": "#/$defs/mq_identifier",
+          "description": "A Resource identifier."
         }
       },
       required: [
@@ -191,6 +219,7 @@ export const tools: readonly Tool[] = [
         "queue_id"
       ],
       $defs: {
+        "mq_identifier": mq_identifier,
         "mq_queue-batch": mq_queue_batch,
         "mq_queue-message": mq_queue_message,
         "mq_queue-message-json": mq_queue_message_json,
@@ -198,18 +227,33 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "metadata": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/mq_api-v4-success"
+        },
+        {
           "properties": {
-            "metrics": {
-              "$ref": "#/$defs/mq_queue-metrics"
+            "result": {
+              "properties": {
+                "metadata": {
+                  "properties": {
+                    "metrics": {
+                      "$ref": "#/$defs/mq_queue-metrics"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
             }
           },
           "type": "object"
         }
-      },
-      "type": "object",
+      ],
       $defs: {
+        "mq_api-v4-error": mq_api_v4_error_output,
+        "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_api-v4-success": mq_api_v4_success_output,
         "mq_queue-metrics": mq_queue_metrics_output,
       },
     },
@@ -231,28 +275,35 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.edge.worker.queue.push"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.edge.worker.queue.push": {
-            "name": "com_cloudflare_edge_worker_queue_push"
-          }
-        }
+        ]
       }
     },
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "metadata": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/mq_api-v4-success"
+            },
+            {
               "properties": {
-                "metrics": {
-                  "$ref": "#/$defs/mq_queue-metrics"
+                "result": {
+                  "properties": {
+                    "metadata": {
+                      "properties": {
+                        "metrics": {
+                          "$ref": "#/$defs/mq_queue-metrics"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
                 }
               },
               "type": "object"
             }
-          },
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/mq_api-v4-failure"
@@ -262,6 +313,7 @@ export const tools: readonly Tool[] = [
         "mq_api-v4-error": mq_api_v4_error_output,
         "mq_api-v4-failure": mq_api_v4_failure_output,
         "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_api-v4-success": mq_api_v4_success_output,
         "mq_queue-metrics": mq_queue_metrics_output,
       },
     },
@@ -278,8 +330,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "A Resource identifier.",
-          "type": "string"
+          "$ref": "#/$defs/mq_identifier",
+          "description": "A Resource identifier."
         },
         "body": {
           "properties": {
@@ -303,8 +355,8 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "queue_id": {
-          "description": "A Resource identifier.",
-          "type": "string"
+          "$ref": "#/$defs/mq_identifier",
+          "description": "A Resource identifier."
         }
       },
       required: [
@@ -312,23 +364,41 @@ export const tools: readonly Tool[] = [
         "queue_id"
       ],
       $defs: {
+        "mq_identifier": mq_identifier,
         "mq_lease-id": mq_lease_id,
         "mq_visibility-timeout": mq_visibility_timeout,
       },
     },
     outputSchema: {
-      "properties": {
-        "extendCount": {
-          "type": "number"
+      "allOf": [
+        {
+          "$ref": "#/$defs/mq_api-v4-success"
         },
-        "warnings": {
-          "additionalProperties": {
-            "type": "string"
+        {
+          "properties": {
+            "result": {
+              "properties": {
+                "extendCount": {
+                  "type": "number"
+                },
+                "warnings": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            }
           },
           "type": "object"
         }
+      ],
+      $defs: {
+        "mq_api-v4-error": mq_api_v4_error_output,
+        "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_api-v4-success": mq_api_v4_success_output,
       },
-      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -348,29 +418,36 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.edge.worker.queue.pull"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.edge.worker.queue.pull": {
-            "name": "com_cloudflare_edge_worker_queue_pull"
-          }
-        }
+        ]
       }
     },
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "extendCount": {
-              "type": "number"
+          "allOf": [
+            {
+              "$ref": "#/$defs/mq_api-v4-success"
             },
-            "warnings": {
-              "additionalProperties": {
-                "type": "string"
+            {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "extendCount": {
+                      "type": "number"
+                    },
+                    "warnings": {
+                      "additionalProperties": {
+                        "type": "string"
+                      },
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                }
               },
               "type": "object"
             }
-          },
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/mq_api-v4-failure"
@@ -380,6 +457,7 @@ export const tools: readonly Tool[] = [
         "mq_api-v4-error": mq_api_v4_error_output,
         "mq_api-v4-failure": mq_api_v4_failure_output,
         "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_api-v4-success": mq_api_v4_success_output,
       },
     },
     request: (args) => ({
@@ -395,8 +473,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "A Resource identifier.",
-          "type": "string"
+          "$ref": "#/$defs/mq_identifier",
+          "description": "A Resource identifier."
         },
         "body": {
           "properties": {
@@ -408,8 +486,8 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "queue_id": {
-          "description": "A Resource identifier.",
-          "type": "string"
+          "$ref": "#/$defs/mq_identifier",
+          "description": "A Resource identifier."
         }
       },
       required: [
@@ -418,16 +496,32 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "mq_batch-size": mq_batch_size,
+        "mq_identifier": mq_identifier,
       },
     },
     outputSchema: {
-      "properties": {
-        "messages": {
-          "$ref": "#/$defs/mq_queue-peek-batch"
+      "allOf": [
+        {
+          "$ref": "#/$defs/mq_api-v4-success"
+        },
+        {
+          "properties": {
+            "result": {
+              "properties": {
+                "messages": {
+                  "$ref": "#/$defs/mq_queue-peek-batch"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
         }
-      },
-      "type": "object",
+      ],
       $defs: {
+        "mq_api-v4-error": mq_api_v4_error_output,
+        "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_api-v4-success": mq_api_v4_success_output,
         "mq_queue-peek-batch": mq_queue_peek_batch_output,
         "mq_ref": mq_ref_output,
       },
@@ -450,23 +544,30 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.edge.worker.queue.peek"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.edge.worker.queue.peek": {
-            "name": "com_cloudflare_edge_worker_queue_peek"
-          }
-        }
+        ]
       }
     },
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "messages": {
-              "$ref": "#/$defs/mq_queue-peek-batch"
+          "allOf": [
+            {
+              "$ref": "#/$defs/mq_api-v4-success"
+            },
+            {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "messages": {
+                      "$ref": "#/$defs/mq_queue-peek-batch"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
             }
-          },
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/mq_api-v4-failure"
@@ -476,6 +577,7 @@ export const tools: readonly Tool[] = [
         "mq_api-v4-error": mq_api_v4_error_output,
         "mq_api-v4-failure": mq_api_v4_failure_output,
         "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_api-v4-success": mq_api_v4_success_output,
         "mq_queue-peek-batch": mq_queue_peek_batch_output,
         "mq_ref": mq_ref_output,
       },
@@ -493,8 +595,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "A Resource identifier.",
-          "type": "string"
+          "$ref": "#/$defs/mq_identifier",
+          "description": "A Resource identifier."
         },
         "body": {
           "properties": {
@@ -510,8 +612,8 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "queue_id": {
-          "description": "A Resource identifier.",
-          "type": "string"
+          "$ref": "#/$defs/mq_identifier",
+          "description": "A Resource identifier."
         }
       },
       required: [
@@ -520,28 +622,44 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "mq_batch-size": mq_batch_size,
+        "mq_identifier": mq_identifier,
         "mq_visibility-timeout": mq_visibility_timeout,
       },
     },
     outputSchema: {
-      "properties": {
-        "message_backlog_count": {
-          "type": "number"
+      "allOf": [
+        {
+          "$ref": "#/$defs/mq_api-v4-success"
         },
-        "messages": {
-          "$ref": "#/$defs/mq_queue-pull-batch"
-        },
-        "metadata": {
+        {
           "properties": {
-            "metrics": {
-              "$ref": "#/$defs/mq_queue-metrics"
+            "result": {
+              "properties": {
+                "message_backlog_count": {
+                  "type": "number"
+                },
+                "messages": {
+                  "$ref": "#/$defs/mq_queue-pull-batch"
+                },
+                "metadata": {
+                  "properties": {
+                    "metrics": {
+                      "$ref": "#/$defs/mq_queue-metrics"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
             }
           },
           "type": "object"
         }
-      },
-      "type": "object",
+      ],
       $defs: {
+        "mq_api-v4-error": mq_api_v4_error_output,
+        "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_api-v4-success": mq_api_v4_success_output,
         "mq_lease-id": mq_lease_id_output,
         "mq_queue-metrics": mq_queue_metrics_output,
         "mq_queue-pull-batch": mq_queue_pull_batch_output,
@@ -565,34 +683,41 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.edge.worker.queue.pull"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.edge.worker.queue.pull": {
-            "name": "com_cloudflare_edge_worker_queue_pull"
-          }
-        }
+        ]
       }
     },
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "message_backlog_count": {
-              "type": "number"
+          "allOf": [
+            {
+              "$ref": "#/$defs/mq_api-v4-success"
             },
-            "messages": {
-              "$ref": "#/$defs/mq_queue-pull-batch"
-            },
-            "metadata": {
+            {
               "properties": {
-                "metrics": {
-                  "$ref": "#/$defs/mq_queue-metrics"
+                "result": {
+                  "properties": {
+                    "message_backlog_count": {
+                      "type": "number"
+                    },
+                    "messages": {
+                      "$ref": "#/$defs/mq_queue-pull-batch"
+                    },
+                    "metadata": {
+                      "properties": {
+                        "metrics": {
+                          "$ref": "#/$defs/mq_queue-metrics"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
                 }
               },
               "type": "object"
             }
-          },
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/mq_api-v4-failure"
@@ -602,6 +727,7 @@ export const tools: readonly Tool[] = [
         "mq_api-v4-error": mq_api_v4_error_output,
         "mq_api-v4-failure": mq_api_v4_failure_output,
         "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_api-v4-success": mq_api_v4_success_output,
         "mq_lease-id": mq_lease_id_output,
         "mq_queue-metrics": mq_queue_metrics_output,
         "mq_queue-pull-batch": mq_queue_pull_batch_output,
@@ -620,8 +746,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "A Resource identifier.",
-          "type": "string"
+          "$ref": "#/$defs/mq_identifier",
+          "description": "A Resource identifier."
         },
         "body": {
           "properties": {
@@ -647,8 +773,8 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "queue_id": {
-          "description": "A Resource identifier.",
-          "type": "string"
+          "$ref": "#/$defs/mq_identifier",
+          "description": "A Resource identifier."
         }
       },
       required: [
@@ -657,30 +783,48 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "mq_identifier": mq_identifier,
         "mq_ref": mq_ref,
       },
     },
     outputSchema: {
-      "properties": {
-        "errors": {
-          "items": {
-            "properties": {
-              "message": {
-                "type": "string"
-              }
-            },
-            "type": "object"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/mq_api-v4-success"
         },
-        "warnings": {
-          "additionalProperties": {
-            "type": "string"
+        {
+          "properties": {
+            "result": {
+              "properties": {
+                "errors": {
+                  "items": {
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "warnings": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            }
           },
           "type": "object"
         }
+      ],
+      $defs: {
+        "mq_api-v4-error": mq_api_v4_error_output,
+        "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_api-v4-success": mq_api_v4_success_output,
       },
-      "type": "object",
     },
     annotations: {
       "destructiveHint": true,
@@ -700,37 +844,44 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.edge.worker.queue.ack"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.edge.worker.queue.ack": {
-            "name": "com_cloudflare_edge_worker_queue_ack"
-          }
-        }
+        ]
       }
     },
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "errors": {
-              "items": {
-                "properties": {
-                  "message": {
-                    "type": "string"
-                  }
-                },
-                "type": "object"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/mq_api-v4-success"
             },
-            "warnings": {
-              "additionalProperties": {
-                "type": "string"
+            {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "errors": {
+                      "items": {
+                        "properties": {
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "warnings": {
+                      "additionalProperties": {
+                        "type": "string"
+                      },
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                }
               },
               "type": "object"
             }
-          },
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/mq_api-v4-failure"
@@ -740,6 +891,7 @@ export const tools: readonly Tool[] = [
         "mq_api-v4-error": mq_api_v4_error_output,
         "mq_api-v4-failure": mq_api_v4_failure_output,
         "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_api-v4-success": mq_api_v4_success_output,
       },
     },
     request: (args) => ({
@@ -755,15 +907,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "A Resource identifier.",
-          "type": "string"
+          "$ref": "#/$defs/mq_identifier",
+          "description": "A Resource identifier."
         },
         "body": {
           "$ref": "#/$defs/mq_queue-message"
         },
         "queue_id": {
-          "description": "A Resource identifier.",
-          "type": "string"
+          "$ref": "#/$defs/mq_identifier",
+          "description": "A Resource identifier."
         }
       },
       required: [
@@ -771,24 +923,40 @@ export const tools: readonly Tool[] = [
         "queue_id"
       ],
       $defs: {
+        "mq_identifier": mq_identifier,
         "mq_queue-message": mq_queue_message,
         "mq_queue-message-json": mq_queue_message_json,
         "mq_queue-message-text": mq_queue_message_text,
       },
     },
     outputSchema: {
-      "properties": {
-        "metadata": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/mq_api-v4-success"
+        },
+        {
           "properties": {
-            "metrics": {
-              "$ref": "#/$defs/mq_queue-metrics"
+            "result": {
+              "properties": {
+                "metadata": {
+                  "properties": {
+                    "metrics": {
+                      "$ref": "#/$defs/mq_queue-metrics"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
             }
           },
           "type": "object"
         }
-      },
-      "type": "object",
+      ],
       $defs: {
+        "mq_api-v4-error": mq_api_v4_error_output,
+        "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_api-v4-success": mq_api_v4_success_output,
         "mq_queue-metrics": mq_queue_metrics_output,
       },
     },
@@ -810,28 +978,35 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.edge.worker.queue.push"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.edge.worker.queue.push": {
-            "name": "com_cloudflare_edge_worker_queue_push"
-          }
-        }
+        ]
       }
     },
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "metadata": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/mq_api-v4-success"
+            },
+            {
               "properties": {
-                "metrics": {
-                  "$ref": "#/$defs/mq_queue-metrics"
+                "result": {
+                  "properties": {
+                    "metadata": {
+                      "properties": {
+                        "metrics": {
+                          "$ref": "#/$defs/mq_queue-metrics"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
                 }
               },
               "type": "object"
             }
-          },
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/mq_api-v4-failure"
@@ -841,6 +1016,7 @@ export const tools: readonly Tool[] = [
         "mq_api-v4-error": mq_api_v4_error_output,
         "mq_api-v4-failure": mq_api_v4_failure_output,
         "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_api-v4-success": mq_api_v4_success_output,
         "mq_queue-metrics": mq_queue_metrics_output,
       },
     },

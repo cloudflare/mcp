@@ -6,7 +6,9 @@ import {
   r2_errors_output,
   r2_messages_output,
   r2_v4_response_failure_output,
+  r2_v4_response_output,
 } from "../../outputs.js";
+import { r2_account_identifier } from "../../schemas.js";
 import {
   r2_account_level_metrics_output,
   r2_class_based_metrics_output,
@@ -25,20 +27,38 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Cloudflare account ID that owns the R2 resource.",
-          "type": "string"
+          "$ref": "#/$defs/r2_account_identifier",
+          "description": "Cloudflare account ID that owns the R2 resource."
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "r2_account_identifier": r2_account_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/r2_account_level_metrics",
+      "allOf": [
+        {
+          "$ref": "#/$defs/r2_v4_response"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/r2_account_level_metrics"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "r2_account_level_metrics": r2_account_level_metrics_output,
         "r2_class_based_metrics": r2_class_based_metrics_output,
+        "r2_errors": r2_errors_output,
+        "r2_messages": r2_messages_output,
         "r2_object_size_metrics": r2_object_size_metrics_output,
+        "r2_v4_response": r2_v4_response_output,
       },
     },
     annotations: {
@@ -56,7 +76,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/r2_account_level_metrics"
+          "allOf": [
+            {
+              "$ref": "#/$defs/r2_v4_response"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/r2_account_level_metrics"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/r2_v4_response_failure"
@@ -68,6 +100,7 @@ export const tools: readonly Tool[] = [
         "r2_errors": r2_errors_output,
         "r2_messages": r2_messages_output,
         "r2_object_size_metrics": r2_object_size_metrics_output,
+        "r2_v4_response": r2_v4_response_output,
         "r2_v4_response_failure": r2_v4_response_failure_output,
       },
     },

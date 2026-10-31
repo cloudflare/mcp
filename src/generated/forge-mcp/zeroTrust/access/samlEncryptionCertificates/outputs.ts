@@ -4,6 +4,47 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
+ * The schema of `access_certificate_set_list_response` in responses.
+ */
+export const access_certificate_set_list_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/access_saml_certificate_set-2"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `access_certificate_set_response` in responses.
+ */
+export const access_certificate_set_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/access_saml_certificate_set-2"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `access_saml_certificate-2` in responses.
  */
 export const access_saml_certificate_2_output: JsonSchema = {

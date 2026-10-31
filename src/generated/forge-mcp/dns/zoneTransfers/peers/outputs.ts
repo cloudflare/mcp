@@ -66,88 +66,41 @@ export const secondary_dns_port_output: JsonSchema = {
  * The schema of `secondary-dns_response_collection-2` in responses.
  */
 export const secondary_dns_response_collection_2_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/secondary-dns_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/secondary-dns_api-response-collection"
     },
-    "messages": {
-      "$ref": "#/$defs/secondary-dns_messages"
-    },
-    "result": {
-      "items": {
-        "$ref": "#/$defs/secondary-dns_peer"
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/secondary-dns_peer"
+          },
+          "type": "array"
+        }
       },
-      "type": "array"
-    },
-    "result_info": {
-      "$ref": "#/$defs/secondary-dns_response_collection-2_result_info"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `secondary-dns_response_collection-2_result_info` in responses.
- */
-export const secondary_dns_response_collection_2_result_info_output: JsonSchema = {
-  "properties": {
-    "count": {
-      "type": "number"
-    },
-    "page": {
-      "type": "number"
-    },
-    "per_page": {
-      "type": "number"
-    },
-    "total_count": {
-      "type": "number"
-    },
-    "total_pages": {
-      "type": "number"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `secondary-dns_single_response-2` in responses.
  */
 export const secondary_dns_single_response_2_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/secondary-dns_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/secondary-dns_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/secondary-dns_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/secondary-dns_peer"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/secondary-dns_peer"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**

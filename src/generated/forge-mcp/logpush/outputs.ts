@@ -4,6 +4,32 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
+ * The schema of `logpush_api-response-common` in responses.
+ */
+export const logpush_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/logpush_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/logpush_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `logpush_api-response-common-failure` in responses.
  */
 export const logpush_api_response_common_failure_output: JsonSchema = {
@@ -28,6 +54,32 @@ export const logpush_api_response_common_failure_output: JsonSchema = {
     "errors",
     "messages",
     "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `logpush_api-response-single` in responses.
+ */
+export const logpush_api_response_single_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/logpush_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/logpush_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
     "success"
   ],
   "type": "object"
@@ -262,6 +314,35 @@ export const logpush_logpush_job_output: JsonSchema = {
     },
     {
       "type": "null"
+    }
+  ]
+};
+
+/**
+ * The schema of `logpush_logpush_job_response_collection` in responses.
+ */
+export const logpush_logpush_job_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/logpush_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/$defs/logpush_logpush_job"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
     }
   ]
 };

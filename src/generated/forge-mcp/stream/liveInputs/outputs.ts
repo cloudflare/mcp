@@ -91,9 +91,9 @@ export const stream_input_webrtc_url_output: JsonSchema = {
 };
 
 /**
- * The schema of `stream_live_input_alt` in responses.
+ * The schema of `stream_live_input` in responses.
  */
-export const stream_live_input_alt_output: JsonSchema = {
+export const stream_live_input_output: JsonSchema = {
   "properties": {
     "created": {
       "$ref": "#/$defs/stream_live_input_created"
@@ -326,6 +326,58 @@ export const stream_live_input_recording_settings_output: JsonSchema = {
  */
 export const stream_live_input_recording_timeoutSeconds_output: JsonSchema = {
   "type": "integer"
+};
+
+/**
+ * The schema of `stream_live_input_response_collection` in responses.
+ */
+export const stream_live_input_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/stream_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "liveInputs": {
+              "items": {
+                "$ref": "#/$defs/stream_live_input_object_without_url"
+              },
+              "type": "array"
+            },
+            "range": {
+              "type": "integer"
+            },
+            "total": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `stream_live_input_response_single` in responses.
+ */
+export const stream_live_input_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/stream_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/stream_live_input"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**

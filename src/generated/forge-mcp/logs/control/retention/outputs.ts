@@ -28,3 +28,29 @@ export const logcontrol_retention_flag_output: JsonSchema = {
     }
   ]
 };
+
+/**
+ * The schema of `logcontrol_retention_flag_response_single` in responses.
+ */
+export const logcontrol_retention_flag_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/logcontrol_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/logcontrol_retention_flag"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
+};

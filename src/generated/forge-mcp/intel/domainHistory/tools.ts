@@ -3,14 +3,15 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  intel_api_response_collection_output,
   intel_api_response_common_failure_output,
+  intel_api_response_common_output,
   intel_domain_name_output,
   intel_messages_output,
   intel_result_info_output,
 } from "../outputs.js";
+import { intel_identifier } from "../schemas.js";
 import {
-  intel_domain_history_categorizationsItem_categoriesItem_output,
-  intel_domain_history_categorizationsItem_output,
   intel_domain_history_output,
   intel_response_output,
 } from "./outputs.js";
@@ -27,8 +28,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/intel_identifier",
+          "description": "Identifier."
         },
         "domain": {
           "type": "string"
@@ -37,28 +38,19 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+      $defs: {
+        "intel_identifier": intel_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/intel_domain-history"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "$ref": "#/$defs/intel_result_info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/intel_response",
       $defs: {
+        "intel_api-response-collection": intel_api_response_collection_output,
+        "intel_api-response-common": intel_api_response_common_output,
         "intel_domain-history": intel_domain_history_output,
-        "intel_domain-history_categorizationsItem": intel_domain_history_categorizationsItem_output,
-        "intel_domain-history_categorizationsItem_categoriesItem": intel_domain_history_categorizationsItem_categoriesItem_output,
         "intel_domain_name": intel_domain_name_output,
+        "intel_messages": intel_messages_output,
+        "intel_response": intel_response_output,
         "intel_result_info": intel_result_info_output,
       },
     },
@@ -80,21 +72,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/intel_domain-history"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/intel_result_info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/intel_response"
         },
         "4XX": {
           "allOf": [
@@ -108,10 +86,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "intel_api-response-collection": intel_api_response_collection_output,
+        "intel_api-response-common": intel_api_response_common_output,
         "intel_api-response-common-failure": intel_api_response_common_failure_output,
         "intel_domain-history": intel_domain_history_output,
-        "intel_domain-history_categorizationsItem": intel_domain_history_categorizationsItem_output,
-        "intel_domain-history_categorizationsItem_categoriesItem": intel_domain_history_categorizationsItem_categoriesItem_output,
         "intel_domain_name": intel_domain_name_output,
         "intel_messages": intel_messages_output,
         "intel_response": intel_response_output,

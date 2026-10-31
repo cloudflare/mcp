@@ -9,7 +9,7 @@ import {
   snippets_Response_output,
   snippets_SnippetName_output,
 } from "../outputs.js";
-import { snippets_SnippetName } from "../schemas.js";
+import { snippets_SnippetName, snippets_ZoneId } from "../schemas.js";
 import { snippets_SnippetRules_output } from "./outputs.js";
 import { snippets_SnippetRules } from "./schemas.js";
 
@@ -25,13 +25,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "description": "Use this field to specify the unique ID of the zone.",
-          "type": "string"
+          "$ref": "#/$defs/snippets_ZoneId",
+          "description": "Use this field to specify the unique ID of the zone."
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "snippets_ZoneId": snippets_ZoneId,
+      },
     },
     outputSchema: {
       "allOf": [
@@ -171,13 +174,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "description": "Use this field to specify the unique ID of the zone.",
-          "type": "string"
+          "$ref": "#/$defs/snippets_ZoneId",
+          "description": "Use this field to specify the unique ID of the zone."
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "snippets_ZoneId": snippets_ZoneId,
+      },
     },
     outputSchema: {
       "allOf": [
@@ -330,8 +336,8 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "zone_id": {
-          "description": "Use this field to specify the unique ID of the zone.",
-          "type": "string"
+          "$ref": "#/$defs/snippets_ZoneId",
+          "description": "Use this field to specify the unique ID of the zone."
         }
       },
       required: [
@@ -341,6 +347,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "snippets_SnippetName": snippets_SnippetName,
         "snippets_SnippetRules": snippets_SnippetRules,
+        "snippets_ZoneId": snippets_ZoneId,
       },
     },
     outputSchema: {

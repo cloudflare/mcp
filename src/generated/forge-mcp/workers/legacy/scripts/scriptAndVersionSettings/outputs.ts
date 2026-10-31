@@ -9,7 +9,18 @@ import type { JsonSchema } from "../../../../_/tool.js";
 export const workers_script_and_version_settings_item_output: JsonSchema = {
   "properties": {
     "annotations": {
-      "$ref": "#/$defs/workers_script-and-version-settings-item_annotations"
+      "properties": {
+        "workers/message": {
+          "type": "string"
+        },
+        "workers/tag": {
+          "type": "string"
+        },
+        "workers/triggered_by": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "bindings": {
       "allOf": [
@@ -63,7 +74,14 @@ export const workers_script_and_version_settings_item_output: JsonSchema = {
       "$ref": "#/$defs/workers_logpush"
     },
     "migrations": {
-      "$ref": "#/$defs/workers_script-and-version-settings-item_migrations"
+      "oneOf": [
+        {
+          "$ref": "#/$defs/workers_single_step_migrations"
+        },
+        {
+          "$ref": "#/$defs/workers_multiple_step_migrations"
+        }
+      ]
     },
     "observability": {
       "$ref": "#/$defs/workers_observability-2"
@@ -105,35 +123,23 @@ export const workers_script_and_version_settings_item_output: JsonSchema = {
 };
 
 /**
- * The schema of `workers_script-and-version-settings-item_annotations` in
- * responses.
+ * The schema of `workers_script-and-version-settings-response` in responses.
  */
-export const workers_script_and_version_settings_item_annotations_output: JsonSchema = {
-  "properties": {
-    "workers/message": {
-      "type": "string"
-    },
-    "workers/tag": {
-      "type": "string"
-    },
-    "workers/triggered_by": {
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_script-and-version-settings-item_migrations` in
- * responses.
- */
-export const workers_script_and_version_settings_item_migrations_output: JsonSchema = {
-  "oneOf": [
+export const workers_script_and_version_settings_response_output: JsonSchema = {
+  "allOf": [
     {
-      "$ref": "#/$defs/workers_single_step_migrations"
+      "$ref": "#/$defs/workers_api-response-common"
     },
     {
-      "$ref": "#/$defs/workers_multiple_step_migrations"
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/workers_script-and-version-settings-item"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object"
     }
   ]
 };

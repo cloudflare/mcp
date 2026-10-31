@@ -9,6 +9,7 @@ import {
   posture_api_StatusEnum_output,
   posture_api_api_response_common_output,
   posture_api_error_response_output,
+  posture_api_export_job_response_output,
   posture_api_messages_output,
 } from "../../outputs.js";
 import {
@@ -17,11 +18,9 @@ import {
 } from "../../schemas.js";
 import {
   posture_api_CreateRemediationJobResponse_output,
-  posture_api_CreateRemediationJobResponse_result_output,
-  posture_api_PaginatedRemediationJobList_result_info_output,
+  posture_api_PaginatedRemediationJobList_output,
   posture_api_RemediationJobAssetCategory_output,
   posture_api_RemediationJobAssetField_output,
-  posture_api_RemediationJobAssetField_value_output,
   posture_api_RemediationJobAsset_output,
   posture_api_RemediationJobFailure_output,
   posture_api_RemediationJob_output,
@@ -61,14 +60,13 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/posture-api_CreateRemediationJobResponse_result",
+      "$ref": "#/$defs/posture-api_CreateRemediationJobResponse",
       $defs: {
-        "posture-api_CreateRemediationJobResponse_result": posture_api_CreateRemediationJobResponse_result_output,
+        "posture-api_CreateRemediationJobResponse": posture_api_CreateRemediationJobResponse_output,
         "posture-api_RemediationJob": posture_api_RemediationJob_output,
         "posture-api_RemediationJobAsset": posture_api_RemediationJobAsset_output,
         "posture-api_RemediationJobAssetCategory": posture_api_RemediationJobAssetCategory_output,
         "posture-api_RemediationJobAssetField": posture_api_RemediationJobAssetField_output,
-        "posture-api_RemediationJobAssetField_value": posture_api_RemediationJobAssetField_value_output,
         "posture-api_RemediationJobFailure": posture_api_RemediationJobFailure_output,
         "posture-api_RemediationJobStatusEnum": posture_api_RemediationJobStatusEnum_output,
         "posture-api_VendorsDisplayNameEnum": posture_api_VendorsDisplayNameEnum_output,
@@ -91,7 +89,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/posture-api_CreateRemediationJobResponse_result"
+          "$ref": "#/$defs/posture-api_CreateRemediationJobResponse"
         },
         "400": {
           "$ref": "#/$defs/posture-api_CreateRemediationJobResponse"
@@ -105,12 +103,10 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "posture-api_CreateRemediationJobResponse": posture_api_CreateRemediationJobResponse_output,
-        "posture-api_CreateRemediationJobResponse_result": posture_api_CreateRemediationJobResponse_result_output,
         "posture-api_RemediationJob": posture_api_RemediationJob_output,
         "posture-api_RemediationJobAsset": posture_api_RemediationJobAsset_output,
         "posture-api_RemediationJobAssetCategory": posture_api_RemediationJobAssetCategory_output,
         "posture-api_RemediationJobAssetField": posture_api_RemediationJobAssetField_output,
-        "posture-api_RemediationJobAssetField_value": posture_api_RemediationJobAssetField_value_output,
         "posture-api_RemediationJobFailure": posture_api_RemediationJobFailure_output,
         "posture-api_RemediationJobStatusEnum": posture_api_RemediationJobStatusEnum_output,
         "posture-api_VendorsDisplayNameEnum": posture_api_VendorsDisplayNameEnum_output,
@@ -150,11 +146,14 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/posture-api_ExportJob",
+      "$ref": "#/$defs/posture-api_export-job-response",
       $defs: {
         "posture-api_ExportJob": posture_api_ExportJob_output,
         "posture-api_ExportJobTypeEnum": posture_api_ExportJobTypeEnum_output,
         "posture-api_StatusEnum": posture_api_StatusEnum_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
+        "posture-api_export-job-response": posture_api_export_job_response_output,
+        "posture-api_messages": posture_api_messages_output,
       },
     },
     annotations: {
@@ -175,7 +174,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/posture-api_ExportJob"
+          "$ref": "#/$defs/posture-api_export-job-response"
         },
         "400": null,
         "429": {
@@ -187,6 +186,7 @@ export const tools: readonly Tool[] = [
         "posture-api_ExportJobTypeEnum": posture_api_ExportJobTypeEnum_output,
         "posture-api_StatusEnum": posture_api_StatusEnum_output,
         "posture-api_api-response-common": posture_api_api_response_common_output,
+        "posture-api_export-job-response": posture_api_export_job_response_output,
         "posture-api_messages": posture_api_messages_output,
       },
     },
@@ -279,28 +279,13 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/posture-api_RemediationJob"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "$ref": "#/$defs/posture-api_PaginatedRemediationJobList_result_info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/posture-api_PaginatedRemediationJobList",
       $defs: {
-        "posture-api_PaginatedRemediationJobList_result_info": posture_api_PaginatedRemediationJobList_result_info_output,
+        "posture-api_PaginatedRemediationJobList": posture_api_PaginatedRemediationJobList_output,
         "posture-api_RemediationJob": posture_api_RemediationJob_output,
         "posture-api_RemediationJobAsset": posture_api_RemediationJobAsset_output,
         "posture-api_RemediationJobAssetCategory": posture_api_RemediationJobAssetCategory_output,
         "posture-api_RemediationJobAssetField": posture_api_RemediationJobAssetField_output,
-        "posture-api_RemediationJobAssetField_value": posture_api_RemediationJobAssetField_value_output,
         "posture-api_RemediationJobStatusEnum": posture_api_RemediationJobStatusEnum_output,
         "posture-api_VendorsDisplayNameEnum": posture_api_VendorsDisplayNameEnum_output,
       },
@@ -323,21 +308,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/posture-api_RemediationJob"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/posture-api_PaginatedRemediationJobList_result_info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/posture-api_PaginatedRemediationJobList"
         },
         "400": null,
         "429": {
@@ -345,12 +316,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "posture-api_PaginatedRemediationJobList_result_info": posture_api_PaginatedRemediationJobList_result_info_output,
+        "posture-api_PaginatedRemediationJobList": posture_api_PaginatedRemediationJobList_output,
         "posture-api_RemediationJob": posture_api_RemediationJob_output,
         "posture-api_RemediationJobAsset": posture_api_RemediationJobAsset_output,
         "posture-api_RemediationJobAssetCategory": posture_api_RemediationJobAssetCategory_output,
         "posture-api_RemediationJobAssetField": posture_api_RemediationJobAssetField_output,
-        "posture-api_RemediationJobAssetField_value": posture_api_RemediationJobAssetField_value_output,
         "posture-api_RemediationJobStatusEnum": posture_api_RemediationJobStatusEnum_output,
         "posture-api_VendorsDisplayNameEnum": posture_api_VendorsDisplayNameEnum_output,
         "posture-api_api-response-common": posture_api_api_response_common_output,

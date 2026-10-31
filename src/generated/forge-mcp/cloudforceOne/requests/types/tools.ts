@@ -28,98 +28,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "project_type": {
-          "type": "string"
-        },
-        "request_types": {
-          "items": {
-            "properties": {
-              "category": {
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "description": {
-                "type": "string"
-              },
-              "id": {
-                "type": "string"
-              },
-              "message_tokens": {
-                "type": "integer"
-              },
-              "name": {
-                "type": "string"
-              },
-              "request_tokens": {
-                "type": "integer"
-              },
-              "response_tokens": {
-                "type": "integer"
-              },
-              "result": {
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "source": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "category",
-              "description",
-              "id",
-              "message_tokens",
-              "name",
-              "request_tokens",
-              "response_tokens",
-              "result",
-              "source"
-            ],
-            "type": "object"
-          },
-          "type": "array"
-        },
-        "total": {
-          "type": "number"
-        }
-      },
-      "required": [
-        "project_type",
-        "request_types",
-        "total"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "List visible request types for a project (dashboard)"
-    },
-    method: "GET",
-    path: "/accounts/{account_id}/cloudforce-one/v2/requests/{project_type}/types",
-    extensions: {
-      "x-api-token-group": [
-        "Cloudforce One Write",
-        "Cloudforce One Read"
-      ]
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "project_type": {
               "type": "string"
@@ -192,6 +101,121 @@ export const tools: readonly Tool[] = [
             "project_type",
             "request_types",
             "total"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "List visible request types for a project (dashboard)"
+    },
+    method: "GET",
+    path: "/accounts/{account_id}/cloudforce-one/v2/requests/{project_type}/types",
+    extensions: {
+      "x-api-token-group": [
+        "Cloudforce One Write",
+        "Cloudforce One Read"
+      ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "project_type": {
+                  "type": "string"
+                },
+                "request_types": {
+                  "items": {
+                    "properties": {
+                      "category": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "message_tokens": {
+                        "type": "integer"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "request_tokens": {
+                        "type": "integer"
+                      },
+                      "response_tokens": {
+                        "type": "integer"
+                      },
+                      "result": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "source": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "category",
+                      "description",
+                      "id",
+                      "message_tokens",
+                      "name",
+                      "request_tokens",
+                      "response_tokens",
+                      "result",
+                      "source"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "total": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "project_type",
+                "request_types",
+                "total"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },

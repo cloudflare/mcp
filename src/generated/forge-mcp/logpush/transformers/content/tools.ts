@@ -4,8 +4,12 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   logpush_api_response_common_failure_output,
+  logpush_api_response_single_output,
   logpush_messages_output,
 } from "../../outputs.js";
+import { logpush_identifier } from "../../schemas.js";
+import { logpush_transformer_identifier } from "../schemas.js";
+import { logpush_transformer_content_response_output } from "./outputs.js";
 
 /**
  * The tools of `logpush.transformers.content`.
@@ -19,12 +23,12 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/logpush_identifier",
+          "description": "Identifier."
         },
         "transformer_id": {
-          "description": "The transformer ID.",
-          "type": "string"
+          "$ref": "#/$defs/logpush_transformer_identifier",
+          "description": "The transformer ID."
         },
         "version_id": {
           "description": "Specific version ID to retrieve. When omitted, the latest version is returned.",
@@ -35,14 +39,18 @@ export const tools: readonly Tool[] = [
         "account_id",
         "transformer_id"
       ],
+      $defs: {
+        "logpush_identifier": logpush_identifier,
+        "logpush_transformer_identifier": logpush_transformer_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "content": {
-          "type": "string"
-        }
+      "$ref": "#/$defs/logpush_transformer_content_response",
+      $defs: {
+        "logpush_api-response-single": logpush_api_response_single_output,
+        "logpush_messages": logpush_messages_output,
+        "logpush_transformer_content_response": logpush_transformer_content_response_output,
       },
-      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -60,12 +68,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#logs:edit"
-        ],
-        "x-fern-enum": {
-          "#logs:edit": {
-            "name": "logs_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -77,12 +80,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "content": {
-              "type": "string"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/logpush_transformer_content_response"
         },
         "4XX": {
           "$ref": "#/$defs/logpush_api-response-common-failure"
@@ -90,7 +88,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "logpush_api-response-common-failure": logpush_api_response_common_failure_output,
+        "logpush_api-response-single": logpush_api_response_single_output,
         "logpush_messages": logpush_messages_output,
+        "logpush_transformer_content_response": logpush_transformer_content_response_output,
       },
     },
     request: (args) => ({

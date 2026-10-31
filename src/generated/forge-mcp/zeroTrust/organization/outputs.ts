@@ -65,6 +65,40 @@ export const access_disable_end_user_app_creation_output: JsonSchema = {
 };
 
 /**
+ * The schema of `access_get_response` in responses.
+ */
+export const access_get_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/access_organizations"
+            },
+            {
+              "properties": {
+                "trusted_accounts": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `access_is_ui_read_only` in responses.
  */
 export const access_is_ui_read_only_output: JsonSchema = {
@@ -301,6 +335,25 @@ export const access_service_token_inactivity_output: JsonSchema = {
  */
 export const access_session_duration_output: JsonSchema = {
   "type": "string"
+};
+
+/**
+ * The schema of `access_single_response` in responses.
+ */
+export const access_single_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/access_organizations"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**

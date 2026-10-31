@@ -11,6 +11,25 @@ export const secrets_store_quota_output: JsonSchema = {
 };
 
 /**
+ * The schema of `secrets-store_quota_response` in responses.
+ */
+export const secrets_store_quota_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/secrets-store_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/secrets-store_secretsUsageObject"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `secrets-store_secretsUsageObject` in responses.
  */
 export const secrets_store_secretsUsageObject_output: JsonSchema = {

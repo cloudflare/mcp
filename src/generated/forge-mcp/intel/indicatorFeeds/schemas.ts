@@ -29,6 +29,22 @@ export const custom_indicator_feeds_description: JsonSchema = {
 };
 
 /**
+ * The schema of `custom-indicator-feeds_feed_id`.
+ */
+export const custom_indicator_feeds_feed_id: JsonSchema = {
+  "description": "Indicator feed ID",
+  "type": "integer"
+};
+
+/**
+ * The schema of `custom-indicator-feeds_identifier`.
+ */
+export const custom_indicator_feeds_identifier: JsonSchema = {
+  "description": "Identifier",
+  "type": "string"
+};
+
+/**
  * The schema of `custom-indicator-feeds_name`.
  */
 export const custom_indicator_feeds_name: JsonSchema = {

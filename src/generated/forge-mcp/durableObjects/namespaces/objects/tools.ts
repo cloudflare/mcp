@@ -3,13 +3,13 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  workers_api_response_collection_output,
   workers_api_response_common_failure_output,
+  workers_api_response_common_output,
   workers_messages_output,
 } from "../../../outputs.js";
-import {
-  workers_api_response_collection_output,
-  workers_api_response_collection_result_info_output,
-} from "../outputs.js";
+import { workers_identifier } from "../../../schemas.js";
+import { workers_schemas_id } from "../schemas.js";
 import { workers_cursor_output, workers_object_output } from "./outputs.js";
 
 /**
@@ -24,16 +24,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         },
         "cursor": {
           "description": "Opaque token indicating the position from which to continue when requesting the next set of records. A valid value for the cursor can be obtained from the cursors object in the result_info structure.",
           "type": "string"
         },
         "id": {
-          "description": "ID of the namespace.",
-          "type": "string"
+          "$ref": "#/$defs/workers_schemas-id",
+          "description": "ID of the namespace."
         },
         "limit": {
           "default": 1000,
@@ -45,33 +45,44 @@ export const tools: readonly Tool[] = [
         "account_id",
         "id"
       ],
+      $defs: {
+        "workers_identifier": workers_identifier,
+        "workers_schemas-id": workers_schemas_id,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/workers_object"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/workers_api-response-collection"
         },
-        "result_info": {
+        {
           "properties": {
-            "count": {
-              "type": "number"
+            "result": {
+              "items": {
+                "$ref": "#/$defs/workers_object"
+              },
+              "type": "array"
             },
-            "cursor": {
-              "$ref": "#/$defs/workers_cursor"
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "cursor": {
+                  "$ref": "#/$defs/workers_cursor"
+                }
+              },
+              "type": "object"
             }
           },
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
+        "workers_api-response-collection": workers_api_response_collection_output,
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_cursor": workers_cursor_output,
+        "workers_messages": workers_messages_output,
         "workers_object": workers_object_output,
       },
     },
@@ -101,29 +112,33 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/workers_object"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-collection"
             },
-            "result_info": {
+            {
               "properties": {
-                "count": {
-                  "type": "number"
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/workers_object"
+                  },
+                  "type": "array"
                 },
-                "cursor": {
-                  "$ref": "#/$defs/workers_cursor"
+                "result_info": {
+                  "properties": {
+                    "count": {
+                      "type": "number"
+                    },
+                    "cursor": {
+                      "$ref": "#/$defs/workers_cursor"
+                    }
+                  },
+                  "type": "object"
                 }
               },
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "allOf": [
@@ -160,7 +175,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "workers_api-response-collection": workers_api_response_collection_output,
-        "workers_api-response-collection_result_info": workers_api_response_collection_result_info_output,
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_api-response-common-failure": workers_api_response_common_failure_output,
         "workers_cursor": workers_cursor_output,
         "workers_messages": workers_messages_output,

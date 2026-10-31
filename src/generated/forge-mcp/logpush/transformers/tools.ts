@@ -4,20 +4,28 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   logpush_api_response_common_failure_output,
+  logpush_api_response_common_output,
+  logpush_api_response_single_output,
   logpush_messages_output,
 } from "../outputs.js";
+import { logpush_identifier } from "../schemas.js";
 import {
   logpush_transformer_dataset_output,
+  logpush_transformer_delete_response_output,
   logpush_transformer_description_output,
   logpush_transformer_identifier_output,
   logpush_transformer_job_ref_output,
   logpush_transformer_name_output,
   logpush_transformer_output,
+  logpush_transformer_preview_response_output,
+  logpush_transformer_response_collection_output,
+  logpush_transformer_response_single_output,
 } from "./outputs.js";
 import {
   logpush_transformer_code,
   logpush_transformer_create_request,
   logpush_transformer_description,
+  logpush_transformer_identifier,
   logpush_transformer_name,
   logpush_transformer_preview_request,
   logpush_transformer_update_request,
@@ -35,8 +43,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/logpush_identifier",
+          "description": "Identifier."
         },
         "body": {
           "$ref": "#/$defs/logpush_transformer_create_request"
@@ -47,6 +55,7 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "logpush_identifier": logpush_identifier,
         "logpush_transformer_code": logpush_transformer_code,
         "logpush_transformer_create_request": logpush_transformer_create_request,
         "logpush_transformer_description": logpush_transformer_description,
@@ -54,14 +63,17 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/logpush_transformer",
+      "$ref": "#/$defs/logpush_transformer_response_single",
       $defs: {
+        "logpush_api-response-single": logpush_api_response_single_output,
+        "logpush_messages": logpush_messages_output,
         "logpush_transformer": logpush_transformer_output,
         "logpush_transformer_dataset": logpush_transformer_dataset_output,
         "logpush_transformer_description": logpush_transformer_description_output,
         "logpush_transformer_identifier": logpush_transformer_identifier_output,
         "logpush_transformer_job_ref": logpush_transformer_job_ref_output,
         "logpush_transformer_name": logpush_transformer_name_output,
+        "logpush_transformer_response_single": logpush_transformer_response_single_output,
       },
     },
     annotations: {
@@ -80,12 +92,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#logs:edit"
-        ],
-        "x-fern-enum": {
-          "#logs:edit": {
-            "name": "logs_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -97,7 +104,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "201": {
-          "$ref": "#/$defs/logpush_transformer"
+          "$ref": "#/$defs/logpush_transformer_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/logpush_api-response-common-failure"
@@ -105,6 +112,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "logpush_api-response-common-failure": logpush_api_response_common_failure_output,
+        "logpush_api-response-single": logpush_api_response_single_output,
         "logpush_messages": logpush_messages_output,
         "logpush_transformer": logpush_transformer_output,
         "logpush_transformer_dataset": logpush_transformer_dataset_output,
@@ -112,6 +120,7 @@ export const tools: readonly Tool[] = [
         "logpush_transformer_identifier": logpush_transformer_identifier_output,
         "logpush_transformer_job_ref": logpush_transformer_job_ref_output,
         "logpush_transformer_name": logpush_transformer_name_output,
+        "logpush_transformer_response_single": logpush_transformer_response_single_output,
       },
     },
     request: (args) => ({
@@ -127,26 +136,30 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/logpush_identifier",
+          "description": "Identifier."
         },
         "transformer_id": {
-          "description": "The transformer ID.",
-          "type": "string"
+          "$ref": "#/$defs/logpush_transformer_identifier",
+          "description": "The transformer ID."
         }
       },
       required: [
         "account_id",
         "transformer_id"
       ],
+      $defs: {
+        "logpush_identifier": logpush_identifier,
+        "logpush_transformer_identifier": logpush_transformer_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "id": {
-          "type": "integer"
-        }
+      "$ref": "#/$defs/logpush_transformer_delete_response",
+      $defs: {
+        "logpush_api-response-single": logpush_api_response_single_output,
+        "logpush_messages": logpush_messages_output,
+        "logpush_transformer_delete_response": logpush_transformer_delete_response_output,
       },
-      "type": "object",
     },
     annotations: {
       "destructiveHint": true,
@@ -164,12 +177,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#logs:edit"
-        ],
-        "x-fern-enum": {
-          "#logs:edit": {
-            "name": "logs_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -181,12 +189,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "id": {
-              "type": "integer"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/logpush_transformer_delete_response"
         },
         "409": {
           "$ref": "#/$defs/logpush_api-response-common-failure"
@@ -197,7 +200,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "logpush_api-response-common-failure": logpush_api_response_common_failure_output,
+        "logpush_api-response-single": logpush_api_response_single_output,
         "logpush_messages": logpush_messages_output,
+        "logpush_transformer_delete_response": logpush_transformer_delete_response_output,
       },
     },
     request: (args) => ({
@@ -212,28 +217,35 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/logpush_identifier",
+          "description": "Identifier."
         },
         "transformer_id": {
-          "description": "The transformer ID.",
-          "type": "string"
+          "$ref": "#/$defs/logpush_transformer_identifier",
+          "description": "The transformer ID."
         }
       },
       required: [
         "account_id",
         "transformer_id"
       ],
+      $defs: {
+        "logpush_identifier": logpush_identifier,
+        "logpush_transformer_identifier": logpush_transformer_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/logpush_transformer",
+      "$ref": "#/$defs/logpush_transformer_response_single",
       $defs: {
+        "logpush_api-response-single": logpush_api_response_single_output,
+        "logpush_messages": logpush_messages_output,
         "logpush_transformer": logpush_transformer_output,
         "logpush_transformer_dataset": logpush_transformer_dataset_output,
         "logpush_transformer_description": logpush_transformer_description_output,
         "logpush_transformer_identifier": logpush_transformer_identifier_output,
         "logpush_transformer_job_ref": logpush_transformer_job_ref_output,
         "logpush_transformer_name": logpush_transformer_name_output,
+        "logpush_transformer_response_single": logpush_transformer_response_single_output,
       },
     },
     annotations: {
@@ -252,12 +264,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#logs:edit"
-        ],
-        "x-fern-enum": {
-          "#logs:edit": {
-            "name": "logs_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -269,7 +276,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/logpush_transformer"
+          "$ref": "#/$defs/logpush_transformer_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/logpush_api-response-common-failure"
@@ -277,6 +284,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "logpush_api-response-common-failure": logpush_api_response_common_failure_output,
+        "logpush_api-response-single": logpush_api_response_single_output,
         "logpush_messages": logpush_messages_output,
         "logpush_transformer": logpush_transformer_output,
         "logpush_transformer_dataset": logpush_transformer_dataset_output,
@@ -284,6 +292,7 @@ export const tools: readonly Tool[] = [
         "logpush_transformer_identifier": logpush_transformer_identifier_output,
         "logpush_transformer_job_ref": logpush_transformer_job_ref_output,
         "logpush_transformer_name": logpush_transformer_name_output,
+        "logpush_transformer_response_single": logpush_transformer_response_single_output,
       },
     },
     request: (args) => ({
@@ -298,37 +307,29 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/logpush_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "logpush_identifier": logpush_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/logpush_transformer"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/logpush_transformer_response_collection",
       $defs: {
+        "logpush_api-response-common": logpush_api_response_common_output,
+        "logpush_messages": logpush_messages_output,
         "logpush_transformer": logpush_transformer_output,
         "logpush_transformer_dataset": logpush_transformer_dataset_output,
         "logpush_transformer_description": logpush_transformer_description_output,
         "logpush_transformer_identifier": logpush_transformer_identifier_output,
         "logpush_transformer_job_ref": logpush_transformer_job_ref_output,
         "logpush_transformer_name": logpush_transformer_name_output,
+        "logpush_transformer_response_collection": logpush_transformer_response_collection_output,
       },
     },
     annotations: {
@@ -347,12 +348,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#logs:edit"
-        ],
-        "x-fern-enum": {
-          "#logs:edit": {
-            "name": "logs_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -364,27 +360,14 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/logpush_transformer"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/logpush_transformer_response_collection"
         },
         "4XX": {
           "$ref": "#/$defs/logpush_api-response-common-failure"
         }
       },
       $defs: {
+        "logpush_api-response-common": logpush_api_response_common_output,
         "logpush_api-response-common-failure": logpush_api_response_common_failure_output,
         "logpush_messages": logpush_messages_output,
         "logpush_transformer": logpush_transformer_output,
@@ -393,6 +376,7 @@ export const tools: readonly Tool[] = [
         "logpush_transformer_identifier": logpush_transformer_identifier_output,
         "logpush_transformer_job_ref": logpush_transformer_job_ref_output,
         "logpush_transformer_name": logpush_transformer_name_output,
+        "logpush_transformer_response_collection": logpush_transformer_response_collection_output,
       },
     },
     request: (args) => ({
@@ -407,8 +391,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/logpush_identifier",
+          "description": "Identifier."
         },
         "body": {
           "$ref": "#/$defs/logpush_transformer_preview_request"
@@ -419,33 +403,18 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "logpush_identifier": logpush_identifier,
         "logpush_transformer_code": logpush_transformer_code,
         "logpush_transformer_preview_request": logpush_transformer_preview_request,
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "oneOf": [
-            {
-              "items": {
-                "type": "object"
-              },
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "result_info": {
-          "type": "object"
-        }
+      "$ref": "#/$defs/logpush_transformer_preview_response",
+      $defs: {
+        "logpush_api-response-single": logpush_api_response_single_output,
+        "logpush_messages": logpush_messages_output,
+        "logpush_transformer_preview_response": logpush_transformer_preview_response_output,
       },
-      "required": [
-        "result"
-      ],
-      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -463,12 +432,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#logs:edit"
-        ],
-        "x-fern-enum": {
-          "#logs:edit": {
-            "name": "logs_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -480,28 +444,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "oneOf": [
-                {
-                  "items": {
-                    "type": "object"
-                  },
-                  "type": "array"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/logpush_transformer_preview_response"
         },
         "4XX": {
           "$ref": "#/$defs/logpush_api-response-common-failure"
@@ -509,7 +452,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "logpush_api-response-common-failure": logpush_api_response_common_failure_output,
+        "logpush_api-response-single": logpush_api_response_single_output,
         "logpush_messages": logpush_messages_output,
+        "logpush_transformer_preview_response": logpush_transformer_preview_response_output,
       },
     },
     request: (args) => ({
@@ -525,15 +470,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/logpush_identifier",
+          "description": "Identifier."
         },
         "body": {
           "$ref": "#/$defs/logpush_transformer_update_request"
         },
         "transformer_id": {
-          "description": "The transformer ID.",
-          "type": "string"
+          "$ref": "#/$defs/logpush_transformer_identifier",
+          "description": "The transformer ID."
         }
       },
       required: [
@@ -542,21 +487,26 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "logpush_identifier": logpush_identifier,
         "logpush_transformer_code": logpush_transformer_code,
         "logpush_transformer_description": logpush_transformer_description,
+        "logpush_transformer_identifier": logpush_transformer_identifier,
         "logpush_transformer_name": logpush_transformer_name,
         "logpush_transformer_update_request": logpush_transformer_update_request,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/logpush_transformer",
+      "$ref": "#/$defs/logpush_transformer_response_single",
       $defs: {
+        "logpush_api-response-single": logpush_api_response_single_output,
+        "logpush_messages": logpush_messages_output,
         "logpush_transformer": logpush_transformer_output,
         "logpush_transformer_dataset": logpush_transformer_dataset_output,
         "logpush_transformer_description": logpush_transformer_description_output,
         "logpush_transformer_identifier": logpush_transformer_identifier_output,
         "logpush_transformer_job_ref": logpush_transformer_job_ref_output,
         "logpush_transformer_name": logpush_transformer_name_output,
+        "logpush_transformer_response_single": logpush_transformer_response_single_output,
       },
     },
     annotations: {
@@ -575,12 +525,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#logs:edit"
-        ],
-        "x-fern-enum": {
-          "#logs:edit": {
-            "name": "logs_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -592,7 +537,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/logpush_transformer"
+          "$ref": "#/$defs/logpush_transformer_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/logpush_api-response-common-failure"
@@ -600,6 +545,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "logpush_api-response-common-failure": logpush_api_response_common_failure_output,
+        "logpush_api-response-single": logpush_api_response_single_output,
         "logpush_messages": logpush_messages_output,
         "logpush_transformer": logpush_transformer_output,
         "logpush_transformer_dataset": logpush_transformer_dataset_output,
@@ -607,6 +553,7 @@ export const tools: readonly Tool[] = [
         "logpush_transformer_identifier": logpush_transformer_identifier_output,
         "logpush_transformer_job_ref": logpush_transformer_job_ref_output,
         "logpush_transformer_name": logpush_transformer_name_output,
+        "logpush_transformer_response_single": logpush_transformer_response_single_output,
       },
     },
     request: (args) => ({

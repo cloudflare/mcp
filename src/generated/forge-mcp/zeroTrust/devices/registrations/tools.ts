@@ -47,9 +47,40 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/teams-devices_empty_body",
+      "properties": {
+        "errors": {
+          "items": {
+            "$ref": "#/$defs/teams-devices_v4_response_message"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "$ref": "#/$defs/teams-devices_v4_response_message"
+          },
+          "type": "array"
+        },
+        "result": {
+          "$ref": "#/$defs/teams-devices_empty_body"
+        },
+        "result_info": {
+          "$ref": "#/$defs/teams-devices_cursor_result_info"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
       $defs: {
+        "teams-devices_cursor_result_info": teams_devices_cursor_result_info_output,
         "teams-devices_empty_body": teams_devices_empty_body_output,
+        "teams-devices_v4_response_message": teams_devices_v4_response_message_output,
       },
     },
     annotations: {
@@ -69,13 +100,43 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/teams-devices_empty_body"
+          "properties": {
+            "errors": {
+              "items": {
+                "$ref": "#/$defs/teams-devices_v4_response_message"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "$ref": "#/$defs/teams-devices_v4_response_message"
+              },
+              "type": "array"
+            },
+            "result": {
+              "$ref": "#/$defs/teams-devices_empty_body"
+            },
+            "result_info": {
+              "$ref": "#/$defs/teams-devices_cursor_result_info"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
+          "type": "object"
         },
         "4XX": {
           "$ref": "#/$defs/teams-devices_v4_error_response"
         }
       },
       $defs: {
+        "teams-devices_cursor_result_info": teams_devices_cursor_result_info_output,
         "teams-devices_empty_body": teams_devices_empty_body_output,
         "teams-devices_v4_error_response": teams_devices_v4_error_response_output,
         "teams-devices_v4_response_message": teams_devices_v4_response_message_output,
@@ -108,9 +169,35 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/teams-devices_empty_body",
+      "properties": {
+        "errors": {
+          "items": {
+            "$ref": "#/$defs/teams-devices_v4_response_message"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "$ref": "#/$defs/teams-devices_v4_response_message"
+          },
+          "type": "array"
+        },
+        "result": {
+          "$ref": "#/$defs/teams-devices_empty_body"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "success"
+      ],
+      "type": "object",
       $defs: {
         "teams-devices_empty_body": teams_devices_empty_body_output,
+        "teams-devices_v4_response_message": teams_devices_v4_response_message_output,
       },
     },
     annotations: {
@@ -130,7 +217,32 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/teams-devices_empty_body"
+          "properties": {
+            "errors": {
+              "items": {
+                "$ref": "#/$defs/teams-devices_v4_response_message"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "$ref": "#/$defs/teams-devices_v4_response_message"
+              },
+              "type": "array"
+            },
+            "result": {
+              "$ref": "#/$defs/teams-devices_empty_body"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
+          ],
+          "type": "object"
         },
         "4XX": {
           "$ref": "#/$defs/teams-devices_v4_error_response"
@@ -170,7 +282,33 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/teams-devices_registration",
+      "properties": {
+        "errors": {
+          "items": {
+            "$ref": "#/$defs/teams-devices_v4_response_message"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "$ref": "#/$defs/teams-devices_v4_response_message"
+          },
+          "type": "array"
+        },
+        "result": {
+          "$ref": "#/$defs/teams-devices_registration"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
       $defs: {
         "teams-devices_components-schemas-uuid": teams_devices_components_schemas_uuid_output,
         "teams-devices_email": teams_devices_email_output,
@@ -179,6 +317,7 @@ export const tools: readonly Tool[] = [
         "teams-devices_registration_device_details": teams_devices_registration_device_details_output,
         "teams-devices_registration_type": teams_devices_registration_type_output,
         "teams-devices_user": teams_devices_user_output,
+        "teams-devices_v4_response_message": teams_devices_v4_response_message_output,
       },
     },
     annotations: {
@@ -193,7 +332,33 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/teams-devices_registration"
+          "properties": {
+            "errors": {
+              "items": {
+                "$ref": "#/$defs/teams-devices_v4_response_message"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "$ref": "#/$defs/teams-devices_v4_response_message"
+              },
+              "type": "array"
+            },
+            "result": {
+              "$ref": "#/$defs/teams-devices_registration"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
+          "type": "object"
         },
         "4XX": {
           "$ref": "#/$defs/teams-devices_v4_error_response"
@@ -317,6 +482,18 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
+        "errors": {
+          "items": {
+            "$ref": "#/$defs/teams-devices_v4_response_message"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "$ref": "#/$defs/teams-devices_v4_response_message"
+          },
+          "type": "array"
+        },
         "result": {
           "items": {
             "$ref": "#/$defs/teams-devices_registration"
@@ -325,10 +502,16 @@ export const tools: readonly Tool[] = [
         },
         "result_info": {
           "$ref": "#/$defs/teams-devices_cursor_result_info"
+        },
+        "success": {
+          "type": "boolean"
         }
       },
       "required": [
-        "result"
+        "errors",
+        "messages",
+        "result",
+        "success"
       ],
       "type": "object",
       $defs: {
@@ -340,6 +523,7 @@ export const tools: readonly Tool[] = [
         "teams-devices_registration_device_details": teams_devices_registration_device_details_output,
         "teams-devices_registration_type": teams_devices_registration_type_output,
         "teams-devices_user": teams_devices_user_output,
+        "teams-devices_v4_response_message": teams_devices_v4_response_message_output,
       },
     },
     annotations: {
@@ -355,6 +539,18 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
+            "errors": {
+              "items": {
+                "$ref": "#/$defs/teams-devices_v4_response_message"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "$ref": "#/$defs/teams-devices_v4_response_message"
+              },
+              "type": "array"
+            },
             "result": {
               "items": {
                 "$ref": "#/$defs/teams-devices_registration"
@@ -363,10 +559,16 @@ export const tools: readonly Tool[] = [
             },
             "result_info": {
               "$ref": "#/$defs/teams-devices_cursor_result_info"
+            },
+            "success": {
+              "type": "boolean"
             }
           },
           "required": [
-            "result"
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },

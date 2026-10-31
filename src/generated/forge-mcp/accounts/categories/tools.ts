@@ -3,16 +3,21 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  alexandria_api_response_collection_output,
   alexandria_api_response_common_failure_output,
+  alexandria_api_response_common_output,
   alexandria_category_id_output,
   alexandria_messages_output,
 } from "../outputs.js";
+import { alexandria_category_id } from "../schemas.js";
 import {
   alexandria_categories_output,
   alexandria_category_created_at_output,
   alexandria_category_description_output,
   alexandria_category_name_output,
   alexandria_category_output,
+  alexandria_get_categories_response_output,
+  alexandria_get_category_response_output,
 } from "./outputs.js";
 
 /**
@@ -31,23 +36,29 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "id": {
-          "description": "Application category ID.",
-          "type": "string"
+          "$ref": "#/$defs/alexandria_category_id",
+          "description": "Application category ID."
         }
       },
       required: [
         "account_id",
         "id"
       ],
+      $defs: {
+        "alexandria_category_id": alexandria_category_id,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/alexandria_category",
+      "$ref": "#/$defs/alexandria_get_category_response",
       $defs: {
+        "alexandria_api-response-common": alexandria_api_response_common_output,
         "alexandria_category": alexandria_category_output,
         "alexandria_category_created_at": alexandria_category_created_at_output,
         "alexandria_category_description": alexandria_category_description_output,
         "alexandria_category_id": alexandria_category_id_output,
         "alexandria_category_name": alexandria_category_name_output,
+        "alexandria_get_category_response": alexandria_get_category_response_output,
+        "alexandria_messages": alexandria_messages_output,
       },
     },
     annotations: {
@@ -59,22 +70,32 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/resource-library/categories/{id}",
+    extensions: {
+      "x-api-token-group": [
+        "Zero Trust Read",
+        "Zero Trust Write",
+        "Resource Library Read",
+        "Resource Library Write"
+      ]
+    },
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/alexandria_category"
+          "$ref": "#/$defs/alexandria_get_category_response"
         },
         "4XX": {
           "$ref": "#/$defs/alexandria_api_response_common_failure"
         }
       },
       $defs: {
+        "alexandria_api-response-common": alexandria_api_response_common_output,
         "alexandria_api_response_common_failure": alexandria_api_response_common_failure_output,
         "alexandria_category": alexandria_category_output,
         "alexandria_category_created_at": alexandria_category_created_at_output,
         "alexandria_category_description": alexandria_category_description_output,
         "alexandria_category_id": alexandria_category_id_output,
         "alexandria_category_name": alexandria_category_name_output,
+        "alexandria_get_category_response": alexandria_get_category_response_output,
         "alexandria_messages": alexandria_messages_output,
       },
     },
@@ -113,45 +134,18 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "$ref": "#/$defs/alexandria_categories"
-        },
-        "result_info": {
-          "properties": {
-            "count": {
-              "type": "number"
-            },
-            "cursor": {
-              "type": "string"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/alexandria_get_categories_response",
       $defs: {
+        "alexandria_api-response-collection": alexandria_api_response_collection_output,
+        "alexandria_api-response-common": alexandria_api_response_common_output,
         "alexandria_categories": alexandria_categories_output,
         "alexandria_category": alexandria_category_output,
         "alexandria_category_created_at": alexandria_category_created_at_output,
         "alexandria_category_description": alexandria_category_description_output,
         "alexandria_category_id": alexandria_category_id_output,
         "alexandria_category_name": alexandria_category_name_output,
+        "alexandria_get_categories_response": alexandria_get_categories_response_output,
+        "alexandria_messages": alexandria_messages_output,
       },
     },
     annotations: {
@@ -163,41 +157,18 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/resource-library/categories",
+    extensions: {
+      "x-api-token-group": [
+        "Zero Trust Read",
+        "Zero Trust Write",
+        "Resource Library Read",
+        "Resource Library Write"
+      ]
+    },
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "$ref": "#/$defs/alexandria_categories"
-            },
-            "result_info": {
-              "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "cursor": {
-                  "type": "string"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/alexandria_get_categories_response"
         },
         "4XX": {
           "$ref": "#/$defs/alexandria_api_response_common_failure"
@@ -207,6 +178,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "alexandria_api-response-collection": alexandria_api_response_collection_output,
+        "alexandria_api-response-common": alexandria_api_response_common_output,
         "alexandria_api_response_common_failure": alexandria_api_response_common_failure_output,
         "alexandria_categories": alexandria_categories_output,
         "alexandria_category": alexandria_category_output,
@@ -214,6 +187,7 @@ export const tools: readonly Tool[] = [
         "alexandria_category_description": alexandria_category_description_output,
         "alexandria_category_id": alexandria_category_id_output,
         "alexandria_category_name": alexandria_category_name_output,
+        "alexandria_get_categories_response": alexandria_get_categories_response_output,
         "alexandria_messages": alexandria_messages_output,
       },
     },

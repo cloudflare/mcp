@@ -211,3 +211,11 @@ export const magic_visibility_mnm_mnm_rule_zscore_target: JsonSchema = {
     }
   ]
 };
+
+/**
+ * The schema of `magic-visibility-mnm_rule_identifier`.
+ */
+export const magic_visibility_mnm_rule_identifier: JsonSchema = {
+  "description": "The id of the rule. Must be unique.",
+  "type": "string"
+};

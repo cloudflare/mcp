@@ -40,3 +40,22 @@ export const magic_bgp_settings_output: JsonSchema = {
   ],
   "type": "object"
 };
+
+/**
+ * The schema of `magic_magic_bgp_settings_response` in responses.
+ */
+export const magic_magic_bgp_settings_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/magic_bgp_settings"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};

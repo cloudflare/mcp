@@ -7,22 +7,12 @@ import type { JsonSchema } from "../../_/tool.js";
  * The schema of `firewall_schemas-rule`.
  */
 export const firewall_schemas_rule: JsonSchema = {
-  "properties": {
-    "configuration": {
-      "$ref": "#/$defs/firewall_configuration",
-      "description": "The rule configuration."
+  "allOf": [
+    {
+      "$ref": "#/$defs/firewall_rule"
     },
-    "mode": {
-      "$ref": "#/$defs/firewall_schemas-mode"
-    },
-    "notes": {
-      "$ref": "#/$defs/firewall_notes",
-      "description": "An informative summary of the rule, typically used as a reminder or explanation."
+    {
+      "type": "object"
     }
-  },
-  "required": [
-    "configuration",
-    "mode"
-  ],
-  "type": "object"
+  ]
 };

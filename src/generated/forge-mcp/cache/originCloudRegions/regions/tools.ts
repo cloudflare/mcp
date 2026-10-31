@@ -4,8 +4,10 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   cache_settings_api_response_common_failure_output,
+  cache_settings_api_response_common_output,
   cache_settings_messages_output,
 } from "../../../outputs.js";
+import { cache_settings_identifier } from "../../../schemas.js";
 import {
   cache_settings_supported_cloud_region_output,
   cache_settings_supported_cloud_regions_result_output,
@@ -23,17 +25,34 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/cache-settings_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "cache-settings_identifier": cache_settings_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/cache-settings_supported_cloud_regions_result",
+      "allOf": [
+        {
+          "$ref": "#/$defs/cache-settings_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/cache-settings_supported_cloud_regions_result"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "cache-settings_api-response-common": cache_settings_api_response_common_output,
+        "cache-settings_messages": cache_settings_messages_output,
         "cache-settings_supported_cloud_region": cache_settings_supported_cloud_region_output,
         "cache-settings_supported_cloud_regions_result": cache_settings_supported_cloud_regions_result_output,
       },
@@ -58,13 +77,26 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/cache-settings_supported_cloud_regions_result"
+          "allOf": [
+            {
+              "$ref": "#/$defs/cache-settings_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/cache-settings_supported_cloud_regions_result"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/cache-settings_api-response-common-failure"
         }
       },
       $defs: {
+        "cache-settings_api-response-common": cache_settings_api_response_common_output,
         "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
         "cache-settings_messages": cache_settings_messages_output,
         "cache-settings_supported_cloud_region": cache_settings_supported_cloud_region_output,

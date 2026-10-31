@@ -28,7 +28,23 @@ export const digital_experience_monitoring_traceroute_details_response_output: J
       "oneOf": [
         {
           "items": {
-            "$ref": "#/$defs/digital-experience-monitoring_traceroute_details_response_target_policiesItem"
+            "properties": {
+              "default": {
+                "type": "boolean"
+              },
+              "id": {
+                "$ref": "#/$defs/digital-experience-monitoring_uuid"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "default",
+              "id",
+              "name"
+            ],
+            "type": "object"
           },
           "type": "array"
         },
@@ -41,11 +57,70 @@ export const digital_experience_monitoring_traceroute_details_response_output: J
       "type": "boolean"
     },
     "tracerouteStats": {
-      "$ref": "#/$defs/digital-experience-monitoring_traceroute_details_response_tracerouteStats"
+      "oneOf": [
+        {
+          "properties": {
+            "availabilityPct": {
+              "$ref": "#/$defs/digital-experience-monitoring_test_stat_pct_over_time"
+            },
+            "hopsCount": {
+              "$ref": "#/$defs/digital-experience-monitoring_test_stat_over_time"
+            },
+            "packetLossPct": {
+              "$ref": "#/$defs/digital-experience-monitoring_test_stat_pct_over_time"
+            },
+            "roundTripTimeMs": {
+              "$ref": "#/$defs/digital-experience-monitoring_test_stat_over_time"
+            },
+            "uniqueDevicesTotal": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "availabilityPct",
+            "hopsCount",
+            "packetLossPct",
+            "roundTripTimeMs",
+            "uniqueDevicesTotal"
+          ],
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "tracerouteStatsByColo": {
       "items": {
-        "$ref": "#/$defs/digital-experience-monitoring_traceroute_details_response_tracerouteStatsByColoItem"
+        "properties": {
+          "availabilityPct": {
+            "$ref": "#/$defs/digital-experience-monitoring_test_stat_pct_over_time"
+          },
+          "colo": {
+            "type": "string"
+          },
+          "hopsCount": {
+            "$ref": "#/$defs/digital-experience-monitoring_test_stat_over_time"
+          },
+          "packetLossPct": {
+            "$ref": "#/$defs/digital-experience-monitoring_test_stat_pct_over_time"
+          },
+          "roundTripTimeMs": {
+            "$ref": "#/$defs/digital-experience-monitoring_test_stat_over_time"
+          },
+          "uniqueDevicesTotal": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "availabilityPct",
+          "colo",
+          "hopsCount",
+          "packetLossPct",
+          "roundTripTimeMs",
+          "uniqueDevicesTotal"
+        ],
+        "type": "object"
       },
       "type": "array"
     }
@@ -55,108 +130,6 @@ export const digital_experience_monitoring_traceroute_details_response_output: J
     "interval",
     "kind",
     "name"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `digital-experience-monitoring_traceroute_details_response_target_policiesItem`
- * in responses.
- */
-export const digital_experience_monitoring_traceroute_details_response_target_policiesItem_output: JsonSchema = {
-  "properties": {
-    "default": {
-      "type": "boolean"
-    },
-    "id": {
-      "$ref": "#/$defs/digital-experience-monitoring_uuid"
-    },
-    "name": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "default",
-    "id",
-    "name"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `digital-experience-monitoring_traceroute_details_response_tracerouteStats`
- * in responses.
- */
-export const digital_experience_monitoring_traceroute_details_response_tracerouteStats_output: JsonSchema = {
-  "oneOf": [
-    {
-      "properties": {
-        "availabilityPct": {
-          "$ref": "#/$defs/digital-experience-monitoring_test_stat_pct_over_time"
-        },
-        "hopsCount": {
-          "$ref": "#/$defs/digital-experience-monitoring_test_stat_over_time"
-        },
-        "packetLossPct": {
-          "$ref": "#/$defs/digital-experience-monitoring_test_stat_pct_over_time"
-        },
-        "roundTripTimeMs": {
-          "$ref": "#/$defs/digital-experience-monitoring_test_stat_over_time"
-        },
-        "uniqueDevicesTotal": {
-          "type": "integer"
-        }
-      },
-      "required": [
-        "availabilityPct",
-        "hopsCount",
-        "packetLossPct",
-        "roundTripTimeMs",
-        "uniqueDevicesTotal"
-      ],
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of
- * `digital-experience-monitoring_traceroute_details_response_tracerouteStatsByColoItem`
- * in responses.
- */
-export const digital_experience_monitoring_traceroute_details_response_tracerouteStatsByColoItem_output: JsonSchema = {
-  "properties": {
-    "availabilityPct": {
-      "$ref": "#/$defs/digital-experience-monitoring_test_stat_pct_over_time"
-    },
-    "colo": {
-      "type": "string"
-    },
-    "hopsCount": {
-      "$ref": "#/$defs/digital-experience-monitoring_test_stat_over_time"
-    },
-    "packetLossPct": {
-      "$ref": "#/$defs/digital-experience-monitoring_test_stat_pct_over_time"
-    },
-    "roundTripTimeMs": {
-      "$ref": "#/$defs/digital-experience-monitoring_test_stat_over_time"
-    },
-    "uniqueDevicesTotal": {
-      "type": "integer"
-    }
-  },
-  "required": [
-    "availabilityPct",
-    "colo",
-    "hopsCount",
-    "packetLossPct",
-    "roundTripTimeMs",
-    "uniqueDevicesTotal"
   ],
   "type": "object"
 };

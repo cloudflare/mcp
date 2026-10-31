@@ -4,6 +4,8 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   waitingroom_additional_routes_output,
+  waitingroom_api_response_collection_output,
+  waitingroom_api_response_common_2_output,
   waitingroom_api_response_common_failure_output,
   waitingroom_cookie_attributes_output,
   waitingroom_cookie_suffix_output,
@@ -32,10 +34,8 @@ import {
   waitingroom_waiting_room_id_output,
   waitingroom_waitingroom_output,
 } from "../outputs.js";
-import {
-  waitingroom_response_collection_output,
-  waitingroom_response_collection_result_info_output,
-} from "./outputs.js";
+import { waitingroom_identifier } from "../schemas.js";
+import { waitingroom_response_collection_output } from "./outputs.js";
 
 /**
  * The tools of `waiting_rooms.account_waiting_rooms`.
@@ -57,8 +57,8 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/waitingroom_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "page": {
           "default": 1,
@@ -75,42 +75,16 @@ export const tools: readonly Tool[] = [
         "account_or_zone",
         "account_or_zone_id"
       ],
+      $defs: {
+        "waitingroom_identifier": waitingroom_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/waitingroom_waitingroom"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/waitingroom_response_collection",
       $defs: {
         "waitingroom_additional_routes": waitingroom_additional_routes_output,
+        "waitingroom_api-response-collection": waitingroom_api_response_collection_output,
+        "waitingroom_api-response-common-2": waitingroom_api_response_common_2_output,
         "waitingroom_cookie_attributes": waitingroom_cookie_attributes_output,
         "waitingroom_cookie_suffix": waitingroom_cookie_suffix_output,
         "waitingroom_custom_page_html": waitingroom_custom_page_html_output,
@@ -120,6 +94,7 @@ export const tools: readonly Tool[] = [
         "waitingroom_enabled_origin_commands": waitingroom_enabled_origin_commands_output,
         "waitingroom_host": waitingroom_host_output,
         "waitingroom_json_response_enabled": waitingroom_json_response_enabled_output,
+        "waitingroom_messages": waitingroom_messages_output,
         "waitingroom_name": waitingroom_name_output,
         "waitingroom_new_users_per_minute": waitingroom_new_users_per_minute_output,
         "waitingroom_next_event_prequeue_start_time": waitingroom_next_event_prequeue_start_time_output,
@@ -128,6 +103,7 @@ export const tools: readonly Tool[] = [
         "waitingroom_queue_all": waitingroom_queue_all_output,
         "waitingroom_queueing_method": waitingroom_queueing_method_output,
         "waitingroom_queueing_status_code": waitingroom_queueing_status_code_output,
+        "waitingroom_response_collection": waitingroom_response_collection_output,
         "waitingroom_session_duration": waitingroom_session_duration_output,
         "waitingroom_suspended": waitingroom_suspended_output,
         "waitingroom_timestamp": waitingroom_timestamp_output,
@@ -161,38 +137,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/waitingroom_waitingroom"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/waitingroom_response_collection"
         },
         "4XX": {
           "allOf": [
@@ -207,6 +152,8 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "waitingroom_additional_routes": waitingroom_additional_routes_output,
+        "waitingroom_api-response-collection": waitingroom_api_response_collection_output,
+        "waitingroom_api-response-common-2": waitingroom_api_response_common_2_output,
         "waitingroom_api-response-common-failure": waitingroom_api_response_common_failure_output,
         "waitingroom_cookie_attributes": waitingroom_cookie_attributes_output,
         "waitingroom_cookie_suffix": waitingroom_cookie_suffix_output,
@@ -227,7 +174,6 @@ export const tools: readonly Tool[] = [
         "waitingroom_queueing_method": waitingroom_queueing_method_output,
         "waitingroom_queueing_status_code": waitingroom_queueing_status_code_output,
         "waitingroom_response_collection": waitingroom_response_collection_output,
-        "waitingroom_response_collection_result_info": waitingroom_response_collection_result_info_output,
         "waitingroom_session_duration": waitingroom_session_duration_output,
         "waitingroom_suspended": waitingroom_suspended_output,
         "waitingroom_timestamp": waitingroom_timestamp_output,

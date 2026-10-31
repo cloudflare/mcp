@@ -4,11 +4,18 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   magic_api_response_common_failure_output,
+  magic_api_response_common_output,
+  magic_api_response_single_output,
   magic_messages_output,
 } from "../outputs.js";
+import { magic_identifier } from "../schemas.js";
 import {
+  magic_delete_redundancy_group_response_output,
   magic_redundancy_group_output,
+  magic_redundancy_group_single_response_output,
   magic_redundancy_group_with_members_output,
+  magic_redundancy_group_with_members_response_output,
+  magic_redundancy_groups_collection_response_output,
   magic_redundancy_member_data_output,
 } from "./outputs.js";
 import {
@@ -28,8 +35,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "body": {
           "$ref": "#/$defs/magic_create_redundancy_group_request"
@@ -41,13 +48,18 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "magic_create_redundancy_group_request": magic_create_redundancy_group_request,
+        "magic_identifier": magic_identifier,
         "magic_redundancy_member_request": magic_redundancy_member_request,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/magic_redundancy_group",
+      "$ref": "#/$defs/magic_redundancy_group_single_response",
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
+        "magic_api-response-single": magic_api_response_single_output,
+        "magic_messages": magic_messages_output,
         "magic_redundancy_group": magic_redundancy_group_output,
+        "magic_redundancy_group_single_response": magic_redundancy_group_single_response_output,
       },
     },
     annotations: {
@@ -70,16 +82,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "201": {
-          "$ref": "#/$defs/magic_redundancy_group"
+          "$ref": "#/$defs/magic_redundancy_group_single_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
         }
       },
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_messages": magic_messages_output,
         "magic_redundancy_group": magic_redundancy_group_output,
+        "magic_redundancy_group_single_response": magic_redundancy_group_single_response_output,
       },
     },
     request: (args) => ({
@@ -95,34 +110,29 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "redundancy_group_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         }
       },
       required: [
         "account_id",
         "redundancy_group_id"
       ],
+      $defs: {
+        "magic_identifier": magic_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "deleted": {
-          "type": "boolean"
-        },
-        "deleted_redundancy_group": {
-          "$ref": "#/$defs/magic_redundancy_group"
-        }
-      },
-      "required": [
-        "deleted",
-        "deleted_redundancy_group"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/magic_delete_redundancy_group_response",
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
+        "magic_api-response-single": magic_api_response_single_output,
+        "magic_delete_redundancy_group_response": magic_delete_redundancy_group_response_output,
+        "magic_messages": magic_messages_output,
         "magic_redundancy_group": magic_redundancy_group_output,
       },
     },
@@ -146,26 +156,17 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "deleted": {
-              "type": "boolean"
-            },
-            "deleted_redundancy_group": {
-              "$ref": "#/$defs/magic_redundancy_group"
-            }
-          },
-          "required": [
-            "deleted",
-            "deleted_redundancy_group"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/magic_delete_redundancy_group_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
         }
       },
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_api-response-single": magic_api_response_single_output,
+        "magic_delete_redundancy_group_response": magic_delete_redundancy_group_response_output,
         "magic_messages": magic_messages_output,
         "magic_redundancy_group": magic_redundancy_group_output,
       },
@@ -182,23 +183,31 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "redundancy_group_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         }
       },
       required: [
         "account_id",
         "redundancy_group_id"
       ],
+      $defs: {
+        "magic_identifier": magic_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/magic_redundancy_group_with_members",
+      "$ref": "#/$defs/magic_redundancy_group_with_members_response",
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
+        "magic_api-response-single": magic_api_response_single_output,
+        "magic_messages": magic_messages_output,
+        "magic_redundancy_group": magic_redundancy_group_output,
         "magic_redundancy_group_with_members": magic_redundancy_group_with_members_output,
+        "magic_redundancy_group_with_members_response": magic_redundancy_group_with_members_response_output,
         "magic_redundancy_member_data": magic_redundancy_member_data_output,
       },
     },
@@ -222,16 +231,20 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/magic_redundancy_group_with_members"
+          "$ref": "#/$defs/magic_redundancy_group_with_members_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
         }
       },
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_messages": magic_messages_output,
+        "magic_redundancy_group": magic_redundancy_group_output,
         "magic_redundancy_group_with_members": magic_redundancy_group_with_members_output,
+        "magic_redundancy_group_with_members_response": magic_redundancy_group_with_members_response_output,
         "magic_redundancy_member_data": magic_redundancy_member_data_output,
       },
     },
@@ -247,26 +260,26 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "magic_identifier": magic_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "redundancy_groups": {
-          "items": {
-            "$ref": "#/$defs/magic_redundancy_group_with_members"
-          },
-          "type": "array"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/magic_redundancy_groups_collection_response",
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
+        "magic_api-response-single": magic_api_response_single_output,
+        "magic_messages": magic_messages_output,
+        "magic_redundancy_group": magic_redundancy_group_output,
         "magic_redundancy_group_with_members": magic_redundancy_group_with_members_output,
+        "magic_redundancy_groups_collection_response": magic_redundancy_groups_collection_response_output,
         "magic_redundancy_member_data": magic_redundancy_member_data_output,
       },
     },
@@ -290,24 +303,20 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "redundancy_groups": {
-              "items": {
-                "$ref": "#/$defs/magic_redundancy_group_with_members"
-              },
-              "type": "array"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/magic_redundancy_groups_collection_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
         }
       },
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_messages": magic_messages_output,
+        "magic_redundancy_group": magic_redundancy_group_output,
         "magic_redundancy_group_with_members": magic_redundancy_group_with_members_output,
+        "magic_redundancy_groups_collection_response": magic_redundancy_groups_collection_response_output,
         "magic_redundancy_member_data": magic_redundancy_member_data_output,
       },
     },
@@ -323,15 +332,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "body": {
           "$ref": "#/$defs/magic_create_redundancy_group_request"
         },
         "redundancy_group_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         }
       },
       required: [
@@ -341,13 +350,18 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "magic_create_redundancy_group_request": magic_create_redundancy_group_request,
+        "magic_identifier": magic_identifier,
         "magic_redundancy_member_request": magic_redundancy_member_request,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/magic_redundancy_group",
+      "$ref": "#/$defs/magic_redundancy_group_single_response",
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
+        "magic_api-response-single": magic_api_response_single_output,
+        "magic_messages": magic_messages_output,
         "magic_redundancy_group": magic_redundancy_group_output,
+        "magic_redundancy_group_single_response": magic_redundancy_group_single_response_output,
       },
     },
     annotations: {
@@ -370,16 +384,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/magic_redundancy_group"
+          "$ref": "#/$defs/magic_redundancy_group_single_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
         }
       },
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_messages": magic_messages_output,
         "magic_redundancy_group": magic_redundancy_group_output,
+        "magic_redundancy_group_single_response": magic_redundancy_group_single_response_output,
       },
     },
     request: (args) => ({

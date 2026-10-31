@@ -6,15 +6,18 @@ import {
   organizations_api_V4ErrorResponse_output,
   organizations_api_V4Message_output,
 } from "../../../outputs.js";
+import { organizations_api_OrganizationID } from "../../../schemas.js";
 import {
   organizations_api_MemberID_output,
   organizations_api_MemberSubjectUser_output,
-  organizations_api_Member_output,
 } from "../../outputs.js";
 import {
-  organizations_api_CreateSingleMember,
-  organizations_api_CreateSingleMember_user,
-} from "../schemas.js";
+  organizations_api_MemberPolicyRole_output,
+  organizations_api_MemberPolicyScope_output,
+  organizations_api_MemberPolicy_output,
+  organizations_api_Member_output,
+} from "../outputs.js";
+import { organizations_api_CreateSingleMember } from "../schemas.js";
 import { organizations_api_BatchCreateMembersRequest } from "./schemas.js";
 
 /**
@@ -32,7 +35,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/organizations-api_BatchCreateMembersRequest"
         },
         "organization_id": {
-          "type": "string"
+          "$ref": "#/$defs/organizations-api_OrganizationID"
         }
       },
       required: [
@@ -42,29 +45,52 @@ export const tools: readonly Tool[] = [
       $defs: {
         "organizations-api_BatchCreateMembersRequest": organizations_api_BatchCreateMembersRequest,
         "organizations-api_CreateSingleMember": organizations_api_CreateSingleMember,
-        "organizations-api_CreateSingleMember_user": organizations_api_CreateSingleMember_user,
+        "organizations-api_OrganizationID": organizations_api_OrganizationID,
       },
     },
     outputSchema: {
       "properties": {
+        "errors": {
+          "items": {
+            "type": "object"
+          },
+          "maxItems": 0,
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "$ref": "#/$defs/organizations-api_V4Message"
+          },
+          "type": "array"
+        },
         "result": {
           "items": {
             "$ref": "#/$defs/organizations-api_Member"
           },
           "type": "array"
         },
-        "result_info": {
-          "type": "object"
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
         }
       },
       "required": [
-        "result"
+        "errors",
+        "messages",
+        "result",
+        "success"
       ],
       "type": "object",
       $defs: {
         "organizations-api_Member": organizations_api_Member_output,
         "organizations-api_MemberID": organizations_api_MemberID_output,
+        "organizations-api_MemberPolicy": organizations_api_MemberPolicy_output,
+        "organizations-api_MemberPolicyRole": organizations_api_MemberPolicyRole_output,
+        "organizations-api_MemberPolicyScope": organizations_api_MemberPolicyScope_output,
         "organizations-api_MemberSubjectUser": organizations_api_MemberSubjectUser_output,
+        "organizations-api_V4Message": organizations_api_V4Message_output,
       },
     },
     annotations: {
@@ -80,28 +106,53 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
+            "errors": {
+              "items": {
+                "type": "object"
+              },
+              "maxItems": 0,
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "$ref": "#/$defs/organizations-api_V4Message"
+              },
+              "type": "array"
+            },
             "result": {
               "items": {
                 "$ref": "#/$defs/organizations-api_Member"
               },
               "type": "array"
             },
-            "result_info": {
-              "type": "object"
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
             }
           },
           "required": [
-            "result"
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
         "4XX": {
+          "$ref": "#/$defs/organizations-api_V4ErrorResponse"
+        },
+        "5XX": {
           "$ref": "#/$defs/organizations-api_V4ErrorResponse"
         }
       },
       $defs: {
         "organizations-api_Member": organizations_api_Member_output,
         "organizations-api_MemberID": organizations_api_MemberID_output,
+        "organizations-api_MemberPolicy": organizations_api_MemberPolicy_output,
+        "organizations-api_MemberPolicyRole": organizations_api_MemberPolicyRole_output,
+        "organizations-api_MemberPolicyScope": organizations_api_MemberPolicyScope_output,
         "organizations-api_MemberSubjectUser": organizations_api_MemberSubjectUser_output,
         "organizations-api_V4ErrorResponse": organizations_api_V4ErrorResponse_output,
         "organizations-api_V4Message": organizations_api_V4Message_output,

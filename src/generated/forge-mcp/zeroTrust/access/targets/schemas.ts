@@ -10,50 +10,34 @@ export const infra_IPInfo: JsonSchema = {
   "description": "The IPv4/IPv6 address that identifies where to reach a target",
   "properties": {
     "ipv4": {
-      "$ref": "#/$defs/infra_IPInfo_ipv4",
-      "description": "The target's IPv4 address"
+      "description": "The target's IPv4 address",
+      "properties": {
+        "ip_addr": {
+          "description": "IP address of the target",
+          "type": "string"
+        },
+        "virtual_network_id": {
+          "description": "(optional) Private virtual network identifier for the target. If omitted, the default virtual network ID will be used.",
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "ipv6": {
-      "$ref": "#/$defs/infra_IPInfo_ipv6",
-      "description": "The target's IPv6 address"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `infra_IPInfo_ipv4`.
- */
-export const infra_IPInfo_ipv4: JsonSchema = {
-  "description": "The target's IPv4 address",
-  "properties": {
-    "ip_addr": {
-      "description": "IP address of the target",
-      "type": "string"
-    },
-    "virtual_network_id": {
-      "description": "(optional) Private virtual network identifier for the target. If omitted, the default virtual network ID will be used.",
-      "format": "uuid",
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `infra_IPInfo_ipv6`.
- */
-export const infra_IPInfo_ipv6: JsonSchema = {
-  "description": "The target's IPv6 address",
-  "properties": {
-    "ip_addr": {
-      "description": "IP address of the target",
-      "type": "string"
-    },
-    "virtual_network_id": {
-      "description": "(optional) Private virtual network identifier for the target. If omitted, the default virtual network ID will be used.",
-      "format": "uuid",
-      "type": "string"
+      "description": "The target's IPv6 address",
+      "properties": {
+        "ip_addr": {
+          "description": "IP address of the target",
+          "type": "string"
+        },
+        "virtual_network_id": {
+          "description": "(optional) Private virtual network identifier for the target. If omitted, the default virtual network ID will be used.",
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
   },
   "type": "object"

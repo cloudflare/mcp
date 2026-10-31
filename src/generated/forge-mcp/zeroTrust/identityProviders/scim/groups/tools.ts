@@ -3,15 +3,20 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
+  access_api_response_collection_output,
   access_api_response_common_failure_output,
+  access_api_response_common_output,
+  access_api_response_single_output,
   access_messages_output,
 } from "../../../outputs.js";
+import { access_identifier, access_uuid } from "../../../schemas.js";
 import { access_id_output, access_meta_output } from "../outputs.js";
 import {
   access_externalId_output,
-  access_group_details_membersItem_output,
   access_group_details_output,
   access_groups_output,
+  access_scim_group_response_output,
+  access_scim_groups_response_output,
 } from "./outputs.js";
 import {
   access_cf_resource_id,
@@ -31,16 +36,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         },
         "group_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         },
         "identity_provider_id": {
-          "description": "UUID.",
-          "type": "string"
+          "$ref": "#/$defs/access_uuid",
+          "description": "UUID."
         }
       },
       required: [
@@ -48,6 +53,10 @@ export const tools: readonly Tool[] = [
         "identity_provider_id",
         "group_id"
       ],
+      $defs: {
+        "access_identifier": access_identifier,
+        "access_uuid": access_uuid,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -87,16 +96,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         },
         "group_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         },
         "identity_provider_id": {
-          "description": "UUID.",
-          "type": "string"
+          "$ref": "#/$defs/access_uuid",
+          "description": "UUID."
         }
       },
       required: [
@@ -104,15 +113,21 @@ export const tools: readonly Tool[] = [
         "identity_provider_id",
         "group_id"
       ],
+      $defs: {
+        "access_identifier": access_identifier,
+        "access_uuid": access_uuid,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/access_group_details",
+      "$ref": "#/$defs/access_scim_group_response",
       $defs: {
+        "access_api-response-single": access_api_response_single_output,
         "access_externalId": access_externalId_output,
         "access_group_details": access_group_details_output,
-        "access_group_details_membersItem": access_group_details_membersItem_output,
         "access_id": access_id_output,
+        "access_messages": access_messages_output,
         "access_meta": access_meta_output,
+        "access_scim_group_response": access_scim_group_response_output,
       },
     },
     annotations: {
@@ -133,7 +148,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/access_group_details"
+          "$ref": "#/$defs/access_scim_group_response"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -141,12 +156,13 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_externalId": access_externalId_output,
         "access_group_details": access_group_details_output,
-        "access_group_details_membersItem": access_group_details_membersItem_output,
         "access_id": access_id_output,
         "access_messages": access_messages_output,
         "access_meta": access_meta_output,
+        "access_scim_group_response": access_scim_group_response_output,
       },
     },
     request: (args) => ({
@@ -161,16 +177,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         },
         "cf_resource_id": {
           "$ref": "#/$defs/access_cf_resource_id",
           "description": "The unique Cloudflare-generated Id of the SCIM Group resource; also known as the \"Id\".\nPass once for a single lookup (`?cf_resource_id=A`) or repeat the parameter\n(`?cf_resource_id=A&cf_resource_id=B`) to look up multiple groups in one request,\nup to 50 values. Mutually exclusive with `idp_resource_id`, `name`,\n`search_contains`, and `search_starts_with`."
         },
         "identity_provider_id": {
-          "description": "UUID.",
-          "type": "string"
+          "$ref": "#/$defs/access_uuid",
+          "description": "UUID."
         },
         "idp_resource_id": {
           "$ref": "#/$defs/access_idp_resource_id",
@@ -197,48 +213,23 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "access_cf_resource_id": access_cf_resource_id,
+        "access_identifier": access_identifier,
         "access_idp_resource_id": access_idp_resource_id,
         "access_name-4": access_name_4,
+        "access_uuid": access_uuid,
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/access_groups"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/access_scim_groups_response",
       $defs: {
+        "access_api-response-collection": access_api_response_collection_output,
+        "access_api-response-common": access_api_response_common_output,
         "access_externalId": access_externalId_output,
         "access_groups": access_groups_output,
         "access_id": access_id_output,
+        "access_messages": access_messages_output,
         "access_meta": access_meta_output,
+        "access_scim_groups_response": access_scim_groups_response_output,
       },
     },
     annotations: {
@@ -259,50 +250,22 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/access_groups"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/access_scim_groups_response"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
         }
       },
       $defs: {
+        "access_api-response-collection": access_api_response_collection_output,
+        "access_api-response-common": access_api_response_common_output,
         "access_api-response-common-failure": access_api_response_common_failure_output,
         "access_externalId": access_externalId_output,
         "access_groups": access_groups_output,
         "access_id": access_id_output,
         "access_messages": access_messages_output,
         "access_meta": access_meta_output,
+        "access_scim_groups_response": access_scim_groups_response_output,
       },
     },
     request: (args) => ({

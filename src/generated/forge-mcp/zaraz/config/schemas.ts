@@ -7,162 +7,28 @@ import type { JsonSchema } from "../../_/tool.js";
  * The schema of `zaraz_zaraz-config-body`.
  */
 export const zaraz_zaraz_config_body: JsonSchema = {
-  "description": "Zaraz configuration.",
-  "properties": {
-    "analytics": {
-      "$ref": "#/$defs/zaraz_zaraz-config-base_analytics",
-      "description": "Cloudflare Monitoring settings."
+  "allOf": [
+    {
+      "$ref": "#/$defs/zaraz_zaraz-config-base"
     },
-    "consent": {
-      "$ref": "#/$defs/zaraz_zaraz-config-base_consent",
-      "description": "Consent management configuration."
-    },
-    "dataLayer": {
-      "description": "Data layer compatibility mode enabled.",
-      "type": "boolean"
-    },
-    "debugKey": {
-      "description": "The key for Zaraz debug mode.",
-      "type": "string"
-    },
-    "historyChange": {
-      "description": "Single Page Application support enabled.",
-      "type": "boolean"
-    },
-    "settings": {
-      "$ref": "#/$defs/zaraz_zaraz-config-base_settings",
-      "description": "General Zaraz settings."
-    },
-    "tools": {
-      "additionalProperties": {
-        "anyOf": [
-          {
-            "$ref": "#/$defs/zaraz_managed-component"
+    {
+      "properties": {
+        "tools": {
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/zaraz_managed-component"
+              },
+              {
+                "$ref": "#/$defs/zaraz_custom-managed-component"
+              }
+            ]
           },
-          {
-            "$ref": "#/$defs/zaraz_custom-managed-component"
-          }
-        ]
+          "description": "Tools set up under Zaraz configuration, where key is the alpha-numeric tool ID and value is the tool configuration object.",
+          "type": "object"
+        }
       },
-      "description": "Tools set up under Zaraz configuration, where key is the alpha-numeric tool ID and value is the tool configuration object.",
       "type": "object"
-    },
-    "triggers": {
-      "additionalProperties": {
-        "properties": {
-          "description": {
-            "description": "Trigger description.",
-            "type": "string"
-          },
-          "excludeRules": {
-            "description": "Rules defining when the trigger is not fired.",
-            "items": {
-              "anyOf": [
-                {
-                  "$ref": "#/$defs/zaraz_load-rule"
-                },
-                {
-                  "$ref": "#/$defs/zaraz_click-listener-rule"
-                },
-                {
-                  "$ref": "#/$defs/zaraz_timer-rule"
-                },
-                {
-                  "$ref": "#/$defs/zaraz_form-submission-rule"
-                },
-                {
-                  "$ref": "#/$defs/zaraz_variable-match-rule"
-                },
-                {
-                  "$ref": "#/$defs/zaraz_scroll-depth-rule"
-                },
-                {
-                  "$ref": "#/$defs/zaraz_element-visibility-rule"
-                }
-              ]
-            },
-            "type": "array"
-          },
-          "loadRules": {
-            "description": "Rules defining when the trigger is fired.",
-            "items": {
-              "anyOf": [
-                {
-                  "$ref": "#/$defs/zaraz_load-rule"
-                },
-                {
-                  "$ref": "#/$defs/zaraz_click-listener-rule"
-                },
-                {
-                  "$ref": "#/$defs/zaraz_timer-rule"
-                },
-                {
-                  "$ref": "#/$defs/zaraz_form-submission-rule"
-                },
-                {
-                  "$ref": "#/$defs/zaraz_variable-match-rule"
-                },
-                {
-                  "$ref": "#/$defs/zaraz_scroll-depth-rule"
-                },
-                {
-                  "$ref": "#/$defs/zaraz_element-visibility-rule"
-                }
-              ]
-            },
-            "type": "array"
-          },
-          "name": {
-            "description": "Trigger name.",
-            "type": "string"
-          },
-          "system": {
-            "enum": [
-              "pageload"
-            ],
-            "type": "string"
-          }
-        },
-        "required": [
-          "excludeRules",
-          "loadRules",
-          "name"
-        ],
-        "type": "object"
-      },
-      "description": "Triggers set up under Zaraz configuration, where key is the trigger alpha-numeric ID and value is the trigger configuration.",
-      "type": "object"
-    },
-    "variables": {
-      "additionalProperties": {
-        "anyOf": [
-          {
-            "$ref": "#/$defs/zaraz_string_variable"
-          },
-          {
-            "$ref": "#/$defs/zaraz_secret_variable"
-          },
-          {
-            "$ref": "#/$defs/zaraz_worker_variable"
-          }
-        ]
-      },
-      "description": "Variables set up under Zaraz configuration, where key is the variable alpha-numeric ID and value is the variable configuration. Values of variables of type secret are not included.",
-      "type": "object"
-    },
-    "zarazVersion": {
-      "description": "Zaraz internal version of the config.",
-      "type": "integer"
     }
-  },
-  "required": [
-    "dataLayer",
-    "debugKey",
-    "settings",
-    "triggers",
-    "variables",
-    "zarazVersion",
-    "tools"
-  ],
-  "type": "object"
+  ]
 };

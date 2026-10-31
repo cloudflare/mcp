@@ -4,6 +4,70 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `digital-experience-monitoring_api-response-collection` in
+ * responses.
+ */
+export const digital_experience_monitoring_api_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/digital-experience-monitoring_api-response-common"
+    },
+    {
+      "properties": {
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `digital-experience-monitoring_api-response-common` in
+ * responses.
+ */
+export const digital_experience_monitoring_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/digital-experience-monitoring_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/digital-experience-monitoring_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `digital-experience-monitoring_api-response-common-failure` in
  * responses.
  */
@@ -29,6 +93,33 @@ export const digital_experience_monitoring_api_response_common_failure_output: J
     "errors",
     "messages",
     "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `digital-experience-monitoring_api-response-single` in
+ * responses.
+ */
+export const digital_experience_monitoring_api_response_single_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/digital-experience-monitoring_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/digital-experience-monitoring_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
     "success"
   ],
   "type": "object"

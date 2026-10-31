@@ -77,7 +77,19 @@ export const cc_ApplicationRollout_output: JsonSchema = {
       "type": "integer"
     },
     "version_distribution": {
-      "$ref": "#/$defs/cc_ApplicationRollout_version_distribution"
+      "properties": {
+        "current_version_percentage": {
+          "type": "integer"
+        },
+        "target_version_percentage": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "current_version_percentage",
+        "target_version_percentage"
+      ],
+      "type": "object"
     }
   },
   "required": [
@@ -115,7 +127,21 @@ export const cc_ApplicationRolloutProgress_output: JsonSchema = {
       "type": "integer"
     },
     "version_distribution": {
-      "$ref": "#/$defs/cc_ApplicationRolloutProgress_version_distribution"
+      "properties": {
+        "current_version_instances": {
+          "type": "integer"
+        },
+        "current_version_percentage": {
+          "type": "integer"
+        },
+        "target_version_instances": {
+          "type": "integer"
+        },
+        "target_version_percentage": {
+          "type": "integer"
+        }
+      },
+      "type": "object"
     }
   },
   "required": [
@@ -123,47 +149,6 @@ export const cc_ApplicationRolloutProgress_output: JsonSchema = {
     "total_instances",
     "total_steps",
     "updated_instances"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `cc_ApplicationRolloutProgress_version_distribution` in
- * responses.
- */
-export const cc_ApplicationRolloutProgress_version_distribution_output: JsonSchema = {
-  "properties": {
-    "current_version_instances": {
-      "type": "integer"
-    },
-    "current_version_percentage": {
-      "type": "integer"
-    },
-    "target_version_instances": {
-      "type": "integer"
-    },
-    "target_version_percentage": {
-      "type": "integer"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `cc_ApplicationRollout_version_distribution` in responses.
- */
-export const cc_ApplicationRollout_version_distribution_output: JsonSchema = {
-  "properties": {
-    "current_version_percentage": {
-      "type": "integer"
-    },
-    "target_version_percentage": {
-      "type": "integer"
-    }
-  },
-  "required": [
-    "current_version_percentage",
-    "target_version_percentage"
   ],
   "type": "object"
 };
@@ -199,7 +184,15 @@ export const cc_RolloutStep_output: JsonSchema = {
       "type": "string"
     },
     "step_size": {
-      "$ref": "#/$defs/cc_RolloutStep_step_size"
+      "properties": {
+        "percentage": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "percentage"
+      ],
+      "type": "object"
     }
   },
   "required": [
@@ -207,21 +200,6 @@ export const cc_RolloutStep_output: JsonSchema = {
     "id",
     "status",
     "step_size"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `cc_RolloutStep_step_size` in responses.
- */
-export const cc_RolloutStep_step_size_output: JsonSchema = {
-  "properties": {
-    "percentage": {
-      "type": "integer"
-    }
-  },
-  "required": [
-    "percentage"
   ],
   "type": "object"
 };

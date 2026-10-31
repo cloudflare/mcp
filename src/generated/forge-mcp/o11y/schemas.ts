@@ -66,7 +66,17 @@ export const workers_observability_filter_leaf: JsonSchema = {
       "type": "string"
     },
     "value": {
-      "$ref": "#/$defs/workers-observability_filter_leaf_value",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        }
+      ],
       "description": "Comparison value. Must match actual values in your data — verify with the values endpoint. Ensure the value type (string/number/boolean) matches the field type. String comparisons are case-sensitive. Regex uses RE2 syntax (no lookaheads/lookbehinds)."
     }
   },
@@ -76,24 +86,6 @@ export const workers_observability_filter_leaf: JsonSchema = {
     "type"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `workers-observability_filter_leaf_value`.
- */
-export const workers_observability_filter_leaf_value: JsonSchema = {
-  "anyOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "number"
-    },
-    {
-      "type": "boolean"
-    }
-  ],
-  "description": "Comparison value. Must match actual values in your data — verify with the values endpoint. Ensure the value type (string/number/boolean) matches the field type. String comparisons are case-sensitive. Regex uses RE2 syntax (no lookaheads/lookbehinds)."
 };
 
 /**

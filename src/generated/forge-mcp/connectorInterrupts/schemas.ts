@@ -10,55 +10,34 @@ export const mconn_interrupt: JsonSchema = {
   "description": "Interrupt action for a connector.",
   "properties": {
     "reboot": {
-      "$ref": "#/$defs/mconn_interrupt_reboot"
+      "properties": {
+        "purge": {
+          "default": false,
+          "description": "Purge connector state.",
+          "type": "boolean"
+        }
+      },
+      "type": "object"
     },
     "restart": {
-      "$ref": "#/$defs/mconn_interrupt_restart"
+      "properties": {
+        "purge": {
+          "default": false,
+          "description": "Purge connector state.",
+          "type": "boolean"
+        }
+      },
+      "type": "object"
     },
     "shutdown": {
-      "$ref": "#/$defs/mconn_interrupt_shutdown"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `mconn_interrupt_reboot`.
- */
-export const mconn_interrupt_reboot: JsonSchema = {
-  "properties": {
-    "purge": {
-      "default": false,
-      "description": "Purge connector state.",
-      "type": "boolean"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `mconn_interrupt_restart`.
- */
-export const mconn_interrupt_restart: JsonSchema = {
-  "properties": {
-    "purge": {
-      "default": false,
-      "description": "Purge connector state.",
-      "type": "boolean"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `mconn_interrupt_shutdown`.
- */
-export const mconn_interrupt_shutdown: JsonSchema = {
-  "properties": {
-    "purge": {
-      "default": false,
-      "description": "Purge connector state.",
-      "type": "boolean"
+      "properties": {
+        "purge": {
+          "default": false,
+          "description": "Purge connector state.",
+          "type": "boolean"
+        }
+      },
+      "type": "object"
     }
   },
   "type": "object"

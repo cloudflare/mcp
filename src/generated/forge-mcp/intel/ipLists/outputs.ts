@@ -7,36 +7,22 @@ import type { JsonSchema } from "../../_/tool.js";
  * The schema of `intel_components-schemas-response` in responses.
  */
 export const intel_components_schemas_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/intel_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/intel_api-response-collection"
     },
-    "messages": {
-      "$ref": "#/$defs/intel_messages"
-    },
-    "result": {
-      "items": {
-        "$ref": "#/$defs/intel_ip-list"
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/intel_ip-list"
+          },
+          "type": "array"
+        }
       },
-      "type": "array"
-    },
-    "result_info": {
-      "$ref": "#/$defs/intel_result_info"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**

@@ -25,12 +25,41 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "allowed": {
+        "errors": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "result": {
+          "properties": {
+            "allowed": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "allowed"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
           "type": "boolean"
         }
       },
       "required": [
-        "allowed"
+        "errors",
+        "messages",
+        "result",
+        "success"
       ],
       "type": "object",
     },
@@ -53,12 +82,41 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
-            "allowed": {
+            "errors": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "allowed": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "allowed"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
               "type": "boolean"
             }
           },
           "required": [
-            "allowed"
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },

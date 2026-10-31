@@ -6,20 +6,13 @@ import {
   cloudforce_one_ErrorResponse_output,
   cloudforce_one_ResubmitApprovalResponse_output,
 } from "../../outputs.js";
-import {
-  cloudforce_one_MetaInputEntry,
-  cloudforce_one_MetaInputEntry_value,
-} from "../../schemas.js";
+import { cloudforce_one_MetaInputEntry } from "../../schemas.js";
 import {
   cloudforce_one_EmailRuleArrayCondition,
-  cloudforce_one_EmailRuleArrayCondition_conditionsItem,
-  cloudforce_one_EmailRuleArrayCondition_conditionsItem_value,
   cloudforce_one_EmailRuleCondition,
   cloudforce_one_EmailRuleConditionGroup,
   cloudforce_one_EmailRuleHeaderCondition,
-  cloudforce_one_EmailRuleHeaderCondition_value,
   cloudforce_one_EmailRuleScalarCondition,
-  cloudforce_one_EmailRuleScalarCondition_value,
 } from "../schemas.js";
 
 /**
@@ -144,16 +137,11 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "cloudforce-one_EmailRuleArrayCondition": cloudforce_one_EmailRuleArrayCondition,
-        "cloudforce-one_EmailRuleArrayCondition_conditionsItem": cloudforce_one_EmailRuleArrayCondition_conditionsItem,
-        "cloudforce-one_EmailRuleArrayCondition_conditionsItem_value": cloudforce_one_EmailRuleArrayCondition_conditionsItem_value,
         "cloudforce-one_EmailRuleCondition": cloudforce_one_EmailRuleCondition,
         "cloudforce-one_EmailRuleConditionGroup": cloudforce_one_EmailRuleConditionGroup,
         "cloudforce-one_EmailRuleHeaderCondition": cloudforce_one_EmailRuleHeaderCondition,
-        "cloudforce-one_EmailRuleHeaderCondition_value": cloudforce_one_EmailRuleHeaderCondition_value,
         "cloudforce-one_EmailRuleScalarCondition": cloudforce_one_EmailRuleScalarCondition,
-        "cloudforce-one_EmailRuleScalarCondition_value": cloudforce_one_EmailRuleScalarCondition_value,
         "cloudforce-one_MetaInputEntry": cloudforce_one_MetaInputEntry,
-        "cloudforce-one_MetaInputEntry_value": cloudforce_one_MetaInputEntry_value,
       },
     },
     outputSchema: {

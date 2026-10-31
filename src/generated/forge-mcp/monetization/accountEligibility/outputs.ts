@@ -4,6 +4,51 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `monetization_monetization-account-eligibility-check-response`
+ * in responses.
+ */
+export const monetization_monetization_account_eligibility_check_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/monetization_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/monetization_monetization-eligibility-result"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `monetization_monetization-eligibility-response` in responses.
+ */
+export const monetization_monetization_eligibility_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/monetization_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/monetization_monetization-eligibility-result"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `monetization_monetization-eligibility-result` in responses.
  */
 export const monetization_monetization_eligibility_result_output: JsonSchema = {

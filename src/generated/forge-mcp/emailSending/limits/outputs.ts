@@ -9,70 +9,75 @@ import type { JsonSchema } from "../../_/tool.js";
 export const email_sending_limits_properties_output: JsonSchema = {
   "properties": {
     "quota": {
-      "$ref": "#/$defs/email_sending_limits_properties_quota"
+      "oneOf": [
+        {
+          "properties": {
+            "unit": {
+              "enum": [
+                "day",
+                "hour"
+              ],
+              "type": "string"
+            },
+            "value": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "usage": {
-      "$ref": "#/$defs/email_sending_limits_properties_usage"
+      "oneOf": [
+        {
+          "properties": {
+            "over_quota": {
+              "type": "boolean"
+            },
+            "resets_at": {
+              "oneOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "sent": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     }
   },
   "type": "object"
 };
 
 /**
- * The schema of `email_sending_limits_properties_quota` in responses.
+ * The schema of `email_sending_limits_response_single` in responses.
  */
-export const email_sending_limits_properties_quota_output: JsonSchema = {
-  "oneOf": [
+export const email_sending_limits_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/email_api-response-single"
+    },
     {
       "properties": {
-        "unit": {
-          "enum": [
-            "day",
-            "hour"
-          ],
-          "type": "string"
-        },
-        "value": {
-          "type": "integer"
+        "result": {
+          "$ref": "#/$defs/email_sending_limits_properties"
         }
       },
       "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `email_sending_limits_properties_usage` in responses.
- */
-export const email_sending_limits_properties_usage_output: JsonSchema = {
-  "oneOf": [
-    {
-      "properties": {
-        "over_quota": {
-          "type": "boolean"
-        },
-        "resets_at": {
-          "oneOf": [
-            {
-              "format": "date-time",
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "sent": {
-          "type": "integer"
-        }
-      },
-      "type": "object"
-    },
-    {
-      "type": "null"
     }
   ]
 };

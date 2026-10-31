@@ -4,6 +4,14 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `magic-visibility-pcaps_identifier`.
+ */
+export const magic_visibility_pcaps_identifier: JsonSchema = {
+  "description": "Identifier.",
+  "type": "string"
+};
+
+/**
  * The schema of `magic-visibility-pcaps_pcaps_byte_limit`.
  */
 export const magic_visibility_pcaps_pcaps_byte_limit: JsonSchema = {

@@ -60,7 +60,33 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/teams-devices_ip_profile",
+      "properties": {
+        "errors": {
+          "items": {
+            "$ref": "#/$defs/teams-devices_v4_response_message"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "$ref": "#/$defs/teams-devices_v4_response_message"
+          },
+          "type": "array"
+        },
+        "result": {
+          "$ref": "#/$defs/teams-devices_ip_profile"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
       $defs: {
         "teams-devices_ip_profile": teams_devices_ip_profile_output,
         "teams-devices_ip_profile_created_at": teams_devices_ip_profile_created_at_output,
@@ -72,6 +98,7 @@ export const tools: readonly Tool[] = [
         "teams-devices_ip_profile_precedence": teams_devices_ip_profile_precedence_output,
         "teams-devices_ip_profile_subnet_id": teams_devices_ip_profile_subnet_id_output,
         "teams-devices_ip_profile_updated_at": teams_devices_ip_profile_updated_at_output,
+        "teams-devices_v4_response_message": teams_devices_v4_response_message_output,
       },
     },
     annotations: {
@@ -91,7 +118,33 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/teams-devices_ip_profile"
+          "properties": {
+            "errors": {
+              "items": {
+                "$ref": "#/$defs/teams-devices_v4_response_message"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "$ref": "#/$defs/teams-devices_v4_response_message"
+              },
+              "type": "array"
+            },
+            "result": {
+              "$ref": "#/$defs/teams-devices_ip_profile"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
+          "type": "object"
         },
         "4XX": {
           "$ref": "#/$defs/teams-devices_v4_error_response"
@@ -138,11 +191,40 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "id": {
-          "type": "string"
+        "errors": {
+          "items": {
+            "$ref": "#/$defs/teams-devices_v4_response_message"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "$ref": "#/$defs/teams-devices_v4_response_message"
+          },
+          "type": "array"
+        },
+        "result": {
+          "properties": {
+            "id": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
         }
       },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
       "type": "object",
+      $defs: {
+        "teams-devices_v4_response_message": teams_devices_v4_response_message_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -162,10 +244,36 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
-            "id": {
-              "type": "string"
+            "errors": {
+              "items": {
+                "$ref": "#/$defs/teams-devices_v4_response_message"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "$ref": "#/$defs/teams-devices_v4_response_message"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
             }
           },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
           "type": "object"
         },
         "4XX": {
@@ -201,7 +309,33 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/teams-devices_ip_profile",
+      "properties": {
+        "errors": {
+          "items": {
+            "$ref": "#/$defs/teams-devices_v4_response_message"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "$ref": "#/$defs/teams-devices_v4_response_message"
+          },
+          "type": "array"
+        },
+        "result": {
+          "$ref": "#/$defs/teams-devices_ip_profile"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
       $defs: {
         "teams-devices_ip_profile": teams_devices_ip_profile_output,
         "teams-devices_ip_profile_created_at": teams_devices_ip_profile_created_at_output,
@@ -213,6 +347,7 @@ export const tools: readonly Tool[] = [
         "teams-devices_ip_profile_precedence": teams_devices_ip_profile_precedence_output,
         "teams-devices_ip_profile_subnet_id": teams_devices_ip_profile_subnet_id_output,
         "teams-devices_ip_profile_updated_at": teams_devices_ip_profile_updated_at_output,
+        "teams-devices_v4_response_message": teams_devices_v4_response_message_output,
       },
     },
     annotations: {
@@ -233,7 +368,33 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/teams-devices_ip_profile"
+          "properties": {
+            "errors": {
+              "items": {
+                "$ref": "#/$defs/teams-devices_v4_response_message"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "$ref": "#/$defs/teams-devices_v4_response_message"
+              },
+              "type": "array"
+            },
+            "result": {
+              "$ref": "#/$defs/teams-devices_ip_profile"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
+          "type": "object"
         },
         "4XX": {
           "$ref": "#/$defs/teams-devices_v4_error_response"
@@ -285,6 +446,18 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
+        "errors": {
+          "items": {
+            "$ref": "#/$defs/teams-devices_v4_response_message"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "$ref": "#/$defs/teams-devices_v4_response_message"
+          },
+          "type": "array"
+        },
         "result": {
           "items": {
             "$ref": "#/$defs/teams-devices_ip_profile"
@@ -293,10 +466,16 @@ export const tools: readonly Tool[] = [
         },
         "result_info": {
           "$ref": "#/$defs/teams-devices_pagination_info"
+        },
+        "success": {
+          "type": "boolean"
         }
       },
       "required": [
-        "result"
+        "errors",
+        "messages",
+        "result",
+        "success"
       ],
       "type": "object",
       $defs: {
@@ -311,6 +490,7 @@ export const tools: readonly Tool[] = [
         "teams-devices_ip_profile_subnet_id": teams_devices_ip_profile_subnet_id_output,
         "teams-devices_ip_profile_updated_at": teams_devices_ip_profile_updated_at_output,
         "teams-devices_pagination_info": teams_devices_pagination_info_output,
+        "teams-devices_v4_response_message": teams_devices_v4_response_message_output,
       },
     },
     annotations: {
@@ -332,6 +512,18 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
+            "errors": {
+              "items": {
+                "$ref": "#/$defs/teams-devices_v4_response_message"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "$ref": "#/$defs/teams-devices_v4_response_message"
+              },
+              "type": "array"
+            },
             "result": {
               "items": {
                 "$ref": "#/$defs/teams-devices_ip_profile"
@@ -340,10 +532,16 @@ export const tools: readonly Tool[] = [
             },
             "result_info": {
               "$ref": "#/$defs/teams-devices_pagination_info"
+            },
+            "success": {
+              "type": "boolean"
             }
           },
           "required": [
-            "result"
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -407,7 +605,33 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/teams-devices_ip_profile",
+      "properties": {
+        "errors": {
+          "items": {
+            "$ref": "#/$defs/teams-devices_v4_response_message"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "$ref": "#/$defs/teams-devices_v4_response_message"
+          },
+          "type": "array"
+        },
+        "result": {
+          "$ref": "#/$defs/teams-devices_ip_profile"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
       $defs: {
         "teams-devices_ip_profile": teams_devices_ip_profile_output,
         "teams-devices_ip_profile_created_at": teams_devices_ip_profile_created_at_output,
@@ -419,6 +643,7 @@ export const tools: readonly Tool[] = [
         "teams-devices_ip_profile_precedence": teams_devices_ip_profile_precedence_output,
         "teams-devices_ip_profile_subnet_id": teams_devices_ip_profile_subnet_id_output,
         "teams-devices_ip_profile_updated_at": teams_devices_ip_profile_updated_at_output,
+        "teams-devices_v4_response_message": teams_devices_v4_response_message_output,
       },
     },
     annotations: {
@@ -438,7 +663,33 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/teams-devices_ip_profile"
+          "properties": {
+            "errors": {
+              "items": {
+                "$ref": "#/$defs/teams-devices_v4_response_message"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "$ref": "#/$defs/teams-devices_v4_response_message"
+              },
+              "type": "array"
+            },
+            "result": {
+              "$ref": "#/$defs/teams-devices_ip_profile"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
+          "type": "object"
         },
         "4XX": {
           "$ref": "#/$defs/teams-devices_v4_error_response"

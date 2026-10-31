@@ -27,6 +27,39 @@ export const registrar_api_cursor_result_info_output: JsonSchema = {
 };
 
 /**
+ * The schema of `registrar-api_domain_check_response` in responses.
+ */
+export const registrar_api_domain_check_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/registrar-api_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "domains": {
+              "items": {
+                "$ref": "#/$defs/registrar-api_domain_check_result"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "domains"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `registrar-api_domain_check_result` in responses.
  */
 export const registrar_api_domain_check_result_output: JsonSchema = {
@@ -70,6 +103,39 @@ export const registrar_api_domain_check_result_output: JsonSchema = {
  */
 export const registrar_api_domain_name_output: JsonSchema = {
   "type": "string"
+};
+
+/**
+ * The schema of `registrar-api_domain_search_response` in responses.
+ */
+export const registrar_api_domain_search_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/registrar-api_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "domains": {
+              "items": {
+                "$ref": "#/$defs/registrar-api_domain_search_result"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "domains"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object"
+    }
+  ]
 };
 
 /**
@@ -138,6 +204,39 @@ export const registrar_api_domain_transfer_check_reason_output: JsonSchema = {
 };
 
 /**
+ * The schema of `registrar-api_domain_transfer_check_response` in responses.
+ */
+export const registrar_api_domain_transfer_check_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/registrar-api_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "domains": {
+              "additionalProperties": {
+                "$ref": "#/$defs/registrar-api_domain_transfer_check_result"
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "domains"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `registrar-api_domain_transfer_check_result` in responses.
  */
 export const registrar_api_domain_transfer_check_result_output: JsonSchema = {
@@ -152,7 +251,15 @@ export const registrar_api_domain_transfer_check_result_output: JsonSchema = {
         },
         "reasons": {
           "items": {
-            "$ref": "#/$defs/registrar-api_domain_transfer_check_result_reasonsItem"
+            "properties": {
+              "code": {
+                "$ref": "#/$defs/registrar-api_domain_transfer_check_reason"
+              }
+            },
+            "required": [
+              "code"
+            ],
+            "type": "object"
           },
           "type": "array"
         },
@@ -233,17 +340,20 @@ export const registrar_api_domain_transfer_check_result_output: JsonSchema = {
 };
 
 /**
- * The schema of `registrar-api_domain_transfer_check_result_reasonsItem` in
- * responses.
+ * The schema of `registrar-api_pricing_base` in responses.
  */
-export const registrar_api_domain_transfer_check_result_reasonsItem_output: JsonSchema = {
+export const registrar_api_pricing_base_output: JsonSchema = {
   "properties": {
-    "code": {
-      "$ref": "#/$defs/registrar-api_domain_transfer_check_reason"
+    "currency": {
+      "type": "string"
+    },
+    "renewal_cost": {
+      "type": "string"
     }
   },
   "required": [
-    "code"
+    "currency",
+    "renewal_cost"
   ],
   "type": "object"
 };
@@ -252,46 +362,44 @@ export const registrar_api_domain_transfer_check_result_reasonsItem_output: Json
  * The schema of `registrar-api_pricing_registration` in responses.
  */
 export const registrar_api_pricing_registration_output: JsonSchema = {
-  "properties": {
-    "currency": {
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/registrar-api_pricing_base"
     },
-    "registration_cost": {
-      "type": "string"
-    },
-    "renewal_cost": {
-      "type": "string"
+    {
+      "properties": {
+        "registration_cost": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "registration_cost"
+      ],
+      "type": "object"
     }
-  },
-  "required": [
-    "currency",
-    "renewal_cost",
-    "registration_cost"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `registrar-api_pricing_transfer` in responses.
  */
 export const registrar_api_pricing_transfer_output: JsonSchema = {
-  "properties": {
-    "currency": {
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/registrar-api_pricing_base"
     },
-    "renewal_cost": {
-      "type": "string"
-    },
-    "transfer_cost": {
-      "type": "string"
+    {
+      "properties": {
+        "transfer_cost": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "transfer_cost"
+      ],
+      "type": "object"
     }
-  },
-  "required": [
-    "currency",
-    "renewal_cost",
-    "transfer_cost"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -353,6 +461,73 @@ export const registrar_api_registration_output: JsonSchema = {
     "status"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `registrar-api_registration-response-collection` in responses.
+ */
+export const registrar_api_registration_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/registrar-api_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/registrar-api_registration"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/registrar-api_cursor_result_info"
+        }
+      },
+      "required": [
+        "result",
+        "result_info"
+      ],
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `registrar-api_registration-response-single` in responses.
+ */
+export const registrar_api_registration_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/registrar-api_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/registrar-api_registration"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `registrar-api_workflow-status-response-single` in responses.
+ */
+export const registrar_api_workflow_status_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/registrar-api_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/registrar-api_workflow_status"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**

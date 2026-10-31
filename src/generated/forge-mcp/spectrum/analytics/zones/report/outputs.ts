@@ -4,12 +4,98 @@
 import type { JsonSchema } from "../../../../_/tool.js";
 
 /**
+ * The schema of `spectrum-analytics_api-response-collection` in responses.
+ */
+export const spectrum_analytics_api_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/spectrum-analytics_api-response-common"
+    },
+    {
+      "properties": {
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `spectrum-analytics_api-response-common` in responses.
+ */
+export const spectrum_analytics_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/spectrum-analytics_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/spectrum-analytics_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `spectrum-analytics_zone_report` in responses.
  */
 export const spectrum_analytics_zone_report_output: JsonSchema = {
   "properties": {
     "totals": {
-      "$ref": "#/$defs/spectrum-analytics_zone_report_totals"
+      "properties": {
+        "bandwidth": {
+          "properties": {
+            "all": {
+              "type": "number"
+            },
+            "egress": {
+              "type": "number"
+            },
+            "ingress": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "all",
+            "egress",
+            "ingress"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "bandwidth"
+      ],
+      "type": "object"
     },
     "zone_id": {
       "$ref": "#/$defs/spectrum-analytics_identifier"
@@ -23,39 +109,42 @@ export const spectrum_analytics_zone_report_output: JsonSchema = {
 };
 
 /**
- * The schema of `spectrum-analytics_zone_report_totals` in responses.
+ * The schema of `spectrum-analytics_zones_report_response` in responses.
  */
-export const spectrum_analytics_zone_report_totals_output: JsonSchema = {
-  "properties": {
-    "bandwidth": {
-      "$ref": "#/$defs/spectrum-analytics_zone_report_totals_bandwidth"
-    }
-  },
-  "required": [
-    "bandwidth"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `spectrum-analytics_zone_report_totals_bandwidth` in responses.
- */
-export const spectrum_analytics_zone_report_totals_bandwidth_output: JsonSchema = {
-  "properties": {
-    "all": {
-      "type": "number"
+export const spectrum_analytics_zones_report_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/spectrum-analytics_api-response-collection"
     },
-    "egress": {
-      "type": "number"
-    },
-    "ingress": {
-      "type": "number"
+    {
+      "properties": {
+        "query": {
+          "properties": {
+            "since": {
+              "$ref": "#/$defs/spectrum-analytics_since"
+            },
+            "until": {
+              "$ref": "#/$defs/spectrum-analytics_until"
+            }
+          },
+          "required": [
+            "since",
+            "until"
+          ],
+          "type": "object"
+        },
+        "result": {
+          "items": {
+            "$ref": "#/$defs/spectrum-analytics_zone_report"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "query",
+        "result"
+      ],
+      "type": "object"
     }
-  },
-  "required": [
-    "all",
-    "egress",
-    "ingress"
-  ],
-  "type": "object"
+  ]
 };

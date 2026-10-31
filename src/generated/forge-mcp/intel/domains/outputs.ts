@@ -172,29 +172,19 @@ export const intel_risk_score_output: JsonSchema = {
  * The schema of `intel_single_response` in responses.
  */
 export const intel_single_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/intel_schemas-messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/intel_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/intel_schemas-messages"
-    },
-    "result": {
-      "$ref": "#/$defs/intel_domain"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/intel_domain"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**

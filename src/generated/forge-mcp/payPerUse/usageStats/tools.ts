@@ -5,11 +5,13 @@ import { type Tool, pathParam } from "../../_/tool.js";
 import {
   pay_per_crawl_ErrorSource_output,
   pay_per_crawl_RESTError_output,
+  pay_per_crawl_ResultInfo_output,
   pay_per_crawl_apiErrorResponse_output,
 } from "../../outputs.js";
 import {
   pay_per_crawl_PPUUsageStatsBuyer_output,
   pay_per_crawl_PPUUsageStatsDataPoint_output,
+  pay_per_crawl_PPUUsageStatsResponse_output,
   pay_per_crawl_PPUUsageStatsTotals_output,
   pay_per_crawl_PPUUsageStats_output,
 } from "./outputs.js";
@@ -66,12 +68,14 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/pay-per-crawl_PPUUsageStats",
+      "$ref": "#/$defs/pay-per-crawl_PPUUsageStatsResponse",
       $defs: {
         "pay-per-crawl_PPUUsageStats": pay_per_crawl_PPUUsageStats_output,
         "pay-per-crawl_PPUUsageStatsBuyer": pay_per_crawl_PPUUsageStatsBuyer_output,
         "pay-per-crawl_PPUUsageStatsDataPoint": pay_per_crawl_PPUUsageStatsDataPoint_output,
+        "pay-per-crawl_PPUUsageStatsResponse": pay_per_crawl_PPUUsageStatsResponse_output,
         "pay-per-crawl_PPUUsageStatsTotals": pay_per_crawl_PPUUsageStatsTotals_output,
+        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
       },
     },
     annotations: {
@@ -86,7 +90,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/pay-per-crawl_PPUUsageStats"
+          "$ref": "#/$defs/pay-per-crawl_PPUUsageStatsResponse"
         },
         "400": {
           "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
@@ -103,8 +107,10 @@ export const tools: readonly Tool[] = [
         "pay-per-crawl_PPUUsageStats": pay_per_crawl_PPUUsageStats_output,
         "pay-per-crawl_PPUUsageStatsBuyer": pay_per_crawl_PPUUsageStatsBuyer_output,
         "pay-per-crawl_PPUUsageStatsDataPoint": pay_per_crawl_PPUUsageStatsDataPoint_output,
+        "pay-per-crawl_PPUUsageStatsResponse": pay_per_crawl_PPUUsageStatsResponse_output,
         "pay-per-crawl_PPUUsageStatsTotals": pay_per_crawl_PPUUsageStatsTotals_output,
         "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
+        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
         "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
       },
     },

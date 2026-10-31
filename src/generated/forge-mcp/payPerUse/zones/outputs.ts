@@ -63,6 +63,36 @@ export const pay_per_crawl_PPUZoneCanBeEnabled_output: JsonSchema = {
 };
 
 /**
+ * The schema of `pay-per-crawl_PPUZoneCanBeEnabledResponse` in responses.
+ */
+export const pay_per_crawl_PPUZoneCanBeEnabledResponse_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "items": {
+        "$ref": "#/$defs/pay-per-crawl_Msg"
+      },
+      "type": "array"
+    },
+    "messages": {
+      "items": {
+        "$ref": "#/$defs/pay-per-crawl_Msg"
+      },
+      "type": "array"
+    },
+    "result": {
+      "$ref": "#/$defs/pay-per-crawl_PPUZoneCanBeEnabled"
+    },
+    "result_info": {
+      "$ref": "#/$defs/pay-per-crawl_ResultInfo"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "type": "object"
+};
+
+/**
  * The schema of `pay-per-crawl_PPUZoneConfiguration` in responses.
  */
 export const pay_per_crawl_PPUZoneConfiguration_output: JsonSchema = {
@@ -106,56 +136,92 @@ export const pay_per_crawl_PPUZoneConfiguration_output: JsonSchema = {
 };
 
 /**
+ * The schema of `pay-per-crawl_PPUZoneConfigurationResponse` in responses.
+ */
+export const pay_per_crawl_PPUZoneConfigurationResponse_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "items": {
+        "$ref": "#/$defs/pay-per-crawl_Msg"
+      },
+      "type": "array"
+    },
+    "messages": {
+      "items": {
+        "$ref": "#/$defs/pay-per-crawl_Msg"
+      },
+      "type": "array"
+    },
+    "result": {
+      "$ref": "#/$defs/pay-per-crawl_PPUZoneConfiguration"
+    },
+    "result_info": {
+      "$ref": "#/$defs/pay-per-crawl_ResultInfo"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "type": "object"
+};
+
+/**
  * The schema of `pay-per-crawl_PPUZoneConfigurationResult` in responses.
  */
 export const pay_per_crawl_PPUZoneConfigurationResult_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/pay-per-crawl_PPUZoneConfiguration"
+    },
+    {
+      "properties": {
+        "non_billable_since": {
+          "oneOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "non_billable_since"
+      ],
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `pay-per-crawl_PPUZoneConfigurationResultResponse` in
+ * responses.
+ */
+export const pay_per_crawl_PPUZoneConfigurationResultResponse_output: JsonSchema = {
   "properties": {
-    "can_be_enabled": {
+    "errors": {
+      "items": {
+        "$ref": "#/$defs/pay-per-crawl_Msg"
+      },
+      "type": "array"
+    },
+    "messages": {
+      "items": {
+        "$ref": "#/$defs/pay-per-crawl_Msg"
+      },
+      "type": "array"
+    },
+    "result": {
+      "$ref": "#/$defs/pay-per-crawl_PPUZoneConfigurationResult"
+    },
+    "result_info": {
+      "$ref": "#/$defs/pay-per-crawl_ResultInfo"
+    },
+    "success": {
       "type": "boolean"
-    },
-    "disabled_at": {
-      "oneOf": [
-        {
-          "format": "date-time",
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "enabled": {
-      "type": "boolean"
-    },
-    "expires_at": {
-      "oneOf": [
-        {
-          "format": "date-time",
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "non_billable_since": {
-      "oneOf": [
-        {
-          "format": "date-time",
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
     }
   },
-  "required": [
-    "can_be_enabled",
-    "disabled_at",
-    "enabled",
-    "expires_at",
-    "non_billable_since"
-  ],
   "type": "object"
 };

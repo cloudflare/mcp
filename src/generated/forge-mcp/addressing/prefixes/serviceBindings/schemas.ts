@@ -23,3 +23,11 @@ export const addressing_create_binding_request: JsonSchema = {
   ],
   "type": "object"
 };
+
+/**
+ * The schema of `addressing_service_binding_identifier`.
+ */
+export const addressing_service_binding_identifier: JsonSchema = {
+  "description": "Identifier of a Service Binding.",
+  "type": "string"
+};

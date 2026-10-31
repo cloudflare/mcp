@@ -15,33 +15,26 @@ export const spectrum_analytics_column_output: JsonSchema = {
       "type": "array"
     },
     "metrics": {
-      "$ref": "#/$defs/spectrum-analytics_column_metrics"
+      "oneOf": [
+        {
+          "items": {
+            "type": "number"
+          },
+          "type": "array"
+        },
+        {
+          "items": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array"
+          },
+          "type": "array"
+        }
+      ]
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `spectrum-analytics_column_metrics` in responses.
- */
-export const spectrum_analytics_column_metrics_output: JsonSchema = {
-  "oneOf": [
-    {
-      "items": {
-        "type": "number"
-      },
-      "type": "array"
-    },
-    {
-      "items": {
-        "items": {
-          "type": "number"
-        },
-        "type": "array"
-      },
-      "type": "array"
-    }
-  ]
 };
 
 /**
@@ -114,6 +107,69 @@ export const spectrum_analytics_query_output: JsonSchema = {
     }
   },
   "type": "object"
+};
+
+/**
+ * The schema of `spectrum-analytics_query-response-single` in responses.
+ */
+export const spectrum_analytics_query_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/spectrum-analytics_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "data": {
+              "items": {
+                "$ref": "#/$defs/spectrum-analytics_column"
+              },
+              "type": "array"
+            },
+            "data_lag": {
+              "type": "number"
+            },
+            "max": {
+              "$ref": "#/$defs/spectrum-analytics_stat"
+            },
+            "min": {
+              "$ref": "#/$defs/spectrum-analytics_stat"
+            },
+            "query": {
+              "$ref": "#/$defs/spectrum-analytics_query"
+            },
+            "rows": {
+              "type": "number"
+            },
+            "time_intervals": {
+              "items": {
+                "items": {
+                  "$ref": "#/$defs/spectrum-analytics_timestamp"
+                },
+                "type": "array"
+              },
+              "type": "array"
+            },
+            "totals": {
+              "$ref": "#/$defs/spectrum-analytics_stat"
+            }
+          },
+          "required": [
+            "data",
+            "data_lag",
+            "max",
+            "min",
+            "query",
+            "rows",
+            "totals"
+          ],
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**

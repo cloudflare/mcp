@@ -6,9 +6,10 @@ import {
   r2_errors_output,
   r2_messages_output,
   r2_v4_response_failure_output,
+  r2_v4_response_output,
 } from "../../outputs.js";
+import { r2_account_identifier, r2_bucket_name } from "../../schemas.js";
 import {
-  r2_bucket_lock_rule_condition_output,
   r2_bucket_lock_rule_config_output,
   r2_bucket_lock_rule_output,
   r2_lock_rule_age_condition_output,
@@ -17,7 +18,6 @@ import {
 } from "./outputs.js";
 import {
   r2_bucket_lock_rule,
-  r2_bucket_lock_rule_condition,
   r2_lock_rule_age_condition,
   r2_lock_rule_date_condition,
   r2_lock_rule_indefinite_condition,
@@ -35,14 +35,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Cloudflare account ID that owns the R2 resource.",
-          "type": "string"
+          "$ref": "#/$defs/r2_account_identifier",
+          "description": "Cloudflare account ID that owns the R2 resource."
         },
         "bucket_name": {
-          "description": "Name of the bucket.",
-          "type": "string"
+          "$ref": "#/$defs/r2_bucket_name",
+          "description": "Name of the bucket."
         },
         "cf_r2_jurisdiction": {
+          "default": "default",
           "description": "Jurisdiction where objects in this bucket are guaranteed to be stored.",
           "enum": [
             "default",
@@ -58,9 +59,18 @@ export const tools: readonly Tool[] = [
         "account_id",
         "bucket_name"
       ],
+      $defs: {
+        "r2_account_identifier": r2_account_identifier,
+        "r2_bucket_name": r2_bucket_name,
+      },
     },
     outputSchema: {
-      "type": "object",
+      "$ref": "#/$defs/r2_v4_response",
+      $defs: {
+        "r2_errors": r2_errors_output,
+        "r2_messages": r2_messages_output,
+        "r2_v4_response": r2_v4_response_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -74,7 +84,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "type": "object"
+          "$ref": "#/$defs/r2_v4_response"
         },
         "4XX": {
           "$ref": "#/$defs/r2_v4_response_failure"
@@ -83,6 +93,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "r2_errors": r2_errors_output,
         "r2_messages": r2_messages_output,
+        "r2_v4_response": r2_v4_response_output,
         "r2_v4_response_failure": r2_v4_response_failure_output,
       },
     },
@@ -101,14 +112,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Cloudflare account ID that owns the R2 resource.",
-          "type": "string"
+          "$ref": "#/$defs/r2_account_identifier",
+          "description": "Cloudflare account ID that owns the R2 resource."
         },
         "bucket_name": {
-          "description": "Name of the bucket.",
-          "type": "string"
+          "$ref": "#/$defs/r2_bucket_name",
+          "description": "Name of the bucket."
         },
         "cf_r2_jurisdiction": {
+          "default": "default",
           "description": "Jurisdiction where objects in this bucket are guaranteed to be stored.",
           "enum": [
             "default",
@@ -124,16 +136,34 @@ export const tools: readonly Tool[] = [
         "account_id",
         "bucket_name"
       ],
+      $defs: {
+        "r2_account_identifier": r2_account_identifier,
+        "r2_bucket_name": r2_bucket_name,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/r2_bucket-lock-rule-config",
+      "allOf": [
+        {
+          "$ref": "#/$defs/r2_v4_response"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/r2_bucket-lock-rule-config"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "r2_bucket-lock-rule": r2_bucket_lock_rule_output,
         "r2_bucket-lock-rule-config": r2_bucket_lock_rule_config_output,
-        "r2_bucket-lock-rule_condition": r2_bucket_lock_rule_condition_output,
+        "r2_errors": r2_errors_output,
         "r2_lock-rule-age-condition": r2_lock_rule_age_condition_output,
         "r2_lock-rule-date-condition": r2_lock_rule_date_condition_output,
         "r2_lock-rule-indefinite-condition": r2_lock_rule_indefinite_condition_output,
+        "r2_messages": r2_messages_output,
+        "r2_v4_response": r2_v4_response_output,
       },
     },
     annotations: {
@@ -148,7 +178,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/r2_bucket-lock-rule-config"
+          "allOf": [
+            {
+              "$ref": "#/$defs/r2_v4_response"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/r2_bucket-lock-rule-config"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/r2_v4_response_failure"
@@ -157,12 +199,12 @@ export const tools: readonly Tool[] = [
       $defs: {
         "r2_bucket-lock-rule": r2_bucket_lock_rule_output,
         "r2_bucket-lock-rule-config": r2_bucket_lock_rule_config_output,
-        "r2_bucket-lock-rule_condition": r2_bucket_lock_rule_condition_output,
         "r2_errors": r2_errors_output,
         "r2_lock-rule-age-condition": r2_lock_rule_age_condition_output,
         "r2_lock-rule-date-condition": r2_lock_rule_date_condition_output,
         "r2_lock-rule-indefinite-condition": r2_lock_rule_indefinite_condition_output,
         "r2_messages": r2_messages_output,
+        "r2_v4_response": r2_v4_response_output,
         "r2_v4_response_failure": r2_v4_response_failure_output,
       },
     },
@@ -181,8 +223,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Cloudflare account ID that owns the R2 resource.",
-          "type": "string"
+          "$ref": "#/$defs/r2_account_identifier",
+          "description": "Cloudflare account ID that owns the R2 resource."
         },
         "body": {
           "properties": {
@@ -196,10 +238,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "bucket_name": {
-          "description": "Name of the bucket.",
-          "type": "string"
+          "$ref": "#/$defs/r2_bucket_name",
+          "description": "Name of the bucket."
         },
         "cf_r2_jurisdiction": {
+          "default": "default",
           "description": "Jurisdiction where objects in this bucket are guaranteed to be stored.",
           "enum": [
             "default",
@@ -217,15 +260,21 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "r2_account_identifier": r2_account_identifier,
         "r2_bucket-lock-rule": r2_bucket_lock_rule,
-        "r2_bucket-lock-rule_condition": r2_bucket_lock_rule_condition,
+        "r2_bucket_name": r2_bucket_name,
         "r2_lock-rule-age-condition": r2_lock_rule_age_condition,
         "r2_lock-rule-date-condition": r2_lock_rule_date_condition,
         "r2_lock-rule-indefinite-condition": r2_lock_rule_indefinite_condition,
       },
     },
     outputSchema: {
-      "type": "object",
+      "$ref": "#/$defs/r2_v4_response",
+      $defs: {
+        "r2_errors": r2_errors_output,
+        "r2_messages": r2_messages_output,
+        "r2_v4_response": r2_v4_response_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -239,7 +288,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "type": "object"
+          "$ref": "#/$defs/r2_v4_response"
         },
         "4XX": {
           "$ref": "#/$defs/r2_v4_response_failure"
@@ -248,6 +297,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "r2_errors": r2_errors_output,
         "r2_messages": r2_messages_output,
+        "r2_v4_response": r2_v4_response_output,
         "r2_v4_response_failure": r2_v4_response_failure_output,
       },
     },

@@ -4,6 +4,36 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
+ * The schema of `digital-experience-monitoring_api-response-collection-common`
+ * in responses.
+ */
+export const digital_experience_monitoring_api_response_collection_common_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/digital-experience-monitoring_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "items": {
+                "type": "object"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of
  * `digital-experience-monitoring_device-dex-test-schemas-description` in
  * responses.
@@ -94,6 +124,77 @@ export const digital_experience_monitoring_device_dex_test_target_policies_outpu
     "$ref": "#/$defs/digital-experience-monitoring_dex_target_policy"
   },
   "type": "array"
+};
+
+/**
+ * The schema of `digital-experience-monitoring_dex-delete-response-collection`
+ * in responses.
+ */
+export const digital_experience_monitoring_dex_delete_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/digital-experience-monitoring_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "dex_tests": {
+              "items": {
+                "$ref": "#/$defs/digital-experience-monitoring_device-dex-test-schemas-http"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `digital-experience-monitoring_dex-response_collection` in
+ * responses.
+ */
+export const digital_experience_monitoring_dex_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/digital-experience-monitoring_api-response-collection-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/digital-experience-monitoring_device-dex-test-schemas-http"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `digital-experience-monitoring_dex-single_response` in
+ * responses.
+ */
+export const digital_experience_monitoring_dex_single_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/digital-experience-monitoring_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/digital-experience-monitoring_device-dex-test-schemas-http"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**

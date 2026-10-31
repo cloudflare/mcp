@@ -101,48 +101,22 @@ export const access_jit_request_log_output: JsonSchema = {
  * The schema of `access_jit_request_log_detail` in responses.
  */
 export const access_jit_request_log_detail_output: JsonSchema = {
-  "properties": {
-    "app_aud": {
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_jit_request_log"
     },
-    "app_hostname": {
-      "type": "string"
-    },
-    "approvals_received": {
-      "type": "integer"
-    },
-    "approver_emails": {
-      "items": {
-        "type": "string"
+    {
+      "properties": {
+        "events": {
+          "items": {
+            "$ref": "#/$defs/access_jit_request_event"
+          },
+          "type": "array"
+        }
       },
-      "type": "array"
-    },
-    "created_at": {
-      "$ref": "#/$defs/access_timestamp"
-    },
-    "events": {
-      "items": {
-        "$ref": "#/$defs/access_jit_request_event"
-      },
-      "type": "array"
-    },
-    "expires_at": {
-      "$ref": "#/$defs/access_timestamp"
-    },
-    "knock_request_id": {
-      "type": "string"
-    },
-    "purpose_justification": {
-      "type": "string"
-    },
-    "requester_email": {
-      "type": "string"
-    },
-    "status": {
-      "$ref": "#/$defs/access_jit_request_status"
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };
 
 /**
@@ -157,4 +131,45 @@ export const access_jit_request_status_output: JsonSchema = {
     "SPENT"
   ],
   "type": "string"
+};
+
+/**
+ * The schema of `access_response_collection-13` in responses.
+ */
+export const access_response_collection_13_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/access_jit_request_log"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `access_response_single` in responses.
+ */
+export const access_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/access_jit_request_log_detail"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };

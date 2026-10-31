@@ -7,73 +7,52 @@ import type { JsonSchema } from "../../../_/tool.js";
  * The schema of `intel_collection_response` in responses.
  */
 export const intel_collection_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/intel_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/intel_api-response-collection"
     },
-    "messages": {
-      "$ref": "#/$defs/intel_messages"
-    },
-    "result": {
-      "items": {
-        "$ref": "#/$defs/intel_collection_response_resultItem"
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "additional_information": {
+                "$ref": "#/$defs/intel_additional_information"
+              },
+              "application": {
+                "$ref": "#/$defs/intel_application"
+              },
+              "content_categories": {
+                "$ref": "#/$defs/intel_content_categories"
+              },
+              "domain": {
+                "$ref": "#/$defs/intel_domain_name"
+              },
+              "inherited_content_categories": {
+                "$ref": "#/$defs/intel_categories_with_super_category_ids_example_empty"
+              },
+              "inherited_from": {
+                "$ref": "#/$defs/intel_inherited_from"
+              },
+              "inherited_risk_types": {
+                "$ref": "#/$defs/intel_categories_with_super_category_ids_example_empty"
+              },
+              "popularity_rank": {
+                "$ref": "#/$defs/intel_popularity_rank"
+              },
+              "risk_score": {
+                "$ref": "#/$defs/intel_risk_score"
+              },
+              "risk_types": {
+                "$ref": "#/$defs/intel_categories_with_super_category_ids_example_empty"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        }
       },
-      "type": "array"
-    },
-    "result_info": {
-      "$ref": "#/$defs/intel_result_info"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `intel_collection_response_resultItem` in responses.
- */
-export const intel_collection_response_resultItem_output: JsonSchema = {
-  "properties": {
-    "additional_information": {
-      "$ref": "#/$defs/intel_additional_information"
-    },
-    "application": {
-      "$ref": "#/$defs/intel_application"
-    },
-    "content_categories": {
-      "$ref": "#/$defs/intel_content_categories"
-    },
-    "domain": {
-      "$ref": "#/$defs/intel_domain_name"
-    },
-    "inherited_content_categories": {
-      "$ref": "#/$defs/intel_categories_with_super_category_ids_example_empty"
-    },
-    "inherited_from": {
-      "$ref": "#/$defs/intel_inherited_from"
-    },
-    "inherited_risk_types": {
-      "$ref": "#/$defs/intel_categories_with_super_category_ids_example_empty"
-    },
-    "popularity_rank": {
-      "$ref": "#/$defs/intel_popularity_rank"
-    },
-    "risk_score": {
-      "$ref": "#/$defs/intel_risk_score"
-    },
-    "risk_types": {
-      "$ref": "#/$defs/intel_categories_with_super_category_ids_example_empty"
-    }
-  },
-  "type": "object"
+  ]
 };

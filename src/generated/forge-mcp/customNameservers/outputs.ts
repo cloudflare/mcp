@@ -10,7 +10,19 @@ export const dns_custom_nameservers_CustomNS_output: JsonSchema = {
   "properties": {
     "dns_records": {
       "items": {
-        "$ref": "#/$defs/dns-custom-nameservers_CustomNS_dns_recordsItem"
+        "properties": {
+          "type": {
+            "enum": [
+              "A",
+              "AAAA"
+            ],
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "type": "object"
       },
       "type": "array"
     },
@@ -42,170 +54,65 @@ export const dns_custom_nameservers_CustomNS_output: JsonSchema = {
 };
 
 /**
- * The schema of `dns-custom-nameservers_CustomNS_dns_recordsItem` in responses.
- */
-export const dns_custom_nameservers_CustomNS_dns_recordsItem_output: JsonSchema = {
-  "properties": {
-    "type": {
-      "enum": [
-        "A",
-        "AAAA"
-      ],
-      "type": "string"
-    },
-    "value": {
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
  * The schema of `dns-custom-nameservers_acns_response_collection` in responses.
  */
 export const dns_custom_nameservers_acns_response_collection_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/dns-custom-nameservers_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-custom-nameservers_api-response-collection"
     },
-    "messages": {
-      "$ref": "#/$defs/dns-custom-nameservers_messages"
-    },
-    "result": {
-      "items": {
-        "$ref": "#/$defs/dns-custom-nameservers_CustomNS"
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/dns-custom-nameservers_CustomNS"
+          },
+          "type": "array"
+        }
       },
-      "type": "array"
-    },
-    "result_info": {
-      "$ref": "#/$defs/dns-custom-nameservers_acns_response_collection_result_info"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `dns-custom-nameservers_acns_response_collection_result_info`
- * in responses.
- */
-export const dns_custom_nameservers_acns_response_collection_result_info_output: JsonSchema = {
-  "properties": {
-    "count": {
-      "type": "number"
-    },
-    "page": {
-      "type": "number"
-    },
-    "per_page": {
-      "type": "number"
-    },
-    "total_count": {
-      "type": "number"
-    },
-    "total_pages": {
-      "type": "number"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `dns-custom-nameservers_acns_response_single` in responses.
  */
 export const dns_custom_nameservers_acns_response_single_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/dns-custom-nameservers_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-custom-nameservers_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/dns-custom-nameservers_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/dns-custom-nameservers_CustomNS"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/dns-custom-nameservers_CustomNS"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `dns-custom-nameservers_empty_response` in responses.
  */
 export const dns_custom_nameservers_empty_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/dns-custom-nameservers_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-custom-nameservers_api-response-collection"
     },
-    "messages": {
-      "$ref": "#/$defs/dns-custom-nameservers_messages"
-    },
-    "result": {
-      "items": {
-        "type": "string"
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 0,
+          "type": "array"
+        }
       },
-      "maxItems": 0,
-      "type": "array"
-    },
-    "result_info": {
-      "$ref": "#/$defs/dns-custom-nameservers_empty_response_result_info"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `dns-custom-nameservers_empty_response_result_info` in
- * responses.
- */
-export const dns_custom_nameservers_empty_response_result_info_output: JsonSchema = {
-  "properties": {
-    "count": {
-      "type": "number"
-    },
-    "page": {
-      "type": "number"
-    },
-    "per_page": {
-      "type": "number"
-    },
-    "total_count": {
-      "type": "number"
-    },
-    "total_pages": {
-      "type": "number"
-    }
-  },
-  "type": "object"
+  ]
 };

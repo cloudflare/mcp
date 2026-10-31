@@ -71,3 +71,48 @@ export const load_balancing_monitor_group_member_output: JsonSchema = {
   ],
   "type": "object"
 };
+
+/**
+ * The schema of `load-balancing_monitor-group-response-collection` in
+ * responses.
+ */
+export const load_balancing_monitor_group_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/load-balancing_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/load-balancing_monitor-group"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/load-balancing_result_info"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `load-balancing_monitor-group-single-response` in responses.
+ */
+export const load_balancing_monitor_group_single_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/load-balancing_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/load-balancing_monitor-group"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};

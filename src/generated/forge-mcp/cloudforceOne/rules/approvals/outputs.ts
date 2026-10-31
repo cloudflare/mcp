@@ -16,13 +16,72 @@ export const cloudforce_one_CompilerWarning_output: JsonSchema = {
     },
     "footers": {
       "items": {
-        "$ref": "#/$defs/cloudforce-one_CompilerWarning_footersItem"
+        "properties": {
+          "level": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "level",
+          "text"
+        ],
+        "type": "object"
       },
       "type": "array"
     },
     "labels": {
       "items": {
-        "$ref": "#/$defs/cloudforce-one_CompilerWarning_labelsItem"
+        "properties": {
+          "code_origin": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "column": {
+            "type": "integer"
+          },
+          "level": {
+            "type": "string"
+          },
+          "line": {
+            "type": "integer"
+          },
+          "span": {
+            "properties": {
+              "end": {
+                "type": "integer"
+              },
+              "start": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "end",
+              "start"
+            ],
+            "type": "object"
+          },
+          "text": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code_origin",
+          "column",
+          "level",
+          "line",
+          "span",
+          "text"
+        ],
+        "type": "object"
       },
       "type": "array"
     },
@@ -45,92 +104,180 @@ export const cloudforce_one_CompilerWarning_output: JsonSchema = {
 };
 
 /**
- * The schema of `cloudforce-one_CompilerWarning_footersItem` in responses.
- */
-export const cloudforce_one_CompilerWarning_footersItem_output: JsonSchema = {
-  "properties": {
-    "level": {
-      "type": "string"
-    },
-    "text": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "level",
-    "text"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `cloudforce-one_CompilerWarning_labelsItem` in responses.
- */
-export const cloudforce_one_CompilerWarning_labelsItem_output: JsonSchema = {
-  "properties": {
-    "code_origin": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "column": {
-      "type": "integer"
-    },
-    "level": {
-      "type": "string"
-    },
-    "line": {
-      "type": "integer"
-    },
-    "span": {
-      "$ref": "#/$defs/cloudforce-one_CompilerWarning_labelsItem_span"
-    },
-    "text": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "code_origin",
-    "column",
-    "level",
-    "line",
-    "span",
-    "text"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `cloudforce-one_CompilerWarning_labelsItem_span` in responses.
- */
-export const cloudforce_one_CompilerWarning_labelsItem_span_output: JsonSchema = {
-  "properties": {
-    "end": {
-      "type": "integer"
-    },
-    "start": {
-      "type": "integer"
-    }
-  },
-  "required": [
-    "end",
-    "start"
-  ],
-  "type": "object"
-};
-
-/**
  * The schema of `cloudforce-one_RuleApprovalDetailResponse` in responses.
  */
 export const cloudforce_one_RuleApprovalDetailResponse_output: JsonSchema = {
   "properties": {
     "approval": {
-      "$ref": "#/$defs/cloudforce-one_RuleApprovalDetailResponse_approval"
+      "properties": {
+        "audit_log_id": {
+          "type": "number"
+        },
+        "can_review": {
+          "type": "boolean"
+        },
+        "cancelled_at": {
+          "oneOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "cancelled_by": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "change_description": {
+          "type": "string"
+        },
+        "change_type": {
+          "enum": [
+            "create",
+            "update",
+            "delete",
+            "unresolved"
+          ],
+          "type": "string"
+        },
+        "commit_message": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "compiler_warnings": {
+          "items": {
+            "$ref": "#/$defs/cloudforce-one_CompilerWarning"
+          },
+          "type": "array"
+        },
+        "current_rule": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/cloudforce-one_RulePreview"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "id": {
+          "type": "number"
+        },
+        "proposed_changes": {
+          "$ref": "#/$defs/cloudforce-one_ApprovalProposedChanges"
+        },
+        "rejection_reason": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "requested_at": {
+          "type": "number"
+        },
+        "requested_by": {
+          "type": "string"
+        },
+        "reviewed_at": {
+          "oneOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reviewer_scope": {
+          "enum": [
+            "default",
+            "email",
+            "unresolved"
+          ],
+          "type": "string"
+        },
+        "revision_number": {
+          "type": "integer"
+        },
+        "rule_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "rule_name": {
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "pending",
+            "approved",
+            "rejected",
+            "cancelled"
+          ],
+          "type": "string"
+        },
+        "superseded_by_approval_id": {
+          "oneOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "supersedes_approval_id": {
+          "oneOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "audit_log_id",
+        "can_review",
+        "cancelled_at",
+        "cancelled_by",
+        "change_description",
+        "change_type",
+        "commit_message",
+        "current_rule",
+        "id",
+        "proposed_changes",
+        "rejection_reason",
+        "requested_at",
+        "requested_by",
+        "reviewed_at",
+        "reviewer_scope",
+        "revision_number",
+        "rule_id",
+        "rule_name",
+        "status",
+        "superseded_by_approval_id",
+        "supersedes_approval_id"
+      ],
+      "type": "object"
     }
   },
   "required": [
@@ -140,198 +287,164 @@ export const cloudforce_one_RuleApprovalDetailResponse_output: JsonSchema = {
 };
 
 /**
- * The schema of `cloudforce-one_RuleApprovalDetailResponse_approval` in
- * responses.
- */
-export const cloudforce_one_RuleApprovalDetailResponse_approval_output: JsonSchema = {
-  "properties": {
-    "audit_log_id": {
-      "type": "number"
-    },
-    "can_review": {
-      "type": "boolean"
-    },
-    "cancelled_at": {
-      "oneOf": [
-        {
-          "type": "number"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "cancelled_by": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "change_description": {
-      "type": "string"
-    },
-    "change_type": {
-      "enum": [
-        "create",
-        "update",
-        "delete",
-        "unresolved"
-      ],
-      "type": "string"
-    },
-    "commit_message": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "compiler_warnings": {
-      "items": {
-        "$ref": "#/$defs/cloudforce-one_CompilerWarning"
-      },
-      "type": "array"
-    },
-    "current_rule": {
-      "$ref": "#/$defs/cloudforce-one_RuleApprovalDetailResponse_approval_current_rule"
-    },
-    "id": {
-      "type": "number"
-    },
-    "proposed_changes": {
-      "$ref": "#/$defs/cloudforce-one_ApprovalProposedChanges"
-    },
-    "rejection_reason": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "requested_at": {
-      "type": "number"
-    },
-    "requested_by": {
-      "type": "string"
-    },
-    "reviewed_at": {
-      "oneOf": [
-        {
-          "type": "number"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "reviewer_scope": {
-      "enum": [
-        "default",
-        "email",
-        "unresolved"
-      ],
-      "type": "string"
-    },
-    "revision_number": {
-      "type": "integer"
-    },
-    "rule_id": {
-      "format": "uuid",
-      "type": "string"
-    },
-    "rule_name": {
-      "type": "string"
-    },
-    "status": {
-      "enum": [
-        "pending",
-        "approved",
-        "rejected",
-        "cancelled"
-      ],
-      "type": "string"
-    },
-    "superseded_by_approval_id": {
-      "oneOf": [
-        {
-          "type": "number"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "supersedes_approval_id": {
-      "oneOf": [
-        {
-          "type": "number"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    }
-  },
-  "required": [
-    "audit_log_id",
-    "can_review",
-    "cancelled_at",
-    "cancelled_by",
-    "change_description",
-    "change_type",
-    "commit_message",
-    "current_rule",
-    "id",
-    "proposed_changes",
-    "rejection_reason",
-    "requested_at",
-    "requested_by",
-    "reviewed_at",
-    "reviewer_scope",
-    "revision_number",
-    "rule_id",
-    "rule_name",
-    "status",
-    "superseded_by_approval_id",
-    "supersedes_approval_id"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `cloudforce-one_RuleApprovalDetailResponse_approval_current_rule` in
- * responses.
- */
-export const cloudforce_one_RuleApprovalDetailResponse_approval_current_rule_output: JsonSchema = {
-  "oneOf": [
-    {
-      "$ref": "#/$defs/cloudforce-one_RulePreview"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
  * The schema of `cloudforce-one_RuleApprovalsListResponse` in responses.
  */
 export const cloudforce_one_RuleApprovalsListResponse_output: JsonSchema = {
   "properties": {
     "approvals": {
       "items": {
-        "$ref": "#/$defs/cloudforce-one_RuleApprovalsListResponse_approvalsItem"
+        "properties": {
+          "audit_log_id": {
+            "type": "number"
+          },
+          "can_review": {
+            "type": "boolean"
+          },
+          "cancelled_at": {
+            "oneOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "cancelled_by": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "change_description": {
+            "type": "string"
+          },
+          "change_type": {
+            "enum": [
+              "create",
+              "update",
+              "delete",
+              "unresolved"
+            ],
+            "type": "string"
+          },
+          "commit_message": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "id": {
+            "type": "number"
+          },
+          "proposed_changes": {
+            "$ref": "#/$defs/cloudforce-one_ApprovalProposedChanges"
+          },
+          "rejection_reason": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "requested_at": {
+            "type": "number"
+          },
+          "requested_by": {
+            "type": "string"
+          },
+          "reviewed_at": {
+            "oneOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "reviewer_scope": {
+            "enum": [
+              "default",
+              "email",
+              "unresolved"
+            ],
+            "type": "string"
+          },
+          "revision_number": {
+            "type": "integer"
+          },
+          "rule_id": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "rule_name": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "pending",
+              "approved",
+              "rejected",
+              "cancelled"
+            ],
+            "type": "string"
+          },
+          "superseded_by_approval_id": {
+            "oneOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "supersedes_approval_id": {
+            "oneOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "audit_log_id",
+          "can_review",
+          "cancelled_at",
+          "cancelled_by",
+          "change_description",
+          "change_type",
+          "commit_message",
+          "id",
+          "proposed_changes",
+          "rejection_reason",
+          "requested_at",
+          "requested_by",
+          "reviewed_at",
+          "reviewer_scope",
+          "revision_number",
+          "rule_id",
+          "rule_name",
+          "status",
+          "superseded_by_approval_id",
+          "supersedes_approval_id"
+        ],
+        "type": "object"
       },
       "type": "array"
     },
@@ -342,165 +455,6 @@ export const cloudforce_one_RuleApprovalsListResponse_output: JsonSchema = {
   "required": [
     "approvals",
     "total"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `cloudforce-one_RuleApprovalsListResponse_approvalsItem` in
- * responses.
- */
-export const cloudforce_one_RuleApprovalsListResponse_approvalsItem_output: JsonSchema = {
-  "properties": {
-    "audit_log_id": {
-      "type": "number"
-    },
-    "can_review": {
-      "type": "boolean"
-    },
-    "cancelled_at": {
-      "oneOf": [
-        {
-          "type": "number"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "cancelled_by": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "change_description": {
-      "type": "string"
-    },
-    "change_type": {
-      "enum": [
-        "create",
-        "update",
-        "delete",
-        "unresolved"
-      ],
-      "type": "string"
-    },
-    "commit_message": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "id": {
-      "type": "number"
-    },
-    "proposed_changes": {
-      "$ref": "#/$defs/cloudforce-one_ApprovalProposedChanges"
-    },
-    "rejection_reason": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "requested_at": {
-      "type": "number"
-    },
-    "requested_by": {
-      "type": "string"
-    },
-    "reviewed_at": {
-      "oneOf": [
-        {
-          "type": "number"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "reviewer_scope": {
-      "enum": [
-        "default",
-        "email",
-        "unresolved"
-      ],
-      "type": "string"
-    },
-    "revision_number": {
-      "type": "integer"
-    },
-    "rule_id": {
-      "format": "uuid",
-      "type": "string"
-    },
-    "rule_name": {
-      "type": "string"
-    },
-    "status": {
-      "enum": [
-        "pending",
-        "approved",
-        "rejected",
-        "cancelled"
-      ],
-      "type": "string"
-    },
-    "superseded_by_approval_id": {
-      "oneOf": [
-        {
-          "type": "number"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "supersedes_approval_id": {
-      "oneOf": [
-        {
-          "type": "number"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    }
-  },
-  "required": [
-    "audit_log_id",
-    "can_review",
-    "cancelled_at",
-    "cancelled_by",
-    "change_description",
-    "change_type",
-    "commit_message",
-    "id",
-    "proposed_changes",
-    "rejection_reason",
-    "requested_at",
-    "requested_by",
-    "reviewed_at",
-    "reviewer_scope",
-    "revision_number",
-    "rule_id",
-    "rule_name",
-    "status",
-    "superseded_by_approval_id",
-    "supersedes_approval_id"
   ],
   "type": "object"
 };

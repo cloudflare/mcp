@@ -4,7 +4,9 @@
 import { type Tool, pathParam } from "../_/tool.js";
 import {
   tunnel_account_id_output,
+  tunnel_api_response_collection_output,
   tunnel_api_response_common_failure_output,
+  tunnel_api_response_common_output,
   tunnel_cfd_tunnel_output,
   tunnel_client_id_output,
   tunnel_colo_name_output,
@@ -29,6 +31,7 @@ import {
   tunnel_version_output,
 } from "../outputs.js";
 import {
+  tunnel_account_id,
   tunnel_existed_at,
   tunnel_page_number,
   tunnel_per_page,
@@ -50,8 +53,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Cloudflare account ID",
-          "type": "string"
+          "$ref": "#/$defs/tunnel_account_id",
+          "description": "Cloudflare account ID"
         },
         "exclude_prefix": {
           "type": "string"
@@ -101,6 +104,7 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
       $defs: {
+        "tunnel_account_id": tunnel_account_id,
         "tunnel_existed_at": tunnel_existed_at,
         "tunnel_page_number": tunnel_page_number,
         "tunnel_per_page": tunnel_per_page,
@@ -110,23 +114,12 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/tunnel_cfd_tunnel"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "$ref": "#/$defs/tunnel_result_info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/tunnel_cfd-tunnel-response-collection",
       $defs: {
         "tunnel_account_id": tunnel_account_id_output,
+        "tunnel_api-response-collection": tunnel_api_response_collection_output,
+        "tunnel_api-response-common": tunnel_api_response_common_output,
+        "tunnel_cfd-tunnel-response-collection": tunnel_cfd_tunnel_response_collection_output,
         "tunnel_cfd_tunnel": tunnel_cfd_tunnel_output,
         "tunnel_client_id": tunnel_client_id_output,
         "tunnel_colo_name": tunnel_colo_name_output,
@@ -139,6 +132,7 @@ export const tools: readonly Tool[] = [
         "tunnel_deleted_at": tunnel_deleted_at_output,
         "tunnel_ip": tunnel_ip_output,
         "tunnel_is_pending_reconnect": tunnel_is_pending_reconnect_output,
+        "tunnel_messages": tunnel_messages_output,
         "tunnel_metadata": tunnel_metadata_output,
         "tunnel_remote_config": tunnel_remote_config_output,
         "tunnel_result_info": tunnel_result_info_output,
@@ -175,21 +169,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/tunnel_cfd_tunnel"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/tunnel_result_info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/tunnel_cfd-tunnel-response-collection"
         },
         "4XX": {
           "allOf": [
@@ -204,6 +184,8 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "tunnel_account_id": tunnel_account_id_output,
+        "tunnel_api-response-collection": tunnel_api_response_collection_output,
+        "tunnel_api-response-common": tunnel_api_response_common_output,
         "tunnel_api-response-common-failure": tunnel_api_response_common_failure_output,
         "tunnel_cfd-tunnel-response-collection": tunnel_cfd_tunnel_response_collection_output,
         "tunnel_cfd_tunnel": tunnel_cfd_tunnel_output,

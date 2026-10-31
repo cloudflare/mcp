@@ -6,6 +6,9 @@ import {
   stream_api_response_common_failure_output,
   stream_messages_output,
 } from "../../../../outputs.js";
+import { stream_identifier_2 } from "../../../../schemas.js";
+import { stream_identifier } from "../../../schemas.js";
+import { stream_language } from "../../schemas.js";
 
 /**
  * The tools of `stream.videos.captions.language.vtt`.
@@ -19,16 +22,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/stream_identifier-2",
+          "description": "Identifier."
         },
         "identifier": {
-          "description": "A Cloudflare-generated unique identifier for a media item.",
-          "type": "string"
+          "$ref": "#/$defs/stream_identifier",
+          "description": "A Cloudflare-generated unique identifier for a media item."
         },
         "language": {
-          "description": "The language tag in BCP 47 format.",
-          "type": "string"
+          "$ref": "#/$defs/stream_language",
+          "description": "The language tag in BCP 47 format."
         }
       },
       required: [
@@ -36,6 +39,11 @@ export const tools: readonly Tool[] = [
         "identifier",
         "language"
       ],
+      $defs: {
+        "stream_identifier": stream_identifier,
+        "stream_identifier-2": stream_identifier_2,
+        "stream_language": stream_language,
+      },
     },
     annotations: {
       "destructiveHint": false,

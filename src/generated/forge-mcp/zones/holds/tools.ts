@@ -6,6 +6,12 @@ import {
   zones_api_response_common_failure_2_output,
   zones_messages_2_output,
 } from "../../outputs.js";
+import { zones_identifier_2 } from "../../schemas.js";
+import { zones_messages_output } from "../outputs.js";
+import {
+  zones_api_response_common_3_output,
+  zones_api_response_single_2_output,
+} from "./outputs.js";
 
 /**
  * The tools of `zones.holds`.
@@ -23,27 +29,47 @@ export const tools: readonly Tool[] = [
           "type": "boolean"
         },
         "zone_id": {
-          "description": "Zone ID",
-          "type": "string"
+          "$ref": "#/$defs/zones_identifier-2",
+          "description": "Zone ID"
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "zones_identifier-2": zones_identifier_2,
+      },
     },
     outputSchema: {
-      "properties": {
-        "hold": {
-          "type": "boolean"
+      "allOf": [
+        {
+          "$ref": "#/$defs/zones_api-response-single-2"
         },
-        "hold_after": {
-          "type": "string"
-        },
-        "include_subdomains": {
-          "type": "string"
+        {
+          "properties": {
+            "result": {
+              "properties": {
+                "hold": {
+                  "type": "boolean"
+                },
+                "hold_after": {
+                  "type": "string"
+                },
+                "include_subdomains": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
         }
+      ],
+      $defs: {
+        "zones_api-response-common-3": zones_api_response_common_3_output,
+        "zones_api-response-single-2": zones_api_response_single_2_output,
+        "zones_messages": zones_messages_output,
       },
-      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -62,25 +88,40 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "hold": {
-              "type": "boolean"
+          "allOf": [
+            {
+              "$ref": "#/$defs/zones_api-response-single-2"
             },
-            "hold_after": {
-              "type": "string"
-            },
-            "include_subdomains": {
-              "type": "string"
+            {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "hold_after": {
+                      "type": "string"
+                    },
+                    "include_subdomains": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
             }
-          },
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/zones_api-response-common-failure-2"
         }
       },
       $defs: {
+        "zones_api-response-common-3": zones_api_response_common_3_output,
         "zones_api-response-common-failure-2": zones_api_response_common_failure_2_output,
+        "zones_api-response-single-2": zones_api_response_single_2_output,
+        "zones_messages": zones_messages_output,
         "zones_messages-2": zones_messages_2_output,
       },
     },
@@ -103,27 +144,47 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "zone_id": {
-          "description": "Zone ID",
-          "type": "string"
+          "$ref": "#/$defs/zones_identifier-2",
+          "description": "Zone ID"
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "zones_identifier-2": zones_identifier_2,
+      },
     },
     outputSchema: {
-      "properties": {
-        "hold": {
-          "type": "boolean"
+      "allOf": [
+        {
+          "$ref": "#/$defs/zones_api-response-single-2"
         },
-        "hold_after": {
-          "type": "string"
-        },
-        "include_subdomains": {
-          "type": "string"
+        {
+          "properties": {
+            "result": {
+              "properties": {
+                "hold": {
+                  "type": "boolean"
+                },
+                "hold_after": {
+                  "type": "string"
+                },
+                "include_subdomains": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
         }
+      ],
+      $defs: {
+        "zones_api-response-common-3": zones_api_response_common_3_output,
+        "zones_api-response-single-2": zones_api_response_single_2_output,
+        "zones_messages": zones_messages_output,
       },
-      "type": "object",
     },
     annotations: {
       "destructiveHint": true,
@@ -142,25 +203,40 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "hold": {
-              "type": "boolean"
+          "allOf": [
+            {
+              "$ref": "#/$defs/zones_api-response-single-2"
             },
-            "hold_after": {
-              "type": "string"
-            },
-            "include_subdomains": {
-              "type": "string"
+            {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "hold_after": {
+                      "type": "string"
+                    },
+                    "include_subdomains": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
             }
-          },
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/zones_api-response-common-failure-2"
         }
       },
       $defs: {
+        "zones_api-response-common-3": zones_api_response_common_3_output,
         "zones_api-response-common-failure-2": zones_api_response_common_failure_2_output,
+        "zones_api-response-single-2": zones_api_response_single_2_output,
+        "zones_messages": zones_messages_output,
         "zones_messages-2": zones_messages_2_output,
       },
     },
@@ -201,28 +277,48 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "zone_id": {
-          "description": "Zone ID",
-          "type": "string"
+          "$ref": "#/$defs/zones_identifier-2",
+          "description": "Zone ID"
         }
       },
       required: [
         "zone_id",
         "body"
       ],
+      $defs: {
+        "zones_identifier-2": zones_identifier_2,
+      },
     },
     outputSchema: {
-      "properties": {
-        "hold": {
-          "type": "boolean"
+      "allOf": [
+        {
+          "$ref": "#/$defs/zones_api-response-single-2"
         },
-        "hold_after": {
-          "type": "string"
-        },
-        "include_subdomains": {
-          "type": "string"
+        {
+          "properties": {
+            "result": {
+              "properties": {
+                "hold": {
+                  "type": "boolean"
+                },
+                "hold_after": {
+                  "type": "string"
+                },
+                "include_subdomains": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
         }
+      ],
+      $defs: {
+        "zones_api-response-common-3": zones_api_response_common_3_output,
+        "zones_api-response-single-2": zones_api_response_single_2_output,
+        "zones_messages": zones_messages_output,
       },
-      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -249,25 +345,40 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "hold": {
-              "type": "boolean"
+          "allOf": [
+            {
+              "$ref": "#/$defs/zones_api-response-single-2"
             },
-            "hold_after": {
-              "type": "string"
-            },
-            "include_subdomains": {
-              "type": "string"
+            {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "hold_after": {
+                      "type": "string"
+                    },
+                    "include_subdomains": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
             }
-          },
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/zones_api-response-common-failure-2"
         }
       },
       $defs: {
+        "zones_api-response-common-3": zones_api_response_common_3_output,
         "zones_api-response-common-failure-2": zones_api_response_common_failure_2_output,
+        "zones_api-response-single-2": zones_api_response_single_2_output,
+        "zones_messages": zones_messages_output,
         "zones_messages-2": zones_messages_2_output,
       },
     },
@@ -284,27 +395,47 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "description": "Zone ID",
-          "type": "string"
+          "$ref": "#/$defs/zones_identifier-2",
+          "description": "Zone ID"
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "zones_identifier-2": zones_identifier_2,
+      },
     },
     outputSchema: {
-      "properties": {
-        "hold": {
-          "type": "boolean"
+      "allOf": [
+        {
+          "$ref": "#/$defs/zones_api-response-single-2"
         },
-        "hold_after": {
-          "type": "string"
-        },
-        "include_subdomains": {
-          "type": "string"
+        {
+          "properties": {
+            "result": {
+              "properties": {
+                "hold": {
+                  "type": "boolean"
+                },
+                "hold_after": {
+                  "type": "string"
+                },
+                "include_subdomains": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
         }
+      ],
+      $defs: {
+        "zones_api-response-common-3": zones_api_response_common_3_output,
+        "zones_api-response-single-2": zones_api_response_single_2_output,
+        "zones_messages": zones_messages_output,
       },
-      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -361,25 +492,40 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "hold": {
-              "type": "boolean"
+          "allOf": [
+            {
+              "$ref": "#/$defs/zones_api-response-single-2"
             },
-            "hold_after": {
-              "type": "string"
-            },
-            "include_subdomains": {
-              "type": "string"
+            {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "hold_after": {
+                      "type": "string"
+                    },
+                    "include_subdomains": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
             }
-          },
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/zones_api-response-common-failure-2"
         }
       },
       $defs: {
+        "zones_api-response-common-3": zones_api_response_common_3_output,
         "zones_api-response-common-failure-2": zones_api_response_common_failure_2_output,
+        "zones_api-response-single-2": zones_api_response_single_2_output,
+        "zones_messages": zones_messages_output,
         "zones_messages-2": zones_messages_2_output,
       },
     },

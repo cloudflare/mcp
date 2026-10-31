@@ -44,11 +44,23 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
+        "result": {
+          "properties": {
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "success"
+          ],
+          "type": "object"
+        },
         "success": {
           "type": "boolean"
         }
       },
       "required": [
+        "result",
         "success"
       ],
       "type": "object",
@@ -72,11 +84,23 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
+            "result": {
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "success"
+              ],
+              "type": "object"
+            },
             "success": {
               "type": "boolean"
             }
           },
           "required": [
+            "result",
             "success"
           ],
           "type": "object"
@@ -155,11 +179,23 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
+        "result": {
+          "properties": {
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "success"
+          ],
+          "type": "object"
+        },
         "success": {
           "type": "boolean"
         }
       },
       "required": [
+        "result",
         "success"
       ],
       "type": "object",
@@ -182,11 +218,23 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
+            "result": {
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "success"
+              ],
+              "type": "object"
+            },
             "success": {
               "type": "boolean"
             }
           },
           "required": [
+            "result",
             "success"
           ],
           "type": "object"

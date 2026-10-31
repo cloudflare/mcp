@@ -2,6 +2,14 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import {
+  realtimekit_GenericErrorResponse_output,
+  realtimekit_ValidationIssue_output,
+} from "../../outputs.js";
+import {
+  realtimekit_account_identifier,
+  realtimekit_app_id,
+} from "../../schemas.js";
 import { realtimekit_WebhookEventsSuccessResponse_output } from "./outputs.js";
 
 /**
@@ -16,18 +24,22 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "The account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/realtimekit_account_identifier",
+          "description": "The account identifier tag."
         },
         "app_id": {
-          "description": "The app identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/realtimekit_app_id",
+          "description": "The app identifier tag."
         }
       },
       required: [
         "account_id",
         "app_id"
       ],
+      $defs: {
+        "realtimekit_account_identifier": realtimekit_account_identifier,
+        "realtimekit_app_id": realtimekit_app_id,
+      },
     },
     outputSchema: {
       "$ref": "#/$defs/realtimekit_WebhookEventsSuccessResponse",
@@ -54,9 +66,14 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "$ref": "#/$defs/realtimekit_WebhookEventsSuccessResponse"
+        },
+        "4XX": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
         }
       },
       $defs: {
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
         "realtimekit_WebhookEventsSuccessResponse": realtimekit_WebhookEventsSuccessResponse_output,
       },
     },

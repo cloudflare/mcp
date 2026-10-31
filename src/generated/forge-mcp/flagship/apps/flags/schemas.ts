@@ -20,7 +20,20 @@ export const flagship_Rule: JsonSchema = {
       "type": "integer"
     },
     "rollout": {
-      "$ref": "#/$defs/flagship_Rule_rollout"
+      "properties": {
+        "attribute": {
+          "description": "Context attribute used for sticky bucketing. Defaults to `targetingKey`. If absent at evaluation time, bucketing is random per request.",
+          "type": "string"
+        },
+        "percentage": {
+          "description": "Percentage of matching traffic (0–100, up to 2 decimal places) served this variation. For multi-way splits, use cumulative upper bounds across rules (e.g. 30, 70, 100).",
+          "type": "number"
+        }
+      },
+      "required": [
+        "percentage"
+      ],
+      "type": "object"
     },
     "serve_variation": {
       "description": "Variation the API serves when this rule matches. Must be a key in `variations`.",
@@ -31,26 +44,6 @@ export const flagship_Rule: JsonSchema = {
     "conditions",
     "priority",
     "serve_variation"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `flagship_Rule_rollout`.
- */
-export const flagship_Rule_rollout: JsonSchema = {
-  "properties": {
-    "attribute": {
-      "description": "Context attribute used for sticky bucketing. Defaults to `targetingKey`. If absent at evaluation time, bucketing is random per request.",
-      "type": "string"
-    },
-    "percentage": {
-      "description": "Percentage of matching traffic (0–100, up to 2 decimal places) served this variation. For multi-way splits, use cumulative upper bounds across rules (e.g. 30, 70, 100).",
-      "type": "number"
-    }
-  },
-  "required": [
-    "percentage"
   ],
   "type": "object"
 };

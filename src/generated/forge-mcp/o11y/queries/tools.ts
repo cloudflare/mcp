@@ -4,18 +4,11 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   workers_observability_filter_leaf_output,
-  workers_observability_filter_leaf_value_output,
   workers_observability_filter_node_output,
   workers_observability_query_output,
-  workers_observability_query_parameters_groupBysItem_output,
-  workers_observability_query_parameters_havingsItem_output,
-  workers_observability_query_parameters_needle_output,
-  workers_observability_query_parameters_orderBy_output,
-  workers_observability_query_parameters_output,
 } from "../outputs.js";
 import {
   workers_observability_filter_leaf,
-  workers_observability_filter_leaf_value,
   workers_observability_filter_node,
 } from "../schemas.js";
 
@@ -311,22 +304,63 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "workers-observability_filter_leaf": workers_observability_filter_leaf,
-        "workers-observability_filter_leaf_value": workers_observability_filter_leaf_value,
         "workers-observability_filter_node": workers_observability_filter_node,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/workers-observability_query",
+      "properties": {
+        "errors": {
+          "items": {
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "message": {
+                "enum": [
+                  "Successful request"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
+          "$ref": "#/$defs/workers-observability_query"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
       $defs: {
         "workers-observability_filter_leaf": workers_observability_filter_leaf_output,
-        "workers-observability_filter_leaf_value": workers_observability_filter_leaf_value_output,
         "workers-observability_filter_node": workers_observability_filter_node_output,
         "workers-observability_query": workers_observability_query_output,
-        "workers-observability_query_parameters": workers_observability_query_parameters_output,
-        "workers-observability_query_parameters_groupBysItem": workers_observability_query_parameters_groupBysItem_output,
-        "workers-observability_query_parameters_havingsItem": workers_observability_query_parameters_havingsItem_output,
-        "workers-observability_query_parameters_needle": workers_observability_query_parameters_needle_output,
-        "workers-observability_query_parameters_orderBy": workers_observability_query_parameters_orderBy_output,
       },
     },
     annotations: {
@@ -341,7 +375,55 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/workers-observability_query"
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "enum": [
+                      "Successful request"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "$ref": "#/$defs/workers-observability_query"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
+          "type": "object"
         },
         "401": {
           "properties": {
@@ -496,14 +578,8 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "workers-observability_filter_leaf": workers_observability_filter_leaf_output,
-        "workers-observability_filter_leaf_value": workers_observability_filter_leaf_value_output,
         "workers-observability_filter_node": workers_observability_filter_node_output,
         "workers-observability_query": workers_observability_query_output,
-        "workers-observability_query_parameters": workers_observability_query_parameters_output,
-        "workers-observability_query_parameters_groupBysItem": workers_observability_query_parameters_groupBysItem_output,
-        "workers-observability_query_parameters_havingsItem": workers_observability_query_parameters_havingsItem_output,
-        "workers-observability_query_parameters_needle": workers_observability_query_parameters_needle_output,
-        "workers-observability_query_parameters_orderBy": workers_observability_query_parameters_orderBy_output,
       },
     },
     request: (args) => ({
@@ -532,17 +608,59 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/workers-observability_query",
+      "properties": {
+        "errors": {
+          "items": {
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "message": {
+                "enum": [
+                  "Successful request"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
+          "$ref": "#/$defs/workers-observability_query"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
       $defs: {
         "workers-observability_filter_leaf": workers_observability_filter_leaf_output,
-        "workers-observability_filter_leaf_value": workers_observability_filter_leaf_value_output,
         "workers-observability_filter_node": workers_observability_filter_node_output,
         "workers-observability_query": workers_observability_query_output,
-        "workers-observability_query_parameters": workers_observability_query_parameters_output,
-        "workers-observability_query_parameters_groupBysItem": workers_observability_query_parameters_groupBysItem_output,
-        "workers-observability_query_parameters_havingsItem": workers_observability_query_parameters_havingsItem_output,
-        "workers-observability_query_parameters_needle": workers_observability_query_parameters_needle_output,
-        "workers-observability_query_parameters_orderBy": workers_observability_query_parameters_orderBy_output,
       },
     },
     annotations: {
@@ -557,7 +675,55 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/workers-observability_query"
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "enum": [
+                      "Successful request"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "$ref": "#/$defs/workers-observability_query"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
+          "type": "object"
         },
         "401": {
           "properties": {
@@ -712,14 +878,8 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "workers-observability_filter_leaf": workers_observability_filter_leaf_output,
-        "workers-observability_filter_leaf_value": workers_observability_filter_leaf_value_output,
         "workers-observability_filter_node": workers_observability_filter_node_output,
         "workers-observability_query": workers_observability_query_output,
-        "workers-observability_query_parameters": workers_observability_query_parameters_output,
-        "workers-observability_query_parameters_groupBysItem": workers_observability_query_parameters_groupBysItem_output,
-        "workers-observability_query_parameters_havingsItem": workers_observability_query_parameters_havingsItem_output,
-        "workers-observability_query_parameters_needle": workers_observability_query_parameters_needle_output,
-        "workers-observability_query_parameters_orderBy": workers_observability_query_parameters_orderBy_output,
       },
     },
     request: (args) => ({
@@ -1018,22 +1178,63 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "workers-observability_filter_leaf": workers_observability_filter_leaf,
-        "workers-observability_filter_leaf_value": workers_observability_filter_leaf_value,
         "workers-observability_filter_node": workers_observability_filter_node,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/workers-observability_query",
+      "properties": {
+        "errors": {
+          "items": {
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "message": {
+                "enum": [
+                  "Successful request"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
+          "$ref": "#/$defs/workers-observability_query"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
       $defs: {
         "workers-observability_filter_leaf": workers_observability_filter_leaf_output,
-        "workers-observability_filter_leaf_value": workers_observability_filter_leaf_value_output,
         "workers-observability_filter_node": workers_observability_filter_node_output,
         "workers-observability_query": workers_observability_query_output,
-        "workers-observability_query_parameters": workers_observability_query_parameters_output,
-        "workers-observability_query_parameters_groupBysItem": workers_observability_query_parameters_groupBysItem_output,
-        "workers-observability_query_parameters_havingsItem": workers_observability_query_parameters_havingsItem_output,
-        "workers-observability_query_parameters_needle": workers_observability_query_parameters_needle_output,
-        "workers-observability_query_parameters_orderBy": workers_observability_query_parameters_orderBy_output,
       },
     },
     annotations: {
@@ -1048,7 +1249,55 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/workers-observability_query"
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "enum": [
+                      "Successful request"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "$ref": "#/$defs/workers-observability_query"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
+          "type": "object"
         },
         "401": {
           "properties": {
@@ -1203,14 +1452,8 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "workers-observability_filter_leaf": workers_observability_filter_leaf_output,
-        "workers-observability_filter_leaf_value": workers_observability_filter_leaf_value_output,
         "workers-observability_filter_node": workers_observability_filter_node_output,
         "workers-observability_query": workers_observability_query_output,
-        "workers-observability_query_parameters": workers_observability_query_parameters_output,
-        "workers-observability_query_parameters_groupBysItem": workers_observability_query_parameters_groupBysItem_output,
-        "workers-observability_query_parameters_havingsItem": workers_observability_query_parameters_havingsItem_output,
-        "workers-observability_query_parameters_needle": workers_observability_query_parameters_needle_output,
-        "workers-observability_query_parameters_orderBy": workers_observability_query_parameters_orderBy_output,
       },
     },
     request: (args) => ({
@@ -1239,17 +1482,59 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/workers-observability_query",
+      "properties": {
+        "errors": {
+          "items": {
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "message": {
+                "enum": [
+                  "Successful request"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
+          "$ref": "#/$defs/workers-observability_query"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
       $defs: {
         "workers-observability_filter_leaf": workers_observability_filter_leaf_output,
-        "workers-observability_filter_leaf_value": workers_observability_filter_leaf_value_output,
         "workers-observability_filter_node": workers_observability_filter_node_output,
         "workers-observability_query": workers_observability_query_output,
-        "workers-observability_query_parameters": workers_observability_query_parameters_output,
-        "workers-observability_query_parameters_groupBysItem": workers_observability_query_parameters_groupBysItem_output,
-        "workers-observability_query_parameters_havingsItem": workers_observability_query_parameters_havingsItem_output,
-        "workers-observability_query_parameters_needle": workers_observability_query_parameters_needle_output,
-        "workers-observability_query_parameters_orderBy": workers_observability_query_parameters_orderBy_output,
       },
     },
     annotations: {
@@ -1264,7 +1549,55 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/workers-observability_query"
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "enum": [
+                      "Successful request"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "$ref": "#/$defs/workers-observability_query"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
+          "type": "object"
         },
         "401": {
           "properties": {
@@ -1419,14 +1752,8 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "workers-observability_filter_leaf": workers_observability_filter_leaf_output,
-        "workers-observability_filter_leaf_value": workers_observability_filter_leaf_value_output,
         "workers-observability_filter_node": workers_observability_filter_node_output,
         "workers-observability_query": workers_observability_query_output,
-        "workers-observability_query_parameters": workers_observability_query_parameters_output,
-        "workers-observability_query_parameters_groupBysItem": workers_observability_query_parameters_groupBysItem_output,
-        "workers-observability_query_parameters_havingsItem": workers_observability_query_parameters_havingsItem_output,
-        "workers-observability_query_parameters_needle": workers_observability_query_parameters_needle_output,
-        "workers-observability_query_parameters_orderBy": workers_observability_query_parameters_orderBy_output,
       },
     },
     request: (args) => ({
@@ -1475,30 +1802,61 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
+        "errors": {
+          "items": {
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "message": {
+                "enum": [
+                  "Successful request"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
         "result": {
           "items": {
             "$ref": "#/$defs/workers-observability_query"
           },
           "type": "array"
         },
-        "result_info": {
-          "type": "object"
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
         }
       },
       "required": [
-        "result"
+        "errors",
+        "messages",
+        "result",
+        "success"
       ],
       "type": "object",
       $defs: {
         "workers-observability_filter_leaf": workers_observability_filter_leaf_output,
-        "workers-observability_filter_leaf_value": workers_observability_filter_leaf_value_output,
         "workers-observability_filter_node": workers_observability_filter_node_output,
         "workers-observability_query": workers_observability_query_output,
-        "workers-observability_query_parameters": workers_observability_query_parameters_output,
-        "workers-observability_query_parameters_groupBysItem": workers_observability_query_parameters_groupBysItem_output,
-        "workers-observability_query_parameters_havingsItem": workers_observability_query_parameters_havingsItem_output,
-        "workers-observability_query_parameters_needle": workers_observability_query_parameters_needle_output,
-        "workers-observability_query_parameters_orderBy": workers_observability_query_parameters_orderBy_output,
       },
     },
     annotations: {
@@ -1514,18 +1872,55 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "enum": [
+                      "Successful request"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
             "result": {
               "items": {
                 "$ref": "#/$defs/workers-observability_query"
               },
               "type": "array"
             },
-            "result_info": {
-              "type": "object"
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
             }
           },
           "required": [
-            "result"
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -1682,14 +2077,8 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "workers-observability_filter_leaf": workers_observability_filter_leaf_output,
-        "workers-observability_filter_leaf_value": workers_observability_filter_leaf_value_output,
         "workers-observability_filter_node": workers_observability_filter_node_output,
         "workers-observability_query": workers_observability_query_output,
-        "workers-observability_query_parameters": workers_observability_query_parameters_output,
-        "workers-observability_query_parameters_groupBysItem": workers_observability_query_parameters_groupBysItem_output,
-        "workers-observability_query_parameters_havingsItem": workers_observability_query_parameters_havingsItem_output,
-        "workers-observability_query_parameters_needle": workers_observability_query_parameters_needle_output,
-        "workers-observability_query_parameters_orderBy": workers_observability_query_parameters_orderBy_output,
       },
     },
     request: (args) => ({

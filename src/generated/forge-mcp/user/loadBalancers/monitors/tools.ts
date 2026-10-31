@@ -4,7 +4,10 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   load_balancing_allow_insecure_output,
+  load_balancing_api_paginated_response_collection_output,
   load_balancing_api_response_common_failure_output,
+  load_balancing_api_response_common_output,
+  load_balancing_api_response_single_output,
   load_balancing_consecutive_down_output,
   load_balancing_consecutive_up_output,
   load_balancing_description_output,
@@ -12,11 +15,15 @@ import {
   load_balancing_expected_codes_output,
   load_balancing_follow_redirects_output,
   load_balancing_header_output,
+  load_balancing_id_response_output,
   load_balancing_identifier_output,
   load_balancing_interval_output,
   load_balancing_messages_output,
   load_balancing_method_output,
+  load_balancing_monitor_editable_output,
   load_balancing_monitor_output,
+  load_balancing_monitor_response_collection_output,
+  load_balancing_monitor_response_single_output,
   load_balancing_path_output,
   load_balancing_port_output,
   load_balancing_probe_zone_output,
@@ -35,6 +42,7 @@ import {
   load_balancing_expected_codes,
   load_balancing_follow_redirects,
   load_balancing_header,
+  load_balancing_identifier,
   load_balancing_interval,
   load_balancing_method,
   load_balancing_monitor_editable,
@@ -85,9 +93,11 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/load-balancing_monitor",
+      "$ref": "#/$defs/load-balancing_monitor-response-single",
       $defs: {
         "load-balancing_allow_insecure": load_balancing_allow_insecure_output,
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
+        "load-balancing_api-response-single": load_balancing_api_response_single_output,
         "load-balancing_consecutive_down": load_balancing_consecutive_down_output,
         "load-balancing_consecutive_up": load_balancing_consecutive_up_output,
         "load-balancing_description": load_balancing_description_output,
@@ -97,8 +107,11 @@ export const tools: readonly Tool[] = [
         "load-balancing_header": load_balancing_header_output,
         "load-balancing_identifier": load_balancing_identifier_output,
         "load-balancing_interval": load_balancing_interval_output,
+        "load-balancing_messages": load_balancing_messages_output,
         "load-balancing_method": load_balancing_method_output,
         "load-balancing_monitor": load_balancing_monitor_output,
+        "load-balancing_monitor-editable": load_balancing_monitor_editable_output,
+        "load-balancing_monitor-response-single": load_balancing_monitor_response_single_output,
         "load-balancing_path": load_balancing_path_output,
         "load-balancing_port": load_balancing_port_output,
         "load-balancing_probe_zone": load_balancing_probe_zone_output,
@@ -125,7 +138,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/load-balancing_monitor"
+          "$ref": "#/$defs/load-balancing_monitor-response-single"
         },
         "4XX": {
           "$ref": "#/$defs/load-balancing_api-response-common-failure"
@@ -133,7 +146,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "load-balancing_allow_insecure": load_balancing_allow_insecure_output,
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
         "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
+        "load-balancing_api-response-single": load_balancing_api_response_single_output,
         "load-balancing_consecutive_down": load_balancing_consecutive_down_output,
         "load-balancing_consecutive_up": load_balancing_consecutive_up_output,
         "load-balancing_description": load_balancing_description_output,
@@ -146,6 +161,8 @@ export const tools: readonly Tool[] = [
         "load-balancing_messages": load_balancing_messages_output,
         "load-balancing_method": load_balancing_method_output,
         "load-balancing_monitor": load_balancing_monitor_output,
+        "load-balancing_monitor-editable": load_balancing_monitor_editable_output,
+        "load-balancing_monitor-response-single": load_balancing_monitor_response_single_output,
         "load-balancing_path": load_balancing_path_output,
         "load-balancing_port": load_balancing_port_output,
         "load-balancing_probe_zone": load_balancing_probe_zone_output,
@@ -168,22 +185,24 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "monitor_id": {
-          "type": "string"
+          "$ref": "#/$defs/load-balancing_identifier"
         }
       },
       required: [
         "monitor_id"
       ],
+      $defs: {
+        "load-balancing_identifier": load_balancing_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "id": {
-          "$ref": "#/$defs/load-balancing_identifier"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/load-balancing_id_response",
       $defs: {
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
+        "load-balancing_api-response-single": load_balancing_api_response_single_output,
+        "load-balancing_id_response": load_balancing_id_response_output,
         "load-balancing_identifier": load_balancing_identifier_output,
+        "load-balancing_messages": load_balancing_messages_output,
       },
     },
     annotations: {
@@ -203,19 +222,17 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "id": {
-              "$ref": "#/$defs/load-balancing_identifier"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/load-balancing_id_response"
         },
         "4XX": {
           "$ref": "#/$defs/load-balancing_api-response-common-failure"
         }
       },
       $defs: {
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
         "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
+        "load-balancing_api-response-single": load_balancing_api_response_single_output,
+        "load-balancing_id_response": load_balancing_id_response_output,
         "load-balancing_identifier": load_balancing_identifier_output,
         "load-balancing_messages": load_balancing_messages_output,
       },
@@ -235,7 +252,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/load-balancing_monitor-editable"
         },
         "monitor_id": {
-          "type": "string"
+          "$ref": "#/$defs/load-balancing_identifier"
         }
       },
       required: [
@@ -251,6 +268,7 @@ export const tools: readonly Tool[] = [
         "load-balancing_expected_codes": load_balancing_expected_codes,
         "load-balancing_follow_redirects": load_balancing_follow_redirects,
         "load-balancing_header": load_balancing_header,
+        "load-balancing_identifier": load_balancing_identifier,
         "load-balancing_interval": load_balancing_interval,
         "load-balancing_method": load_balancing_method,
         "load-balancing_monitor-editable": load_balancing_monitor_editable,
@@ -263,9 +281,11 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/load-balancing_monitor",
+      "$ref": "#/$defs/load-balancing_monitor-response-single",
       $defs: {
         "load-balancing_allow_insecure": load_balancing_allow_insecure_output,
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
+        "load-balancing_api-response-single": load_balancing_api_response_single_output,
         "load-balancing_consecutive_down": load_balancing_consecutive_down_output,
         "load-balancing_consecutive_up": load_balancing_consecutive_up_output,
         "load-balancing_description": load_balancing_description_output,
@@ -275,8 +295,11 @@ export const tools: readonly Tool[] = [
         "load-balancing_header": load_balancing_header_output,
         "load-balancing_identifier": load_balancing_identifier_output,
         "load-balancing_interval": load_balancing_interval_output,
+        "load-balancing_messages": load_balancing_messages_output,
         "load-balancing_method": load_balancing_method_output,
         "load-balancing_monitor": load_balancing_monitor_output,
+        "load-balancing_monitor-editable": load_balancing_monitor_editable_output,
+        "load-balancing_monitor-response-single": load_balancing_monitor_response_single_output,
         "load-balancing_path": load_balancing_path_output,
         "load-balancing_port": load_balancing_port_output,
         "load-balancing_probe_zone": load_balancing_probe_zone_output,
@@ -303,7 +326,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/load-balancing_monitor"
+          "$ref": "#/$defs/load-balancing_monitor-response-single"
         },
         "4XX": {
           "$ref": "#/$defs/load-balancing_api-response-common-failure"
@@ -311,7 +334,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "load-balancing_allow_insecure": load_balancing_allow_insecure_output,
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
         "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
+        "load-balancing_api-response-single": load_balancing_api_response_single_output,
         "load-balancing_consecutive_down": load_balancing_consecutive_down_output,
         "load-balancing_consecutive_up": load_balancing_consecutive_up_output,
         "load-balancing_description": load_balancing_description_output,
@@ -324,6 +349,8 @@ export const tools: readonly Tool[] = [
         "load-balancing_messages": load_balancing_messages_output,
         "load-balancing_method": load_balancing_method_output,
         "load-balancing_monitor": load_balancing_monitor_output,
+        "load-balancing_monitor-editable": load_balancing_monitor_editable_output,
+        "load-balancing_monitor-response-single": load_balancing_monitor_response_single_output,
         "load-balancing_path": load_balancing_path_output,
         "load-balancing_port": load_balancing_port_output,
         "load-balancing_probe_zone": load_balancing_probe_zone_output,
@@ -346,17 +373,22 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "monitor_id": {
-          "type": "string"
+          "$ref": "#/$defs/load-balancing_identifier"
         }
       },
       required: [
         "monitor_id"
       ],
+      $defs: {
+        "load-balancing_identifier": load_balancing_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/load-balancing_monitor",
+      "$ref": "#/$defs/load-balancing_monitor-response-single",
       $defs: {
         "load-balancing_allow_insecure": load_balancing_allow_insecure_output,
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
+        "load-balancing_api-response-single": load_balancing_api_response_single_output,
         "load-balancing_consecutive_down": load_balancing_consecutive_down_output,
         "load-balancing_consecutive_up": load_balancing_consecutive_up_output,
         "load-balancing_description": load_balancing_description_output,
@@ -366,8 +398,11 @@ export const tools: readonly Tool[] = [
         "load-balancing_header": load_balancing_header_output,
         "load-balancing_identifier": load_balancing_identifier_output,
         "load-balancing_interval": load_balancing_interval_output,
+        "load-balancing_messages": load_balancing_messages_output,
         "load-balancing_method": load_balancing_method_output,
         "load-balancing_monitor": load_balancing_monitor_output,
+        "load-balancing_monitor-editable": load_balancing_monitor_editable_output,
+        "load-balancing_monitor-response-single": load_balancing_monitor_response_single_output,
         "load-balancing_path": load_balancing_path_output,
         "load-balancing_port": load_balancing_port_output,
         "load-balancing_probe_zone": load_balancing_probe_zone_output,
@@ -395,7 +430,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/load-balancing_monitor"
+          "$ref": "#/$defs/load-balancing_monitor-response-single"
         },
         "4XX": {
           "$ref": "#/$defs/load-balancing_api-response-common-failure"
@@ -403,7 +438,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "load-balancing_allow_insecure": load_balancing_allow_insecure_output,
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
         "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
+        "load-balancing_api-response-single": load_balancing_api_response_single_output,
         "load-balancing_consecutive_down": load_balancing_consecutive_down_output,
         "load-balancing_consecutive_up": load_balancing_consecutive_up_output,
         "load-balancing_description": load_balancing_description_output,
@@ -416,6 +453,8 @@ export const tools: readonly Tool[] = [
         "load-balancing_messages": load_balancing_messages_output,
         "load-balancing_method": load_balancing_method_output,
         "load-balancing_monitor": load_balancing_monitor_output,
+        "load-balancing_monitor-editable": load_balancing_monitor_editable_output,
+        "load-balancing_monitor-response-single": load_balancing_monitor_response_single_output,
         "load-balancing_path": load_balancing_path_output,
         "load-balancing_port": load_balancing_port_output,
         "load-balancing_probe_zone": load_balancing_probe_zone_output,
@@ -438,23 +477,11 @@ export const tools: readonly Tool[] = [
       properties: {},
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/load-balancing_monitor"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "$ref": "#/$defs/load-balancing_result_info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/load-balancing_monitor-response-collection",
       $defs: {
         "load-balancing_allow_insecure": load_balancing_allow_insecure_output,
+        "load-balancing_api-paginated-response-collection": load_balancing_api_paginated_response_collection_output,
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
         "load-balancing_consecutive_down": load_balancing_consecutive_down_output,
         "load-balancing_consecutive_up": load_balancing_consecutive_up_output,
         "load-balancing_description": load_balancing_description_output,
@@ -464,8 +491,11 @@ export const tools: readonly Tool[] = [
         "load-balancing_header": load_balancing_header_output,
         "load-balancing_identifier": load_balancing_identifier_output,
         "load-balancing_interval": load_balancing_interval_output,
+        "load-balancing_messages": load_balancing_messages_output,
         "load-balancing_method": load_balancing_method_output,
         "load-balancing_monitor": load_balancing_monitor_output,
+        "load-balancing_monitor-editable": load_balancing_monitor_editable_output,
+        "load-balancing_monitor-response-collection": load_balancing_monitor_response_collection_output,
         "load-balancing_path": load_balancing_path_output,
         "load-balancing_port": load_balancing_port_output,
         "load-balancing_probe_zone": load_balancing_probe_zone_output,
@@ -494,21 +524,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/load-balancing_monitor"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/load-balancing_result_info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/load-balancing_monitor-response-collection"
         },
         "4XX": {
           "$ref": "#/$defs/load-balancing_api-response-common-failure"
@@ -516,6 +532,8 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "load-balancing_allow_insecure": load_balancing_allow_insecure_output,
+        "load-balancing_api-paginated-response-collection": load_balancing_api_paginated_response_collection_output,
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
         "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
         "load-balancing_consecutive_down": load_balancing_consecutive_down_output,
         "load-balancing_consecutive_up": load_balancing_consecutive_up_output,
@@ -529,6 +547,8 @@ export const tools: readonly Tool[] = [
         "load-balancing_messages": load_balancing_messages_output,
         "load-balancing_method": load_balancing_method_output,
         "load-balancing_monitor": load_balancing_monitor_output,
+        "load-balancing_monitor-editable": load_balancing_monitor_editable_output,
+        "load-balancing_monitor-response-collection": load_balancing_monitor_response_collection_output,
         "load-balancing_path": load_balancing_path_output,
         "load-balancing_port": load_balancing_port_output,
         "load-balancing_probe_zone": load_balancing_probe_zone_output,
@@ -554,7 +574,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/load-balancing_monitor-editable"
         },
         "monitor_id": {
-          "type": "string"
+          "$ref": "#/$defs/load-balancing_identifier"
         }
       },
       required: [
@@ -570,6 +590,7 @@ export const tools: readonly Tool[] = [
         "load-balancing_expected_codes": load_balancing_expected_codes,
         "load-balancing_follow_redirects": load_balancing_follow_redirects,
         "load-balancing_header": load_balancing_header,
+        "load-balancing_identifier": load_balancing_identifier,
         "load-balancing_interval": load_balancing_interval,
         "load-balancing_method": load_balancing_method,
         "load-balancing_monitor-editable": load_balancing_monitor_editable,
@@ -582,9 +603,11 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/load-balancing_monitor",
+      "$ref": "#/$defs/load-balancing_monitor-response-single",
       $defs: {
         "load-balancing_allow_insecure": load_balancing_allow_insecure_output,
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
+        "load-balancing_api-response-single": load_balancing_api_response_single_output,
         "load-balancing_consecutive_down": load_balancing_consecutive_down_output,
         "load-balancing_consecutive_up": load_balancing_consecutive_up_output,
         "load-balancing_description": load_balancing_description_output,
@@ -594,8 +617,11 @@ export const tools: readonly Tool[] = [
         "load-balancing_header": load_balancing_header_output,
         "load-balancing_identifier": load_balancing_identifier_output,
         "load-balancing_interval": load_balancing_interval_output,
+        "load-balancing_messages": load_balancing_messages_output,
         "load-balancing_method": load_balancing_method_output,
         "load-balancing_monitor": load_balancing_monitor_output,
+        "load-balancing_monitor-editable": load_balancing_monitor_editable_output,
+        "load-balancing_monitor-response-single": load_balancing_monitor_response_single_output,
         "load-balancing_path": load_balancing_path_output,
         "load-balancing_port": load_balancing_port_output,
         "load-balancing_probe_zone": load_balancing_probe_zone_output,
@@ -622,7 +648,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/load-balancing_monitor"
+          "$ref": "#/$defs/load-balancing_monitor-response-single"
         },
         "4XX": {
           "$ref": "#/$defs/load-balancing_api-response-common-failure"
@@ -630,7 +656,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "load-balancing_allow_insecure": load_balancing_allow_insecure_output,
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
         "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
+        "load-balancing_api-response-single": load_balancing_api_response_single_output,
         "load-balancing_consecutive_down": load_balancing_consecutive_down_output,
         "load-balancing_consecutive_up": load_balancing_consecutive_up_output,
         "load-balancing_description": load_balancing_description_output,
@@ -643,6 +671,8 @@ export const tools: readonly Tool[] = [
         "load-balancing_messages": load_balancing_messages_output,
         "load-balancing_method": load_balancing_method_output,
         "load-balancing_monitor": load_balancing_monitor_output,
+        "load-balancing_monitor-editable": load_balancing_monitor_editable_output,
+        "load-balancing_monitor-response-single": load_balancing_monitor_response_single_output,
         "load-balancing_path": load_balancing_path_output,
         "load-balancing_port": load_balancing_port_output,
         "load-balancing_probe_zone": load_balancing_probe_zone_output,

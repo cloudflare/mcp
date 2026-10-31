@@ -47,6 +47,14 @@ export const r2_add_custom_domain_request: JsonSchema = {
 };
 
 /**
+ * The schema of `r2_domain_name`.
+ */
+export const r2_domain_name: JsonSchema = {
+  "description": "Name of the custom domain.",
+  "type": "string"
+};
+
+/**
  * The schema of `r2_edit_custom_domain_request`.
  */
 export const r2_edit_custom_domain_request: JsonSchema = {

@@ -2,9 +2,12 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import { realtimekit_ErrorResponse_output } from "../outputs.js";
 import {
-  realtimekit_ErrorResponse_error_output,
-  realtimekit_ErrorResponse_output,
+  realtimekit_account_identifier,
+  realtimekit_app_id,
+} from "../schemas.js";
+import {
   realtimekit_WebhookSuccessResponse_output,
   realtimekit_Webhook_output,
   realtimekit_WebhooksListSuccessResponse_output,
@@ -26,12 +29,12 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "The account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/realtimekit_account_identifier",
+          "description": "The account identifier tag."
         },
         "app_id": {
-          "description": "The app identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/realtimekit_app_id",
+          "description": "The app identifier tag."
         },
         "body": {
           "$ref": "#/$defs/realtimekit_WebhookRequest"
@@ -44,6 +47,8 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "realtimekit_WebhookRequest": realtimekit_WebhookRequest,
+        "realtimekit_account_identifier": realtimekit_account_identifier,
+        "realtimekit_app_id": realtimekit_app_id,
       },
     },
     outputSchema: {
@@ -80,7 +85,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "realtimekit_ErrorResponse": realtimekit_ErrorResponse_output,
-        "realtimekit_ErrorResponse_error": realtimekit_ErrorResponse_error_output,
         "realtimekit_Webhook": realtimekit_Webhook_output,
         "realtimekit_WebhookSuccessResponse": realtimekit_WebhookSuccessResponse_output,
       },
@@ -98,12 +102,12 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "The account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/realtimekit_account_identifier",
+          "description": "The account identifier tag."
         },
         "app_id": {
-          "description": "The app identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/realtimekit_app_id",
+          "description": "The app identifier tag."
         },
         "webhook_id": {
           "description": "ID of the webhook",
@@ -116,6 +120,10 @@ export const tools: readonly Tool[] = [
         "app_id",
         "webhook_id"
       ],
+      $defs: {
+        "realtimekit_account_identifier": realtimekit_account_identifier,
+        "realtimekit_app_id": realtimekit_app_id,
+      },
     },
     outputSchema: {
       "$ref": "#/$defs/realtimekit_WebhookSuccessResponse",
@@ -152,7 +160,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "realtimekit_ErrorResponse": realtimekit_ErrorResponse_output,
-        "realtimekit_ErrorResponse_error": realtimekit_ErrorResponse_error_output,
         "realtimekit_Webhook": realtimekit_Webhook_output,
         "realtimekit_WebhookSuccessResponse": realtimekit_WebhookSuccessResponse_output,
       },
@@ -169,12 +176,12 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "The account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/realtimekit_account_identifier",
+          "description": "The account identifier tag."
         },
         "app_id": {
-          "description": "The app identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/realtimekit_app_id",
+          "description": "The app identifier tag."
         },
         "webhook_id": {
           "description": "ID of the webhook",
@@ -187,6 +194,10 @@ export const tools: readonly Tool[] = [
         "app_id",
         "webhook_id"
       ],
+      $defs: {
+        "realtimekit_account_identifier": realtimekit_account_identifier,
+        "realtimekit_app_id": realtimekit_app_id,
+      },
     },
     outputSchema: {
       "$ref": "#/$defs/realtimekit_WebhookSuccessResponse",
@@ -223,7 +234,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "realtimekit_ErrorResponse": realtimekit_ErrorResponse_output,
-        "realtimekit_ErrorResponse_error": realtimekit_ErrorResponse_error_output,
         "realtimekit_Webhook": realtimekit_Webhook_output,
         "realtimekit_WebhookSuccessResponse": realtimekit_WebhookSuccessResponse_output,
       },
@@ -240,18 +250,22 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "The account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/realtimekit_account_identifier",
+          "description": "The account identifier tag."
         },
         "app_id": {
-          "description": "The app identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/realtimekit_app_id",
+          "description": "The app identifier tag."
         }
       },
       required: [
         "account_id",
         "app_id"
       ],
+      $defs: {
+        "realtimekit_account_identifier": realtimekit_account_identifier,
+        "realtimekit_app_id": realtimekit_app_id,
+      },
     },
     outputSchema: {
       "$ref": "#/$defs/realtimekit_WebhooksListSuccessResponse",
@@ -299,12 +313,12 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "The account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/realtimekit_account_identifier",
+          "description": "The account identifier tag."
         },
         "app_id": {
-          "description": "The app identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/realtimekit_app_id",
+          "description": "The app identifier tag."
         },
         "body": {
           "$ref": "#/$defs/realtimekit_WebhookRequest"
@@ -323,6 +337,8 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "realtimekit_WebhookRequest": realtimekit_WebhookRequest,
+        "realtimekit_account_identifier": realtimekit_account_identifier,
+        "realtimekit_app_id": realtimekit_app_id,
       },
     },
     outputSchema: {
@@ -360,7 +376,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "realtimekit_ErrorResponse": realtimekit_ErrorResponse_output,
-        "realtimekit_ErrorResponse_error": realtimekit_ErrorResponse_error_output,
         "realtimekit_Webhook": realtimekit_Webhook_output,
         "realtimekit_WebhookSuccessResponse": realtimekit_WebhookSuccessResponse_output,
       },
@@ -378,12 +393,12 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "The account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/realtimekit_account_identifier",
+          "description": "The account identifier tag."
         },
         "app_id": {
-          "description": "The app identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/realtimekit_app_id",
+          "description": "The app identifier tag."
         },
         "body": {
           "$ref": "#/$defs/realtimekit_PatchWebhookRequest"
@@ -402,6 +417,8 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "realtimekit_PatchWebhookRequest": realtimekit_PatchWebhookRequest,
+        "realtimekit_account_identifier": realtimekit_account_identifier,
+        "realtimekit_app_id": realtimekit_app_id,
       },
     },
     outputSchema: {
@@ -439,7 +456,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "realtimekit_ErrorResponse": realtimekit_ErrorResponse_output,
-        "realtimekit_ErrorResponse_error": realtimekit_ErrorResponse_error_output,
         "realtimekit_Webhook": realtimekit_Webhook_output,
         "realtimekit_WebhookSuccessResponse": realtimekit_WebhookSuccessResponse_output,
       },

@@ -33,31 +33,22 @@ export const zero_trust_gateway_gateway_account_logging_settings: JsonSchema = {
       "type": "boolean"
     },
     "settings_by_rule_type": {
-      "$ref": "#/$defs/zero-trust-gateway_gateway-account-logging-settings_settings_by_rule_type",
-      "description": "Configure logging settings for each rule type."
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of
- * `zero-trust-gateway_gateway-account-logging-settings_settings_by_rule_type`.
- */
-export const zero_trust_gateway_gateway_account_logging_settings_settings_by_rule_type: JsonSchema = {
-  "description": "Configure logging settings for each rule type.",
-  "properties": {
-    "dns": {
-      "$ref": "#/$defs/zero-trust-gateway_account-log-options",
-      "description": "Configure logging settings for DNS firewall."
-    },
-    "http": {
-      "$ref": "#/$defs/zero-trust-gateway_account-log-options",
-      "description": "Configure logging settings for HTTP/HTTPS firewall."
-    },
-    "l4": {
-      "$ref": "#/$defs/zero-trust-gateway_account-log-options",
-      "description": "Configure logging settings for Network firewall."
+      "description": "Configure logging settings for each rule type.",
+      "properties": {
+        "dns": {
+          "$ref": "#/$defs/zero-trust-gateway_account-log-options",
+          "description": "Configure logging settings for DNS firewall."
+        },
+        "http": {
+          "$ref": "#/$defs/zero-trust-gateway_account-log-options",
+          "description": "Configure logging settings for HTTP/HTTPS firewall."
+        },
+        "l4": {
+          "$ref": "#/$defs/zero-trust-gateway_account-log-options",
+          "description": "Configure logging settings for Network firewall."
+        }
+      },
+      "type": "object"
     }
   },
   "type": "object"

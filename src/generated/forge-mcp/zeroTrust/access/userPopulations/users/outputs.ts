@@ -117,6 +117,25 @@ export const access_scim_user_output: JsonSchema = {
 };
 
 /**
+ * The schema of `access_scim_user_collection_response` in responses.
+ */
+export const access_scim_user_collection_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/access_scim_user_list_response"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `access_scim_user_list_response` in responses.
  */
 export const access_scim_user_list_response_output: JsonSchema = {
@@ -151,4 +170,23 @@ export const access_scim_user_list_response_output: JsonSchema = {
     "totalResults"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `access_scim_user_single_response` in responses.
+ */
+export const access_scim_user_single_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/access_scim_user"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };

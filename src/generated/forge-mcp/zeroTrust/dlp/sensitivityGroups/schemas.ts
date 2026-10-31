@@ -50,41 +50,28 @@ export const dlp_NewSensitivityGroup: JsonSchema = {
  * The schema of `dlp_SensitivityGroupLevelUpdate`.
  */
 export const dlp_SensitivityGroupLevelUpdate: JsonSchema = {
-  "properties": {
-    "description": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
+  "allOf": [
+    {
+      "$ref": "#/$defs/dlp_SensitivityLevelUpdate"
     },
-    "id": {
-      "description": "If `None` (omitted), a new level will be created. Otherwise, an existing level will\nbe updated.",
-      "oneOf": [
-        {
-          "format": "uuid",
-          "type": "string"
-        },
-        {
-          "type": "null"
+    {
+      "properties": {
+        "id": {
+          "description": "If `None` (omitted), a new level will be created. Otherwise, an existing level will\nbe updated.",
+          "oneOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
-      ]
-    },
-    "name": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };
 
 /**

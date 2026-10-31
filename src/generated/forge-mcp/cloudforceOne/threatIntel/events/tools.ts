@@ -978,7 +978,7 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id_path": {
+        "account_id": {
           "description": "Account ID.",
           "type": "string"
         },
@@ -1132,7 +1132,7 @@ export const tools: readonly Tool[] = [
         }
       },
       required: [
-        "account_id_path"
+        "account_id"
       ],
     },
     outputSchema: {
@@ -1285,7 +1285,7 @@ export const tools: readonly Tool[] = [
       "title": "Create an event"
     },
     method: "POST",
-    path: "/accounts/{account_id_path}/cloudforce-one/events/create",
+    path: "/accounts/{account_id}/cloudforce-one/events/create",
     extensions: {
       "x-api-token-group": [
         "Cloudforce One Write",
@@ -1469,7 +1469,7 @@ export const tools: readonly Tool[] = [
       },
     },
     request: (args) => ({
-      path: `/accounts/${pathParam(args, "account_id_path")}/cloudforce-one/events/create`,
+      path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/events/create`,
       body: { value: args["body"], mediaType: "application/json" },
     }),
   },

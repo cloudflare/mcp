@@ -22,6 +22,7 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "include_backfill": {
+          "default": "true",
           "description": "Include matches from the 30 days before activation. Defaults to true.",
           "enum": [
             "true",
@@ -589,6 +590,7 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "include_backfill": {
+          "default": "true",
           "description": "Include matches from the 30 days before activation. Defaults to true.",
           "enum": [
             "true",
@@ -1600,6 +1602,7 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "include_backfill": {
+          "default": "true",
           "description": "Include matches from the 30 days before activation. Defaults to true.",
           "enum": [
             "true",

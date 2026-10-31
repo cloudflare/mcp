@@ -23,6 +23,14 @@ export const alexandria_application_human_id: JsonSchema = {
 };
 
 /**
+ * The schema of `alexandria_application_id`.
+ */
+export const alexandria_application_id: JsonSchema = {
+  "description": "Numeric identifier for the application.",
+  "type": "integer"
+};
+
+/**
  * The schema of `alexandria_application_ip_subnets`.
  */
 export const alexandria_application_ip_subnets: JsonSchema = {

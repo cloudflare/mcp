@@ -197,7 +197,34 @@ export const posture_api_RemediationJobSummary_output: JsonSchema = {
 export const posture_api_WebhookInvocationSummary_output: JsonSchema = {
   "properties": {
     "latest_job": {
-      "$ref": "#/$defs/posture-api_WebhookInvocationSummary_latest_job"
+      "properties": {
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "stale": {
+          "type": "boolean"
+        },
+        "status": {
+          "enum": [
+            "pending",
+            "processing",
+            "completed"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "created_at",
+        "id",
+        "stale",
+        "status"
+      ],
+      "type": "object"
     },
     "webhook_id": {
       "format": "uuid",
@@ -216,35 +243,42 @@ export const posture_api_WebhookInvocationSummary_output: JsonSchema = {
 };
 
 /**
- * The schema of `posture-api_WebhookInvocationSummary_latest_job` in responses.
+ * The schema of `posture-api_finding-instance-response` in responses.
  */
-export const posture_api_WebhookInvocationSummary_latest_job_output: JsonSchema = {
-  "properties": {
-    "created_at": {
-      "format": "date-time",
-      "type": "string"
+export const posture_api_finding_instance_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/posture-api_api-response-common"
     },
-    "id": {
-      "format": "uuid",
-      "type": "string"
-    },
-    "stale": {
-      "type": "boolean"
-    },
-    "status": {
-      "enum": [
-        "pending",
-        "processing",
-        "completed"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/posture-api_FindingInstance"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "created_at",
-    "id",
-    "stale",
-    "status"
-  ],
-  "type": "object"
+  ]
+};
+
+/**
+ * The schema of `posture-api_paginated-finding-instance-list` in responses.
+ */
+export const posture_api_paginated_finding_instance_list_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/posture-api_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/posture-api_FindingInstance"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };

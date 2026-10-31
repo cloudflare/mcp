@@ -4,6 +4,47 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
+ * The schema of `magic-visibility-mnm_api-response-common` in responses.
+ */
+export const magic_visibility_mnm_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/magic-visibility-mnm_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/magic-visibility-mnm_messages"
+    },
+    "result": {
+      "anyOf": [
+        {
+          "type": "object"
+        },
+        {
+          "items": {},
+          "type": "array"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `magic-visibility-mnm_api-response-common-failure` in
  * responses.
  */
@@ -32,6 +73,35 @@ export const magic_visibility_mnm_api_response_common_failure_output: JsonSchema
     "success"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `magic-visibility-mnm_api-response-single` in responses.
+ */
+export const magic_visibility_mnm_api_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic-visibility-mnm_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**

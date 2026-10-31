@@ -7,31 +7,17 @@ import type { JsonSchema } from "../../_/tool.js";
  * The schema of `speed_cloudflare_speed_brain_response` in responses.
  */
 export const speed_cloudflare_speed_brain_response_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/speed_base"
     },
-    "id": {
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "value": {
           "type": "string"
-        },
-        {
-          "type": "null"
         }
-      ]
-    },
-    "value": {
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };

@@ -346,7 +346,35 @@ export const alexandria_delete_application_conflict_response_output: JsonSchema 
   "properties": {
     "errors": {
       "items": {
-        "$ref": "#/$defs/alexandria_delete_application_conflict_response_errorsItem"
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "meta": {
+            "properties": {
+              "references": {
+                "items": {
+                  "$ref": "#/$defs/alexandria_application_reference"
+                },
+                "minItems": 1,
+                "type": "array"
+              }
+            },
+            "required": [
+              "references"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "meta"
+        ],
+        "type": "object"
       },
       "maxItems": 1,
       "minItems": 1,
@@ -375,46 +403,61 @@ export const alexandria_delete_application_conflict_response_output: JsonSchema 
 };
 
 /**
- * The schema of `alexandria_delete_application_conflict_response_errorsItem` in
- * responses.
+ * The schema of `alexandria_delete_application_response` in responses.
  */
-export const alexandria_delete_application_conflict_response_errorsItem_output: JsonSchema = {
-  "properties": {
-    "code": {
-      "type": "integer"
+export const alexandria_delete_application_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/alexandria_api-response-common"
     },
-    "message": {
-      "type": "string"
-    },
-    "meta": {
-      "$ref": "#/$defs/alexandria_delete_application_conflict_response_errorsItem_meta"
+    {
+      "properties": {
+        "result": {
+          "type": "null"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object"
     }
-  },
-  "required": [
-    "code",
-    "message",
-    "meta"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
- * The schema of
- * `alexandria_delete_application_conflict_response_errorsItem_meta` in
- * responses.
+ * The schema of `alexandria_get_application_response` in responses.
  */
-export const alexandria_delete_application_conflict_response_errorsItem_meta_output: JsonSchema = {
-  "properties": {
-    "references": {
-      "items": {
-        "$ref": "#/$defs/alexandria_application_reference"
+export const alexandria_get_application_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/alexandria_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/alexandria_application"
+        }
       },
-      "minItems": 1,
-      "type": "array"
+      "type": "object"
     }
-  },
-  "required": [
-    "references"
-  ],
-  "type": "object"
+  ]
+};
+
+/**
+ * The schema of `alexandria_get_applications_response` in responses.
+ */
+export const alexandria_get_applications_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/alexandria_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/alexandria_applications"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };

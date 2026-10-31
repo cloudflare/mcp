@@ -4,9 +4,9 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `load-balancing_origin_healthy_alt`.
+ * The schema of `load-balancing_origin_healthy`.
  */
-export const load_balancing_origin_healthy_alt: JsonSchema = {
+export const load_balancing_origin_healthy: JsonSchema = {
   "description": "If true, filter events where the origin status is healthy. If false, filter events where the origin status is unhealthy.",
   "type": "boolean"
 };

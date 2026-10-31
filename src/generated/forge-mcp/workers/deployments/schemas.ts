@@ -9,7 +9,24 @@ import type { JsonSchema } from "../../_/tool.js";
 export const workers_deployment: JsonSchema = {
   "properties": {
     "annotations": {
-      "$ref": "#/$defs/workers_deployment_annotations"
+      "properties": {
+        "workers/message": {
+          "description": "Human-readable message about the deployment. Truncated to 1000 bytes if longer.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "code_update_strategy": {
+      "description": "Choose whether to apply Durable Object code updates immediately or defer them. When omitted, the default strategy applies.",
+      "oneOf": [
+        {
+          "$ref": "#/$defs/workers_code_update_strategy"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "strategy": {
       "enum": [
@@ -20,7 +37,22 @@ export const workers_deployment: JsonSchema = {
     "versions": {
       "description": "Worker versions included in this deployment. Each object must contain a `version_id` UUID and a `percentage`; percentages across all objects must total 100. In the `cf` CLI, pass the entire array as one JSON value to `--versions`, either inline, for example `--versions '[{\"version_id\":\"023e105f-2a42-4f8b-a1c1-73f6a2a30c0f\",\"percentage\":100}]'`, or from a JSON file with `--versions @versions.json`.",
       "items": {
-        "$ref": "#/$defs/workers_deployment_versionsItem"
+        "properties": {
+          "percentage": {
+            "description": "Percentage of traffic served by this version.",
+            "type": "number"
+          },
+          "version_id": {
+            "description": "Identifier of the Worker Version.",
+            "format": "uuid",
+            "type": "string"
+          }
+        },
+        "required": [
+          "percentage",
+          "version_id"
+        ],
+        "type": "object"
       },
       "type": "array"
     }
@@ -28,41 +60,6 @@ export const workers_deployment: JsonSchema = {
   "required": [
     "strategy",
     "versions"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `workers_deployment_annotations`.
- */
-export const workers_deployment_annotations: JsonSchema = {
-  "properties": {
-    "workers/message": {
-      "description": "Human-readable message about the deployment. Truncated to 1000 bytes if longer.",
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_deployment_versionsItem`.
- */
-export const workers_deployment_versionsItem: JsonSchema = {
-  "properties": {
-    "percentage": {
-      "description": "Percentage of traffic served by this version.",
-      "type": "number"
-    },
-    "version_id": {
-      "description": "Identifier of the Worker Version.",
-      "format": "uuid",
-      "type": "string"
-    }
-  },
-  "required": [
-    "percentage",
-    "version_id"
   ],
   "type": "object"
 };

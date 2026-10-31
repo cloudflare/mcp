@@ -7,35 +7,20 @@ import type { JsonSchema } from "../../../_/tool.js";
  * The schema of `api-shield_operation_with_labels_only` in responses.
  */
 export const api_shield_operation_with_labels_only_output: JsonSchema = {
-  "properties": {
-    "endpoint": {
-      "$ref": "#/$defs/api-shield_endpoint"
+  "allOf": [
+    {
+      "$ref": "#/$defs/api-shield_standard_operation"
     },
-    "host": {
-      "$ref": "#/$defs/api-shield_host"
-    },
-    "labels": {
-      "items": {
-        "$ref": "#/$defs/api-shield_label"
+    {
+      "properties": {
+        "labels": {
+          "items": {
+            "$ref": "#/$defs/api-shield_label"
+          },
+          "type": "array"
+        }
       },
-      "type": "array"
-    },
-    "last_updated": {
-      "$ref": "#/$defs/api-shield_timestamp-2"
-    },
-    "method": {
-      "$ref": "#/$defs/api-shield_method"
-    },
-    "operation_id": {
-      "$ref": "#/$defs/api-shield_uuid-2"
+      "type": "object"
     }
-  },
-  "required": [
-    "endpoint",
-    "host",
-    "method",
-    "last_updated",
-    "operation_id"
-  ],
-  "type": "object"
+  ]
 };

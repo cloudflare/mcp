@@ -85,6 +85,53 @@ export const cws_MessageSource_output: JsonSchema = {
 };
 
 /**
+ * The schema of `cws_ResponseDeletedResult` in responses.
+ */
+export const cws_ResponseDeletedResult_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "oneOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/cws_ResponseMessage"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "messages": {
+      "oneOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/cws_ResponseMessage"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "result": {
+      "$ref": "#/$defs/cws_DeletedResult"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `cws_ResponseMessage` in responses.
  */
 export const cws_ResponseMessage_output: JsonSchema = {

@@ -16,7 +16,7 @@ export const tools: readonly Tool[] = [
       properties: {
         "asn": {
           "description": "Single Autonomous System Number (ASN) as integer.",
-          "type": "string"
+          "type": "integer"
         },
         "collector": {
           "description": "Scope to a single RouteViews collector (e.g. \"route-views3\"). Omit to merge across all active collectors (identical path segments are deduplicated, observation counts summed, and every contributing collector listed).",
@@ -46,166 +46,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "asnInfo": {
-          "oneOf": [
-            {
-              "additionalProperties": {
-                "properties": {
-                  "asn": {
-                    "type": "integer"
-                  },
-                  "country": {
-                    "oneOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "null"
-                      }
-                    ]
-                  },
-                  "name": {
-                    "oneOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "null"
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "asn",
-                  "country",
-                  "name"
-                ],
-                "type": "object"
-              },
-              "type": "object"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "collectors": {
-          "items": {
-            "type": "string"
-          },
-          "type": "array"
-        },
-        "meta": {
-          "properties": {
-            "dataTime": {
-              "oneOf": [
-                {
-                  "format": "date-time",
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "effectiveCollector": {
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "queryTime": {
-              "oneOf": [
-                {
-                  "format": "date-time",
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "stale": {
-              "type": "boolean"
-            }
-          },
-          "required": [
-            "dataTime",
-            "effectiveCollector",
-            "queryTime",
-            "stale"
-          ],
-          "type": "object"
-        },
-        "paths": {
-          "items": {
-            "properties": {
-              "collectors": {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              "pathsCount": {
-                "type": "integer"
-              },
-              "peersCount": {
-                "type": "integer"
-              },
-              "segment": {
-                "items": {
-                  "type": "integer"
-                },
-                "type": "array"
-              }
-            },
-            "required": [
-              "collectors",
-              "pathsCount",
-              "peersCount",
-              "segment"
-            ],
-            "type": "object"
-          },
-          "type": "array"
-        }
-      },
-      "required": [
-        "asnInfo",
-        "collectors",
-        "meta",
-        "paths"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get tier-1 path segments for an AS"
-    },
-    method: "GET",
-    path: "/radar/bgp/routes/paths/{asn}",
-    extensions: {
-      "x-api-token-group": [
-        "User Details Write",
-        "User Details Read"
-      ],
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "asnInfo": {
               "oneOf": [
@@ -340,6 +181,189 @@ export const tools: readonly Tool[] = [
             "collectors",
             "meta",
             "paths"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get tier-1 path segments for an AS"
+    },
+    method: "GET",
+    path: "/radar/bgp/routes/paths/{asn}",
+    extensions: {
+      "x-api-token-group": [
+        "User Details Write",
+        "User Details Read"
+      ],
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "asnInfo": {
+                  "oneOf": [
+                    {
+                      "additionalProperties": {
+                        "properties": {
+                          "asn": {
+                            "type": "integer"
+                          },
+                          "country": {
+                            "oneOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "name": {
+                            "oneOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          }
+                        },
+                        "required": [
+                          "asn",
+                          "country",
+                          "name"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "collectors": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "meta": {
+                  "properties": {
+                    "dataTime": {
+                      "oneOf": [
+                        {
+                          "format": "date-time",
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "effectiveCollector": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "queryTime": {
+                      "oneOf": [
+                        {
+                          "format": "date-time",
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "stale": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "dataTime",
+                    "effectiveCollector",
+                    "queryTime",
+                    "stale"
+                  ],
+                  "type": "object"
+                },
+                "paths": {
+                  "items": {
+                    "properties": {
+                      "collectors": {
+                        "items": {
+                          "type": "string"
+                        },
+                        "type": "array"
+                      },
+                      "pathsCount": {
+                        "type": "integer"
+                      },
+                      "peersCount": {
+                        "type": "integer"
+                      },
+                      "segment": {
+                        "items": {
+                          "type": "integer"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "collectors",
+                      "pathsCount",
+                      "peersCount",
+                      "segment"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "asnInfo",
+                "collectors",
+                "meta",
+                "paths"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },

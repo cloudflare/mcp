@@ -45,7 +45,7 @@ export const stream_direct_upload_request: JsonSchema = {
       "description": "The timestamp for a thumbnail image calculated as a percentage value of the video's duration. To convert from a second-wise timestamp to a percentage, divide the desired timestamp by the total duration of the video.  If this value is not set, the default thumbnail image is taken from 0s of the video."
     },
     "watermark": {
-      "$ref": "#/$defs/stream_watermark_at_upload_alt"
+      "$ref": "#/$defs/stream_watermark_at_upload"
     }
   },
   "required": [

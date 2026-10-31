@@ -4,6 +4,77 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `web3_api-response-collection` in responses.
+ */
+export const web3_api_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/web3_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "items": {},
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "result_info": {
+          "$ref": "#/$defs/web3_result_info"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `web3_api-response-common` in responses.
+ */
+export const web3_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/web3_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/web3_messages"
+    },
+    "result": {
+      "anyOf": [
+        {
+          "type": "object"
+        },
+        {
+          "items": {},
+          "type": "array"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `web3_api-response-common-failure` in responses.
  */
 export const web3_api_response_common_failure_output: JsonSchema = {
@@ -34,53 +105,64 @@ export const web3_api_response_common_failure_output: JsonSchema = {
 };
 
 /**
- * The schema of `web3_api-response-single-id` in responses.
+ * The schema of `web3_api-response-single` in responses.
  */
-export const web3_api_response_single_id_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/web3_messages"
+export const web3_api_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/web3_api-response-common"
     },
-    "messages": {
-      "$ref": "#/$defs/web3_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/web3_api-response-single-id_result"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result_info": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
- * The schema of `web3_api-response-single-id_result` in responses.
+ * The schema of `web3_api-response-single-id` in responses.
  */
-export const web3_api_response_single_id_result_output: JsonSchema = {
-  "oneOf": [
+export const web3_api_response_single_id_output: JsonSchema = {
+  "allOf": [
     {
-      "properties": {
-        "id": {
-          "$ref": "#/$defs/web3_identifier"
-        }
-      },
-      "required": [
-        "id"
-      ],
-      "type": "object"
+      "$ref": "#/$defs/web3_api-response-common"
     },
     {
-      "type": "null"
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "properties": {
+                "id": {
+                  "$ref": "#/$defs/web3_identifier"
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object"
     }
   ]
 };
@@ -89,36 +171,22 @@ export const web3_api_response_single_id_result_output: JsonSchema = {
  * The schema of `web3_collection_response` in responses.
  */
 export const web3_collection_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/web3_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/web3_api-response-collection"
     },
-    "messages": {
-      "$ref": "#/$defs/web3_messages"
-    },
-    "result": {
-      "items": {
-        "$ref": "#/$defs/web3_web3-hostname"
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/web3_web3-hostname"
+          },
+          "type": "array"
+        }
       },
-      "type": "array"
-    },
-    "result_info": {
-      "$ref": "#/$defs/web3_result_info"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -196,43 +264,19 @@ export const web3_result_info_output: JsonSchema = {
  * The schema of `web3_single_response` in responses.
  */
 export const web3_single_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/web3_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/web3_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/web3_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/web3_web3-hostname"
-    },
-    "result_info": {
-      "anyOf": [
-        {
-          "type": "object"
-        },
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/web3_web3-hostname"
         }
-      ]
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**

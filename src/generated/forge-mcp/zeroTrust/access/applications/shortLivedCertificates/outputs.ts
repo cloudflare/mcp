@@ -36,8 +36,73 @@ export const access_id_2_output: JsonSchema = {
 };
 
 /**
+ * The schema of `access_id_response-2` in responses.
+ */
+export const access_id_response_2_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/access_id-2"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `access_public_key` in responses.
  */
 export const access_public_key_output: JsonSchema = {
   "type": "string"
+};
+
+/**
+ * The schema of `access_response_collection-5` in responses.
+ */
+export const access_response_collection_5_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/access_ca"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `access_single_response-6` in responses.
+ */
+export const access_single_response_6_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/access_ca"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };

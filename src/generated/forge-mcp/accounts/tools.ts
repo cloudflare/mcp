@@ -3,10 +3,12 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
-  iam_account_managed_by_output,
-  iam_account_settings_output,
   iam_account_type_output,
+  iam_api_response_collection_output,
   iam_api_response_common_failure_output,
+  iam_api_response_common_output,
+  iam_api_response_single_id_output,
+  iam_api_response_single_output,
   iam_common_components_schemas_identifier_output,
   iam_messages_2_output,
   iam_result_info_output,
@@ -14,19 +16,20 @@ import {
   organizations_api_V4Message_output,
 } from "../outputs.js";
 import {
-  iam_account_managed_by,
-  iam_account_settings,
+  iam_account_identifier,
   iam_account_type,
   iam_common_components_schemas_identifier,
 } from "../schemas.js";
 import {
   iam_account_output,
+  iam_response_collection_accounts_output,
+  iam_response_single_account_output,
   organizations_api_MoveAccountResult_output,
 } from "./outputs.js";
 import {
   iam_account,
+  iam_components_schemas_account,
   iam_create_account,
-  iam_create_account_unit,
 } from "./schemas.js";
 
 /**
@@ -36,7 +39,7 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_create",
     title: "Create an Account",
-    description: "Create an Account. To create the Account within an Organization, provide `unit.id` and omit `standalone`. To create a standalone Free Account, provide `standalone: true` and omit `unit`. Providing both fields is invalid. If you omit both fields, Cloudflare can determine the destination only when the User is an administrator of exactly one Organization. Cloudflare creates the Account in that Organization; otherwise, the request returns an error.",
+    description: "Create an Account. To create the Account within an Organization, provide `unit.id` and omit `standalone`. To create a standalone Free Account, provide `standalone: true` and omit `unit`. Providing both fields is invalid. If you omit both fields, Cloudflare can determine the destination only when the User is an administrator of exactly one Organization. Cloudflare creates the Account in that Organization; otherwise, the request returns an error. Account names are limited to 65 UTF-8 bytes.",
     inputSchema: {
       type: "object",
       properties: {
@@ -55,17 +58,17 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_account-type": iam_account_type,
         "iam_create-account": iam_create_account,
-        "iam_create-account_unit": iam_create_account_unit,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/iam_account",
+      "$ref": "#/$defs/iam_response_single_account",
       $defs: {
         "iam_account": iam_account_output,
         "iam_account-type": iam_account_type_output,
-        "iam_account_managed_by": iam_account_managed_by_output,
-        "iam_account_settings": iam_account_settings_output,
+        "iam_api-response-single": iam_api_response_single_output,
         "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+        "iam_messages-2": iam_messages_2_output,
+        "iam_response_single_account": iam_response_single_account_output,
       },
     },
     annotations: {
@@ -88,7 +91,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/iam_account"
+          "$ref": "#/$defs/iam_response_single_account"
         },
         "4XX": {
           "$ref": "#/$defs/iam_api-response-common-failure"
@@ -97,11 +100,11 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_account": iam_account_output,
         "iam_account-type": iam_account_type_output,
-        "iam_account_managed_by": iam_account_managed_by_output,
-        "iam_account_settings": iam_account_settings_output,
         "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_api-response-single": iam_api_response_single_output,
         "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
         "iam_messages-2": iam_messages_2_output,
+        "iam_response_single_account": iam_response_single_account_output,
       },
     },
     request: (args) => ({
@@ -129,24 +132,12 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "oneOf": [
-        {
-          "properties": {
-            "id": {
-              "$ref": "#/$defs/iam_common_components-schemas-identifier"
-            }
-          },
-          "required": [
-            "id"
-          ],
-          "type": "object"
-        },
-        {
-          "type": "null"
-        }
-      ],
+      "$ref": "#/$defs/iam_api-response-single-id",
       $defs: {
+        "iam_api-response-common": iam_api_response_common_output,
+        "iam_api-response-single-id": iam_api_response_single_id_output,
         "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+        "iam_messages-2": iam_messages_2_output,
       },
     },
     annotations: {
@@ -165,12 +156,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#organization:edit"
-        ],
-        "x-fern-enum": {
-          "#organization:edit": {
-            "name": "organization_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -182,29 +168,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "oneOf": [
-            {
-              "properties": {
-                "id": {
-                  "$ref": "#/$defs/iam_common_components-schemas-identifier"
-                }
-              },
-              "required": [
-                "id"
-              ],
-              "type": "object"
-            },
-            {
-              "type": "null"
-            }
-          ]
+          "$ref": "#/$defs/iam_api-response-single-id"
         },
         "4XX": {
           "$ref": "#/$defs/iam_api-response-common-failure"
         }
       },
       $defs: {
+        "iam_api-response-common": iam_api_response_common_output,
         "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_api-response-single-id": iam_api_response_single_id_output,
         "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
         "iam_messages-2": iam_messages_2_output,
       },
@@ -221,22 +194,27 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/iam_account_identifier",
+          "description": "Account identifier tag."
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "iam_account_identifier": iam_account_identifier,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/iam_account",
+      "$ref": "#/$defs/iam_response_single_account",
       $defs: {
         "iam_account": iam_account_output,
         "iam_account-type": iam_account_type_output,
-        "iam_account_managed_by": iam_account_managed_by_output,
-        "iam_account_settings": iam_account_settings_output,
+        "iam_api-response-single": iam_api_response_single_output,
         "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+        "iam_messages-2": iam_messages_2_output,
+        "iam_response_single_account": iam_response_single_account_output,
       },
     },
     annotations: {
@@ -283,12 +261,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#organization:read"
-        ],
-        "x-fern-enum": {
-          "#organization:read": {
-            "name": "organization_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -300,7 +273,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/iam_account"
+          "$ref": "#/$defs/iam_response_single_account"
         },
         "4XX": {
           "$ref": "#/$defs/iam_api-response-common-failure"
@@ -309,11 +282,11 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_account": iam_account_output,
         "iam_account-type": iam_account_type_output,
-        "iam_account_managed_by": iam_account_managed_by_output,
-        "iam_account_settings": iam_account_settings_output,
         "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_api-response-single": iam_api_response_single_output,
         "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
         "iam_messages-2": iam_messages_2_output,
+        "iam_response_single_account": iam_response_single_account_output,
       },
     },
     request: (args) => ({
@@ -352,27 +325,15 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/iam_account"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "$ref": "#/$defs/iam_result_info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/iam_response_collection_accounts",
       $defs: {
         "iam_account": iam_account_output,
         "iam_account-type": iam_account_type_output,
-        "iam_account_managed_by": iam_account_managed_by_output,
-        "iam_account_settings": iam_account_settings_output,
+        "iam_api-response-collection": iam_api_response_collection_output,
+        "iam_api-response-common": iam_api_response_common_output,
         "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+        "iam_messages-2": iam_messages_2_output,
+        "iam_response_collection_accounts": iam_response_collection_accounts_output,
         "iam_result_info": iam_result_info_output,
       },
     },
@@ -396,21 +357,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/iam_account"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/iam_result_info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/iam_response_collection_accounts"
         },
         "4XX": {
           "$ref": "#/$defs/iam_api-response-common-failure"
@@ -419,11 +366,12 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_account": iam_account_output,
         "iam_account-type": iam_account_type_output,
-        "iam_account_managed_by": iam_account_managed_by_output,
-        "iam_account_settings": iam_account_settings_output,
+        "iam_api-response-collection": iam_api_response_collection_output,
+        "iam_api-response-common": iam_api_response_common_output,
         "iam_api-response-common-failure": iam_api_response_common_failure_output,
         "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
         "iam_messages-2": iam_messages_2_output,
+        "iam_response_collection_accounts": iam_response_collection_accounts_output,
         "iam_result_info": iam_result_info_output,
       },
     },
@@ -468,9 +416,40 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/organizations-api_MoveAccountResult",
+      "properties": {
+        "errors": {
+          "items": {
+            "type": "object"
+          },
+          "maxItems": 0,
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "$ref": "#/$defs/organizations-api_V4Message"
+          },
+          "type": "array"
+        },
+        "result": {
+          "$ref": "#/$defs/organizations-api_MoveAccountResult"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
       $defs: {
         "organizations-api_MoveAccountResult": organizations_api_MoveAccountResult_output,
+        "organizations-api_V4Message": organizations_api_V4Message_output,
       },
     },
     annotations: {
@@ -488,9 +467,42 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/organizations-api_MoveAccountResult"
+          "properties": {
+            "errors": {
+              "items": {
+                "type": "object"
+              },
+              "maxItems": 0,
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "$ref": "#/$defs/organizations-api_V4Message"
+              },
+              "type": "array"
+            },
+            "result": {
+              "$ref": "#/$defs/organizations-api_MoveAccountResult"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
+          "type": "object"
         },
         "4XX": {
+          "$ref": "#/$defs/organizations-api_V4ErrorResponse"
+        },
+        "5XX": {
           "$ref": "#/$defs/organizations-api_V4ErrorResponse"
         }
       },
@@ -508,16 +520,16 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_update",
     title: "Update Account",
-    description: "Update an existing account.",
+    description: "Update an existing account. Account names are limited to 65 UTF-8 bytes.",
     inputSchema: {
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/iam_account_identifier",
+          "description": "Account identifier tag."
         },
         "body": {
-          "$ref": "#/$defs/iam_account"
+          "$ref": "#/$defs/iam_components-schemas-account"
         }
       },
       required: [
@@ -527,19 +539,20 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_account": iam_account,
         "iam_account-type": iam_account_type,
-        "iam_account_managed_by": iam_account_managed_by,
-        "iam_account_settings": iam_account_settings,
+        "iam_account_identifier": iam_account_identifier,
         "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier,
+        "iam_components-schemas-account": iam_components_schemas_account,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/iam_account",
+      "$ref": "#/$defs/iam_response_single_account",
       $defs: {
         "iam_account": iam_account_output,
         "iam_account-type": iam_account_type_output,
-        "iam_account_managed_by": iam_account_managed_by_output,
-        "iam_account_settings": iam_account_settings_output,
+        "iam_api-response-single": iam_api_response_single_output,
         "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
+        "iam_messages-2": iam_messages_2_output,
+        "iam_response_single_account": iam_response_single_account_output,
       },
     },
     annotations: {
@@ -558,12 +571,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#organization:edit"
-        ],
-        "x-fern-enum": {
-          "#organization:edit": {
-            "name": "organization_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -575,7 +583,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/iam_account"
+          "$ref": "#/$defs/iam_response_single_account"
         },
         "4XX": {
           "$ref": "#/$defs/iam_api-response-common-failure"
@@ -584,11 +592,11 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_account": iam_account_output,
         "iam_account-type": iam_account_type_output,
-        "iam_account_managed_by": iam_account_managed_by_output,
-        "iam_account_settings": iam_account_settings_output,
         "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_api-response-single": iam_api_response_single_output,
         "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
         "iam_messages-2": iam_messages_2_output,
+        "iam_response_single_account": iam_response_single_account_output,
       },
     },
     request: (args) => ({

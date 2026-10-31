@@ -4,6 +4,25 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `client-side-security_api-response-single` in responses.
+ */
+export const client_side_security_api_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/client-side-security_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `client-side-security_enabled` in responses.
  */
 export const client_side_security_enabled_output: JsonSchema = {
@@ -85,4 +104,24 @@ export const client_side_security_use_cloudflare_reporting_endpoint_output: Json
  */
 export const client_side_security_use_connection_url_path_output: JsonSchema = {
   "type": "boolean"
+};
+
+/**
+ * The schema of `client-side-security_zone_settings_response_single` in
+ * responses.
+ */
+export const client_side_security_zone_settings_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/client-side-security_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };

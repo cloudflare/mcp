@@ -22,7 +22,38 @@ export const realtimekit_Poll_output: JsonSchema = {
     },
     "options": {
       "items": {
-        "$ref": "#/$defs/realtimekit_Poll_optionsItem"
+        "properties": {
+          "count": {
+            "type": "number"
+          },
+          "text": {
+            "type": "string"
+          },
+          "votes": {
+            "items": {
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "name"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "count",
+          "text",
+          "votes"
+        ],
+        "type": "object"
       },
       "type": "array"
     },
@@ -40,51 +71,6 @@ export const realtimekit_Poll_output: JsonSchema = {
     "id",
     "options",
     "question"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `realtimekit_Poll_optionsItem` in responses.
- */
-export const realtimekit_Poll_optionsItem_output: JsonSchema = {
-  "properties": {
-    "count": {
-      "type": "number"
-    },
-    "text": {
-      "type": "string"
-    },
-    "votes": {
-      "items": {
-        "$ref": "#/$defs/realtimekit_Poll_optionsItem_votesItem"
-      },
-      "type": "array"
-    }
-  },
-  "required": [
-    "count",
-    "text",
-    "votes"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `realtimekit_Poll_optionsItem_votesItem` in responses.
- */
-export const realtimekit_Poll_optionsItem_votesItem_output: JsonSchema = {
-  "properties": {
-    "id": {
-      "type": "string"
-    },
-    "name": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "id",
-    "name"
   ],
   "type": "object"
 };

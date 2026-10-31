@@ -4,8 +4,14 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   waitingroom_api_response_common_failure_output,
+  waitingroom_api_response_common_output,
+  waitingroom_api_response_single_output,
   waitingroom_messages_output,
 } from "../outputs.js";
+import {
+  waitingroom_identifier,
+  waitingroom_waiting_room_id,
+} from "../schemas.js";
 import {
   waitingroom_estimated_queued_users_output,
   waitingroom_estimated_total_active_users_output,
@@ -13,7 +19,6 @@ import {
   waitingroom_status_event_id_output,
   waitingroom_status_output,
   waitingroom_status_response_output,
-  waitingroom_status_response_result_output,
 } from "./outputs.js";
 
 /**
@@ -28,43 +33,34 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "waiting_room_id": {
-          "type": "string"
+          "$ref": "#/$defs/waitingroom_waiting_room_id"
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/waitingroom_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id",
         "waiting_room_id"
       ],
+      $defs: {
+        "waitingroom_identifier": waitingroom_identifier,
+        "waitingroom_waiting_room_id": waitingroom_waiting_room_id,
+      },
     },
     outputSchema: {
-      "properties": {
-        "estimated_queued_users": {
-          "$ref": "#/$defs/waitingroom_estimated_queued_users"
-        },
-        "estimated_total_active_users": {
-          "$ref": "#/$defs/waitingroom_estimated_total_active_users"
-        },
-        "event_id": {
-          "$ref": "#/$defs/waitingroom_status_event_id"
-        },
-        "max_estimated_time_minutes": {
-          "$ref": "#/$defs/waitingroom_max_estimated_time_minutes"
-        },
-        "status": {
-          "$ref": "#/$defs/waitingroom_status"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/waitingroom_status_response",
       $defs: {
+        "waitingroom_api-response-common": waitingroom_api_response_common_output,
+        "waitingroom_api-response-single": waitingroom_api_response_single_output,
         "waitingroom_estimated_queued_users": waitingroom_estimated_queued_users_output,
         "waitingroom_estimated_total_active_users": waitingroom_estimated_total_active_users_output,
         "waitingroom_max_estimated_time_minutes": waitingroom_max_estimated_time_minutes_output,
+        "waitingroom_messages": waitingroom_messages_output,
         "waitingroom_status": waitingroom_status_output,
         "waitingroom_status_event_id": waitingroom_status_event_id_output,
+        "waitingroom_status_response": waitingroom_status_response_output,
       },
     },
     annotations: {
@@ -91,24 +87,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "estimated_queued_users": {
-              "$ref": "#/$defs/waitingroom_estimated_queued_users"
-            },
-            "estimated_total_active_users": {
-              "$ref": "#/$defs/waitingroom_estimated_total_active_users"
-            },
-            "event_id": {
-              "$ref": "#/$defs/waitingroom_status_event_id"
-            },
-            "max_estimated_time_minutes": {
-              "$ref": "#/$defs/waitingroom_max_estimated_time_minutes"
-            },
-            "status": {
-              "$ref": "#/$defs/waitingroom_status"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/waitingroom_status_response"
         },
         "4XX": {
           "allOf": [
@@ -122,7 +101,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "waitingroom_api-response-common": waitingroom_api_response_common_output,
         "waitingroom_api-response-common-failure": waitingroom_api_response_common_failure_output,
+        "waitingroom_api-response-single": waitingroom_api_response_single_output,
         "waitingroom_estimated_queued_users": waitingroom_estimated_queued_users_output,
         "waitingroom_estimated_total_active_users": waitingroom_estimated_total_active_users_output,
         "waitingroom_max_estimated_time_minutes": waitingroom_max_estimated_time_minutes_output,
@@ -130,7 +111,6 @@ export const tools: readonly Tool[] = [
         "waitingroom_status": waitingroom_status_output,
         "waitingroom_status_event_id": waitingroom_status_event_id_output,
         "waitingroom_status_response": waitingroom_status_response_output,
-        "waitingroom_status_response_result": waitingroom_status_response_result_output,
       },
     },
     request: (args) => ({

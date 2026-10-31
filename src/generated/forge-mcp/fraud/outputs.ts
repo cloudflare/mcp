@@ -34,6 +34,32 @@ export const fraud_api_response_common_failure_output: JsonSchema = {
 };
 
 /**
+ * The schema of `fraud_api-response-single` in responses.
+ */
+export const fraud_api_response_single_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/fraud_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/fraud_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `fraud_auth_criteria` in responses.
  */
 export const fraud_auth_criteria_output: JsonSchema = {
@@ -89,6 +115,25 @@ export const fraud_fraud_settings_output: JsonSchema = {
     }
   },
   "type": "object"
+};
+
+/**
+ * The schema of `fraud_fraud_settings_response_body` in responses.
+ */
+export const fraud_fraud_settings_response_body_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/fraud_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/fraud_fraud_settings"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**

@@ -16,7 +16,7 @@ export const tools: readonly Tool[] = [
       properties: {
         "asn": {
           "description": "Single Autonomous System Number (ASN) as integer.",
-          "type": "string"
+          "type": "integer"
         },
         "date_end": {
           "description": "End of the date range (inclusive). Alternative to `dateRange`; provide together with `dateStart`.",
@@ -56,104 +56,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "meta": {
-          "properties": {
-            "dataTime": {
-              "oneOf": [
-                {
-                  "format": "date-time",
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "effectiveCollector": {
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "queryTime": {
-              "oneOf": [
-                {
-                  "format": "date-time",
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "stale": {
-              "type": "boolean"
-            }
-          },
-          "required": [
-            "dataTime",
-            "effectiveCollector",
-            "queryTime",
-            "stale"
-          ],
-          "type": "object"
-        },
-        "serie_0": {
-          "additionalProperties": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
-          },
-          "properties": {
-            "timestamps": {
-              "items": {
-                "format": "date-time",
-                "type": "string"
-              },
-              "type": "array"
-            }
-          },
-          "required": [
-            "timestamps"
-          ],
-          "type": "object"
-        }
-      },
-      "required": [
-        "meta",
-        "serie_0"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get upstream composition time series for an AS"
-    },
-    method: "GET",
-    path: "/radar/bgp/routes/upstreams/{asn}/timeseries",
-    extensions: {
-      "x-api-token-group": [
-        "User Details Write",
-        "User Details Read"
-      ],
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "meta": {
               "properties": {
@@ -226,6 +129,127 @@ export const tools: readonly Tool[] = [
           "required": [
             "meta",
             "serie_0"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get upstream composition time series for an AS"
+    },
+    method: "GET",
+    path: "/radar/bgp/routes/upstreams/{asn}/timeseries",
+    extensions: {
+      "x-api-token-group": [
+        "User Details Write",
+        "User Details Read"
+      ],
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "meta": {
+                  "properties": {
+                    "dataTime": {
+                      "oneOf": [
+                        {
+                          "format": "date-time",
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "effectiveCollector": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "queryTime": {
+                      "oneOf": [
+                        {
+                          "format": "date-time",
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "stale": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "dataTime",
+                    "effectiveCollector",
+                    "queryTime",
+                    "stale"
+                  ],
+                  "type": "object"
+                },
+                "serie_0": {
+                  "additionalProperties": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "properties": {
+                    "timestamps": {
+                      "items": {
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "timestamps"
+                  ],
+                  "type": "object"
+                }
+              },
+              "required": [
+                "meta",
+                "serie_0"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },

@@ -10,6 +10,26 @@ export const infra_ApiTlsSettings_output: JsonSchema = {
   "properties": {
     "cert_verification_mode": {
       "type": "string"
+    },
+    "certificate_authority": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "client_certificate": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     }
   },
   "required": [
@@ -74,65 +94,36 @@ export const infra_HostnameHost_output: JsonSchema = {
  * The schema of `infra_HttpServiceConfig` in responses.
  */
 export const infra_HttpServiceConfig_output: JsonSchema = {
-  "properties": {
-    "created_at": {
-      "format": "date-time",
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/infra_ServiceCommon"
     },
-    "host": {
-      "$ref": "#/$defs/infra_ServiceHost"
-    },
-    "http_port": {
-      "oneOf": [
-        {
-          "type": "integer"
+    {
+      "properties": {
+        "http_port": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
-        {
-          "type": "null"
+        "https_port": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
-      ]
-    },
-    "https_port": {
-      "oneOf": [
-        {
-          "type": "integer"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "name": {
-      "type": "string"
-    },
-    "service_id": {
-      "format": "uuid",
-      "type": "string"
-    },
-    "tls_settings": {
-      "oneOf": [
-        {
-          "$ref": "#/$defs/infra_ApiTlsSettings"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "type": {
-      "$ref": "#/$defs/infra_ServiceType"
-    },
-    "updated_at": {
-      "format": "date-time",
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "host",
-    "name",
-    "type"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -219,6 +210,51 @@ export const infra_ResolverNetwork_output: JsonSchema = {
 };
 
 /**
+ * The schema of `infra_ServiceCommon` in responses.
+ */
+export const infra_ServiceCommon_output: JsonSchema = {
+  "properties": {
+    "created_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "host": {
+      "$ref": "#/$defs/infra_ServiceHost"
+    },
+    "name": {
+      "type": "string"
+    },
+    "service_id": {
+      "format": "uuid",
+      "type": "string"
+    },
+    "tls_settings": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/infra_ApiTlsSettings"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "type": {
+      "$ref": "#/$defs/infra_ServiceType"
+    },
+    "updated_at": {
+      "format": "date-time",
+      "type": "string"
+    }
+  },
+  "required": [
+    "host",
+    "name",
+    "type"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `infra_ServiceConfig` in responses.
  */
 export const infra_ServiceConfig_output: JsonSchema = {
@@ -267,67 +303,38 @@ export const infra_ServiceType_output: JsonSchema = {
  * The schema of `infra_TcpServiceConfig` in responses.
  */
 export const infra_TcpServiceConfig_output: JsonSchema = {
-  "properties": {
-    "app_protocol": {
-      "oneOf": [
-        {
-          "enum": [
-            "postgresql",
-            "mysql"
-          ],
-          "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/infra_ServiceCommon"
+    },
+    {
+      "properties": {
+        "app_protocol": {
+          "oneOf": [
+            {
+              "enum": [
+                "postgresql",
+                "mysql"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
-        {
-          "type": "null"
+        "tcp_port": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
-      ]
-    },
-    "created_at": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "host": {
-      "$ref": "#/$defs/infra_ServiceHost"
-    },
-    "name": {
-      "type": "string"
-    },
-    "service_id": {
-      "format": "uuid",
-      "type": "string"
-    },
-    "tcp_port": {
-      "oneOf": [
-        {
-          "type": "integer"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "tls_settings": {
-      "oneOf": [
-        {
-          "$ref": "#/$defs/infra_ApiTlsSettings"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "type": {
-      "$ref": "#/$defs/infra_ServiceType"
-    },
-    "updated_at": {
-      "format": "date-time",
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "host",
-    "name",
-    "type"
-  ],
-  "type": "object"
+  ]
 };

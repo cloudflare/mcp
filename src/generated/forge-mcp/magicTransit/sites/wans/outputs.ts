@@ -51,6 +51,63 @@ export const magic_wan_output: JsonSchema = {
 };
 
 /**
+ * The schema of `magic_wan_deleted_response` in responses.
+ */
+export const magic_wan_deleted_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/magic_wan"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `magic_wan_modified_response` in responses.
+ */
+export const magic_wan_modified_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/magic_wan"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `magic_wan_single_response` in responses.
+ */
+export const magic_wan_single_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/magic_wan"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `magic_wan_static_addressing` in responses.
  */
 export const magic_wan_static_addressing_output: JsonSchema = {
@@ -73,4 +130,26 @@ export const magic_wan_static_addressing_output: JsonSchema = {
     "gateway_address"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `magic_wans_collection_response` in responses.
+ */
+export const magic_wans_collection_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/magic_wan"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };

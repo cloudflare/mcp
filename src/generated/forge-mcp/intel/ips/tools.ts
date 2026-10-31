@@ -3,17 +3,18 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  intel_api_response_collection_output,
   intel_api_response_common_failure_output,
+  intel_api_response_common_output,
   intel_messages_output,
   intel_result_info_output,
 } from "../outputs.js";
+import { intel_identifier } from "../schemas.js";
 import {
   intel_ip_output,
   intel_ipv4_output,
   intel_ipv6_output,
-  intel_schemas_ip_belongs_to_ref_output,
   intel_schemas_ip_output,
-  intel_schemas_ip_risk_typesItem_output,
   intel_schemas_response_output,
 } from "./outputs.js";
 
@@ -29,8 +30,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/intel_identifier",
+          "description": "Identifier."
         },
         "ipv4": {
           "type": "string"
@@ -42,31 +43,22 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+      $defs: {
+        "intel_identifier": intel_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/intel_schemas-ip"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "$ref": "#/$defs/intel_result_info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/intel_schemas-response",
       $defs: {
+        "intel_api-response-collection": intel_api_response_collection_output,
+        "intel_api-response-common": intel_api_response_common_output,
         "intel_ip": intel_ip_output,
         "intel_ipv4": intel_ipv4_output,
         "intel_ipv6": intel_ipv6_output,
+        "intel_messages": intel_messages_output,
         "intel_result_info": intel_result_info_output,
         "intel_schemas-ip": intel_schemas_ip_output,
-        "intel_schemas-ip_belongs_to_ref": intel_schemas_ip_belongs_to_ref_output,
-        "intel_schemas-ip_risk_typesItem": intel_schemas_ip_risk_typesItem_output,
+        "intel_schemas-response": intel_schemas_response_output,
       },
     },
     annotations: {
@@ -87,21 +79,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/intel_schemas-ip"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/intel_result_info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/intel_schemas-response"
         },
         "4XX": {
           "allOf": [
@@ -115,6 +93,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "intel_api-response-collection": intel_api_response_collection_output,
+        "intel_api-response-common": intel_api_response_common_output,
         "intel_api-response-common-failure": intel_api_response_common_failure_output,
         "intel_ip": intel_ip_output,
         "intel_ipv4": intel_ipv4_output,
@@ -122,8 +102,6 @@ export const tools: readonly Tool[] = [
         "intel_messages": intel_messages_output,
         "intel_result_info": intel_result_info_output,
         "intel_schemas-ip": intel_schemas_ip_output,
-        "intel_schemas-ip_belongs_to_ref": intel_schemas_ip_belongs_to_ref_output,
-        "intel_schemas-ip_risk_typesItem": intel_schemas_ip_risk_typesItem_output,
         "intel_schemas-response": intel_schemas_response_output,
       },
     },

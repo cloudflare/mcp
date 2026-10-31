@@ -4,10 +4,121 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `magic_components-schemas-modified_tunnels_collection_response`
+ * in responses.
+ */
+export const magic_components_schemas_modified_tunnels_collection_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "modified": {
+              "type": "boolean"
+            },
+            "modified_interconnects": {
+              "items": {
+                "$ref": "#/$defs/magic_interconnect"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `magic_components-schemas-name` in responses.
  */
 export const magic_components_schemas_name_output: JsonSchema = {
   "type": "string"
+};
+
+/**
+ * The schema of `magic_components-schemas-tunnel_modified_response` in
+ * responses.
+ */
+export const magic_components_schemas_tunnel_modified_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "modified": {
+              "type": "boolean"
+            },
+            "modified_interconnect": {
+              "$ref": "#/$defs/magic_interconnect"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `magic_components-schemas-tunnel_single_response` in responses.
+ */
+export const magic_components_schemas_tunnel_single_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "interconnect": {
+              "$ref": "#/$defs/magic_interconnect"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `magic_components-schemas-tunnels_collection_response` in
+ * responses.
+ */
+export const magic_components_schemas_tunnels_collection_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "interconnects": {
+              "items": {
+                "$ref": "#/$defs/magic_interconnect"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**
@@ -131,40 +242,26 @@ export const magic_interconnect_components_schemas_description_output: JsonSchem
  * The schema of `magic_interconnect_health_check` in responses.
  */
 export const magic_interconnect_health_check_output: JsonSchema = {
-  "properties": {
-    "direction": {
-      "enum": [
-        "unidirectional",
-        "bidirectional"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_health_check_base"
     },
-    "enabled": {
-      "type": "boolean"
-    },
-    "rate": {
-      "enum": [
-        "low",
-        "mid",
-        "high"
-      ],
-      "type": "string"
-    },
-    "source": {
-      "type": "string"
-    },
-    "target": {
-      "$ref": "#/$defs/magic_health_check_base_target"
-    },
-    "type": {
-      "enum": [
-        "reply",
-        "request"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "direction": {
+          "enum": [
+            "unidirectional",
+            "bidirectional"
+          ],
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };
 
 /**

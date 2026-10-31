@@ -22,6 +22,102 @@ export const waitingroom_additional_routes_output: JsonSchema = {
 };
 
 /**
+ * The schema of `waitingroom_api-response-collection` in responses.
+ */
+export const waitingroom_api_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/waitingroom_api-response-common-2"
+    },
+    {
+      "properties": {
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `waitingroom_api-response-common` in responses.
+ */
+export const waitingroom_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/waitingroom_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/waitingroom_messages"
+    },
+    "result": {
+      "oneOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `waitingroom_api-response-common-2` in responses.
+ */
+export const waitingroom_api_response_common_2_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/waitingroom_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/waitingroom_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `waitingroom_api-response-common-failure` in responses.
  */
 export const waitingroom_api_response_common_failure_output: JsonSchema = {
@@ -49,6 +145,32 @@ export const waitingroom_api_response_common_failure_output: JsonSchema = {
     "success"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `waitingroom_api-response-single` in responses.
+ */
+export const waitingroom_api_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/waitingroom_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**
@@ -305,27 +427,19 @@ export const waitingroom_session_duration_output: JsonSchema = {
  * The schema of `waitingroom_single_response` in responses.
  */
 export const waitingroom_single_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/waitingroom_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/waitingroom_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/waitingroom_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/waitingroom_waitingroom"
-    },
-    "success": {
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/waitingroom_waitingroom"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -385,39 +499,24 @@ export const waitingroom_waiting_room_id_output: JsonSchema = {
  * The schema of `waitingroom_waiting_room_id_response` in responses.
  */
 export const waitingroom_waiting_room_id_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/waitingroom_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/waitingroom_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/waitingroom_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/waitingroom_waiting_room_id_response_result"
-    },
-    "success": {
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/waitingroom_waiting_room_id"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `waitingroom_waiting_room_id_response_result` in responses.
- */
-export const waitingroom_waiting_room_id_response_result_output: JsonSchema = {
-  "properties": {
-    "id": {
-      "$ref": "#/$defs/waitingroom_waiting_room_id"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**

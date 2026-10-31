@@ -4,85 +4,44 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `workers_PreviewDeploymentConfig_annotations`.
+ * The schema of `workers_PreviewDeploymentConfig`.
  */
-export const workers_PreviewDeploymentConfig_annotations: JsonSchema = {
-  "description": "Metadata about the deployment.",
-  "properties": {
-    "workers/commit_sha": {
-      "description": "Full commit SHA associated with the deployment, detected from the CI environment. Maximum 64 bytes.",
-      "type": "string"
-    },
-    "workers/message": {
-      "description": "Human-readable message about the deployment. Truncated to 1000 bytes if longer.",
-      "type": "string"
-    },
-    "workers/pull_request_number": {
-      "description": "Number of the pull or merge request associated with the deployment, detected from the CI environment. Maximum 20 bytes.",
-      "type": "string"
-    },
-    "workers/pull_request_title": {
-      "description": "Title of the pull or merge request associated with the deployment, detected from the CI environment. Maximum 512 bytes.",
-      "type": "string"
-    },
-    "workers/pull_request_url": {
-      "description": "URL of the pull or merge request associated with the deployment, detected from the CI environment. Maximum 512 bytes.",
-      "type": "string"
-    },
-    "workers/repository_url": {
-      "description": "URL of the source repository the deployment was built from, detected from the CI environment. Maximum 512 bytes.",
-      "type": "string"
-    },
-    "workers/tag": {
-      "description": "User-provided identifier for the deployment. Maximum 100 bytes.",
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_PreviewDeploymentConfig_limits`.
- */
-export const workers_PreviewDeploymentConfig_limits: JsonSchema = {
-  "description": "Resource limits enforced at runtime.",
-  "properties": {
-    "cpu_ms": {
-      "description": "CPU time limit in milliseconds.",
-      "type": "integer"
-    },
-    "subrequests": {
-      "description": "Subrequest limit per request.",
-      "type": "integer"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_PreviewDeploymentConfig_migrations`.
- */
-export const workers_PreviewDeploymentConfig_migrations: JsonSchema = {
-  "description": "Migrations for Durable Objects associated with the deployment. Migrations are applied when the deployment is created.",
-  "oneOf": [
-    {
-      "$ref": "#/$defs/workers_single_step_migrations"
-    },
-    {
-      "$ref": "#/$defs/workers_multiple_step_migrations"
-    }
-  ]
-};
-
-/**
- * The schema of `workers_PreviewDeploymentRequest`.
- */
-export const workers_PreviewDeploymentRequest: JsonSchema = {
-  "description": "Preview deployment configuration with base64-encoded modules.",
+export const workers_PreviewDeploymentConfig: JsonSchema = {
+  "description": "Configuration shared by JSON and multipart preview deployment uploads.",
   "properties": {
     "annotations": {
-      "$ref": "#/$defs/workers_PreviewDeploymentConfig_annotations",
-      "description": "Metadata about the deployment."
+      "description": "Metadata about the deployment.",
+      "properties": {
+        "workers/commit_sha": {
+          "description": "Full commit SHA associated with the deployment, detected from the CI environment. Maximum 64 bytes.",
+          "type": "string"
+        },
+        "workers/message": {
+          "description": "Human-readable message about the deployment. Truncated to 1000 bytes if longer.",
+          "type": "string"
+        },
+        "workers/pull_request_number": {
+          "description": "Number of the pull or merge request associated with the deployment, detected from the CI environment. Maximum 20 bytes.",
+          "type": "string"
+        },
+        "workers/pull_request_title": {
+          "description": "Title of the pull or merge request associated with the deployment, detected from the CI environment. Maximum 512 bytes.",
+          "type": "string"
+        },
+        "workers/pull_request_url": {
+          "description": "URL of the pull or merge request associated with the deployment, detected from the CI environment. Maximum 512 bytes.",
+          "type": "string"
+        },
+        "workers/repository_url": {
+          "description": "URL of the source repository the deployment was built from, detected from the CI environment. Maximum 512 bytes.",
+          "type": "string"
+        },
+        "workers/tag": {
+          "description": "User-provided identifier for the deployment. Maximum 100 bytes.",
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "assets": {
       "$ref": "#/$defs/workers_assets",
@@ -118,23 +77,33 @@ export const workers_PreviewDeploymentRequest: JsonSchema = {
       "description": "Declarative exports for the deployment, including Durable\nObject classes (with their `storage` backend) and named Worker\nentrypoints. On reads, tombstoned lifecycle entries are\nomitted, so only live exports (`created` and\n`expecting-transfer`) are returned. `exports` and `migrations`\nare mutually exclusive on upload.\n"
     },
     "limits": {
-      "$ref": "#/$defs/workers_PreviewDeploymentConfig_limits",
-      "description": "Resource limits enforced at runtime."
+      "description": "Resource limits enforced at runtime.",
+      "properties": {
+        "cpu_ms": {
+          "description": "CPU time limit in milliseconds.",
+          "type": "integer"
+        },
+        "subrequests": {
+          "description": "Subrequest limit per request.",
+          "type": "integer"
+        }
+      },
+      "type": "object"
     },
     "main_module": {
       "description": "The name of the module that exports a `fetch` handler. Multipart uploads reference the file part by filename.",
       "type": "string"
     },
     "migrations": {
-      "$ref": "#/$defs/workers_PreviewDeploymentConfig_migrations",
-      "description": "Migrations for Durable Objects associated with the deployment. Migrations are applied when the deployment is created."
-    },
-    "modules": {
-      "description": "Code, sourcemaps, and other content used at runtime.",
-      "items": {
-        "$ref": "#/$defs/workers_PreviewDeploymentRequest_modulesItem"
-      },
-      "type": "array"
+      "description": "Migrations for Durable Objects associated with the deployment. Migrations are applied when the deployment is created.",
+      "oneOf": [
+        {
+          "$ref": "#/$defs/workers_single_step_migrations"
+        },
+        {
+          "$ref": "#/$defs/workers_multiple_step_migrations"
+        }
+      ]
     },
     "placement": {
       "$ref": "#/$defs/workers_placement_info_no_status",
@@ -156,30 +125,47 @@ export const workers_PreviewDeploymentRequest: JsonSchema = {
 };
 
 /**
- * The schema of `workers_PreviewDeploymentRequest_modulesItem`.
+ * The schema of `workers_PreviewDeploymentRequest`.
  */
-export const workers_PreviewDeploymentRequest_modulesItem: JsonSchema = {
-  "properties": {
-    "content_base64": {
-      "contentEncoding": "base64",
-      "description": "The base64-encoded module content.",
-      "type": "string"
+export const workers_PreviewDeploymentRequest: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/workers_PreviewDeploymentConfig"
     },
-    "content_type": {
-      "description": "The content type of the module.",
-      "type": "string"
-    },
-    "name": {
-      "description": "The name of the module.",
-      "type": "string"
+    {
+      "properties": {
+        "modules": {
+          "description": "Code, sourcemaps, and other content used at runtime.",
+          "items": {
+            "properties": {
+              "content_base64": {
+                "contentEncoding": "base64",
+                "description": "The base64-encoded module content.",
+                "type": "string"
+              },
+              "content_type": {
+                "description": "The content type of the module.",
+                "type": "string"
+              },
+              "name": {
+                "description": "The name of the module.",
+                "type": "string"
+              }
+            },
+            "required": [
+              "content_base64",
+              "content_type",
+              "name"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "content_base64",
-    "content_type",
-    "name"
   ],
-  "type": "object"
+  "description": "Preview deployment configuration with base64-encoded modules."
 };
 
 /**
@@ -189,8 +175,57 @@ export const workers_assets: JsonSchema = {
   "description": "Configuration for assets within a Worker.\n\n[`_headers`](https://developers.cloudflare.com/workers/static-assets/headers/#custom-headers) and\n[`_redirects`](https://developers.cloudflare.com/workers/static-assets/redirects/) files should be\nincluded as modules named `_headers` and `_redirects` with content type `text/plain`.\n",
   "properties": {
     "config": {
-      "$ref": "#/$defs/workers_assets_config",
-      "description": "Configuration for assets within a Worker."
+      "description": "Configuration for assets within a Worker.",
+      "properties": {
+        "base_path": {
+          "default": "/",
+          "description": "The public URL path prefix under which assets are served. A null request value resets it to `/`; responses represent the root as `/`. All versions in a gradual deployment must use the same canonical value. To change it, first deploy the version containing the change at 100%.",
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "html_handling": {
+          "default": "auto-trailing-slash",
+          "description": "Determines the redirects and rewrites of requests for HTML content.",
+          "enum": [
+            "auto-trailing-slash",
+            "force-trailing-slash",
+            "drop-trailing-slash",
+            "none"
+          ],
+          "type": "string"
+        },
+        "not_found_handling": {
+          "default": "none",
+          "description": "Determines the response when a request does not match a static asset, and there is no Worker script.",
+          "enum": [
+            "none",
+            "404-page",
+            "single-page-application"
+          ],
+          "type": "string"
+        },
+        "run_worker_first": {
+          "default": false,
+          "oneOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "boolean"
+            }
+          ]
+        }
+      },
+      "type": "object"
     },
     "jwt": {
       "description": "Token provided upon successful upload of all files from a registered manifest.",
@@ -198,68 +233,4 @@ export const workers_assets: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `workers_assets_config`.
- */
-export const workers_assets_config: JsonSchema = {
-  "description": "Configuration for assets within a Worker.",
-  "properties": {
-    "base_path": {
-      "default": "/",
-      "description": "The public URL path prefix under which assets are served. A null request value resets it to `/`; responses represent the root as `/`. All versions in a gradual deployment must use the same canonical value. To change it, first deploy the version containing the change at 100%.",
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "html_handling": {
-      "default": "auto-trailing-slash",
-      "description": "Determines the redirects and rewrites of requests for HTML content.",
-      "enum": [
-        "auto-trailing-slash",
-        "force-trailing-slash",
-        "drop-trailing-slash",
-        "none"
-      ],
-      "type": "string"
-    },
-    "not_found_handling": {
-      "default": "none",
-      "description": "Determines the response when a request does not match a static asset, and there is no Worker script.",
-      "enum": [
-        "none",
-        "404-page",
-        "single-page-application"
-      ],
-      "type": "string"
-    },
-    "run_worker_first": {
-      "$ref": "#/$defs/workers_assets_config_run_worker_first",
-      "default": false
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_assets_config_run_worker_first`.
- */
-export const workers_assets_config_run_worker_first: JsonSchema = {
-  "oneOf": [
-    {
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    {
-      "type": "boolean"
-    }
-  ]
 };

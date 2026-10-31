@@ -179,38 +179,23 @@ export const dlp_NewCustomEntry: JsonSchema = {
  * The schema of `dlp_NewCustomEntryWithId`.
  */
 export const dlp_NewCustomEntryWithId: JsonSchema = {
-  "properties": {
-    "description": {
-      "oneOf": [
-        {
+  "allOf": [
+    {
+      "$ref": "#/$defs/dlp_NewCustomEntry"
+    },
+    {
+      "properties": {
+        "entry_id": {
+          "format": "uuid",
           "type": "string"
-        },
-        {
-          "type": "null"
         }
-      ]
-    },
-    "enabled": {
-      "type": "boolean"
-    },
-    "entry_id": {
-      "format": "uuid",
-      "type": "string"
-    },
-    "name": {
-      "type": "string"
-    },
-    "pattern": {
-      "$ref": "#/$defs/dlp_Pattern"
+      },
+      "required": [
+        "entry_id"
+      ],
+      "type": "object"
     }
-  },
-  "required": [
-    "enabled",
-    "name",
-    "pattern",
-    "entry_id"
-  ],
-  "type": "object"
+  ]
 };
 
 /**

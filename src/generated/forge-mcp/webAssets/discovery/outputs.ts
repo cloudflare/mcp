@@ -14,50 +14,35 @@ export const api_shield_openapi_output: JsonSchema = {
  * The schema of `api-shield_schema_response_discovery` in responses.
  */
 export const api_shield_schema_response_discovery_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/api-shield_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/api-shield_api-response-common"
     },
-    "messages": {
-      "$ref": "#/$defs/api-shield_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/api-shield_schema_response_discovery_result"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success",
-    "result"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `api-shield_schema_response_discovery_result` in responses.
- */
-export const api_shield_schema_response_discovery_result_output: JsonSchema = {
-  "properties": {
-    "schemas": {
-      "items": {
-        "$ref": "#/$defs/api-shield_openapi"
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "schemas": {
+              "items": {
+                "$ref": "#/$defs/api-shield_openapi"
+              },
+              "type": "array"
+            },
+            "timestamp": {
+              "$ref": "#/$defs/api-shield_timestamp-2"
+            }
+          },
+          "required": [
+            "schemas",
+            "timestamp"
+          ],
+          "type": "object"
+        }
       },
-      "type": "array"
-    },
-    "timestamp": {
-      "$ref": "#/$defs/api-shield_timestamp-2"
+      "required": [
+        "result"
+      ],
+      "type": "object"
     }
-  },
-  "required": [
-    "schemas",
-    "timestamp"
-  ],
-  "type": "object"
+  ]
 };

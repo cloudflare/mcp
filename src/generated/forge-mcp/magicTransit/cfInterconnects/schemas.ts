@@ -84,50 +84,29 @@ export const magic_interconnect_components_schemas_description: JsonSchema = {
  * The schema of `magic_interconnect_health_check`.
  */
 export const magic_interconnect_health_check: JsonSchema = {
-  "properties": {
-    "direction": {
-      "default": "unidirectional",
-      "description": "The direction of the flow of the healthcheck. Either unidirectional, where the probe comes to you via the interconnect and the result comes back to Cloudflare via the open Internet, or bidirectional where both the probe and result come and go via the interconnect.",
-      "enum": [
-        "unidirectional",
-        "bidirectional"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_health_check_base"
     },
-    "enabled": {
-      "default": true,
-      "description": "Determines whether to run healthchecks for a tunnel.",
-      "type": "boolean"
-    },
-    "rate": {
-      "default": "mid",
-      "description": "How frequent the health check is run. The default value is `mid`.",
-      "enum": [
-        "low",
-        "mid",
-        "high"
-      ],
-      "type": "string"
-    },
-    "source": {
-      "description": "The source IPv4 address used for bidirectional health checks. Supported only for version 1.5 interconnects. It is required when `direction` is `bidirectional` and must be omitted (and is cleared) when `direction` is `unidirectional`. The address must be within RFC1918 space, the approved link-local range 169.254.240.0/20, or the Cloudflare reserved range 198.41.199.224/27.",
-      "type": "string"
-    },
-    "target": {
-      "$ref": "#/$defs/magic_health_check_base_target",
-      "description": "The destination address in a request type health check. After the healthcheck is decapsulated at the customer end of the tunnel, the ICMP echo will be forwarded to this address. This field defaults to `customer_gre_endpoint address`. This field is ignored for bidirectional healthchecks as the interface_address (not assigned to the Cloudflare side of the tunnel) is used as the target. Must be in object form if the x-magic-new-hc-target header is set to true and string form if x-magic-new-hc-target is absent or set to false."
-    },
-    "type": {
-      "default": "reply",
-      "description": "The type of healthcheck to run, reply or request. The default value is `reply`.",
-      "enum": [
-        "reply",
-        "request"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "direction": {
+          "default": "unidirectional",
+          "description": "The direction of the flow of the healthcheck. Either unidirectional, where the probe comes to you via the interconnect and the result comes back to Cloudflare via the open Internet, or bidirectional where both the probe and result come and go via the interconnect.",
+          "enum": [
+            "unidirectional",
+            "bidirectional"
+          ],
+          "type": "string"
+        },
+        "source": {
+          "description": "The source IPv4 address used for bidirectional health checks. Supported only for version 1.5 interconnects. It is required when `direction` is `bidirectional` and must be omitted (and is cleared) when `direction` is `unidirectional`. The address must be within RFC1918 space, the approved link-local range 169.254.240.0/20, or the Cloudflare reserved range 198.41.199.224/27.",
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };
 
 /**

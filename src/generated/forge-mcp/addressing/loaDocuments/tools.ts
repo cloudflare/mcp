@@ -4,16 +4,21 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   addressing_account_identifier_output,
+  addressing_api_response_collection_output,
   addressing_api_response_common_failure_output,
+  addressing_api_response_common_output,
   addressing_loa_document_identifier_output,
   addressing_messages_output,
   addressing_timestamp_output,
 } from "../outputs.js";
 import {
+  addressing_account_identifier,
+  addressing_loa_document_identifier,
+} from "../schemas.js";
+import {
   addressing_auto_generated_output,
   addressing_filename_output,
   addressing_loa_document_collection_output,
-  addressing_loa_document_collection_result_info_output,
   addressing_loa_document_output,
   addressing_size_bytes_output,
   addressing_verified_at_output,
@@ -32,18 +37,22 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier of a Cloudflare account.",
-          "type": "string"
+          "$ref": "#/$defs/addressing_account_identifier",
+          "description": "Identifier of a Cloudflare account."
         },
         "loa_document_id": {
-          "description": "Identifier for the uploaded LOA document.",
-          "type": "string"
+          "$ref": "#/$defs/addressing_loa_document_identifier",
+          "description": "Identifier for the uploaded LOA document."
         }
       },
       required: [
         "account_id",
         "loa_document_id"
       ],
+      $defs: {
+        "addressing_account_identifier": addressing_account_identifier,
+        "addressing_loa_document_identifier": addressing_loa_document_identifier,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -84,53 +93,29 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier of a Cloudflare account.",
-          "type": "string"
+          "$ref": "#/$defs/addressing_account_identifier",
+          "description": "Identifier of a Cloudflare account."
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "addressing_account_identifier": addressing_account_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/addressing_loa_document"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/addressing_loa_document_collection",
       $defs: {
         "addressing_account_identifier": addressing_account_identifier_output,
+        "addressing_api-response-collection": addressing_api_response_collection_output,
+        "addressing_api-response-common": addressing_api_response_common_output,
         "addressing_auto_generated": addressing_auto_generated_output,
         "addressing_filename": addressing_filename_output,
         "addressing_loa_document": addressing_loa_document_output,
+        "addressing_loa_document_collection": addressing_loa_document_collection_output,
         "addressing_loa_document_identifier": addressing_loa_document_identifier_output,
+        "addressing_messages": addressing_messages_output,
         "addressing_size_bytes": addressing_size_bytes_output,
         "addressing_timestamp": addressing_timestamp_output,
         "addressing_verified": addressing_verified_output,
@@ -155,38 +140,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/addressing_loa_document"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/addressing_loa_document_collection"
         },
         "4XX": {
           "allOf": [
@@ -201,12 +155,13 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "addressing_account_identifier": addressing_account_identifier_output,
+        "addressing_api-response-collection": addressing_api_response_collection_output,
+        "addressing_api-response-common": addressing_api_response_common_output,
         "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
         "addressing_auto_generated": addressing_auto_generated_output,
         "addressing_filename": addressing_filename_output,
         "addressing_loa_document": addressing_loa_document_output,
         "addressing_loa_document_collection": addressing_loa_document_collection_output,
-        "addressing_loa_document_collection_result_info": addressing_loa_document_collection_result_info_output,
         "addressing_loa_document_identifier": addressing_loa_document_identifier_output,
         "addressing_messages": addressing_messages_output,
         "addressing_size_bytes": addressing_size_bytes_output,

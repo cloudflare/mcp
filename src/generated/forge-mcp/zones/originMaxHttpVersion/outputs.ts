@@ -7,31 +7,37 @@ import type { JsonSchema } from "../../_/tool.js";
  * The schema of `cache-settings_origin_max_http_version` in responses.
  */
 export const cache_settings_origin_max_http_version_output: JsonSchema = {
-  "properties": {
-    "id": {
-      "enum": [
-        "origin_max_http_version"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/cache-settings_base"
     },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "origin_max_http_version"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/cache-settings_origin_max_http_version_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/cache-settings_origin_max_http_version_value"
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `cache-settings_origin_max_http_version_response_value` in
+ * responses.
+ */
+export const cache_settings_origin_max_http_version_response_value_output: JsonSchema = {
+  "properties": {
+    "result": {
+      "$ref": "#/$defs/cache-settings_origin_max_http_version"
     }
   },
-  "required": [
-    "id"
-  ],
   "type": "object"
 };
 

@@ -24,3 +24,29 @@ export const resource_tagging_tag_key_summary_output: JsonSchema = {
   ],
   "type": "object"
 };
+
+/**
+ * The schema of `resource-tagging_tag_key_summary_response_collection` in
+ * responses.
+ */
+export const resource_tagging_tag_key_summary_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/resource-tagging_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/resource-tagging_tag_key_summary"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/resource-tagging_cursor_result_info"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};

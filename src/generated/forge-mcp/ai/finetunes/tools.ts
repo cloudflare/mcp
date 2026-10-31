@@ -46,74 +46,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "created_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "id": {
-          "format": "uuid",
-          "type": "string"
-        },
-        "model": {
-          "type": "string"
-        },
-        "modified_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "public": {
-          "type": "boolean"
-        }
-      },
-      "required": [
-        "created_at",
-        "id",
-        "model",
-        "modified_at",
-        "name",
-        "public"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Create a new Finetune"
-    },
-    method: "POST",
-    path: "/accounts/{account_id}/ai/finetunes",
-    extensions: {
-      "x-api-token-group": [
-        "Workers AI Write"
-      ],
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.ai"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai": {
-            "name": "com_cloudflare_api_account_ai"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "created_at": {
               "format": "date-time",
@@ -147,6 +80,92 @@ export const tools: readonly Tool[] = [
             "modified_at",
             "name",
             "public"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Create a new Finetune"
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/ai/finetunes",
+    extensions: {
+      "x-api-token-group": [
+        "Workers AI Write"
+      ],
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.ai"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "id": {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                "model": {
+                  "type": "string"
+                },
+                "modified_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "public": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "created_at",
+                "id",
+                "model",
+                "modified_at",
+                "name",
+                "public"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -196,17 +215,29 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "id": {
-          "format": "uuid",
-          "type": "string"
+        "result": {
+          "properties": {
+            "id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "name"
+          ],
+          "type": "object"
         },
-        "name": {
-          "type": "string"
+        "success": {
+          "type": "boolean"
         }
       },
       "required": [
-        "id",
-        "name"
+        "result",
+        "success"
       ],
       "type": "object",
     },
@@ -223,12 +254,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.ai"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai": {
-            "name": "com_cloudflare_api_account_ai"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -241,17 +267,29 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
-            "id": {
-              "format": "uuid",
-              "type": "string"
+            "result": {
+              "properties": {
+                "id": {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "name"
+              ],
+              "type": "object"
             },
-            "name": {
-              "type": "string"
+            "success": {
+              "type": "boolean"
             }
           },
           "required": [
-            "id",
-            "name"
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -296,71 +334,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "created_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "id": {
-          "format": "uuid",
-          "type": "string"
-        },
-        "model": {
-          "type": "string"
-        },
-        "modified_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "created_at",
-        "id",
-        "model",
-        "modified_at",
-        "name"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "List Finetunes"
-    },
-    method: "GET",
-    path: "/accounts/{account_id}/ai/finetunes",
-    extensions: {
-      "x-api-token-group": [
-        "Workers AI Write",
-        "Workers AI Read"
-      ],
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.ai"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai": {
-            "name": "com_cloudflare_api_account_ai"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "created_at": {
               "format": "date-time",
@@ -390,6 +364,89 @@ export const tools: readonly Tool[] = [
             "model",
             "modified_at",
             "name"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "List Finetunes"
+    },
+    method: "GET",
+    path: "/accounts/{account_id}/ai/finetunes",
+    extensions: {
+      "x-api-token-group": [
+        "Workers AI Write",
+        "Workers AI Read"
+      ],
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.ai"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "id": {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                "model": {
+                  "type": "string"
+                },
+                "modified_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "created_at",
+                "id",
+                "model",
+                "modified_at",
+                "name"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },

@@ -36,441 +36,95 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "branches": {
-          "items": {
-            "items": {
-              "anyOf": [
-                {
-                  "properties": {
-                    "field": {
-                      "enum": [
-                        "attacker",
-                        "attackerCountry",
-                        "category",
-                        "createdAt",
-                        "date",
-                        "event",
-                        "indicator",
-                        "indicatorType",
-                        "mitreAttack",
-                        "mitreCapec",
-                        "tags",
-                        "targetCountry",
-                        "targetIndustry",
-                        "tlp",
-                        "uuid"
-                      ],
-                      "type": "string"
-                    },
-                    "op": {
-                      "enum": [
-                        "equals",
-                        "not",
-                        "gt",
-                        "gte",
-                        "lt",
-                        "lte",
-                        "like",
-                        "contains",
-                        "startsWith",
-                        "endsWith",
-                        "find"
-                      ],
-                      "type": "string"
-                    },
-                    "value": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "field",
-                    "op",
-                    "value"
-                  ],
-                  "type": "object"
-                },
-                {
-                  "properties": {
-                    "field": {
-                      "enum": [
-                        "attacker",
-                        "attackerCountry",
-                        "category",
-                        "createdAt",
-                        "date",
-                        "event",
-                        "indicator",
-                        "indicatorType",
-                        "mitreAttack",
-                        "mitreCapec",
-                        "tags",
-                        "targetCountry",
-                        "targetIndustry",
-                        "tlp",
-                        "uuid"
-                      ],
-                      "type": "string"
-                    },
-                    "op": {
-                      "enum": [
-                        "in"
-                      ],
-                      "type": "string"
-                    },
-                    "value": {
-                      "items": {
-                        "type": "string"
-                      },
-                      "maxItems": 100,
-                      "minItems": 1,
-                      "type": "array"
-                    }
-                  },
-                  "required": [
-                    "field",
-                    "op",
-                    "value"
-                  ],
-                  "type": "object"
-                },
-                {
-                  "properties": {
-                    "field": {
-                      "enum": [
-                        "killChain"
-                      ],
-                      "type": "string"
-                    },
-                    "op": {
-                      "enum": [
-                        "equals",
-                        "not",
-                        "gt",
-                        "gte",
-                        "lt",
-                        "lte"
-                      ],
-                      "type": "string"
-                    },
-                    "value": {
-                      "anyOf": [
-                        {
-                          "type": "number"
-                        },
-                        {
-                          "type": "string"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "field",
-                    "op",
-                    "value"
-                  ],
-                  "type": "object"
-                },
-                {
-                  "properties": {
-                    "field": {
-                      "enum": [
-                        "killChain"
-                      ],
-                      "type": "string"
-                    },
-                    "op": {
-                      "enum": [
-                        "in"
-                      ],
-                      "type": "string"
-                    },
-                    "value": {
-                      "items": {
-                        "anyOf": [
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "string"
-                          }
-                        ]
-                      },
-                      "maxItems": 100,
-                      "minItems": 1,
-                      "type": "array"
-                    }
-                  },
-                  "required": [
-                    "field",
-                    "op",
-                    "value"
-                  ],
-                  "type": "object"
-                },
-                {
-                  "properties": {
-                    "field": {
-                      "enum": [
-                        "hasChildren"
-                      ],
-                      "type": "string"
-                    },
-                    "op": {
-                      "enum": [
-                        "equals",
-                        "not",
-                        "gt",
-                        "gte",
-                        "lt",
-                        "lte"
-                      ],
-                      "type": "string"
-                    },
-                    "value": {
-                      "anyOf": [
-                        {
-                          "type": "boolean"
-                        },
-                        {
-                          "enum": [
-                            "true",
-                            "false",
-                            1,
-                            0,
-                            "1",
-                            "0"
-                          ]
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "field",
-                    "op",
-                    "value"
-                  ],
-                  "type": "object"
-                },
-                {
-                  "properties": {
-                    "field": {
-                      "enum": [
-                        "hasChildren"
-                      ],
-                      "type": "string"
-                    },
-                    "op": {
-                      "enum": [
-                        "in"
-                      ],
-                      "type": "string"
-                    },
-                    "value": {
-                      "items": {
-                        "anyOf": [
-                          {
-                            "type": "boolean"
-                          },
-                          {
-                            "enum": [
-                              "true",
-                              "false",
-                              1,
-                              0,
-                              "1",
-                              "0"
-                            ]
-                          }
-                        ]
-                      },
-                      "maxItems": 100,
-                      "minItems": 1,
-                      "type": "array"
-                    }
-                  },
-                  "required": [
-                    "field",
-                    "op",
-                    "value"
-                  ],
-                  "type": "object"
-                }
-              ]
-            },
-            "maxItems": 10,
-            "minItems": 1,
-            "type": "array"
-          },
-          "maxItems": 8,
-          "type": "array"
-        },
-        "coverage": {
-          "enum": [
-            "full",
-            "partial",
-            "none"
-          ],
-          "type": "string"
-        },
-        "intent": {
-          "properties": {
-            "clauses": {
-              "items": {
-                "properties": {
-                  "actors": {
-                    "items": {
-                      "type": "string"
-                    },
-                    "maxItems": 20,
-                    "type": "array"
-                  },
-                  "attacker_countries": {
-                    "items": {
-                      "type": "string"
-                    },
-                    "maxItems": 20,
-                    "type": "array"
-                  },
-                  "categories": {
-                    "items": {
-                      "type": "string"
-                    },
-                    "maxItems": 20,
-                    "type": "array"
-                  },
-                  "cves": {
-                    "items": {
-                      "type": "string"
-                    },
-                    "maxItems": 20,
-                    "type": "array"
-                  },
-                  "keywords": {
-                    "items": {
-                      "type": "string"
-                    },
-                    "maxItems": 5,
-                    "type": "array"
-                  },
-                  "target_countries": {
-                    "items": {
-                      "type": "string"
-                    },
-                    "maxItems": 20,
-                    "type": "array"
-                  },
-                  "target_industries": {
-                    "items": {
-                      "type": "string"
-                    },
-                    "maxItems": 20,
-                    "type": "array"
-                  },
-                  "techniques": {
-                    "items": {
-                      "type": "string"
-                    },
-                    "maxItems": 20,
-                    "type": "array"
-                  }
-                },
-                "required": [
-                  "actors",
-                  "attacker_countries",
-                  "categories",
-                  "cves",
-                  "keywords",
-                  "target_countries",
-                  "target_industries",
-                  "techniques"
-                ],
-                "type": "object"
-              },
-              "maxItems": 8,
-              "minItems": 1,
-              "type": "array"
-            },
-            "indicators": {
-              "items": {
-                "type": "string"
-              },
-              "maxItems": 20,
-              "type": "array"
-            },
-            "unsupported_terms": {
-              "items": {
-                "type": "string"
-              },
-              "maxItems": 20,
-              "type": "array"
-            }
-          },
-          "required": [
-            "clauses",
-            "indicators",
-            "unsupported_terms"
-          ],
-          "type": "object"
-        },
-        "model": {
-          "type": "string"
-        },
-        "unresolved_terms": {
+        "errors": {
           "items": {
             "properties": {
-              "reason": {
-                "enum": [
-                  "unknown_country",
-                  "unknown_industry",
-                  "unknown_category",
-                  "no_matching_category",
-                  "invalid_keyword",
-                  "branch_limit",
-                  "indicators_not_supported",
-                  "no_matching_field"
-                ],
+              "code": {
+                "type": "number"
+              },
+              "custom_feed_count": {
+                "type": "integer"
+              },
+              "custom_feed_limit": {
+                "type": "integer"
+              },
+              "expected": {
                 "type": "string"
               },
-              "term": {
+              "message": {
+                "type": "string"
+              },
+              "path": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "reason": {
+                "enum": [
+                  "threat_signals_feed_limit",
+                  "free_custom_skills_disabled",
+                  "free_skill_run_disabled",
+                  "free_tier_reconciliation_in_progress",
+                  "free_tier_reconciliation_failed",
+                  "raw_content_expired",
+                  "curated_visibility_changed"
+                ],
                 "type": "string"
               }
             },
             "required": [
-              "reason",
-              "term"
+              "message"
             ],
             "type": "object"
           },
           "type": "array"
-        }
-      },
-      "required": [
-        "branches",
-        "coverage",
-        "intent",
-        "model",
-        "unresolved_terms"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Generate event filters from a PIR"
-    },
-    method: "POST",
-    path: "/accounts/{account_id}/cloudforce-one/v2/priority-intelligence/filters/generate",
-    extensions: {
-      "x-api-token-group": [
-        "Cloudforce One Write"
-      ],
-      "x-stability": "beta"
-    },
-    responses: {
-      schemas: {
-        "200": {
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "custom_feed_count": {
+                "type": "integer"
+              },
+              "custom_feed_limit": {
+                "type": "integer"
+              },
+              "expected": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "path": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "reason": {
+                "enum": [
+                  "threat_signals_feed_limit",
+                  "free_custom_skills_disabled",
+                  "free_skill_run_disabled",
+                  "free_tier_reconciliation_in_progress",
+                  "free_tier_reconciliation_failed",
+                  "raw_content_expired",
+                  "curated_visibility_changed"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
           "properties": {
             "branches": {
               "items": {
@@ -886,6 +540,562 @@ export const tools: readonly Tool[] = [
             "intent",
             "model",
             "unresolved_terms"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Generate event filters from a PIR"
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/cloudforce-one/v2/priority-intelligence/filters/generate",
+    extensions: {
+      "x-api-token-group": [
+        "Cloudforce One Write"
+      ],
+      "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "custom_feed_count": {
+                    "type": "integer"
+                  },
+                  "custom_feed_limit": {
+                    "type": "integer"
+                  },
+                  "expected": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "reason": {
+                    "enum": [
+                      "threat_signals_feed_limit",
+                      "free_custom_skills_disabled",
+                      "free_skill_run_disabled",
+                      "free_tier_reconciliation_in_progress",
+                      "free_tier_reconciliation_failed",
+                      "raw_content_expired",
+                      "curated_visibility_changed"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "custom_feed_count": {
+                    "type": "integer"
+                  },
+                  "custom_feed_limit": {
+                    "type": "integer"
+                  },
+                  "expected": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "reason": {
+                    "enum": [
+                      "threat_signals_feed_limit",
+                      "free_custom_skills_disabled",
+                      "free_skill_run_disabled",
+                      "free_tier_reconciliation_in_progress",
+                      "free_tier_reconciliation_failed",
+                      "raw_content_expired",
+                      "curated_visibility_changed"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "branches": {
+                  "items": {
+                    "items": {
+                      "anyOf": [
+                        {
+                          "properties": {
+                            "field": {
+                              "enum": [
+                                "attacker",
+                                "attackerCountry",
+                                "category",
+                                "createdAt",
+                                "date",
+                                "event",
+                                "indicator",
+                                "indicatorType",
+                                "mitreAttack",
+                                "mitreCapec",
+                                "tags",
+                                "targetCountry",
+                                "targetIndustry",
+                                "tlp",
+                                "uuid"
+                              ],
+                              "type": "string"
+                            },
+                            "op": {
+                              "enum": [
+                                "equals",
+                                "not",
+                                "gt",
+                                "gte",
+                                "lt",
+                                "lte",
+                                "like",
+                                "contains",
+                                "startsWith",
+                                "endsWith",
+                                "find"
+                              ],
+                              "type": "string"
+                            },
+                            "value": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "field",
+                            "op",
+                            "value"
+                          ],
+                          "type": "object"
+                        },
+                        {
+                          "properties": {
+                            "field": {
+                              "enum": [
+                                "attacker",
+                                "attackerCountry",
+                                "category",
+                                "createdAt",
+                                "date",
+                                "event",
+                                "indicator",
+                                "indicatorType",
+                                "mitreAttack",
+                                "mitreCapec",
+                                "tags",
+                                "targetCountry",
+                                "targetIndustry",
+                                "tlp",
+                                "uuid"
+                              ],
+                              "type": "string"
+                            },
+                            "op": {
+                              "enum": [
+                                "in"
+                              ],
+                              "type": "string"
+                            },
+                            "value": {
+                              "items": {
+                                "type": "string"
+                              },
+                              "maxItems": 100,
+                              "minItems": 1,
+                              "type": "array"
+                            }
+                          },
+                          "required": [
+                            "field",
+                            "op",
+                            "value"
+                          ],
+                          "type": "object"
+                        },
+                        {
+                          "properties": {
+                            "field": {
+                              "enum": [
+                                "killChain"
+                              ],
+                              "type": "string"
+                            },
+                            "op": {
+                              "enum": [
+                                "equals",
+                                "not",
+                                "gt",
+                                "gte",
+                                "lt",
+                                "lte"
+                              ],
+                              "type": "string"
+                            },
+                            "value": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "string"
+                                }
+                              ]
+                            }
+                          },
+                          "required": [
+                            "field",
+                            "op",
+                            "value"
+                          ],
+                          "type": "object"
+                        },
+                        {
+                          "properties": {
+                            "field": {
+                              "enum": [
+                                "killChain"
+                              ],
+                              "type": "string"
+                            },
+                            "op": {
+                              "enum": [
+                                "in"
+                              ],
+                              "type": "string"
+                            },
+                            "value": {
+                              "items": {
+                                "anyOf": [
+                                  {
+                                    "type": "number"
+                                  },
+                                  {
+                                    "type": "string"
+                                  }
+                                ]
+                              },
+                              "maxItems": 100,
+                              "minItems": 1,
+                              "type": "array"
+                            }
+                          },
+                          "required": [
+                            "field",
+                            "op",
+                            "value"
+                          ],
+                          "type": "object"
+                        },
+                        {
+                          "properties": {
+                            "field": {
+                              "enum": [
+                                "hasChildren"
+                              ],
+                              "type": "string"
+                            },
+                            "op": {
+                              "enum": [
+                                "equals",
+                                "not",
+                                "gt",
+                                "gte",
+                                "lt",
+                                "lte"
+                              ],
+                              "type": "string"
+                            },
+                            "value": {
+                              "anyOf": [
+                                {
+                                  "type": "boolean"
+                                },
+                                {
+                                  "enum": [
+                                    "true",
+                                    "false",
+                                    1,
+                                    0,
+                                    "1",
+                                    "0"
+                                  ]
+                                }
+                              ]
+                            }
+                          },
+                          "required": [
+                            "field",
+                            "op",
+                            "value"
+                          ],
+                          "type": "object"
+                        },
+                        {
+                          "properties": {
+                            "field": {
+                              "enum": [
+                                "hasChildren"
+                              ],
+                              "type": "string"
+                            },
+                            "op": {
+                              "enum": [
+                                "in"
+                              ],
+                              "type": "string"
+                            },
+                            "value": {
+                              "items": {
+                                "anyOf": [
+                                  {
+                                    "type": "boolean"
+                                  },
+                                  {
+                                    "enum": [
+                                      "true",
+                                      "false",
+                                      1,
+                                      0,
+                                      "1",
+                                      "0"
+                                    ]
+                                  }
+                                ]
+                              },
+                              "maxItems": 100,
+                              "minItems": 1,
+                              "type": "array"
+                            }
+                          },
+                          "required": [
+                            "field",
+                            "op",
+                            "value"
+                          ],
+                          "type": "object"
+                        }
+                      ]
+                    },
+                    "maxItems": 10,
+                    "minItems": 1,
+                    "type": "array"
+                  },
+                  "maxItems": 8,
+                  "type": "array"
+                },
+                "coverage": {
+                  "enum": [
+                    "full",
+                    "partial",
+                    "none"
+                  ],
+                  "type": "string"
+                },
+                "intent": {
+                  "properties": {
+                    "clauses": {
+                      "items": {
+                        "properties": {
+                          "actors": {
+                            "items": {
+                              "type": "string"
+                            },
+                            "maxItems": 20,
+                            "type": "array"
+                          },
+                          "attacker_countries": {
+                            "items": {
+                              "type": "string"
+                            },
+                            "maxItems": 20,
+                            "type": "array"
+                          },
+                          "categories": {
+                            "items": {
+                              "type": "string"
+                            },
+                            "maxItems": 20,
+                            "type": "array"
+                          },
+                          "cves": {
+                            "items": {
+                              "type": "string"
+                            },
+                            "maxItems": 20,
+                            "type": "array"
+                          },
+                          "keywords": {
+                            "items": {
+                              "type": "string"
+                            },
+                            "maxItems": 5,
+                            "type": "array"
+                          },
+                          "target_countries": {
+                            "items": {
+                              "type": "string"
+                            },
+                            "maxItems": 20,
+                            "type": "array"
+                          },
+                          "target_industries": {
+                            "items": {
+                              "type": "string"
+                            },
+                            "maxItems": 20,
+                            "type": "array"
+                          },
+                          "techniques": {
+                            "items": {
+                              "type": "string"
+                            },
+                            "maxItems": 20,
+                            "type": "array"
+                          }
+                        },
+                        "required": [
+                          "actors",
+                          "attacker_countries",
+                          "categories",
+                          "cves",
+                          "keywords",
+                          "target_countries",
+                          "target_industries",
+                          "techniques"
+                        ],
+                        "type": "object"
+                      },
+                      "maxItems": 8,
+                      "minItems": 1,
+                      "type": "array"
+                    },
+                    "indicators": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "maxItems": 20,
+                      "type": "array"
+                    },
+                    "unsupported_terms": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "maxItems": 20,
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "clauses",
+                    "indicators",
+                    "unsupported_terms"
+                  ],
+                  "type": "object"
+                },
+                "model": {
+                  "type": "string"
+                },
+                "unresolved_terms": {
+                  "items": {
+                    "properties": {
+                      "reason": {
+                        "enum": [
+                          "unknown_country",
+                          "unknown_industry",
+                          "unknown_category",
+                          "no_matching_category",
+                          "invalid_keyword",
+                          "branch_limit",
+                          "indicators_not_supported",
+                          "no_matching_field"
+                        ],
+                        "type": "string"
+                      },
+                      "term": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "reason",
+                      "term"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "branches",
+                "coverage",
+                "intent",
+                "model",
+                "unresolved_terms"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },

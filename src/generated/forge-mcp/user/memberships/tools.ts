@@ -4,21 +4,20 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   iam_access_output,
-  iam_account_managed_by_output,
-  iam_account_settings_output,
   iam_account_type_output,
+  iam_api_response_collection_output,
   iam_api_response_common_failure_output,
+  iam_api_response_common_output,
+  iam_api_response_single_output,
   iam_common_components_schemas_identifier_output,
   iam_grants_output,
   iam_list_member_policy_output,
   iam_membership_components_schemas_identifier_output,
   iam_messages_2_output,
-  iam_permission_group_meta_output,
   iam_permission_group_output,
   iam_permission_groups_output,
   iam_permissions_output,
   iam_policy_identifier_output,
-  iam_resource_group_meta_output,
   iam_resource_group_output,
   iam_resource_groups_output,
   iam_result_info_output,
@@ -27,6 +26,7 @@ import {
   iam_scope_object_output,
   iam_scope_output,
 } from "../../outputs.js";
+import { iam_membership_components_schemas_identifier } from "../../schemas.js";
 import { iam_role_names_output } from "../outputs.js";
 import {
   iam_api_access_enabled_output,
@@ -36,6 +36,7 @@ import {
   iam_membership_with_policies_output,
   iam_schemas_account_output,
   iam_schemas_status_output,
+  iam_single_membership_response_with_policies_output,
 } from "./outputs.js";
 import { iam_properties_name } from "./schemas.js";
 
@@ -51,23 +52,40 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "membership_id": {
-          "description": "Membership identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/iam_membership_components-schemas-identifier",
+          "description": "Membership identifier tag."
         }
       },
       required: [
         "membership_id"
       ],
+      $defs: {
+        "iam_membership_components-schemas-identifier": iam_membership_components_schemas_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "id": {
-          "$ref": "#/$defs/iam_membership_components-schemas-identifier"
+      "allOf": [
+        {
+          "$ref": "#/$defs/iam_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "properties": {
+                "id": {
+                  "$ref": "#/$defs/iam_membership_components-schemas-identifier"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
         }
-      },
-      "type": "object",
+      ],
       $defs: {
+        "iam_api-response-single": iam_api_response_single_output,
         "iam_membership_components-schemas-identifier": iam_membership_components_schemas_identifier_output,
+        "iam_messages-2": iam_messages_2_output,
       },
     },
     annotations: {
@@ -87,12 +105,24 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "id": {
-              "$ref": "#/$defs/iam_membership_components-schemas-identifier"
+          "allOf": [
+            {
+              "$ref": "#/$defs/iam_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "id": {
+                      "$ref": "#/$defs/iam_membership_components-schemas-identifier"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
             }
-          },
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/iam_api-response-common-failure"
@@ -100,6 +130,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_api-response-single": iam_api_response_single_output,
         "iam_membership_components-schemas-identifier": iam_membership_components_schemas_identifier_output,
         "iam_messages-2": iam_messages_2_output,
       },
@@ -176,8 +207,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_access": iam_access_output,
         "iam_account-type": iam_account_type_output,
-        "iam_account_managed_by": iam_account_managed_by_output,
-        "iam_account_settings": iam_account_settings_output,
+        "iam_api-response-collection": iam_api_response_collection_output,
+        "iam_api-response-common": iam_api_response_common_output,
         "iam_api_access_enabled": iam_api_access_enabled_output,
         "iam_collection_membership_response": iam_collection_membership_response_output,
         "iam_collection_membership_response_with_policies": iam_collection_membership_response_with_policies_output,
@@ -189,12 +220,10 @@ export const tools: readonly Tool[] = [
         "iam_membership_components-schemas-identifier": iam_membership_components_schemas_identifier_output,
         "iam_messages-2": iam_messages_2_output,
         "iam_permission_group": iam_permission_group_output,
-        "iam_permission_group_meta": iam_permission_group_meta_output,
         "iam_permission_groups": iam_permission_groups_output,
         "iam_permissions": iam_permissions_output,
         "iam_policy_identifier": iam_policy_identifier_output,
         "iam_resource_group": iam_resource_group_output,
-        "iam_resource_group_meta": iam_resource_group_meta_output,
         "iam_resource_groups": iam_resource_groups_output,
         "iam_result_info": iam_result_info_output,
         "iam_role_names": iam_role_names_output,
@@ -240,8 +269,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_access": iam_access_output,
         "iam_account-type": iam_account_type_output,
-        "iam_account_managed_by": iam_account_managed_by_output,
-        "iam_account_settings": iam_account_settings_output,
+        "iam_api-response-collection": iam_api_response_collection_output,
+        "iam_api-response-common": iam_api_response_common_output,
         "iam_api-response-common-failure": iam_api_response_common_failure_output,
         "iam_api_access_enabled": iam_api_access_enabled_output,
         "iam_collection_membership_response": iam_collection_membership_response_output,
@@ -254,12 +283,10 @@ export const tools: readonly Tool[] = [
         "iam_membership_components-schemas-identifier": iam_membership_components_schemas_identifier_output,
         "iam_messages-2": iam_messages_2_output,
         "iam_permission_group": iam_permission_group_output,
-        "iam_permission_group_meta": iam_permission_group_meta_output,
         "iam_permission_groups": iam_permission_groups_output,
         "iam_permissions": iam_permissions_output,
         "iam_policy_identifier": iam_policy_identifier_output,
         "iam_resource_group": iam_resource_group_output,
-        "iam_resource_group_meta": iam_resource_group_meta_output,
         "iam_resource_groups": iam_resource_groups_output,
         "iam_result_info": iam_result_info_output,
         "iam_role_names": iam_role_names_output,
@@ -308,35 +335,36 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "membership_id": {
-          "description": "Membership identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/iam_membership_components-schemas-identifier",
+          "description": "Membership identifier tag."
         }
       },
       required: [
         "membership_id",
         "body"
       ],
+      $defs: {
+        "iam_membership_components-schemas-identifier": iam_membership_components_schemas_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/iam_membership-with-policies",
+      "$ref": "#/$defs/iam_single_membership_response_with_policies",
       $defs: {
         "iam_access": iam_access_output,
         "iam_account-type": iam_account_type_output,
-        "iam_account_managed_by": iam_account_managed_by_output,
-        "iam_account_settings": iam_account_settings_output,
+        "iam_api-response-single": iam_api_response_single_output,
         "iam_api_access_enabled": iam_api_access_enabled_output,
         "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
         "iam_grants": iam_grants_output,
         "iam_list_member_policy": iam_list_member_policy_output,
         "iam_membership-with-policies": iam_membership_with_policies_output,
         "iam_membership_components-schemas-identifier": iam_membership_components_schemas_identifier_output,
+        "iam_messages-2": iam_messages_2_output,
         "iam_permission_group": iam_permission_group_output,
-        "iam_permission_group_meta": iam_permission_group_meta_output,
         "iam_permission_groups": iam_permission_groups_output,
         "iam_permissions": iam_permissions_output,
         "iam_policy_identifier": iam_policy_identifier_output,
         "iam_resource_group": iam_resource_group_output,
-        "iam_resource_group_meta": iam_resource_group_meta_output,
         "iam_resource_groups": iam_resource_groups_output,
         "iam_role_names": iam_role_names_output,
         "iam_schemas-account": iam_schemas_account_output,
@@ -345,6 +373,7 @@ export const tools: readonly Tool[] = [
         "iam_scope_key": iam_scope_key_output,
         "iam_scope_object": iam_scope_object_output,
         "iam_scope_object_key": iam_scope_object_key_output,
+        "iam_single_membership_response_with_policies": iam_single_membership_response_with_policies_output,
       },
     },
     annotations: {
@@ -364,7 +393,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/iam_membership-with-policies"
+          "$ref": "#/$defs/iam_single_membership_response_with_policies"
         },
         "4XX": {
           "$ref": "#/$defs/iam_api-response-common-failure"
@@ -373,9 +402,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_access": iam_access_output,
         "iam_account-type": iam_account_type_output,
-        "iam_account_managed_by": iam_account_managed_by_output,
-        "iam_account_settings": iam_account_settings_output,
         "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_api-response-single": iam_api_response_single_output,
         "iam_api_access_enabled": iam_api_access_enabled_output,
         "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
         "iam_grants": iam_grants_output,
@@ -384,12 +412,10 @@ export const tools: readonly Tool[] = [
         "iam_membership_components-schemas-identifier": iam_membership_components_schemas_identifier_output,
         "iam_messages-2": iam_messages_2_output,
         "iam_permission_group": iam_permission_group_output,
-        "iam_permission_group_meta": iam_permission_group_meta_output,
         "iam_permission_groups": iam_permission_groups_output,
         "iam_permissions": iam_permissions_output,
         "iam_policy_identifier": iam_policy_identifier_output,
         "iam_resource_group": iam_resource_group_output,
-        "iam_resource_group_meta": iam_resource_group_meta_output,
         "iam_resource_groups": iam_resource_groups_output,
         "iam_role_names": iam_role_names_output,
         "iam_schemas-account": iam_schemas_account_output,
@@ -398,6 +424,7 @@ export const tools: readonly Tool[] = [
         "iam_scope_key": iam_scope_key_output,
         "iam_scope_object": iam_scope_object_output,
         "iam_scope_object_key": iam_scope_object_key_output,
+        "iam_single_membership_response_with_policies": iam_single_membership_response_with_policies_output,
       },
     },
     request: (args) => ({
@@ -413,34 +440,35 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "membership_id": {
-          "description": "Membership identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/iam_membership_components-schemas-identifier",
+          "description": "Membership identifier tag."
         }
       },
       required: [
         "membership_id"
       ],
+      $defs: {
+        "iam_membership_components-schemas-identifier": iam_membership_components_schemas_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/iam_membership-with-policies",
+      "$ref": "#/$defs/iam_single_membership_response_with_policies",
       $defs: {
         "iam_access": iam_access_output,
         "iam_account-type": iam_account_type_output,
-        "iam_account_managed_by": iam_account_managed_by_output,
-        "iam_account_settings": iam_account_settings_output,
+        "iam_api-response-single": iam_api_response_single_output,
         "iam_api_access_enabled": iam_api_access_enabled_output,
         "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
         "iam_grants": iam_grants_output,
         "iam_list_member_policy": iam_list_member_policy_output,
         "iam_membership-with-policies": iam_membership_with_policies_output,
         "iam_membership_components-schemas-identifier": iam_membership_components_schemas_identifier_output,
+        "iam_messages-2": iam_messages_2_output,
         "iam_permission_group": iam_permission_group_output,
-        "iam_permission_group_meta": iam_permission_group_meta_output,
         "iam_permission_groups": iam_permission_groups_output,
         "iam_permissions": iam_permissions_output,
         "iam_policy_identifier": iam_policy_identifier_output,
         "iam_resource_group": iam_resource_group_output,
-        "iam_resource_group_meta": iam_resource_group_meta_output,
         "iam_resource_groups": iam_resource_groups_output,
         "iam_role_names": iam_role_names_output,
         "iam_schemas-account": iam_schemas_account_output,
@@ -449,6 +477,7 @@ export const tools: readonly Tool[] = [
         "iam_scope_key": iam_scope_key_output,
         "iam_scope_object": iam_scope_object_output,
         "iam_scope_object_key": iam_scope_object_key_output,
+        "iam_single_membership_response_with_policies": iam_single_membership_response_with_policies_output,
       },
     },
     annotations: {
@@ -468,12 +497,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.user.membership.read"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.user.membership.read": {
-            "name": "com_cloudflare_api_user_membership_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -485,7 +509,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/iam_membership-with-policies"
+          "$ref": "#/$defs/iam_single_membership_response_with_policies"
         },
         "4XX": {
           "$ref": "#/$defs/iam_api-response-common-failure"
@@ -494,9 +518,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_access": iam_access_output,
         "iam_account-type": iam_account_type_output,
-        "iam_account_managed_by": iam_account_managed_by_output,
-        "iam_account_settings": iam_account_settings_output,
         "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_api-response-single": iam_api_response_single_output,
         "iam_api_access_enabled": iam_api_access_enabled_output,
         "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
         "iam_grants": iam_grants_output,
@@ -505,12 +528,10 @@ export const tools: readonly Tool[] = [
         "iam_membership_components-schemas-identifier": iam_membership_components_schemas_identifier_output,
         "iam_messages-2": iam_messages_2_output,
         "iam_permission_group": iam_permission_group_output,
-        "iam_permission_group_meta": iam_permission_group_meta_output,
         "iam_permission_groups": iam_permission_groups_output,
         "iam_permissions": iam_permissions_output,
         "iam_policy_identifier": iam_policy_identifier_output,
         "iam_resource_group": iam_resource_group_output,
-        "iam_resource_group_meta": iam_resource_group_meta_output,
         "iam_resource_groups": iam_resource_groups_output,
         "iam_role_names": iam_role_names_output,
         "iam_schemas-account": iam_schemas_account_output,
@@ -519,6 +540,7 @@ export const tools: readonly Tool[] = [
         "iam_scope_key": iam_scope_key_output,
         "iam_scope_object": iam_scope_object_output,
         "iam_scope_object_key": iam_scope_object_key_output,
+        "iam_single_membership_response_with_policies": iam_single_membership_response_with_policies_output,
       },
     },
     request: (args) => ({
@@ -533,34 +555,35 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "membership_id": {
-          "description": "Membership identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/iam_membership_components-schemas-identifier",
+          "description": "Membership identifier tag."
         }
       },
       required: [
         "membership_id"
       ],
+      $defs: {
+        "iam_membership_components-schemas-identifier": iam_membership_components_schemas_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/iam_membership-with-policies",
+      "$ref": "#/$defs/iam_single_membership_response_with_policies",
       $defs: {
         "iam_access": iam_access_output,
         "iam_account-type": iam_account_type_output,
-        "iam_account_managed_by": iam_account_managed_by_output,
-        "iam_account_settings": iam_account_settings_output,
+        "iam_api-response-single": iam_api_response_single_output,
         "iam_api_access_enabled": iam_api_access_enabled_output,
         "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
         "iam_grants": iam_grants_output,
         "iam_list_member_policy": iam_list_member_policy_output,
         "iam_membership-with-policies": iam_membership_with_policies_output,
         "iam_membership_components-schemas-identifier": iam_membership_components_schemas_identifier_output,
+        "iam_messages-2": iam_messages_2_output,
         "iam_permission_group": iam_permission_group_output,
-        "iam_permission_group_meta": iam_permission_group_meta_output,
         "iam_permission_groups": iam_permission_groups_output,
         "iam_permissions": iam_permissions_output,
         "iam_policy_identifier": iam_policy_identifier_output,
         "iam_resource_group": iam_resource_group_output,
-        "iam_resource_group_meta": iam_resource_group_meta_output,
         "iam_resource_groups": iam_resource_groups_output,
         "iam_role_names": iam_role_names_output,
         "iam_schemas-account": iam_schemas_account_output,
@@ -569,6 +592,7 @@ export const tools: readonly Tool[] = [
         "iam_scope_key": iam_scope_key_output,
         "iam_scope_object": iam_scope_object_output,
         "iam_scope_object_key": iam_scope_object_key_output,
+        "iam_single_membership_response_with_policies": iam_single_membership_response_with_policies_output,
       },
     },
     annotations: {
@@ -589,7 +613,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/iam_membership-with-policies"
+          "$ref": "#/$defs/iam_single_membership_response_with_policies"
         },
         "4XX": {
           "$ref": "#/$defs/iam_api-response-common-failure"
@@ -598,9 +622,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_access": iam_access_output,
         "iam_account-type": iam_account_type_output,
-        "iam_account_managed_by": iam_account_managed_by_output,
-        "iam_account_settings": iam_account_settings_output,
         "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_api-response-single": iam_api_response_single_output,
         "iam_api_access_enabled": iam_api_access_enabled_output,
         "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
         "iam_grants": iam_grants_output,
@@ -609,12 +632,10 @@ export const tools: readonly Tool[] = [
         "iam_membership_components-schemas-identifier": iam_membership_components_schemas_identifier_output,
         "iam_messages-2": iam_messages_2_output,
         "iam_permission_group": iam_permission_group_output,
-        "iam_permission_group_meta": iam_permission_group_meta_output,
         "iam_permission_groups": iam_permission_groups_output,
         "iam_permissions": iam_permissions_output,
         "iam_policy_identifier": iam_policy_identifier_output,
         "iam_resource_group": iam_resource_group_output,
-        "iam_resource_group_meta": iam_resource_group_meta_output,
         "iam_resource_groups": iam_resource_groups_output,
         "iam_role_names": iam_role_names_output,
         "iam_schemas-account": iam_schemas_account_output,
@@ -623,6 +644,7 @@ export const tools: readonly Tool[] = [
         "iam_scope_key": iam_scope_key_output,
         "iam_scope_object": iam_scope_object_output,
         "iam_scope_object_key": iam_scope_object_key_output,
+        "iam_single_membership_response_with_policies": iam_single_membership_response_with_policies_output,
       },
     },
     request: (args) => ({

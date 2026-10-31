@@ -287,6 +287,7 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "include_domain_id": {
+          "default": "false",
           "type": "string"
         },
         "limit": {

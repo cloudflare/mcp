@@ -4,10 +4,14 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   cache_settings_api_response_common_failure_output,
+  cache_settings_api_response_common_output,
+  cache_settings_base_output,
   cache_settings_messages_output,
 } from "../../outputs.js";
+import { cache_settings_identifier } from "../../schemas.js";
 import {
   cache_settings_origin_h2_max_streams_output,
+  cache_settings_origin_h2_max_streams_response_value_output,
   cache_settings_origin_h2_max_streams_value_output,
 } from "./outputs.js";
 import { cache_settings_origin_h2_max_streams_value } from "./schemas.js";
@@ -36,8 +40,8 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/cache-settings_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -45,13 +49,18 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "cache-settings_identifier": cache_settings_identifier,
         "cache-settings_origin_h2_max_streams_value": cache_settings_origin_h2_max_streams_value,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/cache-settings_origin_h2_max_streams",
+      "$ref": "#/$defs/cache-settings_origin_h2_max_streams_response_value",
       $defs: {
+        "cache-settings_api-response-common": cache_settings_api_response_common_output,
+        "cache-settings_base": cache_settings_base_output,
+        "cache-settings_messages": cache_settings_messages_output,
         "cache-settings_origin_h2_max_streams": cache_settings_origin_h2_max_streams_output,
+        "cache-settings_origin_h2_max_streams_response_value": cache_settings_origin_h2_max_streams_response_value_output,
         "cache-settings_origin_h2_max_streams_value": cache_settings_origin_h2_max_streams_value_output,
       },
     },
@@ -72,12 +81,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#zone_settings:edit"
-        ],
-        "x-fern-enum": {
-          "#zone_settings:edit": {
-            "name": "zone_settings_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -89,16 +93,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/cache-settings_origin_h2_max_streams"
+          "$ref": "#/$defs/cache-settings_origin_h2_max_streams_response_value"
         },
         "4XX": {
           "$ref": "#/$defs/cache-settings_api-response-common-failure"
         }
       },
       $defs: {
+        "cache-settings_api-response-common": cache_settings_api_response_common_output,
         "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
+        "cache-settings_base": cache_settings_base_output,
         "cache-settings_messages": cache_settings_messages_output,
         "cache-settings_origin_h2_max_streams": cache_settings_origin_h2_max_streams_output,
+        "cache-settings_origin_h2_max_streams_response_value": cache_settings_origin_h2_max_streams_response_value_output,
         "cache-settings_origin_h2_max_streams_value": cache_settings_origin_h2_max_streams_value_output,
       },
     },
@@ -115,18 +122,25 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/cache-settings_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "cache-settings_identifier": cache_settings_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/cache-settings_origin_h2_max_streams",
+      "$ref": "#/$defs/cache-settings_origin_h2_max_streams_response_value",
       $defs: {
+        "cache-settings_api-response-common": cache_settings_api_response_common_output,
+        "cache-settings_base": cache_settings_base_output,
+        "cache-settings_messages": cache_settings_messages_output,
         "cache-settings_origin_h2_max_streams": cache_settings_origin_h2_max_streams_output,
+        "cache-settings_origin_h2_max_streams_response_value": cache_settings_origin_h2_max_streams_response_value_output,
         "cache-settings_origin_h2_max_streams_value": cache_settings_origin_h2_max_streams_value_output,
       },
     },
@@ -149,12 +163,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#zone_settings:read"
-        ],
-        "x-fern-enum": {
-          "#zone_settings:read": {
-            "name": "zone_settings_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -166,16 +175,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/cache-settings_origin_h2_max_streams"
+          "$ref": "#/$defs/cache-settings_origin_h2_max_streams_response_value"
         },
         "4XX": {
           "$ref": "#/$defs/cache-settings_api-response-common-failure"
         }
       },
       $defs: {
+        "cache-settings_api-response-common": cache_settings_api_response_common_output,
         "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
+        "cache-settings_base": cache_settings_base_output,
         "cache-settings_messages": cache_settings_messages_output,
         "cache-settings_origin_h2_max_streams": cache_settings_origin_h2_max_streams_output,
+        "cache-settings_origin_h2_max_streams_response_value": cache_settings_origin_h2_max_streams_response_value_output,
         "cache-settings_origin_h2_max_streams_value": cache_settings_origin_h2_max_streams_value_output,
       },
     },

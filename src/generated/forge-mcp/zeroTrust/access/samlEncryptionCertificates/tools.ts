@@ -3,10 +3,16 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  access_api_response_collection_output,
   access_api_response_common_failure_output,
+  access_api_response_common_output,
+  access_api_response_single_output,
   access_messages_output,
 } from "../../outputs.js";
+import { access_identifier, access_uuid } from "../../schemas.js";
 import {
+  access_certificate_set_list_response_output,
+  access_certificate_set_response_output,
   access_saml_certificate_2_output,
   access_saml_certificate_set_2_output,
 } from "./outputs.js";
@@ -23,22 +29,29 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         },
         "saml_cert_set_id": {
-          "description": "UID of the SAML certificate set.",
-          "type": "string"
+          "$ref": "#/$defs/access_uuid",
+          "description": "UID of the SAML certificate set."
         }
       },
       required: [
         "account_id",
         "saml_cert_set_id"
       ],
+      $defs: {
+        "access_identifier": access_identifier,
+        "access_uuid": access_uuid,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/access_saml_certificate_set-2",
+      "$ref": "#/$defs/access_certificate_set_response",
       $defs: {
+        "access_api-response-single": access_api_response_single_output,
+        "access_certificate_set_response": access_certificate_set_response_output,
+        "access_messages": access_messages_output,
         "access_saml_certificate-2": access_saml_certificate_2_output,
         "access_saml_certificate_set-2": access_saml_certificate_set_2_output,
       },
@@ -55,7 +68,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/access_saml_certificate_set-2"
+          "$ref": "#/$defs/access_certificate_set_response"
         },
         "404": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -66,6 +79,8 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
+        "access_certificate_set_response": access_certificate_set_response_output,
         "access_messages": access_messages_output,
         "access_saml_certificate-2": access_saml_certificate_2_output,
         "access_saml_certificate_set-2": access_saml_certificate_set_2_output,
@@ -83,18 +98,22 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         },
         "saml_cert_set_id": {
-          "description": "UID of the SAML certificate set.",
-          "type": "string"
+          "$ref": "#/$defs/access_uuid",
+          "description": "UID of the SAML certificate set."
         }
       },
       required: [
         "account_id",
         "saml_cert_set_id"
       ],
+      $defs: {
+        "access_identifier": access_identifier,
+        "access_uuid": access_uuid,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -132,8 +151,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         },
         "id": {
           "description": "Filter by SAML certificate set UID. Accepts a comma-separated list of UIDs.",
@@ -153,41 +172,17 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+      $defs: {
+        "access_identifier": access_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/access_saml_certificate_set-2"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/access_certificate_set_list_response",
       $defs: {
+        "access_api-response-collection": access_api_response_collection_output,
+        "access_api-response-common": access_api_response_common_output,
+        "access_certificate_set_list_response": access_certificate_set_list_response_output,
+        "access_messages": access_messages_output,
         "access_saml_certificate-2": access_saml_certificate_2_output,
         "access_saml_certificate_set-2": access_saml_certificate_set_2_output,
       },
@@ -204,45 +199,17 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/access_saml_certificate_set-2"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/access_certificate_set_list_response"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
         }
       },
       $defs: {
+        "access_api-response-collection": access_api_response_collection_output,
+        "access_api-response-common": access_api_response_common_output,
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_certificate_set_list_response": access_certificate_set_list_response_output,
         "access_messages": access_messages_output,
         "access_saml_certificate-2": access_saml_certificate_2_output,
         "access_saml_certificate_set-2": access_saml_certificate_set_2_output,
@@ -265,22 +232,29 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         },
         "saml_cert_set_id": {
-          "description": "UID of the SAML certificate set to rotate.",
-          "type": "string"
+          "$ref": "#/$defs/access_uuid",
+          "description": "UID of the SAML certificate set to rotate."
         }
       },
       required: [
         "account_id",
         "saml_cert_set_id"
       ],
+      $defs: {
+        "access_identifier": access_identifier,
+        "access_uuid": access_uuid,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/access_saml_certificate_set-2",
+      "$ref": "#/$defs/access_certificate_set_response",
       $defs: {
+        "access_api-response-single": access_api_response_single_output,
+        "access_certificate_set_response": access_certificate_set_response_output,
+        "access_messages": access_messages_output,
         "access_saml_certificate-2": access_saml_certificate_2_output,
         "access_saml_certificate_set-2": access_saml_certificate_set_2_output,
       },
@@ -297,7 +271,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/access_saml_certificate_set-2"
+          "$ref": "#/$defs/access_certificate_set_response"
         },
         "404": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -308,6 +282,8 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
+        "access_certificate_set_response": access_certificate_set_response_output,
         "access_messages": access_messages_output,
         "access_saml_certificate-2": access_saml_certificate_2_output,
         "access_saml_certificate_set-2": access_saml_certificate_set_2_output,

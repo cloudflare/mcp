@@ -98,172 +98,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "asn_info": {
-          "items": {
-            "properties": {
-              "asn": {
-                "type": "integer"
-              },
-              "country_code": {
-                "type": "string"
-              },
-              "org_name": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "asn",
-              "country_code",
-              "org_name"
-            ],
-            "type": "object"
-          },
-          "type": "array"
-        },
-        "events": {
-          "items": {
-            "properties": {
-              "confidence_score": {
-                "type": "integer"
-              },
-              "duration": {
-                "type": "integer"
-              },
-              "event_type": {
-                "type": "integer"
-              },
-              "hijack_msgs_count": {
-                "type": "integer"
-              },
-              "hijacker_asn": {
-                "type": "integer"
-              },
-              "hijacker_country": {
-                "type": "string"
-              },
-              "id": {
-                "type": "integer"
-              },
-              "is_stale": {
-                "type": "boolean"
-              },
-              "max_hijack_ts": {
-                "type": "string"
-              },
-              "max_msg_ts": {
-                "type": "string"
-              },
-              "min_hijack_ts": {
-                "type": "string"
-              },
-              "on_going_count": {
-                "type": "integer"
-              },
-              "peer_asns": {
-                "items": {
-                  "type": "integer"
-                },
-                "type": "array"
-              },
-              "peer_ip_count": {
-                "type": "integer"
-              },
-              "prefixes": {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              "tags": {
-                "items": {
-                  "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "score": {
-                      "type": "integer"
-                    }
-                  },
-                  "required": [
-                    "name",
-                    "score"
-                  ],
-                  "type": "object"
-                },
-                "type": "array"
-              },
-              "victim_asns": {
-                "items": {
-                  "type": "integer"
-                },
-                "type": "array"
-              },
-              "victim_countries": {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              }
-            },
-            "required": [
-              "confidence_score",
-              "duration",
-              "event_type",
-              "hijack_msgs_count",
-              "hijacker_asn",
-              "hijacker_country",
-              "id",
-              "is_stale",
-              "max_hijack_ts",
-              "max_msg_ts",
-              "min_hijack_ts",
-              "on_going_count",
-              "peer_asns",
-              "peer_ip_count",
-              "prefixes",
-              "tags",
-              "victim_asns",
-              "victim_countries"
-            ],
-            "type": "object"
-          },
-          "type": "array"
-        },
-        "total_monitors": {
-          "type": "integer"
-        }
-      },
-      "required": [
-        "asn_info",
-        "events",
-        "total_monitors"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get BGP hijack events"
-    },
-    method: "GET",
-    path: "/radar/bgp/hijacks/events",
-    extensions: {
-      "x-api-token-group": [
-        "User Details Write",
-        "User Details Read"
-      ],
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "asn_info": {
               "items": {
@@ -404,6 +239,243 @@ export const tools: readonly Tool[] = [
             "asn_info",
             "events",
             "total_monitors"
+          ],
+          "type": "object"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "integer"
+            },
+            "page": {
+              "type": "integer"
+            },
+            "per_page": {
+              "type": "integer"
+            },
+            "total_count": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "count",
+            "page",
+            "per_page",
+            "total_count"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "result_info",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get BGP hijack events"
+    },
+    method: "GET",
+    path: "/radar/bgp/hijacks/events",
+    extensions: {
+      "x-api-token-group": [
+        "User Details Write",
+        "User Details Read"
+      ],
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "asn_info": {
+                  "items": {
+                    "properties": {
+                      "asn": {
+                        "type": "integer"
+                      },
+                      "country_code": {
+                        "type": "string"
+                      },
+                      "org_name": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "asn",
+                      "country_code",
+                      "org_name"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "events": {
+                  "items": {
+                    "properties": {
+                      "confidence_score": {
+                        "type": "integer"
+                      },
+                      "duration": {
+                        "type": "integer"
+                      },
+                      "event_type": {
+                        "type": "integer"
+                      },
+                      "hijack_msgs_count": {
+                        "type": "integer"
+                      },
+                      "hijacker_asn": {
+                        "type": "integer"
+                      },
+                      "hijacker_country": {
+                        "type": "string"
+                      },
+                      "id": {
+                        "type": "integer"
+                      },
+                      "is_stale": {
+                        "type": "boolean"
+                      },
+                      "max_hijack_ts": {
+                        "type": "string"
+                      },
+                      "max_msg_ts": {
+                        "type": "string"
+                      },
+                      "min_hijack_ts": {
+                        "type": "string"
+                      },
+                      "on_going_count": {
+                        "type": "integer"
+                      },
+                      "peer_asns": {
+                        "items": {
+                          "type": "integer"
+                        },
+                        "type": "array"
+                      },
+                      "peer_ip_count": {
+                        "type": "integer"
+                      },
+                      "prefixes": {
+                        "items": {
+                          "type": "string"
+                        },
+                        "type": "array"
+                      },
+                      "tags": {
+                        "items": {
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "score": {
+                              "type": "integer"
+                            }
+                          },
+                          "required": [
+                            "name",
+                            "score"
+                          ],
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      "victim_asns": {
+                        "items": {
+                          "type": "integer"
+                        },
+                        "type": "array"
+                      },
+                      "victim_countries": {
+                        "items": {
+                          "type": "string"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "confidence_score",
+                      "duration",
+                      "event_type",
+                      "hijack_msgs_count",
+                      "hijacker_asn",
+                      "hijacker_country",
+                      "id",
+                      "is_stale",
+                      "max_hijack_ts",
+                      "max_msg_ts",
+                      "min_hijack_ts",
+                      "on_going_count",
+                      "peer_asns",
+                      "peer_ip_count",
+                      "prefixes",
+                      "tags",
+                      "victim_asns",
+                      "victim_countries"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "total_monitors": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "asn_info",
+                "events",
+                "total_monitors"
+              ],
+              "type": "object"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "page": {
+                  "type": "integer"
+                },
+                "per_page": {
+                  "type": "integer"
+                },
+                "total_count": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "count",
+                "page",
+                "per_page",
+                "total_count"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "result_info",
+            "success"
           ],
           "type": "object"
         },

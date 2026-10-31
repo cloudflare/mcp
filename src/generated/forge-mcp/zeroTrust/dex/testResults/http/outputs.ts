@@ -13,11 +13,132 @@ export const digital_experience_monitoring_http_details_response_output: JsonSch
       "type": "string"
     },
     "httpStats": {
-      "$ref": "#/$defs/digital-experience-monitoring_http_details_response_httpStats"
+      "oneOf": [
+        {
+          "properties": {
+            "availabilityPct": {
+              "$ref": "#/$defs/digital-experience-monitoring_test_stat_pct_over_time"
+            },
+            "dnsResponseTimeMs": {
+              "$ref": "#/$defs/digital-experience-monitoring_test_stat_over_time"
+            },
+            "httpStatusCode": {
+              "items": {
+                "properties": {
+                  "status200": {
+                    "type": "integer"
+                  },
+                  "status300": {
+                    "type": "integer"
+                  },
+                  "status400": {
+                    "type": "integer"
+                  },
+                  "status500": {
+                    "type": "integer"
+                  },
+                  "timestamp": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "status200",
+                  "status300",
+                  "status400",
+                  "status500",
+                  "timestamp"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "resourceFetchTimeMs": {
+              "$ref": "#/$defs/digital-experience-monitoring_test_stat_over_time"
+            },
+            "serverResponseTimeMs": {
+              "$ref": "#/$defs/digital-experience-monitoring_test_stat_over_time"
+            },
+            "uniqueDevicesTotal": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "availabilityPct",
+            "dnsResponseTimeMs",
+            "httpStatusCode",
+            "resourceFetchTimeMs",
+            "serverResponseTimeMs",
+            "uniqueDevicesTotal"
+          ],
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "httpStatsByColo": {
       "items": {
-        "$ref": "#/$defs/digital-experience-monitoring_http_details_response_httpStatsByColoItem"
+        "properties": {
+          "availabilityPct": {
+            "$ref": "#/$defs/digital-experience-monitoring_test_stat_pct_over_time"
+          },
+          "colo": {
+            "type": "string"
+          },
+          "dnsResponseTimeMs": {
+            "$ref": "#/$defs/digital-experience-monitoring_test_stat_over_time"
+          },
+          "httpStatusCode": {
+            "items": {
+              "properties": {
+                "status200": {
+                  "type": "integer"
+                },
+                "status300": {
+                  "type": "integer"
+                },
+                "status400": {
+                  "type": "integer"
+                },
+                "status500": {
+                  "type": "integer"
+                },
+                "timestamp": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "status200",
+                "status300",
+                "status400",
+                "status500",
+                "timestamp"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "resourceFetchTimeMs": {
+            "$ref": "#/$defs/digital-experience-monitoring_test_stat_over_time"
+          },
+          "serverResponseTimeMs": {
+            "$ref": "#/$defs/digital-experience-monitoring_test_stat_over_time"
+          },
+          "uniqueDevicesTotal": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "availabilityPct",
+          "colo",
+          "dnsResponseTimeMs",
+          "httpStatusCode",
+          "resourceFetchTimeMs",
+          "serverResponseTimeMs",
+          "uniqueDevicesTotal"
+        ],
+        "type": "object"
       },
       "type": "array"
     },
@@ -40,7 +161,23 @@ export const digital_experience_monitoring_http_details_response_output: JsonSch
       "oneOf": [
         {
           "items": {
-            "$ref": "#/$defs/digital-experience-monitoring_http_details_response_target_policiesItem"
+            "properties": {
+              "default": {
+                "type": "boolean"
+              },
+              "id": {
+                "$ref": "#/$defs/digital-experience-monitoring_uuid"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "default",
+              "id",
+              "name"
+            ],
+            "type": "object"
           },
           "type": "array"
         },
@@ -53,186 +190,5 @@ export const digital_experience_monitoring_http_details_response_output: JsonSch
       "type": "boolean"
     }
   },
-  "type": "object"
-};
-
-/**
- * The schema of `digital-experience-monitoring_http_details_response_httpStats`
- * in responses.
- */
-export const digital_experience_monitoring_http_details_response_httpStats_output: JsonSchema = {
-  "oneOf": [
-    {
-      "properties": {
-        "availabilityPct": {
-          "$ref": "#/$defs/digital-experience-monitoring_test_stat_pct_over_time"
-        },
-        "dnsResponseTimeMs": {
-          "$ref": "#/$defs/digital-experience-monitoring_test_stat_over_time"
-        },
-        "httpStatusCode": {
-          "items": {
-            "$ref": "#/$defs/digital-experience-monitoring_http_details_response_httpStats_httpStatusCodeItem"
-          },
-          "type": "array"
-        },
-        "resourceFetchTimeMs": {
-          "$ref": "#/$defs/digital-experience-monitoring_test_stat_over_time"
-        },
-        "serverResponseTimeMs": {
-          "$ref": "#/$defs/digital-experience-monitoring_test_stat_over_time"
-        },
-        "uniqueDevicesTotal": {
-          "type": "integer"
-        }
-      },
-      "required": [
-        "availabilityPct",
-        "dnsResponseTimeMs",
-        "httpStatusCode",
-        "resourceFetchTimeMs",
-        "serverResponseTimeMs",
-        "uniqueDevicesTotal"
-      ],
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of
- * `digital-experience-monitoring_http_details_response_httpStatsByColoItem` in
- * responses.
- */
-export const digital_experience_monitoring_http_details_response_httpStatsByColoItem_output: JsonSchema = {
-  "properties": {
-    "availabilityPct": {
-      "$ref": "#/$defs/digital-experience-monitoring_test_stat_pct_over_time"
-    },
-    "colo": {
-      "type": "string"
-    },
-    "dnsResponseTimeMs": {
-      "$ref": "#/$defs/digital-experience-monitoring_test_stat_over_time"
-    },
-    "httpStatusCode": {
-      "items": {
-        "$ref": "#/$defs/digital-experience-monitoring_http_details_response_httpStatsByColoItem_httpStatusCodeItem"
-      },
-      "type": "array"
-    },
-    "resourceFetchTimeMs": {
-      "$ref": "#/$defs/digital-experience-monitoring_test_stat_over_time"
-    },
-    "serverResponseTimeMs": {
-      "$ref": "#/$defs/digital-experience-monitoring_test_stat_over_time"
-    },
-    "uniqueDevicesTotal": {
-      "type": "integer"
-    }
-  },
-  "required": [
-    "availabilityPct",
-    "colo",
-    "dnsResponseTimeMs",
-    "httpStatusCode",
-    "resourceFetchTimeMs",
-    "serverResponseTimeMs",
-    "uniqueDevicesTotal"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `digital-experience-monitoring_http_details_response_httpStatsByColoItem_httpStatusCodeItem`
- * in responses.
- */
-export const digital_experience_monitoring_http_details_response_httpStatsByColoItem_httpStatusCodeItem_output: JsonSchema = {
-  "properties": {
-    "status200": {
-      "type": "integer"
-    },
-    "status300": {
-      "type": "integer"
-    },
-    "status400": {
-      "type": "integer"
-    },
-    "status500": {
-      "type": "integer"
-    },
-    "timestamp": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "status200",
-    "status300",
-    "status400",
-    "status500",
-    "timestamp"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `digital-experience-monitoring_http_details_response_httpStats_httpStatusCodeItem`
- * in responses.
- */
-export const digital_experience_monitoring_http_details_response_httpStats_httpStatusCodeItem_output: JsonSchema = {
-  "properties": {
-    "status200": {
-      "type": "integer"
-    },
-    "status300": {
-      "type": "integer"
-    },
-    "status400": {
-      "type": "integer"
-    },
-    "status500": {
-      "type": "integer"
-    },
-    "timestamp": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "status200",
-    "status300",
-    "status400",
-    "status500",
-    "timestamp"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `digital-experience-monitoring_http_details_response_target_policiesItem` in
- * responses.
- */
-export const digital_experience_monitoring_http_details_response_target_policiesItem_output: JsonSchema = {
-  "properties": {
-    "default": {
-      "type": "boolean"
-    },
-    "id": {
-      "$ref": "#/$defs/digital-experience-monitoring_uuid"
-    },
-    "name": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "default",
-    "id",
-    "name"
-  ],
   "type": "object"
 };

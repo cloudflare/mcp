@@ -172,8 +172,7 @@ export const registrar_api_sandbox_registration_create_request: JsonSchema = {
       "type": "object"
     },
     "contacts": {
-      "$ref": "#/$defs/registrar-api-sandbox_registration_contacts",
-      "description": "Provides contact data for the registration request.\n\nThe per-extension schema from\n`GET /accounts/{account_id}/registrar/extensions/{extension}` defines the\naccepted contact roles. Every currently supported extension requires only\n`contacts.registrant` from API callers. Callers may provide additional roles\nsuch as `technical`, `administrator`, and `billing` when the extension\nschema includes them. When a registry requires an omitted role, Cloudflare\nmay derive that contact from `contacts.registrant`.\n\nWhen the request omits either the entire `contacts` object or\n`contacts.registrant`, the system uses the account's default address book\nentry as the registrant contact. The account owner must configure this\ndefault at `https://dash.cloudflare.com/{account_id}/domains/registrations`,\nwhere they can create or update the address book entry and accept the\nrequired agreement. Dashboard settings currently provide the only way to\nmanage address book entries.\n\nWithout either a default address book entry or a registrant contact, the\nregistration request fails validation.\n"
+      "$ref": "#/$defs/registrar-api-sandbox_registration_contacts"
     },
     "domain_name": {
       "$ref": "#/$defs/registrar-api-sandbox_domain_name",

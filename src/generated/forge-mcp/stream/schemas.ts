@@ -4,10 +4,26 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
+ * The schema of `stream_account_identifier`.
+ */
+export const stream_account_identifier: JsonSchema = {
+  "description": "The account identifier tag.",
+  "type": "string"
+};
+
+/**
  * The schema of `stream_creator`.
  */
 export const stream_creator: JsonSchema = {
   "description": "A user-defined identifier for the media creator.",
+  "type": "string"
+};
+
+/**
+ * The schema of `stream_identifier-2`.
+ */
+export const stream_identifier_2: JsonSchema = {
+  "description": "Identifier.",
   "type": "string"
 };
 
@@ -57,4 +73,12 @@ export const stream_position: JsonSchema = {
 export const stream_scale: JsonSchema = {
   "description": "The size of the image relative to the overall size of the video. This parameter will adapt to horizontal and vertical videos automatically. `0.0` indicates no scaling (use the size of the image as-is), and `1.0 `fills the entire video.",
   "type": "number"
+};
+
+/**
+ * The schema of `stream_watermark_identifier`.
+ */
+export const stream_watermark_identifier: JsonSchema = {
+  "description": "The unique identifier for a watermark profile.",
+  "type": "string"
 };

@@ -193,6 +193,44 @@ export const magic_route_update_many_request: JsonSchema = {
 };
 
 /**
+ * The schema of `magic_route_update_request`.
+ */
+export const magic_route_update_request: JsonSchema = {
+  "properties": {
+    "description": {
+      "$ref": "#/$defs/magic_description",
+      "description": "An optional human provided description of the static route."
+    },
+    "nexthop": {
+      "$ref": "#/$defs/magic_nexthop",
+      "description": "The next-hop IP Address for the static route."
+    },
+    "prefix": {
+      "$ref": "#/$defs/magic_prefix",
+      "description": "IP Prefix in Classless Inter-Domain Routing format."
+    },
+    "priority": {
+      "$ref": "#/$defs/magic_priority",
+      "description": "Priority of the static route."
+    },
+    "scope": {
+      "$ref": "#/$defs/magic_scope",
+      "description": "Used only for ECMP routes."
+    },
+    "weight": {
+      "$ref": "#/$defs/magic_weight",
+      "description": "Optional weight of the ECMP scope - if provided."
+    }
+  },
+  "required": [
+    "nexthop",
+    "prefix",
+    "priority"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `magic_route_update_single_request`.
  */
 export const magic_route_update_single_request: JsonSchema = {

@@ -28,7 +28,18 @@ export const zero_trust_gateway_gateway_account_logging_settings_output: JsonSch
       "type": "boolean"
     },
     "settings_by_rule_type": {
-      "$ref": "#/$defs/zero-trust-gateway_gateway-account-logging-settings_settings_by_rule_type"
+      "properties": {
+        "dns": {
+          "$ref": "#/$defs/zero-trust-gateway_account-log-options"
+        },
+        "http": {
+          "$ref": "#/$defs/zero-trust-gateway_account-log-options"
+        },
+        "l4": {
+          "$ref": "#/$defs/zero-trust-gateway_account-log-options"
+        }
+      },
+      "type": "object"
     }
   },
   "type": "object"
@@ -39,47 +50,17 @@ export const zero_trust_gateway_gateway_account_logging_settings_output: JsonSch
  * in responses.
  */
 export const zero_trust_gateway_gateway_account_logging_settings_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/zero-trust-gateway_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zero-trust-gateway_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/zero-trust-gateway_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/zero-trust-gateway_gateway-account-logging-settings"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/zero-trust-gateway_gateway-account-logging-settings"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `zero-trust-gateway_gateway-account-logging-settings_settings_by_rule_type`
- * in responses.
- */
-export const zero_trust_gateway_gateway_account_logging_settings_settings_by_rule_type_output: JsonSchema = {
-  "properties": {
-    "dns": {
-      "$ref": "#/$defs/zero-trust-gateway_account-log-options"
-    },
-    "http": {
-      "$ref": "#/$defs/zero-trust-gateway_account-log-options"
-    },
-    "l4": {
-      "$ref": "#/$defs/zero-trust-gateway_account-log-options"
-    }
-  },
-  "type": "object"
+  ]
 };

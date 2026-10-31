@@ -4,256 +4,144 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
+ * The schema of `rulesets_AccountId`.
+ */
+export const rulesets_AccountId: JsonSchema = {
+  "description": "The unique ID of the account.",
+  "type": "string"
+};
+
+/**
  * The schema of `rulesets_BlockRule`.
  */
 export const rulesets_BlockRule: JsonSchema = {
-  "description": "Rule",
-  "properties": {
-    "action": {
-      "enum": [
-        "block"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/rulesets_Rule"
     },
-    "action_parameters": {
-      "$ref": "#/$defs/rulesets_BlockRule_action_parameters"
-    },
-    "description": {
-      "type": "string"
-    },
-    "enabled": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RuleEnabled"
+    {
+      "properties": {
+        "action": {
+          "enum": [
+            "block"
+          ],
+          "type": "string"
         },
-        {
-          "type": "boolean"
+        "action_parameters": {
+          "properties": {
+            "response": {
+              "description": "The response to show when the block is applied.",
+              "properties": {
+                "content": {
+                  "description": "The content to return.",
+                  "type": "string"
+                },
+                "content_type": {
+                  "description": "The type of the content to return.",
+                  "type": "string"
+                },
+                "status_code": {
+                  "description": "The status code to return.",
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "content",
+                "content_type",
+                "status_code"
+              ],
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "description": {
+          "type": "string"
         }
-      ]
-    },
-    "exposed_credential_check": {
-      "$ref": "#/$defs/rulesets_RuleExposedCredentialCheck",
-      "description": "Configuration for exposed credential checking."
-    },
-    "expression": {
-      "description": "The expression defining which traffic will match the rule.",
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/rulesets_RuleId",
-      "description": "The unique ID of the rule."
-    },
-    "logging": {
-      "$ref": "#/$defs/rulesets_RuleLogging",
-      "description": "An object configuring the rule's logging behavior."
-    },
-    "ratelimit": {
-      "$ref": "#/$defs/rulesets_RuleRatelimit",
-      "description": "An object configuring the rule's rate limit behavior."
-    },
-    "ref": {
-      "description": "The reference of the rule (the rule's ID by default).",
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `rulesets_BlockRule_action_parameters`.
- */
-export const rulesets_BlockRule_action_parameters: JsonSchema = {
-  "properties": {
-    "response": {
-      "$ref": "#/$defs/rulesets_BlockRule_action_parameters_response",
-      "description": "The response to show when the block is applied."
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `rulesets_BlockRule_action_parameters_response`.
- */
-export const rulesets_BlockRule_action_parameters_response: JsonSchema = {
-  "description": "The response to show when the block is applied.",
-  "properties": {
-    "content": {
-      "description": "The content to return.",
-      "type": "string"
-    },
-    "content_type": {
-      "description": "The type of the content to return.",
-      "type": "string"
-    },
-    "status_code": {
-      "description": "The status code to return.",
-      "type": "integer"
-    }
-  },
-  "required": [
-    "content",
-    "content_type",
-    "status_code"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `rulesets_ChallengeRule`.
  */
 export const rulesets_ChallengeRule: JsonSchema = {
-  "description": "Rule",
-  "properties": {
-    "action": {
-      "enum": [
-        "challenge"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/rulesets_Rule"
     },
-    "action_parameters": {
-      "default": {},
-      "description": "The parameters configuring the rule's action.",
-      "type": "object"
-    },
-    "description": {
-      "type": "string"
-    },
-    "enabled": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RuleEnabled"
+    {
+      "properties": {
+        "action": {
+          "enum": [
+            "challenge"
+          ],
+          "type": "string"
         },
-        {
-          "type": "boolean"
+        "description": {
+          "type": "string"
         }
-      ]
-    },
-    "exposed_credential_check": {
-      "$ref": "#/$defs/rulesets_RuleExposedCredentialCheck",
-      "description": "Configuration for exposed credential checking."
-    },
-    "expression": {
-      "description": "The expression defining which traffic will match the rule.",
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/rulesets_RuleId",
-      "description": "The unique ID of the rule."
-    },
-    "logging": {
-      "$ref": "#/$defs/rulesets_RuleLogging",
-      "description": "An object configuring the rule's logging behavior."
-    },
-    "ratelimit": {
-      "$ref": "#/$defs/rulesets_RuleRatelimit",
-      "description": "An object configuring the rule's rate limit behavior."
-    },
-    "ref": {
-      "description": "The reference of the rule (the rule's ID by default).",
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `rulesets_CompressResponseRule`.
  */
 export const rulesets_CompressResponseRule: JsonSchema = {
-  "description": "Rule",
-  "properties": {
-    "action": {
-      "enum": [
-        "compress_response"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/rulesets_Rule"
     },
-    "action_parameters": {
-      "$ref": "#/$defs/rulesets_CompressResponseRule_action_parameters"
-    },
-    "description": {
-      "type": "string"
-    },
-    "enabled": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RuleEnabled"
+    {
+      "properties": {
+        "action": {
+          "enum": [
+            "compress_response"
+          ],
+          "type": "string"
         },
-        {
-          "type": "boolean"
+        "action_parameters": {
+          "properties": {
+            "algorithms": {
+              "description": "Custom order for compression algorithms.",
+              "items": {
+                "properties": {
+                  "name": {
+                    "description": "Name of the compression algorithm to enable.",
+                    "enum": [
+                      "none",
+                      "auto",
+                      "default",
+                      "gzip",
+                      "brotli",
+                      "zstd"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "minItems": 1,
+              "type": "array"
+            }
+          },
+          "required": [
+            "algorithms"
+          ],
+          "type": "object"
+        },
+        "description": {
+          "type": "string"
         }
-      ]
-    },
-    "exposed_credential_check": {
-      "$ref": "#/$defs/rulesets_RuleExposedCredentialCheck",
-      "description": "Configuration for exposed credential checking."
-    },
-    "expression": {
-      "description": "The expression defining which traffic will match the rule.",
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/rulesets_RuleId",
-      "description": "The unique ID of the rule."
-    },
-    "logging": {
-      "$ref": "#/$defs/rulesets_RuleLogging",
-      "description": "An object configuring the rule's logging behavior."
-    },
-    "ratelimit": {
-      "$ref": "#/$defs/rulesets_RuleRatelimit",
-      "description": "An object configuring the rule's rate limit behavior."
-    },
-    "ref": {
-      "description": "The reference of the rule (the rule's ID by default).",
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `rulesets_CompressResponseRule_action_parameters`.
- */
-export const rulesets_CompressResponseRule_action_parameters: JsonSchema = {
-  "properties": {
-    "algorithms": {
-      "description": "Custom order for compression algorithms.",
-      "items": {
-        "$ref": "#/$defs/rulesets_CompressResponseRule_action_parameters_algorithmsItem"
       },
-      "minItems": 1,
-      "type": "array"
+      "type": "object"
     }
-  },
-  "required": [
-    "algorithms"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `rulesets_CompressResponseRule_action_parameters_algorithmsItem`.
- */
-export const rulesets_CompressResponseRule_action_parameters_algorithmsItem: JsonSchema = {
-  "description": "Compression algorithm to enable.",
-  "properties": {
-    "name": {
-      "description": "Name of the compression algorithm to enable.",
-      "enum": [
-        "none",
-        "auto",
-        "default",
-        "gzip",
-        "brotli",
-        "zstd"
-      ],
-      "type": "string"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**
@@ -268,58 +156,25 @@ export const rulesets_Cursor: JsonSchema = {
  * The schema of `rulesets_DDoSDynamicRule`.
  */
 export const rulesets_DDoSDynamicRule: JsonSchema = {
-  "description": "Rule",
-  "properties": {
-    "action": {
-      "enum": [
-        "ddos_dynamic"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/rulesets_Rule"
     },
-    "action_parameters": {
-      "default": {},
-      "description": "The parameters configuring the rule's action.",
-      "type": "object"
-    },
-    "description": {
-      "type": "string"
-    },
-    "enabled": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RuleEnabled"
+    {
+      "properties": {
+        "action": {
+          "enum": [
+            "ddos_dynamic"
+          ],
+          "type": "string"
         },
-        {
-          "type": "boolean"
+        "description": {
+          "type": "string"
         }
-      ]
-    },
-    "exposed_credential_check": {
-      "$ref": "#/$defs/rulesets_RuleExposedCredentialCheck",
-      "description": "Configuration for exposed credential checking."
-    },
-    "expression": {
-      "description": "The expression defining which traffic will match the rule.",
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/rulesets_RuleId",
-      "description": "The unique ID of the rule."
-    },
-    "logging": {
-      "$ref": "#/$defs/rulesets_RuleLogging",
-      "description": "An object configuring the rule's logging behavior."
-    },
-    "ratelimit": {
-      "$ref": "#/$defs/rulesets_RuleRatelimit",
-      "description": "An object configuring the rule's rate limit behavior."
-    },
-    "ref": {
-      "description": "The reference of the rule (the rule's ID by default).",
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };
 
 /**
@@ -448,56 +303,51 @@ export const rulesets_ExecuteOverrides: JsonSchema = {
  * The schema of `rulesets_ExecuteRule`.
  */
 export const rulesets_ExecuteRule: JsonSchema = {
-  "description": "Rule",
-  "properties": {
-    "action": {
-      "enum": [
-        "execute"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/rulesets_Rule"
     },
-    "action_parameters": {
-      "$ref": "#/$defs/rulesets_ExecuteRule_action_parameters"
-    },
-    "description": {
-      "type": "string"
-    },
-    "enabled": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RuleEnabled"
+    {
+      "properties": {
+        "action": {
+          "enum": [
+            "execute"
+          ],
+          "type": "string"
         },
-        {
-          "type": "boolean"
+        "action_parameters": {
+          "properties": {
+            "id": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/rulesets_RulesetId"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "matched_data": {
+              "$ref": "#/$defs/rulesets_ExecuteMatchedData",
+              "description": "The configuration to use for matched data logging."
+            },
+            "overrides": {
+              "$ref": "#/$defs/rulesets_ExecuteOverrides",
+              "description": "A set of overrides to apply to the target ruleset."
+            }
+          },
+          "required": [
+            "id"
+          ],
+          "type": "object"
+        },
+        "description": {
+          "type": "string"
         }
-      ]
-    },
-    "exposed_credential_check": {
-      "$ref": "#/$defs/rulesets_RuleExposedCredentialCheck",
-      "description": "Configuration for exposed credential checking."
-    },
-    "expression": {
-      "description": "The expression defining which traffic will match the rule.",
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/rulesets_RuleId",
-      "description": "The unique ID of the rule."
-    },
-    "logging": {
-      "$ref": "#/$defs/rulesets_RuleLogging",
-      "description": "An object configuring the rule's logging behavior."
-    },
-    "ratelimit": {
-      "$ref": "#/$defs/rulesets_RuleRatelimit",
-      "description": "An object configuring the rule's rate limit behavior."
-    },
-    "ref": {
-      "description": "The reference of the rule (the rule's ID by default).",
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };
 
 /**
@@ -562,36 +412,6 @@ export const rulesets_ExecuteRuleOverrides: JsonSchema = {
 };
 
 /**
- * The schema of `rulesets_ExecuteRule_action_parameters`.
- */
-export const rulesets_ExecuteRule_action_parameters: JsonSchema = {
-  "properties": {
-    "id": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RulesetId"
-        },
-        {
-          "type": "string"
-        }
-      ]
-    },
-    "matched_data": {
-      "$ref": "#/$defs/rulesets_ExecuteMatchedData",
-      "description": "The configuration to use for matched data logging."
-    },
-    "overrides": {
-      "$ref": "#/$defs/rulesets_ExecuteOverrides",
-      "description": "A set of overrides to apply to the target ruleset."
-    }
-  },
-  "required": [
-    "id"
-  ],
-  "type": "object"
-};
-
-/**
  * The schema of `rulesets_ExecuteSensitivityLevel`.
  */
 export const rulesets_ExecuteSensitivityLevel: JsonSchema = {
@@ -609,116 +429,50 @@ export const rulesets_ExecuteSensitivityLevel: JsonSchema = {
  * The schema of `rulesets_ForceConnectionCloseRule`.
  */
 export const rulesets_ForceConnectionCloseRule: JsonSchema = {
-  "description": "Rule",
-  "properties": {
-    "action": {
-      "enum": [
-        "force_connection_close"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/rulesets_Rule"
     },
-    "action_parameters": {
-      "default": {},
-      "description": "The parameters configuring the rule's action.",
-      "type": "object"
-    },
-    "description": {
-      "type": "string"
-    },
-    "enabled": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RuleEnabled"
+    {
+      "properties": {
+        "action": {
+          "enum": [
+            "force_connection_close"
+          ],
+          "type": "string"
         },
-        {
-          "type": "boolean"
+        "description": {
+          "type": "string"
         }
-      ]
-    },
-    "exposed_credential_check": {
-      "$ref": "#/$defs/rulesets_RuleExposedCredentialCheck",
-      "description": "Configuration for exposed credential checking."
-    },
-    "expression": {
-      "description": "The expression defining which traffic will match the rule.",
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/rulesets_RuleId",
-      "description": "The unique ID of the rule."
-    },
-    "logging": {
-      "$ref": "#/$defs/rulesets_RuleLogging",
-      "description": "An object configuring the rule's logging behavior."
-    },
-    "ratelimit": {
-      "$ref": "#/$defs/rulesets_RuleRatelimit",
-      "description": "An object configuring the rule's rate limit behavior."
-    },
-    "ref": {
-      "description": "The reference of the rule (the rule's ID by default).",
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `rulesets_JsChallengeRule`.
  */
 export const rulesets_JsChallengeRule: JsonSchema = {
-  "description": "Rule",
-  "properties": {
-    "action": {
-      "enum": [
-        "js_challenge"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/rulesets_Rule"
     },
-    "action_parameters": {
-      "default": {},
-      "description": "The parameters configuring the rule's action.",
-      "type": "object"
-    },
-    "description": {
-      "type": "string"
-    },
-    "enabled": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RuleEnabled"
+    {
+      "properties": {
+        "action": {
+          "enum": [
+            "js_challenge"
+          ],
+          "type": "string"
         },
-        {
-          "type": "boolean"
+        "description": {
+          "type": "string"
         }
-      ]
-    },
-    "exposed_credential_check": {
-      "$ref": "#/$defs/rulesets_RuleExposedCredentialCheck",
-      "description": "Configuration for exposed credential checking."
-    },
-    "expression": {
-      "description": "The expression defining which traffic will match the rule.",
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/rulesets_RuleId",
-      "description": "The unique ID of the rule."
-    },
-    "logging": {
-      "$ref": "#/$defs/rulesets_RuleLogging",
-      "description": "An object configuring the rule's logging behavior."
-    },
-    "ratelimit": {
-      "$ref": "#/$defs/rulesets_RuleRatelimit",
-      "description": "An object configuring the rule's rate limit behavior."
-    },
-    "ref": {
-      "description": "The reference of the rule (the rule's ID by default).",
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };
 
 /**
@@ -819,85 +573,50 @@ export const rulesets_LogCustomFieldResponseFields: JsonSchema = {
  * The schema of `rulesets_LogCustomFieldRule`.
  */
 export const rulesets_LogCustomFieldRule: JsonSchema = {
-  "description": "Rule",
-  "properties": {
-    "action": {
-      "enum": [
-        "log_custom_field"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/rulesets_Rule"
     },
-    "action_parameters": {
-      "$ref": "#/$defs/rulesets_LogCustomFieldRule_action_parameters"
-    },
-    "description": {
-      "type": "string"
-    },
-    "enabled": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RuleEnabled"
+    {
+      "properties": {
+        "action": {
+          "enum": [
+            "log_custom_field"
+          ],
+          "type": "string"
         },
-        {
-          "type": "boolean"
+        "action_parameters": {
+          "properties": {
+            "cookie_fields": {
+              "$ref": "#/$defs/rulesets_LogCustomFieldCookieFields",
+              "description": "The cookie fields to log."
+            },
+            "raw_response_fields": {
+              "$ref": "#/$defs/rulesets_LogCustomFieldRawResponseFields",
+              "description": "The raw response fields to log."
+            },
+            "request_fields": {
+              "$ref": "#/$defs/rulesets_LogCustomFieldRequestFields",
+              "description": "The raw request fields to log."
+            },
+            "response_fields": {
+              "$ref": "#/$defs/rulesets_LogCustomFieldResponseFields",
+              "description": "The transformed response fields to log."
+            },
+            "transformed_request_fields": {
+              "$ref": "#/$defs/rulesets_LogCustomFieldTransformedRequestFields",
+              "description": "The transformed request fields to log."
+            }
+          },
+          "type": "object"
+        },
+        "description": {
+          "type": "string"
         }
-      ]
-    },
-    "exposed_credential_check": {
-      "$ref": "#/$defs/rulesets_RuleExposedCredentialCheck",
-      "description": "Configuration for exposed credential checking."
-    },
-    "expression": {
-      "description": "The expression defining which traffic will match the rule.",
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/rulesets_RuleId",
-      "description": "The unique ID of the rule."
-    },
-    "logging": {
-      "$ref": "#/$defs/rulesets_RuleLogging",
-      "description": "An object configuring the rule's logging behavior."
-    },
-    "ratelimit": {
-      "$ref": "#/$defs/rulesets_RuleRatelimit",
-      "description": "An object configuring the rule's rate limit behavior."
-    },
-    "ref": {
-      "description": "The reference of the rule (the rule's ID by default).",
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `rulesets_LogCustomFieldRule_action_parameters`.
- */
-export const rulesets_LogCustomFieldRule_action_parameters: JsonSchema = {
-  "properties": {
-    "cookie_fields": {
-      "$ref": "#/$defs/rulesets_LogCustomFieldCookieFields",
-      "description": "The cookie fields to log."
-    },
-    "raw_response_fields": {
-      "$ref": "#/$defs/rulesets_LogCustomFieldRawResponseFields",
-      "description": "The raw response fields to log."
-    },
-    "request_fields": {
-      "$ref": "#/$defs/rulesets_LogCustomFieldRequestFields",
-      "description": "The raw request fields to log."
-    },
-    "response_fields": {
-      "$ref": "#/$defs/rulesets_LogCustomFieldResponseFields",
-      "description": "The transformed response fields to log."
-    },
-    "transformed_request_fields": {
-      "$ref": "#/$defs/rulesets_LogCustomFieldTransformedRequestFields",
-      "description": "The transformed request fields to log."
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**
@@ -925,116 +644,50 @@ export const rulesets_LogCustomFieldTransformedRequestFields: JsonSchema = {
  * The schema of `rulesets_LogRule`.
  */
 export const rulesets_LogRule: JsonSchema = {
-  "description": "Rule",
-  "properties": {
-    "action": {
-      "enum": [
-        "log"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/rulesets_Rule"
     },
-    "action_parameters": {
-      "default": {},
-      "description": "The parameters configuring the rule's action.",
-      "type": "object"
-    },
-    "description": {
-      "type": "string"
-    },
-    "enabled": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RuleEnabled"
+    {
+      "properties": {
+        "action": {
+          "enum": [
+            "log"
+          ],
+          "type": "string"
         },
-        {
-          "type": "boolean"
+        "description": {
+          "type": "string"
         }
-      ]
-    },
-    "exposed_credential_check": {
-      "$ref": "#/$defs/rulesets_RuleExposedCredentialCheck",
-      "description": "Configuration for exposed credential checking."
-    },
-    "expression": {
-      "description": "The expression defining which traffic will match the rule.",
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/rulesets_RuleId",
-      "description": "The unique ID of the rule."
-    },
-    "logging": {
-      "$ref": "#/$defs/rulesets_RuleLogging",
-      "description": "An object configuring the rule's logging behavior."
-    },
-    "ratelimit": {
-      "$ref": "#/$defs/rulesets_RuleRatelimit",
-      "description": "An object configuring the rule's rate limit behavior."
-    },
-    "ref": {
-      "description": "The reference of the rule (the rule's ID by default).",
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `rulesets_ManagedChallengeRule`.
  */
 export const rulesets_ManagedChallengeRule: JsonSchema = {
-  "description": "Rule",
-  "properties": {
-    "action": {
-      "enum": [
-        "managed_challenge"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/rulesets_Rule"
     },
-    "action_parameters": {
-      "default": {},
-      "description": "The parameters configuring the rule's action.",
-      "type": "object"
-    },
-    "description": {
-      "type": "string"
-    },
-    "enabled": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RuleEnabled"
+    {
+      "properties": {
+        "action": {
+          "enum": [
+            "managed_challenge"
+          ],
+          "type": "string"
         },
-        {
-          "type": "boolean"
+        "description": {
+          "type": "string"
         }
-      ]
-    },
-    "exposed_credential_check": {
-      "$ref": "#/$defs/rulesets_RuleExposedCredentialCheck",
-      "description": "Configuration for exposed credential checking."
-    },
-    "expression": {
-      "description": "The expression defining which traffic will match the rule.",
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/rulesets_RuleId",
-      "description": "The unique ID of the rule."
-    },
-    "logging": {
-      "$ref": "#/$defs/rulesets_RuleLogging",
-      "description": "An object configuring the rule's logging behavior."
-    },
-    "ratelimit": {
-      "$ref": "#/$defs/rulesets_RuleRatelimit",
-      "description": "An object configuring the rule's rate limit behavior."
-    },
-    "ref": {
-      "description": "The reference of the rule (the rule's ID by default).",
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };
 
 /**
@@ -1090,8 +743,18 @@ export const rulesets_RedirectFromValue: JsonSchema = {
       "type": "integer"
     },
     "target_url": {
-      "$ref": "#/$defs/rulesets_RedirectFromValue_target_url",
-      "description": "A URL to redirect the request to."
+      "description": "A URL to redirect the request to.",
+      "properties": {
+        "expression": {
+          "description": "An expression that evaluates to a URL to redirect the request to.",
+          "type": "string"
+        },
+        "value": {
+          "description": "A URL to redirect the request to.",
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
   },
   "required": [
@@ -1101,94 +764,41 @@ export const rulesets_RedirectFromValue: JsonSchema = {
 };
 
 /**
- * The schema of `rulesets_RedirectFromValue_target_url`.
- */
-export const rulesets_RedirectFromValue_target_url: JsonSchema = {
-  "description": "A URL to redirect the request to.",
-  "properties": {
-    "expression": {
-      "description": "An expression that evaluates to a URL to redirect the request to.",
-      "type": "string"
-    },
-    "value": {
-      "description": "A URL to redirect the request to.",
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
  * The schema of `rulesets_RedirectRule`.
  */
 export const rulesets_RedirectRule: JsonSchema = {
-  "description": "Rule",
-  "properties": {
-    "action": {
-      "enum": [
-        "redirect"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/rulesets_Rule"
     },
-    "action_parameters": {
-      "$ref": "#/$defs/rulesets_RedirectRule_action_parameters"
-    },
-    "description": {
-      "type": "string"
-    },
-    "enabled": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RuleEnabled"
+    {
+      "properties": {
+        "action": {
+          "enum": [
+            "redirect"
+          ],
+          "type": "string"
         },
-        {
-          "type": "boolean"
+        "action_parameters": {
+          "properties": {
+            "from_list": {
+              "$ref": "#/$defs/rulesets_RedirectFromList",
+              "description": "A redirect based on a bulk list lookup."
+            },
+            "from_value": {
+              "$ref": "#/$defs/rulesets_RedirectFromValue",
+              "description": "A redirect based on the request properties."
+            }
+          },
+          "type": "object"
+        },
+        "description": {
+          "type": "string"
         }
-      ]
-    },
-    "exposed_credential_check": {
-      "$ref": "#/$defs/rulesets_RuleExposedCredentialCheck",
-      "description": "Configuration for exposed credential checking."
-    },
-    "expression": {
-      "description": "The expression defining which traffic will match the rule.",
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/rulesets_RuleId",
-      "description": "The unique ID of the rule."
-    },
-    "logging": {
-      "$ref": "#/$defs/rulesets_RuleLogging",
-      "description": "An object configuring the rule's logging behavior."
-    },
-    "ratelimit": {
-      "$ref": "#/$defs/rulesets_RuleRatelimit",
-      "description": "An object configuring the rule's rate limit behavior."
-    },
-    "ref": {
-      "description": "The reference of the rule (the rule's ID by default).",
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `rulesets_RedirectRule_action_parameters`.
- */
-export const rulesets_RedirectRule_action_parameters: JsonSchema = {
-  "properties": {
-    "from_list": {
-      "$ref": "#/$defs/rulesets_RedirectFromList",
-      "description": "A redirect based on a bulk list lookup."
-    },
-    "from_value": {
-      "$ref": "#/$defs/rulesets_RedirectFromValue",
-      "description": "A redirect based on the request properties."
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**
@@ -1438,72 +1048,37 @@ export const rulesets_RewriteHeaders: JsonSchema = {
  * The schema of `rulesets_RewriteRule`.
  */
 export const rulesets_RewriteRule: JsonSchema = {
-  "description": "Rule",
-  "properties": {
-    "action": {
-      "enum": [
-        "rewrite"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/rulesets_Rule"
     },
-    "action_parameters": {
-      "$ref": "#/$defs/rulesets_RewriteRule_action_parameters"
-    },
-    "description": {
-      "type": "string"
-    },
-    "enabled": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RuleEnabled"
+    {
+      "properties": {
+        "action": {
+          "enum": [
+            "rewrite"
+          ],
+          "type": "string"
         },
-        {
-          "type": "boolean"
+        "action_parameters": {
+          "properties": {
+            "headers": {
+              "$ref": "#/$defs/rulesets_RewriteHeaders",
+              "description": "A map of headers to rewrite."
+            },
+            "uri": {
+              "$ref": "#/$defs/rulesets_RewriteUri"
+            }
+          },
+          "type": "object"
+        },
+        "description": {
+          "type": "string"
         }
-      ]
-    },
-    "exposed_credential_check": {
-      "$ref": "#/$defs/rulesets_RuleExposedCredentialCheck",
-      "description": "Configuration for exposed credential checking."
-    },
-    "expression": {
-      "description": "The expression defining which traffic will match the rule.",
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/rulesets_RuleId",
-      "description": "The unique ID of the rule."
-    },
-    "logging": {
-      "$ref": "#/$defs/rulesets_RuleLogging",
-      "description": "An object configuring the rule's logging behavior."
-    },
-    "ratelimit": {
-      "$ref": "#/$defs/rulesets_RuleRatelimit",
-      "description": "An object configuring the rule's rate limit behavior."
-    },
-    "ref": {
-      "description": "The reference of the rule (the rule's ID by default).",
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `rulesets_RewriteRule_action_parameters`.
- */
-export const rulesets_RewriteRule_action_parameters: JsonSchema = {
-  "properties": {
-    "headers": {
-      "$ref": "#/$defs/rulesets_RewriteHeaders",
-      "description": "A map of headers to rewrite."
-    },
-    "uri": {
-      "$ref": "#/$defs/rulesets_RewriteUri"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**
@@ -1611,18 +1186,79 @@ export const rulesets_RouteOrigin: JsonSchema = {
  * The schema of `rulesets_RouteRule`.
  */
 export const rulesets_RouteRule: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/rulesets_Rule"
+    },
+    {
+      "properties": {
+        "action": {
+          "enum": [
+            "route"
+          ],
+          "type": "string"
+        },
+        "action_parameters": {
+          "properties": {
+            "host_header": {
+              "$ref": "#/$defs/rulesets_RouteHostHeader",
+              "description": "A value to rewrite the HTTP host header to."
+            },
+            "origin": {
+              "$ref": "#/$defs/rulesets_RouteOrigin",
+              "description": "An origin to route to."
+            },
+            "sni": {
+              "$ref": "#/$defs/rulesets_RouteSNI",
+              "description": "A Server Name Indication (SNI) override."
+            }
+          },
+          "type": "object"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `rulesets_RouteSNI`.
+ */
+export const rulesets_RouteSNI: JsonSchema = {
+  "description": "A Server Name Indication (SNI) override.",
+  "properties": {
+    "value": {
+      "description": "A value to override the SNI to.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "value"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `rulesets_Rule`.
+ */
+export const rulesets_Rule: JsonSchema = {
   "description": "Rule",
   "properties": {
     "action": {
-      "enum": [
-        "route"
-      ],
-      "type": "string"
+      "$ref": "#/$defs/rulesets_RuleAction",
+      "description": "The action to perform when the rule matches."
     },
     "action_parameters": {
-      "$ref": "#/$defs/rulesets_RouteRule_action_parameters"
+      "default": {},
+      "description": "The parameters configuring the rule's action.",
+      "type": "object"
     },
     "description": {
+      "default": "",
+      "description": "An informative description of the rule.",
       "type": "string"
     },
     "enabled": {
@@ -1660,44 +1296,6 @@ export const rulesets_RouteRule: JsonSchema = {
       "type": "string"
     }
   },
-  "type": "object"
-};
-
-/**
- * The schema of `rulesets_RouteRule_action_parameters`.
- */
-export const rulesets_RouteRule_action_parameters: JsonSchema = {
-  "properties": {
-    "host_header": {
-      "$ref": "#/$defs/rulesets_RouteHostHeader",
-      "description": "A value to rewrite the HTTP host header to."
-    },
-    "origin": {
-      "$ref": "#/$defs/rulesets_RouteOrigin",
-      "description": "An origin to route to."
-    },
-    "sni": {
-      "$ref": "#/$defs/rulesets_RouteSNI",
-      "description": "A Server Name Indication (SNI) override."
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `rulesets_RouteSNI`.
- */
-export const rulesets_RouteSNI: JsonSchema = {
-  "description": "A Server Name Indication (SNI) override.",
-  "properties": {
-    "value": {
-      "description": "A value to override the SNI to.",
-      "type": "string"
-    }
-  },
-  "required": [
-    "value"
-  ],
   "type": "object"
 };
 
@@ -1924,72 +1522,37 @@ export const rulesets_ScoreIncrement: JsonSchema = {
  * The schema of `rulesets_ScoreRule`.
  */
 export const rulesets_ScoreRule: JsonSchema = {
-  "description": "Rule",
-  "properties": {
-    "action": {
-      "enum": [
-        "score"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/rulesets_Rule"
     },
-    "action_parameters": {
-      "$ref": "#/$defs/rulesets_ScoreRule_action_parameters"
-    },
-    "description": {
-      "type": "string"
-    },
-    "enabled": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RuleEnabled"
+    {
+      "properties": {
+        "action": {
+          "enum": [
+            "score"
+          ],
+          "type": "string"
         },
-        {
-          "type": "boolean"
+        "action_parameters": {
+          "properties": {
+            "increment": {
+              "$ref": "#/$defs/rulesets_ScoreIncrement",
+              "description": "A delta to change the score by, which can be either positive or negative."
+            }
+          },
+          "required": [
+            "increment"
+          ],
+          "type": "object"
+        },
+        "description": {
+          "type": "string"
         }
-      ]
-    },
-    "exposed_credential_check": {
-      "$ref": "#/$defs/rulesets_RuleExposedCredentialCheck",
-      "description": "Configuration for exposed credential checking."
-    },
-    "expression": {
-      "description": "The expression defining which traffic will match the rule.",
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/rulesets_RuleId",
-      "description": "The unique ID of the rule."
-    },
-    "logging": {
-      "$ref": "#/$defs/rulesets_RuleLogging",
-      "description": "An object configuring the rule's logging behavior."
-    },
-    "ratelimit": {
-      "$ref": "#/$defs/rulesets_RuleRatelimit",
-      "description": "An object configuring the rule's rate limit behavior."
-    },
-    "ref": {
-      "description": "The reference of the rule (the rule's ID by default).",
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `rulesets_ScoreRule_action_parameters`.
- */
-export const rulesets_ScoreRule_action_parameters: JsonSchema = {
-  "properties": {
-    "increment": {
-      "$ref": "#/$defs/rulesets_ScoreIncrement",
-      "description": "A delta to change the score by, which can be either positive or negative."
-    }
-  },
-  "required": [
-    "increment"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -2026,101 +1589,73 @@ export const rulesets_ServeErrorContentType: JsonSchema = {
  * The schema of `rulesets_ServeErrorRule`.
  */
 export const rulesets_ServeErrorRule: JsonSchema = {
-  "description": "Rule",
-  "properties": {
-    "action": {
-      "enum": [
-        "serve_error"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/rulesets_Rule"
     },
-    "action_parameters": {
-      "allOf": [
-        {
-          "properties": {
-            "content_type": {
-              "$ref": "#/$defs/rulesets_ServeErrorContentType",
-              "description": "The content type header to set with the error response."
-            },
-            "status_code": {
-              "$ref": "#/$defs/rulesets_ServeErrorStatusCode",
-              "description": "The status code to use for the error."
-            }
-          },
-          "required": [
-            "content_type"
+    {
+      "properties": {
+        "action": {
+          "enum": [
+            "serve_error"
           ],
-          "type": "object"
+          "type": "string"
         },
-        {
-          "oneOf": [
+        "action_parameters": {
+          "allOf": [
             {
               "properties": {
-                "content": {
-                  "$ref": "#/$defs/rulesets_ServeErrorContent",
-                  "description": "The response content."
+                "content_type": {
+                  "$ref": "#/$defs/rulesets_ServeErrorContentType",
+                  "description": "The content type header to set with the error response."
+                },
+                "status_code": {
+                  "$ref": "#/$defs/rulesets_ServeErrorStatusCode",
+                  "description": "The status code to use for the error."
                 }
               },
               "required": [
-                "content"
+                "content_type"
               ],
               "type": "object"
             },
             {
-              "properties": {
-                "asset_name": {
-                  "$ref": "#/$defs/rulesets_ServeErrorAssetName",
-                  "description": "The name of a custom asset to serve as the error response."
+              "oneOf": [
+                {
+                  "properties": {
+                    "content": {
+                      "$ref": "#/$defs/rulesets_ServeErrorContent",
+                      "description": "The response content."
+                    }
+                  },
+                  "required": [
+                    "content"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "properties": {
+                    "asset_name": {
+                      "$ref": "#/$defs/rulesets_ServeErrorAssetName",
+                      "description": "The name of a custom asset to serve as the error response."
+                    }
+                  },
+                  "required": [
+                    "asset_name"
+                  ],
+                  "type": "object"
                 }
-              },
-              "required": [
-                "asset_name"
-              ],
-              "type": "object"
+              ]
             }
           ]
-        }
-      ]
-    },
-    "description": {
-      "type": "string"
-    },
-    "enabled": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RuleEnabled"
         },
-        {
-          "type": "boolean"
+        "description": {
+          "type": "string"
         }
-      ]
-    },
-    "exposed_credential_check": {
-      "$ref": "#/$defs/rulesets_RuleExposedCredentialCheck",
-      "description": "Configuration for exposed credential checking."
-    },
-    "expression": {
-      "description": "The expression defining which traffic will match the rule.",
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/rulesets_RuleId",
-      "description": "The unique ID of the rule."
-    },
-    "logging": {
-      "$ref": "#/$defs/rulesets_RuleLogging",
-      "description": "An object configuring the rule's logging behavior."
-    },
-    "ratelimit": {
-      "$ref": "#/$defs/rulesets_RuleRatelimit",
-      "description": "An object configuring the rule's rate limit behavior."
-    },
-    "ref": {
-      "description": "The reference of the rule (the rule's ID by default).",
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };
 
 /**
@@ -2350,117 +1885,82 @@ export const rulesets_SetCacheControlOperation: JsonSchema = {
  * The schema of `rulesets_SetCacheControlRule`.
  */
 export const rulesets_SetCacheControlRule: JsonSchema = {
-  "description": "Rule",
-  "properties": {
-    "action": {
-      "enum": [
-        "set_cache_control"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/rulesets_Rule"
     },
-    "action_parameters": {
-      "$ref": "#/$defs/rulesets_SetCacheControlRule_action_parameters"
-    },
-    "description": {
-      "type": "string"
-    },
-    "enabled": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RuleEnabled"
+    {
+      "properties": {
+        "action": {
+          "enum": [
+            "set_cache_control"
+          ],
+          "type": "string"
         },
-        {
-          "type": "boolean"
+        "action_parameters": {
+          "properties": {
+            "immutable": {
+              "$ref": "#/$defs/rulesets_SetCacheControlDirective",
+              "description": "A cache-control directive configuration."
+            },
+            "max-age": {
+              "$ref": "#/$defs/rulesets_SetCacheControlDirectiveWithValue",
+              "description": "A cache-control directive configuration that accepts a duration value in seconds."
+            },
+            "must-revalidate": {
+              "$ref": "#/$defs/rulesets_SetCacheControlDirective",
+              "description": "A cache-control directive configuration."
+            },
+            "must-understand": {
+              "$ref": "#/$defs/rulesets_SetCacheControlDirective",
+              "description": "A cache-control directive configuration."
+            },
+            "no-cache": {
+              "$ref": "#/$defs/rulesets_SetCacheControlDirectiveWithQualifiers",
+              "description": "A cache-control directive configuration that accepts optional qualifiers (header names)."
+            },
+            "no-store": {
+              "$ref": "#/$defs/rulesets_SetCacheControlDirective",
+              "description": "A cache-control directive configuration."
+            },
+            "no-transform": {
+              "$ref": "#/$defs/rulesets_SetCacheControlDirective",
+              "description": "A cache-control directive configuration."
+            },
+            "private": {
+              "$ref": "#/$defs/rulesets_SetCacheControlDirectiveWithQualifiers",
+              "description": "A cache-control directive configuration that accepts optional qualifiers (header names)."
+            },
+            "proxy-revalidate": {
+              "$ref": "#/$defs/rulesets_SetCacheControlDirective",
+              "description": "A cache-control directive configuration."
+            },
+            "public": {
+              "$ref": "#/$defs/rulesets_SetCacheControlDirective",
+              "description": "A cache-control directive configuration."
+            },
+            "s-maxage": {
+              "$ref": "#/$defs/rulesets_SetCacheControlDirectiveWithValue",
+              "description": "A cache-control directive configuration that accepts a duration value in seconds."
+            },
+            "stale-if-error": {
+              "$ref": "#/$defs/rulesets_SetCacheControlDirectiveWithValue",
+              "description": "A cache-control directive configuration that accepts a duration value in seconds."
+            },
+            "stale-while-revalidate": {
+              "$ref": "#/$defs/rulesets_SetCacheControlDirectiveWithValue",
+              "description": "A cache-control directive configuration that accepts a duration value in seconds."
+            }
+          },
+          "type": "object"
+        },
+        "description": {
+          "type": "string"
         }
-      ]
-    },
-    "exposed_credential_check": {
-      "$ref": "#/$defs/rulesets_RuleExposedCredentialCheck",
-      "description": "Configuration for exposed credential checking."
-    },
-    "expression": {
-      "description": "The expression defining which traffic will match the rule.",
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/rulesets_RuleId",
-      "description": "The unique ID of the rule."
-    },
-    "logging": {
-      "$ref": "#/$defs/rulesets_RuleLogging",
-      "description": "An object configuring the rule's logging behavior."
-    },
-    "ratelimit": {
-      "$ref": "#/$defs/rulesets_RuleRatelimit",
-      "description": "An object configuring the rule's rate limit behavior."
-    },
-    "ref": {
-      "description": "The reference of the rule (the rule's ID by default).",
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `rulesets_SetCacheControlRule_action_parameters`.
- */
-export const rulesets_SetCacheControlRule_action_parameters: JsonSchema = {
-  "properties": {
-    "immutable": {
-      "$ref": "#/$defs/rulesets_SetCacheControlDirective",
-      "description": "A cache-control directive configuration."
-    },
-    "max-age": {
-      "$ref": "#/$defs/rulesets_SetCacheControlDirectiveWithValue",
-      "description": "A cache-control directive configuration that accepts a duration value in seconds."
-    },
-    "must-revalidate": {
-      "$ref": "#/$defs/rulesets_SetCacheControlDirective",
-      "description": "A cache-control directive configuration."
-    },
-    "must-understand": {
-      "$ref": "#/$defs/rulesets_SetCacheControlDirective",
-      "description": "A cache-control directive configuration."
-    },
-    "no-cache": {
-      "$ref": "#/$defs/rulesets_SetCacheControlDirectiveWithQualifiers",
-      "description": "A cache-control directive configuration that accepts optional qualifiers (header names)."
-    },
-    "no-store": {
-      "$ref": "#/$defs/rulesets_SetCacheControlDirective",
-      "description": "A cache-control directive configuration."
-    },
-    "no-transform": {
-      "$ref": "#/$defs/rulesets_SetCacheControlDirective",
-      "description": "A cache-control directive configuration."
-    },
-    "private": {
-      "$ref": "#/$defs/rulesets_SetCacheControlDirectiveWithQualifiers",
-      "description": "A cache-control directive configuration that accepts optional qualifiers (header names)."
-    },
-    "proxy-revalidate": {
-      "$ref": "#/$defs/rulesets_SetCacheControlDirective",
-      "description": "A cache-control directive configuration."
-    },
-    "public": {
-      "$ref": "#/$defs/rulesets_SetCacheControlDirective",
-      "description": "A cache-control directive configuration."
-    },
-    "s-maxage": {
-      "$ref": "#/$defs/rulesets_SetCacheControlDirectiveWithValue",
-      "description": "A cache-control directive configuration that accepts a duration value in seconds."
-    },
-    "stale-if-error": {
-      "$ref": "#/$defs/rulesets_SetCacheControlDirectiveWithValue",
-      "description": "A cache-control directive configuration that accepts a duration value in seconds."
-    },
-    "stale-while-revalidate": {
-      "$ref": "#/$defs/rulesets_SetCacheControlDirectiveWithValue",
-      "description": "A cache-control directive configuration that accepts a duration value in seconds."
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**
@@ -2675,62 +2175,46 @@ export const rulesets_SetCacheSettingsCustomCacheKeyQueryString: JsonSchema = {
   "description": "Which query string parameters to include in or exclude from the cache key.",
   "properties": {
     "exclude": {
-      "$ref": "#/$defs/rulesets_SetCacheSettingsCustomCacheKeyQueryString_exclude",
-      "description": "Which query string parameters to exclude from the cache key."
+      "description": "Which query string parameters to exclude from the cache key.",
+      "properties": {
+        "all": {
+          "description": "Whether to exclude all query string parameters from the cache key.",
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        },
+        "list": {
+          "description": "A list of query string parameters to exclude from the cache key.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "type": "object"
     },
     "include": {
-      "$ref": "#/$defs/rulesets_SetCacheSettingsCustomCacheKeyQueryString_include",
-      "description": "Which query string parameters to include in the cache key."
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `rulesets_SetCacheSettingsCustomCacheKeyQueryString_exclude`.
- */
-export const rulesets_SetCacheSettingsCustomCacheKeyQueryString_exclude: JsonSchema = {
-  "description": "Which query string parameters to exclude from the cache key.",
-  "properties": {
-    "all": {
-      "description": "Whether to exclude all query string parameters from the cache key.",
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    },
-    "list": {
-      "description": "A list of query string parameters to exclude from the cache key.",
-      "items": {
-        "type": "string"
+      "description": "Which query string parameters to include in the cache key.",
+      "properties": {
+        "all": {
+          "description": "Whether to include all query string parameters in the cache key.",
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        },
+        "list": {
+          "description": "A list of query string parameters to include in the cache key.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array"
+        }
       },
-      "minItems": 1,
-      "type": "array"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `rulesets_SetCacheSettingsCustomCacheKeyQueryString_include`.
- */
-export const rulesets_SetCacheSettingsCustomCacheKeyQueryString_include: JsonSchema = {
-  "description": "Which query string parameters to include in the cache key.",
-  "properties": {
-    "all": {
-      "description": "Whether to include all query string parameters in the cache key.",
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    },
-    "list": {
-      "description": "A list of query string parameters to include in the cache key.",
-      "items": {
-        "type": "string"
-      },
-      "minItems": 1,
-      "type": "array"
+      "type": "object"
     }
   },
   "type": "object"
@@ -2846,133 +2330,98 @@ export const rulesets_SetCacheSettingsRespectStrongEtags: JsonSchema = {
  * The schema of `rulesets_SetCacheSettingsRule`.
  */
 export const rulesets_SetCacheSettingsRule: JsonSchema = {
-  "description": "Rule",
-  "properties": {
-    "action": {
-      "enum": [
-        "set_cache_settings"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/rulesets_Rule"
     },
-    "action_parameters": {
-      "$ref": "#/$defs/rulesets_SetCacheSettingsRule_action_parameters"
-    },
-    "description": {
-      "type": "string"
-    },
-    "enabled": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RuleEnabled"
+    {
+      "properties": {
+        "action": {
+          "enum": [
+            "set_cache_settings"
+          ],
+          "type": "string"
         },
-        {
-          "type": "boolean"
+        "action_parameters": {
+          "properties": {
+            "additional_cacheable_ports": {
+              "$ref": "#/$defs/rulesets_SetCacheSettingsAdditionalCacheablePorts",
+              "description": "A list of additional ports that caching should be enabled on."
+            },
+            "browser_ttl": {
+              "$ref": "#/$defs/rulesets_SetCacheSettingsBrowserTTL",
+              "description": "How long client browsers should cache the response. Cloudflare cache purge will not purge content cached on client browsers, so high browser TTLs may lead to stale content."
+            },
+            "cache": {
+              "$ref": "#/$defs/rulesets_SetCacheSettingsCache",
+              "description": "Whether the request's response from the origin is eligible for caching. Caching itself will still depend on the cache control header and your other caching configurations."
+            },
+            "cache_key": {
+              "$ref": "#/$defs/rulesets_SetCacheSettingsCacheKey",
+              "description": "Which components of the request are included in or excluded from the cache key Cloudflare uses to store the response in cache."
+            },
+            "cache_reserve": {
+              "$ref": "#/$defs/rulesets_SetCacheSettingsCacheReserve",
+              "description": "Settings to determine whether the request's response from origin is eligible for Cache Reserve (requires a Cache Reserve add-on plan)."
+            },
+            "edge_ttl": {
+              "$ref": "#/$defs/rulesets_SetCacheSettingsEdgeTTL",
+              "description": "How long the Cloudflare edge network should cache the response."
+            },
+            "origin_cache_control": {
+              "$ref": "#/$defs/rulesets_SetCacheSettingsOriginCacheControl",
+              "description": "Whether Cloudflare will aim to strictly adhere to RFC 7234."
+            },
+            "origin_error_page_passthru": {
+              "$ref": "#/$defs/rulesets_SetCacheSettingsOriginErrorPagePassthru",
+              "description": "Whether to generate Cloudflare error pages for issues from the origin server."
+            },
+            "origin_range_requests": {
+              "$ref": "#/$defs/rulesets_SetCacheSettingsOriginRangeRequests",
+              "description": "Controls whether Cloudflare fetches a large asset from the origin as a series of range requests instead of one whole-body request."
+            },
+            "read_timeout": {
+              "$ref": "#/$defs/rulesets_SetCacheSettingsReadTimeout",
+              "description": "A timeout value between two successive read operations to use for your origin server. Historically, the timeout value between two read options from Cloudflare to an origin server is 100 seconds. If you are attempting to reduce HTTP 524 errors because of timeouts from an origin server, try increasing this timeout value."
+            },
+            "respect_strong_etags": {
+              "$ref": "#/$defs/rulesets_SetCacheSettingsRespectStrongEtags",
+              "description": "Whether Cloudflare should respect strong ETag (entity tag) headers. If false, Cloudflare converts strong ETag headers to weak ETag headers."
+            },
+            "serve_stale": {
+              "$ref": "#/$defs/rulesets_SetCacheSettingsServeStale",
+              "description": "When to serve stale content from cache."
+            },
+            "shared_dictionary": {
+              "$ref": "#/$defs/rulesets_SetCacheSettingsSharedDictionary",
+              "description": "Configuration for shared dictionary compression. When set, Cloudflare injects Use-As-Dictionary headers on matching cacheable responses."
+            },
+            "strip_etags": {
+              "$ref": "#/$defs/rulesets_SetCacheSettingsStripETags",
+              "description": "Whether to strip ETag headers from the origin response before caching."
+            },
+            "strip_last_modified": {
+              "$ref": "#/$defs/rulesets_SetCacheSettingsStripLastModified",
+              "description": "Whether to strip Last-Modified headers from the origin response before caching."
+            },
+            "strip_set_cookie": {
+              "$ref": "#/$defs/rulesets_SetCacheSettingsStripSetCookie",
+              "description": "Whether to strip Set-Cookie headers from the origin response before caching."
+            },
+            "vary": {
+              "$ref": "#/$defs/rulesets_SetCacheSettingsVary",
+              "description": "Controls how cached responses vary based on request headers. `default` is required by the API and applies to any Vary response header that does not have a per-header override."
+            }
+          },
+          "type": "object"
+        },
+        "description": {
+          "type": "string"
         }
-      ]
-    },
-    "exposed_credential_check": {
-      "$ref": "#/$defs/rulesets_RuleExposedCredentialCheck",
-      "description": "Configuration for exposed credential checking."
-    },
-    "expression": {
-      "description": "The expression defining which traffic will match the rule.",
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/rulesets_RuleId",
-      "description": "The unique ID of the rule."
-    },
-    "logging": {
-      "$ref": "#/$defs/rulesets_RuleLogging",
-      "description": "An object configuring the rule's logging behavior."
-    },
-    "ratelimit": {
-      "$ref": "#/$defs/rulesets_RuleRatelimit",
-      "description": "An object configuring the rule's rate limit behavior."
-    },
-    "ref": {
-      "description": "The reference of the rule (the rule's ID by default).",
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `rulesets_SetCacheSettingsRule_action_parameters`.
- */
-export const rulesets_SetCacheSettingsRule_action_parameters: JsonSchema = {
-  "properties": {
-    "additional_cacheable_ports": {
-      "$ref": "#/$defs/rulesets_SetCacheSettingsAdditionalCacheablePorts",
-      "description": "A list of additional ports that caching should be enabled on."
-    },
-    "browser_ttl": {
-      "$ref": "#/$defs/rulesets_SetCacheSettingsBrowserTTL",
-      "description": "How long client browsers should cache the response. Cloudflare cache purge will not purge content cached on client browsers, so high browser TTLs may lead to stale content."
-    },
-    "cache": {
-      "$ref": "#/$defs/rulesets_SetCacheSettingsCache",
-      "description": "Whether the request's response from the origin is eligible for caching. Caching itself will still depend on the cache control header and your other caching configurations."
-    },
-    "cache_key": {
-      "$ref": "#/$defs/rulesets_SetCacheSettingsCacheKey",
-      "description": "Which components of the request are included in or excluded from the cache key Cloudflare uses to store the response in cache."
-    },
-    "cache_reserve": {
-      "$ref": "#/$defs/rulesets_SetCacheSettingsCacheReserve",
-      "description": "Settings to determine whether the request's response from origin is eligible for Cache Reserve (requires a Cache Reserve add-on plan)."
-    },
-    "edge_ttl": {
-      "$ref": "#/$defs/rulesets_SetCacheSettingsEdgeTTL",
-      "description": "How long the Cloudflare edge network should cache the response."
-    },
-    "origin_cache_control": {
-      "$ref": "#/$defs/rulesets_SetCacheSettingsOriginCacheControl",
-      "description": "Whether Cloudflare will aim to strictly adhere to RFC 7234."
-    },
-    "origin_error_page_passthru": {
-      "$ref": "#/$defs/rulesets_SetCacheSettingsOriginErrorPagePassthru",
-      "description": "Whether to generate Cloudflare error pages for issues from the origin server."
-    },
-    "origin_range_requests": {
-      "$ref": "#/$defs/rulesets_SetCacheSettingsOriginRangeRequests",
-      "description": "Controls whether Cloudflare fetches a large asset from the origin as a series of range requests instead of one whole-body request."
-    },
-    "read_timeout": {
-      "$ref": "#/$defs/rulesets_SetCacheSettingsReadTimeout",
-      "description": "A timeout value between two successive read operations to use for your origin server. Historically, the timeout value between two read options from Cloudflare to an origin server is 100 seconds. If you are attempting to reduce HTTP 524 errors because of timeouts from an origin server, try increasing this timeout value."
-    },
-    "respect_strong_etags": {
-      "$ref": "#/$defs/rulesets_SetCacheSettingsRespectStrongEtags",
-      "description": "Whether Cloudflare should respect strong ETag (entity tag) headers. If false, Cloudflare converts strong ETag headers to weak ETag headers."
-    },
-    "serve_stale": {
-      "$ref": "#/$defs/rulesets_SetCacheSettingsServeStale",
-      "description": "When to serve stale content from cache."
-    },
-    "shared_dictionary": {
-      "$ref": "#/$defs/rulesets_SetCacheSettingsSharedDictionary",
-      "description": "Configuration for shared dictionary compression. When set, Cloudflare injects Use-As-Dictionary headers on matching cacheable responses."
-    },
-    "strip_etags": {
-      "$ref": "#/$defs/rulesets_SetCacheSettingsStripETags",
-      "description": "Whether to strip ETag headers from the origin response before caching."
-    },
-    "strip_last_modified": {
-      "$ref": "#/$defs/rulesets_SetCacheSettingsStripLastModified",
-      "description": "Whether to strip Last-Modified headers from the origin response before caching."
-    },
-    "strip_set_cookie": {
-      "$ref": "#/$defs/rulesets_SetCacheSettingsStripSetCookie",
-      "description": "Whether to strip Set-Cookie headers from the origin response before caching."
-    },
-    "vary": {
-      "$ref": "#/$defs/rulesets_SetCacheSettingsVary",
-      "description": "Controls how cached responses vary based on request headers. `default` is required by the API and applies to any Vary response header that does not have a per-header override."
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**
@@ -3175,217 +2624,182 @@ export const rulesets_SetCacheTagsOperation: JsonSchema = {
  * The schema of `rulesets_SetCacheTagsRule`.
  */
 export const rulesets_SetCacheTagsRule: JsonSchema = {
-  "description": "Rule",
-  "properties": {
-    "action": {
-      "enum": [
-        "set_cache_tags"
-      ],
-      "type": "string"
-    },
-    "action_parameters": {
-      "$ref": "#/$defs/rulesets_SetCacheTagsRule_action_parameters"
-    },
-    "description": {
-      "type": "string"
-    },
-    "enabled": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RuleEnabled"
-        },
-        {
-          "type": "boolean"
-        }
-      ]
-    },
-    "exposed_credential_check": {
-      "$ref": "#/$defs/rulesets_RuleExposedCredentialCheck",
-      "description": "Configuration for exposed credential checking."
-    },
-    "expression": {
-      "description": "The expression defining which traffic will match the rule.",
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/rulesets_RuleId",
-      "description": "The unique ID of the rule."
-    },
-    "logging": {
-      "$ref": "#/$defs/rulesets_RuleLogging",
-      "description": "An object configuring the rule's logging behavior."
-    },
-    "ratelimit": {
-      "$ref": "#/$defs/rulesets_RuleRatelimit",
-      "description": "An object configuring the rule's rate limit behavior."
-    },
-    "ref": {
-      "description": "The reference of the rule (the rule's ID by default).",
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `rulesets_SetCacheTagsRule_action_parameters`.
- */
-export const rulesets_SetCacheTagsRule_action_parameters: JsonSchema = {
-  "oneOf": [
+  "allOf": [
     {
-      "properties": {
-        "operation": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/rulesets_SetCacheTagsOperation"
-            },
-            {
-              "enum": [
-                "add"
-              ],
-              "type": "string"
-            }
-          ]
-        },
-        "values": {
-          "$ref": "#/$defs/rulesets_SetCacheTagsValues",
-          "description": "A list of cache tag values."
-        }
-      },
-      "required": [
-        "operation",
-        "values"
-      ],
-      "type": "object"
+      "$ref": "#/$defs/rulesets_Rule"
     },
     {
       "properties": {
-        "expression": {
-          "$ref": "#/$defs/rulesets_SetCacheTagsExpression",
-          "description": "An expression that evaluates to an array of cache tag values."
+        "action": {
+          "enum": [
+            "set_cache_tags"
+          ],
+          "type": "string"
         },
-        "operation": {
-          "allOf": [
+        "action_parameters": {
+          "oneOf": [
             {
-              "$ref": "#/$defs/rulesets_SetCacheTagsOperation"
+              "properties": {
+                "operation": {
+                  "allOf": [
+                    {
+                      "$ref": "#/$defs/rulesets_SetCacheTagsOperation"
+                    },
+                    {
+                      "enum": [
+                        "add"
+                      ],
+                      "type": "string"
+                    }
+                  ]
+                },
+                "values": {
+                  "$ref": "#/$defs/rulesets_SetCacheTagsValues",
+                  "description": "A list of cache tag values."
+                }
+              },
+              "required": [
+                "operation",
+                "values"
+              ],
+              "type": "object"
             },
             {
-              "enum": [
-                "add"
+              "properties": {
+                "expression": {
+                  "$ref": "#/$defs/rulesets_SetCacheTagsExpression",
+                  "description": "An expression that evaluates to an array of cache tag values."
+                },
+                "operation": {
+                  "allOf": [
+                    {
+                      "$ref": "#/$defs/rulesets_SetCacheTagsOperation"
+                    },
+                    {
+                      "enum": [
+                        "add"
+                      ],
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "expression",
+                "operation"
               ],
-              "type": "string"
-            }
-          ]
-        }
-      },
-      "required": [
-        "expression",
-        "operation"
-      ],
-      "type": "object"
-    },
-    {
-      "properties": {
-        "operation": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/rulesets_SetCacheTagsOperation"
+              "type": "object"
             },
             {
-              "enum": [
-                "remove"
+              "properties": {
+                "operation": {
+                  "allOf": [
+                    {
+                      "$ref": "#/$defs/rulesets_SetCacheTagsOperation"
+                    },
+                    {
+                      "enum": [
+                        "remove"
+                      ],
+                      "type": "string"
+                    }
+                  ]
+                },
+                "values": {
+                  "$ref": "#/$defs/rulesets_SetCacheTagsValues",
+                  "description": "A list of cache tag values."
+                }
+              },
+              "required": [
+                "operation",
+                "values"
               ],
-              "type": "string"
+              "type": "object"
+            },
+            {
+              "properties": {
+                "expression": {
+                  "$ref": "#/$defs/rulesets_SetCacheTagsExpression",
+                  "description": "An expression that evaluates to an array of cache tag values."
+                },
+                "operation": {
+                  "allOf": [
+                    {
+                      "$ref": "#/$defs/rulesets_SetCacheTagsOperation"
+                    },
+                    {
+                      "enum": [
+                        "remove"
+                      ],
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "expression",
+                "operation"
+              ],
+              "type": "object"
+            },
+            {
+              "properties": {
+                "operation": {
+                  "allOf": [
+                    {
+                      "$ref": "#/$defs/rulesets_SetCacheTagsOperation"
+                    },
+                    {
+                      "enum": [
+                        "set"
+                      ],
+                      "type": "string"
+                    }
+                  ]
+                },
+                "values": {
+                  "$ref": "#/$defs/rulesets_SetCacheTagsValues",
+                  "description": "A list of cache tag values."
+                }
+              },
+              "required": [
+                "operation",
+                "values"
+              ],
+              "type": "object"
+            },
+            {
+              "properties": {
+                "expression": {
+                  "$ref": "#/$defs/rulesets_SetCacheTagsExpression",
+                  "description": "An expression that evaluates to an array of cache tag values."
+                },
+                "operation": {
+                  "allOf": [
+                    {
+                      "$ref": "#/$defs/rulesets_SetCacheTagsOperation"
+                    },
+                    {
+                      "enum": [
+                        "set"
+                      ],
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "expression",
+                "operation"
+              ],
+              "type": "object"
             }
           ]
         },
-        "values": {
-          "$ref": "#/$defs/rulesets_SetCacheTagsValues",
-          "description": "A list of cache tag values."
+        "description": {
+          "type": "string"
         }
       },
-      "required": [
-        "operation",
-        "values"
-      ],
-      "type": "object"
-    },
-    {
-      "properties": {
-        "expression": {
-          "$ref": "#/$defs/rulesets_SetCacheTagsExpression",
-          "description": "An expression that evaluates to an array of cache tag values."
-        },
-        "operation": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/rulesets_SetCacheTagsOperation"
-            },
-            {
-              "enum": [
-                "remove"
-              ],
-              "type": "string"
-            }
-          ]
-        }
-      },
-      "required": [
-        "expression",
-        "operation"
-      ],
-      "type": "object"
-    },
-    {
-      "properties": {
-        "operation": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/rulesets_SetCacheTagsOperation"
-            },
-            {
-              "enum": [
-                "set"
-              ],
-              "type": "string"
-            }
-          ]
-        },
-        "values": {
-          "$ref": "#/$defs/rulesets_SetCacheTagsValues",
-          "description": "A list of cache tag values."
-        }
-      },
-      "required": [
-        "operation",
-        "values"
-      ],
-      "type": "object"
-    },
-    {
-      "properties": {
-        "expression": {
-          "$ref": "#/$defs/rulesets_SetCacheTagsExpression",
-          "description": "An expression that evaluates to an array of cache tag values."
-        },
-        "operation": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/rulesets_SetCacheTagsOperation"
-            },
-            {
-              "enum": [
-                "set"
-              ],
-              "type": "string"
-            }
-          ]
-        }
-      },
-      "required": [
-        "expression",
-        "operation"
-      ],
       "type": "object"
     }
   ]
@@ -3433,210 +2847,175 @@ export const rulesets_SetConfigAutominify: JsonSchema = {
  * The schema of `rulesets_SetConfigRule`.
  */
 export const rulesets_SetConfigRule: JsonSchema = {
-  "description": "Rule",
-  "properties": {
-    "action": {
-      "enum": [
-        "set_config"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/rulesets_Rule"
     },
-    "action_parameters": {
-      "$ref": "#/$defs/rulesets_SetConfigRule_action_parameters"
-    },
-    "description": {
-      "type": "string"
-    },
-    "enabled": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RuleEnabled"
+    {
+      "properties": {
+        "action": {
+          "enum": [
+            "set_config"
+          ],
+          "type": "string"
         },
-        {
-          "type": "boolean"
+        "action_parameters": {
+          "properties": {
+            "automatic_https_rewrites": {
+              "description": "Whether to enable Automatic HTTPS Rewrites.",
+              "type": "boolean"
+            },
+            "autominify": {
+              "$ref": "#/$defs/rulesets_SetConfigAutominify",
+              "description": "Which file extensions to minify automatically."
+            },
+            "bic": {
+              "description": "Whether to enable Browser Integrity Check (BIC).",
+              "type": "boolean"
+            },
+            "content_converter": {
+              "description": "Whether to enable content conversion (e.g., HTML to Markdown).",
+              "type": "boolean"
+            },
+            "disable_apps": {
+              "deprecated": true,
+              "description": "Whether to disable Cloudflare Apps.",
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            },
+            "disable_pay_per_crawl": {
+              "description": "Whether to disable Pay Per Crawl.",
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            },
+            "disable_rum": {
+              "description": "Whether to disable Real User Monitoring (RUM).",
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            },
+            "disable_zaraz": {
+              "description": "Whether to disable Zaraz.",
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            },
+            "email_obfuscation": {
+              "description": "Whether to enable Email Obfuscation.",
+              "type": "boolean"
+            },
+            "fonts": {
+              "description": "Whether to enable Cloudflare Fonts.",
+              "type": "boolean"
+            },
+            "hotlink_protection": {
+              "description": "Whether to enable Hotlink Protection.",
+              "type": "boolean"
+            },
+            "mirage": {
+              "deprecated": true,
+              "description": "Whether to enable Mirage.",
+              "type": "boolean"
+            },
+            "opportunistic_encryption": {
+              "description": "Whether to enable Opportunistic Encryption.",
+              "type": "boolean"
+            },
+            "polish": {
+              "description": "The Polish level to configure.",
+              "enum": [
+                "off",
+                "lossless",
+                "lossy",
+                "webp"
+              ],
+              "type": "string"
+            },
+            "redirects_for_ai_training": {
+              "description": "Whether to redirect verified AI training crawlers to canonical URLs found in the HTML response.",
+              "type": "boolean"
+            },
+            "request_body_buffering": {
+              "description": "The request body buffering mode.",
+              "enum": [
+                "none",
+                "standard",
+                "full"
+              ],
+              "type": "string"
+            },
+            "response_body_buffering": {
+              "description": "The response body buffering mode.",
+              "enum": [
+                "none",
+                "standard"
+              ],
+              "type": "string"
+            },
+            "rocket_loader": {
+              "description": "Whether to enable Rocket Loader.",
+              "type": "boolean"
+            },
+            "security_level": {
+              "description": "The Security Level to configure.",
+              "enum": [
+                "off",
+                "essentially_off",
+                "low",
+                "medium",
+                "high",
+                "under_attack"
+              ],
+              "type": "string"
+            },
+            "server_side_excludes": {
+              "description": "Whether to enable Server-Side Excludes.",
+              "type": "boolean"
+            },
+            "ssl": {
+              "description": "The SSL level to configure.",
+              "enum": [
+                "off",
+                "flexible",
+                "full",
+                "strict",
+                "origin_pull"
+              ],
+              "type": "string"
+            },
+            "sxg": {
+              "deprecated": true,
+              "description": "Whether to enable Signed Exchanges (SXG).",
+              "type": "boolean"
+            },
+            "webmcp_enabled": {
+              "description": "Whether to serve the WebMCP bridge script, which exposes the page's tools to browser AI agents.",
+              "type": "boolean"
+            },
+            "webmcp_packs": {
+              "description": "Bundled WebMCP tool packs to activate for matching requests. An empty array disables all packs. Omitting this parameter leaves the pack selection unchanged. Does not enable the WebMCP bridge itself.",
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 100,
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "description": {
+          "type": "string"
         }
-      ]
-    },
-    "exposed_credential_check": {
-      "$ref": "#/$defs/rulesets_RuleExposedCredentialCheck",
-      "description": "Configuration for exposed credential checking."
-    },
-    "expression": {
-      "description": "The expression defining which traffic will match the rule.",
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/rulesets_RuleId",
-      "description": "The unique ID of the rule."
-    },
-    "logging": {
-      "$ref": "#/$defs/rulesets_RuleLogging",
-      "description": "An object configuring the rule's logging behavior."
-    },
-    "ratelimit": {
-      "$ref": "#/$defs/rulesets_RuleRatelimit",
-      "description": "An object configuring the rule's rate limit behavior."
-    },
-    "ref": {
-      "description": "The reference of the rule (the rule's ID by default).",
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `rulesets_SetConfigRule_action_parameters`.
- */
-export const rulesets_SetConfigRule_action_parameters: JsonSchema = {
-  "properties": {
-    "automatic_https_rewrites": {
-      "description": "Whether to enable Automatic HTTPS Rewrites.",
-      "type": "boolean"
-    },
-    "autominify": {
-      "$ref": "#/$defs/rulesets_SetConfigAutominify",
-      "description": "Which file extensions to minify automatically."
-    },
-    "bic": {
-      "description": "Whether to enable Browser Integrity Check (BIC).",
-      "type": "boolean"
-    },
-    "content_converter": {
-      "description": "Whether to enable content conversion (e.g., HTML to Markdown).",
-      "type": "boolean"
-    },
-    "disable_apps": {
-      "deprecated": true,
-      "description": "Whether to disable Cloudflare Apps.",
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    },
-    "disable_pay_per_crawl": {
-      "description": "Whether to disable Pay Per Crawl.",
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    },
-    "disable_rum": {
-      "description": "Whether to disable Real User Monitoring (RUM).",
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    },
-    "disable_zaraz": {
-      "description": "Whether to disable Zaraz.",
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    },
-    "email_obfuscation": {
-      "description": "Whether to enable Email Obfuscation.",
-      "type": "boolean"
-    },
-    "fonts": {
-      "description": "Whether to enable Cloudflare Fonts.",
-      "type": "boolean"
-    },
-    "hotlink_protection": {
-      "description": "Whether to enable Hotlink Protection.",
-      "type": "boolean"
-    },
-    "mirage": {
-      "deprecated": true,
-      "description": "Whether to enable Mirage.",
-      "type": "boolean"
-    },
-    "opportunistic_encryption": {
-      "description": "Whether to enable Opportunistic Encryption.",
-      "type": "boolean"
-    },
-    "polish": {
-      "description": "The Polish level to configure.",
-      "enum": [
-        "off",
-        "lossless",
-        "lossy",
-        "webp"
-      ],
-      "type": "string"
-    },
-    "redirects_for_ai_training": {
-      "description": "Whether to redirect verified AI training crawlers to canonical URLs found in the HTML response.",
-      "type": "boolean"
-    },
-    "request_body_buffering": {
-      "description": "The request body buffering mode.",
-      "enum": [
-        "none",
-        "standard",
-        "full"
-      ],
-      "type": "string"
-    },
-    "response_body_buffering": {
-      "description": "The response body buffering mode.",
-      "enum": [
-        "none",
-        "standard"
-      ],
-      "type": "string"
-    },
-    "rocket_loader": {
-      "description": "Whether to enable Rocket Loader.",
-      "type": "boolean"
-    },
-    "security_level": {
-      "description": "The Security Level to configure.",
-      "enum": [
-        "off",
-        "essentially_off",
-        "low",
-        "medium",
-        "high",
-        "under_attack"
-      ],
-      "type": "string"
-    },
-    "server_side_excludes": {
-      "description": "Whether to enable Server-Side Excludes.",
-      "type": "boolean"
-    },
-    "ssl": {
-      "description": "The SSL level to configure.",
-      "enum": [
-        "off",
-        "flexible",
-        "full",
-        "strict",
-        "origin_pull"
-      ],
-      "type": "string"
-    },
-    "sxg": {
-      "deprecated": true,
-      "description": "Whether to enable Signed Exchanges (SXG).",
-      "type": "boolean"
-    },
-    "webmcp_enabled": {
-      "description": "Whether to serve the WebMCP bridge script, which exposes the page's tools to browser AI agents.",
-      "type": "boolean"
-    },
-    "webmcp_packs": {
-      "description": "Bundled WebMCP tool packs to activate for matching requests. An empty array disables all packs. Omitting this parameter leaves the pack selection unchanged. Does not enable the WebMCP bridge itself.",
-      "items": {
-        "type": "string"
       },
-      "maxItems": 100,
-      "type": "array"
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };
 
 /**
@@ -3694,89 +3073,54 @@ export const rulesets_SkipProducts: JsonSchema = {
  * The schema of `rulesets_SkipRule`.
  */
 export const rulesets_SkipRule: JsonSchema = {
-  "description": "Rule",
-  "properties": {
-    "action": {
-      "enum": [
-        "skip"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/rulesets_Rule"
     },
-    "action_parameters": {
-      "$ref": "#/$defs/rulesets_SkipRule_action_parameters"
-    },
-    "description": {
-      "type": "string"
-    },
-    "enabled": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RuleEnabled"
+    {
+      "properties": {
+        "action": {
+          "enum": [
+            "skip"
+          ],
+          "type": "string"
         },
-        {
-          "type": "boolean"
+        "action_parameters": {
+          "properties": {
+            "phase": {
+              "$ref": "#/$defs/rulesets_SkipPhase",
+              "description": "A phase to skip the execution of. This option is only compatible with the products option."
+            },
+            "phases": {
+              "$ref": "#/$defs/rulesets_SkipPhases",
+              "description": "A list of phases to skip the execution of. This option is incompatible with the rulesets option."
+            },
+            "products": {
+              "$ref": "#/$defs/rulesets_SkipProducts",
+              "description": "A list of legacy security products to skip the execution of."
+            },
+            "rules": {
+              "$ref": "#/$defs/rulesets_SkipRules",
+              "description": "A mapping of ruleset IDs to a list of rule IDs in that ruleset to skip the execution of. This option is incompatible with the ruleset option."
+            },
+            "ruleset": {
+              "$ref": "#/$defs/rulesets_SkipRuleset",
+              "description": "A ruleset to skip the execution of. This option is incompatible with the rulesets option."
+            },
+            "rulesets": {
+              "$ref": "#/$defs/rulesets_SkipRulesets",
+              "description": "A list of ruleset IDs to skip the execution of. This option is incompatible with the ruleset and phases options."
+            }
+          },
+          "type": "object"
+        },
+        "description": {
+          "type": "string"
         }
-      ]
-    },
-    "exposed_credential_check": {
-      "$ref": "#/$defs/rulesets_RuleExposedCredentialCheck",
-      "description": "Configuration for exposed credential checking."
-    },
-    "expression": {
-      "description": "The expression defining which traffic will match the rule.",
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/rulesets_RuleId",
-      "description": "The unique ID of the rule."
-    },
-    "logging": {
-      "$ref": "#/$defs/rulesets_RuleLogging",
-      "description": "An object configuring the rule's logging behavior."
-    },
-    "ratelimit": {
-      "$ref": "#/$defs/rulesets_RuleRatelimit",
-      "description": "An object configuring the rule's rate limit behavior."
-    },
-    "ref": {
-      "description": "The reference of the rule (the rule's ID by default).",
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `rulesets_SkipRule_action_parameters`.
- */
-export const rulesets_SkipRule_action_parameters: JsonSchema = {
-  "properties": {
-    "phase": {
-      "$ref": "#/$defs/rulesets_SkipPhase",
-      "description": "A phase to skip the execution of. This option is only compatible with the products option."
-    },
-    "phases": {
-      "$ref": "#/$defs/rulesets_SkipPhases",
-      "description": "A list of phases to skip the execution of. This option is incompatible with the rulesets option."
-    },
-    "products": {
-      "$ref": "#/$defs/rulesets_SkipProducts",
-      "description": "A list of legacy security products to skip the execution of."
-    },
-    "rules": {
-      "$ref": "#/$defs/rulesets_SkipRules",
-      "description": "A mapping of ruleset IDs to a list of rule IDs in that ruleset to skip the execution of. This option is incompatible with the ruleset option."
-    },
-    "ruleset": {
-      "$ref": "#/$defs/rulesets_SkipRuleset",
-      "description": "A ruleset to skip the execution of. This option is incompatible with the rulesets option."
-    },
-    "rulesets": {
-      "$ref": "#/$defs/rulesets_SkipRulesets",
-      "description": "A list of ruleset IDs to skip the execution of. This option is incompatible with the ruleset and phases options."
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**
@@ -3835,70 +3179,35 @@ export const rulesets_SkipRulesets: JsonSchema = {
  * The schema of `rulesets_TransformResponseHTMLRule`.
  */
 export const rulesets_TransformResponseHTMLRule: JsonSchema = {
-  "description": "Rule",
-  "properties": {
-    "action": {
-      "enum": [
-        "transform_response_html"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/rulesets_Rule"
     },
-    "action_parameters": {
-      "$ref": "#/$defs/rulesets_TransformResponseHTMLRule_action_parameters"
-    },
-    "description": {
-      "type": "string"
-    },
-    "enabled": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RuleEnabled"
+    {
+      "properties": {
+        "action": {
+          "enum": [
+            "transform_response_html"
+          ],
+          "type": "string"
         },
-        {
-          "type": "boolean"
+        "action_parameters": {
+          "properties": {
+            "link_maze": {
+              "description": "Enables the link maze transformation on the response.",
+              "type": "object"
+            }
+          },
+          "required": [
+            "link_maze"
+          ],
+          "type": "object"
+        },
+        "description": {
+          "type": "string"
         }
-      ]
-    },
-    "exposed_credential_check": {
-      "$ref": "#/$defs/rulesets_RuleExposedCredentialCheck",
-      "description": "Configuration for exposed credential checking."
-    },
-    "expression": {
-      "description": "The expression defining which traffic will match the rule.",
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/rulesets_RuleId",
-      "description": "The unique ID of the rule."
-    },
-    "logging": {
-      "$ref": "#/$defs/rulesets_RuleLogging",
-      "description": "An object configuring the rule's logging behavior."
-    },
-    "ratelimit": {
-      "$ref": "#/$defs/rulesets_RuleRatelimit",
-      "description": "An object configuring the rule's rate limit behavior."
-    },
-    "ref": {
-      "description": "The reference of the rule (the rule's ID by default).",
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `rulesets_TransformResponseHTMLRule_action_parameters`.
- */
-export const rulesets_TransformResponseHTMLRule_action_parameters: JsonSchema = {
-  "properties": {
-    "link_maze": {
-      "description": "Enables the link maze transformation on the response.",
+      },
       "type": "object"
     }
-  },
-  "required": [
-    "link_maze"
-  ],
-  "type": "object"
+  ]
 };

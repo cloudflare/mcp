@@ -4,6 +4,14 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
+ * The schema of `aaa_account-id`.
+ */
+export const aaa_account_id: JsonSchema = {
+  "description": "The account id",
+  "type": "string"
+};
+
+/**
  * The schema of `aaa_policy-id`.
  */
 export const aaa_policy_id: JsonSchema = {

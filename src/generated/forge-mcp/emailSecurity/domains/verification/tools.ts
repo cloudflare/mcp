@@ -4,6 +4,7 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   email_security_api_response_common_failure_output,
+  email_security_api_response_single_output,
   email_security_messages_output,
 } from "../../outputs.js";
 import { email_security_identifier } from "../../schemas.js";
@@ -41,10 +42,24 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/email-security_DomainVerificationInfo",
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-security_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/email-security_DomainVerificationInfo"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "email-security_DomainStatus": email_security_DomainStatus_output,
         "email-security_DomainVerificationInfo": email_security_DomainVerificationInfo_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
+        "email-security_messages": email_security_messages_output,
       },
     },
     annotations: {
@@ -66,7 +81,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/email-security_DomainVerificationInfo"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-security_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/email-security_DomainVerificationInfo"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-security_api-response-common-failure"
@@ -76,6 +103,7 @@ export const tools: readonly Tool[] = [
         "email-security_DomainStatus": email_security_DomainStatus_output,
         "email-security_DomainVerificationInfo": email_security_DomainVerificationInfo_output,
         "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
         "email-security_messages": email_security_messages_output,
       },
     },

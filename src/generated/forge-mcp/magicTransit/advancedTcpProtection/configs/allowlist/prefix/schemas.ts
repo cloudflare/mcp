@@ -4,9 +4,9 @@
 import type { JsonSchema } from "../../../../../_/tool.js";
 
 /**
- * The schema of `dos_InfraPrefixUpdate`.
+ * The schema of `advanced-ddos-protection_InfraPrefixUpdate`.
  */
-export const dos_InfraPrefixUpdate: JsonSchema = {
+export const advanced_ddos_protection_InfraPrefixUpdate: JsonSchema = {
   "properties": {
     "comment": {
       "description": "A comment describing the allowlist prefix. Optional.",

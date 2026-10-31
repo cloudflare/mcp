@@ -3,7 +3,9 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
+  api_shield_api_response_collection_output,
   api_shield_api_response_common_failure_output,
+  api_shield_api_response_common_output,
   api_shield_messages_output,
   api_shield_timestamp_2_output,
   api_shield_timestamp_output,
@@ -14,10 +16,6 @@ import {
   api_shield_identifier,
   api_shield_identifier_2,
 } from "../../../../schemas.js";
-import {
-  api_shield_api_response_collection_output,
-  api_shield_api_response_collection_result_info_output,
-} from "../../../outputs.js";
 import { api_shield_schema_hosts_output } from "./outputs.js";
 
 /**
@@ -75,7 +73,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "api-shield_api-response-collection": api_shield_api_response_collection_output,
-        "api-shield_api-response-collection_result_info": api_shield_api_response_collection_result_info_output,
+        "api-shield_api-response-common": api_shield_api_response_common_output,
         "api-shield_messages": api_shield_messages_output,
         "api-shield_schema_hosts": api_shield_schema_hosts_output,
         "api-shield_timestamp": api_shield_timestamp_output,
@@ -130,7 +128,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "api-shield_api-response-collection": api_shield_api_response_collection_output,
-        "api-shield_api-response-collection_result_info": api_shield_api_response_collection_result_info_output,
+        "api-shield_api-response-common": api_shield_api_response_common_output,
         "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
         "api-shield_messages": api_shield_messages_output,
         "api-shield_schema_hosts": api_shield_schema_hosts_output,

@@ -25,6 +25,15 @@ export const tls_certificates_and_hostnames_hostnames: JsonSchema = {
 };
 
 /**
+ * The schema of
+ * `tls-certificates-and-hostnames_origin_ca_certificate_identifier`.
+ */
+export const tls_certificates_and_hostnames_origin_ca_certificate_identifier: JsonSchema = {
+  "description": "The x509 serial number of the Origin CA certificate.",
+  "type": "string"
+};
+
+/**
  * The schema of `tls-certificates-and-hostnames_request_type`.
  */
 export const tls_certificates_and_hostnames_request_type: JsonSchema = {

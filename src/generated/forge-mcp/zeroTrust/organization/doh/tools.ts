@@ -4,8 +4,24 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   access_api_response_common_failure_output,
+  access_api_response_single_output,
+  access_client_id_output,
+  access_created_at_output,
+  access_duration_output,
+  access_enabled_output,
+  access_leak_report_url_output,
+  access_leak_reported_at_output,
+  access_leak_reporter_output,
   access_messages_output,
+  access_name_2_output,
+  access_service_tokens_output,
+  access_single_response_2_output,
+  access_tags_output,
+  access_timestamp_output,
+  access_updated_at_output,
+  access_uuid_output,
 } from "../../outputs.js";
+import { access_identifier } from "../../schemas.js";
 import { access_doh_jwt_duration_output } from "./outputs.js";
 import { access_doh_jwt_duration } from "./schemas.js";
 
@@ -21,21 +37,54 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "access_identifier": access_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "doh_jwt_duration": {
-          "type": "string"
+      "allOf": [
+        {
+          "$ref": "#/$defs/access_single_response-2"
+        },
+        {
+          "properties": {
+            "result": {
+              "properties": {
+                "doh_jwt_duration": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
         }
+      ],
+      $defs: {
+        "access_api-response-single": access_api_response_single_output,
+        "access_client_id": access_client_id_output,
+        "access_created_at": access_created_at_output,
+        "access_duration": access_duration_output,
+        "access_enabled": access_enabled_output,
+        "access_leak_report_url": access_leak_report_url_output,
+        "access_leak_reported_at": access_leak_reported_at_output,
+        "access_leak_reporter": access_leak_reporter_output,
+        "access_messages": access_messages_output,
+        "access_name-2": access_name_2_output,
+        "access_service-tokens": access_service_tokens_output,
+        "access_single_response-2": access_single_response_2_output,
+        "access_tags": access_tags_output,
+        "access_timestamp": access_timestamp_output,
+        "access_updated_at": access_updated_at_output,
+        "access_uuid": access_uuid_output,
       },
-      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -56,12 +105,24 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "doh_jwt_duration": {
-              "type": "string"
+          "allOf": [
+            {
+              "$ref": "#/$defs/access_single_response-2"
+            },
+            {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "doh_jwt_duration": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
             }
-          },
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -69,7 +130,22 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
+        "access_client_id": access_client_id_output,
+        "access_created_at": access_created_at_output,
+        "access_duration": access_duration_output,
+        "access_enabled": access_enabled_output,
+        "access_leak_report_url": access_leak_report_url_output,
+        "access_leak_reported_at": access_leak_reported_at_output,
+        "access_leak_reporter": access_leak_reporter_output,
         "access_messages": access_messages_output,
+        "access_name-2": access_name_2_output,
+        "access_service-tokens": access_service_tokens_output,
+        "access_single_response-2": access_single_response_2_output,
+        "access_tags": access_tags_output,
+        "access_timestamp": access_timestamp_output,
+        "access_updated_at": access_updated_at_output,
+        "access_uuid": access_uuid_output,
       },
     },
     request: (args) => ({
@@ -84,8 +160,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         },
         "body": {
           "properties": {
@@ -106,17 +182,46 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "access_doh_jwt_duration": access_doh_jwt_duration,
+        "access_identifier": access_identifier,
       },
     },
     outputSchema: {
-      "properties": {
-        "doh_jwt_duration": {
-          "$ref": "#/$defs/access_doh_jwt_duration"
+      "allOf": [
+        {
+          "$ref": "#/$defs/access_single_response-2"
+        },
+        {
+          "properties": {
+            "result": {
+              "properties": {
+                "doh_jwt_duration": {
+                  "$ref": "#/$defs/access_doh_jwt_duration"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
         }
-      },
-      "type": "object",
+      ],
       $defs: {
+        "access_api-response-single": access_api_response_single_output,
+        "access_client_id": access_client_id_output,
+        "access_created_at": access_created_at_output,
         "access_doh_jwt_duration": access_doh_jwt_duration_output,
+        "access_duration": access_duration_output,
+        "access_enabled": access_enabled_output,
+        "access_leak_report_url": access_leak_report_url_output,
+        "access_leak_reported_at": access_leak_reported_at_output,
+        "access_leak_reporter": access_leak_reporter_output,
+        "access_messages": access_messages_output,
+        "access_name-2": access_name_2_output,
+        "access_service-tokens": access_service_tokens_output,
+        "access_single_response-2": access_single_response_2_output,
+        "access_tags": access_tags_output,
+        "access_timestamp": access_timestamp_output,
+        "access_updated_at": access_updated_at_output,
+        "access_uuid": access_uuid_output,
       },
     },
     annotations: {
@@ -136,12 +241,24 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "201": {
-          "properties": {
-            "doh_jwt_duration": {
-              "$ref": "#/$defs/access_doh_jwt_duration"
+          "allOf": [
+            {
+              "$ref": "#/$defs/access_single_response-2"
+            },
+            {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "doh_jwt_duration": {
+                      "$ref": "#/$defs/access_doh_jwt_duration"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
             }
-          },
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -149,8 +266,23 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
+        "access_client_id": access_client_id_output,
+        "access_created_at": access_created_at_output,
         "access_doh_jwt_duration": access_doh_jwt_duration_output,
+        "access_duration": access_duration_output,
+        "access_enabled": access_enabled_output,
+        "access_leak_report_url": access_leak_report_url_output,
+        "access_leak_reported_at": access_leak_reported_at_output,
+        "access_leak_reporter": access_leak_reporter_output,
         "access_messages": access_messages_output,
+        "access_name-2": access_name_2_output,
+        "access_service-tokens": access_service_tokens_output,
+        "access_single_response-2": access_single_response_2_output,
+        "access_tags": access_tags_output,
+        "access_timestamp": access_timestamp_output,
+        "access_updated_at": access_updated_at_output,
+        "access_uuid": access_uuid_output,
       },
     },
     request: (args) => ({

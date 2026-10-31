@@ -99,8 +99,12 @@ export const realtimekit_StorageConfig: JsonSchema = {
               "type": "string"
             },
             "auth_method": {
-              "$ref": "#/$defs/realtimekit_StorageConfig_auth_method",
-              "description": "Authentication method used for \"sftp\" type storage medium\n"
+              "description": "Authentication method used for \"sftp\" type storage medium\n",
+              "enum": [
+                "KEY",
+                "PASSWORD"
+              ],
+              "type": "string"
             },
             "bucket": {
               "description": "Name of the storage medium's bucket.",
@@ -135,8 +139,15 @@ export const realtimekit_StorageConfig: JsonSchema = {
               "type": "string"
             },
             "type": {
-              "$ref": "#/$defs/realtimekit_StorageConfig_type",
-              "description": "Type of storage media."
+              "description": "Type of storage media.",
+              "enum": [
+                "aws",
+                "azure",
+                "digitalocean",
+                "gcs",
+                "sftp"
+              ],
+              "type": "string"
             },
             "username": {
               "description": "SSH destination server username for SFTP type storage medium",
@@ -239,33 +250,6 @@ export const realtimekit_StorageConfig: JsonSchema = {
 };
 
 /**
- * The schema of `realtimekit_StorageConfig_auth_method`.
- */
-export const realtimekit_StorageConfig_auth_method: JsonSchema = {
-  "description": "Authentication method used for \"sftp\" type storage medium\n",
-  "enum": [
-    "KEY",
-    "PASSWORD"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `realtimekit_StorageConfig_type`.
- */
-export const realtimekit_StorageConfig_type: JsonSchema = {
-  "description": "Type of storage media.",
-  "enum": [
-    "aws",
-    "azure",
-    "digitalocean",
-    "gcs",
-    "sftp"
-  ],
-  "type": "string"
-};
-
-/**
  * The schema of `realtimekit_VideoConfig`.
  */
 export const realtimekit_VideoConfig: JsonSchema = {
@@ -292,59 +276,43 @@ export const realtimekit_VideoConfig: JsonSchema = {
       "type": "integer"
     },
     "watermark": {
-      "$ref": "#/$defs/realtimekit_VideoConfig_watermark",
-      "description": "Watermark to be added to the recording"
+      "description": "Watermark to be added to the recording",
+      "properties": {
+        "position": {
+          "default": "left top",
+          "description": "Position of the watermark",
+          "enum": [
+            "left top",
+            "right top",
+            "left bottom",
+            "right bottom"
+          ],
+          "type": "string"
+        },
+        "size": {
+          "description": "Size of the watermark",
+          "properties": {
+            "height": {
+              "description": "Height of the watermark in px",
+              "type": "integer"
+            },
+            "width": {
+              "description": "Width of the watermark in px",
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        },
+        "url": {
+          "description": "URL of the watermark image",
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "width": {
       "default": 1280,
       "description": "Width of the recording video in pixels",
-      "type": "integer"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `realtimekit_VideoConfig_watermark`.
- */
-export const realtimekit_VideoConfig_watermark: JsonSchema = {
-  "description": "Watermark to be added to the recording",
-  "properties": {
-    "position": {
-      "default": "left top",
-      "description": "Position of the watermark",
-      "enum": [
-        "left top",
-        "right top",
-        "left bottom",
-        "right bottom"
-      ],
-      "type": "string"
-    },
-    "size": {
-      "$ref": "#/$defs/realtimekit_VideoConfig_watermark_size",
-      "description": "Size of the watermark"
-    },
-    "url": {
-      "description": "URL of the watermark image",
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `realtimekit_VideoConfig_watermark_size`.
- */
-export const realtimekit_VideoConfig_watermark_size: JsonSchema = {
-  "description": "Size of the watermark",
-  "properties": {
-    "height": {
-      "description": "Height of the watermark in px",
-      "type": "integer"
-    },
-    "width": {
-      "description": "Width of the watermark in px",
       "type": "integer"
     }
   },

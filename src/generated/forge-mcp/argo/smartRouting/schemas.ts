@@ -4,6 +4,14 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `argo-config_identifier`.
+ */
+export const argo_config_identifier: JsonSchema = {
+  "description": "Specifies the zone associated with the API call.",
+  "type": "string"
+};
+
+/**
  * The schema of `argo-config_patch`.
  */
 export const argo_config_patch: JsonSchema = {

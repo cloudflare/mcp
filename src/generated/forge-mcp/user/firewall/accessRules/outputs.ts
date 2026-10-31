@@ -4,42 +4,66 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `firewall_rule` in responses.
+ * The schema of `firewall_rule_collection_response` in responses.
  */
-export const firewall_rule_output: JsonSchema = {
-  "properties": {
-    "allowed_modes": {
-      "items": {
-        "$ref": "#/$defs/firewall_schemas-mode"
+export const firewall_rule_collection_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/firewall_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/firewall_rule"
+          },
+          "type": "array"
+        }
       },
-      "type": "array"
-    },
-    "configuration": {
-      "$ref": "#/$defs/firewall_configuration"
-    },
-    "created_on": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/firewall_schemas-identifier"
-    },
-    "mode": {
-      "$ref": "#/$defs/firewall_schemas-mode"
-    },
-    "modified_on": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "notes": {
-      "$ref": "#/$defs/firewall_notes"
+      "type": "object"
     }
-  },
-  "required": [
-    "allowed_modes",
-    "configuration",
-    "id",
-    "mode"
-  ],
-  "type": "object"
+  ]
+};
+
+/**
+ * The schema of `firewall_rule_single_id_response` in responses.
+ */
+export const firewall_rule_single_id_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/firewall_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/firewall_schemas-identifier"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `firewall_rule_single_response` in responses.
+ */
+export const firewall_rule_single_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/firewall_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/firewall_rule"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };

@@ -9,10 +9,28 @@ import type { JsonSchema } from "../../_/tool.js";
 export const workers_deployment_output: JsonSchema = {
   "properties": {
     "annotations": {
-      "$ref": "#/$defs/workers_deployment_annotations"
+      "properties": {
+        "workers/message": {
+          "type": "string"
+        },
+        "workers/triggered_by": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "author_email": {
       "type": "string"
+    },
+    "code_update_strategy": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/workers_code_update_strategy"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "created_on": {
       "format": "date-time",
@@ -33,7 +51,20 @@ export const workers_deployment_output: JsonSchema = {
     },
     "versions": {
       "items": {
-        "$ref": "#/$defs/workers_deployment_versionsItem"
+        "properties": {
+          "percentage": {
+            "type": "number"
+          },
+          "version_id": {
+            "format": "uuid",
+            "type": "string"
+          }
+        },
+        "required": [
+          "percentage",
+          "version_id"
+        ],
+        "type": "object"
       },
       "type": "array"
     }
@@ -44,41 +75,6 @@ export const workers_deployment_output: JsonSchema = {
     "source",
     "strategy",
     "versions"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `workers_deployment_annotations` in responses.
- */
-export const workers_deployment_annotations_output: JsonSchema = {
-  "properties": {
-    "workers/message": {
-      "type": "string"
-    },
-    "workers/triggered_by": {
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_deployment_versionsItem` in responses.
- */
-export const workers_deployment_versionsItem_output: JsonSchema = {
-  "properties": {
-    "percentage": {
-      "type": "number"
-    },
-    "version_id": {
-      "format": "uuid",
-      "type": "string"
-    }
-  },
-  "required": [
-    "percentage",
-    "version_id"
   ],
   "type": "object"
 };

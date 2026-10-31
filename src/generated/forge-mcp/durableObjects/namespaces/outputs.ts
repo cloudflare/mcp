@@ -4,59 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `workers_api-response-collection` in responses.
- */
-export const workers_api_response_collection_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/workers_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/workers_messages"
-    },
-    "result_info": {
-      "$ref": "#/$defs/workers_api-response-collection_result_info"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `workers_api-response-collection_result_info` in responses.
- */
-export const workers_api_response_collection_result_info_output: JsonSchema = {
-  "properties": {
-    "count": {
-      "type": "number"
-    },
-    "page": {
-      "type": "number"
-    },
-    "per_page": {
-      "type": "number"
-    },
-    "total_count": {
-      "type": "number"
-    },
-    "total_pages": {
-      "type": "number"
-    }
-  },
-  "type": "object"
-};
-
-/**
  * The schema of `workers_namespace` in responses.
  */
 export const workers_namespace_output: JsonSchema = {
@@ -90,7 +37,40 @@ export const workers_query_result_output: JsonSchema = {
     },
     "results": {
       "items": {
-        "$ref": "#/$defs/workers_query-result_resultsItem"
+        "properties": {
+          "columns": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "meta": {
+            "properties": {
+              "rows_read": {
+                "type": "number"
+              },
+              "rows_written": {
+                "type": "number"
+              }
+            },
+            "type": "object"
+          },
+          "rows": {
+            "items": {
+              "items": {
+                "$ref": "#/$defs/workers_query-value"
+              },
+              "type": "array"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "columns",
+          "meta",
+          "rows"
+        ],
+        "type": "object"
       },
       "type": "array"
     }
@@ -98,53 +78,6 @@ export const workers_query_result_output: JsonSchema = {
   "required": [
     "results"
   ],
-  "type": "object"
-};
-
-/**
- * The schema of `workers_query-result_resultsItem` in responses.
- */
-export const workers_query_result_resultsItem_output: JsonSchema = {
-  "properties": {
-    "columns": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "meta": {
-      "$ref": "#/$defs/workers_query-result_resultsItem_meta"
-    },
-    "rows": {
-      "items": {
-        "items": {
-          "$ref": "#/$defs/workers_query-value"
-        },
-        "type": "array"
-      },
-      "type": "array"
-    }
-  },
-  "required": [
-    "columns",
-    "meta",
-    "rows"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `workers_query-result_resultsItem_meta` in responses.
- */
-export const workers_query_result_resultsItem_meta_output: JsonSchema = {
-  "properties": {
-    "rows_read": {
-      "type": "number"
-    },
-    "rows_written": {
-      "type": "number"
-    }
-  },
   "type": "object"
 };
 

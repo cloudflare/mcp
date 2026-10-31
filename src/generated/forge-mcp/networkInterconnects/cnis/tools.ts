@@ -31,8 +31,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Customer account tag",
-          "type": "string"
+          "$ref": "#/$defs/nsc_AccountTag",
+          "description": "Customer account tag"
         },
         "body": {
           "$ref": "#/$defs/nsc_CniCreate"
@@ -104,8 +104,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Customer account tag",
-          "type": "string"
+          "$ref": "#/$defs/nsc_AccountTag",
+          "description": "Customer account tag"
         },
         "cni": {
           "description": "CNI ID to retrieve information about",
@@ -117,6 +117,9 @@ export const tools: readonly Tool[] = [
         "account_id",
         "cni"
       ],
+      $defs: {
+        "nsc_AccountTag": nsc_AccountTag,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -153,8 +156,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Customer account tag",
-          "type": "string"
+          "$ref": "#/$defs/nsc_AccountTag",
+          "description": "Customer account tag"
         },
         "cni": {
           "description": "CNI ID to retrieve information about",
@@ -166,6 +169,9 @@ export const tools: readonly Tool[] = [
         "account_id",
         "cni"
       ],
+      $defs: {
+        "nsc_AccountTag": nsc_AccountTag,
+      },
     },
     outputSchema: {
       "$ref": "#/$defs/nsc_Cni",
@@ -223,8 +229,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Customer account tag",
-          "type": "string"
+          "$ref": "#/$defs/nsc_AccountTag",
+          "description": "Customer account tag"
         },
         "cursor": {
           "oneOf": [
@@ -272,6 +278,9 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+      $defs: {
+        "nsc_AccountTag": nsc_AccountTag,
+      },
     },
     outputSchema: {
       "$ref": "#/$defs/nsc_CniList",
@@ -337,8 +346,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Customer account tag",
-          "type": "string"
+          "$ref": "#/$defs/nsc_AccountTag",
+          "description": "Customer account tag"
         },
         "body": {
           "$ref": "#/$defs/nsc_Cni"

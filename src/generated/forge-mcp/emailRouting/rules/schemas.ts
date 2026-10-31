@@ -279,6 +279,14 @@ export const email_rule_enabled: JsonSchema = {
 };
 
 /**
+ * The schema of `email_rule_identifier`.
+ */
+export const email_rule_identifier: JsonSchema = {
+  "description": "Routing rule identifier.",
+  "type": "string"
+};
+
+/**
  * The schema of `email_rule_matcher`.
  */
 export const email_rule_matcher: JsonSchema = {

@@ -6,14 +6,16 @@ import {
   r2_errors_output,
   r2_messages_output,
   r2_v4_response_failure_output,
+  r2_v4_response_output,
 } from "../../outputs.js";
+import { r2_account_identifier, r2_bucket_name } from "../../schemas.js";
 import {
   r2_bucket_config_output,
   r2_queues_config_output,
   r2_r2_action_output,
   r2_rule_output,
 } from "./outputs.js";
-import { r2_r2_action, r2_rule } from "./schemas.js";
+import { r2_queue_identifier, r2_r2_action, r2_rule } from "./schemas.js";
 
 /**
  * The tools of `r2.buckets.event_notifications`.
@@ -27,8 +29,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Cloudflare account ID that owns the R2 resource.",
-          "type": "string"
+          "$ref": "#/$defs/r2_account_identifier",
+          "description": "Cloudflare account ID that owns the R2 resource."
         },
         "body": {
           "properties": {
@@ -43,10 +45,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "bucket_name": {
-          "description": "Name of the bucket.",
-          "type": "string"
+          "$ref": "#/$defs/r2_bucket_name",
+          "description": "Name of the bucket."
         },
         "cf_r2_jurisdiction": {
+          "default": "default",
           "description": "Jurisdiction where objects in this bucket are guaranteed to be stored.",
           "enum": [
             "default",
@@ -58,8 +61,8 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "queue_id": {
-          "description": "ID of the Cloudflare Queue that receives notifications for matching R2 object events.",
-          "type": "string"
+          "$ref": "#/$defs/r2_queue_identifier",
+          "description": "ID of the Cloudflare Queue that receives notifications for matching R2 object events."
         }
       },
       required: [
@@ -67,9 +70,19 @@ export const tools: readonly Tool[] = [
         "bucket_name",
         "queue_id"
       ],
+      $defs: {
+        "r2_account_identifier": r2_account_identifier,
+        "r2_bucket_name": r2_bucket_name,
+        "r2_queue_identifier": r2_queue_identifier,
+      },
     },
     outputSchema: {
-      "type": "object",
+      "$ref": "#/$defs/r2_v4_response",
+      $defs: {
+        "r2_errors": r2_errors_output,
+        "r2_messages": r2_messages_output,
+        "r2_v4_response": r2_v4_response_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -88,7 +101,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "type": "object"
+          "$ref": "#/$defs/r2_v4_response"
         },
         "4XX": {
           "$ref": "#/$defs/r2_v4_response_failure"
@@ -97,6 +110,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "r2_errors": r2_errors_output,
         "r2_messages": r2_messages_output,
+        "r2_v4_response": r2_v4_response_output,
         "r2_v4_response_failure": r2_v4_response_failure_output,
       },
     },
@@ -116,14 +130,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Cloudflare account ID that owns the R2 resource.",
-          "type": "string"
+          "$ref": "#/$defs/r2_account_identifier",
+          "description": "Cloudflare account ID that owns the R2 resource."
         },
         "bucket_name": {
-          "description": "Name of the bucket.",
-          "type": "string"
+          "$ref": "#/$defs/r2_bucket_name",
+          "description": "Name of the bucket."
         },
         "cf_r2_jurisdiction": {
+          "default": "default",
           "description": "Jurisdiction where objects in this bucket are guaranteed to be stored.",
           "enum": [
             "default",
@@ -135,8 +150,8 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "queue_id": {
-          "description": "ID of the Cloudflare Queue that receives notifications for matching R2 object events.",
-          "type": "string"
+          "$ref": "#/$defs/r2_queue_identifier",
+          "description": "ID of the Cloudflare Queue that receives notifications for matching R2 object events."
         }
       },
       required: [
@@ -144,13 +159,33 @@ export const tools: readonly Tool[] = [
         "bucket_name",
         "queue_id"
       ],
+      $defs: {
+        "r2_account_identifier": r2_account_identifier,
+        "r2_bucket_name": r2_bucket_name,
+        "r2_queue_identifier": r2_queue_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/r2_queues-config",
+      "allOf": [
+        {
+          "$ref": "#/$defs/r2_v4_response"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/r2_queues-config"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "r2_errors": r2_errors_output,
+        "r2_messages": r2_messages_output,
         "r2_queues-config": r2_queues_config_output,
         "r2_r2-action": r2_r2_action_output,
         "r2_rule": r2_rule_output,
+        "r2_v4_response": r2_v4_response_output,
       },
     },
     annotations: {
@@ -171,7 +206,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/r2_queues-config"
+          "allOf": [
+            {
+              "$ref": "#/$defs/r2_v4_response"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/r2_queues-config"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "404": {
           "$ref": "#/$defs/r2_v4_response_failure"
@@ -186,6 +233,7 @@ export const tools: readonly Tool[] = [
         "r2_queues-config": r2_queues_config_output,
         "r2_r2-action": r2_r2_action_output,
         "r2_rule": r2_rule_output,
+        "r2_v4_response": r2_v4_response_output,
         "r2_v4_response_failure": r2_v4_response_failure_output,
       },
     },
@@ -204,14 +252,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Cloudflare account ID that owns the R2 resource.",
-          "type": "string"
+          "$ref": "#/$defs/r2_account_identifier",
+          "description": "Cloudflare account ID that owns the R2 resource."
         },
         "bucket_name": {
-          "description": "Name of the bucket.",
-          "type": "string"
+          "$ref": "#/$defs/r2_bucket_name",
+          "description": "Name of the bucket."
         },
         "cf_r2_jurisdiction": {
+          "default": "default",
           "description": "Jurisdiction where objects in this bucket are guaranteed to be stored.",
           "enum": [
             "default",
@@ -227,14 +276,33 @@ export const tools: readonly Tool[] = [
         "account_id",
         "bucket_name"
       ],
+      $defs: {
+        "r2_account_identifier": r2_account_identifier,
+        "r2_bucket_name": r2_bucket_name,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/r2_bucket-config",
+      "allOf": [
+        {
+          "$ref": "#/$defs/r2_v4_response"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/r2_bucket-config"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "r2_bucket-config": r2_bucket_config_output,
+        "r2_errors": r2_errors_output,
+        "r2_messages": r2_messages_output,
         "r2_queues-config": r2_queues_config_output,
         "r2_r2-action": r2_r2_action_output,
         "r2_rule": r2_rule_output,
+        "r2_v4_response": r2_v4_response_output,
       },
     },
     annotations: {
@@ -255,7 +323,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/r2_bucket-config"
+          "allOf": [
+            {
+              "$ref": "#/$defs/r2_v4_response"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/r2_bucket-config"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "404": {
           "$ref": "#/$defs/r2_v4_response_failure"
@@ -271,6 +351,7 @@ export const tools: readonly Tool[] = [
         "r2_queues-config": r2_queues_config_output,
         "r2_r2-action": r2_r2_action_output,
         "r2_rule": r2_rule_output,
+        "r2_v4_response": r2_v4_response_output,
         "r2_v4_response_failure": r2_v4_response_failure_output,
       },
     },
@@ -289,8 +370,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Cloudflare account ID that owns the R2 resource.",
-          "type": "string"
+          "$ref": "#/$defs/r2_account_identifier",
+          "description": "Cloudflare account ID that owns the R2 resource."
         },
         "body": {
           "properties": {
@@ -309,10 +390,11 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "bucket_name": {
-          "description": "Name of the bucket.",
-          "type": "string"
+          "$ref": "#/$defs/r2_bucket_name",
+          "description": "Name of the bucket."
         },
         "cf_r2_jurisdiction": {
+          "default": "default",
           "description": "Jurisdiction where objects in this bucket are guaranteed to be stored.",
           "enum": [
             "default",
@@ -324,8 +406,8 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "queue_id": {
-          "description": "ID of the Cloudflare Queue that receives notifications for matching R2 object events.",
-          "type": "string"
+          "$ref": "#/$defs/r2_queue_identifier",
+          "description": "ID of the Cloudflare Queue that receives notifications for matching R2 object events."
         }
       },
       required: [
@@ -335,12 +417,20 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "r2_account_identifier": r2_account_identifier,
+        "r2_bucket_name": r2_bucket_name,
+        "r2_queue_identifier": r2_queue_identifier,
         "r2_r2-action": r2_r2_action,
         "r2_rule": r2_rule,
       },
     },
     outputSchema: {
-      "type": "object",
+      "$ref": "#/$defs/r2_v4_response",
+      $defs: {
+        "r2_errors": r2_errors_output,
+        "r2_messages": r2_messages_output,
+        "r2_v4_response": r2_v4_response_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -359,7 +449,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "type": "object"
+          "$ref": "#/$defs/r2_v4_response"
         },
         "4XX": {
           "$ref": "#/$defs/r2_v4_response_failure"
@@ -368,6 +458,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "r2_errors": r2_errors_output,
         "r2_messages": r2_messages_output,
+        "r2_v4_response": r2_v4_response_output,
         "r2_v4_response_failure": r2_v4_response_failure_output,
       },
     },

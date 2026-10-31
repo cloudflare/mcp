@@ -4,12 +4,16 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   waitingroom_api_response_common_failure_output,
+  waitingroom_api_response_common_output,
+  waitingroom_api_response_single_output,
   waitingroom_messages_output,
 } from "../outputs.js";
-import { waitingroom_custom_page_html } from "../schemas.js";
+import {
+  waitingroom_custom_page_html,
+  waitingroom_identifier,
+} from "../schemas.js";
 import {
   waitingroom_preview_response_output,
-  waitingroom_preview_response_result_output,
   waitingroom_preview_url_output,
 } from "./outputs.js";
 import { waitingroom_query_preview } from "./schemas.js";
@@ -29,8 +33,8 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/waitingroom_query_preview"
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/waitingroom_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -39,17 +43,17 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "waitingroom_custom_page_html": waitingroom_custom_page_html,
+        "waitingroom_identifier": waitingroom_identifier,
         "waitingroom_query_preview": waitingroom_query_preview,
       },
     },
     outputSchema: {
-      "properties": {
-        "preview_url": {
-          "$ref": "#/$defs/waitingroom_preview_url"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/waitingroom_preview_response",
       $defs: {
+        "waitingroom_api-response-common": waitingroom_api_response_common_output,
+        "waitingroom_api-response-single": waitingroom_api_response_single_output,
+        "waitingroom_messages": waitingroom_messages_output,
+        "waitingroom_preview_response": waitingroom_preview_response_output,
         "waitingroom_preview_url": waitingroom_preview_url_output,
       },
     },
@@ -76,12 +80,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "preview_url": {
-              "$ref": "#/$defs/waitingroom_preview_url"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/waitingroom_preview_response"
         },
         "4XX": {
           "allOf": [
@@ -95,10 +94,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "waitingroom_api-response-common": waitingroom_api_response_common_output,
         "waitingroom_api-response-common-failure": waitingroom_api_response_common_failure_output,
+        "waitingroom_api-response-single": waitingroom_api_response_single_output,
         "waitingroom_messages": waitingroom_messages_output,
         "waitingroom_preview_response": waitingroom_preview_response_output,
-        "waitingroom_preview_response_result": waitingroom_preview_response_result_output,
         "waitingroom_preview_url": waitingroom_preview_url_output,
       },
     },

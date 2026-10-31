@@ -4,9 +4,9 @@
 import type { JsonSchema } from "../../../../_/tool.js";
 
 /**
- * The schema of `dos_Prefix` in responses.
+ * The schema of `advanced-ddos-protection_Prefix` in responses.
  */
-export const dos_Prefix_output: JsonSchema = {
+export const advanced_ddos_protection_Prefix_output: JsonSchema = {
   "properties": {
     "comment": {
       "type": "string"
@@ -38,4 +38,45 @@ export const dos_Prefix_output: JsonSchema = {
     "prefix"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `advanced-ddos-protection_prefix-list-response` in responses.
+ */
+export const advanced_ddos_protection_prefix_list_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/advanced-ddos-protection_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/advanced-ddos-protection_Prefix"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `advanced-ddos-protection_prefix-response` in responses.
+ */
+export const advanced_ddos_protection_prefix_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/advanced-ddos-protection_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/advanced-ddos-protection_Prefix"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };

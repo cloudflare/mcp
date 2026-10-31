@@ -6,19 +6,25 @@ import {
   billable_usage_api_api_response_common_failure_output,
   billable_usage_api_cost_and_usage_data_output,
   billable_usage_api_message_output,
+  billable_usage_api_v2_usage_response_output,
   usage_analytics_api_error_output,
   usage_analytics_api_message_output,
   usage_analytics_error_response_output,
 } from "../../outputs.js";
-import { billable_usage_api_identifier } from "../../schemas.js";
 import {
-  billable_usage_api_usage_info_response_result_output,
-  billable_usage_api_usage_info_response_result_subscriptionsItem_output,
+  billable_usage_api_identifier,
+  usage_analytics_identifier,
+} from "../../schemas.js";
+import {
+  billable_usage_api_usage_info_response_output,
   billable_usage_api_usage_record_output,
+  billable_usage_api_usage_response_output,
   billable_usage_api_v2_account_billable_metric_output,
+  billable_usage_api_v2_account_billable_metrics_response_output,
   billable_usage_api_v2_product_category_output,
   billable_usage_api_v2_product_family_output,
   usage_analytics_billing_usage_data_point_output,
+  usage_analytics_billing_usage_response_output,
 } from "./outputs.js";
 import {
   billable_usage_api_v2_filter_by,
@@ -26,7 +32,6 @@ import {
   billable_usage_api_v2_tag_filter,
   billable_usage_api_v2_time_period,
   billable_usage_api_v2_usage_query,
-  usage_analytics_identifier,
 } from "./schemas.js";
 
 /**
@@ -89,23 +94,12 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/usage-analytics_billing_usage_data_point"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/usage-analytics_billing_usage_response",
       $defs: {
+        "usage-analytics_api_error": usage_analytics_api_error_output,
+        "usage-analytics_api_message": usage_analytics_api_message_output,
         "usage-analytics_billing_usage_data_point": usage_analytics_billing_usage_data_point_output,
+        "usage-analytics_billing_usage_response": usage_analytics_billing_usage_response_output,
       },
     },
     annotations: {
@@ -125,21 +119,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/usage-analytics_billing_usage_data_point"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/usage-analytics_billing_usage_response"
         },
         "400": {
           "$ref": "#/$defs/usage-analytics_error_response"
@@ -155,6 +135,7 @@ export const tools: readonly Tool[] = [
         "usage-analytics_api_error": usage_analytics_api_error_output,
         "usage-analytics_api_message": usage_analytics_api_message_output,
         "usage-analytics_billing_usage_data_point": usage_analytics_billing_usage_data_point_output,
+        "usage-analytics_billing_usage_response": usage_analytics_billing_usage_response_output,
         "usage-analytics_error_response": usage_analytics_error_response_output,
       },
     },
@@ -200,23 +181,11 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/billable-usage-api_v2_account_billable_metric"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/billable-usage-api_v2_account_billable_metrics_response",
       $defs: {
+        "billable-usage-api_message": billable_usage_api_message_output,
         "billable-usage-api_v2_account_billable_metric": billable_usage_api_v2_account_billable_metric_output,
+        "billable-usage-api_v2_account_billable_metrics_response": billable_usage_api_v2_account_billable_metrics_response_output,
         "billable-usage-api_v2_product_category": billable_usage_api_v2_product_category_output,
         "billable-usage-api_v2_product_family": billable_usage_api_v2_product_family_output,
       },
@@ -241,21 +210,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/billable-usage-api_v2_account_billable_metric"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/billable-usage-api_v2_account_billable_metrics_response"
         },
         "4XX": {
           "$ref": "#/$defs/billable-usage-api_api-response-common-failure"
@@ -265,6 +220,7 @@ export const tools: readonly Tool[] = [
         "billable-usage-api_api-response-common-failure": billable_usage_api_api_response_common_failure_output,
         "billable-usage-api_message": billable_usage_api_message_output,
         "billable-usage-api_v2_account_billable_metric": billable_usage_api_v2_account_billable_metric_output,
+        "billable-usage-api_v2_account_billable_metrics_response": billable_usage_api_v2_account_billable_metrics_response_output,
         "billable-usage-api_v2_product_category": billable_usage_api_v2_product_category_output,
         "billable-usage-api_v2_product_family": billable_usage_api_v2_product_family_output,
       },
@@ -307,23 +263,11 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/billable-usage-api_cost_and_usage_data"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/billable-usage-api_v2_usage_response",
       $defs: {
         "billable-usage-api_cost_and_usage_data": billable_usage_api_cost_and_usage_data_output,
+        "billable-usage-api_message": billable_usage_api_message_output,
+        "billable-usage-api_v2_usage_response": billable_usage_api_v2_usage_response_output,
       },
     },
     annotations: {
@@ -346,21 +290,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/billable-usage-api_cost_and_usage_data"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/billable-usage-api_v2_usage_response"
         },
         "4XX": {
           "$ref": "#/$defs/billable-usage-api_api-response-common-failure"
@@ -370,6 +300,7 @@ export const tools: readonly Tool[] = [
         "billable-usage-api_api-response-common-failure": billable_usage_api_api_response_common_failure_output,
         "billable-usage-api_cost_and_usage_data": billable_usage_api_cost_and_usage_data_output,
         "billable-usage-api_message": billable_usage_api_message_output,
+        "billable-usage-api_v2_usage_response": billable_usage_api_v2_usage_response_output,
       },
     },
     request: (args) => ({
@@ -400,10 +331,10 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/billable-usage-api_usage_info_response_result",
+      "$ref": "#/$defs/billable-usage-api_usage_info_response",
       $defs: {
-        "billable-usage-api_usage_info_response_result": billable_usage_api_usage_info_response_result_output,
-        "billable-usage-api_usage_info_response_result_subscriptionsItem": billable_usage_api_usage_info_response_result_subscriptionsItem_output,
+        "billable-usage-api_message": billable_usage_api_message_output,
+        "billable-usage-api_usage_info_response": billable_usage_api_usage_info_response_output,
       },
     },
     annotations: {
@@ -426,7 +357,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/billable-usage-api_usage_info_response_result"
+          "$ref": "#/$defs/billable-usage-api_usage_info_response"
         },
         "4XX": {
           "$ref": "#/$defs/billable-usage-api_api-response-common-failure"
@@ -435,8 +366,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "billable-usage-api_api-response-common-failure": billable_usage_api_api_response_common_failure_output,
         "billable-usage-api_message": billable_usage_api_message_output,
-        "billable-usage-api_usage_info_response_result": billable_usage_api_usage_info_response_result_output,
-        "billable-usage-api_usage_info_response_result_subscriptionsItem": billable_usage_api_usage_info_response_result_subscriptionsItem_output,
+        "billable-usage-api_usage_info_response": billable_usage_api_usage_info_response_output,
       },
     },
     request: (args) => ({
@@ -473,23 +403,11 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/billable-usage-api_usage_record"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/billable-usage-api_usage_response",
       $defs: {
+        "billable-usage-api_message": billable_usage_api_message_output,
         "billable-usage-api_usage_record": billable_usage_api_usage_record_output,
+        "billable-usage-api_usage_response": billable_usage_api_usage_response_output,
       },
     },
     annotations: {
@@ -512,21 +430,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/billable-usage-api_usage_record"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/billable-usage-api_usage_response"
         },
         "4XX": {
           "$ref": "#/$defs/billable-usage-api_api-response-common-failure"
@@ -536,6 +440,7 @@ export const tools: readonly Tool[] = [
         "billable-usage-api_api-response-common-failure": billable_usage_api_api_response_common_failure_output,
         "billable-usage-api_message": billable_usage_api_message_output,
         "billable-usage-api_usage_record": billable_usage_api_usage_record_output,
+        "billable-usage-api_usage_response": billable_usage_api_usage_response_output,
       },
     },
     request: (args) => ({
@@ -574,23 +479,11 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/billable-usage-api_cost_and_usage_data"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/billable-usage-api_v2_usage_response",
       $defs: {
         "billable-usage-api_cost_and_usage_data": billable_usage_api_cost_and_usage_data_output,
+        "billable-usage-api_message": billable_usage_api_message_output,
+        "billable-usage-api_v2_usage_response": billable_usage_api_v2_usage_response_output,
       },
     },
     annotations: {
@@ -613,21 +506,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/billable-usage-api_cost_and_usage_data"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/billable-usage-api_v2_usage_response"
         },
         "4XX": {
           "$ref": "#/$defs/billable-usage-api_api-response-common-failure"
@@ -637,6 +516,7 @@ export const tools: readonly Tool[] = [
         "billable-usage-api_api-response-common-failure": billable_usage_api_api_response_common_failure_output,
         "billable-usage-api_cost_and_usage_data": billable_usage_api_cost_and_usage_data_output,
         "billable-usage-api_message": billable_usage_api_message_output,
+        "billable-usage-api_v2_usage_response": billable_usage_api_v2_usage_response_output,
       },
     },
     request: (args) => ({

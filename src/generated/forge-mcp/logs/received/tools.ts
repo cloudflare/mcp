@@ -7,7 +7,11 @@ import {
   logshare_logs_response_json_lines_output,
   logshare_messages_output,
 } from "../outputs.js";
-import { logshare_fields, logshare_timestamps } from "../schemas.js";
+import {
+  logshare_fields,
+  logshare_timestamps,
+  logshare_zone_identifier,
+} from "../schemas.js";
 import {
   logshare_count,
   logshare_end,
@@ -52,8 +56,8 @@ export const tools: readonly Tool[] = [
           "description": "By default, timestamps in responses are returned as Unix nanosecond integers. The `?timestamps=` argument can be set to change the format in which response timestamps are returned. Possible values are: `unix`, `unixnano`, `rfc3339`. Note that `unix` and `unixnano` return timestamps as integers; `rfc3339` returns timestamps as strings."
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/logshare_zone_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -67,6 +71,7 @@ export const tools: readonly Tool[] = [
         "logshare_sample": logshare_sample,
         "logshare_start": logshare_start,
         "logshare_timestamps": logshare_timestamps,
+        "logshare_zone_identifier": logshare_zone_identifier,
       },
     },
     outputSchema: {
@@ -92,12 +97,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#logs:read"
-        ],
-        "x-fern-enum": {
-          "#logs:read": {
-            "name": "logs_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,

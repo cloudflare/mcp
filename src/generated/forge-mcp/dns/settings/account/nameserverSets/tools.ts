@@ -3,28 +3,36 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
+  dns_settings_api_response_collection_output,
   dns_settings_api_response_common_failure_output,
+  dns_settings_api_response_common_output,
+  dns_settings_api_response_single_output,
   dns_settings_messages_output,
 } from "../outputs.js";
-import { dns_settings_page } from "../schemas.js";
+import { dns_settings_identifier, dns_settings_page } from "../schemas.js";
 import {
   dns_settings_nameserver_name_output,
   dns_settings_nameserver_set_address_groups_output,
   dns_settings_nameserver_set_advanced_response_member_output,
   dns_settings_nameserver_set_advanced_response_output,
+  dns_settings_nameserver_set_delete_response_output,
   dns_settings_nameserver_set_id_output,
   dns_settings_nameserver_set_ip_set_output,
   dns_settings_nameserver_set_ipv4_addresses_output,
   dns_settings_nameserver_set_ipv6_addresses_output,
   dns_settings_nameserver_set_name_output,
+  dns_settings_nameserver_set_response_base_output,
+  dns_settings_nameserver_set_response_collection_output,
   dns_settings_nameserver_set_response_member_output,
   dns_settings_nameserver_set_response_output,
+  dns_settings_nameserver_set_response_single_output,
   dns_settings_nameserver_set_standard_response_output,
 } from "./outputs.js";
 import {
   dns_settings_nameserver_name,
   dns_settings_nameserver_set_create,
   dns_settings_nameserver_set_create_member,
+  dns_settings_nameserver_set_id,
   dns_settings_nameserver_set_ip_count,
   dns_settings_nameserver_set_ip_set,
   dns_settings_nameserver_set_name,
@@ -38,13 +46,13 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_settings_account_nameserver_sets_create",
     title: "Create Custom Nameserver Set",
-    description: "Creates a named Custom Nameserver Set. Only the customer-defined name can be changed later. To change nameservers or addresses, create a new set, move any zone assignments, and delete the old set.\n\nThis method is beta.",
+    description: "Creates a named Custom Nameserver Set. Only the customer-defined name can be changed later. To change nameservers or addresses, create a new set, move any zone assignments, and delete the old set. For details, refer to [Nameserver sets](https://developers.cloudflare.com/dns/nameservers/custom-nameservers/nameserver-sets/).\n\nThis method is beta.",
     inputSchema: {
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/dns-settings_identifier",
+          "description": "Identifier."
         },
         "body": {
           "$ref": "#/$defs/dns-settings_nameserver-set-create"
@@ -55,6 +63,7 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "dns-settings_identifier": dns_settings_identifier,
         "dns-settings_nameserver-name": dns_settings_nameserver_name,
         "dns-settings_nameserver-set-create": dns_settings_nameserver_set_create,
         "dns-settings_nameserver-set-create-member": dns_settings_nameserver_set_create_member,
@@ -64,8 +73,10 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/dns-settings_nameserver-set-response",
+      "$ref": "#/$defs/dns-settings_nameserver_set_response_single",
       $defs: {
+        "dns-settings_api-response-single": dns_settings_api_response_single_output,
+        "dns-settings_messages": dns_settings_messages_output,
         "dns-settings_nameserver-name": dns_settings_nameserver_name_output,
         "dns-settings_nameserver-set-address-groups": dns_settings_nameserver_set_address_groups_output,
         "dns-settings_nameserver-set-advanced-response": dns_settings_nameserver_set_advanced_response_output,
@@ -76,8 +87,10 @@ export const tools: readonly Tool[] = [
         "dns-settings_nameserver-set-ipv6-addresses": dns_settings_nameserver_set_ipv6_addresses_output,
         "dns-settings_nameserver-set-name": dns_settings_nameserver_set_name_output,
         "dns-settings_nameserver-set-response": dns_settings_nameserver_set_response_output,
+        "dns-settings_nameserver-set-response-base": dns_settings_nameserver_set_response_base_output,
         "dns-settings_nameserver-set-response-member": dns_settings_nameserver_set_response_member_output,
         "dns-settings_nameserver-set-standard-response": dns_settings_nameserver_set_standard_response_output,
+        "dns-settings_nameserver_set_response_single": dns_settings_nameserver_set_response_single_output,
       },
     },
     annotations: {
@@ -93,19 +106,14 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.custom-ns-set.create"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.custom-ns-set.create": {
-            "name": "com_cloudflare_api_account_custom_ns_set_create"
-          }
-        }
+        ]
       },
       "x-stability": "beta"
     },
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dns-settings_nameserver-set-response"
+          "$ref": "#/$defs/dns-settings_nameserver_set_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/dns-settings_api-response-common-failure"
@@ -113,6 +121,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "dns-settings_api-response-common-failure": dns_settings_api_response_common_failure_output,
+        "dns-settings_api-response-single": dns_settings_api_response_single_output,
         "dns-settings_messages": dns_settings_messages_output,
         "dns-settings_nameserver-name": dns_settings_nameserver_name_output,
         "dns-settings_nameserver-set-address-groups": dns_settings_nameserver_set_address_groups_output,
@@ -124,8 +133,10 @@ export const tools: readonly Tool[] = [
         "dns-settings_nameserver-set-ipv6-addresses": dns_settings_nameserver_set_ipv6_addresses_output,
         "dns-settings_nameserver-set-name": dns_settings_nameserver_set_name_output,
         "dns-settings_nameserver-set-response": dns_settings_nameserver_set_response_output,
+        "dns-settings_nameserver-set-response-base": dns_settings_nameserver_set_response_base_output,
         "dns-settings_nameserver-set-response-member": dns_settings_nameserver_set_response_member_output,
         "dns-settings_nameserver-set-standard-response": dns_settings_nameserver_set_standard_response_output,
+        "dns-settings_nameserver_set_response_single": dns_settings_nameserver_set_response_single_output,
       },
     },
     request: (args) => ({
@@ -136,36 +147,35 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_settings_account_nameserver_sets_delete",
     title: "Delete Custom Nameserver Set",
-    description: "Deletes an unassigned Custom Nameserver Set.\n\nThis method is beta.",
+    description: "Deletes an unassigned Custom Nameserver Set. For details, refer to [Nameserver sets](https://developers.cloudflare.com/dns/nameservers/custom-nameservers/nameserver-sets/).\n\nThis method is beta.",
     inputSchema: {
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/dns-settings_identifier",
+          "description": "Identifier."
         },
         "nameserver_set_id": {
-          "description": "Identifier for a nameserver set.",
-          "type": "string"
+          "$ref": "#/$defs/dns-settings_nameserver-set-id",
+          "description": "Identifier for a nameserver set."
         }
       },
       required: [
         "account_id",
         "nameserver_set_id"
       ],
+      $defs: {
+        "dns-settings_identifier": dns_settings_identifier,
+        "dns-settings_nameserver-set-id": dns_settings_nameserver_set_id,
+      },
     },
     outputSchema: {
-      "properties": {
-        "id": {
-          "$ref": "#/$defs/dns-settings_nameserver-set-id"
-        }
-      },
-      "required": [
-        "id"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/dns-settings_nameserver_set_delete_response",
       $defs: {
+        "dns-settings_api-response-single": dns_settings_api_response_single_output,
+        "dns-settings_messages": dns_settings_messages_output,
         "dns-settings_nameserver-set-id": dns_settings_nameserver_set_id_output,
+        "dns-settings_nameserver_set_delete_response": dns_settings_nameserver_set_delete_response_output,
       },
     },
     annotations: {
@@ -181,27 +191,14 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.custom-ns-set.delete"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.custom-ns-set.delete": {
-            "name": "com_cloudflare_api_account_custom_ns_set_delete"
-          }
-        }
+        ]
       },
       "x-stability": "beta"
     },
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "id": {
-              "$ref": "#/$defs/dns-settings_nameserver-set-id"
-            }
-          },
-          "required": [
-            "id"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/dns-settings_nameserver_set_delete_response"
         },
         "4XX": {
           "$ref": "#/$defs/dns-settings_api-response-common-failure"
@@ -209,8 +206,10 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "dns-settings_api-response-common-failure": dns_settings_api_response_common_failure_output,
+        "dns-settings_api-response-single": dns_settings_api_response_single_output,
         "dns-settings_messages": dns_settings_messages_output,
         "dns-settings_nameserver-set-id": dns_settings_nameserver_set_id_output,
+        "dns-settings_nameserver_set_delete_response": dns_settings_nameserver_set_delete_response_output,
       },
     },
     request: (args) => ({
@@ -225,15 +224,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/dns-settings_identifier",
+          "description": "Identifier."
         },
         "body": {
           "$ref": "#/$defs/dns-settings_nameserver-set-patch"
         },
         "nameserver_set_id": {
-          "description": "Identifier for a nameserver set.",
-          "type": "string"
+          "$ref": "#/$defs/dns-settings_nameserver-set-id",
+          "description": "Identifier for a nameserver set."
         }
       },
       required: [
@@ -242,13 +241,17 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "dns-settings_identifier": dns_settings_identifier,
+        "dns-settings_nameserver-set-id": dns_settings_nameserver_set_id,
         "dns-settings_nameserver-set-name": dns_settings_nameserver_set_name,
         "dns-settings_nameserver-set-patch": dns_settings_nameserver_set_patch,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/dns-settings_nameserver-set-response",
+      "$ref": "#/$defs/dns-settings_nameserver_set_response_single",
       $defs: {
+        "dns-settings_api-response-single": dns_settings_api_response_single_output,
+        "dns-settings_messages": dns_settings_messages_output,
         "dns-settings_nameserver-name": dns_settings_nameserver_name_output,
         "dns-settings_nameserver-set-address-groups": dns_settings_nameserver_set_address_groups_output,
         "dns-settings_nameserver-set-advanced-response": dns_settings_nameserver_set_advanced_response_output,
@@ -259,8 +262,10 @@ export const tools: readonly Tool[] = [
         "dns-settings_nameserver-set-ipv6-addresses": dns_settings_nameserver_set_ipv6_addresses_output,
         "dns-settings_nameserver-set-name": dns_settings_nameserver_set_name_output,
         "dns-settings_nameserver-set-response": dns_settings_nameserver_set_response_output,
+        "dns-settings_nameserver-set-response-base": dns_settings_nameserver_set_response_base_output,
         "dns-settings_nameserver-set-response-member": dns_settings_nameserver_set_response_member_output,
         "dns-settings_nameserver-set-standard-response": dns_settings_nameserver_set_standard_response_output,
+        "dns-settings_nameserver_set_response_single": dns_settings_nameserver_set_response_single_output,
       },
     },
     annotations: {
@@ -279,19 +284,14 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.custom-ns-set.update"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.custom-ns-set.update": {
-            "name": "com_cloudflare_api_account_custom_ns_set_update"
-          }
-        }
+        ]
       },
       "x-stability": "beta"
     },
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dns-settings_nameserver-set-response"
+          "$ref": "#/$defs/dns-settings_nameserver_set_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/dns-settings_api-response-common-failure"
@@ -299,6 +299,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "dns-settings_api-response-common-failure": dns_settings_api_response_common_failure_output,
+        "dns-settings_api-response-single": dns_settings_api_response_single_output,
         "dns-settings_messages": dns_settings_messages_output,
         "dns-settings_nameserver-name": dns_settings_nameserver_name_output,
         "dns-settings_nameserver-set-address-groups": dns_settings_nameserver_set_address_groups_output,
@@ -310,8 +311,10 @@ export const tools: readonly Tool[] = [
         "dns-settings_nameserver-set-ipv6-addresses": dns_settings_nameserver_set_ipv6_addresses_output,
         "dns-settings_nameserver-set-name": dns_settings_nameserver_set_name_output,
         "dns-settings_nameserver-set-response": dns_settings_nameserver_set_response_output,
+        "dns-settings_nameserver-set-response-base": dns_settings_nameserver_set_response_base_output,
         "dns-settings_nameserver-set-response-member": dns_settings_nameserver_set_response_member_output,
         "dns-settings_nameserver-set-standard-response": dns_settings_nameserver_set_standard_response_output,
+        "dns-settings_nameserver_set_response_single": dns_settings_nameserver_set_response_single_output,
       },
     },
     request: (args) => ({
@@ -322,27 +325,33 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_settings_account_nameserver_sets_get",
     title: "Get Custom Nameserver Set",
-    description: "Gets a Custom Nameserver Set owned by an account.\n\nThis method is beta.",
+    description: "Gets a Custom Nameserver Set owned by an account. For details, refer to [Nameserver sets](https://developers.cloudflare.com/dns/nameservers/custom-nameservers/nameserver-sets/).\n\nThis method is beta.",
     inputSchema: {
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/dns-settings_identifier",
+          "description": "Identifier."
         },
         "nameserver_set_id": {
-          "description": "Identifier for a nameserver set.",
-          "type": "string"
+          "$ref": "#/$defs/dns-settings_nameserver-set-id",
+          "description": "Identifier for a nameserver set."
         }
       },
       required: [
         "account_id",
         "nameserver_set_id"
       ],
+      $defs: {
+        "dns-settings_identifier": dns_settings_identifier,
+        "dns-settings_nameserver-set-id": dns_settings_nameserver_set_id,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/dns-settings_nameserver-set-response",
+      "$ref": "#/$defs/dns-settings_nameserver_set_response_single",
       $defs: {
+        "dns-settings_api-response-single": dns_settings_api_response_single_output,
+        "dns-settings_messages": dns_settings_messages_output,
         "dns-settings_nameserver-name": dns_settings_nameserver_name_output,
         "dns-settings_nameserver-set-address-groups": dns_settings_nameserver_set_address_groups_output,
         "dns-settings_nameserver-set-advanced-response": dns_settings_nameserver_set_advanced_response_output,
@@ -353,8 +362,10 @@ export const tools: readonly Tool[] = [
         "dns-settings_nameserver-set-ipv6-addresses": dns_settings_nameserver_set_ipv6_addresses_output,
         "dns-settings_nameserver-set-name": dns_settings_nameserver_set_name_output,
         "dns-settings_nameserver-set-response": dns_settings_nameserver_set_response_output,
+        "dns-settings_nameserver-set-response-base": dns_settings_nameserver_set_response_base_output,
         "dns-settings_nameserver-set-response-member": dns_settings_nameserver_set_response_member_output,
         "dns-settings_nameserver-set-standard-response": dns_settings_nameserver_set_standard_response_output,
+        "dns-settings_nameserver_set_response_single": dns_settings_nameserver_set_response_single_output,
       },
     },
     annotations: {
@@ -374,19 +385,14 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.custom-ns-set.read"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.custom-ns-set.read": {
-            "name": "com_cloudflare_api_account_custom_ns_set_read"
-          }
-        }
+        ]
       },
       "x-stability": "beta"
     },
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dns-settings_nameserver-set-response"
+          "$ref": "#/$defs/dns-settings_nameserver_set_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/dns-settings_api-response-common-failure"
@@ -394,6 +400,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "dns-settings_api-response-common-failure": dns_settings_api_response_common_failure_output,
+        "dns-settings_api-response-single": dns_settings_api_response_single_output,
         "dns-settings_messages": dns_settings_messages_output,
         "dns-settings_nameserver-name": dns_settings_nameserver_name_output,
         "dns-settings_nameserver-set-address-groups": dns_settings_nameserver_set_address_groups_output,
@@ -405,8 +412,10 @@ export const tools: readonly Tool[] = [
         "dns-settings_nameserver-set-ipv6-addresses": dns_settings_nameserver_set_ipv6_addresses_output,
         "dns-settings_nameserver-set-name": dns_settings_nameserver_set_name_output,
         "dns-settings_nameserver-set-response": dns_settings_nameserver_set_response_output,
+        "dns-settings_nameserver-set-response-base": dns_settings_nameserver_set_response_base_output,
         "dns-settings_nameserver-set-response-member": dns_settings_nameserver_set_response_member_output,
         "dns-settings_nameserver-set-standard-response": dns_settings_nameserver_set_standard_response_output,
+        "dns-settings_nameserver_set_response_single": dns_settings_nameserver_set_response_single_output,
       },
     },
     request: (args) => ({
@@ -416,13 +425,13 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_settings_account_nameserver_sets_list",
     title: "List Custom Nameserver Sets",
-    description: "Lists an account's Custom Nameserver Sets.\n\nThis method is beta.",
+    description: "Lists an account's Custom Nameserver Sets. For details, refer to [Nameserver sets](https://developers.cloudflare.com/dns/nameservers/custom-nameservers/nameserver-sets/).\n\nThis method is beta.",
     inputSchema: {
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/dns-settings_identifier",
+          "description": "Identifier."
         },
         "page": {
           "$ref": "#/$defs/dns-settings_page",
@@ -439,43 +448,16 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
       $defs: {
+        "dns-settings_identifier": dns_settings_identifier,
         "dns-settings_page": dns_settings_page,
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/dns-settings_nameserver-set-response"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/dns-settings_nameserver_set_response_collection",
       $defs: {
+        "dns-settings_api-response-collection": dns_settings_api_response_collection_output,
+        "dns-settings_api-response-common": dns_settings_api_response_common_output,
+        "dns-settings_messages": dns_settings_messages_output,
         "dns-settings_nameserver-name": dns_settings_nameserver_name_output,
         "dns-settings_nameserver-set-address-groups": dns_settings_nameserver_set_address_groups_output,
         "dns-settings_nameserver-set-advanced-response": dns_settings_nameserver_set_advanced_response_output,
@@ -486,8 +468,10 @@ export const tools: readonly Tool[] = [
         "dns-settings_nameserver-set-ipv6-addresses": dns_settings_nameserver_set_ipv6_addresses_output,
         "dns-settings_nameserver-set-name": dns_settings_nameserver_set_name_output,
         "dns-settings_nameserver-set-response": dns_settings_nameserver_set_response_output,
+        "dns-settings_nameserver-set-response-base": dns_settings_nameserver_set_response_base_output,
         "dns-settings_nameserver-set-response-member": dns_settings_nameserver_set_response_member_output,
         "dns-settings_nameserver-set-standard-response": dns_settings_nameserver_set_standard_response_output,
+        "dns-settings_nameserver_set_response_collection": dns_settings_nameserver_set_response_collection_output,
       },
     },
     annotations: {
@@ -507,56 +491,22 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.custom-ns-set.list"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.custom-ns-set.list": {
-            "name": "com_cloudflare_api_account_custom_ns_set_list"
-          }
-        }
+        ]
       },
       "x-stability": "beta"
     },
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/dns-settings_nameserver-set-response"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/dns-settings_nameserver_set_response_collection"
         },
         "4XX": {
           "$ref": "#/$defs/dns-settings_api-response-common-failure"
         }
       },
       $defs: {
+        "dns-settings_api-response-collection": dns_settings_api_response_collection_output,
+        "dns-settings_api-response-common": dns_settings_api_response_common_output,
         "dns-settings_api-response-common-failure": dns_settings_api_response_common_failure_output,
         "dns-settings_messages": dns_settings_messages_output,
         "dns-settings_nameserver-name": dns_settings_nameserver_name_output,
@@ -569,8 +519,10 @@ export const tools: readonly Tool[] = [
         "dns-settings_nameserver-set-ipv6-addresses": dns_settings_nameserver_set_ipv6_addresses_output,
         "dns-settings_nameserver-set-name": dns_settings_nameserver_set_name_output,
         "dns-settings_nameserver-set-response": dns_settings_nameserver_set_response_output,
+        "dns-settings_nameserver-set-response-base": dns_settings_nameserver_set_response_base_output,
         "dns-settings_nameserver-set-response-member": dns_settings_nameserver_set_response_member_output,
         "dns-settings_nameserver-set-standard-response": dns_settings_nameserver_set_standard_response_output,
+        "dns-settings_nameserver_set_response_collection": dns_settings_nameserver_set_response_collection_output,
       },
     },
     request: (args) => ({

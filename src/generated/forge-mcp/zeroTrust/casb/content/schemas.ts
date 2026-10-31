@@ -71,28 +71,29 @@ export const posture_api_ContentExportRequest: JsonSchema = {
  * The schema of `posture-api_ContentOrder`.
  */
 export const posture_api_ContentOrder: JsonSchema = {
-  "description": "Generic ordering specification.",
-  "properties": {
-    "direction": {
-      "$ref": "#/$defs/posture-api_DirectionEnum",
-      "description": "Sort direction."
+  "allOf": [
+    {
+      "$ref": "#/$defs/posture-api_Order"
     },
-    "name": {
-      "description": "Content-specific field names for ordering.",
-      "enum": [
-        "asset_name",
-        "dlp_profile_count",
-        "integration_name",
-        "latest_affliction_date"
+    {
+      "properties": {
+        "name": {
+          "description": "Content-specific field names for ordering.",
+          "enum": [
+            "asset_name",
+            "dlp_profile_count",
+            "integration_name",
+            "latest_affliction_date"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
       ],
-      "type": "string"
+      "type": "object"
     }
-  },
-  "required": [
-    "direction",
-    "name"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -151,6 +152,28 @@ export const posture_api_DLPProfileEntry: JsonSchema = {
     "id",
     "name",
     "profile_id"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `posture-api_Order`.
+ */
+export const posture_api_Order: JsonSchema = {
+  "description": "Generic ordering specification.",
+  "properties": {
+    "direction": {
+      "$ref": "#/$defs/posture-api_DirectionEnum",
+      "description": "Sort direction."
+    },
+    "name": {
+      "description": "Field name to order by.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "direction",
+    "name"
   ],
   "type": "object"
 };

@@ -4,34 +4,45 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `zaraz_history_configs_response_value` in responses.
+ * The schema of `zaraz_zaraz-config-history-response` in responses.
  */
-export const zaraz_history_configs_response_value_output: JsonSchema = {
-  "properties": {
-    "config": {
-      "$ref": "#/$defs/zaraz_zaraz-config-return"
+export const zaraz_zaraz_config_history_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/zaraz_api-response-common"
     },
-    "createdAt": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "id": {
-      "type": "integer"
-    },
-    "updatedAt": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "userId": {
-      "type": "string"
+    {
+      "properties": {
+        "result": {
+          "additionalProperties": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/zaraz_zaraz-config-row-base"
+              },
+              {
+                "oneOf": [
+                  {
+                    "properties": {
+                      "config": {
+                        "$ref": "#/$defs/zaraz_zaraz-config-return"
+                      }
+                    },
+                    "required": [
+                      "config"
+                    ],
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            ]
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "createdAt",
-    "id",
-    "updatedAt",
-    "userId",
-    "config"
-  ],
-  "type": "object"
+  ]
 };

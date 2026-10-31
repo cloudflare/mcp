@@ -9,42 +9,28 @@ import type { JsonSchema } from "../../../_/tool.js";
 export const infra_IPInfo_output: JsonSchema = {
   "properties": {
     "ipv4": {
-      "$ref": "#/$defs/infra_IPInfo_ipv4"
+      "properties": {
+        "ip_addr": {
+          "type": "string"
+        },
+        "virtual_network_id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "ipv6": {
-      "$ref": "#/$defs/infra_IPInfo_ipv6"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `infra_IPInfo_ipv4` in responses.
- */
-export const infra_IPInfo_ipv4_output: JsonSchema = {
-  "properties": {
-    "ip_addr": {
-      "type": "string"
-    },
-    "virtual_network_id": {
-      "format": "uuid",
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `infra_IPInfo_ipv6` in responses.
- */
-export const infra_IPInfo_ipv6_output: JsonSchema = {
-  "properties": {
-    "ip_addr": {
-      "type": "string"
-    },
-    "virtual_network_id": {
-      "format": "uuid",
-      "type": "string"
+      "properties": {
+        "ip_addr": {
+          "type": "string"
+        },
+        "virtual_network_id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
   },
   "type": "object"

@@ -7,6 +7,7 @@ import {
   workers_api_response_common_output,
   workers_messages_output,
 } from "../outputs.js";
+import { workers_identifier } from "../schemas.js";
 
 /**
  * The tools of `previews`.
@@ -20,8 +21,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         },
         "delete_with_references": {
           "description": "If true, delete the Preview even when other Workers still reference it. Service bindings in those Workers may be left broken. Durable Object namespaces implemented by the deleted Preview are deleted even if other Workers reference them.",
@@ -41,6 +42,9 @@ export const tools: readonly Tool[] = [
         "worker",
         "name"
       ],
+      $defs: {
+        "workers_identifier": workers_identifier,
+      },
     },
     outputSchema: {
       "$ref": "#/$defs/workers_api-response-common",

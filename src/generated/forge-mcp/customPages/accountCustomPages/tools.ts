@@ -3,16 +3,26 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  custom_pages_api_response_collection_output,
   custom_pages_api_response_common_failure_output,
+  custom_pages_api_response_common_output,
+  custom_pages_api_response_single_output,
   custom_pages_messages_output,
   custom_pages_timestamp_output,
 } from "../outputs.js";
+import { custom_pages_identifier } from "../schemas.js";
 import {
   custom_pages_custom_page_output,
+  custom_pages_custom_page_result_list_output,
+  custom_pages_custom_page_result_output,
   custom_pages_state_output,
   custom_pages_url_output,
 } from "./outputs.js";
-import { custom_pages_state, custom_pages_url } from "./schemas.js";
+import {
+  custom_pages_error_page_type,
+  custom_pages_state,
+  custom_pages_url,
+} from "./schemas.js";
 
 /**
  * The tools of `custom_pages.account_custom_pages`.
@@ -34,12 +44,12 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/custom-pages_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "identifier": {
-          "description": "Custom page type.",
-          "type": "string"
+          "$ref": "#/$defs/custom-pages_error_page_type",
+          "description": "Custom page type."
         }
       },
       required: [
@@ -47,11 +57,18 @@ export const tools: readonly Tool[] = [
         "account_or_zone_id",
         "identifier"
       ],
+      $defs: {
+        "custom-pages_error_page_type": custom_pages_error_page_type,
+        "custom-pages_identifier": custom_pages_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/custom-pages_custom_page",
+      "$ref": "#/$defs/custom-pages_custom_page_result",
       $defs: {
+        "custom-pages_api-response-single": custom_pages_api_response_single_output,
         "custom-pages_custom_page": custom_pages_custom_page_output,
+        "custom-pages_custom_page_result": custom_pages_custom_page_result_output,
+        "custom-pages_messages": custom_pages_messages_output,
         "custom-pages_state": custom_pages_state_output,
         "custom-pages_timestamp": custom_pages_timestamp_output,
         "custom-pages_url": custom_pages_url_output,
@@ -84,7 +101,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/custom-pages_custom_page"
+          "$ref": "#/$defs/custom-pages_custom_page_result"
         },
         "4XX": {
           "$ref": "#/$defs/custom-pages_api-response-common-failure"
@@ -92,7 +109,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "custom-pages_api-response-common-failure": custom_pages_api_response_common_failure_output,
+        "custom-pages_api-response-single": custom_pages_api_response_single_output,
         "custom-pages_custom_page": custom_pages_custom_page_output,
+        "custom-pages_custom_page_result": custom_pages_custom_page_result_output,
         "custom-pages_messages": custom_pages_messages_output,
         "custom-pages_state": custom_pages_state_output,
         "custom-pages_timestamp": custom_pages_timestamp_output,
@@ -119,50 +138,26 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/custom-pages_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         }
       },
       required: [
         "account_or_zone",
         "account_or_zone_id"
       ],
+      $defs: {
+        "custom-pages_identifier": custom_pages_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/custom-pages_custom_page"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/custom-pages_custom_page_result_list",
       $defs: {
+        "custom-pages_api-response-collection": custom_pages_api_response_collection_output,
+        "custom-pages_api-response-common": custom_pages_api_response_common_output,
         "custom-pages_custom_page": custom_pages_custom_page_output,
+        "custom-pages_custom_page_result_list": custom_pages_custom_page_result_list_output,
+        "custom-pages_messages": custom_pages_messages_output,
         "custom-pages_state": custom_pages_state_output,
         "custom-pages_timestamp": custom_pages_timestamp_output,
         "custom-pages_url": custom_pages_url_output,
@@ -188,12 +183,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#organization:read"
-        ],
-        "x-fern-enum": {
-          "#organization:read": {
-            "name": "organization_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -205,46 +195,18 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/custom-pages_custom_page"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/custom-pages_custom_page_result_list"
         },
         "4XX": {
           "$ref": "#/$defs/custom-pages_api-response-common-failure"
         }
       },
       $defs: {
+        "custom-pages_api-response-collection": custom_pages_api_response_collection_output,
+        "custom-pages_api-response-common": custom_pages_api_response_common_output,
         "custom-pages_api-response-common-failure": custom_pages_api_response_common_failure_output,
         "custom-pages_custom_page": custom_pages_custom_page_output,
+        "custom-pages_custom_page_result_list": custom_pages_custom_page_result_list_output,
         "custom-pages_messages": custom_pages_messages_output,
         "custom-pages_state": custom_pages_state_output,
         "custom-pages_timestamp": custom_pages_timestamp_output,
@@ -271,8 +233,8 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/custom-pages_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "body": {
           "properties": {
@@ -293,8 +255,8 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "identifier": {
-          "description": "Custom page type.",
-          "type": "string"
+          "$ref": "#/$defs/custom-pages_error_page_type",
+          "description": "Custom page type."
         }
       },
       required: [
@@ -304,14 +266,19 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "custom-pages_error_page_type": custom_pages_error_page_type,
+        "custom-pages_identifier": custom_pages_identifier,
         "custom-pages_state": custom_pages_state,
         "custom-pages_url": custom_pages_url,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/custom-pages_custom_page",
+      "$ref": "#/$defs/custom-pages_custom_page_result",
       $defs: {
+        "custom-pages_api-response-single": custom_pages_api_response_single_output,
         "custom-pages_custom_page": custom_pages_custom_page_output,
+        "custom-pages_custom_page_result": custom_pages_custom_page_result_output,
+        "custom-pages_messages": custom_pages_messages_output,
         "custom-pages_state": custom_pages_state_output,
         "custom-pages_timestamp": custom_pages_timestamp_output,
         "custom-pages_url": custom_pages_url_output,
@@ -341,7 +308,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/custom-pages_custom_page"
+          "$ref": "#/$defs/custom-pages_custom_page_result"
         },
         "4XX": {
           "$ref": "#/$defs/custom-pages_api-response-common-failure"
@@ -349,7 +316,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "custom-pages_api-response-common-failure": custom_pages_api_response_common_failure_output,
+        "custom-pages_api-response-single": custom_pages_api_response_single_output,
         "custom-pages_custom_page": custom_pages_custom_page_output,
+        "custom-pages_custom_page_result": custom_pages_custom_page_result_output,
         "custom-pages_messages": custom_pages_messages_output,
         "custom-pages_state": custom_pages_state_output,
         "custom-pages_timestamp": custom_pages_timestamp_output,

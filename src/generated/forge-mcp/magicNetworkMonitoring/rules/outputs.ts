@@ -4,6 +4,36 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `magic-visibility-mnm_api-response-collection` in responses.
+ */
+export const magic_visibility_mnm_api_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic-visibility-mnm_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "items": {},
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "result_info": {
+          "$ref": "#/$defs/magic-visibility-mnm_result_info"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `magic-visibility-mnm_mnm_rule` in responses.
  */
 export const magic_visibility_mnm_mnm_rule_output: JsonSchema = {
@@ -204,73 +234,48 @@ export const magic_visibility_mnm_mnm_rule_zscore_target_output: JsonSchema = {
  * responses.
  */
 export const magic_visibility_mnm_mnm_rules_collection_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/magic-visibility-mnm_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic-visibility-mnm_api-response-collection"
     },
-    "messages": {
-      "$ref": "#/$defs/magic-visibility-mnm_messages"
-    },
-    "result": {
-      "oneOf": [
-        {
-          "items": {
-            "$ref": "#/$defs/magic-visibility-mnm_mnm_rule"
-          },
-          "type": "array"
-        },
-        {
-          "type": "null"
+    {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/magic-visibility-mnm_mnm_rule"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
-      ]
-    },
-    "result_info": {
-      "$ref": "#/$defs/magic-visibility-mnm_result_info"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `magic-visibility-mnm_mnm_rules_single_response` in responses.
  */
 export const magic_visibility_mnm_mnm_rules_single_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/magic-visibility-mnm_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic-visibility-mnm_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/magic-visibility-mnm_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/magic-visibility-mnm_mnm_rule"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/magic-visibility-mnm_mnm_rule"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**

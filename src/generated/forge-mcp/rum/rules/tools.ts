@@ -4,8 +4,11 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   rum_api_response_common_failure_output,
+  rum_api_response_common_output,
   rum_messages_2_output,
+  rum_messages_output,
 } from "../../outputs.js";
+import { rum_identifier } from "../../schemas.js";
 import {
   rum_rule_identifier_output,
   rum_rule_output,
@@ -15,11 +18,15 @@ import {
   rum_timestamp_output,
   rum_zone_tag_output,
 } from "../outputs.js";
-import { rum_rule_identifier } from "../schemas.js";
+import { rum_rule_identifier, rum_ruleset_identifier } from "../schemas.js";
+import {
+  rum_rule_id_response_single_output,
+  rum_rule_response_single_output,
+  rum_rules_response_collection_output,
+} from "./outputs.js";
 import {
   rum_create_rule_request,
   rum_modify_rules_request,
-  rum_modify_rules_request_rulesItem,
 } from "./schemas.js";
 
 /**
@@ -34,15 +41,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/rum_identifier",
+          "description": "Identifier."
         },
         "body": {
           "$ref": "#/$defs/rum_modify-rules-request"
         },
         "ruleset_id": {
-          "description": "The Web Analytics ruleset identifier.",
-          "type": "string"
+          "$ref": "#/$defs/rum_ruleset_identifier",
+          "description": "The Web Analytics ruleset identifier."
         }
       },
       required: [
@@ -51,25 +58,21 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "rum_identifier": rum_identifier,
         "rum_modify-rules-request": rum_modify_rules_request,
-        "rum_modify-rules-request_rulesItem": rum_modify_rules_request_rulesItem,
         "rum_rule_identifier": rum_rule_identifier,
+        "rum_ruleset_identifier": rum_ruleset_identifier,
       },
     },
     outputSchema: {
-      "properties": {
-        "rules": {
-          "$ref": "#/$defs/rum_rules"
-        },
-        "ruleset": {
-          "$ref": "#/$defs/rum_ruleset"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/rum_rules-response-collection",
       $defs: {
+        "rum_api-response-common": rum_api_response_common_output,
+        "rum_messages": rum_messages_output,
         "rum_rule": rum_rule_output,
         "rum_rule_identifier": rum_rule_identifier_output,
         "rum_rules": rum_rules_output,
+        "rum_rules-response-collection": rum_rules_response_collection_output,
         "rum_ruleset": rum_ruleset_output,
         "rum_ruleset_identifier": rum_ruleset_identifier_output,
         "rum_timestamp": rum_timestamp_output,
@@ -99,26 +102,21 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "rules": {
-              "$ref": "#/$defs/rum_rules"
-            },
-            "ruleset": {
-              "$ref": "#/$defs/rum_ruleset"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/rum_rules-response-collection"
         },
         "4XX": {
           "$ref": "#/$defs/rum_api-response-common-failure"
         }
       },
       $defs: {
+        "rum_api-response-common": rum_api_response_common_output,
         "rum_api-response-common-failure": rum_api_response_common_failure_output,
+        "rum_messages": rum_messages_output,
         "rum_messages-2": rum_messages_2_output,
         "rum_rule": rum_rule_output,
         "rum_rule_identifier": rum_rule_identifier_output,
         "rum_rules": rum_rules_output,
+        "rum_rules-response-collection": rum_rules_response_collection_output,
         "rum_ruleset": rum_ruleset_output,
         "rum_ruleset_identifier": rum_ruleset_identifier_output,
         "rum_timestamp": rum_timestamp_output,
@@ -138,15 +136,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/rum_identifier",
+          "description": "Identifier."
         },
         "body": {
           "$ref": "#/$defs/rum_create-rule-request"
         },
         "ruleset_id": {
-          "description": "The Web Analytics ruleset identifier.",
-          "type": "string"
+          "$ref": "#/$defs/rum_ruleset_identifier",
+          "description": "The Web Analytics ruleset identifier."
         }
       },
       required: [
@@ -156,12 +154,17 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "rum_create-rule-request": rum_create_rule_request,
+        "rum_identifier": rum_identifier,
+        "rum_ruleset_identifier": rum_ruleset_identifier,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/rum_rule",
+      "$ref": "#/$defs/rum_rule-response-single",
       $defs: {
+        "rum_api-response-common": rum_api_response_common_output,
+        "rum_messages": rum_messages_output,
         "rum_rule": rum_rule_output,
+        "rum_rule-response-single": rum_rule_response_single_output,
         "rum_rule_identifier": rum_rule_identifier_output,
         "rum_timestamp": rum_timestamp_output,
       },
@@ -186,16 +189,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/rum_rule"
+          "$ref": "#/$defs/rum_rule-response-single"
         },
         "4XX": {
           "$ref": "#/$defs/rum_api-response-common-failure"
         }
       },
       $defs: {
+        "rum_api-response-common": rum_api_response_common_output,
         "rum_api-response-common-failure": rum_api_response_common_failure_output,
+        "rum_messages": rum_messages_output,
         "rum_messages-2": rum_messages_2_output,
         "rum_rule": rum_rule_output,
+        "rum_rule-response-single": rum_rule_response_single_output,
         "rum_rule_identifier": rum_rule_identifier_output,
         "rum_timestamp": rum_timestamp_output,
       },
@@ -213,16 +219,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/rum_identifier",
+          "description": "Identifier."
         },
         "rule_id": {
-          "description": "The Web Analytics rule identifier.",
-          "type": "string"
+          "$ref": "#/$defs/rum_rule_identifier",
+          "description": "The Web Analytics rule identifier."
         },
         "ruleset_id": {
-          "description": "The Web Analytics ruleset identifier.",
-          "type": "string"
+          "$ref": "#/$defs/rum_ruleset_identifier",
+          "description": "The Web Analytics ruleset identifier."
         }
       },
       required: [
@@ -230,15 +236,18 @@ export const tools: readonly Tool[] = [
         "ruleset_id",
         "rule_id"
       ],
+      $defs: {
+        "rum_identifier": rum_identifier,
+        "rum_rule_identifier": rum_rule_identifier,
+        "rum_ruleset_identifier": rum_ruleset_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "id": {
-          "$ref": "#/$defs/rum_rule_identifier"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/rum_rule-id-response-single",
       $defs: {
+        "rum_api-response-common": rum_api_response_common_output,
+        "rum_messages": rum_messages_output,
+        "rum_rule-id-response-single": rum_rule_id_response_single_output,
         "rum_rule_identifier": rum_rule_identifier_output,
       },
     },
@@ -262,20 +271,18 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "id": {
-              "$ref": "#/$defs/rum_rule_identifier"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/rum_rule-id-response-single"
         },
         "4XX": {
           "$ref": "#/$defs/rum_api-response-common-failure"
         }
       },
       $defs: {
+        "rum_api-response-common": rum_api_response_common_output,
         "rum_api-response-common-failure": rum_api_response_common_failure_output,
+        "rum_messages": rum_messages_output,
         "rum_messages-2": rum_messages_2_output,
+        "rum_rule-id-response-single": rum_rule_id_response_single_output,
         "rum_rule_identifier": rum_rule_identifier_output,
       },
     },
@@ -291,33 +298,32 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/rum_identifier",
+          "description": "Identifier."
         },
         "ruleset_id": {
-          "description": "The Web Analytics ruleset identifier.",
-          "type": "string"
+          "$ref": "#/$defs/rum_ruleset_identifier",
+          "description": "The Web Analytics ruleset identifier."
         }
       },
       required: [
         "account_id",
         "ruleset_id"
       ],
+      $defs: {
+        "rum_identifier": rum_identifier,
+        "rum_ruleset_identifier": rum_ruleset_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "rules": {
-          "$ref": "#/$defs/rum_rules"
-        },
-        "ruleset": {
-          "$ref": "#/$defs/rum_ruleset"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/rum_rules-response-collection",
       $defs: {
+        "rum_api-response-common": rum_api_response_common_output,
+        "rum_messages": rum_messages_output,
         "rum_rule": rum_rule_output,
         "rum_rule_identifier": rum_rule_identifier_output,
         "rum_rules": rum_rules_output,
+        "rum_rules-response-collection": rum_rules_response_collection_output,
         "rum_ruleset": rum_ruleset_output,
         "rum_ruleset_identifier": rum_ruleset_identifier_output,
         "rum_timestamp": rum_timestamp_output,
@@ -344,26 +350,21 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "rules": {
-              "$ref": "#/$defs/rum_rules"
-            },
-            "ruleset": {
-              "$ref": "#/$defs/rum_ruleset"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/rum_rules-response-collection"
         },
         "4XX": {
           "$ref": "#/$defs/rum_api-response-common-failure"
         }
       },
       $defs: {
+        "rum_api-response-common": rum_api_response_common_output,
         "rum_api-response-common-failure": rum_api_response_common_failure_output,
+        "rum_messages": rum_messages_output,
         "rum_messages-2": rum_messages_2_output,
         "rum_rule": rum_rule_output,
         "rum_rule_identifier": rum_rule_identifier_output,
         "rum_rules": rum_rules_output,
+        "rum_rules-response-collection": rum_rules_response_collection_output,
         "rum_ruleset": rum_ruleset_output,
         "rum_ruleset_identifier": rum_ruleset_identifier_output,
         "rum_timestamp": rum_timestamp_output,
@@ -382,19 +383,19 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/rum_identifier",
+          "description": "Identifier."
         },
         "body": {
           "$ref": "#/$defs/rum_create-rule-request"
         },
         "rule_id": {
-          "description": "The Web Analytics rule identifier.",
-          "type": "string"
+          "$ref": "#/$defs/rum_rule_identifier",
+          "description": "The Web Analytics rule identifier."
         },
         "ruleset_id": {
-          "description": "The Web Analytics ruleset identifier.",
-          "type": "string"
+          "$ref": "#/$defs/rum_ruleset_identifier",
+          "description": "The Web Analytics ruleset identifier."
         }
       },
       required: [
@@ -405,12 +406,18 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "rum_create-rule-request": rum_create_rule_request,
+        "rum_identifier": rum_identifier,
+        "rum_rule_identifier": rum_rule_identifier,
+        "rum_ruleset_identifier": rum_ruleset_identifier,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/rum_rule",
+      "$ref": "#/$defs/rum_rule-response-single",
       $defs: {
+        "rum_api-response-common": rum_api_response_common_output,
+        "rum_messages": rum_messages_output,
         "rum_rule": rum_rule_output,
+        "rum_rule-response-single": rum_rule_response_single_output,
         "rum_rule_identifier": rum_rule_identifier_output,
         "rum_timestamp": rum_timestamp_output,
       },
@@ -435,16 +442,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/rum_rule"
+          "$ref": "#/$defs/rum_rule-response-single"
         },
         "4XX": {
           "$ref": "#/$defs/rum_api-response-common-failure"
         }
       },
       $defs: {
+        "rum_api-response-common": rum_api_response_common_output,
         "rum_api-response-common-failure": rum_api_response_common_failure_output,
+        "rum_messages": rum_messages_output,
         "rum_messages-2": rum_messages_2_output,
         "rum_rule": rum_rule_output,
+        "rum_rule-response-single": rum_rule_response_single_output,
         "rum_rule_identifier": rum_rule_identifier_output,
         "rum_timestamp": rum_timestamp_output,
       },

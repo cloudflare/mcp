@@ -31,28 +31,17 @@ export const magic_visibility_mnm_mnm_rule_advertisable_response_output: JsonSch
  * in responses.
  */
 export const magic_visibility_mnm_mnm_rule_advertisement_single_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/magic-visibility-mnm_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic-visibility-mnm_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/magic-visibility-mnm_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/magic-visibility-mnm_mnm_rule_advertisable_response"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/magic-visibility-mnm_mnm_rule_advertisable_response"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
+  ]
 };

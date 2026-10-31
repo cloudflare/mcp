@@ -28,49 +28,30 @@ export const tls_certificates_and_hostnames_enabled_3_output: JsonSchema = {
  * responses.
  */
 export const tls_certificates_and_hostnames_total_tls_settings_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_total_tls_settings_response_result"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "certificate_authority": {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_authority-3"
+            },
+            "enabled": {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_enabled-3"
+            },
+            "validity_period": {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_validity_period"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `tls-certificates-and-hostnames_total_tls_settings_response_result` in
- * responses.
- */
-export const tls_certificates_and_hostnames_total_tls_settings_response_result_output: JsonSchema = {
-  "properties": {
-    "certificate_authority": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_authority-3"
-    },
-    "enabled": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_enabled-3"
-    },
-    "validity_period": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_validity_period"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**

@@ -3,9 +3,13 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
+  hyperdrive_api_response_collection_output,
   hyperdrive_api_response_common_failure_output,
+  hyperdrive_api_response_common_output,
+  hyperdrive_api_response_single_output,
   hyperdrive_hyperdrive_caching_response_output,
   hyperdrive_hyperdrive_config_response_output,
+  hyperdrive_hyperdrive_database_full_output,
   hyperdrive_hyperdrive_integration_provider_output,
   hyperdrive_hyperdrive_mtls_output,
   hyperdrive_hyperdrive_name_output,
@@ -14,11 +18,15 @@ import {
   hyperdrive_hyperdrive_planet_scale_integration_output,
   hyperdrive_hyperdrive_scheme_output,
   hyperdrive_identifier_output,
+  hyperdrive_internet_origin_output,
   hyperdrive_messages_output,
+  hyperdrive_over_access_origin_output,
   hyperdrive_result_info_output,
+  hyperdrive_vpc_service_origin_output,
 } from "./outputs.js";
 import {
   hyperdrive_hyperdrive_caching,
+  hyperdrive_hyperdrive_caching_common,
   hyperdrive_hyperdrive_caching_create,
   hyperdrive_hyperdrive_caching_create_disabled,
   hyperdrive_hyperdrive_caching_create_enabled,
@@ -26,10 +34,12 @@ import {
   hyperdrive_hyperdrive_caching_enabled,
   hyperdrive_hyperdrive_config,
   hyperdrive_hyperdrive_config_create,
+  hyperdrive_hyperdrive_config_create_common,
   hyperdrive_hyperdrive_config_create_with_integration,
   hyperdrive_hyperdrive_config_create_with_origin,
   hyperdrive_hyperdrive_config_patch,
   hyperdrive_hyperdrive_database,
+  hyperdrive_hyperdrive_database_full,
   hyperdrive_hyperdrive_integration_provider,
   hyperdrive_hyperdrive_mtls,
   hyperdrive_hyperdrive_name,
@@ -37,6 +47,7 @@ import {
   hyperdrive_hyperdrive_origin_full,
   hyperdrive_hyperdrive_planet_scale_integration,
   hyperdrive_hyperdrive_scheme,
+  hyperdrive_identifier,
   hyperdrive_internet_origin,
   hyperdrive_over_access_origin,
   hyperdrive_vpc_service_origin,
@@ -54,8 +65,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "The Cloudflare account ID.",
-          "type": "string"
+          "$ref": "#/$defs/hyperdrive_identifier",
+          "description": "The Cloudflare account ID."
         },
         "body": {
           "$ref": "#/$defs/hyperdrive_hyperdrive-config-create"
@@ -70,8 +81,10 @@ export const tools: readonly Tool[] = [
         "hyperdrive_hyperdrive-caching-create-disabled": hyperdrive_hyperdrive_caching_create_disabled,
         "hyperdrive_hyperdrive-caching-create-enabled": hyperdrive_hyperdrive_caching_create_enabled,
         "hyperdrive_hyperdrive-config-create": hyperdrive_hyperdrive_config_create,
+        "hyperdrive_hyperdrive-config-create-common": hyperdrive_hyperdrive_config_create_common,
         "hyperdrive_hyperdrive-config-create-with-integration": hyperdrive_hyperdrive_config_create_with_integration,
         "hyperdrive_hyperdrive-config-create-with-origin": hyperdrive_hyperdrive_config_create_with_origin,
+        "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive_database_full,
         "hyperdrive_hyperdrive-integration-provider": hyperdrive_hyperdrive_integration_provider,
         "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive_mtls,
         "hyperdrive_hyperdrive-name": hyperdrive_hyperdrive_name,
@@ -79,13 +92,31 @@ export const tools: readonly Tool[] = [
         "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive_origin_full,
         "hyperdrive_hyperdrive-planet-scale-integration": hyperdrive_hyperdrive_planet_scale_integration,
         "hyperdrive_hyperdrive-scheme": hyperdrive_hyperdrive_scheme,
+        "hyperdrive_identifier": hyperdrive_identifier,
+        "hyperdrive_internet-origin": hyperdrive_internet_origin,
+        "hyperdrive_over-access-origin": hyperdrive_over_access_origin,
+        "hyperdrive_vpc-service-origin": hyperdrive_vpc_service_origin,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/hyperdrive_hyperdrive-config-response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/hyperdrive_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/hyperdrive_hyperdrive-config-response"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "hyperdrive_api-response-single": hyperdrive_api_response_single_output,
         "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive_caching_response_output,
         "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive_config_response_output,
+        "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive_database_full_output,
         "hyperdrive_hyperdrive-integration-provider": hyperdrive_hyperdrive_integration_provider_output,
         "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive_mtls_output,
         "hyperdrive_hyperdrive-name": hyperdrive_hyperdrive_name_output,
@@ -94,6 +125,10 @@ export const tools: readonly Tool[] = [
         "hyperdrive_hyperdrive-planet-scale-integration": hyperdrive_hyperdrive_planet_scale_integration_output,
         "hyperdrive_hyperdrive-scheme": hyperdrive_hyperdrive_scheme_output,
         "hyperdrive_identifier": hyperdrive_identifier_output,
+        "hyperdrive_internet-origin": hyperdrive_internet_origin_output,
+        "hyperdrive_messages": hyperdrive_messages_output,
+        "hyperdrive_over-access-origin": hyperdrive_over_access_origin_output,
+        "hyperdrive_vpc-service-origin": hyperdrive_vpc_service_origin_output,
       },
     },
     annotations: {
@@ -112,12 +147,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.edge.hyperdrive.database.create"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.edge.hyperdrive.database.create": {
-            "name": "com_cloudflare_edge_hyperdrive_database_create"
-          }
-        }
+        ]
       },
       "x-forge-params": {
         "mtls.sslmode": {
@@ -135,7 +165,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/hyperdrive_hyperdrive-config-response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/hyperdrive_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/hyperdrive_hyperdrive-config-response"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/hyperdrive_api-response-common-failure"
@@ -143,8 +185,10 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "hyperdrive_api-response-common-failure": hyperdrive_api_response_common_failure_output,
+        "hyperdrive_api-response-single": hyperdrive_api_response_single_output,
         "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive_caching_response_output,
         "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive_config_response_output,
+        "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive_database_full_output,
         "hyperdrive_hyperdrive-integration-provider": hyperdrive_hyperdrive_integration_provider_output,
         "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive_mtls_output,
         "hyperdrive_hyperdrive-name": hyperdrive_hyperdrive_name_output,
@@ -153,7 +197,10 @@ export const tools: readonly Tool[] = [
         "hyperdrive_hyperdrive-planet-scale-integration": hyperdrive_hyperdrive_planet_scale_integration_output,
         "hyperdrive_hyperdrive-scheme": hyperdrive_hyperdrive_scheme_output,
         "hyperdrive_identifier": hyperdrive_identifier_output,
+        "hyperdrive_internet-origin": hyperdrive_internet_origin_output,
         "hyperdrive_messages": hyperdrive_messages_output,
+        "hyperdrive_over-access-origin": hyperdrive_over_access_origin_output,
+        "hyperdrive_vpc-service-origin": hyperdrive_vpc_service_origin_output,
       },
     },
     request: (args) => ({
@@ -169,28 +216,47 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "The Cloudflare account ID.",
-          "type": "string"
+          "$ref": "#/$defs/hyperdrive_identifier",
+          "description": "The Cloudflare account ID."
         },
         "hyperdrive_id": {
-          "description": "The unique identifier of the Hyperdrive configuration.",
-          "type": "string"
+          "$ref": "#/$defs/hyperdrive_identifier",
+          "description": "The unique identifier of the Hyperdrive configuration."
         }
       },
       required: [
         "account_id",
         "hyperdrive_id"
       ],
+      $defs: {
+        "hyperdrive_identifier": hyperdrive_identifier,
+      },
     },
     outputSchema: {
-      "oneOf": [
+      "allOf": [
         {
-          "type": "object"
+          "$ref": "#/$defs/hyperdrive_api-response-single"
         },
         {
-          "type": "null"
+          "properties": {
+            "result": {
+              "oneOf": [
+                {
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "type": "object"
         }
       ],
+      $defs: {
+        "hyperdrive_api-response-single": hyperdrive_api_response_single_output,
+        "hyperdrive_messages": hyperdrive_messages_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -208,23 +274,30 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.edge.hyperdrive.database.delete"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.edge.hyperdrive.database.delete": {
-            "name": "com_cloudflare_edge_hyperdrive_database_delete"
-          }
-        }
+        ]
       }
     },
     responses: {
       schemas: {
         "200": {
-          "oneOf": [
+          "allOf": [
             {
-              "type": "object"
+              "$ref": "#/$defs/hyperdrive_api-response-single"
             },
             {
-              "type": "null"
+              "properties": {
+                "result": {
+                  "oneOf": [
+                    {
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "type": "object"
             }
           ]
         },
@@ -234,6 +307,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "hyperdrive_api-response-common-failure": hyperdrive_api_response_common_failure_output,
+        "hyperdrive_api-response-single": hyperdrive_api_response_single_output,
         "hyperdrive_messages": hyperdrive_messages_output,
       },
     },
@@ -249,24 +323,41 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "The Cloudflare account ID.",
-          "type": "string"
+          "$ref": "#/$defs/hyperdrive_identifier",
+          "description": "The Cloudflare account ID."
         },
         "hyperdrive_id": {
-          "description": "The unique identifier of the Hyperdrive configuration.",
-          "type": "string"
+          "$ref": "#/$defs/hyperdrive_identifier",
+          "description": "The unique identifier of the Hyperdrive configuration."
         }
       },
       required: [
         "account_id",
         "hyperdrive_id"
       ],
+      $defs: {
+        "hyperdrive_identifier": hyperdrive_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/hyperdrive_hyperdrive-config-response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/hyperdrive_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/hyperdrive_hyperdrive-config-response"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "hyperdrive_api-response-single": hyperdrive_api_response_single_output,
         "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive_caching_response_output,
         "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive_config_response_output,
+        "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive_database_full_output,
         "hyperdrive_hyperdrive-integration-provider": hyperdrive_hyperdrive_integration_provider_output,
         "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive_mtls_output,
         "hyperdrive_hyperdrive-name": hyperdrive_hyperdrive_name_output,
@@ -275,6 +366,10 @@ export const tools: readonly Tool[] = [
         "hyperdrive_hyperdrive-planet-scale-integration": hyperdrive_hyperdrive_planet_scale_integration_output,
         "hyperdrive_hyperdrive-scheme": hyperdrive_hyperdrive_scheme_output,
         "hyperdrive_identifier": hyperdrive_identifier_output,
+        "hyperdrive_internet-origin": hyperdrive_internet_origin_output,
+        "hyperdrive_messages": hyperdrive_messages_output,
+        "hyperdrive_over-access-origin": hyperdrive_over_access_origin_output,
+        "hyperdrive_vpc-service-origin": hyperdrive_vpc_service_origin_output,
       },
     },
     annotations: {
@@ -294,18 +389,25 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.edge.hyperdrive.database.read"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.edge.hyperdrive.database.read": {
-            "name": "com_cloudflare_edge_hyperdrive_database_read"
-          }
-        }
+        ]
       }
     },
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/hyperdrive_hyperdrive-config-response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/hyperdrive_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/hyperdrive_hyperdrive-config-response"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/hyperdrive_api-response-common-failure"
@@ -313,8 +415,10 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "hyperdrive_api-response-common-failure": hyperdrive_api_response_common_failure_output,
+        "hyperdrive_api-response-single": hyperdrive_api_response_single_output,
         "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive_caching_response_output,
         "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive_config_response_output,
+        "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive_database_full_output,
         "hyperdrive_hyperdrive-integration-provider": hyperdrive_hyperdrive_integration_provider_output,
         "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive_mtls_output,
         "hyperdrive_hyperdrive-name": hyperdrive_hyperdrive_name_output,
@@ -323,7 +427,10 @@ export const tools: readonly Tool[] = [
         "hyperdrive_hyperdrive-planet-scale-integration": hyperdrive_hyperdrive_planet_scale_integration_output,
         "hyperdrive_hyperdrive-scheme": hyperdrive_hyperdrive_scheme_output,
         "hyperdrive_identifier": hyperdrive_identifier_output,
+        "hyperdrive_internet-origin": hyperdrive_internet_origin_output,
         "hyperdrive_messages": hyperdrive_messages_output,
+        "hyperdrive_over-access-origin": hyperdrive_over_access_origin_output,
+        "hyperdrive_vpc-service-origin": hyperdrive_vpc_service_origin_output,
       },
     },
     request: (args) => ({
@@ -338,8 +445,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "The Cloudflare account ID.",
-          "type": "string"
+          "$ref": "#/$defs/hyperdrive_identifier",
+          "description": "The Cloudflare account ID."
         },
         "page": {
           "default": 1,
@@ -355,26 +462,33 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+      $defs: {
+        "hyperdrive_identifier": hyperdrive_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/hyperdrive_hyperdrive-config-response"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/hyperdrive_api-response-collection"
         },
-        "result_info": {
-          "$ref": "#/$defs/hyperdrive_result_info"
+        {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/hyperdrive_hyperdrive-config-response"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
+        "hyperdrive_api-response-collection": hyperdrive_api_response_collection_output,
+        "hyperdrive_api-response-common": hyperdrive_api_response_common_output,
         "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive_caching_response_output,
         "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive_config_response_output,
+        "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive_database_full_output,
         "hyperdrive_hyperdrive-integration-provider": hyperdrive_hyperdrive_integration_provider_output,
         "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive_mtls_output,
         "hyperdrive_hyperdrive-name": hyperdrive_hyperdrive_name_output,
@@ -383,7 +497,11 @@ export const tools: readonly Tool[] = [
         "hyperdrive_hyperdrive-planet-scale-integration": hyperdrive_hyperdrive_planet_scale_integration_output,
         "hyperdrive_hyperdrive-scheme": hyperdrive_hyperdrive_scheme_output,
         "hyperdrive_identifier": hyperdrive_identifier_output,
+        "hyperdrive_internet-origin": hyperdrive_internet_origin_output,
+        "hyperdrive_messages": hyperdrive_messages_output,
+        "hyperdrive_over-access-origin": hyperdrive_over_access_origin_output,
         "hyperdrive_result_info": hyperdrive_result_info_output,
+        "hyperdrive_vpc-service-origin": hyperdrive_vpc_service_origin_output,
       },
     },
     annotations: {
@@ -403,41 +521,40 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.edge.hyperdrive.database.list"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.edge.hyperdrive.database.list": {
-            "name": "com_cloudflare_edge_hyperdrive_database_list"
-          }
-        }
+        ]
       }
     },
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/hyperdrive_hyperdrive-config-response"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/hyperdrive_api-response-collection"
             },
-            "result_info": {
-              "$ref": "#/$defs/hyperdrive_result_info"
+            {
+              "properties": {
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/hyperdrive_hyperdrive-config-response"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/hyperdrive_api-response-common-failure"
         }
       },
       $defs: {
+        "hyperdrive_api-response-collection": hyperdrive_api_response_collection_output,
+        "hyperdrive_api-response-common": hyperdrive_api_response_common_output,
         "hyperdrive_api-response-common-failure": hyperdrive_api_response_common_failure_output,
         "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive_caching_response_output,
         "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive_config_response_output,
+        "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive_database_full_output,
         "hyperdrive_hyperdrive-integration-provider": hyperdrive_hyperdrive_integration_provider_output,
         "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive_mtls_output,
         "hyperdrive_hyperdrive-name": hyperdrive_hyperdrive_name_output,
@@ -446,8 +563,11 @@ export const tools: readonly Tool[] = [
         "hyperdrive_hyperdrive-planet-scale-integration": hyperdrive_hyperdrive_planet_scale_integration_output,
         "hyperdrive_hyperdrive-scheme": hyperdrive_hyperdrive_scheme_output,
         "hyperdrive_identifier": hyperdrive_identifier_output,
+        "hyperdrive_internet-origin": hyperdrive_internet_origin_output,
         "hyperdrive_messages": hyperdrive_messages_output,
+        "hyperdrive_over-access-origin": hyperdrive_over_access_origin_output,
         "hyperdrive_result_info": hyperdrive_result_info_output,
+        "hyperdrive_vpc-service-origin": hyperdrive_vpc_service_origin_output,
       },
     },
     request: (args) => ({
@@ -466,15 +586,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "The Cloudflare account ID.",
-          "type": "string"
+          "$ref": "#/$defs/hyperdrive_identifier",
+          "description": "The Cloudflare account ID."
         },
         "body": {
           "$ref": "#/$defs/hyperdrive_hyperdrive-config"
         },
         "hyperdrive_id": {
-          "description": "The unique identifier of the Hyperdrive configuration.",
-          "type": "string"
+          "$ref": "#/$defs/hyperdrive_identifier",
+          "description": "The unique identifier of the Hyperdrive configuration."
         }
       },
       required: [
@@ -484,21 +604,41 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "hyperdrive_hyperdrive-caching": hyperdrive_hyperdrive_caching,
+        "hyperdrive_hyperdrive-caching-common": hyperdrive_hyperdrive_caching_common,
         "hyperdrive_hyperdrive-caching-disabled": hyperdrive_hyperdrive_caching_disabled,
         "hyperdrive_hyperdrive-caching-enabled": hyperdrive_hyperdrive_caching_enabled,
         "hyperdrive_hyperdrive-config": hyperdrive_hyperdrive_config,
+        "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive_database_full,
         "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive_mtls,
         "hyperdrive_hyperdrive-name": hyperdrive_hyperdrive_name,
         "hyperdrive_hyperdrive-origin-connection-limit": hyperdrive_hyperdrive_origin_connection_limit,
         "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive_origin_full,
         "hyperdrive_hyperdrive-scheme": hyperdrive_hyperdrive_scheme,
+        "hyperdrive_identifier": hyperdrive_identifier,
+        "hyperdrive_internet-origin": hyperdrive_internet_origin,
+        "hyperdrive_over-access-origin": hyperdrive_over_access_origin,
+        "hyperdrive_vpc-service-origin": hyperdrive_vpc_service_origin,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/hyperdrive_hyperdrive-config-response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/hyperdrive_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/hyperdrive_hyperdrive-config-response"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "hyperdrive_api-response-single": hyperdrive_api_response_single_output,
         "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive_caching_response_output,
         "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive_config_response_output,
+        "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive_database_full_output,
         "hyperdrive_hyperdrive-integration-provider": hyperdrive_hyperdrive_integration_provider_output,
         "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive_mtls_output,
         "hyperdrive_hyperdrive-name": hyperdrive_hyperdrive_name_output,
@@ -507,6 +647,10 @@ export const tools: readonly Tool[] = [
         "hyperdrive_hyperdrive-planet-scale-integration": hyperdrive_hyperdrive_planet_scale_integration_output,
         "hyperdrive_hyperdrive-scheme": hyperdrive_hyperdrive_scheme_output,
         "hyperdrive_identifier": hyperdrive_identifier_output,
+        "hyperdrive_internet-origin": hyperdrive_internet_origin_output,
+        "hyperdrive_messages": hyperdrive_messages_output,
+        "hyperdrive_over-access-origin": hyperdrive_over_access_origin_output,
+        "hyperdrive_vpc-service-origin": hyperdrive_vpc_service_origin_output,
       },
     },
     annotations: {
@@ -525,12 +669,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.edge.hyperdrive.database.update"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.edge.hyperdrive.database.update": {
-            "name": "com_cloudflare_edge_hyperdrive_database_update"
-          }
-        }
+        ]
       },
       "x-forge-params": {
         "mtls.sslmode": {
@@ -548,7 +687,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/hyperdrive_hyperdrive-config-response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/hyperdrive_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/hyperdrive_hyperdrive-config-response"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/hyperdrive_api-response-common-failure"
@@ -556,8 +707,10 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "hyperdrive_api-response-common-failure": hyperdrive_api_response_common_failure_output,
+        "hyperdrive_api-response-single": hyperdrive_api_response_single_output,
         "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive_caching_response_output,
         "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive_config_response_output,
+        "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive_database_full_output,
         "hyperdrive_hyperdrive-integration-provider": hyperdrive_hyperdrive_integration_provider_output,
         "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive_mtls_output,
         "hyperdrive_hyperdrive-name": hyperdrive_hyperdrive_name_output,
@@ -566,7 +719,10 @@ export const tools: readonly Tool[] = [
         "hyperdrive_hyperdrive-planet-scale-integration": hyperdrive_hyperdrive_planet_scale_integration_output,
         "hyperdrive_hyperdrive-scheme": hyperdrive_hyperdrive_scheme_output,
         "hyperdrive_identifier": hyperdrive_identifier_output,
+        "hyperdrive_internet-origin": hyperdrive_internet_origin_output,
         "hyperdrive_messages": hyperdrive_messages_output,
+        "hyperdrive_over-access-origin": hyperdrive_over_access_origin_output,
+        "hyperdrive_vpc-service-origin": hyperdrive_vpc_service_origin_output,
       },
     },
     request: (args) => ({
@@ -582,24 +738,41 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "The Cloudflare account ID.",
-          "type": "string"
+          "$ref": "#/$defs/hyperdrive_identifier",
+          "description": "The Cloudflare account ID."
         },
         "hyperdrive_id": {
-          "description": "The unique identifier of the Hyperdrive configuration.",
-          "type": "string"
+          "$ref": "#/$defs/hyperdrive_identifier",
+          "description": "The unique identifier of the Hyperdrive configuration."
         }
       },
       required: [
         "account_id",
         "hyperdrive_id"
       ],
+      $defs: {
+        "hyperdrive_identifier": hyperdrive_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/hyperdrive_hyperdrive-config-response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/hyperdrive_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/hyperdrive_hyperdrive-config-response"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "hyperdrive_api-response-single": hyperdrive_api_response_single_output,
         "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive_caching_response_output,
         "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive_config_response_output,
+        "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive_database_full_output,
         "hyperdrive_hyperdrive-integration-provider": hyperdrive_hyperdrive_integration_provider_output,
         "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive_mtls_output,
         "hyperdrive_hyperdrive-name": hyperdrive_hyperdrive_name_output,
@@ -608,6 +781,10 @@ export const tools: readonly Tool[] = [
         "hyperdrive_hyperdrive-planet-scale-integration": hyperdrive_hyperdrive_planet_scale_integration_output,
         "hyperdrive_hyperdrive-scheme": hyperdrive_hyperdrive_scheme_output,
         "hyperdrive_identifier": hyperdrive_identifier_output,
+        "hyperdrive_internet-origin": hyperdrive_internet_origin_output,
+        "hyperdrive_messages": hyperdrive_messages_output,
+        "hyperdrive_over-access-origin": hyperdrive_over_access_origin_output,
+        "hyperdrive_vpc-service-origin": hyperdrive_vpc_service_origin_output,
       },
     },
     annotations: {
@@ -627,7 +804,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/hyperdrive_hyperdrive-config-response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/hyperdrive_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/hyperdrive_hyperdrive-config-response"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/hyperdrive_api-response-common-failure"
@@ -635,8 +824,10 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "hyperdrive_api-response-common-failure": hyperdrive_api_response_common_failure_output,
+        "hyperdrive_api-response-single": hyperdrive_api_response_single_output,
         "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive_caching_response_output,
         "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive_config_response_output,
+        "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive_database_full_output,
         "hyperdrive_hyperdrive-integration-provider": hyperdrive_hyperdrive_integration_provider_output,
         "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive_mtls_output,
         "hyperdrive_hyperdrive-name": hyperdrive_hyperdrive_name_output,
@@ -645,7 +836,10 @@ export const tools: readonly Tool[] = [
         "hyperdrive_hyperdrive-planet-scale-integration": hyperdrive_hyperdrive_planet_scale_integration_output,
         "hyperdrive_hyperdrive-scheme": hyperdrive_hyperdrive_scheme_output,
         "hyperdrive_identifier": hyperdrive_identifier_output,
+        "hyperdrive_internet-origin": hyperdrive_internet_origin_output,
         "hyperdrive_messages": hyperdrive_messages_output,
+        "hyperdrive_over-access-origin": hyperdrive_over_access_origin_output,
+        "hyperdrive_vpc-service-origin": hyperdrive_vpc_service_origin_output,
       },
     },
     request: (args) => ({
@@ -660,15 +854,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "The Cloudflare account ID.",
-          "type": "string"
+          "$ref": "#/$defs/hyperdrive_identifier",
+          "description": "The Cloudflare account ID."
         },
         "body": {
           "$ref": "#/$defs/hyperdrive_hyperdrive-config-patch"
         },
         "hyperdrive_id": {
-          "description": "The unique identifier of the Hyperdrive configuration.",
-          "type": "string"
+          "$ref": "#/$defs/hyperdrive_identifier",
+          "description": "The unique identifier of the Hyperdrive configuration."
         }
       },
       required: [
@@ -678,6 +872,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "hyperdrive_hyperdrive-caching": hyperdrive_hyperdrive_caching,
+        "hyperdrive_hyperdrive-caching-common": hyperdrive_hyperdrive_caching_common,
         "hyperdrive_hyperdrive-caching-disabled": hyperdrive_hyperdrive_caching_disabled,
         "hyperdrive_hyperdrive-caching-enabled": hyperdrive_hyperdrive_caching_enabled,
         "hyperdrive_hyperdrive-config-patch": hyperdrive_hyperdrive_config_patch,
@@ -685,16 +880,31 @@ export const tools: readonly Tool[] = [
         "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive_mtls,
         "hyperdrive_hyperdrive-origin-connection-limit": hyperdrive_hyperdrive_origin_connection_limit,
         "hyperdrive_hyperdrive-scheme": hyperdrive_hyperdrive_scheme,
+        "hyperdrive_identifier": hyperdrive_identifier,
         "hyperdrive_internet-origin": hyperdrive_internet_origin,
         "hyperdrive_over-access-origin": hyperdrive_over_access_origin,
         "hyperdrive_vpc-service-origin": hyperdrive_vpc_service_origin,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/hyperdrive_hyperdrive-config-response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/hyperdrive_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/hyperdrive_hyperdrive-config-response"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "hyperdrive_api-response-common": hyperdrive_api_response_common_output,
         "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive_caching_response_output,
         "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive_config_response_output,
+        "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive_database_full_output,
         "hyperdrive_hyperdrive-integration-provider": hyperdrive_hyperdrive_integration_provider_output,
         "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive_mtls_output,
         "hyperdrive_hyperdrive-name": hyperdrive_hyperdrive_name_output,
@@ -703,6 +913,10 @@ export const tools: readonly Tool[] = [
         "hyperdrive_hyperdrive-planet-scale-integration": hyperdrive_hyperdrive_planet_scale_integration_output,
         "hyperdrive_hyperdrive-scheme": hyperdrive_hyperdrive_scheme_output,
         "hyperdrive_identifier": hyperdrive_identifier_output,
+        "hyperdrive_internet-origin": hyperdrive_internet_origin_output,
+        "hyperdrive_messages": hyperdrive_messages_output,
+        "hyperdrive_over-access-origin": hyperdrive_over_access_origin_output,
+        "hyperdrive_vpc-service-origin": hyperdrive_vpc_service_origin_output,
       },
     },
     annotations: {
@@ -721,12 +935,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.edge.hyperdrive.database.update"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.edge.hyperdrive.database.update": {
-            "name": "com_cloudflare_edge_hyperdrive_database_update"
-          }
-        }
+        ]
       },
       "x-forge-params": {
         "mtls.sslmode": {
@@ -744,16 +953,30 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/hyperdrive_hyperdrive-config-response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/hyperdrive_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/hyperdrive_hyperdrive-config-response"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/hyperdrive_api-response-common-failure"
         }
       },
       $defs: {
+        "hyperdrive_api-response-common": hyperdrive_api_response_common_output,
         "hyperdrive_api-response-common-failure": hyperdrive_api_response_common_failure_output,
         "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive_caching_response_output,
         "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive_config_response_output,
+        "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive_database_full_output,
         "hyperdrive_hyperdrive-integration-provider": hyperdrive_hyperdrive_integration_provider_output,
         "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive_mtls_output,
         "hyperdrive_hyperdrive-name": hyperdrive_hyperdrive_name_output,
@@ -762,7 +985,10 @@ export const tools: readonly Tool[] = [
         "hyperdrive_hyperdrive-planet-scale-integration": hyperdrive_hyperdrive_planet_scale_integration_output,
         "hyperdrive_hyperdrive-scheme": hyperdrive_hyperdrive_scheme_output,
         "hyperdrive_identifier": hyperdrive_identifier_output,
+        "hyperdrive_internet-origin": hyperdrive_internet_origin_output,
         "hyperdrive_messages": hyperdrive_messages_output,
+        "hyperdrive_over-access-origin": hyperdrive_over_access_origin_output,
+        "hyperdrive_vpc-service-origin": hyperdrive_vpc_service_origin_output,
       },
     },
     request: (args) => ({

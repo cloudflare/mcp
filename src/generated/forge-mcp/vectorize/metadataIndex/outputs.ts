@@ -34,30 +34,22 @@ export const vectorize_list_metadata_index_response_output: JsonSchema = {
   "properties": {
     "metadataIndexes": {
       "items": {
-        "$ref": "#/$defs/vectorize_list-metadata-index-response_metadataIndexesItem"
+        "properties": {
+          "indexType": {
+            "enum": [
+              "string",
+              "number",
+              "boolean"
+            ],
+            "type": "string"
+          },
+          "propertyName": {
+            "type": "string"
+          }
+        },
+        "type": "object"
       },
       "type": "array"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `vectorize_list-metadata-index-response_metadataIndexesItem` in
- * responses.
- */
-export const vectorize_list_metadata_index_response_metadataIndexesItem_output: JsonSchema = {
-  "properties": {
-    "indexType": {
-      "enum": [
-        "string",
-        "number",
-        "boolean"
-      ],
-      "type": "string"
-    },
-    "propertyName": {
-      "type": "string"
     }
   },
   "type": "object"

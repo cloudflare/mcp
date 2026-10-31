@@ -173,42 +173,45 @@ export const api_shield_credentials_JWT_Key_EC_common_output: JsonSchema = {
  * The schema of `api-shield_credentials-JWT-Key-RSA` in responses.
  */
 export const api_shield_credentials_JWT_Key_RSA_output: JsonSchema = {
-  "properties": {
-    "alg": {
-      "enum": [
-        "RS256",
-        "RS384",
-        "RS512",
-        "PS256",
-        "PS384",
-        "PS512"
+  "allOf": [
+    {
+      "$ref": "#/$defs/api-shield_credentials-JWT-Key-common"
+    },
+    {
+      "properties": {
+        "alg": {
+          "enum": [
+            "RS256",
+            "RS384",
+            "RS512",
+            "PS256",
+            "PS384",
+            "PS512"
+          ],
+          "type": "string"
+        },
+        "e": {
+          "type": "string"
+        },
+        "kty": {
+          "enum": [
+            "RSA"
+          ],
+          "type": "string"
+        },
+        "n": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "alg",
+        "e",
+        "kty",
+        "n"
       ],
-      "type": "string"
-    },
-    "e": {
-      "type": "string"
-    },
-    "kid": {
-      "type": "string"
-    },
-    "kty": {
-      "enum": [
-        "RSA"
-      ],
-      "type": "string"
-    },
-    "n": {
-      "type": "string"
+      "type": "object"
     }
-  },
-  "required": [
-    "kid",
-    "alg",
-    "e",
-    "kty",
-    "n"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -230,31 +233,34 @@ export const api_shield_credentials_JWT_Key_common_output: JsonSchema = {
  * The schema of `api-shield_credentials-JWT-Key-oct-response` in responses.
  */
 export const api_shield_credentials_JWT_Key_oct_response_output: JsonSchema = {
-  "properties": {
-    "alg": {
-      "enum": [
-        "HS256",
-        "HS384",
-        "HS512"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/api-shield_credentials-JWT-Key-common"
     },
-    "kid": {
-      "type": "string"
-    },
-    "kty": {
-      "enum": [
-        "oct"
+    {
+      "properties": {
+        "alg": {
+          "enum": [
+            "HS256",
+            "HS384",
+            "HS512"
+          ],
+          "type": "string"
+        },
+        "kty": {
+          "enum": [
+            "oct"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "alg",
+        "kty"
       ],
-      "type": "string"
+      "type": "object"
     }
-  },
-  "required": [
-    "kid",
-    "alg",
-    "kty"
-  ],
-  "type": "object"
+  ]
 };
 
 /**

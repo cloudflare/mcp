@@ -4,8 +4,10 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   pages_api_response_common_failure_output,
+  pages_api_response_common_output,
   pages_messages_output,
 } from "../outputs.js";
+import { pages_identifier, pages_project_name } from "../schemas.js";
 
 /**
  * The tools of `pages.build_cache`.
@@ -19,28 +21,51 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/pages_identifier",
+          "description": "Identifier."
         },
         "project_name": {
-          "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens.",
-          "type": "string"
+          "$ref": "#/$defs/pages_project_name",
+          "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens."
         }
       },
       required: [
         "account_id",
         "project_name"
       ],
+      $defs: {
+        "pages_identifier": pages_identifier,
+        "pages_project_name": pages_project_name,
+      },
     },
     outputSchema: {
-      "oneOf": [
+      "allOf": [
         {
-          "type": "object"
+          "$ref": "#/$defs/pages_api-response-common"
         },
         {
-          "type": "null"
+          "properties": {
+            "result": {
+              "oneOf": [
+                {
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
         }
       ],
+      $defs: {
+        "pages_api-response-common": pages_api_response_common_output,
+        "pages_messages": pages_messages_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -59,12 +84,27 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "oneOf": [
+          "allOf": [
             {
-              "type": "object"
+              "$ref": "#/$defs/pages_api-response-common"
             },
             {
-              "type": "null"
+              "properties": {
+                "result": {
+                  "oneOf": [
+                    {
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
             }
           ]
         },
@@ -73,6 +113,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "pages_api-response-common": pages_api_response_common_output,
         "pages_api-response-common-failure": pages_api_response_common_failure_output,
         "pages_messages": pages_messages_output,
       },

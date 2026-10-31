@@ -2,7 +2,15 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
-import { realtimekit_ActiveSession_output } from "../outputs.js";
+import {
+  realtimekit_ActiveSession_output,
+  realtimekit_GenericErrorResponse_output,
+  realtimekit_ValidationIssue_output,
+} from "../outputs.js";
+import {
+  realtimekit_account_identifier,
+  realtimekit_app_id,
+} from "../schemas.js";
 
 /**
  * The tools of `realtime.kit.sessions`.
@@ -16,12 +24,12 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "The account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/realtimekit_account_identifier",
+          "description": "The account identifier tag."
         },
         "app_id": {
-          "description": "The app identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/realtimekit_app_id",
+          "description": "The app identifier tag."
         },
         "include_breakout_rooms": {
           "default": false,
@@ -39,6 +47,10 @@ export const tools: readonly Tool[] = [
         "app_id",
         "session_id"
       ],
+      $defs: {
+        "realtimekit_account_identifier": realtimekit_account_identifier,
+        "realtimekit_app_id": realtimekit_app_id,
+      },
     },
     outputSchema: {
       "properties": {
@@ -81,10 +93,15 @@ export const tools: readonly Tool[] = [
             }
           },
           "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
         }
       },
       $defs: {
         "realtimekit_ActiveSession": realtimekit_ActiveSession_output,
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
       },
     },
     request: (args) => ({
@@ -102,12 +119,12 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "The account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/realtimekit_account_identifier",
+          "description": "The account identifier tag."
         },
         "app_id": {
-          "description": "The app identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/realtimekit_app_id",
+          "description": "The app identifier tag."
         },
         "associated_id": {
           "description": "ID of the meeting that sessions should be associated with",
@@ -165,6 +182,10 @@ export const tools: readonly Tool[] = [
         "account_id",
         "app_id"
       ],
+      $defs: {
+        "realtimekit_account_identifier": realtimekit_account_identifier,
+        "realtimekit_app_id": realtimekit_app_id,
+      },
     },
     outputSchema: {
       "properties": {
@@ -251,10 +272,15 @@ export const tools: readonly Tool[] = [
             }
           },
           "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
         }
       },
       $defs: {
         "realtimekit_ActiveSession": realtimekit_ActiveSession_output,
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
       },
     },
     request: (args) => ({

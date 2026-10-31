@@ -6,6 +6,8 @@ import {
   digital_experience_monitoring_api_response_common_failure_output,
   digital_experience_monitoring_messages_output,
 } from "../../outputs.js";
+import { digital_experience_monitoring_account_identifier } from "../../schemas.js";
+import { digital_experience_monitoring_command_id } from "./schemas.js";
 
 /**
  * The tools of `zero_trust.dex.commands.results`.
@@ -19,12 +21,12 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Unique Cloudflare account ID.",
-          "type": "string"
+          "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
+          "description": "Unique Cloudflare account ID."
         },
         "command_id": {
-          "description": "Unique identifier for command.",
-          "type": "string"
+          "$ref": "#/$defs/digital-experience-monitoring_command_id",
+          "description": "Unique identifier for command."
         },
         "filename": {
           "description": "The name of the file to be downloaded, including the `.zip` extension.",
@@ -36,6 +38,10 @@ export const tools: readonly Tool[] = [
         "command_id",
         "filename"
       ],
+      $defs: {
+        "digital-experience-monitoring_account_identifier": digital_experience_monitoring_account_identifier,
+        "digital-experience-monitoring_command_id": digital_experience_monitoring_command_id,
+      },
     },
     annotations: {
       "destructiveHint": false,

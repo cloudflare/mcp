@@ -4,9 +4,9 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `dos_ExpressionFilter` in responses.
+ * The schema of `advanced-ddos-protection_ExpressionFilter` in responses.
  */
-export const dos_ExpressionFilter_output: JsonSchema = {
+export const advanced_ddos_protection_ExpressionFilter_output: JsonSchema = {
   "properties": {
     "created_on": {
       "format": "date-time",
@@ -34,4 +34,47 @@ export const dos_ExpressionFilter_output: JsonSchema = {
     "modified_on"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `advanced-ddos-protection_expression-filter-list-response` in
+ * responses.
+ */
+export const advanced_ddos_protection_expression_filter_list_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/advanced-ddos-protection_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/advanced-ddos-protection_ExpressionFilter"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `advanced-ddos-protection_expression-filter-response` in
+ * responses.
+ */
+export const advanced_ddos_protection_expression_filter_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/advanced-ddos-protection_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/advanced-ddos-protection_ExpressionFilter"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };

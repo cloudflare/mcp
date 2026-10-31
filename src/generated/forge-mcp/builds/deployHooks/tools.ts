@@ -3,6 +3,7 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  builds_APIResponse_output,
   builds_ApiError_output,
   builds_BuildStatus_output,
   builds_ErrorResponse_output,
@@ -21,7 +22,6 @@ import {
 } from "../../schemas.js";
 import {
   builds_DeployHookResponse_output,
-  builds_DetailedDeployHookResponse_latest_build_output,
   builds_DetailedDeployHookResponse_output,
   builds_TriggerDeployHookResponse_output,
   builds_deploy_hook_uuid_output,
@@ -69,9 +69,24 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/builds_DeployHookResponse",
+      "allOf": [
+        {
+          "$ref": "#/$defs/builds_APIResponse"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/builds_DeployHookResponse"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
+        "builds_ApiError": builds_ApiError_output,
         "builds_DeployHookResponse": builds_DeployHookResponse_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
         "builds_branch": builds_branch_output,
         "builds_created_on": builds_created_on_output,
         "builds_deploy_hook_name": builds_deploy_hook_name_output,
@@ -97,7 +112,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/builds_DeployHookResponse"
+          "allOf": [
+            {
+              "$ref": "#/$defs/builds_APIResponse"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/builds_DeployHookResponse"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "400": {
           "$ref": "#/$defs/builds_ErrorResponse"
@@ -113,9 +140,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
         "builds_ApiError": builds_ApiError_output,
         "builds_DeployHookResponse": builds_DeployHookResponse_output,
         "builds_ErrorResponse": builds_ErrorResponse_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
         "builds_branch": builds_branch_output,
         "builds_created_on": builds_created_on_output,
         "builds_deploy_hook_name": builds_deploy_hook_name_output,
@@ -161,9 +190,24 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/builds_DeployHookResponse",
+      "allOf": [
+        {
+          "$ref": "#/$defs/builds_APIResponse"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/builds_DeployHookResponse"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
+        "builds_ApiError": builds_ApiError_output,
         "builds_DeployHookResponse": builds_DeployHookResponse_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
         "builds_branch": builds_branch_output,
         "builds_created_on": builds_created_on_output,
         "builds_deploy_hook_name": builds_deploy_hook_name_output,
@@ -189,7 +233,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/builds_DeployHookResponse"
+          "allOf": [
+            {
+              "$ref": "#/$defs/builds_APIResponse"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/builds_DeployHookResponse"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "401": {
           "$ref": "#/$defs/builds_ErrorResponse"
@@ -199,9 +255,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
         "builds_ApiError": builds_ApiError_output,
         "builds_DeployHookResponse": builds_DeployHookResponse_output,
         "builds_ErrorResponse": builds_ErrorResponse_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
         "builds_branch": builds_branch_output,
         "builds_created_on": builds_created_on_output,
         "builds_deploy_hook_name": builds_deploy_hook_name_output,
@@ -246,9 +304,24 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/builds_DeployHookResponse",
+      "allOf": [
+        {
+          "$ref": "#/$defs/builds_APIResponse"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/builds_DeployHookResponse"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
+        "builds_ApiError": builds_ApiError_output,
         "builds_DeployHookResponse": builds_DeployHookResponse_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
         "builds_branch": builds_branch_output,
         "builds_created_on": builds_created_on_output,
         "builds_deploy_hook_name": builds_deploy_hook_name_output,
@@ -275,7 +348,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/builds_DeployHookResponse"
+          "allOf": [
+            {
+              "$ref": "#/$defs/builds_APIResponse"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/builds_DeployHookResponse"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "401": {
           "$ref": "#/$defs/builds_ErrorResponse"
@@ -285,9 +370,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
         "builds_ApiError": builds_ApiError_output,
         "builds_DeployHookResponse": builds_DeployHookResponse_output,
         "builds_ErrorResponse": builds_ErrorResponse_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
         "builds_branch": builds_branch_output,
         "builds_created_on": builds_created_on_output,
         "builds_deploy_hook_name": builds_deploy_hook_name_output,
@@ -326,24 +413,26 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/builds_DetailedDeployHookResponse"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/builds_APIResponse"
         },
-        "result_info": {
-          "$ref": "#/$defs/builds_PaginationInfo"
+        {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/builds_DetailedDeployHookResponse"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
+        "builds_ApiError": builds_ApiError_output,
         "builds_DetailedDeployHookResponse": builds_DetailedDeployHookResponse_output,
-        "builds_DetailedDeployHookResponse_latest_build": builds_DetailedDeployHookResponse_latest_build_output,
         "builds_PaginationInfo": builds_PaginationInfo_output,
         "builds_branch": builds_branch_output,
         "builds_created_on": builds_created_on_output,
@@ -371,30 +460,31 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/builds_DetailedDeployHookResponse"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/builds_APIResponse"
             },
-            "result_info": {
-              "$ref": "#/$defs/builds_PaginationInfo"
+            {
+              "properties": {
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/builds_DetailedDeployHookResponse"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "401": {
           "$ref": "#/$defs/builds_ErrorResponse"
         }
       },
       $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
         "builds_ApiError": builds_ApiError_output,
         "builds_DetailedDeployHookResponse": builds_DetailedDeployHookResponse_output,
-        "builds_DetailedDeployHookResponse_latest_build": builds_DetailedDeployHookResponse_latest_build_output,
         "builds_ErrorResponse": builds_ErrorResponse_output,
         "builds_PaginationInfo": builds_PaginationInfo_output,
         "builds_branch": builds_branch_output,
@@ -429,9 +519,24 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/builds_TriggerDeployHookResponse",
+      "allOf": [
+        {
+          "$ref": "#/$defs/builds_APIResponse"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/builds_TriggerDeployHookResponse"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
+        "builds_ApiError": builds_ApiError_output,
         "builds_BuildStatus": builds_BuildStatus_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
         "builds_TriggerDeployHookResponse": builds_TriggerDeployHookResponse_output,
         "builds_build_uuid": builds_build_uuid_output,
         "builds_created_on": builds_created_on_output,
@@ -449,7 +554,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/builds_TriggerDeployHookResponse"
+          "allOf": [
+            {
+              "$ref": "#/$defs/builds_APIResponse"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/builds_TriggerDeployHookResponse"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "404": {
           "$ref": "#/$defs/builds_ErrorResponse"
@@ -459,9 +576,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
         "builds_ApiError": builds_ApiError_output,
         "builds_BuildStatus": builds_BuildStatus_output,
         "builds_ErrorResponse": builds_ErrorResponse_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
         "builds_TriggerDeployHookResponse": builds_TriggerDeployHookResponse_output,
         "builds_build_uuid": builds_build_uuid_output,
         "builds_created_on": builds_created_on_output,
@@ -510,9 +629,24 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/builds_DeployHookResponse",
+      "allOf": [
+        {
+          "$ref": "#/$defs/builds_APIResponse"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/builds_DeployHookResponse"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
+        "builds_ApiError": builds_ApiError_output,
         "builds_DeployHookResponse": builds_DeployHookResponse_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
         "builds_branch": builds_branch_output,
         "builds_created_on": builds_created_on_output,
         "builds_deploy_hook_name": builds_deploy_hook_name_output,
@@ -538,7 +672,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/builds_DeployHookResponse"
+          "allOf": [
+            {
+              "$ref": "#/$defs/builds_APIResponse"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/builds_DeployHookResponse"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "400": {
           "$ref": "#/$defs/builds_ErrorResponse"
@@ -554,9 +700,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
         "builds_ApiError": builds_ApiError_output,
         "builds_DeployHookResponse": builds_DeployHookResponse_output,
         "builds_ErrorResponse": builds_ErrorResponse_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
         "builds_branch": builds_branch_output,
         "builds_created_on": builds_created_on_output,
         "builds_deploy_hook_name": builds_deploy_hook_name_output,

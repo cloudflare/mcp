@@ -4,11 +4,13 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   access_api_response_common_failure_output,
+  access_api_response_single_output,
   access_created_at_output,
   access_messages_output,
   access_timestamp_output,
   access_updated_at_output,
 } from "../outputs.js";
+import { access_identifier } from "../schemas.js";
 import {
   access_allow_authenticate_via_warp_output,
   access_auth_domain_output,
@@ -17,6 +19,7 @@ import {
   access_deny_unmatched_requests_exempted_zone_names_output,
   access_deny_unmatched_requests_output,
   access_disable_end_user_app_creation_output,
+  access_get_response_output,
   access_is_ui_read_only_output,
   access_login_design_output,
   access_mfa_piv_key_requirements_output,
@@ -26,6 +29,7 @@ import {
   access_organizations_output,
   access_service_token_inactivity_output,
   access_session_duration_output,
+  access_single_response_output,
   access_strict_service_token_auth_output,
   access_ui_read_only_toggle_reason_output,
   access_user_seat_expiration_inactive_time_output,
@@ -75,8 +79,8 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "body": {
           "properties": {
@@ -177,6 +181,7 @@ export const tools: readonly Tool[] = [
         "access_deny_unmatched_requests": access_deny_unmatched_requests,
         "access_deny_unmatched_requests_exempted_zone_names": access_deny_unmatched_requests_exempted_zone_names,
         "access_disable_end_user_app_creation": access_disable_end_user_app_creation,
+        "access_identifier": access_identifier,
         "access_is_ui_read_only": access_is_ui_read_only,
         "access_login_design": access_login_design,
         "access_mfa_piv_key_requirements": access_mfa_piv_key_requirements,
@@ -193,9 +198,10 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/access_organizations",
+      "$ref": "#/$defs/access_single_response",
       $defs: {
         "access_allow_authenticate_via_warp": access_allow_authenticate_via_warp_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_auth_domain": access_auth_domain_output,
         "access_auto_redirect_to_identity": access_auto_redirect_to_identity_output,
         "access_created_at": access_created_at_output,
@@ -205,6 +211,7 @@ export const tools: readonly Tool[] = [
         "access_disable_end_user_app_creation": access_disable_end_user_app_creation_output,
         "access_is_ui_read_only": access_is_ui_read_only_output,
         "access_login_design": access_login_design_output,
+        "access_messages": access_messages_output,
         "access_mfa_piv_key_requirements": access_mfa_piv_key_requirements_output,
         "access_mfa_required_for_all_apps": access_mfa_required_for_all_apps_output,
         "access_name": access_name_output,
@@ -212,6 +219,7 @@ export const tools: readonly Tool[] = [
         "access_organizations": access_organizations_output,
         "access_service_token_inactivity": access_service_token_inactivity_output,
         "access_session_duration": access_session_duration_output,
+        "access_single_response": access_single_response_output,
         "access_strict_service_token_auth": access_strict_service_token_auth_output,
         "access_timestamp": access_timestamp_output,
         "access_ui_read_only_toggle_reason": access_ui_read_only_toggle_reason_output,
@@ -238,7 +246,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "201": {
-          "$ref": "#/$defs/access_organizations"
+          "$ref": "#/$defs/access_single_response"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -247,6 +255,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_allow_authenticate_via_warp": access_allow_authenticate_via_warp_output,
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_auth_domain": access_auth_domain_output,
         "access_auto_redirect_to_identity": access_auto_redirect_to_identity_output,
         "access_created_at": access_created_at_output,
@@ -264,6 +273,7 @@ export const tools: readonly Tool[] = [
         "access_organizations": access_organizations_output,
         "access_service_token_inactivity": access_service_token_inactivity_output,
         "access_session_duration": access_session_duration_output,
+        "access_single_response": access_single_response_output,
         "access_strict_service_token_auth": access_strict_service_token_auth_output,
         "access_timestamp": access_timestamp_output,
         "access_ui_read_only_toggle_reason": access_ui_read_only_toggle_reason_output,
@@ -294,34 +304,23 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         }
       },
       required: [
         "account_or_zone",
         "account_or_zone_id"
       ],
+      $defs: {
+        "access_identifier": access_identifier,
+      },
     },
     outputSchema: {
-      "allOf": [
-        {
-          "$ref": "#/$defs/access_organizations"
-        },
-        {
-          "properties": {
-            "trusted_accounts": {
-              "items": {
-                "type": "string"
-              },
-              "type": "array"
-            }
-          },
-          "type": "object"
-        }
-      ],
+      "$ref": "#/$defs/access_get_response",
       $defs: {
         "access_allow_authenticate_via_warp": access_allow_authenticate_via_warp_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_auth_domain": access_auth_domain_output,
         "access_auto_redirect_to_identity": access_auto_redirect_to_identity_output,
         "access_created_at": access_created_at_output,
@@ -329,8 +328,10 @@ export const tools: readonly Tool[] = [
         "access_deny_unmatched_requests": access_deny_unmatched_requests_output,
         "access_deny_unmatched_requests_exempted_zone_names": access_deny_unmatched_requests_exempted_zone_names_output,
         "access_disable_end_user_app_creation": access_disable_end_user_app_creation_output,
+        "access_get_response": access_get_response_output,
         "access_is_ui_read_only": access_is_ui_read_only_output,
         "access_login_design": access_login_design_output,
+        "access_messages": access_messages_output,
         "access_mfa_piv_key_requirements": access_mfa_piv_key_requirements_output,
         "access_mfa_required_for_all_apps": access_mfa_required_for_all_apps_output,
         "access_name": access_name_output,
@@ -366,22 +367,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/access_organizations"
-            },
-            {
-              "properties": {
-                "trusted_accounts": {
-                  "items": {
-                    "type": "string"
-                  },
-                  "type": "array"
-                }
-              },
-              "type": "object"
-            }
-          ]
+          "$ref": "#/$defs/access_get_response"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -390,6 +376,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_allow_authenticate_via_warp": access_allow_authenticate_via_warp_output,
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_auth_domain": access_auth_domain_output,
         "access_auto_redirect_to_identity": access_auto_redirect_to_identity_output,
         "access_created_at": access_created_at_output,
@@ -397,6 +384,7 @@ export const tools: readonly Tool[] = [
         "access_deny_unmatched_requests": access_deny_unmatched_requests_output,
         "access_deny_unmatched_requests_exempted_zone_names": access_deny_unmatched_requests_exempted_zone_names_output,
         "access_disable_end_user_app_creation": access_disable_end_user_app_creation_output,
+        "access_get_response": access_get_response_output,
         "access_is_ui_read_only": access_is_ui_read_only_output,
         "access_login_design": access_login_design_output,
         "access_messages": access_messages_output,
@@ -436,8 +424,8 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "body": {
           "properties": {
@@ -542,6 +530,7 @@ export const tools: readonly Tool[] = [
         "access_deny_unmatched_requests": access_deny_unmatched_requests,
         "access_deny_unmatched_requests_exempted_zone_names": access_deny_unmatched_requests_exempted_zone_names,
         "access_disable_end_user_app_creation": access_disable_end_user_app_creation,
+        "access_identifier": access_identifier,
         "access_is_ui_read_only": access_is_ui_read_only,
         "access_login_design": access_login_design,
         "access_mfa_piv_key_requirements": access_mfa_piv_key_requirements,
@@ -558,9 +547,10 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/access_organizations",
+      "$ref": "#/$defs/access_single_response",
       $defs: {
         "access_allow_authenticate_via_warp": access_allow_authenticate_via_warp_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_auth_domain": access_auth_domain_output,
         "access_auto_redirect_to_identity": access_auto_redirect_to_identity_output,
         "access_created_at": access_created_at_output,
@@ -570,6 +560,7 @@ export const tools: readonly Tool[] = [
         "access_disable_end_user_app_creation": access_disable_end_user_app_creation_output,
         "access_is_ui_read_only": access_is_ui_read_only_output,
         "access_login_design": access_login_design_output,
+        "access_messages": access_messages_output,
         "access_mfa_piv_key_requirements": access_mfa_piv_key_requirements_output,
         "access_mfa_required_for_all_apps": access_mfa_required_for_all_apps_output,
         "access_name": access_name_output,
@@ -577,6 +568,7 @@ export const tools: readonly Tool[] = [
         "access_organizations": access_organizations_output,
         "access_service_token_inactivity": access_service_token_inactivity_output,
         "access_session_duration": access_session_duration_output,
+        "access_single_response": access_single_response_output,
         "access_strict_service_token_auth": access_strict_service_token_auth_output,
         "access_timestamp": access_timestamp_output,
         "access_ui_read_only_toggle_reason": access_ui_read_only_toggle_reason_output,
@@ -603,7 +595,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/access_organizations"
+          "$ref": "#/$defs/access_single_response"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -612,6 +604,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_allow_authenticate_via_warp": access_allow_authenticate_via_warp_output,
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_auth_domain": access_auth_domain_output,
         "access_auto_redirect_to_identity": access_auto_redirect_to_identity_output,
         "access_created_at": access_created_at_output,
@@ -629,6 +622,7 @@ export const tools: readonly Tool[] = [
         "access_organizations": access_organizations_output,
         "access_service_token_inactivity": access_service_token_inactivity_output,
         "access_session_duration": access_session_duration_output,
+        "access_single_response": access_single_response_output,
         "access_strict_service_token_auth": access_strict_service_token_auth_output,
         "access_timestamp": access_timestamp_output,
         "access_ui_read_only_toggle_reason": access_ui_read_only_toggle_reason_output,

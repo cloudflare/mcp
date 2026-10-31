@@ -3,12 +3,19 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  r2_data_catalog_api_response_common_failure_errorsItem_output,
   r2_data_catalog_api_response_common_failure_output,
+  r2_data_catalog_api_response_errors_output,
+  r2_data_catalog_api_response_messages_output,
+  r2_data_catalog_api_response_single_output,
+  r2_data_catalog_api_response_success_output,
   r2_data_catalog_namespace_details_output,
   r2_data_catalog_namespace_identifier_output,
   r2_data_catalog_namespace_list_response_output,
 } from "../../outputs.js";
+import {
+  r2_data_catalog_account_id,
+  r2_data_catalog_bucket_name,
+} from "../../schemas.js";
 
 /**
  * The tools of `basin_catalog.namespaces`.
@@ -22,12 +29,12 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifies the account.",
-          "type": "string"
+          "$ref": "#/$defs/r2-data-catalog_account-id",
+          "description": "Identifies the account."
         },
         "bucket_name": {
-          "description": "Specifies the R2 bucket name.",
-          "type": "string"
+          "$ref": "#/$defs/r2-data-catalog_bucket-name",
+          "description": "Specifies the R2 bucket name."
         },
         "page_size": {
           "default": 100,
@@ -57,10 +64,30 @@ export const tools: readonly Tool[] = [
         "account_id",
         "bucket_name"
       ],
+      $defs: {
+        "r2-data-catalog_account-id": r2_data_catalog_account_id,
+        "r2-data-catalog_bucket-name": r2_data_catalog_bucket_name,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/r2-data-catalog_namespace-list-response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/r2-data-catalog_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/r2-data-catalog_namespace-list-response"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "r2-data-catalog_api-response-errors": r2_data_catalog_api_response_errors_output,
+        "r2-data-catalog_api-response-messages": r2_data_catalog_api_response_messages_output,
+        "r2-data-catalog_api-response-single": r2_data_catalog_api_response_single_output,
+        "r2-data-catalog_api-response-success": r2_data_catalog_api_response_success_output,
         "r2-data-catalog_namespace-details": r2_data_catalog_namespace_details_output,
         "r2-data-catalog_namespace-identifier": r2_data_catalog_namespace_identifier_output,
         "r2-data-catalog_namespace-list-response": r2_data_catalog_namespace_list_response_output,
@@ -84,7 +111,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/r2-data-catalog_namespace-list-response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/r2-data-catalog_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/r2-data-catalog_namespace-list-response"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "400": {
           "$ref": "#/$defs/r2-data-catalog_api-response-common-failure"
@@ -104,7 +143,10 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "r2-data-catalog_api-response-common-failure": r2_data_catalog_api_response_common_failure_output,
-        "r2-data-catalog_api-response-common-failure_errorsItem": r2_data_catalog_api_response_common_failure_errorsItem_output,
+        "r2-data-catalog_api-response-errors": r2_data_catalog_api_response_errors_output,
+        "r2-data-catalog_api-response-messages": r2_data_catalog_api_response_messages_output,
+        "r2-data-catalog_api-response-single": r2_data_catalog_api_response_single_output,
+        "r2-data-catalog_api-response-success": r2_data_catalog_api_response_success_output,
         "r2-data-catalog_namespace-details": r2_data_catalog_namespace_details_output,
         "r2-data-catalog_namespace-identifier": r2_data_catalog_namespace_identifier_output,
         "r2-data-catalog_namespace-list-response": r2_data_catalog_namespace_list_response_output,

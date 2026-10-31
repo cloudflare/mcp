@@ -18,6 +18,19 @@ export const hyperdrive_hyperdrive_caching: JsonSchema = {
 };
 
 /**
+ * The schema of `hyperdrive_hyperdrive-caching-common`.
+ */
+export const hyperdrive_hyperdrive_caching_common: JsonSchema = {
+  "properties": {
+    "disabled": {
+      "description": "Set to true to disable caching of SQL responses. Default is false.",
+      "type": "boolean"
+    }
+  },
+  "type": "object"
+};
+
+/**
  * The schema of `hyperdrive_hyperdrive-caching-create`.
  */
 export const hyperdrive_hyperdrive_caching_create: JsonSchema = {
@@ -126,22 +139,25 @@ export const hyperdrive_hyperdrive_caching_disabled: JsonSchema = {
  * The schema of `hyperdrive_hyperdrive-caching-enabled`.
  */
 export const hyperdrive_hyperdrive_caching_enabled: JsonSchema = {
-  "description": "Caching enabled",
-  "properties": {
-    "disabled": {
-      "description": "Set to true to disable caching of SQL responses. Default is false.",
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/hyperdrive_hyperdrive-caching-common"
     },
-    "max_age": {
-      "description": "Specify the maximum duration (in seconds) items should persist in the cache. Defaults to 60 seconds if not specified.",
-      "type": "integer"
-    },
-    "stale_while_revalidate": {
-      "description": "Specify the number of seconds the cache may serve a stale response. Defaults to 15 seconds if not specified.",
-      "type": "integer"
+    {
+      "properties": {
+        "max_age": {
+          "description": "Specify the maximum duration (in seconds) items should persist in the cache. Defaults to 60 seconds if not specified.",
+          "type": "integer"
+        },
+        "stale_while_revalidate": {
+          "description": "Specify the number of seconds the cache may serve a stale response. Defaults to 15 seconds if not specified.",
+          "type": "integer"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ],
+  "description": "Caching enabled"
 };
 
 /**
@@ -192,17 +208,12 @@ export const hyperdrive_hyperdrive_config_create: JsonSchema = {
 };
 
 /**
- * The schema of `hyperdrive_hyperdrive-config-create-with-integration`.
+ * The schema of `hyperdrive_hyperdrive-config-create-common`.
  */
-export const hyperdrive_hyperdrive_config_create_with_integration: JsonSchema = {
-  "description": "Connect using a PlanetScale integration",
+export const hyperdrive_hyperdrive_config_create_common: JsonSchema = {
   "properties": {
     "caching": {
       "$ref": "#/$defs/hyperdrive_hyperdrive-caching-create"
-    },
-    "integration": {
-      "$ref": "#/$defs/hyperdrive_hyperdrive-planet-scale-integration",
-      "description": "Selects a PlanetScale database and provisions credentials managed by Cloudflare when creating a Hyperdrive configuration. The Cloudflare account must already be linked to PlanetScale in the Hyperdrive dashboard. The selection is returned as read-only metadata and cannot be changed with replace or update operations."
     },
     "mtls": {
       "$ref": "#/$defs/hyperdrive_hyperdrive-mtls",
@@ -212,69 +223,83 @@ export const hyperdrive_hyperdrive_config_create_with_integration: JsonSchema = 
       "$ref": "#/$defs/hyperdrive_hyperdrive-name",
       "description": "The name of the Hyperdrive configuration. Used to identify the configuration in the Cloudflare dashboard and API."
     },
-    "origin": {
-      "oneOf": [
-        {
-          "type": "object"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
     "origin_connection_limit": {
       "$ref": "#/$defs/hyperdrive_hyperdrive-origin-connection-limit",
       "description": "The (soft) maximum number of connections the Hyperdrive is allowed to make to the origin database.\n\nMaximum allowed: 20 for free tier accounts, 100 for paid tier accounts.\nIf not specified, defaults to 20 for free tier and 60 for paid tier.\nCertain Cloudflare-managed origins may be permitted a higher limit.\nContact Cloudflare if you need a higher limit.\n"
     }
   },
   "required": [
-    "name",
-    "integration"
+    "name"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `hyperdrive_hyperdrive-config-create-with-integration`.
+ */
+export const hyperdrive_hyperdrive_config_create_with_integration: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/hyperdrive_hyperdrive-config-create-common"
+    },
+    {
+      "properties": {
+        "integration": {
+          "$ref": "#/$defs/hyperdrive_hyperdrive-planet-scale-integration",
+          "description": "Selects a PlanetScale database and provisions credentials managed by Cloudflare when creating a Hyperdrive configuration. The Cloudflare account must already be linked to PlanetScale in the Hyperdrive dashboard. The selection is returned as read-only metadata and cannot be changed with replace or update operations."
+        },
+        "origin": {
+          "oneOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "integration"
+      ],
+      "type": "object"
+    }
+  ],
+  "description": "Connect using a PlanetScale integration"
 };
 
 /**
  * The schema of `hyperdrive_hyperdrive-config-create-with-origin`.
  */
 export const hyperdrive_hyperdrive_config_create_with_origin: JsonSchema = {
-  "description": "Connect using origin credentials",
-  "properties": {
-    "caching": {
-      "$ref": "#/$defs/hyperdrive_hyperdrive-caching-create"
+  "allOf": [
+    {
+      "$ref": "#/$defs/hyperdrive_hyperdrive-config-create-common"
     },
-    "integration": {
-      "oneOf": [
-        {
-          "type": "object"
+    {
+      "properties": {
+        "integration": {
+          "oneOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
-        {
-          "type": "null"
+        "origin": {
+          "$ref": "#/$defs/hyperdrive_hyperdrive-origin-full",
+          "description": "Combines database connection fields with exactly one supported network location."
         }
-      ]
-    },
-    "mtls": {
-      "$ref": "#/$defs/hyperdrive_hyperdrive-mtls",
-      "description": "mTLS configuration for the origin connection. Cannot be used with VPC Service origins; TLS must be managed on the VPC Service."
-    },
-    "name": {
-      "$ref": "#/$defs/hyperdrive_hyperdrive-name",
-      "description": "The name of the Hyperdrive configuration. Used to identify the configuration in the Cloudflare dashboard and API."
-    },
-    "origin": {
-      "$ref": "#/$defs/hyperdrive_hyperdrive-origin-full",
-      "description": "Combines database connection fields with exactly one supported network location."
-    },
-    "origin_connection_limit": {
-      "$ref": "#/$defs/hyperdrive_hyperdrive-origin-connection-limit",
-      "description": "The (soft) maximum number of connections the Hyperdrive is allowed to make to the origin database.\n\nMaximum allowed: 20 for free tier accounts, 100 for paid tier accounts.\nIf not specified, defaults to 20 for free tier and 60 for paid tier.\nCertain Cloudflare-managed origins may be permitted a higher limit.\nContact Cloudflare if you need a higher limit.\n"
+      },
+      "required": [
+        "origin"
+      ],
+      "type": "object"
     }
-  },
-  "required": [
-    "name",
-    "origin"
   ],
-  "type": "object"
+  "description": "Connect using origin credentials"
 };
 
 /**
@@ -344,6 +369,37 @@ export const hyperdrive_hyperdrive_database: JsonSchema = {
 };
 
 /**
+ * The schema of `hyperdrive_hyperdrive-database-full`.
+ */
+export const hyperdrive_hyperdrive_database_full: JsonSchema = {
+  "properties": {
+    "database": {
+      "description": "Set the name of your origin database.",
+      "type": "string"
+    },
+    "password": {
+      "description": "Set the password needed to access your origin database. The API never returns this write-only value.",
+      "type": "string"
+    },
+    "scheme": {
+      "$ref": "#/$defs/hyperdrive_hyperdrive-scheme",
+      "description": "Specifies the URL scheme used to connect to your origin database."
+    },
+    "user": {
+      "description": "Set the user of your origin database.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "database",
+    "password",
+    "scheme",
+    "user"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `hyperdrive_hyperdrive-integration-provider`.
  */
 export const hyperdrive_hyperdrive_integration_provider: JsonSchema = {
@@ -399,115 +455,34 @@ export const hyperdrive_hyperdrive_origin_full: JsonSchema = {
   "description": "Combines database connection fields with exactly one supported network location.",
   "oneOf": [
     {
-      "properties": {
-        "database": {
-          "description": "Set the name of your origin database.",
-          "type": "string"
+      "allOf": [
+        {
+          "$ref": "#/$defs/hyperdrive_hyperdrive-database-full"
         },
-        "host": {
-          "description": "Defines the publicly reachable hostname or IP of your origin database. Private, loopback, and link-local IP addresses are not allowed.",
-          "type": "string"
-        },
-        "password": {
-          "description": "Set the password needed to access your origin database. The API never returns this write-only value.",
-          "type": "string"
-        },
-        "port": {
-          "description": "Defines the port of your origin database. Defaults to 5432 for PostgreSQL or 3306 for MySQL if not specified.",
-          "type": "integer"
-        },
-        "scheme": {
-          "$ref": "#/$defs/hyperdrive_hyperdrive-scheme",
-          "description": "Specifies the URL scheme used to connect to your origin database."
-        },
-        "user": {
-          "description": "Set the user of your origin database.",
-          "type": "string"
+        {
+          "$ref": "#/$defs/hyperdrive_internet-origin"
         }
-      },
-      "required": [
-        "database",
-        "password",
-        "scheme",
-        "user",
-        "host",
-        "port"
-      ],
-      "type": "object"
+      ]
     },
     {
-      "properties": {
-        "access_client_id": {
-          "description": "Defines the Client ID of the Access token to use when connecting to the origin database.",
-          "type": "string"
+      "allOf": [
+        {
+          "$ref": "#/$defs/hyperdrive_hyperdrive-database-full"
         },
-        "access_client_secret": {
-          "description": "Defines the Client Secret of the Access Token to use when connecting to the origin database. The API never returns this write-only value.",
-          "type": "string"
-        },
-        "database": {
-          "description": "Set the name of your origin database.",
-          "type": "string"
-        },
-        "host": {
-          "description": "Defines the host (hostname or IP) of your origin database.",
-          "type": "string"
-        },
-        "password": {
-          "description": "Set the password needed to access your origin database. The API never returns this write-only value.",
-          "type": "string"
-        },
-        "scheme": {
-          "$ref": "#/$defs/hyperdrive_hyperdrive-scheme",
-          "description": "Specifies the URL scheme used to connect to your origin database."
-        },
-        "user": {
-          "description": "Set the user of your origin database.",
-          "type": "string"
+        {
+          "$ref": "#/$defs/hyperdrive_over-access-origin"
         }
-      },
-      "required": [
-        "database",
-        "password",
-        "scheme",
-        "user",
-        "access_client_id",
-        "access_client_secret",
-        "host"
-      ],
-      "type": "object"
+      ]
     },
     {
-      "properties": {
-        "database": {
-          "description": "Set the name of your origin database.",
-          "type": "string"
+      "allOf": [
+        {
+          "$ref": "#/$defs/hyperdrive_hyperdrive-database-full"
         },
-        "password": {
-          "description": "Set the password needed to access your origin database. The API never returns this write-only value.",
-          "type": "string"
-        },
-        "scheme": {
-          "$ref": "#/$defs/hyperdrive_hyperdrive-scheme",
-          "description": "Specifies the URL scheme used to connect to your origin database."
-        },
-        "service_id": {
-          "description": "The identifier of the Workers VPC Service to connect through. Hyperdrive will egress through the specified VPC Service to reach the origin database.",
-          "type": "string"
-        },
-        "user": {
-          "description": "Set the user of your origin database.",
-          "type": "string"
+        {
+          "$ref": "#/$defs/hyperdrive_vpc-service-origin"
         }
-      },
-      "required": [
-        "database",
-        "password",
-        "scheme",
-        "user",
-        "service_id"
-      ],
-      "type": "object"
+      ]
     }
   ]
 };
@@ -563,6 +538,14 @@ export const hyperdrive_hyperdrive_scheme: JsonSchema = {
     "postgresql",
     "mysql"
   ],
+  "type": "string"
+};
+
+/**
+ * The schema of `hyperdrive_identifier`.
+ */
+export const hyperdrive_identifier: JsonSchema = {
+  "description": "Define configurations using a unique string identifier.",
   "type": "string"
 };
 

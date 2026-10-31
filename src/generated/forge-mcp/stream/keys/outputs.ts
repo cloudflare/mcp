@@ -4,17 +4,62 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `stream_identifier-2` in responses.
- */
-export const stream_identifier_2_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `stream_jwk` in responses.
  */
 export const stream_jwk_output: JsonSchema = {
   "type": "string"
+};
+
+/**
+ * The schema of `stream_key_generation_response` in responses.
+ */
+export const stream_key_generation_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/stream_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/stream_keys"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `stream_key_response_collection` in responses.
+ */
+export const stream_key_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/stream_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "created": {
+                "$ref": "#/$defs/stream_signing_key_created"
+              },
+              "id": {
+                "$ref": "#/$defs/stream_identifier-2"
+              },
+              "key_id": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**

@@ -4,13 +4,13 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   api_shield_api_response_common_failure_output,
-  api_shield_api_response_common_output,
   api_shield_messages_output,
 } from "../../../outputs.js";
 import {
   api_shield_identifier,
   api_shield_identifier_2,
 } from "../../../schemas.js";
+import { api_shield_api_response_single_output } from "../../outputs.js";
 import { api_shield_global_settings_output } from "./outputs.js";
 import { api_shield_global_setting_change_base } from "./schemas.js";
 
@@ -45,7 +45,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "allOf": [
         {
-          "$ref": "#/$defs/api-shield_api-response-common"
+          "$ref": "#/$defs/api-shield_api-response-single"
         },
         {
           "properties": {
@@ -60,7 +60,7 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "api-shield_api-response-common": api_shield_api_response_common_output,
+        "api-shield_api-response-single": api_shield_api_response_single_output,
         "api-shield_global_settings": api_shield_global_settings_output,
         "api-shield_messages": api_shield_messages_output,
       },
@@ -85,7 +85,7 @@ export const tools: readonly Tool[] = [
         "200": {
           "allOf": [
             {
-              "$ref": "#/$defs/api-shield_api-response-common"
+              "$ref": "#/$defs/api-shield_api-response-single"
             },
             {
               "properties": {
@@ -105,8 +105,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "api-shield_api-response-common": api_shield_api_response_common_output,
         "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
+        "api-shield_api-response-single": api_shield_api_response_single_output,
         "api-shield_global_settings": api_shield_global_settings_output,
         "api-shield_messages": api_shield_messages_output,
       },
@@ -138,7 +138,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "allOf": [
         {
-          "$ref": "#/$defs/api-shield_api-response-common"
+          "$ref": "#/$defs/api-shield_api-response-single"
         },
         {
           "properties": {
@@ -153,7 +153,7 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "api-shield_api-response-common": api_shield_api_response_common_output,
+        "api-shield_api-response-single": api_shield_api_response_single_output,
         "api-shield_global_settings": api_shield_global_settings_output,
         "api-shield_messages": api_shield_messages_output,
       },
@@ -180,7 +180,7 @@ export const tools: readonly Tool[] = [
         "200": {
           "allOf": [
             {
-              "$ref": "#/$defs/api-shield_api-response-common"
+              "$ref": "#/$defs/api-shield_api-response-single"
             },
             {
               "properties": {
@@ -200,8 +200,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "api-shield_api-response-common": api_shield_api_response_common_output,
         "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
+        "api-shield_api-response-single": api_shield_api_response_single_output,
         "api-shield_global_settings": api_shield_global_settings_output,
         "api-shield_messages": api_shield_messages_output,
       },
@@ -264,7 +264,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "allOf": [
         {
-          "$ref": "#/$defs/api-shield_api-response-common"
+          "$ref": "#/$defs/api-shield_api-response-single"
         },
         {
           "properties": {
@@ -279,7 +279,7 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "api-shield_api-response-common": api_shield_api_response_common_output,
+        "api-shield_api-response-single": api_shield_api_response_single_output,
         "api-shield_global_settings": api_shield_global_settings_output,
         "api-shield_messages": api_shield_messages_output,
       },
@@ -304,7 +304,7 @@ export const tools: readonly Tool[] = [
         "200": {
           "allOf": [
             {
-              "$ref": "#/$defs/api-shield_api-response-common"
+              "$ref": "#/$defs/api-shield_api-response-single"
             },
             {
               "properties": {
@@ -324,8 +324,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "api-shield_api-response-common": api_shield_api_response_common_output,
         "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
+        "api-shield_api-response-single": api_shield_api_response_single_output,
         "api-shield_global_settings": api_shield_global_settings_output,
         "api-shield_messages": api_shield_messages_output,
       },

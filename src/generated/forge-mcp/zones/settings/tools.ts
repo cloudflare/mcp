@@ -3,6 +3,7 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import { zones_messages_output } from "../outputs.js";
+import { zones_identifier } from "../schemas.js";
 import {
   zones_0rtt_output,
   zones_0rtt_value_output,
@@ -12,10 +13,12 @@ import {
   zones_always_online_value_output,
   zones_always_use_https_2_output,
   zones_always_use_https_value_output,
+  zones_api_response_common_4_output,
   zones_api_response_common_failure_3_output,
   zones_automatic_https_rewrites_2_output,
   zones_automatic_https_rewrites_value_output,
   zones_automatic_platform_optimization_output,
+  zones_base_output,
   zones_brotli_output,
   zones_brotli_value_output,
   zones_browser_cache_ttl_2_output,
@@ -26,6 +29,7 @@ import {
   zones_cache_level_value_output,
   zones_cache_rules_aegis_output,
   zones_cache_rules_aegis_value_output,
+  zones_cache_rules_base_output,
   zones_cache_rules_origin_h2_max_streams_output,
   zones_cache_rules_origin_h2_max_streams_value_output,
   zones_cache_rules_origin_max_http_version_output,
@@ -103,7 +107,6 @@ import {
   zones_search_for_agents_value_output,
   zones_security_header_output,
   zones_security_header_value_output,
-  zones_security_header_value_strict_transport_security_output,
   zones_security_level_2_output,
   zones_security_level_value_output,
   zones_server_side_exclude_output,
@@ -191,9 +194,9 @@ import {
   zones_rocket_loader_value,
   zones_search_for_agents_value,
   zones_security_header_value,
-  zones_security_header_value_strict_transport_security,
   zones_security_level_value,
   zones_server_side_exclude_value,
+  zones_setting_name,
   zones_setting_value,
   zones_sha1_support_value,
   zones_sort_query_string_for_cache_value,
@@ -227,12 +230,12 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/zones_zone_settings_single_request"
         },
         "setting_id": {
-          "description": "Setting name",
-          "type": "string"
+          "$ref": "#/$defs/zones_setting_name",
+          "description": "Setting name"
         },
         "zone_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/zones_identifier",
+          "description": "Identifier"
         }
       },
       required: [
@@ -267,6 +270,7 @@ export const tools: readonly Tool[] = [
         "zones_hotlink_protection_value": zones_hotlink_protection_value,
         "zones_http2_value": zones_http2_value,
         "zones_http3_value": zones_http3_value,
+        "zones_identifier": zones_identifier,
         "zones_image_resizing_value": zones_image_resizing_value,
         "zones_ip_geolocation_value": zones_ip_geolocation_value,
         "zones_ipv6_value": zones_ipv6_value,
@@ -290,9 +294,9 @@ export const tools: readonly Tool[] = [
         "zones_rocket_loader_value": zones_rocket_loader_value,
         "zones_search_for_agents_value": zones_search_for_agents_value,
         "zones_security_header_value": zones_security_header_value,
-        "zones_security_header_value_strict_transport_security": zones_security_header_value_strict_transport_security,
         "zones_security_level_value": zones_security_level_value,
         "zones_server_side_exclude_value": zones_server_side_exclude_value,
+        "zones_setting_name": zones_setting_name,
         "zones_setting_value": zones_setting_value,
         "zones_sha1_support_value": zones_sha1_support_value,
         "zones_sort_query_string_for_cache_value": zones_sort_query_string_for_cache_value,
@@ -312,184 +316,19 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/zones_setting",
-      $defs: {
-        "zones_0rtt": zones_0rtt_output,
-        "zones_0rtt_value": zones_0rtt_value_output,
-        "zones_advanced_ddos": zones_advanced_ddos_output,
-        "zones_advanced_ddos_value": zones_advanced_ddos_value_output,
-        "zones_always_online": zones_always_online_output,
-        "zones_always_online_value": zones_always_online_value_output,
-        "zones_always_use_https-2": zones_always_use_https_2_output,
-        "zones_always_use_https_value": zones_always_use_https_value_output,
-        "zones_automatic_https_rewrites-2": zones_automatic_https_rewrites_2_output,
-        "zones_automatic_https_rewrites_value": zones_automatic_https_rewrites_value_output,
-        "zones_automatic_platform_optimization": zones_automatic_platform_optimization_output,
-        "zones_brotli": zones_brotli_output,
-        "zones_brotli_value": zones_brotli_value_output,
-        "zones_browser_cache_ttl-2": zones_browser_cache_ttl_2_output,
-        "zones_browser_cache_ttl_value": zones_browser_cache_ttl_value_output,
-        "zones_browser_check-2": zones_browser_check_2_output,
-        "zones_browser_check_value": zones_browser_check_value_output,
-        "zones_cache-rules_aegis": zones_cache_rules_aegis_output,
-        "zones_cache-rules_aegis_value": zones_cache_rules_aegis_value_output,
-        "zones_cache-rules_origin_h2_max_streams": zones_cache_rules_origin_h2_max_streams_output,
-        "zones_cache-rules_origin_h2_max_streams_value": zones_cache_rules_origin_h2_max_streams_value_output,
-        "zones_cache-rules_origin_max_http_version": zones_cache_rules_origin_max_http_version_output,
-        "zones_cache-rules_origin_max_http_version_value": zones_cache_rules_origin_max_http_version_value_output,
-        "zones_cache_level-2": zones_cache_level_2_output,
-        "zones_cache_level_value": zones_cache_level_value_output,
-        "zones_challenge_ttl": zones_challenge_ttl_output,
-        "zones_challenge_ttl_value": zones_challenge_ttl_value_output,
-        "zones_china_network_enabled": zones_china_network_enabled_output,
-        "zones_china_network_enabled_value": zones_china_network_enabled_value_output,
-        "zones_ciphers": zones_ciphers_output,
-        "zones_ciphers_value": zones_ciphers_value_output,
-        "zones_cname_flattening": zones_cname_flattening_output,
-        "zones_cname_flattening_value": zones_cname_flattening_value_output,
-        "zones_content_converter": zones_content_converter_output,
-        "zones_content_converter_value": zones_content_converter_value_output,
-        "zones_development_mode": zones_development_mode_output,
-        "zones_development_mode_value": zones_development_mode_value_output,
-        "zones_early_hints": zones_early_hints_output,
-        "zones_early_hints_value": zones_early_hints_value_output,
-        "zones_edge_cache_ttl-2": zones_edge_cache_ttl_2_output,
-        "zones_edge_cache_ttl_value": zones_edge_cache_ttl_value_output,
-        "zones_email_obfuscation-2": zones_email_obfuscation_2_output,
-        "zones_email_obfuscation_value": zones_email_obfuscation_value_output,
-        "zones_h2_prioritization": zones_h2_prioritization_output,
-        "zones_h2_prioritization_value": zones_h2_prioritization_value_output,
-        "zones_hotlink_protection": zones_hotlink_protection_output,
-        "zones_hotlink_protection_value": zones_hotlink_protection_value_output,
-        "zones_http2": zones_http2_output,
-        "zones_http2_value": zones_http2_value_output,
-        "zones_http3": zones_http3_output,
-        "zones_http3_value": zones_http3_value_output,
-        "zones_image_resizing": zones_image_resizing_output,
-        "zones_image_resizing_value": zones_image_resizing_value_output,
-        "zones_ip_geolocation-2": zones_ip_geolocation_2_output,
-        "zones_ip_geolocation_value": zones_ip_geolocation_value_output,
-        "zones_ipv6": zones_ipv6_output,
-        "zones_ipv6_value": zones_ipv6_value_output,
-        "zones_max_upload": zones_max_upload_output,
-        "zones_max_upload_value": zones_max_upload_value_output,
-        "zones_min_tls_version": zones_min_tls_version_output,
-        "zones_min_tls_version_value": zones_min_tls_version_value_output,
-        "zones_mirage-2": zones_mirage_2_output,
-        "zones_mirage_value": zones_mirage_value_output,
-        "zones_nel": zones_nel_output,
-        "zones_nel_value": zones_nel_value_output,
-        "zones_opportunistic_encryption-2": zones_opportunistic_encryption_2_output,
-        "zones_opportunistic_encryption_value": zones_opportunistic_encryption_value_output,
-        "zones_opportunistic_onion": zones_opportunistic_onion_output,
-        "zones_opportunistic_onion_value": zones_opportunistic_onion_value_output,
-        "zones_orange_to_orange": zones_orange_to_orange_output,
-        "zones_orange_to_orange_value": zones_orange_to_orange_value_output,
-        "zones_origin_error_page_pass_thru-2": zones_origin_error_page_pass_thru_2_output,
-        "zones_origin_error_page_pass_thru_value": zones_origin_error_page_pass_thru_value_output,
-        "zones_polish-2": zones_polish_2_output,
-        "zones_polish_value": zones_polish_value_output,
-        "zones_pre_render": zones_pre_render_output,
-        "zones_pre_render_value": zones_pre_render_value_output,
-        "zones_prefetch_preload": zones_prefetch_preload_output,
-        "zones_prefetch_preload_value": zones_prefetch_preload_value_output,
-        "zones_privacy_pass": zones_privacy_pass_output,
-        "zones_privacy_pass_value": zones_privacy_pass_value_output,
-        "zones_proxy_read_timeout": zones_proxy_read_timeout_output,
-        "zones_proxy_read_timeout_value": zones_proxy_read_timeout_value_output,
-        "zones_pseudo_ipv4": zones_pseudo_ipv4_output,
-        "zones_pseudo_ipv4_value": zones_pseudo_ipv4_value_output,
-        "zones_redirects_for_ai_training": zones_redirects_for_ai_training_output,
-        "zones_redirects_for_ai_training_value": zones_redirects_for_ai_training_value_output,
-        "zones_replace_insecure_js": zones_replace_insecure_js_output,
-        "zones_replace_insecure_js_value": zones_replace_insecure_js_value_output,
-        "zones_response_buffering-2": zones_response_buffering_2_output,
-        "zones_response_buffering_value": zones_response_buffering_value_output,
-        "zones_rocket_loader-2": zones_rocket_loader_2_output,
-        "zones_rocket_loader_value": zones_rocket_loader_value_output,
-        "zones_schemas-automatic_platform_optimization": zones_schemas_automatic_platform_optimization_output,
-        "zones_search_for_agents": zones_search_for_agents_output,
-        "zones_search_for_agents_value": zones_search_for_agents_value_output,
-        "zones_security_header": zones_security_header_output,
-        "zones_security_header_value": zones_security_header_value_output,
-        "zones_security_header_value_strict_transport_security": zones_security_header_value_strict_transport_security_output,
-        "zones_security_level-2": zones_security_level_2_output,
-        "zones_security_level_value": zones_security_level_value_output,
-        "zones_server_side_exclude": zones_server_side_exclude_output,
-        "zones_server_side_exclude_value": zones_server_side_exclude_value_output,
-        "zones_setting": zones_setting_output,
-        "zones_sha1_support": zones_sha1_support_output,
-        "zones_sha1_support_value": zones_sha1_support_value_output,
-        "zones_sort_query_string_for_cache-2": zones_sort_query_string_for_cache_2_output,
-        "zones_sort_query_string_for_cache_value": zones_sort_query_string_for_cache_value_output,
-        "zones_ssl-2": zones_ssl_2_output,
-        "zones_ssl_recommender": zones_ssl_recommender_output,
-        "zones_ssl_recommender_enabled": zones_ssl_recommender_enabled_output,
-        "zones_ssl_value": zones_ssl_value_output,
-        "zones_tls_1_2_only": zones_tls_1_2_only_output,
-        "zones_tls_1_2_only_value": zones_tls_1_2_only_value_output,
-        "zones_tls_1_3": zones_tls_1_3_output,
-        "zones_tls_1_3_value": zones_tls_1_3_value_output,
-        "zones_tls_client_auth": zones_tls_client_auth_output,
-        "zones_tls_client_auth_value": zones_tls_client_auth_value_output,
-        "zones_transformations": zones_transformations_output,
-        "zones_transformations_allowed_origins": zones_transformations_allowed_origins_output,
-        "zones_transformations_allowed_origins_value": zones_transformations_allowed_origins_value_output,
-        "zones_true_client_ip_header-2": zones_true_client_ip_header_2_output,
-        "zones_true_client_ip_header_value": zones_true_client_ip_header_value_output,
-        "zones_waf-2": zones_waf_2_output,
-        "zones_waf_value": zones_waf_value_output,
-        "zones_webmcp_enabled": zones_webmcp_enabled_output,
-        "zones_webmcp_enabled_value": zones_webmcp_enabled_value_output,
-        "zones_webmcp_mcp_url": zones_webmcp_mcp_url_output,
-        "zones_webmcp_mcp_url_value": zones_webmcp_mcp_url_value_output,
-        "zones_webmcp_packs": zones_webmcp_packs_output,
-        "zones_webmcp_packs_value": zones_webmcp_packs_value_output,
-        "zones_webp": zones_webp_output,
-        "zones_webp_value": zones_webp_value_output,
-        "zones_websockets": zones_websockets_output,
-        "zones_websockets_value": zones_websockets_value_output,
-      },
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Edit zone setting"
-    },
-    method: "PATCH",
-    path: "/zones/{zone_id}/settings/{setting_id}",
-    extensions: {
-      "x-api-token-group": [
-        "Zone Settings Write"
-      ],
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "#zone_settings:read"
-        ],
-        "x-fern-enum": {
-          "#zone_settings:read": {
-            "name": "zone_settings_read"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": false,
-        "pro": false
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
-          "$ref": "#/$defs/zones_setting"
+      "allOf": [
+        {
+          "$ref": "#/$defs/zones_api-response-common-4"
         },
-        "4XX": {
-          "$ref": "#/$defs/zones_api-response-common-failure-3"
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/zones_setting"
+            }
+          },
+          "type": "object"
         }
-      },
+      ],
       $defs: {
         "zones_0rtt": zones_0rtt_output,
         "zones_0rtt_value": zones_0rtt_value_output,
@@ -499,10 +338,11 @@ export const tools: readonly Tool[] = [
         "zones_always_online_value": zones_always_online_value_output,
         "zones_always_use_https-2": zones_always_use_https_2_output,
         "zones_always_use_https_value": zones_always_use_https_value_output,
-        "zones_api-response-common-failure-3": zones_api_response_common_failure_3_output,
+        "zones_api-response-common-4": zones_api_response_common_4_output,
         "zones_automatic_https_rewrites-2": zones_automatic_https_rewrites_2_output,
         "zones_automatic_https_rewrites_value": zones_automatic_https_rewrites_value_output,
         "zones_automatic_platform_optimization": zones_automatic_platform_optimization_output,
+        "zones_base": zones_base_output,
         "zones_brotli": zones_brotli_output,
         "zones_brotli_value": zones_brotli_value_output,
         "zones_browser_cache_ttl-2": zones_browser_cache_ttl_2_output,
@@ -511,6 +351,7 @@ export const tools: readonly Tool[] = [
         "zones_browser_check_value": zones_browser_check_value_output,
         "zones_cache-rules_aegis": zones_cache_rules_aegis_output,
         "zones_cache-rules_aegis_value": zones_cache_rules_aegis_value_output,
+        "zones_cache-rules_base": zones_cache_rules_base_output,
         "zones_cache-rules_origin_h2_max_streams": zones_cache_rules_origin_h2_max_streams_output,
         "zones_cache-rules_origin_h2_max_streams_value": zones_cache_rules_origin_h2_max_streams_value_output,
         "zones_cache-rules_origin_max_http_version": zones_cache_rules_origin_max_http_version_output,
@@ -591,7 +432,194 @@ export const tools: readonly Tool[] = [
         "zones_search_for_agents_value": zones_search_for_agents_value_output,
         "zones_security_header": zones_security_header_output,
         "zones_security_header_value": zones_security_header_value_output,
-        "zones_security_header_value_strict_transport_security": zones_security_header_value_strict_transport_security_output,
+        "zones_security_level-2": zones_security_level_2_output,
+        "zones_security_level_value": zones_security_level_value_output,
+        "zones_server_side_exclude": zones_server_side_exclude_output,
+        "zones_server_side_exclude_value": zones_server_side_exclude_value_output,
+        "zones_setting": zones_setting_output,
+        "zones_sha1_support": zones_sha1_support_output,
+        "zones_sha1_support_value": zones_sha1_support_value_output,
+        "zones_sort_query_string_for_cache-2": zones_sort_query_string_for_cache_2_output,
+        "zones_sort_query_string_for_cache_value": zones_sort_query_string_for_cache_value_output,
+        "zones_ssl-2": zones_ssl_2_output,
+        "zones_ssl_recommender": zones_ssl_recommender_output,
+        "zones_ssl_recommender_enabled": zones_ssl_recommender_enabled_output,
+        "zones_ssl_value": zones_ssl_value_output,
+        "zones_tls_1_2_only": zones_tls_1_2_only_output,
+        "zones_tls_1_2_only_value": zones_tls_1_2_only_value_output,
+        "zones_tls_1_3": zones_tls_1_3_output,
+        "zones_tls_1_3_value": zones_tls_1_3_value_output,
+        "zones_tls_client_auth": zones_tls_client_auth_output,
+        "zones_tls_client_auth_value": zones_tls_client_auth_value_output,
+        "zones_transformations": zones_transformations_output,
+        "zones_transformations_allowed_origins": zones_transformations_allowed_origins_output,
+        "zones_transformations_allowed_origins_value": zones_transformations_allowed_origins_value_output,
+        "zones_true_client_ip_header-2": zones_true_client_ip_header_2_output,
+        "zones_true_client_ip_header_value": zones_true_client_ip_header_value_output,
+        "zones_waf-2": zones_waf_2_output,
+        "zones_waf_value": zones_waf_value_output,
+        "zones_webmcp_enabled": zones_webmcp_enabled_output,
+        "zones_webmcp_enabled_value": zones_webmcp_enabled_value_output,
+        "zones_webmcp_mcp_url": zones_webmcp_mcp_url_output,
+        "zones_webmcp_mcp_url_value": zones_webmcp_mcp_url_value_output,
+        "zones_webmcp_packs": zones_webmcp_packs_output,
+        "zones_webmcp_packs_value": zones_webmcp_packs_value_output,
+        "zones_webp": zones_webp_output,
+        "zones_webp_value": zones_webp_value_output,
+        "zones_websockets": zones_websockets_output,
+        "zones_websockets_value": zones_websockets_value_output,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Edit zone setting"
+    },
+    method: "PATCH",
+    path: "/zones/{zone_id}/settings/{setting_id}",
+    extensions: {
+      "x-api-token-group": [
+        "Zone Settings Write"
+      ],
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "#zone_settings:read"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": false,
+        "pro": false
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zones_api-response-common-4"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/zones_setting"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/zones_api-response-common-failure-3"
+        }
+      },
+      $defs: {
+        "zones_0rtt": zones_0rtt_output,
+        "zones_0rtt_value": zones_0rtt_value_output,
+        "zones_advanced_ddos": zones_advanced_ddos_output,
+        "zones_advanced_ddos_value": zones_advanced_ddos_value_output,
+        "zones_always_online": zones_always_online_output,
+        "zones_always_online_value": zones_always_online_value_output,
+        "zones_always_use_https-2": zones_always_use_https_2_output,
+        "zones_always_use_https_value": zones_always_use_https_value_output,
+        "zones_api-response-common-4": zones_api_response_common_4_output,
+        "zones_api-response-common-failure-3": zones_api_response_common_failure_3_output,
+        "zones_automatic_https_rewrites-2": zones_automatic_https_rewrites_2_output,
+        "zones_automatic_https_rewrites_value": zones_automatic_https_rewrites_value_output,
+        "zones_automatic_platform_optimization": zones_automatic_platform_optimization_output,
+        "zones_base": zones_base_output,
+        "zones_brotli": zones_brotli_output,
+        "zones_brotli_value": zones_brotli_value_output,
+        "zones_browser_cache_ttl-2": zones_browser_cache_ttl_2_output,
+        "zones_browser_cache_ttl_value": zones_browser_cache_ttl_value_output,
+        "zones_browser_check-2": zones_browser_check_2_output,
+        "zones_browser_check_value": zones_browser_check_value_output,
+        "zones_cache-rules_aegis": zones_cache_rules_aegis_output,
+        "zones_cache-rules_aegis_value": zones_cache_rules_aegis_value_output,
+        "zones_cache-rules_base": zones_cache_rules_base_output,
+        "zones_cache-rules_origin_h2_max_streams": zones_cache_rules_origin_h2_max_streams_output,
+        "zones_cache-rules_origin_h2_max_streams_value": zones_cache_rules_origin_h2_max_streams_value_output,
+        "zones_cache-rules_origin_max_http_version": zones_cache_rules_origin_max_http_version_output,
+        "zones_cache-rules_origin_max_http_version_value": zones_cache_rules_origin_max_http_version_value_output,
+        "zones_cache_level-2": zones_cache_level_2_output,
+        "zones_cache_level_value": zones_cache_level_value_output,
+        "zones_challenge_ttl": zones_challenge_ttl_output,
+        "zones_challenge_ttl_value": zones_challenge_ttl_value_output,
+        "zones_china_network_enabled": zones_china_network_enabled_output,
+        "zones_china_network_enabled_value": zones_china_network_enabled_value_output,
+        "zones_ciphers": zones_ciphers_output,
+        "zones_ciphers_value": zones_ciphers_value_output,
+        "zones_cname_flattening": zones_cname_flattening_output,
+        "zones_cname_flattening_value": zones_cname_flattening_value_output,
+        "zones_content_converter": zones_content_converter_output,
+        "zones_content_converter_value": zones_content_converter_value_output,
+        "zones_development_mode": zones_development_mode_output,
+        "zones_development_mode_value": zones_development_mode_value_output,
+        "zones_early_hints": zones_early_hints_output,
+        "zones_early_hints_value": zones_early_hints_value_output,
+        "zones_edge_cache_ttl-2": zones_edge_cache_ttl_2_output,
+        "zones_edge_cache_ttl_value": zones_edge_cache_ttl_value_output,
+        "zones_email_obfuscation-2": zones_email_obfuscation_2_output,
+        "zones_email_obfuscation_value": zones_email_obfuscation_value_output,
+        "zones_h2_prioritization": zones_h2_prioritization_output,
+        "zones_h2_prioritization_value": zones_h2_prioritization_value_output,
+        "zones_hotlink_protection": zones_hotlink_protection_output,
+        "zones_hotlink_protection_value": zones_hotlink_protection_value_output,
+        "zones_http2": zones_http2_output,
+        "zones_http2_value": zones_http2_value_output,
+        "zones_http3": zones_http3_output,
+        "zones_http3_value": zones_http3_value_output,
+        "zones_image_resizing": zones_image_resizing_output,
+        "zones_image_resizing_value": zones_image_resizing_value_output,
+        "zones_ip_geolocation-2": zones_ip_geolocation_2_output,
+        "zones_ip_geolocation_value": zones_ip_geolocation_value_output,
+        "zones_ipv6": zones_ipv6_output,
+        "zones_ipv6_value": zones_ipv6_value_output,
+        "zones_max_upload": zones_max_upload_output,
+        "zones_max_upload_value": zones_max_upload_value_output,
+        "zones_messages": zones_messages_output,
+        "zones_min_tls_version": zones_min_tls_version_output,
+        "zones_min_tls_version_value": zones_min_tls_version_value_output,
+        "zones_mirage-2": zones_mirage_2_output,
+        "zones_mirage_value": zones_mirage_value_output,
+        "zones_nel": zones_nel_output,
+        "zones_nel_value": zones_nel_value_output,
+        "zones_opportunistic_encryption-2": zones_opportunistic_encryption_2_output,
+        "zones_opportunistic_encryption_value": zones_opportunistic_encryption_value_output,
+        "zones_opportunistic_onion": zones_opportunistic_onion_output,
+        "zones_opportunistic_onion_value": zones_opportunistic_onion_value_output,
+        "zones_orange_to_orange": zones_orange_to_orange_output,
+        "zones_orange_to_orange_value": zones_orange_to_orange_value_output,
+        "zones_origin_error_page_pass_thru-2": zones_origin_error_page_pass_thru_2_output,
+        "zones_origin_error_page_pass_thru_value": zones_origin_error_page_pass_thru_value_output,
+        "zones_polish-2": zones_polish_2_output,
+        "zones_polish_value": zones_polish_value_output,
+        "zones_pre_render": zones_pre_render_output,
+        "zones_pre_render_value": zones_pre_render_value_output,
+        "zones_prefetch_preload": zones_prefetch_preload_output,
+        "zones_prefetch_preload_value": zones_prefetch_preload_value_output,
+        "zones_privacy_pass": zones_privacy_pass_output,
+        "zones_privacy_pass_value": zones_privacy_pass_value_output,
+        "zones_proxy_read_timeout": zones_proxy_read_timeout_output,
+        "zones_proxy_read_timeout_value": zones_proxy_read_timeout_value_output,
+        "zones_pseudo_ipv4": zones_pseudo_ipv4_output,
+        "zones_pseudo_ipv4_value": zones_pseudo_ipv4_value_output,
+        "zones_redirects_for_ai_training": zones_redirects_for_ai_training_output,
+        "zones_redirects_for_ai_training_value": zones_redirects_for_ai_training_value_output,
+        "zones_replace_insecure_js": zones_replace_insecure_js_output,
+        "zones_replace_insecure_js_value": zones_replace_insecure_js_value_output,
+        "zones_response_buffering-2": zones_response_buffering_2_output,
+        "zones_response_buffering_value": zones_response_buffering_value_output,
+        "zones_rocket_loader-2": zones_rocket_loader_2_output,
+        "zones_rocket_loader_value": zones_rocket_loader_value_output,
+        "zones_schemas-automatic_platform_optimization": zones_schemas_automatic_platform_optimization_output,
+        "zones_search_for_agents": zones_search_for_agents_output,
+        "zones_search_for_agents_value": zones_search_for_agents_value_output,
+        "zones_security_header": zones_security_header_output,
+        "zones_security_header_value": zones_security_header_value_output,
         "zones_security_level-2": zones_security_level_2_output,
         "zones_security_level_value": zones_security_level_value_output,
         "zones_server_side_exclude": zones_server_side_exclude_output,
@@ -643,21 +671,37 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "setting_id": {
-          "description": "Setting name",
-          "type": "string"
+          "$ref": "#/$defs/zones_setting_name",
+          "description": "Setting name"
         },
         "zone_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/zones_identifier",
+          "description": "Identifier"
         }
       },
       required: [
         "zone_id",
         "setting_id"
       ],
+      $defs: {
+        "zones_identifier": zones_identifier,
+        "zones_setting_name": zones_setting_name,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/zones_setting",
+      "allOf": [
+        {
+          "$ref": "#/$defs/zones_api-response-common-4"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/zones_setting"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "zones_0rtt": zones_0rtt_output,
         "zones_0rtt_value": zones_0rtt_value_output,
@@ -667,9 +711,11 @@ export const tools: readonly Tool[] = [
         "zones_always_online_value": zones_always_online_value_output,
         "zones_always_use_https-2": zones_always_use_https_2_output,
         "zones_always_use_https_value": zones_always_use_https_value_output,
+        "zones_api-response-common-4": zones_api_response_common_4_output,
         "zones_automatic_https_rewrites-2": zones_automatic_https_rewrites_2_output,
         "zones_automatic_https_rewrites_value": zones_automatic_https_rewrites_value_output,
         "zones_automatic_platform_optimization": zones_automatic_platform_optimization_output,
+        "zones_base": zones_base_output,
         "zones_brotli": zones_brotli_output,
         "zones_brotli_value": zones_brotli_value_output,
         "zones_browser_cache_ttl-2": zones_browser_cache_ttl_2_output,
@@ -678,6 +724,7 @@ export const tools: readonly Tool[] = [
         "zones_browser_check_value": zones_browser_check_value_output,
         "zones_cache-rules_aegis": zones_cache_rules_aegis_output,
         "zones_cache-rules_aegis_value": zones_cache_rules_aegis_value_output,
+        "zones_cache-rules_base": zones_cache_rules_base_output,
         "zones_cache-rules_origin_h2_max_streams": zones_cache_rules_origin_h2_max_streams_output,
         "zones_cache-rules_origin_h2_max_streams_value": zones_cache_rules_origin_h2_max_streams_value_output,
         "zones_cache-rules_origin_max_http_version": zones_cache_rules_origin_max_http_version_output,
@@ -718,6 +765,7 @@ export const tools: readonly Tool[] = [
         "zones_ipv6_value": zones_ipv6_value_output,
         "zones_max_upload": zones_max_upload_output,
         "zones_max_upload_value": zones_max_upload_value_output,
+        "zones_messages": zones_messages_output,
         "zones_min_tls_version": zones_min_tls_version_output,
         "zones_min_tls_version_value": zones_min_tls_version_value_output,
         "zones_mirage-2": zones_mirage_2_output,
@@ -757,7 +805,6 @@ export const tools: readonly Tool[] = [
         "zones_search_for_agents_value": zones_search_for_agents_value_output,
         "zones_security_header": zones_security_header_output,
         "zones_security_header_value": zones_security_header_value_output,
-        "zones_security_header_value_strict_transport_security": zones_security_header_value_strict_transport_security_output,
         "zones_security_level-2": zones_security_level_2_output,
         "zones_security_level_value": zones_security_level_value_output,
         "zones_server_side_exclude": zones_server_side_exclude_output,
@@ -813,12 +860,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#zone_settings:read"
-        ],
-        "x-fern-enum": {
-          "#zone_settings:read": {
-            "name": "zone_settings_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -830,7 +872,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/zones_setting"
+          "allOf": [
+            {
+              "$ref": "#/$defs/zones_api-response-common-4"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/zones_setting"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/zones_api-response-common-failure-3"
@@ -845,10 +899,12 @@ export const tools: readonly Tool[] = [
         "zones_always_online_value": zones_always_online_value_output,
         "zones_always_use_https-2": zones_always_use_https_2_output,
         "zones_always_use_https_value": zones_always_use_https_value_output,
+        "zones_api-response-common-4": zones_api_response_common_4_output,
         "zones_api-response-common-failure-3": zones_api_response_common_failure_3_output,
         "zones_automatic_https_rewrites-2": zones_automatic_https_rewrites_2_output,
         "zones_automatic_https_rewrites_value": zones_automatic_https_rewrites_value_output,
         "zones_automatic_platform_optimization": zones_automatic_platform_optimization_output,
+        "zones_base": zones_base_output,
         "zones_brotli": zones_brotli_output,
         "zones_brotli_value": zones_brotli_value_output,
         "zones_browser_cache_ttl-2": zones_browser_cache_ttl_2_output,
@@ -857,6 +913,7 @@ export const tools: readonly Tool[] = [
         "zones_browser_check_value": zones_browser_check_value_output,
         "zones_cache-rules_aegis": zones_cache_rules_aegis_output,
         "zones_cache-rules_aegis_value": zones_cache_rules_aegis_value_output,
+        "zones_cache-rules_base": zones_cache_rules_base_output,
         "zones_cache-rules_origin_h2_max_streams": zones_cache_rules_origin_h2_max_streams_output,
         "zones_cache-rules_origin_h2_max_streams_value": zones_cache_rules_origin_h2_max_streams_value_output,
         "zones_cache-rules_origin_max_http_version": zones_cache_rules_origin_max_http_version_output,
@@ -937,7 +994,6 @@ export const tools: readonly Tool[] = [
         "zones_search_for_agents_value": zones_search_for_agents_value_output,
         "zones_security_header": zones_security_header_output,
         "zones_security_header_value": zones_security_header_value_output,
-        "zones_security_header_value_strict_transport_security": zones_security_header_value_strict_transport_security_output,
         "zones_security_level-2": zones_security_level_2_output,
         "zones_security_level_value": zones_security_level_value_output,
         "zones_server_side_exclude": zones_server_side_exclude_output,

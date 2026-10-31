@@ -26,6 +26,25 @@ export const teams_devices_global_warp_override_output: JsonSchema = {
 };
 
 /**
+ * The schema of `teams-devices_global_warp_override_response` in responses.
+ */
+export const teams_devices_global_warp_override_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/teams-devices_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/teams-devices_global_warp_override"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `teams-devices_timestamp` in responses.
  */
 export const teams_devices_timestamp_output: JsonSchema = {

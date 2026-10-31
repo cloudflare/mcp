@@ -35,53 +35,95 @@ export const aaa_audit_logs_v2_org_output: JsonSchema = {
       "$ref": "#/$defs/aaa_identifier-2"
     },
     "organization": {
-      "$ref": "#/$defs/aaa_audit-logs-v2-org_organization"
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "raw": {
       "$ref": "#/$defs/aaa_audit-log-raw"
     },
     "resource": {
-      "$ref": "#/$defs/aaa_audit-logs-v2-org_resource"
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "product": {
+          "type": "string"
+        },
+        "request": {
+          "type": "object"
+        },
+        "response": {
+          "type": "object"
+        },
+        "scope": {
+          "type": "object"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
   },
   "type": "object"
 };
 
 /**
- * The schema of `aaa_audit-logs-v2-org_organization` in responses.
+ * The schema of `aaa_audit-logs-v2-org-history-response-collection` in
+ * responses.
  */
-export const aaa_audit_logs_v2_org_organization_output: JsonSchema = {
+export const aaa_audit_logs_v2_org_history_response_collection_output: JsonSchema = {
   "properties": {
-    "id": {
-      "type": "string"
+    "errors": {
+      "$ref": "#/$defs/aaa_messages-2"
+    },
+    "result": {
+      "items": {
+        "$ref": "#/$defs/aaa_audit-logs-v2-org"
+      },
+      "type": "array"
+    },
+    "result_info": {
+      "$ref": "#/$defs/aaa_audit-logs-v2-history-result-info"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
     }
   },
+  "required": [
+    "errors",
+    "result",
+    "result_info",
+    "success"
+  ],
   "type": "object"
 };
 
 /**
- * The schema of `aaa_audit-logs-v2-org_resource` in responses.
+ * The schema of `aaa_audit-logs-v2-org-response-collection` in responses.
  */
-export const aaa_audit_logs_v2_org_resource_output: JsonSchema = {
-  "properties": {
-    "id": {
-      "type": "string"
+export const aaa_audit_logs_v2_org_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/aaa_audit-logs-response-collection"
     },
-    "product": {
-      "type": "string"
-    },
-    "request": {
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/aaa_audit-logs-v2-org"
+          },
+          "type": "array"
+        }
+      },
       "type": "object"
-    },
-    "response": {
-      "type": "object"
-    },
-    "scope": {
-      "type": "object"
-    },
-    "type": {
-      "type": "string"
     }
-  },
-  "type": "object"
+  ]
 };

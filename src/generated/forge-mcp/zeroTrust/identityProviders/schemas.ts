@@ -7,224 +7,126 @@ import type { JsonSchema } from "../../_/tool.js";
  * The schema of `access_azureAD`.
  */
 export const access_azureAD: JsonSchema = {
-  "description": "Azure AD",
-  "properties": {
-    "config": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/access_generic-oauth-config"
-        },
-        {
-          "$ref": "#/$defs/access_custom-claims-support"
-        },
-        {
-          "properties": {
-            "conditional_access_enabled": {
-              "description": "Should Cloudflare try to load authentication contexts from your account",
-              "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_identity-provider"
+    },
+    {
+      "properties": {
+        "config": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/access_generic-oauth-config"
             },
-            "directory_id": {
-              "description": "Your Azure directory uuid",
-              "type": "string"
+            {
+              "$ref": "#/$defs/access_custom-claims-support"
             },
-            "prompt": {
-              "description": "Indicates the type of user interaction that is required. prompt=login forces the user to enter their credentials on that request, negating single-sign on. prompt=none is the opposite. It ensures that the user isn't presented with any interactive prompt. If the request can't be completed silently by using single-sign on, the Microsoft identity platform returns an interaction_required error. prompt=select_account interrupts single sign-on providing account selection experience listing all the accounts either in session or any remembered account or an option to choose to use a different account altogether.",
-              "enum": [
-                "login",
-                "select_account",
-                "none"
-              ],
-              "type": "string"
-            },
-            "support_groups": {
-              "description": "Should Cloudflare try to load groups from your account",
-              "type": "boolean"
+            {
+              "properties": {
+                "conditional_access_enabled": {
+                  "description": "Should Cloudflare try to load authentication contexts from your account",
+                  "type": "boolean"
+                },
+                "directory_id": {
+                  "description": "Your Azure directory uuid",
+                  "type": "string"
+                },
+                "prompt": {
+                  "description": "Indicates the type of user interaction that is required. prompt=login forces the user to enter their credentials on that request, negating single-sign on. prompt=none is the opposite. It ensures that the user isn't presented with any interactive prompt. If the request can't be completed silently by using single-sign on, the Microsoft identity platform returns an interaction_required error. prompt=select_account interrupts single sign-on providing account selection experience listing all the accounts either in session or any remembered account or an option to choose to use a different account altogether.",
+                  "enum": [
+                    "login",
+                    "select_account",
+                    "none"
+                  ],
+                  "type": "string"
+                },
+                "support_groups": {
+                  "description": "Should Cloudflare try to load groups from your account",
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
             }
-          },
-          "type": "object"
+          ]
         }
-      ]
-    },
-    "id": {
-      "$ref": "#/$defs/access_uuid",
-      "description": "UUID."
-    },
-    "name": {
-      "$ref": "#/$defs/access_name-3",
-      "description": "The name of the identity provider, shown to users on the login page."
-    },
-    "saml_certificate_set_id": {
-      "description": "The UID of the SAML encryption certificate set assigned to this Identity Provider.\nOnly present for SAML identity providers with encryption configured.\nCreate a certificate set via POST to `/identity_providers/{id}/saml_certificate`.\n",
-      "format": "uuid",
-      "type": "string"
-    },
-    "scim_config": {
-      "$ref": "#/$defs/access_identity-provider_scim_config",
-      "description": "The configuration settings for enabling a System for Cross-Domain Identity Management (SCIM) with the identity provider."
-    },
-    "type": {
-      "description": "The type of identity provider. To determine the value for a specific provider, refer to our [developer documentation](https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/).",
-      "enum": [
-        "onetimepin",
-        "azureAD",
-        "saml",
-        "centrify",
-        "facebook",
-        "github",
-        "google-apps",
-        "google",
-        "linkedin",
-        "oidc",
-        "duo",
-        "okta",
-        "onelogin",
-        "pingone",
-        "yandex",
-        "cloudflare",
-        "passkeys"
-      ],
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "config",
-    "name",
-    "type"
   ],
-  "type": "object"
+  "description": "Azure AD"
 };
 
 /**
  * The schema of `access_centrify`.
  */
 export const access_centrify: JsonSchema = {
-  "description": "Centrify",
-  "properties": {
-    "config": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/access_generic-oauth-config"
-        },
-        {
-          "$ref": "#/$defs/access_custom-claims-support"
-        },
-        {
-          "properties": {
-            "centrify_account": {
-              "description": "Your centrify account url",
-              "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_identity-provider"
+    },
+    {
+      "properties": {
+        "config": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/access_generic-oauth-config"
             },
-            "centrify_app_id": {
-              "description": "Your centrify app id",
-              "type": "string"
+            {
+              "$ref": "#/$defs/access_custom-claims-support"
+            },
+            {
+              "properties": {
+                "centrify_account": {
+                  "description": "Your centrify account url",
+                  "type": "string"
+                },
+                "centrify_app_id": {
+                  "description": "Your centrify app id",
+                  "type": "string"
+                }
+              },
+              "type": "object"
             }
-          },
-          "type": "object"
+          ]
         }
-      ]
-    },
-    "id": {
-      "$ref": "#/$defs/access_uuid",
-      "description": "UUID."
-    },
-    "name": {
-      "$ref": "#/$defs/access_name-3",
-      "description": "The name of the identity provider, shown to users on the login page."
-    },
-    "saml_certificate_set_id": {
-      "description": "The UID of the SAML encryption certificate set assigned to this Identity Provider.\nOnly present for SAML identity providers with encryption configured.\nCreate a certificate set via POST to `/identity_providers/{id}/saml_certificate`.\n",
-      "format": "uuid",
-      "type": "string"
-    },
-    "scim_config": {
-      "$ref": "#/$defs/access_identity-provider_scim_config",
-      "description": "The configuration settings for enabling a System for Cross-Domain Identity Management (SCIM) with the identity provider."
-    },
-    "type": {
-      "description": "The type of identity provider. To determine the value for a specific provider, refer to our [developer documentation](https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/).",
-      "enum": [
-        "onetimepin",
-        "azureAD",
-        "saml",
-        "centrify",
-        "facebook",
-        "github",
-        "google-apps",
-        "google",
-        "linkedin",
-        "oidc",
-        "duo",
-        "okta",
-        "onelogin",
-        "pingone",
-        "yandex",
-        "cloudflare",
-        "passkeys"
-      ],
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "config",
-    "name",
-    "type"
   ],
-  "type": "object"
+  "description": "Centrify"
 };
 
 /**
  * The schema of `access_cloudflare`.
  */
 export const access_cloudflare: JsonSchema = {
-  "description": "Cloudflare",
-  "properties": {
-    "config": {
-      "$ref": "#/$defs/access_cloudflare_config"
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_identity-provider"
     },
-    "id": {
-      "$ref": "#/$defs/access_uuid",
-      "description": "UUID."
-    },
-    "name": {
-      "$ref": "#/$defs/access_name-3",
-      "description": "The name of the identity provider, shown to users on the login page."
-    },
-    "saml_certificate_set_id": {
-      "description": "The UID of the SAML encryption certificate set assigned to this Identity Provider.\nOnly present for SAML identity providers with encryption configured.\nCreate a certificate set via POST to `/identity_providers/{id}/saml_certificate`.\n",
-      "format": "uuid",
-      "type": "string"
-    },
-    "scim_config": {
-      "$ref": "#/$defs/access_identity-provider_scim_config",
-      "description": "The configuration settings for enabling a System for Cross-Domain Identity Management (SCIM) with the identity provider."
-    },
-    "type": {
-      "enum": [
-        "cloudflare"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "config": {
+          "properties": {
+            "restrict_to_account_members": {
+              "default": false,
+              "description": "When enabled, only users who are members of your Cloudflare account can authenticate through this identity provider. When disabled, any user with a Cloudflare account can authenticate, subject to your Access policies.",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "type": {
+          "enum": [
+            "cloudflare"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "config",
-    "name",
-    "type"
   ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_cloudflare_config`.
- */
-export const access_cloudflare_config: JsonSchema = {
-  "properties": {
-    "restrict_to_account_members": {
-      "default": false,
-      "description": "When enabled, only users who are members of your Cloudflare account can authenticate through this identity provider. When disabled, any user with a Cloudflare account can authenticate, subject to your Access policies.",
-      "type": "boolean"
-    }
-  },
-  "type": "object"
+  "description": "Cloudflare"
 };
 
 /**
@@ -251,120 +153,60 @@ export const access_custom_claims_support: JsonSchema = {
  * The schema of `access_duo`.
  */
 export const access_duo: JsonSchema = {
-  "description": "Duo",
-  "properties": {
-    "config": {
-      "$ref": "#/$defs/access_duo_config"
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_identity-provider"
     },
-    "id": {
-      "$ref": "#/$defs/access_uuid",
-      "description": "UUID."
-    },
-    "name": {
-      "$ref": "#/$defs/access_name-3",
-      "description": "The name of the identity provider, shown to users on the login page."
-    },
-    "saml_certificate_set_id": {
-      "description": "The UID of the SAML encryption certificate set assigned to this Identity Provider.\nOnly present for SAML identity providers with encryption configured.\nCreate a certificate set via POST to `/identity_providers/{id}/saml_certificate`.\n",
-      "format": "uuid",
-      "type": "string"
-    },
-    "scim_config": {
-      "$ref": "#/$defs/access_identity-provider_scim_config",
-      "description": "The configuration settings for enabling a System for Cross-Domain Identity Management (SCIM) with the identity provider."
-    },
-    "type": {
-      "enum": [
-        "duo"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "config": {
+          "properties": {
+            "client_id": {
+              "description": "The client ID from the Duo Generic OIDC Relying Party metadata.",
+              "type": "string"
+            },
+            "client_secret": {
+              "description": "The client secret from the Duo Generic OIDC Relying Party metadata.",
+              "type": "string"
+            },
+            "issuer_url": {
+              "description": "The issuer URL from the Duo Generic OIDC Relying Party metadata.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "type": {
+          "enum": [
+            "duo"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "config",
-    "name",
-    "type"
   ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_duo_config`.
- */
-export const access_duo_config: JsonSchema = {
-  "properties": {
-    "client_id": {
-      "description": "The client ID from the Duo Generic OIDC Relying Party metadata.",
-      "type": "string"
-    },
-    "client_secret": {
-      "description": "The client secret from the Duo Generic OIDC Relying Party metadata.",
-      "type": "string"
-    },
-    "issuer_url": {
-      "description": "The issuer URL from the Duo Generic OIDC Relying Party metadata.",
-      "type": "string"
-    }
-  },
-  "type": "object"
+  "description": "Duo"
 };
 
 /**
  * The schema of `access_facebook`.
  */
 export const access_facebook: JsonSchema = {
-  "description": "Facebook",
-  "properties": {
-    "config": {
-      "$ref": "#/$defs/access_generic-oauth-config"
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_identity-provider"
     },
-    "id": {
-      "$ref": "#/$defs/access_uuid",
-      "description": "UUID."
-    },
-    "name": {
-      "$ref": "#/$defs/access_name-3",
-      "description": "The name of the identity provider, shown to users on the login page."
-    },
-    "saml_certificate_set_id": {
-      "description": "The UID of the SAML encryption certificate set assigned to this Identity Provider.\nOnly present for SAML identity providers with encryption configured.\nCreate a certificate set via POST to `/identity_providers/{id}/saml_certificate`.\n",
-      "format": "uuid",
-      "type": "string"
-    },
-    "scim_config": {
-      "$ref": "#/$defs/access_identity-provider_scim_config",
-      "description": "The configuration settings for enabling a System for Cross-Domain Identity Management (SCIM) with the identity provider."
-    },
-    "type": {
-      "description": "The type of identity provider. To determine the value for a specific provider, refer to our [developer documentation](https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/).",
-      "enum": [
-        "onetimepin",
-        "azureAD",
-        "saml",
-        "centrify",
-        "facebook",
-        "github",
-        "google-apps",
-        "google",
-        "linkedin",
-        "oidc",
-        "duo",
-        "okta",
-        "onelogin",
-        "pingone",
-        "yandex",
-        "cloudflare",
-        "passkeys"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "config": {
+          "$ref": "#/$defs/access_generic-oauth-config"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "config",
-    "name",
-    "type"
   ],
-  "type": "object"
+  "description": "Facebook"
 };
 
 /**
@@ -388,162 +230,106 @@ export const access_generic_oauth_config: JsonSchema = {
  * The schema of `access_github`.
  */
 export const access_github: JsonSchema = {
-  "description": "GitHub",
-  "properties": {
-    "config": {
-      "$ref": "#/$defs/access_generic-oauth-config"
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_identity-provider"
     },
-    "id": {
-      "$ref": "#/$defs/access_uuid",
-      "description": "UUID."
-    },
-    "name": {
-      "$ref": "#/$defs/access_name-3",
-      "description": "The name of the identity provider, shown to users on the login page."
-    },
-    "saml_certificate_set_id": {
-      "description": "The UID of the SAML encryption certificate set assigned to this Identity Provider.\nOnly present for SAML identity providers with encryption configured.\nCreate a certificate set via POST to `/identity_providers/{id}/saml_certificate`.\n",
-      "format": "uuid",
-      "type": "string"
-    },
-    "scim_config": {
-      "$ref": "#/$defs/access_identity-provider_scim_config",
-      "description": "The configuration settings for enabling a System for Cross-Domain Identity Management (SCIM) with the identity provider."
-    },
-    "type": {
-      "description": "The type of identity provider. To determine the value for a specific provider, refer to our [developer documentation](https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/).",
-      "enum": [
-        "onetimepin",
-        "azureAD",
-        "saml",
-        "centrify",
-        "facebook",
-        "github",
-        "google-apps",
-        "google",
-        "linkedin",
-        "oidc",
-        "duo",
-        "okta",
-        "onelogin",
-        "pingone",
-        "yandex",
-        "cloudflare",
-        "passkeys"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "config": {
+          "$ref": "#/$defs/access_generic-oauth-config"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "config",
-    "name",
-    "type"
   ],
-  "type": "object"
+  "description": "GitHub"
 };
 
 /**
  * The schema of `access_google`.
  */
 export const access_google: JsonSchema = {
-  "description": "Google",
-  "properties": {
-    "config": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/access_generic-oauth-config"
-        },
-        {
-          "$ref": "#/$defs/access_custom-claims-support"
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_identity-provider"
+    },
+    {
+      "properties": {
+        "config": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/access_generic-oauth-config"
+            },
+            {
+              "$ref": "#/$defs/access_custom-claims-support"
+            }
+          ]
         }
-      ]
-    },
-    "id": {
-      "$ref": "#/$defs/access_uuid",
-      "description": "UUID."
-    },
-    "name": {
-      "$ref": "#/$defs/access_name-3",
-      "description": "The name of the identity provider, shown to users on the login page."
-    },
-    "saml_certificate_set_id": {
-      "description": "The UID of the SAML encryption certificate set assigned to this Identity Provider.\nOnly present for SAML identity providers with encryption configured.\nCreate a certificate set via POST to `/identity_providers/{id}/saml_certificate`.\n",
-      "format": "uuid",
-      "type": "string"
-    },
-    "scim_config": {
-      "$ref": "#/$defs/access_identity-provider_scim_config",
-      "description": "The configuration settings for enabling a System for Cross-Domain Identity Management (SCIM) with the identity provider."
-    },
-    "type": {
-      "description": "The type of identity provider. To determine the value for a specific provider, refer to our [developer documentation](https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/).",
-      "enum": [
-        "onetimepin",
-        "azureAD",
-        "saml",
-        "centrify",
-        "facebook",
-        "github",
-        "google-apps",
-        "google",
-        "linkedin",
-        "oidc",
-        "duo",
-        "okta",
-        "onelogin",
-        "pingone",
-        "yandex",
-        "cloudflare",
-        "passkeys"
-      ],
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "config",
-    "name",
-    "type"
   ],
-  "type": "object"
+  "description": "Google"
 };
 
 /**
  * The schema of `access_google-apps`.
  */
 export const access_google_apps: JsonSchema = {
-  "description": "Google Workspace",
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_identity-provider"
+    },
+    {
+      "properties": {
+        "config": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/access_generic-oauth-config"
+            },
+            {
+              "$ref": "#/$defs/access_custom-claims-support"
+            },
+            {
+              "properties": {
+                "apps_domain": {
+                  "description": "Your companies TLD",
+                  "type": "string"
+                },
+                "prompt": {
+                  "description": "Configures the prompt behavior for Google authentication.",
+                  "enum": [
+                    "none",
+                    "consent",
+                    "select_account"
+                  ],
+                  "type": "string"
+                },
+                "use_login_hint": {
+                  "description": "Whether to use a previously authenticated Access email as a Google login hint when exactly one email matches the Workspace domain.",
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ],
+  "description": "Google Workspace"
+};
+
+/**
+ * The schema of `access_identity-provider`.
+ */
+export const access_identity_provider: JsonSchema = {
   "properties": {
     "config": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/access_generic-oauth-config"
-        },
-        {
-          "$ref": "#/$defs/access_custom-claims-support"
-        },
-        {
-          "properties": {
-            "apps_domain": {
-              "description": "Your companies TLD",
-              "type": "string"
-            },
-            "prompt": {
-              "description": "Configures the prompt behavior for Google authentication.",
-              "enum": [
-                "none",
-                "consent",
-                "select_account"
-              ],
-              "type": "string"
-            },
-            "use_login_hint": {
-              "description": "Whether to use a previously authenticated Access email as a Google login hint when exactly one email matches the Workspace domain.",
-              "type": "boolean"
-            }
-          },
-          "type": "object"
-        }
-      ]
+      "description": "The configuration parameters for the identity provider. To view the required parameters for a specific provider, refer to our [developer documentation](https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/).",
+      "type": "object"
     },
     "id": {
       "$ref": "#/$defs/access_uuid",
@@ -559,8 +345,35 @@ export const access_google_apps: JsonSchema = {
       "type": "string"
     },
     "scim_config": {
-      "$ref": "#/$defs/access_identity-provider_scim_config",
-      "description": "The configuration settings for enabling a System for Cross-Domain Identity Management (SCIM) with the identity provider."
+      "description": "The configuration settings for enabling a System for Cross-Domain Identity Management (SCIM) with the identity provider.",
+      "properties": {
+        "enabled": {
+          "default": false,
+          "description": "A flag to enable or disable SCIM for the identity provider.",
+          "type": "boolean"
+        },
+        "identity_update_behavior": {
+          "default": "no_action",
+          "description": "Indicates how a SCIM event updates a user identity used for policy evaluation. Use \"automatic\" to automatically update a user's identity and augment it with fields from the SCIM user resource. Use \"reauth\" to force re-authentication on group membership updates, user identity update will only occur after successful re-authentication. With \"reauth\" identities will not contain fields from the SCIM user resource. With \"no_action\" identities will not be changed by SCIM updates in any way and users will not be prompted to reauthenticate.",
+          "enum": [
+            "automatic",
+            "reauth",
+            "no_action"
+          ],
+          "type": "string"
+        },
+        "seat_deprovision": {
+          "default": false,
+          "description": "A flag to remove a user's seat in Zero Trust when they have been deprovisioned in the Identity Provider.  This cannot be enabled unless user_deprovision is also enabled.",
+          "type": "boolean"
+        },
+        "user_deprovision": {
+          "default": false,
+          "description": "A flag to enable revoking a user's session in Access and Gateway when they have been deprovisioned in the Identity Provider.",
+          "type": "boolean"
+        }
+      },
+      "type": "object"
     },
     "type": {
       "description": "The type of identity provider. To determine the value for a specific provider, refer to our [developer documentation](https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/).",
@@ -591,41 +404,6 @@ export const access_google_apps: JsonSchema = {
     "name",
     "type"
   ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_identity-provider_scim_config`.
- */
-export const access_identity_provider_scim_config: JsonSchema = {
-  "description": "The configuration settings for enabling a System for Cross-Domain Identity Management (SCIM) with the identity provider.",
-  "properties": {
-    "enabled": {
-      "default": false,
-      "description": "A flag to enable or disable SCIM for the identity provider.",
-      "type": "boolean"
-    },
-    "identity_update_behavior": {
-      "default": "no_action",
-      "description": "Indicates how a SCIM event updates a user identity used for policy evaluation. Use \"automatic\" to automatically update a user's identity and augment it with fields from the SCIM user resource. Use \"reauth\" to force re-authentication on group membership updates, user identity update will only occur after successful re-authentication. With \"reauth\" identities will not contain fields from the SCIM user resource. With \"no_action\" identities will not be changed by SCIM updates in any way and users will not be prompted to reauthenticate.",
-      "enum": [
-        "automatic",
-        "reauth",
-        "no_action"
-      ],
-      "type": "string"
-    },
-    "seat_deprovision": {
-      "default": false,
-      "description": "A flag to remove a user's seat in Zero Trust when they have been deprovisioned in the Identity Provider.  This cannot be enabled unless user_deprovision is also enabled.",
-      "type": "boolean"
-    },
-    "user_deprovision": {
-      "default": false,
-      "description": "A flag to enable revoking a user's session in Access and Gateway when they have been deprovisioned in the Identity Provider.",
-      "type": "boolean"
-    }
-  },
   "type": "object"
 };
 
@@ -692,58 +470,20 @@ export const access_identity_providers: JsonSchema = {
  * The schema of `access_linkedin`.
  */
 export const access_linkedin: JsonSchema = {
-  "description": "LinkedIn",
-  "properties": {
-    "config": {
-      "$ref": "#/$defs/access_generic-oauth-config"
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_identity-provider"
     },
-    "id": {
-      "$ref": "#/$defs/access_uuid",
-      "description": "UUID."
-    },
-    "name": {
-      "$ref": "#/$defs/access_name-3",
-      "description": "The name of the identity provider, shown to users on the login page."
-    },
-    "saml_certificate_set_id": {
-      "description": "The UID of the SAML encryption certificate set assigned to this Identity Provider.\nOnly present for SAML identity providers with encryption configured.\nCreate a certificate set via POST to `/identity_providers/{id}/saml_certificate`.\n",
-      "format": "uuid",
-      "type": "string"
-    },
-    "scim_config": {
-      "$ref": "#/$defs/access_identity-provider_scim_config",
-      "description": "The configuration settings for enabling a System for Cross-Domain Identity Management (SCIM) with the identity provider."
-    },
-    "type": {
-      "description": "The type of identity provider. To determine the value for a specific provider, refer to our [developer documentation](https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/).",
-      "enum": [
-        "onetimepin",
-        "azureAD",
-        "saml",
-        "centrify",
-        "facebook",
-        "github",
-        "google-apps",
-        "google",
-        "linkedin",
-        "oidc",
-        "duo",
-        "okta",
-        "onelogin",
-        "pingone",
-        "yandex",
-        "cloudflare",
-        "passkeys"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "config": {
+          "$ref": "#/$defs/access_generic-oauth-config"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "config",
-    "name",
-    "type"
   ],
-  "type": "object"
+  "description": "LinkedIn"
 };
 
 /**
@@ -758,614 +498,328 @@ export const access_name_3: JsonSchema = {
  * The schema of `access_oidc`.
  */
 export const access_oidc: JsonSchema = {
-  "description": "Generic OAuth",
-  "properties": {
-    "config": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/access_generic-oauth-config"
-        },
-        {
-          "$ref": "#/$defs/access_custom-claims-support"
-        },
-        {
-          "properties": {
-            "auth_url": {
-              "description": "The authorization_endpoint URL of your IdP",
-              "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_identity-provider"
+    },
+    {
+      "properties": {
+        "config": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/access_generic-oauth-config"
             },
-            "certs_url": {
-              "description": "The jwks_uri endpoint of your IdP to allow the IdP keys to sign the tokens",
-              "type": "string"
+            {
+              "$ref": "#/$defs/access_custom-claims-support"
             },
-            "pkce_enabled": {
-              "description": "Enable Proof Key for Code Exchange (PKCE)",
-              "type": "boolean"
-            },
-            "scopes": {
-              "description": "OAuth scopes",
-              "items": {
-                "type": "string"
+            {
+              "properties": {
+                "auth_url": {
+                  "description": "The authorization_endpoint URL of your IdP",
+                  "type": "string"
+                },
+                "certs_url": {
+                  "description": "The jwks_uri endpoint of your IdP to allow the IdP keys to sign the tokens",
+                  "type": "string"
+                },
+                "pkce_enabled": {
+                  "description": "Enable Proof Key for Code Exchange (PKCE)",
+                  "type": "boolean"
+                },
+                "scopes": {
+                  "description": "OAuth scopes",
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "token_url": {
+                  "description": "The token_endpoint URL of your IdP",
+                  "type": "string"
+                }
               },
-              "type": "array"
-            },
-            "token_url": {
-              "description": "The token_endpoint URL of your IdP",
-              "type": "string"
+              "type": "object"
             }
-          },
-          "type": "object"
+          ]
         }
-      ]
-    },
-    "id": {
-      "$ref": "#/$defs/access_uuid",
-      "description": "UUID."
-    },
-    "name": {
-      "$ref": "#/$defs/access_name-3",
-      "description": "The name of the identity provider, shown to users on the login page."
-    },
-    "saml_certificate_set_id": {
-      "description": "The UID of the SAML encryption certificate set assigned to this Identity Provider.\nOnly present for SAML identity providers with encryption configured.\nCreate a certificate set via POST to `/identity_providers/{id}/saml_certificate`.\n",
-      "format": "uuid",
-      "type": "string"
-    },
-    "scim_config": {
-      "$ref": "#/$defs/access_identity-provider_scim_config",
-      "description": "The configuration settings for enabling a System for Cross-Domain Identity Management (SCIM) with the identity provider."
-    },
-    "type": {
-      "description": "The type of identity provider. To determine the value for a specific provider, refer to our [developer documentation](https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/).",
-      "enum": [
-        "onetimepin",
-        "azureAD",
-        "saml",
-        "centrify",
-        "facebook",
-        "github",
-        "google-apps",
-        "google",
-        "linkedin",
-        "oidc",
-        "duo",
-        "okta",
-        "onelogin",
-        "pingone",
-        "yandex",
-        "cloudflare",
-        "passkeys"
-      ],
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "config",
-    "name",
-    "type"
   ],
-  "type": "object"
+  "description": "Generic OAuth"
 };
 
 /**
  * The schema of `access_okta`.
  */
 export const access_okta: JsonSchema = {
-  "description": "Okta",
-  "properties": {
-    "config": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/access_generic-oauth-config"
-        },
-        {
-          "$ref": "#/$defs/access_custom-claims-support"
-        },
-        {
-          "properties": {
-            "authorization_server_id": {
-              "description": "Your okta authorization server id",
-              "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_identity-provider"
+    },
+    {
+      "properties": {
+        "config": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/access_generic-oauth-config"
             },
-            "okta_account": {
-              "description": "Your okta account url",
-              "type": "string"
+            {
+              "$ref": "#/$defs/access_custom-claims-support"
+            },
+            {
+              "properties": {
+                "authorization_server_id": {
+                  "description": "Your okta authorization server id",
+                  "type": "string"
+                },
+                "okta_account": {
+                  "description": "Your okta account url",
+                  "type": "string"
+                }
+              },
+              "type": "object"
             }
-          },
-          "type": "object"
+          ]
         }
-      ]
-    },
-    "id": {
-      "$ref": "#/$defs/access_uuid",
-      "description": "UUID."
-    },
-    "name": {
-      "$ref": "#/$defs/access_name-3",
-      "description": "The name of the identity provider, shown to users on the login page."
-    },
-    "saml_certificate_set_id": {
-      "description": "The UID of the SAML encryption certificate set assigned to this Identity Provider.\nOnly present for SAML identity providers with encryption configured.\nCreate a certificate set via POST to `/identity_providers/{id}/saml_certificate`.\n",
-      "format": "uuid",
-      "type": "string"
-    },
-    "scim_config": {
-      "$ref": "#/$defs/access_identity-provider_scim_config",
-      "description": "The configuration settings for enabling a System for Cross-Domain Identity Management (SCIM) with the identity provider."
-    },
-    "type": {
-      "description": "The type of identity provider. To determine the value for a specific provider, refer to our [developer documentation](https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/).",
-      "enum": [
-        "onetimepin",
-        "azureAD",
-        "saml",
-        "centrify",
-        "facebook",
-        "github",
-        "google-apps",
-        "google",
-        "linkedin",
-        "oidc",
-        "duo",
-        "okta",
-        "onelogin",
-        "pingone",
-        "yandex",
-        "cloudflare",
-        "passkeys"
-      ],
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "config",
-    "name",
-    "type"
   ],
-  "type": "object"
+  "description": "Okta"
 };
 
 /**
  * The schema of `access_onelogin`.
  */
 export const access_onelogin: JsonSchema = {
-  "description": "OneLogin",
-  "properties": {
-    "config": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/access_generic-oauth-config"
-        },
-        {
-          "$ref": "#/$defs/access_custom-claims-support"
-        },
-        {
-          "properties": {
-            "onelogin_account": {
-              "description": "Your OneLogin account url",
-              "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_identity-provider"
+    },
+    {
+      "properties": {
+        "config": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/access_generic-oauth-config"
+            },
+            {
+              "$ref": "#/$defs/access_custom-claims-support"
+            },
+            {
+              "properties": {
+                "onelogin_account": {
+                  "description": "Your OneLogin account url",
+                  "type": "string"
+                }
+              },
+              "type": "object"
             }
-          },
-          "type": "object"
+          ]
         }
-      ]
-    },
-    "id": {
-      "$ref": "#/$defs/access_uuid",
-      "description": "UUID."
-    },
-    "name": {
-      "$ref": "#/$defs/access_name-3",
-      "description": "The name of the identity provider, shown to users on the login page."
-    },
-    "saml_certificate_set_id": {
-      "description": "The UID of the SAML encryption certificate set assigned to this Identity Provider.\nOnly present for SAML identity providers with encryption configured.\nCreate a certificate set via POST to `/identity_providers/{id}/saml_certificate`.\n",
-      "format": "uuid",
-      "type": "string"
-    },
-    "scim_config": {
-      "$ref": "#/$defs/access_identity-provider_scim_config",
-      "description": "The configuration settings for enabling a System for Cross-Domain Identity Management (SCIM) with the identity provider."
-    },
-    "type": {
-      "description": "The type of identity provider. To determine the value for a specific provider, refer to our [developer documentation](https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/).",
-      "enum": [
-        "onetimepin",
-        "azureAD",
-        "saml",
-        "centrify",
-        "facebook",
-        "github",
-        "google-apps",
-        "google",
-        "linkedin",
-        "oidc",
-        "duo",
-        "okta",
-        "onelogin",
-        "pingone",
-        "yandex",
-        "cloudflare",
-        "passkeys"
-      ],
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "config",
-    "name",
-    "type"
   ],
-  "type": "object"
+  "description": "OneLogin"
 };
 
 /**
  * The schema of `access_onetimepin`.
  */
 export const access_onetimepin: JsonSchema = {
-  "description": "One Time Pin",
-  "properties": {
-    "config": {
-      "$ref": "#/$defs/access_onetimepin_config"
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_identity-provider"
     },
-    "id": {
-      "$ref": "#/$defs/access_uuid",
-      "description": "UUID."
-    },
-    "name": {
-      "$ref": "#/$defs/access_name-3",
-      "description": "The name of the identity provider, shown to users on the login page."
-    },
-    "saml_certificate_set_id": {
-      "description": "The UID of the SAML encryption certificate set assigned to this Identity Provider.\nOnly present for SAML identity providers with encryption configured.\nCreate a certificate set via POST to `/identity_providers/{id}/saml_certificate`.\n",
-      "format": "uuid",
-      "type": "string"
-    },
-    "scim_config": {
-      "$ref": "#/$defs/access_identity-provider_scim_config",
-      "description": "The configuration settings for enabling a System for Cross-Domain Identity Management (SCIM) with the identity provider."
-    },
-    "type": {
-      "enum": [
-        "onetimepin"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "config": {
+          "type": "object"
+        },
+        "type": {
+          "enum": [
+            "onetimepin"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "config",
-    "name",
-    "type"
   ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_onetimepin_config`.
- */
-export const access_onetimepin_config: JsonSchema = {
-  "type": "object"
+  "description": "One Time Pin"
 };
 
 /**
  * The schema of `access_passkeys`.
  */
 export const access_passkeys: JsonSchema = {
-  "description": "Passkeys",
-  "properties": {
-    "config": {
-      "$ref": "#/$defs/access_passkeys_config"
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_identity-provider"
     },
-    "id": {
-      "$ref": "#/$defs/access_uuid",
-      "description": "UUID."
-    },
-    "name": {
-      "$ref": "#/$defs/access_name-3",
-      "description": "The name of the identity provider, shown to users on the login page."
-    },
-    "saml_certificate_set_id": {
-      "description": "The UID of the SAML encryption certificate set assigned to this Identity Provider.\nOnly present for SAML identity providers with encryption configured.\nCreate a certificate set via POST to `/identity_providers/{id}/saml_certificate`.\n",
-      "format": "uuid",
-      "type": "string"
-    },
-    "scim_config": {
-      "$ref": "#/$defs/access_identity-provider_scim_config",
-      "description": "The configuration settings for enabling a System for Cross-Domain Identity Management (SCIM) with the identity provider."
-    },
-    "type": {
-      "enum": [
-        "passkeys"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "config": {
+          "properties": {
+            "login_page_auto_prompt": {
+              "default": false,
+              "description": "When enabled, the Access login page automatically prompts the user to authenticate with a passkey.",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "type": {
+          "enum": [
+            "passkeys"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "config",
-    "name",
-    "type"
   ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_passkeys_config`.
- */
-export const access_passkeys_config: JsonSchema = {
-  "properties": {
-    "login_page_auto_prompt": {
-      "default": false,
-      "description": "When enabled, the Access login page automatically prompts the user to authenticate with a passkey.",
-      "type": "boolean"
-    }
-  },
-  "type": "object"
+  "description": "Passkeys"
 };
 
 /**
  * The schema of `access_pingone`.
  */
 export const access_pingone: JsonSchema = {
-  "description": "PingOne",
-  "properties": {
-    "config": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/access_generic-oauth-config"
-        },
-        {
-          "$ref": "#/$defs/access_custom-claims-support"
-        },
-        {
-          "properties": {
-            "ping_env_id": {
-              "description": "Your PingOne environment identifier",
-              "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_identity-provider"
+    },
+    {
+      "properties": {
+        "config": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/access_generic-oauth-config"
+            },
+            {
+              "$ref": "#/$defs/access_custom-claims-support"
+            },
+            {
+              "properties": {
+                "ping_env_id": {
+                  "description": "Your PingOne environment identifier",
+                  "type": "string"
+                }
+              },
+              "type": "object"
             }
-          },
-          "type": "object"
+          ]
         }
-      ]
-    },
-    "id": {
-      "$ref": "#/$defs/access_uuid",
-      "description": "UUID."
-    },
-    "name": {
-      "$ref": "#/$defs/access_name-3",
-      "description": "The name of the identity provider, shown to users on the login page."
-    },
-    "saml_certificate_set_id": {
-      "description": "The UID of the SAML encryption certificate set assigned to this Identity Provider.\nOnly present for SAML identity providers with encryption configured.\nCreate a certificate set via POST to `/identity_providers/{id}/saml_certificate`.\n",
-      "format": "uuid",
-      "type": "string"
-    },
-    "scim_config": {
-      "$ref": "#/$defs/access_identity-provider_scim_config",
-      "description": "The configuration settings for enabling a System for Cross-Domain Identity Management (SCIM) with the identity provider."
-    },
-    "type": {
-      "description": "The type of identity provider. To determine the value for a specific provider, refer to our [developer documentation](https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/).",
-      "enum": [
-        "onetimepin",
-        "azureAD",
-        "saml",
-        "centrify",
-        "facebook",
-        "github",
-        "google-apps",
-        "google",
-        "linkedin",
-        "oidc",
-        "duo",
-        "okta",
-        "onelogin",
-        "pingone",
-        "yandex",
-        "cloudflare",
-        "passkeys"
-      ],
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "config",
-    "name",
-    "type"
   ],
-  "type": "object"
+  "description": "PingOne"
 };
 
 /**
  * The schema of `access_saml`.
  */
 export const access_saml: JsonSchema = {
-  "description": "Generic SAML",
-  "properties": {
-    "config": {
-      "$ref": "#/$defs/access_saml_config"
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_identity-provider"
     },
-    "id": {
-      "$ref": "#/$defs/access_uuid",
-      "description": "UUID."
-    },
-    "name": {
-      "$ref": "#/$defs/access_name-3",
-      "description": "The name of the identity provider, shown to users on the login page."
-    },
-    "saml_certificate_set_id": {
-      "description": "The UID of the SAML encryption certificate set assigned to this Identity Provider.\nOnly present for SAML identity providers with encryption configured.\nCreate a certificate set via POST to `/identity_providers/{id}/saml_certificate`.\n",
-      "format": "uuid",
-      "type": "string"
-    },
-    "scim_config": {
-      "$ref": "#/$defs/access_identity-provider_scim_config",
-      "description": "The configuration settings for enabling a System for Cross-Domain Identity Management (SCIM) with the identity provider."
-    },
-    "type": {
-      "description": "The type of identity provider. To determine the value for a specific provider, refer to our [developer documentation](https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/).",
-      "enum": [
-        "onetimepin",
-        "azureAD",
-        "saml",
-        "centrify",
-        "facebook",
-        "github",
-        "google-apps",
-        "google",
-        "linkedin",
-        "oidc",
-        "duo",
-        "okta",
-        "onelogin",
-        "pingone",
-        "yandex",
-        "cloudflare",
-        "passkeys"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "config": {
+          "properties": {
+            "attributes": {
+              "description": "A list of SAML attribute names that will be added to your signed JWT token and can be used in SAML policy rules.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "email_attribute_name": {
+              "description": "The attribute name for email in the SAML response.",
+              "type": "string"
+            },
+            "enable_encryption": {
+              "default": false,
+              "description": "Enable SAML assertion encryption. When enabled, the Identity Provider will encrypt \nSAML assertions using the certificate from the assigned certificate set.\n\nTo enable encryption:\n1. Create a certificate set via POST to `/identity_providers/{id}/saml_certificate`\n2. Set this field to `true` and include `saml_certificate_set_id` in the PUT request\n3. Configure the public certificate in your external Identity Provider\n\nNote: Requires `saml_certificate_set_id` to be set when `true`.\n",
+              "type": "boolean"
+            },
+            "force_authn": {
+              "default": false,
+              "description": "Asks the IdP to reauthenticate the user for each SAML authentication request.",
+              "type": "boolean"
+            },
+            "header_attributes": {
+              "description": "Add a list of attribute names that will be returned in the response header from the Access callback.",
+              "items": {
+                "properties": {
+                  "attribute_name": {
+                    "description": "attribute name from the IDP",
+                    "type": "string"
+                  },
+                  "header_name": {
+                    "description": "header that will be added on the request to the origin",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "idp_public_certs": {
+              "description": "X509 certificate to verify the signature in the SAML authentication response",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "issuer_url": {
+              "description": "IdP Entity ID or Issuer URL",
+              "type": "string"
+            },
+            "max_sso_url_length": {
+              "description": "The maximum URL length the IdP accepts for the SSO redirect URL.\nWhen the constructed SSO URL would exceed this length, the RelayState\nis stored server-side and a short nonce is passed to the IdP instead.\nSet this if your IdP enforces a URL length limit.\n",
+              "type": "integer"
+            },
+            "sign_request": {
+              "default": false,
+              "description": "Sign the SAML authentication request with Access credentials. To verify the signature, use the public key from the Access certs endpoints.",
+              "type": "boolean"
+            },
+            "sso_target_url": {
+              "description": "URL to send the SAML authentication requests to",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "config",
-    "name",
-    "type"
   ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_saml_config`.
- */
-export const access_saml_config: JsonSchema = {
-  "properties": {
-    "attributes": {
-      "description": "A list of SAML attribute names that will be added to your signed JWT token and can be used in SAML policy rules.",
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "email_attribute_name": {
-      "description": "The attribute name for email in the SAML response.",
-      "type": "string"
-    },
-    "enable_encryption": {
-      "default": false,
-      "description": "Enable SAML assertion encryption. When enabled, the Identity Provider will encrypt \nSAML assertions using the certificate from the assigned certificate set.\n\nTo enable encryption:\n1. Create a certificate set via POST to `/identity_providers/{id}/saml_certificate`\n2. Set this field to `true` and include `saml_certificate_set_id` in the PUT request\n3. Configure the public certificate in your external Identity Provider\n\nNote: Requires `saml_certificate_set_id` to be set when `true`.\n",
-      "type": "boolean"
-    },
-    "force_authn": {
-      "default": false,
-      "description": "Asks the IdP to reauthenticate the user for each SAML authentication request.",
-      "type": "boolean"
-    },
-    "header_attributes": {
-      "description": "Add a list of attribute names that will be returned in the response header from the Access callback.",
-      "items": {
-        "$ref": "#/$defs/access_saml_config_header_attributesItem"
-      },
-      "type": "array"
-    },
-    "idp_public_certs": {
-      "description": "X509 certificate to verify the signature in the SAML authentication response",
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "issuer_url": {
-      "description": "IdP Entity ID or Issuer URL",
-      "type": "string"
-    },
-    "max_sso_url_length": {
-      "description": "The maximum URL length the IdP accepts for the SSO redirect URL.\nWhen the constructed SSO URL would exceed this length, the RelayState\nis stored server-side and a short nonce is passed to the IdP instead.\nSet this if your IdP enforces a URL length limit.\n",
-      "type": "integer"
-    },
-    "sign_request": {
-      "default": false,
-      "description": "Sign the SAML authentication request with Access credentials. To verify the signature, use the public key from the Access certs endpoints.",
-      "type": "boolean"
-    },
-    "sso_target_url": {
-      "description": "URL to send the SAML authentication requests to",
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `access_saml_config_header_attributesItem`.
- */
-export const access_saml_config_header_attributesItem: JsonSchema = {
-  "properties": {
-    "attribute_name": {
-      "description": "attribute name from the IDP",
-      "type": "string"
-    },
-    "header_name": {
-      "description": "header that will be added on the request to the origin",
-      "type": "string"
-    }
-  },
-  "type": "object"
+  "description": "Generic SAML"
 };
 
 /**
  * The schema of `access_yandex`.
  */
 export const access_yandex: JsonSchema = {
-  "description": "Yandex",
-  "properties": {
-    "config": {
-      "$ref": "#/$defs/access_generic-oauth-config"
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_identity-provider"
     },
-    "id": {
-      "$ref": "#/$defs/access_uuid",
-      "description": "UUID."
-    },
-    "name": {
-      "$ref": "#/$defs/access_name-3",
-      "description": "The name of the identity provider, shown to users on the login page."
-    },
-    "saml_certificate_set_id": {
-      "description": "The UID of the SAML encryption certificate set assigned to this Identity Provider.\nOnly present for SAML identity providers with encryption configured.\nCreate a certificate set via POST to `/identity_providers/{id}/saml_certificate`.\n",
-      "format": "uuid",
-      "type": "string"
-    },
-    "scim_config": {
-      "$ref": "#/$defs/access_identity-provider_scim_config",
-      "description": "The configuration settings for enabling a System for Cross-Domain Identity Management (SCIM) with the identity provider."
-    },
-    "type": {
-      "description": "The type of identity provider. To determine the value for a specific provider, refer to our [developer documentation](https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/).",
-      "enum": [
-        "onetimepin",
-        "azureAD",
-        "saml",
-        "centrify",
-        "facebook",
-        "github",
-        "google-apps",
-        "google",
-        "linkedin",
-        "oidc",
-        "duo",
-        "okta",
-        "onelogin",
-        "pingone",
-        "yandex",
-        "cloudflare",
-        "passkeys"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "config": {
+          "$ref": "#/$defs/access_generic-oauth-config"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "config",
-    "name",
-    "type"
   ],
-  "type": "object"
+  "description": "Yandex"
 };

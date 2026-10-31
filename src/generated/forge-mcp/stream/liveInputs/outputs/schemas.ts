@@ -38,6 +38,14 @@ export const stream_output_enabled: JsonSchema = {
 };
 
 /**
+ * The schema of `stream_output_identifier`.
+ */
+export const stream_output_identifier: JsonSchema = {
+  "description": "A unique identifier for the output.",
+  "type": "string"
+};
+
+/**
  * The schema of `stream_output_streamKey`.
  */
 export const stream_output_streamKey: JsonSchema = {

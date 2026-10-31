@@ -3,19 +3,24 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
+  tls_certificates_and_hostnames_api_response_collection_output,
   tls_certificates_and_hostnames_api_response_common_failure_output,
+  tls_certificates_and_hostnames_api_response_common_output,
+  tls_certificates_and_hostnames_api_response_single_output,
   tls_certificates_and_hostnames_messages_output,
 } from "../outputs.js";
+import { tls_certificates_and_hostnames_identifier } from "../schemas.js";
 import {
   tls_certificates_and_hostnames_custom_csr_2_output,
   tls_certificates_and_hostnames_custom_csr_identifier_output,
   tls_certificates_and_hostnames_custom_csr_response_collection_2_output,
-  tls_certificates_and_hostnames_custom_csr_response_collection_2_result_info_output,
   tls_certificates_and_hostnames_custom_csr_response_id_only_output,
-  tls_certificates_and_hostnames_custom_csr_response_id_only_result_output,
   tls_certificates_and_hostnames_custom_csr_response_single_2_output,
 } from "./outputs.js";
-import { tls_certificates_and_hostnames_custom_csr_create_request_2 } from "./schemas.js";
+import {
+  tls_certificates_and_hostnames_custom_csr_create_request_2,
+  tls_certificates_and_hostnames_custom_csr_identifier,
+} from "./schemas.js";
 
 /**
  * The tools of `custom_csrs`.
@@ -37,8 +42,8 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "body": {
           "$ref": "#/$defs/tls-certificates-and-hostnames_custom_csr_create_request-2"
@@ -51,13 +56,17 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "tls-certificates-and-hostnames_custom_csr_create_request-2": tls_certificates_and_hostnames_custom_csr_create_request_2,
+        "tls-certificates-and-hostnames_identifier": tls_certificates_and_hostnames_identifier,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_custom_csr-2",
+      "$ref": "#/$defs/tls-certificates-and-hostnames_custom_csr_response_single-2",
       $defs: {
+        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
         "tls-certificates-and-hostnames_custom_csr-2": tls_certificates_and_hostnames_custom_csr_2_output,
         "tls-certificates-and-hostnames_custom_csr_identifier": tls_certificates_and_hostnames_custom_csr_identifier_output,
+        "tls-certificates-and-hostnames_custom_csr_response_single-2": tls_certificates_and_hostnames_custom_csr_response_single_2_output,
+        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
       },
     },
     annotations: {
@@ -76,12 +85,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#ssl:edit"
-        ],
-        "x-fern-enum": {
-          "#ssl:edit": {
-            "name": "ssl_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -93,7 +97,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "201": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_custom_csr-2"
+          "$ref": "#/$defs/tls-certificates-and-hostnames_custom_csr_response_single-2"
         },
         "4XX": {
           "allOf": [
@@ -108,6 +112,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
+        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
         "tls-certificates-and-hostnames_custom_csr-2": tls_certificates_and_hostnames_custom_csr_2_output,
         "tls-certificates-and-hostnames_custom_csr_identifier": tls_certificates_and_hostnames_custom_csr_identifier_output,
         "tls-certificates-and-hostnames_custom_csr_response_single-2": tls_certificates_and_hostnames_custom_csr_response_single_2_output,
@@ -135,12 +140,12 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "custom_csr_id": {
-          "description": "Custom CSR identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/tls-certificates-and-hostnames_custom_csr_identifier",
+          "description": "Custom CSR identifier tag."
         }
       },
       required: [
@@ -148,16 +153,18 @@ export const tools: readonly Tool[] = [
         "account_or_zone_id",
         "custom_csr_id"
       ],
+      $defs: {
+        "tls-certificates-and-hostnames_custom_csr_identifier": tls_certificates_and_hostnames_custom_csr_identifier,
+        "tls-certificates-and-hostnames_identifier": tls_certificates_and_hostnames_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "id": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_custom_csr_identifier"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/tls-certificates-and-hostnames_custom_csr_response_id_only",
       $defs: {
+        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
         "tls-certificates-and-hostnames_custom_csr_identifier": tls_certificates_and_hostnames_custom_csr_identifier_output,
+        "tls-certificates-and-hostnames_custom_csr_response_id_only": tls_certificates_and_hostnames_custom_csr_response_id_only_output,
+        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
       },
     },
     annotations: {
@@ -176,12 +183,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#ssl:edit"
-        ],
-        "x-fern-enum": {
-          "#ssl:edit": {
-            "name": "ssl_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -193,12 +195,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_custom_csr_identifier"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/tls-certificates-and-hostnames_custom_csr_response_id_only"
         },
         "4XX": {
           "allOf": [
@@ -213,9 +210,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
+        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
         "tls-certificates-and-hostnames_custom_csr_identifier": tls_certificates_and_hostnames_custom_csr_identifier_output,
         "tls-certificates-and-hostnames_custom_csr_response_id_only": tls_certificates_and_hostnames_custom_csr_response_id_only_output,
-        "tls-certificates-and-hostnames_custom_csr_response_id_only_result": tls_certificates_and_hostnames_custom_csr_response_id_only_result_output,
         "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
       },
     },
@@ -239,12 +236,12 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "custom_csr_id": {
-          "description": "Custom CSR identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/tls-certificates-and-hostnames_custom_csr_identifier",
+          "description": "Custom CSR identifier tag."
         }
       },
       required: [
@@ -252,12 +249,19 @@ export const tools: readonly Tool[] = [
         "account_or_zone_id",
         "custom_csr_id"
       ],
+      $defs: {
+        "tls-certificates-and-hostnames_custom_csr_identifier": tls_certificates_and_hostnames_custom_csr_identifier,
+        "tls-certificates-and-hostnames_identifier": tls_certificates_and_hostnames_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_custom_csr-2",
+      "$ref": "#/$defs/tls-certificates-and-hostnames_custom_csr_response_single-2",
       $defs: {
+        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
         "tls-certificates-and-hostnames_custom_csr-2": tls_certificates_and_hostnames_custom_csr_2_output,
         "tls-certificates-and-hostnames_custom_csr_identifier": tls_certificates_and_hostnames_custom_csr_identifier_output,
+        "tls-certificates-and-hostnames_custom_csr_response_single-2": tls_certificates_and_hostnames_custom_csr_response_single_2_output,
+        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
       },
     },
     annotations: {
@@ -277,12 +281,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#ssl:read"
-        ],
-        "x-fern-enum": {
-          "#ssl:read": {
-            "name": "ssl_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -294,7 +293,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_custom_csr-2"
+          "$ref": "#/$defs/tls-certificates-and-hostnames_custom_csr_response_single-2"
         },
         "4XX": {
           "allOf": [
@@ -309,6 +308,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
+        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
         "tls-certificates-and-hostnames_custom_csr-2": tls_certificates_and_hostnames_custom_csr_2_output,
         "tls-certificates-and-hostnames_custom_csr_identifier": tls_certificates_and_hostnames_custom_csr_identifier_output,
         "tls-certificates-and-hostnames_custom_csr_response_single-2": tls_certificates_and_hostnames_custom_csr_response_single_2_output,
@@ -335,8 +335,8 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "direction": {
           "default": "asc",
@@ -372,43 +372,19 @@ export const tools: readonly Tool[] = [
         "account_or_zone",
         "account_or_zone_id"
       ],
+      $defs: {
+        "tls-certificates-and-hostnames_identifier": tls_certificates_and_hostnames_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/tls-certificates-and-hostnames_custom_csr-2"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/tls-certificates-and-hostnames_custom_csr_response_collection-2",
       $defs: {
+        "tls-certificates-and-hostnames_api-response-collection": tls_certificates_and_hostnames_api_response_collection_output,
+        "tls-certificates-and-hostnames_api-response-common": tls_certificates_and_hostnames_api_response_common_output,
         "tls-certificates-and-hostnames_custom_csr-2": tls_certificates_and_hostnames_custom_csr_2_output,
         "tls-certificates-and-hostnames_custom_csr_identifier": tls_certificates_and_hostnames_custom_csr_identifier_output,
+        "tls-certificates-and-hostnames_custom_csr_response_collection-2": tls_certificates_and_hostnames_custom_csr_response_collection_2_output,
+        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
       },
     },
     annotations: {
@@ -428,12 +404,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#ssl:read"
-        ],
-        "x-fern-enum": {
-          "#ssl:read": {
-            "name": "ssl_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -445,38 +416,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/tls-certificates-and-hostnames_custom_csr-2"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/tls-certificates-and-hostnames_custom_csr_response_collection-2"
         },
         "4XX": {
           "allOf": [
@@ -490,11 +430,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "tls-certificates-and-hostnames_api-response-collection": tls_certificates_and_hostnames_api_response_collection_output,
+        "tls-certificates-and-hostnames_api-response-common": tls_certificates_and_hostnames_api_response_common_output,
         "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
         "tls-certificates-and-hostnames_custom_csr-2": tls_certificates_and_hostnames_custom_csr_2_output,
         "tls-certificates-and-hostnames_custom_csr_identifier": tls_certificates_and_hostnames_custom_csr_identifier_output,
         "tls-certificates-and-hostnames_custom_csr_response_collection-2": tls_certificates_and_hostnames_custom_csr_response_collection_2_output,
-        "tls-certificates-and-hostnames_custom_csr_response_collection-2_result_info": tls_certificates_and_hostnames_custom_csr_response_collection_2_result_info_output,
         "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
       },
     },

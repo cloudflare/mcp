@@ -4,21 +4,18 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   email_security_ActionLogEntry_output,
-  email_security_ActionLogEntry_properties_output,
   email_security_CursorResultInfo_output,
   email_security_DispositionLabel_output,
   email_security_InvestigateId_output,
   email_security_MailboxDestination_output,
   email_security_MessageDeliveryMode_output,
   email_security_MessageDeliveryStatus_output,
-  email_security_MessageDetails_findingsItem_output,
   email_security_MessageDetails_output,
-  email_security_MessageDetails_properties_output,
-  email_security_MessageDetails_validation_output,
   email_security_PostfixId_output,
   email_security_ValidationStatus_output,
   email_security_Validation_output,
   email_security_api_response_common_failure_output,
+  email_security_api_response_common_output,
   email_security_messages_output,
 } from "../../outputs.js";
 import { email_security_identifier } from "../../schemas.js";
@@ -75,24 +72,31 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/email-security_BulkActionMessageDetail"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-security_api-response-common"
         },
-        "result_info": {
-          "$ref": "#/$defs/email-security_CursorResultInfo"
+        {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/email-security_BulkActionMessageDetail"
+              },
+              "type": "array"
+            },
+            "result_info": {
+              "$ref": "#/$defs/email-security_CursorResultInfo"
+            }
+          },
+          "required": [
+            "result",
+            "result_info"
+          ],
+          "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
         "email-security_ActionLogEntry": email_security_ActionLogEntry_output,
-        "email-security_ActionLogEntry_properties": email_security_ActionLogEntry_properties_output,
         "email-security_BulkActionMessageDetail": email_security_BulkActionMessageDetail_output,
         "email-security_BulkActionMessageStatus": email_security_BulkActionMessageStatus_output,
         "email-security_BulkMessageActionParams": email_security_BulkMessageActionParams_output,
@@ -103,12 +107,11 @@ export const tools: readonly Tool[] = [
         "email-security_MessageDeliveryMode": email_security_MessageDeliveryMode_output,
         "email-security_MessageDeliveryStatus": email_security_MessageDeliveryStatus_output,
         "email-security_MessageDetails": email_security_MessageDetails_output,
-        "email-security_MessageDetails_findingsItem": email_security_MessageDetails_findingsItem_output,
-        "email-security_MessageDetails_properties": email_security_MessageDetails_properties_output,
-        "email-security_MessageDetails_validation": email_security_MessageDetails_validation_output,
         "email-security_PostfixId": email_security_PostfixId_output,
         "email-security_Validation": email_security_Validation_output,
         "email-security_ValidationStatus": email_security_ValidationStatus_output,
+        "email-security_api-response-common": email_security_api_response_common_output,
+        "email-security_messages": email_security_messages_output,
       },
     },
     annotations: {
@@ -130,21 +133,29 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/email-security_BulkActionMessageDetail"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-security_api-response-common"
             },
-            "result_info": {
-              "$ref": "#/$defs/email-security_CursorResultInfo"
+            {
+              "properties": {
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/email-security_BulkActionMessageDetail"
+                  },
+                  "type": "array"
+                },
+                "result_info": {
+                  "$ref": "#/$defs/email-security_CursorResultInfo"
+                }
+              },
+              "required": [
+                "result",
+                "result_info"
+              ],
+              "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-security_api-response-common-failure"
@@ -152,7 +163,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_ActionLogEntry": email_security_ActionLogEntry_output,
-        "email-security_ActionLogEntry_properties": email_security_ActionLogEntry_properties_output,
         "email-security_BulkActionMessageDetail": email_security_BulkActionMessageDetail_output,
         "email-security_BulkActionMessageStatus": email_security_BulkActionMessageStatus_output,
         "email-security_BulkMessageActionParams": email_security_BulkMessageActionParams_output,
@@ -163,12 +173,10 @@ export const tools: readonly Tool[] = [
         "email-security_MessageDeliveryMode": email_security_MessageDeliveryMode_output,
         "email-security_MessageDeliveryStatus": email_security_MessageDeliveryStatus_output,
         "email-security_MessageDetails": email_security_MessageDetails_output,
-        "email-security_MessageDetails_findingsItem": email_security_MessageDetails_findingsItem_output,
-        "email-security_MessageDetails_properties": email_security_MessageDetails_properties_output,
-        "email-security_MessageDetails_validation": email_security_MessageDetails_validation_output,
         "email-security_PostfixId": email_security_PostfixId_output,
         "email-security_Validation": email_security_Validation_output,
         "email-security_ValidationStatus": email_security_ValidationStatus_output,
+        "email-security_api-response-common": email_security_api_response_common_output,
         "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
         "email-security_messages": email_security_messages_output,
       },

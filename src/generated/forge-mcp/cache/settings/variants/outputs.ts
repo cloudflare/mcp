@@ -7,28 +7,48 @@ import type { JsonSchema } from "../../../_/tool.js";
  * The schema of `cache-settings_variants` in responses.
  */
 export const cache_settings_variants_output: JsonSchema = {
-  "properties": {
-    "id": {
-      "enum": [
-        "variants"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/cache-settings_base"
     },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "variants"
+          ],
           "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `cache-settings_variants_response_value` in responses.
+ */
+export const cache_settings_variants_response_value_output: JsonSchema = {
+  "properties": {
+    "result": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/cache-settings_variants"
         },
         {
-          "type": "null"
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/cache-settings_variants_value"
+            }
+          },
+          "required": [
+            "value"
+          ],
+          "type": "object"
         }
       ]
     }
   },
-  "required": [
-    "id"
-  ],
   "type": "object"
 };
 

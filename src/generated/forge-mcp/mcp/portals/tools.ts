@@ -18,6 +18,7 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "aggregate": {
+          "default": "false",
           "enum": [
             "true",
             "false"
@@ -58,102 +59,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "aggregate": {
-          "type": "boolean"
-        },
-        "end": {
-          "type": "integer"
-        },
-        "granularity": {
-          "enum": [
-            "daily",
-            "monthly"
-          ],
-          "type": "string"
-        },
-        "response_status": {
-          "enum": [
-            "success",
-            "error",
-            "cached",
-            "all"
-          ],
-          "type": "string"
-        },
-        "series": {
-          "items": {
-            "properties": {
-              "count": {
-                "type": "integer"
-              },
-              "day": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "count",
-              "day"
-            ],
-            "type": "object"
-          },
-          "type": "array"
-        },
-        "start": {
-          "type": "integer"
-        },
-        "total": {
-          "type": "integer"
-        },
-        "tz": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "aggregate",
-        "end",
-        "granularity",
-        "response_status",
-        "series",
-        "start",
-        "total",
-        "tz"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Account-global MCP tool-call timeseries"
-    },
-    method: "GET",
-    path: "/accounts/{account_id}/access/ai-controls/mcp/analytics/tool-calls/timeseries",
-    extensions: {
-      "x-api-token-group": [
-        "MCP Portals Write",
-        "MCP Portals Read"
-      ],
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.mcp_portals"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.mcp_portals": {
-            "name": "com_cloudflare_api_account_mcp_portals"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "aggregate": {
               "type": "boolean"
@@ -214,6 +120,120 @@ export const tools: readonly Tool[] = [
             "start",
             "total",
             "tz"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Account-global MCP tool-call timeseries"
+    },
+    method: "GET",
+    path: "/accounts/{account_id}/access/ai-controls/mcp/analytics/tool-calls/timeseries",
+    extensions: {
+      "x-api-token-group": [
+        "MCP Portals Write",
+        "MCP Portals Read"
+      ],
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.mcp_portals"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "aggregate": {
+                  "type": "boolean"
+                },
+                "end": {
+                  "type": "integer"
+                },
+                "granularity": {
+                  "enum": [
+                    "daily",
+                    "monthly"
+                  ],
+                  "type": "string"
+                },
+                "response_status": {
+                  "enum": [
+                    "success",
+                    "error",
+                    "cached",
+                    "all"
+                  ],
+                  "type": "string"
+                },
+                "series": {
+                  "items": {
+                    "properties": {
+                      "count": {
+                        "type": "integer"
+                      },
+                      "day": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "count",
+                      "day"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "start": {
+                  "type": "integer"
+                },
+                "total": {
+                  "type": "integer"
+                },
+                "tz": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "aggregate",
+                "end",
+                "granularity",
+                "response_status",
+                "series",
+                "start",
+                "total",
+                "tz"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -404,351 +424,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "allow_code_mode": {
-          "type": "boolean"
-        },
-        "code_mode": {
-          "enum": [
-            "off",
-            "opt_in",
-            "default_on",
-            "enforced"
-          ],
-          "type": "string"
-        },
-        "created_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "created_by": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "hostname": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "modified_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "modified_by": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "secure_web_gateway": {
-          "type": "boolean"
-        },
-        "servers": {
-          "items": {
-            "properties": {
-              "auth_config_summary": {
-                "properties": {
-                  "auth_mode": {
-                    "enum": [
-                      "dcr",
-                      "manual"
-                    ],
-                    "type": "string"
-                  },
-                  "client_secret_version": {
-                    "type": "number"
-                  },
-                  "config": {
-                    "properties": {
-                      "authorization_endpoint": {
-                        "type": "string"
-                      },
-                      "issuer": {
-                        "type": "string"
-                      },
-                      "resource": {
-                        "type": "string"
-                      },
-                      "revocation_endpoint": {
-                        "type": "string"
-                      },
-                      "token_endpoint": {
-                        "type": "string"
-                      }
-                    },
-                    "type": "object"
-                  },
-                  "has_client_secret": {
-                    "type": "boolean"
-                  },
-                  "registration_info": {
-                    "properties": {
-                      "client_id": {
-                        "type": "string"
-                      },
-                      "redirect_uris": {
-                        "items": {
-                          "type": "string"
-                        },
-                        "type": "array"
-                      },
-                      "scope": {
-                        "type": "string"
-                      },
-                      "token_endpoint_auth_method": {
-                        "type": "string"
-                      }
-                    },
-                    "type": "object"
-                  }
-                },
-                "type": "object"
-              },
-              "auth_type": {
-                "enum": [
-                  "oauth",
-                  "bearer",
-                  "unauthenticated"
-                ],
-                "type": "string"
-              },
-              "authentication_status": {
-                "enum": [
-                  "not_required",
-                  "required",
-                  "connected",
-                  "stale",
-                  "manual"
-                ],
-                "type": "string"
-              },
-              "created_at": {
-                "format": "date-time",
-                "type": "string"
-              },
-              "created_by": {
-                "type": "string"
-              },
-              "default_disabled": {
-                "type": "boolean"
-              },
-              "description": {
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "error": {
-                "type": "string"
-              },
-              "error_details": {
-                "properties": {
-                  "cause": {
-                    "type": "string"
-                  },
-                  "is_upstream": {
-                    "type": "boolean"
-                  },
-                  "mcp_code": {
-                    "type": "number"
-                  },
-                  "retryable": {
-                    "type": "boolean"
-                  },
-                  "status_code": {
-                    "type": "number"
-                  }
-                },
-                "type": "object"
-              },
-              "hostname": {
-                "type": "string"
-              },
-              "id": {
-                "type": "string"
-              },
-              "is_shared_oauth_callback_enabled": {
-                "type": "boolean"
-              },
-              "last_successful_sync": {
-                "format": "date-time",
-                "type": "string"
-              },
-              "last_synced": {
-                "format": "date-time",
-                "type": "string"
-              },
-              "modified_at": {
-                "format": "date-time",
-                "type": "string"
-              },
-              "modified_by": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "on_behalf": {
-                "type": "boolean"
-              },
-              "prompts": {
-                "items": {
-                  "type": "object"
-                },
-                "type": "array"
-              },
-              "registered_at": {
-                "oneOf": [
-                  {
-                    "format": "date-time",
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "secure_web_gateway": {
-                "type": "boolean"
-              },
-              "server_id": {
-                "type": "string"
-              },
-              "status": {
-                "enum": [
-                  "waiting",
-                  "ready",
-                  "stale",
-                  "error"
-                ],
-                "type": "string"
-              },
-              "tools": {
-                "items": {
-                  "type": "object"
-                },
-                "type": "array"
-              },
-              "updated_prompts": {
-                "items": {
-                  "properties": {
-                    "enabled": {
-                      "type": "boolean"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "portal_alias": {
-                      "type": "string"
-                    },
-                    "portal_description": {
-                      "type": "string"
-                    },
-                    "server_alias": {
-                      "type": "string"
-                    },
-                    "server_description": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "name"
-                  ],
-                  "type": "object"
-                },
-                "type": "array"
-              },
-              "updated_tools": {
-                "items": {
-                  "properties": {
-                    "enabled": {
-                      "type": "boolean"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "portal_alias": {
-                      "type": "string"
-                    },
-                    "portal_description": {
-                      "type": "string"
-                    },
-                    "server_alias": {
-                      "type": "string"
-                    },
-                    "server_description": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "name"
-                  ],
-                  "type": "object"
-                },
-                "type": "array"
-              }
-            },
-            "required": [
-              "auth_type",
-              "hostname",
-              "id",
-              "name",
-              "prompts",
-              "server_id",
-              "tools"
-            ],
-            "type": "object"
-          },
-          "type": "array"
-        }
-      },
-      "required": [
-        "hostname",
-        "id",
-        "name",
-        "servers"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Create a new MCP Portal"
-    },
-    method: "POST",
-    path: "/accounts/{account_id}/access/ai-controls/mcp/portals",
-    extensions: {
-      "x-api-token-group": [
-        "MCP Portals Write"
-      ],
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.mcp_portals"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.mcp_portals": {
-            "name": "com_cloudflare_api_account_mcp_portals"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "201": {
+        "result": {
           "properties": {
             "allow_code_mode": {
               "type": "boolean"
@@ -1062,6 +738,369 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Create a new MCP Portal"
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/access/ai-controls/mcp/portals",
+    extensions: {
+      "x-api-token-group": [
+        "MCP Portals Write"
+      ],
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.mcp_portals"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "201": {
+          "properties": {
+            "result": {
+              "properties": {
+                "allow_code_mode": {
+                  "type": "boolean"
+                },
+                "code_mode": {
+                  "enum": [
+                    "off",
+                    "opt_in",
+                    "default_on",
+                    "enforced"
+                  ],
+                  "type": "string"
+                },
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "hostname": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "modified_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "modified_by": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "secure_web_gateway": {
+                  "type": "boolean"
+                },
+                "servers": {
+                  "items": {
+                    "properties": {
+                      "auth_config_summary": {
+                        "properties": {
+                          "auth_mode": {
+                            "enum": [
+                              "dcr",
+                              "manual"
+                            ],
+                            "type": "string"
+                          },
+                          "client_secret_version": {
+                            "type": "number"
+                          },
+                          "config": {
+                            "properties": {
+                              "authorization_endpoint": {
+                                "type": "string"
+                              },
+                              "issuer": {
+                                "type": "string"
+                              },
+                              "resource": {
+                                "type": "string"
+                              },
+                              "revocation_endpoint": {
+                                "type": "string"
+                              },
+                              "token_endpoint": {
+                                "type": "string"
+                              }
+                            },
+                            "type": "object"
+                          },
+                          "has_client_secret": {
+                            "type": "boolean"
+                          },
+                          "registration_info": {
+                            "properties": {
+                              "client_id": {
+                                "type": "string"
+                              },
+                              "redirect_uris": {
+                                "items": {
+                                  "type": "string"
+                                },
+                                "type": "array"
+                              },
+                              "scope": {
+                                "type": "string"
+                              },
+                              "token_endpoint_auth_method": {
+                                "type": "string"
+                              }
+                            },
+                            "type": "object"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "auth_type": {
+                        "enum": [
+                          "oauth",
+                          "bearer",
+                          "unauthenticated"
+                        ],
+                        "type": "string"
+                      },
+                      "authentication_status": {
+                        "enum": [
+                          "not_required",
+                          "required",
+                          "connected",
+                          "stale",
+                          "manual"
+                        ],
+                        "type": "string"
+                      },
+                      "created_at": {
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "created_by": {
+                        "type": "string"
+                      },
+                      "default_disabled": {
+                        "type": "boolean"
+                      },
+                      "description": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "error": {
+                        "type": "string"
+                      },
+                      "error_details": {
+                        "properties": {
+                          "cause": {
+                            "type": "string"
+                          },
+                          "is_upstream": {
+                            "type": "boolean"
+                          },
+                          "mcp_code": {
+                            "type": "number"
+                          },
+                          "retryable": {
+                            "type": "boolean"
+                          },
+                          "status_code": {
+                            "type": "number"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "hostname": {
+                        "type": "string"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "is_shared_oauth_callback_enabled": {
+                        "type": "boolean"
+                      },
+                      "last_successful_sync": {
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "last_synced": {
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "modified_at": {
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "modified_by": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "on_behalf": {
+                        "type": "boolean"
+                      },
+                      "prompts": {
+                        "items": {
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      "registered_at": {
+                        "oneOf": [
+                          {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "secure_web_gateway": {
+                        "type": "boolean"
+                      },
+                      "server_id": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "enum": [
+                          "waiting",
+                          "ready",
+                          "stale",
+                          "error"
+                        ],
+                        "type": "string"
+                      },
+                      "tools": {
+                        "items": {
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      "updated_prompts": {
+                        "items": {
+                          "properties": {
+                            "enabled": {
+                              "type": "boolean"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "portal_alias": {
+                              "type": "string"
+                            },
+                            "portal_description": {
+                              "type": "string"
+                            },
+                            "server_alias": {
+                              "type": "string"
+                            },
+                            "server_description": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "name"
+                          ],
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      "updated_tools": {
+                        "items": {
+                          "properties": {
+                            "enabled": {
+                              "type": "boolean"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "portal_alias": {
+                              "type": "string"
+                            },
+                            "portal_description": {
+                              "type": "string"
+                            },
+                            "server_alias": {
+                              "type": "string"
+                            },
+                            "server_description": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "name"
+                          ],
+                          "type": "object"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "auth_type",
+                      "hostname",
+                      "id",
+                      "name",
+                      "prompts",
+                      "server_id",
+                      "tools"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "hostname",
+                "id",
+                "name",
+                "servers"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
+          ],
+          "type": "object"
+        },
         "400": {
           "properties": {
             "errors": {
@@ -1131,88 +1170,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "allow_code_mode": {
-          "type": "boolean"
-        },
-        "code_mode": {
-          "enum": [
-            "off",
-            "opt_in",
-            "default_on",
-            "enforced"
-          ],
-          "type": "string"
-        },
-        "created_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "created_by": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "hostname": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "modified_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "modified_by": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "secure_web_gateway": {
-          "type": "boolean"
-        }
-      },
-      "required": [
-        "hostname",
-        "id",
-        "name"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": true,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Delete an MCP Portal"
-    },
-    method: "DELETE",
-    path: "/accounts/{account_id}/access/ai-controls/mcp/portals/{id}",
-    extensions: {
-      "x-api-token-group": [
-        "MCP Portals Write"
-      ],
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.mcp_portals"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.mcp_portals": {
-            "name": "com_cloudflare_api_account_mcp_portals"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "allow_code_mode": {
               "type": "boolean"
@@ -1260,6 +1218,106 @@ export const tools: readonly Tool[] = [
             "hostname",
             "id",
             "name"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Delete an MCP Portal"
+    },
+    method: "DELETE",
+    path: "/accounts/{account_id}/access/ai-controls/mcp/portals/{id}",
+    extensions: {
+      "x-api-token-group": [
+        "MCP Portals Write"
+      ],
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.mcp_portals"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "allow_code_mode": {
+                  "type": "boolean"
+                },
+                "code_mode": {
+                  "enum": [
+                    "off",
+                    "opt_in",
+                    "default_on",
+                    "enforced"
+                  ],
+                  "type": "string"
+                },
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "hostname": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "modified_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "modified_by": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "secure_web_gateway": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "hostname",
+                "id",
+                "name"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -1648,12 +1706,13 @@ export const tools: readonly Tool[] = [
           },
           "type": "array"
         },
-        "result_info": {
-          "type": "object"
+        "success": {
+          "type": "boolean"
         }
       },
       "required": [
-        "result"
+        "result",
+        "success"
       ],
       "type": "object",
     },
@@ -1674,12 +1733,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.mcp_portals"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.mcp_portals": {
-            "name": "com_cloudflare_api_account_mcp_portals"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -2009,12 +2063,13 @@ export const tools: readonly Tool[] = [
               },
               "type": "array"
             },
-            "result_info": {
-              "type": "object"
+            "success": {
+              "type": "boolean"
             }
           },
           "required": [
-            "result"
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -2081,352 +2136,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "allow_code_mode": {
-          "type": "boolean"
-        },
-        "code_mode": {
-          "enum": [
-            "off",
-            "opt_in",
-            "default_on",
-            "enforced"
-          ],
-          "type": "string"
-        },
-        "created_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "created_by": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "hostname": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "modified_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "modified_by": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "secure_web_gateway": {
-          "type": "boolean"
-        },
-        "servers": {
-          "items": {
-            "properties": {
-              "auth_config_summary": {
-                "properties": {
-                  "auth_mode": {
-                    "enum": [
-                      "dcr",
-                      "manual"
-                    ],
-                    "type": "string"
-                  },
-                  "client_secret_version": {
-                    "type": "number"
-                  },
-                  "config": {
-                    "properties": {
-                      "authorization_endpoint": {
-                        "type": "string"
-                      },
-                      "issuer": {
-                        "type": "string"
-                      },
-                      "resource": {
-                        "type": "string"
-                      },
-                      "revocation_endpoint": {
-                        "type": "string"
-                      },
-                      "token_endpoint": {
-                        "type": "string"
-                      }
-                    },
-                    "type": "object"
-                  },
-                  "has_client_secret": {
-                    "type": "boolean"
-                  },
-                  "registration_info": {
-                    "properties": {
-                      "client_id": {
-                        "type": "string"
-                      },
-                      "redirect_uris": {
-                        "items": {
-                          "type": "string"
-                        },
-                        "type": "array"
-                      },
-                      "scope": {
-                        "type": "string"
-                      },
-                      "token_endpoint_auth_method": {
-                        "type": "string"
-                      }
-                    },
-                    "type": "object"
-                  }
-                },
-                "type": "object"
-              },
-              "auth_type": {
-                "enum": [
-                  "oauth",
-                  "bearer",
-                  "unauthenticated"
-                ],
-                "type": "string"
-              },
-              "authentication_status": {
-                "enum": [
-                  "not_required",
-                  "required",
-                  "connected",
-                  "stale",
-                  "manual"
-                ],
-                "type": "string"
-              },
-              "created_at": {
-                "format": "date-time",
-                "type": "string"
-              },
-              "created_by": {
-                "type": "string"
-              },
-              "default_disabled": {
-                "type": "boolean"
-              },
-              "description": {
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "error": {
-                "type": "string"
-              },
-              "error_details": {
-                "properties": {
-                  "cause": {
-                    "type": "string"
-                  },
-                  "is_upstream": {
-                    "type": "boolean"
-                  },
-                  "mcp_code": {
-                    "type": "number"
-                  },
-                  "retryable": {
-                    "type": "boolean"
-                  },
-                  "status_code": {
-                    "type": "number"
-                  }
-                },
-                "type": "object"
-              },
-              "hostname": {
-                "type": "string"
-              },
-              "id": {
-                "type": "string"
-              },
-              "is_shared_oauth_callback_enabled": {
-                "type": "boolean"
-              },
-              "last_successful_sync": {
-                "format": "date-time",
-                "type": "string"
-              },
-              "last_synced": {
-                "format": "date-time",
-                "type": "string"
-              },
-              "modified_at": {
-                "format": "date-time",
-                "type": "string"
-              },
-              "modified_by": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "on_behalf": {
-                "type": "boolean"
-              },
-              "prompts": {
-                "items": {
-                  "type": "object"
-                },
-                "type": "array"
-              },
-              "registered_at": {
-                "oneOf": [
-                  {
-                    "format": "date-time",
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "secure_web_gateway": {
-                "type": "boolean"
-              },
-              "server_id": {
-                "type": "string"
-              },
-              "status": {
-                "enum": [
-                  "waiting",
-                  "ready",
-                  "stale",
-                  "error"
-                ],
-                "type": "string"
-              },
-              "tools": {
-                "items": {
-                  "type": "object"
-                },
-                "type": "array"
-              },
-              "updated_prompts": {
-                "items": {
-                  "properties": {
-                    "enabled": {
-                      "type": "boolean"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "portal_alias": {
-                      "type": "string"
-                    },
-                    "portal_description": {
-                      "type": "string"
-                    },
-                    "server_alias": {
-                      "type": "string"
-                    },
-                    "server_description": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "name"
-                  ],
-                  "type": "object"
-                },
-                "type": "array"
-              },
-              "updated_tools": {
-                "items": {
-                  "properties": {
-                    "enabled": {
-                      "type": "boolean"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "portal_alias": {
-                      "type": "string"
-                    },
-                    "portal_description": {
-                      "type": "string"
-                    },
-                    "server_alias": {
-                      "type": "string"
-                    },
-                    "server_description": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "name"
-                  ],
-                  "type": "object"
-                },
-                "type": "array"
-              }
-            },
-            "required": [
-              "auth_type",
-              "hostname",
-              "id",
-              "name",
-              "prompts",
-              "server_id",
-              "tools"
-            ],
-            "type": "object"
-          },
-          "type": "array"
-        }
-      },
-      "required": [
-        "hostname",
-        "id",
-        "name",
-        "servers"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Read details of an MCP Portal"
-    },
-    method: "GET",
-    path: "/accounts/{account_id}/access/ai-controls/mcp/portals/{id}",
-    extensions: {
-      "x-api-token-group": [
-        "MCP Portals Write",
-        "MCP Portals Read"
-      ],
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.mcp_portals"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.mcp_portals": {
-            "name": "com_cloudflare_api_account_mcp_portals"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "allow_code_mode": {
               "type": "boolean"
@@ -2740,6 +2450,370 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Read details of an MCP Portal"
+    },
+    method: "GET",
+    path: "/accounts/{account_id}/access/ai-controls/mcp/portals/{id}",
+    extensions: {
+      "x-api-token-group": [
+        "MCP Portals Write",
+        "MCP Portals Read"
+      ],
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.mcp_portals"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "allow_code_mode": {
+                  "type": "boolean"
+                },
+                "code_mode": {
+                  "enum": [
+                    "off",
+                    "opt_in",
+                    "default_on",
+                    "enforced"
+                  ],
+                  "type": "string"
+                },
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "hostname": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "modified_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "modified_by": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "secure_web_gateway": {
+                  "type": "boolean"
+                },
+                "servers": {
+                  "items": {
+                    "properties": {
+                      "auth_config_summary": {
+                        "properties": {
+                          "auth_mode": {
+                            "enum": [
+                              "dcr",
+                              "manual"
+                            ],
+                            "type": "string"
+                          },
+                          "client_secret_version": {
+                            "type": "number"
+                          },
+                          "config": {
+                            "properties": {
+                              "authorization_endpoint": {
+                                "type": "string"
+                              },
+                              "issuer": {
+                                "type": "string"
+                              },
+                              "resource": {
+                                "type": "string"
+                              },
+                              "revocation_endpoint": {
+                                "type": "string"
+                              },
+                              "token_endpoint": {
+                                "type": "string"
+                              }
+                            },
+                            "type": "object"
+                          },
+                          "has_client_secret": {
+                            "type": "boolean"
+                          },
+                          "registration_info": {
+                            "properties": {
+                              "client_id": {
+                                "type": "string"
+                              },
+                              "redirect_uris": {
+                                "items": {
+                                  "type": "string"
+                                },
+                                "type": "array"
+                              },
+                              "scope": {
+                                "type": "string"
+                              },
+                              "token_endpoint_auth_method": {
+                                "type": "string"
+                              }
+                            },
+                            "type": "object"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "auth_type": {
+                        "enum": [
+                          "oauth",
+                          "bearer",
+                          "unauthenticated"
+                        ],
+                        "type": "string"
+                      },
+                      "authentication_status": {
+                        "enum": [
+                          "not_required",
+                          "required",
+                          "connected",
+                          "stale",
+                          "manual"
+                        ],
+                        "type": "string"
+                      },
+                      "created_at": {
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "created_by": {
+                        "type": "string"
+                      },
+                      "default_disabled": {
+                        "type": "boolean"
+                      },
+                      "description": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "error": {
+                        "type": "string"
+                      },
+                      "error_details": {
+                        "properties": {
+                          "cause": {
+                            "type": "string"
+                          },
+                          "is_upstream": {
+                            "type": "boolean"
+                          },
+                          "mcp_code": {
+                            "type": "number"
+                          },
+                          "retryable": {
+                            "type": "boolean"
+                          },
+                          "status_code": {
+                            "type": "number"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "hostname": {
+                        "type": "string"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "is_shared_oauth_callback_enabled": {
+                        "type": "boolean"
+                      },
+                      "last_successful_sync": {
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "last_synced": {
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "modified_at": {
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "modified_by": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "on_behalf": {
+                        "type": "boolean"
+                      },
+                      "prompts": {
+                        "items": {
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      "registered_at": {
+                        "oneOf": [
+                          {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "secure_web_gateway": {
+                        "type": "boolean"
+                      },
+                      "server_id": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "enum": [
+                          "waiting",
+                          "ready",
+                          "stale",
+                          "error"
+                        ],
+                        "type": "string"
+                      },
+                      "tools": {
+                        "items": {
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      "updated_prompts": {
+                        "items": {
+                          "properties": {
+                            "enabled": {
+                              "type": "boolean"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "portal_alias": {
+                              "type": "string"
+                            },
+                            "portal_description": {
+                              "type": "string"
+                            },
+                            "server_alias": {
+                              "type": "string"
+                            },
+                            "server_description": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "name"
+                          ],
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      "updated_tools": {
+                        "items": {
+                          "properties": {
+                            "enabled": {
+                              "type": "boolean"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "portal_alias": {
+                              "type": "string"
+                            },
+                            "portal_description": {
+                              "type": "string"
+                            },
+                            "server_alias": {
+                              "type": "string"
+                            },
+                            "server_description": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "name"
+                          ],
+                          "type": "object"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "auth_type",
+                      "hostname",
+                      "id",
+                      "name",
+                      "prompts",
+                      "server_id",
+                      "tools"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "hostname",
+                "id",
+                "name",
+                "servers"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
+          ],
+          "type": "object"
+        },
         "404": {
           "properties": {
             "errors": {
@@ -2790,6 +2864,7 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "aggregate": {
+          "default": "false",
           "enum": [
             "true",
             "false"
@@ -2834,102 +2909,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "aggregate": {
-          "type": "boolean"
-        },
-        "end": {
-          "type": "integer"
-        },
-        "granularity": {
-          "enum": [
-            "daily",
-            "monthly"
-          ],
-          "type": "string"
-        },
-        "response_status": {
-          "enum": [
-            "success",
-            "error",
-            "cached",
-            "all"
-          ],
-          "type": "string"
-        },
-        "series": {
-          "items": {
-            "properties": {
-              "count": {
-                "type": "integer"
-              },
-              "day": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "count",
-              "day"
-            ],
-            "type": "object"
-          },
-          "type": "array"
-        },
-        "start": {
-          "type": "integer"
-        },
-        "total": {
-          "type": "integer"
-        },
-        "tz": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "aggregate",
-        "end",
-        "granularity",
-        "response_status",
-        "series",
-        "start",
-        "total",
-        "tz"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Per-portal MCP tool-call timeseries"
-    },
-    method: "GET",
-    path: "/accounts/{account_id}/access/ai-controls/mcp/analytics/portals/{portal_id}/tool-calls/timeseries",
-    extensions: {
-      "x-api-token-group": [
-        "MCP Portals Write",
-        "MCP Portals Read"
-      ],
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.mcp_portals"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.mcp_portals": {
-            "name": "com_cloudflare_api_account_mcp_portals"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "aggregate": {
               "type": "boolean"
@@ -2990,6 +2970,120 @@ export const tools: readonly Tool[] = [
             "start",
             "total",
             "tz"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Per-portal MCP tool-call timeseries"
+    },
+    method: "GET",
+    path: "/accounts/{account_id}/access/ai-controls/mcp/analytics/portals/{portal_id}/tool-calls/timeseries",
+    extensions: {
+      "x-api-token-group": [
+        "MCP Portals Write",
+        "MCP Portals Read"
+      ],
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.mcp_portals"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "aggregate": {
+                  "type": "boolean"
+                },
+                "end": {
+                  "type": "integer"
+                },
+                "granularity": {
+                  "enum": [
+                    "daily",
+                    "monthly"
+                  ],
+                  "type": "string"
+                },
+                "response_status": {
+                  "enum": [
+                    "success",
+                    "error",
+                    "cached",
+                    "all"
+                  ],
+                  "type": "string"
+                },
+                "series": {
+                  "items": {
+                    "properties": {
+                      "count": {
+                        "type": "integer"
+                      },
+                      "day": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "count",
+                      "day"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "start": {
+                  "type": "integer"
+                },
+                "total": {
+                  "type": "integer"
+                },
+                "tz": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "aggregate",
+                "end",
+                "granularity",
+                "response_status",
+                "series",
+                "start",
+                "total",
+                "tz"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -3176,359 +3270,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "allow_code_mode": {
-          "type": "boolean"
-        },
-        "code_mode": {
-          "enum": [
-            "off",
-            "opt_in",
-            "default_on",
-            "enforced"
-          ],
-          "type": "string"
-        },
-        "created_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "created_by": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "hostname": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "modified_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "modified_by": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "secure_web_gateway": {
-          "type": "boolean"
-        },
-        "servers": {
-          "items": {
-            "properties": {
-              "auth_config_summary": {
-                "properties": {
-                  "auth_mode": {
-                    "enum": [
-                      "dcr",
-                      "manual"
-                    ],
-                    "type": "string"
-                  },
-                  "client_secret_version": {
-                    "type": "number"
-                  },
-                  "config": {
-                    "properties": {
-                      "authorization_endpoint": {
-                        "type": "string"
-                      },
-                      "issuer": {
-                        "type": "string"
-                      },
-                      "resource": {
-                        "type": "string"
-                      },
-                      "revocation_endpoint": {
-                        "type": "string"
-                      },
-                      "token_endpoint": {
-                        "type": "string"
-                      }
-                    },
-                    "type": "object"
-                  },
-                  "has_client_secret": {
-                    "type": "boolean"
-                  },
-                  "registration_info": {
-                    "properties": {
-                      "client_id": {
-                        "type": "string"
-                      },
-                      "redirect_uris": {
-                        "items": {
-                          "type": "string"
-                        },
-                        "type": "array"
-                      },
-                      "scope": {
-                        "type": "string"
-                      },
-                      "token_endpoint_auth_method": {
-                        "type": "string"
-                      }
-                    },
-                    "type": "object"
-                  }
-                },
-                "type": "object"
-              },
-              "auth_type": {
-                "enum": [
-                  "oauth",
-                  "bearer",
-                  "unauthenticated"
-                ],
-                "type": "string"
-              },
-              "authentication_status": {
-                "enum": [
-                  "not_required",
-                  "required",
-                  "connected",
-                  "stale",
-                  "manual"
-                ],
-                "type": "string"
-              },
-              "created_at": {
-                "format": "date-time",
-                "type": "string"
-              },
-              "created_by": {
-                "type": "string"
-              },
-              "default_disabled": {
-                "type": "boolean"
-              },
-              "description": {
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "error": {
-                "type": "string"
-              },
-              "error_details": {
-                "properties": {
-                  "cause": {
-                    "type": "string"
-                  },
-                  "is_upstream": {
-                    "type": "boolean"
-                  },
-                  "mcp_code": {
-                    "type": "number"
-                  },
-                  "retryable": {
-                    "type": "boolean"
-                  },
-                  "status_code": {
-                    "type": "number"
-                  }
-                },
-                "type": "object"
-              },
-              "hostname": {
-                "type": "string"
-              },
-              "id": {
-                "type": "string"
-              },
-              "is_shared_oauth_callback_enabled": {
-                "type": "boolean"
-              },
-              "last_successful_sync": {
-                "format": "date-time",
-                "type": "string"
-              },
-              "last_synced": {
-                "format": "date-time",
-                "type": "string"
-              },
-              "modified_at": {
-                "format": "date-time",
-                "type": "string"
-              },
-              "modified_by": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "on_behalf": {
-                "type": "boolean"
-              },
-              "prompts": {
-                "items": {
-                  "type": "object"
-                },
-                "type": "array"
-              },
-              "registered_at": {
-                "oneOf": [
-                  {
-                    "format": "date-time",
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "secure_web_gateway": {
-                "type": "boolean"
-              },
-              "server_id": {
-                "type": "string"
-              },
-              "status": {
-                "enum": [
-                  "waiting",
-                  "ready",
-                  "stale",
-                  "error"
-                ],
-                "type": "string"
-              },
-              "tools": {
-                "items": {
-                  "type": "object"
-                },
-                "type": "array"
-              },
-              "updated_prompts": {
-                "items": {
-                  "properties": {
-                    "enabled": {
-                      "type": "boolean"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "portal_alias": {
-                      "type": "string"
-                    },
-                    "portal_description": {
-                      "type": "string"
-                    },
-                    "server_alias": {
-                      "type": "string"
-                    },
-                    "server_description": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "name"
-                  ],
-                  "type": "object"
-                },
-                "type": "array"
-              },
-              "updated_tools": {
-                "items": {
-                  "properties": {
-                    "enabled": {
-                      "type": "boolean"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "portal_alias": {
-                      "type": "string"
-                    },
-                    "portal_description": {
-                      "type": "string"
-                    },
-                    "server_alias": {
-                      "type": "string"
-                    },
-                    "server_description": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "name"
-                  ],
-                  "type": "object"
-                },
-                "type": "array"
-              }
-            },
-            "required": [
-              "auth_type",
-              "hostname",
-              "id",
-              "name",
-              "prompts",
-              "server_id",
-              "tools"
-            ],
-            "type": "object"
-          },
-          "type": "array"
-        }
-      },
-      "required": [
-        "hostname",
-        "id",
-        "name",
-        "servers"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": true,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Update an MCP Portal"
-    },
-    method: "PUT",
-    path: "/accounts/{account_id}/access/ai-controls/mcp/portals/{id}",
-    extensions: {
-      "x-api-token-group": [
-        "MCP Portals Write"
-      ],
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.mcp_portals"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.mcp_portals": {
-            "name": "com_cloudflare_api_account_mcp_portals"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      },
-      "x-forge-params": {
-        "allow_code_mode": {
-          "default": null
-        },
-        "secure_web_gateway": {
-          "default": null
-        }
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "allow_code_mode": {
               "type": "boolean"
@@ -3839,6 +3581,377 @@ export const tools: readonly Tool[] = [
             "id",
             "name",
             "servers"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Update an MCP Portal"
+    },
+    method: "PUT",
+    path: "/accounts/{account_id}/access/ai-controls/mcp/portals/{id}",
+    extensions: {
+      "x-api-token-group": [
+        "MCP Portals Write"
+      ],
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.mcp_portals"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      },
+      "x-forge-params": {
+        "allow_code_mode": {
+          "default": null
+        },
+        "secure_web_gateway": {
+          "default": null
+        }
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "allow_code_mode": {
+                  "type": "boolean"
+                },
+                "code_mode": {
+                  "enum": [
+                    "off",
+                    "opt_in",
+                    "default_on",
+                    "enforced"
+                  ],
+                  "type": "string"
+                },
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "hostname": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "modified_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "modified_by": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "secure_web_gateway": {
+                  "type": "boolean"
+                },
+                "servers": {
+                  "items": {
+                    "properties": {
+                      "auth_config_summary": {
+                        "properties": {
+                          "auth_mode": {
+                            "enum": [
+                              "dcr",
+                              "manual"
+                            ],
+                            "type": "string"
+                          },
+                          "client_secret_version": {
+                            "type": "number"
+                          },
+                          "config": {
+                            "properties": {
+                              "authorization_endpoint": {
+                                "type": "string"
+                              },
+                              "issuer": {
+                                "type": "string"
+                              },
+                              "resource": {
+                                "type": "string"
+                              },
+                              "revocation_endpoint": {
+                                "type": "string"
+                              },
+                              "token_endpoint": {
+                                "type": "string"
+                              }
+                            },
+                            "type": "object"
+                          },
+                          "has_client_secret": {
+                            "type": "boolean"
+                          },
+                          "registration_info": {
+                            "properties": {
+                              "client_id": {
+                                "type": "string"
+                              },
+                              "redirect_uris": {
+                                "items": {
+                                  "type": "string"
+                                },
+                                "type": "array"
+                              },
+                              "scope": {
+                                "type": "string"
+                              },
+                              "token_endpoint_auth_method": {
+                                "type": "string"
+                              }
+                            },
+                            "type": "object"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "auth_type": {
+                        "enum": [
+                          "oauth",
+                          "bearer",
+                          "unauthenticated"
+                        ],
+                        "type": "string"
+                      },
+                      "authentication_status": {
+                        "enum": [
+                          "not_required",
+                          "required",
+                          "connected",
+                          "stale",
+                          "manual"
+                        ],
+                        "type": "string"
+                      },
+                      "created_at": {
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "created_by": {
+                        "type": "string"
+                      },
+                      "default_disabled": {
+                        "type": "boolean"
+                      },
+                      "description": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "error": {
+                        "type": "string"
+                      },
+                      "error_details": {
+                        "properties": {
+                          "cause": {
+                            "type": "string"
+                          },
+                          "is_upstream": {
+                            "type": "boolean"
+                          },
+                          "mcp_code": {
+                            "type": "number"
+                          },
+                          "retryable": {
+                            "type": "boolean"
+                          },
+                          "status_code": {
+                            "type": "number"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "hostname": {
+                        "type": "string"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "is_shared_oauth_callback_enabled": {
+                        "type": "boolean"
+                      },
+                      "last_successful_sync": {
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "last_synced": {
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "modified_at": {
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "modified_by": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "on_behalf": {
+                        "type": "boolean"
+                      },
+                      "prompts": {
+                        "items": {
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      "registered_at": {
+                        "oneOf": [
+                          {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "secure_web_gateway": {
+                        "type": "boolean"
+                      },
+                      "server_id": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "enum": [
+                          "waiting",
+                          "ready",
+                          "stale",
+                          "error"
+                        ],
+                        "type": "string"
+                      },
+                      "tools": {
+                        "items": {
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      "updated_prompts": {
+                        "items": {
+                          "properties": {
+                            "enabled": {
+                              "type": "boolean"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "portal_alias": {
+                              "type": "string"
+                            },
+                            "portal_description": {
+                              "type": "string"
+                            },
+                            "server_alias": {
+                              "type": "string"
+                            },
+                            "server_description": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "name"
+                          ],
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      "updated_tools": {
+                        "items": {
+                          "properties": {
+                            "enabled": {
+                              "type": "boolean"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "portal_alias": {
+                              "type": "string"
+                            },
+                            "portal_description": {
+                              "type": "string"
+                            },
+                            "server_alias": {
+                              "type": "string"
+                            },
+                            "server_description": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "name"
+                          ],
+                          "type": "object"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "auth_type",
+                      "hostname",
+                      "id",
+                      "name",
+                      "prompts",
+                      "server_id",
+                      "tools"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "hostname",
+                "id",
+                "name",
+                "servers"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },

@@ -4,14 +4,17 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   dnssec_api_response_common_failure_output,
+  dnssec_api_response_single_output,
   dnssec_messages_output,
 } from "../outputs.js";
+import { dnssec_identifier } from "../schemas.js";
 import {
   dnssec_dnskey_record_header_output,
   dnssec_dnskey_record_output,
   dnssec_dnskey_signing_key_output,
   dnssec_dnssec_key_state_output,
   dnssec_dnssec_zsk_output,
+  dnssec_dnssec_zsk_response_collection_output,
   dnssec_key_storage_location_output,
 } from "./outputs.js";
 
@@ -27,37 +30,29 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/dnssec_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "dnssec_identifier": dnssec_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/dnssec_dnssec_zsk"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/dnssec_dnssec_zsk_response_collection",
       $defs: {
+        "dnssec_api-response-single": dnssec_api_response_single_output,
         "dnssec_dnskey_record": dnssec_dnskey_record_output,
         "dnssec_dnskey_record_header": dnssec_dnskey_record_header_output,
         "dnssec_dnskey_signing_key": dnssec_dnskey_signing_key_output,
         "dnssec_dnssec_key_state": dnssec_dnssec_key_state_output,
         "dnssec_dnssec_zsk": dnssec_dnssec_zsk_output,
+        "dnssec_dnssec_zsk_response_collection": dnssec_dnssec_zsk_response_collection_output,
         "dnssec_key_storage_location": dnssec_key_storage_location_output,
+        "dnssec_messages": dnssec_messages_output,
       },
     },
     annotations: {
@@ -84,21 +79,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/dnssec_dnssec_zsk"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/dnssec_dnssec_zsk_response_collection"
         },
         "4XX": {
           "$ref": "#/$defs/dnssec_api-response-common-failure"
@@ -106,11 +87,13 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "dnssec_api-response-common-failure": dnssec_api_response_common_failure_output,
+        "dnssec_api-response-single": dnssec_api_response_single_output,
         "dnssec_dnskey_record": dnssec_dnskey_record_output,
         "dnssec_dnskey_record_header": dnssec_dnskey_record_header_output,
         "dnssec_dnskey_signing_key": dnssec_dnskey_signing_key_output,
         "dnssec_dnssec_key_state": dnssec_dnssec_key_state_output,
         "dnssec_dnssec_zsk": dnssec_dnssec_zsk_output,
+        "dnssec_dnssec_zsk_response_collection": dnssec_dnssec_zsk_response_collection_output,
         "dnssec_key_storage_location": dnssec_key_storage_location_output,
         "dnssec_messages": dnssec_messages_output,
       },

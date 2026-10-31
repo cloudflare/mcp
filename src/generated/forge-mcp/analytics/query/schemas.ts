@@ -95,10 +95,9 @@ export const art_Filter: JsonSchema = {
 };
 
 /**
- * The schema of `art_QueryTimeseries`.
+ * The schema of `art_QuerySummary`.
  */
-export const art_QueryTimeseries: JsonSchema = {
-  "description": "Defines fields that all query types share.",
+export const art_QuerySummary: JsonSchema = {
   "properties": {
     "filters": {
       "description": "Filters to apply before aggregating results.",
@@ -119,10 +118,6 @@ export const art_QueryTimeseries: JsonSchema = {
       },
       "type": "array"
     },
-    "resolution": {
-      "description": "Time bucket size for grouping results. Controls the granularity of the returned time slots.\n",
-      "type": "string"
-    },
     "stats": {
       "description": "Specifies the stat names to include in results. Requires valid stats for the target dataset (e.g. `attemptsTotal`, `bytesTotal`).",
       "items": {
@@ -141,66 +136,58 @@ export const art_QueryTimeseries: JsonSchema = {
     "from",
     "groupBy",
     "stats",
-    "to",
-    "resolution"
+    "to"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `art_QueryTimeseries`.
+ */
+export const art_QueryTimeseries: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/art_CommonQuery"
+    },
+    {
+      "properties": {
+        "resolution": {
+          "description": "Time bucket size for grouping results. Controls the granularity of the returned time slots.\n",
+          "type": "string"
+        }
+      },
+      "required": [
+        "resolution"
+      ],
+      "type": "object"
+    }
+  ]
 };
 
 /**
  * The schema of `art_QueryTopN`.
  */
 export const art_QueryTopN: JsonSchema = {
-  "description": "Defines fields that all query types share.",
-  "properties": {
-    "filters": {
-      "description": "Filters to apply before aggregating results.",
-      "items": {
-        "$ref": "#/$defs/art_Filter"
+  "allOf": [
+    {
+      "$ref": "#/$defs/art_CommonQuery"
+    },
+    {
+      "properties": {
+        "n": {
+          "description": "Maximum number of results to return.",
+          "type": "integer"
+        },
+        "orderBy": {
+          "description": "Specifies the stat name for sorting results in descending order. Requires a valid stat for the target dataset.",
+          "type": "string"
+        }
       },
-      "type": "array"
-    },
-    "from": {
-      "description": "The start of the query time range (inclusive). RFC3339 format with timezone is required (e.g. `2024-11-05T00:00:00Z`).",
-      "format": "date-time",
-      "type": "string"
-    },
-    "groupBy": {
-      "description": "Specifies the column names to group results by. Requires valid columns for the target dataset.",
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "n": {
-      "description": "Maximum number of results to return.",
-      "type": "integer"
-    },
-    "orderBy": {
-      "description": "Specifies the stat name for sorting results in descending order. Requires a valid stat for the target dataset.",
-      "type": "string"
-    },
-    "stats": {
-      "description": "Specifies the stat names to include in results. Requires valid stats for the target dataset (e.g. `attemptsTotal`, `bytesTotal`).",
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "to": {
-      "description": "Specifies the end of the query time range (exclusive). Requires RFC3339 format with timezone.",
-      "format": "date-time",
-      "type": "string"
+      "required": [
+        "n",
+        "orderBy"
+      ],
+      "type": "object"
     }
-  },
-  "required": [
-    "filters",
-    "from",
-    "groupBy",
-    "stats",
-    "to",
-    "n",
-    "orderBy"
-  ],
-  "type": "object"
+  ]
 };

@@ -5,7 +5,6 @@ import { type Tool, pathParam } from "../../_/tool.js";
 import {
   abuse_reports_AuthErrorResponse_output,
   abuse_reports_CloudflareAPIErrorResponse_output,
-  abuse_reports_ErrorMessage_code_output,
   abuse_reports_ErrorMessage_output,
   abuse_reports_Message_output,
   abuse_reports_UnauthorizedErrorResponse_output,
@@ -38,9 +37,33 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/abuse-reports_AppealEligibility",
+      "properties": {
+        "errors": {
+          "items": {
+            "$ref": "#/$defs/abuse-reports_Message"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "$ref": "#/$defs/abuse-reports_Message"
+          },
+          "type": "array"
+        },
+        "result": {
+          "$ref": "#/$defs/abuse-reports_AppealEligibility"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "success"
+      ],
+      "type": "object",
       $defs: {
         "abuse-reports_AppealEligibility": abuse_reports_AppealEligibility_output,
+        "abuse-reports_Message": abuse_reports_Message_output,
       },
     },
     annotations: {
@@ -61,7 +84,30 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/abuse-reports_AppealEligibility"
+          "properties": {
+            "errors": {
+              "items": {
+                "$ref": "#/$defs/abuse-reports_Message"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "$ref": "#/$defs/abuse-reports_Message"
+              },
+              "type": "array"
+            },
+            "result": {
+              "$ref": "#/$defs/abuse-reports_AppealEligibility"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "success"
+          ],
+          "type": "object"
         },
         "401": {
           "$ref": "#/$defs/abuse-reports_UnauthorizedErrorResponse"
@@ -109,7 +155,6 @@ export const tools: readonly Tool[] = [
         "abuse-reports_AuthErrorResponse": abuse_reports_AuthErrorResponse_output,
         "abuse-reports_CloudflareAPIErrorResponse": abuse_reports_CloudflareAPIErrorResponse_output,
         "abuse-reports_ErrorMessage": abuse_reports_ErrorMessage_output,
-        "abuse-reports_ErrorMessage_code": abuse_reports_ErrorMessage_code_output,
         "abuse-reports_Message": abuse_reports_Message_output,
         "abuse-reports_UnauthorizedErrorResponse": abuse_reports_UnauthorizedErrorResponse_output,
       },

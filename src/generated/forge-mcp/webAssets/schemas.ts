@@ -46,30 +46,23 @@ export const api_shield_operation_id_selector: JsonSchema = {
   "description": "Operation IDs selector",
   "properties": {
     "include": {
-      "$ref": "#/$defs/api-shield_operation_id_selector_include"
+      "properties": {
+        "operation_ids": {
+          "items": {
+            "$ref": "#/$defs/api-shield_uuid-2"
+          },
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "required": [
+        "operation_ids"
+      ],
+      "type": "object"
     }
   },
   "required": [
     "include"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `api-shield_operation_id_selector_include`.
- */
-export const api_shield_operation_id_selector_include: JsonSchema = {
-  "properties": {
-    "operation_ids": {
-      "items": {
-        "$ref": "#/$defs/api-shield_uuid-2"
-      },
-      "minItems": 1,
-      "type": "array"
-    }
-  },
-  "required": [
-    "operation_ids"
   ],
   "type": "object"
 };

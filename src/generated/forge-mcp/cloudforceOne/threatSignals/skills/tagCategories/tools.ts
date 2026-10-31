@@ -32,23 +32,53 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "category_uuids": {
+        "errors": {
           "items": {
-            "format": "uuid",
-            "type": "string"
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
           },
           "type": "array"
         },
-        "skill_id": {
-          "enum": [
-            "default-tagging-skill"
+        "result": {
+          "properties": {
+            "category_uuids": {
+              "items": {
+                "format": "uuid",
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "skill_id": {
+              "enum": [
+                "default-tagging-skill"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "category_uuids",
+            "skill_id"
           ],
-          "type": "string"
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
         }
       },
       "required": [
-        "category_uuids",
-        "skill_id"
+        "errors",
+        "result",
+        "success"
       ],
       "type": "object",
     },
@@ -71,23 +101,53 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
-            "category_uuids": {
+            "errors": {
               "items": {
-                "format": "uuid",
-                "type": "string"
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
               },
               "type": "array"
             },
-            "skill_id": {
-              "enum": [
-                "default-tagging-skill"
+            "result": {
+              "properties": {
+                "category_uuids": {
+                  "items": {
+                    "format": "uuid",
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "skill_id": {
+                  "enum": [
+                    "default-tagging-skill"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "category_uuids",
+                "skill_id"
               ],
-              "type": "string"
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
             }
           },
           "required": [
-            "category_uuids",
-            "skill_id"
+            "errors",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -140,23 +200,53 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "category_uuids": {
+        "errors": {
           "items": {
-            "format": "uuid",
-            "type": "string"
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
           },
           "type": "array"
         },
-        "skill_id": {
-          "enum": [
-            "default-tagging-skill"
+        "result": {
+          "properties": {
+            "category_uuids": {
+              "items": {
+                "format": "uuid",
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "skill_id": {
+              "enum": [
+                "default-tagging-skill"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "category_uuids",
+            "skill_id"
           ],
-          "type": "string"
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
         }
       },
       "required": [
-        "category_uuids",
-        "skill_id"
+        "errors",
+        "result",
+        "success"
       ],
       "type": "object",
     },
@@ -178,23 +268,53 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
-            "category_uuids": {
+            "errors": {
               "items": {
-                "format": "uuid",
-                "type": "string"
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
               },
               "type": "array"
             },
-            "skill_id": {
-              "enum": [
-                "default-tagging-skill"
+            "result": {
+              "properties": {
+                "category_uuids": {
+                  "items": {
+                    "format": "uuid",
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "skill_id": {
+                  "enum": [
+                    "default-tagging-skill"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "category_uuids",
+                "skill_id"
               ],
-              "type": "string"
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
             }
           },
           "required": [
-            "category_uuids",
-            "skill_id"
+            "errors",
+            "result",
+            "success"
           ],
           "type": "object"
         },

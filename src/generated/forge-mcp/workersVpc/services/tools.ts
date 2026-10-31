@@ -3,9 +3,13 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  infra_api_response_collection_output,
   infra_api_response_common_failure_output,
+  infra_api_response_common_output,
+  infra_api_response_single_output,
   infra_messages_output,
 } from "../../outputs.js";
+import { infra_AccountTag } from "../../schemas.js";
 import {
   infra_ApiTlsSettings_output,
   infra_ConnectivityServiceArray_output,
@@ -16,6 +20,7 @@ import {
   infra_IPv6Host_output,
   infra_Network_output,
   infra_ResolverNetwork_output,
+  infra_ServiceCommon_output,
   infra_ServiceConfig_output,
   infra_ServiceHost_output,
   infra_ServiceType_output,
@@ -30,6 +35,7 @@ import {
   infra_IPv6Host,
   infra_Network,
   infra_ResolverNetwork,
+  infra_ServiceCommon,
   infra_ServiceConfig,
   infra_ServiceHost,
   infra_ServiceType,
@@ -48,8 +54,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier",
-          "type": "string"
+          "$ref": "#/$defs/infra_AccountTag",
+          "description": "Account identifier"
         },
         "body": {
           "$ref": "#/$defs/infra_ServiceConfig"
@@ -60,6 +66,7 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "infra_AccountTag": infra_AccountTag,
         "infra_ApiTlsSettings": infra_ApiTlsSettings,
         "infra_DualStackHost": infra_DualStackHost,
         "infra_HostnameHost": infra_HostnameHost,
@@ -68,6 +75,7 @@ export const tools: readonly Tool[] = [
         "infra_IPv6Host": infra_IPv6Host,
         "infra_Network": infra_Network,
         "infra_ResolverNetwork": infra_ResolverNetwork,
+        "infra_ServiceCommon": infra_ServiceCommon,
         "infra_ServiceConfig": infra_ServiceConfig,
         "infra_ServiceHost": infra_ServiceHost,
         "infra_ServiceType": infra_ServiceType,
@@ -75,7 +83,19 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/infra_ServiceConfig",
+      "allOf": [
+        {
+          "$ref": "#/$defs/infra_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/infra_ServiceConfig"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "infra_ApiTlsSettings": infra_ApiTlsSettings_output,
         "infra_DualStackHost": infra_DualStackHost_output,
@@ -85,10 +105,13 @@ export const tools: readonly Tool[] = [
         "infra_IPv6Host": infra_IPv6Host_output,
         "infra_Network": infra_Network_output,
         "infra_ResolverNetwork": infra_ResolverNetwork_output,
+        "infra_ServiceCommon": infra_ServiceCommon_output,
         "infra_ServiceConfig": infra_ServiceConfig_output,
         "infra_ServiceHost": infra_ServiceHost_output,
         "infra_ServiceType": infra_ServiceType_output,
         "infra_TcpServiceConfig": infra_TcpServiceConfig_output,
+        "infra_api-response-single": infra_api_response_single_output,
+        "infra_messages": infra_messages_output,
       },
     },
     annotations: {
@@ -103,7 +126,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/infra_ServiceConfig"
+          "allOf": [
+            {
+              "$ref": "#/$defs/infra_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/infra_ServiceConfig"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/infra_api-response-common-failure"
@@ -118,11 +153,13 @@ export const tools: readonly Tool[] = [
         "infra_IPv6Host": infra_IPv6Host_output,
         "infra_Network": infra_Network_output,
         "infra_ResolverNetwork": infra_ResolverNetwork_output,
+        "infra_ServiceCommon": infra_ServiceCommon_output,
         "infra_ServiceConfig": infra_ServiceConfig_output,
         "infra_ServiceHost": infra_ServiceHost_output,
         "infra_ServiceType": infra_ServiceType_output,
         "infra_TcpServiceConfig": infra_TcpServiceConfig_output,
         "infra_api-response-common-failure": infra_api_response_common_failure_output,
+        "infra_api-response-single": infra_api_response_single_output,
         "infra_messages": infra_messages_output,
       },
     },
@@ -197,7 +234,19 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/infra_ServiceConfig",
+      "allOf": [
+        {
+          "$ref": "#/$defs/infra_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/infra_ServiceConfig"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "infra_ApiTlsSettings": infra_ApiTlsSettings_output,
         "infra_DualStackHost": infra_DualStackHost_output,
@@ -207,10 +256,13 @@ export const tools: readonly Tool[] = [
         "infra_IPv6Host": infra_IPv6Host_output,
         "infra_Network": infra_Network_output,
         "infra_ResolverNetwork": infra_ResolverNetwork_output,
+        "infra_ServiceCommon": infra_ServiceCommon_output,
         "infra_ServiceConfig": infra_ServiceConfig_output,
         "infra_ServiceHost": infra_ServiceHost_output,
         "infra_ServiceType": infra_ServiceType_output,
         "infra_TcpServiceConfig": infra_TcpServiceConfig_output,
+        "infra_api-response-single": infra_api_response_single_output,
+        "infra_messages": infra_messages_output,
       },
     },
     annotations: {
@@ -225,7 +277,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/infra_ServiceConfig"
+          "allOf": [
+            {
+              "$ref": "#/$defs/infra_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/infra_ServiceConfig"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/infra_api-response-common-failure"
@@ -240,11 +304,13 @@ export const tools: readonly Tool[] = [
         "infra_IPv6Host": infra_IPv6Host_output,
         "infra_Network": infra_Network_output,
         "infra_ResolverNetwork": infra_ResolverNetwork_output,
+        "infra_ServiceCommon": infra_ServiceCommon_output,
         "infra_ServiceConfig": infra_ServiceConfig_output,
         "infra_ServiceHost": infra_ServiceHost_output,
         "infra_ServiceType": infra_ServiceType_output,
         "infra_TcpServiceConfig": infra_TcpServiceConfig_output,
         "infra_api-response-common-failure": infra_api_response_common_failure_output,
+        "infra_api-response-single": infra_api_response_single_output,
         "infra_messages": infra_messages_output,
       },
     },
@@ -260,8 +326,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier",
-          "type": "string"
+          "$ref": "#/$defs/infra_AccountTag",
+          "description": "Account identifier"
         },
         "page": {
           "default": 1,
@@ -288,39 +354,24 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
       $defs: {
+        "infra_AccountTag": infra_AccountTag,
         "infra_ServiceType": infra_ServiceType,
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "$ref": "#/$defs/infra_ConnectivityServiceArray"
+      "allOf": [
+        {
+          "$ref": "#/$defs/infra_api-response-collection"
         },
-        "result_info": {
+        {
           "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
+            "result": {
+              "$ref": "#/$defs/infra_ConnectivityServiceArray"
             }
           },
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
         "infra_ApiTlsSettings": infra_ApiTlsSettings_output,
         "infra_ConnectivityServiceArray": infra_ConnectivityServiceArray_output,
@@ -331,10 +382,14 @@ export const tools: readonly Tool[] = [
         "infra_IPv6Host": infra_IPv6Host_output,
         "infra_Network": infra_Network_output,
         "infra_ResolverNetwork": infra_ResolverNetwork_output,
+        "infra_ServiceCommon": infra_ServiceCommon_output,
         "infra_ServiceConfig": infra_ServiceConfig_output,
         "infra_ServiceHost": infra_ServiceHost_output,
         "infra_ServiceType": infra_ServiceType_output,
         "infra_TcpServiceConfig": infra_TcpServiceConfig_output,
+        "infra_api-response-collection": infra_api_response_collection_output,
+        "infra_api-response-common": infra_api_response_common_output,
+        "infra_messages": infra_messages_output,
       },
     },
     annotations: {
@@ -349,35 +404,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "$ref": "#/$defs/infra_ConnectivityServiceArray"
+          "allOf": [
+            {
+              "$ref": "#/$defs/infra_api-response-collection"
             },
-            "result_info": {
+            {
               "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
+                "result": {
+                  "$ref": "#/$defs/infra_ConnectivityServiceArray"
                 }
               },
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/infra_api-response-common-failure"
@@ -393,10 +432,13 @@ export const tools: readonly Tool[] = [
         "infra_IPv6Host": infra_IPv6Host_output,
         "infra_Network": infra_Network_output,
         "infra_ResolverNetwork": infra_ResolverNetwork_output,
+        "infra_ServiceCommon": infra_ServiceCommon_output,
         "infra_ServiceConfig": infra_ServiceConfig_output,
         "infra_ServiceHost": infra_ServiceHost_output,
         "infra_ServiceType": infra_ServiceType_output,
         "infra_TcpServiceConfig": infra_TcpServiceConfig_output,
+        "infra_api-response-collection": infra_api_response_collection_output,
+        "infra_api-response-common": infra_api_response_common_output,
         "infra_api-response-common-failure": infra_api_response_common_failure_output,
         "infra_messages": infra_messages_output,
       },
@@ -442,6 +484,7 @@ export const tools: readonly Tool[] = [
         "infra_IPv6Host": infra_IPv6Host,
         "infra_Network": infra_Network,
         "infra_ResolverNetwork": infra_ResolverNetwork,
+        "infra_ServiceCommon": infra_ServiceCommon,
         "infra_ServiceConfig": infra_ServiceConfig,
         "infra_ServiceHost": infra_ServiceHost,
         "infra_ServiceType": infra_ServiceType,
@@ -449,7 +492,19 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/infra_ServiceConfig",
+      "allOf": [
+        {
+          "$ref": "#/$defs/infra_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/infra_ServiceConfig"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "infra_ApiTlsSettings": infra_ApiTlsSettings_output,
         "infra_DualStackHost": infra_DualStackHost_output,
@@ -459,10 +514,13 @@ export const tools: readonly Tool[] = [
         "infra_IPv6Host": infra_IPv6Host_output,
         "infra_Network": infra_Network_output,
         "infra_ResolverNetwork": infra_ResolverNetwork_output,
+        "infra_ServiceCommon": infra_ServiceCommon_output,
         "infra_ServiceConfig": infra_ServiceConfig_output,
         "infra_ServiceHost": infra_ServiceHost_output,
         "infra_ServiceType": infra_ServiceType_output,
         "infra_TcpServiceConfig": infra_TcpServiceConfig_output,
+        "infra_api-response-single": infra_api_response_single_output,
+        "infra_messages": infra_messages_output,
       },
     },
     annotations: {
@@ -477,7 +535,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/infra_ServiceConfig"
+          "allOf": [
+            {
+              "$ref": "#/$defs/infra_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/infra_ServiceConfig"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/infra_api-response-common-failure"
@@ -492,11 +562,13 @@ export const tools: readonly Tool[] = [
         "infra_IPv6Host": infra_IPv6Host_output,
         "infra_Network": infra_Network_output,
         "infra_ResolverNetwork": infra_ResolverNetwork_output,
+        "infra_ServiceCommon": infra_ServiceCommon_output,
         "infra_ServiceConfig": infra_ServiceConfig_output,
         "infra_ServiceHost": infra_ServiceHost_output,
         "infra_ServiceType": infra_ServiceType_output,
         "infra_TcpServiceConfig": infra_TcpServiceConfig_output,
         "infra_api-response-common-failure": infra_api_response_common_failure_output,
+        "infra_api-response-single": infra_api_response_single_output,
         "infra_messages": infra_messages_output,
       },
     },

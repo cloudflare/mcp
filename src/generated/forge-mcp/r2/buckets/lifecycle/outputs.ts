@@ -69,13 +69,38 @@ export const r2_lifecycle_date_condition_output: JsonSchema = {
 export const r2_lifecycle_rule_output: JsonSchema = {
   "properties": {
     "abortMultipartUploadsTransition": {
-      "$ref": "#/$defs/r2_lifecycle-rule_abortMultipartUploadsTransition"
+      "properties": {
+        "condition": {
+          "$ref": "#/$defs/r2_lifecycle-age-condition"
+        }
+      },
+      "type": "object"
     },
     "conditions": {
-      "$ref": "#/$defs/r2_lifecycle-rule_conditions"
+      "properties": {
+        "prefix": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "prefix"
+      ],
+      "type": "object"
     },
     "deleteObjectsTransition": {
-      "$ref": "#/$defs/r2_lifecycle-rule_deleteObjectsTransition"
+      "properties": {
+        "condition": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/r2_lifecycle-age-condition"
+            },
+            {
+              "$ref": "#/$defs/r2_lifecycle-date-condition"
+            }
+          ]
+        }
+      },
+      "type": "object"
     },
     "enabled": {
       "type": "boolean"
@@ -99,67 +124,19 @@ export const r2_lifecycle_rule_output: JsonSchema = {
 };
 
 /**
- * The schema of `r2_lifecycle-rule_abortMultipartUploadsTransition` in
- * responses.
- */
-export const r2_lifecycle_rule_abortMultipartUploadsTransition_output: JsonSchema = {
-  "properties": {
-    "condition": {
-      "$ref": "#/$defs/r2_lifecycle-age-condition"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `r2_lifecycle-rule_conditions` in responses.
- */
-export const r2_lifecycle_rule_conditions_output: JsonSchema = {
-  "properties": {
-    "prefix": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "prefix"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `r2_lifecycle-rule_deleteObjectsTransition` in responses.
- */
-export const r2_lifecycle_rule_deleteObjectsTransition_output: JsonSchema = {
-  "properties": {
-    "condition": {
-      "$ref": "#/$defs/r2_lifecycle-rule_deleteObjectsTransition_condition"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `r2_lifecycle-rule_deleteObjectsTransition_condition` in
- * responses.
- */
-export const r2_lifecycle_rule_deleteObjectsTransition_condition_output: JsonSchema = {
-  "oneOf": [
-    {
-      "$ref": "#/$defs/r2_lifecycle-age-condition"
-    },
-    {
-      "$ref": "#/$defs/r2_lifecycle-date-condition"
-    }
-  ]
-};
-
-/**
  * The schema of `r2_lifecycle-storage-transition` in responses.
  */
 export const r2_lifecycle_storage_transition_output: JsonSchema = {
   "properties": {
     "condition": {
-      "$ref": "#/$defs/r2_lifecycle-storage-transition_condition"
+      "oneOf": [
+        {
+          "$ref": "#/$defs/r2_lifecycle-age-condition"
+        },
+        {
+          "$ref": "#/$defs/r2_lifecycle-date-condition"
+        }
+      ]
     },
     "storageClass": {
       "enum": [
@@ -173,18 +150,4 @@ export const r2_lifecycle_storage_transition_output: JsonSchema = {
     "storageClass"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `r2_lifecycle-storage-transition_condition` in responses.
- */
-export const r2_lifecycle_storage_transition_condition_output: JsonSchema = {
-  "oneOf": [
-    {
-      "$ref": "#/$defs/r2_lifecycle-age-condition"
-    },
-    {
-      "$ref": "#/$defs/r2_lifecycle-date-condition"
-    }
-  ]
 };

@@ -34,6 +34,32 @@ export const logcontrol_api_response_common_failure_output: JsonSchema = {
 };
 
 /**
+ * The schema of `logcontrol_api-response-single` in responses.
+ */
+export const logcontrol_api_response_single_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/logcontrol_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/logcontrol_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `logcontrol_messages` in responses.
  */
 export const logcontrol_messages_output: JsonSchema = {
