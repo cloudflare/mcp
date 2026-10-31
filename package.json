@@ -44,6 +44,6 @@
     "vitest": "^4.1.12",
     "workers-oauth-provider-0-10-2": "npm:@cloudflare/workers-oauth-provider@^0.10.2",
     "workers-oauth-provider-1-1-0": "npm:@cloudflare/workers-oauth-provider@^1.1.0",
-    "wrangler": "^4.149.0"
+    "wrangler": "^4.154.0"
   }
 }
