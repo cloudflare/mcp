@@ -297,7 +297,9 @@ function encodeBody(value: unknown, mediaType: string): { body: string; contentT
         let type: string | undefined;
         let content: string;
         if (isFile(item)) {
-          if (item.filename !== undefined) disposition += `; filename=${quoted(item.filename)}`;
+          if (item.filename !== undefined) {
+            disposition += `; filename=${quoted(item.filename)}`;
+          }
           type = item.contentType;
           content = item.content;
         } else if (typeof item === 'object') {
