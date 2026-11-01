@@ -119,7 +119,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/registrar-sandbox/domain-check`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -135,7 +135,7 @@ export const tools: readonly Tool[] = [
         "headers": {
           "additionalProperties": false,
           "properties": {
-            "Prefer": {
+            "prefer": {
               "description": "Set to `respond-async` to receive an immediate `202 Accepted` without\nwaiting for the operation to complete (RFC 7240).\n\nThe header may be combined with other preferences using standard\ncomma-separated syntax.",
               "type": "string"
             }
@@ -214,9 +214,9 @@ export const tools: readonly Tool[] = [
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/registrar-sandbox/registrations`,
       headers: [
-        ["Prefer", param(args, "headers", "Prefer")],
+        ["prefer", param(args, "headers", "prefer")],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -658,7 +658,7 @@ export const tools: readonly Tool[] = [
         "headers": {
           "additionalProperties": false,
           "properties": {
-            "Prefer": {
+            "prefer": {
               "description": "Set to `respond-async` to receive an immediate `202 Accepted` without\nwaiting for the operation to complete (RFC 7240).",
               "enum": [
                 "respond-async"
@@ -741,9 +741,9 @@ export const tools: readonly Tool[] = [
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/registrar-sandbox/registrations/${pathParam(args, "domain_name")}`,
       headers: [
-        ["Prefer", param(args, "headers", "Prefer")],
+        ["prefer", param(args, "headers", "prefer")],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
 ];

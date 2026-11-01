@@ -170,8 +170,69 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "body": {
-          "$ref": "#/$defs/workers_PreviewDeploymentRequest",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/workers_PreviewDeploymentRequest",
+              "description": "As application/json."
+            },
+            {
+              "description": "As multipart/form-data.",
+              "properties": {
+                "files": {
+                  "description": "Code, sourcemaps, and other content used at runtime. Each\npart's filename is the module name. Sourcemaps use\n`application/source-map`.",
+                  "items": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "additionalProperties": false,
+                        "properties": {
+                          "content": {
+                            "type": "string"
+                          },
+                          "contentType": {
+                            "type": "string"
+                          },
+                          "filename": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "content"
+                        ],
+                        "type": "object"
+                      }
+                    ]
+                  },
+                  "type": "array"
+                },
+                "metadata": {
+                  "$ref": "#/$defs/workers_PreviewDeploymentConfig",
+                  "description": "Configuration shared by JSON and multipart preview deployment uploads."
+                }
+              },
+              "required": [
+                "metadata"
+              ],
+              "type": "object"
+            }
+          ],
           "description": "Preview deployment creation parameters."
+        },
+        "headers": {
+          "additionalProperties": false,
+          "properties": {
+            "content-type": {
+              "description": "The media type of `body`. Without it, a string is sent as the first text type, and an object as JSON if the API takes JSON, else as multipart/form-data.",
+              "enum": [
+                "application/json",
+                "multipart/form-data"
+              ],
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
         "path": {
           "additionalProperties": false,
@@ -504,7 +565,10 @@ export const tools: readonly Tool[] = [
       query: [
         ["ignore_defaults", param(args, "query", "ignore_defaults"), true],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      headers: [
+        ["content-type", param(args, "headers", "content-type")],
+      ],
+      body: { value: args["body"], mediaTypes: ["application/json", "multipart/form-data"] },
     }),
   },
   {
@@ -599,8 +663,31 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "body": {
-          "$ref": "#/$defs/workers_PreviewDeploymentRequest",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/workers_PreviewDeploymentRequest",
+              "description": "As application/json."
+            },
+            {
+              "$ref": "#/$defs/workers_PreviewDeploymentRequest",
+              "description": "As application/merge-patch+json."
+            }
+          ],
           "description": "JSON Merge Patch to apply to the latest preview deployment. An empty object creates a new deployment with no changes."
+        },
+        "headers": {
+          "additionalProperties": false,
+          "properties": {
+            "content-type": {
+              "description": "The media type of `body`. Without it, a string is sent as the first text type, and an object as JSON if the API takes JSON, else as multipart/form-data.",
+              "enum": [
+                "application/json",
+                "application/merge-patch+json"
+              ],
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
         "path": {
           "additionalProperties": false,
@@ -932,7 +1019,10 @@ export const tools: readonly Tool[] = [
       query: [
         ["ignore_defaults", param(args, "query", "ignore_defaults"), true],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      headers: [
+        ["content-type", param(args, "headers", "content-type")],
+      ],
+      body: { value: args["body"], mediaTypes: ["application/json", "application/merge-patch+json"] },
     }),
   },
   {

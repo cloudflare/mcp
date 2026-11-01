@@ -738,7 +738,7 @@ export const tools: readonly Tool[] = [
       query: [
         ["dry_run", param(args, "query", "dry_run"), true],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -2166,7 +2166,7 @@ export const tools: readonly Tool[] = [
       query: [
         ["dry_run", param(args, "query", "dry_run"), true],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
 ];

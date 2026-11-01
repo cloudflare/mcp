@@ -133,7 +133,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/devices/override_codes`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
 ];

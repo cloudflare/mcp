@@ -10,6 +10,7 @@ import {
   snippets_ResultInfo,
   snippets_Snippet,
 } from "./outputs.js";
+import { snippets_SnippetFiles } from "./schemas.js";
 
 /**
  * The tools of `snippets`.
@@ -519,6 +520,194 @@ export const tools: readonly Tool[] = [
         ["page", param(args, "query", "page"), true],
         ["per_page", param(args, "query", "per_page"), true],
       ],
+    }),
+  },
+  {
+    name: "snippets_update",
+    title: "Update a zone snippet",
+    description: "Creates or updates a snippet belonging to the zone.\n\nPUT /zones/{zone_id}/snippets/{snippet_name}",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "body": {
+          "additionalProperties": {
+            "$ref": "#/$defs/snippets_SnippetFiles"
+          },
+          "properties": {
+            "metadata": {
+              "description": "Provide metadata about the snippet.",
+              "properties": {
+                "main_module": {
+                  "description": "Specify the name of the file that contains the main module of the snippet.",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "main_module"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "metadata"
+          ],
+          "type": "object"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "snippet_name": {
+              "description": "Identify the snippet.",
+              "type": "string"
+            },
+            "zone_id": {
+              "description": "Use this field to specify the unique ID of the zone.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id",
+            "snippet_name"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path",
+        "body"
+      ],
+      additionalProperties: false,
+      $defs: {
+        "snippets_SnippetFiles": snippets_SnippetFiles,
+      },
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/snippets_Response"
+        },
+        {
+          "properties": {
+            "errors": {},
+            "result": {
+              "$ref": "#/$defs/snippets_Snippet"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "snippets_Errors": snippets_Errors,
+        "snippets_Message": snippets_Message,
+        "snippets_Messages": snippets_Messages,
+        "snippets_Response": snippets_Response,
+        "snippets_Snippet": snippets_Snippet,
+      },
+    },
+    annotations: {
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Update a zone snippet"
+    },
+    method: "PUT",
+    path: "/zones/{zone_id}/snippets/{snippet_name}",
+    extensions: {
+      "x-api-token-group": [
+        "Snippets Write"
+      ],
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/snippets_Response"
+            },
+            {
+              "properties": {
+                "errors": {},
+                "result": {
+                  "$ref": "#/$defs/snippets_Snippet"
+                },
+                "success": {
+                  "enum": [
+                    true
+                  ],
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/snippets_Response"
+            },
+            {
+              "properties": {
+                "result": {
+                  "type": "null"
+                },
+                "success": {
+                  "enum": [
+                    false
+                  ],
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "5XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/snippets_Response"
+            },
+            {
+              "properties": {
+                "result": {
+                  "type": "null"
+                },
+                "success": {
+                  "enum": [
+                    false
+                  ],
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "snippets_Errors": snippets_Errors,
+        "snippets_Message": snippets_Message,
+        "snippets_Messages": snippets_Messages,
+        "snippets_Response": snippets_Response,
+        "snippets_Snippet": snippets_Snippet,
+      },
+    },
+    request: (args) => ({
+      path: `/zones/${pathParam(args, "zone_id")}/snippets/${pathParam(args, "snippet_name")}`,
+      body: { value: args["body"], mediaTypes: ["multipart/form-data"] },
     }),
   },
 ];

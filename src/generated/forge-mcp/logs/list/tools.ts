@@ -17,16 +17,16 @@ export const tools: readonly Tool[] = [
         "headers": {
           "additionalProperties": false,
           "properties": {
-            "R2-Access-Key-Id": {
+            "r2-access-key-id": {
               "type": "string"
             },
-            "R2-Secret-Access-Key": {
+            "r2-secret-access-key": {
               "type": "string"
             }
           },
           "required": [
-            "R2-Access-Key-Id",
-            "R2-Secret-Access-Key"
+            "r2-access-key-id",
+            "r2-secret-access-key"
           ],
           "type": "object"
         },
@@ -251,8 +251,8 @@ export const tools: readonly Tool[] = [
         ["limit", param(args, "query", "limit"), true],
       ],
       headers: [
-        ["R2-Access-Key-Id", param(args, "headers", "R2-Access-Key-Id")],
-        ["R2-Secret-Access-Key", param(args, "headers", "R2-Secret-Access-Key")],
+        ["r2-access-key-id", param(args, "headers", "r2-access-key-id")],
+        ["r2-secret-access-key", param(args, "headers", "r2-secret-access-key")],
       ],
     }),
   },

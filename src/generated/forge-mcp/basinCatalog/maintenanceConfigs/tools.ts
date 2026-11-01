@@ -262,7 +262,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/basin-catalog/${pathParam(args, "bucket_name")}/maintenance-configs`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
 ];

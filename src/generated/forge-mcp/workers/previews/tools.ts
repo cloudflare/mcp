@@ -285,7 +285,7 @@ export const tools: readonly Tool[] = [
         ["ignore_defaults", param(args, "query", "ignore_defaults"), true],
         ["ignore_base_config", param(args, "query", "ignore_base_config"), true],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -296,8 +296,31 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "body": {
-          "$ref": "#/$defs/workers_Preview",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/workers_Preview",
+              "description": "As application/json."
+            },
+            {
+              "$ref": "#/$defs/workers_Preview",
+              "description": "As application/merge-patch+json."
+            }
+          ],
           "description": "Preview partial update parameters."
+        },
+        "headers": {
+          "additionalProperties": false,
+          "properties": {
+            "content-type": {
+              "description": "The media type of `body`. Without it, a string is sent as the first text type, and an object as JSON if the API takes JSON, else as multipart/form-data.",
+              "enum": [
+                "application/json",
+                "application/merge-patch+json"
+              ],
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
         "path": {
           "additionalProperties": false,
@@ -402,7 +425,10 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/workers/${pathParam(args, "worker_id")}/previews/${pathParam(args, "preview_id")}`,
-      body: { value: args["body"], mediaType: "application/json" },
+      headers: [
+        ["content-type", param(args, "headers", "content-type")],
+      ],
+      body: { value: args["body"], mediaTypes: ["application/json", "application/merge-patch+json"] },
     }),
   },
   {
@@ -965,7 +991,7 @@ export const tools: readonly Tool[] = [
         ["ignore_defaults", param(args, "query", "ignore_defaults"), true],
         ["ignore_base_config", param(args, "query", "ignore_base_config"), true],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
 ];

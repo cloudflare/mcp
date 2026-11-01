@@ -110,7 +110,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/custom_pages`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -443,7 +443,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/custom_pages/${pathParam(args, "custom_page_id")}`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -522,7 +522,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/custom_pages/validate`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
 ];

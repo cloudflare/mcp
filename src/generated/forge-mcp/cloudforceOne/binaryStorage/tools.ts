@@ -8,6 +8,168 @@ import { type Tool, pathParam } from "../../_/tool.js";
  */
 export const tools: readonly Tool[] = [
   {
+    name: "cloudforceOne_binaryStorage_create",
+    title: "Posts a file to Binary Storage",
+    description: "Uploads a binary file to Cloudforce One's binary database for malware analysis and threat intelligence correlation.\n\nPOST /accounts/{account_id}/cloudforce-one/binary",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "body": {
+          "description": "Binary file to be uploaded to the database.",
+          "properties": {
+            "file": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "content": {
+                      "type": "string"
+                    },
+                    "contentType": {
+                      "type": "string"
+                    },
+                    "filename": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "content"
+                  ],
+                  "type": "object"
+                }
+              ],
+              "description": "The binary file content to upload."
+            }
+          },
+          "required": [
+            "file"
+          ],
+          "type": "object"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path",
+        "body"
+      ],
+      additionalProperties: false,
+    },
+    outputSchema: {
+      "properties": {
+        "content_type": {
+          "type": "string"
+        },
+        "md5": {
+          "type": "string"
+        },
+        "sha1": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "content_type",
+        "md5",
+        "sha1",
+        "sha256"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Posts a file to Binary Storage"
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/cloudforce-one/binary",
+    extensions: {
+      "x-api-token-group": [
+        "Cloudforce One Write",
+        "Cloudforce One Read"
+      ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "content_type": {
+              "type": "string"
+            },
+            "md5": {
+              "type": "string"
+            },
+            "sha1": {
+              "type": "string"
+            },
+            "sha256": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "content_type",
+            "md5",
+            "sha1",
+            "sha256"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        }
+      },
+    },
+    request: (args) => ({
+      path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/binary`,
+      body: { value: args["body"], mediaTypes: ["multipart/form-data"] },
+    }),
+  },
+  {
     name: "cloudforceOne_binaryStorage_get",
     title: "Retrieves a file from Binary Storage",
     description: "Retrieves a binary file from the Cloudforce One binary storage for analysis.\n\nGET /accounts/{account_id}/cloudforce-one/binary/{hash}",

@@ -10,6 +10,7 @@ import {
 import {
   dlp_DocumentFingerprint,
   dlp_DocumentFingerprintArray,
+  dlp_DocumentFingerprintUpload,
 } from "./outputs.js";
 import {
   dlp_NewDocumentFingerprint,
@@ -117,7 +118,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dlp/document_fingerprints`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -473,7 +474,139 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dlp/document_fingerprints/${pathParam(args, "document_fingerprint_id")}`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
+    }),
+  },
+  {
+    name: "zeroTrust_dlp_documentFingerprints_upload",
+    title: "Uploads a new version for a document fingerprint.",
+    description: "Uploads a new document to create or update a fingerprint. The document structure is analyzed to enable detection of similar documents.\n\nPUT /accounts/{account_id}/dlp/document_fingerprints/{document_fingerprint_id}",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "body": {
+          "description": "File used for document fingerprinting.",
+          "properties": {
+            "file": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "content": {
+                      "type": "string"
+                    },
+                    "contentType": {
+                      "type": "string"
+                    },
+                    "filename": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "content"
+                  ],
+                  "type": "object"
+                }
+              ]
+            }
+          },
+          "required": [
+            "file"
+          ],
+          "type": "object"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "document_fingerprint_id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "document_fingerprint_id"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path",
+        "body"
+      ],
+      additionalProperties: false,
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/dlp_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/dlp_DocumentFingerprintUpload"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "dlp_DocumentFingerprintUpload": dlp_DocumentFingerprintUpload,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
+      },
+    },
+    annotations: {
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Uploads a new version for a document fingerprint."
+    },
+    method: "PUT",
+    path: "/accounts/{account_id}/dlp/document_fingerprints/{document_fingerprint_id}",
+    extensions: {
+      "x-api-token-group": [
+        "Zero Trust Write"
+      ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/dlp_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/dlp_DocumentFingerprintUpload"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/dlp_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dlp_DocumentFingerprintUpload": dlp_DocumentFingerprintUpload,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
+      },
+    },
+    request: (args) => ({
+      path: `/accounts/${pathParam(args, "account_id")}/dlp/document_fingerprints/${pathParam(args, "document_fingerprint_id")}`,
+      body: { value: args["body"], mediaTypes: ["multipart/form-data"] },
     }),
   },
 ];

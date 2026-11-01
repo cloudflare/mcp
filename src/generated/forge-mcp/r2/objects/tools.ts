@@ -14,6 +14,7 @@ import {
   r2_r2_list_objects_result_info,
   r2_r2_object,
   r2_r2_object_http_metadata,
+  r2_r2_put_object_result,
 } from "./outputs.js";
 
 /**
@@ -261,7 +262,7 @@ export const tools: readonly Tool[] = [
         ["cf-r2-jurisdiction", param(args, "headers", "cf-r2-jurisdiction")],
         ["cf-r2-data-catalog-check", param(args, "headers", "cf-r2-data-catalog-check")],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -399,14 +400,6 @@ export const tools: readonly Tool[] = [
         "headers": {
           "additionalProperties": false,
           "properties": {
-            "If-Modified-Since": {
-              "description": "Returns the object only if it has been modified since the specified time.\nMust be formatted as an HTTP-date (RFC 7231), e.g. `Tue, 15 Jan 2024 10:30:00 GMT`.",
-              "type": "string"
-            },
-            "If-None-Match": {
-              "description": "Returns the object only if its ETag does not match the given value.",
-              "type": "string"
-            },
             "cf-r2-jurisdiction": {
               "default": "default",
               "description": "Jurisdiction where objects in this bucket are guaranteed to be stored.",
@@ -417,6 +410,14 @@ export const tools: readonly Tool[] = [
                 "fedramp",
                 "fedramp-high"
               ],
+              "type": "string"
+            },
+            "if-modified-since": {
+              "description": "Returns the object only if it has been modified since the specified time.\nMust be formatted as an HTTP-date (RFC 7231), e.g. `Tue, 15 Jan 2024 10:30:00 GMT`.",
+              "type": "string"
+            },
+            "if-none-match": {
+              "description": "Returns the object only if its ETag does not match the given value.",
               "type": "string"
             }
           },
@@ -485,8 +486,8 @@ export const tools: readonly Tool[] = [
       path: `/accounts/${pathParam(args, "account_id")}/r2/buckets/${pathParam(args, "bucket_name")}/objects/${pathParam(args, "object_key")}`,
       headers: [
         ["cf-r2-jurisdiction", param(args, "headers", "cf-r2-jurisdiction")],
-        ["If-None-Match", param(args, "headers", "If-None-Match")],
-        ["If-Modified-Since", param(args, "headers", "If-Modified-Since")],
+        ["if-none-match", param(args, "headers", "if-none-match")],
+        ["if-modified-since", param(args, "headers", "if-modified-since")],
       ],
     }),
   },
@@ -680,6 +681,180 @@ export const tools: readonly Tool[] = [
       headers: [
         ["cf-r2-jurisdiction", param(args, "headers", "cf-r2-jurisdiction")],
       ],
+    }),
+  },
+  {
+    name: "r2_objects_put",
+    title: "Upload Object",
+    description: "Uploads an object to an R2 bucket. The object body is provided as the request body. Returns metadata about the uploaded object.\n\nThe maximum upload size for this endpoint is 300 MB. For most workloads, we recommend using R2's [S3-compatible API](https://developers.cloudflare.com/r2/api/s3/api/) or a [Worker with an R2 binding](https://developers.cloudflare.com/r2/api/workers/workers-api-reference/) instead.\n\nPUT /accounts/{account_id}/r2/buckets/{bucket_name}/objects/{object_key}",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "body": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "content": {
+                  "type": "string"
+                },
+                "contentType": {
+                  "type": "string"
+                },
+                "filename": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "content"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "headers": {
+          "additionalProperties": false,
+          "properties": {
+            "cf-r2-jurisdiction": {
+              "default": "default",
+              "description": "Jurisdiction where objects in this bucket are guaranteed to be stored.",
+              "enum": [
+                "default",
+                "eu",
+                "us",
+                "fedramp",
+                "fedramp-high"
+              ],
+              "type": "string"
+            },
+            "cf-r2-storage-class": {
+              "default": "Standard",
+              "description": "Storage class for this object. Overrides the bucket default.",
+              "enum": [
+                "Standard",
+                "InfrequentAccess"
+              ],
+              "type": "string"
+            },
+            "content-length": {
+              "description": "The size of the object body in bytes.",
+              "type": "integer"
+            },
+            "content-type": {
+              "description": "The MIME type of the object being uploaded.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID that owns the R2 resource.",
+              "type": "string"
+            },
+            "bucket_name": {
+              "description": "Name of the bucket.",
+              "type": "string"
+            },
+            "object_key": {
+              "description": "The key (name) to assign to the object. May contain slashes for path-like keys.\nSlashes (`/`) within the key MUST be sent literally and MUST NOT be percent-encoded\n(i.e. `%2F`); other reserved characters should be percent-encoded as usual.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "bucket_name",
+            "object_key"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path",
+        "body"
+      ],
+      additionalProperties: false,
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/r2_v4_response"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/r2_r2_put_object_result"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "r2_errors": r2_errors,
+        "r2_messages": r2_messages,
+        "r2_r2_put_object_result": r2_r2_put_object_result,
+        "r2_v4_response": r2_v4_response,
+      },
+    },
+    annotations: {
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Upload Object"
+    },
+    method: "PUT",
+    path: "/accounts/{account_id}/r2/buckets/{bucket_name}/objects/{object_key}",
+    extensions: {
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.edge.r2.bucket.write"
+        ]
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/r2_v4_response"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/r2_r2_put_object_result"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/r2_v4_response_failure"
+        }
+      },
+      $defs: {
+        "r2_errors": r2_errors,
+        "r2_messages": r2_messages,
+        "r2_r2_put_object_result": r2_r2_put_object_result,
+        "r2_v4_response": r2_v4_response,
+        "r2_v4_response_failure": r2_v4_response_failure,
+      },
+    },
+    request: (args) => ({
+      path: `/accounts/${pathParam(args, "account_id")}/r2/buckets/${pathParam(args, "bucket_name")}/objects/${pathParam(args, "object_key")}`,
+      headers: [
+        ["cf-r2-jurisdiction", param(args, "headers", "cf-r2-jurisdiction")],
+        ["content-type", param(args, "headers", "content-type")],
+        ["content-length", param(args, "headers", "content-length")],
+        ["cf-r2-storage-class", param(args, "headers", "cf-r2-storage-class")],
+      ],
+      body: { value: args["body"], mediaTypes: ["application/octet-stream"] },
     }),
   },
 ];

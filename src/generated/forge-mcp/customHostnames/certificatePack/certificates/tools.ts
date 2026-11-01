@@ -251,7 +251,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/custom_hostnames/${pathParam(args, "custom_hostname_id")}/certificate_pack/${pathParam(args, "certificate_pack_id")}/certificates/${pathParam(args, "certificate_id")}`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
 ];

@@ -141,7 +141,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/email/routing/rules`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -551,7 +551,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/email/routing/rules/plan`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -655,7 +655,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/email/routing/rules/${pathParam(args, "rule_identifier")}`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
 ];

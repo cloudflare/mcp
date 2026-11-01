@@ -2911,7 +2911,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai-search/namespaces/${pathParam(args, "namespace")}/instances/${pathParam(args, "id")}/items/${pathParam(args, "item_id")}`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -2921,6 +2921,49 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
+        "body": {
+          "properties": {
+            "file": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "content": {
+                      "type": "string"
+                    },
+                    "contentType": {
+                      "type": "string"
+                    },
+                    "filename": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "content"
+                  ],
+                  "type": "object"
+                }
+              ],
+              "description": "The file to upload. Filename must not exceed 128 characters."
+            },
+            "metadata": {
+              "description": "JSON string of custom metadata key-value pairs.",
+              "type": "string"
+            },
+            "wait_for_completion": {
+              "default": false,
+              "description": "Wait for indexing before responding. After processing, vector-indexed instances use any time remaining in a 25s wait budget to confirm Vectorize ingestion. Processing itself continues uninterrupted and can exceed that budget. If confirmation times out, the response returns the current item state and background indexing continues. Defaults to false.",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "file"
+          ],
+          "type": "object"
+        },
         "path": {
           "additionalProperties": false,
           "properties": {
@@ -3740,6 +3783,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai-search/namespaces/${pathParam(args, "namespace")}/instances/${pathParam(args, "id")}/items`,
+      body: { value: args["body"], mediaTypes: ["multipart/form-data"] },
     }),
   },
   {
@@ -4315,7 +4359,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai-search/namespaces/${pathParam(args, "namespace")}/instances/${pathParam(args, "id")}/items`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
 ];

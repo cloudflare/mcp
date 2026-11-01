@@ -31,7 +31,7 @@ export const tools: readonly Tool[] = [
         "headers": {
           "additionalProperties": false,
           "properties": {
-            "Cloudflare-Version": {
+            "cloudflare-version": {
               "default": "1.0",
               "description": "Selects the split Precursor API schema.",
               "enum": [
@@ -41,7 +41,7 @@ export const tools: readonly Tool[] = [
             }
           },
           "required": [
-            "Cloudflare-Version"
+            "cloudflare-version"
           ],
           "type": "object"
         },
@@ -128,7 +128,7 @@ export const tools: readonly Tool[] = [
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/precursor`,
       headers: [
-        ["Cloudflare-Version", param(args, "headers", "Cloudflare-Version")],
+        ["cloudflare-version", param(args, "headers", "cloudflare-version")],
       ],
     }),
   },
@@ -145,7 +145,7 @@ export const tools: readonly Tool[] = [
         "headers": {
           "additionalProperties": false,
           "properties": {
-            "Cloudflare-Version": {
+            "cloudflare-version": {
               "default": "1.0",
               "description": "Selects the split Precursor API schema.",
               "enum": [
@@ -155,7 +155,7 @@ export const tools: readonly Tool[] = [
             }
           },
           "required": [
-            "Cloudflare-Version"
+            "cloudflare-version"
           ],
           "type": "object"
         },
@@ -247,9 +247,9 @@ export const tools: readonly Tool[] = [
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/precursor`,
       headers: [
-        ["Cloudflare-Version", param(args, "headers", "Cloudflare-Version")],
+        ["cloudflare-version", param(args, "headers", "cloudflare-version")],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
 ];

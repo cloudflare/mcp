@@ -239,7 +239,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/meetings/${pathParam(args, "meeting_id")}/active-session/kick`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -479,7 +479,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/meetings/${pathParam(args, "meeting_id")}/active-session/mute`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -596,7 +596,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/meetings/${pathParam(args, "meeting_id")}/active-session/mute-all`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
 ];

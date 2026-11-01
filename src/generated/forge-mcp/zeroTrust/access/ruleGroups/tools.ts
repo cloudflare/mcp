@@ -290,7 +290,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/access/groups`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -903,7 +903,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/access/groups/${pathParam(args, "group_id")}`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
 ];

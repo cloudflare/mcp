@@ -4,6 +4,94 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
+ * The schema of `images_image_basic_upload`.
+ */
+export const images_image_basic_upload: JsonSchema = {
+  "properties": {
+    "creator": {
+      "description": "Can set the creator field with an internal user ID.",
+      "type": "string"
+    },
+    "file": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "content": {
+              "type": "string"
+            },
+            "contentType": {
+              "type": "string"
+            },
+            "filename": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "content"
+          ],
+          "type": "object"
+        }
+      ],
+      "description": "An image binary data. Only needed when type is uploading a file."
+    },
+    "id": {
+      "description": "An optional custom unique identifier for your image.",
+      "type": "string"
+    },
+    "metadata": {
+      "description": "User modifiable key-value store. Can use used for keeping references to another system of record for managing images.",
+      "type": "object"
+    },
+    "requireSignedURLs": {
+      "default": false,
+      "description": "Indicates whether the image requires a signature token for the access.",
+      "type": "boolean"
+    },
+    "url": {
+      "description": "A URL to fetch an image from origin. Only needed when type is uploading from a URL.",
+      "type": "string"
+    }
+  },
+  "type": "object"
+};
+
+/**
+ * The schema of `images_image_direct_upload_request_v2`.
+ */
+export const images_image_direct_upload_request_v2: JsonSchema = {
+  "properties": {
+    "creator": {
+      "description": "Can set the creator field with an internal user ID.",
+      "type": "string"
+    },
+    "expiry": {
+      "default": "Now + 30 minutes",
+      "description": "The date after which the upload will not be accepted. Minimum: Now + 2 minutes. Maximum: Now + 6 hours.",
+      "format": "date-time",
+      "type": "string"
+    },
+    "id": {
+      "description": "Optional Image Custom ID. Up to 1024 chars. Can include any number of subpaths, and utf8 characters. Cannot start nor end with a / (forward slash). Cannot be a UUID.",
+      "type": "string"
+    },
+    "metadata": {
+      "description": "User modifiable key-value store. Can be used for keeping references to another system of record, for managing images.",
+      "type": "object"
+    },
+    "requireSignedURLs": {
+      "default": false,
+      "description": "Indicates whether the image requires a signature token to be accessed.",
+      "type": "boolean"
+    }
+  },
+  "type": "object"
+};
+
+/**
  * The schema of `images_image_patch_request`.
  */
 export const images_image_patch_request: JsonSchema = {

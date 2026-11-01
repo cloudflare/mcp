@@ -29,7 +29,30 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "body": {
-          "$ref": "#/$defs/one_IntegrationV2CreateRequest"
+          "anyOf": [
+            {
+              "$ref": "#/$defs/one_IntegrationV2CreateRequest",
+              "description": "As application/json."
+            },
+            {
+              "$ref": "#/$defs/one_IntegrationV2CreateRequest",
+              "description": "As text/plain;charset=UTF-8."
+            }
+          ]
+        },
+        "headers": {
+          "additionalProperties": false,
+          "properties": {
+            "content-type": {
+              "description": "The media type of `body`. Without it, a string is sent as the first text type, and an object as JSON if the API takes JSON, else as multipart/form-data.",
+              "enum": [
+                "application/json",
+                "text/plain;charset=UTF-8"
+              ],
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
         "path": {
           "additionalProperties": false,
@@ -87,7 +110,10 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/one/integrations`,
-      body: { value: args["body"], mediaType: "application/json" },
+      headers: [
+        ["content-type", param(args, "headers", "content-type")],
+      ],
+      body: { value: args["body"], mediaTypes: ["application/json", "text/plain;charset=UTF-8"] },
     }),
   },
   {
@@ -479,7 +505,30 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "body": {
-          "$ref": "#/$defs/one_PatchedUpdateIntegrationV2Request"
+          "anyOf": [
+            {
+              "$ref": "#/$defs/one_PatchedUpdateIntegrationV2Request",
+              "description": "As application/json."
+            },
+            {
+              "$ref": "#/$defs/one_PatchedUpdateIntegrationV2Request",
+              "description": "As text/plain;charset=UTF-8."
+            }
+          ]
+        },
+        "headers": {
+          "additionalProperties": false,
+          "properties": {
+            "content-type": {
+              "description": "The media type of `body`. Without it, a string is sent as the first text type, and an object as JSON if the API takes JSON, else as multipart/form-data.",
+              "enum": [
+                "application/json",
+                "text/plain;charset=UTF-8"
+              ],
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
         "path": {
           "additionalProperties": false,
@@ -541,7 +590,10 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/one/integrations/${pathParam(args, "id")}`,
-      body: { value: args["body"], mediaType: "application/json" },
+      headers: [
+        ["content-type", param(args, "headers", "content-type")],
+      ],
+      body: { value: args["body"], mediaTypes: ["application/json", "text/plain;charset=UTF-8"] },
     }),
   },
 ];

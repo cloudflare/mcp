@@ -709,6 +709,71 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
+        "body": {
+          "properties": {
+            "description": {
+              "description": "Optional description of the asset",
+              "type": "string"
+            },
+            "file": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "content": {
+                      "type": "string"
+                    },
+                    "contentType": {
+                      "type": "string"
+                    },
+                    "filename": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "content"
+                  ],
+                  "type": "object"
+                }
+              ],
+              "description": "The file to upload (can also use 'source')"
+            },
+            "metadata": {
+              "description": "Optional JSON string of key-value pairs (e.g., '{\"key1\":\"value1\"}')",
+              "type": "string"
+            },
+            "source": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "content": {
+                      "type": "string"
+                    },
+                    "contentType": {
+                      "type": "string"
+                    },
+                    "filename": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "content"
+                  ],
+                  "type": "object"
+                }
+              ],
+              "description": "The file to upload (can also use 'file')"
+            }
+          },
+          "type": "object"
+        },
         "path": {
           "additionalProperties": false,
           "properties": {
@@ -1169,6 +1234,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/requests/${pathParam(args, "project_type")}/${pathParam(args, "request_id")}/assets/upload`,
+      body: { value: args["body"], mediaTypes: ["multipart/form-data"] },
     }),
   },
 ];

@@ -229,7 +229,7 @@ export const tools: readonly Tool[] = [
       query: [
         ["normalize", param(args, "query", "normalize"), true],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
 ];

@@ -4,6 +4,117 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
+ * The schema of `lex_ErrorResponse` in responses.
+ */
+export const lex_ErrorResponse: JsonSchema = {
+  "properties": {
+    "errors": {
+      "items": {
+        "$ref": "#/$defs/lex_V4Error"
+      },
+      "type": "array"
+    },
+    "messages": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "result": {
+      "oneOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "success": {
+      "enum": [
+        false
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `lex_QueryResponse` in responses.
+ */
+export const lex_QueryResponse: JsonSchema = {
+  "properties": {
+    "errors": {
+      "items": {
+        "$ref": "#/$defs/lex_V4Error"
+      },
+      "type": "array"
+    },
+    "messages": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "result": {
+      "oneOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/lex_QueryRow"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `lex_QueryRow` in responses.
+ */
+export const lex_QueryRow: JsonSchema = {
+  "type": "object"
+};
+
+/**
+ * The schema of `lex_V4Error` in responses.
+ */
+export const lex_V4Error: JsonSchema = {
+  "properties": {
+    "code": {
+      "type": "integer"
+    },
+    "message": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "code",
+    "message"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `logshare_api-response-common-failure` in responses.
  */
 export const logshare_api$$response$$common$$failure: JsonSchema = {

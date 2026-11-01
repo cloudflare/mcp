@@ -279,7 +279,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/basin-catalog/${pathParam(args, "bucket_name")}/namespaces/${pathParam(args, "namespace")}/tables/${pathParam(args, "table_name")}/maintenance-configs/${pathParam(args, "configuration_type")}/queue`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -414,7 +414,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/basin-catalog/${pathParam(args, "bucket_name")}/namespaces/${pathParam(args, "namespace")}/tables/${pathParam(args, "table_name")}/maintenance-configs`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
 ];

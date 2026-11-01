@@ -761,7 +761,7 @@ export const tools: readonly Tool[] = [
         ["cacheTTL", param(args, "query", "cacheTTL"), true],
         ["browser", param(args, "query", "browser"), true],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -1487,7 +1487,7 @@ export const tools: readonly Tool[] = [
         ["cacheTTL", param(args, "query", "cacheTTL"), true],
         ["browser", param(args, "query", "browser"), true],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -2283,7 +2283,7 @@ export const tools: readonly Tool[] = [
         ["cacheTTL", param(args, "query", "cacheTTL"), true],
         ["browser", param(args, "query", "browser"), true],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -3025,7 +3025,7 @@ export const tools: readonly Tool[] = [
         ["cacheTTL", param(args, "query", "cacheTTL"), true],
         ["browser", param(args, "query", "browser"), true],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -3751,7 +3751,7 @@ export const tools: readonly Tool[] = [
         ["cacheTTL", param(args, "query", "cacheTTL"), true],
         ["browser", param(args, "query", "browser"), true],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -4472,7 +4472,7 @@ export const tools: readonly Tool[] = [
         ["cacheTTL", param(args, "query", "cacheTTL"), true],
         ["browser", param(args, "query", "browser"), true],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -5342,7 +5342,7 @@ export const tools: readonly Tool[] = [
         ["cacheTTL", param(args, "query", "cacheTTL"), true],
         ["browser", param(args, "query", "browser"), true],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -6044,7 +6044,7 @@ export const tools: readonly Tool[] = [
         ["cacheTTL", param(args, "query", "cacheTTL"), true],
         ["browser", param(args, "query", "browser"), true],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -6879,7 +6879,7 @@ export const tools: readonly Tool[] = [
         ["cacheTTL", param(args, "query", "cacheTTL"), true],
         ["browser", param(args, "query", "browser"), true],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
 ];

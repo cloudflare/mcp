@@ -147,7 +147,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/user/firewall/access_rules/rules`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -335,7 +335,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/user/firewall/access_rules/rules/${pathParam(args, "rule_id")}`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {

@@ -87,3 +87,66 @@ export const dlp_DocumentFingerprintArray: JsonSchema = {
   },
   "type": "array"
 };
+
+/**
+ * The schema of `dlp_DocumentFingerprintUpload` in responses.
+ */
+export const dlp_DocumentFingerprintUpload: JsonSchema = {
+  "properties": {
+    "created_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "entry_id": {
+      "format": "uuid",
+      "type": "string"
+    },
+    "file_name": {
+      "type": "string"
+    },
+    "id": {
+      "format": "uuid",
+      "type": "string"
+    },
+    "match_percent": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "empty",
+        "uploading",
+        "pending",
+        "processing",
+        "failed",
+        "complete"
+      ],
+      "type": "string"
+    },
+    "updated_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "version": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "created_at",
+    "description",
+    "entry_id",
+    "file_name",
+    "id",
+    "match_percent",
+    "name",
+    "status",
+    "updated_at",
+    "version"
+  ],
+  "type": "object"
+};

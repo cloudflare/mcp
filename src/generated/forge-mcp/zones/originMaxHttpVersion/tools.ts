@@ -136,7 +136,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/settings/origin_max_http_version`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {

@@ -162,6 +162,28 @@ export const workers_version$$item$$short: JsonSchema = {
 };
 
 /**
+ * The schema of `workers_version-item-uploaded` in responses.
+ */
+export const workers_version$$item$$uploaded: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/workers_version-item-full"
+    },
+    {
+      "properties": {
+        "exports_reconciliation": {
+          "$ref": "#/$defs/workers_exports_reconciliation_result"
+        },
+        "startup_time_ms": {
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `workers_versions-list-response` in responses.
  */
 export const workers_versions$$list$$response: JsonSchema = {
@@ -203,6 +225,28 @@ export const workers_versions$$single$$response: JsonSchema = {
       "properties": {
         "result": {
           "$ref": "#/$defs/workers_version-item-full"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `workers_versions-upload-response` in responses.
+ */
+export const workers_versions$$upload$$response: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/workers_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/workers_version-item-uploaded"
         }
       },
       "required": [

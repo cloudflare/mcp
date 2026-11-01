@@ -1135,6 +1135,33 @@ export const dns$$records_dns_response_collection: JsonSchema = {
 };
 
 /**
+ * The schema of `dns-records_dns_response_import_scan` in responses.
+ */
+export const dns$$records_dns_response_import_scan: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "recs_added": {
+              "type": "number"
+            },
+            "total_records_parsed": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `dns-records_dns_response_review_scan` in responses.
  */
 export const dns$$records_dns_response_review_scan: JsonSchema = {

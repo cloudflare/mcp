@@ -10,6 +10,7 @@ import {
 } from "../../../outputs.js";
 import { stream_captions } from "../outputs.js";
 import { stream_language_response_single } from "./outputs.js";
+import { stream_caption_basic_upload } from "./schemas.js";
 
 /**
  * The tools of `stream.videos.captions.language`.
@@ -269,6 +270,94 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/stream/${pathParam(args, "identifier")}/captions/${pathParam(args, "language")}`,
+    }),
+  },
+  {
+    name: "stream_videos_captions_language_upload",
+    title: "Upload captions or subtitles",
+    description: "Uploads the caption or subtitle file to the endpoint for a specific BCP47 language. One caption or subtitle file per language is allowed.\n\nPUT /accounts/{account_id}/stream/{identifier}/captions/{language}",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "body": {
+          "$ref": "#/$defs/stream_caption_basic_upload"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            },
+            "identifier": {
+              "description": "A Cloudflare-generated unique identifier for a media item.",
+              "type": "string"
+            },
+            "language": {
+              "description": "The language tag in BCP 47 format.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "identifier",
+            "language"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path",
+        "body"
+      ],
+      additionalProperties: false,
+      $defs: {
+        "stream_caption_basic_upload": stream_caption_basic_upload,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/stream_language_response_single",
+      $defs: {
+        "stream_api-response-single": stream_api$$response$$single,
+        "stream_captions": stream_captions,
+        "stream_language_response_single": stream_language_response_single,
+        "stream_messages": stream_messages,
+      },
+    },
+    annotations: {
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Upload captions or subtitles"
+    },
+    method: "PUT",
+    path: "/accounts/{account_id}/stream/{identifier}/captions/{language}",
+    extensions: {
+      "x-api-token-group": [
+        "Stream Write"
+      ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/stream_language_response_single"
+        },
+        "4XX": {
+          "$ref": "#/$defs/stream_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "stream_api-response-common-failure": stream_api$$response$$common$$failure,
+        "stream_api-response-single": stream_api$$response$$single,
+        "stream_captions": stream_captions,
+        "stream_language_response_single": stream_language_response_single,
+        "stream_messages": stream_messages,
+      },
+    },
+    request: (args) => ({
+      path: `/accounts/${pathParam(args, "account_id")}/stream/${pathParam(args, "identifier")}/captions/${pathParam(args, "language")}`,
+      body: { value: args["body"], mediaTypes: ["multipart/form-data"] },
     }),
   },
 ];

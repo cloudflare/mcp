@@ -365,7 +365,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workflows/${pathParam(args, "workflow_name")}/instances/${pathParam(args, "instance_id")}/events/${pathParam(args, "event_type")}`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
 ];

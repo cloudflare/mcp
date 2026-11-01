@@ -302,7 +302,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/pay-per-use/operators/${pathParam(args, "operator_id")}/price`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
 ];

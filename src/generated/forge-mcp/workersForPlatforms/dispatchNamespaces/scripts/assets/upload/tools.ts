@@ -101,7 +101,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/dispatch/namespaces/${pathParam(args, "dispatch_namespace")}/scripts/${pathParam(args, "script_name")}/assets-upload-session`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
 ];

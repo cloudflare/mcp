@@ -107,3 +107,35 @@ export const r2_r2_object_http_metadata: JsonSchema = {
   },
   "type": "object"
 };
+
+/**
+ * The schema of `r2_r2_put_object_result` in responses.
+ */
+export const r2_r2_put_object_result: JsonSchema = {
+  "properties": {
+    "etag": {
+      "type": "string"
+    },
+    "key": {
+      "type": "string"
+    },
+    "size": {
+      "type": "string"
+    },
+    "storage_class": {
+      "enum": [
+        "Standard",
+        "InfrequentAccess"
+      ],
+      "type": "string"
+    },
+    "uploaded": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    }
+  },
+  "type": "object"
+};

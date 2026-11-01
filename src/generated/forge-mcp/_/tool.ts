@@ -74,7 +74,8 @@ export interface ApiRequest {
   readonly path: string;
   readonly query?: readonly QueryParam[];
   readonly headers?: readonly HeaderParam[];
-  readonly body?: { readonly value: unknown; readonly mediaType: string };
+  /** The body, and the media types the API takes it in. */
+  readonly body?: { readonly value: unknown; readonly mediaTypes: readonly string[] };
 }
 
 /**
@@ -127,7 +128,13 @@ export function param(args: Args, location: ParamLocation, name: string): unknow
   if (typeof values !== 'object' || Array.isArray(values)) {
     throw new InvalidArguments(`${location} must be an object`);
   }
-  return (values as Readonly<Record<string, unknown>>)[name];
+  const record = values as Readonly<Record<string, unknown>>;
+  if (location !== 'headers' || Object.hasOwn(record, name)) {
+    return record[name];
+  }
+  // Header names are case-insensitive: `Content-Type` is `content-type`.
+  const key = Object.keys(record).find((key) => key.toLowerCase() === name.toLowerCase());
+  return key === undefined ? undefined : record[key];
 }
 
 /**
@@ -166,7 +173,9 @@ function checkUnknownArguments(tool: Tool, args: Args): void {
       continue;
     }
     const takes = placeParams(place);
-    for (const key of Object.keys(given).filter((name) => !takes.includes(name))) {
+    const known = (name: string) =>
+      place === 'headers' ? takes.some((take) => take.toLowerCase() === name.toLowerCase()) : takes.includes(name);
+    for (const key of Object.keys(given).filter((name) => !known(name))) {
       problems.push(`${place}.${key} is not an argument; ${place} takes ${takes.join(', ')}`);
     }
   }
@@ -235,8 +244,13 @@ export function buildRequest(tool: Tool, args: Args, baseUrl: string): HttpReque
   }
   let body: string | undefined;
   if (api.body && api.body.value !== undefined) {
-    headers.set('Content-Type', api.body.mediaType);
-    body = JSON.stringify(api.body.value);
+    // A content-type header argument names the media type, as with fetch.
+    const encoded = encodeBody(
+      api.body.value,
+      headers.get('Content-Type') ?? mediaTypeOf(api.body.value, api.body.mediaTypes),
+    );
+    headers.set('Content-Type', encoded.contentType);
+    body = encoded.body;
   }
   return {
     method: tool.method,
@@ -244,6 +258,124 @@ export function buildRequest(tool: Tool, args: Args, baseUrl: string): HttpReque
     headers: Object.fromEntries(headers),
     ...(body !== undefined && { body }),
   };
+}
+
+/**
+ * Encodes a body in `mediaType` as `fetch` would: JSON as JSON; an object as
+ * the parts of `multipart/form-data` (a {@link File} as a file part, another
+ * object as a JSON part, anything else as text), or the pairs of
+ * `application/x-www-form-urlencoded`; and any other string as it is. A
+ * string sent as `multipart/form-data` is a body already encoded, whose first
+ * line names its boundary unless the media type does.
+ */
+function encodeBody(value: unknown, mediaType: string): { body: string; contentType: string } {
+  const type = baseType(mediaType);
+  // A file as the whole body is its contents, as a Blob is to fetch.
+  if (isFile(value)) {
+    value = value.content;
+  }
+  if (isJsonType(type)) {
+    return { body: JSON.stringify(value), contentType: mediaType };
+  }
+  if (typeof value === 'string') {
+    const boundary =
+      type === 'multipart/form-data' && !/boundary=/i.test(mediaType) && /^--([^\r\n]+)/.exec(value)?.[1];
+    return { body: value, contentType: boundary ? `${mediaType}; boundary=${boundary}` : mediaType };
+  }
+  const fields =
+    value !== null && typeof value === 'object' && !Array.isArray(value) ? Object.entries(value) : undefined;
+  if (fields && type === 'multipart/form-data') {
+    const boundary = `forge-${crypto.randomUUID()}`;
+    const parts = fields.flatMap(([name, field]) =>
+      (Array.isArray(field) ? field : [field]).map((item) => [name, item] as const),
+    );
+    const body = parts
+      .filter(([, item]) => item !== undefined && item !== null)
+      .map(([name, item]) => {
+        const quoted = (text: string) => `"${text.replace(/["\r\n]/g, encodeURIComponent)}"`;
+        let disposition = `form-data; name=${quoted(name)}`;
+        let type: string | undefined;
+        let content: string;
+        if (isFile(item)) {
+          if (item.filename !== undefined) {
+            disposition += `; filename=${quoted(item.filename)}`;
+          }
+          type = item.contentType;
+          content = item.content;
+        } else if (typeof item === 'object') {
+          type = 'application/json';
+          content = JSON.stringify(item);
+        } else {
+          content = String(item);
+        }
+        const headers = `Content-Disposition: ${disposition}\r\n${type ? `Content-Type: ${type}\r\n` : ''}`;
+        return `--${boundary}\r\n${headers}\r\n${content}\r\n`;
+      })
+      .join('');
+    return { body: `${body}--${boundary}--\r\n`, contentType: `multipart/form-data; boundary=${boundary}` };
+  }
+  if (fields && type === 'application/x-www-form-urlencoded') {
+    const pairs = fields
+      .filter(([, field]) => field !== undefined && field !== null)
+      .map(([name, field]) => [name, typeof field === 'object' ? JSON.stringify(field) : String(field)]);
+    return { body: new URLSearchParams(pairs).toString(), contentType: mediaType };
+  }
+  return { body: JSON.stringify(value), contentType: mediaType };
+}
+
+/**
+ * The media type to send `value` in when no `content-type` argument names
+ * one, as `fetch` picks one from its body: a file's own type; for a string or
+ * file, the first of `mediaTypes` that is neither JSON nor a form; for any
+ * other value, the first JSON one, else `multipart/form-data` or
+ * `application/x-www-form-urlencoded` for an object; else the first.
+ */
+function mediaTypeOf(value: unknown, mediaTypes: readonly string[]): string {
+  const first = mediaTypes[0] ?? 'application/json';
+  if (isFile(value) && value.contentType !== undefined) {
+    return value.contentType;
+  }
+  const form = (type: string) => ['multipart/form-data', 'application/x-www-form-urlencoded'].includes(baseType(type));
+  if (typeof value === 'string' || isFile(value)) {
+    return mediaTypes.find((type) => !isJsonType(baseType(type)) && !form(type)) ?? first;
+  }
+  const object = value !== null && typeof value === 'object' && !Array.isArray(value);
+  return (
+    mediaTypes.find((type) => isJsonType(baseType(type))) ??
+    (object
+      ? (mediaTypes.find((type) => baseType(type) === 'multipart/form-data') ?? mediaTypes.find(form))
+      : undefined) ??
+    first
+  );
+}
+
+/** The media type without parameters, in lower case. */
+function baseType(mediaType: string): string {
+  return mediaType.split(';', 1)[0]!.trim().toLowerCase();
+}
+
+/** Whether `type`, without parameters, is JSON: `application/json` or a `+json` type. */
+function isJsonType(type: string): boolean {
+  return type === 'application/json' || type.endsWith('+json');
+}
+
+/** A file in a `multipart/form-data` body, as a `format: binary` argument takes one. */
+interface File {
+  readonly content: string;
+  readonly filename?: string;
+  readonly contentType?: string;
+}
+
+/** Whether `value` is a {@link File}: `content`, and maybe `filename` and `contentType`, all strings. */
+function isFile(value: unknown): value is File {
+  if (value === null || typeof value !== 'object' || Array.isArray(value)) {
+    return false;
+  }
+  const entries = Object.entries(value);
+  return (
+    typeof (value as { content?: unknown }).content === 'string' &&
+    entries.every(([key, item]) => ['content', 'filename', 'contentType'].includes(key) && typeof item === 'string')
+  );
 }
 
 /**

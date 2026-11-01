@@ -109,7 +109,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/page_shield/policies`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -474,7 +474,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/page_shield/policies/${pathParam(args, "policy_id")}`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
 ];

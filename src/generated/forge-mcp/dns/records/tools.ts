@@ -39,6 +39,7 @@ import {
   dns$$records_dns$$response$$review$$scan$$object,
   dns$$records_dns_response_batch,
   dns$$records_dns_response_collection,
+  dns$$records_dns_response_import_scan,
   dns$$records_dns_response_review_scan,
   dns$$records_dns_response_single,
   dns$$records_dns_response_trigger_scan,
@@ -274,7 +275,7 @@ export const tools: readonly Tool[] = [
       query: [
         ["include_shadow_metadata", param(args, "query", "include_shadow_metadata"), true],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -455,7 +456,7 @@ export const tools: readonly Tool[] = [
       query: [
         ["include_shadow_metadata", param(args, "query", "include_shadow_metadata"), true],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -755,7 +756,7 @@ export const tools: readonly Tool[] = [
       query: [
         ["include_shadow_metadata", param(args, "query", "include_shadow_metadata"), true],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -977,6 +978,104 @@ export const tools: readonly Tool[] = [
       query: [
         ["include_shadow_metadata", param(args, "query", "include_shadow_metadata"), true],
       ],
+    }),
+  },
+  {
+    name: "dns_records_import",
+    title: "Import DNS Records",
+    description: "You can upload your [BIND config](https://en.wikipedia.org/wiki/Zone_file \"Zone file\") through this endpoint. It assumes that cURL is called from a location with bind_config.txt (valid BIND config) present.\n\nSee [the documentation](https://developers.cloudflare.com/dns/manage-dns-records/how-to/import-and-export/ \"Import and export records\") for more information.\n\nPOST /zones/{zone_id}/dns_records/import",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "body": {
+          "properties": {
+            "file": {
+              "description": "BIND config to import.\n\n**Tip:** When using cURL, a file can be uploaded using `--form 'file=@bind_config.txt'`.",
+              "type": "string"
+            },
+            "proxied": {
+              "default": "false",
+              "description": "Whether or not proxiable records should receive the performance and security benefits of Cloudflare.\n\nThe value should be either `true` or `false`.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "file"
+          ],
+          "type": "object"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path",
+        "body"
+      ],
+      additionalProperties: false,
+    },
+    outputSchema: {
+      "$ref": "#/$defs/dns-records_dns_response_import_scan",
+      $defs: {
+        "dns-records_api-response-single": dns$$records_api$$response$$single,
+        "dns-records_dns_response_import_scan": dns$$records_dns_response_import_scan,
+        "dns-records_messages": dns$$records_messages,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Import DNS Records"
+    },
+    method: "POST",
+    path: "/zones/{zone_id}/dns_records/import",
+    extensions: {
+      "x-api-token-group": [
+        "DNS Write"
+      ],
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "#dns_records:edit"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/dns-records_dns_response_import_scan"
+        },
+        "4XX": {
+          "$ref": "#/$defs/dns-records_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dns-records_api-response-common-failure": dns$$records_api$$response$$common$$failure,
+        "dns-records_api-response-single": dns$$records_api$$response$$single,
+        "dns-records_dns_response_import_scan": dns$$records_dns_response_import_scan,
+        "dns-records_messages": dns$$records_messages,
+      },
+    },
+    request: (args) => ({
+      path: `/zones/${pathParam(args, "zone_id")}/dns_records/import`,
+      body: { value: args["body"], mediaTypes: ["multipart/form-data"] },
     }),
   },
   {
@@ -1663,7 +1762,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/dns_records/scan/review`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -1926,7 +2025,7 @@ export const tools: readonly Tool[] = [
       query: [
         ["include_shadow_metadata", param(args, "query", "include_shadow_metadata"), true],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
 ];

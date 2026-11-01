@@ -10,7 +10,9 @@ import {
   workers$$kv_list_metadata,
   workers$$kv_messages,
 } from "../outputs.js";
+import { workers$$kv_any as workers$$kv_any$ } from "../schemas.js";
 import { workers$$kv_cursor_result_info, workers$$kv_key } from "./outputs.js";
+import { workers$$kv_metadata } from "./schemas.js";
 
 /**
  * The tools of `kv.keys`.
@@ -299,6 +301,208 @@ export const tools: readonly Tool[] = [
         ["prefix", param(args, "query", "prefix"), true],
         ["cursor", param(args, "query", "cursor"), true],
       ],
+    }),
+  },
+  {
+    name: "kv_keys_put",
+    title: "Write a key-value pair with optional metadata",
+    description: "Writes a value under the specified key in the Workers KV namespace, creating the key-value pair or replacing its existing value, expiration, and metadata. Send the value as an `application/octet-stream` request body, or use `multipart/form-data` with a `value` part and an optional JSON `metadata` part. Use URL-encoding for special characters (for example, `:`, `!`, `%`) in the key name when constructing the request URL. If neither `expiration` nor `expiration_ttl` is specified, the key-value pair will not expire. If both are set, `expiration_ttl` takes precedence.\n\nPUT /accounts/{account_id}/storage/kv/namespaces/{namespace_id}/values/{key_name}",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "body": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "additionalProperties": false,
+                      "properties": {
+                        "content": {
+                          "type": "string"
+                        },
+                        "contentType": {
+                          "type": "string"
+                        },
+                        "filename": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "content"
+                      ],
+                      "type": "object"
+                    }
+                  ]
+                }
+              ],
+              "description": "As application/octet-stream."
+            },
+            {
+              "description": "As multipart/form-data.",
+              "properties": {
+                "metadata": {
+                  "$ref": "#/$defs/workers-kv_metadata",
+                  "description": "Associates arbitrary JSON data with a key/value pair."
+                },
+                "value": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "additionalProperties": false,
+                          "properties": {
+                            "content": {
+                              "type": "string"
+                            },
+                            "contentType": {
+                              "type": "string"
+                            },
+                            "filename": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "content"
+                          ],
+                          "type": "object"
+                        }
+                      ]
+                    }
+                  ],
+                  "description": "A byte sequence to be stored, up to 25 MiB in length."
+                }
+              },
+              "required": [
+                "value"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "headers": {
+          "additionalProperties": false,
+          "properties": {
+            "content-type": {
+              "description": "The media type of `body`. Without it, a string is sent as the first text type, and an object as JSON if the API takes JSON, else as multipart/form-data.",
+              "enum": [
+                "application/octet-stream",
+                "multipart/form-data"
+              ],
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "ID of the Cloudflare account that owns the Workers KV namespaces.",
+              "type": "string"
+            },
+            "key_name": {
+              "description": "A key's name. The name may be at most 512 bytes. All printable, non-whitespace characters are valid. Use percent-encoding to define key names as part of a URL.",
+              "type": "string"
+            },
+            "namespace_id": {
+              "description": "ID of the Workers KV namespace.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "namespace_id",
+            "key_name"
+          ],
+          "type": "object"
+        },
+        "query": {
+          "additionalProperties": false,
+          "properties": {
+            "expiration": {
+              "description": "Expires the key at a certain time, measured in number of seconds since the UNIX epoch.",
+              "type": "number"
+            },
+            "expiration_ttl": {
+              "description": "Number of seconds until the key expires. Must be at least 60. Takes precedence over `expiration` when both are specified.",
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      required: [
+        "path",
+        "body"
+      ],
+      additionalProperties: false,
+      $defs: {
+        "workers-kv_any": workers$$kv_any$,
+        "workers-kv_metadata": workers$$kv_metadata,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/workers-kv_api-response-common-no-result",
+      $defs: {
+        "workers-kv_api-response-common": workers$$kv_api$$response$$common,
+        "workers-kv_api-response-common-no-result": workers$$kv_api$$response$$common$$no$$result,
+        "workers-kv_messages": workers$$kv_messages,
+      },
+    },
+    annotations: {
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Write a key-value pair with optional metadata"
+    },
+    method: "PUT",
+    path: "/accounts/{account_id}/storage/kv/namespaces/{namespace_id}/values/{key_name}",
+    extensions: {
+      "x-api-token-group": [
+        "Workers KV Storage Write"
+      ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/workers-kv_api-response-common-no-result"
+        },
+        "4XX": {
+          "$ref": "#/$defs/workers-kv_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "workers-kv_api-response-common": workers$$kv_api$$response$$common,
+        "workers-kv_api-response-common-failure": workers$$kv_api$$response$$common$$failure,
+        "workers-kv_api-response-common-no-result": workers$$kv_api$$response$$common$$no$$result,
+        "workers-kv_messages": workers$$kv_messages,
+      },
+    },
+    request: (args) => ({
+      path: `/accounts/${pathParam(args, "account_id")}/storage/kv/namespaces/${pathParam(args, "namespace_id")}/values/${pathParam(args, "key_name")}`,
+      query: [
+        ["expiration", param(args, "query", "expiration"), true],
+        ["expiration_ttl", param(args, "query", "expiration_ttl"), true],
+      ],
+      headers: [
+        ["content-type", param(args, "headers", "content-type")],
+      ],
+      body: { value: args["body"], mediaTypes: ["application/octet-stream", "multipart/form-data"] },
     }),
   },
 ];

@@ -49,7 +49,7 @@ export const tools: readonly Tool[] = [
         "headers": {
           "additionalProperties": false,
           "properties": {
-            "Idempotency-Key": {
+            "idempotency-key": {
               "description": "Prevents duplicate live inputs from being created when retrying this request. The key is scoped to the account, may contain up to 255 bytes, and expires six hours after the live input is created. Reusing a key for a deleted input before expiry returns a 409 Conflict response.",
               "type": "string"
             }
@@ -145,9 +145,9 @@ export const tools: readonly Tool[] = [
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/stream/live_inputs`,
       headers: [
-        ["Idempotency-Key", param(args, "headers", "Idempotency-Key")],
+        ["idempotency-key", param(args, "headers", "idempotency-key")],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -763,7 +763,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/stream/live_inputs/${pathParam(args, "live_input_identifier")}`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
 ];

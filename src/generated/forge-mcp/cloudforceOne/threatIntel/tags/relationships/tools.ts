@@ -162,7 +162,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/events/tags/${pathParam(args, "tag_uuid")}/relationships`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -789,7 +789,7 @@ export const tools: readonly Tool[] = [
       query: [
         ["datasetId", param(args, "query", "datasetId"), true],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
 ];

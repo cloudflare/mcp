@@ -574,7 +574,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai/run`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -699,8 +699,29 @@ export const tools: readonly Tool[] = [
               "type": "object"
             },
             {
-              "format": "binary",
-              "type": "string"
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "content": {
+                      "type": "string"
+                    },
+                    "contentType": {
+                      "type": "string"
+                    },
+                    "filename": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "content"
+                  ],
+                  "type": "object"
+                }
+              ]
             },
             {
               "properties": {
@@ -1148,8 +1169,29 @@ export const tools: readonly Tool[] = [
                       "type": "array"
                     },
                     {
-                      "format": "binary",
-                      "type": "string"
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "additionalProperties": false,
+                          "properties": {
+                            "content": {
+                              "type": "string"
+                            },
+                            "contentType": {
+                              "type": "string"
+                            },
+                            "filename": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "content"
+                          ],
+                          "type": "object"
+                        }
+                      ]
                     }
                   ]
                 },
@@ -1913,7 +1955,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai/run/${pathParam(args, "model_name")}`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -1923,6 +1965,43 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
+        "body": {
+          "properties": {
+            "files": {
+              "description": "Files to convert, supplied as multipart file uploads.",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "content": {
+                        "type": "string"
+                      },
+                      "contentType": {
+                        "type": "string"
+                      },
+                      "filename": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "content"
+                    ],
+                    "type": "object"
+                  }
+                ]
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "files"
+          ],
+          "type": "object"
+        },
         "path": {
           "additionalProperties": false,
           "properties": {
@@ -2088,6 +2167,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai/tomarkdown`,
+      body: { value: args["body"], mediaTypes: ["multipart/form-data"] },
     }),
   },
   {
@@ -2500,7 +2580,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai/websearch`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
 ];

@@ -124,7 +124,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dlp/datasets`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -590,7 +590,139 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/dlp/datasets/${pathParam(args, "dataset_id")}`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
+    }),
+  },
+  {
+    name: "zeroTrust_dlp_datasets_upload",
+    title: "Upload a new version of a dataset",
+    description: "This is used for single-column EDMv1 and Custom Word Lists. The EDM format\ncan only be created in the Cloudflare dashboard. For other clients, this\noperation can only be used for non-secret Custom Word Lists. The body must\nbe a UTF-8 encoded, newline (NL or CRNL) separated list of words to be matched.\n\nPOST /accounts/{account_id}/dlp/datasets/{dataset_id}/upload/{version}",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "body": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "content": {
+                  "type": "string"
+                },
+                "contentType": {
+                  "type": "string"
+                },
+                "filename": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "content"
+              ],
+              "type": "object"
+            }
+          ],
+          "description": "Dataset. For custom wordlists this contains UTF-8 patterns separated by newline characters."
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "dataset_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "version": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "account_id",
+            "dataset_id",
+            "version"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path",
+        "body"
+      ],
+      additionalProperties: false,
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/dlp_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/dlp_Dataset"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "dlp_Dataset": dlp_Dataset,
+        "dlp_DatasetColumn": dlp_DatasetColumn,
+        "dlp_DatasetUpload": dlp_DatasetUpload,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Upload a new version of a dataset"
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/dlp/datasets/{dataset_id}/upload/{version}",
+    extensions: {
+      "x-api-token-group": [
+        "Zero Trust Write"
+      ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/dlp_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/dlp_Dataset"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/dlp_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "dlp_Dataset": dlp_Dataset,
+        "dlp_DatasetColumn": dlp_DatasetColumn,
+        "dlp_DatasetUpload": dlp_DatasetUpload,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
+      },
+    },
+    request: (args) => ({
+      path: `/accounts/${pathParam(args, "account_id")}/dlp/datasets/${pathParam(args, "dataset_id")}/upload/${pathParam(args, "version")}`,
+      body: { value: args["body"], mediaTypes: ["application/octet-stream"] },
     }),
   },
 ];

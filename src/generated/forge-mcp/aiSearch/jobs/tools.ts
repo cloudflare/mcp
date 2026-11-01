@@ -296,7 +296,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai-search/namespaces/${pathParam(args, "namespace")}/instances/${pathParam(args, "id")}/jobs/${pathParam(args, "job_id")}`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -639,7 +639,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai-search/namespaces/${pathParam(args, "namespace")}/instances/${pathParam(args, "id")}/jobs`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {

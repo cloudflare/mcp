@@ -493,7 +493,7 @@ export const tools: readonly Tool[] = [
       query: [
         ["deploy", param(args, "query", "deploy"), true],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -1274,7 +1274,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/workers/${pathParam(args, "worker_id")}/versions/${pathParam(args, "version_id")}/profile`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
 ];

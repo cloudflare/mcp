@@ -1757,6 +1757,83 @@ export const tunnel_tunnel_types: JsonSchema = {
 };
 
 /**
+ * The schema of `workers_assets-2`.
+ */
+export const workers_assets$$2: JsonSchema = {
+  "description": "Configuration for assets within a Worker.",
+  "properties": {
+    "config": {
+      "description": "Configuration for assets within a Worker.",
+      "properties": {
+        "_headers": {
+          "description": "The contents of a _headers file (used to attach custom headers on asset responses).",
+          "type": "string"
+        },
+        "_redirects": {
+          "description": "The contents of a _redirects file (used to apply redirects or proxy paths ahead of asset serving).",
+          "type": "string"
+        },
+        "base_path": {
+          "default": "/",
+          "description": "The public URL path prefix under which assets are served. A null request value resets it to `/`; responses represent the root as `/`. All versions in a gradual deployment must use the same canonical value. To change it, first deploy the version containing the change at 100%.",
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "html_handling": {
+          "description": "Determines the redirects and rewrites of requests for HTML content.",
+          "enum": [
+            "auto-trailing-slash",
+            "force-trailing-slash",
+            "drop-trailing-slash",
+            "none"
+          ],
+          "type": "string"
+        },
+        "not_found_handling": {
+          "description": "Determines the response when a request does not match a static asset, and there is no Worker script.",
+          "enum": [
+            "none",
+            "404-page",
+            "single-page-application"
+          ],
+          "type": "string"
+        },
+        "run_worker_first": {
+          "oneOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "boolean"
+            }
+          ]
+        },
+        "serve_directly": {
+          "deprecated": true,
+          "description": "When true and the incoming request matches an asset, that will be served instead of invoking the Worker script. When false, requests will always invoke the Worker script.",
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "jwt": {
+      "description": "Token provided upon successful upload of all files from a registered manifest.",
+      "type": "string"
+    }
+  },
+  "type": "object"
+};
+
+/**
  * The schema of `workers_binding_item`.
  */
 export const workers_binding_item: JsonSchema = {
@@ -3926,6 +4003,187 @@ export const workers_migration_tag_conditions: JsonSchema = {
 };
 
 /**
+ * The schema of `workers_multipart-script`.
+ */
+export const workers_multipart$$script: JsonSchema = {
+  "properties": {
+    "files": {
+      "description": "An array of modules (often JavaScript files) comprising a Worker script. At least one module must be present and referenced in the metadata as `main_module` or `body_part` by filename.<br/>Possible Content-Type(s) are: `application/javascript+module`, `text/javascript+module`, `application/javascript`, `text/javascript`, `text/x-python`, `text/x-python-requirement`, `application/wasm`, `text/plain`, `application/octet-stream`, `application/source-map`.",
+      "items": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "content": {
+                "type": "string"
+              },
+              "contentType": {
+                "type": "string"
+              },
+              "filename": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "content"
+            ],
+            "type": "object"
+          }
+        ]
+      },
+      "type": "array"
+    },
+    "metadata": {
+      "description": "JSON-encoded metadata about the uploaded parts and Worker configuration.",
+      "properties": {
+        "assets": {
+          "$ref": "#/$defs/workers_assets-2",
+          "description": "Configuration for assets within a Worker."
+        },
+        "bindings": {
+          "$ref": "#/$defs/workers_bindings",
+          "description": "List of bindings attached to a Worker. You can find more about bindings on our docs: https://developers.cloudflare.com/workers/configuration/multipart-upload-metadata/#bindings."
+        },
+        "body_part": {
+          "description": "Name of the uploaded file that contains the script (e.g. the file adding a listener to the `fetch` event). Indicates a `service worker syntax` Worker.",
+          "type": "string"
+        },
+        "cache_options": {
+          "$ref": "#/$defs/workers_cache_options",
+          "description": "Global CacheW configuration for the Worker. When caching is on,\nthe platform provisions a `cloudflare.app` zone for the Worker.\nA `type: worker` entry in the `exports` map can override this\nvalue for a single entrypoint."
+        },
+        "code_update_strategy": {
+          "description": "Choose whether to apply Durable Object code updates immediately or defer them. When omitted, the default strategy applies.",
+          "oneOf": [
+            {
+              "$ref": "#/$defs/workers_code_update_strategy"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "compatibility_date": {
+          "description": "Date indicating targeted support in the Workers runtime. Backwards incompatible fixes to the runtime following this date will not affect this Worker.",
+          "type": "string"
+        },
+        "compatibility_flags": {
+          "$ref": "#/$defs/workers_compatibility_flags",
+          "default": [],
+          "description": "Flags that enable or disable certain features in the Workers runtime. Used to enable upcoming features or opt in or out of specific changes not included in a `compatibility_date`."
+        },
+        "exports": {
+          "$ref": "#/$defs/workers_exports_config_map",
+          "description": "Declarative exports for the Worker. Worker entrypoint\nentries (`type: worker`) carry cache configuration for\nthat entrypoint."
+        },
+        "exports_reconciliation": {
+          "$ref": "#/$defs/workers_exports_reconciliation_result",
+          "description": "Summary of the declarative exports reconciliation that ran\non this upload. Populated only when the uploaded metadata\nincluded an `exports` block. Durable Object entries drive\nreconciliation; `type: worker` entries do not contribute to\nthis summary."
+        },
+        "keep_assets": {
+          "description": "Retain assets which exist for a previously uploaded Worker version; used in lieu of providing a completion token. An explicit `assets` upload takes precedence over `keep_assets`.",
+          "type": "boolean"
+        },
+        "keep_bindings": {
+          "description": "List of binding types to keep from previous_upload.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "limits": {
+          "$ref": "#/$defs/workers_limits",
+          "description": "Limits to apply for this Worker."
+        },
+        "logpush": {
+          "default": false,
+          "description": "Whether Logpush is turned on for the Worker.",
+          "type": "boolean"
+        },
+        "main_module": {
+          "description": "Name of the uploaded file that contains the main module (e.g. the file exporting a `fetch` handler). Indicates a `module syntax` Worker.",
+          "type": "string"
+        },
+        "migrations": {
+          "description": "Migrations to apply for Durable Objects associated with this Worker.",
+          "oneOf": [
+            {
+              "$ref": "#/$defs/workers_single_step_migrations"
+            },
+            {
+              "$ref": "#/$defs/workers_multiple_step_migrations"
+            }
+          ]
+        },
+        "observability": {
+          "$ref": "#/$defs/workers_observability-2",
+          "description": "Observability settings for the Worker."
+        },
+        "package_dependencies": {
+          "description": "The list of npm packages that were installed and used when this Worker\nversion was built.",
+          "items": {
+            "properties": {
+              "installedVersion": {
+                "description": "The exact version that was resolved and installed by the package manager.",
+                "type": "string"
+              },
+              "name": {
+                "description": "The npm package name.",
+                "type": "string"
+              },
+              "packageJsonVersion": {
+                "description": "The version constraint as written in package.json.",
+                "type": "string"
+              }
+            },
+            "required": [
+              "installedVersion",
+              "name",
+              "packageJsonVersion"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "placement": {
+          "$ref": "#/$defs/workers_placement_info",
+          "description": "Configuration for [Smart Placement](https://developers.cloudflare.com/workers/configuration/smart-placement). Specify mode='smart' for Smart Placement, or one of region/hostname/host."
+        },
+        "tags": {
+          "description": "List of strings to use as tags for this Worker.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "tail_consumers": {
+          "$ref": "#/$defs/workers_tail_consumers",
+          "description": "List of Workers that will consume logs from the attached Worker."
+        },
+        "usage_model": {
+          "default": "standard",
+          "description": "Usage model for the Worker invocations.",
+          "enum": [
+            "standard",
+            "bundled",
+            "unbound"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "required": [
+    "metadata"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `workers_multiple_step_migrations`.
  */
 export const workers_multiple_step_migrations: JsonSchema = {
@@ -4099,6 +4357,158 @@ export const workers_observability$$2: JsonSchema = {
     "enabled"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `workers_placement_info`.
+ */
+export const workers_placement_info: JsonSchema = {
+  "allOf": [
+    {
+      "oneOf": [
+        {
+          "properties": {
+            "mode": {
+              "description": "Enables [Smart Placement](https://developers.cloudflare.com/workers/configuration/smart-placement).",
+              "enum": [
+                "smart"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "mode"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "region": {
+              "description": "Cloud region for targeted placement in format 'provider:region'.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "region"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "hostname": {
+              "description": "HTTP hostname for targeted placement.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "hostname"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "host": {
+              "description": "TCP host and port for targeted placement.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "host"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "mode": {
+              "description": "Targeted placement mode.",
+              "enum": [
+                "targeted"
+              ],
+              "type": "string"
+            },
+            "region": {
+              "description": "Cloud region for targeted placement in format 'provider:region'.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "mode",
+            "region"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "hostname": {
+              "description": "HTTP hostname for targeted placement.",
+              "type": "string"
+            },
+            "mode": {
+              "description": "Targeted placement mode.",
+              "enum": [
+                "targeted"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "hostname",
+            "mode"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "host": {
+              "description": "TCP host and port for targeted placement.",
+              "type": "string"
+            },
+            "mode": {
+              "description": "Targeted placement mode.",
+              "enum": [
+                "targeted"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "host",
+            "mode"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "mode": {
+              "description": "Targeted placement mode.",
+              "enum": [
+                "targeted"
+              ],
+              "type": "string"
+            },
+            "target": {
+              "description": "Array of placement targets (currently limited to single target).",
+              "items": {
+                "$ref": "#/$defs/workers_placement_target"
+              },
+              "maxItems": 1,
+              "minItems": 1,
+              "type": "array"
+            }
+          },
+          "required": [
+            "mode",
+            "target"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    {
+      "type": "object"
+    }
+  ],
+  "description": "Configuration for [Smart Placement](https://developers.cloudflare.com/workers/configuration/smart-placement). Specify mode='smart' for Smart Placement, or one of region/hostname/host."
 };
 
 /**
@@ -4360,6 +4770,24 @@ export const workers_tags: JsonSchema = {
         "type": "string"
       },
       "maxItems": 10,
+      "type": "array"
+    },
+    {
+      "type": "null"
+    }
+  ]
+};
+
+/**
+ * The schema of `workers_tail_consumers`.
+ */
+export const workers_tail_consumers: JsonSchema = {
+  "description": "List of Workers that will consume logs from the attached Worker.",
+  "oneOf": [
+    {
+      "items": {
+        "$ref": "#/$defs/workers_tail_consumers_script"
+      },
       "type": "array"
     },
     {

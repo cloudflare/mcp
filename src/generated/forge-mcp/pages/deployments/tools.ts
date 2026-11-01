@@ -22,6 +22,318 @@ import {
  */
 export const tools: readonly Tool[] = [
   {
+    name: "pages_deployments_create",
+    title: "Create a Pages deployment",
+    description: "Create a Cloudflare Pages deployment from a Git branch or Direct Upload manifest. Git repositories must already be authorized in Cloudflare Pages.\n\nPOST /accounts/{account_id}/pages/projects/{project_name}/deployments",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "body": {
+          "properties": {
+            "_headers": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "content": {
+                      "type": "string"
+                    },
+                    "contentType": {
+                      "type": "string"
+                    },
+                    "filename": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "content"
+                  ],
+                  "type": "object"
+                }
+              ],
+              "description": "Headers configuration file for the deployment."
+            },
+            "_redirects": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "content": {
+                      "type": "string"
+                    },
+                    "contentType": {
+                      "type": "string"
+                    },
+                    "filename": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "content"
+                  ],
+                  "type": "object"
+                }
+              ],
+              "description": "Redirects configuration file for the deployment."
+            },
+            "_routes.json": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "content": {
+                      "type": "string"
+                    },
+                    "contentType": {
+                      "type": "string"
+                    },
+                    "filename": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "content"
+                  ],
+                  "type": "object"
+                }
+              ],
+              "description": "Routes configuration file defining routing rules."
+            },
+            "_worker.bundle": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "content": {
+                      "type": "string"
+                    },
+                    "contentType": {
+                      "type": "string"
+                    },
+                    "filename": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "content"
+                  ],
+                  "type": "object"
+                }
+              ],
+              "description": "Worker bundle file in multipart/form-data format. Mutually exclusive with `_worker.js`.\nCannot specify both `_worker.js` and `_worker.bundle` in the same request.\nMaximum size: 25 MiB."
+            },
+            "_worker.js": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "content": {
+                      "type": "string"
+                    },
+                    "contentType": {
+                      "type": "string"
+                    },
+                    "filename": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "content"
+                  ],
+                  "type": "object"
+                }
+              ],
+              "description": "Worker JavaScript file. Mutually exclusive with `_worker.bundle`.\nCannot specify both `_worker.js` and `_worker.bundle` in the same request."
+            },
+            "branch": {
+              "description": "Git branch to deploy. Uses the branch's `HEAD`; defaults to the project's production branch.",
+              "type": "string"
+            },
+            "commit_dirty": {
+              "description": "Whether the associated Git working tree has uncommitted changes. Provide `true` or `false`.",
+              "enum": [
+                "true",
+                "false"
+              ],
+              "type": "string"
+            },
+            "commit_hash": {
+              "description": "Git commit SHA associated with the deployment.",
+              "type": "string"
+            },
+            "commit_message": {
+              "description": "Git commit message associated with the deployment.",
+              "type": "string"
+            },
+            "functions-filepath-routing-config.json": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "content": {
+                      "type": "string"
+                    },
+                    "contentType": {
+                      "type": "string"
+                    },
+                    "filename": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "content"
+                  ],
+                  "type": "object"
+                }
+              ],
+              "description": "Functions routing configuration file."
+            },
+            "manifest": {
+              "description": "JSON-encoded object mapping deployment file paths to their uploaded content hashes.\nRequired for Direct Upload deployments. Maximum 20,000 entries.",
+              "type": "string"
+            },
+            "pages_build_output_dir": {
+              "description": "The build output directory path.",
+              "type": "string"
+            },
+            "wrangler_config_hash": {
+              "description": "Hash of the Wrangler configuration file used for this deployment.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            },
+            "project_name": {
+              "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "project_name"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path",
+        "body"
+      ],
+      additionalProperties: false,
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/pages_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/pages_deployment"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "pages_api-response-common": pages_api$$response$$common,
+        "pages_build_config": pages_build_config,
+        "pages_deployment": pages_deployment,
+        "pages_env_vars": pages_env_vars,
+        "pages_messages": pages_messages,
+        "pages_plain_text_env_var": pages_plain_text_env_var,
+        "pages_secret_text_env_var": pages_secret_text_env_var,
+        "pages_source": pages_source,
+        "pages_source_config": pages_source_config,
+        "pages_stage": pages_stage,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Create a Pages deployment"
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/pages/projects/{project_name}/deployments",
+    extensions: {
+      "x-api-token-group": [
+        "Pages Write"
+      ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/pages_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/pages_deployment"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/pages_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "pages_api-response-common": pages_api$$response$$common,
+        "pages_api-response-common-failure": pages_api$$response$$common$$failure,
+        "pages_build_config": pages_build_config,
+        "pages_deployment": pages_deployment,
+        "pages_env_vars": pages_env_vars,
+        "pages_messages": pages_messages,
+        "pages_plain_text_env_var": pages_plain_text_env_var,
+        "pages_secret_text_env_var": pages_secret_text_env_var,
+        "pages_source": pages_source,
+        "pages_source_config": pages_source_config,
+        "pages_stage": pages_stage,
+      },
+    },
+    request: (args) => ({
+      path: `/accounts/${pathParam(args, "account_id")}/pages/projects/${pathParam(args, "project_name")}/deployments`,
+      body: { value: args["body"], mediaTypes: ["multipart/form-data"] },
+    }),
+  },
+  {
     name: "pages_deployments_delete",
     title: "Delete a Pages deployment",
     description: "Remove a deployment from a Cloudflare Pages project.\n\nDELETE /accounts/{account_id}/pages/projects/{project_name}/deployments/{deployment_id}",

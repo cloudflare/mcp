@@ -139,7 +139,7 @@ export const tools: readonly Tool[] = [
       headers: [
         ["x-magic-new-hc-target", param(args, "headers", "x-magic-new-hc-target")],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -472,7 +472,7 @@ export const tools: readonly Tool[] = [
       headers: [
         ["x-magic-new-hc-target", param(args, "headers", "x-magic-new-hc-target")],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
 ];

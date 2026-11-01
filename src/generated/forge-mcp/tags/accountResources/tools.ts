@@ -88,7 +88,7 @@ export const tools: readonly Tool[] = [
         "headers": {
           "additionalProperties": false,
           "properties": {
-            "If-Match": {
+            "if-match": {
               "description": "ETag value for optimistic concurrency control. When provided, the server will\nverify the current resource ETag matches before applying the write. Returns\n412 Precondition Failed if the resource has been modified since the ETag was\nobtained. Omit this header for unconditional writes.",
               "type": "string"
             }
@@ -168,9 +168,9 @@ export const tools: readonly Tool[] = [
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/tags`,
       headers: [
-        ["If-Match", param(args, "headers", "If-Match")],
+        ["if-match", param(args, "headers", "if-match")],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -441,7 +441,7 @@ export const tools: readonly Tool[] = [
         "headers": {
           "additionalProperties": false,
           "properties": {
-            "If-Match": {
+            "if-match": {
               "description": "ETag value for optimistic concurrency control. When provided, the server will\nverify the current resource ETag matches before applying the write. Returns\n412 Precondition Failed if the resource has been modified since the ETag was\nobtained. Omit this header for unconditional writes.",
               "type": "string"
             }
@@ -642,9 +642,9 @@ export const tools: readonly Tool[] = [
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/tags`,
       headers: [
-        ["If-Match", param(args, "headers", "If-Match")],
+        ["if-match", param(args, "headers", "if-match")],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
 ];

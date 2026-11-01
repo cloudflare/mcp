@@ -81,6 +81,7 @@ import { tools as analytics_queryTools } from "./analytics/query/tools.js";
 import { tools as analytics_sql_accounts_introspectionTools } from "./analytics/sql/accounts/introspection/tools.js";
 import { tools as analytics_sql_accountsTools } from "./analytics/sql/accounts/tools.js";
 import { tools as analytics_sqlTools } from "./analytics/sql/tools.js";
+import { tools as analyticsEngine_sqlTools } from "./analyticsEngine/sql/tools.js";
 import { tools as apiSecurity_schemaValidation_schemas_hostsTools } from "./apiSecurity/schemaValidation/schemas/hosts/tools.js";
 import { tools as apiSecurity_schemaValidation_schemas_operationsTools } from "./apiSecurity/schemaValidation/schemas/operations/tools.js";
 import { tools as apiSecurity_schemaValidation_schemasTools } from "./apiSecurity/schemaValidation/schemas/tools.js";
@@ -361,6 +362,7 @@ import { tools as intel_domainsTools } from "./intel/domains/tools.js";
 import { tools as intel_indicatorFeeds_downloadsTools } from "./intel/indicatorFeeds/downloads/tools.js";
 import { tools as intel_indicatorFeeds_permissionsTools } from "./intel/indicatorFeeds/permissions/tools.js";
 import { tools as intel_indicatorFeeds_providersTools } from "./intel/indicatorFeeds/providers/tools.js";
+import { tools as intel_indicatorFeeds_snapshotsTools } from "./intel/indicatorFeeds/snapshots/tools.js";
 import { tools as intel_indicatorFeedsTools } from "./intel/indicatorFeeds/tools.js";
 import { tools as intel_indicatorFeeds_uploadsTools } from "./intel/indicatorFeeds/uploads/tools.js";
 import { tools as intel_ipListsTools } from "./intel/ipLists/tools.js";
@@ -414,6 +416,7 @@ import { tools as logs_rayidTools } from "./logs/rayid/tools.js";
 import { tools as logs_received_fieldsTools } from "./logs/received/fields/tools.js";
 import { tools as logs_receivedTools } from "./logs/received/tools.js";
 import { tools as logs_retrieveTools } from "./logs/retrieve/tools.js";
+import { tools as logsTools } from "./logs/tools.js";
 import { tools as magicNetworkMonitoring_configs_fullTools } from "./magicNetworkMonitoring/configs/full/tools.js";
 import { tools as magicNetworkMonitoring_configsTools } from "./magicNetworkMonitoring/configs/tools.js";
 import { tools as magicNetworkMonitoring_rules_advertisementsTools } from "./magicNetworkMonitoring/rules/advertisements/tools.js";
@@ -514,6 +517,7 @@ import { tools as payPerUse_enabledDomainsTools } from "./payPerUse/enabledDomai
 import { tools as payPerUse_operatorTools } from "./payPerUse/operator/tools.js";
 import { tools as payPerUse_pricingTools } from "./payPerUse/pricing/tools.js";
 import { tools as payPerUse_proposalsTools } from "./payPerUse/proposals/tools.js";
+import { tools as payPerUse_usageReportsTools } from "./payPerUse/usageReports/tools.js";
 import { tools as payPerUse_usageStatsTools } from "./payPerUse/usageStats/tools.js";
 import { tools as payPerUse_zonesTools } from "./payPerUse/zones/tools.js";
 import { tools as pipelines_sinksTools } from "./pipelines/sinks/tools.js";
@@ -1123,6 +1127,7 @@ export const tools: readonly Tool[] = [
   ...analytics_sqlTools,
   ...analytics_sql_accountsTools,
   ...analytics_sql_accounts_introspectionTools,
+  ...analyticsEngine_sqlTools,
   ...apiSecurity_schemaValidation_schemasTools,
   ...apiSecurity_schemaValidation_schemas_hostsTools,
   ...apiSecurity_schemaValidation_schemas_operationsTools,
@@ -1404,6 +1409,7 @@ export const tools: readonly Tool[] = [
   ...intel_indicatorFeeds_downloadsTools,
   ...intel_indicatorFeeds_permissionsTools,
   ...intel_indicatorFeeds_providersTools,
+  ...intel_indicatorFeeds_snapshotsTools,
   ...intel_indicatorFeeds_uploadsTools,
   ...intel_ipListsTools,
   ...intel_ipsTools,
@@ -1448,6 +1454,7 @@ export const tools: readonly Tool[] = [
   ...logpush_transformersTools,
   ...logpush_transformers_contentTools,
   ...logpush_transformers_versionsTools,
+  ...logsTools,
   ...logs_control_cmb_configTools,
   ...logs_control_retentionTools,
   ...logs_datasetsTools,
@@ -1556,6 +1563,7 @@ export const tools: readonly Tool[] = [
   ...payPerUse_operatorTools,
   ...payPerUse_pricingTools,
   ...payPerUse_proposalsTools,
+  ...payPerUse_usageReportsTools,
   ...payPerUse_usageStatsTools,
   ...payPerUse_zonesTools,
   ...pipelinesTools,

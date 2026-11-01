@@ -325,7 +325,7 @@ export const tools: readonly Tool[] = [
       headers: [
         ["api-version", param(args, "headers", "api-version")],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -553,7 +553,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/workers/dispatch/namespaces/${pathParam(args, "dispatch_namespace")}/scripts/${pathParam(args, "script_name")}/tags`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
 ];

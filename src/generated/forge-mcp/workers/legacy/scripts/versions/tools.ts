@@ -54,20 +54,521 @@ import {
   workers_entrypoint_cache_options,
   workers_export_config,
   workers_exports_config_map,
+  workers_exports_reconciliation_error,
+  workers_exports_reconciliation_error_response,
+  workers_exports_reconciliation_info,
+  workers_exports_reconciliation_rename,
+  workers_exports_reconciliation_result,
+  workers_exports_reconciliation_transfer,
+  workers_exports_reconciliation_transfer_pending,
+  workers_exports_reconciliation_warning,
   workers_messages,
   workers_worker_export,
 } from "../../../../outputs.js";
 import {
+  workers_binding_item as workers_binding_item$,
+  workers_binding_kind_ai as workers_binding_kind_ai$,
+  workers_binding_kind_ai_search as workers_binding_kind_ai_search$,
+  workers_binding_kind_ai_search_namespace as workers_binding_kind_ai_search_namespace$,
+  workers_binding_kind_analytics_engine as workers_binding_kind_analytics_engine$,
+  workers_binding_kind_artifacts as workers_binding_kind_artifacts$,
+  workers_binding_kind_assets as workers_binding_kind_assets$,
+  workers_binding_kind_browser as workers_binding_kind_browser$,
+  workers_binding_kind_d1 as workers_binding_kind_d1$,
+  workers_binding_kind_data_blob as workers_binding_kind_data_blob$,
+  workers_binding_kind_dispatch_namespace as workers_binding_kind_dispatch_namespace$,
+  workers_binding_kind_durable_object_namespace as workers_binding_kind_durable_object_namespace$,
+  workers_binding_kind_flagship as workers_binding_kind_flagship$,
+  workers_binding_kind_hyperdrive as workers_binding_kind_hyperdrive$,
+  workers_binding_kind_images as workers_binding_kind_images$,
+  workers_binding_kind_inherit as workers_binding_kind_inherit$,
+  workers_binding_kind_json as workers_binding_kind_json$,
+  workers_binding_kind_k2 as workers_binding_kind_k2$,
+  workers_binding_kind_kv_namespace as workers_binding_kind_kv_namespace$,
+  workers_binding_kind_media as workers_binding_kind_media$,
+  workers_binding_kind_messaging as workers_binding_kind_messaging$,
+  workers_binding_kind_mtls_certificate as workers_binding_kind_mtls_certificate$,
+  workers_binding_kind_pipelines as workers_binding_kind_pipelines$,
+  workers_binding_kind_plain_text as workers_binding_kind_plain_text$,
+  workers_binding_kind_queue as workers_binding_kind_queue$,
+  workers_binding_kind_r2_bucket as workers_binding_kind_r2_bucket$,
+  workers_binding_kind_ratelimit as workers_binding_kind_ratelimit$,
+  workers_binding_kind_secret_key as workers_binding_kind_secret_key$,
+  workers_binding_kind_secret_text as workers_binding_kind_secret_text$,
+  workers_binding_kind_secrets_store_secret as workers_binding_kind_secrets_store_secret$,
+  workers_binding_kind_send_email as workers_binding_kind_send_email$,
+  workers_binding_kind_service as workers_binding_kind_service$,
+  workers_binding_kind_text_blob as workers_binding_kind_text_blob$,
+  workers_binding_kind_vectorize as workers_binding_kind_vectorize$,
+  workers_binding_kind_version_metadata as workers_binding_kind_version_metadata$,
+  workers_binding_kind_vpc_network as workers_binding_kind_vpc_network$,
+  workers_binding_kind_vpc_service as workers_binding_kind_vpc_service$,
+  workers_binding_kind_wasm_module as workers_binding_kind_wasm_module$,
+  workers_binding_kind_workflow as workers_binding_kind_workflow$,
+  workers_bindings as workers_bindings$,
+  workers_cache_options,
+  workers_compatibility_flags,
+  workers_durable_object_deleted_export as workers_durable_object_deleted_export$,
+  workers_durable_object_expecting_transfer_export as workers_durable_object_expecting_transfer_export$,
+  workers_durable_object_export as workers_durable_object_export$,
+  workers_durable_object_export_variants as workers_durable_object_export_variants$,
+  workers_durable_object_renamed_export as workers_durable_object_renamed_export$,
+  workers_durable_object_transferred_export as workers_durable_object_transferred_export$,
+  workers_entrypoint_cache_options as workers_entrypoint_cache_options$,
+  workers_export_config as workers_export_config$,
+  workers_exports_config_map as workers_exports_config_map$,
+  workers_worker_export as workers_worker_export$,
+} from "../../../../schemas.js";
+import {
   workers_version$$item$$full,
   workers_version$$item$$short,
+  workers_version$$item$$uploaded,
   workers_versions$$list$$response,
   workers_versions$$single$$response,
+  workers_versions$$upload$$response,
 } from "./outputs.js";
 
 /**
  * The tools of `workers.legacy.scripts.versions`.
  */
 export const tools: readonly Tool[] = [
+  {
+    name: "workers_legacy_scripts_versions_create",
+    title: "Upload Version",
+    description: "Upload a Worker Version without deploying to Cloudflare's network. You can find more about the multipart metadata on our docs: https://developers.cloudflare.com/workers/configuration/multipart-upload-metadata/.\n\nThis method is deprecated.\n\nPOST /accounts/{account_id}/workers/scripts/{script_name}/versions",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "body": {
+          "properties": {
+            "files": {
+              "description": "An array of modules (often JavaScript files) comprising a Worker script. At least one module must be present and referenced in the metadata as `main_module` or `body_part` by filename.<br/>Possible Content-Type(s) are: `application/javascript+module`, `text/javascript+module`, `application/javascript`, `text/javascript`, `text/x-python`, `text/x-python-requirement`, `application/wasm`, `text/plain`, `application/octet-stream`, `application/source-map`.",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "additionalProperties": false,
+                    "properties": {
+                      "content": {
+                        "type": "string"
+                      },
+                      "contentType": {
+                        "type": "string"
+                      },
+                      "filename": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "content"
+                    ],
+                    "type": "object"
+                  }
+                ]
+              },
+              "type": "array"
+            },
+            "metadata": {
+              "description": "JSON-encoded metadata about the uploaded parts and Worker configuration.",
+              "properties": {
+                "annotations": {
+                  "properties": {
+                    "workers/alias": {
+                      "description": "Associated alias for a version.",
+                      "type": "string"
+                    },
+                    "workers/commit_sha": {
+                      "description": "Full commit SHA associated with the version, detected from the CI environment. Maximum 64 bytes.",
+                      "type": "string"
+                    },
+                    "workers/message": {
+                      "description": "Human-readable message about the version. Truncated to 1000 bytes if longer.",
+                      "type": "string"
+                    },
+                    "workers/pull_request_number": {
+                      "description": "Number of the pull or merge request associated with the version, detected from the CI environment. Maximum 20 bytes.",
+                      "type": "string"
+                    },
+                    "workers/pull_request_title": {
+                      "description": "Title of the pull or merge request associated with the version, detected from the CI environment. Maximum 512 bytes.",
+                      "type": "string"
+                    },
+                    "workers/pull_request_url": {
+                      "description": "URL of the pull or merge request associated with the version, detected from the CI environment. Maximum 512 bytes.",
+                      "type": "string"
+                    },
+                    "workers/repository_url": {
+                      "description": "URL of the source repository the version was built from, detected from the CI environment. Maximum 512 bytes.",
+                      "type": "string"
+                    },
+                    "workers/tag": {
+                      "description": "User-provided identifier for the version. Maximum 100 bytes.",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "bindings": {
+                  "$ref": "#/$defs/workers_bindings",
+                  "description": "List of bindings attached to a Worker. You can find more about bindings on our docs: https://developers.cloudflare.com/workers/configuration/multipart-upload-metadata/#bindings."
+                },
+                "cache_options": {
+                  "$ref": "#/$defs/workers_cache_options",
+                  "description": "Global CacheW configuration for the Worker. When caching is on,\nthe platform provisions a `cloudflare.app` zone for the Worker.\nA `type: worker` entry in the `exports` map can override this\nvalue for a single entrypoint."
+                },
+                "compatibility_date": {
+                  "description": "Date indicating targeted support in the Workers runtime. Backwards incompatible fixes to the runtime following this date will not affect this Worker.",
+                  "type": "string"
+                },
+                "compatibility_flags": {
+                  "$ref": "#/$defs/workers_compatibility_flags",
+                  "default": [],
+                  "description": "Flags that enable or disable certain features in the Workers runtime. Used to enable upcoming features or opt in or out of specific changes not included in a `compatibility_date`."
+                },
+                "exports": {
+                  "$ref": "#/$defs/workers_exports_config_map",
+                  "description": "Declarative exports for this version. Worker\nentrypoint entries (`type: worker`) carry cache\nconfiguration for that entrypoint."
+                },
+                "keep_bindings": {
+                  "description": "List of binding types to keep from previous_upload.",
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "main_module": {
+                  "description": "Name of the uploaded file that contains the main module (e.g. the file exporting a `fetch` handler). Indicates a `module syntax` Worker, which is required for Version Upload.",
+                  "type": "string"
+                },
+                "package_dependencies": {
+                  "description": "The list of npm packages that were installed and used when this Worker\nversion was built.",
+                  "items": {
+                    "properties": {
+                      "installedVersion": {
+                        "description": "The exact version that was resolved and installed by the package manager.",
+                        "type": "string"
+                      },
+                      "name": {
+                        "description": "The npm package name.",
+                        "type": "string"
+                      },
+                      "packageJsonVersion": {
+                        "description": "The version constraint as written in package.json.",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "installedVersion",
+                      "name",
+                      "packageJsonVersion"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "usage_model": {
+                  "default": "standard",
+                  "description": "Usage model for the Worker invocations.",
+                  "enum": [
+                    "standard",
+                    "bundled",
+                    "unbound"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "main_module"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "metadata"
+          ],
+          "type": "object"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            },
+            "script_name": {
+              "description": "Name of the script.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "script_name"
+          ],
+          "type": "object"
+        },
+        "query": {
+          "additionalProperties": false,
+          "properties": {
+            "bindings_inherit": {
+              "description": "When set to \"strict\", the upload will fail with error 10057 if any `inherit` type bindings cannot be resolved against the latest uploaded version of the Worker, which may not be the deployed version. Without this, unresolvable inherit bindings are silently dropped.",
+              "enum": [
+                "strict"
+              ],
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      required: [
+        "path",
+        "body"
+      ],
+      additionalProperties: false,
+      $defs: {
+        "workers_binding_item": workers_binding_item$,
+        "workers_binding_kind_ai": workers_binding_kind_ai$,
+        "workers_binding_kind_ai_search": workers_binding_kind_ai_search$,
+        "workers_binding_kind_ai_search_namespace": workers_binding_kind_ai_search_namespace$,
+        "workers_binding_kind_analytics_engine": workers_binding_kind_analytics_engine$,
+        "workers_binding_kind_artifacts": workers_binding_kind_artifacts$,
+        "workers_binding_kind_assets": workers_binding_kind_assets$,
+        "workers_binding_kind_browser": workers_binding_kind_browser$,
+        "workers_binding_kind_d1": workers_binding_kind_d1$,
+        "workers_binding_kind_data_blob": workers_binding_kind_data_blob$,
+        "workers_binding_kind_dispatch_namespace": workers_binding_kind_dispatch_namespace$,
+        "workers_binding_kind_durable_object_namespace": workers_binding_kind_durable_object_namespace$,
+        "workers_binding_kind_flagship": workers_binding_kind_flagship$,
+        "workers_binding_kind_hyperdrive": workers_binding_kind_hyperdrive$,
+        "workers_binding_kind_images": workers_binding_kind_images$,
+        "workers_binding_kind_inherit": workers_binding_kind_inherit$,
+        "workers_binding_kind_json": workers_binding_kind_json$,
+        "workers_binding_kind_k2": workers_binding_kind_k2$,
+        "workers_binding_kind_kv_namespace": workers_binding_kind_kv_namespace$,
+        "workers_binding_kind_media": workers_binding_kind_media$,
+        "workers_binding_kind_messaging": workers_binding_kind_messaging$,
+        "workers_binding_kind_mtls_certificate": workers_binding_kind_mtls_certificate$,
+        "workers_binding_kind_pipelines": workers_binding_kind_pipelines$,
+        "workers_binding_kind_plain_text": workers_binding_kind_plain_text$,
+        "workers_binding_kind_queue": workers_binding_kind_queue$,
+        "workers_binding_kind_r2_bucket": workers_binding_kind_r2_bucket$,
+        "workers_binding_kind_ratelimit": workers_binding_kind_ratelimit$,
+        "workers_binding_kind_secret_key": workers_binding_kind_secret_key$,
+        "workers_binding_kind_secret_text": workers_binding_kind_secret_text$,
+        "workers_binding_kind_secrets_store_secret": workers_binding_kind_secrets_store_secret$,
+        "workers_binding_kind_send_email": workers_binding_kind_send_email$,
+        "workers_binding_kind_service": workers_binding_kind_service$,
+        "workers_binding_kind_text_blob": workers_binding_kind_text_blob$,
+        "workers_binding_kind_vectorize": workers_binding_kind_vectorize$,
+        "workers_binding_kind_version_metadata": workers_binding_kind_version_metadata$,
+        "workers_binding_kind_vpc_network": workers_binding_kind_vpc_network$,
+        "workers_binding_kind_vpc_service": workers_binding_kind_vpc_service$,
+        "workers_binding_kind_wasm_module": workers_binding_kind_wasm_module$,
+        "workers_binding_kind_workflow": workers_binding_kind_workflow$,
+        "workers_bindings": workers_bindings$,
+        "workers_cache_options": workers_cache_options,
+        "workers_compatibility_flags": workers_compatibility_flags,
+        "workers_durable_object_deleted_export": workers_durable_object_deleted_export$,
+        "workers_durable_object_expecting_transfer_export": workers_durable_object_expecting_transfer_export$,
+        "workers_durable_object_export": workers_durable_object_export$,
+        "workers_durable_object_export_variants": workers_durable_object_export_variants$,
+        "workers_durable_object_renamed_export": workers_durable_object_renamed_export$,
+        "workers_durable_object_transferred_export": workers_durable_object_transferred_export$,
+        "workers_entrypoint_cache_options": workers_entrypoint_cache_options$,
+        "workers_export_config": workers_export_config$,
+        "workers_exports_config_map": workers_exports_config_map$,
+        "workers_worker_export": workers_worker_export$,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/workers_versions-upload-response",
+      $defs: {
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_binding_item": workers_binding_item,
+        "workers_binding_kind_ai": workers_binding_kind_ai,
+        "workers_binding_kind_ai_search": workers_binding_kind_ai_search,
+        "workers_binding_kind_ai_search_namespace": workers_binding_kind_ai_search_namespace,
+        "workers_binding_kind_analytics_engine": workers_binding_kind_analytics_engine,
+        "workers_binding_kind_artifacts": workers_binding_kind_artifacts,
+        "workers_binding_kind_assets": workers_binding_kind_assets,
+        "workers_binding_kind_browser": workers_binding_kind_browser,
+        "workers_binding_kind_d1": workers_binding_kind_d1,
+        "workers_binding_kind_data_blob": workers_binding_kind_data_blob,
+        "workers_binding_kind_dispatch_namespace": workers_binding_kind_dispatch_namespace,
+        "workers_binding_kind_durable_object_namespace": workers_binding_kind_durable_object_namespace,
+        "workers_binding_kind_flagship": workers_binding_kind_flagship,
+        "workers_binding_kind_hyperdrive": workers_binding_kind_hyperdrive,
+        "workers_binding_kind_images": workers_binding_kind_images,
+        "workers_binding_kind_inherit": workers_binding_kind_inherit,
+        "workers_binding_kind_json": workers_binding_kind_json,
+        "workers_binding_kind_k2": workers_binding_kind_k2,
+        "workers_binding_kind_kv_namespace": workers_binding_kind_kv_namespace,
+        "workers_binding_kind_media": workers_binding_kind_media,
+        "workers_binding_kind_messaging": workers_binding_kind_messaging,
+        "workers_binding_kind_mtls_certificate": workers_binding_kind_mtls_certificate,
+        "workers_binding_kind_pipelines": workers_binding_kind_pipelines,
+        "workers_binding_kind_plain_text": workers_binding_kind_plain_text,
+        "workers_binding_kind_queue": workers_binding_kind_queue,
+        "workers_binding_kind_r2_bucket": workers_binding_kind_r2_bucket,
+        "workers_binding_kind_ratelimit": workers_binding_kind_ratelimit,
+        "workers_binding_kind_secret_key": workers_binding_kind_secret_key,
+        "workers_binding_kind_secret_text": workers_binding_kind_secret_text,
+        "workers_binding_kind_secrets_store_secret": workers_binding_kind_secrets_store_secret,
+        "workers_binding_kind_send_email": workers_binding_kind_send_email,
+        "workers_binding_kind_service": workers_binding_kind_service,
+        "workers_binding_kind_text_blob": workers_binding_kind_text_blob,
+        "workers_binding_kind_vectorize": workers_binding_kind_vectorize,
+        "workers_binding_kind_version_metadata": workers_binding_kind_version_metadata,
+        "workers_binding_kind_vpc_network": workers_binding_kind_vpc_network,
+        "workers_binding_kind_vpc_service": workers_binding_kind_vpc_service,
+        "workers_binding_kind_wasm_module": workers_binding_kind_wasm_module,
+        "workers_binding_kind_workflow": workers_binding_kind_workflow,
+        "workers_bindings": workers_bindings,
+        "workers_durable_object_deleted_export": workers_durable_object_deleted_export,
+        "workers_durable_object_expecting_transfer_export": workers_durable_object_expecting_transfer_export,
+        "workers_durable_object_export": workers_durable_object_export,
+        "workers_durable_object_export_variants": workers_durable_object_export_variants,
+        "workers_durable_object_renamed_export": workers_durable_object_renamed_export,
+        "workers_durable_object_transferred_export": workers_durable_object_transferred_export,
+        "workers_entrypoint_cache_options": workers_entrypoint_cache_options,
+        "workers_export_config": workers_export_config,
+        "workers_exports_config_map": workers_exports_config_map,
+        "workers_exports_reconciliation_info": workers_exports_reconciliation_info,
+        "workers_exports_reconciliation_rename": workers_exports_reconciliation_rename,
+        "workers_exports_reconciliation_result": workers_exports_reconciliation_result,
+        "workers_exports_reconciliation_transfer": workers_exports_reconciliation_transfer,
+        "workers_exports_reconciliation_transfer_pending": workers_exports_reconciliation_transfer_pending,
+        "workers_exports_reconciliation_warning": workers_exports_reconciliation_warning,
+        "workers_messages": workers_messages,
+        "workers_version-item-full": workers_version$$item$$full,
+        "workers_version-item-short": workers_version$$item$$short,
+        "workers_version-item-uploaded": workers_version$$item$$uploaded,
+        "workers_versions-upload-response": workers_versions$$upload$$response,
+        "workers_worker_export": workers_worker_export,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Upload Version"
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/workers/scripts/{script_name}/versions",
+    extensions: {
+      "x-api-token-group": [
+        "Workers Scripts Write",
+        "Workers Admin",
+        "Workers Editor",
+        "Individual Workers Admin",
+        "Individual Workers Editor"
+      ],
+      "x-fern-audiences": [
+        "sdk"
+      ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/workers_versions-upload-response"
+        },
+        "4XX": {
+          "anyOf": [
+            {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/workers_versions-upload-response"
+                },
+                {
+                  "$ref": "#/$defs/workers_api-response-common-failure"
+                }
+              ]
+            },
+            {
+              "$ref": "#/$defs/workers_exports_reconciliation_error_response"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_api-response-common-failure": workers_api$$response$$common$$failure,
+        "workers_binding_item": workers_binding_item,
+        "workers_binding_kind_ai": workers_binding_kind_ai,
+        "workers_binding_kind_ai_search": workers_binding_kind_ai_search,
+        "workers_binding_kind_ai_search_namespace": workers_binding_kind_ai_search_namespace,
+        "workers_binding_kind_analytics_engine": workers_binding_kind_analytics_engine,
+        "workers_binding_kind_artifacts": workers_binding_kind_artifacts,
+        "workers_binding_kind_assets": workers_binding_kind_assets,
+        "workers_binding_kind_browser": workers_binding_kind_browser,
+        "workers_binding_kind_d1": workers_binding_kind_d1,
+        "workers_binding_kind_data_blob": workers_binding_kind_data_blob,
+        "workers_binding_kind_dispatch_namespace": workers_binding_kind_dispatch_namespace,
+        "workers_binding_kind_durable_object_namespace": workers_binding_kind_durable_object_namespace,
+        "workers_binding_kind_flagship": workers_binding_kind_flagship,
+        "workers_binding_kind_hyperdrive": workers_binding_kind_hyperdrive,
+        "workers_binding_kind_images": workers_binding_kind_images,
+        "workers_binding_kind_inherit": workers_binding_kind_inherit,
+        "workers_binding_kind_json": workers_binding_kind_json,
+        "workers_binding_kind_k2": workers_binding_kind_k2,
+        "workers_binding_kind_kv_namespace": workers_binding_kind_kv_namespace,
+        "workers_binding_kind_media": workers_binding_kind_media,
+        "workers_binding_kind_messaging": workers_binding_kind_messaging,
+        "workers_binding_kind_mtls_certificate": workers_binding_kind_mtls_certificate,
+        "workers_binding_kind_pipelines": workers_binding_kind_pipelines,
+        "workers_binding_kind_plain_text": workers_binding_kind_plain_text,
+        "workers_binding_kind_queue": workers_binding_kind_queue,
+        "workers_binding_kind_r2_bucket": workers_binding_kind_r2_bucket,
+        "workers_binding_kind_ratelimit": workers_binding_kind_ratelimit,
+        "workers_binding_kind_secret_key": workers_binding_kind_secret_key,
+        "workers_binding_kind_secret_text": workers_binding_kind_secret_text,
+        "workers_binding_kind_secrets_store_secret": workers_binding_kind_secrets_store_secret,
+        "workers_binding_kind_send_email": workers_binding_kind_send_email,
+        "workers_binding_kind_service": workers_binding_kind_service,
+        "workers_binding_kind_text_blob": workers_binding_kind_text_blob,
+        "workers_binding_kind_vectorize": workers_binding_kind_vectorize,
+        "workers_binding_kind_version_metadata": workers_binding_kind_version_metadata,
+        "workers_binding_kind_vpc_network": workers_binding_kind_vpc_network,
+        "workers_binding_kind_vpc_service": workers_binding_kind_vpc_service,
+        "workers_binding_kind_wasm_module": workers_binding_kind_wasm_module,
+        "workers_binding_kind_workflow": workers_binding_kind_workflow,
+        "workers_bindings": workers_bindings,
+        "workers_durable_object_deleted_export": workers_durable_object_deleted_export,
+        "workers_durable_object_expecting_transfer_export": workers_durable_object_expecting_transfer_export,
+        "workers_durable_object_export": workers_durable_object_export,
+        "workers_durable_object_export_variants": workers_durable_object_export_variants,
+        "workers_durable_object_renamed_export": workers_durable_object_renamed_export,
+        "workers_durable_object_transferred_export": workers_durable_object_transferred_export,
+        "workers_entrypoint_cache_options": workers_entrypoint_cache_options,
+        "workers_export_config": workers_export_config,
+        "workers_exports_config_map": workers_exports_config_map,
+        "workers_exports_reconciliation_error": workers_exports_reconciliation_error,
+        "workers_exports_reconciliation_error_response": workers_exports_reconciliation_error_response,
+        "workers_exports_reconciliation_info": workers_exports_reconciliation_info,
+        "workers_exports_reconciliation_rename": workers_exports_reconciliation_rename,
+        "workers_exports_reconciliation_result": workers_exports_reconciliation_result,
+        "workers_exports_reconciliation_transfer": workers_exports_reconciliation_transfer,
+        "workers_exports_reconciliation_transfer_pending": workers_exports_reconciliation_transfer_pending,
+        "workers_exports_reconciliation_warning": workers_exports_reconciliation_warning,
+        "workers_messages": workers_messages,
+        "workers_version-item-full": workers_version$$item$$full,
+        "workers_version-item-short": workers_version$$item$$short,
+        "workers_version-item-uploaded": workers_version$$item$$uploaded,
+        "workers_versions-upload-response": workers_versions$$upload$$response,
+        "workers_worker_export": workers_worker_export,
+      },
+    },
+    request: (args) => ({
+      path: `/accounts/${pathParam(args, "account_id")}/workers/scripts/${pathParam(args, "script_name")}/versions`,
+      query: [
+        ["bindings_inherit", param(args, "query", "bindings_inherit"), true],
+      ],
+      body: { value: args["body"], mediaTypes: ["multipart/form-data"] },
+    }),
+  },
   {
     name: "workers_legacy_scripts_versions_get",
     title: "Get Worker Script Version",

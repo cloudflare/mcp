@@ -9,6 +9,7 @@ import {
   images_api$$response$$single,
   images_deleted_response,
   images_image,
+  images_image_direct_upload_response_v2,
   images_image_metadata,
   images_image_response_blob,
   images_image_response_single,
@@ -19,12 +20,107 @@ import {
   images_images_stats_response,
   images_messages,
 } from "./outputs.js";
-import { images_image_patch_request } from "./schemas.js";
+import {
+  images_image_basic_upload,
+  images_image_direct_upload_request_v2,
+  images_image_patch_request,
+} from "./schemas.js";
 
 /**
  * The tools of `images`.
  */
 export const tools: readonly Tool[] = [
+  {
+    name: "images_create",
+    title: "Upload an image",
+    description: "Upload an image to CF Images. Images up to 10 Megabytes can be uploaded using a\nsingle HTTP POST (multipart/form-data) request by sending an image file or\npassing a URL accessible to the API.\n\nPOST /accounts/{account_id}/images/v1",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "body": {
+          "$ref": "#/$defs/images_image_basic_upload"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account identifier tag.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path",
+        "body"
+      ],
+      additionalProperties: false,
+      $defs: {
+        "images_image_basic_upload": images_image_basic_upload,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/images_image_response_single",
+      $defs: {
+        "images_api-response-common": images_api$$response$$common,
+        "images_api-response-single": images_api$$response$$single,
+        "images_image": images_image,
+        "images_image_metadata": images_image_metadata,
+        "images_image_response_single": images_image_response_single,
+        "images_image_variants": images_image_variants,
+        "images_messages": images_messages,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Upload an image"
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/images/v1",
+    extensions: {
+      "x-api-token-group": [
+        "Images Write"
+      ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/images_image_response_single"
+        },
+        "4XX": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/images_image_response_single"
+            },
+            {
+              "$ref": "#/$defs/images_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "images_api-response-common": images_api$$response$$common,
+        "images_api-response-common-failure": images_api$$response$$common$$failure,
+        "images_api-response-single": images_api$$response$$single,
+        "images_image": images_image,
+        "images_image_metadata": images_image_metadata,
+        "images_image_response_single": images_image_response_single,
+        "images_image_variants": images_image_variants,
+        "images_messages": images_messages,
+      },
+    },
+    request: (args) => ({
+      path: `/accounts/${pathParam(args, "account_id")}/images/v1`,
+      body: { value: args["body"], mediaTypes: ["multipart/form-data"] },
+    }),
+  },
   {
     name: "images_delete",
     title: "Delete image",
@@ -105,6 +201,91 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/images/v1/${pathParam(args, "image_id")}`,
+    }),
+  },
+  {
+    name: "images_directUpload",
+    title: "Create authenticated direct upload URL V2",
+    description: "Direct uploads allow users to upload images without API keys. A common use case are web apps, client-side applications, or mobile devices where users upload content directly to Cloudflare Images. This method creates a draft record for a future image. It returns an upload URL and an image identifier. To verify if the image itself has been uploaded, send an image details request (accounts/:account_identifier/images/v1/:identifier), and check that the `draft: true` property is not present.\n\nPOST /accounts/{account_id}/images/v2/direct_upload",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "body": {
+          "$ref": "#/$defs/images_image_direct_upload_request_v2"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account identifier tag.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path",
+        "body"
+      ],
+      additionalProperties: false,
+      $defs: {
+        "images_image_direct_upload_request_v2": images_image_direct_upload_request_v2,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/images_image_direct_upload_response_v2",
+      $defs: {
+        "images_api-response-common": images_api$$response$$common,
+        "images_api-response-single": images_api$$response$$single,
+        "images_image_direct_upload_response_v2": images_image_direct_upload_response_v2,
+        "images_messages": images_messages,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Create authenticated direct upload URL V2"
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/images/v2/direct_upload",
+    extensions: {
+      "x-api-token-group": [
+        "Images Write"
+      ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/images_image_direct_upload_response_v2"
+        },
+        "4XX": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/images_image_direct_upload_response_v2"
+            },
+            {
+              "$ref": "#/$defs/images_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "images_api-response-common": images_api$$response$$common,
+        "images_api-response-common-failure": images_api$$response$$common$$failure,
+        "images_api-response-single": images_api$$response$$single,
+        "images_image_direct_upload_response_v2": images_image_direct_upload_response_v2,
+        "images_messages": images_messages,
+      },
+    },
+    request: (args) => ({
+      path: `/accounts/${pathParam(args, "account_id")}/images/v2/direct_upload`,
+      body: { value: args["body"], mediaTypes: ["multipart/form-data"] },
     }),
   },
   {
@@ -200,7 +381,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/images/v1/${pathParam(args, "image_id")}`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
