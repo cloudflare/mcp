@@ -14,6 +14,46 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
+        "body": {
+          "description": "Finetune asset file upload.",
+          "properties": {
+            "file": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "content": {
+                      "type": "string"
+                    },
+                    "contentType": {
+                      "type": "string"
+                    },
+                    "filename": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "content"
+                  ],
+                  "type": "object"
+                }
+              ],
+              "description": "File to upload."
+            },
+            "file_name": {
+              "description": "Name of the file (adapter_config.json or adapter_model.safetensors).",
+              "type": "string"
+            }
+          },
+          "required": [
+            "file",
+            "file_name"
+          ],
+          "type": "object"
+        },
         "path": {
           "additionalProperties": false,
           "properties": {
@@ -107,6 +147,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/ai/finetunes/${pathParam(args, "finetune_id")}/finetune-assets`,
+      body: { value: args["body"], mediaTypes: ["multipart/form-data"] },
     }),
   },
   {

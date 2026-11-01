@@ -269,7 +269,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/user/subscriptions/${pathParam(args, "identifier")}`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
 ];

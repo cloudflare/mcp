@@ -36,7 +36,30 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "body": {
-          "$ref": "#/$defs/access_scim_user"
+          "anyOf": [
+            {
+              "$ref": "#/$defs/access_scim_user",
+              "description": "As application/json."
+            },
+            {
+              "$ref": "#/$defs/access_scim_user",
+              "description": "As application/scim+json."
+            }
+          ]
+        },
+        "headers": {
+          "additionalProperties": false,
+          "properties": {
+            "content-type": {
+              "description": "The media type of `body`. Without it, a string is sent as the first text type, and an object as JSON if the API takes JSON, else as multipart/form-data.",
+              "enum": [
+                "application/json",
+                "application/scim+json"
+              ],
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
         "path": {
           "additionalProperties": false,
@@ -112,7 +135,10 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/user_populations/${pathParam(args, "user_population_id")}/users`,
-      body: { value: args["body"], mediaType: "application/json" },
+      headers: [
+        ["content-type", param(args, "headers", "content-type")],
+      ],
+      body: { value: args["body"], mediaTypes: ["application/json", "application/scim+json"] },
     }),
   },
   {
@@ -395,7 +421,30 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "body": {
-          "$ref": "#/$defs/access_scim_user"
+          "anyOf": [
+            {
+              "$ref": "#/$defs/access_scim_user",
+              "description": "As application/json."
+            },
+            {
+              "$ref": "#/$defs/access_scim_user",
+              "description": "As application/scim+json."
+            }
+          ]
+        },
+        "headers": {
+          "additionalProperties": false,
+          "properties": {
+            "content-type": {
+              "description": "The media type of `body`. Without it, a string is sent as the first text type, and an object as JSON if the API takes JSON, else as multipart/form-data.",
+              "enum": [
+                "application/json",
+                "application/scim+json"
+              ],
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
         "path": {
           "additionalProperties": false,
@@ -476,7 +525,10 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/user_populations/${pathParam(args, "user_population_id")}/users/${pathParam(args, "user_id")}`,
-      body: { value: args["body"], mediaType: "application/json" },
+      headers: [
+        ["content-type", param(args, "headers", "content-type")],
+      ],
+      body: { value: args["body"], mediaTypes: ["application/json", "application/scim+json"] },
     }),
   },
   {
@@ -487,7 +539,30 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "body": {
-          "$ref": "#/$defs/access_scim_patch_request"
+          "anyOf": [
+            {
+              "$ref": "#/$defs/access_scim_patch_request",
+              "description": "As application/json."
+            },
+            {
+              "$ref": "#/$defs/access_scim_patch_request",
+              "description": "As application/scim+json."
+            }
+          ]
+        },
+        "headers": {
+          "additionalProperties": false,
+          "properties": {
+            "content-type": {
+              "description": "The media type of `body`. Without it, a string is sent as the first text type, and an object as JSON if the API takes JSON, else as multipart/form-data.",
+              "enum": [
+                "application/json",
+                "application/scim+json"
+              ],
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
         "path": {
           "additionalProperties": false,
@@ -565,7 +640,10 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/access/user_populations/${pathParam(args, "user_population_id")}/users/${pathParam(args, "user_id")}`,
-      body: { value: args["body"], mediaType: "application/json" },
+      headers: [
+        ["content-type", param(args, "headers", "content-type")],
+      ],
+      body: { value: args["body"], mediaTypes: ["application/json", "application/scim+json"] },
     }),
   },
 ];

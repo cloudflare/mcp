@@ -73,3 +73,64 @@ export const addressing_loa_document_collection: JsonSchema = {
     }
   ]
 };
+
+/**
+ * The schema of `addressing_loa_upload_response` in responses.
+ */
+export const addressing_loa_upload_response: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/addressing_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "auto_generated": {
+              "type": "boolean"
+            },
+            "created": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "filename": {
+              "type": "string"
+            },
+            "id": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "size_bytes": {
+              "type": "integer"
+            },
+            "verified": {
+              "type": "boolean"
+            },
+            "verified_at": {
+              "oneOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};

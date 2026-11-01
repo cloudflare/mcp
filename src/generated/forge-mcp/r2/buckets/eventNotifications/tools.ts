@@ -124,7 +124,7 @@ export const tools: readonly Tool[] = [
       headers: [
         ["cf-r2-jurisdiction", param(args, "headers", "cf-r2-jurisdiction")],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -503,7 +503,7 @@ export const tools: readonly Tool[] = [
       headers: [
         ["cf-r2-jurisdiction", param(args, "headers", "cf-r2-jurisdiction")],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
 ];

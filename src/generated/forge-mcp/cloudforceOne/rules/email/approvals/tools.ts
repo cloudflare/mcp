@@ -203,7 +203,7 @@ export const tools: readonly Tool[] = [
       query: [
         ["module", param(args, "query", "module"), true],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
 ];

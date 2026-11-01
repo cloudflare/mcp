@@ -171,7 +171,7 @@ export const tools: readonly Tool[] = [
         ["cf-r2-jurisdiction", param(args, "headers", "cf-r2-jurisdiction")],
         ["cf-r2-data-catalog-check", param(args, "headers", "cf-r2-data-catalog-check")],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {

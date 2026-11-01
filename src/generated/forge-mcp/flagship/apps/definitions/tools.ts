@@ -35,7 +35,7 @@ export const tools: readonly Tool[] = [
         "headers": {
           "additionalProperties": false,
           "properties": {
-            "If-None-Match": {
+            "if-none-match": {
               "description": "Previously returned ETag, or `*`.",
               "type": "string"
             }
@@ -228,7 +228,7 @@ export const tools: readonly Tool[] = [
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/flagship/apps/${pathParam(args, "app_id")}/definitions`,
       headers: [
-        ["If-None-Match", param(args, "headers", "If-None-Match")],
+        ["if-none-match", param(args, "headers", "if-none-match")],
       ],
     }),
   },

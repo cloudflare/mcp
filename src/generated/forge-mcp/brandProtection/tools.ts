@@ -204,7 +204,7 @@ export const tools: readonly Tool[] = [
         ["showHistoric", param(args, "query", "showHistoric"), true],
         ["download", param(args, "query", "download"), true],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {

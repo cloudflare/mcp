@@ -106,7 +106,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/tenants/${pathParam(args, "tenant_id")}/custom_ns`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {

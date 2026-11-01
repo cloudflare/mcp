@@ -163,7 +163,30 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "body": {
-          "$ref": "#/$defs/analytics-sql_SqlQueryRequest"
+          "anyOf": [
+            {
+              "$ref": "#/$defs/analytics-sql_SqlQueryRequest",
+              "description": "As application/json."
+            },
+            {
+              "description": "As text/plain.",
+              "type": "string"
+            }
+          ]
+        },
+        "headers": {
+          "additionalProperties": false,
+          "properties": {
+            "content-type": {
+              "description": "The media type of `body`. Without it, a string is sent as the first text type, and an object as JSON if the API takes JSON, else as multipart/form-data.",
+              "enum": [
+                "application/json",
+                "text/plain"
+              ],
+              "type": "string"
+            }
+          },
+          "type": "object"
         }
       },
       required: [
@@ -260,7 +283,10 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/analytics/sql`,
-      body: { value: args["body"], mediaType: "application/json" },
+      headers: [
+        ["content-type", param(args, "headers", "content-type")],
+      ],
+      body: { value: args["body"], mediaTypes: ["application/json", "text/plain"] },
     }),
   },
 ];

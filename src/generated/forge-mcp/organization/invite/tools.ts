@@ -151,7 +151,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/organizations/${pathParam(args, "organization_id")}/invites/${pathParam(args, "member_code")}`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
 ];

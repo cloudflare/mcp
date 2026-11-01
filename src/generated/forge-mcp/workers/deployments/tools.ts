@@ -145,7 +145,7 @@ export const tools: readonly Tool[] = [
       query: [
         ["force", param(args, "query", "force"), true],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {

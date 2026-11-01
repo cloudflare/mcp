@@ -301,7 +301,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/v1/verify`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
 ];

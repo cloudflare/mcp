@@ -189,7 +189,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/events/dataset/${pathParam(args, "dataset_id")}/indicators/${pathParam(args, "indicator_id")}/relationships`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -780,7 +780,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/events/dataset/${pathParam(args, "dataset_id")}/indicators/${pathParam(args, "indicator_id")}/relationships/${pathParam(args, "rel_uuid")}`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
 ];

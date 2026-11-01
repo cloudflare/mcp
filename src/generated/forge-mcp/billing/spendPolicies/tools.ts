@@ -111,7 +111,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/billing/spend-policies`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -124,13 +124,13 @@ export const tools: readonly Tool[] = [
         "headers": {
           "additionalProperties": false,
           "properties": {
-            "If-Match": {
+            "if-match": {
               "description": "The policy `version` the change is based on, as returned in `ETag`. Quoted (`\"3\"`) and bare (`3`) values are both accepted. Weak ETags (`W/\"3\"`) and `*` are not.",
               "type": "string"
             }
           },
           "required": [
-            "If-Match"
+            "if-match"
           ],
           "type": "object"
         },
@@ -220,7 +220,7 @@ export const tools: readonly Tool[] = [
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/billing/spend-policies/${pathParam(args, "policy_id")}`,
       headers: [
-        ["If-Match", param(args, "headers", "If-Match")],
+        ["if-match", param(args, "headers", "if-match")],
       ],
     }),
   },
@@ -413,13 +413,13 @@ export const tools: readonly Tool[] = [
         "headers": {
           "additionalProperties": false,
           "properties": {
-            "If-Match": {
+            "if-match": {
               "description": "The policy `version` the change is based on, as returned in `ETag`. Quoted (`\"3\"`) and bare (`3`) values are both accepted. Weak ETags (`W/\"3\"`) and `*` are not.",
               "type": "string"
             }
           },
           "required": [
-            "If-Match"
+            "if-match"
           ],
           "type": "object"
         },
@@ -520,9 +520,9 @@ export const tools: readonly Tool[] = [
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/billing/spend-policies/${pathParam(args, "policy_id")}`,
       headers: [
-        ["If-Match", param(args, "headers", "If-Match")],
+        ["if-match", param(args, "headers", "if-match")],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
 ];

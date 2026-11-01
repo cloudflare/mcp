@@ -159,8 +159,31 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "body": {
-          "$ref": "#/$defs/workers_Version",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/workers_Version",
+              "description": "As application/json."
+            },
+            {
+              "$ref": "#/$defs/workers_Version",
+              "description": "As application/merge-patch+json."
+            }
+          ],
           "description": "JSON Merge Patch to apply to the latest version. An empty object creates a new version with no changes."
+        },
+        "headers": {
+          "additionalProperties": false,
+          "properties": {
+            "content-type": {
+              "description": "The media type of `body`. Without it, a string is sent as the first text type, and an object as JSON if the API takes JSON, else as multipart/form-data.",
+              "enum": [
+                "application/json",
+                "application/merge-patch+json"
+              ],
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
         "path": {
           "additionalProperties": false,
@@ -486,7 +509,10 @@ export const tools: readonly Tool[] = [
       query: [
         ["deploy", param(args, "query", "deploy"), true],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      headers: [
+        ["content-type", param(args, "headers", "content-type")],
+      ],
+      body: { value: args["body"], mediaTypes: ["application/json", "application/merge-patch+json"] },
     }),
   },
 ];

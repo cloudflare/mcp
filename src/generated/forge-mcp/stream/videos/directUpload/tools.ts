@@ -33,7 +33,7 @@ export const tools: readonly Tool[] = [
         "headers": {
           "additionalProperties": false,
           "properties": {
-            "Upload-Creator": {
+            "upload-creator": {
               "description": "A user-defined identifier for the media creator.",
               "type": "string"
             }
@@ -109,9 +109,9 @@ export const tools: readonly Tool[] = [
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/stream/direct_upload`,
       headers: [
-        ["Upload-Creator", param(args, "headers", "Upload-Creator")],
+        ["upload-creator", param(args, "headers", "upload-creator")],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
 ];

@@ -28,7 +28,7 @@ export const tools: readonly Tool[] = [
         "headers": {
           "additionalProperties": false,
           "properties": {
-            "Accept": {
+            "accept": {
               "description": "Request `application/json; legacy=true` for the LegacyAccount representation.",
               "type": "string"
             }
@@ -296,7 +296,7 @@ export const tools: readonly Tool[] = [
         ["page_size", param(args, "query", "page_size"), false],
       ],
       headers: [
-        ["Accept", param(args, "headers", "Accept")],
+        ["accept", param(args, "headers", "accept")],
       ],
     }),
   },

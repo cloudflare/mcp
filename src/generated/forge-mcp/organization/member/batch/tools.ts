@@ -164,7 +164,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/organizations/${pathParam(args, "organization_id")}/members:batchCreate`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
 ];

@@ -6,17 +6,108 @@ import {
   addressing_api$$response$$collection,
   addressing_api$$response$$common,
   addressing_api$$response$$common$$failure,
+  addressing_api$$response$$single,
   addressing_messages,
 } from "../outputs.js";
 import {
   addressing_loa_document,
   addressing_loa_document_collection,
+  addressing_loa_upload_response,
 } from "./outputs.js";
 
 /**
  * The tools of `addressing.loaDocuments`.
  */
 export const tools: readonly Tool[] = [
+  {
+    name: "addressing_loaDocuments_create",
+    title: "Upload LOA Document",
+    description: "Submit LOA document (pdf format) under the account.\n\nPOST /accounts/{account_id}/addressing/loa_documents",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "body": {
+          "properties": {
+            "loa_document": {
+              "description": "LOA document to upload.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "loa_document"
+          ],
+          "type": "object"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path",
+        "body"
+      ],
+      additionalProperties: false,
+    },
+    outputSchema: {
+      "$ref": "#/$defs/addressing_loa_upload_response",
+      $defs: {
+        "addressing_api-response-single": addressing_api$$response$$single,
+        "addressing_loa_upload_response": addressing_loa_upload_response,
+        "addressing_messages": addressing_messages,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Upload LOA Document"
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/addressing/loa_documents",
+    extensions: {
+      "x-api-token-group": [
+        "Magic Transit Write"
+      ]
+    },
+    responses: {
+      schemas: {
+        "201": {
+          "$ref": "#/$defs/addressing_loa_upload_response"
+        },
+        "4XX": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/addressing_loa_upload_response"
+            },
+            {
+              "$ref": "#/$defs/addressing_api-response-common-failure"
+            }
+          ]
+        }
+      },
+      $defs: {
+        "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
+        "addressing_api-response-single": addressing_api$$response$$single,
+        "addressing_loa_upload_response": addressing_loa_upload_response,
+        "addressing_messages": addressing_messages,
+      },
+    },
+    request: (args) => ({
+      path: `/accounts/${pathParam(args, "account_id")}/addressing/loa_documents`,
+      body: { value: args["body"], mediaTypes: ["multipart/form-data"] },
+    }),
+  },
   {
     name: "addressing_loaDocuments_get",
     title: "Download LOA Document",

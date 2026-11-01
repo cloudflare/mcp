@@ -9013,6 +9013,32 @@ export const workers_api$$response$$null$$result: JsonSchema = {
 };
 
 /**
+ * The schema of `workers_api-response-single` in responses.
+ */
+export const workers_api$$response$$single: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/workers_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/workers_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `workers_binding_item` in responses.
  */
 export const workers_binding_item: JsonSchema = {
@@ -11717,6 +11743,75 @@ export const workers_script$$response: JsonSchema = {
     }
   },
   "type": "object"
+};
+
+/**
+ * The schema of `workers_script-response-single` in responses.
+ */
+export const workers_script$$response$$single: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/workers_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/workers_script-response"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `workers_script-response-upload` in responses.
+ */
+export const workers_script$$response$$upload: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/workers_script-response"
+    },
+    {
+      "properties": {
+        "entry_point": {
+          "type": "string"
+        },
+        "startup_time_ms": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "startup_time_ms"
+      ],
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `workers_script-response-upload-single` in responses.
+ */
+export const workers_script$$response$$upload$$single: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/workers_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/workers_script-response-upload"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object"
+    }
+  ]
 };
 
 /**

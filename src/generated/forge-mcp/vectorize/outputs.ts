@@ -260,6 +260,19 @@ export const vectorize_index$$info$$response: JsonSchema = {
 };
 
 /**
+ * The schema of `vectorize_index-insert-v2-response` in responses.
+ */
+export const vectorize_index$$insert$$v2$$response: JsonSchema = {
+  "properties": {
+    "mutationId": {
+      "format": "uuid",
+      "type": "string"
+    }
+  },
+  "type": "object"
+};
+
+/**
  * The schema of `vectorize_index-list-vectors-response` in responses.
  */
 export const vectorize_index$$list$$vectors$$response: JsonSchema = {
@@ -364,6 +377,19 @@ export const vectorize_index$$query$$v2$$response: JsonSchema = {
         "type": "object"
       },
       "type": "array"
+    }
+  },
+  "type": "object"
+};
+
+/**
+ * The schema of `vectorize_index-upsert-v2-response` in responses.
+ */
+export const vectorize_index$$upsert$$v2$$response: JsonSchema = {
+  "properties": {
+    "mutationId": {
+      "format": "uuid",
+      "type": "string"
     }
   },
   "type": "object"

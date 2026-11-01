@@ -124,7 +124,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/stream/clip`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -140,7 +140,7 @@ export const tools: readonly Tool[] = [
         "headers": {
           "additionalProperties": false,
           "properties": {
-            "Upload-Creator": {
+            "upload-creator": {
               "description": "A user-defined identifier for the media creator.",
               "type": "string"
             }
@@ -228,9 +228,9 @@ export const tools: readonly Tool[] = [
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/stream/copy`,
       headers: [
-        ["Upload-Creator", param(args, "headers", "Upload-Creator")],
+        ["upload-creator", param(args, "headers", "upload-creator")],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -243,29 +243,29 @@ export const tools: readonly Tool[] = [
         "headers": {
           "additionalProperties": false,
           "properties": {
-            "Tus-Resumable": {
+            "tus-resumable": {
               "description": "Specifies the TUS protocol version. This value must be included in every upload request.\nNotes: The only supported version of TUS protocol is 1.0.0.",
               "enum": [
                 "1.0.0"
               ],
               "type": "string"
             },
-            "Upload-Creator": {
+            "upload-creator": {
               "description": "A user-defined identifier for the media creator.",
               "type": "string"
             },
-            "Upload-Length": {
+            "upload-length": {
               "description": "Indicates the size of the entire upload in bytes. The value must be a non-negative integer.",
               "type": "integer"
             },
-            "Upload-Metadata": {
+            "upload-metadata": {
               "description": "Comma-separated key-value pairs following the TUS protocol specification. Values are Base-64 encoded.\nSupported keys: `name`, `requiresignedurls`, `allowedorigins`, `thumbnailtimestamppct`, `watermark`, `scheduleddeletion`, `maxdurationseconds`.",
               "type": "string"
             }
           },
           "required": [
-            "Tus-Resumable",
-            "Upload-Length"
+            "tus-resumable",
+            "upload-length"
           ],
           "type": "object"
         },
@@ -332,10 +332,10 @@ export const tools: readonly Tool[] = [
         ["direct_user", param(args, "query", "direct_user"), true],
       ],
       headers: [
-        ["Tus-Resumable", param(args, "headers", "Tus-Resumable")],
-        ["Upload-Creator", param(args, "headers", "Upload-Creator")],
-        ["Upload-Length", param(args, "headers", "Upload-Length")],
-        ["Upload-Metadata", param(args, "headers", "Upload-Metadata")],
+        ["tus-resumable", param(args, "headers", "tus-resumable")],
+        ["upload-creator", param(args, "headers", "upload-creator")],
+        ["upload-length", param(args, "headers", "upload-length")],
+        ["upload-metadata", param(args, "headers", "upload-metadata")],
       ],
     }),
   },
@@ -489,7 +489,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/stream/${pathParam(args, "identifier")}`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {

@@ -11,8 +11,10 @@ import {
   vectorize_index$$dimension$$configuration,
   vectorize_index$$get$$vectors$$by$$id$$response,
   vectorize_index$$info$$response,
+  vectorize_index$$insert$$v2$$response,
   vectorize_index$$list$$vectors$$response,
   vectorize_index$$query$$v2$$response,
+  vectorize_index$$upsert$$v2$$response,
   vectorize_messages,
   vectorize_vector$$list$$item,
 } from "./outputs.js";
@@ -139,7 +141,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/vectorize/v2/indexes`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -365,7 +367,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/vectorize/v2/indexes/${pathParam(args, "index_name")}/delete_by_ids`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -576,7 +578,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/vectorize/v2/indexes/${pathParam(args, "index_name")}/get_by_ids`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -681,6 +683,148 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/vectorize/v2/indexes/${pathParam(args, "index_name")}/info`,
+    }),
+  },
+  {
+    name: "vectorize_insert",
+    title: "Insert Vectors",
+    description: "Inserts vectors into the specified index and returns a mutation id corresponding to the vectors enqueued for insertion.\n\nPOST /accounts/{account_id}/vectorize/v2/indexes/{index_name}/insert",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "body": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "content": {
+                  "type": "string"
+                },
+                "contentType": {
+                  "type": "string"
+                },
+                "filename": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "content"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier",
+              "type": "string"
+            },
+            "index_name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "index_name"
+          ],
+          "type": "object"
+        },
+        "query": {
+          "additionalProperties": false,
+          "properties": {
+            "unparsable-behavior": {
+              "description": "Behavior for ndjson parse failures.",
+              "enum": [
+                "error",
+                "discard"
+              ],
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      required: [
+        "path",
+        "body"
+      ],
+      additionalProperties: false,
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/vectorize_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/vectorize_index-insert-v2-response"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "vectorize_api-response-common": vectorize_api$$response$$common,
+        "vectorize_api-response-single": vectorize_api$$response$$single,
+        "vectorize_index-insert-v2-response": vectorize_index$$insert$$v2$$response,
+        "vectorize_messages": vectorize_messages,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Insert Vectors"
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/vectorize/v2/indexes/{index_name}/insert",
+    extensions: {
+      "x-api-token-group": [
+        "Vectorize Write"
+      ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/vectorize_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/vectorize_index-insert-v2-response"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/vectorize_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "vectorize_api-response-common": vectorize_api$$response$$common,
+        "vectorize_api-response-common-failure": vectorize_api$$response$$common$$failure,
+        "vectorize_api-response-single": vectorize_api$$response$$single,
+        "vectorize_index-insert-v2-response": vectorize_index$$insert$$v2$$response,
+        "vectorize_messages": vectorize_messages,
+      },
+    },
+    request: (args) => ({
+      path: `/accounts/${pathParam(args, "account_id")}/vectorize/v2/indexes/${pathParam(args, "index_name")}/insert`,
+      query: [
+        ["unparsable-behavior", param(args, "query", "unparsable-behavior"), true],
+      ],
+      body: { value: args["body"], mediaTypes: ["application/x-ndjson"] },
     }),
   },
   {
@@ -1018,7 +1162,149 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/vectorize/v2/indexes/${pathParam(args, "index_name")}/query`,
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
+    }),
+  },
+  {
+    name: "vectorize_upsert",
+    title: "Upsert Vectors",
+    description: "Upserts vectors into the specified index, creating them if they do not exist and returns a mutation id corresponding to the vectors enqueued for upsertion.\n\nPOST /accounts/{account_id}/vectorize/v2/indexes/{index_name}/upsert",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "body": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "content": {
+                  "type": "string"
+                },
+                "contentType": {
+                  "type": "string"
+                },
+                "filename": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "content"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier",
+              "type": "string"
+            },
+            "index_name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "index_name"
+          ],
+          "type": "object"
+        },
+        "query": {
+          "additionalProperties": false,
+          "properties": {
+            "unparsable-behavior": {
+              "description": "Behavior for ndjson parse failures.",
+              "enum": [
+                "error",
+                "discard"
+              ],
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      required: [
+        "path",
+        "body"
+      ],
+      additionalProperties: false,
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/vectorize_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/vectorize_index-upsert-v2-response"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "vectorize_api-response-common": vectorize_api$$response$$common,
+        "vectorize_api-response-single": vectorize_api$$response$$single,
+        "vectorize_index-upsert-v2-response": vectorize_index$$upsert$$v2$$response,
+        "vectorize_messages": vectorize_messages,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Upsert Vectors"
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/vectorize/v2/indexes/{index_name}/upsert",
+    extensions: {
+      "x-api-token-group": [
+        "Vectorize Write"
+      ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/vectorize_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/vectorize_index-upsert-v2-response"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/vectorize_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "vectorize_api-response-common": vectorize_api$$response$$common,
+        "vectorize_api-response-common-failure": vectorize_api$$response$$common$$failure,
+        "vectorize_api-response-single": vectorize_api$$response$$single,
+        "vectorize_index-upsert-v2-response": vectorize_index$$upsert$$v2$$response,
+        "vectorize_messages": vectorize_messages,
+      },
+    },
+    request: (args) => ({
+      path: `/accounts/${pathParam(args, "account_id")}/vectorize/v2/indexes/${pathParam(args, "index_name")}/upsert`,
+      query: [
+        ["unparsable-behavior", param(args, "query", "unparsable-behavior"), true],
+      ],
+      body: { value: args["body"], mediaTypes: ["application/x-ndjson"] },
     }),
   },
 ];

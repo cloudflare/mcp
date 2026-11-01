@@ -146,6 +146,34 @@ describe('generated direct tools (?codemode=false&experimentalForge=true)', () =
     expect(auth).toBe(`Bearer ${ACCOUNT_TOKEN}`)
   })
 
+  it('sends a body in the media type its value fits: text as it is, an object as multipart', async () => {
+    const KV = `${API_BASE}/accounts/${ACCOUNT_ID}/storage/kv/namespaces/ns/values/greeting`
+    const sent: { type: string | null; text?: string; form?: FormData }[] = []
+    server.use(
+      http.put(KV, async ({ request }) => {
+        const type = request.headers.get('Content-Type')
+        sent.push(
+          type?.startsWith('multipart/form-data')
+            ? { type, form: await request.formData() }
+            : { type, text: await request.text() }
+        )
+        return HttpResponse.json(cfSuccess(null))
+      })
+    )
+    const path = { namespace_id: 'ns', key_name: 'greeting' }
+
+    await callForgeTool(ACCOUNT_TOKEN, 'kv_keys_put', { path, body: 'hello' })
+    await callForgeTool(ACCOUNT_TOKEN, 'kv_keys_put', {
+      path,
+      body: { value: 'hello', metadata: { owner: 'bench' } }
+    })
+
+    expect(sent[0]).toEqual({ type: 'application/octet-stream', text: 'hello' })
+    expect(sent[1].type).toMatch(/^multipart\/form-data; boundary=/)
+    expect(sent[1].form?.get('value')).toBe('hello')
+    expect(sent[1].form?.get('metadata')).toBe('{"owner":"bench"}')
+  })
+
   it('sends the body argument as JSON', async () => {
     let body: unknown
     server.use(

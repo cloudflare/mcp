@@ -109,7 +109,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/scim/v2/Users`,
-      body: { value: args["body"], mediaType: "application/scim+json" },
+      body: { value: args["body"], mediaTypes: ["application/scim+json"] },
     }),
   },
   {
@@ -275,7 +275,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/scim/v2/Users/${pathParam(args, "user_id")}`,
-      body: { value: args["body"], mediaType: "application/scim+json" },
+      body: { value: args["body"], mediaTypes: ["application/scim+json"] },
     }),
   },
   {
@@ -563,7 +563,7 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/scim/v2/Users/${pathParam(args, "user_id")}`,
-      body: { value: args["body"], mediaType: "application/scim+json" },
+      body: { value: args["body"], mediaTypes: ["application/scim+json"] },
     }),
   },
 ];

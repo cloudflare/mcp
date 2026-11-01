@@ -56,7 +56,7 @@ export const tools: readonly Tool[] = [
         "headers": {
           "additionalProperties": false,
           "properties": {
-            "Idempotency-Key": {
+            "idempotency-key": {
               "description": "Client command key. Required when publishing a message for a workflow-enabled project; trimmed and limited to 255 characters.",
               "oneOf": [
                 {
@@ -331,9 +331,9 @@ export const tools: readonly Tool[] = [
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/requests/${pathParam(args, "project_type")}/${pathParam(args, "request_id")}/messages/new`,
       headers: [
-        ["Idempotency-Key", param(args, "headers", "Idempotency-Key")],
+        ["idempotency-key", param(args, "headers", "idempotency-key")],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
@@ -1007,7 +1007,7 @@ export const tools: readonly Tool[] = [
         "headers": {
           "additionalProperties": false,
           "properties": {
-            "Idempotency-Key": {
+            "idempotency-key": {
               "description": "Client command key. Required when publishing a message for a workflow-enabled project; trimmed and limited to 255 characters.",
               "oneOf": [
                 {
@@ -1302,9 +1302,9 @@ export const tools: readonly Tool[] = [
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/requests/${pathParam(args, "project_type")}/${pathParam(args, "request_id")}/messages/${pathParam(args, "message_id")}`,
       headers: [
-        ["Idempotency-Key", param(args, "headers", "Idempotency-Key")],
+        ["idempotency-key", param(args, "headers", "idempotency-key")],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
 ];

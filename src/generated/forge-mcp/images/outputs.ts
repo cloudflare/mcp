@@ -191,6 +191,33 @@ export const images_image: JsonSchema = {
 };
 
 /**
+ * The schema of `images_image_direct_upload_response_v2` in responses.
+ */
+export const images_image_direct_upload_response_v2: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/images_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "uploadURL": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `images_image_metadata` in responses.
  */
 export const images_image_metadata: JsonSchema = {

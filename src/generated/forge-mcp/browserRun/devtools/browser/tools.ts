@@ -185,7 +185,7 @@ export const tools: readonly Tool[] = [
         ["liveViewUrlExpiresInMs", param(args, "query", "liveViewUrlExpiresInMs"), true],
         ["recording", param(args, "query", "recording"), true],
       ],
-      body: { value: args["body"], mediaType: "application/json" },
+      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {
