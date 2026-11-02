@@ -56,6 +56,34 @@ describe('truncateResponse', () => {
   it('should render undefined as text instead of throwing', () => {
     expect(truncateResponse(undefined)).toBe('undefined')
   })
+
+  it('should render BigInt as text notation instead of throwing', () => {
+    expect(truncateResponse(1n)).toBe('1n')
+    expect(truncateResponse({ value: 42n })).toBe('{\n  "value": "42n"\n}')
+  })
+
+  it('should render circular references as [Circular] instead of throwing', () => {
+    const x: Record<string, unknown> = {}
+    x.self = x
+    expect(truncateResponse(x)).toBe('{\n  "self": "[Circular]"\n}')
+
+    const arr: unknown[] = [1, 2]
+    arr.push(arr)
+    expect(truncateResponse(arr)).toBe('[\n  1,\n  2,\n  "[Circular]"\n]')
+  })
+
+  it('should preserve shared DAG references without marking them as circular', () => {
+    const child = { id: 1 }
+    const dag = { a: child, b: child }
+    expect(truncateResponse(dag)).toBe(
+      '{\n  "a": {\n    "id": 1\n  },\n  "b": {\n    "id": 1\n  }\n}'
+    )
+  })
+
+  it('renders symbols and functions as strings', () => {
+    expect(truncateResponse(Symbol('id'))).toBe('Symbol(id)')
+    expect(truncateResponse({ fn: () => 1 })).toBe('{\n  "fn": "() => 1"\n}')
+  })
 })
 
 describe('truncateResponse with oversized JSON', () => {
@@ -200,6 +228,21 @@ describe('truncateResponse with oversized JSON', () => {
     }
     expect(truncated).toBeGreaterThan(30)
   })
+
+  it('structurally shrinks oversized arrays containing BigInt and circular references', () => {
+    const largeArray = Array.from({ length: 5000 }, (_, i) => {
+      const item: Record<string, unknown> = { id: BigInt(i), tag: 'val' }
+      if (i % 10 === 0) item.self = item
+      return item
+    })
+    const result = truncateResponse(largeArray)
+    expect(result.length).toBeLessThanOrEqual(MAX_CHARS)
+    expect(() => JSON.parse(result)).not.toThrow()
+    const parsed = JSON.parse(result)
+    expect(parsed[0].id).toBe('0n')
+    expect(parsed[0].self).toBe('[Circular]')
+    expect(parsed.at(-1)).toMatch(/^--- TRUNCATED --- [\d,]+ more items$/)
+  })
 })
 
 describe('stringifyResponse', () => {
@@ -215,5 +258,21 @@ describe('stringifyResponse', () => {
 
   it('renders undefined as text', () => {
     expect(stringifyResponse(undefined)).toBe('undefined')
+  })
+
+  it('renders BigInt as text notation', () => {
+    expect(stringifyResponse(1n)).toBe('1n')
+    expect(stringifyResponse({ count: 99n })).toBe('{\n  "count": "99n"\n}')
+  })
+
+  it('renders circular structures with [Circular] placeholder', () => {
+    const x: Record<string, unknown> = {}
+    x.self = x
+    expect(stringifyResponse(x)).toBe('{\n  "self": "[Circular]"\n}')
+  })
+
+  it('renders symbols and functions as strings', () => {
+    expect(stringifyResponse(Symbol('test'))).toBe('Symbol(test)')
+    expect(stringifyResponse({ callback: () => true })).toBe('{\n  "callback": "() => true"\n}')
   })
 })
