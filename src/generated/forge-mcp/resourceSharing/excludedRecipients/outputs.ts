@@ -40,7 +40,7 @@ export const resource$$sharing_share_excluded_recipient_object: JsonSchema = {
 export const resource$$sharing_share_excluded_recipient_response_collection: JsonSchema = {
   "allOf": [
     {
-      "$ref": "#/$defs/resource-sharing_api-response-collection"
+      "$ref": "#/$defs/resource-sharing_api_response_collection"
     },
     {
       "$ref": "#/$defs/resource-sharing_share_excluded_recipient_response_collection_result"
@@ -72,7 +72,7 @@ export const resource$$sharing_share_excluded_recipient_response_collection_resu
 export const resource$$sharing_share_excluded_recipient_response_single: JsonSchema = {
   "allOf": [
     {
-      "$ref": "#/$defs/resource-sharing_api-response-common"
+      "$ref": "#/$defs/resource-sharing_api_response_common"
     },
     {
       "$ref": "#/$defs/resource-sharing_share_excluded_recipient_response_single_result"

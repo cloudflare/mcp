@@ -3,23 +3,21 @@
 
 import { type Tool, param, pathParam } from "../../_/tool.js";
 import {
-  organizations$$api_V4ErrorResponse,
-  organizations$$api_V4Message,
-} from "../../outputs.js";
-import { organizations$$api_PageTokenResultInfo } from "../outputs.js";
-import {
-  organizations$$api_Account,
   organizations$$api_AccountListResultInfo,
   organizations$$api_LegacyAccount,
   organizations$$api_LegacyPaginationResultInfo,
-} from "./outputs.js";
+  organizations$$api_PageTokenResultInfo,
+  organizations$$api_V4ErrorResponse,
+  organizations$$api_V4Message,
+} from "../../outputs.js";
+import { organizations$$api_Account } from "./outputs.js";
 
 /**
- * The tools of `organization.account`.
+ * The tools of `organizations.accounts`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "organization_account_list",
+    name: "organizations_accounts_list",
     title: "List organization accounts",
     description: "Retrieve the accounts immediately attached to a specific organization. Accounts\nattached to sub-organizations are not included. Use `page_token` and `page_size` for cursor\npagination, or provide `page` and `per_page` together for legacy offset pagination. Cursor\npagination takes precedence when requested. The default response uses Account fields;\n`Accept: application/json; legacy=true` requests the LegacyAccount representation.\n\nGET /organizations/{organization_id}/accounts",
     inputSchema: {
@@ -89,7 +87,7 @@ export const tools: readonly Tool[] = [
               "type": "boolean"
             },
             "name": {
-              "description": "(case-sensitive) Filter the list of accounts to where the name is equal to a\nparticular string.",
+              "description": "(case-sensitive) Filter the list of accounts to where the name is equal to a\nparticular string. At most one of `name`, `name.startsWith`, `name.endsWith`,\nor `name.contains` may be supplied per request.",
               "type": "string"
             },
             "name.contains": {

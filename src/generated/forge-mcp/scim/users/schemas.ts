@@ -51,7 +51,24 @@ export const iam_scim_patch_operation: JsonSchema = {
       "type": "string"
     },
     "value": {
-      "description": "The value(s) for the operation. For `replace` without a path, this should be an object of attribute name/value pairs. For member path operations, this should be an array of member value objects."
+      "description": "The value(s) for the operation. For `replace` without a path, this should be an object of attribute name/value pairs. For member path operations, this should be an array of member value objects. For `replace` with a path, this is the new value of the targeted attribute.",
+      "oneOf": [
+        {
+          "type": "object"
+        },
+        {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "string"
+        }
+      ]
     }
   },
   "required": [

@@ -9,7 +9,7 @@ import type { JsonSchema } from "../_/tool.js";
 export const resource$$sharing_share_response_single: JsonSchema = {
   "allOf": [
     {
-      "$ref": "#/$defs/resource-sharing_api-response-common"
+      "$ref": "#/$defs/resource-sharing_api_response_common"
     },
     {
       "$ref": "#/$defs/resource-sharing_share_response_single_result"

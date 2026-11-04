@@ -3,26 +3,27 @@
 
 import { type Tool, param, pathParam } from "../../_/tool.js";
 import {
-  resource$$sharing_api$$response$$collection,
-  resource$$sharing_api$$response$$collection$$info,
-  resource$$sharing_api$$response$$common,
-  resource$$sharing_api$$response$$common$$failure,
+  resource$$sharing_api_response_collection,
+  resource$$sharing_api_response_collection_info,
+  resource$$sharing_api_response_common,
+  resource$$sharing_api_response_common_failure,
   resource$$sharing_resource_meta,
   resource$$sharing_result_info,
   resource$$sharing_share_object,
   resource$$sharing_share_resource_object,
   resource$$sharing_share_response_collection,
   resource$$sharing_share_response_collection_result,
+  resource$$sharing_share_tags,
   resource$$sharing_v4error,
   resource$$sharing_v4errors,
 } from "../../outputs.js";
 
 /**
- * The tools of `organization.share`.
+ * The tools of `organizations.shares`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "organization_share_list",
+    name: "organizations_shares_list",
     title: "List organization shares",
     description: "Lists all organization shares.\n\nGET /organizations/{organization_id}/shares",
     inputSchema: {
@@ -53,14 +54,6 @@ export const tools: readonly Tool[] = [
               ],
               "type": "string"
             },
-            "kind": {
-              "description": "Filter shares by kind.",
-              "enum": [
-                "sent",
-                "received"
-              ],
-              "type": "string"
-            },
             "order": {
               "default": "created",
               "description": "Order shares by values in the given field.",
@@ -72,30 +65,13 @@ export const tools: readonly Tool[] = [
             },
             "page": {
               "default": 1,
-              "description": "Page number. Defaults to `1` when `per_page` is supplied without\n`page`. May be omitted entirely along with `per_page` to receive a\nnon-paginated response.",
+              "description": "Page number. Defaults to `1` when omitted.",
               "type": "integer"
             },
             "per_page": {
               "default": 20,
-              "description": "Number of objects to return per page. Defaults to `20` when `page` is supplied without `per_page`. May be omitted entirely along with `page` to receive a non-paginated response.",
+              "description": "Number of objects to return per page. Defaults to `20` when omitted.",
               "type": "integer"
-            },
-            "resource_types": {
-              "description": "Filter share resources by resource_types.",
-              "items": {
-                "description": "Resource Type.",
-                "enum": [
-                  "custom-ruleset",
-                  "gateway-policy",
-                  "gateway-destination-ip",
-                  "gateway-block-page-settings",
-                  "gateway-extended-email-matching",
-                  "idp-federation-grant",
-                  "trust-grant"
-                ],
-                "type": "string"
-              },
-              "type": "array"
             },
             "status": {
               "description": "Filter shares by status.",
@@ -103,14 +79,6 @@ export const tools: readonly Tool[] = [
                 "active",
                 "deleting",
                 "deleted"
-              ],
-              "type": "string"
-            },
-            "target_type": {
-              "description": "Filter shares by target_type.",
-              "enum": [
-                "account",
-                "organization"
               ],
               "type": "string"
             }
@@ -126,15 +94,16 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/resource-sharing_share_response_collection",
       $defs: {
-        "resource-sharing_api-response-collection": resource$$sharing_api$$response$$collection,
-        "resource-sharing_api-response-collection-info": resource$$sharing_api$$response$$collection$$info,
-        "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
+        "resource-sharing_api_response_collection": resource$$sharing_api_response_collection,
+        "resource-sharing_api_response_collection_info": resource$$sharing_api_response_collection_info,
+        "resource-sharing_api_response_common": resource$$sharing_api_response_common,
         "resource-sharing_resource_meta": resource$$sharing_resource_meta,
         "resource-sharing_result_info": resource$$sharing_result_info,
         "resource-sharing_share_object": resource$$sharing_share_object,
         "resource-sharing_share_resource_object": resource$$sharing_share_resource_object,
         "resource-sharing_share_response_collection": resource$$sharing_share_response_collection,
         "resource-sharing_share_response_collection_result": resource$$sharing_share_response_collection_result,
+        "resource-sharing_share_tags": resource$$sharing_share_tags,
         "resource-sharing_v4error": resource$$sharing_v4error,
         "resource-sharing_v4errors": resource$$sharing_v4errors,
       },
@@ -162,23 +131,24 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/resource-sharing_share_response_collection"
         },
         "4XX": {
-          "$ref": "#/$defs/resource-sharing_api-response-common-failure"
+          "$ref": "#/$defs/resource-sharing_api_response_common_failure"
         },
         "5XX": {
-          "$ref": "#/$defs/resource-sharing_api-response-common-failure"
+          "$ref": "#/$defs/resource-sharing_api_response_common_failure"
         }
       },
       $defs: {
-        "resource-sharing_api-response-collection": resource$$sharing_api$$response$$collection,
-        "resource-sharing_api-response-collection-info": resource$$sharing_api$$response$$collection$$info,
-        "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
-        "resource-sharing_api-response-common-failure": resource$$sharing_api$$response$$common$$failure,
+        "resource-sharing_api_response_collection": resource$$sharing_api_response_collection,
+        "resource-sharing_api_response_collection_info": resource$$sharing_api_response_collection_info,
+        "resource-sharing_api_response_common": resource$$sharing_api_response_common,
+        "resource-sharing_api_response_common_failure": resource$$sharing_api_response_common_failure,
         "resource-sharing_resource_meta": resource$$sharing_resource_meta,
         "resource-sharing_result_info": resource$$sharing_result_info,
         "resource-sharing_share_object": resource$$sharing_share_object,
         "resource-sharing_share_resource_object": resource$$sharing_share_resource_object,
         "resource-sharing_share_response_collection": resource$$sharing_share_response_collection,
         "resource-sharing_share_response_collection_result": resource$$sharing_share_response_collection_result,
+        "resource-sharing_share_tags": resource$$sharing_share_tags,
         "resource-sharing_v4error": resource$$sharing_v4error,
         "resource-sharing_v4errors": resource$$sharing_v4errors,
       },
@@ -187,9 +157,6 @@ export const tools: readonly Tool[] = [
       path: `/organizations/${pathParam(args, "organization_id")}/shares`,
       query: [
         ["status", param(args, "query", "status"), true],
-        ["kind", param(args, "query", "kind"), true],
-        ["target_type", param(args, "query", "target_type"), true],
-        ["resource_types", param(args, "query", "resource_types"), true],
         ["order", param(args, "query", "order"), true],
         ["direction", param(args, "query", "direction"), true],
         ["page", param(args, "query", "page"), true],

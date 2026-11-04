@@ -4,11 +4,31 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `resource-sharing_share_recipient_mutation_request`.
+ */
+export const resource$$sharing_share_recipient_mutation_request: JsonSchema = {
+  "description": "Specify the account receiving the share using `recipient_account_id`.\nThe legacy field `account_id` is accepted as a synonym during the deprecation period (see `x-sunset` on that field).",
+  "properties": {
+    "account_id": {
+      "deprecated": true,
+      "description": "Deprecated alias for `recipient_account_id`. Use `recipient_account_id` instead.\nThe body field collided with the URL path parameter of the same name, which prevented SDK generators from distinguishing the source account (in the URL) from the recipient account (in the body). Both names will continue to be accepted until 2027-05-26 (see `x-sunset`).",
+      "type": "string"
+    },
+    "recipient_account_id": {
+      "description": "The account that will receive the share.",
+      "type": "string"
+    }
+  },
+  "type": "object"
+};
+
+/**
  * The schema of `resource-sharing_update_share_recipients_request`.
  */
 export const resource$$sharing_update_share_recipients_request: JsonSchema = {
   "items": {
-    "$ref": "#/$defs/resource-sharing_create_share_recipient_request"
+    "$ref": "#/$defs/resource-sharing_share_recipient_mutation_request"
   },
+  "maxItems": 100,
   "type": "array"
 };

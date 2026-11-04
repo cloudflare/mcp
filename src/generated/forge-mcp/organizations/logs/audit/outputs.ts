@@ -112,7 +112,7 @@ export const aaa_audit$$logs$$v2$$org$$history$$response$$collection: JsonSchema
 export const aaa_audit$$logs$$v2$$org$$response$$collection: JsonSchema = {
   "allOf": [
     {
-      "$ref": "#/$defs/aaa_audit-logs-response-collection"
+      "$ref": "#/$defs/aaa_audit-logs-success-response-collection"
     },
     {
       "properties": {

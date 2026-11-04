@@ -81,38 +81,16 @@ export const cloudflare$$k2_K2StreamHttpInput: JsonSchema = {
  * The schema of `cloudflare-k2_K2StreamWorkerBindingInput`.
  */
 export const cloudflare$$k2_K2StreamWorkerBindingInput: JsonSchema = {
-  "oneOf": [
-    {
-      "properties": {
-        "enabled": {
-          "description": "Indicates whether Workers bindings can produce records to the stream.",
-          "enum": [
-            false
-          ],
-          "type": "boolean"
-        }
-      },
-      "required": [
-        "enabled"
-      ],
-      "type": "object"
-    },
-    {
-      "properties": {
-        "enabled": {
-          "description": "Indicates whether Workers bindings can produce records to the stream.",
-          "enum": [
-            true
-          ],
-          "type": "boolean"
-        }
-      },
-      "required": [
-        "enabled"
-      ],
-      "type": "object"
+  "properties": {
+    "enabled": {
+      "description": "Indicates whether Workers bindings can produce records to the stream.",
+      "type": "boolean"
     }
-  ]
+  },
+  "required": [
+    "enabled"
+  ],
+  "type": "object"
 };
 
 /**

@@ -14,7 +14,7 @@ import {
  */
 export const tools: readonly Tool[] = [
   {
-    name: "loadBalancers_pools_references_get",
+    name: "loadBalancers_pools_references_list",
     title: "List Pool References",
     description: "Get the list of resources that reference the provided pool.\n\nGET /accounts/{account_id}/load_balancers/pools/{pool_id}/references",
     inputSchema: {

@@ -40,7 +40,7 @@ export const dns$$settings_nameserver$$set$$advanced$$response: JsonSchema = {
             "$ref": "#/$defs/dns-settings_nameserver-set-advanced-response-member"
           },
           "maxItems": 5,
-          "minItems": 2,
+          "minItems": 1,
           "type": "array"
         }
       },
@@ -193,7 +193,7 @@ export const dns$$settings_nameserver$$set$$standard$$response: JsonSchema = {
             "$ref": "#/$defs/dns-settings_nameserver-set-response-member"
           },
           "maxItems": 5,
-          "minItems": 2,
+          "minItems": 1,
           "type": "array"
         }
       },

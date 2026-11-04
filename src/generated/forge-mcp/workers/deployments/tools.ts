@@ -163,6 +163,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "deployment_id": {
+              "description": "Identifier of the Worker Deployment.",
               "format": "uuid",
               "type": "string"
             },
@@ -242,6 +243,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "deployment_id": {
+              "description": "Identifier of the Worker Deployment.",
               "format": "uuid",
               "type": "string"
             },

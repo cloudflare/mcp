@@ -410,8 +410,8 @@ export const tools: readonly Tool[] = [
   },
   {
     name: "workers_legacy_scripts_update",
-    title: "Upload Worker Module",
-    description: "Upload a worker module. You can find more about the multipart metadata on our docs: https://developers.cloudflare.com/workers/configuration/multipart-upload-metadata/.\n\nThis method is deprecated.\n\nPUT /accounts/{account_id}/workers/scripts/{script_name}",
+    title: "Upload Worker",
+    description: "Upload Worker code and configuration. For ES module and other module-based\nWorkers, use `multipart/form-data` with a JSON `metadata` part whose\n`main_module` field names the entrypoint file. Upload each module as a\nseparate file part; JavaScript ES module parts use the\n`application/javascript+module` content type.\n\nRaw `application/javascript` and `text/javascript` request bodies accept\nonly legacy service-worker syntax using `addEventListener`. They do not\naccept ES module syntax such as `export default`. To upload a module\nWorker, use the multipart request format instead.\n\nLearn more about multipart metadata in the [documentation](https://developers.cloudflare.com/workers/configuration/multipart-upload-metadata/).\n\nThis method is deprecated.\n\nPUT /accounts/{account_id}/workers/scripts/{script_name}",
     inputSchema: {
       type: "object",
       properties: {
@@ -618,7 +618,7 @@ export const tools: readonly Tool[] = [
       "idempotentHint": true,
       "openWorldHint": true,
       "readOnlyHint": false,
-      "title": "Upload Worker Module"
+      "title": "Upload Worker"
     },
     method: "PUT",
     path: "/accounts/{account_id}/workers/scripts/{script_name}",

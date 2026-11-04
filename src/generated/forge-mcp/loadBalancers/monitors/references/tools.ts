@@ -14,7 +14,7 @@ import {
  */
 export const tools: readonly Tool[] = [
   {
-    name: "loadBalancers_monitors_references_get",
+    name: "loadBalancers_monitors_references_list",
     title: "List Monitor References",
     description: "Get the list of resources that reference the provided monitor.\n\nGET /accounts/{account_id}/load_balancers/monitors/{monitor_id}/references",
     inputSchema: {

@@ -43,6 +43,10 @@ import {
   load$$balancing_fixed_response as load$$balancing_fixed_response$,
   load$$balancing_load$$balancer$$editable,
   load$$balancing_location_strategy as load$$balancing_location_strategy$,
+  load$$balancing_match as load$$balancing_match$,
+  load$$balancing_pool_set as load$$balancing_pool_set$,
+  load$$balancing_pool_set_overrides as load$$balancing_pool_set_overrides$,
+  load$$balancing_pool_sets as load$$balancing_pool_sets$,
   load$$balancing_pool_weights as load$$balancing_pool_weights$,
   load$$balancing_pools as load$$balancing_pools$,
   load$$balancing_pop_pools as load$$balancing_pop_pools$,
@@ -51,6 +55,7 @@ import {
   load$$balancing_rule_overrides as load$$balancing_rule_overrides$,
   load$$balancing_rules as load$$balancing_rules$,
   load$$balancing_session_affinity_attributes as load$$balancing_session_affinity_attributes$,
+  load$$balancing_topology_match as load$$balancing_topology_match$,
 } from "./schemas.js";
 
 /**
@@ -102,6 +107,10 @@ export const tools: readonly Tool[] = [
             "networks": {
               "$ref": "#/$defs/load-balancing_networks",
               "description": "List of networks where Load Balancer or Pool is enabled."
+            },
+            "pool_sets": {
+              "$ref": "#/$defs/load-balancing_pool_sets",
+              "description": "An optional list of pool sets, evaluated in array order with first match wins. Pool sets are independent from the standard steering fields (`region_pools` / `country_pools` / `pop_pools` / `default_pools` / `steering_policy` / `random_steering` / `fallback_pool` / `rules`). On a PATCH, an empty array (`pool_sets: []`) clears all pool sets, while omitting the field leaves existing pool sets unchanged."
             },
             "pop_pools": {
               "$ref": "#/$defs/load-balancing_pop_pools",
@@ -204,7 +213,11 @@ export const tools: readonly Tool[] = [
         "load-balancing_default_pools": load$$balancing_default_pools$,
         "load-balancing_fixed_response": load$$balancing_fixed_response$,
         "load-balancing_location_strategy": load$$balancing_location_strategy$,
+        "load-balancing_match": load$$balancing_match$,
         "load-balancing_networks": load$$balancing_networks$,
+        "load-balancing_pool_set": load$$balancing_pool_set$,
+        "load-balancing_pool_set_overrides": load$$balancing_pool_set_overrides$,
+        "load-balancing_pool_sets": load$$balancing_pool_sets$,
         "load-balancing_pool_weights": load$$balancing_pool_weights$,
         "load-balancing_pools": load$$balancing_pools$,
         "load-balancing_pop_pools": load$$balancing_pop_pools$,
@@ -213,6 +226,7 @@ export const tools: readonly Tool[] = [
         "load-balancing_rule_overrides": load$$balancing_rule_overrides$,
         "load-balancing_rules": load$$balancing_rules$,
         "load-balancing_session_affinity_attributes": load$$balancing_session_affinity_attributes$,
+        "load-balancing_topology_match": load$$balancing_topology_match$,
       },
     },
     outputSchema: {
@@ -432,7 +446,11 @@ export const tools: readonly Tool[] = [
         "load-balancing_fixed_response": load$$balancing_fixed_response$,
         "load-balancing_load-balancer-editable": load$$balancing_load$$balancer$$editable,
         "load-balancing_location_strategy": load$$balancing_location_strategy$,
+        "load-balancing_match": load$$balancing_match$,
         "load-balancing_networks": load$$balancing_networks$,
+        "load-balancing_pool_set": load$$balancing_pool_set$,
+        "load-balancing_pool_set_overrides": load$$balancing_pool_set_overrides$,
+        "load-balancing_pool_sets": load$$balancing_pool_sets$,
         "load-balancing_pool_weights": load$$balancing_pool_weights$,
         "load-balancing_pools": load$$balancing_pools$,
         "load-balancing_pop_pools": load$$balancing_pop_pools$,
@@ -441,6 +459,7 @@ export const tools: readonly Tool[] = [
         "load-balancing_rule_overrides": load$$balancing_rule_overrides$,
         "load-balancing_rules": load$$balancing_rules$,
         "load-balancing_session_affinity_attributes": load$$balancing_session_affinity_attributes$,
+        "load-balancing_topology_match": load$$balancing_topology_match$,
       },
     },
     outputSchema: {
@@ -820,6 +839,10 @@ export const tools: readonly Tool[] = [
               "$ref": "#/$defs/load-balancing_networks",
               "description": "List of networks where Load Balancer or Pool is enabled."
             },
+            "pool_sets": {
+              "$ref": "#/$defs/load-balancing_pool_sets",
+              "description": "An optional list of pool sets, evaluated in array order with first match wins. Pool sets are independent from the standard steering fields (`region_pools` / `country_pools` / `pop_pools` / `default_pools` / `steering_policy` / `random_steering` / `fallback_pool` / `rules`). On a PATCH, an empty array (`pool_sets: []`) clears all pool sets, while omitting the field leaves existing pool sets unchanged."
+            },
             "pop_pools": {
               "$ref": "#/$defs/load-balancing_pop_pools",
               "description": "Enterprise only: A mapping of Cloudflare PoP identifiers to a list of pool IDs (ordered by their failover priority) for the PoP (datacenter). Any PoPs not explicitly defined will fall back to using the corresponding country_pool, then region_pool mapping if it exists else to default_pools."
@@ -925,7 +948,11 @@ export const tools: readonly Tool[] = [
         "load-balancing_default_pools": load$$balancing_default_pools$,
         "load-balancing_fixed_response": load$$balancing_fixed_response$,
         "load-balancing_location_strategy": load$$balancing_location_strategy$,
+        "load-balancing_match": load$$balancing_match$,
         "load-balancing_networks": load$$balancing_networks$,
+        "load-balancing_pool_set": load$$balancing_pool_set$,
+        "load-balancing_pool_set_overrides": load$$balancing_pool_set_overrides$,
+        "load-balancing_pool_sets": load$$balancing_pool_sets$,
         "load-balancing_pool_weights": load$$balancing_pool_weights$,
         "load-balancing_pools": load$$balancing_pools$,
         "load-balancing_pop_pools": load$$balancing_pop_pools$,
@@ -934,6 +961,7 @@ export const tools: readonly Tool[] = [
         "load-balancing_rule_overrides": load$$balancing_rule_overrides$,
         "load-balancing_rules": load$$balancing_rules$,
         "load-balancing_session_affinity_attributes": load$$balancing_session_affinity_attributes$,
+        "load-balancing_topology_match": load$$balancing_topology_match$,
       },
     },
     outputSchema: {

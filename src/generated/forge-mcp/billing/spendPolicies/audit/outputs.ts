@@ -47,10 +47,6 @@ export const billing$$spend$$policies_policy_audit_entry: JsonSchema = {
       "type": "integer"
     },
     "trigger": {
-      "enum": [
-        "approaching_limit",
-        "limit_reached"
-      ],
       "type": "string"
     }
   },

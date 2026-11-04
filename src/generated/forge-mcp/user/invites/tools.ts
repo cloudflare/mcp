@@ -7,7 +7,7 @@ import {
   iam_api$$response$$common,
   iam_api$$response$$common$$failure,
   iam_api$$response$$single,
-  iam_messages$$2,
+  iam_messages,
   iam_result_info,
 } from "../../outputs.js";
 import { iam_role_names } from "../outputs.js";
@@ -51,7 +51,7 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/iam_single_invite_response",
       $defs: {
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_role_names": iam_role_names,
         "iam_single_invite_response": iam_single_invite_response,
         "iam_user_invite": iam_user_invite,
@@ -90,7 +90,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_role_names": iam_role_names,
         "iam_single_invite_response": iam_single_invite_response,
         "iam_user_invite": iam_user_invite,
@@ -114,7 +114,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_api-response-collection": iam_api$$response$$collection,
         "iam_api-response-common": iam_api$$response$$common,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_result_info": iam_result_info,
         "iam_role_names": iam_role_names,
         "iam_schemas-collection_invite_response": iam_schemas$$collection_invite_response,
@@ -155,7 +155,7 @@ export const tools: readonly Tool[] = [
         "iam_api-response-collection": iam_api$$response$$collection,
         "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_result_info": iam_result_info,
         "iam_role_names": iam_role_names,
         "iam_schemas-collection_invite_response": iam_schemas$$collection_invite_response,
@@ -213,7 +213,7 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/iam_single_invite_response",
       $defs: {
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_role_names": iam_role_names,
         "iam_single_invite_response": iam_single_invite_response,
         "iam_user_invite": iam_user_invite,
@@ -251,7 +251,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_role_names": iam_role_names,
         "iam_single_invite_response": iam_single_invite_response,
         "iam_user_invite": iam_user_invite,

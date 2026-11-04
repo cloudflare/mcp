@@ -1658,6 +1658,17 @@ export const resource$$sharing_resource_meta: JsonSchema = {
 };
 
 /**
+ * The schema of `resource-sharing_share_tags`.
+ */
+export const resource$$sharing_share_tags: JsonSchema = {
+  "additionalProperties": {
+    "type": "string"
+  },
+  "description": "Tags associated with the share.",
+  "type": "object"
+};
+
+/**
  * The schema of `security-center_issueClasses`.
  */
 export const security$$center_issueClasses: JsonSchema = {

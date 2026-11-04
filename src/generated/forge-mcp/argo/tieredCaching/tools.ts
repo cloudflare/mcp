@@ -22,8 +22,8 @@ import { cache$$settings_patch } from "./schemas.js";
 export const tools: readonly Tool[] = [
   {
     name: "argo_tieredCaching_edit",
-    title: "Patch Tiered Caching setting",
-    description: "Tiered Cache works by dividing Cloudflare's data centers into a hierarchy of lower-tiers and upper-tiers. If content is not cached in lower-tier data centers (generally the ones closest to a visitor), the lower-tier must ask an upper-tier to see if it has the content. If the upper-tier does not have the content, only the upper-tier can ask the origin for content. This practice improves bandwidth efficiency by limiting the number of data centers that can ask the origin for content, which reduces origin load and makes websites more cost-effective to operate. Additionally, Tiered Cache concentrates connections to origin servers so they come from a small number of data centers rather than the full set of network locations. This results in fewer open connections using server resources.\n\nPATCH /zones/{zone_id}/argo/tiered_caching",
+    title: "Update Tiered Cache",
+    description: "Enables or disables Tiered Cache for a zone. Tiered Cache reduces origin traffic by serving lower-tier cache misses from upper-tier data centers before requesting content from your origin.\n\nPATCH /zones/{zone_id}/argo/tiered_caching",
     inputSchema: {
       type: "object",
       properties: {
@@ -77,7 +77,7 @@ export const tools: readonly Tool[] = [
       "idempotentHint": false,
       "openWorldHint": true,
       "readOnlyHint": false,
-      "title": "Patch Tiered Caching setting"
+      "title": "Update Tiered Cache"
     },
     method: "PATCH",
     path: "/zones/{zone_id}/argo/tiered_caching",
@@ -123,8 +123,8 @@ export const tools: readonly Tool[] = [
   },
   {
     name: "argo_tieredCaching_get",
-    title: "Get Tiered Caching setting",
-    description: "Tiered Cache works by dividing Cloudflare's data centers into a hierarchy of lower-tiers and upper-tiers. If content is not cached in lower-tier data centers (generally the ones closest to a visitor), the lower-tier must ask an upper-tier to see if it has the content. If the upper-tier does not have the content, only the upper-tier can ask the origin for content. This practice improves bandwidth efficiency by limiting the number of data centers that can ask the origin for content, which reduces origin load and makes websites more cost-effective to operate. Additionally, Tiered Cache concentrates connections to origin servers so they come from a small number of data centers rather than the full set of network locations. This results in fewer open connections using server resources.\n\nGET /zones/{zone_id}/argo/tiered_caching",
+    title: "Get Tiered Cache",
+    description: "Retrieves whether Tiered Cache is enabled for a zone. Tiered Cache reduces origin traffic by serving lower-tier cache misses from upper-tier data centers before requesting content from your origin.\n\nGET /zones/{zone_id}/argo/tiered_caching",
     inputSchema: {
       type: "object",
       properties: {
@@ -171,7 +171,7 @@ export const tools: readonly Tool[] = [
       "idempotentHint": true,
       "openWorldHint": true,
       "readOnlyHint": true,
-      "title": "Get Tiered Caching setting"
+      "title": "Get Tiered Cache"
     },
     method: "GET",
     path: "/zones/{zone_id}/argo/tiered_caching",

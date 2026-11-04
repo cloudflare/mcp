@@ -89,6 +89,9 @@ export const iam_create$$account: JsonSchema = {
       "type": "boolean"
     },
     "type": {
+      "default": "standard",
+      "deprecated": true,
+      "description": "the type of account being created. For self-serve customers, use standard. for enterprise customers, use enterprise.",
       "enum": [
         "standard",
         "enterprise"

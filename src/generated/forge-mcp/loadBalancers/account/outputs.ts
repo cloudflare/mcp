@@ -432,7 +432,18 @@ export const load$$balancing_rule_overrides: JsonSchema = {
       "$ref": "#/$defs/load-balancing_pop_pools"
     },
     "random_steering": {
-      "$ref": "#/$defs/load-balancing_random_steering"
+      "properties": {
+        "default_weight": {
+          "type": "number"
+        },
+        "pool_weights": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
     },
     "region_pools": {
       "$ref": "#/$defs/load-balancing_region_pools"

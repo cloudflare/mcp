@@ -3,11 +3,11 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  cloudforce$$one$$port$$scan$$api_api$$response$$common,
   cloudforce$$one$$port$$scan$$api_api$$response$$common$$failure,
   cloudforce$$one$$port$$scan$$api_messages,
 } from "../outputs.js";
 import {
+  cloudforce$$one$$port$$scan$$api_api$$response$$common,
   cloudforce$$one$$port$$scan$$api_ips,
   cloudforce$$one$$port$$scan$$api_ports,
   cloudforce$$one$$port$$scan$$api_scan$$config,
@@ -252,7 +252,6 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cloudforce-one-port-scan-api_api-response-common": cloudforce$$one$$port$$scan$$api_api$$response$$common,
         "cloudforce-one-port-scan-api_api-response-common-failure": cloudforce$$one$$port$$scan$$api_api$$response$$common$$failure,
         "cloudforce-one-port-scan-api_messages": cloudforce$$one$$port$$scan$$api_messages,
       },

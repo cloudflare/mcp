@@ -21,7 +21,7 @@ export const tools: readonly Tool[] = [
   {
     name: "billing_spendPolicies_activity_list",
     title: "List Spend Policy Activity",
-    description: "Returns configuration history from immutable policy revisions for the account, including deleted policies. Entries contain before/after values and verified actor attribution. Pages use descending revision IDs, not event or commit order; refresh the first page for new entries. This cursor is not an incremental consumer checkpoint.\n\nThis method is beta.\n\nGET /accounts/{account_id}/billing/spend-policies/activity",
+    description: "Returns configuration history from immutable policy revisions for the account, including deleted policies. Entries contain before/after values and verified actor attribution. Pages use descending revision IDs, not event or commit order; refresh the first page for new entries. This cursor is not an incremental consumer checkpoint. Defaults to `period=current_billing_cycle`: each revision's timestamp must be within its product's current subscription cycle (inclusive start, exclusive end). Each product's cycle is resolved independently from canonical aggregates, including for disabled or deleted policies. Set `period=all` for history across cycles. Filtering happens before pagination. No current cycles returns an empty page; unavailable or disabled cycle resolution returns `503` with code `1013`. Cursors pin resolved cycle bounds across pages and must be used with the same period selection. Cursors obtained before this filter was introduced must be refreshed.\n\nThis method is beta.\n\nGET /accounts/{account_id}/billing/spend-policies/activity",
     inputSchema: {
       type: "object",
       properties: {
@@ -49,6 +49,15 @@ export const tools: readonly Tool[] = [
               "default": 50,
               "description": "Maximum number of audit entries to return. Defaults to 50. Values above 100 are capped at 100 rather than rejected.",
               "type": "integer"
+            },
+            "period": {
+              "default": "current_billing_cycle",
+              "description": "Select current subscription billing-cycle history or history across all cycles.",
+              "enum": [
+                "current_billing_cycle",
+                "all"
+              ],
+              "type": "string"
             }
           },
           "type": "object"
@@ -120,6 +129,7 @@ export const tools: readonly Tool[] = [
       path: `/accounts/${pathParam(args, "account_id")}/billing/spend-policies/activity`,
       query: [
         ["limit", param(args, "query", "limit"), true],
+        ["period", param(args, "query", "period"), true],
         ["cursor", param(args, "query", "cursor"), true],
       ],
     }),

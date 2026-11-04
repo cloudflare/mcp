@@ -170,36 +170,15 @@ export const cloudflare$$k2_K2StreamResponse: JsonSchema = {
  * The schema of `cloudflare-k2_K2StreamWorkerBindingInput` in responses.
  */
 export const cloudflare$$k2_K2StreamWorkerBindingInput: JsonSchema = {
-  "oneOf": [
-    {
-      "properties": {
-        "enabled": {
-          "enum": [
-            false
-          ],
-          "type": "boolean"
-        }
-      },
-      "required": [
-        "enabled"
-      ],
-      "type": "object"
-    },
-    {
-      "properties": {
-        "enabled": {
-          "enum": [
-            true
-          ],
-          "type": "boolean"
-        }
-      },
-      "required": [
-        "enabled"
-      ],
-      "type": "object"
+  "properties": {
+    "enabled": {
+      "type": "boolean"
     }
-  ]
+  },
+  "required": [
+    "enabled"
+  ],
+  "type": "object"
 };
 
 /**

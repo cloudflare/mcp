@@ -38,6 +38,7 @@ export const dlp_UserRiskInfo: JsonSchema = {
     },
     "max_risk_level": {
       "enum": [
+        "info",
         "low",
         "medium",
         "high"

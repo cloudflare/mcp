@@ -7,7 +7,7 @@ import {
   iam_api$$response$$common$$failure,
   iam_api$$response$$single,
   iam_api$$response$$single$$id,
-  iam_messages$$2,
+  iam_messages,
   iam_resource_group,
   iam_scope,
   iam_scope_object,
@@ -74,7 +74,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_resource_group": iam_resource_group,
         "iam_scope": iam_scope,
         "iam_scope_object": iam_scope_object,
@@ -130,7 +130,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_resource_group": iam_resource_group,
         "iam_scope": iam_scope,
         "iam_scope_object": iam_scope_object,
@@ -177,7 +177,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-single-id": iam_api$$response$$single$$id,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
       },
     },
     annotations: {
@@ -219,7 +219,7 @@ export const tools: readonly Tool[] = [
         "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single-id": iam_api$$response$$single$$id,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
       },
     },
     request: (args) => ({
@@ -273,7 +273,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_resource_group": iam_resource_group,
         "iam_scope": iam_scope,
         "iam_scope_object": iam_scope_object,
@@ -330,7 +330,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_resource_group": iam_resource_group,
         "iam_scope": iam_scope,
         "iam_scope_object": iam_scope_object,
@@ -399,7 +399,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "iam_api-response-common": iam_api$$response$$common,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_resource_group": iam_resource_group,
         "iam_scope": iam_scope,
         "iam_scope_object": iam_scope_object,
@@ -459,7 +459,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_resource_group": iam_resource_group,
         "iam_scope": iam_scope,
         "iam_scope_object": iam_scope_object,
@@ -529,7 +529,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_resource_group": iam_resource_group,
         "iam_scope": iam_scope,
         "iam_scope_object": iam_scope_object,
@@ -585,7 +585,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_resource_group": iam_resource_group,
         "iam_scope": iam_scope,
         "iam_scope_object": iam_scope_object,

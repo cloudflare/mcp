@@ -322,24 +322,6 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "body": {
-          "properties": {
-            "comment": {
-              "default": "",
-              "description": "Optional remark describing the virtual network.",
-              "type": "string"
-            },
-            "is_default_network": {
-              "description": "If `true`, this virtual network is the default for the account.",
-              "type": "boolean"
-            },
-            "name": {
-              "description": "A user-friendly name for the virtual network.",
-              "type": "string"
-            }
-          },
-          "type": "object"
-        },
         "path": {
           "additionalProperties": false,
           "properties": {
@@ -361,8 +343,7 @@ export const tools: readonly Tool[] = [
         }
       },
       required: [
-        "path",
-        "body"
+        "path"
       ],
       additionalProperties: false,
     },
@@ -410,7 +391,6 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/teamnet/virtual_networks/${pathParam(args, "virtual_network_id")}`,
-      body: { value: args["body"], mediaTypes: ["application/json"] },
     }),
   },
   {

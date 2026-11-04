@@ -18,7 +18,7 @@ import {
  */
 export const tools: readonly Tool[] = [
   {
-    name: "ssl_mtlsCertificates_associations_get",
+    name: "ssl_mtlsCertificates_associations_list",
     title: "List mTLS certificate associations",
     description: "Lists all active associations between the certificate and Cloudflare services.\n\nGET /accounts/{account_id}/mtls_certificates/{mtls_certificate_id}/associations",
     inputSchema: {

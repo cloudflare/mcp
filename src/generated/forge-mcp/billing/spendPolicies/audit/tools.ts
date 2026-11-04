@@ -19,7 +19,7 @@ export const tools: readonly Tool[] = [
   {
     name: "billing_spendPolicies_audit_list",
     title: "List Spend Policy Audit Entries",
-    description: "Returns the policy's evaluation history, newest first. At most one entry is recorded per trigger (`approaching_limit` or `limit_reached`), policy version and billing period, so a policy update can record a new entry without any change in balance. Disabled policies still return their history; deleted policies return `404`. There is no pagination: use `limit` to set how many entries come back.\n\nThis method is beta.\n\nGET /accounts/{account_id}/billing/spend-policies/{policy_id}/audit",
+    description: "Returns the policy's evaluation history, newest first. At most one threshold-crossing entry (`limit_reached`) is recorded per policy version and billing period, so a policy update can record a new entry without any change in balance. Disabled policies still return their history; deleted policies return `404`. There is no pagination: use `limit` to set how many entries come back. Defaults to `period=current_billing_cycle`, resolved from the product's canonical aggregates, not calendar months. Crossings match their recorded billing-period bounds, even if recorded late. Set `period=all` for history across cycles. Filtering happens before LIMIT. No current cycle returns an empty array; unavailable or disabled cycle resolution returns `503` with code `1013`, never an empty success.\n\nThis method is beta.\n\nGET /accounts/{account_id}/billing/spend-policies/{policy_id}/audit",
     inputSchema: {
       type: "object",
       properties: {
@@ -49,6 +49,15 @@ export const tools: readonly Tool[] = [
               "default": 50,
               "description": "Maximum number of audit entries to return. Defaults to 50. Values above 100 are capped at 100 rather than rejected.",
               "type": "integer"
+            },
+            "period": {
+              "default": "current_billing_cycle",
+              "description": "Select current subscription billing-cycle history or history across all cycles.",
+              "enum": [
+                "current_billing_cycle",
+                "all"
+              ],
+              "type": "string"
             }
           },
           "type": "object"
@@ -116,6 +125,7 @@ export const tools: readonly Tool[] = [
       path: `/accounts/${pathParam(args, "account_id")}/billing/spend-policies/${pathParam(args, "policy_id")}/audit`,
       query: [
         ["limit", param(args, "query", "limit"), true],
+        ["period", param(args, "query", "period"), true],
       ],
     }),
   },

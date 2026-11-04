@@ -44,18 +44,3 @@ export const organizations$$api_MemberSubjectUser: JsonSchema = {
   ],
   "type": "object"
 };
-
-/**
- * The schema of `organizations-api_PageTokenResultInfo` in responses.
- */
-export const organizations$$api_PageTokenResultInfo: JsonSchema = {
-  "properties": {
-    "next_page_token": {
-      "type": "string"
-    },
-    "total_size": {
-      "type": "integer"
-    }
-  },
-  "type": "object"
-};

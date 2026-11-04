@@ -6,7 +6,7 @@ import {
   iam_api$$response$$collection,
   iam_api$$response$$common,
   iam_api$$response$$common$$failure,
-  iam_messages$$2,
+  iam_messages,
   iam_result_info,
 } from "../../outputs.js";
 import {
@@ -33,7 +33,7 @@ export const tools: readonly Tool[] = [
         "iam_api-response-collection": iam_api$$response$$collection,
         "iam_api-response-common": iam_api$$response$$common,
         "iam_collection_oauth_scopes_response": iam_collection_oauth_scopes_response,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_oauth_scope": iam_oauth_scope,
         "iam_result_info": iam_result_info,
       },
@@ -69,7 +69,7 @@ export const tools: readonly Tool[] = [
         "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_collection_oauth_scopes_response": iam_collection_oauth_scopes_response,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_oauth_scope": iam_oauth_scope,
         "iam_result_info": iam_result_info,
       },
