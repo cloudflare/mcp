@@ -3,15 +3,14 @@
 
 import { type Tool, param, pathParam } from "../../_/tool.js";
 import {
-  resource$$sharing_api$$response$$collection,
-  resource$$sharing_api$$response$$collection$$info,
-  resource$$sharing_api$$response$$common,
-  resource$$sharing_api$$response$$common$$failure,
+  resource$$sharing_api_response_collection,
+  resource$$sharing_api_response_collection_info,
+  resource$$sharing_api_response_common,
+  resource$$sharing_api_response_common_failure,
   resource$$sharing_result_info,
   resource$$sharing_v4error,
   resource$$sharing_v4errors,
 } from "../../outputs.js";
-import { resource$$sharing_create_share_recipient_request } from "../schemas.js";
 import {
   resource$$sharing_share_recipient_object,
   resource$$sharing_share_recipient_resource_object,
@@ -20,7 +19,10 @@ import {
   resource$$sharing_share_recipient_response_single,
   resource$$sharing_share_recipient_response_single_result,
 } from "./outputs.js";
-import { resource$$sharing_update_share_recipients_request } from "./schemas.js";
+import {
+  resource$$sharing_share_recipient_mutation_request,
+  resource$$sharing_update_share_recipients_request,
+} from "./schemas.js";
 
 /**
  * The tools of `resourceSharing.recipients`.
@@ -34,7 +36,7 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "body": {
-          "$ref": "#/$defs/resource-sharing_create_share_recipient_request"
+          "$ref": "#/$defs/resource-sharing_share_recipient_mutation_request"
         },
         "path": {
           "additionalProperties": false,
@@ -61,13 +63,13 @@ export const tools: readonly Tool[] = [
       ],
       additionalProperties: false,
       $defs: {
-        "resource-sharing_create_share_recipient_request": resource$$sharing_create_share_recipient_request,
+        "resource-sharing_share_recipient_mutation_request": resource$$sharing_share_recipient_mutation_request,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/resource-sharing_share_recipient_response_single",
       $defs: {
-        "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
+        "resource-sharing_api_response_common": resource$$sharing_api_response_common,
         "resource-sharing_share_recipient_object": resource$$sharing_share_recipient_object,
         "resource-sharing_share_recipient_resource_object": resource$$sharing_share_recipient_resource_object,
         "resource-sharing_share_recipient_response_single": resource$$sharing_share_recipient_response_single,
@@ -100,15 +102,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/resource-sharing_share_recipient_response_single"
         },
         "4XX": {
-          "$ref": "#/$defs/resource-sharing_api-response-common-failure"
+          "$ref": "#/$defs/resource-sharing_api_response_common_failure"
         },
         "5XX": {
-          "$ref": "#/$defs/resource-sharing_api-response-common-failure"
+          "$ref": "#/$defs/resource-sharing_api_response_common_failure"
         }
       },
       $defs: {
-        "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
-        "resource-sharing_api-response-common-failure": resource$$sharing_api$$response$$common$$failure,
+        "resource-sharing_api_response_common": resource$$sharing_api_response_common,
+        "resource-sharing_api_response_common_failure": resource$$sharing_api_response_common_failure,
         "resource-sharing_share_recipient_object": resource$$sharing_share_recipient_object,
         "resource-sharing_share_recipient_resource_object": resource$$sharing_share_recipient_resource_object,
         "resource-sharing_share_recipient_response_single": resource$$sharing_share_recipient_response_single,
@@ -161,7 +163,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/resource-sharing_share_recipient_response_single",
       $defs: {
-        "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
+        "resource-sharing_api_response_common": resource$$sharing_api_response_common,
         "resource-sharing_share_recipient_object": resource$$sharing_share_recipient_object,
         "resource-sharing_share_recipient_resource_object": resource$$sharing_share_recipient_resource_object,
         "resource-sharing_share_recipient_response_single": resource$$sharing_share_recipient_response_single,
@@ -194,15 +196,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/resource-sharing_share_recipient_response_single"
         },
         "4XX": {
-          "$ref": "#/$defs/resource-sharing_api-response-common-failure"
+          "$ref": "#/$defs/resource-sharing_api_response_common_failure"
         },
         "5XX": {
-          "$ref": "#/$defs/resource-sharing_api-response-common-failure"
+          "$ref": "#/$defs/resource-sharing_api_response_common_failure"
         }
       },
       $defs: {
-        "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
-        "resource-sharing_api-response-common-failure": resource$$sharing_api$$response$$common$$failure,
+        "resource-sharing_api_response_common": resource$$sharing_api_response_common,
+        "resource-sharing_api_response_common_failure": resource$$sharing_api_response_common_failure,
         "resource-sharing_share_recipient_object": resource$$sharing_share_recipient_object,
         "resource-sharing_share_recipient_resource_object": resource$$sharing_share_recipient_resource_object,
         "resource-sharing_share_recipient_response_single": resource$$sharing_share_recipient_response_single,
@@ -264,7 +266,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/resource-sharing_share_recipient_response_single",
       $defs: {
-        "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
+        "resource-sharing_api_response_common": resource$$sharing_api_response_common,
         "resource-sharing_share_recipient_object": resource$$sharing_share_recipient_object,
         "resource-sharing_share_recipient_resource_object": resource$$sharing_share_recipient_resource_object,
         "resource-sharing_share_recipient_response_single": resource$$sharing_share_recipient_response_single,
@@ -297,15 +299,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/resource-sharing_share_recipient_response_single"
         },
         "4XX": {
-          "$ref": "#/$defs/resource-sharing_api-response-common-failure"
+          "$ref": "#/$defs/resource-sharing_api_response_common_failure"
         },
         "5XX": {
-          "$ref": "#/$defs/resource-sharing_api-response-common-failure"
+          "$ref": "#/$defs/resource-sharing_api_response_common_failure"
         }
       },
       $defs: {
-        "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
-        "resource-sharing_api-response-common-failure": resource$$sharing_api$$response$$common$$failure,
+        "resource-sharing_api_response_common": resource$$sharing_api_response_common,
+        "resource-sharing_api_response_common_failure": resource$$sharing_api_response_common_failure,
         "resource-sharing_share_recipient_object": resource$$sharing_share_recipient_object,
         "resource-sharing_share_recipient_resource_object": resource$$sharing_share_recipient_resource_object,
         "resource-sharing_share_recipient_response_single": resource$$sharing_share_recipient_response_single,
@@ -355,12 +357,12 @@ export const tools: readonly Tool[] = [
             },
             "page": {
               "default": 1,
-              "description": "Page number. Defaults to `1` when `per_page` is supplied without\n`page`. May be omitted entirely along with `per_page` to receive a\nnon-paginated response.",
+              "description": "Page number. Defaults to `1` when omitted.",
               "type": "integer"
             },
             "per_page": {
               "default": 20,
-              "description": "Number of objects to return per page. Defaults to `20` when `page` is supplied without `per_page`. May be omitted entirely along with `page` to receive a non-paginated response.",
+              "description": "Number of objects to return per page. Defaults to `20` when omitted.",
               "type": "integer"
             }
           },
@@ -375,9 +377,9 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/resource-sharing_share_recipient_response_collection",
       $defs: {
-        "resource-sharing_api-response-collection": resource$$sharing_api$$response$$collection,
-        "resource-sharing_api-response-collection-info": resource$$sharing_api$$response$$collection$$info,
-        "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
+        "resource-sharing_api_response_collection": resource$$sharing_api_response_collection,
+        "resource-sharing_api_response_collection_info": resource$$sharing_api_response_collection_info,
+        "resource-sharing_api_response_common": resource$$sharing_api_response_common,
         "resource-sharing_result_info": resource$$sharing_result_info,
         "resource-sharing_share_recipient_object": resource$$sharing_share_recipient_object,
         "resource-sharing_share_recipient_resource_object": resource$$sharing_share_recipient_resource_object,
@@ -411,17 +413,17 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/resource-sharing_share_recipient_response_collection"
         },
         "4XX": {
-          "$ref": "#/$defs/resource-sharing_api-response-common-failure"
+          "$ref": "#/$defs/resource-sharing_api_response_common_failure"
         },
         "5XX": {
-          "$ref": "#/$defs/resource-sharing_api-response-common-failure"
+          "$ref": "#/$defs/resource-sharing_api_response_common_failure"
         }
       },
       $defs: {
-        "resource-sharing_api-response-collection": resource$$sharing_api$$response$$collection,
-        "resource-sharing_api-response-collection-info": resource$$sharing_api$$response$$collection$$info,
-        "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
-        "resource-sharing_api-response-common-failure": resource$$sharing_api$$response$$common$$failure,
+        "resource-sharing_api_response_collection": resource$$sharing_api_response_collection,
+        "resource-sharing_api_response_collection_info": resource$$sharing_api_response_collection_info,
+        "resource-sharing_api_response_common": resource$$sharing_api_response_common,
+        "resource-sharing_api_response_common_failure": resource$$sharing_api_response_common_failure,
         "resource-sharing_result_info": resource$$sharing_result_info,
         "resource-sharing_share_recipient_object": resource$$sharing_share_recipient_object,
         "resource-sharing_share_recipient_resource_object": resource$$sharing_share_recipient_resource_object,
@@ -443,7 +445,7 @@ export const tools: readonly Tool[] = [
   {
     name: "resourceSharing_recipients_update",
     title: "Trigger recipient reconciliation on a share",
-    description: "Replaces the full recipient list for an account-targeted share. The\nserver computes the diff between the current and desired recipients:\nnew accounts are added, accounts no longer in the list are marked for\ndisassociation, and unchanged accounts are left as-is.\n\nReturns an error if the share targets an organization\n(`target_type=organization`); org-targeted shares derive their\nrecipients dynamically from org membership and cannot be modified\nthrough this endpoint.\n\nPUT /accounts/{account_id}/shares/{share_id}/recipients",
+    description: "Replaces the full recipient list for an account-targeted share. The\nserver computes the diff between the current and desired recipients:\nnew accounts are added, accounts no longer in the list are marked for\ndisassociation, and unchanged accounts are left as-is.\n\nReturns an error if the share targets an organization\n(`target_type=organization`) and the list is non-empty; org-targeted\nshares derive their recipients dynamically from org membership and\ncannot be modified through this endpoint.\n\nConfirm with the user before calling this tool. Accounts omitted from the list are disassociated from the share.\n\nPUT /accounts/{account_id}/shares/{share_id}/recipients",
     inputSchema: {
       type: "object",
       properties: {
@@ -475,7 +477,7 @@ export const tools: readonly Tool[] = [
       ],
       additionalProperties: false,
       $defs: {
-        "resource-sharing_create_share_recipient_request": resource$$sharing_create_share_recipient_request,
+        "resource-sharing_share_recipient_mutation_request": resource$$sharing_share_recipient_mutation_request,
         "resource-sharing_update_share_recipients_request": resource$$sharing_update_share_recipients_request,
       },
     },
@@ -500,14 +502,14 @@ export const tools: readonly Tool[] = [
       schemas: {
         "204": null,
         "4XX": {
-          "$ref": "#/$defs/resource-sharing_api-response-common-failure"
+          "$ref": "#/$defs/resource-sharing_api_response_common_failure"
         },
         "5XX": {
-          "$ref": "#/$defs/resource-sharing_api-response-common-failure"
+          "$ref": "#/$defs/resource-sharing_api_response_common_failure"
         }
       },
       $defs: {
-        "resource-sharing_api-response-common-failure": resource$$sharing_api$$response$$common$$failure,
+        "resource-sharing_api_response_common_failure": resource$$sharing_api_response_common_failure,
         "resource-sharing_v4error": resource$$sharing_v4error,
         "resource-sharing_v4errors": resource$$sharing_v4errors,
       },

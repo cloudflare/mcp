@@ -261,9 +261,9 @@ export const aaa_audit$$logs: JsonSchema = {
 };
 
 /**
- * The schema of `aaa_audit-logs-response-collection` in responses.
+ * The schema of `aaa_audit-logs-success-response-collection` in responses.
  */
-export const aaa_audit$$logs$$response$$collection: JsonSchema = {
+export const aaa_audit$$logs$$success$$response$$collection: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/aaa_messages-2"
@@ -3797,10 +3797,10 @@ export const iam_api$$response$$collection: JsonSchema = {
 export const iam_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
-      "$ref": "#/$defs/iam_messages-2"
+      "$ref": "#/$defs/iam_messages"
     },
     "messages": {
-      "$ref": "#/$defs/iam_messages-2"
+      "$ref": "#/$defs/iam_messages"
     },
     "success": {
       "enum": [
@@ -3823,10 +3823,10 @@ export const iam_api$$response$$common: JsonSchema = {
 export const iam_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
-      "$ref": "#/$defs/iam_messages-2"
+      "$ref": "#/$defs/iam_messages"
     },
     "messages": {
-      "$ref": "#/$defs/iam_messages-2"
+      "$ref": "#/$defs/iam_messages"
     },
     "result": {
       "type": "null"
@@ -3853,10 +3853,10 @@ export const iam_api$$response$$common$$failure: JsonSchema = {
 export const iam_api$$response$$single: JsonSchema = {
   "properties": {
     "errors": {
-      "$ref": "#/$defs/iam_messages-2"
+      "$ref": "#/$defs/iam_messages"
     },
     "messages": {
-      "$ref": "#/$defs/iam_messages-2"
+      "$ref": "#/$defs/iam_messages"
     },
     "success": {
       "enum": [
@@ -3992,9 +3992,9 @@ export const iam_list_member_policy: JsonSchema = {
 };
 
 /**
- * The schema of `iam_messages-2` in responses.
+ * The schema of `iam_messages` in responses.
  */
-export const iam_messages$$2: JsonSchema = {
+export const iam_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -5849,6 +5849,118 @@ export const mconn_response: JsonSchema = {
 };
 
 /**
+ * The schema of `organizations-api_AccountListResultInfo` in responses.
+ */
+export const organizations$$api_AccountListResultInfo: JsonSchema = {
+  "anyOf": [
+    {
+      "$ref": "#/$defs/organizations-api_PageTokenResultInfo"
+    },
+    {
+      "$ref": "#/$defs/organizations-api_LegacyPaginationResultInfo"
+    }
+  ]
+};
+
+/**
+ * The schema of `organizations-api_LegacyAccount` in responses.
+ */
+export const organizations$$api_LegacyAccount: JsonSchema = {
+  "properties": {
+    "account_pubname": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "account_tag": {
+      "type": "string"
+    },
+    "account_type": {
+      "enum": [
+        "standard",
+        "enterprise"
+      ],
+      "type": "string"
+    },
+    "created_on": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "settings": {
+      "properties": {
+        "access_approval_expiry": {
+          "oneOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "api_access_enabled": {
+          "type": "boolean"
+        },
+        "enforce_two_factor": {
+          "type": "boolean"
+        },
+        "use_account_custom_ns_by_default": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "access_approval_expiry",
+        "api_access_enabled",
+        "enforce_two_factor",
+        "use_account_custom_ns_by_default"
+      ],
+      "type": "object"
+    }
+  },
+  "required": [
+    "account_pubname",
+    "account_tag",
+    "account_type",
+    "created_on",
+    "settings"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `organizations-api_LegacyPaginationResultInfo` in responses.
+ */
+export const organizations$$api_LegacyPaginationResultInfo: JsonSchema = {
+  "properties": {
+    "count": {
+      "type": "integer"
+    },
+    "page": {
+      "type": "integer"
+    },
+    "per_page": {
+      "type": "integer"
+    },
+    "total_count": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "count",
+    "page",
+    "per_page",
+    "total_count"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `organizations-api_Organization` in responses.
  */
 export const organizations$$api_Organization: JsonSchema = {
@@ -5957,6 +6069,21 @@ export const organizations$$api_OrganizationFlags: JsonSchema = {
     "member_management",
     "sub_org_creation"
   ],
+  "type": "object"
+};
+
+/**
+ * The schema of `organizations-api_PageTokenResultInfo` in responses.
+ */
+export const organizations$$api_PageTokenResultInfo: JsonSchema = {
+  "properties": {
+    "next_page_token": {
+      "type": "string"
+    },
+    "total_size": {
+      "type": "integer"
+    }
+  },
   "type": "object"
 };
 
@@ -7143,23 +7270,23 @@ export const r2$$data$$catalog_table$$snapshot$$expiration$$config: JsonSchema =
 };
 
 /**
- * The schema of `resource-sharing_api-response-collection` in responses.
+ * The schema of `resource-sharing_api_response_collection` in responses.
  */
-export const resource$$sharing_api$$response$$collection: JsonSchema = {
+export const resource$$sharing_api_response_collection: JsonSchema = {
   "allOf": [
     {
-      "$ref": "#/$defs/resource-sharing_api-response-common"
+      "$ref": "#/$defs/resource-sharing_api_response_common"
     },
     {
-      "$ref": "#/$defs/resource-sharing_api-response-collection-info"
+      "$ref": "#/$defs/resource-sharing_api_response_collection_info"
     }
   ]
 };
 
 /**
- * The schema of `resource-sharing_api-response-collection-info` in responses.
+ * The schema of `resource-sharing_api_response_collection_info` in responses.
  */
-export const resource$$sharing_api$$response$$collection$$info: JsonSchema = {
+export const resource$$sharing_api_response_collection_info: JsonSchema = {
   "properties": {
     "result_info": {
       "$ref": "#/$defs/resource-sharing_result_info"
@@ -7169,9 +7296,9 @@ export const resource$$sharing_api$$response$$collection$$info: JsonSchema = {
 };
 
 /**
- * The schema of `resource-sharing_api-response-common` in responses.
+ * The schema of `resource-sharing_api_response_common` in responses.
  */
-export const resource$$sharing_api$$response$$common: JsonSchema = {
+export const resource$$sharing_api_response_common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/resource-sharing_v4errors"
@@ -7188,15 +7315,22 @@ export const resource$$sharing_api$$response$$common: JsonSchema = {
 };
 
 /**
- * The schema of `resource-sharing_api-response-common-failure` in responses.
+ * The schema of `resource-sharing_api_response_common_failure` in responses.
  */
-export const resource$$sharing_api$$response$$common$$failure: JsonSchema = {
+export const resource$$sharing_api_response_common_failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/resource-sharing_v4errors"
     },
     "result": {
-      "type": "null"
+      "oneOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "success": {
       "type": "boolean"
@@ -7223,19 +7357,19 @@ export const resource$$sharing_resource_meta: JsonSchema = {
 export const resource$$sharing_result_info: JsonSchema = {
   "properties": {
     "count": {
-      "type": "number"
+      "type": "integer"
     },
     "page": {
-      "type": "number"
+      "type": "integer"
     },
     "per_page": {
-      "type": "number"
+      "type": "integer"
     },
     "total_count": {
-      "type": "number"
+      "type": "integer"
     },
     "total_pages": {
-      "type": "number"
+      "type": "integer"
     }
   },
   "type": "object"
@@ -7301,6 +7435,9 @@ export const resource$$sharing_share_object: JsonSchema = {
         "deleted"
       ],
       "type": "string"
+    },
+    "tags": {
+      "$ref": "#/$defs/resource-sharing_share_tags"
     },
     "target_type": {
       "enum": [
@@ -7393,7 +7530,7 @@ export const resource$$sharing_share_resource_object: JsonSchema = {
 export const resource$$sharing_share_response_collection: JsonSchema = {
   "allOf": [
     {
-      "$ref": "#/$defs/resource-sharing_api-response-collection"
+      "$ref": "#/$defs/resource-sharing_api_response_collection"
     },
     {
       "$ref": "#/$defs/resource-sharing_share_response_collection_result"
@@ -7413,6 +7550,16 @@ export const resource$$sharing_share_response_collection_result: JsonSchema = {
       },
       "type": "array"
     }
+  },
+  "type": "object"
+};
+
+/**
+ * The schema of `resource-sharing_share_tags` in responses.
+ */
+export const resource$$sharing_share_tags: JsonSchema = {
+  "additionalProperties": {
+    "type": "string"
   },
   "type": "object"
 };

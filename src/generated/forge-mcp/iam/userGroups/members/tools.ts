@@ -7,7 +7,7 @@ import {
   iam_api$$response$$common,
   iam_api$$response$$common$$failure,
   iam_api$$response$$single,
-  iam_messages$$2,
+  iam_messages,
   iam_result_info,
 } from "../../../outputs.js";
 import {
@@ -85,7 +85,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_user_group_member": iam_user_group_member,
       },
     },
@@ -142,7 +142,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_user_group_member": iam_user_group_member,
       },
     },
@@ -203,7 +203,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_user_group_member": iam_user_group_member,
       },
     },
@@ -257,7 +257,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_user_group_member": iam_user_group_member,
       },
     },
@@ -317,7 +317,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_user_group_member_detailed": iam_user_group_member_detailed,
       },
     },
@@ -372,7 +372,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_user_group_member_detailed": iam_user_group_member_detailed,
       },
     },
@@ -460,7 +460,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_api-response-collection": iam_api$$response$$collection,
         "iam_api-response-common": iam_api$$response$$common,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_result_info": iam_result_info,
         "iam_user_group_member": iam_user_group_member,
       },
@@ -520,7 +520,7 @@ export const tools: readonly Tool[] = [
         "iam_api-response-collection": iam_api$$response$$collection,
         "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_result_info": iam_result_info,
         "iam_user_group_member": iam_user_group_member,
       },
@@ -601,7 +601,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_user_group_member": iam_user_group_member,
       },
     },
@@ -653,7 +653,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_user_group_member": iam_user_group_member,
       },
     },

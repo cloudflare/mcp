@@ -14,6 +14,9 @@ export const abuse$$reports_AbuseReport: JsonSchema = {
     "domain": {
       "type": "string"
     },
+    "has_pending_notice": {
+      "type": "boolean"
+    },
     "id": {
       "type": "string"
     },

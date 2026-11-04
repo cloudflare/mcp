@@ -204,10 +204,11 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "tldType": {
-              "description": "Filters results by TLD type.",
+              "description": "Filters results by TLD type. GENERIC_RESTRICTED and SPONSORED are deprecated and return no results, as IANA consolidated them into GENERIC. INFRASTRUCTURE is deprecated, as IANA reclassified .arpa as SPECIAL_USE.",
               "enum": [
                 "GENERIC",
                 "COUNTRY_CODE",
+                "SPECIAL_USE",
                 "GENERIC_RESTRICTED",
                 "INFRASTRUCTURE",
                 "SPONSORED"

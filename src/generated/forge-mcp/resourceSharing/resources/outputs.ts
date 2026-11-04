@@ -10,7 +10,7 @@ import type { JsonSchema } from "../../_/tool.js";
 export const resource$$sharing_share_resource_response_collection: JsonSchema = {
   "allOf": [
     {
-      "$ref": "#/$defs/resource-sharing_api-response-collection"
+      "$ref": "#/$defs/resource-sharing_api_response_collection"
     },
     {
       "$ref": "#/$defs/resource-sharing_share_resource_response_collection_result"
@@ -40,7 +40,7 @@ export const resource$$sharing_share_resource_response_collection_result: JsonSc
 export const resource$$sharing_share_resource_response_single: JsonSchema = {
   "allOf": [
     {
-      "$ref": "#/$defs/resource-sharing_api-response-common"
+      "$ref": "#/$defs/resource-sharing_api_response_common"
     },
     {
       "$ref": "#/$defs/resource-sharing_share_resource_response_single_result"

@@ -7,10 +7,10 @@ import type { JsonSchema } from "../../_/tool.js";
  * The schema of `cache-settings_patch`.
  */
 export const cache$$settings_patch: JsonSchema = {
-  "description": "Update enablement of Tiered Caching.",
+  "description": "Updates whether Tiered Cache is enabled for a zone.",
   "properties": {
     "value": {
-      "description": "Enables Tiered Caching.",
+      "description": "Enables or disables Tiered Cache.",
       "enum": [
         "on",
         "off"

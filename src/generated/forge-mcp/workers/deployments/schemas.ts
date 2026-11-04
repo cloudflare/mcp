@@ -9,6 +9,7 @@ import type { JsonSchema } from "../../_/tool.js";
 export const workers_deployment: JsonSchema = {
   "properties": {
     "annotations": {
+      "description": "Metadata attached to the deployment.",
       "properties": {
         "workers/message": {
           "description": "Human-readable message about the deployment. Truncated to 1000 bytes if longer.",
@@ -29,6 +30,7 @@ export const workers_deployment: JsonSchema = {
       ]
     },
     "strategy": {
+      "description": "Strategy for routing traffic across the listed versions. `percentage` splits traffic according to each version's `percentage`.",
       "enum": [
         "percentage"
       ],

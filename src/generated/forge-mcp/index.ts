@@ -490,15 +490,16 @@ import { tools as o11yTools } from "./o11y/tools.js";
 import { tools as o11y_tracing_rulesTools } from "./o11y/tracing/rules/tools.js";
 import { tools as o11y_tracing_settingsTools } from "./o11y/tracing/settings/tools.js";
 import { tools as observability_usageLimitTools } from "./observability/usageLimit/tools.js";
-import { tools as organization_accountTools } from "./organization/account/tools.js";
-import { tools as organization_inviteTools } from "./organization/invite/tools.js";
-import { tools as organization_member_batchTools } from "./organization/member/batch/tools.js";
-import { tools as organization_memberTools } from "./organization/member/tools.js";
-import { tools as organization_profileTools } from "./organization/profile/tools.js";
-import { tools as organization_shareTools } from "./organization/share/tools.js";
-import { tools as organizationTools } from "./organization/tools.js";
+import { tools as ohttpGateway_enablementTools } from "./ohttpGateway/enablement/tools.js";
+import { tools as organizations_accountsTools } from "./organizations/accounts/tools.js";
 import { tools as organizations_billing_usageTools } from "./organizations/billing/usage/tools.js";
+import { tools as organizations_invitesTools } from "./organizations/invites/tools.js";
 import { tools as organizations_logs_auditTools } from "./organizations/logs/audit/tools.js";
+import { tools as organizations_members_batchTools } from "./organizations/members/batch/tools.js";
+import { tools as organizations_membersTools } from "./organizations/members/tools.js";
+import { tools as organizations_profileTools } from "./organizations/profile/tools.js";
+import { tools as organizations_sharesTools } from "./organizations/shares/tools.js";
+import { tools as organizationsTools } from "./organizations/tools.js";
 import { tools as pageRulesTools } from "./pageRules/tools.js";
 import { tools as pages_buildCacheTools } from "./pages/buildCache/tools.js";
 import { tools as pages_deployments_history_logsTools } from "./pages/deployments/history/logs/tools.js";
@@ -763,6 +764,7 @@ import { tools as tags_resourcesTools } from "./tags/resources/tools.js";
 import { tools as tags_summaryTools } from "./tags/summary/tools.js";
 import { tools as tags_valuesTools } from "./tags/values/tools.js";
 import { tools as tenantCustomNameserversTools } from "./tenantCustomNameservers/tools.js";
+import { tools as tenants_accountsTools } from "./tenants/accounts/tools.js";
 import { tools as tunnelTools } from "./tunnel/tools.js";
 import { tools as tunnels_configTools } from "./tunnels/config/tools.js";
 import { tools as tunnels_connectionsTools } from "./tunnels/connections/tools.js";
@@ -790,6 +792,7 @@ import { tools as user_loadBalancers_regionsTools } from "./user/loadBalancers/r
 import { tools as user_loadBalancingAnalytics_eventsTools } from "./user/loadBalancingAnalytics/events/tools.js";
 import { tools as user_membershipsTools } from "./user/memberships/tools.js";
 import { tools as user_subscriptionsTools } from "./user/subscriptions/tools.js";
+import { tools as user_tenantsTools } from "./user/tenants/tools.js";
 import { tools as user_tokens_permissionGroupsTools } from "./user/tokens/permissionGroups/tools.js";
 import { tools as user_tokensTools } from "./user/tokens/tools.js";
 import { tools as userTools } from "./user/tools.js";
@@ -1536,15 +1539,16 @@ export const tools: readonly Tool[] = [
   ...o11y_tracing_rulesTools,
   ...o11y_tracing_settingsTools,
   ...observability_usageLimitTools,
-  ...organizationTools,
-  ...organization_accountTools,
-  ...organization_inviteTools,
-  ...organization_memberTools,
-  ...organization_member_batchTools,
-  ...organization_profileTools,
-  ...organization_shareTools,
+  ...ohttpGateway_enablementTools,
+  ...organizationsTools,
+  ...organizations_accountsTools,
   ...organizations_billing_usageTools,
+  ...organizations_invitesTools,
   ...organizations_logs_auditTools,
+  ...organizations_membersTools,
+  ...organizations_members_batchTools,
+  ...organizations_profileTools,
+  ...organizations_sharesTools,
   ...pageRulesTools,
   ...pagesTools,
   ...pages_buildCacheTools,
@@ -1809,6 +1813,7 @@ export const tools: readonly Tool[] = [
   ...tags_summaryTools,
   ...tags_valuesTools,
   ...tenantCustomNameserversTools,
+  ...tenants_accountsTools,
   ...tunnelTools,
   ...tunnelsTools,
   ...tunnels_configTools,
@@ -1837,6 +1842,7 @@ export const tools: readonly Tool[] = [
   ...user_loadBalancingAnalytics_eventsTools,
   ...user_membershipsTools,
   ...user_subscriptionsTools,
+  ...user_tenantsTools,
   ...user_tokensTools,
   ...user_tokens_permissionGroupsTools,
   ...vectorizeTools,

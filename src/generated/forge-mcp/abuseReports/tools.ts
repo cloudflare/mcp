@@ -469,6 +469,10 @@ export const tools: readonly Tool[] = [
               "description": "Where in pagination to start listing abuse reports",
               "type": "integer"
             },
+            "pending_notice": {
+              "description": "Also include reports in an open Notice and Takedown notice period. Combined with mitigation_status using OR, e.g. ?mitigation_status=active&pending_notice=true.",
+              "type": "boolean"
+            },
             "per_page": {
               "description": "How many abuse reports per page to list",
               "type": "integer"
@@ -719,6 +723,7 @@ export const tools: readonly Tool[] = [
         ["status", param(args, "query", "status"), true],
         ["type", param(args, "query", "type"), true],
         ["mitigation_status", param(args, "query", "mitigation_status"), true],
+        ["pending_notice", param(args, "query", "pending_notice"), true],
       ],
     }),
   },

@@ -3,10 +3,10 @@
 
 import { type Tool, param, pathParam } from "../../_/tool.js";
 import {
-  resource$$sharing_api$$response$$collection,
-  resource$$sharing_api$$response$$collection$$info,
-  resource$$sharing_api$$response$$common,
-  resource$$sharing_api$$response$$common$$failure,
+  resource$$sharing_api_response_collection,
+  resource$$sharing_api_response_collection_info,
+  resource$$sharing_api_response_common,
+  resource$$sharing_api_response_common_failure,
   resource$$sharing_resource_meta,
   resource$$sharing_result_info,
   resource$$sharing_share_resource_object,
@@ -69,7 +69,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/resource-sharing_share_resource_response_single",
       $defs: {
-        "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
+        "resource-sharing_api_response_common": resource$$sharing_api_response_common,
         "resource-sharing_resource_meta": resource$$sharing_resource_meta,
         "resource-sharing_share_resource_object": resource$$sharing_share_resource_object,
         "resource-sharing_share_resource_response_single": resource$$sharing_share_resource_response_single,
@@ -102,15 +102,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/resource-sharing_share_resource_response_single"
         },
         "4XX": {
-          "$ref": "#/$defs/resource-sharing_api-response-common-failure"
+          "$ref": "#/$defs/resource-sharing_api_response_common_failure"
         },
         "5XX": {
-          "$ref": "#/$defs/resource-sharing_api-response-common-failure"
+          "$ref": "#/$defs/resource-sharing_api_response_common_failure"
         }
       },
       $defs: {
-        "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
-        "resource-sharing_api-response-common-failure": resource$$sharing_api$$response$$common$$failure,
+        "resource-sharing_api_response_common": resource$$sharing_api_response_common,
+        "resource-sharing_api_response_common_failure": resource$$sharing_api_response_common_failure,
         "resource-sharing_resource_meta": resource$$sharing_resource_meta,
         "resource-sharing_share_resource_object": resource$$sharing_share_resource_object,
         "resource-sharing_share_resource_response_single": resource$$sharing_share_resource_response_single,
@@ -163,7 +163,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/resource-sharing_share_resource_response_single",
       $defs: {
-        "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
+        "resource-sharing_api_response_common": resource$$sharing_api_response_common,
         "resource-sharing_resource_meta": resource$$sharing_resource_meta,
         "resource-sharing_share_resource_object": resource$$sharing_share_resource_object,
         "resource-sharing_share_resource_response_single": resource$$sharing_share_resource_response_single,
@@ -196,15 +196,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/resource-sharing_share_resource_response_single"
         },
         "4XX": {
-          "$ref": "#/$defs/resource-sharing_api-response-common-failure"
+          "$ref": "#/$defs/resource-sharing_api_response_common_failure"
         },
         "5XX": {
-          "$ref": "#/$defs/resource-sharing_api-response-common-failure"
+          "$ref": "#/$defs/resource-sharing_api_response_common_failure"
         }
       },
       $defs: {
-        "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
-        "resource-sharing_api-response-common-failure": resource$$sharing_api$$response$$common$$failure,
+        "resource-sharing_api_response_common": resource$$sharing_api_response_common,
+        "resource-sharing_api_response_common_failure": resource$$sharing_api_response_common_failure,
         "resource-sharing_resource_meta": resource$$sharing_resource_meta,
         "resource-sharing_share_resource_object": resource$$sharing_share_resource_object,
         "resource-sharing_share_resource_response_single": resource$$sharing_share_resource_response_single,
@@ -256,7 +256,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/resource-sharing_share_resource_response_single",
       $defs: {
-        "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
+        "resource-sharing_api_response_common": resource$$sharing_api_response_common,
         "resource-sharing_resource_meta": resource$$sharing_resource_meta,
         "resource-sharing_share_resource_object": resource$$sharing_share_resource_object,
         "resource-sharing_share_resource_response_single": resource$$sharing_share_resource_response_single,
@@ -289,15 +289,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/resource-sharing_share_resource_response_single"
         },
         "4XX": {
-          "$ref": "#/$defs/resource-sharing_api-response-common-failure"
+          "$ref": "#/$defs/resource-sharing_api_response_common_failure"
         },
         "5XX": {
-          "$ref": "#/$defs/resource-sharing_api-response-common-failure"
+          "$ref": "#/$defs/resource-sharing_api_response_common_failure"
         }
       },
       $defs: {
-        "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
-        "resource-sharing_api-response-common-failure": resource$$sharing_api$$response$$common$$failure,
+        "resource-sharing_api_response_common": resource$$sharing_api_response_common,
+        "resource-sharing_api_response_common_failure": resource$$sharing_api_response_common_failure,
         "resource-sharing_resource_meta": resource$$sharing_resource_meta,
         "resource-sharing_share_resource_object": resource$$sharing_share_resource_object,
         "resource-sharing_share_resource_response_single": resource$$sharing_share_resource_response_single,
@@ -340,12 +340,12 @@ export const tools: readonly Tool[] = [
           "properties": {
             "page": {
               "default": 1,
-              "description": "Page number. Defaults to `1` when `per_page` is supplied without\n`page`. May be omitted entirely along with `per_page` to receive a\nnon-paginated response.",
+              "description": "Page number. Defaults to `1` when omitted.",
               "type": "integer"
             },
             "per_page": {
               "default": 20,
-              "description": "Number of objects to return per page. Defaults to `20` when `page` is supplied without `per_page`. May be omitted entirely along with `page` to receive a non-paginated response.",
+              "description": "Number of objects to return per page. Defaults to `20` when omitted.",
               "type": "integer"
             },
             "resource_type": {
@@ -382,9 +382,9 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/resource-sharing_share_resource_response_collection",
       $defs: {
-        "resource-sharing_api-response-collection": resource$$sharing_api$$response$$collection,
-        "resource-sharing_api-response-collection-info": resource$$sharing_api$$response$$collection$$info,
-        "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
+        "resource-sharing_api_response_collection": resource$$sharing_api_response_collection,
+        "resource-sharing_api_response_collection_info": resource$$sharing_api_response_collection_info,
+        "resource-sharing_api_response_common": resource$$sharing_api_response_common,
         "resource-sharing_resource_meta": resource$$sharing_resource_meta,
         "resource-sharing_result_info": resource$$sharing_result_info,
         "resource-sharing_share_resource_object": resource$$sharing_share_resource_object,
@@ -418,17 +418,17 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/resource-sharing_share_resource_response_collection"
         },
         "4XX": {
-          "$ref": "#/$defs/resource-sharing_api-response-common-failure"
+          "$ref": "#/$defs/resource-sharing_api_response_common_failure"
         },
         "5XX": {
-          "$ref": "#/$defs/resource-sharing_api-response-common-failure"
+          "$ref": "#/$defs/resource-sharing_api_response_common_failure"
         }
       },
       $defs: {
-        "resource-sharing_api-response-collection": resource$$sharing_api$$response$$collection,
-        "resource-sharing_api-response-collection-info": resource$$sharing_api$$response$$collection$$info,
-        "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
-        "resource-sharing_api-response-common-failure": resource$$sharing_api$$response$$common$$failure,
+        "resource-sharing_api_response_collection": resource$$sharing_api_response_collection,
+        "resource-sharing_api_response_collection_info": resource$$sharing_api_response_collection_info,
+        "resource-sharing_api_response_common": resource$$sharing_api_response_common,
+        "resource-sharing_api_response_common_failure": resource$$sharing_api_response_common_failure,
         "resource-sharing_resource_meta": resource$$sharing_resource_meta,
         "resource-sharing_result_info": resource$$sharing_result_info,
         "resource-sharing_share_resource_object": resource$$sharing_share_resource_object,
@@ -451,7 +451,7 @@ export const tools: readonly Tool[] = [
   {
     name: "resourceSharing_resources_update",
     title: "Trigger a resource metadata update in a share",
-    description: "Update is not immediate, an updated share resource object with a new status will be returned.\n\nPUT /accounts/{account_id}/shares/{share_id}/resources/{share_resource_id}",
+    description: "Updates the resource's `meta`. Only resources with `status=active` can be updated.\n\nPUT /accounts/{account_id}/shares/{share_id}/resources/{share_resource_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -495,7 +495,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/resource-sharing_share_resource_response_single",
       $defs: {
-        "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
+        "resource-sharing_api_response_common": resource$$sharing_api_response_common,
         "resource-sharing_resource_meta": resource$$sharing_resource_meta,
         "resource-sharing_share_resource_object": resource$$sharing_share_resource_object,
         "resource-sharing_share_resource_response_single": resource$$sharing_share_resource_response_single,
@@ -527,15 +527,15 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/resource-sharing_share_resource_response_single"
         },
         "4XX": {
-          "$ref": "#/$defs/resource-sharing_api-response-common-failure"
+          "$ref": "#/$defs/resource-sharing_api_response_common_failure"
         },
         "5XX": {
-          "$ref": "#/$defs/resource-sharing_api-response-common-failure"
+          "$ref": "#/$defs/resource-sharing_api_response_common_failure"
         }
       },
       $defs: {
-        "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
-        "resource-sharing_api-response-common-failure": resource$$sharing_api$$response$$common$$failure,
+        "resource-sharing_api_response_common": resource$$sharing_api_response_common,
+        "resource-sharing_api_response_common_failure": resource$$sharing_api_response_common_failure,
         "resource-sharing_resource_meta": resource$$sharing_resource_meta,
         "resource-sharing_share_resource_object": resource$$sharing_share_resource_object,
         "resource-sharing_share_resource_response_single": resource$$sharing_share_resource_response_single,

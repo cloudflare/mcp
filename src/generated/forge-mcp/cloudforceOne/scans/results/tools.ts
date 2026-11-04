@@ -3,7 +3,6 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  cloudforce$$one$$port$$scan$$api_api$$response$$common,
   cloudforce$$one$$port$$scan$$api_api$$response$$common$$failure,
   cloudforce$$one$$port$$scan$$api_messages,
 } from "../outputs.js";
@@ -149,7 +148,6 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cloudforce-one-port-scan-api_api-response-common": cloudforce$$one$$port$$scan$$api_api$$response$$common,
         "cloudforce-one-port-scan-api_api-response-common-failure": cloudforce$$one$$port$$scan$$api_api$$response$$common$$failure,
         "cloudforce-one-port-scan-api_messages": cloudforce$$one$$port$$scan$$api_messages,
         "cloudforce-one-port-scan-api_port": cloudforce$$one$$port$$scan$$api_port,
@@ -289,7 +287,6 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cloudforce-one-port-scan-api_api-response-common": cloudforce$$one$$port$$scan$$api_api$$response$$common,
         "cloudforce-one-port-scan-api_api-response-common-failure": cloudforce$$one$$port$$scan$$api_api$$response$$common$$failure,
         "cloudforce-one-port-scan-api_messages": cloudforce$$one$$port$$scan$$api_messages,
         "cloudforce-one-port-scan-api_port": cloudforce$$one$$port$$scan$$api_port,

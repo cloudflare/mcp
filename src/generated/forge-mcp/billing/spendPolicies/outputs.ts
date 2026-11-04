@@ -257,7 +257,6 @@ export const billing$$spend$$policies_policy_current_state: JsonSchema = {
         "no_current_period",
         "unavailable",
         "below_limit",
-        "approaching_limit",
         "limit_reached"
       ],
       "type": "string"

@@ -55,7 +55,7 @@ export const iam_request_create_resource_group: JsonSchema = {
     },
     "scope": {
       "$ref": "#/$defs/iam_create-scope",
-      "description": "A scope is a combination of scope objects which provides additional context."
+      "description": "The scope associated to the resource group"
     }
   },
   "required": [
@@ -77,7 +77,7 @@ export const iam_request_update_resource_group: JsonSchema = {
     },
     "scope": {
       "$ref": "#/$defs/iam_create-scope",
-      "description": "A scope is a combination of scope objects which provides additional context."
+      "description": "The scope associated to the resource group"
     }
   },
   "type": "object"

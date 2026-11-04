@@ -584,8 +584,8 @@ export const tools: readonly Tool[] = [
   },
   {
     name: "workersForPlatforms_dispatchNamespaces_scripts_update",
-    title: "Upload Workers for Platforms Script Module",
-    description: "Upload a Workers for Platforms script module to a dispatch namespace. You can find more about the multipart metadata on our docs: https://developers.cloudflare.com/workers/configuration/multipart-upload-metadata/.\n\nPUT /accounts/{account_id}/workers/dispatch/namespaces/{dispatch_namespace}/scripts/{script_name}",
+    title: "Upload Workers for Platforms Script",
+    description: "Upload Worker code and configuration to a Workers for Platforms dispatch\nnamespace. For ES module and other module-based Workers, use\n`multipart/form-data` with a JSON `metadata` part whose `main_module`\nfield names the entrypoint file. Upload each module as a separate file\npart; JavaScript ES module parts use the `application/javascript+module`\ncontent type.\n\nRaw `application/javascript` and `text/javascript` request bodies accept\nonly legacy service-worker syntax using `addEventListener`. They do not\naccept ES module syntax such as `export default`. To upload a module\nWorker, use the multipart request format instead.\n\nLearn more about multipart metadata in the [documentation](https://developers.cloudflare.com/workers/configuration/multipart-upload-metadata/).\n\nPUT /accounts/{account_id}/workers/dispatch/namespaces/{dispatch_namespace}/scripts/{script_name}",
     inputSchema: {
       type: "object",
       properties: {
@@ -769,7 +769,7 @@ export const tools: readonly Tool[] = [
       "idempotentHint": true,
       "openWorldHint": true,
       "readOnlyHint": false,
-      "title": "Upload Workers for Platforms Script Module"
+      "title": "Upload Workers for Platforms Script"
     },
     method: "PUT",
     path: "/accounts/{account_id}/workers/dispatch/namespaces/{dispatch_namespace}/scripts/{script_name}",

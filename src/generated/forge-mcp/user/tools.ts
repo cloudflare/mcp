@@ -5,7 +5,7 @@ import type { Tool } from "../_/tool.js";
 import {
   iam_api$$response$$common$$failure,
   iam_api$$response$$single,
-  iam_messages$$2,
+  iam_messages,
 } from "../outputs.js";
 import {
   iam_organization,
@@ -94,7 +94,7 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/iam_single_user_response",
       $defs: {
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_organization": iam_organization,
         "iam_schemas-permissions": iam_schemas$$permissions,
         "iam_single_user_response": iam_single_user_response,
@@ -137,7 +137,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_organization": iam_organization,
         "iam_schemas-permissions": iam_schemas$$permissions,
         "iam_single_user_response": iam_single_user_response,
@@ -161,7 +161,7 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/iam_single_user_response",
       $defs: {
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_organization": iam_organization,
         "iam_schemas-permissions": iam_schemas$$permissions,
         "iam_single_user_response": iam_single_user_response,
@@ -205,7 +205,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_organization": iam_organization,
         "iam_schemas-permissions": iam_schemas$$permissions,
         "iam_single_user_response": iam_single_user_response,

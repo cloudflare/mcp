@@ -143,6 +143,25 @@ export const iam_account: JsonSchema = {
     "id": {
       "type": "string"
     },
+    "legacy_flags": {
+      "properties": {
+        "enterprise_zone_quota": {
+          "properties": {
+            "available": {
+              "type": "integer"
+            },
+            "current": {
+              "type": "integer"
+            },
+            "maximum": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
     "managed_by": {
       "properties": {
         "parent_org_id": {

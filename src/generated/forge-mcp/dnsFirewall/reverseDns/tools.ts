@@ -8,7 +8,7 @@ import {
   dns$$firewall_messages,
 } from "../outputs.js";
 import {
-  dns$$firewall_dns$$firewall$$reverse$$dns$$response,
+  dns$$firewall_dns$$firewall$$reverse$$dns$$response$$with$$ptr,
   dns$$firewall_dns_firewall_reverse_dns_response,
 } from "./outputs.js";
 import { dns$$firewall_dns$$firewall$$reverse$$dns$$patch } from "./schemas.js";
@@ -59,7 +59,7 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/dns-firewall_dns_firewall_reverse_dns_response",
       $defs: {
         "dns-firewall_api-response-single": dns$$firewall_api$$response$$single,
-        "dns-firewall_dns-firewall-reverse-dns-response": dns$$firewall_dns$$firewall$$reverse$$dns$$response,
+        "dns-firewall_dns-firewall-reverse-dns-response-with-ptr": dns$$firewall_dns$$firewall$$reverse$$dns$$response$$with$$ptr,
         "dns-firewall_dns_firewall_reverse_dns_response": dns$$firewall_dns_firewall_reverse_dns_response,
         "dns-firewall_messages": dns$$firewall_messages,
       },
@@ -101,7 +101,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dns-firewall_api-response-common-failure": dns$$firewall_api$$response$$common$$failure,
         "dns-firewall_api-response-single": dns$$firewall_api$$response$$single,
-        "dns-firewall_dns-firewall-reverse-dns-response": dns$$firewall_dns$$firewall$$reverse$$dns$$response,
+        "dns-firewall_dns-firewall-reverse-dns-response-with-ptr": dns$$firewall_dns$$firewall$$reverse$$dns$$response$$with$$ptr,
         "dns-firewall_dns_firewall_reverse_dns_response": dns$$firewall_dns_firewall_reverse_dns_response,
         "dns-firewall_messages": dns$$firewall_messages,
       },
@@ -146,7 +146,7 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/dns-firewall_dns_firewall_reverse_dns_response",
       $defs: {
         "dns-firewall_api-response-single": dns$$firewall_api$$response$$single,
-        "dns-firewall_dns-firewall-reverse-dns-response": dns$$firewall_dns$$firewall$$reverse$$dns$$response,
+        "dns-firewall_dns-firewall-reverse-dns-response-with-ptr": dns$$firewall_dns$$firewall$$reverse$$dns$$response$$with$$ptr,
         "dns-firewall_dns_firewall_reverse_dns_response": dns$$firewall_dns_firewall_reverse_dns_response,
         "dns-firewall_messages": dns$$firewall_messages,
       },
@@ -189,7 +189,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dns-firewall_api-response-common-failure": dns$$firewall_api$$response$$common$$failure,
         "dns-firewall_api-response-single": dns$$firewall_api$$response$$single,
-        "dns-firewall_dns-firewall-reverse-dns-response": dns$$firewall_dns$$firewall$$reverse$$dns$$response,
+        "dns-firewall_dns-firewall-reverse-dns-response-with-ptr": dns$$firewall_dns$$firewall$$reverse$$dns$$response$$with$$ptr,
         "dns-firewall_dns_firewall_reverse_dns_response": dns$$firewall_dns_firewall_reverse_dns_response,
         "dns-firewall_messages": dns$$firewall_messages,
       },

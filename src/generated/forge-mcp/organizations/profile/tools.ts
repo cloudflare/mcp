@@ -11,11 +11,11 @@ import { organizations$$api_ModifyProfileRequest } from "../../schemas.js";
 import { organizations$$api_ProfileResponse } from "./outputs.js";
 
 /**
- * The tools of `organization.profile`.
+ * The tools of `organizations.profile`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "organization_profile_get",
+    name: "organizations_profile_get",
     title: "Get organization profile",
     description: "Retrieves the business profile (name, email, phone, address, and external metadata)\nassociated with this organization's customer record. Profiles can be shared across\naccounts and organizations. Only available to members of the organization.\n\nGET /organizations/{organization_id}/profile",
     inputSchema: {
@@ -81,7 +81,7 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "organization_profile_update",
+    name: "organizations_profile_update",
     title: "Modify organization profile.",
     description: "Partially updates the business profile (name, email, phone, address, and external metadata)\nassociated with this organization's customer record, creating the profile if it does not\nexist. Changes apply to every account and organization sharing that profile. Omitted,\nempty, or null fields are left unchanged. Each profile field is limited to 1,000 UTF-8\nbytes. Only available to members of the organization.\n\nPUT /organizations/{organization_id}/profile",
     inputSchema: {

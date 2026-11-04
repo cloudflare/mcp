@@ -31,6 +31,7 @@ import {
   load$$balancing_filter_options as load$$balancing_filter_options$,
   load$$balancing_health_sources as load$$balancing_health_sources$,
   load$$balancing_load_shedding as load$$balancing_load_shedding$,
+  load$$balancing_networks as load$$balancing_networks$,
   load$$balancing_notification_filter as load$$balancing_notification_filter$,
   load$$balancing_origin as load$$balancing_origin$,
   load$$balancing_origin_steering as load$$balancing_origin_steering$,
@@ -158,6 +159,10 @@ export const tools: readonly Tool[] = [
       properties: {
         "body": {
           "properties": {
+            "check_regions": {
+              "$ref": "#/$defs/load-balancing_check_regions",
+              "description": "A list of regions from which to run health checks. Null means every Cloudflare data center."
+            },
             "description": {
               "default": "",
               "description": "A human-readable description of the pool.",
@@ -167,6 +172,10 @@ export const tools: readonly Tool[] = [
               "default": true,
               "description": "Whether to enable (the default) or disable this pool. Disabled pools will not receive traffic and are excluded from health checks. Disabling a pool will cause any load balancers using it to failover to the next pool (if any).",
               "type": "boolean"
+            },
+            "health_sources": {
+              "$ref": "#/$defs/load-balancing_health_sources",
+              "description": "A list of health sources, ordered from highest to lowest priority, used to evaluate individual origin health and overall pool health. The load balancer uses the first source that has data and falls back to the next. Currently accepted values are null or the exact array [\"regional\", \"global\"]; any other combination is rejected. Null (the default) behaves like [\"local\", \"global\"]. [\"regional\", \"global\"] makes each region steer on its own health, falling back to the global decision when a region has no fresh data. Setting regional requires at least one region in check_regions."
             },
             "latitude": {
               "description": "The latitude of the data center containing the origins used in this pool in decimal degrees. If this is set, longitude must also be set.",
@@ -196,6 +205,10 @@ export const tools: readonly Tool[] = [
             "name": {
               "description": "A short name (tag) for the pool. Only alphanumeric characters, hyphens, and underscores are allowed.",
               "type": "string"
+            },
+            "networks": {
+              "$ref": "#/$defs/load-balancing_networks",
+              "description": "List of networks where Load Balancer or Pool is enabled."
             },
             "notification_email": {
               "default": "",
@@ -242,8 +255,11 @@ export const tools: readonly Tool[] = [
       additionalProperties: false,
       $defs: {
         "load-balancing_Host": load$$balancing_Host$,
+        "load-balancing_check_regions": load$$balancing_check_regions$,
         "load-balancing_filter_options": load$$balancing_filter_options$,
+        "load-balancing_health_sources": load$$balancing_health_sources$,
         "load-balancing_load_shedding": load$$balancing_load_shedding$,
+        "load-balancing_networks": load$$balancing_networks$,
         "load-balancing_notification_filter": load$$balancing_notification_filter$,
         "load-balancing_origin": load$$balancing_origin$,
         "load-balancing_origin_steering": load$$balancing_origin_steering$,
@@ -450,6 +466,10 @@ export const tools: readonly Tool[] = [
               "description": "A short name (tag) for the pool. Only alphanumeric characters, hyphens, and underscores are allowed.",
               "type": "string"
             },
+            "networks": {
+              "$ref": "#/$defs/load-balancing_networks",
+              "description": "List of networks where Load Balancer or Pool is enabled."
+            },
             "notification_email": {
               "default": "",
               "description": "This field is now deprecated. It has been moved to Cloudflare's Centralized Notification service https://developers.cloudflare.com/fundamentals/notifications/. The email address to send health status notifications to. This can be an individual mailbox or a mailing list. Multiple emails can be supplied as a comma delimited list.",
@@ -499,6 +519,7 @@ export const tools: readonly Tool[] = [
         "load-balancing_filter_options": load$$balancing_filter_options$,
         "load-balancing_health_sources": load$$balancing_health_sources$,
         "load-balancing_load_shedding": load$$balancing_load_shedding$,
+        "load-balancing_networks": load$$balancing_networks$,
         "load-balancing_notification_filter": load$$balancing_notification_filter$,
         "load-balancing_origin": load$$balancing_origin$,
         "load-balancing_origin_steering": load$$balancing_origin_steering$,
@@ -840,6 +861,10 @@ export const tools: readonly Tool[] = [
               "description": "A short name (tag) for the pool. Only alphanumeric characters, hyphens, and underscores are allowed.",
               "type": "string"
             },
+            "networks": {
+              "$ref": "#/$defs/load-balancing_networks",
+              "description": "List of networks where Load Balancer or Pool is enabled."
+            },
             "notification_email": {
               "default": "",
               "description": "This field is now deprecated. It has been moved to Cloudflare's Centralized Notification service https://developers.cloudflare.com/fundamentals/notifications/. The email address to send health status notifications to. This can be an individual mailbox or a mailing list. Multiple emails can be supplied as a comma delimited list.",
@@ -893,6 +918,7 @@ export const tools: readonly Tool[] = [
         "load-balancing_filter_options": load$$balancing_filter_options$,
         "load-balancing_health_sources": load$$balancing_health_sources$,
         "load-balancing_load_shedding": load$$balancing_load_shedding$,
+        "load-balancing_networks": load$$balancing_networks$,
         "load-balancing_notification_filter": load$$balancing_notification_filter$,
         "load-balancing_origin": load$$balancing_origin$,
         "load-balancing_origin_steering": load$$balancing_origin_steering$,

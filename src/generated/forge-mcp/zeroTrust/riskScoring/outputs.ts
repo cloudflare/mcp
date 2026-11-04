@@ -19,6 +19,7 @@ export const dlp_RiskEvent: JsonSchema = {
     },
     "risk_level": {
       "enum": [
+        "info",
         "low",
         "medium",
         "high"
@@ -69,6 +70,7 @@ export const dlp_RiskEvents: JsonSchema = {
     },
     "risk_level": {
       "enum": [
+        "info",
         "low",
         "medium",
         "high"

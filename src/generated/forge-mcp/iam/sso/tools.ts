@@ -8,7 +8,7 @@ import {
   iam_api$$response$$common$$failure,
   iam_api$$response$$single,
   iam_api$$response$$single$$id,
-  iam_messages$$2,
+  iam_messages,
   iam_result_info,
 } from "../../outputs.js";
 import {
@@ -57,7 +57,7 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/iam_api-response-single",
       $defs: {
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
       },
     },
     annotations: {
@@ -92,7 +92,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
       },
     },
     request: (args) => ({
@@ -151,7 +151,7 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/iam_sso_connector_response",
       $defs: {
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_sso_connector": iam_sso_connector,
         "iam_sso_connector_response": iam_sso_connector_response,
         "iam_sso_connector_verification_info": iam_sso_connector_verification_info,
@@ -189,7 +189,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_sso_connector": iam_sso_connector,
         "iam_sso_connector_response": iam_sso_connector_response,
         "iam_sso_connector_verification_info": iam_sso_connector_verification_info,
@@ -236,7 +236,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-single-id": iam_api$$response$$single$$id,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
       },
     },
     annotations: {
@@ -272,7 +272,7 @@ export const tools: readonly Tool[] = [
         "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single-id": iam_api$$response$$single$$id,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
       },
     },
     request: (args) => ({
@@ -314,7 +314,7 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/iam_sso_connector_response",
       $defs: {
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_sso_connector": iam_sso_connector,
         "iam_sso_connector_response": iam_sso_connector_response,
         "iam_sso_connector_verification_info": iam_sso_connector_verification_info,
@@ -352,7 +352,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_sso_connector": iam_sso_connector,
         "iam_sso_connector_response": iam_sso_connector_response,
         "iam_sso_connector_verification_info": iam_sso_connector_verification_info,
@@ -393,7 +393,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_api-response-collection": iam_api$$response$$collection,
         "iam_api-response-common": iam_api$$response$$common,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_result_info": iam_result_info,
         "iam_sso_connector": iam_sso_connector,
         "iam_sso_connector_collection_response": iam_sso_connector_collection_response,
@@ -433,7 +433,7 @@ export const tools: readonly Tool[] = [
         "iam_api-response-collection": iam_api$$response$$collection,
         "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_result_info": iam_result_info,
         "iam_sso_connector": iam_sso_connector,
         "iam_sso_connector_collection_response": iam_sso_connector_collection_response,
@@ -493,7 +493,7 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/iam_sso_connector_response",
       $defs: {
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_sso_connector": iam_sso_connector,
         "iam_sso_connector_response": iam_sso_connector_response,
         "iam_sso_connector_verification_info": iam_sso_connector_verification_info,
@@ -531,7 +531,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_sso_connector": iam_sso_connector,
         "iam_sso_connector_response": iam_sso_connector_response,
         "iam_sso_connector_verification_info": iam_sso_connector_verification_info,

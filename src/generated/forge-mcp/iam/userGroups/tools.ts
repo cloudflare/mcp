@@ -8,7 +8,7 @@ import {
   iam_api$$response$$common$$failure,
   iam_api$$response$$single,
   iam_api$$response$$single$$id,
-  iam_messages$$2,
+  iam_messages,
   iam_permission_group,
   iam_permission_groups,
   iam_resource_group,
@@ -82,7 +82,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_permission_group": iam_permission_group,
         "iam_permission_groups": iam_permission_groups,
         "iam_resource_group": iam_resource_group,
@@ -142,7 +142,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_permission_group": iam_permission_group,
         "iam_permission_groups": iam_permission_groups,
         "iam_resource_group": iam_resource_group,
@@ -193,7 +193,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-single-id": iam_api$$response$$single$$id,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
       },
     },
     annotations: {
@@ -235,7 +235,7 @@ export const tools: readonly Tool[] = [
         "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single-id": iam_api$$response$$single$$id,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
       },
     },
     request: (args) => ({
@@ -289,7 +289,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_permission_group": iam_permission_group,
         "iam_permission_groups": iam_permission_groups,
         "iam_resource_group": iam_resource_group,
@@ -350,7 +350,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_permission_group": iam_permission_group,
         "iam_permission_groups": iam_permission_groups,
         "iam_resource_group": iam_resource_group,
@@ -444,7 +444,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_api-response-collection": iam_api$$response$$collection,
         "iam_api-response-common": iam_api$$response$$common,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_permission_group": iam_permission_group,
         "iam_permission_groups": iam_permission_groups,
         "iam_resource_group": iam_resource_group,
@@ -508,7 +508,7 @@ export const tools: readonly Tool[] = [
         "iam_api-response-collection": iam_api$$response$$collection,
         "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_permission_group": iam_permission_group,
         "iam_permission_groups": iam_permission_groups,
         "iam_resource_group": iam_resource_group,
@@ -589,7 +589,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_permission_group": iam_permission_group,
         "iam_permission_groups": iam_permission_groups,
         "iam_resource_group": iam_resource_group,
@@ -649,7 +649,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_permission_group": iam_permission_group,
         "iam_permission_groups": iam_permission_groups,
         "iam_resource_group": iam_resource_group,

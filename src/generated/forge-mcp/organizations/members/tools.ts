@@ -3,13 +3,11 @@
 
 import { type Tool, param, pathParam } from "../../_/tool.js";
 import {
+  organizations$$api_PageTokenResultInfo,
   organizations$$api_V4ErrorResponse,
   organizations$$api_V4Message,
 } from "../../outputs.js";
-import {
-  organizations$$api_MemberSubjectUser,
-  organizations$$api_PageTokenResultInfo,
-} from "../outputs.js";
+import { organizations$$api_MemberSubjectUser } from "../outputs.js";
 import {
   organizations$$api_DeleteOrganizationMemberResult,
   organizations$$api_Member,
@@ -23,11 +21,11 @@ import {
 } from "./schemas.js";
 
 /**
- * The tools of `organization.member`.
+ * The tools of `organizations.members`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "organization_member_create",
+    name: "organizations_members_create",
     title: "Create organization member",
     description: "Create a membership that grants access to a specific Organization.\n\nPOST /organizations/{organization_id}/members",
     inputSchema: {
@@ -168,7 +166,7 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "organization_member_delete",
+    name: "organizations_members_delete",
     title: "Delete organization member",
     description: "Delete a membership to a particular Organization.\n\nConfirm with the user before calling this tool. Delete this organization membership? The member will lose access to this organization and its sub-organizations.\n\nDELETE /organizations/{organization_id}/members/{member_id}",
     inputSchema: {
@@ -297,7 +295,7 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "organization_member_get",
+    name: "organizations_members_get",
     title: "Get organization member",
     description: "Retrieve a single membership from an Organization.\n\nGET /organizations/{organization_id}/members/{member_id}",
     inputSchema: {
@@ -434,7 +432,7 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "organization_member_list",
+    name: "organizations_members_list",
     title: "List organization members",
     description: "List memberships for an Organization.\n\nGET /organizations/{organization_id}/members",
     inputSchema: {
@@ -465,7 +463,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "status": {
-              "description": "Filter the list of memberships by membership status.",
+              "description": "Filter the list of memberships by membership status. Defaults to `active`, `pending`, and `rejected`; pass `canceled` explicitly to include canceled memberships.",
               "items": {
                 "enum": [
                   "active",

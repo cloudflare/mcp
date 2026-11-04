@@ -9,7 +9,7 @@ import {
   iam_api$$response$$single,
   iam_grants,
   iam_list_member_policy,
-  iam_messages$$2,
+  iam_messages,
   iam_permission_group,
   iam_permission_groups,
   iam_permissions,
@@ -80,7 +80,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
       },
     },
     annotations: {
@@ -126,11 +126,115 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
       },
     },
     request: (args) => ({
       path: `/memberships/${pathParam(args, "membership_id")}`,
+    }),
+  },
+  {
+    name: "user_memberships_get",
+    title: "Get User Membership",
+    description: "Get a specific membership for the currently authenticated user.\n\nGET /user/memberships/{membership_id}",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "membership_id": {
+              "description": "Membership identifier tag.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "membership_id"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path"
+      ],
+      additionalProperties: false,
+    },
+    outputSchema: {
+      "$ref": "#/$defs/iam_single_membership_response_with_policies",
+      $defs: {
+        "iam_api-response-single": iam_api$$response$$single,
+        "iam_grants": iam_grants,
+        "iam_list_member_policy": iam_list_member_policy,
+        "iam_membership-with-policies": iam_membership$$with$$policies,
+        "iam_messages": iam_messages,
+        "iam_permission_group": iam_permission_group,
+        "iam_permission_groups": iam_permission_groups,
+        "iam_permissions": iam_permissions,
+        "iam_resource_group": iam_resource_group,
+        "iam_resource_groups": iam_resource_groups,
+        "iam_role_names": iam_role_names,
+        "iam_schemas-account": iam_schemas$$account,
+        "iam_scope": iam_scope,
+        "iam_scope_object": iam_scope_object,
+        "iam_single_membership_response_with_policies": iam_single_membership_response_with_policies,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get User Membership"
+    },
+    method: "GET",
+    path: "/user/memberships/{membership_id}",
+    extensions: {
+      "x-api-token-group": [
+        "Memberships Write",
+        "Memberships Read"
+      ],
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.user.membership.read"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/iam_single_membership_response_with_policies"
+        },
+        "4XX": {
+          "$ref": "#/$defs/iam_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "iam_api-response-common-failure": iam_api$$response$$common$$failure,
+        "iam_api-response-single": iam_api$$response$$single,
+        "iam_grants": iam_grants,
+        "iam_list_member_policy": iam_list_member_policy,
+        "iam_membership-with-policies": iam_membership$$with$$policies,
+        "iam_messages": iam_messages,
+        "iam_permission_group": iam_permission_group,
+        "iam_permission_groups": iam_permission_groups,
+        "iam_permissions": iam_permissions,
+        "iam_resource_group": iam_resource_group,
+        "iam_resource_groups": iam_resource_groups,
+        "iam_role_names": iam_role_names,
+        "iam_schemas-account": iam_schemas$$account,
+        "iam_scope": iam_scope,
+        "iam_scope_object": iam_scope_object,
+        "iam_single_membership_response_with_policies": iam_single_membership_response_with_policies,
+      },
+    },
+    request: (args) => ({
+      path: `/user/memberships/${pathParam(args, "membership_id")}`,
     }),
   },
   {
@@ -211,7 +315,7 @@ export const tools: readonly Tool[] = [
         "iam_list_member_policy": iam_list_member_policy,
         "iam_membership": iam_membership,
         "iam_membership-with-policies": iam_membership$$with$$policies,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_permission_group": iam_permission_group,
         "iam_permission_groups": iam_permission_groups,
         "iam_permissions": iam_permissions,
@@ -265,7 +369,7 @@ export const tools: readonly Tool[] = [
         "iam_list_member_policy": iam_list_member_policy,
         "iam_membership": iam_membership,
         "iam_membership-with-policies": iam_membership$$with$$policies,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_permission_group": iam_permission_group,
         "iam_permission_groups": iam_permission_groups,
         "iam_permissions": iam_permissions,
@@ -341,7 +445,7 @@ export const tools: readonly Tool[] = [
         "iam_grants": iam_grants,
         "iam_list_member_policy": iam_list_member_policy,
         "iam_membership-with-policies": iam_membership$$with$$policies,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_permission_group": iam_permission_group,
         "iam_permission_groups": iam_permission_groups,
         "iam_permissions": iam_permissions,
@@ -383,7 +487,7 @@ export const tools: readonly Tool[] = [
         "iam_grants": iam_grants,
         "iam_list_member_policy": iam_list_member_policy,
         "iam_membership-with-policies": iam_membership$$with$$policies,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_permission_group": iam_permission_group,
         "iam_permission_groups": iam_permission_groups,
         "iam_permissions": iam_permissions,
@@ -399,203 +503,6 @@ export const tools: readonly Tool[] = [
     request: (args) => ({
       path: `/memberships/${pathParam(args, "membership_id")}`,
       body: { value: args["body"], mediaTypes: ["application/json"] },
-    }),
-  },
-  {
-    name: "user_memberships_userMembershipsGet",
-    title: "Get User Membership",
-    description: "Get a specific membership for the currently authenticated user.\n\nGET /user/memberships/{membership_id}",
-    inputSchema: {
-      type: "object",
-      properties: {
-        "path": {
-          "additionalProperties": false,
-          "properties": {
-            "membership_id": {
-              "description": "Membership identifier tag.",
-              "type": "string"
-            }
-          },
-          "required": [
-            "membership_id"
-          ],
-          "type": "object"
-        }
-      },
-      required: [
-        "path"
-      ],
-      additionalProperties: false,
-    },
-    outputSchema: {
-      "$ref": "#/$defs/iam_single_membership_response_with_policies",
-      $defs: {
-        "iam_api-response-single": iam_api$$response$$single,
-        "iam_grants": iam_grants,
-        "iam_list_member_policy": iam_list_member_policy,
-        "iam_membership-with-policies": iam_membership$$with$$policies,
-        "iam_messages-2": iam_messages$$2,
-        "iam_permission_group": iam_permission_group,
-        "iam_permission_groups": iam_permission_groups,
-        "iam_permissions": iam_permissions,
-        "iam_resource_group": iam_resource_group,
-        "iam_resource_groups": iam_resource_groups,
-        "iam_role_names": iam_role_names,
-        "iam_schemas-account": iam_schemas$$account,
-        "iam_scope": iam_scope,
-        "iam_scope_object": iam_scope_object,
-        "iam_single_membership_response_with_policies": iam_single_membership_response_with_policies,
-      },
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get User Membership"
-    },
-    method: "GET",
-    path: "/user/memberships/{membership_id}",
-    extensions: {
-      "x-api-token-group": [
-        "Memberships Write",
-        "Memberships Read"
-      ],
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.user.membership.read"
-        ]
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
-          "$ref": "#/$defs/iam_single_membership_response_with_policies"
-        },
-        "4XX": {
-          "$ref": "#/$defs/iam_api-response-common-failure"
-        }
-      },
-      $defs: {
-        "iam_api-response-common-failure": iam_api$$response$$common$$failure,
-        "iam_api-response-single": iam_api$$response$$single,
-        "iam_grants": iam_grants,
-        "iam_list_member_policy": iam_list_member_policy,
-        "iam_membership-with-policies": iam_membership$$with$$policies,
-        "iam_messages-2": iam_messages$$2,
-        "iam_permission_group": iam_permission_group,
-        "iam_permission_groups": iam_permission_groups,
-        "iam_permissions": iam_permissions,
-        "iam_resource_group": iam_resource_group,
-        "iam_resource_groups": iam_resource_groups,
-        "iam_role_names": iam_role_names,
-        "iam_schemas-account": iam_schemas$$account,
-        "iam_scope": iam_scope,
-        "iam_scope_object": iam_scope_object,
-        "iam_single_membership_response_with_policies": iam_single_membership_response_with_policies,
-      },
-    },
-    request: (args) => ({
-      path: `/user/memberships/${pathParam(args, "membership_id")}`,
-    }),
-  },
-  {
-    name: "user_memberships_userSAccountMembershipsMembershipDetails",
-    title: "Membership Details",
-    description: "Get a specific membership.\n\nGET /memberships/{membership_id}",
-    inputSchema: {
-      type: "object",
-      properties: {
-        "path": {
-          "additionalProperties": false,
-          "properties": {
-            "membership_id": {
-              "description": "Membership identifier tag.",
-              "type": "string"
-            }
-          },
-          "required": [
-            "membership_id"
-          ],
-          "type": "object"
-        }
-      },
-      required: [
-        "path"
-      ],
-      additionalProperties: false,
-    },
-    outputSchema: {
-      "$ref": "#/$defs/iam_single_membership_response_with_policies",
-      $defs: {
-        "iam_api-response-single": iam_api$$response$$single,
-        "iam_grants": iam_grants,
-        "iam_list_member_policy": iam_list_member_policy,
-        "iam_membership-with-policies": iam_membership$$with$$policies,
-        "iam_messages-2": iam_messages$$2,
-        "iam_permission_group": iam_permission_group,
-        "iam_permission_groups": iam_permission_groups,
-        "iam_permissions": iam_permissions,
-        "iam_resource_group": iam_resource_group,
-        "iam_resource_groups": iam_resource_groups,
-        "iam_role_names": iam_role_names,
-        "iam_schemas-account": iam_schemas$$account,
-        "iam_scope": iam_scope,
-        "iam_scope_object": iam_scope_object,
-        "iam_single_membership_response_with_policies": iam_single_membership_response_with_policies,
-      },
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Membership Details"
-    },
-    method: "GET",
-    path: "/memberships/{membership_id}",
-    extensions: {
-      "x-api-token-group": [
-        "Memberships Write",
-        "Memberships Read"
-      ]
-    },
-    responses: {
-      schemas: {
-        "200": {
-          "$ref": "#/$defs/iam_single_membership_response_with_policies"
-        },
-        "4XX": {
-          "$ref": "#/$defs/iam_api-response-common-failure"
-        }
-      },
-      $defs: {
-        "iam_api-response-common-failure": iam_api$$response$$common$$failure,
-        "iam_api-response-single": iam_api$$response$$single,
-        "iam_grants": iam_grants,
-        "iam_list_member_policy": iam_list_member_policy,
-        "iam_membership-with-policies": iam_membership$$with$$policies,
-        "iam_messages-2": iam_messages$$2,
-        "iam_permission_group": iam_permission_group,
-        "iam_permission_groups": iam_permission_groups,
-        "iam_permissions": iam_permissions,
-        "iam_resource_group": iam_resource_group,
-        "iam_resource_groups": iam_resource_groups,
-        "iam_role_names": iam_role_names,
-        "iam_schemas-account": iam_schemas$$account,
-        "iam_scope": iam_scope,
-        "iam_scope_object": iam_scope_object,
-        "iam_single_membership_response_with_policies": iam_single_membership_response_with_policies,
-      },
-    },
-    request: (args) => ({
-      path: `/memberships/${pathParam(args, "membership_id")}`,
     }),
   },
 ];

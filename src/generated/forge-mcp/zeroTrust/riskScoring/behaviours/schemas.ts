@@ -13,6 +13,7 @@ export const dlp_UpdateBehavior: JsonSchema = {
     },
     "risk_level": {
       "enum": [
+        "info",
         "low",
         "medium",
         "high"

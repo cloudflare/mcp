@@ -104,6 +104,17 @@ export const spectrum$$config_app_config: JsonSchema = {
         "origin_worker_id": {
           "type": "string"
         },
+        "origin_worker_name": {
+          "type": "string"
+        },
+        "origin_worker_status": {
+          "enum": [
+            "available",
+            "not_found",
+            "unknown"
+          ],
+          "type": "string"
+        },
         "protocol": {
           "type": "string"
         },

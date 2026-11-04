@@ -8,7 +8,7 @@ import {
   iam_api$$response$$common$$failure,
   iam_api$$response$$single,
   iam_api$$response$$single$$id,
-  iam_messages$$2,
+  iam_messages,
   iam_result_info,
 } from "../../outputs.js";
 import {
@@ -74,7 +74,7 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/iam_single_oauth_client_create_response",
       $defs: {
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_oauth_client": iam_oauth_client,
         "iam_oauth_client_common": iam_oauth_client_common,
         "iam_oauth_client_grant_types": iam_oauth_client_grant_types,
@@ -121,7 +121,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_oauth_client": iam_oauth_client,
         "iam_oauth_client_common": iam_oauth_client_common,
         "iam_oauth_client_grant_types": iam_oauth_client_grant_types,
@@ -172,7 +172,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-single-id": iam_api$$response$$single$$id,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
       },
     },
     annotations: {
@@ -213,7 +213,7 @@ export const tools: readonly Tool[] = [
         "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single-id": iam_api$$response$$single$$id,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
       },
     },
     request: (args) => ({
@@ -256,7 +256,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-single-id": iam_api$$response$$single$$id,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
       },
     },
     annotations: {
@@ -297,7 +297,7 @@ export const tools: readonly Tool[] = [
         "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single-id": iam_api$$response$$single$$id,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
       },
     },
     request: (args) => ({
@@ -339,7 +339,7 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/iam_single_oauth_client_response",
       $defs: {
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_oauth_client": iam_oauth_client,
         "iam_oauth_client_common": iam_oauth_client_common,
         "iam_oauth_client_grant_types": iam_oauth_client_grant_types,
@@ -385,7 +385,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_oauth_client": iam_oauth_client,
         "iam_oauth_client_common": iam_oauth_client_common,
         "iam_oauth_client_grant_types": iam_oauth_client_grant_types,
@@ -430,7 +430,7 @@ export const tools: readonly Tool[] = [
         "iam_api-response-collection": iam_api$$response$$collection,
         "iam_api-response-common": iam_api$$response$$common,
         "iam_collection_oauth_client_response": iam_collection_oauth_client_response,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_oauth_client": iam_oauth_client,
         "iam_oauth_client_common": iam_oauth_client_common,
         "iam_oauth_client_grant_types": iam_oauth_client_grant_types,
@@ -478,7 +478,7 @@ export const tools: readonly Tool[] = [
         "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_collection_oauth_client_response": iam_collection_oauth_client_response,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_oauth_client": iam_oauth_client,
         "iam_oauth_client_common": iam_oauth_client_common,
         "iam_oauth_client_grant_types": iam_oauth_client_grant_types,
@@ -526,7 +526,7 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/iam_oauth_client_rotate_secret_response",
       $defs: {
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_oauth_client_rotate_secret_response": iam_oauth_client_rotate_secret_response,
       },
     },
@@ -567,7 +567,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_oauth_client_rotate_secret_response": iam_oauth_client_rotate_secret_response,
       },
     },
@@ -620,7 +620,7 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/iam_single_oauth_client_response",
       $defs: {
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_oauth_client": iam_oauth_client,
         "iam_oauth_client_common": iam_oauth_client_common,
         "iam_oauth_client_grant_types": iam_oauth_client_grant_types,
@@ -666,7 +666,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
         "iam_api-response-single": iam_api$$response$$single,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_oauth_client": iam_oauth_client,
         "iam_oauth_client_common": iam_oauth_client_common,
         "iam_oauth_client_grant_types": iam_oauth_client_grant_types,

@@ -4,6 +4,33 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
+ * The schema of `cloudforce-one-port-scan-api_api-response-common` in
+ * responses.
+ */
+export const cloudforce$$one$$port$$scan$$api_api$$response$$common: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/cloudforce-one-port-scan-api_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/cloudforce-one-port-scan-api_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `cloudforce-one-port-scan-api_ips` in responses.
  */
 export const cloudforce$$one$$port$$scan$$api_ips: JsonSchema = {

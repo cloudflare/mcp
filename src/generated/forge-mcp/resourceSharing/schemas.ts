@@ -4,6 +4,22 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
+ * The schema of `resource-sharing_create_share_excluded_recipient_request`.
+ */
+export const resource$$sharing_create_share_excluded_recipient_request: JsonSchema = {
+  "properties": {
+    "account_id": {
+      "description": "The account to exclude from the organization-targeted share.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "account_id"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `resource-sharing_create_share_recipient_request`.
  */
 export const resource$$sharing_create_share_recipient_request: JsonSchema = {
@@ -31,6 +47,14 @@ export const resource$$sharing_create_share_recipient_request: JsonSchema = {
  */
 export const resource$$sharing_create_share_request: JsonSchema = {
   "properties": {
+    "excluded_recipients": {
+      "description": "Accounts to exclude from an organization-targeted share. Only allowed when `recipients` contains no account entries. The share owner cannot be excluded. Duplicate entries are ignored.",
+      "items": {
+        "$ref": "#/$defs/resource-sharing_create_share_excluded_recipient_request"
+      },
+      "maxItems": 1000,
+      "type": "array"
+    },
     "name": {
       "description": "The name of the share.",
       "type": "string"
@@ -39,19 +63,23 @@ export const resource$$sharing_create_share_request: JsonSchema = {
       "items": {
         "$ref": "#/$defs/resource-sharing_create_share_recipient_request"
       },
+      "maxItems": 100,
       "type": "array"
     },
     "resources": {
       "items": {
         "$ref": "#/$defs/resource-sharing_create_share_resource_request"
       },
+      "maxItems": 1,
       "type": "array"
+    },
+    "tags": {
+      "$ref": "#/$defs/resource-sharing_share_tags",
+      "description": "Tags associated with the share."
     }
   },
   "required": [
-    "name",
-    "recipients",
-    "resources"
+    "name"
   ],
   "type": "object"
 };
@@ -66,11 +94,11 @@ export const resource$$sharing_create_share_resource_request: JsonSchema = {
       "description": "Resource Metadata."
     },
     "resource_account_id": {
-      "description": "Account identifier.",
+      "description": "The account that owns the resource. Must match the `account_id` in the path.",
       "type": "string"
     },
     "resource_id": {
-      "description": "Share Resource identifier.",
+      "description": "Identifier assigned by the service that owns the shared resource.",
       "type": "string"
     },
     "resource_type": {
@@ -105,6 +133,10 @@ export const resource$$sharing_update_share_request: JsonSchema = {
     "name": {
       "description": "The name of the share.",
       "type": "string"
+    },
+    "tags": {
+      "$ref": "#/$defs/resource-sharing_share_tags",
+      "description": "Tags associated with the share."
     }
   },
   "required": [

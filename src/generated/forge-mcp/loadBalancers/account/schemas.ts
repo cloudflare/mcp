@@ -112,6 +112,10 @@ export const load$$balancing_load$$balancer$$editable: JsonSchema = {
       "$ref": "#/$defs/load-balancing_networks",
       "description": "List of networks where Load Balancer or Pool is enabled."
     },
+    "pool_sets": {
+      "$ref": "#/$defs/load-balancing_pool_sets",
+      "description": "An optional list of pool sets, evaluated in array order with first match wins. Pool sets are independent from the standard steering fields (`region_pools` / `country_pools` / `pop_pools` / `default_pools` / `steering_policy` / `random_steering` / `fallback_pool` / `rules`). On a PATCH, an empty array (`pool_sets: []`) clears all pool sets, while omitting the field leaves existing pool sets unchanged."
+    },
     "pop_pools": {
       "$ref": "#/$defs/load-balancing_pop_pools",
       "description": "Enterprise only: A mapping of Cloudflare PoP identifiers to a list of pool IDs (ordered by their failover priority) for the PoP (datacenter). Any PoPs not explicitly defined will fall back to using the corresponding country_pool, then region_pool mapping if it exists else to default_pools."
@@ -203,6 +207,108 @@ export const load$$balancing_location_strategy: JsonSchema = {
     }
   },
   "type": "object"
+};
+
+/**
+ * The schema of `load-balancing_match`.
+ */
+export const load$$balancing_match: JsonSchema = {
+  "description": "Determines which requests a pool set applies to. Set `topology` to match by location or `default: true` to match all requests; the two are mutually exclusive. A pool set with no `match` matches all requests.",
+  "properties": {
+    "default": {
+      "default": false,
+      "description": "When true, matches every request. Cannot be combined with `topology`.",
+      "type": "boolean"
+    },
+    "topology": {
+      "$ref": "#/$defs/load-balancing_topology_match",
+      "description": "Matches requests by location. Set any combination of `pops`, `countries`, and `regions` (at least one is required); a request matches when its value appears in any populated list (e.g. `regions: [\"WNAM\"]` with `countries: [\"US\"]` matches a request in either WNAM or the US)."
+    }
+  },
+  "type": "object"
+};
+
+/**
+ * The schema of `load-balancing_pool_set`.
+ */
+export const load$$balancing_pool_set: JsonSchema = {
+  "description": "One entry in a load balancer's `pool_sets`. Pool sets are evaluated in array order; the first whose `match` succeeds applies its `overrides` (or `fixed_response`), and evaluation stops there.",
+  "properties": {
+    "disabled": {
+      "default": false,
+      "description": "Disable this specific pool set. It will no longer be evaluated.",
+      "type": "boolean"
+    },
+    "fixed_response": {
+      "$ref": "#/$defs/load-balancing_fixed_response",
+      "description": "A collection of fields used to directly respond to the client instead of routing to a pool. When supplied on a rule, that rule stops further rule evaluation."
+    },
+    "match": {
+      "$ref": "#/$defs/load-balancing_match",
+      "description": "Determines which requests a pool set applies to. Set `topology` to match by location or `default: true` to match all requests; the two are mutually exclusive. A pool set with no `match` matches all requests."
+    },
+    "name": {
+      "description": "A human-readable name for this pool set.",
+      "type": "string"
+    },
+    "overrides": {
+      "$ref": "#/$defs/load-balancing_pool_set_overrides",
+      "description": "The behavior a pool set applies when its `match` succeeds. A strict subset of a rule's `overrides`: a pool set replaces the topology wholesale with a flat pool list (`pools`), so only the declarative pool-routing fields plus `fallback_pool` and `steering_policy` are settable. All fields are optional."
+    }
+  },
+  "type": "object"
+};
+
+/**
+ * The schema of `load-balancing_pool_set_overrides`.
+ */
+export const load$$balancing_pool_set_overrides: JsonSchema = {
+  "description": "The behavior a pool set applies when its `match` succeeds. A strict subset of a rule's `overrides`: a pool set replaces the topology wholesale with a flat pool list (`pools`), so only the declarative pool-routing fields plus `fallback_pool` and `steering_policy` are settable. All fields are optional.",
+  "properties": {
+    "fallback_pool": {
+      "description": "The pool ID to use when all other pools are detected as unhealthy.",
+      "type": "string"
+    },
+    "pool_default_weight": {
+      "description": "The default weight for pools not listed in `pool_weights`. The declarative alternative to `random_steering.default_weight`; mutually exclusive with `random_steering`.",
+      "type": "number"
+    },
+    "pool_weights": {
+      "$ref": "#/$defs/load-balancing_pool_weights",
+      "description": "A mapping of pool IDs to custom weights, relative to the other pools. The declarative alternative to `random_steering.pool_weights`; mutually exclusive with `random_steering`."
+    },
+    "pools": {
+      "$ref": "#/$defs/load-balancing_pools",
+      "description": "A flat, ordered list of pool IDs to route the matched audience to. Replaces the resolved topology with exactly these pools. Mutually exclusive with `fixed_response`."
+    },
+    "steering_policy": {
+      "default": "",
+      "description": "Steering Policy for this load balancer.\n- `\"off\"`: Use `default_pools`.\n- `\"geo\"`: Use `region_pools`/`country_pools`/`pop_pools`. For non-proxied requests, the country for `country_pools` is determined by `location_strategy`.\n- `\"random\"`: Select a pool randomly.\n- `\"dynamic_latency\"`: Use round trip time to select the closest pool in default_pools (requires pool health checks).\n- `\"proximity\"`: Use the pools' latitude and longitude to select the closest pool using the Cloudflare PoP location for proxied requests or the location determined by `location_strategy` for non-proxied requests.\n- `\"least_outstanding_requests\"`: Select a pool by taking into consideration `random_steering` weights, as well as each pool's number of outstanding requests. Pools with more pending requests are weighted proportionately less relative to others.\n- `\"least_connections\"`: Select a pool by taking into consideration `random_steering` weights, as well as each pool's number of open connections. Pools with more open connections are weighted proportionately less relative to others. Supported for HTTP/1 and HTTP/2 connections.\n- `\"\"`: Will map to `\"geo\"` if you use `region_pools`/`country_pools`/`pop_pools` otherwise `\"off\"`.",
+      "enum": [
+        "off",
+        "geo",
+        "random",
+        "dynamic_latency",
+        "proximity",
+        "least_outstanding_requests",
+        "least_connections",
+        ""
+      ],
+      "type": "string"
+    }
+  },
+  "type": "object"
+};
+
+/**
+ * The schema of `load-balancing_pool_sets`.
+ */
+export const load$$balancing_pool_sets: JsonSchema = {
+  "description": "An optional list of pool sets, evaluated in array order with first match wins. Pool sets are independent from the standard steering fields (`region_pools` / `country_pools` / `pop_pools` / `default_pools` / `steering_policy` / `random_steering` / `fallback_pool` / `rules`). On a PATCH, an empty array (`pool_sets: []`) clears all pool sets, while omitting the field leaves existing pool sets unchanged.",
+  "items": {
+    "$ref": "#/$defs/load-balancing_pool_set"
+  },
+  "type": "array"
 };
 
 /**
@@ -320,8 +426,21 @@ export const load$$balancing_rule_overrides: JsonSchema = {
       "description": "Enterprise only: A mapping of Cloudflare PoP identifiers to a list of pool IDs (ordered by their failover priority) for the PoP (datacenter). Any PoPs not explicitly defined will fall back to using the corresponding country_pool, then region_pool mapping if it exists else to default_pools."
     },
     "random_steering": {
-      "$ref": "#/$defs/load-balancing_random_steering",
-      "description": "Configures pool weights.\n- `steering_policy=\"random\"`: A random pool is selected with probability proportional to pool weights.\n- `steering_policy=\"least_outstanding_requests\"`: Use pool weights to scale each pool's outstanding requests.\n- `steering_policy=\"least_connections\"`: Use pool weights to scale each pool's open connections."
+      "description": "Configures pool weights for a rule override. An omitted default_weight inherits the load balancer's default weight.\n- `steering_policy=\"random\"`: A random pool is selected with probability proportional to pool weights.\n- `steering_policy=\"least_outstanding_requests\"`: Use pool weights to scale each pool's outstanding requests.\n- `steering_policy=\"least_connections\"`: Use pool weights to scale each pool's open connections.",
+      "properties": {
+        "default_weight": {
+          "description": "The default weight for pools in the load balancer that are not specified in the pool_weights map. An omitted value inherits the load balancer's default weight.",
+          "type": "number"
+        },
+        "pool_weights": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "description": "A mapping of pool IDs to custom weights. The weight is relative to other pools in the load balancer.",
+          "type": "object"
+        }
+      },
+      "type": "object"
     },
     "region_pools": {
       "$ref": "#/$defs/load-balancing_region_pools",
@@ -398,8 +517,7 @@ export const load$$balancing_rules: JsonSchema = {
         "description": "A collection of overrides to apply when this rule's condition (or a pool set's `match`) is true. All fields are optional."
       },
       "priority": {
-        "default": 0,
-        "description": "The order in which rules should be executed in relation to each other. Lower values are executed first. Values do not need to be sequential. If no value is provided for any rule the array order of the rules field will be used to assign a priority.",
+        "description": "The order in which rules should be executed in relation to each other. Lower values are executed first. Values do not need to be sequential. If all priorities are omitted or zero, the API assigns priorities based on the array order of the rules field.",
         "type": "integer"
       },
       "terminates": {
@@ -465,6 +583,40 @@ export const load$$balancing_session_affinity_attributes: JsonSchema = {
         "sticky"
       ],
       "type": "string"
+    }
+  },
+  "type": "object"
+};
+
+/**
+ * The schema of `load-balancing_topology_match`.
+ */
+export const load$$balancing_topology_match: JsonSchema = {
+  "description": "Matches requests by location. Set any combination of `pops`, `countries`, and `regions` (at least one is required); a request matches when its value appears in any populated list (e.g. `regions: [\"WNAM\"]` with `countries: [\"US\"]` matches a request in either WNAM or the US).",
+  "properties": {
+    "countries": {
+      "description": "A list of ISO 3166-1 alpha-2 country codes. Matches when the request's country is in this list.",
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 1000,
+      "type": "array"
+    },
+    "pops": {
+      "description": "A list of Cloudflare PoP codes. Matches when the request's PoP is in this list.",
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 1000,
+      "type": "array"
+    },
+    "regions": {
+      "description": "A list of Cloudflare region codes (e.g. `WNAM`, `ENAM`, `WEU`). Matches when the request's region is in this list.",
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 1000,
+      "type": "array"
     }
   },
   "type": "object"

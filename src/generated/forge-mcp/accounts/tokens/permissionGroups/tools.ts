@@ -6,7 +6,7 @@ import {
   iam_api$$response$$collection,
   iam_api$$response$$common,
   iam_api$$response$$common$$failure,
-  iam_messages$$2,
+  iam_messages,
   iam_permissions_group_response_collection,
   iam_result_info,
 } from "../../../outputs.js";
@@ -60,7 +60,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_api-response-collection": iam_api$$response$$collection,
         "iam_api-response-common": iam_api$$response$$common,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_permissions_group_response_collection": iam_permissions_group_response_collection,
         "iam_result_info": iam_result_info,
       },
@@ -104,7 +104,7 @@ export const tools: readonly Tool[] = [
         "iam_api-response-collection": iam_api$$response$$collection,
         "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-common-failure": iam_api$$response$$common$$failure,
-        "iam_messages-2": iam_messages$$2,
+        "iam_messages": iam_messages,
         "iam_permissions_group_response_collection": iam_permissions_group_response_collection,
         "iam_result_info": iam_result_info,
       },

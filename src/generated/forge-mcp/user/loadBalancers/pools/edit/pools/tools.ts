@@ -30,6 +30,7 @@ import {
   load$$balancing_filter_options as load$$balancing_filter_options$,
   load$$balancing_health_sources as load$$balancing_health_sources$,
   load$$balancing_load_shedding as load$$balancing_load_shedding$,
+  load$$balancing_networks as load$$balancing_networks$,
   load$$balancing_notification_filter as load$$balancing_notification_filter$,
   load$$balancing_origin as load$$balancing_origin$,
   load$$balancing_origin_steering as load$$balancing_origin_steering$,
@@ -97,6 +98,10 @@ export const tools: readonly Tool[] = [
               "description": "A short name (tag) for the pool. Only alphanumeric characters, hyphens, and underscores are allowed.",
               "type": "string"
             },
+            "networks": {
+              "$ref": "#/$defs/load-balancing_networks",
+              "description": "List of networks where Load Balancer or Pool is enabled."
+            },
             "notification_email": {
               "default": "",
               "description": "This field is now deprecated. It has been moved to Cloudflare's Centralized Notification service https://developers.cloudflare.com/fundamentals/notifications/. The email address to send health status notifications to. This can be an individual mailbox or a mailing list. Multiple emails can be supplied as a comma delimited list.",
@@ -141,6 +146,7 @@ export const tools: readonly Tool[] = [
         "load-balancing_filter_options": load$$balancing_filter_options$,
         "load-balancing_health_sources": load$$balancing_health_sources$,
         "load-balancing_load_shedding": load$$balancing_load_shedding$,
+        "load-balancing_networks": load$$balancing_networks$,
         "load-balancing_notification_filter": load$$balancing_notification_filter$,
         "load-balancing_origin": load$$balancing_origin$,
         "load-balancing_origin_steering": load$$balancing_origin_steering$,

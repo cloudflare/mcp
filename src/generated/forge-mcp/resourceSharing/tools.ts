@@ -3,25 +3,30 @@
 
 import { type Tool, param, pathParam } from "../_/tool.js";
 import {
-  resource$$sharing_api$$response$$collection,
-  resource$$sharing_api$$response$$collection$$info,
-  resource$$sharing_api$$response$$common,
-  resource$$sharing_api$$response$$common$$failure,
+  resource$$sharing_api_response_collection,
+  resource$$sharing_api_response_collection_info,
+  resource$$sharing_api_response_common,
+  resource$$sharing_api_response_common_failure,
   resource$$sharing_resource_meta,
   resource$$sharing_result_info,
   resource$$sharing_share_object,
   resource$$sharing_share_resource_object,
   resource$$sharing_share_response_collection,
   resource$$sharing_share_response_collection_result,
+  resource$$sharing_share_tags,
   resource$$sharing_v4error,
   resource$$sharing_v4errors,
 } from "../outputs.js";
-import { resource$$sharing_resource_meta as resource$$sharing_resource_meta$ } from "../schemas.js";
+import {
+  resource$$sharing_resource_meta as resource$$sharing_resource_meta$,
+  resource$$sharing_share_tags as resource$$sharing_share_tags$,
+} from "../schemas.js";
 import {
   resource$$sharing_share_response_single,
   resource$$sharing_share_response_single_result,
 } from "./outputs.js";
 import {
+  resource$$sharing_create_share_excluded_recipient_request,
   resource$$sharing_create_share_recipient_request,
   resource$$sharing_create_share_request,
   resource$$sharing_create_share_resource_request,
@@ -35,7 +40,7 @@ export const tools: readonly Tool[] = [
   {
     name: "resourceSharing_create",
     title: "Trigger a share creation",
-    description: "Creates a new resource share for sharing Cloudflare resources with other accounts or organizations.\n\nPOST /accounts/{account_id}/shares",
+    description: "Creates a share that makes a resource available to specific accounts in the caller's organization, or to the whole organization.\n\nPOST /accounts/{account_id}/shares",
     inputSchema: {
       type: "object",
       properties: {
@@ -62,21 +67,24 @@ export const tools: readonly Tool[] = [
       ],
       additionalProperties: false,
       $defs: {
+        "resource-sharing_create_share_excluded_recipient_request": resource$$sharing_create_share_excluded_recipient_request,
         "resource-sharing_create_share_recipient_request": resource$$sharing_create_share_recipient_request,
         "resource-sharing_create_share_request": resource$$sharing_create_share_request,
         "resource-sharing_create_share_resource_request": resource$$sharing_create_share_resource_request,
         "resource-sharing_resource_meta": resource$$sharing_resource_meta$,
+        "resource-sharing_share_tags": resource$$sharing_share_tags$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/resource-sharing_share_response_single",
       $defs: {
-        "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
+        "resource-sharing_api_response_common": resource$$sharing_api_response_common,
         "resource-sharing_resource_meta": resource$$sharing_resource_meta,
         "resource-sharing_share_object": resource$$sharing_share_object,
         "resource-sharing_share_resource_object": resource$$sharing_share_resource_object,
         "resource-sharing_share_response_single": resource$$sharing_share_response_single,
         "resource-sharing_share_response_single_result": resource$$sharing_share_response_single_result,
+        "resource-sharing_share_tags": resource$$sharing_share_tags,
         "resource-sharing_v4error": resource$$sharing_v4error,
         "resource-sharing_v4errors": resource$$sharing_v4errors,
       },
@@ -105,20 +113,21 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/resource-sharing_share_response_single"
         },
         "4XX": {
-          "$ref": "#/$defs/resource-sharing_api-response-common-failure"
+          "$ref": "#/$defs/resource-sharing_api_response_common_failure"
         },
         "5XX": {
-          "$ref": "#/$defs/resource-sharing_api-response-common-failure"
+          "$ref": "#/$defs/resource-sharing_api_response_common_failure"
         }
       },
       $defs: {
-        "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
-        "resource-sharing_api-response-common-failure": resource$$sharing_api$$response$$common$$failure,
+        "resource-sharing_api_response_common": resource$$sharing_api_response_common,
+        "resource-sharing_api_response_common_failure": resource$$sharing_api_response_common_failure,
         "resource-sharing_resource_meta": resource$$sharing_resource_meta,
         "resource-sharing_share_object": resource$$sharing_share_object,
         "resource-sharing_share_resource_object": resource$$sharing_share_resource_object,
         "resource-sharing_share_response_single": resource$$sharing_share_response_single,
         "resource-sharing_share_response_single_result": resource$$sharing_share_response_single_result,
+        "resource-sharing_share_tags": resource$$sharing_share_tags,
         "resource-sharing_v4error": resource$$sharing_v4error,
         "resource-sharing_v4errors": resource$$sharing_v4errors,
       },
@@ -162,12 +171,13 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/resource-sharing_share_response_single",
       $defs: {
-        "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
+        "resource-sharing_api_response_common": resource$$sharing_api_response_common,
         "resource-sharing_resource_meta": resource$$sharing_resource_meta,
         "resource-sharing_share_object": resource$$sharing_share_object,
         "resource-sharing_share_resource_object": resource$$sharing_share_resource_object,
         "resource-sharing_share_response_single": resource$$sharing_share_response_single,
         "resource-sharing_share_response_single_result": resource$$sharing_share_response_single_result,
+        "resource-sharing_share_tags": resource$$sharing_share_tags,
         "resource-sharing_v4error": resource$$sharing_v4error,
         "resource-sharing_v4errors": resource$$sharing_v4errors,
       },
@@ -196,20 +206,21 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/resource-sharing_share_response_single"
         },
         "4XX": {
-          "$ref": "#/$defs/resource-sharing_api-response-common-failure"
+          "$ref": "#/$defs/resource-sharing_api_response_common_failure"
         },
         "5XX": {
-          "$ref": "#/$defs/resource-sharing_api-response-common-failure"
+          "$ref": "#/$defs/resource-sharing_api_response_common_failure"
         }
       },
       $defs: {
-        "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
-        "resource-sharing_api-response-common-failure": resource$$sharing_api$$response$$common$$failure,
+        "resource-sharing_api_response_common": resource$$sharing_api_response_common,
+        "resource-sharing_api_response_common_failure": resource$$sharing_api_response_common_failure,
         "resource-sharing_resource_meta": resource$$sharing_resource_meta,
         "resource-sharing_share_object": resource$$sharing_share_object,
         "resource-sharing_share_resource_object": resource$$sharing_share_resource_object,
         "resource-sharing_share_response_single": resource$$sharing_share_response_single,
         "resource-sharing_share_response_single_result": resource$$sharing_share_response_single_result,
+        "resource-sharing_share_tags": resource$$sharing_share_tags,
         "resource-sharing_v4error": resource$$sharing_v4error,
         "resource-sharing_v4errors": resource$$sharing_v4errors,
       },
@@ -253,6 +264,14 @@ export const tools: readonly Tool[] = [
             "include_resources": {
               "description": "Include resources in the response.",
               "type": "boolean"
+            },
+            "include_tags_from": {
+              "description": "Include share tags in the response. `api` reads tags from the tag service; `mirror` reads a local, eventually consistent replica. If the tag lookup fails, the response omits `tags`.",
+              "enum": [
+                "api",
+                "mirror"
+              ],
+              "type": "string"
             }
           },
           "type": "object"
@@ -266,12 +285,13 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/resource-sharing_share_response_single",
       $defs: {
-        "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
+        "resource-sharing_api_response_common": resource$$sharing_api_response_common,
         "resource-sharing_resource_meta": resource$$sharing_resource_meta,
         "resource-sharing_share_object": resource$$sharing_share_object,
         "resource-sharing_share_resource_object": resource$$sharing_share_resource_object,
         "resource-sharing_share_response_single": resource$$sharing_share_response_single,
         "resource-sharing_share_response_single_result": resource$$sharing_share_response_single_result,
+        "resource-sharing_share_tags": resource$$sharing_share_tags,
         "resource-sharing_v4error": resource$$sharing_v4error,
         "resource-sharing_v4errors": resource$$sharing_v4errors,
       },
@@ -307,20 +327,21 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/resource-sharing_share_response_single"
         },
         "4XX": {
-          "$ref": "#/$defs/resource-sharing_api-response-common-failure"
+          "$ref": "#/$defs/resource-sharing_api_response_common_failure"
         },
         "5XX": {
-          "$ref": "#/$defs/resource-sharing_api-response-common-failure"
+          "$ref": "#/$defs/resource-sharing_api_response_common_failure"
         }
       },
       $defs: {
-        "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
-        "resource-sharing_api-response-common-failure": resource$$sharing_api$$response$$common$$failure,
+        "resource-sharing_api_response_common": resource$$sharing_api_response_common,
+        "resource-sharing_api_response_common_failure": resource$$sharing_api_response_common_failure,
         "resource-sharing_resource_meta": resource$$sharing_resource_meta,
         "resource-sharing_share_object": resource$$sharing_share_object,
         "resource-sharing_share_resource_object": resource$$sharing_share_resource_object,
         "resource-sharing_share_response_single": resource$$sharing_share_response_single,
         "resource-sharing_share_response_single_result": resource$$sharing_share_response_single_result,
+        "resource-sharing_share_tags": resource$$sharing_share_tags,
         "resource-sharing_v4error": resource$$sharing_v4error,
         "resource-sharing_v4errors": resource$$sharing_v4errors,
       },
@@ -330,6 +351,7 @@ export const tools: readonly Tool[] = [
       query: [
         ["include_resources", param(args, "query", "include_resources"), true],
         ["include_recipient_counts", param(args, "query", "include_recipient_counts"), true],
+        ["include_tags_from", param(args, "query", "include_tags_from"), true],
       ],
     }),
   },
@@ -373,6 +395,14 @@ export const tools: readonly Tool[] = [
               "description": "Include resources in the response.",
               "type": "boolean"
             },
+            "include_tags_from": {
+              "description": "Include share tags in the response. `api` reads tags from the tag service; `mirror` reads a local, eventually consistent replica. If the tag lookup fails, the response omits `tags`.",
+              "enum": [
+                "api",
+                "mirror"
+              ],
+              "type": "string"
+            },
             "kind": {
               "description": "Filter shares by kind.",
               "enum": [
@@ -392,12 +422,12 @@ export const tools: readonly Tool[] = [
             },
             "page": {
               "default": 1,
-              "description": "Page number. Defaults to `1` when `per_page` is supplied without\n`page`. May be omitted entirely along with `per_page` to receive a\nnon-paginated response.",
+              "description": "Page number. Defaults to `1` when omitted.",
               "type": "integer"
             },
             "per_page": {
               "default": 20,
-              "description": "Number of objects to return per page. Defaults to `20` when `page` is supplied without `per_page`. May be omitted entirely along with `page` to receive a non-paginated response.",
+              "description": "Number of objects to return per page. Defaults to `20` when omitted.",
               "type": "integer"
             },
             "resource_types": {
@@ -454,15 +484,16 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/resource-sharing_share_response_collection",
       $defs: {
-        "resource-sharing_api-response-collection": resource$$sharing_api$$response$$collection,
-        "resource-sharing_api-response-collection-info": resource$$sharing_api$$response$$collection$$info,
-        "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
+        "resource-sharing_api_response_collection": resource$$sharing_api_response_collection,
+        "resource-sharing_api_response_collection_info": resource$$sharing_api_response_collection_info,
+        "resource-sharing_api_response_common": resource$$sharing_api_response_common,
         "resource-sharing_resource_meta": resource$$sharing_resource_meta,
         "resource-sharing_result_info": resource$$sharing_result_info,
         "resource-sharing_share_object": resource$$sharing_share_object,
         "resource-sharing_share_resource_object": resource$$sharing_share_resource_object,
         "resource-sharing_share_response_collection": resource$$sharing_share_response_collection,
         "resource-sharing_share_response_collection_result": resource$$sharing_share_response_collection_result,
+        "resource-sharing_share_tags": resource$$sharing_share_tags,
         "resource-sharing_v4error": resource$$sharing_v4error,
         "resource-sharing_v4errors": resource$$sharing_v4errors,
       },
@@ -499,23 +530,24 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/resource-sharing_share_response_collection"
         },
         "4XX": {
-          "$ref": "#/$defs/resource-sharing_api-response-common-failure"
+          "$ref": "#/$defs/resource-sharing_api_response_common_failure"
         },
         "5XX": {
-          "$ref": "#/$defs/resource-sharing_api-response-common-failure"
+          "$ref": "#/$defs/resource-sharing_api_response_common_failure"
         }
       },
       $defs: {
-        "resource-sharing_api-response-collection": resource$$sharing_api$$response$$collection,
-        "resource-sharing_api-response-collection-info": resource$$sharing_api$$response$$collection$$info,
-        "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
-        "resource-sharing_api-response-common-failure": resource$$sharing_api$$response$$common$$failure,
+        "resource-sharing_api_response_collection": resource$$sharing_api_response_collection,
+        "resource-sharing_api_response_collection_info": resource$$sharing_api_response_collection_info,
+        "resource-sharing_api_response_common": resource$$sharing_api_response_common,
+        "resource-sharing_api_response_common_failure": resource$$sharing_api_response_common_failure,
         "resource-sharing_resource_meta": resource$$sharing_resource_meta,
         "resource-sharing_result_info": resource$$sharing_result_info,
         "resource-sharing_share_object": resource$$sharing_share_object,
         "resource-sharing_share_resource_object": resource$$sharing_share_resource_object,
         "resource-sharing_share_response_collection": resource$$sharing_share_response_collection,
         "resource-sharing_share_response_collection_result": resource$$sharing_share_response_collection_result,
+        "resource-sharing_share_tags": resource$$sharing_share_tags,
         "resource-sharing_v4error": resource$$sharing_v4error,
         "resource-sharing_v4errors": resource$$sharing_v4errors,
       },
@@ -533,14 +565,15 @@ export const tools: readonly Tool[] = [
         ["per_page", param(args, "query", "per_page"), true],
         ["include_resources", param(args, "query", "include_resources"), true],
         ["include_recipient_counts", param(args, "query", "include_recipient_counts"), true],
+        ["include_tags_from", param(args, "query", "include_tags_from"), true],
         ["tag", param(args, "query", "tag"), true],
       ],
     }),
   },
   {
     name: "resourceSharing_update",
-    title: "Trigger a share rename",
-    description: "Updates the share's display name and tags. This endpoint does **not**\nmodify recipients or resources — those are managed via dedicated\nsubresource endpoints:\n\n- **Recipients**: Use `POST /accounts/{account_id}/shares/{share_id}/recipients`\n  to add a single recipient, `PUT /accounts/{account_id}/shares/{share_id}/recipients`\n  to replace the full recipient list, or\n  `DELETE /accounts/{account_id}/shares/{share_id}/recipients/{recipient_id}`\n  to remove a recipient.\n- **Resources**: Use the share's resource subresource endpoints.\n\nUpdating is not immediate; an updated share object with a new status\nwill be returned.\n\nPUT /accounts/{account_id}/shares/{share_id}",
+    title: "Trigger a share update",
+    description: "Updates the share's display name and tags. Omitting `tags` leaves the\nexisting tags unchanged. Recipients and resources are managed via their\nsubresource endpoints.\n\nPUT /accounts/{account_id}/shares/{share_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -572,18 +605,20 @@ export const tools: readonly Tool[] = [
       ],
       additionalProperties: false,
       $defs: {
+        "resource-sharing_share_tags": resource$$sharing_share_tags$,
         "resource-sharing_update_share_request": resource$$sharing_update_share_request,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/resource-sharing_share_response_single",
       $defs: {
-        "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
+        "resource-sharing_api_response_common": resource$$sharing_api_response_common,
         "resource-sharing_resource_meta": resource$$sharing_resource_meta,
         "resource-sharing_share_object": resource$$sharing_share_object,
         "resource-sharing_share_resource_object": resource$$sharing_share_resource_object,
         "resource-sharing_share_response_single": resource$$sharing_share_response_single,
         "resource-sharing_share_response_single_result": resource$$sharing_share_response_single_result,
+        "resource-sharing_share_tags": resource$$sharing_share_tags,
         "resource-sharing_v4error": resource$$sharing_v4error,
         "resource-sharing_v4errors": resource$$sharing_v4errors,
       },
@@ -593,7 +628,7 @@ export const tools: readonly Tool[] = [
       "idempotentHint": true,
       "openWorldHint": true,
       "readOnlyHint": false,
-      "title": "Trigger a share rename"
+      "title": "Trigger a share update"
     },
     method: "PUT",
     path: "/accounts/{account_id}/shares/{share_id}",
@@ -611,20 +646,21 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/resource-sharing_share_response_single"
         },
         "4XX": {
-          "$ref": "#/$defs/resource-sharing_api-response-common-failure"
+          "$ref": "#/$defs/resource-sharing_api_response_common_failure"
         },
         "5XX": {
-          "$ref": "#/$defs/resource-sharing_api-response-common-failure"
+          "$ref": "#/$defs/resource-sharing_api_response_common_failure"
         }
       },
       $defs: {
-        "resource-sharing_api-response-common": resource$$sharing_api$$response$$common,
-        "resource-sharing_api-response-common-failure": resource$$sharing_api$$response$$common$$failure,
+        "resource-sharing_api_response_common": resource$$sharing_api_response_common,
+        "resource-sharing_api_response_common_failure": resource$$sharing_api_response_common_failure,
         "resource-sharing_resource_meta": resource$$sharing_resource_meta,
         "resource-sharing_share_object": resource$$sharing_share_object,
         "resource-sharing_share_resource_object": resource$$sharing_share_resource_object,
         "resource-sharing_share_response_single": resource$$sharing_share_response_single,
         "resource-sharing_share_response_single_result": resource$$sharing_share_response_single_result,
+        "resource-sharing_share_tags": resource$$sharing_share_tags,
         "resource-sharing_v4error": resource$$sharing_v4error,
         "resource-sharing_v4errors": resource$$sharing_v4errors,
       },
