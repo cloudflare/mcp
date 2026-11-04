@@ -64,7 +64,13 @@ describe('automatic protocol negotiation', () => {
       expect(client.getDiscoverResult()?.supportedVersions).toEqual([MODERN_MCP_VERSION])
 
       const listed = await client.listTools()
-      expect(listed.tools.map((tool) => tool.name)).toEqual(['docs', 'search', 'execute', 'whoami'])
+      expect(listed.tools.map((tool) => tool.name)).toEqual([
+        'docs',
+        'search',
+        'execute',
+        'whoami',
+        'show_attention'
+      ])
 
       const called = await client.callTool({
         name: 'search',

@@ -5,6 +5,7 @@ import { registerForgeTools } from './tools/forge-tools'
 import { registerSearchTool } from './tools/search'
 import { registerExecuteTool } from './tools/execute'
 import { registerWhoamiTool } from './tools/whoami'
+import { registerAttentionTool } from './apps/attention/tool'
 import { registerSkills } from './skills/handlers'
 import { attachMetrics } from './metrics'
 import { SERVER_INFO } from './constants'
@@ -108,6 +109,7 @@ export async function createServer(
   await registerSearchTool(server, truncateToolResult)
   registerExecuteTool(server, props, truncateToolResult, connection, scopeChallenge)
   registerWhoamiTool(server, props)
+  registerAttentionTool(server, props)
 
   return server
 }

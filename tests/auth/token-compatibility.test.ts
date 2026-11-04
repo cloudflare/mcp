@@ -211,7 +211,7 @@ describe.each(LEGACY_DEPLOYMENTS)(
       // The access token issued before the upgrade is accepted as it is.
       expect(await listTools(legacy.access_token)).toEqual({
         status: 200,
-        tools: ['docs', 'search', 'execute', 'whoami']
+        tools: ['docs', 'search', 'execute', 'whoami', 'show_attention']
       })
 
       // The refresh token is too, and the upstream Cloudflare grant rotates with it.
@@ -226,7 +226,7 @@ describe.each(LEGACY_DEPLOYMENTS)(
       expect(upstreamRefreshes()).toEqual(['upstream-refresh-1'])
       expect(await listTools(tokens.access_token)).toEqual({
         status: 200,
-        tools: ['docs', 'search', 'execute', 'whoami']
+        tools: ['docs', 'search', 'execute', 'whoami', 'show_attention']
       })
 
       // The grant is rewritten in the current format (with KV key metadata) and keeps its resource.
