@@ -1,7 +1,8 @@
 name: Forge tools
 
 # Every six hours, regenerates src/generated/forge-mcp from the latest
-# openapi.forge.json Forge release with the forge commit that forge.json names.
+# openapi.forge.json Forge release with the @cloudflare/forge package that
+# package.json pins, a pkg.pr.new build of a forge commit.
 # Its source.json pins the release the whole deployment serves: the forge
 # tools, and the spec artifacts in src/generated/spec that the forge tools
 # service serves to Code Mode and the endpoint tools. When the
@@ -35,30 +36,12 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - name: Read forge.json
+      # The forge commit whose @cloudflare/forge build package.json pins, for the pull request.
+      - name: Read the forge pin
         id: forge
         run: |
-          echo "repository=$(jq -r .repository forge.json)" >> "$GITHUB_OUTPUT"
-          echo "ref=$(jq -r .ref forge.json)" >> "$GITHUB_OUTPUT"
-
-      - uses: actions/checkout@v6
-        with:
-          repository: ${{ steps.forge.outputs.repository }}
-          ref: ${{ steps.forge.outputs.ref }}
-          path: .forge
-
-      - uses: actions/cache@v5
-        with:
-          path: |
-            ~/.cargo/registry
-            ~/.cargo/git
-            .forge/target
-          key: forge-${{ runner.os }}-${{ steps.forge.outputs.ref }}
-
-      # rustup reads .forge/rust-toolchain.toml and installs that toolchain.
-      - name: Build forge
-        working-directory: .forge
-        run: cargo build --release --bin forge
+          pin="$(jq -r '.devDependencies["@cloudflare/forge"]' package.json)"
+          echo "ref=${pin##*@}" >> "$GITHUB_OUTPUT"
 
       - uses: actions/setup-node@v6
         with:
@@ -70,7 +53,6 @@ jobs:
 
       - name: Generate
         env:
-          FORGE_BINARY: .forge/target/release/forge
           GITHUB_TOKEN: ${{ github.token }}
         run: npm run generate:tools -- --summary "$RUNNER_TEMP/summary.md"
 

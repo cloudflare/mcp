@@ -1,5 +1,5 @@
 import { dereference, validate, type OutputUnit, type Schema } from '@cfworker/json-schema'
-import type { ToolResponses } from './generated/forge-mcp'
+import type { operation } from './generated/forge-mcp'
 import { isolate } from './lib/isolate'
 
 /**
@@ -22,6 +22,9 @@ const MAX_VALIDATORS = 256
  */
 const MAX_COUNTED_VALUES = 20_000
 const DEFS_PREFIX = '#/$defs/'
+
+/** A generated tool's response schemas: each response's JSON body schema, by status, and their models. */
+export type ToolResponses = NonNullable<ReturnType<typeof operation>['responses']>
 
 /** A response body trimmed for checking (`trimForCheck`). */
 export interface TrimmedResponse {

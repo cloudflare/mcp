@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest'
-import type { ToolResponses } from '../src/generated/forge-mcp'
 import {
   findMismatch,
   responseKeyFor,
   safeInstancePath,
-  trimForCheck
+  trimForCheck,
+  type ToolResponses
 } from '../src/response-schema-check'
 import { productOf, sampleRateFrom } from '../src/response-validation'
 

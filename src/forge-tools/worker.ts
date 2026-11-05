@@ -13,9 +13,10 @@
  * the main Worker reaches it through its `FORGE_TOOLS` service binding.
  */
 import { WorkerEntrypoint } from 'cloudflare:workers'
-import { listTools, tools as generatedTools, toolsByName, type Args } from '../generated/forge-mcp'
+import { operation, tools as generatedTools } from '../generated/forge-mcp'
+import type { Tool } from '../generated/forge-mcp/_/tool'
 import { cloudflareTool } from './cloudflare'
-import { planCall, type CallPlan, type PlanOptions } from './plan'
+import { planCall, type Args, type CallPlan, type PlanOptions } from './plan'
 import { findMismatch, type Mismatch, type TrimmedResponse } from '../response-schema-check'
 import { concretePaths } from '../spec-processor'
 import type { SpecArtifactName } from '../spec-release'
@@ -26,11 +27,18 @@ import { isolate } from '../lib/isolate'
 /** The generated tools with the Cloudflare policy, built once per isolate. */
 const tools = generatedTools.map(cloudflareTool)
 
-/** `tools/list` as one JSON string, with and without output schemas. */
-const listing = isolate.lazy(() => JSON.stringify(listTools(tools)))
-const listingWithOutput = isolate.lazy(() =>
-  JSON.stringify(listTools(tools, { outputSchema: true }))
+/**
+ * `tools/list` as one JSON string, with and without output schemas. A tool is
+ * sent as it is: `JSON.stringify` leaves out its operation, which only the
+ * server sees.
+ */
+const listing = isolate.lazy(() =>
+  JSON.stringify(tools.map(({ outputSchema: _outputSchema, ...tool }) => tool))
 )
+const listingWithOutput = isolate.lazy(() => JSON.stringify(tools))
+
+/** The generated tools by name. */
+const toolsByName = isolate.lazy(() => new Map(tools.map((tool) => [tool.name, tool])))
 
 /**
  * The generated tools by `METHOD template`. A tool on a merged
@@ -39,11 +47,11 @@ const listingWithOutput = isolate.lazy(() =>
  * use; a route the spec lists on its own keeps its own tool.
  */
 const toolsByOperation = isolate.lazy(() => {
-  const byOperation = new Map(tools.map((tool) => [`${tool.method} ${tool.path}`, tool]))
+  const key = (tool: Tool, path: string) => `${operation(tool).method} ${path}`
+  const byOperation = new Map(tools.map((tool) => [key(tool, operation(tool).path), tool]))
   for (const tool of tools) {
-    for (const { path } of concretePaths(tool.path)) {
-      const key = `${tool.method} ${path}`
-      if (!byOperation.has(key)) byOperation.set(key, tool)
+    for (const { path } of concretePaths(operation(tool).path)) {
+      if (!byOperation.has(key(tool, path))) byOperation.set(key(tool, path), tool)
     }
   }
   return byOperation
@@ -74,9 +82,9 @@ export default class ForgeTools extends WorkerEntrypoint {
   }
 
   /** The request calling the tool `name` with `args` makes, or why it can't be made. */
-  plan(name: string, args: Args, options: PlanOptions): CallPlan {
-    const tool = toolsByName(tools).get(name)
-    return tool ? planCall(tool, args, options) : { kind: 'unknown' }
+  plan(name: string, args: Args, options: PlanOptions): Promise<CallPlan> {
+    const tool = toolsByName().get(name)
+    return tool ? planCall(tool, args, options) : Promise.resolve({ kind: 'unknown' })
   }
 
   /**
@@ -87,8 +95,9 @@ export default class ForgeTools extends WorkerEntrypoint {
    */
   checkResponse(check: ResponseCheck): CheckedMismatch | null {
     const tool = toolsByOperation().get(`${check.method} ${check.pathTemplate}`)
-    const mismatch = tool?.responses && findMismatch(tool.responses, check, tool.name)
-    return mismatch ? { forgeTool: tool.name, ...mismatch } : null
+    const responses = tool && operation(tool).responses
+    const mismatch = tool && responses && findMismatch(responses, check, tool.name)
+    return tool && mismatch ? { forgeTool: tool.name, ...mismatch } : null
   }
 
   /** Runs `code`, an async arrow function, against the pinned spec (`./search`). */

@@ -1,7 +1,7 @@
 import { env, exports } from 'cloudflare:workers'
 import { http, HttpResponse } from 'msw'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
-import { tools as generatedTools } from '../src/generated/forge-mcp'
+import { operation, tools as generatedTools } from '../src/generated/forge-mcp'
 import { API_BASE, cfError, cfSuccess, mockIdentityProbe } from './helpers/cloudflare-api'
 import { clearKv } from './helpers/kv'
 import { clearSpec, seedSpec } from './helpers/spec'
@@ -77,7 +77,9 @@ describe('generated direct tools (?codemode=false&experimentalForge=true)', () =
     const d1 = tools.find((tool) => tool.name === 'd1_list')!
     expect(d1.inputSchema.required ?? []).not.toContain('path')
     expect(d1.inputSchema.properties?.path).not.toHaveProperty('required')
-    expect(generatedTools.find((tool) => tool.name === 'd1_list')?.responses).toBeDefined()
+    expect(
+      operation(generatedTools.find((tool) => tool.name === 'd1_list')!).responses
+    ).toBeDefined()
     for (const key of ['request', 'method', 'path', 'extensions', 'responses']) {
       expect(d1).not.toHaveProperty(key)
     }
@@ -235,7 +237,9 @@ describe('generated direct tools (?codemode=false&experimentalForge=true)', () =
     const result = await callForgeTool(ACCOUNT_TOKEN, 'd1_list', { per_page: 5 })
 
     expect(result.result?.isError).toBe(true)
-    expect(toolText(result)).toContain('per_page goes in query: { "query": { "per_page": … } }')
+    expect(toolText(result)).toContain(
+      'Property "per_page" does not match additional properties schema'
+    )
   })
 
   it("explains a refused call and names the token's account", async () => {

@@ -2,11 +2,12 @@
  * Regenerates `src/generated/forge-mcp`, the direct tools served at
  * `/mcp?codemode=false&experimentalForge=true`, with forge's MCP target:
  *
- *   FORGE_BINARY=path/to/forge npm run generate:tools [-- --spec openapi.forge.json --release <tag>] [-- --summary summary.md]
+ *   npm run generate:tools [-- --spec openapi.forge.json --release <tag>] [-- --summary summary.md]
  *
- * `forge.json` names the forge commit to build; `.github/workflows/forge-tools.yml`
- * builds it, runs this every six hours, and opens a pull request when the
- * generated code changes. Without `--spec`, the latest `openapi.forge.json`
+ * The forge that generates them is the `@cloudflare/forge` package in
+ * `package.json`, a pkg.pr.new build of a forge commit; bumping that pin picks
+ * up generator changes. `.github/workflows/forge-tools.yml` runs this every six
+ * hours and opens a pull request when the generated code changes. Without `--spec`, the latest `openapi.forge.json`
  * Forge release is downloaded. `source.json` records the release, so a
  * response that breaks a generated response schema names the spec it came
  * from (`--release` gives it for a local `--spec`). `--summary` writes the
@@ -19,6 +20,7 @@
  */
 import { execFileSync } from 'node:child_process'
 import {
+  copyFileSync,
   existsSync,
   mkdirSync,
   mkdtempSync,
@@ -28,8 +30,9 @@ import {
   rmSync,
   writeFileSync
 } from 'node:fs'
+import { createRequire } from 'node:module'
 import { tmpdir } from 'node:os'
-import { join } from 'node:path'
+import { dirname, join } from 'node:path'
 import { parseArgs } from 'node:util'
 import { buildMcpTools, type OperationInfo } from '../src/openapi'
 import { extractProducts, processSpec } from '../src/spec-processor'
@@ -59,7 +62,14 @@ const { values } = parseArgs({
     summary: { type: 'string' }
   }
 })
-const forge = process.env.FORGE_BINARY ?? 'forge'
+/** The `forge` command of the pinned `@cloudflare/forge` package. */
+const forgeBin = join(
+  dirname(createRequire(import.meta.url).resolve('@cloudflare/forge/package.json')),
+  'bin',
+  'forge.cjs'
+)
+const forge = (args: string[]) =>
+  execFileSync(process.execPath, [forgeBin, ...args], { stdio: 'inherit' })
 const tmp = mkdtempSync(join(tmpdir(), 'forge-mcp-'))
 
 try {
@@ -75,8 +85,13 @@ try {
     writeFileSync(spec, Buffer.from(await response.arrayBuffer()))
   }
 
+  // Forge reads only its native x-forge-* extensions; the release has the Fern ones.
+  const normalized = join(tmp, 'openapi.normalized.json')
+  copyFileSync(spec, normalized)
+  forge(['normalize', '--write', normalized])
+
   const out = join(tmp, 'out')
-  execFileSync(forge, [spec, '--target', 'mcp', '--out', out], { stdio: 'inherit' })
+  forge([normalized, '--target', 'mcp', '--out', out])
 
   const before = toolNames(OUT)
   const permissionsBefore = withPermissions(OUT)
@@ -147,7 +162,7 @@ function withPermissions(dir: string): number {
   for (const entry of readdirSync(dir, { recursive: true, withFileTypes: true })) {
     if (entry.isFile() && entry.name === 'tools.ts') {
       const source = readFileSync(join(entry.parentPath, entry.name), 'utf8')
-      count += source.match(/^ {6}"x-api-token-group": /gm)?.length ?? 0
+      count += source.match(/^ {8}"x-api-token-group": /gm)?.length ?? 0
     }
   }
   return count
