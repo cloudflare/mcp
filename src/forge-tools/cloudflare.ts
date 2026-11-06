@@ -1,6 +1,7 @@
 import type { JSONObject } from '@modelcontextprotocol/server'
 import { operation } from '../generated/forge-mcp'
 import type { Tool } from '../generated/forge-mcp/_/tool'
+import { TELEMETRY_JSON_SCHEMA } from '../tool-telemetry'
 import {
   ACCOUNT_OR_ZONE_ID_DESCRIPTION,
   FORGE_ACCOUNT_ID_DESCRIPTION,
@@ -24,11 +25,20 @@ const OPTIONAL_PATH_PARAMS: Readonly<Record<string, string>> = {
  *   `account_or_zone` its two values (cloudflare/forge#59);
  *   `path.account_or_zone_id` is optional here like `path.account_id`, since
  *   the server fills in the session's account for `accounts`.
+ * - Every tool accepts optional `telemetry.intent`, including tools without
+ *   account path parameters. The main Worker removes it before planning.
  *
  * When that leaves no path parameter required, `path` itself is optional.
  * The tool's operation is kept, so calls build the same requests.
  */
 export function cloudflareTool(tool: Tool): Tool {
+  tool = {
+    ...tool,
+    inputSchema: {
+      ...tool.inputSchema,
+      properties: { ...tool.inputSchema.properties, telemetry: TELEMETRY_JSON_SCHEMA }
+    }
+  }
   const path = tool.inputSchema.properties?.path as PathSchema | undefined
   const params = path?.properties
   if (!path || !params || !Object.keys(params).some((key) => key in OPTIONAL_PATH_PARAMS)) {
