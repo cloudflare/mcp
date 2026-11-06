@@ -8,10 +8,6 @@ import type { JSONObject } from "@modelcontextprotocol/server";
  */
 export const magic_cf1_site_ramp_body: JSONObject = {
   "properties": {
-    "source_ramp_id": {
-      "description": "Identifier of the source network resource to associate as a ramp.",
-      "type": "string"
-    },
     "type": {
       "description": "The type of network connection (ramp) linking a CF1 Site to Cloudflare's network.",
       "enum": [
@@ -25,7 +21,6 @@ export const magic_cf1_site_ramp_body: JSONObject = {
     }
   },
   "required": [
-    "source_ramp_id",
     "type"
   ],
   "type": "object"

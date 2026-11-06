@@ -20,10 +20,6 @@ import {
   iam_scope,
   iam_scope_object,
 } from "../../outputs.js";
-import {
-  iam_grants as iam_grants$,
-  iam_permissions as iam_permissions$,
-} from "../../schemas.js";
 import { iam_role } from "../outputs.js";
 import { iam_role as iam_role$ } from "../schemas.js";
 import {
@@ -563,12 +559,10 @@ export const tools: readonly Tool[] = [
       additionalProperties: false,
       $defs: {
         "iam_create_member_policy": iam_create_member_policy,
-        "iam_grants": iam_grants$,
         "iam_member_permission_group": iam_member_permission_group,
         "iam_member_permission_groups": iam_member_permission_groups,
         "iam_member_resource_group": iam_member_resource_group,
         "iam_member_resource_groups": iam_member_resource_groups,
-        "iam_permissions": iam_permissions$,
         "iam_role": iam_role$,
         "iam_update-member-with-policies": iam_update$$member$$with$$policies,
         "iam_update-member-with-roles": iam_update$$member$$with$$roles,

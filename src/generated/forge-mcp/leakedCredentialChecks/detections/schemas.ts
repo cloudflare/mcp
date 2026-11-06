@@ -9,10 +9,6 @@ import type { JSONObject } from "@modelcontextprotocol/server";
 export const waf$$product$$api$$bundle_custom$$detection: JSONObject = {
   "description": "Defines a custom set of username/password expressions to match Leaked Credential Checks on.",
   "properties": {
-    "id": {
-      "description": "Defines the unique ID for this custom detection.",
-      "type": "string"
-    },
     "password": {
       "description": "Defines ehe ruleset expression to use in matching the password in a request.",
       "type": "string"

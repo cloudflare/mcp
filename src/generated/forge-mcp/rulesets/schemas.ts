@@ -1366,25 +1366,11 @@ export const rulesets_Ruleset: JSONObject = {
       "description": "An informative description of the ruleset.",
       "type": "string"
     },
-    "id": {
-      "allOf": [
-        {
-          "description": "The unique ID of the ruleset.",
-          "type": "string"
-        },
-        {
-          "type": "string"
-        }
-      ]
-    },
     "name": {
       "description": "The human-readable name of the ruleset.",
       "type": "string"
     }
   },
-  "required": [
-    "id"
-  ],
   "type": "object"
 };
 

@@ -67,10 +67,6 @@ export const workers_script$$and$$version$$settings$$item: JSONObject = {
       "$ref": "#/$defs/workers_exports_config_map",
       "description": "Declarative exports for the Worker. Worker entrypoint entries\n(`type: worker`) carry cache configuration for that entrypoint."
     },
-    "exports_reconciliation": {
-      "$ref": "#/$defs/workers_exports_reconciliation_result",
-      "description": "Summary of the declarative exports reconciliation that ran on\nthis upload. Populated only when the uploaded metadata included\nan `exports` block. Durable Object entries drive reconciliation;\n`type: worker` entries do not contribute to this summary."
-    },
     "limits": {
       "$ref": "#/$defs/workers_limits",
       "description": "Limits to apply for this Worker."

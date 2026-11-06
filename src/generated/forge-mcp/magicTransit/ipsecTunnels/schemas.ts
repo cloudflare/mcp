@@ -144,17 +144,12 @@ export const magic_ipsec_tunnel_add_single_request: JSONObject = {
 export const magic_ipsec_tunnel_psk_entry: JSONObject = {
   "description": "A PSK entry for a specific IPsec tunnel.",
   "properties": {
-    "id": {
-      "description": "The ID of the IPsec tunnel.",
-      "type": "string"
-    },
     "psk": {
       "description": "A randomly generated or provided string for use in the IPsec tunnel.",
       "type": "string"
     }
   },
   "required": [
-    "id",
     "psk"
   ],
   "type": "object"
