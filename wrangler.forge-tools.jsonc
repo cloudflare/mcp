@@ -1,6 +1,6 @@
 {
 	// The forge tools service (src/forge-tools/worker.ts): the generated direct
-	// tools served at /mcp?codemode=false&experimentalForge=true, which the main
+	// tools served at /mcp?codemode=false, which the main
 	// Worker (wrangler.jsonc) reaches over its FORGE_TOOLS service binding, and
 	// Code Mode's search, which runs in a LOADER sandbox next to the spec it
 	// ships. It holds no credentials, makes no requests, and has no public route. Workers Builds deploys it with

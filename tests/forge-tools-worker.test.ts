@@ -285,19 +285,12 @@ describe('generated direct tools (?codemode=false)', () => {
     expect(toolText(result)).toBe('Tool nope not found')
   })
 
-  it.each(['?codemode=false', '?codemode=false&experimentalForge=false'])(
-    'serves the forge tools for %s',
-    async (query) => {
-      const names = (await listTools(ACCOUNT_TOKEN, `${MCP_URL}${query}`)).map((tool) => tool.name)
+  it('serves the forge tools for ?codemode=false, and Code Mode without it', async () => {
+    const direct = (await listTools(ACCOUNT_TOKEN, `${MCP_URL}?codemode=false`)).map((t) => t.name)
+    const codemode = (await listTools(ACCOUNT_TOKEN, MCP_URL)).map((t) => t.name)
 
-      expect(names).toContain('d1_list')
-    }
-  )
-
-  it.each(['?experimentalForge=true', '?forge=true'])('serves Code Mode for %s', async (query) => {
-    const names = (await listTools(ACCOUNT_TOKEN, `${MCP_URL}${query}`)).map((tool) => tool.name)
-
-    expect(names).toEqual(['docs', 'search', 'execute', 'whoami'])
+    expect(direct).toContain('d1_list')
+    expect(codemode).toEqual(['docs', 'search', 'execute', 'whoami'])
   })
 
   describe('results', () => {
@@ -368,10 +361,7 @@ describe('generated direct tools (?codemode=false)', () => {
     it.each([
       ['a 2025-era request', () => listTools(ACCOUNT_TOKEN, OUTPUT_URL)],
       ['a request without the parameter', () => listModern(FORGE_URL)],
-      [
-        'Code Mode',
-        () => listModern(`${MCP_URL}?experimentalForge=true&experimentalOutputSchema=true`)
-      ]
+      ['Code Mode', () => listModern(`${MCP_URL}?experimentalOutputSchema=true`)]
     ])('lists no generated output schemas to %s', async (_case, list) => {
       const tools = await list()
 
