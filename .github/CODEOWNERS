@@ -1,2 +1,3 @@
 # The AX team owns this repository; pull requests need a review from one of its members.
-* @cloudflare/ax
+# @cloudflare/ai-agents stays as a co-owner for now; any one listed team can approve.
+* @cloudflare/ax @cloudflare/ai-agents
