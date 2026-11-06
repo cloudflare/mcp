@@ -14,6 +14,8 @@ import { recordToolCall } from '../metrics'
 import { checkResponse } from '../response-validation'
 import { DOCS_TOOL, runDocsTool } from './docs-search'
 import { WHOAMI_TOOL, WhoamiInputSchema, runWhoamiTool } from './whoami'
+import { SEND_FEEDBACK_TOOL, runSendFeedbackTool } from './send-feedback'
+import { extractToolTelemetry, traceToolCall } from '../tool-telemetry'
 import type { AuthProps } from '../auth/types'
 import { acceptedPermissions, type Connection } from '../api-permissions'
 import { apiCallResult } from './api-call-result'
@@ -28,7 +30,7 @@ function forgeTools() {
 
 /**
  * Serve the direct tools forge generates from `openapi.forge.json`
- * (`?codemode=false`), alongside `docs` and `whoami`.
+ * (`?codemode=false`), alongside `docs`, `whoami` and local `send_feedback`.
  *
  * The generated tools live in the forge tools service, a Worker of their own,
  * so that isolates serving Code Mode never compile them. `tools/list` asks it
@@ -55,6 +57,7 @@ export function registerForgeTools(
     tools: [
       DOCS_TOOL,
       WHOAMI_TOOL,
+      SEND_FEEDBACK_TOOL,
       ...(await getForgeToolList({ outputSchema: outputSchema && isModern(ctx) }))
     ]
   }))
@@ -76,15 +79,30 @@ export function registerForgeTools(
           ? runWhoamiTool(props)
           : toolError(`Invalid arguments for tool ${name}: ${parsed.error.message}`)
       } else {
-        const sessionAccountId = autoResolvedAccountId(props)
-        const plan = (await forgeTools().plan(name, args, {
-          baseUrl: env.CLOUDFLARE_API_BASE,
-          ...(sessionAccountId && { sessionAccountId })
-        })) as CallPlan
-        result = await callForgeTool(name, plan, props, formatResult, {
-          connection,
-          scopeChallenge,
-          structured: outputSchema && isModern(ctx)
+        result = await traceToolCall(name, async (span) => {
+          try {
+            const { telemetry, businessArgs } = extractToolTelemetry(args)
+            if (telemetry?.intent) span.setAttribute('telemetry.intent', telemetry.intent)
+            if (name === SEND_FEEDBACK_TOOL.name) return runSendFeedbackTool(businessArgs, span)
+            const sessionAccountId = autoResolvedAccountId(props)
+            const plan = (await forgeTools().plan(name, businessArgs, {
+              baseUrl: env.CLOUDFLARE_API_BASE,
+              ...(sessionAccountId && { sessionAccountId })
+            })) as CallPlan
+            return await callForgeTool(name, plan, props, formatResult, {
+              connection,
+              scopeChallenge,
+              structured: outputSchema && isModern(ctx)
+            })
+          } catch (error) {
+            return toolError(
+              error instanceof z.ZodError
+                ? `Invalid arguments for tool ${name}: ${error.message}`
+                : error instanceof Error
+                  ? error.message
+                  : String(error)
+            )
+          }
         })
       }
     } catch (error) {

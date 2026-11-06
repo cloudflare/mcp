@@ -1,6 +1,10 @@
 import { env, exports } from 'cloudflare:workers'
 import { http, HttpResponse } from 'msw'
-import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { CALL_ID_META_KEY, CallIdSchema } from '../src/tool-telemetry'
+import { DOCS_TOOL } from '../src/tools/docs-search'
+import { WHOAMI_TOOL } from '../src/tools/whoami'
+import { SEND_FEEDBACK_TOOL } from '../src/tools/send-feedback'
 import { operation, tools as generatedTools } from '../src/generated/forge-mcp'
 import { API_BASE, cfError, cfSuccess, mockIdentityProbe } from './helpers/cloudflare-api'
 import { clearKv } from './helpers/kv'
@@ -61,20 +65,26 @@ beforeEach(async () => {
 })
 
 afterEach(async () => {
+  vi.restoreAllMocks()
   await clearSpec()
   await clearKv(env.OAUTH_KV)
 })
 
 describe('generated direct tools (?codemode=false)', () => {
-  it('lists docs, whoami and every generated tool, without their request code or response schemas', async () => {
+  it('lists docs, whoami, feedback and generated tools without request code or response schemas', async () => {
     const tools = await listForgeTools(ACCOUNT_TOKEN)
 
     expect(tools.map((tool) => tool.name)).toEqual([
       'docs',
       'whoami',
+      'send_feedback',
       ...generatedTools.map((tool) => tool.name)
     ])
     const d1 = tools.find((tool) => tool.name === 'd1_list')!
+    expect(tools.find((tool) => tool.name === 'docs')).toEqual(DOCS_TOOL)
+    expect(tools.find((tool) => tool.name === 'whoami')).toEqual(WHOAMI_TOOL)
+    expect(tools.find((tool) => tool.name === 'send_feedback')).toEqual(SEND_FEEDBACK_TOOL)
+    expect(d1.inputSchema.properties?.telemetry).toBeDefined()
     expect(d1.inputSchema.required ?? []).not.toContain('path')
     expect(d1.inputSchema.properties?.path).not.toHaveProperty('required')
     expect(
@@ -180,19 +190,109 @@ describe('generated direct tools (?codemode=false)', () => {
 
   it('sends the body argument as JSON', async () => {
     let body: unknown
+    let sent: { url: string; headers: Headers } | undefined
     server.use(
       http.post(`${API_BASE}/accounts/${ACCOUNT_ID}/d1/database`, async ({ request }) => {
         body = await request.json()
+        sent = { url: request.url, headers: request.headers }
         return HttpResponse.json(cfSuccess({ uuid: 'db-2' }))
       })
     )
 
     const result = await callForgeTool(ACCOUNT_TOKEN, 'd1_create', {
-      body: { name: 'prod', primary_location_hint: 'weur' }
+      body: { name: 'prod', primary_location_hint: 'weur' },
+      telemetry: { intent: 'Find the database for checkout errors.' }
     })
 
     expect(result.result?.isError).toBeFalsy()
     expect(body).toEqual({ name: 'prod', primary_location_hint: 'weur' })
+    expect(sent?.url).not.toContain('telemetry')
+    expect([...sent!.headers.keys()]).not.toContain('telemetry')
+    expect([...sent!.headers.values()].join(' ')).not.toContain('checkout errors')
+    expect(CallIdSchema.safeParse(result.result?._meta?.[CALL_ID_META_KEY]).success).toBe(true)
+  })
+
+  it.each([
+    null,
+    'intent',
+    [],
+    { intent: '' },
+    { intent: '   ' },
+    { intent: 12 },
+    { intent: 'a'.repeat(1025) },
+    { unexpected: true }
+  ])('rejects invalid telemetry: %j', async (telemetry) => {
+    const result = await callForgeTool(ACCOUNT_TOKEN, 'd1_list', { telemetry })
+
+    expect(result.result?.isError).toBe(true)
+    expect(toolText(result)).toContain('Invalid arguments for tool d1_list')
+    expect(result.result?.content?.at(-1)?.text).toBe(
+      `Call ID: ${result.result?._meta?.[CALL_ID_META_KEY]}`
+    )
+  })
+
+  it('counts each generated-tool and feedback invocation once', async () => {
+    const metrics = vi.spyOn(env.MCP_METRICS, 'writeDataPoint')
+    server.use(
+      http.get(`${API_BASE}/accounts/${ACCOUNT_ID}/d1/database`, () =>
+        HttpResponse.json(cfSuccess([]))
+      )
+    )
+    const args = { query: { name: 'prod' } }
+    const success = await callForgeTool(ACCOUNT_TOKEN, 'd1_list', {
+      ...args,
+      telemetry: { intent: 'Find production databases.' }
+    })
+    await callForgeTool(ACCOUNT_TOKEN, 'd1_list', { telemetry: { intent: '' } })
+    await callForgeTool(ACCOUNT_TOKEN, 'send_feedback', { feedback: 'A capability is missing.' })
+    await callForgeTool(ACCOUNT_TOKEN, 'send_feedback', {})
+
+    expect(success.result?.isError, JSON.stringify(success)).toBeFalsy()
+    const calls = metrics.mock.calls
+      .map(([dp]) => dp)
+      .filter((dp) => dp !== undefined)
+      .filter((dp) => dp.indexes?.[0] === 'tool_call')
+    expect(calls.map((dp) => [dp.blobs?.[3], dp.doubles?.[0]])).toEqual([
+      ['d1_list', undefined],
+      ['d1_list', -1],
+      ['send_feedback', undefined],
+      ['send_feedback', -1]
+    ])
+  })
+
+  it('submits feedback with an earlier error ID, or without a prior call, locally', async () => {
+    const error = await callForgeTool(ACCOUNT_TOKEN, 'd1_list', { unexpected: true })
+    const callId = error.result?._meta?.[CALL_ID_META_KEY]
+    const feedback = await callForgeTool(ACCOUNT_TOKEN, 'send_feedback', {
+      feedback: 'The argument layout was confusing.',
+      context: { tool: 'd1_list', call_id: callId },
+      telemetry: { intent: 'Explain the workaround.' }
+    })
+    const missing = await callForgeTool(ACCOUNT_TOKEN, 'send_feedback', {
+      feedback: 'I need a missing capability.'
+    })
+
+    expect(feedback.result?.isError).toBeFalsy()
+    expect(missing.result?.isError).toBeFalsy()
+    expect(toolText(feedback)).toContain('trace sampling and retention')
+    expect(feedback.result?._meta?.[CALL_ID_META_KEY]).not.toBe(callId)
+  })
+
+  it('returns a correlated tool error when parsing the API response throws', async () => {
+    server.use(
+      http.get(`${API_BASE}/accounts/${ACCOUNT_ID}/d1/database`, () =>
+        HttpResponse.text('{ malformed', { headers: { 'Content-Type': 'application/json' } })
+      )
+    )
+    const result = await callForgeTool(ACCOUNT_TOKEN, 'd1_list', {
+      telemetry: { intent: 'Find production databases.' }
+    })
+
+    expect(result.result?.isError).toBe(true)
+    expect(toolText(result)).toMatch(/JSON|Expected|Unexpected/)
+    expect(result.result?.content?.at(-1)?.text).toBe(
+      `Call ID: ${result.result?._meta?.[CALL_ID_META_KEY]}`
+    )
   })
 
   it('fills in the account for a merged path called with accounts, and needs the ID for zones', async () => {
