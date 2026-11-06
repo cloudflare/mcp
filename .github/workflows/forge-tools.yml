@@ -84,7 +84,7 @@ jobs:
           git commit -q -m "$TITLE"
           git push -q --force origin "$BRANCH"
           {
-            echo "Pins the latest \`openapi.forge.json\` and regenerates the forge MCP tools with forge \`${FORGE_REF:0:12}\`. Merging deploys the new tools to \`/mcp?codemode=false&experimentalForge=true\`, and within ten minutes Code Mode and the endpoint tools serve this spec too."
+            echo "Pins the latest \`openapi.forge.json\` and regenerates the forge MCP tools with forge \`${FORGE_REF:0:12}\`. Merging deploys the new tools to \`/mcp?codemode=false\`, and within ten minutes Code Mode serves this spec too."
             echo
             cat "$RUNNER_TEMP/summary.md"
           } > "$RUNNER_TEMP/body.md"
