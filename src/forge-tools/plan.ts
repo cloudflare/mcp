@@ -1,6 +1,7 @@
 import { fromJsonSchema, type CallToolRequestParams } from '@modelcontextprotocol/server'
 import { buildRequest, operation, type Tool } from '../generated/forge-mcp/_/tool'
 import { permissionsOf } from './cloudflare'
+import { isolate } from '../lib/isolate'
 
 /** The arguments of a tool call, as the client sent them. */
 export type Args = NonNullable<CallToolRequestParams['arguments']>
@@ -76,16 +77,44 @@ export async function planCall(tool: Tool, given: Args, options: PlanOptions): P
   }
 }
 
+/** Each tool's argument validator, compiled on its first call, as forge's `registerTools` does. */
+const validators = isolate.map<string, ReturnType<typeof fromJsonSchema>>()
+
 /**
  * Why `args` don't fit the tool's input schema, by the MCP SDK's JSON Schema
- * validator, as `McpServer` reports it, or `undefined` when they do.
+ * validator, as `McpServer` reports it, or `undefined` when they do. A
+ * parameter sent at the top level, as the endpoint tools took it, also gets
+ * where it goes.
  */
 async function invalidArguments(tool: Tool, args: Args): Promise<string | undefined> {
-  const schema: Readonly<Record<string, unknown>> = tool.inputSchema
-  const result = await fromJsonSchema(schema)['~standard'].validate(args)
+  const validator = validators.getOrSet(tool.name, () => {
+    const schema: Readonly<Record<string, unknown>> = tool.inputSchema
+    return fromJsonSchema(schema)
+  })
+  const result = await validator['~standard'].validate(args)
   if (!result.issues) return undefined
   const issues = result.issues.map((issue) => issue.message).join(', ')
-  return `Input validation error: Invalid arguments for tool ${tool.name}: ${issues}`
+  const hints = misplaced(tool, args)
+    .map((hint) => ` ${hint}`)
+    .join('')
+  return `Input validation error: Invalid arguments for tool ${tool.name}: ${issues}${hints}`
+}
+
+/**
+ * Where each top-level argument the tool doesn't take goes, when it is a
+ * parameter of `path`, `query` or `headers`: `per_page goes in query`.
+ */
+function misplaced(tool: Tool, args: Args): string[] {
+  const properties = (tool.inputSchema.properties ?? {}) as Readonly<
+    Record<string, { properties?: Readonly<Record<string, unknown>> }>
+  >
+  return Object.keys(args).flatMap((name) => {
+    if (Object.hasOwn(properties, name)) return []
+    const place = ['path', 'query', 'headers'].find((key) =>
+      Object.hasOwn(properties[key]?.properties ?? {}, name)
+    )
+    return place ? [`${name} goes in ${place}: { "${place}": { "${name}": … } }.`] : []
+  })
 }
 
 /** The path parameter `key` in `args`, if any. */
