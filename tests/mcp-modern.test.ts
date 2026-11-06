@@ -201,7 +201,7 @@ describe('MCP 2026-07-28 stateless handler', () => {
         API_TOKEN,
         'tools/call',
         {
-          name: 'get_accounts_workers_scripts',
+          name: 'workers_legacy_scripts_list',
           arguments: {}
         },
         { url: `${MCP_URL}?codemode=false` }
@@ -238,7 +238,7 @@ describe('MCP 2026-07-28 stateless handler', () => {
       modernMcpRequest(
         token,
         'tools/call',
-        { name: 'get_accounts_workers_scripts', arguments: {} },
+        { name: 'workers_legacy_scripts_list', arguments: {} },
         { id, url: `${MCP_URL}?codemode=false` }
       )
 
@@ -285,11 +285,9 @@ describe('MCP 2026-07-28 stateless handler', () => {
       'execute',
       'whoami'
     ])
-    expect(endpoints.result?.tools?.map((tool) => tool.name)).toEqual([
-      'docs',
-      'whoami',
-      'get_accounts_workers_scripts'
-    ])
+    const direct = endpoints.result?.tools?.map((tool) => tool.name) ?? []
+    expect(direct.slice(0, 2)).toEqual(['docs', 'whoami'])
+    expect(direct).toContain('workers_legacy_scripts_list')
     expect(codemodeResponse.headers.get('mcp-session-id')).toBeNull()
     expect(endpointResponse.headers.get('mcp-session-id')).toBeNull()
   })
@@ -392,7 +390,7 @@ describe('tool result truncation', () => {
     expect(rows.slice(0, -1)).toEqual(ROWS.slice(0, rows.length - 1))
   })
 
-  it('truncates an oversized endpoint tool response with ?codemode=false&truncateToolResult=true', async () => {
+  it('truncates an oversized direct tool response with ?codemode=false&truncateToolResult=true', async () => {
     server.use(
       http.get(`${API_BASE}/accounts/${ACCOUNT_ID}/workers/scripts`, () =>
         HttpResponse.json(cfSuccess(ROWS))
@@ -400,7 +398,7 @@ describe('tool result truncation', () => {
     )
 
     const text = await callToolText(
-      'get_accounts_workers_scripts',
+      'workers_legacy_scripts_list',
       {},
       `${MCP_URL}?codemode=false&truncateToolResult=true`
     )
@@ -472,14 +470,14 @@ describe('tool result truncation', () => {
     }
   })
 
-  it('returns the whole endpoint tool response by default with ?codemode=false', async () => {
+  it('returns the whole direct tool response by default with ?codemode=false', async () => {
     server.use(
       http.get(`${API_BASE}/accounts/${ACCOUNT_ID}/workers/scripts`, () =>
         HttpResponse.json(cfSuccess(ROWS))
       )
     )
 
-    const text = await callToolText('get_accounts_workers_scripts', {}, `${MCP_URL}?codemode=false`)
+    const text = await callToolText('workers_legacy_scripts_list', {}, `${MCP_URL}?codemode=false`)
 
     expect(JSON.parse(text)).toEqual(cfSuccess(ROWS))
   })

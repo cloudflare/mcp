@@ -33,7 +33,7 @@
     "zod": "^4.6.6"
   },
   "devDependencies": {
-    "@cloudflare/forge": "https://pkg.pr.new/cloudflare/forge/@cloudflare/forge@86ff7aed3eefbcbef36d6b2204a594f9147e1715",
+    "@cloudflare/forge": "https://pkg.pr.new/cloudflare/forge/@cloudflare/forge@0d1877431691b07cbe3b042a4b64cb0bd8e81c03",
     "@cloudflare/vitest-plugin": "^1.4.9",
     "@modelcontextprotocol/client": "2.3.1",
     "@types/node": "^25.0.6",

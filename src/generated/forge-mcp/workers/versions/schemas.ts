@@ -110,10 +110,6 @@ export const workers_Version: JSONObject = {
       "$ref": "#/$defs/workers_exports_config_map",
       "description": "Declarative exports for the version, including Durable Object\nclasses (with their `storage` backend) and named Worker\nentrypoints. On reads, tombstoned lifecycle entries are\nomitted, so only live exports (`created` and\n`expecting-transfer`) are returned. `exports` and `migrations`\nare mutually exclusive on upload."
     },
-    "exports_reconciliation": {
-      "$ref": "#/$defs/workers_exports_reconciliation_result",
-      "description": "Summary of the declarative exports reconciliation that ran on\nthis upload. Populated only when the uploaded metadata included\nan `exports` block. Durable Object entries drive reconciliation;\n`type: worker` entries do not contribute to this summary."
-    },
     "limits": {
       "description": "Resource limits enforced at runtime.",
       "properties": {

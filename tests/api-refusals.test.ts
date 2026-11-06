@@ -182,7 +182,7 @@ describe('execute explains a refused request', () => {
   })
 })
 
-describe('endpoint tools explain a refused request', () => {
+describe('direct tools explain a refused request', () => {
   it('names the scope an OAuth connection is missing', async () => {
     const token = await connectWithOAuth(['user:read', 'account:read'])
     refuseDnsRecords()
@@ -192,7 +192,7 @@ describe('endpoint tools explain a refused request', () => {
         modernMcpRequest(
           token,
           'tools/call',
-          { name: 'get_zones_dns_records', arguments: { zone_id: ZONE_ID } },
+          { name: 'dns_records_list', arguments: { path: { zone_id: ZONE_ID } } },
           { url: `${MCP_URL}?codemode=false&scopeChallenge=tool` }
         )
       )
@@ -271,7 +271,7 @@ describe('a 403 about the resource or the account is not a refusal', () => {
     expect(meta?.['mcp/www_authenticate']).toHaveLength(1)
   })
 
-  it('reports it as Cloudflare sent it from an endpoint tool', async () => {
+  it('reports it as Cloudflare sent it from a direct tool', async () => {
     const token = await connectWithOAuth(['user:read', 'account:read'])
     answerDnsRecords(NOT_PREVIEW)
 
@@ -280,7 +280,7 @@ describe('a 403 about the resource or the account is not a refusal', () => {
         modernMcpRequest(
           token,
           'tools/call',
-          { name: 'get_zones_dns_records', arguments: { zone_id: ZONE_ID } },
+          { name: 'dns_records_list', arguments: { path: { zone_id: ZONE_ID } } },
           { url: `${MCP_URL}?codemode=false&scopeChallenge=tool` }
         )
       )

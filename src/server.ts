@@ -1,6 +1,5 @@
 import { McpServer } from '@modelcontextprotocol/server'
 import { registerDocsTool } from './tools/docs-search'
-import { registerNonCodemodeTools } from './tools/non-codemode'
 import { registerForgeTools } from './tools/forge-tools'
 import { registerSearchTool } from './tools/search'
 import { registerExecuteTool } from './tools/execute'
@@ -19,19 +18,12 @@ import { ScopeChallenge } from './scope-challenge'
 export interface ServerOptions {
   /**
    * Register the Code Mode tools (`search`, `execute`). When `false`, register
-   * one tool per API endpoint instead. `docs` and `whoami` are registered in
-   * both modes. Defaults to `true`.
+   * the direct tools forge generates, one per API method, instead. `docs` and
+   * `whoami` are registered in both modes. Defaults to `true`.
    */
   readonly codemode?: boolean
   /**
-   * With `codemode: false`, build the direct tools from the code Forge
-   * generates instead of `mcp-tools.json`. Opt-in while it soaks; it is meant
-   * to become how `codemode: false` works. Ignored in Code Mode, which already
-   * reads the Forge spec. Defaults to `false`.
-   */
-  readonly experimentalForge?: boolean
-  /**
-   * With `codemode: false` and `experimentalForge: true`, give 2026-07-28
+   * With `codemode: false`, give 2026-07-28
    * requests each tool's generated output schema in `tools/list` and a
    * successful call's whole response body as `structuredContent`. 2025-era
    * requests are served as without it: their clients expect an object output
@@ -75,7 +67,6 @@ export async function createServer(
   props: AuthProps,
   {
     codemode = true,
-    experimentalForge = false,
     experimentalOutputSchema = false,
     truncateToolResult = codemode
   }: ServerOptions = {},
@@ -91,13 +82,9 @@ export async function createServer(
   if (events) registerEventMethods(server, events.env, props, events.bearer)
   if (!codemode) {
     const formatResult = truncateToolResult ? truncateResponse : stringifyResponse
-    if (experimentalForge) {
-      registerForgeTools(server, props, formatResult, connection, scopeChallenge, {
-        outputSchema: experimentalOutputSchema
-      })
-    } else {
-      await registerNonCodemodeTools(server, props, formatResult, connection, scopeChallenge)
-    }
+    registerForgeTools(server, props, formatResult, connection, scopeChallenge, {
+      outputSchema: experimentalOutputSchema
+    })
     return server
   }
 

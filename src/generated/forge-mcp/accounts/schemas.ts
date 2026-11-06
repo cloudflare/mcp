@@ -123,14 +123,10 @@ export const iam_role: JSONObject = {
     "id": {
       "description": "Role identifier tag.",
       "type": "string"
-    },
-    "permissions": {
-      "$ref": "#/$defs/iam_permissions"
     }
   },
   "required": [
-    "id",
-    "permissions"
+    "id"
   ],
   "type": "object"
 };

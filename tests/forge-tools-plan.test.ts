@@ -68,6 +68,10 @@ describe('planning a generated tool call', () => {
         `Property "${name}" does not match additional properties schema`
       )
     }
+    const message = result.kind === 'invalid' ? result.message : ''
+    expect(message).toContain('account_id goes in path: { "path": { "account_id": … } }.')
+    expect(message).toContain('per_page goes in query: { "query": { "per_page": … } }.')
+    expect(message).not.toContain('verbose goes in')
   })
 
   it('keeps an account the caller passed, and sends the body', async () => {
