@@ -1036,7 +1036,7 @@ import { tools as zones_transformationsAllowedOriginsTools } from "./zones/trans
 import { tools as zones_transformationsC2paTools } from "./zones/transformationsC2pa/tools.js";
 import { tools as zones_transformationsConfigTools } from "./zones/transformationsConfig/tools.js";
 
-export * from './_/tool.js';
+export { operation, registerTools } from './_/tool.js';
 
 /**
  * The API the tools call.

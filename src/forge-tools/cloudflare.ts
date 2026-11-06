@@ -1,4 +1,6 @@
-import type { InputSchema, JsonSchema, Tool } from '../generated/forge-mcp'
+import type { JSONObject } from '@modelcontextprotocol/server'
+import { operation } from '../generated/forge-mcp'
+import type { Tool } from '../generated/forge-mcp/_/tool'
 import {
   ACCOUNT_OR_ZONE_ID_DESCRIPTION,
   FORGE_ACCOUNT_ID_DESCRIPTION,
@@ -24,7 +26,7 @@ const OPTIONAL_PATH_PARAMS: Readonly<Record<string, string>> = {
  *   the server fills in the session's account for `accounts`.
  *
  * When that leaves no path parameter required, `path` itself is optional.
- * The tool's request code is kept, so calls build the same requests.
+ * The tool's operation is kept, so calls build the same requests.
  */
 export function cloudflareTool(tool: Tool): Tool {
   const path = tool.inputSchema.properties?.path as PathSchema | undefined
@@ -33,13 +35,13 @@ export function cloudflareTool(tool: Tool): Tool {
     return tool
   }
 
-  const changed: Record<string, JsonSchema> = { ...params }
+  const changed: JSONObject = { ...params }
   for (const [key, description] of Object.entries(OPTIONAL_PATH_PARAMS)) {
     if (key in changed) changed[key] = { type: 'string', description }
   }
   const pathRequired = (path.required ?? []).filter((key) => !(key in OPTIONAL_PATH_PARAMS))
   const { required: _pathRequired, ...pathRest } = path
-  const pathSchema: JsonSchema = {
+  const pathSchema: JSONObject = {
     ...pathRest,
     properties: changed,
     ...(pathRequired.length > 0 && { required: pathRequired })
@@ -49,7 +51,7 @@ export function cloudflareTool(tool: Tool): Tool {
     (key) => key !== 'path' || pathRequired.length > 0
   )
   const { required: _required, ...schema } = tool.inputSchema
-  const inputSchema: InputSchema = {
+  const inputSchema: Tool['inputSchema'] = {
     ...schema,
     properties: { ...tool.inputSchema.properties, path: pathSchema },
     ...(required.length > 0 && { required })
@@ -58,17 +60,15 @@ export function cloudflareTool(tool: Tool): Tool {
 }
 
 /** The `path` argument of a generated tool: an object of its path parameters. */
-interface PathSchema extends JsonSchema {
-  readonly properties?: Readonly<Record<string, JsonSchema>>
-  readonly required?: readonly string[]
-}
+type PathSchema = JSONObject & { properties?: JSONObject; required?: string[] }
 
 /** The API token permissions `tool` accepts, if its method lists them. */
 export function permissionsOf(tool: Tool): string[] | undefined {
-  const value = tool.extensions?.[PERMISSIONS_EXTENSION]
+  const value = operation(tool).extensions?.[PERMISSIONS_EXTENSION]
   return Array.isArray(value) &&
     value.length > 0 &&
-    value.every((item) => typeof item === 'string' && item.length > 0)
+    value.every((item): item is string => typeof item === 'string') &&
+    value.every((item) => item.length > 0)
     ? value
     : undefined
 }

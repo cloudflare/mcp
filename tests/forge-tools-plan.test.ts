@@ -37,38 +37,37 @@ describe('planning a generated tool call', () => {
     ).toEqual({ kind: 'needs_account', argument: 'path.account_or_zone_id' })
   })
 
-  it('refuses a misspelled parameter and lists the ones its place takes', async () => {
-    expect(await plan('d1_list', { query: { nmae: 'db' } }, { sessionAccountId: ACCOUNT })).toEqual(
-      {
-        kind: 'invalid',
-        message:
-          'Unknown arguments for d1_list: query.nmae is not an argument; query takes name, page, per_page. ' +
-          'It takes path, query.'
-      }
+  it('refuses a misspelled parameter, naming it', async () => {
+    const result = await plan('d1_list', { query: { nmae: 'db' } }, { sessionAccountId: ACCOUNT })
+
+    expect(result).toMatchObject({ kind: 'invalid' })
+    expect(result.kind === 'invalid' && result.message).toMatch(
+      /^Input validation error: Invalid arguments for tool d1_list: .*Property "nmae" does not match additional properties schema/
     )
   })
 
-  it('reports a misplaced account_id as misplaced, not as a missing account', async () => {
+  it('refuses a misplaced account_id, rather than asking for an account', async () => {
     const result = await plan('d1_list', { account_id: ACCOUNT })
 
     expect(result).toMatchObject({ kind: 'invalid' })
-    expect(result.kind === 'invalid' && result.message).toContain('account_id goes in path')
+    expect(result.kind === 'invalid' && result.message).toContain(
+      'Property "account_id" does not match additional properties schema'
+    )
   })
 
-  it('refuses parameters passed at the top level, and says where they go', async () => {
+  it('refuses parameters passed at the top level, naming each', async () => {
     const result = await plan(
       'd1_list',
       { account_id: ACCOUNT, per_page: 5, verbose: true },
       { sessionAccountId: ACCOUNT }
     )
 
-    expect(result).toEqual({
-      kind: 'invalid',
-      message:
-        'Unknown arguments for d1_list: account_id goes in path: { "path": { "account_id": … } }; ' +
-        'per_page goes in query: { "query": { "per_page": … } }; verbose is not an argument. ' +
-        'It takes path, query.'
-    })
+    expect(result).toMatchObject({ kind: 'invalid' })
+    for (const name of ['account_id', 'per_page', 'verbose']) {
+      expect(result.kind === 'invalid' && result.message).toContain(
+        `Property "${name}" does not match additional properties schema`
+      )
+    }
   })
 
   it('keeps an account the caller passed, and sends the body', async () => {
@@ -105,17 +104,16 @@ describe('planning a generated tool call', () => {
   })
 
   it('reports arguments the request cannot be built from', async () => {
-    expect(await plan('zones_get', {})).toEqual({
-      kind: 'invalid',
-      message: 'Missing required arguments: path'
-    })
-    expect(await plan('zones_get', { path: {} })).toEqual({
-      kind: 'invalid',
-      message: 'Missing required arguments: path.zone_id'
-    })
-    expect(await plan('zones_get', { path: 'z1' })).toEqual({
-      kind: 'invalid',
-      message: 'path must be an object'
-    })
+    const message = async (args: Record<string, unknown>) => {
+      const result = await plan('zones_get', args)
+      return result.kind === 'invalid' ? result.message : `not invalid: ${result.kind}`
+    }
+
+    expect(await message({})).toContain('Instance does not have required property "path"')
+    expect(await message({ path: {} })).toContain(
+      'Instance does not have required property "zone_id"'
+    )
+    expect(await message({ path: 'z1' })).toMatch(/^Input validation error: .*#\/path/)
+    expect(await message({ path: { zone_id: '' } })).toBe('Missing path parameter: zone_id')
   })
 })

@@ -1,5 +1,7 @@
+import type { JSONObject } from '@modelcontextprotocol/server'
 import { describe, expect, it } from 'vitest'
-import { pathParam, tools, type Tool } from '../src/generated/forge-mcp'
+import { operation, tools } from '../src/generated/forge-mcp'
+import { OPERATION, type Tool } from '../src/generated/forge-mcp/_/tool'
 import { cloudflareTool, permissionsOf } from '../src/forge-tools/cloudflare'
 import {
   ACCOUNT_OR_ZONE_ID_DESCRIPTION,
@@ -7,7 +9,7 @@ import {
 } from '../src/forge-tools/policy'
 
 /** A generated tool for `path`, with every path parameter required. */
-function generated(path: string, extensions?: Tool['extensions']): Tool {
+function generated(path: string, extensions?: JSONObject): Tool {
   const keys = [...path.matchAll(/\{([^}]+)\}/g)].map((match) => match[1]!)
   return {
     name: 'example',
@@ -29,10 +31,13 @@ function generated(path: string, extensions?: Tool['extensions']): Tool {
       idempotentHint: true,
       openWorldHint: true
     },
-    method: 'GET',
-    path,
-    ...(extensions && { extensions }),
-    request: (args) => ({ path: path.replace(/\{([^}]+)\}/g, (_, key) => pathParam(args, key)) })
+    [OPERATION]: {
+      method: 'GET',
+      path,
+      pathOf: (values) =>
+        path.replace(/\{([^}]+)\}/g, (_, key: string) => encodeURIComponent(String(values[key]))),
+      ...(extensions && { extensions })
+    }
   }
 }
 
@@ -82,7 +87,7 @@ describe('the Cloudflare policy for generated tools', () => {
   })
 
   it('gets the two values of account_or_zone from the document (cloudflare/forge#59)', () => {
-    const merged = tools.filter((tool) => tool.path.startsWith('/{account_or_zone}/'))
+    const merged = tools.filter((tool) => operation(tool).path.startsWith('/{account_or_zone}/'))
 
     expect(merged.length).toBeGreaterThan(0)
     for (const tool of merged) {
@@ -93,12 +98,12 @@ describe('the Cloudflare policy for generated tools', () => {
     }
   })
 
-  it('leaves other tools alone and keeps their request code', () => {
+  it('leaves other tools alone and keeps their operation', () => {
     const zone = generated('/zones/{zone_id}/dns_records')
     const account = generated('/accounts/{account_id}/d1/database')
 
     expect(cloudflareTool(zone)).toBe(zone)
-    expect(cloudflareTool(account).request).toBe(account.request)
+    expect(operation(cloudflareTool(account))).toBe(operation(account))
   })
 
   it('reads the permissions a method accepts', () => {

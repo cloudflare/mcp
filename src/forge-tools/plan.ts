@@ -1,13 +1,12 @@
-import {
-  buildRequest,
-  checkArguments,
-  InvalidArguments,
-  param,
-  type Args,
-  type HttpRequest,
-  type Tool
-} from '../generated/forge-mcp/_/tool'
+import { fromJsonSchema, type CallToolRequestParams } from '@modelcontextprotocol/server'
+import { buildRequest, operation, type Tool } from '../generated/forge-mcp/_/tool'
 import { permissionsOf } from './cloudflare'
+
+/** The arguments of a tool call, as the client sent them. */
+export type Args = NonNullable<CallToolRequestParams['arguments']>
+
+/** An HTTP request as plain data, which crosses RPC as it is. */
+type HttpRequest = ReturnType<typeof buildRequest>
 
 const ACCOUNT_OR_ZONE_PREFIX = '/{account_or_zone}/{account_or_zone_id}'
 
@@ -43,45 +42,63 @@ export type CallPlan =
     })
 
 /**
- * Plans calling `tool` with `given`: fills in the session's account where the
- * tool takes one and the caller left it out, then builds the request with the
- * tool's generated code. The request is plain data, so the plan crosses RPC
- * as it is.
+ * Plans calling `tool` with `given`: validates them against the tool's input
+ * schema, fills in the session's account where the tool takes one and the
+ * caller left it out, then builds the request from the tool's operation. The
+ * request is plain data, so the plan crosses RPC as it is.
  */
-export function planCall(tool: Tool, given: Args, options: PlanOptions): CallPlan {
-  let request: HttpRequest
-  let accountId: string | undefined
-  try {
-    // Before filling in the account, so a misplaced account_id is reported as such.
-    checkArguments(tool, given)
-    const key = accountKey(tool, given)
-    let args = given
-    if (key && param(given, 'path', key) === undefined) {
-      if (!options.sessionAccountId) return { kind: 'needs_account', argument: `path.${key}` }
-      args = withPathParam(given, key, options.sessionAccountId)
-    }
-    request = buildRequest(tool, args, options.baseUrl)
-    accountId = accountIdOf(args)
-  } catch (error) {
-    if (error instanceof InvalidArguments) return { kind: 'invalid', message: error.message }
-    throw error
+export async function planCall(tool: Tool, given: Args, options: PlanOptions): Promise<CallPlan> {
+  // Before filling in the account, so a misplaced account_id is reported as such.
+  const invalid = await invalidArguments(tool, given)
+  if (invalid) return { kind: 'invalid', message: invalid }
+  const template = operation(tool).path
+  const key = accountKey(template, given)
+  let args = given
+  if (key && param(given, key) === undefined) {
+    if (!options.sessionAccountId) return { kind: 'needs_account', argument: `path.${key}` }
+    args = withPathParam(given, key, options.sessionAccountId)
   }
+  let request: HttpRequest
+  try {
+    request = buildRequest(tool, args, options.baseUrl)
+  } catch (error) {
+    // An empty path parameter, or a value a query parameter or header can't be.
+    return { kind: 'invalid', message: error instanceof Error ? error.message : String(error) }
+  }
+  const accountId = accountIdOf(args)
   const permissions = permissionsOf(tool)
   return {
     kind: 'request',
     ...request,
-    template: tool.path,
+    template,
     ...(permissions && { permissions }),
     ...(accountId && { accountId })
   }
 }
 
+/**
+ * Why `args` don't fit the tool's input schema, by the MCP SDK's JSON Schema
+ * validator, as `McpServer` reports it, or `undefined` when they do.
+ */
+async function invalidArguments(tool: Tool, args: Args): Promise<string | undefined> {
+  const schema: Readonly<Record<string, unknown>> = tool.inputSchema
+  const result = await fromJsonSchema(schema)['~standard'].validate(args)
+  if (!result.issues) return undefined
+  const issues = result.issues.map((issue) => issue.message).join(', ')
+  return `Input validation error: Invalid arguments for tool ${tool.name}: ${issues}`
+}
+
+/** The path parameter `key` in `args`, if any. */
+function param(args: Args, key: string): unknown {
+  return (args.path as Readonly<Record<string, unknown>> | undefined)?.[key]
+}
+
 /** The path parameter that names the account, when the tool takes one for these arguments. */
-function accountKey(tool: Tool, args: Args): string | undefined {
-  if (tool.path.includes('{account_id}')) return 'account_id'
+function accountKey(template: string, args: Args): string | undefined {
+  if (template.includes('{account_id}')) return 'account_id'
   if (
-    tool.path.startsWith(ACCOUNT_OR_ZONE_PREFIX) &&
-    param(args, 'path', 'account_or_zone') === 'accounts'
+    template.startsWith(ACCOUNT_OR_ZONE_PREFIX) &&
+    param(args, 'account_or_zone') === 'accounts'
   ) {
     return 'account_or_zone_id'
   }
@@ -96,8 +113,8 @@ function withPathParam(args: Args, key: string, value: string): Args {
 
 function accountIdOf(args: Args): string | undefined {
   const id =
-    param(args, 'path', 'account_or_zone') === 'accounts'
-      ? param(args, 'path', 'account_or_zone_id')
-      : param(args, 'path', 'account_id')
+    param(args, 'account_or_zone') === 'accounts'
+      ? param(args, 'account_or_zone_id')
+      : param(args, 'account_id')
   return typeof id === 'string' ? id : undefined
 }
