@@ -311,7 +311,7 @@ export function explainRefusal(status: 401 | 403, authorization: Authorization):
     case 'unlisted':
       if (status === 401) {
         return authorization.connection === 'oauth'
-          ? 'Cloudflare did not accept this connection’s credentials. Reconnect to sign in again.'
+          ? 'This Cloudflare endpoint returned HTTP 401, but that alone does not show the OAuth connection expired. Check whoami and a harmless GET /user or GET /accounts; if they succeed, do not reconnect or retry this denied endpoint. Check endpoint compatibility and permissions.'
           : 'Cloudflare did not accept this credential. Check that the API token is valid and has not expired.'
       }
       return 'The API spec lists no permissions for this endpoint. HTTP 403 means the credential was accepted but is not allowed to do this, so reconnecting with the same permissions will not help. Check the endpoint’s documentation.'
@@ -331,7 +331,7 @@ export function explainRefusal(status: 401 | 403, authorization: Authorization):
       return `No OAuth scope covers this endpoint, so OAuth connections cannot use it. Connect with an API token that has one of these permissions instead: ${list(authorization.permissions)}.`
 
     case 'missing':
-      return `This connection was not granted a scope this endpoint accepts. Reconnect and grant one of: ${list(authorization.options.map(scopeLabel))}.`
+      return `This connection was not granted a scope this endpoint accepts: ${list(authorization.options.map(scopeLabel))}. This is an operation-specific permission refusal, not evidence the entire OAuth connection is disconnected. Do not retry this operation without an updated grant; use client-supported scope step-up or an already authorized alternative.`
 
     case 'granted': {
       const has = `This connection already has ${list(authorization.held.map(scopeLabel))}, which this endpoint accepts`
