@@ -15,6 +15,10 @@ import { syncSkills } from './skills/sync'
 
 const OPENAI_APPS_CHALLENGE_PATH = '/.well-known/openai-apps-challenge'
 const OPENAI_APPS_CHALLENGE_TOKEN = 'dQ0VUqjILNASTqFl73Rc8kt2ttMpEMmpqEZWsRhlpfc'
+const MUSE_CHALLENGE_PATH =
+  '/.well-known/muse-challenge/0a43b9686a1b69cb039d2ba9aebb409c65fae31d720507fa338782bc66c66ac0'
+const MUSE_CHALLENGE_CONTENTS =
+  'muse-challenge=0a43b9686a1b69cb039d2ba9aebb409c65fae31d720507fa338782bc66c66ac0'
 
 // GlobalOutbound lives with the execute tool (its only caller); wrangler
 // resolves the GLOBAL_OUTBOUND worker-loader entrypoint from this entry module,
@@ -63,6 +67,11 @@ export default {
     if (url.pathname.startsWith('/events/ans/')) return handleAnsCallback(request, env)
     if (url.pathname === OPENAI_APPS_CHALLENGE_PATH) {
       return new Response(OPENAI_APPS_CHALLENGE_TOKEN, {
+        headers: { 'Content-Type': 'text/plain; charset=utf-8' }
+      })
+    }
+    if (url.pathname === MUSE_CHALLENGE_PATH) {
+      return new Response(MUSE_CHALLENGE_CONTENTS, {
         headers: { 'Content-Type': 'text/plain; charset=utf-8' }
       })
     }
