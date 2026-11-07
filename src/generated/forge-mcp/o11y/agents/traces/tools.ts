@@ -2,19 +2,1108 @@
 /* eslint-disable */
 
 import { OPERATION, type Tool, encodePath } from "../../../_/tool.js";
+import { workers$$observability_telemetry_event } from "../../outputs.js";
 import {
-  workers$$observability_agent_session,
-  workers$$observability_agent_session_run,
+  workers$$observability_agent_result_info,
+  workers$$observability_agent_trace_summary,
+  workers$$observability_agent_window_info,
+  workers$$observability_trace_summary,
 } from "./outputs.js";
 
 /**
- * The tools of `o11y.agents.sessions`.
+ * The tools of `o11y.agents.traces`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "o11y_agents_sessions_list",
-    title: "List Agent sessions",
-    description: "Lists sessions in which the specified agent participated, ordered by most recent activity. A session is identified by gen_ai.conversation.id and includes authorized activity from every agent in that conversation during the requested time range. Agent invocation and chat spans without a conversation ID are attributed only when their trace is associated with exactly one observed conversation.\n\nGET /accounts/{account_id}/workers/observability/agents/sessions",
+    name: "o11y_agents_traces_events",
+    title: "List Agent Trace events",
+    description: "Returns a page of authorized canonical otel events for a Trace containing named Agent activity, using the existing events-query flow. Searches the full 7-day retention unless from or to narrow it. Events are ordered by event timestamp and ID, newest first. Continue with result_info.cursors.after; one page is not a complete span tree.\n\nGET /accounts/{account_id}/workers/observability/agents/traces/{traceId}/events",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Your Cloudflare account ID.",
+              "type": "string"
+            },
+            "traceId": {
+              "description": "Trace ID: 32 hexadecimal characters, matched case-insensitively.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "traceId"
+          ],
+          "type": "object"
+        },
+        "query": {
+          "additionalProperties": false,
+          "properties": {
+            "cursor": {
+              "description": "Opaque cursor from result_info.cursors.after in the previous response. Send it with the same filters; its window replaces from and to.",
+              "type": "string"
+            },
+            "from": {
+              "description": "Optional. Narrows the search, which by default covers the full 7-day retention, so any retained Trace ID can be fetched without a window. Start as Unix epoch milliseconds; the effective value is in result_info.from.",
+              "type": "integer"
+            },
+            "per_page": {
+              "description": "Maximum items to return per page. Defaults to 100.",
+              "type": "integer"
+            },
+            "to": {
+              "description": "Optional. Narrows the search; end as Unix epoch milliseconds. Defaults to now.",
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        }
+      },
+      required: [
+        "path"
+      ],
+      additionalProperties: false,
+    },
+    outputSchema: {
+      "properties": {
+        "errors": {
+          "items": {
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "message": {
+                "enum": [
+                  "Successful request"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
+          "items": {
+            "$ref": "#/$defs/workers-observability_telemetry_event"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/workers-observability_agent_result_info"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "result_info",
+        "success"
+      ],
+      "type": "object",
+      $defs: {
+        "workers-observability_agent_result_info": workers$$observability_agent_result_info,
+        "workers-observability_telemetry_event": workers$$observability_telemetry_event,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "List Agent Trace events"
+    },
+    [OPERATION]: {
+      method: "GET",
+      path: "/accounts/{account_id}/workers/observability/agents/traces/{traceId}/events",
+      pathOf: encodePath`/accounts/${"account_id"}/workers/observability/agents/traces/${"traceId"}/events`,
+      query: [
+        { name: "from", explode: true },
+        { name: "to", explode: true },
+        { name: "per_page", explode: true },
+        { name: "cursor", explode: true },
+      ],
+      responses: {
+        schemas: {
+          "200": {
+            "properties": {
+              "errors": {
+                "items": {
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "messages": {
+                "items": {
+                  "properties": {
+                    "message": {
+                      "enum": [
+                        "Successful request"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "result": {
+                "items": {
+                  "$ref": "#/$defs/workers-observability_telemetry_event"
+                },
+                "type": "array"
+              },
+              "result_info": {
+                "$ref": "#/$defs/workers-observability_agent_result_info"
+              },
+              "success": {
+                "enum": [
+                  true
+                ],
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "errors",
+              "messages",
+              "result",
+              "result_info",
+              "success"
+            ],
+            "type": "object"
+          },
+          "400": {
+            "properties": {
+              "errors": {
+                "items": {
+                  "properties": {
+                    "detail": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "enum": [
+                        "Bad Request"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "messages": {
+                "items": {
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "success": {
+                "enum": [
+                  false
+                ],
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "errors",
+              "messages",
+              "success"
+            ],
+            "type": "object"
+          },
+          "401": {
+            "properties": {
+              "errors": {
+                "items": {
+                  "properties": {
+                    "detail": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "enum": [
+                        "Unauthorized"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "messages": {
+                "items": {
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "success": {
+                "enum": [
+                  false
+                ],
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "errors",
+              "messages",
+              "success"
+            ],
+            "type": "object"
+          },
+          "403": {
+            "properties": {
+              "errors": {
+                "items": {
+                  "properties": {
+                    "detail": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "enum": [
+                        "Forbidden"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "messages": {
+                "items": {
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "success": {
+                "enum": [
+                  false
+                ],
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "errors",
+              "messages",
+              "success"
+            ],
+            "type": "object"
+          },
+          "404": {
+            "properties": {
+              "errors": {
+                "items": {
+                  "properties": {
+                    "detail": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "enum": [
+                        "Not found"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "messages": {
+                "items": {
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "success": {
+                "enum": [
+                  false
+                ],
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "errors",
+              "messages",
+              "success"
+            ],
+            "type": "object"
+          },
+          "429": {
+            "properties": {
+              "errors": {
+                "items": {
+                  "properties": {
+                    "detail": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "enum": [
+                        "Too many requests"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "messages": {
+                "items": {
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "success": {
+                "enum": [
+                  false
+                ],
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "errors",
+              "messages",
+              "success"
+            ],
+            "type": "object"
+          },
+          "500": {
+            "properties": {
+              "errors": {
+                "items": {
+                  "properties": {
+                    "detail": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "enum": [
+                        "Internal error"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "messages": {
+                "items": {
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "success": {
+                "enum": [
+                  false
+                ],
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "errors",
+              "messages",
+              "success"
+            ],
+            "type": "object"
+          },
+          "504": {
+            "properties": {
+              "errors": {
+                "items": {
+                  "properties": {
+                    "detail": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "enum": [
+                        "Gateway timeout"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "messages": {
+                "items": {
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "success": {
+                "enum": [
+                  false
+                ],
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "errors",
+              "messages",
+              "success"
+            ],
+            "type": "object"
+          }
+        },
+        $defs: {
+          "workers-observability_agent_result_info": workers$$observability_agent_result_info,
+          "workers-observability_telemetry_event": workers$$observability_telemetry_event,
+        },
+      },
+    },
+  },
+  {
+    name: "o11y_agents_traces_get",
+    title: "Get an Agent Trace",
+    description: "Returns the summary of one Trace containing named Agent activity, with the same fields as the Trace list. Searches the full 7-day retention unless from or to narrow it. List the Trace's events with /agents/traces/{traceId}/events.\n\nGET /accounts/{account_id}/workers/observability/agents/traces/{traceId}",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Your Cloudflare account ID.",
+              "type": "string"
+            },
+            "traceId": {
+              "description": "Trace ID: 32 hexadecimal characters, matched case-insensitively.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "traceId"
+          ],
+          "type": "object"
+        },
+        "query": {
+          "additionalProperties": false,
+          "properties": {
+            "from": {
+              "description": "Optional. Narrows the search, which by default covers the full 7-day retention, so any retained Trace ID can be fetched without a window. Start as Unix epoch milliseconds; the effective value is in result_info.from.",
+              "type": "integer"
+            },
+            "to": {
+              "description": "Optional. Narrows the search; end as Unix epoch milliseconds. Defaults to now.",
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        }
+      },
+      required: [
+        "path"
+      ],
+      additionalProperties: false,
+    },
+    outputSchema: {
+      "properties": {
+        "errors": {
+          "items": {
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "message": {
+                "enum": [
+                  "Successful request"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
+          "$ref": "#/$defs/workers-observability_agent_trace_summary"
+        },
+        "result_info": {
+          "$ref": "#/$defs/workers-observability_agent_window_info"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "result_info",
+        "success"
+      ],
+      "type": "object",
+      $defs: {
+        "workers-observability_agent_trace_summary": workers$$observability_agent_trace_summary,
+        "workers-observability_agent_window_info": workers$$observability_agent_window_info,
+        "workers-observability_trace_summary": workers$$observability_trace_summary,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get an Agent Trace"
+    },
+    [OPERATION]: {
+      method: "GET",
+      path: "/accounts/{account_id}/workers/observability/agents/traces/{traceId}",
+      pathOf: encodePath`/accounts/${"account_id"}/workers/observability/agents/traces/${"traceId"}`,
+      query: [
+        { name: "from", explode: true },
+        { name: "to", explode: true },
+      ],
+      responses: {
+        schemas: {
+          "200": {
+            "properties": {
+              "errors": {
+                "items": {
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "messages": {
+                "items": {
+                  "properties": {
+                    "message": {
+                      "enum": [
+                        "Successful request"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "result": {
+                "$ref": "#/$defs/workers-observability_agent_trace_summary"
+              },
+              "result_info": {
+                "$ref": "#/$defs/workers-observability_agent_window_info"
+              },
+              "success": {
+                "enum": [
+                  true
+                ],
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "errors",
+              "messages",
+              "result",
+              "result_info",
+              "success"
+            ],
+            "type": "object"
+          },
+          "400": {
+            "properties": {
+              "errors": {
+                "items": {
+                  "properties": {
+                    "detail": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "enum": [
+                        "Bad Request"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "messages": {
+                "items": {
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "success": {
+                "enum": [
+                  false
+                ],
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "errors",
+              "messages",
+              "success"
+            ],
+            "type": "object"
+          },
+          "401": {
+            "properties": {
+              "errors": {
+                "items": {
+                  "properties": {
+                    "detail": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "enum": [
+                        "Unauthorized"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "messages": {
+                "items": {
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "success": {
+                "enum": [
+                  false
+                ],
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "errors",
+              "messages",
+              "success"
+            ],
+            "type": "object"
+          },
+          "403": {
+            "properties": {
+              "errors": {
+                "items": {
+                  "properties": {
+                    "detail": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "enum": [
+                        "Forbidden"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "messages": {
+                "items": {
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "success": {
+                "enum": [
+                  false
+                ],
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "errors",
+              "messages",
+              "success"
+            ],
+            "type": "object"
+          },
+          "404": {
+            "properties": {
+              "errors": {
+                "items": {
+                  "properties": {
+                    "detail": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "enum": [
+                        "Not found"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "messages": {
+                "items": {
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "success": {
+                "enum": [
+                  false
+                ],
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "errors",
+              "messages",
+              "success"
+            ],
+            "type": "object"
+          },
+          "429": {
+            "properties": {
+              "errors": {
+                "items": {
+                  "properties": {
+                    "detail": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "enum": [
+                        "Too many requests"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "messages": {
+                "items": {
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "success": {
+                "enum": [
+                  false
+                ],
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "errors",
+              "messages",
+              "success"
+            ],
+            "type": "object"
+          },
+          "500": {
+            "properties": {
+              "errors": {
+                "items": {
+                  "properties": {
+                    "detail": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "enum": [
+                        "Internal error"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "messages": {
+                "items": {
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "success": {
+                "enum": [
+                  false
+                ],
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "errors",
+              "messages",
+              "success"
+            ],
+            "type": "object"
+          },
+          "504": {
+            "properties": {
+              "errors": {
+                "items": {
+                  "properties": {
+                    "detail": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "enum": [
+                        "Gateway timeout"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "messages": {
+                "items": {
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "success": {
+                "enum": [
+                  false
+                ],
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "errors",
+              "messages",
+              "success"
+            ],
+            "type": "object"
+          }
+        },
+        $defs: {
+          "workers-observability_agent_trace_summary": workers$$observability_agent_trace_summary,
+          "workers-observability_agent_window_info": workers$$observability_agent_window_info,
+          "workers-observability_trace_summary": workers$$observability_trace_summary,
+        },
+      },
+    },
+  },
+  {
+    name: "o11y_agents_traces_list",
+    title: "List Agent Traces",
+    description: "Lists Traces with a named Agent invocation in the window, ordered by lastActivityMs, newest first, including work without a Conversation ID. The window defaults to the last 24 hours. Summaries include the Agent names and Conversation IDs seen, authorized Trace duration, chat input/output/total tokens, models, providers, LLM/tool call counts and span-error counts within the effective window.\n\nGET /accounts/{account_id}/workers/observability/agents/traces",
     inputSchema: {
       type: "object",
       properties: {
@@ -35,42 +1124,35 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "agent": {
-              "description": "Agent name reported in gen_ai.agent.name. The request is limited to conversations in which this service and agent participated.",
+              "description": "Only include work in which an Agent with this gen_ai.agent.name took part. With service, both must match the same Agent.",
               "type": "string"
             },
             "cursor": {
-              "description": "Opaque cursor from result_info.cursors.after in the previous response.",
+              "description": "Opaque cursor from result_info.cursors.after in the previous response. Send it with the same filters; its window replaces from and to.",
               "type": "string"
             },
             "from": {
-              "description": "Start of the requested time range, as Unix epoch milliseconds. Values earlier than the 7-day retention boundary are clamped.",
+              "description": "Start of the search window, as Unix epoch milliseconds. Defaults to 24 hours before to. Clamped to the 7-day retention boundary; the effective value is in result_info.from.",
               "type": "integer"
             },
             "per_page": {
-              "description": "Maximum number of items to return. Defaults to 20 and cannot exceed 100.",
+              "description": "Maximum items to return per page. Defaults to 20.",
               "type": "integer"
             },
             "service": {
-              "description": "Worker service name associated with the participating agent.",
+              "description": "Only include work in which an Agent of this Worker service took part.",
               "type": "string"
             },
             "to": {
-              "description": "End of the requested time range, as Unix epoch milliseconds. Must be later than from.",
+              "description": "End of the search window, as Unix epoch milliseconds. Defaults to now.",
               "type": "integer"
             }
           },
-          "required": [
-            "service",
-            "agent",
-            "from",
-            "to"
-          ],
           "type": "object"
         }
       },
       required: [
-        "path",
-        "query"
+        "path"
       ],
       additionalProperties: false,
     },
@@ -109,43 +1191,12 @@ export const tools: readonly Tool[] = [
         },
         "result": {
           "items": {
-            "$ref": "#/$defs/workers-observability_agent_session"
+            "$ref": "#/$defs/workers-observability_agent_trace_summary"
           },
           "type": "array"
         },
         "result_info": {
-          "properties": {
-            "count": {
-              "type": "integer"
-            },
-            "cursors": {
-              "properties": {
-                "after": {
-                  "oneOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                }
-              },
-              "required": [
-                "after"
-              ],
-              "type": "object"
-            },
-            "per_page": {
-              "type": "integer"
-            }
-          },
-          "required": [
-            "count",
-            "cursors",
-            "per_page"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/workers-observability_agent_result_info"
         },
         "success": {
           "enum": [
@@ -163,7 +1214,9 @@ export const tools: readonly Tool[] = [
       ],
       "type": "object",
       $defs: {
-        "workers-observability_agent_session": workers$$observability_agent_session,
+        "workers-observability_agent_result_info": workers$$observability_agent_result_info,
+        "workers-observability_agent_trace_summary": workers$$observability_agent_trace_summary,
+        "workers-observability_trace_summary": workers$$observability_trace_summary,
       },
     },
     annotations: {
@@ -171,19 +1224,19 @@ export const tools: readonly Tool[] = [
       "idempotentHint": true,
       "openWorldHint": true,
       "readOnlyHint": true,
-      "title": "List Agent sessions"
+      "title": "List Agent Traces"
     },
     [OPERATION]: {
       method: "GET",
-      path: "/accounts/{account_id}/workers/observability/agents/sessions",
-      pathOf: encodePath`/accounts/${"account_id"}/workers/observability/agents/sessions`,
+      path: "/accounts/{account_id}/workers/observability/agents/traces",
+      pathOf: encodePath`/accounts/${"account_id"}/workers/observability/agents/traces`,
       query: [
         { name: "service", explode: true },
         { name: "agent", explode: true },
         { name: "from", explode: true },
         { name: "to", explode: true },
-        { name: "cursor", explode: true },
         { name: "per_page", explode: true },
+        { name: "cursor", explode: true },
       ],
       responses: {
         schemas: {
@@ -222,43 +1275,12 @@ export const tools: readonly Tool[] = [
               },
               "result": {
                 "items": {
-                  "$ref": "#/$defs/workers-observability_agent_session"
+                  "$ref": "#/$defs/workers-observability_agent_trace_summary"
                 },
                 "type": "array"
               },
               "result_info": {
-                "properties": {
-                  "count": {
-                    "type": "integer"
-                  },
-                  "cursors": {
-                    "properties": {
-                      "after": {
-                        "oneOf": [
-                          {
-                            "type": "string"
-                          },
-                          {
-                            "type": "null"
-                          }
-                        ]
-                      }
-                    },
-                    "required": [
-                      "after"
-                    ],
-                    "type": "object"
-                  },
-                  "per_page": {
-                    "type": "integer"
-                  }
-                },
-                "required": [
-                  "count",
-                  "cursors",
-                  "per_page"
-                ],
-                "type": "object"
+                "$ref": "#/$defs/workers-observability_agent_result_info"
               },
               "success": {
                 "enum": [
@@ -387,6 +1409,56 @@ export const tools: readonly Tool[] = [
                     "message": {
                       "enum": [
                         "Forbidden"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "messages": {
+                "items": {
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "success": {
+                "enum": [
+                  false
+                ],
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "errors",
+              "messages",
+              "success"
+            ],
+            "type": "object"
+          },
+          "404": {
+            "properties": {
+              "errors": {
+                "items": {
+                  "properties": {
+                    "detail": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "enum": [
+                        "Not found"
                       ],
                       "type": "string"
                     }
@@ -578,584 +1650,9 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
-          "workers-observability_agent_session": workers$$observability_agent_session,
-        },
-      },
-    },
-  },
-  {
-    name: "o11y_agents_sessions_runs",
-    title: "List Agent session runs",
-    description: "Lists the traces associated with a session, ordered by most recent activity. The service and agent parameters must identify an agent that participated in the conversation. Results include every authorized trace containing an agent invocation in that conversation during the requested time range.\n\nGET /accounts/{account_id}/workers/observability/agents/sessions/{conversationId}/runs",
-    inputSchema: {
-      type: "object",
-      properties: {
-        "path": {
-          "additionalProperties": false,
-          "properties": {
-            "account_id": {
-              "description": "Your Cloudflare account ID.",
-              "type": "string"
-            },
-            "conversationId": {
-              "description": "OpenTelemetry gen_ai.conversation.id value that identifies the session.",
-              "type": "string"
-            }
-          },
-          "required": [
-            "account_id",
-            "conversationId"
-          ],
-          "type": "object"
-        },
-        "query": {
-          "additionalProperties": false,
-          "properties": {
-            "agent": {
-              "description": "Agent name reported in gen_ai.agent.name. The request is limited to conversations in which this service and agent participated.",
-              "type": "string"
-            },
-            "cursor": {
-              "description": "Opaque cursor from result_info.cursors.after in the previous response.",
-              "type": "string"
-            },
-            "from": {
-              "description": "Start of the requested time range, as Unix epoch milliseconds. Values earlier than the 7-day retention boundary are clamped.",
-              "type": "integer"
-            },
-            "per_page": {
-              "description": "Maximum number of items to return. Defaults to 20 and cannot exceed 100.",
-              "type": "integer"
-            },
-            "service": {
-              "description": "Worker service name associated with the participating agent.",
-              "type": "string"
-            },
-            "to": {
-              "description": "End of the requested time range, as Unix epoch milliseconds. Must be later than from.",
-              "type": "integer"
-            }
-          },
-          "required": [
-            "service",
-            "agent",
-            "from",
-            "to"
-          ],
-          "type": "object"
-        }
-      },
-      required: [
-        "path",
-        "query"
-      ],
-      additionalProperties: false,
-    },
-    outputSchema: {
-      "properties": {
-        "errors": {
-          "items": {
-            "properties": {
-              "message": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "message"
-            ],
-            "type": "object"
-          },
-          "type": "array"
-        },
-        "messages": {
-          "items": {
-            "properties": {
-              "message": {
-                "enum": [
-                  "Successful request"
-                ],
-                "type": "string"
-              }
-            },
-            "required": [
-              "message"
-            ],
-            "type": "object"
-          },
-          "type": "array"
-        },
-        "result": {
-          "items": {
-            "$ref": "#/$defs/workers-observability_agent_session_run"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "properties": {
-            "count": {
-              "type": "integer"
-            },
-            "cursors": {
-              "properties": {
-                "after": {
-                  "oneOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                }
-              },
-              "required": [
-                "after"
-              ],
-              "type": "object"
-            },
-            "per_page": {
-              "type": "integer"
-            }
-          },
-          "required": [
-            "count",
-            "cursors",
-            "per_page"
-          ],
-          "type": "object"
-        },
-        "success": {
-          "enum": [
-            true
-          ],
-          "type": "boolean"
-        }
-      },
-      "required": [
-        "errors",
-        "messages",
-        "result",
-        "result_info",
-        "success"
-      ],
-      "type": "object",
-      $defs: {
-        "workers-observability_agent_session_run": workers$$observability_agent_session_run,
-      },
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "List Agent session runs"
-    },
-    [OPERATION]: {
-      method: "GET",
-      path: "/accounts/{account_id}/workers/observability/agents/sessions/{conversationId}/runs",
-      pathOf: encodePath`/accounts/${"account_id"}/workers/observability/agents/sessions/${"conversationId"}/runs`,
-      query: [
-        { name: "service", explode: true },
-        { name: "agent", explode: true },
-        { name: "from", explode: true },
-        { name: "to", explode: true },
-        { name: "cursor", explode: true },
-        { name: "per_page", explode: true },
-      ],
-      responses: {
-        schemas: {
-          "200": {
-            "properties": {
-              "errors": {
-                "items": {
-                  "properties": {
-                    "message": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "message"
-                  ],
-                  "type": "object"
-                },
-                "type": "array"
-              },
-              "messages": {
-                "items": {
-                  "properties": {
-                    "message": {
-                      "enum": [
-                        "Successful request"
-                      ],
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "message"
-                  ],
-                  "type": "object"
-                },
-                "type": "array"
-              },
-              "result": {
-                "items": {
-                  "$ref": "#/$defs/workers-observability_agent_session_run"
-                },
-                "type": "array"
-              },
-              "result_info": {
-                "properties": {
-                  "count": {
-                    "type": "integer"
-                  },
-                  "cursors": {
-                    "properties": {
-                      "after": {
-                        "oneOf": [
-                          {
-                            "type": "string"
-                          },
-                          {
-                            "type": "null"
-                          }
-                        ]
-                      }
-                    },
-                    "required": [
-                      "after"
-                    ],
-                    "type": "object"
-                  },
-                  "per_page": {
-                    "type": "integer"
-                  }
-                },
-                "required": [
-                  "count",
-                  "cursors",
-                  "per_page"
-                ],
-                "type": "object"
-              },
-              "success": {
-                "enum": [
-                  true
-                ],
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "errors",
-              "messages",
-              "result",
-              "result_info",
-              "success"
-            ],
-            "type": "object"
-          },
-          "400": {
-            "properties": {
-              "errors": {
-                "items": {
-                  "properties": {
-                    "detail": {
-                      "type": "string"
-                    },
-                    "message": {
-                      "enum": [
-                        "Bad Request"
-                      ],
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "message"
-                  ],
-                  "type": "object"
-                },
-                "type": "array"
-              },
-              "messages": {
-                "items": {
-                  "properties": {
-                    "message": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "message"
-                  ],
-                  "type": "object"
-                },
-                "type": "array"
-              },
-              "success": {
-                "enum": [
-                  false
-                ],
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "errors",
-              "messages",
-              "success"
-            ],
-            "type": "object"
-          },
-          "401": {
-            "properties": {
-              "errors": {
-                "items": {
-                  "properties": {
-                    "detail": {
-                      "type": "string"
-                    },
-                    "message": {
-                      "enum": [
-                        "Unauthorized"
-                      ],
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "message"
-                  ],
-                  "type": "object"
-                },
-                "type": "array"
-              },
-              "messages": {
-                "items": {
-                  "properties": {
-                    "message": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "message"
-                  ],
-                  "type": "object"
-                },
-                "type": "array"
-              },
-              "success": {
-                "enum": [
-                  false
-                ],
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "errors",
-              "messages",
-              "success"
-            ],
-            "type": "object"
-          },
-          "403": {
-            "properties": {
-              "errors": {
-                "items": {
-                  "properties": {
-                    "detail": {
-                      "type": "string"
-                    },
-                    "message": {
-                      "enum": [
-                        "Forbidden"
-                      ],
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "message"
-                  ],
-                  "type": "object"
-                },
-                "type": "array"
-              },
-              "messages": {
-                "items": {
-                  "properties": {
-                    "message": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "message"
-                  ],
-                  "type": "object"
-                },
-                "type": "array"
-              },
-              "success": {
-                "enum": [
-                  false
-                ],
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "errors",
-              "messages",
-              "success"
-            ],
-            "type": "object"
-          },
-          "429": {
-            "properties": {
-              "errors": {
-                "items": {
-                  "properties": {
-                    "detail": {
-                      "type": "string"
-                    },
-                    "message": {
-                      "enum": [
-                        "Too many requests"
-                      ],
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "message"
-                  ],
-                  "type": "object"
-                },
-                "type": "array"
-              },
-              "messages": {
-                "items": {
-                  "properties": {
-                    "message": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "message"
-                  ],
-                  "type": "object"
-                },
-                "type": "array"
-              },
-              "success": {
-                "enum": [
-                  false
-                ],
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "errors",
-              "messages",
-              "success"
-            ],
-            "type": "object"
-          },
-          "500": {
-            "properties": {
-              "errors": {
-                "items": {
-                  "properties": {
-                    "detail": {
-                      "type": "string"
-                    },
-                    "message": {
-                      "enum": [
-                        "Internal error"
-                      ],
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "message"
-                  ],
-                  "type": "object"
-                },
-                "type": "array"
-              },
-              "messages": {
-                "items": {
-                  "properties": {
-                    "message": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "message"
-                  ],
-                  "type": "object"
-                },
-                "type": "array"
-              },
-              "success": {
-                "enum": [
-                  false
-                ],
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "errors",
-              "messages",
-              "success"
-            ],
-            "type": "object"
-          },
-          "504": {
-            "properties": {
-              "errors": {
-                "items": {
-                  "properties": {
-                    "detail": {
-                      "type": "string"
-                    },
-                    "message": {
-                      "enum": [
-                        "Gateway timeout"
-                      ],
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "message"
-                  ],
-                  "type": "object"
-                },
-                "type": "array"
-              },
-              "messages": {
-                "items": {
-                  "properties": {
-                    "message": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "message"
-                  ],
-                  "type": "object"
-                },
-                "type": "array"
-              },
-              "success": {
-                "enum": [
-                  false
-                ],
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "errors",
-              "messages",
-              "success"
-            ],
-            "type": "object"
-          }
-        },
-        $defs: {
-          "workers-observability_agent_session_run": workers$$observability_agent_session_run,
+          "workers-observability_agent_result_info": workers$$observability_agent_result_info,
+          "workers-observability_agent_trace_summary": workers$$observability_agent_trace_summary,
+          "workers-observability_trace_summary": workers$$observability_trace_summary,
         },
       },
     },

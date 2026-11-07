@@ -81,13 +81,20 @@ export const r2$$slurper_R2SourceSchema: JSONObject = {
       "type": "string"
     },
     "jurisdiction": {
-      "enum": [
-        "default",
-        "eu",
-        "us",
-        "fedramp"
-      ],
-      "type": "string"
+      "oneOf": [
+        {
+          "enum": [
+            "default",
+            "eu",
+            "us",
+            "fedramp"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "keys": {
       "oneOf": [
@@ -140,13 +147,20 @@ export const r2$$slurper_R2TargetSchema: JSONObject = {
       "type": "string"
     },
     "jurisdiction": {
-      "enum": [
-        "default",
-        "eu",
-        "us",
-        "fedramp"
-      ],
-      "type": "string"
+      "oneOf": [
+        {
+          "enum": [
+            "default",
+            "eu",
+            "us",
+            "fedramp"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "secret": {
       "$ref": "#/$defs/r2-slurper_S3LikeCredsSchema"

@@ -7,13 +7,10 @@ import {
   tls$$certificates$$and$$hostnames_api$$response$$single,
   tls$$certificates$$and$$hostnames_messages,
 } from "../../../outputs.js";
-import {
-  tls$$certificates$$and$$hostnames_hostname_associations_response,
-  tls$$certificates$$and$$hostnames_hostnames$$2,
-} from "./outputs.js";
+import { tls$$certificates$$and$$hostnames_hostname_associations_response } from "./outputs.js";
 import {
   tls$$certificates$$and$$hostnames_hostname_association,
-  tls$$certificates$$and$$hostnames_hostnames$$2 as tls$$certificates$$and$$hostnames_hostnames$$2$,
+  tls$$certificates$$and$$hostnames_hostnames$$2,
 } from "./schemas.js";
 
 /**
@@ -61,7 +58,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
         "tls-certificates-and-hostnames_hostname_associations_response": tls$$certificates$$and$$hostnames_hostname_associations_response,
-        "tls-certificates-and-hostnames_hostnames-2": tls$$certificates$$and$$hostnames_hostnames$$2,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
       },
     },
@@ -104,7 +100,6 @@ export const tools: readonly Tool[] = [
           "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
           "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
           "tls-certificates-and-hostnames_hostname_associations_response": tls$$certificates$$and$$hostnames_hostname_associations_response,
-          "tls-certificates-and-hostnames_hostnames-2": tls$$certificates$$and$$hostnames_hostnames$$2,
           "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
         },
       },
@@ -141,7 +136,7 @@ export const tools: readonly Tool[] = [
       additionalProperties: false,
       $defs: {
         "tls-certificates-and-hostnames_hostname_association": tls$$certificates$$and$$hostnames_hostname_association,
-        "tls-certificates-and-hostnames_hostnames-2": tls$$certificates$$and$$hostnames_hostnames$$2$,
+        "tls-certificates-and-hostnames_hostnames-2": tls$$certificates$$and$$hostnames_hostnames$$2,
       },
     },
     outputSchema: {
@@ -149,7 +144,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
         "tls-certificates-and-hostnames_hostname_associations_response": tls$$certificates$$and$$hostnames_hostname_associations_response,
-        "tls-certificates-and-hostnames_hostnames-2": tls$$certificates$$and$$hostnames_hostnames$$2,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
       },
     },
@@ -189,7 +183,6 @@ export const tools: readonly Tool[] = [
           "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
           "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
           "tls-certificates-and-hostnames_hostname_associations_response": tls$$certificates$$and$$hostnames_hostname_associations_response,
-          "tls-certificates-and-hostnames_hostnames-2": tls$$certificates$$and$$hostnames_hostnames$$2,
           "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
         },
       },

@@ -9,20 +9,20 @@ import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
 export const tools: readonly Tool[] = [
   {
     name: "brandProtection_logos_create",
-    title: "Insert logo query",
-    description: "Create a new saved brand protection logo query for visual similarity matching\n\nPOST /accounts/{account_id}/cloudforce-one/v2/brand-protection/logo/queries",
+    title: "Create logo query",
+    description: "Uploads a logo and creates a saved logo query that finds visually similar images on scanned websites. The tag must be unique among the account's logo queries. By default, the new query also searches previously scanned images (see `search_lookback`). Creation fails when the account has reached its Brand Protection query limit, which counts domain and logo queries together.\n\nPOST /accounts/{account_id}/cloudforce-one/v2/brand-protection/logo/queries",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "image_data": {
-              "description": "Base64 encoded image data. Can include data URI prefix (e.g., 'data:image/png;base64,...') or just the base64 string.",
+              "description": "Base64 encoded image data. Can include data URI prefix (e.g., 'data:image/png;base64,...') or just the base64 string. Supported formats: PNG, JPEG, GIF, WebP, BMP, and SVG. ICO is also accepted when the data includes a `data:image/x-icon;base64,` prefix.",
               "type": "string"
             },
             "search_lookback": {
               "default": true,
-              "description": "If true, search historic scanned images for matches above the similarity threshold",
+              "description": "If true, also search previously scanned images for matches above the similarity threshold. Defaults to `true`.",
               "type": "boolean"
             },
             "similarity_threshold": {
@@ -30,7 +30,7 @@ export const tools: readonly Tool[] = [
               "type": "number"
             },
             "tag": {
-              "description": "Unique identifier for the logo query",
+              "description": "Name of the logo query. Must be unique among the account's logo queries.",
               "type": "string"
             }
           },
@@ -82,7 +82,7 @@ export const tools: readonly Tool[] = [
       "idempotentHint": false,
       "openWorldHint": true,
       "readOnlyHint": false,
-      "title": "Insert logo query"
+      "title": "Create logo query"
     },
     [OPERATION]: {
       method: "POST",
@@ -122,7 +122,7 @@ export const tools: readonly Tool[] = [
   {
     name: "brandProtection_logos_delete",
     title: "Delete logo query",
-    description: "Delete a saved brand protection logo query. Returns 404 if the query ID doesn't exist.\n\nDELETE /accounts/{account_id}/cloudforce-one/v2/brand-protection/logo/queries/{query_id}",
+    description: "Permanently deletes a saved logo query and all of its matches. If the query does not exist in this account, the request fails with error code 404.\n\nDELETE /accounts/{account_id}/cloudforce-one/v2/brand-protection/logo/queries/{query_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -133,6 +133,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "query_id": {
+              "description": "ID of the logo query.",
               "type": "string"
             }
           },
@@ -203,8 +204,8 @@ export const tools: readonly Tool[] = [
   },
   {
     name: "brandProtection_logos_get",
-    title: "Get logo queries",
-    description: "Get all saved brand protection logo queries for an account. Optionally specify id to get a single query. Set download=true to include base64-encoded image data.\n\nGET /accounts/{account_id}/cloudforce-one/v2/brand-protection/logo/queries",
+    title: "List logo queries",
+    description: "Lists the account's saved logo queries. Set `id` to return a single query object instead of an array. Set `download=true` to include each logo image as base64 data.\n\nGET /accounts/{account_id}/cloudforce-one/v2/brand-protection/logo/queries",
     inputSchema: {
       type: "object",
       properties: {
@@ -224,11 +225,11 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "download": {
-              "description": "If true, include base64-encoded image data in the response",
+              "description": "Set to `true` to include each logo image as base64 data in `image_data`, with its MIME type in `content_type`.",
               "type": "string"
             },
             "id": {
-              "description": "Optional query ID to retrieve a specific logo query",
+              "description": "ID of a logo query. When set, `result` is that single query object instead of an array.",
               "type": "string"
             }
           },
@@ -288,7 +289,7 @@ export const tools: readonly Tool[] = [
       "idempotentHint": true,
       "openWorldHint": true,
       "readOnlyHint": true,
-      "title": "Get logo queries"
+      "title": "List logo queries"
     },
     [OPERATION]: {
       method: "GET",

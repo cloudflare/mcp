@@ -52,7 +52,6 @@ export const tls$$certificates$$and$$hostnames_custom$$trust$$store: JSONObject 
     "issuer",
     "signature",
     "status",
-    "updated_at",
     "uploaded_on"
   ],
   "type": "object"

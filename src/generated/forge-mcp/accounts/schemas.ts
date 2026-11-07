@@ -34,19 +34,11 @@ export const iam_account: JSONObject = {
         }
       },
       "type": "object"
-    },
-    "type": {
-      "enum": [
-        "standard",
-        "enterprise"
-      ],
-      "type": "string"
     }
   },
   "required": [
     "id",
-    "name",
-    "type"
+    "name"
   ],
   "type": "object"
 };

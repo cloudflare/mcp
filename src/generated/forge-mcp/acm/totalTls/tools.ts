@@ -23,7 +23,7 @@ export const tools: readonly Tool[] = [
         "body": {
           "properties": {
             "certificate_authority": {
-              "description": "The Certificate Authority that Total TLS certificates will be issued through.",
+              "description": "The Certificate Authority that Total TLS certificates will be issued through. Not returned in responses when Total TLS is disabled.",
               "enum": [
                 "google",
                 "lets_encrypt",
