@@ -8042,7 +8042,6 @@ export const tools: readonly Tool[] = [
               ]
             },
             "workers_ai_billing_mode": {
-              "default": "postpaid",
               "description": "Controls how Workers AI inference calls routed through this gateway are billed. 'postpaid' bills the account directly through Workers AI; 'unified' deducts credits via AI Gateway using neuron-based pricing and delegates billing to AI Gateway.",
               "enum": [
                 "postpaid",

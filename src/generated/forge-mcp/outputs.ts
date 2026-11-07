@@ -3003,9 +3003,7 @@ export const cache$$settings_result$$object: JSONObject = {
       "format": "date-time",
       "type": "string"
     },
-    "value": {
-      "type": "string"
-    }
+    "value": {}
   },
   "required": [
     "editable",
@@ -5849,20 +5847,6 @@ export const mconn_response: JSONObject = {
 };
 
 /**
- * The schema of `organizations-api_AccountListResultInfo` in responses.
- */
-export const organizations$$api_AccountListResultInfo: JSONObject = {
-  "anyOf": [
-    {
-      "$ref": "#/$defs/organizations-api_PageTokenResultInfo"
-    },
-    {
-      "$ref": "#/$defs/organizations-api_LegacyPaginationResultInfo"
-    }
-  ]
-};
-
-/**
  * The schema of `organizations-api_LegacyAccount` in responses.
  */
 export const organizations$$api_LegacyAccount: JSONObject = {
@@ -5929,33 +5913,6 @@ export const organizations$$api_LegacyAccount: JSONObject = {
     "account_type",
     "created_on",
     "settings"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `organizations-api_LegacyPaginationResultInfo` in responses.
- */
-export const organizations$$api_LegacyPaginationResultInfo: JSONObject = {
-  "properties": {
-    "count": {
-      "type": "integer"
-    },
-    "page": {
-      "type": "integer"
-    },
-    "per_page": {
-      "type": "integer"
-    },
-    "total_count": {
-      "type": "integer"
-    }
-  },
-  "required": [
-    "count",
-    "page",
-    "per_page",
-    "total_count"
   ],
   "type": "object"
 };
@@ -9303,6 +9260,9 @@ export const workers_binding_item: JSONObject = {
     },
     {
       "$ref": "#/$defs/workers_binding_kind_vpc_network"
+    },
+    {
+      "$ref": "#/$defs/workers_binding_kind_worker_loader"
     }
   ]
 };
@@ -10389,6 +10349,28 @@ export const workers_binding_kind_wasm_module: JSONObject = {
   "required": [
     "name",
     "part",
+    "type"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `workers_binding_kind_worker_loader` in responses.
+ */
+export const workers_binding_kind_worker_loader: JSONObject = {
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "type": {
+      "enum": [
+        "worker_loader"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
     "type"
   ],
   "type": "object"

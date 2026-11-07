@@ -30,6 +30,13 @@ export const email_sending_limits_properties: JSONObject = {
         }
       ]
     },
+    "recipient_mode": {
+      "enum": [
+        "arbitrary",
+        "verified_only"
+      ],
+      "type": "string"
+    },
     "usage": {
       "oneOf": [
         {

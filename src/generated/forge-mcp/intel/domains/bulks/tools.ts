@@ -57,6 +57,11 @@ export const tools: readonly Tool[] = [
               "description": "Whether to include domain ranking data in the response. Defaults to\n`false` — ranking lookups are expensive at bulk scale and most\ncallers do not need them. Set to `true` to opt in. This parameter\nreplaces the deprecated `skip_ranking` (see below).",
               "type": "boolean"
             },
+            "skip_dns": {
+              "default": false,
+              "description": "Skip the DNS resolution-history lookup for faster responses. Defaults\nto `false`. Set to `true` if you only need categorization data; no\nDNS resolution history is returned for any domain. Matches the\n`skip_dns` parameter on `/intel/domain`.",
+              "type": "boolean"
+            },
             "skip_ranking": {
               "deprecated": true,
               "description": "**Deprecated.** Previously controlled whether the ranking lookup\nwas skipped (defaulted to `false`, meaning ranking ran). The\nendpoint's default behavior is being flipped — ranking is now\nopt-in via `include_ranking=true` — and this parameter will be\nsilently ignored. Remove it from your callers and use\n`include_ranking` instead.",
@@ -100,6 +105,7 @@ export const tools: readonly Tool[] = [
       query: [
         { name: "domain", explode: true },
         { name: "include_ranking", explode: true },
+        { name: "skip_dns", explode: true },
         { name: "skip_ranking", explode: true },
       ],
       extensions: {

@@ -113,6 +113,12 @@ export const tools: readonly Tool[] = [
           "201": {
             "$ref": "#/$defs/alexandria_get_application_response"
           },
+          "403": {
+            "$ref": "#/$defs/alexandria_api_response_common_failure"
+          },
+          "429": {
+            "$ref": "#/$defs/alexandria_api_response_common_failure"
+          },
           "4XX": {
             "$ref": "#/$defs/alexandria_api_response_common_failure"
           }
@@ -194,8 +200,14 @@ export const tools: readonly Tool[] = [
           "200": {
             "$ref": "#/$defs/alexandria_delete_application_response"
           },
+          "403": {
+            "$ref": "#/$defs/alexandria_api_response_common_failure"
+          },
           "409": {
             "$ref": "#/$defs/alexandria_delete_application_conflict_response"
+          },
+          "429": {
+            "$ref": "#/$defs/alexandria_api_response_common_failure"
           },
           "4XX": {
             "$ref": "#/$defs/alexandria_api_response_common_failure"
@@ -285,6 +297,9 @@ export const tools: readonly Tool[] = [
           "200": {
             "$ref": "#/$defs/alexandria_get_application_response"
           },
+          "403": {
+            "$ref": "#/$defs/alexandria_api_response_common_failure"
+          },
           "4XX": {
             "$ref": "#/$defs/alexandria_api_response_common_failure"
           }
@@ -355,7 +370,7 @@ export const tools: readonly Tool[] = [
               "type": "integer"
             },
             "order_by": {
-              "description": "Order results using field:direction format. Supported fields are name, id, human_id,\ncategory_id, application_type, application_confidence_score, and gen_ai_score.\nSupported directions are asc and desc. Ignored when search is provided; results are\nranked by relevance instead. Also ignored when lookup is provided.",
+              "description": "Order results using field:direction format. Supported fields are name, id, human_id,\ncategory_id, application_type, application_confidence_score, and gen_ai_score.\nSupported directions are asc and desc. name and application_type ignore the case of\nthe letters A to Z, and ties sort by id. Ignored when search is provided; results are\nranked by relevance instead. Also ignored when lookup is provided.",
               "type": "string"
             },
             "search": {
@@ -662,6 +677,12 @@ export const tools: readonly Tool[] = [
         schemas: {
           "200": {
             "$ref": "#/$defs/alexandria_get_application_response"
+          },
+          "403": {
+            "$ref": "#/$defs/alexandria_api_response_common_failure"
+          },
+          "429": {
+            "$ref": "#/$defs/alexandria_api_response_common_failure"
           },
           "4XX": {
             "$ref": "#/$defs/alexandria_api_response_common_failure"

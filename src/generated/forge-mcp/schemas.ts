@@ -1903,6 +1903,9 @@ export const workers_binding_item: JSONObject = {
     },
     {
       "$ref": "#/$defs/workers_binding_kind_vpc_network"
+    },
+    {
+      "$ref": "#/$defs/workers_binding_kind_worker_loader"
     }
   ]
 };
@@ -3131,6 +3134,30 @@ export const workers_binding_kind_wasm_module: JSONObject = {
   "required": [
     "name",
     "part",
+    "type"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `workers_binding_kind_worker_loader`.
+ */
+export const workers_binding_kind_worker_loader: JSONObject = {
+  "properties": {
+    "name": {
+      "description": "A JavaScript variable name for the binding.",
+      "type": "string"
+    },
+    "type": {
+      "description": "The kind of resource that the binding provides.",
+      "enum": [
+        "worker_loader"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
     "type"
   ],
   "type": "object"

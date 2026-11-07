@@ -196,10 +196,6 @@ export const tools: readonly Tool[] = [
             "ignore_base_config": {
               "description": "If true, preview base config from the parent Worker is ignored.",
               "type": "boolean"
-            },
-            "ignore_defaults": {
-              "description": "If true, preview defaults/base config from the parent Worker is ignored.",
-              "type": "boolean"
             }
           },
           "type": "object"
@@ -246,7 +242,6 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/workers/workers/{worker_id}/previews",
       pathOf: encodePath`/accounts/${"account_id"}/workers/workers/${"worker_id"}/previews`,
       query: [
-        { name: "ignore_defaults", explode: true },
         { name: "ignore_base_config", explode: true },
       ],
       body: { mediaTypes: ["application/json"] },
@@ -897,10 +892,6 @@ export const tools: readonly Tool[] = [
             "ignore_base_config": {
               "description": "If true, preview base config from the parent Worker is ignored.",
               "type": "boolean"
-            },
-            "ignore_defaults": {
-              "description": "If true, preview defaults/base config from the parent Worker is ignored.",
-              "type": "boolean"
             }
           },
           "type": "object"
@@ -947,7 +938,6 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/workers/workers/{worker_id}/previews/{preview_id}",
       pathOf: encodePath`/accounts/${"account_id"}/workers/workers/${"worker_id"}/previews/${"preview_id"}`,
       query: [
-        { name: "ignore_defaults", explode: true },
         { name: "ignore_base_config", explode: true },
       ],
       body: { mediaTypes: ["application/json"] },

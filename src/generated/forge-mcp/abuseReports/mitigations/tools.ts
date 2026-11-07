@@ -396,6 +396,23 @@ export const tools: readonly Tool[] = [
           "403": {
             "$ref": "#/$defs/abuse-reports_CloudflareAPIErrorResponse"
           },
+          "409": {
+            "properties": {
+              "errors": {
+                "items": {
+                  "$ref": "#/$defs/abuse-reports_Message"
+                },
+                "type": "array"
+              },
+              "success": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "success"
+            ],
+            "type": "object"
+          },
           "500": {
             "properties": {
               "errors": {

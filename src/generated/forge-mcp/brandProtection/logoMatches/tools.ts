@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "brandProtection_logoMatches_get",
     title: "List logo matches",
-    description: "Get paginated list of logo matches for a specific brand protection logo query\n\nGET /accounts/{account_id}/cloudforce-one/v2/brand-protection/logo/matches",
+    description: "Lists images that matched a saved logo query, most recently matched first by default. Set `download=true` to include each matched image as base64 data.\n\nGET /accounts/{account_id}/cloudforce-one/v2/brand-protection/logo/matches",
     inputSchema: {
       type: "object",
       properties: {
@@ -30,18 +30,21 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "download": {
+              "description": "Set to `true` to include each matched image as base64 data in `image_data`, with its MIME type in `content_type`.",
               "type": "string"
             },
             "limit": {
               "default": "50",
+              "description": "Maximum number of matches to return. Defaults to 50.",
               "type": "string"
             },
             "offset": {
               "default": "0",
+              "description": "Number of matches to skip, for pagination. Defaults to 0.",
               "type": "string"
             },
             "order": {
-              "description": "Sort order. Options: 'asc' (ascending) or 'desc' (descending)",
+              "description": "Sort direction: `asc` or `desc`. Defaults to `desc`.",
               "enum": [
                 "asc",
                 "desc"
@@ -49,7 +52,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "orderBy": {
-              "description": "Column to sort by. Options: 'matchedAt', 'domain', 'similarityScore', or 'registrar'",
+              "description": "Field to sort by: `matchedAt`, `domain`, `similarityScore`, or `registrar`. Defaults to `matchedAt`.",
               "enum": [
                 "matchedAt",
                 "domain",
@@ -59,6 +62,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "query_id": {
+              "description": "ID of the logo query whose matches to list.",
               "type": "string"
             }
           },

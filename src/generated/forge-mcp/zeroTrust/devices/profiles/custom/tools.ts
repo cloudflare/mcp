@@ -99,15 +99,9 @@ export const tools: readonly Tool[] = [
               "type": "boolean"
             },
             "description": {
-              "allOf": [
-                {
-                  "description": "A description of the policy.",
-                  "type": "string"
-                },
-                {
-                  "type": "string"
-                }
-              ]
+              "default": "",
+              "description": "A description of the policy.",
+              "type": "string"
             },
             "disable_auto_fallback": {
               "default": false,

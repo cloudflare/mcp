@@ -155,13 +155,20 @@ export const r2$$slurper_JobResponse: JSONObject = {
               "type": "string"
             },
             "jurisdiction": {
-              "enum": [
-                "default",
-                "eu",
-                "us",
-                "fedramp"
-              ],
-              "type": "string"
+              "oneOf": [
+                {
+                  "enum": [
+                    "default",
+                    "eu",
+                    "us",
+                    "fedramp"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "keys": {
               "oneOf": [
@@ -212,13 +219,20 @@ export const r2$$slurper_JobResponse: JSONObject = {
           "type": "string"
         },
         "jurisdiction": {
-          "enum": [
-            "default",
-            "eu",
-            "us",
-            "fedramp"
-          ],
-          "type": "string"
+          "oneOf": [
+            {
+              "enum": [
+                "default",
+                "eu",
+                "us",
+                "fedramp"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "vendor": {
           "enum": [

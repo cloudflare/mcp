@@ -10,13 +10,14 @@ export const tools: readonly Tool[] = [
   {
     name: "brandProtection_matches_bulkDismiss",
     title: "Bulk dismiss or undismiss matches",
-    description: "Dismiss or undismiss multiple matches in a single request. Accepts either the new format (matches: [{query_id, domain_id}]) for per-query control, or the legacy format (match_ids: [number]) which dismisses for all queries sharing each match's hash. Returns per-item success/error results.\n\nPOST /accounts/{account_id}/cloudforce-one/v2/brand-protection/domain/matches/bulk-dismiss",
+    description: "Dismisses or undismisses up to 100 domain matches in one request and returns a result for each item. Send `matches` as (`query_id`, `domain_id`) pairs to change each match for one query. The legacy `match_ids` format is still accepted, but it changes each match for every query that shares it; prefer `matches`.\n\nPOST /accounts/{account_id}/cloudforce-one/v2/brand-protection/domain/matches/bulk-dismiss",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "action": {
+              "description": "`dismiss` to dismiss the matches, or `undismiss` to restore them.",
               "enum": [
                 "dismiss",
                 "undismiss"
@@ -24,6 +25,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "match_ids": {
+              "description": "Legacy format; prefer `matches`. Match IDs to update. Each ID changes the match for every query that shares it, not just one query. 1 to 100 items; duplicate IDs are rejected.",
               "items": {
                 "type": "integer"
               },
@@ -32,12 +34,15 @@ export const tools: readonly Tool[] = [
               "type": "array"
             },
             "matches": {
+              "description": "Matches to update, as (`query_id`, `domain_id`) pairs. Each pair changes the match for that query only. 1 to 100 items; duplicate pairs are rejected. Send only one format. If both are supplied, `match_ids` takes precedence and `matches` is ignored.",
               "items": {
                 "properties": {
                   "domain_id": {
+                    "description": "ID of the matched domain, as returned in `domain_id` by List domain matches with `include_domain_id=true`.",
                     "type": "integer"
                   },
                   "query_id": {
+                    "description": "ID of the domain query.",
                     "type": "integer"
                   }
                 },
@@ -281,8 +286,8 @@ export const tools: readonly Tool[] = [
   },
   {
     name: "brandProtection_matches_get",
-    title: "List saved query matches",
-    description: "Get paginated list of domain matches for one or more brand protection queries. When multiple query_ids are provided (comma-separated), matches are deduplicated across queries and each match includes a match_details array with per-match query metadata and individual dismissed state.\n\nGET /accounts/{account_id}/cloudforce-one/v2/brand-protection/domain/matches",
+    title: "List domain matches",
+    description: "Lists domains that matched one or more saved domain queries, most recently matched first by default. When you pass several comma-separated `query_id` values, matches are deduplicated by domain and each match includes a `match_details` array with per-query dismissed state. Set `include_domain_id=true` to get the `domain_id` needed to dismiss or undismiss a match.\n\nGET /accounts/{account_id}/cloudforce-one/v2/brand-protection/domain/matches",
     inputSchema: {
       type: "object",
       properties: {
@@ -302,26 +307,30 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "domain_search": {
-              "description": "Filter matches by domain name (substring match)",
+              "description": "Return only matches whose domain contains this text (case-insensitive).",
               "type": "string"
             },
             "include_dismissed": {
+              "description": "Set to `false` to exclude dismissed matches. Dismissed matches are included when this is omitted or `true`.",
               "type": "string"
             },
             "include_domain_id": {
               "default": "false",
+              "description": "Set to `true` to include `domain_id` on each match. Required to dismiss or undismiss a match. Defaults to `false`.",
               "type": "string"
             },
             "limit": {
               "default": "50",
+              "description": "Maximum number of matches to return. Defaults to 50.",
               "type": "string"
             },
             "offset": {
               "default": "0",
+              "description": "Number of matches to skip, for pagination. Defaults to 0.",
               "type": "string"
             },
             "order": {
-              "description": "Sort order. Options: 'asc' (ascending) or 'desc' (descending)",
+              "description": "Sort direction: `asc` or `desc`. Defaults to `desc`. For single-query requests, `asc` applies only when `orderBy` is set.",
               "enum": [
                 "asc",
                 "desc"
@@ -329,7 +338,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "orderBy": {
-              "description": "Column to sort by. Options: 'domain', 'first_seen', or 'registrar'",
+              "description": "Field to sort by: `domain`, `first_seen`, or `registrar`. Defaults to `first_seen`.",
               "enum": [
                 "domain",
                 "first_seen",
@@ -338,7 +347,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "query_id": {
-              "description": "Query ID or comma-separated list of Query IDs. When multiple IDs are provided, matches are deduplicated across queries and each match includes a match_details array with per-match query metadata and dismissed state.",
+              "description": "ID of a domain query, or a comma-separated list of domain query IDs. When you pass several IDs, matches are deduplicated by domain and each match includes a `match_details` array with per-query metadata and dismissed state.",
               "items": {
                 "type": "string"
               },
@@ -367,6 +376,9 @@ export const tools: readonly Tool[] = [
               },
               "domain": {
                 "type": "string"
+              },
+              "domain_id": {
+                "type": "integer"
               },
               "first_seen": {
                 "type": "string"
@@ -484,7 +496,7 @@ export const tools: readonly Tool[] = [
       "idempotentHint": true,
       "openWorldHint": true,
       "readOnlyHint": true,
-      "title": "List saved query matches"
+      "title": "List domain matches"
     },
     [OPERATION]: {
       method: "GET",
@@ -518,6 +530,9 @@ export const tools: readonly Tool[] = [
                     },
                     "domain": {
                       "type": "string"
+                    },
+                    "domain_id": {
+                      "type": "integer"
                     },
                     "first_seen": {
                       "type": "string"

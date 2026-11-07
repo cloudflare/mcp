@@ -108,7 +108,7 @@ export const tools: readonly Tool[] = [
     },
   },
   {
-    name: "user_subscriptions_get",
+    name: "user_subscriptions_list",
     title: "Get User Subscriptions",
     description: "Lists all of a user's subscriptions.\n\nGET /user/subscriptions",
     inputSchema: {

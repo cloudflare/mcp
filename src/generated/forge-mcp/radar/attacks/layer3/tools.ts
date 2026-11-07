@@ -674,7 +674,7 @@ export const tools: readonly Tool[] = [
               "type": "array"
             },
             "metric": {
-              "default": "bytes",
+              "default": "BYTES",
               "description": "Measurement units, eg. bytes.",
               "enum": [
                 "BYTES",

@@ -275,13 +275,7 @@ export const tls$$certificates$$and$$hostnames_ssl: JSONObject = {
       ],
       "type": "string"
     },
-    "custom_certificate": {
-      "type": "string"
-    },
     "custom_csr_id": {
-      "type": "string"
-    },
-    "custom_key": {
       "type": "string"
     },
     "dcv_delegation_records": {

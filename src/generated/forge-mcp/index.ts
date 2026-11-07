@@ -132,6 +132,7 @@ import { tools as brandProtection_matchesTools } from "./brandProtection/matches
 import { tools as brandProtection_queriesTools } from "./brandProtection/queries/tools.js";
 import { tools as brandProtectionTools } from "./brandProtection/tools.js";
 import { tools as brandProtection_trialTools } from "./brandProtection/trial/tools.js";
+import { tools as brandProtection_urlsTools } from "./brandProtection/urls/tools.js";
 import { tools as browserRun_crawlTools } from "./browserRun/crawl/tools.js";
 import { tools as browserRun_devtools_browser_liveViewTools } from "./browserRun/devtools/browser/liveView/tools.js";
 import { tools as browserRun_devtools_browser_targetsTools } from "./browserRun/devtools/browser/targets/tools.js";
@@ -202,6 +203,7 @@ import { tools as cloudforceOne_scans_resultsTools } from "./cloudforceOne/scans
 import { tools as cloudforceOne_threatIntel_datasets_access_groups_membersTools } from "./cloudforceOne/threatIntel/datasets/access/groups/members/tools.js";
 import { tools as cloudforceOne_threatIntel_datasets_access_groupsTools } from "./cloudforceOne/threatIntel/datasets/access/groups/tools.js";
 import { tools as cloudforceOne_threatIntel_datasets_access_permissionsTools } from "./cloudforceOne/threatIntel/datasets/access/permissions/tools.js";
+import { tools as cloudforceOne_threatIntel_datasets_preferencesTools } from "./cloudforceOne/threatIntel/datasets/preferences/tools.js";
 import { tools as cloudforceOne_threatIntel_datasetsTools } from "./cloudforceOne/threatIntel/datasets/tools.js";
 import { tools as cloudforceOne_threatIntel_events_attackersTools } from "./cloudforceOne/threatIntel/events/attackers/tools.js";
 import { tools as cloudforceOne_threatIntel_events_categories_catalogTools } from "./cloudforceOne/threatIntel/events/categories/catalog/tools.js";
@@ -249,6 +251,7 @@ import { tools as containers_applications_versionsTools } from "./containers/app
 import { tools as containers_imagesTools } from "./containers/images/tools.js";
 import { tools as containers_registries_credentialsTools } from "./containers/registries/credentials/tools.js";
 import { tools as containers_registriesTools } from "./containers/registries/tools.js";
+import { tools as containersTools } from "./containers/tools.js";
 import { tools as contentScan_expressionsTools } from "./contentScan/expressions/tools.js";
 import { tools as contentScanTools } from "./contentScan/tools.js";
 import { tools as cpsTools } from "./cps/tools.js";
@@ -289,7 +292,6 @@ import { tools as durableObjects_namespaces_objectsTools } from "./durableObject
 import { tools as durableObjects_namespacesTools } from "./durableObjects/namespaces/tools.js";
 import { tools as emailAuth_dmarcReportsTools } from "./emailAuth/dmarcReports/tools.js";
 import { tools as emailAuth_spfTools } from "./emailAuth/spf/tools.js";
-import { tools as emailDomainsTools } from "./emailDomains/tools.js";
 import { tools as emailRouting_addressesTools } from "./emailRouting/addresses/tools.js";
 import { tools as emailRouting_dnsTools } from "./emailRouting/dns/tools.js";
 import { tools as emailRouting_rules_catchAllTools } from "./emailRouting/rules/catchAll/tools.js";
@@ -478,7 +480,7 @@ import { tools as networkInterconnects_cnisTools } from "./networkInterconnects/
 import { tools as networkInterconnects_interconnectsTools } from "./networkInterconnects/interconnects/tools.js";
 import { tools as networkInterconnects_settingsTools } from "./networkInterconnects/settings/tools.js";
 import { tools as networkInterconnects_slotsTools } from "./networkInterconnects/slots/tools.js";
-import { tools as o11y_agents_sessionsTools } from "./o11y/agents/sessions/tools.js";
+import { tools as o11y_agents_tracesTools } from "./o11y/agents/traces/tools.js";
 import { tools as o11y_destinationsTools } from "./o11y/destinations/tools.js";
 import { tools as o11y_issues_automationsTools } from "./o11y/issues/automations/tools.js";
 import { tools as o11y_issuesTools } from "./o11y/issues/tools.js";
@@ -1009,7 +1011,6 @@ import { tools as zeroTrust_riskScoring_integrations_referencesTools } from "./z
 import { tools as zeroTrust_riskScoring_integrationsTools } from "./zeroTrust/riskScoring/integrations/tools.js";
 import { tools as zeroTrust_riskScoring_summaryTools } from "./zeroTrust/riskScoring/summary/tools.js";
 import { tools as zeroTrust_riskScoringTools } from "./zeroTrust/riskScoring/tools.js";
-import { tools as zeroTrust_seatsTools } from "./zeroTrust/seats/tools.js";
 import { tools as zeroTrust_users_mfa_authenticatorsTools } from "./zeroTrust/users/mfa/authenticators/tools.js";
 import { tools as zeroTrust_users_passkeysTools } from "./zeroTrust/users/passkeys/tools.js";
 import { tools as zones_activationCheckTools } from "./zones/activationCheck/tools.js";
@@ -1181,6 +1182,7 @@ export const tools: readonly Tool[] = [
   ...brandProtection_matchesTools,
   ...brandProtection_queriesTools,
   ...brandProtection_trialTools,
+  ...brandProtection_urlsTools,
   ...browserRun_crawlTools,
   ...browserRun_devtools_browserTools,
   ...browserRun_devtools_browser_liveViewTools,
@@ -1253,6 +1255,7 @@ export const tools: readonly Tool[] = [
   ...cloudforceOne_threatIntel_datasets_access_groupsTools,
   ...cloudforceOne_threatIntel_datasets_access_groups_membersTools,
   ...cloudforceOne_threatIntel_datasets_access_permissionsTools,
+  ...cloudforceOne_threatIntel_datasets_preferencesTools,
   ...cloudforceOne_threatIntel_eventsTools,
   ...cloudforceOne_threatIntel_events_attackersTools,
   ...cloudforceOne_threatIntel_events_categoriesTools,
@@ -1291,6 +1294,7 @@ export const tools: readonly Tool[] = [
   ...connectorTelemetryEventsTools,
   ...connectorTelemetrySnapshotsTools,
   ...connectorsTools,
+  ...containersTools,
   ...containers_applicationsTools,
   ...containers_applications_instancesTools,
   ...containers_applications_rolloutsTools,
@@ -1338,7 +1342,6 @@ export const tools: readonly Tool[] = [
   ...durableObjects_namespaces_objectsTools,
   ...emailAuth_dmarcReportsTools,
   ...emailAuth_spfTools,
-  ...emailDomainsTools,
   ...emailRoutingTools,
   ...emailRouting_addressesTools,
   ...emailRouting_dnsTools,
@@ -1528,7 +1531,7 @@ export const tools: readonly Tool[] = [
   ...networkInterconnects_settingsTools,
   ...networkInterconnects_slotsTools,
   ...o11yTools,
-  ...o11y_agents_sessionsTools,
+  ...o11y_agents_tracesTools,
   ...o11y_destinationsTools,
   ...o11y_issuesTools,
   ...o11y_issues_automationsTools,
@@ -2058,7 +2061,6 @@ export const tools: readonly Tool[] = [
   ...zeroTrust_riskScoring_integrationsTools,
   ...zeroTrust_riskScoring_integrations_referencesTools,
   ...zeroTrust_riskScoring_summaryTools,
-  ...zeroTrust_seatsTools,
   ...zeroTrust_users_mfa_authenticatorsTools,
   ...zeroTrust_users_passkeysTools,
   ...zonesTools,

@@ -184,9 +184,6 @@ export const dns$$settings_dns$$settings$$base: JSONObject = {
     "flatten_all_cnames": {
       "type": "boolean"
     },
-    "foundation_dns": {
-      "type": "boolean"
-    },
     "internal_dns": {
       "$ref": "#/$defs/dns-settings_internal_dns_base"
     },

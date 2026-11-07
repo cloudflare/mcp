@@ -69,7 +69,7 @@ export const nsc_InterconnectCreate_GcpPartner_Body: JSONObject = {
       "type": "object"
     }
   ],
-  "description": "GcpPartner"
+  "description": "InterconnectCreate_GcpPartner_Body"
 };
 
 /**
@@ -115,5 +115,5 @@ export const nsc_InterconnectCreate_Physical_Body: JSONObject = {
       "type": "object"
     }
   ],
-  "description": "Physical"
+  "description": "InterconnectCreate_Physical_Body"
 };

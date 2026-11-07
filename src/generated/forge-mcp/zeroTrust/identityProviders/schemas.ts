@@ -526,7 +526,7 @@ export const access_oidc: JSONObject = {
                   "type": "array"
                 },
                 "token_url": {
-                  "description": "The token_endpoint URL of your IdP",
+                  "description": "The token_endpoint URL of your IdP. Updates that change its origin (scheme, host, or port) require client_secret in the request. Path-only changes do not require client_secret.",
                   "type": "string"
                 }
               },

@@ -419,7 +419,7 @@ export const tools: readonly Tool[] = [
                 ],
                 "type": "object"
               },
-              "maxItems": 80,
+              "maxItems": 120,
               "type": "array"
             }
           },
@@ -3327,7 +3327,7 @@ export const tools: readonly Tool[] = [
                 ],
                 "type": "object"
               },
-              "maxItems": 80,
+              "maxItems": 120,
               "type": "array"
             }
           },
