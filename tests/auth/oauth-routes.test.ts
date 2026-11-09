@@ -182,6 +182,20 @@ describe('OAuth metadata policy', () => {
     await expect(response.text()).resolves.toBe('dQ0VUqjILNASTqFl73Rc8kt2ttMpEMmpqEZWsRhlpfc')
   })
 
+  it('serves the Muse connector verification file', async () => {
+    const response = await exports.default.fetch(
+      new Request(
+        `${MCP_ORIGIN}/.well-known/muse-challenge/20ba9ff978f128aafaf42f89e80dea7443a4fdab46ee01e1b9e03b1bbaf3251c`
+      )
+    )
+
+    expect(response.status).toBe(200)
+    expect(response.headers.get('Content-Type')).toBe('text/plain; charset=utf-8')
+    await expect(response.text()).resolves.toBe(
+      'muse-challenge=20ba9ff978f128aafaf42f89e80dea7443a4fdab46ee01e1b9e03b1bbaf3251c'
+    )
+  })
+
   it('advertises the canonical MCP endpoint as the protected resource', async () => {
     const response = await exports.default.fetch(
       new Request(`${MCP_ORIGIN}/.well-known/oauth-protected-resource/mcp`)
