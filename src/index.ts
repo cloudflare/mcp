@@ -16,9 +16,9 @@ import { syncSkills } from './skills/sync'
 const OPENAI_APPS_CHALLENGE_PATH = '/.well-known/openai-apps-challenge'
 const OPENAI_APPS_CHALLENGE_TOKEN = 'dQ0VUqjILNASTqFl73Rc8kt2ttMpEMmpqEZWsRhlpfc'
 const MUSE_CHALLENGE_PATH =
-  '/.well-known/muse-challenge/0a43b9686a1b69cb039d2ba9aebb409c65fae31d720507fa338782bc66c66ac0'
+  '/.well-known/muse-challenge/0d97d386777593156510dbf7cfec1e52f9cfa3f0b31c46d54a6c43e3e011421822'
 const MUSE_CHALLENGE_CONTENTS =
-  'muse-challenge=0a43b9686a1b69cb039d2ba9aebb409c65fae31d720507fa338782bc66c66ac0'
+  'muse-challenge=0d97d386777593156510dbf7cfec1e52f9cfa3f0b31c46d54a6c43e3e011421822'
 
 // GlobalOutbound lives with the execute tool (its only caller); wrangler
 // resolves the GLOBAL_OUTBOUND worker-loader entrypoint from this entry module,
