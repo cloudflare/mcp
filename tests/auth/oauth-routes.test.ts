@@ -185,14 +185,14 @@ describe('OAuth metadata policy', () => {
   it('serves the Muse connector verification file', async () => {
     const response = await exports.default.fetch(
       new Request(
-        `${MCP_ORIGIN}/.well-known/muse-challenge/0d97d386777593156510dbf7cfec1e52f9cfa3f0b31c46d54a6c43e3e011421822`
+        `${MCP_ORIGIN}/.well-known/muse-challenge/20ba9ff978f128aafaf42f89e80dea7443a4fdab46ee01e1b9e03b1bbaf3251c`
       )
     )
 
     expect(response.status).toBe(200)
     expect(response.headers.get('Content-Type')).toBe('text/plain; charset=utf-8')
     await expect(response.text()).resolves.toBe(
-      'muse-challenge=0d97d386777593156510dbf7cfec1e52f9cfa3f0b31c46d54a6c43e3e011421822'
+      'muse-challenge=20ba9ff978f128aafaf42f89e80dea7443a4fdab46ee01e1b9e03b1bbaf3251c'
     )
   })
 
