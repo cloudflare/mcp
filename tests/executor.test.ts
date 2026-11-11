@@ -645,31 +645,34 @@ describe('search: the pinned spec, in the forge tools service', () => {
   })
 })
 
-describe('execute: a limit Cloudflare says is exhausted', () => {
-  const LIMITED = {
-    status: 429,
-    headers: { 'Retry-After': '300', Ratelimit: '"rtwo_gw_apigw";r=0;t=300' }
-  }
+describe('execute: rate limit holds', () => {
+  const LIMITED = { 'Retry-After': '300', Ratelimit: '"rtwo_gw_apigw";r=0;t=300' }
   const bucket = `/accounts/${ACCOUNT_ID}/r2/buckets/b`
 
-  /** Rate limit every GET of an object in the bucket, and count them. */
-  function limitObjects(headers = LIMITED.headers): { calls: number } {
-    const seen = { calls: 0 }
+  /** Rate limit every GET of an object in the bucket, and collect the keys asked for. */
+  async function limitObjects(headers: Record<string, string> = LIMITED): Promise<string[]> {
+    const keys: string[] = []
+    await seedSpec({
+      '/accounts/{account_id}/r2/buckets': { get: { summary: 'List buckets' } },
+      '/accounts/{account_id}/r2/buckets/{bucket_name}/objects/{object_name}': {
+        get: { summary: 'Get object' }
+      }
+    })
     mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
     server.use(
-      http.get(`${API_BASE}${bucket}/objects/:key`, () => {
-        seen.calls++
+      http.get(`${API_BASE}${bucket}/objects/*`, ({ request }) => {
+        keys.push(new URL(request.url).pathname.split('/objects/')[1]!)
         return HttpResponse.json(cfError([{ code: 10429, message: 'rate limited' }]), {
           status: 429,
           headers
         })
       })
     )
-    return seen
+    return keys
   }
 
   it('tells the agent how long Cloudflare asks to wait', async () => {
-    limitObjects()
+    await limitObjects()
 
     const result = await callTool(API_TOKEN, 'execute', {
       code: `async () => cloudflare.request({ method: "GET", path: "${bucket}/objects/a" })`
@@ -682,13 +685,13 @@ describe('execute: a limit Cloudflare says is exhausted', () => {
     )
   })
 
-  it('sends no more requests under the limit, even when the code catches the error', async () => {
-    const seen = limitObjects()
+  it('sends no more requests to the operation, even when the code catches the error', async () => {
+    const keys = await limitObjects()
 
     const result = await callTool(API_TOKEN, 'execute', {
       code: `async () => {
         const errors = [];
-        for (const key of ["a", "b", "c", "d"]) {
+        for (const key of ["a", "dir/b.json", "c", "d"]) {
           try {
             await cloudflare.request({ method: "GET", path: "${bucket}/objects/" + key });
           } catch (error) {
@@ -699,34 +702,36 @@ describe('execute: a limit Cloudflare says is exhausted', () => {
       }`
     })
 
-    expect(seen.calls).toBe(1)
+    expect(keys).toEqual(['a'])
     const errors = JSON.parse(toolText(result)) as string[]
     expect(errors[0]).toContain('returned HTTP 429')
-    expect(errors[3]).toContain(`Cloudflare API request not sent: GET ${bucket}/objects/d.`)
+    expect(errors[1]).toContain(
+      `Cloudflare API request not sent: GET ${bucket}/objects/dir/b.json.`
+    )
     expect(errors[3]).toContain('limit \\"rtwo_gw_apigw\\"')
     expect(errors[3]).toMatch(/asks to wait (299|300) more seconds/)
   })
 
-  it("still sends requests the product's limit does not cover", async () => {
-    limitObjects()
+  it('still sends requests to other operations', async () => {
+    await limitObjects()
     server.use(
-      http.get(`${API_BASE}/accounts/${ACCOUNT_ID}/workers/scripts`, () =>
-        HttpResponse.json(cfSuccess([{ id: 'my-worker' }]))
+      http.get(`${API_BASE}/accounts/${ACCOUNT_ID}/r2/buckets`, () =>
+        HttpResponse.json(cfSuccess({ buckets: [{ name: 'b' }] }))
       )
     )
 
     const result = await callTool(API_TOKEN, 'execute', {
       code: `async () => {
         await cloudflare.request({ method: "GET", path: "${bucket}/objects/a" }).catch(() => {});
-        return cloudflare.request({ method: "GET", path: "/accounts/${ACCOUNT_ID}/workers/scripts" });
+        return cloudflare.request({ method: "GET", path: "/accounts/${ACCOUNT_ID}/r2/buckets" });
       }`
     })
 
-    expect(toolText(result)).toContain('my-worker')
+    expect(toolText(result)).toContain('"name": "b"')
   })
 
   it('sends nothing more once the limit every endpoint shares is exhausted', async () => {
-    limitObjects({ 'Retry-After': '120', Ratelimit: '"default";r=0;t=120' })
+    await limitObjects({ 'Retry-After': '120', Ratelimit: '"default";r=0;t=120' })
     let scripts = 0
     server.use(
       http.get(`${API_BASE}/accounts/${ACCOUNT_ID}/workers/scripts`, () => {
@@ -747,7 +752,7 @@ describe('execute: a limit Cloudflare says is exhausted', () => {
   })
 
   it('gives raw fetch the 429 with Retry-After for a request it does not send', async () => {
-    const seen = limitObjects()
+    const keys = await limitObjects()
 
     const result = await callTool(API_TOKEN, 'execute', {
       code: `async () => {
@@ -758,8 +763,34 @@ describe('execute: a limit Cloudflare says is exhausted', () => {
       }`
     })
 
-    expect(seen.calls).toBe(1)
+    expect(keys).toEqual(['a'])
     expect(JSON.parse(toolText(result))).toMatchObject({ status: 429 })
     expect(toolText(result)).toMatch(/"retryAfter": "(299|300)"/)
+  })
+
+  it('slows down close to a limit instead of emptying it', async () => {
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+    const path = `/accounts/${ACCOUNT_ID}/workers/scripts`
+    const times: number[] = []
+    server.use(
+      http.get(`${API_BASE}${path}`, () => {
+        times.push(Date.now())
+        // 10 requests a second, a reserve of 5 and 2 left: 3 short, so 300 ms.
+        return HttpResponse.json(cfSuccess([]), {
+          headers: { Ratelimit: '"default";r=2;t=10', 'Ratelimit-Policy': '"default";q=100;w=10' }
+        })
+      })
+    )
+
+    const result = await callTool(API_TOKEN, 'execute', {
+      code: `async () => {
+        await cloudflare.request({ method: "GET", path: "${path}" });
+        return cloudflare.request({ method: "GET", path: "${path}" });
+      }`
+    })
+
+    expect(toolText(result)).toContain('"success": true')
+    expect(times).toHaveLength(2)
+    expect(times[1]! - times[0]!).toBeGreaterThanOrEqual(250)
   })
 })

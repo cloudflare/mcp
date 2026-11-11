@@ -4,7 +4,7 @@ import { PROTOCOL_VERSION_META_KEY } from '@modelcontextprotocol/server'
 import type { McpServer, CallToolResult, ServerContext } from '@modelcontextprotocol/server'
 import type { FormatToolResult } from '../truncate'
 import { fetchWithRetry } from '../utils/fetch-retry'
-import { rateLimited } from '../rate-limit'
+import { rateLimitHint } from '../rate-limit'
 import { getForgeToolList } from '../isolate-cache'
 import {
   autoResolvedAccountId,
@@ -131,7 +131,7 @@ async function callForgeTool(
     { caller: 'forge_tool_call' }
   )
   // A 429's headers say how long to wait; the agent only sees the body.
-  const rateLimitHint = rateLimited(response)?.hint
+  const rateLimit = rateLimitHint(response.status, response.headers)
   const json = isJson(response)
   const bodyText = await response.text()
   const result: unknown = json ? JSON.parse(bodyText) : bodyText
@@ -158,7 +158,7 @@ async function callForgeTool(
       status: response.status,
       body: result
     },
-    [rateLimitHint, plan.accountId ? unknownAccountHint(props, plan.accountId) : undefined].filter(
+    [rateLimit, plan.accountId ? unknownAccountHint(props, plan.accountId) : undefined].filter(
       (note) => note !== undefined
     ),
     { connection, scopeChallenge, formatResult }

@@ -40,7 +40,7 @@ cloudflare-mcp/
 │   │   └── handlers.ts            # skills/list, skills/get, resources/* handlers
 │   ├── api-permissions.ts         # Connection kinds; authorize(): may a connection use an endpoint
 │   ├── api-refusals.ts            # Decides which Cloudflare answers are refusals; reviews execute responses
-│   ├── rate-limit.ts              # What a 429 says: the limit, the wait, and the agent's hint
+│   ├── rate-limit.ts              # The API's rate limits: reads them from responses, holds requests back, hints
 │   ├── scope-challenge.ts         # Per-request insufficient_scope step-up challenge
 │   ├── clients.ts                 # Known MCP clients that deviate from the spec, and their behavior
 │   ├── generated/spec/            # The pinned spec's artifacts as text modules, written with the tools; never edit by hand
@@ -253,14 +253,27 @@ How the challenge reaches the client depends on the client (`src/clients.ts`):
 - A connection that already holds an accepted scope is never challenged, so a wrong pick can't loop.
 - 2025-era POSTs are served as JSON (`enableJsonResponse`) rather than the SDK fallback's SSE, so the status is still open when the response becomes the `403`.
 
-### Rate-limited API calls
+### Rate limits of the Cloudflare API
 
-The Cloudflare API sends `Ratelimit` (`"default";r=50;t=30`) on REST responses and `Retry-After` on a 429. Measured in a week of production logs: 98% of this server's 429s come from `execute`, and for 83% Cloudflare asked to wait longer than a retry can (R2's `"rtwo_gw_apigw";r=0;t=300`, `registrar_domain_check` 60 s). They are code looping over hundreds of objects after the limit is gone. Product 429s from URL Scanner and Email Routing carry `"default";r=1199;t=1` and no `Retry-After`; D1 and KV send neither header.
+`src/rate-limit.ts` owns this; read its header comment first. Change the behavior there, not in the callers.
 
-- `fetchWithRetry` (`src/utils/fetch-retry.ts`) retries a 429 up to three times: after the server's wait when it is 5 seconds or less, with backoff when the server gives none, and not at all when the server asks for longer.
-- `rateLimited()` (`src/rate-limit.ts`) reads a 429's limit and wait and writes the hint every tool error carries, such as `asks to wait 300 seconds`. Agents see only the body otherwise and call again at once.
-- `execute`: `GlobalOutbound` passes that in `X-Cloudflare-MCP-Rate-Limit`, and the sandbox's `fetch` wrapper stops sending requests under the limit for the rest of the run. It answers them itself with a 429 the error calls "not sent". A product's limit covers the method and the path's first two segments below the account or zone (`PUT /accounts/<id>/r2/buckets`); `default`, the per-user 1,200 requests per 5 minutes, covers everything. Requests already in flight (`Promise.all`) are not stopped.
-- Nothing is remembered between tool calls, and nothing slows down before a 429 as `r` nears 0. Keeping a credential's limits would need KV keyed by token hash; one isolate serves every user, so it can't live in the isolate.
+What the API sends (measured, November 2026):
+
+- Each limit is a token bucket. `Ratelimit-Policy: "default";q=1200;w=300` is 1,200 requests refilling in 300 seconds, 4 a second. `Ratelimit: "default";r=1147;t=14` is 1,147 left and 14 seconds until the bucket is full again, so `t` is not a window reset. Sixty requests at once took `r` from 1199 to 1141, and 15 seconds later it was 1199 again.
+- `default` is the per-user limit most endpoints share. Some have their own: R2 `rtwo_gw_apigw`, `GET /zones` `list_zones`, `registrar_domain_check`. D1 and KV, on the edge API gateway, send neither header.
+- An empty bucket is a 429 with `Retry-After` and `r=0;t=<the same wait>`: 300 seconds for `default` and R2, during which every call is refused, the dashboard's included. Product 429s from URL Scanner and Email Routing carry an untouched `"default";r=1199;t=1` and no `Retry-After`.
+- In a week of production logs 98% of this server's 429s came from `execute`, and for 83% Cloudflare asked for a wait longer than a retry can honour: code looping over hundreds of R2 objects after the bucket was empty.
+
+What the server does:
+
+- **Holds** (`holdOf`): every response becomes at most one hold, the time requests under the same limit should wait. Below a reserve of 5% of the quota it is the time the bucket takes to refill to the reserve, at most 5 seconds, so a run settles at the refill rate without emptying the bucket. On a 429 it is the wait Cloudflare gives.
+- **Scope** (`holdScope`): a response names its limit, not the other endpoints under it, and nothing is guessed. `default` holds every request. Any other limit holds the operation that reported it, on the same account or zone, found in the spec. A limit that covers more costs one 429 per further operation.
+- **`execute`**: `GlobalOutbound` passes the hold in `X-Cloudflare-MCP-Rate-Limit`, and the sandbox's `fetch` wrapper applies it for the rest of the run. It waits out a hold of 5 seconds or less and answers a request under a longer one itself with a 429 the error calls "not sent". Workers allow six requests waiting for headers per invocation, so at most a handful are in flight when a hold arrives. Each run a limit touched logs `execute rate limits: limited=<429s> not_sent=<saved> waited_ms=<paced>`.
+- **Retries**: `fetchWithRetry` (`src/utils/fetch-retry.ts`) retries a 429 up to three times: after the server's wait when it is 5 seconds or less, with backoff when the server gives none, and not at all when it asks for longer.
+- **Hints** (`rateLimitHint`): every 429 tool error, in Code Mode and the direct tools, says how long Cloudflare asks to wait. The wait is in headers the agent never sees.
+- **Not done**: nothing is remembered between tool calls, so a direct tool call is never paced and an agent that ignores the hint gets one 429 per call. Remembering would need KV or a Durable Object per credential to copy a counter the API already keeps; one isolate serves every user, so it can't live in the isolate.
+
+To check it in production, search Workers Logs for `fetchWithRetry: 429` (each refused request, with its headers) and `execute rate limits:`.
 
 ### Known MCP clients
 

@@ -19,17 +19,28 @@ import type { Connection } from '../api-permissions'
 import { authorize, explainRefusal, isCatalogScope } from '../api-permissions'
 import { MISSING_SCOPE_HEADER, REFUSAL_HINT_HEADER, reviewResponse } from '../api-refusals'
 import { WWW_AUTHENTICATE_META_KEY, type ScopeChallenge } from '../scope-challenge'
-import { NOT_SENT_HEADER, RATE_LIMIT_HEADER, withRateLimitHeader } from '../rate-limit'
+import {
+  LONGEST_WAIT_MS,
+  NOT_SENT_HEADER,
+  RATE_LIMIT_HEADER,
+  withRateLimitNotice
+} from '../rate-limit'
 
 interface CodeExecutorEntrypoint {
   evaluate(): Promise<unknown>
 }
 
+/** What a run's rate limits did to it: requests refused, not sent, and time spent waiting. */
+const RateLimitStats = z
+  .object({ limited: z.number(), notSent: z.number(), waitedMs: z.number() })
+  .optional()
+
 /** What the sandbox reports back. It is untrusted, so it is parsed. */
 const Evaluation = z.union([
-  z.object({ ok: z.literal(true), result: z.unknown() }),
+  z.object({ ok: z.literal(true), result: z.unknown(), rateLimits: RateLimitStats }),
   z.object({
     ok: z.literal(false),
+    rateLimits: RateLimitStats,
     message: z.string(),
     // The OAuth scope GlobalOutbound said the failing request lacked.
     missingScope: z.string().optional(),
@@ -76,18 +87,16 @@ export class GlobalOutbound extends WorkerEntrypoint<Env, GlobalOutboundProps> {
       caller: this.ctx.props.fetchWithRetryCaller
     })
 
+    const basePath = new URL(this.env.CLOUDFLARE_API_BASE).pathname.replace(/\/$/, '')
+    const path = new URL(request.url).pathname.slice(basePath.length)
+    // What the response's rate limits ask of the run: the sandbox holds its
+    // next requests back for it, and tells the agent about a 429.
+    const noticed = await withRateLimitNotice(response, request.method, path)
+
     // Cloudflare's 401/403 bodies don't say why, and some lists come back empty
     // instead of refused. Report both as refusals with an explanation the
     // sandbox puts in the error it throws, so it survives the code catching it.
-    const basePath = new URL(this.env.CLOUDFLARE_API_BASE).pathname.replace(/\/$/, '')
-    // A 429 says how long to wait, so the sandbox can stop sending requests
-    // Cloudflare would only refuse again, and tell the agent.
-    return reviewResponse(
-      withRateLimitHeader(response),
-      this.ctx.props.connection,
-      request.method,
-      new URL(request.url).pathname.slice(basePath.length)
-    )
+    return reviewResponse(noticed, this.ctx.props.connection, request.method, path)
   }
 }
 
@@ -136,35 +145,40 @@ ${accountIdPrelude}
 // step-up is safe only if each one was a read or was refused.
 const sentRequests = [];
 
-// The limits Cloudflare said this run exhausted, and until when: by route, or
-// "*" for the limit every endpoint shares. A request under one is answered
-// here with a 429 and never sent. Code that loops over hundreds of objects
-// otherwise keeps sending after the first 429, and every one is refused and
-// counted against the limit.
-const rateLimits = new Map();
+// The holds Cloudflare's rate limits ask of this run: requests to wait before
+// sending, by the method and path they cover, and until when. The server
+// works each one out from a response (src/rate-limit.ts); this only applies
+// them. A short hold is waited out, which paces a run that is close to a
+// limit. Under a long one, after a 429, the request is answered here with a
+// 429 and never sent: code that loops over hundreds of objects otherwise keeps
+// sending, and every request is refused and counted against the limit.
+const holds = new Map();
+const rateLimitStats = { limited: 0, notSent: 0, waitedMs: 0 };
 const apiBasePath = new URL(apiBase).pathname.replace(/\\/$/, "");
 
-// The requests a product's own limit is taken to cover: the method and the
-// path's first two segments below its account or zone, such as
-// "PUT /accounts/<id>/r2/buckets". Too narrow a route only sends a request
-// Cloudflare refuses, as before.
-function rateLimitRoute(method, pathname) {
-  const segments = pathname.slice(apiBasePath.length).split("/").filter(Boolean);
-  const scoped = segments[0] === "accounts" || segments[0] === "zones";
-  return method + " /" + segments.slice(0, scoped ? 4 : 2).join("/");
-}
-
-function activeRateLimit(route) {
+// The hold on a request that ends last, if any.
+function holdOn(method, path) {
   const now = Date.now();
-  return [rateLimits.get("*"), rateLimits.get(route)].find((limit) => limit && limit.until > now);
+  let latest;
+  for (const [key, hold] of holds) {
+    if (hold.until <= now) holds.delete(key);
+    else if ((!hold.method || hold.method === method) && (!hold.pattern || hold.pattern.test(path)) &&
+      (!latest || hold.until > latest.until)) latest = hold;
+  }
+  return latest;
 }
 
-function rememberRateLimit(route, response) {
+function rememberHold(response) {
+  if (response.status === 429) rateLimitStats.limited++;
   const header = response.headers.get(${JSON.stringify(RATE_LIMIT_HEADER)});
-  if (response.status !== 429 || !header) return;
-  const { limit, waitMs, everyEndpoint } = JSON.parse(decodeURIComponent(header));
-  if (typeof waitMs !== "number" || waitMs <= 0) return;
-  rateLimits.set(everyEndpoint ? "*" : route, { limit, until: Date.now() + waitMs });
+  if (!header) return;
+  const { hold, method, pattern } = JSON.parse(decodeURIComponent(header));
+  if (!hold) return;
+  const key = (method || "*") + " " + (pattern || "*");
+  const until = Date.now() + hold.waitMs;
+  // A response that was in flight must not shorten the hold a 429 set.
+  if (holds.has(key) && holds.get(key).until >= until) return;
+  holds.set(key, { method, pattern: pattern ? new RegExp(pattern) : undefined, until, limit: hold.limit });
 }
 
 // The 429 for a request that was not sent, saying so and how long is left.
@@ -183,16 +197,23 @@ const outboundFetch = globalThis.fetch.bind(globalThis);
 globalThis.fetch = async (input, init) => {
   const request = new Request(input, init);
   const method = request.method.toUpperCase();
-  const route = rateLimitRoute(method, new URL(request.url).pathname);
-  const rateLimit = activeRateLimit(route);
-  if (rateLimit) return notSent(rateLimit);
+  const path = new URL(request.url).pathname.slice(apiBasePath.length);
+  for (let hold = holdOn(method, path); hold; hold = holdOn(method, path)) {
+    const waitMs = hold.until - Date.now();
+    if (waitMs > ${LONGEST_WAIT_MS}) {
+      rateLimitStats.notSent++;
+      return notSent(hold);
+    }
+    rateLimitStats.waitedMs += waitMs;
+    await new Promise((resolve) => setTimeout(resolve, waitMs));
+  }
   // The GraphQL Analytics API has no mutations, so its POSTs are reads too.
   const read = method === "GET" || method === "HEAD" || /\\/graphql\\/?$/.test(new URL(request.url).pathname);
   const sent = { read, status: undefined };
   sentRequests.push(sent);
   const response = await outboundFetch(request);
   sent.status = response.status;
-  rememberRateLimit(route, response);
+  rememberHold(response);
   return response;
 };
 
@@ -206,11 +227,12 @@ function apiError(method, path, response, body) {
   const rateLimit = response.headers.get(${JSON.stringify(RATE_LIMIT_HEADER)});
   const ray = response.headers.get("cf-ray");
   const request = String(method).toUpperCase() + " " + path.split("?")[0];
+  const notice = rateLimit ? JSON.parse(decodeURIComponent(rateLimit)) : {};
   const error = new Error([response.headers.has(${JSON.stringify(NOT_SENT_HEADER)})
       ? "Cloudflare API request not sent: " + request + "."
       : "Cloudflare API error: " + request + " returned HTTP " + response.status + (ray ? " (Ray ID " + ray + ")" : "") + ".",
     body, hint ? decodeURIComponent(hint) : "",
-    rateLimit ? JSON.parse(decodeURIComponent(rateLimit)).hint : ""].filter(Boolean).join("\\n\\n"));
+    notice.hint || ""].filter(Boolean).join("\\n\\n"));
   const missingScope = response.headers.get(${JSON.stringify(MISSING_SCOPE_HEADER)});
   if (missingScope) error.missingScope = missingScope;
   return error;
@@ -381,14 +403,15 @@ export default class CodeExecutor extends WorkerEntrypoint {
 
     try {
       const result = await (${code})();
-      return { ok: true, result: encodeBytes(result) };
+      return { ok: true, result: encodeBytes(result), rateLimits: rateLimitStats };
     } catch (err) {
       return {
         ok: false,
         message: err instanceof Error ? err.message : String(err),
         missingScope: typeof err?.missingScope === "string" ? err.missingScope : undefined,
         graphqlRefusal: err?.graphqlRefusal === "zone" || err?.graphqlRefusal === "account" ? err.graphqlRefusal : undefined,
-        replaySafe: sentRequests.every(({ read, status }) => read || status === 401 || status === 403)
+        replaySafe: sentRequests.every(({ read, status }) => read || status === 401 || status === 403),
+        rateLimits: rateLimitStats
       };
     }
   }
@@ -400,7 +423,20 @@ export default class CodeExecutor extends WorkerEntrypoint {
   const entrypoint = worker.getEntrypoint() as unknown as CodeExecutorEntrypoint
   const evaluation = Evaluation.safeParse(await entrypoint.evaluate())
   if (!evaluation.success) throw new Error('The code sandbox returned an unreadable result')
+  logRateLimits(evaluation.data.rateLimits)
   return evaluation.data
+}
+
+/**
+ * One log line for a run its rate limits touched, so their effect can be
+ * measured in Workers Logs next to `fetchWithRetry: 429`: `limited` requests
+ * Cloudflare refused, `not_sent` ones the hold saved, and the time spent pacing.
+ */
+function logRateLimits(stats: z.infer<typeof RateLimitStats>): void {
+  if (!stats || (!stats.limited && !stats.notSent && !stats.waitedMs)) return
+  console.log(
+    `execute rate limits: limited=${stats.limited} not_sent=${stats.notSent} waited_ms=${Math.round(stats.waitedMs)}`
+  )
 }
 
 const UNSAFE_TO_REPLAY =
@@ -457,7 +493,7 @@ ${CLOUDFLARE_TYPES}
 When the session has access to multiple accounts, pass account_id. ${ACCOUNT_DISCOVERY_DESCRIPTION}
 
 Your code must be an async arrow function that returns the result.
-A failed request throws an Error naming the method, path, HTTP status and Cloudflare's errors. For HTTP 401/403 it also says which permission the endpoint needs and whether reconnecting will help. For HTTP 429 it says how long Cloudflare asks to wait; until then, requests under the same limit are not sent and throw too, so stop instead of catching and continuing.
+A failed request throws an Error naming the method, path, HTTP status and Cloudflare's errors. For HTTP 401/403 it also says which permission the endpoint needs and whether reconnecting will help. Requests slow down by themselves near a rate limit. For HTTP 429 the error says how long Cloudflare asks to wait; until then, requests under the same limit are not sent and throw too, so stop instead of catching and continuing.
 
 Example: Worker with bindings (a multipart/form-data upload):
 async () => {
