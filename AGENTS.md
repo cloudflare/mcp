@@ -40,6 +40,7 @@ cloudflare-mcp/
 │   │   └── handlers.ts            # skills/list, skills/get, resources/* handlers
 │   ├── api-permissions.ts         # Connection kinds; authorize(): may a connection use an endpoint
 │   ├── api-refusals.ts            # Decides which Cloudflare answers are refusals; reviews execute responses
+│   ├── rate-limit.ts              # What a 429 says: the limit, the wait, and the agent's hint
 │   ├── scope-challenge.ts         # Per-request insufficient_scope step-up challenge
 │   ├── clients.ts                 # Known MCP clients that deviate from the spec, and their behavior
 │   ├── generated/spec/            # The pinned spec's artifacts as text modules, written with the tools; never edit by hand
@@ -251,6 +252,15 @@ How the challenge reaches the client depends on the client (`src/clients.ts`):
 - The sandbox reports the scope (`X-Cloudflare-MCP-Missing-Scope` from `GlobalOutbound`), so it is untrusted. The host accepts only catalog scopes the connection lacks. Code that lies can only trigger a challenge it could also get by calling the endpoint.
 - A connection that already holds an accepted scope is never challenged, so a wrong pick can't loop.
 - 2025-era POSTs are served as JSON (`enableJsonResponse`) rather than the SDK fallback's SSE, so the status is still open when the response becomes the `403`.
+
+### Rate-limited API calls
+
+The Cloudflare API sends `Ratelimit` (`"default";r=50;t=30`) on REST responses and `Retry-After` on a 429. Measured in a week of production logs: 98% of this server's 429s come from `execute`, and for 83% Cloudflare asked to wait longer than a retry can (R2's `"rtwo_gw_apigw";r=0;t=300`, `registrar_domain_check` 60 s). They are code looping over hundreds of objects after the limit is gone. Product 429s from URL Scanner and Email Routing carry `"default";r=1199;t=1` and no `Retry-After`; D1 and KV send neither header.
+
+- `fetchWithRetry` (`src/utils/fetch-retry.ts`) retries a 429 up to three times: after the server's wait when it is 5 seconds or less, with backoff when the server gives none, and not at all when the server asks for longer.
+- `rateLimited()` (`src/rate-limit.ts`) reads a 429's limit and wait and writes the hint every tool error carries, such as `asks to wait 300 seconds`. Agents see only the body otherwise and call again at once.
+- `execute`: `GlobalOutbound` passes that in `X-Cloudflare-MCP-Rate-Limit`, and the sandbox's `fetch` wrapper stops sending requests under the limit for the rest of the run. It answers them itself with a 429 the error calls "not sent". A product's limit covers the method and the path's first two segments below the account or zone (`PUT /accounts/<id>/r2/buckets`); `default`, the per-user 1,200 requests per 5 minutes, covers everything. Requests already in flight (`Promise.all`) are not stopped.
+- Nothing is remembered between tool calls, and nothing slows down before a 429 as `r` nears 0. Keeping a credential's limits would need KV keyed by token hash; one isolate serves every user, so it can't live in the isolate.
 
 ### Known MCP clients
 

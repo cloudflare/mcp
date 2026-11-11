@@ -19,6 +19,7 @@ import type { Connection } from '../api-permissions'
 import { authorize, explainRefusal, isCatalogScope } from '../api-permissions'
 import { MISSING_SCOPE_HEADER, REFUSAL_HINT_HEADER, reviewResponse } from '../api-refusals'
 import { WWW_AUTHENTICATE_META_KEY, type ScopeChallenge } from '../scope-challenge'
+import { NOT_SENT_HEADER, RATE_LIMIT_HEADER, withRateLimitHeader } from '../rate-limit'
 
 interface CodeExecutorEntrypoint {
   evaluate(): Promise<unknown>
@@ -79,8 +80,10 @@ export class GlobalOutbound extends WorkerEntrypoint<Env, GlobalOutboundProps> {
     // instead of refused. Report both as refusals with an explanation the
     // sandbox puts in the error it throws, so it survives the code catching it.
     const basePath = new URL(this.env.CLOUDFLARE_API_BASE).pathname.replace(/\/$/, '')
+    // A 429 says how long to wait, so the sandbox can stop sending requests
+    // Cloudflare would only refuse again, and tell the agent.
     return reviewResponse(
-      response,
+      withRateLimitHeader(response),
       this.ctx.props.connection,
       request.method,
       new URL(request.url).pathname.slice(basePath.length)
@@ -132,29 +135,82 @@ ${accountIdPrelude}
 // Every request the code sends, and the status it got. Replaying the code after a
 // step-up is safe only if each one was a read or was refused.
 const sentRequests = [];
+
+// The limits Cloudflare said this run exhausted, and until when: by route, or
+// "*" for the limit every endpoint shares. A request under one is answered
+// here with a 429 and never sent. Code that loops over hundreds of objects
+// otherwise keeps sending after the first 429, and every one is refused and
+// counted against the limit.
+const rateLimits = new Map();
+const apiBasePath = new URL(apiBase).pathname.replace(/\\/$/, "");
+
+// The requests a product's own limit is taken to cover: the method and the
+// path's first two segments below its account or zone, such as
+// "PUT /accounts/<id>/r2/buckets". Too narrow a route only sends a request
+// Cloudflare refuses, as before.
+function rateLimitRoute(method, pathname) {
+  const segments = pathname.slice(apiBasePath.length).split("/").filter(Boolean);
+  const scoped = segments[0] === "accounts" || segments[0] === "zones";
+  return method + " /" + segments.slice(0, scoped ? 4 : 2).join("/");
+}
+
+function activeRateLimit(route) {
+  const now = Date.now();
+  return [rateLimits.get("*"), rateLimits.get(route)].find((limit) => limit && limit.until > now);
+}
+
+function rememberRateLimit(route, response) {
+  const header = response.headers.get(${JSON.stringify(RATE_LIMIT_HEADER)});
+  if (response.status !== 429 || !header) return;
+  const { limit, waitMs, everyEndpoint } = JSON.parse(decodeURIComponent(header));
+  if (typeof waitMs !== "number" || waitMs <= 0) return;
+  rateLimits.set(everyEndpoint ? "*" : route, { limit, until: Date.now() + waitMs });
+}
+
+// The 429 for a request that was not sent, saying so and how long is left.
+function notSent({ limit, until }) {
+  const seconds = Math.max(1, Math.ceil((until - Date.now()) / 1000));
+  const message = "This request was not sent: Cloudflare rate limited an earlier request in this code" +
+    (limit ? ' (limit "' + limit + '")' : "") + " and asks to wait " + seconds +
+    " more seconds. Do not send it again sooner: it will be refused again and count against the limit.";
+  return new Response(JSON.stringify({ success: false, errors: [{ message }] }), {
+    status: 429,
+    headers: { "Content-Type": "application/json", "Retry-After": String(seconds), ${JSON.stringify(NOT_SENT_HEADER)}: "1" }
+  });
+}
+
 const outboundFetch = globalThis.fetch.bind(globalThis);
 globalThis.fetch = async (input, init) => {
   const request = new Request(input, init);
   const method = request.method.toUpperCase();
+  const route = rateLimitRoute(method, new URL(request.url).pathname);
+  const rateLimit = activeRateLimit(route);
+  if (rateLimit) return notSent(rateLimit);
   // The GraphQL Analytics API has no mutations, so its POSTs are reads too.
   const read = method === "GET" || method === "HEAD" || /\\/graphql\\/?$/.test(new URL(request.url).pathname);
   const sent = { read, status: undefined };
   sentRequests.push(sent);
   const response = await outboundFetch(request);
   sent.status = response.status;
+  rememberRateLimit(route, response);
   return response;
 };
 
 // "Cloudflare API error: GET /zones/x/dns_records returned HTTP 403 (Ray ID 8f...).",
 // then the error body as the API sent it, then the server's explanation of a
-// 401/403. The body is raw, so nothing the API says is lost, such as an error
+// 401/403 or a 429. A request this sandbox answered itself is "not sent". The
+// body is raw, so nothing the API says is lost, such as an error
 // with a code but no message.
 function apiError(method, path, response, body) {
   const hint = response.headers.get(${JSON.stringify(REFUSAL_HINT_HEADER)});
+  const rateLimit = response.headers.get(${JSON.stringify(RATE_LIMIT_HEADER)});
   const ray = response.headers.get("cf-ray");
-  const error = new Error(["Cloudflare API error: " + String(method).toUpperCase() + " " + path.split("?")[0] +
-    " returned HTTP " + response.status + (ray ? " (Ray ID " + ray + ")" : "") + ".",
-    body, hint ? decodeURIComponent(hint) : ""].filter(Boolean).join("\\n\\n"));
+  const request = String(method).toUpperCase() + " " + path.split("?")[0];
+  const error = new Error([response.headers.has(${JSON.stringify(NOT_SENT_HEADER)})
+      ? "Cloudflare API request not sent: " + request + "."
+      : "Cloudflare API error: " + request + " returned HTTP " + response.status + (ray ? " (Ray ID " + ray + ")" : "") + ".",
+    body, hint ? decodeURIComponent(hint) : "",
+    rateLimit ? JSON.parse(decodeURIComponent(rateLimit)).hint : ""].filter(Boolean).join("\\n\\n"));
   const missingScope = response.headers.get(${JSON.stringify(MISSING_SCOPE_HEADER)});
   if (missingScope) error.missingScope = missingScope;
   return error;
@@ -401,7 +457,7 @@ ${CLOUDFLARE_TYPES}
 When the session has access to multiple accounts, pass account_id. ${ACCOUNT_DISCOVERY_DESCRIPTION}
 
 Your code must be an async arrow function that returns the result.
-A failed request throws an Error naming the method, path, HTTP status and Cloudflare's errors. For HTTP 401/403 it also says which permission the endpoint needs and whether reconnecting will help.
+A failed request throws an Error naming the method, path, HTTP status and Cloudflare's errors. For HTTP 401/403 it also says which permission the endpoint needs and whether reconnecting will help. For HTTP 429 it says how long Cloudflare asks to wait; until then, requests under the same limit are not sent and throw too, so stop instead of catching and continuing.
 
 Example: Worker with bindings (a multipart/form-data upload):
 async () => {

@@ -644,3 +644,122 @@ describe('search: the pinned spec, in the forge tools service', () => {
     expect(result.result?.isError).toBe(true)
   })
 })
+
+describe('execute: a limit Cloudflare says is exhausted', () => {
+  const LIMITED = {
+    status: 429,
+    headers: { 'Retry-After': '300', Ratelimit: '"rtwo_gw_apigw";r=0;t=300' }
+  }
+  const bucket = `/accounts/${ACCOUNT_ID}/r2/buckets/b`
+
+  /** Rate limit every GET of an object in the bucket, and count them. */
+  function limitObjects(headers = LIMITED.headers): { calls: number } {
+    const seen = { calls: 0 }
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+    server.use(
+      http.get(`${API_BASE}${bucket}/objects/:key`, () => {
+        seen.calls++
+        return HttpResponse.json(cfError([{ code: 10429, message: 'rate limited' }]), {
+          status: 429,
+          headers
+        })
+      })
+    )
+    return seen
+  }
+
+  it('tells the agent how long Cloudflare asks to wait', async () => {
+    limitObjects()
+
+    const result = await callTool(API_TOKEN, 'execute', {
+      code: `async () => cloudflare.request({ method: "GET", path: "${bucket}/objects/a" })`
+    })
+
+    const text = toolText(result)
+    expect(text).toContain(`GET ${bucket}/objects/a returned HTTP 429`)
+    expect(text).toContain(
+      'Cloudflare rate limited this request (limit "rtwo_gw_apigw") and asks to wait 300 seconds.'
+    )
+  })
+
+  it('sends no more requests under the limit, even when the code catches the error', async () => {
+    const seen = limitObjects()
+
+    const result = await callTool(API_TOKEN, 'execute', {
+      code: `async () => {
+        const errors = [];
+        for (const key of ["a", "b", "c", "d"]) {
+          try {
+            await cloudflare.request({ method: "GET", path: "${bucket}/objects/" + key });
+          } catch (error) {
+            errors.push(error.message);
+          }
+        }
+        return errors;
+      }`
+    })
+
+    expect(seen.calls).toBe(1)
+    const errors = JSON.parse(toolText(result)) as string[]
+    expect(errors[0]).toContain('returned HTTP 429')
+    expect(errors[3]).toContain(`Cloudflare API request not sent: GET ${bucket}/objects/d.`)
+    expect(errors[3]).toContain('limit \\"rtwo_gw_apigw\\"')
+    expect(errors[3]).toMatch(/asks to wait (299|300) more seconds/)
+  })
+
+  it("still sends requests the product's limit does not cover", async () => {
+    limitObjects()
+    server.use(
+      http.get(`${API_BASE}/accounts/${ACCOUNT_ID}/workers/scripts`, () =>
+        HttpResponse.json(cfSuccess([{ id: 'my-worker' }]))
+      )
+    )
+
+    const result = await callTool(API_TOKEN, 'execute', {
+      code: `async () => {
+        await cloudflare.request({ method: "GET", path: "${bucket}/objects/a" }).catch(() => {});
+        return cloudflare.request({ method: "GET", path: "/accounts/${ACCOUNT_ID}/workers/scripts" });
+      }`
+    })
+
+    expect(toolText(result)).toContain('my-worker')
+  })
+
+  it('sends nothing more once the limit every endpoint shares is exhausted', async () => {
+    limitObjects({ 'Retry-After': '120', Ratelimit: '"default";r=0;t=120' })
+    let scripts = 0
+    server.use(
+      http.get(`${API_BASE}/accounts/${ACCOUNT_ID}/workers/scripts`, () => {
+        scripts++
+        return HttpResponse.json(cfSuccess([]))
+      })
+    )
+
+    const result = await callTool(API_TOKEN, 'execute', {
+      code: `async () => {
+        await cloudflare.request({ method: "GET", path: "${bucket}/objects/a" }).catch(() => {});
+        return cloudflare.request({ method: "GET", path: "/accounts/${ACCOUNT_ID}/workers/scripts" });
+      }`
+    })
+
+    expect(scripts).toBe(0)
+    expect(toolText(result)).toContain('Cloudflare API request not sent: GET')
+  })
+
+  it('gives raw fetch the 429 with Retry-After for a request it does not send', async () => {
+    const seen = limitObjects()
+
+    const result = await callTool(API_TOKEN, 'execute', {
+      code: `async () => {
+        const url = "${API_BASE}${bucket}/objects/";
+        await fetch(url + "a");
+        const second = await fetch(url + "b");
+        return { status: second.status, retryAfter: second.headers.get("Retry-After") };
+      }`
+    })
+
+    expect(seen.calls).toBe(1)
+    expect(JSON.parse(toolText(result))).toMatchObject({ status: 429 })
+    expect(toolText(result)).toMatch(/"retryAfter": "(299|300)"/)
+  })
+})

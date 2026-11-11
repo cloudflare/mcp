@@ -263,6 +263,24 @@ describe('generated direct tools (?codemode=false)', () => {
     expect(text).toContain("account_id not-mine is not this token's account.")
   })
 
+  it('says how long Cloudflare asks to wait when it rate limits a call', async () => {
+    server.use(
+      http.get(`${API_BASE}/accounts/${ACCOUNT_ID}/d1/database`, () =>
+        HttpResponse.json(cfError([{ code: 10429, message: 'rate limited' }]), {
+          status: 429,
+          headers: { 'Retry-After': '60', Ratelimit: '"default";r=0;t=60' }
+        })
+      )
+    )
+
+    const result = await callForgeTool(ACCOUNT_TOKEN, 'd1_list', {})
+
+    expect(result.result?.isError).toBe(true)
+    expect(toolText(result)).toContain(
+      'Cloudflare rate limited this request (limit "default") and asks to wait 60 seconds.'
+    )
+  })
+
   it('parses +json responses', async () => {
     server.use(
       http.get(`${API_BASE}/accounts/${ACCOUNT_ID}/d1/database`, () =>
