@@ -102,8 +102,35 @@ function retryAfterHeaders(...responses: Response[]): Record<string, string> {
 const INVALID_CREDENTIAL_MESSAGE = /^invalid access token$/i
 
 const CloudflareErrorsSchema = z.object({
-  errors: z.array(z.object({ message: z.string() })).optional()
+  errors: z.array(z.object({ code: z.number().optional(), message: z.string() })).optional()
 })
+
+/**
+ * The error code of the 429 Cloudflare gives a credential that has failed
+ * authentication too often: `10502: Too many authentication failures`.
+ *
+ * Measured against the API: a well-formed token Cloudflare doesn't recognise is
+ * answered `403 9109: Invalid access token` five times in a minute and with this
+ * 429 after that, with no `Retry-After` and no `Ratelimit` header. It counts
+ * failures of that token, so it is a verdict on the credential, not a limit on
+ * a working one. About two thirds of the rate-limited probes in production were
+ * this: clients calling again and again with a token that had stopped working.
+ */
+const TOO_MANY_AUTH_FAILURES_CODE = 10502
+
+/** Whether a 429 refuses the credential for repeated authentication failures. */
+async function rejectsCredentialForFailures(response: Response): Promise<boolean> {
+  if (response.status !== 429) return false
+  try {
+    const parsed = CloudflareErrorsSchema.safeParse(await response.clone().json())
+    return (
+      parsed.success &&
+      (parsed.data.errors ?? []).some((error) => error.code === TOO_MANY_AUTH_FAILURES_CODE)
+    )
+  } catch {
+    return false
+  }
+}
 
 /** Whether Cloudflare refused the credential itself, rather than a permission it lacks. */
 async function rejectsCredential(response: Response): Promise<boolean> {
@@ -131,6 +158,12 @@ async function identityProbeError(...responses: [Response, ...Response[]]): Prom
 
   if (statuses.some((status) => status >= 500)) {
     return new OAuthError('server_error', 'Cloudflare API is temporarily unavailable', 502)
+  }
+  // A 429 for repeated authentication failures says the token is bad. Answering it as a
+  // rate limit told clients to try again later, which they did, for ever.
+  const failedTooOften = await Promise.all(responses.map(rejectsCredentialForFailures))
+  if (failedTooOften.includes(true)) {
+    return new OAuthError('invalid_token', 'Access token is invalid or expired', 401)
   }
   if (statuses.includes(429)) {
     return new OAuthError(

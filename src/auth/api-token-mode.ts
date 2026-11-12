@@ -31,57 +31,91 @@ async function hashApiToken(token: string): Promise<string> {
 /** KV's shortest expiry. A shorter hold ends at its own `until`. */
 const KV_MIN_TTL_SECONDS = 60
 
-const RateLimitHoldSchema = z.object({ until: z.number() })
-
-function rateLimited(retryAfterSeconds: number): OAuthError {
-  return new OAuthError('temporarily_unavailable', 'Rate limited, try again later', 429, {
-    'Retry-After': String(retryAfterSeconds)
-  })
-}
+/**
+ * How long a credential Cloudflare called invalid is refused without asking
+ * again. Cloudflare counts a token's authentication failures over a minute, so
+ * this is also how long it takes a token we stopped probing to be forgotten.
+ */
+const INVALID_HOLD_SECONDS = 60
 
 /**
- * Refuse a credential Cloudflare rate limited until the wait it gave is over,
- * without asking Cloudflare again.
+ * Why Cloudflare refused a credential's identity probe, and until when the
+ * credential is refused here without another probe.
+ */
+const ProbeHoldSchema = z.object({
+  until: z.number(),
+  refusal: z.enum(['rate_limited', 'invalid_token']).default('rate_limited')
+})
+
+type ProbeHold = z.infer<typeof ProbeHoldSchema>
+
+/**
+ * The error for a request with a held credential: what its probe would be
+ * answered, without asking Cloudflare.
  *
- * A credential is probed whenever a request carries it uncached, and a
- * rate-limited probe caches nothing. A client that keeps calling with one
- * therefore cost two refused API requests per MCP request, for as long as it
- * kept calling: 1.2 to 2.4 million a day in production, about 98% of this
- * server's 429s, and requests that kept the credential's limit from clearing.
+ * A credential is probed whenever a request carries it uncached, and a refused
+ * probe caches no identity. A client that keeps calling with a credential
+ * Cloudflare refuses therefore cost two refused API requests per MCP request
+ * for as long as it kept calling: 1.2 to 2.4 million a day in production,
+ * about 98% of this server's 429s. Two refusals are held:
+ *
+ * - `rate_limited`: the probe got a 429 with a wait. Held for that wait, and
+ *   answered `429 temporarily_unavailable` with what is left of it.
+ * - `invalid_token`: Cloudflare doesn't recognise the token. Held for a minute
+ *   and answered `401 invalid_token`. After five failures in a minute
+ *   Cloudflare answers the token with a 429 itself, which is most of those
+ *   production 429s, so not probing is what lets that clear.
  *
  * The hold is in `OAUTH_KV` by token hash, like the identity cache, and holds
- * only the time it ends. KV is eventually consistent, so a request elsewhere
- * may still probe once; that is load shedding, not a lock.
+ * only the refusal and the time it ends. KV is eventually consistent, so a
+ * request elsewhere may still probe once; that is load shedding, not a lock.
  */
-async function heldForRateLimit(holdKey: string, kv: KVNamespace): Promise<OAuthError | undefined> {
+async function heldRefusal(holdKey: string, kv: KVNamespace): Promise<OAuthError | undefined> {
   try {
-    const hold = RateLimitHoldSchema.safeParse(await kv.get(holdKey, 'json'))
+    const hold = ProbeHoldSchema.safeParse(await kv.get(holdKey, 'json'))
     const remainingMs = hold.success ? hold.data.until - Date.now() : 0
-    if (remainingMs <= 0) return undefined
+    if (!hold.success || remainingMs <= 0) return undefined
+    const seconds = Math.ceil(remainingMs / 1000)
+    if (hold.data.refusal === 'invalid_token') {
+      console.log(
+        `api_token_identity_probe held: not probing an invalid credential for another ${seconds}s`
+      )
+      return new OAuthError('invalid_token', 'Access token is invalid or expired', 401)
+    }
     console.log(
-      `api_token_identity_probe held: not probing a rate-limited credential for another ${Math.ceil(remainingMs / 1000)}s`
+      `api_token_identity_probe held: not probing a rate-limited credential for another ${seconds}s`
     )
-    return rateLimited(Math.ceil(remainingMs / 1000))
+    return new OAuthError('temporarily_unavailable', 'Rate limited, try again later', 429, {
+      'Retry-After': String(seconds)
+    })
   } catch (error) {
-    console.warn('api_token_identity_probe rate-limit hold read failed', error)
+    console.warn('api_token_identity_probe hold read failed', error)
     return undefined
   }
 }
 
-/** Hold the credential for the wait a rate-limited probe's `Retry-After` gives. */
-async function holdForRateLimit(
-  holdKey: string,
-  error: OAuthError,
-  kv: KVNamespace
-): Promise<void> {
+/** The hold a refused probe asks for, if any. */
+function holdFor(
+  error: OAuthError
+): { refusal: ProbeHold['refusal']; seconds: number } | undefined {
+  if (error.code === 'invalid_token') {
+    return { refusal: 'invalid_token', seconds: INVALID_HOLD_SECONDS }
+  }
   const seconds = Number(error.headers?.['Retry-After'])
-  if (!(seconds > 0)) return
+  return error.statusCode === 429 && seconds > 0 ? { refusal: 'rate_limited', seconds } : undefined
+}
+
+/** Hold the credential a probe was refused for, so the next request doesn't probe it again. */
+async function holdRefused(holdKey: string, error: OAuthError, kv: KVNamespace): Promise<void> {
+  const hold = holdFor(error)
+  if (!hold) return
   try {
-    await kv.put(holdKey, JSON.stringify({ until: Date.now() + seconds * 1000 }), {
-      expirationTtl: Math.max(KV_MIN_TTL_SECONDS, seconds)
+    const stored: ProbeHold = { until: Date.now() + hold.seconds * 1000, refusal: hold.refusal }
+    await kv.put(holdKey, JSON.stringify(stored), {
+      expirationTtl: Math.max(KV_MIN_TTL_SECONDS, hold.seconds)
     })
   } catch (putError) {
-    console.warn('api_token_identity_probe rate-limit hold write failed', putError)
+    console.warn('api_token_identity_probe hold write failed', putError)
   }
 }
 
@@ -105,16 +139,14 @@ async function getCachedIdentity(
     console.warn('api_token_identity_probe kv-cache read failed', error)
   }
 
-  const held = await heldForRateLimit(holdKey, kv)
+  const held = await heldRefusal(holdKey, kv)
   if (held) throw held
 
   let identity: CloudflareIdentity
   try {
     identity = await resolveCloudflareCredential(token, tokenOwner)
   } catch (error) {
-    if (error instanceof OAuthError && error.statusCode === 429) {
-      await holdForRateLimit(holdKey, error, kv)
-    }
+    if (error instanceof OAuthError) await holdRefused(holdKey, error, kv)
     throw error
   }
 
