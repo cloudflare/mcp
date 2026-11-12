@@ -23,6 +23,28 @@ afterEach(async () => {
 })
 
 describe('execute single-attempt mode', () => {
+  it('preserves rate-limit guidance and holds subsequent requests without sending them', async () => {
+    let attempts = 0
+    server.use(
+      http.post(`${API_BASE}${PATH}`, () => {
+        attempts++
+        return HttpResponse.json(cfError([]), { status: 429, headers: { 'Retry-After': '60' } })
+      })
+    )
+    const code = `async () => {
+      const errors = [];
+      for (let i = 0; i < 2; i++) {
+        try { await cloudflare.request({ method: 'POST', path: '${PATH}' }); }
+        catch (error) { errors.push(error.message); }
+      }
+      return errors;
+    }`
+    const result = await callTool(TOKEN, 'execute', { code, maxRetries: 0 })
+    expect(toolText(result)).toContain('60')
+    expect(toolText(result)).toContain('outboundAttempts: 1')
+    expect(toolText(result)).toContain('outboundAttempts: 0')
+    expect(attempts).toBe(1)
+  })
   it.each([200, 401, 403, 429, 500])('sends once and sanitizes HTTP %i', async (status) => {
     let attempts = 0
     server.use(
@@ -221,6 +243,7 @@ describe('execute single-attempt mode', () => {
       expect(response.headers.has('WWW-Authenticate')).toBe(false)
       const result = await parseMcpResult(response)
       expect(result.result?.isError).toBe(true)
+      expect(toolText(result)).toContain('workers-scripts.write')
       expect(result.result?._meta).not.toHaveProperty('mcp/www_authenticate')
       expect(attempts).toBe(1)
     }

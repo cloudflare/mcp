@@ -5,7 +5,7 @@ import type { McpServer } from '@modelcontextprotocol/server'
 import { CLOUDFLARE_TYPES } from '../constants'
 import { formatterFor, TRUNCATE_ARGUMENT_DESCRIPTION } from '../truncate'
 import { fetchWithRetry } from '../utils/fetch-retry'
-import { fetchSingleAttempt } from '../utils/fetch-single-attempt'
+import { fetchSingleAttempt, sanitizeSingleAttemptResponse } from '../utils/fetch-single-attempt'
 import { formatError } from '../utils/errors'
 import {
   ACCOUNT_DISCOVERY_DESCRIPTION,
@@ -86,10 +86,12 @@ export class GlobalOutbound extends WorkerEntrypoint<Env, GlobalOutboundProps> {
         ['Authorization', `Bearer ${this.ctx.props.apiToken}`]
       ])
     })
-    if (this.ctx.props.maxRetries === 0) return fetchSingleAttempt(authedRequest)
-    const response = await fetchWithRetry(authedRequest, undefined, {
-      caller: this.ctx.props.fetchWithRetryCaller
-    })
+    const response =
+      this.ctx.props.maxRetries === 0
+        ? await fetchSingleAttempt(authedRequest)
+        : await fetchWithRetry(authedRequest, undefined, {
+            caller: this.ctx.props.fetchWithRetryCaller
+          })
 
     const basePath = new URL(this.env.CLOUDFLARE_API_BASE).pathname.replace(/\/$/, '')
     const path = new URL(request.url).pathname.slice(basePath.length)
@@ -100,7 +102,8 @@ export class GlobalOutbound extends WorkerEntrypoint<Env, GlobalOutboundProps> {
     // Cloudflare's 401/403 bodies don't say why, and some lists come back empty
     // instead of refused. Report both as refusals with an explanation the
     // sandbox puts in the error it throws, so it survives the code catching it.
-    return reviewResponse(noticed, this.ctx.props.connection, request.method, path)
+    const reviewed = await reviewResponse(noticed, this.ctx.props.connection, request.method, path)
+    return this.ctx.props.maxRetries === 0 ? sanitizeSingleAttemptResponse(reviewed) : reviewed
   }
 }
 
@@ -240,6 +243,9 @@ globalThis.fetch = async (input, init) => {
 // body is raw, so nothing the API says is lost, such as an error
 // with a code but no message.
 function apiError(method, path, response, body) {
+  const hint = response.headers.get(${JSON.stringify(REFUSAL_HINT_HEADER)});
+  const rateLimit = response.headers.get(${JSON.stringify(RATE_LIMIT_HEADER)});
+  const notice = rateLimit ? JSON.parse(decodeURIComponent(rateLimit)) : {};
   if (${maxRetries === 0}) {
     let codes = [];
     try {
@@ -248,14 +254,13 @@ function apiError(method, path, response, body) {
         ? data.errors.flatMap(error => Number.isSafeInteger(error?.code) ? [error.code] : [])
         : [];
     } catch {}
-    return new Error("Cloudflare API returned HTTP " + response.status +
-      "; outboundAttempts: 1; provider error codes: " + JSON.stringify(codes) + ".");
+    const attempts = response.headers.has(${JSON.stringify(NOT_SENT_HEADER)}) ? 0 : 1;
+    return new Error(["Cloudflare API returned HTTP " + response.status +
+      "; outboundAttempts: " + attempts + "; provider error codes: " + JSON.stringify(codes) + ".",
+      hint ? decodeURIComponent(hint) : "", notice.hint || ""].filter(Boolean).join("\\n\\n"));
   }
-  const hint = response.headers.get(${JSON.stringify(REFUSAL_HINT_HEADER)});
-  const rateLimit = response.headers.get(${JSON.stringify(RATE_LIMIT_HEADER)});
   const ray = response.headers.get("cf-ray");
   const request = String(method).toUpperCase() + " " + path.split("?")[0];
-  const notice = rateLimit ? JSON.parse(decodeURIComponent(rateLimit)) : {};
   const error = new Error([response.headers.has(${JSON.stringify(NOT_SENT_HEADER)})
       ? "Cloudflare API request not sent: " + request + "."
       : "Cloudflare API error: " + request + " returned HTTP " + response.status + (ray ? " (Ray ID " + ray + ")" : "") + ".",

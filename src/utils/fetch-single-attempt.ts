@@ -1,4 +1,6 @@
 import { USER_AGENT } from '../constants'
+import { MISSING_SCOPE_HEADER, REFUSAL_HINT_HEADER } from '../api-refusals'
+import { RATE_LIMIT_HEADER } from '../rate-limit'
 
 /** Numeric provider codes only: error messages can echo uploaded source or credentials. */
 function providerErrorCodes(body: unknown): number[] {
@@ -31,6 +33,11 @@ export async function fetchSingleAttempt(request: Request): Promise<Response> {
       'Cloudflare API outcome unknown after 1 outbound attempt. No HTTP response was received; the request was not retried.'
     )
   }
+  return response
+}
+
+/** Sanitize errors after the server has interpreted permissions and rate limits. */
+export async function sanitizeSingleAttemptResponse(response: Response): Promise<Response> {
   if (response.ok) return response
   if (response.status === 304) {
     // A 304 cannot carry the diagnostic JSON body below.
@@ -48,6 +55,11 @@ export async function fetchSingleAttempt(request: Request): Promise<Response> {
   // Do not forward Location: a fetch in the calling isolate could follow it
   // even though this fetch used manual redirects. No private headers or raw
   // provider messages cross this boundary on a failed request.
+  const headers = new Headers()
+  for (const name of [MISSING_SCOPE_HEADER, REFUSAL_HINT_HEADER, RATE_LIMIT_HEADER]) {
+    const value = response.headers.get(name)
+    if (value !== null) headers.set(name, value)
+  }
   return Response.json(
     {
       success: false,
@@ -55,6 +67,6 @@ export async function fetchSingleAttempt(request: Request): Promise<Response> {
       outboundAttempts: 1,
       httpStatus: response.status
     },
-    { status: response.status }
+    { status: response.status, headers }
   )
 }

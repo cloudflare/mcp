@@ -108,6 +108,8 @@ Replace the account ID, Worker name and sample module with the intended upload. 
 
 In this mode, HTTP failures report the status, numeric provider error codes and outbound attempt count without the raw error body or private response headers. A network failure reports an unknown outcome: the upload might have reached Cloudflare even though no response arrived. Permission failures do not issue an OAuth challenge that could cause the client to replay the execution. Check the outcome and permissions before deciding whether to submit another call.
 
+Rate-limit guidance and permission explanations are retained. A request held back by an earlier rate limit reports zero outbound attempts.
+
 This controls the server's application-level outbound requests. It does not deduplicate separate tool calls, stop retries explicitly written in the supplied JavaScript, or attest to retries outside this server. The option applies to Code Mode, not the generated direct tools. Availability and the deployed build behind a hosted connection must be verified by its operator; a source change alone is not deployment attestation.
 
 ### Missing Permissions
