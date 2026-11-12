@@ -370,6 +370,26 @@ describe('identity probe errors', () => {
     expect(error.headers).toEqual({ 'Retry-After': '17' })
   })
 
+  it('reads a 429 for repeated authentication failures as an invalid token', async () => {
+    const failedTooOften = () =>
+      HttpResponse.json(
+        {
+          success: false,
+          errors: [
+            { code: 10502, message: 'Too many authentication failures. Please try again later.' }
+          ]
+        },
+        { status: 429 }
+      )
+    mockProbes({ user: failedTooOften, accounts: failedTooOften })
+
+    await expectOAuthError(
+      resolveCloudflareCredential('legacy-token', 'unknown'),
+      'invalid_token',
+      401
+    )
+  })
+
   it('takes the wait from whichever rate-limited probe gives one', async () => {
     // As in production: /user refused with no headers, /accounts by the API gateway.
     mockProbes({

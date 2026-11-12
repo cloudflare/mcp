@@ -317,7 +317,8 @@ describe('resolveExternalToken', () => {
 
       const key = `api-token-rate-limited:v1:${await sha256Hex('cfut_held-token')}`
       const stored = await env.OAUTH_KV.get(key)
-      expect(Object.keys(JSON.parse(stored!) as object)).toEqual(['until'])
+      expect(Object.keys(JSON.parse(stored!) as object)).toEqual(['until', 'refusal'])
+      expect(JSON.parse(stored!)).toMatchObject({ refusal: 'rate_limited' })
       expect(stored).not.toContain('cfut_held-token')
 
       await expectExternalTokenError(
@@ -355,6 +356,68 @@ describe('resolveExternalToken', () => {
       await expect(resolveExternalToken(input)).resolves.toMatchObject({
         props: { type: 'user_token' }
       })
+      expect(calls.userCalls()).toBe(1)
+    })
+  })
+
+  describe('a credential Cloudflare does not recognise', () => {
+    const invalid = () =>
+      HttpResponse.json(cfError([{ code: 9109, message: 'Invalid access token' }], null), {
+        status: 403
+      })
+    // What Cloudflare answers the sixth attempt in a minute with: no Retry-After, no Ratelimit.
+    const failedTooOften = () =>
+      HttpResponse.json(
+        cfError(
+          [{ code: 10502, message: 'Too many authentication failures. Please try again later.' }],
+          null
+        ),
+        { status: 429 }
+      )
+
+    it('is refused as invalid, not as rate limited, once Cloudflare answers it with a 429', async () => {
+      mockIdentity({ user: failedTooOften, accounts: failedTooOften })
+
+      const error = await expectExternalTokenError(
+        resolveExternalToken(resolverInput('cfut_stopped-working')),
+        'invalid_token',
+        401
+      )
+      expect(error.headers?.['Retry-After']).toBeUndefined()
+    })
+
+    it('is not probed again for a minute', async () => {
+      const calls = mockIdentity({ user: invalid, accounts: invalid })
+      const input = resolverInput('cfut_stopped-working')
+
+      await expectExternalTokenError(resolveExternalToken(input), 'invalid_token', 401)
+      await expectExternalTokenError(resolveExternalToken(input), 'invalid_token', 401)
+      await expectExternalTokenError(resolveExternalToken(input), 'invalid_token', 401)
+
+      // One probe, so the token's failures at Cloudflare stop at two, under its five a minute.
+      expect(calls.userCalls()).toBe(1)
+      expect(calls.accountCalls()).toBe(1)
+      const key = `api-token-rate-limited:v1:${await sha256Hex('cfut_stopped-working')}`
+      const stored = JSON.parse((await env.OAUTH_KV.get(key))!) as { until: number }
+      expect(stored).toMatchObject({ refusal: 'invalid_token' })
+      expect(stored.until - Date.now()).toBeLessThanOrEqual(60_000)
+      expect(stored.until - Date.now()).toBeGreaterThan(55_000)
+    })
+
+    it('is probed again once the minute is over', async () => {
+      const key = `api-token-rate-limited:v1:${await sha256Hex('cfut_replaced-token')}`
+      await env.OAUTH_KV.put(
+        key,
+        JSON.stringify({ until: Date.now() - 1, refusal: 'invalid_token' })
+      )
+      const calls = mockIdentity({
+        user: () => HttpResponse.json(cfSuccess(USER)),
+        accounts: () => HttpResponse.json(cfAccountsSuccess([ACCOUNT]))
+      })
+
+      await expect(
+        resolveExternalToken(resolverInput('cfut_replaced-token'))
+      ).resolves.toMatchObject({ props: { type: 'user_token' } })
       expect(calls.userCalls()).toBe(1)
     })
   })
