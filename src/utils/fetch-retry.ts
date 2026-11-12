@@ -180,13 +180,20 @@ export async function fetchWithRetry(
   throw lastError
 }
 
-/** The raw rate-limit headers, for the log: what the API actually sends on a 429. */
+/**
+ * The raw rate-limit headers, for the log: what the API actually sends on a 429, with the
+ * response's Ray ID so the exact call can be looked up.
+ */
 function rateLimitHints(headers: Headers): string {
   const retryAfter = headers.get('Retry-After')
   const ratelimit = headers.get('Ratelimit')
+  const policy = headers.get('Ratelimit-Policy')
+  const ray = headers.get('cf-ray')
   return (
     (retryAfter === null ? '' : ` retry-after=${retryAfter}`) +
-    (ratelimit === null ? '' : ` ratelimit=${ratelimit}`)
+    (ratelimit === null ? '' : ` ratelimit=${ratelimit}`) +
+    (policy === null ? '' : ` ratelimit-policy=${policy}`) +
+    (ray === null ? '' : ` ray=${ray}`)
   )
 }
 
