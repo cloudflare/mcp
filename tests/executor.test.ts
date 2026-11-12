@@ -823,7 +823,7 @@ describe('execute: rate limit holds', () => {
   })
 
   it('counts a wait that requests sent together share once', async () => {
-    setWaitBudgetMs(500)
+    setWaitBudgetMs(1000)
     mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
     const path = `/accounts/${ACCOUNT_ID}/workers/scripts`
     let calls = 0
@@ -841,13 +841,14 @@ describe('execute: rate limit holds', () => {
       code: `async () => {
         const get = () => cloudflare.request({ method: "GET", path: "${path}" });
         await get();
-        return (await Promise.all([get(), get(), get()])).length;
+        return (await Promise.all([get(), get(), get(), get()])).length;
       }`
     })
 
-    // The three wait out the same 300 ms: one wait of the budget's 500, not three.
-    expect(toolText(result)).toBe('3')
-    expect(calls).toBe(4)
+    // The four wait out the same 300 ms: one wait of the budget's 1,000, not four,
+    // with room for one that wakes late and waits out the next hold too.
+    expect(toolText(result)).toBe('4')
+    expect(calls).toBe(5)
   })
 
   it('stops pacing once the run has waited its budget, and says how far it got', async () => {
