@@ -370,6 +370,25 @@ describe('identity probe errors', () => {
     expect(error.headers).toEqual({ 'Retry-After': '17' })
   })
 
+  it('takes the wait from whichever rate-limited probe gives one', async () => {
+    // As in production: /user refused with no headers, /accounts by the API gateway.
+    mockProbes({
+      user: () => new HttpResponse('rate limited', { status: 429 }),
+      accounts: () =>
+        new HttpResponse('rate limited', {
+          status: 429,
+          headers: { 'Retry-After': '1', Ratelimit: '"default";r=0;t=300' }
+        })
+    })
+
+    const error = await expectOAuthError(
+      resolveCloudflareCredential('legacy-token', 'unknown'),
+      'temporarily_unavailable',
+      429
+    )
+    expect(error.headers).toEqual({ 'Retry-After': '1' })
+  })
+
   it('derives Retry-After from the Ratelimit reset when the probe got none', async () => {
     mockProbes({
       user: () =>

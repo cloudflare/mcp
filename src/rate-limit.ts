@@ -10,8 +10,9 @@ import { serverRetryDelayMs } from './utils/fetch-retry'
  * `Ratelimit-Policy: "default";q=1200;w=300` is a bucket of 1,200 requests that
  * refills in 300 seconds, so 4 a second, and `Ratelimit: "default";r=1147;t=14`
  * says 1,147 are left and the bucket is full again in 14 seconds. An empty
- * bucket is a 429, and for the per-user limit a five-minute block of every API
- * call, the dashboard's included. So the aim is never to empty one:
+ * bucket is a 429 for every client of the limit, the dashboard included: the
+ * shared limit then asks for a 1 second wait, R2's for 300. So the aim is never
+ * to empty one:
  *
  * - {@link holdOf} turns a response into a hold: how long requests under the
  *   same limit should wait. Close to empty, long enough for the bucket to
