@@ -156,6 +156,9 @@ const sentRequests = [];
 // sending, and every request is refused and counted against the limit.
 const holds = new Map();
 const rateLimitStats = { limited: 0, notSent: 0, waitedMs: 0 };
+// When the last wait counted in waitedMs ends. Requests sent together wait out
+// the same hold at the same time, which is one wait for the run, not one each.
+let waitedUntil = 0;
 const apiBasePath = new URL(apiBase).pathname.replace(/\\/$/, "");
 
 // The hold on a request that ends last, if any.
@@ -202,9 +205,13 @@ function notSent({ limit, until }, outOfTime) {
 }
 
 // Stops the run: evaluate() returns this error whatever the code is doing.
+// The code may still be running in other branches of a Promise.all, so from
+// then on no request is sent or answered.
 let stopRun;
+let runIsStopped = false;
 const runStopped = new Promise((resolve, reject) => { stopRun = reject; });
 runStopped.catch(() => {});
+const neverAnswered = () => new Promise(() => {});
 
 // Answer a held request without sending it. The answer involves no I/O, so
 // code that retries in a loop would spin until the Worker runs out of CPU or
@@ -215,9 +222,10 @@ async function answerUnsent(hold, outOfTime) {
   const response = notSent(hold, outOfTime);
   if (rateLimitStats.notSent > ${MOST_UNSENT_REQUESTS}) {
     const { errors } = await response.json();
+    runIsStopped = true;
     stopRun(new Error("This code was stopped: it kept sending requests after Cloudflare's rate limit held them back, and " +
       ${MOST_UNSENT_REQUESTS} + " requests were not sent. " + errors[0].message));
-    return new Promise(() => {});
+    return neverAnswered();
   }
   await new Promise((resolve) => setTimeout(resolve, 0));
   return response;
@@ -228,12 +236,18 @@ globalThis.fetch = async (input, init) => {
   const request = new Request(input, init);
   const method = request.method.toUpperCase();
   const path = new URL(request.url).pathname.slice(apiBasePath.length);
+  if (runIsStopped) return neverAnswered();
   for (let hold = holdOn(method, path); hold; hold = holdOn(method, path)) {
-    const waitMs = hold.until - Date.now();
-    const outOfTime = rateLimitStats.waitedMs + waitMs > ${getWaitBudgetMs()};
+    const now = Date.now();
+    const waitMs = hold.until - now;
+    // The part of this wait the run is not already waiting out for another request.
+    const addedMs = Math.max(0, hold.until - Math.max(now, waitedUntil));
+    const outOfTime = rateLimitStats.waitedMs + addedMs > ${getWaitBudgetMs()};
     if (waitMs > ${LONGEST_WAIT_MS} || outOfTime) return answerUnsent(hold, waitMs <= ${LONGEST_WAIT_MS});
-    rateLimitStats.waitedMs += waitMs;
+    rateLimitStats.waitedMs += addedMs;
+    waitedUntil = Math.max(waitedUntil, hold.until);
     await new Promise((resolve) => setTimeout(resolve, waitMs));
+    if (runIsStopped) return neverAnswered();
   }
   // The GraphQL Analytics API has no mutations, so its POSTs are reads too.
   const read = method === "GET" || method === "HEAD" || /\\/graphql\\/?$/.test(new URL(request.url).pathname);

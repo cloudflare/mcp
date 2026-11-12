@@ -822,6 +822,34 @@ describe('execute: rate limit holds', () => {
     expect(times[1]! - times[0]!).toBeGreaterThanOrEqual(250)
   })
 
+  it('counts a wait that requests sent together share once', async () => {
+    setWaitBudgetMs(500)
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+    const path = `/accounts/${ACCOUNT_ID}/workers/scripts`
+    let calls = 0
+    server.use(
+      http.get(`${API_BASE}${path}`, () => {
+        calls++
+        // 300 ms of pacing after every response.
+        return HttpResponse.json(cfSuccess([]), {
+          headers: { Ratelimit: '"default";r=2;t=10', 'Ratelimit-Policy': '"default";q=100;w=10' }
+        })
+      })
+    )
+
+    const result = await callTool(API_TOKEN, 'execute', {
+      code: `async () => {
+        const get = () => cloudflare.request({ method: "GET", path: "${path}" });
+        await get();
+        return (await Promise.all([get(), get(), get()])).length;
+      }`
+    })
+
+    // The three wait out the same 300 ms: one wait of the budget's 500, not three.
+    expect(toolText(result)).toBe('3')
+    expect(calls).toBe(4)
+  })
+
   it('stops pacing once the run has waited its budget, and says how far it got', async () => {
     setWaitBudgetMs(500)
     mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
