@@ -280,6 +280,85 @@ describe('resolveExternalToken', () => {
     expect(error.headers).toEqual({ 'Retry-After': '17' })
   })
 
+  describe('a credential Cloudflare rate limited', () => {
+    const limited = (retryAfter?: string) => () =>
+      HttpResponse.json(cfError([], null), {
+        status: 429,
+        headers: retryAfter ? { 'Retry-After': retryAfter } : {}
+      })
+
+    it('is not probed again until the wait is over', async () => {
+      const calls = mockIdentity({ user: limited('300'), accounts: limited('300') })
+      const input = resolverInput('cfut_held-token')
+
+      await expectExternalTokenError(resolveExternalToken(input), 'temporarily_unavailable', 429)
+      expect(calls.userCalls()).toBe(1)
+      expect(calls.accountCalls()).toBe(1)
+
+      const error = await expectExternalTokenError(
+        resolveExternalToken(input),
+        'temporarily_unavailable',
+        429
+      )
+      // Refused from the hold, with what is left of the wait.
+      expect(calls.userCalls()).toBe(1)
+      expect(calls.accountCalls()).toBe(1)
+      expect(Number(error.headers?.['Retry-After'])).toBeGreaterThanOrEqual(299)
+      expect(Number(error.headers?.['Retry-After'])).toBeLessThanOrEqual(300)
+    })
+
+    it('holds only that credential, by its hash and until a time', async () => {
+      const calls = mockIdentity({ user: limited('300'), accounts: limited('300') })
+      await expectExternalTokenError(
+        resolveExternalToken(resolverInput('cfut_held-token')),
+        'temporarily_unavailable',
+        429
+      )
+
+      const key = `api-token-rate-limited:v1:${await sha256Hex('cfut_held-token')}`
+      const stored = await env.OAUTH_KV.get(key)
+      expect(Object.keys(JSON.parse(stored!) as object)).toEqual(['until'])
+      expect(stored).not.toContain('cfut_held-token')
+
+      await expectExternalTokenError(
+        resolveExternalToken(resolverInput('cfut_another-token')),
+        'temporarily_unavailable',
+        429
+      )
+      expect(calls.userCalls()).toBe(2)
+    })
+
+    it('is probed again once the wait is over', async () => {
+      const key = `api-token-rate-limited:v1:${await sha256Hex('cfut_waited-token')}`
+      await env.OAUTH_KV.put(key, JSON.stringify({ until: Date.now() - 1 }))
+      const calls = mockIdentity({
+        user: () => HttpResponse.json(cfSuccess(USER)),
+        accounts: () => HttpResponse.json(cfAccountsSuccess([ACCOUNT]))
+      })
+
+      const result = await resolveExternalToken(resolverInput('cfut_waited-token'))
+
+      expect(result.props).toMatchObject({ type: 'user_token' })
+      expect(calls.userCalls()).toBe(1)
+    })
+
+    it('never holds a credential whose identity is cached', async () => {
+      const calls = mockIdentity({
+        user: () => HttpResponse.json(cfSuccess(USER)),
+        accounts: () => HttpResponse.json(cfAccountsSuccess([ACCOUNT]))
+      })
+      const input = resolverInput('cfut_known-token')
+      await resolveExternalToken(input)
+      const key = `api-token-rate-limited:v1:${await sha256Hex('cfut_known-token')}`
+      await env.OAUTH_KV.put(key, JSON.stringify({ until: Date.now() + 300_000 }))
+
+      await expect(resolveExternalToken(input)).resolves.toMatchObject({
+        props: { type: 'user_token' }
+      })
+      expect(calls.userCalls()).toBe(1)
+    })
+  })
+
   it('maps upstream failures to server_error', async () => {
     mockIdentity({
       user: () => HttpResponse.json(cfError([], null), { status: 502 }),

@@ -12,6 +12,7 @@ import { clearKv } from './helpers/kv'
 import { clearSpec, seedSpec } from './helpers/spec'
 import { callTool, toolText } from './helpers/mcp'
 import { server } from './setup/msw'
+import { setWaitBudgetMs } from '../src/rate-limit'
 
 /**
  * Behaviour tests for the code executors, run through the REAL worker: a
@@ -26,6 +27,7 @@ const ACCOUNT_ID = '00000000000000000000000000000001'
 const API_TOKEN = 'test-api-token-executor'
 
 afterEach(async () => {
+  setWaitBudgetMs()
   await clearKv(env.OAUTH_KV)
   await clearSpec()
 })
@@ -642,5 +644,248 @@ describe('search: the pinned spec, in the forge tools service', () => {
     // The search isolate cannot make outbound requests.
     expect(toolText(result)).not.toContain('should not reach')
     expect(result.result?.isError).toBe(true)
+  })
+})
+
+describe('execute: rate limit holds', () => {
+  const LIMITED = { 'Retry-After': '300', Ratelimit: '"rtwo_gw_apigw";r=0;t=300' }
+  const bucket = `/accounts/${ACCOUNT_ID}/r2/buckets/b`
+
+  /** Rate limit every GET of an object in the bucket, and collect the keys asked for. */
+  async function limitObjects(headers: Record<string, string> = LIMITED): Promise<string[]> {
+    const keys: string[] = []
+    await seedSpec({
+      '/accounts/{account_id}/r2/buckets': { get: { summary: 'List buckets' } },
+      '/accounts/{account_id}/r2/buckets/{bucket_name}/objects/{object_name}': {
+        get: { summary: 'Get object' }
+      }
+    })
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+    server.use(
+      http.get(`${API_BASE}${bucket}/objects/*`, ({ request }) => {
+        keys.push(new URL(request.url).pathname.split('/objects/')[1]!)
+        return HttpResponse.json(cfError([{ code: 10429, message: 'rate limited' }]), {
+          status: 429,
+          headers
+        })
+      })
+    )
+    return keys
+  }
+
+  it('tells the agent how long Cloudflare asks to wait', async () => {
+    await limitObjects()
+
+    const result = await callTool(API_TOKEN, 'execute', {
+      code: `async () => cloudflare.request({ method: "GET", path: "${bucket}/objects/a" })`
+    })
+
+    const text = toolText(result)
+    expect(text).toContain(`GET ${bucket}/objects/a returned HTTP 429`)
+    expect(text).toContain(
+      'Cloudflare rate limited this request (limit "rtwo_gw_apigw") and asks to wait 300 seconds.'
+    )
+  })
+
+  it('sends no more requests to the operation, even when the code catches the error', async () => {
+    const keys = await limitObjects()
+
+    const result = await callTool(API_TOKEN, 'execute', {
+      code: `async () => {
+        const errors = [];
+        for (const key of ["a", "dir/b.json", "c", "d"]) {
+          try {
+            await cloudflare.request({ method: "GET", path: "${bucket}/objects/" + key });
+          } catch (error) {
+            errors.push(error.message);
+          }
+        }
+        return errors;
+      }`
+    })
+
+    expect(keys).toEqual(['a'])
+    const errors = JSON.parse(toolText(result)) as string[]
+    expect(errors[0]).toContain('returned HTTP 429')
+    expect(errors[1]).toContain(
+      `Cloudflare API request not sent: GET ${bucket}/objects/dir/b.json.`
+    )
+    expect(errors[3]).toContain('limit \\"rtwo_gw_apigw\\"')
+    expect(errors[3]).toMatch(/asks to wait (299|300) more seconds/)
+  })
+
+  it('still sends requests to other operations', async () => {
+    await limitObjects()
+    server.use(
+      http.get(`${API_BASE}/accounts/${ACCOUNT_ID}/r2/buckets`, () =>
+        HttpResponse.json(cfSuccess({ buckets: [{ name: 'b' }] }))
+      )
+    )
+
+    const result = await callTool(API_TOKEN, 'execute', {
+      code: `async () => {
+        await cloudflare.request({ method: "GET", path: "${bucket}/objects/a" }).catch(() => {});
+        return cloudflare.request({ method: "GET", path: "/accounts/${ACCOUNT_ID}/r2/buckets" });
+      }`
+    })
+
+    expect(toolText(result)).toContain('"name": "b"')
+  })
+
+  it('sends nothing more once the limit every endpoint shares is exhausted', async () => {
+    await limitObjects({ 'Retry-After': '120', Ratelimit: '"default";r=0;t=120' })
+    let scripts = 0
+    server.use(
+      http.get(`${API_BASE}/accounts/${ACCOUNT_ID}/workers/scripts`, () => {
+        scripts++
+        return HttpResponse.json(cfSuccess([]))
+      })
+    )
+
+    const result = await callTool(API_TOKEN, 'execute', {
+      code: `async () => {
+        await cloudflare.request({ method: "GET", path: "${bucket}/objects/a" }).catch(() => {});
+        return cloudflare.request({ method: "GET", path: "/accounts/${ACCOUNT_ID}/workers/scripts" });
+      }`
+    })
+
+    expect(scripts).toBe(0)
+    expect(toolText(result)).toContain('Cloudflare API request not sent: GET')
+  })
+
+  it('gives raw fetch the 429 with Retry-After for a request it does not send', async () => {
+    const keys = await limitObjects()
+
+    const result = await callTool(API_TOKEN, 'execute', {
+      code: `async () => {
+        const url = "${API_BASE}${bucket}/objects/";
+        await fetch(url + "a");
+        const second = await fetch(url + "b");
+        return { status: second.status, retryAfter: second.headers.get("Retry-After") };
+      }`
+    })
+
+    expect(keys).toEqual(['a'])
+    expect(JSON.parse(toolText(result))).toMatchObject({ status: 429 })
+    expect(toolText(result)).toMatch(/"retryAfter": "(299|300)"/)
+  })
+
+  it('stops a run that keeps retrying a request the hold does not send', async () => {
+    const keys = await limitObjects()
+
+    const started = Date.now()
+    const result = await callTool(API_TOKEN, 'execute', {
+      code: `async () => {
+        const errors = [];
+        for (;;) {
+          try {
+            return await cloudflare.request({ method: "GET", path: "${bucket}/objects/a" });
+          } catch (error) {
+            errors.push(error.message);
+          }
+        }
+      }`
+    })
+
+    expect(keys).toEqual(['a'])
+    expect(Date.now() - started).toBeLessThan(10_000)
+    expect(result.result?.isError).toBe(true)
+    const text = toolText(result)
+    expect(text).toContain('This code was stopped')
+    expect(text).toContain('1000 requests were not sent')
+    expect(text).toContain('limit "rtwo_gw_apigw"')
+  })
+
+  it('slows down close to a limit instead of emptying it', async () => {
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+    const path = `/accounts/${ACCOUNT_ID}/workers/scripts`
+    const times: number[] = []
+    server.use(
+      http.get(`${API_BASE}${path}`, () => {
+        times.push(Date.now())
+        // 10 requests a second, a reserve of 5 and 2 left: 3 short, so 300 ms.
+        return HttpResponse.json(cfSuccess([]), {
+          headers: { Ratelimit: '"default";r=2;t=10', 'Ratelimit-Policy': '"default";q=100;w=10' }
+        })
+      })
+    )
+
+    const result = await callTool(API_TOKEN, 'execute', {
+      code: `async () => {
+        await cloudflare.request({ method: "GET", path: "${path}" });
+        return cloudflare.request({ method: "GET", path: "${path}" });
+      }`
+    })
+
+    expect(toolText(result)).toContain('"success": true')
+    expect(times).toHaveLength(2)
+    expect(times[1]! - times[0]!).toBeGreaterThanOrEqual(250)
+  })
+
+  it('counts a wait that requests sent together share once', async () => {
+    setWaitBudgetMs(1000)
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+    const path = `/accounts/${ACCOUNT_ID}/workers/scripts`
+    let calls = 0
+    server.use(
+      http.get(`${API_BASE}${path}`, () => {
+        calls++
+        // 300 ms of pacing after every response.
+        return HttpResponse.json(cfSuccess([]), {
+          headers: { Ratelimit: '"default";r=2;t=10', 'Ratelimit-Policy': '"default";q=100;w=10' }
+        })
+      })
+    )
+
+    const result = await callTool(API_TOKEN, 'execute', {
+      code: `async () => {
+        const get = () => cloudflare.request({ method: "GET", path: "${path}" });
+        await get();
+        return (await Promise.all([get(), get(), get(), get()])).length;
+      }`
+    })
+
+    // The four wait out the same 300 ms: one wait of the budget's 1,000, not four,
+    // with room for one that wakes late and waits out the next hold too.
+    expect(toolText(result)).toBe('4')
+    expect(calls).toBe(5)
+  })
+
+  it('stops pacing once the run has waited its budget, and says how far it got', async () => {
+    setWaitBudgetMs(500)
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+    const path = `/accounts/${ACCOUNT_ID}/workers/scripts`
+    let calls = 0
+    server.use(
+      http.get(`${API_BASE}${path}`, () => {
+        calls++
+        // 300 ms of pacing after every response.
+        return HttpResponse.json(cfSuccess([]), {
+          headers: { Ratelimit: '"default";r=2;t=10', 'Ratelimit-Policy': '"default";q=100;w=10' }
+        })
+      })
+    )
+
+    const result = await callTool(API_TOKEN, 'execute', {
+      code: `async () => {
+        let done = 0;
+        try {
+          for (let i = 0; i < 10; i++) {
+            await cloudflare.request({ method: "GET", path: "${path}" });
+            done++;
+          }
+        } catch (error) {
+          return { done, error: error.message };
+        }
+      }`
+    })
+
+    // One wait fits the budget, a second would not.
+    expect(calls).toBe(2)
+    const { done, error } = JSON.parse(toolText(result)) as { done: number; error: string }
+    expect(done).toBe(2)
+    expect(error).toContain(`Cloudflare API request not sent: GET ${path}.`)
+    expect(error).toContain("close to Cloudflare's rate limit")
+    expect(error).toContain('Send the remaining requests in another call')
   })
 })
