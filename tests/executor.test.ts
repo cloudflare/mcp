@@ -770,6 +770,32 @@ describe('execute: rate limit holds', () => {
     expect(toolText(result)).toMatch(/"retryAfter": "(299|300)"/)
   })
 
+  it('stops a run that keeps retrying a request the hold does not send', async () => {
+    const keys = await limitObjects()
+
+    const started = Date.now()
+    const result = await callTool(API_TOKEN, 'execute', {
+      code: `async () => {
+        const errors = [];
+        for (;;) {
+          try {
+            return await cloudflare.request({ method: "GET", path: "${bucket}/objects/a" });
+          } catch (error) {
+            errors.push(error.message);
+          }
+        }
+      }`
+    })
+
+    expect(keys).toEqual(['a'])
+    expect(Date.now() - started).toBeLessThan(10_000)
+    expect(result.result?.isError).toBe(true)
+    const text = toolText(result)
+    expect(text).toContain('This code was stopped')
+    expect(text).toContain('1000 requests were not sent')
+    expect(text).toContain('limit "rtwo_gw_apigw"')
+  })
+
   it('slows down close to a limit instead of emptying it', async () => {
     mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
     const path = `/accounts/${ACCOUNT_ID}/workers/scripts`

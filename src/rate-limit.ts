@@ -18,7 +18,8 @@ import { serverRetryDelayMs } from './utils/fetch-retry'
  *   refill to its reserve (pacing). On a 429, as long as Cloudflare asks.
  * - `execute` applies holds inside one run (`src/tools/execute.ts`): it waits
  *   out a short hold and doesn't send a request under a long one, or once the
- *   run has waited its budget.
+ *   run has waited its budget. A run that keeps sending held requests is
+ *   stopped.
  * - {@link rateLimitHint} tells the agent the wait, on every tool surface.
  *   Nothing is remembered between tool calls.
  */
@@ -57,6 +58,15 @@ export function getWaitBudgetMs(): number {
 export function setWaitBudgetMs(ms: number = DEFAULT_WAIT_BUDGET_MS): void {
   waitBudgetMs = ms
 }
+
+/**
+ * The most requests a run may have answered "not sent". Code that retries a
+ * held request in a loop gets its answer without any I/O, so it would spin
+ * until the Worker runs out of CPU or memory (it did, in production). Past
+ * this many the run is stopped; code that catches each error of a long loop
+ * and carries on stays under it.
+ */
+export const MOST_UNSENT_REQUESTS = 1_000
 
 /** The share of a limit's quota kept unused, for the user's other clients and requests in flight. */
 const RESERVE_SHARE = 0.05

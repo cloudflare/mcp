@@ -22,6 +22,7 @@ import { WWW_AUTHENTICATE_META_KEY, type ScopeChallenge } from '../scope-challen
 import {
   getWaitBudgetMs,
   LONGEST_WAIT_MS,
+  MOST_UNSENT_REQUESTS,
   NOT_SENT_HEADER,
   RATE_LIMIT_HEADER,
   withRateLimitNotice
@@ -200,6 +201,28 @@ function notSent({ limit, until }, outOfTime) {
   });
 }
 
+// Stops the run: evaluate() returns this error whatever the code is doing.
+let stopRun;
+const runStopped = new Promise((resolve, reject) => { stopRun = reject; });
+runStopped.catch(() => {});
+
+// Answer a held request without sending it. The answer involves no I/O, so
+// code that retries in a loop would spin until the Worker runs out of CPU or
+// memory. Each answer therefore yields to the event loop, and past the most a
+// run may have, the run is stopped and this request never answered.
+async function answerUnsent(hold, outOfTime) {
+  rateLimitStats.notSent++;
+  const response = notSent(hold, outOfTime);
+  if (rateLimitStats.notSent > ${MOST_UNSENT_REQUESTS}) {
+    const { errors } = await response.json();
+    stopRun(new Error("This code was stopped: it kept sending requests after Cloudflare's rate limit held them back, and " +
+      ${MOST_UNSENT_REQUESTS} + " requests were not sent. " + errors[0].message));
+    return new Promise(() => {});
+  }
+  await new Promise((resolve) => setTimeout(resolve, 0));
+  return response;
+}
+
 const outboundFetch = globalThis.fetch.bind(globalThis);
 globalThis.fetch = async (input, init) => {
   const request = new Request(input, init);
@@ -208,10 +231,7 @@ globalThis.fetch = async (input, init) => {
   for (let hold = holdOn(method, path); hold; hold = holdOn(method, path)) {
     const waitMs = hold.until - Date.now();
     const outOfTime = rateLimitStats.waitedMs + waitMs > ${getWaitBudgetMs()};
-    if (waitMs > ${LONGEST_WAIT_MS} || outOfTime) {
-      rateLimitStats.notSent++;
-      return notSent(hold, waitMs <= ${LONGEST_WAIT_MS});
-    }
+    if (waitMs > ${LONGEST_WAIT_MS} || outOfTime) return answerUnsent(hold, waitMs <= ${LONGEST_WAIT_MS});
     rateLimitStats.waitedMs += waitMs;
     await new Promise((resolve) => setTimeout(resolve, waitMs));
   }
@@ -410,7 +430,7 @@ export default class CodeExecutor extends WorkerEntrypoint {
     };
 
     try {
-      const result = await (${code})();
+      const result = await Promise.race([(${code})(), runStopped]);
       return { ok: true, result: encodeBytes(result), rateLimits: rateLimitStats };
     } catch (err) {
       return {
