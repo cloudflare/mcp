@@ -25,8 +25,12 @@ const DEFAULT_OPTIONS: Required<Omit<RetryOptions, 'caller'>> = {
 
 /**
  * How long the server asked us to wait, in ms: `Retry-After` (seconds or an HTTP date), or else
- * the reset time `t` of an exhausted (`r=0`) item in the Cloudflare API's `Ratelimit` header
+ * the `t` of an exhausted (`r=0`) item in the Cloudflare API's `Ratelimit` header
  * (`"default";r=0;t=30`). Undefined when the response says nothing usable.
+ *
+ * `t` is the time until the limit's bucket is full again, which can be far longer than the wait:
+ * the API sends `Retry-After: 1` with `"default";r=0;t=300`. Every 429 seen with an exhausted
+ * item also had `Retry-After`, so `t` is only a cautious fallback.
  */
 export function serverRetryDelayMs(headers: Headers, now = Date.now()): number | undefined {
   const retryAfter = headers.get('Retry-After')?.trim()
@@ -161,7 +165,10 @@ export async function fetchWithRetry(
 
   if (lastResponse) {
     console.error(
-      `fetchWithRetry: failed${caller} url=${url} after ${opts.maxRetries + 1} attempts with status ${lastResponse.status}`
+      // With the rate-limit headers: a caller that never retries, such as the identity
+      // probe, logs no other line that shows what wait the API gave.
+      `fetchWithRetry: failed${caller} url=${url} after ${opts.maxRetries + 1} attempts with status ${lastResponse.status}` +
+        rateLimitHints(lastResponse.headers)
     )
     return lastResponse
   }
@@ -173,13 +180,20 @@ export async function fetchWithRetry(
   throw lastError
 }
 
-/** The raw rate-limit headers, for the log: what the API actually sends on a 429. */
+/**
+ * The raw rate-limit headers, for the log: what the API actually sends on a 429, with the
+ * response's Ray ID so the exact call can be looked up.
+ */
 function rateLimitHints(headers: Headers): string {
   const retryAfter = headers.get('Retry-After')
   const ratelimit = headers.get('Ratelimit')
+  const policy = headers.get('Ratelimit-Policy')
+  const ray = headers.get('cf-ray')
   return (
     (retryAfter === null ? '' : ` retry-after=${retryAfter}`) +
-    (ratelimit === null ? '' : ` ratelimit=${ratelimit}`)
+    (ratelimit === null ? '' : ` ratelimit=${ratelimit}`) +
+    (policy === null ? '' : ` ratelimit-policy=${policy}`) +
+    (ray === null ? '' : ` ray=${ray}`)
   )
 }
 

@@ -195,6 +195,34 @@ describe('fetchWithRetry', () => {
     )
   })
 
+  it('logs the rate-limit headers of the 429 it gives up on', async () => {
+    server.use(
+      http.get('https://api.example.com/accounts', () =>
+        HttpResponse.json(
+          {},
+          {
+            status: 429,
+            headers: {
+              'Retry-After': '1',
+              Ratelimit: '"default";r=0;t=300',
+              'Ratelimit-Policy': '"default";q=1200;w=300',
+              'cf-ray': '8f1a2b3c4d5e6f70-LHR'
+            }
+          }
+        )
+      )
+    )
+
+    await fetchWithRetry('https://api.example.com/accounts', undefined, {
+      maxRetries: 0,
+      caller: 'api_token_identity_probe'
+    })
+
+    expect(errorSpy).toHaveBeenCalledWith(
+      'fetchWithRetry: failed caller=api_token_identity_probe url=https://api.example.com/accounts after 1 attempts with status 429 retry-after=1 ratelimit="default";r=0;t=300 ratelimit-policy="default";q=1200;w=300 ray=8f1a2b3c4d5e6f70-LHR'
+    )
+  })
+
   it('returns last 429 response after exhausting retries', async () => {
     const api = respondInSequence(TEST_URL, 429)
 

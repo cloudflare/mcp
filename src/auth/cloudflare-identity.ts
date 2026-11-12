@@ -71,10 +71,26 @@ const AccountsResponseSchema = z.object({
     .optional()
 })
 
+/** The wait for a client when Cloudflare gives none. */
+const DEFAULT_RETRY_AFTER_SECONDS = 30
+
+/**
+ * The `Retry-After` for rate-limited probes: the longest wait any of them gives.
+ *
+ * Measured in production: about a third of rate-limited probes carry the API
+ * gateway's `Retry-After: 1` with `Ratelimit: "default";r=0;t=300`, and the rest
+ * carry no rate-limit header at all, from something in front of the gateway.
+ * When `/user` and `/accounts` are both refused, either may be the one with the
+ * wait, so every refused response is read, not only the first.
+ */
 function retryAfterHeaders(...responses: Response[]): Record<string, string> {
-  const limited = responses.find((response) => response.status === 429)
-  const waitMs = limited ? serverRetryDelayMs(limited.headers) : undefined
-  return { 'Retry-After': waitMs === undefined ? '30' : String(Math.ceil(waitMs / 1000)) }
+  const waits = responses
+    .filter((response) => response.status === 429)
+    .map((response) => serverRetryDelayMs(response.headers))
+    .filter((waitMs) => waitMs !== undefined)
+  const seconds =
+    waits.length === 0 ? DEFAULT_RETRY_AFTER_SECONDS : Math.ceil(Math.max(...waits) / 1000)
+  return { 'Retry-After': String(seconds) }
 }
 
 /**
