@@ -5,6 +5,7 @@ import type { McpServer } from '@modelcontextprotocol/server'
 import { CLOUDFLARE_TYPES } from '../constants'
 import { formatterFor, TRUNCATE_ARGUMENT_DESCRIPTION } from '../truncate'
 import { fetchWithRetry } from '../utils/fetch-retry'
+import { fetchSingleAttempt } from '../utils/fetch-single-attempt'
 import { formatError } from '../utils/errors'
 import {
   ACCOUNT_DISCOVERY_DESCRIPTION,
@@ -59,6 +60,7 @@ type GlobalOutboundProps = {
   apiToken: string
   fetchWithRetryCaller: string
   connection: Connection
+  maxRetries?: 0
 }
 
 /**
@@ -84,6 +86,7 @@ export class GlobalOutbound extends WorkerEntrypoint<Env, GlobalOutboundProps> {
         ['Authorization', `Bearer ${this.ctx.props.apiToken}`]
       ])
     })
+    if (this.ctx.props.maxRetries === 0) return fetchSingleAttempt(authedRequest)
     const response = await fetchWithRetry(authedRequest, undefined, {
       caller: this.ctx.props.fetchWithRetryCaller
     })
@@ -114,7 +117,8 @@ async function runExecute(
   accountId: string | undefined,
   apiToken: string,
   unresolvedAccountMessage: string,
-  connection: Connection
+  connection: Connection,
+  maxRetries?: 0
 ): Promise<Execution> {
   const apiBase = env.CLOUDFLARE_API_BASE
   const workerId = `cloudflare-api-${crypto.randomUUID()}`
@@ -132,7 +136,12 @@ async function runExecute(
   const worker = env.LOADER.get(workerId, () => ({
     compatibilityDate: '2026-01-12',
     globalOutbound: exports.GlobalOutbound({
-      props: { apiToken, fetchWithRetryCaller: 'codemode_execute_tool_call', connection }
+      props: {
+        apiToken,
+        fetchWithRetryCaller: 'codemode_execute_tool_call',
+        connection,
+        maxRetries
+      }
     }),
     mainModule: 'worker.js',
     modules: {
@@ -231,6 +240,17 @@ globalThis.fetch = async (input, init) => {
 // body is raw, so nothing the API says is lost, such as an error
 // with a code but no message.
 function apiError(method, path, response, body) {
+  if (${maxRetries === 0}) {
+    let codes = [];
+    try {
+      const data = JSON.parse(body);
+      codes = Array.isArray(data?.errors)
+        ? data.errors.flatMap(error => Number.isSafeInteger(error?.code) ? [error.code] : [])
+        : [];
+    } catch {}
+    return new Error("Cloudflare API returned HTTP " + response.status +
+      "; outboundAttempts: 1; provider error codes: " + JSON.stringify(codes) + ".");
+  }
   const hint = response.headers.get(${JSON.stringify(REFUSAL_HINT_HEADER)});
   const rateLimit = response.headers.get(${JSON.stringify(RATE_LIMIT_HEADER)});
   const ray = response.headers.get("cf-ray");
@@ -521,6 +541,12 @@ const ExecuteInputSchema = withCachedJsonSchema(
   z.object({
     code: z.string().describe('JavaScript async arrow function to execute'),
     account_id: z.string().optional().describe(ACCOUNT_ID_PARAM_DESCRIPTION),
+    maxRetries: z
+      .literal(0)
+      .optional()
+      .describe(
+        'Disable automatic retries, redirects and OAuth scope challenges for this execution. Each outbound request is attempted at most once. This does not prevent retries written in your code or separate tool calls.'
+      ),
     truncate: z.boolean().optional().describe(TRUNCATE_ARGUMENT_DESCRIPTION)
   })
 )
@@ -560,7 +586,7 @@ export function registerExecuteTool(
         destructiveHint: true
       }
     },
-    async ({ code, account_id, truncate }) => {
+    async ({ code, account_id, truncate, maxRetries }) => {
       try {
         // Undefined accountId lets account-independent requests such as
         // GET /accounts run before the caller has selected an account; any
@@ -572,7 +598,8 @@ export function registerExecuteTool(
           effectiveAccountId,
           apiToken,
           missingAccountMessage(props, ACCOUNT_DISCOVERY_GUIDANCE),
-          connection
+          connection,
+          maxRetries
         )
         if (execution.ok) {
           const text = formatterFor(truncate, truncateByDefault)(execution.result)
@@ -580,6 +607,11 @@ export function registerExecuteTool(
         }
 
         const failure = formatError(execution.message)
+        if (maxRetries === 0) {
+          failure.content[0].text +=
+            '\n\nAutomatic retries and permission challenges are disabled for this execution. Check the outcome and permissions before deciding whether to submit another call.'
+          return failure
+        }
         const pathAccount = account_id ? undefined : refusedAccountId(execution.message)
         const hint = account_id
           ? unknownAccountHint(props, account_id)

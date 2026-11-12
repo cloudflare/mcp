@@ -84,6 +84,32 @@ In code mode, the server caps each `search` and `execute` result at ~6,000 token
 
 With code mode disabled, the direct tools return whole results. The clients that disable it usually run code mode themselves: they call the direct tools from their own code and parse each result, so a capped result would lose data.
 
+### Single-attempt execution
+
+Pass `maxRetries: 0` to the Code Mode `execute` tool to disable automatic retries and redirects for each outbound API request in that execution. For example:
+
+```js
+execute({
+  maxRetries: 0,
+  code: `async () => {
+    const form = new FormData();
+    form.append("metadata", new Blob([JSON.stringify({ main_module: "worker.js" })], { type: "application/json" }));
+    form.append("worker.js", new Blob(['export default { fetch() { return new Response("Hello"); } };'], { type: "application/javascript+module" }), "worker.js");
+    return cloudflare.request({
+      method: "POST",
+      path: "/accounts/ACCOUNT_ID/workers/scripts/WORKER_NAME/versions",
+      body: form
+    });
+  }`
+})
+```
+
+Replace the account ID, Worker name and sample module with the intended upload. Omit `maxRetries` to keep the usual retry behavior; only `0` is accepted as an explicit value.
+
+In this mode, HTTP failures report the status, numeric provider error codes and outbound attempt count without the raw error body or private response headers. A network failure reports an unknown outcome: the upload might have reached Cloudflare even though no response arrived. Permission failures do not issue an OAuth challenge that could cause the client to replay the execution. Check the outcome and permissions before deciding whether to submit another call.
+
+This controls the server's application-level outbound requests. It does not deduplicate separate tool calls, stop retries explicitly written in the supplied JavaScript, or attest to retries outside this server. The option applies to Code Mode, not the generated direct tools. Availability and the deployed build behind a hosted connection must be verified by its operator; a source change alone is not deployment attestation.
+
 ### Missing Permissions
 
 When Cloudflare refuses a call because the OAuth connection lacks a scope, the server asks the client to re-authorize with that scope added to the ones it already has. Claude and other clients that follow the [MCP authorization spec](https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization#scope-challenge-handling) get a `403 insufficient_scope` challenge. Codex and ChatGPT get it in the tool result, which is where they look for it. Either way, the tool error says which scope is missing. Some endpoints, such as `GET /zones`, don't refuse: they answer with an empty list when the scope is missing. An empty list from a read the connection holds no accepted scope for is refused the same way, so it isn't mistaken for an empty account.
