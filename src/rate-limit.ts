@@ -17,7 +17,8 @@ import { serverRetryDelayMs } from './utils/fetch-retry'
  *   same limit should wait. Close to empty, long enough for the bucket to
  *   refill to its reserve (pacing). On a 429, as long as Cloudflare asks.
  * - `execute` applies holds inside one run (`src/tools/execute.ts`): it waits
- *   out a short hold and doesn't send a request under a long one.
+ *   out a short hold and doesn't send a request under a long one, or once the
+ *   run has waited its budget.
  * - {@link rateLimitHint} tells the agent the wait, on every tool surface.
  *   Nothing is remembered between tool calls.
  */
@@ -36,6 +37,26 @@ export const NOT_SENT_HEADER = 'X-Cloudflare-MCP-Not-Sent'
  * longer one the request is not sent: a user is waiting on the tool call.
  */
 export const LONGEST_WAIT_MS = 5_000
+
+/**
+ * The longest a run spends waiting out holds in total. The TypeScript MCP SDK
+ * gives up on a tool call after 60 seconds, and a call cut off there returns
+ * nothing and may stop between writes. Past this budget a held request is not
+ * sent, so the call ends with an error that says how far it got.
+ */
+const DEFAULT_WAIT_BUDGET_MS = 30_000
+
+let waitBudgetMs = DEFAULT_WAIT_BUDGET_MS
+
+/** The total a run may wait out holds, in ms. */
+export function getWaitBudgetMs(): number {
+  return waitBudgetMs
+}
+
+/** Set the wait budget, or restore the default: for tests, which can't wait 30 seconds. */
+export function setWaitBudgetMs(ms: number = DEFAULT_WAIT_BUDGET_MS): void {
+  waitBudgetMs = ms
+}
 
 /** The share of a limit's quota kept unused, for the user's other clients and requests in flight. */
 const RESERVE_SHARE = 0.05

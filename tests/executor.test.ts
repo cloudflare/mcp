@@ -12,6 +12,7 @@ import { clearKv } from './helpers/kv'
 import { clearSpec, seedSpec } from './helpers/spec'
 import { callTool, toolText } from './helpers/mcp'
 import { server } from './setup/msw'
+import { setWaitBudgetMs } from '../src/rate-limit'
 
 /**
  * Behaviour tests for the code executors, run through the REAL worker: a
@@ -26,6 +27,7 @@ const ACCOUNT_ID = '00000000000000000000000000000001'
 const API_TOKEN = 'test-api-token-executor'
 
 afterEach(async () => {
+  setWaitBudgetMs()
   await clearKv(env.OAUTH_KV)
   await clearSpec()
 })
@@ -792,5 +794,43 @@ describe('execute: rate limit holds', () => {
     expect(toolText(result)).toContain('"success": true')
     expect(times).toHaveLength(2)
     expect(times[1]! - times[0]!).toBeGreaterThanOrEqual(250)
+  })
+
+  it('stops pacing once the run has waited its budget, and says how far it got', async () => {
+    setWaitBudgetMs(500)
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+    const path = `/accounts/${ACCOUNT_ID}/workers/scripts`
+    let calls = 0
+    server.use(
+      http.get(`${API_BASE}${path}`, () => {
+        calls++
+        // 300 ms of pacing after every response.
+        return HttpResponse.json(cfSuccess([]), {
+          headers: { Ratelimit: '"default";r=2;t=10', 'Ratelimit-Policy': '"default";q=100;w=10' }
+        })
+      })
+    )
+
+    const result = await callTool(API_TOKEN, 'execute', {
+      code: `async () => {
+        let done = 0;
+        try {
+          for (let i = 0; i < 10; i++) {
+            await cloudflare.request({ method: "GET", path: "${path}" });
+            done++;
+          }
+        } catch (error) {
+          return { done, error: error.message };
+        }
+      }`
+    })
+
+    // One wait fits the budget, a second would not.
+    expect(calls).toBe(2)
+    const { done, error } = JSON.parse(toolText(result)) as { done: number; error: string }
+    expect(done).toBe(2)
+    expect(error).toContain(`Cloudflare API request not sent: GET ${path}.`)
+    expect(error).toContain("close to Cloudflare's rate limit")
+    expect(error).toContain('Send the remaining requests in another call')
   })
 })

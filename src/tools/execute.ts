@@ -20,6 +20,7 @@ import { authorize, explainRefusal, isCatalogScope } from '../api-permissions'
 import { MISSING_SCOPE_HEADER, REFUSAL_HINT_HEADER, reviewResponse } from '../api-refusals'
 import { WWW_AUTHENTICATE_META_KEY, type ScopeChallenge } from '../scope-challenge'
 import {
+  getWaitBudgetMs,
   LONGEST_WAIT_MS,
   NOT_SENT_HEADER,
   RATE_LIMIT_HEADER,
@@ -149,8 +150,8 @@ const sentRequests = [];
 // sending, by the method and path they cover, and until when. The server
 // works each one out from a response (src/rate-limit.ts); this only applies
 // them. A short hold is waited out, which paces a run that is close to a
-// limit. Under a long one, after a 429, the request is answered here with a
-// 429 and never sent: code that loops over hundreds of objects otherwise keeps
+// limit, until the run has waited its budget. Under a long one, after a 429,
+// the request is answered here with a 429 and never sent: code that loops over hundreds of objects otherwise keeps
 // sending, and every request is refused and counted against the limit.
 const holds = new Map();
 const rateLimitStats = { limited: 0, notSent: 0, waitedMs: 0 };
@@ -181,12 +182,18 @@ function rememberHold(response) {
   holds.set(key, { method, pattern: pattern ? new RegExp(pattern) : undefined, until, limit: hold.limit });
 }
 
-// The 429 for a request that was not sent, saying so and how long is left.
-function notSent({ limit, until }) {
+// The 429 for a request that was not sent, saying why and how long is left:
+// Cloudflare refused an earlier request, or the run is out of time to pace.
+function notSent({ limit, until }, outOfTime) {
   const seconds = Math.max(1, Math.ceil((until - Date.now()) / 1000));
-  const message = "This request was not sent: Cloudflare rate limited an earlier request in this code" +
-    (limit ? ' (limit "' + limit + '")' : "") + " and asks to wait " + seconds +
-    " more seconds. Do not send it again sooner: it will be refused again and count against the limit.";
+  const named = limit ? ' (limit "' + limit + '")' : "";
+  const message = outOfTime
+    ? "This request was not sent: this code is close to Cloudflare's rate limit" + named +
+      " and has already waited " + Math.round(rateLimitStats.waitedMs / 1000) +
+      " seconds for it, the most one call waits. Send the remaining requests in another call, in " + seconds + " seconds or later."
+    : "This request was not sent: Cloudflare rate limited an earlier request in this code" + named +
+      " and asks to wait " + seconds +
+      " more seconds. Do not send it again sooner: it will be refused again and count against the limit.";
   return new Response(JSON.stringify({ success: false, errors: [{ message }] }), {
     status: 429,
     headers: { "Content-Type": "application/json", "Retry-After": String(seconds), ${JSON.stringify(NOT_SENT_HEADER)}: "1" }
@@ -200,9 +207,10 @@ globalThis.fetch = async (input, init) => {
   const path = new URL(request.url).pathname.slice(apiBasePath.length);
   for (let hold = holdOn(method, path); hold; hold = holdOn(method, path)) {
     const waitMs = hold.until - Date.now();
-    if (waitMs > ${LONGEST_WAIT_MS}) {
+    const outOfTime = rateLimitStats.waitedMs + waitMs > ${getWaitBudgetMs()};
+    if (waitMs > ${LONGEST_WAIT_MS} || outOfTime) {
       rateLimitStats.notSent++;
-      return notSent(hold);
+      return notSent(hold, waitMs <= ${LONGEST_WAIT_MS});
     }
     rateLimitStats.waitedMs += waitMs;
     await new Promise((resolve) => setTimeout(resolve, waitMs));
