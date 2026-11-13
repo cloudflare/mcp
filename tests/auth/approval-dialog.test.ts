@@ -7,8 +7,8 @@ import {
   type ApprovalDialogOptions
 } from '../../src/auth/workers-oauth-utils'
 
-function render(options: Partial<ApprovalDialogOptions> = {}): Promise<string> {
-  const response = renderApprovalDialog(new Request('https://mcp.cloudflare.com/authorize'), {
+function renderResponse(options: Partial<ApprovalDialogOptions> = {}): Response {
+  return renderApprovalDialog(new Request('https://mcp.cloudflare.com/authorize'), {
     consent: {
       clientId: 'opaque-client-id',
       clientName: 'Test client',
@@ -26,8 +26,44 @@ function render(options: Partial<ApprovalDialogOptions> = {}): Promise<string> {
     initialScopes: [],
     ...options
   })
+}
 
-  return response.text()
+function render(options: Partial<ApprovalDialogOptions> = {}): Promise<string> {
+  return renderResponse(options).text()
+}
+
+function consentRedirectingTo(redirectUri: string): ApprovalDialogOptions['consent'] {
+  const { hostname } = new URL(redirectUri)
+  return {
+    clientId: 'opaque-client-id',
+    clientName: 'Test client',
+    redirectUri,
+    redirectHost: hostname,
+    redirectIsLoopback: hostname !== 'callback.example',
+    scope: []
+  }
+}
+
+/** The nonce a page's policy lets scripts run with. */
+function policyNonce(policy: string | null): string {
+  const nonce = policy?.match(/script-src 'nonce-([^']+)'/)?.[1]
+  if (!nonce) throw new Error(`No script nonce in the policy: ${policy}`)
+  return nonce
+}
+
+/**
+ * Every script and style tag carries the nonce, and no tag relies on what a nonce can't allow:
+ * inline event handlers, `javascript:` URLs and style attributes. Tags built by the page's
+ * script sit inside it as strings, so they are checked too.
+ */
+function expectOnlyNoncedInlineCode(body: string, nonce: string): void {
+  const tags = body.match(/<[a-z][^>]*>/gi) ?? []
+  const code = tags.filter((tag) => /^<(script|style)\b/i.test(tag))
+  expect(code.length).toBeGreaterThan(0)
+  for (const tag of code) expect(tag).toContain(`nonce="${nonce}"`)
+  for (const tag of tags) {
+    expect(tag).not.toMatch(/\son[a-z]+\s*=|javascript:|\sstyle\s*=/i)
+  }
 }
 
 /**
@@ -135,6 +171,72 @@ describe('OAuth approval dialog identity details', () => {
     expect(text).toContain(
       'Local redirect: this client will receive the authorization code on this device.'
     )
+  })
+})
+
+describe('OAuth page Content-Security-Policy', () => {
+  it('runs only the script and styles the consent page ships', async () => {
+    const response = renderResponse()
+    const policy = response.headers.get('Content-Security-Policy')
+    const nonce = policyNonce(policy)
+
+    expect(policy).toContain("default-src 'none'")
+    expect(policy).toContain(`style-src 'nonce-${nonce}' https://fonts.googleapis.com`)
+    expect(policy).toContain('font-src https://fonts.gstatic.com')
+    expect(policy).toContain("base-uri 'none'")
+    expect(policy).toContain("frame-ancestors 'none'")
+    expect(policy).not.toContain('unsafe-inline')
+    expectOnlyNoncedInlineCode(await response.text(), nonce)
+    // beginConsent()'s binding cookie survives the new policy.
+    expect(response.headers.get('Set-Cookie')).toContain('__Host-oauth-consent-')
+  })
+
+  it('uses a fresh nonce for every page', () => {
+    const first = policyNonce(renderResponse().headers.get('Content-Security-Policy'))
+    const second = policyNonce(renderResponse().headers.get('Content-Security-Policy'))
+    expect(first).not.toBe(second)
+  })
+
+  it('gives every client the same policy, with no form-action to stop Continue or Cancel redirecting', () => {
+    // Chrome applies form-action to the redirect after a submission: to Cloudflare on Continue,
+    // to the client on Cancel. CSP can't name an IPv6 literal, and the client picks its origin.
+    const policies = [
+      'https://callback.example/oauth/callback',
+      'http://127.0.0.1:6274/oauth/callback',
+      'http://[::1]:6274/oauth/callback'
+    ].map((redirectUri) =>
+      renderResponse({ consent: consentRedirectingTo(redirectUri) })
+        .headers.get('Content-Security-Policy')
+        ?.replaceAll(/'nonce-[^']+'/g, "'nonce'")
+    )
+
+    expect(new Set(policies).size).toBe(1)
+    expect(policies[0]).not.toContain('form-action')
+  })
+
+  it('escapes the client name in the title bar', async () => {
+    const body = await render({
+      consent: {
+        ...consentRedirectingTo('https://callback.example/cb'),
+        clientName: '</title><b>x'
+      }
+    })
+
+    expect(body).toContain('<title>Authorize &lt;/title&gt;&lt;b&gt;x | Cloudflare</title>')
+  })
+
+  it('runs only the script and styles the error page ships', async () => {
+    const response = renderErrorPage('Server Error', 'Try again.')
+    const policy = response.headers.get('Content-Security-Policy')
+    const nonce = policyNonce(policy)
+
+    expect(policy).toContain("default-src 'none'")
+    expect(policy).toContain("form-action 'none'")
+    expect(policy).toContain("frame-ancestors 'none'")
+    expect(policy).not.toContain('unsafe-inline')
+    const body = await response.text()
+    expectOnlyNoncedInlineCode(body, nonce)
+    expect(body).toContain('id="closeWindow"')
   })
 })
 
