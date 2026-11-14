@@ -16,7 +16,7 @@ export interface ApiCall {
   readonly permissions: readonly string[] | undefined
   /** The HTTP status Cloudflare returned. */
   readonly status: number
-  /** The parsed JSON body, or the text of any other body. */
+  /** The parsed JSON body, any other body as text, or as `{ base64, byteLength }` when binary. */
   readonly body: unknown
 }
 
