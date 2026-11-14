@@ -296,6 +296,77 @@ describe('generated direct tools (?codemode=false)', () => {
     expect(JSON.parse(toolText(result))).toEqual({ Resources: [{ id: 'u1' }] })
   })
 
+  describe('non-JSON bodies, decoded like execute', () => {
+    const KV_VALUE = `${API_BASE}/accounts/${ACCOUNT_ID}/storage/kv/namespaces/ns1/values/k`
+
+    function decodeBase64(text: string): Uint8Array {
+      const { base64, byteLength } = JSON.parse(text) as { base64: string; byteLength: number }
+      const bytes = Uint8Array.from(atob(base64), (char) => char.charCodeAt(0))
+      expect(bytes.byteLength).toBe(byteLength)
+      return bytes
+    }
+
+    it('returns a binary KV value as base64 that round trips byte for byte', async () => {
+      const bytes = Uint8Array.from({ length: 100_000 }, (_, i) => (i * 7) % 256)
+      server.use(
+        http.get(
+          KV_VALUE,
+          () => new HttpResponse(bytes, { headers: { 'Content-Type': 'application/octet-stream' } })
+        )
+      )
+
+      const result = await callForgeTool(ACCOUNT_TOKEN, 'kv_keys_get', {
+        path: { namespace_id: 'ns1', key_name: 'k' }
+      })
+
+      expect(result.result?.isError).toBeFalsy()
+      expect(decodeBase64(toolText(result))).toEqual(bytes)
+    })
+
+    it('keeps a UTF-8 KV value as a string', async () => {
+      server.use(
+        http.get(
+          KV_VALUE,
+          () =>
+            new HttpResponse('héllo ✓', { headers: { 'Content-Type': 'application/octet-stream' } })
+        )
+      )
+
+      const result = await callForgeTool(ACCOUNT_TOKEN, 'kv_keys_get', {
+        path: { namespace_id: 'ns1', key_name: 'k' }
+      })
+
+      expect(toolText(result)).toBe('héllo ✓')
+    })
+
+    it('returns an image as bytes even when they happen to be valid UTF-8', async () => {
+      const gif = new TextEncoder().encode('GIF89a')
+      server.use(
+        http.get(
+          `${API_BASE}/accounts/${ACCOUNT_ID}/images/v1/img1/blob`,
+          () => new HttpResponse(gif, { headers: { 'Content-Type': 'image/gif' } })
+        )
+      )
+
+      const result = await callForgeTool(ACCOUNT_TOKEN, 'images_getBlob', {
+        path: { image_id: 'img1' }
+      })
+
+      expect(decodeBase64(toolText(result))).toEqual(gif)
+    })
+
+    it('returns an empty body as empty text', async () => {
+      server.use(http.get(KV_VALUE, () => new HttpResponse(null, { status: 200 })))
+
+      const result = await callForgeTool(ACCOUNT_TOKEN, 'kv_keys_get', {
+        path: { namespace_id: 'ns1', key_name: 'k' }
+      })
+
+      expect(result.result?.isError).toBeFalsy()
+      expect(toolText(result)).toBe('')
+    })
+  })
+
   it('reports an unknown tool', async () => {
     const result = await callForgeTool(ACCOUNT_TOKEN, 'nope', {})
 

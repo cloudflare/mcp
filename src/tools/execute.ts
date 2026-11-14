@@ -27,6 +27,7 @@ import {
   RATE_LIMIT_HEADER,
   withRateLimitNotice
 } from '../rate-limit'
+import { decodeBody, encodeBytes } from './response-body'
 
 interface CodeExecutorEntrypoint {
   evaluate(): Promise<unknown>
@@ -291,21 +292,7 @@ function isJsonType(type) {
   return /^application\\/(?:[\\w.-]+\\+)?json$/.test(type);
 }
 
-// Media types that are always binary, returned as bytes even when they happen
-// to be valid UTF-8.
-const BINARY_TYPES = /^(?:image|audio|video|font)\\/|^application\\/(?:pdf|zip|gzip|x-gzip|x-tar|x-7z-compressed|wasm|vnd\\.tcpdump\\.pcap|vnd\\.google\\.protobuf|x-protobuf)$/;
-
-// A non-JSON response as text when it is valid UTF-8, else as bytes. KV values
-// and other application/octet-stream text stay strings; a JPEG never decodes,
-// so its bytes are kept instead of being replaced with U+FFFD.
-function decodeBody(bytes, type) {
-  if (BINARY_TYPES.test(type)) return bytes;
-  try {
-    return new TextDecoder("utf-8", { fatal: true }).decode(bytes);
-  } catch {
-    return bytes;
-  }
-}
+const decodeBody = ${decodeBody};
 
 // Bodies fetch sends as they are.
 function isRawBody(body) {
@@ -342,32 +329,7 @@ function encodeBody(body, contentType, rawBody) {
   return { requestBody: json, requestType: contentType || "application/json" };
 }
 
-// The value the code returns, with bytes as { base64, byteLength } so they
-// survive being rendered as JSON. Values without bytes are returned unchanged.
-function encodeBytes(value, seen = new Set()) {
-  if (value instanceof ArrayBuffer) value = new Uint8Array(value);
-  if (ArrayBuffer.isView(value)) {
-    const bytes = new Uint8Array(value.buffer, value.byteOffset, value.byteLength);
-    let binary = "";
-    for (let i = 0; i < bytes.length; i += 0x8000) {
-      binary += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
-    }
-    return { base64: btoa(binary), byteLength: bytes.byteLength };
-  }
-  if (value === null || typeof value !== "object" || seen.has(value)) return value;
-  const proto = Object.getPrototypeOf(value);
-  if (!Array.isArray(value) && proto !== Object.prototype && proto !== null) return value;
-  seen.add(value);
-  let copy;
-  for (const key of Object.keys(value)) {
-    const encoded = encodeBytes(value[key], seen);
-    if (encoded !== value[key]) {
-      copy ??= Array.isArray(value) ? [...value] : { ...value };
-      copy[key] = encoded;
-    }
-  }
-  return copy ?? value;
-}
+const encodeBytes = ${encodeBytes};
 
 // Which analytics permission a failed GraphQL query lacked. A zone dataset
 // names it ("does not have permission 'com.cloudflare.api.account.zone.analytics.read'

@@ -21,6 +21,7 @@ import { apiCallResult } from './api-call-result'
 import type { ScopeChallenge } from '../scope-challenge'
 import type { CallPlan } from '../forge-tools/plan'
 import { FORGE_ACCOUNT_DISCOVERY_GUIDANCE, PERMISSIONS_EXTENSION } from '../forge-tools/policy'
+import { decodeBody, encodeBytes } from './response-body'
 
 /** The forge tools service, which holds the generated tools (`src/forge-tools/worker.ts`). */
 function forgeTools() {
@@ -133,8 +134,15 @@ async function callForgeTool(
   // A 429's headers say how long to wait; the agent only sees the body.
   const rateLimit = rateLimitHint(response.status, response.headers)
   const json = isJson(response)
-  const bodyText = await response.text()
-  const result: unknown = json ? JSON.parse(bodyText) : bodyText
+  const bodyText = json ? await response.text() : ''
+  const result: unknown = json
+    ? JSON.parse(bodyText)
+    : encodeBytes(
+        decodeBody(
+          new Uint8Array(await response.arrayBuffer()),
+          response.headers.get('content-type')
+        )
+      )
 
   // Background check against the spec's response schema; never affects the result.
   if (json) {
