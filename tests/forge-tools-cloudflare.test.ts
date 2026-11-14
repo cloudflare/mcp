@@ -98,12 +98,23 @@ describe('the Cloudflare policy for generated tools', () => {
     }
   })
 
-  it('leaves other tools alone and keeps their operation', () => {
+  it('adds telemetry to other tools and keeps every operation and output schema', () => {
     const zone = generated('/zones/{zone_id}/dns_records')
     const account = generated('/accounts/{account_id}/d1/database')
 
-    expect(cloudflareTool(zone)).toBe(zone)
+    expect(cloudflareTool(zone).inputSchema.properties?.telemetry).toBeDefined()
+    expect(cloudflareTool(zone).inputSchema.properties?.path).toBe(
+      zone.inputSchema.properties?.path
+    )
     expect(operation(cloudflareTool(account))).toBe(operation(account))
+    for (const generated of tools) {
+      const adapted = cloudflareTool(generated)
+      expect(adapted.inputSchema.properties?.telemetry).toBeDefined()
+      expect(adapted.inputSchema.required ?? []).not.toContain('telemetry')
+      expect(adapted.outputSchema).toBe(generated.outputSchema)
+      expect(operation(adapted)).toBe(operation(generated))
+      expect(generated.inputSchema.properties).not.toHaveProperty('telemetry')
+    }
   })
 
   it('reads the permissions a method accepts', () => {

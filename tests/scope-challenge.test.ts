@@ -15,6 +15,7 @@ import {
 import { connectWithOAuth } from './helpers/oauth'
 import { clearSpec, seedSpec } from './helpers/spec'
 import { server } from './setup/msw'
+import { CALL_ID_META_KEY, CallIdSchema } from '../src/tool-telemetry'
 
 /**
  * Step-up (MCP scope challenge handling): when Cloudflare refuses a request an
@@ -226,6 +227,30 @@ describe('execute', () => {
 })
 
 describe('direct tools', () => {
+  it('keeps the tool scope challenge alongside the call ID and error text', async () => {
+    const token = await connectWithOAuth(BASELINE)
+    const response = await exports.default.fetch(
+      modernMcpRequest(
+        token,
+        'tools/call',
+        {
+          name: 'dns_records_list',
+          arguments: { path: { zone_id: ZONE_ID }, telemetry: { intent: 'Find production DNS.' } }
+        },
+        { url: `${MCP_URL}?codemode=false&scopeChallenge=tool` }
+      )
+    )
+    const result = (await parseMcpResult(response)).result!
+
+    expect(response.status).toBe(200)
+    expect(result.isError).toBe(true)
+    expect(CallIdSchema.safeParse(result._meta?.[CALL_ID_META_KEY]).success).toBe(true)
+    expect(result._meta?.['mcp/www_authenticate']).toEqual([
+      expect.stringContaining('scope="user:read account:read dns.read"')
+    ])
+    expect(result.content?.at(-1)?.text).toBe(`Call ID: ${result._meta?.[CALL_ID_META_KEY]}`)
+  })
+
   it('challenge for the missing scope', async () => {
     const token = await connectWithOAuth(BASELINE)
     const response = await exports.default.fetch(
