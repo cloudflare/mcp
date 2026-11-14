@@ -202,6 +202,20 @@ export const builds_CreateWorkerRequest: JSONObject = {
 };
 
 /**
+ * The schema of `builds_MigrateToPreviewsRequest`.
+ */
+export const builds_MigrateToPreviewsRequest: JSONObject = {
+  "description": "Request body for migrating a Worker's legacy non-production trigger to Previews.",
+  "properties": {
+    "deploy_command": {
+      "description": "Deploy command for the migrated Preview settings. Omit it to have the existing 'wrangler versions upload' command rewritten to 'wrangler preview' automatically, which fails with 400 when the existing command cannot be rewritten.",
+      "type": "string"
+    }
+  },
+  "type": "object"
+};
+
+/**
  * The schema of `builds_UpdateWorkerRequest`.
  */
 export const builds_UpdateWorkerRequest: JSONObject = {

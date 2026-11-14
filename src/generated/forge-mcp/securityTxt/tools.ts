@@ -8,7 +8,10 @@ import {
   security$$center_api$$response$$single,
   security$$center_messages,
 } from "../outputs.js";
-import { security$$center_securityTxt } from "./outputs.js";
+import {
+  security$$center_ExternalApiResponseSingleNoTerraform,
+  security$$center_securityTxt,
+} from "./outputs.js";
 import { security$$center_securityTxt as security$$center_securityTxt$ } from "./schemas.js";
 
 /**
@@ -208,9 +211,9 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/security-center_api-response-single",
+      "$ref": "#/$defs/security-center_ExternalApiResponseSingleNoTerraform",
       $defs: {
-        "security-center_api-response-single": security$$center_api$$response$$single,
+        "security-center_ExternalApiResponseSingleNoTerraform": security$$center_ExternalApiResponseSingleNoTerraform,
         "security-center_messages": security$$center_messages,
       },
     },
@@ -234,15 +237,15 @@ export const tools: readonly Tool[] = [
       responses: {
         schemas: {
           "200": {
-            "$ref": "#/$defs/security-center_api-response-single"
+            "$ref": "#/$defs/security-center_ExternalApiResponseSingleNoTerraform"
           },
           "4XX": {
             "$ref": "#/$defs/security-center_api-response-common-failure"
           }
         },
         $defs: {
+          "security-center_ExternalApiResponseSingleNoTerraform": security$$center_ExternalApiResponseSingleNoTerraform,
           "security-center_api-response-common-failure": security$$center_api$$response$$common$$failure,
-          "security-center_api-response-single": security$$center_api$$response$$single,
           "security-center_messages": security$$center_messages,
         },
       },

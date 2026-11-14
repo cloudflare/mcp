@@ -14,7 +14,7 @@ import {
   builds_branch_includes,
   builds_path_excludes,
   builds_path_includes,
-} from "../../outputs.js";
+} from "../outputs.js";
 import { builds_BuildsByVersionResponse } from "./outputs.js";
 
 /**

@@ -79,7 +79,7 @@ export const stream_videoClipStandard: JSONObject = {
       "type": "string"
     },
     "watermark": {
-      "$ref": "#/$defs/stream_watermarkAtUpload"
+      "$ref": "#/$defs/stream_watermark_at_upload"
     }
   },
   "required": [
@@ -231,19 +231,6 @@ export const stream_video_update: JSONObject = {
     "uploadExpiry": {
       "description": "The date and time when the video upload URL is no longer valid for direct user uploads.",
       "format": "date-time",
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `stream_watermarkAtUpload`.
- */
-export const stream_watermarkAtUpload: JSONObject = {
-  "properties": {
-    "uid": {
-      "description": "The unique identifier for the watermark profile.",
       "type": "string"
     }
   },

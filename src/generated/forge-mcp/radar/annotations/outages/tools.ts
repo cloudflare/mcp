@@ -8,7 +8,7 @@ import { OPERATION, type Tool, encodePath } from "../../../_/tool.js";
  */
 export const tools: readonly Tool[] = [
   {
-    name: "radar_annotations_outages_get",
+    name: "radar_annotations_outages_list",
     title: "Get latest Internet outages and anomalies",
     description: "Retrieves the latest Internet outages and anomalies.\n\nGET /radar/annotations/outages",
     inputSchema: {

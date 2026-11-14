@@ -22,6 +22,7 @@ import {
   resource$$tagging_tagged_resource_object_alerting_policy,
   resource$$tagging_tagged_resource_object_alerting_webhook,
   resource$$tagging_tagged_resource_object_api_gateway_operation,
+  resource$$tagging_tagged_resource_object_app_library_application,
   resource$$tagging_tagged_resource_object_cloudflared_tunnel,
   resource$$tagging_tagged_resource_object_custom_certificate,
   resource$$tagging_tagged_resource_object_custom_hostname,
@@ -63,7 +64,6 @@ import {
 import { resource$$tagging_tags as resource$$tagging_tags$ } from "../schemas.js";
 import { resource$$tagging_tagged_resource_response_single } from "./outputs.js";
 import {
-  resource$$tagging_delete_tags_request_account_level,
   resource$$tagging_delete_tags_request_account_level_base,
   resource$$tagging_delete_tags_request_account_level_worker_version,
   resource$$tagging_set_tags_request_account_level,
@@ -82,9 +82,6 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "body": {
-          "$ref": "#/$defs/resource-tagging_delete_tags_request_account_level"
-        },
         "headers": {
           "additionalProperties": false,
           "properties": {
@@ -116,18 +113,73 @@ export const tools: readonly Tool[] = [
             "account_or_zone_id"
           ],
           "type": "object"
+        },
+        "query": {
+          "additionalProperties": false,
+          "properties": {
+            "resource_id": {
+              "description": "The ID of the resource to remove tags from.",
+              "type": "string"
+            },
+            "resource_type": {
+              "description": "The type of the resource.",
+              "enum": [
+                "access_application",
+                "access_group",
+                "access_service_token",
+                "account",
+                "account_ruleset",
+                "ai_gateway",
+                "ai_search_instance",
+                "ai_search_namespace",
+                "alerting_policy",
+                "alerting_webhook",
+                "app_library_application",
+                "cloudflared_tunnel",
+                "cws_deployment",
+                "cws_policy",
+                "cws_policy_set",
+                "cws_workload",
+                "d1_database",
+                "device",
+                "durable_object_namespace",
+                "gateway_list",
+                "gateway_rule",
+                "image",
+                "infrastructure_target",
+                "kv_namespace",
+                "load_balancer_monitor",
+                "load_balancer_pool",
+                "namespace_worker",
+                "pages_project",
+                "queue",
+                "r2_bucket",
+                "resource_share",
+                "stream_live_input",
+                "stream_video",
+                "vectorize_index",
+                "worker",
+                "worker_version"
+              ],
+              "type": "string"
+            },
+            "worker_id": {
+              "description": "Worker identifier. Required for worker_version resources.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "resource_id",
+            "resource_type"
+          ],
+          "type": "object"
         }
       },
       required: [
         "path",
-        "body"
+        "query"
       ],
       additionalProperties: false,
-      $defs: {
-        "resource-tagging_delete_tags_request_account_level": resource$$tagging_delete_tags_request_account_level,
-        "resource-tagging_delete_tags_request_account_level_base": resource$$tagging_delete_tags_request_account_level_base,
-        "resource-tagging_delete_tags_request_account_level_worker_version": resource$$tagging_delete_tags_request_account_level_worker_version,
-      },
     },
     annotations: {
       "destructiveHint": true,
@@ -140,8 +192,12 @@ export const tools: readonly Tool[] = [
       method: "DELETE",
       path: "/{account_or_zone}/{account_or_zone_id}/tags",
       pathOf: encodePath`/${"account_or_zone"}/${"account_or_zone_id"}/tags`,
+      query: [
+        { name: "resource_id", explode: true },
+        { name: "resource_type", explode: true },
+        { name: "worker_id", explode: true },
+      ],
       headers: ["if-match"],
-      body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-cfPlanAvailability": {
           "business": false,
@@ -220,6 +276,7 @@ export const tools: readonly Tool[] = [
                 "ai_search_namespace",
                 "alerting_policy",
                 "alerting_webhook",
+                "app_library_application",
                 "cloudflared_tunnel",
                 "cws_deployment",
                 "cws_policy",
@@ -287,6 +344,7 @@ export const tools: readonly Tool[] = [
         "resource-tagging_tagged_resource_object_alerting_policy": resource$$tagging_tagged_resource_object_alerting_policy,
         "resource-tagging_tagged_resource_object_alerting_webhook": resource$$tagging_tagged_resource_object_alerting_webhook,
         "resource-tagging_tagged_resource_object_api_gateway_operation": resource$$tagging_tagged_resource_object_api_gateway_operation,
+        "resource-tagging_tagged_resource_object_app_library_application": resource$$tagging_tagged_resource_object_app_library_application,
         "resource-tagging_tagged_resource_object_cloudflared_tunnel": resource$$tagging_tagged_resource_object_cloudflared_tunnel,
         "resource-tagging_tagged_resource_object_custom_certificate": resource$$tagging_tagged_resource_object_custom_certificate,
         "resource-tagging_tagged_resource_object_custom_hostname": resource$$tagging_tagged_resource_object_custom_hostname,
@@ -384,6 +442,7 @@ export const tools: readonly Tool[] = [
           "resource-tagging_tagged_resource_object_alerting_policy": resource$$tagging_tagged_resource_object_alerting_policy,
           "resource-tagging_tagged_resource_object_alerting_webhook": resource$$tagging_tagged_resource_object_alerting_webhook,
           "resource-tagging_tagged_resource_object_api_gateway_operation": resource$$tagging_tagged_resource_object_api_gateway_operation,
+          "resource-tagging_tagged_resource_object_app_library_application": resource$$tagging_tagged_resource_object_app_library_application,
           "resource-tagging_tagged_resource_object_cloudflared_tunnel": resource$$tagging_tagged_resource_object_cloudflared_tunnel,
           "resource-tagging_tagged_resource_object_custom_certificate": resource$$tagging_tagged_resource_object_custom_certificate,
           "resource-tagging_tagged_resource_object_custom_hostname": resource$$tagging_tagged_resource_object_custom_hostname,
@@ -504,6 +563,7 @@ export const tools: readonly Tool[] = [
         "resource-tagging_tagged_resource_object_alerting_policy": resource$$tagging_tagged_resource_object_alerting_policy,
         "resource-tagging_tagged_resource_object_alerting_webhook": resource$$tagging_tagged_resource_object_alerting_webhook,
         "resource-tagging_tagged_resource_object_api_gateway_operation": resource$$tagging_tagged_resource_object_api_gateway_operation,
+        "resource-tagging_tagged_resource_object_app_library_application": resource$$tagging_tagged_resource_object_app_library_application,
         "resource-tagging_tagged_resource_object_cloudflared_tunnel": resource$$tagging_tagged_resource_object_cloudflared_tunnel,
         "resource-tagging_tagged_resource_object_custom_certificate": resource$$tagging_tagged_resource_object_custom_certificate,
         "resource-tagging_tagged_resource_object_custom_hostname": resource$$tagging_tagged_resource_object_custom_hostname,
@@ -601,6 +661,7 @@ export const tools: readonly Tool[] = [
           "resource-tagging_tagged_resource_object_alerting_policy": resource$$tagging_tagged_resource_object_alerting_policy,
           "resource-tagging_tagged_resource_object_alerting_webhook": resource$$tagging_tagged_resource_object_alerting_webhook,
           "resource-tagging_tagged_resource_object_api_gateway_operation": resource$$tagging_tagged_resource_object_api_gateway_operation,
+          "resource-tagging_tagged_resource_object_app_library_application": resource$$tagging_tagged_resource_object_app_library_application,
           "resource-tagging_tagged_resource_object_cloudflared_tunnel": resource$$tagging_tagged_resource_object_cloudflared_tunnel,
           "resource-tagging_tagged_resource_object_custom_certificate": resource$$tagging_tagged_resource_object_custom_certificate,
           "resource-tagging_tagged_resource_object_custom_hostname": resource$$tagging_tagged_resource_object_custom_hostname,

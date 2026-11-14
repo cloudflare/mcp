@@ -82,9 +82,53 @@ export const ohttp$$gateway_api$$response$$failure: JSONObject = {
 };
 
 /**
- * The schema of `ohttp-gateway_api-success-response` in responses.
+ * The schema of `ohttp-gateway_create-api-success-response` in responses.
  */
-export const ohttp$$gateway_api$$success$$response: JSONObject = {
+export const ohttp$$gateway_create$$api$$success$$response: JSONObject = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/ohttp-gateway_get-api-success-response"
+    },
+    {
+      "properties": {
+        "result": {
+          "enum": [
+            "on"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `ohttp-gateway_delete-api-success-response` in responses.
+ */
+export const ohttp$$gateway_delete$$api$$success$$response: JSONObject = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/ohttp-gateway_get-api-success-response"
+    },
+    {
+      "properties": {
+        "result": {
+          "enum": [
+            "off"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `ohttp-gateway_get-api-success-response` in responses.
+ */
+export const ohttp$$gateway_get$$api$$success$$response: JSONObject = {
   "properties": {
     "errors": {
       "items": {
@@ -100,8 +144,8 @@ export const ohttp$$gateway_api$$success$$response: JSONObject = {
     },
     "result": {
       "enum": [
-        "ohttp is active",
-        "ohttp is inactive"
+        "on",
+        "off"
       ],
       "type": "string"
     },

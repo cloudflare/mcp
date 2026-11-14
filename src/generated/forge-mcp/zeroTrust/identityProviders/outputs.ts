@@ -804,6 +804,9 @@ export const access_saml: JSONObject = {
             "max_sso_url_length": {
               "type": "integer"
             },
+            "metadata_url": {
+              "type": "string"
+            },
             "sign_request": {
               "type": "boolean"
             },

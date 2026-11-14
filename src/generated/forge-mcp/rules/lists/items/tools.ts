@@ -97,7 +97,6 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/lists_lists-async-response",
       $defs: {
-        "lists_api-response-collection": lists_api$$response$$collection,
         "lists_api-response-common": lists_api$$response$$common,
         "lists_lists-async-response": lists_lists$$async$$response,
         "lists_messages": lists_messages,
@@ -132,18 +131,10 @@ export const tools: readonly Tool[] = [
             "$ref": "#/$defs/lists_lists-async-response"
           },
           "4XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/lists_lists-async-response"
-              },
-              {
-                "$ref": "#/$defs/lists_api-response-common-failure"
-              }
-            ]
+            "$ref": "#/$defs/lists_api-response-common-failure"
           }
         },
         $defs: {
-          "lists_api-response-collection": lists_api$$response$$collection,
           "lists_api-response-common": lists_api$$response$$common,
           "lists_api-response-common-failure": lists_api$$response$$common$$failure,
           "lists_lists-async-response": lists_lists$$async$$response,
@@ -209,7 +200,6 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/lists_lists-async-response",
       $defs: {
-        "lists_api-response-collection": lists_api$$response$$collection,
         "lists_api-response-common": lists_api$$response$$common,
         "lists_lists-async-response": lists_lists$$async$$response,
         "lists_messages": lists_messages,
@@ -244,18 +234,10 @@ export const tools: readonly Tool[] = [
             "$ref": "#/$defs/lists_lists-async-response"
           },
           "4XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/lists_lists-async-response"
-              },
-              {
-                "$ref": "#/$defs/lists_api-response-common-failure"
-              }
-            ]
+            "$ref": "#/$defs/lists_api-response-common-failure"
           }
         },
         $defs: {
-          "lists_api-response-collection": lists_api$$response$$collection,
           "lists_api-response-common": lists_api$$response$$common,
           "lists_api-response-common-failure": lists_api$$response$$common$$failure,
           "lists_lists-async-response": lists_lists$$async$$response,
@@ -349,14 +331,7 @@ export const tools: readonly Tool[] = [
             "$ref": "#/$defs/lists_item-response-single"
           },
           "4XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/lists_item-response-single"
-              },
-              {
-                "$ref": "#/$defs/lists_api-response-common-failure"
-              }
-            ]
+            "$ref": "#/$defs/lists_api-response-common-failure"
           }
         },
         $defs: {
@@ -485,14 +460,7 @@ export const tools: readonly Tool[] = [
             "$ref": "#/$defs/lists_items-list-response-collection"
           },
           "4XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/lists_items-list-response-collection"
-              },
-              {
-                "$ref": "#/$defs/lists_api-response-common-failure"
-              }
-            ]
+            "$ref": "#/$defs/lists_api-response-common-failure"
           }
         },
         $defs: {
@@ -570,7 +538,6 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/lists_lists-async-response",
       $defs: {
-        "lists_api-response-collection": lists_api$$response$$collection,
         "lists_api-response-common": lists_api$$response$$common,
         "lists_lists-async-response": lists_lists$$async$$response,
         "lists_messages": lists_messages,
@@ -605,18 +572,10 @@ export const tools: readonly Tool[] = [
             "$ref": "#/$defs/lists_lists-async-response"
           },
           "4XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/lists_lists-async-response"
-              },
-              {
-                "$ref": "#/$defs/lists_api-response-common-failure"
-              }
-            ]
+            "$ref": "#/$defs/lists_api-response-common-failure"
           }
         },
         $defs: {
-          "lists_api-response-collection": lists_api$$response$$collection,
           "lists_api-response-common": lists_api$$response$$common,
           "lists_api-response-common-failure": lists_api$$response$$common$$failure,
           "lists_lists-async-response": lists_lists$$async$$response,

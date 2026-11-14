@@ -38,6 +38,23 @@ export const addressing_ipam$$prefixes: JSONObject = {
     "asn": {
       "type": "integer"
     },
+    "asn_ownership_validation_state": {
+      "enum": [
+        "pending",
+        "valid",
+        "missing",
+        "invalid"
+      ],
+      "type": "string"
+    },
+    "aspa_validation_state": {
+      "enum": [
+        "pending",
+        "valid",
+        "invalid"
+      ],
+      "type": "string"
+    },
     "cidr": {
       "type": "string"
     },

@@ -25,7 +25,7 @@ export const tools: readonly Tool[] = [
   {
     name: "ssl_originCaCertificates_create",
     title: "Create Certificate",
-    description: "Create an Origin CA certificate. You can use an Origin CA Key as your User Service Key or an API token when calling this endpoint ([see above](#requests)).\n\nPOST /certificates",
+    description: "Create an Origin CA certificate. For `keyless-certificate` requests, `zone_id` is required and the response contains only `id`, `certificate`, and `expires_on`. You can use an Origin CA Key as your User Service Key or an API token when calling this endpoint ([see above](#requests)).\n\nPOST /certificates",
     inputSchema: {
       type: "object",
       properties: {
@@ -61,6 +61,10 @@ export const tools: readonly Tool[] = [
                 5475
               ],
               "type": "integer"
+            },
+            "zone_id": {
+              "description": "Identifier of the zone whose keyless servers the certificate is for. Required when `request_type` is `keyless-certificate`; ignored otherwise.",
+              "type": "string"
             }
           },
           "required": [
@@ -115,6 +119,16 @@ export const tools: readonly Tool[] = [
             "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_response_single-2"
           },
           "4XX": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_response_single-2"
+              },
+              {
+                "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-common-failure"
+              }
+            ]
+          },
+          "5XX": {
             "allOf": [
               {
                 "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_response_single-2"
@@ -193,6 +207,16 @@ export const tools: readonly Tool[] = [
             "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_revoke_response"
           },
           "4XX": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_revoke_response"
+              },
+              {
+                "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-common-failure"
+              }
+            ]
+          },
+          "5XX": {
             "allOf": [
               {
                 "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_revoke_response"
@@ -280,6 +304,16 @@ export const tools: readonly Tool[] = [
                 "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-common-failure"
               }
             ]
+          },
+          "5XX": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_response_single-2"
+              },
+              {
+                "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-common-failure"
+              }
+            ]
           }
         },
         $defs: {
@@ -296,21 +330,13 @@ export const tools: readonly Tool[] = [
   {
     name: "ssl_originCaCertificates_list",
     title: "List Certificates",
-    description: "List all existing Origin CA certificates for a given zone. You can use an Origin CA Key as your User Service Key or an API token when calling this endpoint ([see above](#requests)).\n\nGET /certificates",
+    description: "List all existing Origin CA certificates for a given zone. Revoked certificates are not included. You can use an Origin CA Key as your User Service Key or an API token when calling this endpoint ([see above](#requests)).\n\nGET /certificates",
     inputSchema: {
       type: "object",
       properties: {
         "query": {
           "additionalProperties": false,
           "properties": {
-            "limit": {
-              "description": "Limit to the number of records returned.",
-              "type": "integer"
-            },
-            "offset": {
-              "description": "Offset the results.",
-              "type": "integer"
-            },
             "page": {
               "default": 1,
               "description": "Page number of paginated results.",
@@ -363,8 +389,6 @@ export const tools: readonly Tool[] = [
         { name: "zone_id", explode: true },
         { name: "page", explode: true },
         { name: "per_page", explode: true },
-        { name: "limit", explode: true },
-        { name: "offset", explode: true },
       ],
       extensions: {
         "x-cfPlanAvailability": {
@@ -380,6 +404,16 @@ export const tools: readonly Tool[] = [
             "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_response_collection-2"
           },
           "4XX": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_response_collection-2"
+              },
+              {
+                "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-common-failure"
+              }
+            ]
+          },
+          "5XX": {
             "allOf": [
               {
                 "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_response_collection-2"

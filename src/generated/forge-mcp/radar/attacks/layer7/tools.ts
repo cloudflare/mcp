@@ -8,7 +8,7 @@ import { OPERATION, type Tool, encodePath } from "../../../_/tool.js";
  */
 export const tools: readonly Tool[] = [
   {
-    name: "radar_attacks_layer7_summaryV2",
+    name: "radar_attacks_layer7_summary",
     title: "Get layer 7 attacks summary by dimension",
     description: "Retrieves the distribution of layer 7 attacks by the specified dimension.\n\nGET /radar/attacks/layer7/summary/{dimension}",
     inputSchema: {
@@ -1340,7 +1340,7 @@ export const tools: readonly Tool[] = [
     },
   },
   {
-    name: "radar_attacks_layer7_timeseriesGroupsV2",
+    name: "radar_attacks_layer7_timeseriesGroups",
     title: "Get layer 7 attacks time series grouped by dimension",
     description: "Retrieves the distribution of layer 7 attacks grouped by dimension over time.\n\nGET /radar/attacks/layer7/timeseries_groups/{dimension}",
     inputSchema: {

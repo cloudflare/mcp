@@ -44,6 +44,7 @@ import {
   workers_binding_kind_vpc_network,
   workers_binding_kind_vpc_service,
   workers_binding_kind_wasm_module,
+  workers_binding_kind_worker_loader,
   workers_binding_kind_workflow,
   workers_bindings,
   workers_cache_options,
@@ -113,6 +114,7 @@ import {
   workers_binding_kind_vpc_network as workers_binding_kind_vpc_network$,
   workers_binding_kind_vpc_service as workers_binding_kind_vpc_service$,
   workers_binding_kind_wasm_module as workers_binding_kind_wasm_module$,
+  workers_binding_kind_worker_loader as workers_binding_kind_worker_loader$,
   workers_binding_kind_workflow as workers_binding_kind_workflow$,
   workers_bindings as workers_bindings$,
   workers_cache_options as workers_cache_options$,
@@ -236,6 +238,7 @@ export const tools: readonly Tool[] = [
         "workers_binding_kind_vpc_network": workers_binding_kind_vpc_network$,
         "workers_binding_kind_vpc_service": workers_binding_kind_vpc_service$,
         "workers_binding_kind_wasm_module": workers_binding_kind_wasm_module$,
+        "workers_binding_kind_worker_loader": workers_binding_kind_worker_loader$,
         "workers_binding_kind_workflow": workers_binding_kind_workflow$,
         "workers_bindings": workers_bindings$,
         "workers_cache_options": workers_cache_options$,
@@ -318,6 +321,7 @@ export const tools: readonly Tool[] = [
         "workers_binding_kind_vpc_network": workers_binding_kind_vpc_network,
         "workers_binding_kind_vpc_service": workers_binding_kind_vpc_service,
         "workers_binding_kind_wasm_module": workers_binding_kind_wasm_module,
+        "workers_binding_kind_worker_loader": workers_binding_kind_worker_loader,
         "workers_binding_kind_workflow": workers_binding_kind_workflow,
         "workers_bindings": workers_bindings,
         "workers_cache_options": workers_cache_options,
@@ -449,6 +453,7 @@ export const tools: readonly Tool[] = [
           "workers_binding_kind_vpc_network": workers_binding_kind_vpc_network,
           "workers_binding_kind_vpc_service": workers_binding_kind_vpc_service,
           "workers_binding_kind_wasm_module": workers_binding_kind_wasm_module,
+          "workers_binding_kind_worker_loader": workers_binding_kind_worker_loader,
           "workers_binding_kind_workflow": workers_binding_kind_workflow,
           "workers_bindings": workers_bindings,
           "workers_cache_options": workers_cache_options,
@@ -597,9 +602,10 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "include": {
-              "description": "Whether to include the `modules` property of the version in the response, which contains code and sourcemap content and may add several megabytes to the response size.",
+              "description": "Optional properties to include in the response. `modules` includes the `modules` property, which contains code and may add several megabytes to the response size. `modules,sourcemaps` also includes the version's source maps in `modules`.",
               "enum": [
-                "modules"
+                "modules",
+                "modules,sourcemaps"
               ],
               "type": "string"
             }
@@ -670,6 +676,7 @@ export const tools: readonly Tool[] = [
         "workers_binding_kind_vpc_network": workers_binding_kind_vpc_network,
         "workers_binding_kind_vpc_service": workers_binding_kind_vpc_service,
         "workers_binding_kind_wasm_module": workers_binding_kind_wasm_module,
+        "workers_binding_kind_worker_loader": workers_binding_kind_worker_loader,
         "workers_binding_kind_workflow": workers_binding_kind_workflow,
         "workers_bindings": workers_bindings,
         "workers_cache_options": workers_cache_options,
@@ -794,6 +801,7 @@ export const tools: readonly Tool[] = [
           "workers_binding_kind_vpc_network": workers_binding_kind_vpc_network,
           "workers_binding_kind_vpc_service": workers_binding_kind_vpc_service,
           "workers_binding_kind_wasm_module": workers_binding_kind_wasm_module,
+          "workers_binding_kind_worker_loader": workers_binding_kind_worker_loader,
           "workers_binding_kind_workflow": workers_binding_kind_workflow,
           "workers_bindings": workers_bindings,
           "workers_cache_options": workers_cache_options,
@@ -936,6 +944,7 @@ export const tools: readonly Tool[] = [
         "workers_binding_kind_vpc_network": workers_binding_kind_vpc_network,
         "workers_binding_kind_vpc_service": workers_binding_kind_vpc_service,
         "workers_binding_kind_wasm_module": workers_binding_kind_wasm_module,
+        "workers_binding_kind_worker_loader": workers_binding_kind_worker_loader,
         "workers_binding_kind_workflow": workers_binding_kind_workflow,
         "workers_bindings": workers_bindings,
         "workers_cache_options": workers_cache_options,
@@ -1067,6 +1076,7 @@ export const tools: readonly Tool[] = [
           "workers_binding_kind_vpc_network": workers_binding_kind_vpc_network,
           "workers_binding_kind_vpc_service": workers_binding_kind_vpc_service,
           "workers_binding_kind_wasm_module": workers_binding_kind_wasm_module,
+          "workers_binding_kind_worker_loader": workers_binding_kind_worker_loader,
           "workers_binding_kind_workflow": workers_binding_kind_workflow,
           "workers_bindings": workers_bindings,
           "workers_cache_options": workers_cache_options,

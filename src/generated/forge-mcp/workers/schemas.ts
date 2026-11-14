@@ -69,6 +69,42 @@ export const workers_Worker: JSONObject = {
     "observability": {
       "description": "Observability settings for the Worker.",
       "properties": {
+        "agents": {
+          "description": "Agents observability settings for the Worker.",
+          "oneOf": [
+            {
+              "properties": {
+                "destinations": {
+                  "default": [],
+                  "description": "A list of destinations where Agents observability data will be exported to.",
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "enabled": {
+                  "default": false,
+                  "description": "Whether Agents observability is enabled for the Worker.",
+                  "type": "boolean"
+                },
+                "head_sampling_rate": {
+                  "default": 1,
+                  "description": "The sampling rate for Agents observability. From 0 to 1 (1 = 100%, 0.1 = 10%).",
+                  "type": "number"
+                },
+                "persist": {
+                  "default": true,
+                  "description": "Whether Agents observability data is persisted for the Worker.",
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "enabled": {
           "default": false,
           "description": "Whether observability is enabled for the Worker.",
@@ -302,6 +338,42 @@ export const workers_env_binding_item: JSONObject = {
 export const workers_observability: JSONObject = {
   "description": "Observability settings for the Worker.",
   "properties": {
+    "agents": {
+      "description": "Agents observability settings for the Worker.",
+      "oneOf": [
+        {
+          "properties": {
+            "destinations": {
+              "default": [],
+              "description": "A list of destinations where Agents observability data will be exported to.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "enabled": {
+              "default": false,
+              "description": "Whether Agents observability is enabled for the Worker.",
+              "type": "boolean"
+            },
+            "head_sampling_rate": {
+              "default": 1,
+              "description": "The sampling rate for Agents observability. From 0 to 1 (1 = 100%, 0.1 = 10%).",
+              "type": "number"
+            },
+            "persist": {
+              "default": true,
+              "description": "Whether Agents observability data is persisted for the Worker.",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
     "enabled": {
       "default": false,
       "description": "Whether observability is enabled for the Worker.",

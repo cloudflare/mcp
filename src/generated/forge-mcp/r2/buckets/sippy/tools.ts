@@ -21,7 +21,7 @@ import {
  */
 export const tools: readonly Tool[] = [
   {
-    name: "r2_buckets_sippy_delete",
+    name: "r2_buckets_sippy_disable",
     title: "Disable Sippy",
     description: "Disables Sippy on-demand migration for an R2 bucket. Requests no longer fetch missing objects from the source storage provider. Objects already copied to R2 remain in the bucket.\n\nConfirm with the user before calling this tool. This disables Sippy on-demand migration for the R2 bucket. Objects already copied to R2 remain in the bucket.\n\nDELETE /accounts/{account_id}/r2/buckets/{bucket_name}/sippy",
     inputSchema: {
@@ -153,127 +153,7 @@ export const tools: readonly Tool[] = [
     },
   },
   {
-    name: "r2_buckets_sippy_get",
-    title: "Get Sippy Configuration",
-    description: "Gets configuration for Sippy for an existing R2 bucket.\n\nGET /accounts/{account_id}/r2/buckets/{bucket_name}/sippy",
-    inputSchema: {
-      type: "object",
-      properties: {
-        "headers": {
-          "additionalProperties": false,
-          "properties": {
-            "cf-r2-jurisdiction": {
-              "default": "default",
-              "description": "Jurisdiction where objects in this bucket are guaranteed to be stored.",
-              "enum": [
-                "default",
-                "eu",
-                "us",
-                "fedramp",
-                "fedramp-high"
-              ],
-              "type": "string"
-            }
-          },
-          "type": "object"
-        },
-        "path": {
-          "additionalProperties": false,
-          "properties": {
-            "account_id": {
-              "description": "Cloudflare account ID that owns the R2 resource.",
-              "type": "string"
-            },
-            "bucket_name": {
-              "description": "Name of the bucket.",
-              "type": "string"
-            }
-          },
-          "required": [
-            "account_id",
-            "bucket_name"
-          ],
-          "type": "object"
-        }
-      },
-      required: [
-        "path"
-      ],
-      additionalProperties: false,
-    },
-    outputSchema: {
-      "allOf": [
-        {
-          "$ref": "#/$defs/r2_v4_response"
-        },
-        {
-          "properties": {
-            "result": {
-              "$ref": "#/$defs/r2_sippy"
-            }
-          },
-          "type": "object"
-        }
-      ],
-      $defs: {
-        "r2_errors": r2_errors,
-        "r2_messages": r2_messages,
-        "r2_sippy": r2_sippy,
-        "r2_v4_response": r2_v4_response,
-      },
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get Sippy Configuration"
-    },
-    [OPERATION]: {
-      method: "GET",
-      path: "/accounts/{account_id}/r2/buckets/{bucket_name}/sippy",
-      pathOf: encodePath`/accounts/${"account_id"}/r2/buckets/${"bucket_name"}/sippy`,
-      headers: ["cf-r2-jurisdiction"],
-      extensions: {
-        "x-cfPermissionsRequired": {
-          "enum": [
-            "com.cloudflare.edge.r2.bucket.read"
-          ]
-        }
-      },
-      responses: {
-        schemas: {
-          "200": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/r2_v4_response"
-              },
-              {
-                "properties": {
-                  "result": {
-                    "$ref": "#/$defs/r2_sippy"
-                  }
-                },
-                "type": "object"
-              }
-            ]
-          },
-          "4XX": {
-            "$ref": "#/$defs/r2_v4_response_failure"
-          }
-        },
-        $defs: {
-          "r2_errors": r2_errors,
-          "r2_messages": r2_messages,
-          "r2_sippy": r2_sippy,
-          "r2_v4_response": r2_v4_response,
-          "r2_v4_response_failure": r2_v4_response_failure,
-        },
-      },
-    },
-  },
-  {
-    name: "r2_buckets_sippy_update",
+    name: "r2_buckets_sippy_enable",
     title: "Enable Sippy",
     description: "Configures and enables Sippy on-demand migration for an R2 bucket. When a requested object is missing from R2, Sippy serves it from the configured source storage provider and copies it to R2.\n\nPUT /accounts/{account_id}/r2/buckets/{bucket_name}/sippy",
     inputSchema: {
@@ -382,6 +262,126 @@ export const tools: readonly Tool[] = [
         "x-cfPermissionsRequired": {
           "enum": [
             "com.cloudflare.edge.r2.bucket.write"
+          ]
+        }
+      },
+      responses: {
+        schemas: {
+          "200": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/r2_v4_response"
+              },
+              {
+                "properties": {
+                  "result": {
+                    "$ref": "#/$defs/r2_sippy"
+                  }
+                },
+                "type": "object"
+              }
+            ]
+          },
+          "4XX": {
+            "$ref": "#/$defs/r2_v4_response_failure"
+          }
+        },
+        $defs: {
+          "r2_errors": r2_errors,
+          "r2_messages": r2_messages,
+          "r2_sippy": r2_sippy,
+          "r2_v4_response": r2_v4_response,
+          "r2_v4_response_failure": r2_v4_response_failure,
+        },
+      },
+    },
+  },
+  {
+    name: "r2_buckets_sippy_get",
+    title: "Get Sippy Configuration",
+    description: "Gets configuration for Sippy for an existing R2 bucket.\n\nGET /accounts/{account_id}/r2/buckets/{bucket_name}/sippy",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "headers": {
+          "additionalProperties": false,
+          "properties": {
+            "cf-r2-jurisdiction": {
+              "default": "default",
+              "description": "Jurisdiction where objects in this bucket are guaranteed to be stored.",
+              "enum": [
+                "default",
+                "eu",
+                "us",
+                "fedramp",
+                "fedramp-high"
+              ],
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID that owns the R2 resource.",
+              "type": "string"
+            },
+            "bucket_name": {
+              "description": "Name of the bucket.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "bucket_name"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path"
+      ],
+      additionalProperties: false,
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/r2_v4_response"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/r2_sippy"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "r2_errors": r2_errors,
+        "r2_messages": r2_messages,
+        "r2_sippy": r2_sippy,
+        "r2_v4_response": r2_v4_response,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get Sippy Configuration"
+    },
+    [OPERATION]: {
+      method: "GET",
+      path: "/accounts/{account_id}/r2/buckets/{bucket_name}/sippy",
+      pathOf: encodePath`/accounts/${"account_id"}/r2/buckets/${"bucket_name"}/sippy`,
+      headers: ["cf-r2-jurisdiction"],
+      extensions: {
+        "x-cfPermissionsRequired": {
+          "enum": [
+            "com.cloudflare.edge.r2.bucket.read"
           ]
         }
       },

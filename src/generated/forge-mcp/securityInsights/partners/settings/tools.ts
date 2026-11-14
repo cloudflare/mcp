@@ -92,7 +92,7 @@ export const tools: readonly Tool[] = [
   {
     name: "securityInsights_partners_settings_update",
     title: "Updates Partner Integration Settings",
-    description: "Enables or disables the selected partner integration for the account. Enabling the integration for the first time also schedules an account scan for that partner.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/security-center/partners/{partner}/settings",
+    description: "Enables or disables the selected partner integration for the account.\nEnabling the integration for the first time also schedules an account scan for that partner.\nDisabling the integration will purge all partner integration-related data, including partner insights, shadow zones, and shadow hosts.\n\nThis method is beta.\n\nPOST /accounts/{account_id}/security-center/partners/{partner}/settings",
     inputSchema: {
       type: "object",
       properties: {

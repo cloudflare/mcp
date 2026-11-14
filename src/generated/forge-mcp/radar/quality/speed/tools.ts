@@ -59,7 +59,7 @@ export const tools: readonly Tool[] = [
               "type": "array"
             },
             "metricGroup": {
-              "default": "bandwidth",
+              "default": "BANDWIDTH",
               "description": "Metrics to be returned.",
               "enum": [
                 "BANDWIDTH",

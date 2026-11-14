@@ -7,7 +7,7 @@ import {
   builds_ApiError,
   builds_ErrorResponse,
   builds_PaginationInfo,
-} from "../../../outputs.js";
+} from "../../outputs.js";
 
 /**
  * The tools of `builds.triggers.cache`.
@@ -67,6 +67,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Workers CI Write"
+        ],
+        "x-fern-audiences": [
+          "sdk"
         ]
       },
       responses: {

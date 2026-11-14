@@ -71,6 +71,7 @@ import {
   workers_binding_kind_vpc_network,
   workers_binding_kind_vpc_service,
   workers_binding_kind_wasm_module,
+  workers_binding_kind_worker_loader,
   workers_binding_kind_workflow,
   workers_bindings,
   workers_cache_options as workers_cache_options$,
@@ -257,6 +258,7 @@ export const tools: readonly Tool[] = [
       responses: {
         schemas: {
           "200": null,
+          "204": null,
           "4XX": {
             "$ref": "#/$defs/workers_api-response-common-failure"
           }
@@ -545,6 +547,7 @@ export const tools: readonly Tool[] = [
         "workers_binding_kind_vpc_network": workers_binding_kind_vpc_network,
         "workers_binding_kind_vpc_service": workers_binding_kind_vpc_service,
         "workers_binding_kind_wasm_module": workers_binding_kind_wasm_module,
+        "workers_binding_kind_worker_loader": workers_binding_kind_worker_loader,
         "workers_binding_kind_workflow": workers_binding_kind_workflow,
         "workers_bindings": workers_bindings,
         "workers_cache_options": workers_cache_options$,

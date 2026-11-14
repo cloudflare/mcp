@@ -4,21 +4,6 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
- * The schema of `resource-tagging_delete_tags_request_account_level`.
- */
-export const resource$$tagging_delete_tags_request_account_level: JSONObject = {
-  "description": "Request body schema for deleting tags from account-level resources. Use /zones/{zone_id}/tags for zone-level resources.",
-  "oneOf": [
-    {
-      "$ref": "#/$defs/resource-tagging_delete_tags_request_account_level_worker_version"
-    },
-    {
-      "$ref": "#/$defs/resource-tagging_delete_tags_request_account_level_base"
-    }
-  ]
-};
-
-/**
  * The schema of `resource-tagging_delete_tags_request_account_level_base`.
  */
 export const resource$$tagging_delete_tags_request_account_level_base: JSONObject = {
@@ -41,6 +26,7 @@ export const resource$$tagging_delete_tags_request_account_level_base: JSONObjec
         "ai_search_namespace",
         "alerting_policy",
         "alerting_webhook",
+        "app_library_application",
         "cloudflared_tunnel",
         "cws_deployment",
         "cws_policy",

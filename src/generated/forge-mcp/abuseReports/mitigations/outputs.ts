@@ -80,6 +80,7 @@ export const abuse$$reports_MitigationListItem: JSONObject = {
         "url_pattern",
         "account",
         "zone",
+        "domain",
         "custom_expression"
       ],
       "type": "string"

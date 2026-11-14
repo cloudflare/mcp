@@ -150,7 +150,7 @@ export const tools: readonly Tool[] = [
   {
     name: "r2_buckets_lifecycle_update",
     title: "Set Object Lifecycle Rules",
-    description: "Replaces the object lifecycle rules for an R2 bucket. Rules match object-key prefixes and can expire objects, abort incomplete multipart uploads, or transition objects to Infrequent Access storage.\n\nConfirm with the user before calling this tool. This replaces the R2 bucket's object lifecycle rules and can schedule object deletion or abort multipart uploads.\n\nPUT /accounts/{account_id}/r2/buckets/{bucket_name}/lifecycle",
+    description: "Replaces the object lifecycle rules for an R2 bucket. Rules match object-key prefixes and can expire objects, abort incomplete multipart uploads, or transition objects to Infrequent Access storage.\n\nConfirm with the user before calling this tool. This operation replaces all of the R2 bucket's object lifecycle rules. Rules left out of the request are removed, including the Default Multipart Abort Rule that aborts incomplete multipart uploads after 7 days, and the new rules can schedule object deletion.\n\nPUT /accounts/{account_id}/r2/buckets/{bucket_name}/lifecycle",
     inputSchema: {
       type: "object",
       properties: {

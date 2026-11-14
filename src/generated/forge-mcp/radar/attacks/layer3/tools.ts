@@ -8,7 +8,7 @@ import { OPERATION, type Tool, encodePath } from "../../../_/tool.js";
  */
 export const tools: readonly Tool[] = [
   {
-    name: "radar_attacks_layer3_summaryV2",
+    name: "radar_attacks_layer3_summary",
     title: "Get layer 3 attacks summary by dimension",
     description: "Retrieves the distribution of layer 3 attacks by the specified dimension.\n\nGET /radar/attacks/layer3/summary/{dimension}",
     inputSchema: {
@@ -674,7 +674,7 @@ export const tools: readonly Tool[] = [
               "type": "array"
             },
             "metric": {
-              "default": "bytes",
+              "default": "BYTES",
               "description": "Measurement units, eg. bytes.",
               "enum": [
                 "BYTES",
@@ -1216,7 +1216,7 @@ export const tools: readonly Tool[] = [
     },
   },
   {
-    name: "radar_attacks_layer3_timeseriesGroupsV2",
+    name: "radar_attacks_layer3_timeseriesGroups",
     title: "Get layer 3 attacks time series grouped by dimension",
     description: "Retrieves the distribution of layer 3 attacks grouped by dimension over time.\n\nGET /radar/attacks/layer3/timeseries_groups/{dimension}",
     inputSchema: {

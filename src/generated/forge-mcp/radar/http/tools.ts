@@ -8,7 +8,7 @@ import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
  */
 export const tools: readonly Tool[] = [
   {
-    name: "radar_http_summaryV2",
+    name: "radar_http_summary",
     title: "Get HTTP requests summary by dimension",
     description: "Retrieves the distribution of HTTP requests by the specified dimension.\n\nGET /radar/http/summary/{dimension}",
     inputSchema: {
@@ -1444,7 +1444,7 @@ export const tools: readonly Tool[] = [
     },
   },
   {
-    name: "radar_http_timeseriesGroupsV2",
+    name: "radar_http_timeseriesGroups",
     title: "Get HTTP requests time series grouped by dimension",
     description: "Retrieves the distribution of HTTP requests grouped by dimension.\n\nGET /radar/http/timeseries_groups/{dimension}",
     inputSchema: {

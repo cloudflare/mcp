@@ -9,7 +9,8 @@ import type { JSONObject } from "@modelcontextprotocol/server";
 export const tls$$certificates$$and$$hostnames_hostname_association: JSONObject = {
   "properties": {
     "hostnames": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_hostnames-2"
+      "$ref": "#/$defs/tls-certificates-and-hostnames_hostnames-2",
+      "description": "Unordered set of hostnames. Hostnames are stored as lowercase punycode."
     },
     "mtls_certificate_id": {
       "description": "The UUID for a certificate that was uploaded to the mTLS Certificate Management endpoint. If no mtls_certificate_id is given, the hostnames will be associated to your active Cloudflare Managed CA.",
@@ -23,6 +24,7 @@ export const tls$$certificates$$and$$hostnames_hostname_association: JSONObject 
  * The schema of `tls-certificates-and-hostnames_hostnames-2`.
  */
 export const tls$$certificates$$and$$hostnames_hostnames$$2: JSONObject = {
+  "description": "Unordered set of hostnames. Hostnames are stored as lowercase punycode.",
   "items": {
     "type": "string"
   },

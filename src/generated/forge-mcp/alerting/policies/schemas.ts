@@ -58,6 +58,15 @@ export const aaa_filters: JSONObject = {
       },
       "type": "array"
     },
+    "check_id": {
+      "description": "Used for configuring magic_endpoint_healthcheck_alert. Takes one or more health check IDs, each a UUID. That alert type requires check_id together with alert_trigger_preferences set to slo, a numeric alert_trigger_preferences_value, and selectors set to failures.",
+      "items": {
+        "format": "uuid",
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
     "enabled": {
       "description": "Used for configuring load_balancing_pool_enablement_alert",
       "items": {
@@ -211,6 +220,15 @@ export const aaa_filters: JSONObject = {
       },
       "type": "array"
     },
+    "query_id": {
+      "description": "Used for configuring stakeout_saved_query_daily_digest_alert and stakeout_saved_query_immediate_alert, which require it. Takes exactly one value, the saved query ID.",
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 1,
+      "minItems": 1,
+      "type": "array"
+    },
     "query_tag": {
       "description": "Usage depends on specific alert type",
       "items": {
@@ -279,6 +297,15 @@ export const aaa_filters: JSONObject = {
       "items": {
         "type": "string"
       },
+      "minItems": 1,
+      "type": "array"
+    },
+    "total_spend_dollars": {
+      "description": "Used for configuring billing_budget_alert. Takes exactly one value, the budget threshold in US dollars, as a string greater than zero.",
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 1,
       "minItems": 1,
       "type": "array"
     },

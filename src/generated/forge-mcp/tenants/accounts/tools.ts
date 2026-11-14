@@ -3,9 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
 import {
-  organizations$$api_AccountListResultInfo,
   organizations$$api_LegacyAccount,
-  organizations$$api_LegacyPaginationResultInfo,
   organizations$$api_PageTokenResultInfo,
   organizations$$api_V4ErrorResponse,
   organizations$$api_V4Message,
@@ -18,7 +16,7 @@ export const tools: readonly Tool[] = [
   {
     name: "tenants_accounts_list",
     title: "List tenant accounts",
-    description: "Lists all Cloudflare accounts across this tenant's hierarchy using the legacy Account\nresponse shape. Use `GET /organizations/{organization_id}/accounts` to list only accounts\nimmediately attached to a specific Organization using the modern Account response shape.\nUse `page_token` and `page_size` for cursor pagination, or provide `page` and `per_page`\ntogether for legacy offset pagination. Cursor pagination takes precedence when requested.\n\nGET /tenants/{tenant_id}/accounts",
+    description: "Lists all Cloudflare accounts across this tenant's hierarchy using the legacy Account\nresponse shape. Use `GET /organizations/{organization_id}/accounts` to list only accounts\nimmediately attached to a specific Organization using the modern Account response shape.\nUse `page_token` and `page_size` for cursor pagination.\n\nGET /tenants/{tenant_id}/accounts",
     inputSchema: {
       type: "object",
       properties: {
@@ -68,7 +66,7 @@ export const tools: readonly Tool[] = [
             },
             "include_total": {
               "default": true,
-              "description": "Whether to calculate and return the exact `result_info.total_size` for cursor\npagination. Defaults to true. When false, `total_size` is omitted. Legacy\n`page`/`per_page` requests always calculate `total_count`.",
+              "description": "Whether to calculate and return the exact `result_info.total_size` for cursor\npagination. Defaults to true. When false, `total_size` is omitted.",
               "type": "boolean"
             },
             "name": {
@@ -94,10 +92,6 @@ export const tools: readonly Tool[] = [
               ],
               "type": "string"
             },
-            "page": {
-              "description": "Legacy offset page number. Must be provided with `per_page`. Values below 1 are treated as\n1. Cursor pagination takes precedence when requested.",
-              "type": "integer"
-            },
             "page_size": {
               "description": "The amount of items to return. Defaults to 10.",
               "type": "integer"
@@ -105,10 +99,6 @@ export const tools: readonly Tool[] = [
             "page_token": {
               "description": "An opaque token returned from the last list response that when\nprovided will retrieve the next page.\n\nParameters used to filter the retrieved list must remain in subsequent\nrequests with a page token.",
               "type": "string"
-            },
-            "per_page": {
-              "description": "Legacy offset page size. Must be provided with `page`. Values are clamped to the range\n1-100. Cursor pagination takes precedence when requested.",
-              "type": "integer"
             },
             "status": {
               "description": "Filter accounts by lifecycle status. Defaults to `active`.",
@@ -149,7 +139,7 @@ export const tools: readonly Tool[] = [
           "type": "array"
         },
         "result_info": {
-          "$ref": "#/$defs/organizations-api_AccountListResultInfo"
+          "$ref": "#/$defs/organizations-api_PageTokenResultInfo"
         },
         "success": {
           "enum": [
@@ -167,9 +157,7 @@ export const tools: readonly Tool[] = [
       ],
       "type": "object",
       $defs: {
-        "organizations-api_AccountListResultInfo": organizations$$api_AccountListResultInfo,
         "organizations-api_LegacyAccount": organizations$$api_LegacyAccount,
-        "organizations-api_LegacyPaginationResultInfo": organizations$$api_LegacyPaginationResultInfo,
         "organizations-api_PageTokenResultInfo": organizations$$api_PageTokenResultInfo,
         "organizations-api_V4Message": organizations$$api_V4Message,
       },
@@ -198,8 +186,6 @@ export const tools: readonly Tool[] = [
         { name: "order_by", explode: false },
         { name: "direction", explode: false },
         { name: "include_total", explode: false },
-        { name: "page", explode: false },
-        { name: "per_page", explode: false },
         { name: "page_token", explode: false },
         { name: "page_size", explode: false },
       ],
@@ -227,7 +213,7 @@ export const tools: readonly Tool[] = [
                 "type": "array"
               },
               "result_info": {
-                "$ref": "#/$defs/organizations-api_AccountListResultInfo"
+                "$ref": "#/$defs/organizations-api_PageTokenResultInfo"
               },
               "success": {
                 "enum": [
@@ -253,9 +239,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
-          "organizations-api_AccountListResultInfo": organizations$$api_AccountListResultInfo,
           "organizations-api_LegacyAccount": organizations$$api_LegacyAccount,
-          "organizations-api_LegacyPaginationResultInfo": organizations$$api_LegacyPaginationResultInfo,
           "organizations-api_PageTokenResultInfo": organizations$$api_PageTokenResultInfo,
           "organizations-api_V4ErrorResponse": organizations$$api_V4ErrorResponse,
           "organizations-api_V4Message": organizations$$api_V4Message,

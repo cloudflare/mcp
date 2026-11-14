@@ -120,7 +120,7 @@ export const cc_ContainersCreateScheduledApplicationRequest: JSONObject = {
     },
     "durable_objects": {
       "$ref": "#/$defs/cc_DurableObjectsConfiguration",
-      "description": "Optionally associates this scheduler-backed application with a Durable Object namespace."
+      "description": "Associates this scheduler-backed application with a Durable Object namespace. Required\nfor default scheduling on private-network-only accounts unless the account has a\ntemporary standalone-application exception."
     },
     "instances": {
       "description": "The initial number of deployments to create.",

@@ -4,6 +4,33 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
+ * The schema of `security-center_ExternalApiResponseSingleNoTerraform` in
+ * responses.
+ */
+export const security$$center_ExternalApiResponseSingleNoTerraform: JSONObject = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/security-center_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/security-center_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `security-center_securityTxt` in responses.
  */
 export const security$$center_securityTxt: JSONObject = {
@@ -55,5 +82,9 @@ export const security$$center_securityTxt: JSONObject = {
       "type": "string"
     }
   },
+  "required": [
+    "contact",
+    "expires"
+  ],
   "type": "object"
 };

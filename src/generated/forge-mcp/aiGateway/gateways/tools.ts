@@ -1176,6 +1176,9 @@ export const tools: readonly Tool[] = [
               "format": "date-time",
               "type": "string"
             },
+            "multiprovider_enabled": {
+              "type": "boolean"
+            },
             "otel": {
               "oneOf": [
                 {
@@ -1957,6 +1960,9 @@ export const tools: readonly Tool[] = [
                   "modified_at": {
                     "format": "date-time",
                     "type": "string"
+                  },
+                  "multiprovider_enabled": {
+                    "type": "boolean"
                   },
                   "otel": {
                     "oneOf": [
@@ -2781,6 +2787,9 @@ export const tools: readonly Tool[] = [
               "format": "date-time",
               "type": "string"
             },
+            "multiprovider_enabled": {
+              "type": "boolean"
+            },
             "otel": {
               "oneOf": [
                 {
@@ -3561,6 +3570,9 @@ export const tools: readonly Tool[] = [
                   "modified_at": {
                     "format": "date-time",
                     "type": "string"
+                  },
+                  "multiprovider_enabled": {
+                    "type": "boolean"
                   },
                   "otel": {
                     "oneOf": [
@@ -4415,6 +4427,9 @@ export const tools: readonly Tool[] = [
               "format": "date-time",
               "type": "string"
             },
+            "multiprovider_enabled": {
+              "type": "boolean"
+            },
             "otel": {
               "oneOf": [
                 {
@@ -5196,6 +5211,9 @@ export const tools: readonly Tool[] = [
                   "modified_at": {
                     "format": "date-time",
                     "type": "string"
+                  },
+                  "multiprovider_enabled": {
+                    "type": "boolean"
                   },
                   "otel": {
                     "oneOf": [
@@ -6192,6 +6210,9 @@ export const tools: readonly Tool[] = [
                 "format": "date-time",
                 "type": "string"
               },
+              "multiprovider_enabled": {
+                "type": "boolean"
+              },
               "otel": {
                 "oneOf": [
                   {
@@ -6982,6 +7003,9 @@ export const tools: readonly Tool[] = [
                       "format": "date-time",
                       "type": "string"
                     },
+                    "multiprovider_enabled": {
+                      "type": "boolean"
+                    },
                     "otel": {
                       "oneOf": [
                         {
@@ -7350,7 +7374,7 @@ export const tools: readonly Tool[] = [
   {
     name: "aiGateway_gateways_update",
     title: "Update a gateway",
-    description: "Updates the configuration of an AI Gateway, such as its caching, rate limiting, logging, and authentication settings.\n\nPUT /accounts/{account_id}/ai-gateway/gateways/{id}",
+    description: "Updates the configuration of an AI Gateway, such as its caching, rate limiting, spend limits, logging, and authentication settings.\n\nPUT /accounts/{account_id}/ai-gateway/gateways/{id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -8042,7 +8066,6 @@ export const tools: readonly Tool[] = [
               ]
             },
             "workers_ai_billing_mode": {
-              "default": "postpaid",
               "description": "Controls how Workers AI inference calls routed through this gateway are billed. 'postpaid' bills the account directly through Workers AI; 'unified' deducts credits via AI Gateway using neuron-based pricing and delegates billing to AI Gateway.",
               "enum": [
                 "postpaid",
@@ -8515,6 +8538,9 @@ export const tools: readonly Tool[] = [
             "modified_at": {
               "format": "date-time",
               "type": "string"
+            },
+            "multiprovider_enabled": {
+              "type": "boolean"
             },
             "otel": {
               "oneOf": [
@@ -9297,6 +9323,9 @@ export const tools: readonly Tool[] = [
                   "modified_at": {
                     "format": "date-time",
                     "type": "string"
+                  },
+                  "multiprovider_enabled": {
+                    "type": "boolean"
                   },
                   "otel": {
                     "oneOf": [

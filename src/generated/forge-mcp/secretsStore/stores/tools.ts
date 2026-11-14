@@ -106,7 +106,7 @@ export const tools: readonly Tool[] = [
   {
     name: "secretsStore_stores_list",
     title: "List account stores",
-    description: "Lists all the stores in an account.\n\nThis method is beta.\n\nGET /accounts/{account_id}/secrets_store/stores",
+    description: "Lists account stores from an eventually consistent projection. Returns retryable HTTP 503 until initial backfill completes; empty accounts are ready immediately.\n\nThis method is beta.\n\nGET /accounts/{account_id}/secrets_store/stores",
     inputSchema: {
       type: "object",
       properties: {
@@ -208,6 +208,9 @@ export const tools: readonly Tool[] = [
             "$ref": "#/$defs/secrets-store_stores_response_collection"
           },
           "4XX": {
+            "$ref": "#/$defs/secrets-store_api-response-common-failure"
+          },
+          "503": {
             "$ref": "#/$defs/secrets-store_api-response-common-failure"
           }
         },

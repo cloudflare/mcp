@@ -2,6 +2,8 @@
 /* eslint-disable */
 
 import { OPERATION, type Tool, encodePath } from "../../../_/tool.js";
+import { cloudforce$$one$$events_PirOrganizationReference } from "../schemas.js";
+import { cloudforce$$one$$events_PirOrganizationProfile } from "./schemas.js";
 
 /**
  * The tools of `cloudforceOne.priorityIntelligence.profile`.
@@ -111,21 +113,46 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_priorityIntelligence_profile_update",
     title: "Create or replace the organization profile",
-    description: "Creates or replaces the account's organization profile: who the organization is, such as its name, brands, domains, sector, regions, key systems and suppliers. All of the account's Priority Intelligence Requirements share it. An account has at most one profile, and it does not count against the PIR quota.\n\nPUT /accounts/{account_id}/cloudforce-one/v2/priority-intelligence/profile",
+    description: "Creates or replaces the account's organization profile: who the organization is, such as its name, brands, domains, sector, regions, key systems and suppliers. All of the account's Priority Intelligence Requirements share it. An account has at most one profile, and it does not count against the PIR quota. Send structured `organization` facts, which structured PIRs inherit and from which the profile text is generated, or free `profile` text. `revision` must match the stored profile's, or 0 when there is none; it is required with `organization`. Free `profile` text cannot replace structured facts; delete the profile first to switch back.\n\nPUT /accounts/{account_id}/cloudforce-one/v2/priority-intelligence/profile",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
-          "properties": {
-            "profile": {
-              "description": "Who the organization is: its name, brands, domains, sector, regions, key systems and suppliers. Shared by all of the account's PIRs to judge how relevant intelligence is to the organization.",
-              "type": "string"
+          "anyOf": [
+            {
+              "properties": {
+                "organization": {
+                  "$ref": "#/$defs/cloudforce-one-events_PirOrganizationProfile",
+                  "description": "Structured organization facts. Structured PIRs inherit them, and the profile text is generated from them."
+                },
+                "revision": {
+                  "description": "The `revision` the change is based on; 0 when the account has no profile yet.",
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "organization",
+                "revision"
+              ],
+              "type": "object"
+            },
+            {
+              "properties": {
+                "profile": {
+                  "description": "Who the organization is: its name, brands, domains, sector, regions, key systems and suppliers. Shared by all of the account's PIRs to judge how relevant intelligence is to the organization.",
+                  "type": "string"
+                },
+                "revision": {
+                  "description": "The `revision` the change is based on; 0 when the account has no profile yet.",
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "profile"
+              ],
+              "type": "object"
             }
-          },
-          "required": [
-            "profile"
-          ],
-          "type": "object"
+          ]
         },
         "path": {
           "additionalProperties": false,
@@ -144,6 +171,10 @@ export const tools: readonly Tool[] = [
         "path"
       ],
       additionalProperties: false,
+      $defs: {
+        "cloudforce-one-events_PirOrganizationProfile": cloudforce$$one$$events_PirOrganizationProfile,
+        "cloudforce-one-events_PirOrganizationReference": cloudforce$$one$$events_PirOrganizationReference,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -166,7 +197,8 @@ export const tools: readonly Tool[] = [
       responses: {
         schemas: {
           "200": null,
-          "400": null
+          "400": null,
+          "409": null
         },
       },
     },

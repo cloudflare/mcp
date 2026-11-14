@@ -483,16 +483,6 @@ export const tools: readonly Tool[] = [
       "properties": {
         "data": {
           "properties": {
-            "cf_account_tag": {
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
             "created_at": {
               "format": "date-time",
               "type": "string"
@@ -500,9 +490,6 @@ export const tools: readonly Tool[] = [
             "id": {
               "format": "uuid",
               "type": "string"
-            },
-            "is_org_on_kv": {
-              "type": "boolean"
             },
             "name": {
               "oneOf": [
@@ -554,16 +541,6 @@ export const tools: readonly Tool[] = [
             "properties": {
               "data": {
                 "properties": {
-                  "cf_account_tag": {
-                    "oneOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "null"
-                      }
-                    ]
-                  },
                   "created_at": {
                     "format": "date-time",
                     "type": "string"
@@ -571,9 +548,6 @@ export const tools: readonly Tool[] = [
                   "id": {
                     "format": "uuid",
                     "type": "string"
-                  },
-                  "is_org_on_kv": {
-                    "type": "boolean"
                   },
                   "name": {
                     "oneOf": [

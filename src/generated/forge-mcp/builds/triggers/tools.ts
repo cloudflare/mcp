@@ -5,6 +5,8 @@ import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
 import {
   builds_APIResponse,
   builds_ApiError,
+  builds_BuildResponse,
+  builds_BuildTriggerMetadataResponse,
   builds_ErrorResponse,
   builds_PaginationInfo,
   builds_UpsertRepoConnectionResponse,
@@ -12,13 +14,16 @@ import {
   builds_branch_includes,
   builds_path_excludes,
   builds_path_includes,
-} from "../../outputs.js";
+} from "../outputs.js";
 import {
+  builds_BuildSeedRepoInput,
+  builds_BuildSeedRepoInputFile,
+  builds_CreateBuildRequest,
   builds_branch_excludes as builds_branch_excludes$,
   builds_branch_includes as builds_branch_includes$,
   builds_path_excludes as builds_path_excludes$,
   builds_path_includes as builds_path_includes$,
-} from "../../schemas.js";
+} from "../schemas.js";
 import { builds_TriggerResponse } from "./outputs.js";
 import {
   builds_CreateTriggerRequest,
@@ -107,6 +112,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Workers CI Write"
+        ],
+        "x-fern-audiences": [
+          "sdk"
         ]
       },
       responses: {
@@ -136,6 +144,131 @@ export const tools: readonly Tool[] = [
           "builds_ErrorResponse": builds_ErrorResponse,
           "builds_PaginationInfo": builds_PaginationInfo,
           "builds_TriggerResponse": builds_TriggerResponse,
+          "builds_UpsertRepoConnectionResponse": builds_UpsertRepoConnectionResponse,
+          "builds_branch_excludes": builds_branch_excludes,
+          "builds_branch_includes": builds_branch_includes,
+          "builds_path_excludes": builds_path_excludes,
+          "builds_path_includes": builds_path_includes,
+        },
+      },
+    },
+  },
+  {
+    name: "builds_triggers_createBuild",
+    title: "Start a Workers build",
+    description: "Start a build for a branch or commit using the selected trigger.\n\nPOST /accounts/{account_id}/builds/triggers/{trigger_uuid}/builds",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "body": {
+          "$ref": "#/$defs/builds_CreateBuildRequest"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account identifier.",
+              "type": "string"
+            },
+            "trigger_uuid": {
+              "description": "Trigger UUID.",
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "trigger_uuid"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path",
+        "body"
+      ],
+      additionalProperties: false,
+      $defs: {
+        "builds_BuildSeedRepoInput": builds_BuildSeedRepoInput,
+        "builds_BuildSeedRepoInputFile": builds_BuildSeedRepoInputFile,
+        "builds_CreateBuildRequest": builds_CreateBuildRequest,
+      },
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/builds_APIResponse"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/builds_BuildResponse"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "builds_APIResponse": builds_APIResponse,
+        "builds_ApiError": builds_ApiError,
+        "builds_BuildResponse": builds_BuildResponse,
+        "builds_BuildTriggerMetadataResponse": builds_BuildTriggerMetadataResponse,
+        "builds_PaginationInfo": builds_PaginationInfo,
+        "builds_UpsertRepoConnectionResponse": builds_UpsertRepoConnectionResponse,
+        "builds_branch_excludes": builds_branch_excludes,
+        "builds_branch_includes": builds_branch_includes,
+        "builds_path_excludes": builds_path_excludes,
+        "builds_path_includes": builds_path_includes,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Start a Workers build"
+    },
+    [OPERATION]: {
+      method: "POST",
+      path: "/accounts/{account_id}/builds/triggers/{trigger_uuid}/builds",
+      pathOf: encodePath`/accounts/${"account_id"}/builds/triggers/${"trigger_uuid"}/builds`,
+      body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-api-token-group": [
+          "Workers CI Write"
+        ],
+        "x-fern-audiences": [
+          "sdk"
+        ]
+      },
+      responses: {
+        schemas: {
+          "200": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/builds_APIResponse"
+              },
+              {
+                "properties": {
+                  "result": {
+                    "$ref": "#/$defs/builds_BuildResponse"
+                  }
+                },
+                "type": "object"
+              }
+            ]
+          },
+          "401": {
+            "$ref": "#/$defs/builds_ErrorResponse"
+          }
+        },
+        $defs: {
+          "builds_APIResponse": builds_APIResponse,
+          "builds_ApiError": builds_ApiError,
+          "builds_BuildResponse": builds_BuildResponse,
+          "builds_BuildTriggerMetadataResponse": builds_BuildTriggerMetadataResponse,
+          "builds_ErrorResponse": builds_ErrorResponse,
+          "builds_PaginationInfo": builds_PaginationInfo,
           "builds_UpsertRepoConnectionResponse": builds_UpsertRepoConnectionResponse,
           "builds_branch_excludes": builds_branch_excludes,
           "builds_branch_includes": builds_branch_includes,
@@ -199,6 +332,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Workers CI Write"
+        ],
+        "x-fern-audiences": [
+          "sdk"
         ]
       },
       responses: {
@@ -223,123 +359,7 @@ export const tools: readonly Tool[] = [
     },
   },
   {
-    name: "builds_triggers_list",
-    title: "List triggers for a Worker",
-    description: "List trigger UUIDs and build settings associated with a Worker tag.\n\nGET /accounts/{account_id}/builds/workers/{external_script_id}/triggers",
-    inputSchema: {
-      type: "object",
-      properties: {
-        "path": {
-          "additionalProperties": false,
-          "properties": {
-            "account_id": {
-              "description": "Account identifier.",
-              "type": "string"
-            },
-            "external_script_id": {
-              "description": "System-generated tag of the Worker. This is not the Worker name.",
-              "type": "string"
-            }
-          },
-          "required": [
-            "account_id",
-            "external_script_id"
-          ],
-          "type": "object"
-        }
-      },
-      required: [
-        "path"
-      ],
-      additionalProperties: false,
-    },
-    outputSchema: {
-      "allOf": [
-        {
-          "$ref": "#/$defs/builds_APIResponse"
-        },
-        {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/builds_TriggerResponse"
-              },
-              "type": "array"
-            }
-          },
-          "type": "object"
-        }
-      ],
-      $defs: {
-        "builds_APIResponse": builds_APIResponse,
-        "builds_ApiError": builds_ApiError,
-        "builds_PaginationInfo": builds_PaginationInfo,
-        "builds_TriggerResponse": builds_TriggerResponse,
-        "builds_UpsertRepoConnectionResponse": builds_UpsertRepoConnectionResponse,
-        "builds_branch_excludes": builds_branch_excludes,
-        "builds_branch_includes": builds_branch_includes,
-        "builds_path_excludes": builds_path_excludes,
-        "builds_path_includes": builds_path_includes,
-      },
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "List triggers for a Worker"
-    },
-    [OPERATION]: {
-      method: "GET",
-      path: "/accounts/{account_id}/builds/workers/{external_script_id}/triggers",
-      pathOf: encodePath`/accounts/${"account_id"}/builds/workers/${"external_script_id"}/triggers`,
-      extensions: {
-        "x-api-token-group": [
-          "Workers CI Write",
-          "Workers CI Read"
-        ]
-      },
-      responses: {
-        schemas: {
-          "200": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/builds_APIResponse"
-              },
-              {
-                "properties": {
-                  "result": {
-                    "items": {
-                      "$ref": "#/$defs/builds_TriggerResponse"
-                    },
-                    "type": "array"
-                  }
-                },
-                "type": "object"
-              }
-            ]
-          },
-          "401": {
-            "$ref": "#/$defs/builds_ErrorResponse"
-          }
-        },
-        $defs: {
-          "builds_APIResponse": builds_APIResponse,
-          "builds_ApiError": builds_ApiError,
-          "builds_ErrorResponse": builds_ErrorResponse,
-          "builds_PaginationInfo": builds_PaginationInfo,
-          "builds_TriggerResponse": builds_TriggerResponse,
-          "builds_UpsertRepoConnectionResponse": builds_UpsertRepoConnectionResponse,
-          "builds_branch_excludes": builds_branch_excludes,
-          "builds_branch_includes": builds_branch_includes,
-          "builds_path_excludes": builds_path_excludes,
-          "builds_path_includes": builds_path_includes,
-        },
-      },
-    },
-  },
-  {
-    name: "builds_triggers_update",
+    name: "builds_triggers_edit",
     title: "Update a build trigger",
     description: "Update commands, cache settings, or branch and path filters for a trigger.\n\nPATCH /accounts/{account_id}/builds/triggers/{trigger_uuid}",
     inputSchema: {
@@ -422,6 +442,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Workers CI Write"
+        ],
+        "x-fern-audiences": [
+          "sdk"
         ]
       },
       responses: {
@@ -445,6 +468,125 @@ export const tools: readonly Tool[] = [
             "$ref": "#/$defs/builds_ErrorResponse"
           },
           "404": {
+            "$ref": "#/$defs/builds_ErrorResponse"
+          }
+        },
+        $defs: {
+          "builds_APIResponse": builds_APIResponse,
+          "builds_ApiError": builds_ApiError,
+          "builds_ErrorResponse": builds_ErrorResponse,
+          "builds_PaginationInfo": builds_PaginationInfo,
+          "builds_TriggerResponse": builds_TriggerResponse,
+          "builds_UpsertRepoConnectionResponse": builds_UpsertRepoConnectionResponse,
+          "builds_branch_excludes": builds_branch_excludes,
+          "builds_branch_includes": builds_branch_includes,
+          "builds_path_excludes": builds_path_excludes,
+          "builds_path_includes": builds_path_includes,
+        },
+      },
+    },
+  },
+  {
+    name: "builds_triggers_list",
+    title: "List triggers for a Worker",
+    description: "List trigger UUIDs and build settings associated with a Worker tag.\n\nGET /accounts/{account_id}/builds/workers/{external_script_id}/triggers",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account identifier.",
+              "type": "string"
+            },
+            "external_script_id": {
+              "description": "System-generated tag of the Worker. This is not the Worker name.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "external_script_id"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path"
+      ],
+      additionalProperties: false,
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/builds_APIResponse"
+        },
+        {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/builds_TriggerResponse"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "builds_APIResponse": builds_APIResponse,
+        "builds_ApiError": builds_ApiError,
+        "builds_PaginationInfo": builds_PaginationInfo,
+        "builds_TriggerResponse": builds_TriggerResponse,
+        "builds_UpsertRepoConnectionResponse": builds_UpsertRepoConnectionResponse,
+        "builds_branch_excludes": builds_branch_excludes,
+        "builds_branch_includes": builds_branch_includes,
+        "builds_path_excludes": builds_path_excludes,
+        "builds_path_includes": builds_path_includes,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "List triggers for a Worker"
+    },
+    [OPERATION]: {
+      method: "GET",
+      path: "/accounts/{account_id}/builds/workers/{external_script_id}/triggers",
+      pathOf: encodePath`/accounts/${"account_id"}/builds/workers/${"external_script_id"}/triggers`,
+      extensions: {
+        "x-api-token-group": [
+          "Workers CI Write",
+          "Workers CI Read"
+        ],
+        "x-fern-audiences": [
+          "sdk"
+        ]
+      },
+      responses: {
+        schemas: {
+          "200": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/builds_APIResponse"
+              },
+              {
+                "properties": {
+                  "result": {
+                    "items": {
+                      "$ref": "#/$defs/builds_TriggerResponse"
+                    },
+                    "type": "array"
+                  }
+                },
+                "type": "object"
+              }
+            ]
+          },
+          "401": {
             "$ref": "#/$defs/builds_ErrorResponse"
           }
         },
