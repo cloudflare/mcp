@@ -18,6 +18,7 @@ import type { AuthProps } from '../auth/types'
 import type { Connection } from '../api-permissions'
 import { authorize, explainRefusal, isCatalogScope } from '../api-permissions'
 import { MISSING_SCOPE_HEADER, REFUSAL_HINT_HEADER, reviewResponse } from '../api-refusals'
+import { policyRefusalHint } from '../policy-guards'
 import { WWW_AUTHENTICATE_META_KEY, type ScopeChallenge } from '../scope-challenge'
 import {
   getWaitBudgetMs,
@@ -77,6 +78,13 @@ export class GlobalOutbound extends WorkerEntrypoint<Env, GlobalOutboundProps> {
     const requested = new URL(request.url).hostname
     if (requested !== allowed) {
       return new Response(`Forbidden: requests to ${requested} are not allowed`, { status: 403 })
+    }
+    const policyHint = await policyRefusalHint(request)
+    if (policyHint) {
+      return Response.json(
+        { success: false, errors: [{ message: policyHint }], messages: [], result: null },
+        { status: 403, headers: { [NOT_SENT_HEADER]: '1' } }
+      )
     }
     // Inject auth header — token comes from props, never enters user code isolate
     const authedRequest = new Request(request, {
