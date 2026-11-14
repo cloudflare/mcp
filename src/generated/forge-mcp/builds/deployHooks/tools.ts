@@ -7,7 +7,7 @@ import {
   builds_ApiError,
   builds_ErrorResponse,
   builds_PaginationInfo,
-} from "../../outputs.js";
+} from "../outputs.js";
 import {
   builds_DeployHookResponse,
   builds_DetailedDeployHookResponse,
@@ -37,7 +37,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "script_name": {
-              "description": "Human-readable name of the worker.",
+              "description": "Name or script tag of the Worker.",
               "type": "string"
             }
           },
@@ -138,7 +138,7 @@ export const tools: readonly Tool[] = [
   {
     name: "builds_deployHooks_delete",
     title: "Delete a deploy hook",
-    description: "Delete a deploy hook so its UUID can no longer start builds.\n\nDELETE /accounts/{account_id}/builds/workers/{script_name}/deploy_hooks/{deploy_hook_uuid}",
+    description: "Delete a deploy hook so its UUID can no longer start builds.\n\nConfirm with the user before calling this tool. This operation deletes the deploy hook. Requests to its URL will no longer start builds.\n\nDELETE /accounts/{account_id}/builds/workers/{script_name}/deploy_hooks/{deploy_hook_uuid}",
     inputSchema: {
       type: "object",
       properties: {
@@ -150,12 +150,12 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "deploy_hook_uuid": {
-              "description": "Deploy hook UUID",
+              "description": "UUID of the deploy hook, as returned by deploy-hooks list.",
               "format": "uuid",
               "type": "string"
             },
             "script_name": {
-              "description": "Human-readable name of the worker.",
+              "description": "Name or script tag of the Worker.",
               "type": "string"
             }
           },
@@ -258,12 +258,12 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "deploy_hook_uuid": {
-              "description": "Deploy hook UUID",
+              "description": "UUID of the deploy hook, as returned by deploy-hooks list.",
               "format": "uuid",
               "type": "string"
             },
             "script_name": {
-              "description": "Human-readable name of the worker.",
+              "description": "Name or script tag of the Worker.",
               "type": "string"
             }
           },
@@ -367,7 +367,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "script_name": {
-              "description": "Human-readable name of the worker.",
+              "description": "Name or script tag of the Worker.",
               "type": "string"
             }
           },
@@ -469,7 +469,7 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "deploy_hook_uuid": {
-              "description": "Deploy hook UUID",
+              "description": "UUID of the deploy hook, as returned by deploy-hooks list.",
               "format": "uuid",
               "type": "string"
             }
@@ -517,6 +517,11 @@ export const tools: readonly Tool[] = [
       method: "POST",
       path: "/workers/builds/deploy_hooks/{deploy_hook_uuid}",
       pathOf: encodePath`/workers/builds/deploy_hooks/${"deploy_hook_uuid"}`,
+      extensions: {
+        "x-fern-audiences": [
+          "sdk"
+        ]
+      },
       responses: {
         schemas: {
           "200": {
@@ -569,12 +574,12 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "deploy_hook_uuid": {
-              "description": "Deploy hook UUID",
+              "description": "UUID of the deploy hook, as returned by deploy-hooks list.",
               "format": "uuid",
               "type": "string"
             },
             "script_name": {
-              "description": "Human-readable name of the worker.",
+              "description": "Name or script tag of the Worker.",
               "type": "string"
             }
           },

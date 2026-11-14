@@ -497,7 +497,7 @@ export const zones_setting_value: JSONObject = {
       "type": "string"
     },
     {
-      "description": "Value of the zone setting.\nNotes: Value must be between 1 and 6000",
+      "description": "Value of the zone setting, in seconds.\nNotes: Value must be between 1 and 6000",
       "type": "number"
     },
     {
@@ -656,6 +656,14 @@ export const zones_setting_value: JSONObject = {
     },
     {
       "description": "Comma-separated list of WebMCP tool-pack names to activate for this\nzone (for example, \"c2pa,mcp-server-client\"), surfaced to the injected\nbridge as the data-packs attribute. An empty value clears the override\nso the bridge uses its built-in default pack set.",
+      "type": "string"
+    },
+    {
+      "description": "Value of the zone setting.",
+      "enum": [
+        "off",
+        "on"
+      ],
       "type": "string"
     },
     {

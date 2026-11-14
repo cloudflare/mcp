@@ -496,7 +496,9 @@ export const teams$$devices_intune_input_request: JSONObject = {
         "unknown",
         "notapplicable",
         "ingraceperiod",
-        "error"
+        "error",
+        "conflict",
+        "configmanager"
       ],
       "type": "string"
     },

@@ -26,7 +26,6 @@ import {
   stream_videoClipStandard,
   stream_video_copy_request,
   stream_video_update,
-  stream_watermarkAtUpload,
   stream_watermark_at_upload,
 } from "./schemas.js";
 
@@ -67,7 +66,7 @@ export const tools: readonly Tool[] = [
         "stream_allowedOrigins": stream_allowedOrigins$,
         "stream_media_metadata": stream_media_metadata$,
         "stream_videoClipStandard": stream_videoClipStandard,
-        "stream_watermarkAtUpload": stream_watermarkAtUpload,
+        "stream_watermark_at_upload": stream_watermark_at_upload,
       },
     },
     outputSchema: {

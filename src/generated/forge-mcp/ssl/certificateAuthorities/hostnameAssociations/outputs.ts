@@ -17,7 +17,17 @@ export const tls$$certificates$$and$$hostnames_hostname_associations_response: J
         "result": {
           "properties": {
             "hostnames": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_hostnames-2"
+              "oneOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             }
           },
           "type": "object"
@@ -26,14 +36,4 @@ export const tls$$certificates$$and$$hostnames_hostname_associations_response: J
       "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `tls-certificates-and-hostnames_hostnames-2` in responses.
- */
-export const tls$$certificates$$and$$hostnames_hostnames$$2: JSONObject = {
-  "items": {
-    "type": "string"
-  },
-  "type": "array"
 };

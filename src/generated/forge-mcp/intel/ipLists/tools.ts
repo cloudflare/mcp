@@ -19,7 +19,7 @@ import {
  */
 export const tools: readonly Tool[] = [
   {
-    name: "intel_ipLists_get",
+    name: "intel_ipLists_list",
     title: "Get Available IP Lists",
     description: "Returns a list of available IP list categories (e.g., anonymizer, botnetcc, malware, tor, vpn, open_proxies). This endpoint provides metadata about which IP lists are available in the system.\n\nGET /accounts/{account_id}/intel/ip-lists",
     inputSchema: {

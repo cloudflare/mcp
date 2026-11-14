@@ -377,7 +377,7 @@ export const tools: readonly Tool[] = [
               "items": {
                 "type": "string"
               },
-              "maxItems": 10,
+              "maxItems": 25,
               "type": "array"
             }
           },

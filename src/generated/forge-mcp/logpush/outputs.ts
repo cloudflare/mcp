@@ -145,6 +145,9 @@ export const logpush_logpush_job: JSONObject = {
         "destination_conf": {
           "type": "string"
         },
+        "destination_name": {
+          "type": "string"
+        },
         "enabled": {
           "type": "boolean"
         },

@@ -30,6 +30,11 @@ export const tools: readonly Tool[] = [
             "name": {
               "description": "The name of the dispatch namespace.",
               "type": "string"
+            },
+            "trusted_workers": {
+              "default": false,
+              "description": "Whether the Workers in the namespace are executed in a \"trusted\" manner. When a Worker is trusted, it has access to the shared caches for the zone in the Cache API, and has access to the `request.cf` object on incoming Requests. When a Worker is untrusted, caches are not shared across the zone, and `request.cf` is undefined. By default, Workers in a namespace are \"untrusted\".",
+              "type": "boolean"
             }
           },
           "type": "object"

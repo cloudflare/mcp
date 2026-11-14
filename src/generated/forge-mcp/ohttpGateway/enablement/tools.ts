@@ -6,7 +6,9 @@ import {
   ohttp$$gateway_api$$error,
   ohttp$$gateway_api$$message,
   ohttp$$gateway_api$$response$$failure,
-  ohttp$$gateway_api$$success$$response,
+  ohttp$$gateway_create$$api$$success$$response,
+  ohttp$$gateway_delete$$api$$success$$response,
+  ohttp$$gateway_get$$api$$success$$response,
 } from "./outputs.js";
 
 /**
@@ -16,7 +18,7 @@ export const tools: readonly Tool[] = [
   {
     name: "ohttpGateway_enablement_create",
     title: "Enable OHTTP Gateway",
-    description: "Enables OHTTP Gateway for the zone. Enabling an already-enabled zone is idempotent and returns HTTP 200 status code; enabling a zone for the first time returns HTTP 201. Requires product subscription to call.\n\nThis method is beta.\n\nPUT /zones/{zone_id}/settings/ohttp-gateway",
+    description: "Idempotently enables OHTTP Gateway for the zone. Requires product subscription to call.\n\nThis method is beta.\n\nPUT /zones/{zone_id}/settings/ohttp-gateway",
     inputSchema: {
       type: "object",
       properties: {
@@ -40,11 +42,12 @@ export const tools: readonly Tool[] = [
       additionalProperties: false,
     },
     outputSchema: {
-      "$ref": "#/$defs/ohttp-gateway_api-success-response",
+      "$ref": "#/$defs/ohttp-gateway_create-api-success-response",
       $defs: {
         "ohttp-gateway_api-error": ohttp$$gateway_api$$error,
         "ohttp-gateway_api-message": ohttp$$gateway_api$$message,
-        "ohttp-gateway_api-success-response": ohttp$$gateway_api$$success$$response,
+        "ohttp-gateway_create-api-success-response": ohttp$$gateway_create$$api$$success$$response,
+        "ohttp-gateway_get-api-success-response": ohttp$$gateway_get$$api$$success$$response,
       },
     },
     annotations: {
@@ -67,10 +70,7 @@ export const tools: readonly Tool[] = [
       responses: {
         schemas: {
           "200": {
-            "$ref": "#/$defs/ohttp-gateway_api-success-response"
-          },
-          "201": {
-            "$ref": "#/$defs/ohttp-gateway_api-success-response"
+            "$ref": "#/$defs/ohttp-gateway_create-api-success-response"
           },
           "400": {
             "$ref": "#/$defs/ohttp-gateway_api-response-failure"
@@ -92,7 +92,8 @@ export const tools: readonly Tool[] = [
           "ohttp-gateway_api-error": ohttp$$gateway_api$$error,
           "ohttp-gateway_api-message": ohttp$$gateway_api$$message,
           "ohttp-gateway_api-response-failure": ohttp$$gateway_api$$response$$failure,
-          "ohttp-gateway_api-success-response": ohttp$$gateway_api$$success$$response,
+          "ohttp-gateway_create-api-success-response": ohttp$$gateway_create$$api$$success$$response,
+          "ohttp-gateway_get-api-success-response": ohttp$$gateway_get$$api$$success$$response,
         },
       },
     },
@@ -124,11 +125,12 @@ export const tools: readonly Tool[] = [
       additionalProperties: false,
     },
     outputSchema: {
-      "$ref": "#/$defs/ohttp-gateway_api-success-response",
+      "$ref": "#/$defs/ohttp-gateway_delete-api-success-response",
       $defs: {
         "ohttp-gateway_api-error": ohttp$$gateway_api$$error,
         "ohttp-gateway_api-message": ohttp$$gateway_api$$message,
-        "ohttp-gateway_api-success-response": ohttp$$gateway_api$$success$$response,
+        "ohttp-gateway_delete-api-success-response": ohttp$$gateway_delete$$api$$success$$response,
+        "ohttp-gateway_get-api-success-response": ohttp$$gateway_get$$api$$success$$response,
       },
     },
     annotations: {
@@ -151,7 +153,7 @@ export const tools: readonly Tool[] = [
       responses: {
         schemas: {
           "200": {
-            "$ref": "#/$defs/ohttp-gateway_api-success-response"
+            "$ref": "#/$defs/ohttp-gateway_delete-api-success-response"
           },
           "400": {
             "$ref": "#/$defs/ohttp-gateway_api-response-failure"
@@ -173,7 +175,8 @@ export const tools: readonly Tool[] = [
           "ohttp-gateway_api-error": ohttp$$gateway_api$$error,
           "ohttp-gateway_api-message": ohttp$$gateway_api$$message,
           "ohttp-gateway_api-response-failure": ohttp$$gateway_api$$response$$failure,
-          "ohttp-gateway_api-success-response": ohttp$$gateway_api$$success$$response,
+          "ohttp-gateway_delete-api-success-response": ohttp$$gateway_delete$$api$$success$$response,
+          "ohttp-gateway_get-api-success-response": ohttp$$gateway_get$$api$$success$$response,
         },
       },
     },
@@ -205,11 +208,11 @@ export const tools: readonly Tool[] = [
       additionalProperties: false,
     },
     outputSchema: {
-      "$ref": "#/$defs/ohttp-gateway_api-success-response",
+      "$ref": "#/$defs/ohttp-gateway_get-api-success-response",
       $defs: {
         "ohttp-gateway_api-error": ohttp$$gateway_api$$error,
         "ohttp-gateway_api-message": ohttp$$gateway_api$$message,
-        "ohttp-gateway_api-success-response": ohttp$$gateway_api$$success$$response,
+        "ohttp-gateway_get-api-success-response": ohttp$$gateway_get$$api$$success$$response,
       },
     },
     annotations: {
@@ -232,7 +235,7 @@ export const tools: readonly Tool[] = [
       responses: {
         schemas: {
           "200": {
-            "$ref": "#/$defs/ohttp-gateway_api-success-response"
+            "$ref": "#/$defs/ohttp-gateway_get-api-success-response"
           },
           "400": {
             "$ref": "#/$defs/ohttp-gateway_api-response-failure"
@@ -254,7 +257,7 @@ export const tools: readonly Tool[] = [
           "ohttp-gateway_api-error": ohttp$$gateway_api$$error,
           "ohttp-gateway_api-message": ohttp$$gateway_api$$message,
           "ohttp-gateway_api-response-failure": ohttp$$gateway_api$$response$$failure,
-          "ohttp-gateway_api-success-response": ohttp$$gateway_api$$success$$response,
+          "ohttp-gateway_get-api-success-response": ohttp$$gateway_get$$api$$success$$response,
         },
       },
     },

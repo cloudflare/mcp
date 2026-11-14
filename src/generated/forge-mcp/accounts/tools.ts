@@ -20,7 +20,6 @@ import {
   organizations$$api_MoveAccountResult,
 } from "./outputs.js";
 import {
-  iam_account as iam_account$,
   iam_components$$schemas$$account,
   iam_create$$account,
 } from "./schemas.js";
@@ -563,7 +562,6 @@ export const tools: readonly Tool[] = [
       ],
       additionalProperties: false,
       $defs: {
-        "iam_account": iam_account$,
         "iam_components-schemas-account": iam_components$$schemas$$account,
       },
     },

@@ -4,6 +4,101 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
+ * The schema of `builds_BuildSeedRepoInput`.
+ */
+export const builds_BuildSeedRepoInput: JSONObject = {
+  "properties": {
+    "branch": {
+      "description": "Repository branch to seed.",
+      "type": "string"
+    },
+    "files": {
+      "description": "Files to add or replace for this build. Maximum 2.",
+      "items": {
+        "$ref": "#/$defs/builds_BuildSeedRepoInputFile"
+      },
+      "maxItems": 2,
+      "type": "array"
+    },
+    "owner": {
+      "description": "Repository owner or namespace.",
+      "type": "string"
+    },
+    "path": {
+      "description": "Path within the repository to seed.",
+      "type": "string"
+    },
+    "provider": {
+      "description": "Source control provider for the seed repository.",
+      "enum": [
+        "github",
+        "gitlab"
+      ],
+      "type": "string"
+    },
+    "repository": {
+      "description": "Repository name.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "owner",
+    "provider",
+    "repository"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `builds_BuildSeedRepoInputFile`.
+ */
+export const builds_BuildSeedRepoInputFile: JSONObject = {
+  "properties": {
+    "content": {
+      "type": "string"
+    },
+    "filename": {
+      "type": "string"
+    },
+    "isBase64": {
+      "default": false,
+      "description": "Whether content is Base64-encoded.",
+      "type": "boolean"
+    },
+    "replace": {
+      "description": "Existing text in the target file to replace with content.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "content",
+    "filename"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `builds_CreateBuildRequest`.
+ */
+export const builds_CreateBuildRequest: JSONObject = {
+  "properties": {
+    "branch": {
+      "description": "Git branch name (required if commit_hash not provided)",
+      "type": "string"
+    },
+    "commit_hash": {
+      "description": "Git commit hash (required if branch not provided)",
+      "type": "string"
+    },
+    "seed_repo": {
+      "$ref": "#/$defs/builds_BuildSeedRepoInput",
+      "description": "Optional repository and file overrides used to seed this build."
+    }
+  },
+  "type": "object"
+};
+
+/**
  * The schema of `builds_EnvironmentVariablesRequest`.
  */
 export const builds_EnvironmentVariablesRequest: JSONObject = {
@@ -26,4 +121,119 @@ export const builds_EnvironmentVariablesRequest: JSONObject = {
   },
   "description": "Map of environment-variable names to build-time values. Names must begin with a letter or underscore and contain only letters, numbers, and underscores.",
   "type": "object"
+};
+
+/**
+ * The schema of `builds_UpdateWorkerBuildSettingsInput`.
+ */
+export const builds_UpdateWorkerBuildSettingsInput: JSONObject = {
+  "description": "Partial build settings for updating a Worker build configuration",
+  "properties": {
+    "build_caching_enabled": {
+      "default": false,
+      "description": "Whether builds reuse cached dependencies and build artifacts.",
+      "type": "boolean"
+    },
+    "build_command": {
+      "description": "Command to build the Worker.",
+      "type": "string"
+    },
+    "build_token_uuid": {
+      "description": "UUID of the build token used when deploying the Worker.",
+      "format": "uuid",
+      "type": "string"
+    },
+    "deploy_command": {
+      "description": "Command to deploy the Worker.",
+      "type": "string"
+    },
+    "environment_variables": {
+      "additionalProperties": {
+        "oneOf": [
+          {
+            "properties": {
+              "is_secret": {
+                "description": "Whether to hide the value after it is saved. Secret values remain available to builds but appear as `null` when you list variables; non-secret values remain visible.",
+                "type": "boolean"
+              },
+              "value": {
+                "description": "Value made available to the build. Maximum length is 5000 characters.",
+                "type": "string"
+              }
+            },
+            "required": [
+              "is_secret",
+              "value"
+            ],
+            "type": "object"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "description": "Environment variable updates. Set the variable entry to null to delete it.",
+      "type": "object"
+    },
+    "path_excludes": {
+      "$ref": "#/$defs/builds_path_excludes",
+      "description": "Path patterns that must not start builds."
+    },
+    "path_includes": {
+      "$ref": "#/$defs/builds_path_includes",
+      "default": [
+        "*"
+      ],
+      "description": "Path patterns that can start builds."
+    },
+    "root_directory": {
+      "description": "Repository directory in which build and deploy commands run.",
+      "type": "string"
+    }
+  },
+  "type": "object"
+};
+
+/**
+ * The schema of `builds_branch_excludes`.
+ */
+export const builds_branch_excludes: JSONObject = {
+  "description": "Branch patterns that must not start builds.",
+  "items": {
+    "type": "string"
+  },
+  "type": "array"
+};
+
+/**
+ * The schema of `builds_branch_includes`.
+ */
+export const builds_branch_includes: JSONObject = {
+  "description": "Branch patterns that can start builds.",
+  "items": {
+    "type": "string"
+  },
+  "type": "array"
+};
+
+/**
+ * The schema of `builds_path_excludes`.
+ */
+export const builds_path_excludes: JSONObject = {
+  "description": "Path patterns that must not start builds.",
+  "items": {
+    "type": "string"
+  },
+  "type": "array"
+};
+
+/**
+ * The schema of `builds_path_includes`.
+ */
+export const builds_path_includes: JSONObject = {
+  "description": "Path patterns that can start builds.",
+  "items": {
+    "type": "string"
+  },
+  "type": "array"
 };

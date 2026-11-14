@@ -505,6 +505,22 @@ export const tools: readonly Tool[] = [
             "account_id"
           ],
           "type": "object"
+        },
+        "query": {
+          "additionalProperties": false,
+          "properties": {
+            "page": {
+              "default": 1,
+              "description": "Page number of queues, starting at 1.",
+              "type": "integer"
+            },
+            "per_page": {
+              "default": 100,
+              "description": "Number of queues per page. Takes precedence over the legacy perPage query parameter.",
+              "type": "integer"
+            }
+          },
+          "type": "object"
         }
       },
       required: [
@@ -574,6 +590,10 @@ export const tools: readonly Tool[] = [
       method: "GET",
       path: "/accounts/{account_id}/queues",
       pathOf: encodePath`/accounts/${"account_id"}/queues`,
+      query: [
+        { name: "page", explode: true },
+        { name: "per_page", explode: true },
+      ],
       extensions: {
         "x-api-token-group": [
           "Queues Write",

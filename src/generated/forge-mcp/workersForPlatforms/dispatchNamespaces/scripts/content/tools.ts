@@ -92,6 +92,7 @@ export const tools: readonly Tool[] = [
       responses: {
         schemas: {
           "200": null,
+          "204": null,
           "4XX": {
             "$ref": "#/$defs/workers_api-response-common-failure"
           }

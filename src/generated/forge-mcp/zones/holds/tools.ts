@@ -68,7 +68,7 @@ export const tools: readonly Tool[] = [
                   "type": "string"
                 },
                 "include_subdomains": {
-                  "type": "string"
+                  "type": "boolean"
                 }
               },
               "type": "object"
@@ -120,7 +120,7 @@ export const tools: readonly Tool[] = [
                         "type": "string"
                       },
                       "include_subdomains": {
-                        "type": "string"
+                        "type": "boolean"
                       }
                     },
                     "type": "object"
@@ -196,7 +196,7 @@ export const tools: readonly Tool[] = [
                   "type": "string"
                 },
                 "include_subdomains": {
-                  "type": "string"
+                  "type": "boolean"
                 }
               },
               "type": "object"
@@ -248,7 +248,7 @@ export const tools: readonly Tool[] = [
                         "type": "string"
                       },
                       "include_subdomains": {
-                        "type": "string"
+                        "type": "boolean"
                       }
                     },
                     "type": "object"
@@ -337,7 +337,7 @@ export const tools: readonly Tool[] = [
                   "type": "string"
                 },
                 "include_subdomains": {
-                  "type": "string"
+                  "type": "boolean"
                 }
               },
               "type": "object"
@@ -395,7 +395,7 @@ export const tools: readonly Tool[] = [
                         "type": "string"
                       },
                       "include_subdomains": {
-                        "type": "string"
+                        "type": "boolean"
                       }
                     },
                     "type": "object"
@@ -461,7 +461,7 @@ export const tools: readonly Tool[] = [
                   "type": "string"
                 },
                 "include_subdomains": {
-                  "type": "string"
+                  "type": "boolean"
                 }
               },
               "type": "object"
@@ -548,7 +548,7 @@ export const tools: readonly Tool[] = [
                         "type": "string"
                       },
                       "include_subdomains": {
-                        "type": "string"
+                        "type": "boolean"
                       }
                     },
                     "type": "object"

@@ -27,7 +27,7 @@ export const tools: readonly Tool[] = [
             },
             "top_k": {
               "default": 10,
-              "description": "Number of closest matches to return (1-100, default: 10)",
+              "description": "Number of closest matches to return. Defaults to 10. Accepts 1 to 100, but values above 50 are treated as 50.",
               "type": "integer"
             }
           },
@@ -209,8 +209,8 @@ export const tools: readonly Tool[] = [
   },
   {
     name: "brandProtection_urlInfo",
-    title: "Get total queries",
-    description: "Get the total number of saved brand protection queries (domain + logo) for an account\n\nGET /accounts/{account_id}/cloudforce-one/v2/brand-protection/total-queries",
+    title: "Get total query count",
+    description: "Returns the number of saved domain and logo queries in the account. This is the count checked against the account's Brand Protection query limit.\n\nGET /accounts/{account_id}/cloudforce-one/v2/brand-protection/total-queries",
     inputSchema: {
       type: "object",
       properties: {
@@ -251,7 +251,7 @@ export const tools: readonly Tool[] = [
       "idempotentHint": true,
       "openWorldHint": true,
       "readOnlyHint": true,
-      "title": "Get total queries"
+      "title": "Get total query count"
     },
     [OPERATION]: {
       method: "GET",

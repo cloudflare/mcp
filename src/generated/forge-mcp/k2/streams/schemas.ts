@@ -81,6 +81,7 @@ export const cloudflare$$k2_K2StreamHttpInput: JSONObject = {
  * The schema of `cloudflare-k2_K2StreamWorkerBindingInput`.
  */
 export const cloudflare$$k2_K2StreamWorkerBindingInput: JSONObject = {
+  "description": "Configures whether Workers bindings can produce records to the stream.",
   "properties": {
     "enabled": {
       "description": "Indicates whether Workers bindings can produce records to the stream.",
@@ -107,7 +108,8 @@ export const cloudflare$$k2_UpdateK2StreamRequest: JSONObject = {
       "type": "integer"
     },
     "worker_binding": {
-      "$ref": "#/$defs/cloudflare-k2_K2StreamWorkerBindingInput"
+      "$ref": "#/$defs/cloudflare-k2_K2StreamWorkerBindingInput",
+      "description": "Configures whether Workers bindings can produce records to the stream."
     }
   },
   "type": "object"

@@ -9,23 +9,26 @@ import {
   builds_ErrorResponse,
   builds_PaginationInfo,
   builds_WorkerBuildSettings,
-  builds_WorkerGitRepository,
-  builds_WorkerResponse,
   builds_path_excludes,
   builds_path_includes,
-} from "../../outputs.js";
+} from "../outputs.js";
 import {
+  builds_EnvironmentVariablesRequest,
   builds_UpdateWorkerBuildSettingsInput,
   builds_path_excludes as builds_path_excludes$,
   builds_path_includes as builds_path_includes$,
-} from "../../schemas.js";
-import { builds_EnvironmentVariablesRequest } from "../schemas.js";
+} from "../schemas.js";
+import {
+  builds_WorkerGitRepository,
+  builds_WorkerResponse,
+} from "./outputs.js";
 import {
   builds_CreateWorkerBuildSettingsInput,
   builds_CreateWorkerGitRepositoryFunfettiInput,
   builds_CreateWorkerGitRepositoryGrantInput,
   builds_CreateWorkerGitRepositoryInput,
   builds_CreateWorkerRequest,
+  builds_MigrateToPreviewsRequest,
   builds_UpdateWorkerRequest,
 } from "./schemas.js";
 
@@ -114,7 +117,13 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Workers CI Write"
-        ]
+        ],
+        "x-forge-params": {
+          "script_tag": {
+            "description": "Script tag of the Worker.",
+            "positional": true
+          }
+        }
       },
       responses: {
         schemas: {
@@ -176,7 +185,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "script_tag": {
-              "description": "The Worker script tag (external script ID)",
+              "description": "Script tag of the Worker.",
               "type": "string"
             }
           },
@@ -262,120 +271,7 @@ export const tools: readonly Tool[] = [
     },
   },
   {
-    name: "builds_workers_get",
-    title: "Get Worker build configuration",
-    description: "Retrieve the repository and production build settings associated with a Worker tag.\n\nGET /accounts/{account_id}/builds/workers/{script_tag}",
-    inputSchema: {
-      type: "object",
-      properties: {
-        "path": {
-          "additionalProperties": false,
-          "properties": {
-            "account_id": {
-              "description": "Account identifier.",
-              "type": "string"
-            },
-            "script_tag": {
-              "description": "The Worker script tag (external script ID)",
-              "type": "string"
-            }
-          },
-          "required": [
-            "account_id",
-            "script_tag"
-          ],
-          "type": "object"
-        }
-      },
-      required: [
-        "path"
-      ],
-      additionalProperties: false,
-    },
-    outputSchema: {
-      "allOf": [
-        {
-          "$ref": "#/$defs/builds_APIResponse"
-        },
-        {
-          "properties": {
-            "result": {
-              "$ref": "#/$defs/builds_WorkerResponse"
-            }
-          },
-          "type": "object"
-        }
-      ],
-      $defs: {
-        "builds_APIResponse": builds_APIResponse,
-        "builds_ApiError": builds_ApiError,
-        "builds_EnvironmentVariablesResponse": builds_EnvironmentVariablesResponse,
-        "builds_PaginationInfo": builds_PaginationInfo,
-        "builds_WorkerBuildSettings": builds_WorkerBuildSettings,
-        "builds_WorkerGitRepository": builds_WorkerGitRepository,
-        "builds_WorkerResponse": builds_WorkerResponse,
-        "builds_path_excludes": builds_path_excludes,
-        "builds_path_includes": builds_path_includes,
-      },
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get Worker build configuration"
-    },
-    [OPERATION]: {
-      method: "GET",
-      path: "/accounts/{account_id}/builds/workers/{script_tag}",
-      pathOf: encodePath`/accounts/${"account_id"}/builds/workers/${"script_tag"}`,
-      extensions: {
-        "x-api-token-group": [
-          "Workers CI Write",
-          "Workers CI Read"
-        ]
-      },
-      responses: {
-        schemas: {
-          "200": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/builds_APIResponse"
-              },
-              {
-                "properties": {
-                  "result": {
-                    "$ref": "#/$defs/builds_WorkerResponse"
-                  }
-                },
-                "type": "object"
-              }
-            ]
-          },
-          "401": {
-            "$ref": "#/$defs/builds_ErrorResponse"
-          },
-          "404": {
-            "$ref": "#/$defs/builds_ErrorResponse"
-          }
-        },
-        $defs: {
-          "builds_APIResponse": builds_APIResponse,
-          "builds_ApiError": builds_ApiError,
-          "builds_EnvironmentVariablesResponse": builds_EnvironmentVariablesResponse,
-          "builds_ErrorResponse": builds_ErrorResponse,
-          "builds_PaginationInfo": builds_PaginationInfo,
-          "builds_WorkerBuildSettings": builds_WorkerBuildSettings,
-          "builds_WorkerGitRepository": builds_WorkerGitRepository,
-          "builds_WorkerResponse": builds_WorkerResponse,
-          "builds_path_excludes": builds_path_excludes,
-          "builds_path_includes": builds_path_includes,
-        },
-      },
-    },
-  },
-  {
-    name: "builds_workers_update",
+    name: "builds_workers_edit",
     title: "Update Worker build configuration",
     description: "Update the build configuration for a Worker script. Supports partial updates to git repository settings, production build settings, and Preview settings.\n\nPATCH /accounts/{account_id}/builds/workers/{script_tag}",
     inputSchema: {
@@ -392,7 +288,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "script_tag": {
-              "description": "The Worker script tag (external script ID)",
+              "description": "Script tag of the Worker.",
               "type": "string"
             }
           },
@@ -514,6 +410,318 @@ export const tools: readonly Tool[] = [
           "builds_WorkerResponse": builds_WorkerResponse,
           "builds_path_excludes": builds_path_excludes,
           "builds_path_includes": builds_path_includes,
+        },
+      },
+    },
+  },
+  {
+    name: "builds_workers_get",
+    title: "Get Worker build configuration",
+    description: "Retrieve the repository and production build settings associated with a Worker tag.\n\nGET /accounts/{account_id}/builds/workers/{script_tag}",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account identifier.",
+              "type": "string"
+            },
+            "script_tag": {
+              "description": "Script tag of the Worker.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "script_tag"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path"
+      ],
+      additionalProperties: false,
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/builds_APIResponse"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/builds_WorkerResponse"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "builds_APIResponse": builds_APIResponse,
+        "builds_ApiError": builds_ApiError,
+        "builds_EnvironmentVariablesResponse": builds_EnvironmentVariablesResponse,
+        "builds_PaginationInfo": builds_PaginationInfo,
+        "builds_WorkerBuildSettings": builds_WorkerBuildSettings,
+        "builds_WorkerGitRepository": builds_WorkerGitRepository,
+        "builds_WorkerResponse": builds_WorkerResponse,
+        "builds_path_excludes": builds_path_excludes,
+        "builds_path_includes": builds_path_includes,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get Worker build configuration"
+    },
+    [OPERATION]: {
+      method: "GET",
+      path: "/accounts/{account_id}/builds/workers/{script_tag}",
+      pathOf: encodePath`/accounts/${"account_id"}/builds/workers/${"script_tag"}`,
+      extensions: {
+        "x-api-token-group": [
+          "Workers CI Write",
+          "Workers CI Read"
+        ]
+      },
+      responses: {
+        schemas: {
+          "200": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/builds_APIResponse"
+              },
+              {
+                "properties": {
+                  "result": {
+                    "$ref": "#/$defs/builds_WorkerResponse"
+                  }
+                },
+                "type": "object"
+              }
+            ]
+          },
+          "401": {
+            "$ref": "#/$defs/builds_ErrorResponse"
+          },
+          "404": {
+            "$ref": "#/$defs/builds_ErrorResponse"
+          }
+        },
+        $defs: {
+          "builds_APIResponse": builds_APIResponse,
+          "builds_ApiError": builds_ApiError,
+          "builds_EnvironmentVariablesResponse": builds_EnvironmentVariablesResponse,
+          "builds_ErrorResponse": builds_ErrorResponse,
+          "builds_PaginationInfo": builds_PaginationInfo,
+          "builds_WorkerBuildSettings": builds_WorkerBuildSettings,
+          "builds_WorkerGitRepository": builds_WorkerGitRepository,
+          "builds_WorkerResponse": builds_WorkerResponse,
+          "builds_path_excludes": builds_path_excludes,
+          "builds_path_includes": builds_path_includes,
+        },
+      },
+    },
+  },
+  {
+    name: "builds_workers_migrateToPreviews",
+    title: "Migrate worker to previews",
+    description: "Migrate a Worker's legacy non-production trigger to Previews. The legacy build settings become the Previews base config and the legacy trigger is removed.\n\nConfirm with the user before calling this tool. This operation switches the Worker to Previews and removes its legacy non-production trigger. It cannot be reversed.\n\nPOST /accounts/{account_id}/builds/workers/{script_tag}/migrate_to_previews",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "body": {
+          "$ref": "#/$defs/builds_MigrateToPreviewsRequest"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account identifier.",
+              "type": "string"
+            },
+            "script_tag": {
+              "description": "Script tag of the Worker.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "script_tag"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path",
+        "body"
+      ],
+      additionalProperties: false,
+      $defs: {
+        "builds_MigrateToPreviewsRequest": builds_MigrateToPreviewsRequest,
+      },
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/builds_APIResponse"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/builds_WorkerResponse"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "builds_APIResponse": builds_APIResponse,
+        "builds_ApiError": builds_ApiError,
+        "builds_EnvironmentVariablesResponse": builds_EnvironmentVariablesResponse,
+        "builds_PaginationInfo": builds_PaginationInfo,
+        "builds_WorkerBuildSettings": builds_WorkerBuildSettings,
+        "builds_WorkerGitRepository": builds_WorkerGitRepository,
+        "builds_WorkerResponse": builds_WorkerResponse,
+        "builds_path_excludes": builds_path_excludes,
+        "builds_path_includes": builds_path_includes,
+      },
+    },
+    annotations: {
+      "destructiveHint": true,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Migrate worker to previews"
+    },
+    [OPERATION]: {
+      method: "POST",
+      path: "/accounts/{account_id}/builds/workers/{script_tag}/migrate_to_previews",
+      pathOf: encodePath`/accounts/${"account_id"}/builds/workers/${"script_tag"}/migrate_to_previews`,
+      body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-api-token-group": [
+          "Workers CI Write"
+        ]
+      },
+      responses: {
+        schemas: {
+          "200": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/builds_APIResponse"
+              },
+              {
+                "properties": {
+                  "result": {
+                    "$ref": "#/$defs/builds_WorkerResponse"
+                  }
+                },
+                "type": "object"
+              }
+            ]
+          },
+          "400": {
+            "$ref": "#/$defs/builds_ErrorResponse"
+          },
+          "401": {
+            "$ref": "#/$defs/builds_ErrorResponse"
+          },
+          "404": {
+            "$ref": "#/$defs/builds_ErrorResponse"
+          }
+        },
+        $defs: {
+          "builds_APIResponse": builds_APIResponse,
+          "builds_ApiError": builds_ApiError,
+          "builds_EnvironmentVariablesResponse": builds_EnvironmentVariablesResponse,
+          "builds_ErrorResponse": builds_ErrorResponse,
+          "builds_PaginationInfo": builds_PaginationInfo,
+          "builds_WorkerBuildSettings": builds_WorkerBuildSettings,
+          "builds_WorkerGitRepository": builds_WorkerGitRepository,
+          "builds_WorkerResponse": builds_WorkerResponse,
+          "builds_path_excludes": builds_path_excludes,
+          "builds_path_includes": builds_path_includes,
+        },
+      },
+    },
+  },
+  {
+    name: "builds_workers_purgeCache",
+    title: "Purge a Worker's build cache",
+    description: "Delete cached dependencies and build artifacts for a Worker's production and Preview builds.\n\nConfirm with the user before calling this tool. This operation purges the build cache for the Worker.\n\nPOST /accounts/{account_id}/builds/workers/{script_tag}/purge_build_cache",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account identifier.",
+              "type": "string"
+            },
+            "script_tag": {
+              "description": "Script tag of the Worker.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "script_tag"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path"
+      ],
+      additionalProperties: false,
+    },
+    outputSchema: {
+      "$ref": "#/$defs/builds_APIResponse",
+      $defs: {
+        "builds_APIResponse": builds_APIResponse,
+        "builds_ApiError": builds_ApiError,
+        "builds_PaginationInfo": builds_PaginationInfo,
+      },
+    },
+    annotations: {
+      "destructiveHint": true,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Purge a Worker's build cache"
+    },
+    [OPERATION]: {
+      method: "POST",
+      path: "/accounts/{account_id}/builds/workers/{script_tag}/purge_build_cache",
+      pathOf: encodePath`/accounts/${"account_id"}/builds/workers/${"script_tag"}/purge_build_cache`,
+      extensions: {
+        "x-api-token-group": [
+          "Workers CI Write"
+        ]
+      },
+      responses: {
+        schemas: {
+          "200": {
+            "$ref": "#/$defs/builds_APIResponse"
+          },
+          "401": {
+            "$ref": "#/$defs/builds_ErrorResponse"
+          },
+          "404": {
+            "$ref": "#/$defs/builds_ErrorResponse"
+          }
+        },
+        $defs: {
+          "builds_APIResponse": builds_APIResponse,
+          "builds_ApiError": builds_ApiError,
+          "builds_ErrorResponse": builds_ErrorResponse,
+          "builds_PaginationInfo": builds_PaginationInfo,
         },
       },
     },

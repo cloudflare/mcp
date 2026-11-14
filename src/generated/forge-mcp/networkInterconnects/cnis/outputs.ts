@@ -44,14 +44,28 @@ export const nsc_Cni: JSONObject = {
       "type": "string"
     },
     "bgp": {
-      "$ref": "#/$defs/nsc_BgpControl"
+      "oneOf": [
+        {
+          "$ref": "#/$defs/nsc_BgpControl"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "bgp_mode": {
-      "enum": [
-        "dynamic_route_exchange",
-        "advertise_only"
-      ],
-      "type": "string"
+      "oneOf": [
+        {
+          "enum": [
+            "dynamic_route_exchange",
+            "advertise_only"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "cust_ip": {
       "type": "string"

@@ -9,6 +9,463 @@ import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
 export const tools: readonly Tool[] = [
   {
     name: "radar_trafficAnomalies_get",
+    title: "Get traffic anomaly by UUID",
+    description: "Retrieves a single Internet traffic anomaly by UUID.\n\nGET /radar/traffic_anomalies/{uuid}",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "uuid": {
+              "description": "Traffic anomaly UUID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "uuid"
+          ],
+          "type": "object"
+        },
+        "query": {
+          "additionalProperties": false,
+          "properties": {
+            "format": {
+              "description": "Format in which results will be returned.",
+              "enum": [
+                "JSON",
+                "CSV"
+              ],
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      required: [
+        "path"
+      ],
+      additionalProperties: false,
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "properties": {
+            "trafficAnomaly": {
+              "properties": {
+                "asnDetails": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "asn": {
+                          "type": "string"
+                        },
+                        "location": {
+                          "oneOf": [
+                            {
+                              "properties": {
+                                "code": {
+                                  "type": "string"
+                                },
+                                "name": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "code",
+                                "name"
+                              ],
+                              "type": "object"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "name": {
+                          "oneOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "asn",
+                        "location",
+                        "name"
+                      ],
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "endDate": {
+                  "oneOf": [
+                    {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "locationDetails": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "code": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "code",
+                        "name"
+                      ],
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "originDetails": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "name": {
+                          "oneOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "origin": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "origin"
+                      ],
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "outageId": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "startDate": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "uuid": {
+                  "type": "string"
+                },
+                "visibleInDataSources": {
+                  "oneOf": [
+                    {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "asnDetails",
+                "endDate",
+                "locationDetails",
+                "originDetails",
+                "outageId",
+                "startDate",
+                "status",
+                "type",
+                "uuid",
+                "visibleInDataSources"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "trafficAnomaly"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get traffic anomaly by UUID"
+    },
+    [OPERATION]: {
+      method: "GET",
+      path: "/radar/traffic_anomalies/{uuid}",
+      pathOf: encodePath`/radar/traffic_anomalies/${"uuid"}`,
+      query: [
+        { name: "format", explode: true },
+      ],
+      extensions: {
+        "x-api-token-group": [
+          "User Details Write",
+          "User Details Read"
+        ],
+        "x-cfPlanAvailability": {
+          "business": true,
+          "enterprise": true,
+          "free": true,
+          "pro": true
+        }
+      },
+      responses: {
+        schemas: {
+          "200": {
+            "properties": {
+              "result": {
+                "properties": {
+                  "trafficAnomaly": {
+                    "properties": {
+                      "asnDetails": {
+                        "oneOf": [
+                          {
+                            "properties": {
+                              "asn": {
+                                "type": "string"
+                              },
+                              "location": {
+                                "oneOf": [
+                                  {
+                                    "properties": {
+                                      "code": {
+                                        "type": "string"
+                                      },
+                                      "name": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "code",
+                                      "name"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "name": {
+                                "oneOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              }
+                            },
+                            "required": [
+                              "asn",
+                              "location",
+                              "name"
+                            ],
+                            "type": "object"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "endDate": {
+                        "oneOf": [
+                          {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "locationDetails": {
+                        "oneOf": [
+                          {
+                            "properties": {
+                              "code": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "code",
+                              "name"
+                            ],
+                            "type": "object"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "originDetails": {
+                        "oneOf": [
+                          {
+                            "properties": {
+                              "name": {
+                                "oneOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "origin": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "origin"
+                            ],
+                            "type": "object"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "outageId": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "startDate": {
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "status": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string"
+                      },
+                      "uuid": {
+                        "type": "string"
+                      },
+                      "visibleInDataSources": {
+                        "oneOf": [
+                          {
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "asnDetails",
+                      "endDate",
+                      "locationDetails",
+                      "originDetails",
+                      "outageId",
+                      "startDate",
+                      "status",
+                      "type",
+                      "uuid",
+                      "visibleInDataSources"
+                    ],
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "trafficAnomaly"
+                ],
+                "type": "object"
+              },
+              "success": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "result",
+              "success"
+            ],
+            "type": "object"
+          },
+          "404": {
+            "properties": {
+              "error": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "error"
+            ],
+            "type": "object"
+          }
+        },
+      },
+    },
+  },
+  {
+    name: "radar_trafficAnomalies_list",
     title: "Get latest Internet traffic anomalies",
     description: "Retrieves the latest Internet traffic anomalies, which are signals that might indicate an outage. These alerts are automatically detected by Radar and manually verified by our team.\n\nGET /radar/traffic_anomalies",
     inputSchema: {
@@ -562,463 +1019,6 @@ export const tools: readonly Tool[] = [
               "errors",
               "result",
               "success"
-            ],
-            "type": "object"
-          }
-        },
-      },
-    },
-  },
-  {
-    name: "radar_trafficAnomalies_getById",
-    title: "Get traffic anomaly by UUID",
-    description: "Retrieves a single Internet traffic anomaly by UUID.\n\nGET /radar/traffic_anomalies/{uuid}",
-    inputSchema: {
-      type: "object",
-      properties: {
-        "path": {
-          "additionalProperties": false,
-          "properties": {
-            "uuid": {
-              "description": "Traffic anomaly UUID.",
-              "type": "string"
-            }
-          },
-          "required": [
-            "uuid"
-          ],
-          "type": "object"
-        },
-        "query": {
-          "additionalProperties": false,
-          "properties": {
-            "format": {
-              "description": "Format in which results will be returned.",
-              "enum": [
-                "JSON",
-                "CSV"
-              ],
-              "type": "string"
-            }
-          },
-          "type": "object"
-        }
-      },
-      required: [
-        "path"
-      ],
-      additionalProperties: false,
-    },
-    outputSchema: {
-      "properties": {
-        "result": {
-          "properties": {
-            "trafficAnomaly": {
-              "properties": {
-                "asnDetails": {
-                  "oneOf": [
-                    {
-                      "properties": {
-                        "asn": {
-                          "type": "string"
-                        },
-                        "location": {
-                          "oneOf": [
-                            {
-                              "properties": {
-                                "code": {
-                                  "type": "string"
-                                },
-                                "name": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "code",
-                                "name"
-                              ],
-                              "type": "object"
-                            },
-                            {
-                              "type": "null"
-                            }
-                          ]
-                        },
-                        "name": {
-                          "oneOf": [
-                            {
-                              "type": "string"
-                            },
-                            {
-                              "type": "null"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "asn",
-                        "location",
-                        "name"
-                      ],
-                      "type": "object"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "endDate": {
-                  "oneOf": [
-                    {
-                      "format": "date-time",
-                      "type": "string"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "locationDetails": {
-                  "oneOf": [
-                    {
-                      "properties": {
-                        "code": {
-                          "type": "string"
-                        },
-                        "name": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "code",
-                        "name"
-                      ],
-                      "type": "object"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "originDetails": {
-                  "oneOf": [
-                    {
-                      "properties": {
-                        "name": {
-                          "oneOf": [
-                            {
-                              "type": "string"
-                            },
-                            {
-                              "type": "null"
-                            }
-                          ]
-                        },
-                        "origin": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "name",
-                        "origin"
-                      ],
-                      "type": "object"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "outageId": {
-                  "oneOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "startDate": {
-                  "format": "date-time",
-                  "type": "string"
-                },
-                "status": {
-                  "type": "string"
-                },
-                "type": {
-                  "type": "string"
-                },
-                "uuid": {
-                  "type": "string"
-                },
-                "visibleInDataSources": {
-                  "oneOf": [
-                    {
-                      "items": {
-                        "type": "string"
-                      },
-                      "type": "array"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                }
-              },
-              "required": [
-                "asnDetails",
-                "endDate",
-                "locationDetails",
-                "originDetails",
-                "outageId",
-                "startDate",
-                "status",
-                "type",
-                "uuid",
-                "visibleInDataSources"
-              ],
-              "type": "object"
-            }
-          },
-          "required": [
-            "trafficAnomaly"
-          ],
-          "type": "object"
-        },
-        "success": {
-          "type": "boolean"
-        }
-      },
-      "required": [
-        "result",
-        "success"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get traffic anomaly by UUID"
-    },
-    [OPERATION]: {
-      method: "GET",
-      path: "/radar/traffic_anomalies/{uuid}",
-      pathOf: encodePath`/radar/traffic_anomalies/${"uuid"}`,
-      query: [
-        { name: "format", explode: true },
-      ],
-      extensions: {
-        "x-api-token-group": [
-          "User Details Write",
-          "User Details Read"
-        ],
-        "x-cfPlanAvailability": {
-          "business": true,
-          "enterprise": true,
-          "free": true,
-          "pro": true
-        }
-      },
-      responses: {
-        schemas: {
-          "200": {
-            "properties": {
-              "result": {
-                "properties": {
-                  "trafficAnomaly": {
-                    "properties": {
-                      "asnDetails": {
-                        "oneOf": [
-                          {
-                            "properties": {
-                              "asn": {
-                                "type": "string"
-                              },
-                              "location": {
-                                "oneOf": [
-                                  {
-                                    "properties": {
-                                      "code": {
-                                        "type": "string"
-                                      },
-                                      "name": {
-                                        "type": "string"
-                                      }
-                                    },
-                                    "required": [
-                                      "code",
-                                      "name"
-                                    ],
-                                    "type": "object"
-                                  },
-                                  {
-                                    "type": "null"
-                                  }
-                                ]
-                              },
-                              "name": {
-                                "oneOf": [
-                                  {
-                                    "type": "string"
-                                  },
-                                  {
-                                    "type": "null"
-                                  }
-                                ]
-                              }
-                            },
-                            "required": [
-                              "asn",
-                              "location",
-                              "name"
-                            ],
-                            "type": "object"
-                          },
-                          {
-                            "type": "null"
-                          }
-                        ]
-                      },
-                      "endDate": {
-                        "oneOf": [
-                          {
-                            "format": "date-time",
-                            "type": "string"
-                          },
-                          {
-                            "type": "null"
-                          }
-                        ]
-                      },
-                      "locationDetails": {
-                        "oneOf": [
-                          {
-                            "properties": {
-                              "code": {
-                                "type": "string"
-                              },
-                              "name": {
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "code",
-                              "name"
-                            ],
-                            "type": "object"
-                          },
-                          {
-                            "type": "null"
-                          }
-                        ]
-                      },
-                      "originDetails": {
-                        "oneOf": [
-                          {
-                            "properties": {
-                              "name": {
-                                "oneOf": [
-                                  {
-                                    "type": "string"
-                                  },
-                                  {
-                                    "type": "null"
-                                  }
-                                ]
-                              },
-                              "origin": {
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "name",
-                              "origin"
-                            ],
-                            "type": "object"
-                          },
-                          {
-                            "type": "null"
-                          }
-                        ]
-                      },
-                      "outageId": {
-                        "oneOf": [
-                          {
-                            "type": "string"
-                          },
-                          {
-                            "type": "null"
-                          }
-                        ]
-                      },
-                      "startDate": {
-                        "format": "date-time",
-                        "type": "string"
-                      },
-                      "status": {
-                        "type": "string"
-                      },
-                      "type": {
-                        "type": "string"
-                      },
-                      "uuid": {
-                        "type": "string"
-                      },
-                      "visibleInDataSources": {
-                        "oneOf": [
-                          {
-                            "items": {
-                              "type": "string"
-                            },
-                            "type": "array"
-                          },
-                          {
-                            "type": "null"
-                          }
-                        ]
-                      }
-                    },
-                    "required": [
-                      "asnDetails",
-                      "endDate",
-                      "locationDetails",
-                      "originDetails",
-                      "outageId",
-                      "startDate",
-                      "status",
-                      "type",
-                      "uuid",
-                      "visibleInDataSources"
-                    ],
-                    "type": "object"
-                  }
-                },
-                "required": [
-                  "trafficAnomaly"
-                ],
-                "type": "object"
-              },
-              "success": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "result",
-              "success"
-            ],
-            "type": "object"
-          },
-          "404": {
-            "properties": {
-              "error": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "error"
             ],
             "type": "object"
           }

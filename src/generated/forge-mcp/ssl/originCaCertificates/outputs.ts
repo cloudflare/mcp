@@ -108,14 +108,12 @@ export const tls$$certificates$$and$$hostnames_certificates: JSONObject = {
         5475
       ],
       "type": "integer"
+    },
+    "revoked_at": {
+      "format": "date-time",
+      "type": "string"
     }
   },
-  "required": [
-    "csr",
-    "hostnames",
-    "request_type",
-    "requested_validity"
-  ],
   "type": "object"
 };
 

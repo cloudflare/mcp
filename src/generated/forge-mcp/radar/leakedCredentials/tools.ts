@@ -8,7 +8,7 @@ import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
  */
 export const tools: readonly Tool[] = [
   {
-    name: "radar_leakedCredentials_summaryV2",
+    name: "radar_leakedCredentials_summary",
     title: "Get HTTP authentication requests distribution by dimension",
     description: "Retrieves an aggregated summary of HTTP authentication requests grouped by the specified dimension.\n\nGET /radar/leaked_credential_checks/summary/{dimension}",
     inputSchema: {
@@ -573,7 +573,7 @@ export const tools: readonly Tool[] = [
     },
   },
   {
-    name: "radar_leakedCredentials_timeseriesGroupsV2",
+    name: "radar_leakedCredentials_timeseriesGroups",
     title: "Get time series distribution of HTTP authentication requests by dimension.",
     description: "Retrieves the distribution of HTTP authentication requests, grouped by the specified dimension over time.\n\nGET /radar/leaked_credential_checks/timeseries_groups/{dimension}",
     inputSchema: {

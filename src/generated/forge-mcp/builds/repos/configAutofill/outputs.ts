@@ -28,6 +28,20 @@ export const builds_ConfigAutofillResponse: JSONObject = {
         }
       ]
     },
+    "deploy_tool": {
+      "oneOf": [
+        {
+          "enum": [
+            "cf",
+            "wrangler"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
     "env_worker_names": {
       "oneOf": [
         {

@@ -834,6 +834,193 @@ export const tools: readonly Tool[] = [
                               },
                               {
                                 "properties": {
+                                  "config": {
+                                    "properties": {
+                                      "retries": {
+                                        "properties": {
+                                          "backoff": {
+                                            "enum": [
+                                              "constant",
+                                              "linear",
+                                              "exponential"
+                                            ],
+                                            "type": "string"
+                                          },
+                                          "delay": {
+                                            "anyOf": [
+                                              {
+                                                "type": "number"
+                                              },
+                                              {
+                                                "type": "string"
+                                              }
+                                            ]
+                                          },
+                                          "limit": {
+                                            "type": "number"
+                                          }
+                                        },
+                                        "required": [
+                                          "backoff",
+                                          "delay",
+                                          "limit"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "timeout": {
+                                        "anyOf": [
+                                          {
+                                            "type": "number"
+                                          },
+                                          {
+                                            "type": "string"
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    "required": [
+                                      "retries",
+                                      "timeout"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "options": {
+                                    "properties": {
+                                      "allow_failure": {
+                                        "oneOf": [
+                                          {
+                                            "type": "boolean"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ]
+                                      },
+                                      "command": {
+                                        "oneOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ]
+                                      },
+                                      "image": {
+                                        "oneOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ]
+                                      },
+                                      "instance_size": {
+                                        "oneOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ]
+                                      },
+                                      "outputs": {
+                                        "items": {
+                                          "type": "string"
+                                        },
+                                        "type": "array"
+                                      }
+                                    },
+                                    "required": [
+                                      "allow_failure",
+                                      "command",
+                                      "image",
+                                      "instance_size",
+                                      "outputs"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  "resolves": {
+                                    "type": "number"
+                                  },
+                                  "starts": {
+                                    "type": "number"
+                                  },
+                                  "type": {
+                                    "enum": [
+                                      "step_runner"
+                                    ],
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "config",
+                                  "name",
+                                  "options",
+                                  "type"
+                                ],
+                                "type": "object"
+                              },
+                              {
+                                "properties": {
+                                  "entrypoint": {
+                                    "oneOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  },
+                                  "isolation_key": {
+                                    "oneOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  },
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "nodes": {
+                                    "items": {
+                                      "type": "object"
+                                    },
+                                    "type": "array"
+                                  },
+                                  "resolves": {
+                                    "type": "number"
+                                  },
+                                  "starts": {
+                                    "type": "number"
+                                  },
+                                  "type": {
+                                    "enum": [
+                                      "step_dynamic"
+                                    ],
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "entrypoint",
+                                  "isolation_key",
+                                  "name",
+                                  "nodes",
+                                  "type"
+                                ],
+                                "type": "object"
+                              },
+                              {
+                                "properties": {
                                   "nodes": {
                                     "items": {
                                       "type": "object"
@@ -1746,6 +1933,193 @@ export const tools: readonly Tool[] = [
                                       "required": [
                                         "name",
                                         "timestamp",
+                                        "type"
+                                      ],
+                                      "type": "object"
+                                    },
+                                    {
+                                      "properties": {
+                                        "config": {
+                                          "properties": {
+                                            "retries": {
+                                              "properties": {
+                                                "backoff": {
+                                                  "enum": [
+                                                    "constant",
+                                                    "linear",
+                                                    "exponential"
+                                                  ],
+                                                  "type": "string"
+                                                },
+                                                "delay": {
+                                                  "anyOf": [
+                                                    {
+                                                      "type": "number"
+                                                    },
+                                                    {
+                                                      "type": "string"
+                                                    }
+                                                  ]
+                                                },
+                                                "limit": {
+                                                  "type": "number"
+                                                }
+                                              },
+                                              "required": [
+                                                "backoff",
+                                                "delay",
+                                                "limit"
+                                              ],
+                                              "type": "object"
+                                            },
+                                            "timeout": {
+                                              "anyOf": [
+                                                {
+                                                  "type": "number"
+                                                },
+                                                {
+                                                  "type": "string"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "required": [
+                                            "retries",
+                                            "timeout"
+                                          ],
+                                          "type": "object"
+                                        },
+                                        "name": {
+                                          "type": "string"
+                                        },
+                                        "options": {
+                                          "properties": {
+                                            "allow_failure": {
+                                              "oneOf": [
+                                                {
+                                                  "type": "boolean"
+                                                },
+                                                {
+                                                  "type": "null"
+                                                }
+                                              ]
+                                            },
+                                            "command": {
+                                              "oneOf": [
+                                                {
+                                                  "type": "string"
+                                                },
+                                                {
+                                                  "type": "null"
+                                                }
+                                              ]
+                                            },
+                                            "image": {
+                                              "oneOf": [
+                                                {
+                                                  "type": "string"
+                                                },
+                                                {
+                                                  "type": "null"
+                                                }
+                                              ]
+                                            },
+                                            "instance_size": {
+                                              "oneOf": [
+                                                {
+                                                  "type": "string"
+                                                },
+                                                {
+                                                  "type": "null"
+                                                }
+                                              ]
+                                            },
+                                            "outputs": {
+                                              "items": {
+                                                "type": "string"
+                                              },
+                                              "type": "array"
+                                            }
+                                          },
+                                          "required": [
+                                            "allow_failure",
+                                            "command",
+                                            "image",
+                                            "instance_size",
+                                            "outputs"
+                                          ],
+                                          "type": "object"
+                                        },
+                                        "resolves": {
+                                          "type": "number"
+                                        },
+                                        "starts": {
+                                          "type": "number"
+                                        },
+                                        "type": {
+                                          "enum": [
+                                            "step_runner"
+                                          ],
+                                          "type": "string"
+                                        }
+                                      },
+                                      "required": [
+                                        "config",
+                                        "name",
+                                        "options",
+                                        "type"
+                                      ],
+                                      "type": "object"
+                                    },
+                                    {
+                                      "properties": {
+                                        "entrypoint": {
+                                          "oneOf": [
+                                            {
+                                              "type": "string"
+                                            },
+                                            {
+                                              "type": "null"
+                                            }
+                                          ]
+                                        },
+                                        "isolation_key": {
+                                          "oneOf": [
+                                            {
+                                              "type": "string"
+                                            },
+                                            {
+                                              "type": "null"
+                                            }
+                                          ]
+                                        },
+                                        "name": {
+                                          "type": "string"
+                                        },
+                                        "nodes": {
+                                          "items": {
+                                            "type": "object"
+                                          },
+                                          "type": "array"
+                                        },
+                                        "resolves": {
+                                          "type": "number"
+                                        },
+                                        "starts": {
+                                          "type": "number"
+                                        },
+                                        "type": {
+                                          "enum": [
+                                            "step_dynamic"
+                                          ],
+                                          "type": "string"
+                                        }
+                                      },
+                                      "required": [
+                                        "entrypoint",
+                                        "isolation_key",
+                                        "name",
+                                        "nodes",
                                         "type"
                                       ],
                                       "type": "object"

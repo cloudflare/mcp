@@ -4,6 +4,18 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
+ * The schema of `one_IntegrationConfig` in responses.
+ */
+export const one_IntegrationConfig: JSONObject = {
+  "properties": {
+    "gitlab": {
+      "$ref": "#/$defs/one_SelectedGitLabIntegrationConfiguration"
+    }
+  },
+  "type": "object"
+};
+
+/**
  * The schema of `one_IntegrationCreateResponse` in responses.
  */
 export const one_IntegrationCreateResponse: JSONObject = {
@@ -225,6 +237,9 @@ export const one_IntegrationV2Detail: JSONObject = {
         }
       ]
     },
+    "config": {
+      "$ref": "#/$defs/one_IntegrationConfig"
+    },
     "created": {
       "format": "date-time",
       "type": "string"
@@ -278,6 +293,7 @@ export const one_IntegrationV2Detail: JSONObject = {
     "application",
     "auth_method",
     "authorization_link",
+    "config",
     "created",
     "credentials_expiry",
     "dlp_profiles",
@@ -333,6 +349,9 @@ export const one_IntegrationV2ListItem: JSONObject = {
         }
       ]
     },
+    "config": {
+      "$ref": "#/$defs/one_IntegrationConfig"
+    },
     "created": {
       "format": "date-time",
       "type": "string"
@@ -364,6 +383,7 @@ export const one_IntegrationV2ListItem: JSONObject = {
   "required": [
     "application",
     "auth_method",
+    "config",
     "created",
     "id",
     "is_paused",
@@ -445,6 +465,54 @@ export const one_PaginatedIntegrationV2ListItemList: JSONObject = {
     "result",
     "result_info",
     "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `one_SelectedGitLabIntegrationConfiguration` in responses.
+ */
+export const one_SelectedGitLabIntegrationConfiguration: JSONObject = {
+  "properties": {
+    "groups": {
+      "items": {
+        "$ref": "#/$defs/one_SelectedGitLabResource"
+      },
+      "type": "array"
+    },
+    "projects": {
+      "items": {
+        "$ref": "#/$defs/one_SelectedGitLabResource"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "groups",
+    "projects"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `one_SelectedGitLabResource` in responses.
+ */
+export const one_SelectedGitLabResource: JSONObject = {
+  "properties": {
+    "display_name": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "path": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "display_name",
+    "id",
+    "path"
   ],
   "type": "object"
 };

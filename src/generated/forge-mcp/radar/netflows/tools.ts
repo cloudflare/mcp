@@ -8,7 +8,7 @@ import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
  */
 export const tools: readonly Tool[] = [
   {
-    name: "radar_netflows_summaryV2",
+    name: "radar_netflows_summary",
     title: "Get network traffic distribution by dimension",
     description: "Retrieves the distribution of network traffic (NetFlows) by the specified dimension.\n\nGET /radar/netflows/summary/{dimension}",
     inputSchema: {

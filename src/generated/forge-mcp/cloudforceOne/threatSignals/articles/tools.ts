@@ -90,10 +90,14 @@ export const tools: readonly Tool[] = [
                     "medium"
                   ],
                   "type": "object"
+                },
+                "stale_articles": {
+                  "type": "integer"
                 }
               },
               "required": [
-                "articles"
+                "articles",
+                "stale_articles"
               ],
               "type": "object"
             },
@@ -216,10 +220,14 @@ export const tools: readonly Tool[] = [
                           "medium"
                         ],
                         "type": "object"
+                      },
+                      "stale_articles": {
+                        "type": "integer"
                       }
                     },
                     "required": [
-                      "articles"
+                      "articles",
+                      "stale_articles"
                     ],
                     "type": "object"
                   },
@@ -430,11 +438,15 @@ export const tools: readonly Tool[] = [
                 "type": "object"
               },
               "type": "array"
+            },
+            "stale_articles": {
+              "type": "integer"
             }
           },
           "required": [
             "articles",
-            "priorities"
+            "priorities",
+            "stale_articles"
           ],
           "type": "object"
         },
@@ -566,11 +578,15 @@ export const tools: readonly Tool[] = [
                       "type": "object"
                     },
                     "type": "array"
+                  },
+                  "stale_articles": {
+                    "type": "integer"
                   }
                 },
                 "required": [
                   "articles",
-                  "priorities"
+                  "priorities",
+                  "stale_articles"
                 ],
                 "type": "object"
               },
@@ -1025,11 +1041,19 @@ export const tools: readonly Tool[] = [
                           "pir_id": {
                             "format": "uuid",
                             "type": "string"
+                          },
+                          "requirement_basis": {
+                            "enum": [
+                              "current",
+                              "saved"
+                            ],
+                            "type": "string"
                           }
                         },
                         "required": [
                           "band",
-                          "pir_id"
+                          "pir_id",
+                          "requirement_basis"
                         ],
                         "type": "object"
                       },
@@ -1042,6 +1066,22 @@ export const tools: readonly Tool[] = [
                     "pirs"
                   ],
                   "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "relevance_coverage": {
+              "oneOf": [
+                {
+                  "enum": [
+                    "current",
+                    "stale",
+                    "pending",
+                    "unavailable"
+                  ],
+                  "type": "string"
                 },
                 {
                   "type": "null"
@@ -1173,6 +1213,7 @@ export const tools: readonly Tool[] = [
             "read",
             "read_at",
             "relevance",
+            "relevance_coverage",
             "severity",
             "source_count",
             "summary",
@@ -1372,11 +1413,19 @@ export const tools: readonly Tool[] = [
                                 "pir_id": {
                                   "format": "uuid",
                                   "type": "string"
+                                },
+                                "requirement_basis": {
+                                  "enum": [
+                                    "current",
+                                    "saved"
+                                  ],
+                                  "type": "string"
                                 }
                               },
                               "required": [
                                 "band",
-                                "pir_id"
+                                "pir_id",
+                                "requirement_basis"
                               ],
                               "type": "object"
                             },
@@ -1389,6 +1438,22 @@ export const tools: readonly Tool[] = [
                           "pirs"
                         ],
                         "type": "object"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "relevance_coverage": {
+                    "oneOf": [
+                      {
+                        "enum": [
+                          "current",
+                          "stale",
+                          "pending",
+                          "unavailable"
+                        ],
+                        "type": "string"
                       },
                       {
                         "type": "null"
@@ -1520,6 +1585,7 @@ export const tools: readonly Tool[] = [
                   "read",
                   "read_at",
                   "relevance",
+                  "relevance_coverage",
                   "severity",
                   "source_count",
                   "summary",
@@ -1916,11 +1982,19 @@ export const tools: readonly Tool[] = [
                                 "pir_id": {
                                   "format": "uuid",
                                   "type": "string"
+                                },
+                                "requirement_basis": {
+                                  "enum": [
+                                    "current",
+                                    "saved"
+                                  ],
+                                  "type": "string"
                                 }
                               },
                               "required": [
                                 "band",
-                                "pir_id"
+                                "pir_id",
+                                "requirement_basis"
                               ],
                               "type": "object"
                             },
@@ -1933,6 +2007,22 @@ export const tools: readonly Tool[] = [
                           "pirs"
                         ],
                         "type": "object"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "relevance_coverage": {
+                    "oneOf": [
+                      {
+                        "enum": [
+                          "current",
+                          "stale",
+                          "pending",
+                          "unavailable"
+                        ],
+                        "type": "string"
                       },
                       {
                         "type": "null"
@@ -2029,6 +2119,7 @@ export const tools: readonly Tool[] = [
                   "read",
                   "read_at",
                   "relevance",
+                  "relevance_coverage",
                   "severity",
                   "summary",
                   "tags",
@@ -2256,11 +2347,19 @@ export const tools: readonly Tool[] = [
                                       "pir_id": {
                                         "format": "uuid",
                                         "type": "string"
+                                      },
+                                      "requirement_basis": {
+                                        "enum": [
+                                          "current",
+                                          "saved"
+                                        ],
+                                        "type": "string"
                                       }
                                     },
                                     "required": [
                                       "band",
-                                      "pir_id"
+                                      "pir_id",
+                                      "requirement_basis"
                                     ],
                                     "type": "object"
                                   },
@@ -2273,6 +2372,22 @@ export const tools: readonly Tool[] = [
                                 "pirs"
                               ],
                               "type": "object"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "relevance_coverage": {
+                          "oneOf": [
+                            {
+                              "enum": [
+                                "current",
+                                "stale",
+                                "pending",
+                                "unavailable"
+                              ],
+                              "type": "string"
                             },
                             {
                               "type": "null"
@@ -2369,6 +2484,7 @@ export const tools: readonly Tool[] = [
                         "read",
                         "read_at",
                         "relevance",
+                        "relevance_coverage",
                         "severity",
                         "summary",
                         "tags",

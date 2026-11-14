@@ -35,7 +35,7 @@ export const tools: readonly Tool[] = [
               "type": "boolean"
             },
             "certificates": {
-              "description": "The uploaded root CA certificate.",
+              "description": "The uploaded root CA certificate. Responses return the certificates as Cloudflare stores them, re-encoded as PEM, not byte for byte as uploaded. Each certificate block ends with a newline, base64 lines are wrapped at 64 characters, text between blocks is dropped, and a chain may be reordered. Compare certificates by their decoded content rather than as strings.",
               "type": "string"
             },
             "name": {
@@ -346,6 +346,22 @@ export const tools: readonly Tool[] = [
         "query": {
           "additionalProperties": false,
           "properties": {
+            "limit": {
+              "description": "Alias for per_page. Defaults to 50 when neither per_page nor limit is provided. Takes precedence over per_page. Values above 1000 are capped at 1000.",
+              "type": "integer"
+            },
+            "offset": {
+              "description": "Number of results to skip. Defaults to 0. Takes precedence over page, including when offset is 0.",
+              "type": "integer"
+            },
+            "page": {
+              "description": "Page number, starting at 1. Defaults to 1. Ignored when offset is provided.",
+              "type": "integer"
+            },
+            "per_page": {
+              "description": "Number of results per page. Defaults to 50 when neither per_page nor limit is provided. Ignored when limit is provided. Values above 1000 are capped at 1000.",
+              "type": "integer"
+            },
             "type": {
               "description": "Filters results by certificate type. Multiple types can be comma-separated.",
               "items": {
@@ -389,6 +405,10 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/mtls_certificates",
       pathOf: encodePath`/accounts/${"account_id"}/mtls_certificates`,
       query: [
+        { name: "page", explode: true },
+        { name: "per_page", explode: true },
+        { name: "limit", explode: true },
+        { name: "offset", explode: true },
         { name: "type", explode: false },
       ],
       extensions: {

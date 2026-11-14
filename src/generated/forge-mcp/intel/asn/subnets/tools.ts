@@ -12,7 +12,7 @@ import {
  */
 export const tools: readonly Tool[] = [
   {
-    name: "intel_asn_subnets_get",
+    name: "intel_asn_subnets_list",
     title: "Get ASN Subnets",
     description: "Get ASN Subnets.\n\nGET /accounts/{account_id}/intel/asn/{asn}/subnets",
     inputSchema: {

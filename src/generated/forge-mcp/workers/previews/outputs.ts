@@ -34,6 +34,33 @@ export const workers_Preview: JSONObject = {
     },
     "observability": {
       "properties": {
+        "agents": {
+          "oneOf": [
+            {
+              "properties": {
+                "destinations": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "head_sampling_rate": {
+                  "type": "number"
+                },
+                "persist": {
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "enabled": {
           "type": "boolean"
         },

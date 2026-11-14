@@ -684,6 +684,7 @@ export const zero$$trust$$gateway_schedule: JSONObject = {
           "type": "string"
         },
         "time_zone": {
+          "default": "",
           "description": "Specify the time zone for rule evaluation. When a [valid time zone city name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List) is provided, Gateway always uses the current time for that time zone. When this parameter is omitted, Gateway uses the time zone determined from the user's IP address. Colo time zone is used when the user's IP address does not resolve to a location.",
           "type": "string"
         },

@@ -8,7 +8,7 @@ import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
  */
 export const tools: readonly Tool[] = [
   {
-    name: "radar_as112_summaryV2",
+    name: "radar_as112_summary",
     title: "Get AS112 summary by dimension",
     description: "Retrieves the distribution of AS112 queries by the specified dimension.\n\nGET /radar/as112/summary/{dimension}",
     inputSchema: {
@@ -1412,7 +1412,7 @@ export const tools: readonly Tool[] = [
     },
   },
   {
-    name: "radar_as112_timeseriesGroupsV2",
+    name: "radar_as112_timeseriesGroups",
     title: "Get AS112 time series grouped by dimension",
     description: "Retrieves the distribution of AS112 queries grouped by dimension over time.\n\nGET /radar/as112/timeseries_groups/{dimension}",
     inputSchema: {

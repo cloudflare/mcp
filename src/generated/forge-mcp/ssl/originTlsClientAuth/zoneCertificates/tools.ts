@@ -329,6 +329,28 @@ export const tools: readonly Tool[] = [
             "zone_id"
           ],
           "type": "object"
+        },
+        "query": {
+          "additionalProperties": false,
+          "properties": {
+            "limit": {
+              "description": "Alias for per_page. Defaults to 50 when neither per_page nor limit is provided. Takes precedence over per_page. Values above 1000 are capped at 1000.",
+              "type": "integer"
+            },
+            "offset": {
+              "description": "Number of results to skip. Defaults to 0. Takes precedence over page, including when offset is 0.",
+              "type": "integer"
+            },
+            "page": {
+              "description": "Page number, starting at 1. Defaults to 1. Ignored when offset is provided.",
+              "type": "integer"
+            },
+            "per_page": {
+              "description": "Number of results per page. Defaults to 50 when neither per_page nor limit is provided. Ignored when limit is provided. Values above 1000 are capped at 1000.",
+              "type": "integer"
+            }
+          },
+          "type": "object"
         }
       },
       required: [
@@ -358,6 +380,12 @@ export const tools: readonly Tool[] = [
       method: "GET",
       path: "/zones/{zone_id}/origin_tls_client_auth",
       pathOf: encodePath`/zones/${"zone_id"}/origin_tls_client_auth`,
+      query: [
+        { name: "page", explode: true },
+        { name: "per_page", explode: true },
+        { name: "limit", explode: true },
+        { name: "offset", explode: true },
+      ],
       extensions: {
         "x-api-token-group": [
           "SSL and Certificates Write",

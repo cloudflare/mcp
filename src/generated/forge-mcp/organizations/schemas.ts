@@ -66,7 +66,7 @@ export const organizations$$api_CreateOrganizationRequest: JSONObject = {
 export const organizations$$api_ModifyOrganizationRequest: JSONObject = {
   "properties": {
     "name": {
-      "description": "The Organization's display name, limited to 65 UTF-8 bytes. An omitted, empty, or unchanged value is a no-op.",
+      "description": "The Organization name, limited to 65 UTF-8 bytes. An omitted, empty, or unchanged value is a no-op.",
       "type": "string"
     },
     "parent_id": {

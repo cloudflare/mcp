@@ -101,14 +101,14 @@ export const calls_turn_key_with_key: JSONObject = {
       "format": "date-time",
       "type": "string"
     },
-    "key": {
-      "type": "string"
-    },
     "modified": {
       "format": "date-time",
       "type": "string"
     },
     "name": {
+      "type": "string"
+    },
+    "secret": {
       "type": "string"
     },
     "uid": {
@@ -117,9 +117,9 @@ export const calls_turn_key_with_key: JSONObject = {
   },
   "required": [
     "created",
-    "key",
     "modified",
     "name",
+    "secret",
     "uid"
   ],
   "type": "object"

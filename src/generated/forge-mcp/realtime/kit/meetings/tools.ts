@@ -8,6 +8,7 @@ import {
   realtimekit_GenericSuccessResponse,
   realtimekit_LivestreamingConfig,
   realtimekit_Meeting,
+  realtimekit_MeetingSip,
   realtimekit_PagingInfo,
   realtimekit_PagingResponse,
   realtimekit_RecordingConfig,
@@ -52,6 +53,11 @@ export const tools: readonly Tool[] = [
             "ai_config": {
               "$ref": "#/$defs/realtimekit_AIConfig",
               "description": "The AI Config allows you to customize the behavior of meeting transcriptions and summaries"
+            },
+            "enable_sip": {
+              "default": false,
+              "description": "Lets phones and SIP systems dial in to the meeting. The response includes the SIP URI and credentials in `sip`. Ignored when replacing a meeting with `PUT`.",
+              "type": "boolean"
             },
             "live_stream_on_start": {
               "default": false,
@@ -197,6 +203,7 @@ export const tools: readonly Tool[] = [
         "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse,
         "realtimekit_LivestreamingConfig": realtimekit_LivestreamingConfig,
         "realtimekit_Meeting": realtimekit_Meeting,
+        "realtimekit_MeetingSip": realtimekit_MeetingSip,
         "realtimekit_RecordingConfig": realtimekit_RecordingConfig,
         "realtimekit_StorageConfig": realtimekit_StorageConfig,
         "realtimekit_SummarizationConfig": realtimekit_SummarizationConfig,
@@ -277,6 +284,7 @@ export const tools: readonly Tool[] = [
           "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse,
           "realtimekit_LivestreamingConfig": realtimekit_LivestreamingConfig,
           "realtimekit_Meeting": realtimekit_Meeting,
+          "realtimekit_MeetingSip": realtimekit_MeetingSip,
           "realtimekit_RecordingConfig": realtimekit_RecordingConfig,
           "realtimekit_StorageConfig": realtimekit_StorageConfig,
           "realtimekit_SummarizationConfig": realtimekit_SummarizationConfig,
@@ -380,6 +388,7 @@ export const tools: readonly Tool[] = [
         "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse,
         "realtimekit_LivestreamingConfig": realtimekit_LivestreamingConfig,
         "realtimekit_Meeting": realtimekit_Meeting,
+        "realtimekit_MeetingSip": realtimekit_MeetingSip,
         "realtimekit_RecordingConfig": realtimekit_RecordingConfig,
         "realtimekit_StorageConfig": realtimekit_StorageConfig,
         "realtimekit_SummarizationConfig": realtimekit_SummarizationConfig,
@@ -465,6 +474,7 @@ export const tools: readonly Tool[] = [
           "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse,
           "realtimekit_LivestreamingConfig": realtimekit_LivestreamingConfig,
           "realtimekit_Meeting": realtimekit_Meeting,
+          "realtimekit_MeetingSip": realtimekit_MeetingSip,
           "realtimekit_RecordingConfig": realtimekit_RecordingConfig,
           "realtimekit_StorageConfig": realtimekit_StorageConfig,
           "realtimekit_SummarizationConfig": realtimekit_SummarizationConfig,
@@ -564,6 +574,7 @@ export const tools: readonly Tool[] = [
         "realtimekit_AudioConfig": realtimekit_AudioConfig,
         "realtimekit_LivestreamingConfig": realtimekit_LivestreamingConfig,
         "realtimekit_Meeting": realtimekit_Meeting,
+        "realtimekit_MeetingSip": realtimekit_MeetingSip,
         "realtimekit_PagingInfo": realtimekit_PagingInfo,
         "realtimekit_PagingResponse": realtimekit_PagingResponse,
         "realtimekit_RecordingConfig": realtimekit_RecordingConfig,
@@ -626,6 +637,7 @@ export const tools: readonly Tool[] = [
           "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse,
           "realtimekit_LivestreamingConfig": realtimekit_LivestreamingConfig,
           "realtimekit_Meeting": realtimekit_Meeting,
+          "realtimekit_MeetingSip": realtimekit_MeetingSip,
           "realtimekit_PagingInfo": realtimekit_PagingInfo,
           "realtimekit_PagingResponse": realtimekit_PagingResponse,
           "realtimekit_RecordingConfig": realtimekit_RecordingConfig,
@@ -650,6 +662,11 @@ export const tools: readonly Tool[] = [
             "ai_config": {
               "$ref": "#/$defs/realtimekit_AIConfig",
               "description": "The AI Config allows you to customize the behavior of meeting transcriptions and summaries"
+            },
+            "enable_sip": {
+              "default": false,
+              "description": "Lets phones and SIP systems dial in to the meeting. The response includes the SIP URI and credentials in `sip`. Ignored when replacing a meeting with `PUT`.",
+              "type": "boolean"
             },
             "live_stream_on_start": {
               "default": false,
@@ -801,6 +818,7 @@ export const tools: readonly Tool[] = [
         "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse,
         "realtimekit_LivestreamingConfig": realtimekit_LivestreamingConfig,
         "realtimekit_Meeting": realtimekit_Meeting,
+        "realtimekit_MeetingSip": realtimekit_MeetingSip,
         "realtimekit_RecordingConfig": realtimekit_RecordingConfig,
         "realtimekit_StorageConfig": realtimekit_StorageConfig,
         "realtimekit_SummarizationConfig": realtimekit_SummarizationConfig,
@@ -881,6 +899,7 @@ export const tools: readonly Tool[] = [
           "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse,
           "realtimekit_LivestreamingConfig": realtimekit_LivestreamingConfig,
           "realtimekit_Meeting": realtimekit_Meeting,
+          "realtimekit_MeetingSip": realtimekit_MeetingSip,
           "realtimekit_RecordingConfig": realtimekit_RecordingConfig,
           "realtimekit_StorageConfig": realtimekit_StorageConfig,
           "realtimekit_SummarizationConfig": realtimekit_SummarizationConfig,
@@ -905,6 +924,10 @@ export const tools: readonly Tool[] = [
             "ai_config": {
               "$ref": "#/$defs/realtimekit_AIConfig",
               "description": "The AI Config allows you to customize the behavior of meeting transcriptions and summaries"
+            },
+            "enable_sip": {
+              "description": "Turns SIP dial-in on or off. Turning it off deletes the SIP URI and credentials; calls already in progress continue. Turning it on again creates a new SIP URI and credentials.",
+              "type": "boolean"
             },
             "live_stream_on_start": {
               "description": "Specifies if the meeting should start getting livestreamed on start.",
@@ -1037,6 +1060,7 @@ export const tools: readonly Tool[] = [
         "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse,
         "realtimekit_LivestreamingConfig": realtimekit_LivestreamingConfig,
         "realtimekit_Meeting": realtimekit_Meeting,
+        "realtimekit_MeetingSip": realtimekit_MeetingSip,
         "realtimekit_RecordingConfig": realtimekit_RecordingConfig,
         "realtimekit_StorageConfig": realtimekit_StorageConfig,
         "realtimekit_SummarizationConfig": realtimekit_SummarizationConfig,
@@ -1120,6 +1144,7 @@ export const tools: readonly Tool[] = [
           "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse,
           "realtimekit_LivestreamingConfig": realtimekit_LivestreamingConfig,
           "realtimekit_Meeting": realtimekit_Meeting,
+          "realtimekit_MeetingSip": realtimekit_MeetingSip,
           "realtimekit_RecordingConfig": realtimekit_RecordingConfig,
           "realtimekit_StorageConfig": realtimekit_StorageConfig,
           "realtimekit_SummarizationConfig": realtimekit_SummarizationConfig,

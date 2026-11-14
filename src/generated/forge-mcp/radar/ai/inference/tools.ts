@@ -8,7 +8,7 @@ import { OPERATION, type Tool, encodePath } from "../../../_/tool.js";
  */
 export const tools: readonly Tool[] = [
   {
-    name: "radar_ai_inference_summaryV2",
+    name: "radar_ai_inference_summary",
     title: "Get Workers AI inference distribution by dimension",
     description: "Retrieves an aggregated summary of the number of inferences run on Workers AI, grouped by the specified dimension.\n\nGET /radar/ai/inference/summary/{dimension}",
     inputSchema: {
@@ -549,7 +549,7 @@ export const tools: readonly Tool[] = [
     },
   },
   {
-    name: "radar_ai_inference_timeseriesGroupsV2",
+    name: "radar_ai_inference_timeseriesGroups",
     title: "Get time series distribution of Workers AI inference by dimension.",
     description: "Retrieves the distribution of the number of inferences run on Workers AI, grouped by the specified dimension over time.\n\nGET /radar/ai/inference/timeseries_groups/{dimension}",
     inputSchema: {

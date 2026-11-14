@@ -179,6 +179,9 @@ export const resource$$tagging_tagged_resource_object: JSONObject = {
       "$ref": "#/$defs/resource-tagging_tagged_resource_object_api_gateway_operation"
     },
     {
+      "$ref": "#/$defs/resource-tagging_tagged_resource_object_app_library_application"
+    },
+    {
       "$ref": "#/$defs/resource-tagging_tagged_resource_object_cloudflared_tunnel"
     },
     {
@@ -665,6 +668,33 @@ export const resource$$tagging_tagged_resource_object_api_gateway_operation: JSO
     },
     {
       "$ref": "#/$defs/resource-tagging_tagged_resource_object_zone_level_base"
+    }
+  ]
+};
+
+/**
+ * The schema of
+ * `resource-tagging_tagged_resource_object_app_library_application` in
+ * responses.
+ */
+export const resource$$tagging_tagged_resource_object_app_library_application: JSONObject = {
+  "allOf": [
+    {
+      "properties": {
+        "type": {
+          "enum": [
+            "app_library_application"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "type": "object"
+    },
+    {
+      "$ref": "#/$defs/resource-tagging_tagged_resource_object_account_level_base"
     }
   ]
 };
