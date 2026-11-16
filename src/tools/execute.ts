@@ -86,13 +86,16 @@ export class GlobalOutbound extends WorkerEntrypoint<Env, GlobalOutboundProps> {
         { status: 403, headers: { [NOT_SENT_HEADER]: '1' } }
       )
     }
-    // Inject auth header — token comes from props, never enters user code isolate
-    const authedRequest = new Request(request, {
-      headers: new Headers([
-        ...request.headers.entries(),
-        ['Authorization', `Bearer ${this.ctx.props.apiToken}`]
-      ])
-    })
+    // Inject auth header — token comes from props, never enters user code isolate.
+    // It replaces any Authorization the code sent: appended, the two would be
+    // joined into one value the API can't read. The headers are rebuilt from
+    // their entries: in workerd, a copy made with new Headers(request.headers)
+    // lost every header but Authorization when fetchWithRetry copied it again.
+    const headers = new Headers([
+      ...[...request.headers].filter(([name]) => name.toLowerCase() !== 'authorization'),
+      ['Authorization', `Bearer ${this.ctx.props.apiToken}`]
+    ])
+    const authedRequest = new Request(request, { headers })
     const response = await fetchWithRetry(authedRequest, undefined, {
       caller: this.ctx.props.fetchWithRetryCaller
     })
@@ -322,32 +325,41 @@ function isRawBody(body) {
     body instanceof ReadableStream;
 }
 
-function isJsonText(text) {
-  try {
-    JSON.parse(text);
-    return true;
-  } catch {
-    return false;
-  }
+// How cloudflare.request() sends a body: its type decides, and nothing else.
+// A string, bytes, Blob, FormData, URLSearchParams or stream goes as it is.
+// Any other value goes as JSON.
+function encodeBody(body) {
+  if (body === undefined || body === null) return undefined;
+  return isRawBody(body) ? body : JSON.stringify(body);
 }
 
-// How cloudflare.request() sends a body. Objects, arrays, numbers and booleans
-// go as JSON. Strings, bytes, Blob, FormData, URLSearchParams and streams go as
-// they are, with contentType if given. The exception is a string sent as JSON
-// (a JSON contentType, or none): one that is already JSON goes as it is, and
-// any other is a JSON string value, such as Zaraz's "realtime".
-function encodeBody(body, contentType, rawBody) {
-  if (body === undefined || body === null) {
-    return { requestBody: undefined, requestType: contentType };
+// The Content-Type of a body the code gave none: JSON for a value sent as
+// JSON, and for a string, which is nearly always JSON the code stringified
+// itself. fetch names the type of a Blob, FormData and URLSearchParams; bytes
+// and streams have none.
+function defaultContentType(body) {
+  if (body === undefined || body === null) return undefined;
+  return typeof body === "string" || !isRawBody(body) ? "application/json" : undefined;
+}
+
+// The headers cloudflare.request() sends: the ones the code names, without
+// those it left undefined. contentType is no longer documented, and is
+// honoured as the Content-Type header for code written against older
+// descriptions.
+function requestHeaders({ headers, contentType, body, rawBody }) {
+  const result = new Headers();
+  for (const [name, value] of headers instanceof Headers ? headers : Object.entries(headers || {})) {
+    if (value !== undefined && value !== null) result.set(name, String(value));
   }
-  const asJson = !contentType || isJsonType(mediaType(contentType));
-  if (rawBody || (isRawBody(body) && !(typeof body === "string" && asJson))) {
-    // FormData needs fetch's own multipart header, which carries the boundary.
-    const withoutBoundary = body instanceof FormData && contentType && !/boundary=/i.test(contentType);
-    return { requestBody: body, requestType: withoutBoundary ? undefined : contentType };
+  if (contentType && !result.has("Content-Type")) result.set("Content-Type", contentType);
+  // Only fetch knows the boundary it will write a form with.
+  if (body instanceof FormData) result.delete("Content-Type");
+  // rawBody, also no longer documented, asked for no default type.
+  else if (!result.has("Content-Type") && !rawBody) {
+    const type = defaultContentType(body);
+    if (type) result.set("Content-Type", type);
   }
-  const json = typeof body === "string" && isJsonText(body) ? body : JSON.stringify(body);
-  return { requestBody: json, requestType: contentType || "application/json" };
+  return result;
 }
 
 // The value the code returns, with bytes as { base64, byteLength } so they
@@ -391,9 +403,7 @@ export default class CodeExecutor extends WorkerEntrypoint {
   async evaluate() {
     const cloudflare = {
       async request(options) {
-        // rawBody is no longer documented: the body's type decides how it is
-        // sent. It is still honoured for code written against older descriptions.
-        const { method, path, query, body, contentType, rawBody } = options;
+        const { method, path, query, body } = options;
 
         const url = new URL(apiBase + path);
         if (query) {
@@ -404,13 +414,10 @@ export default class CodeExecutor extends WorkerEntrypoint {
           }
         }
 
-        const { requestBody, requestType } = encodeBody(body, contentType, rawBody);
-        const headers = requestType ? { "Content-Type": requestType } : {};
-
         const response = await fetch(url.toString(), {
           method,
-          headers,
-          body: requestBody,
+          headers: requestHeaders(options),
+          body: encodeBody(body),
         });
 
         const responseType = mediaType(response.headers.get("content-type"));

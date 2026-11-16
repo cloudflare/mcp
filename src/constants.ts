@@ -29,13 +29,14 @@ interface CloudflareRequestOptions {
   method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
   path: string;
   query?: Record<string, string | number | boolean | undefined>;
-  // Objects and arrays are sent as JSON. Bytes (Uint8Array, ArrayBuffer), Blob, FormData,
-  // URLSearchParams, streams, and strings with a non-JSON contentType are sent as they are. A string
-  // with a JSON contentType, or none, is sent as it is when it is already JSON, else as a JSON string.
+  // Request headers the endpoint declares, such as { "cf-r2-jurisdiction": "eu" } for an R2 bucket
+  // in a jurisdiction, or { "If-Match": etag }. Authorization is always the session's.
+  headers?: Record<string, string>;
+  // A string, bytes (Uint8Array, ArrayBuffer), Blob, FormData, URLSearchParams or stream is sent as
+  // it is. Any other value is sent as JSON. Content-Type defaults to application/json for JSON and
+  // for strings: set it in headers for other text, such as { "Content-Type": "text/plain" } for SQL,
+  // and for bytes. FormData, Blob and URLSearchParams bring their own.
   body?: unknown;
-  // Content-Type header. Defaults to application/json for JSON bodies. Leave it unset for FormData,
-  // whose multipart boundary fetch adds.
-  contentType?: string;
 }
 
 // The response body as the API sends it. Most APIs wrap it in this envelope; a few send their JSON
