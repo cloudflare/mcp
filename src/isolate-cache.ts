@@ -1,7 +1,8 @@
 import { env } from 'cloudflare:workers'
 import { isolate } from './lib/isolate'
 import type { Tool } from '@modelcontextprotocol/server'
-import type { SpecArtifactName } from './spec-release'
+import bundledPermissions from './generated/spec/permissions.json.txt'
+import bundledProducts from './generated/spec/products.json.txt'
 import {
   SKILLS_MANIFEST_KEY,
   SkillsManifest,
@@ -11,16 +12,16 @@ import {
 } from './skills/types'
 
 /**
- * In-isolate cache for what the forge tools service serves (two of the pinned
- * spec's artifacts, `products.json` and `permissions.json`, and the tool list;
- * `search` runs in the service, so this Worker never loads `spec.json`) and the
- * skills the scheduled handler writes to R2 (the manifest and
- * files).
+ * In-isolate cache for the two spec artifacts this Worker reads,
+ * `products.json` and `permissions.json`, which ship in its bundle; for the
+ * tool list the forge tools service serves (`search` runs in the service, so
+ * this Worker never loads `spec.json`); and for the skills the scheduled
+ * handler writes to R2 (the manifest and files).
  *
  * The MCP worker isolate stays warm across requests, so without this every
- * call re-read them. The spec changes only with a deploy and the skills at
- * most every six hours, so a short TTL keeps a warm isolate from serving stale
- * data for long after an update while still absorbing nearly all reads.
+ * call re-read them. The spec changes only with a deploy, so its artifacts are
+ * parsed once per isolate. The tool list and the skills are loaded over I/O
+ * and reloaded hourly.
  */
 
 const TTL_MS = 60 * 60 * 1000 // 1 hour
@@ -30,21 +31,27 @@ function artifact<T>(load: () => Promise<T>) {
   return isolate.value(load, { ttlMs: TTL_MS })
 }
 
-/** Reads one of the pinned spec's artifacts as text. */
-export type SpecArtifactSource = (name: SpecArtifactName) => Promise<string>
-
-/** The forge tools service, which ships the artifacts with the generated tools. */
-const serviceSource: SpecArtifactSource = async (name) =>
-  new Response(await env.FORGE_TOOLS.specArtifact(name)).text()
-
-let specArtifactSource: SpecArtifactSource = serviceSource
+/** The text of the spec artifacts this Worker reads. */
+export interface SpecArtifacts {
+  readonly products: string
+  readonly permissions: string
+}
 
 /**
- * Reads the spec artifacts from `source`, or from the forge tools service again
- * without one, and empties the cache. For tests, which serve fixtures.
+ * The pinned release's artifacts, which `scripts/generate-tools.ts` writes
+ * with the generated tools. They are text modules, so bundling them costs a
+ * string until something reads them.
  */
-export function setSpecArtifactSource(source?: SpecArtifactSource): void {
-  specArtifactSource = source ?? serviceSource
+const BUNDLED: SpecArtifacts = { products: bundledProducts, permissions: bundledPermissions }
+
+let specArtifacts = BUNDLED
+
+/**
+ * Reads the spec artifacts from `artifacts`, or from the bundle again without
+ * them, and empties the cache. For tests, which serve fixtures.
+ */
+export function setSpecArtifacts(artifacts?: SpecArtifacts): void {
+  specArtifacts = artifacts ?? BUNDLED
   isolate.resetAll()
 }
 
@@ -56,14 +63,13 @@ export function setSpecArtifactSource(source?: SpecArtifactSource): void {
  */
 export type PermissionPaths = Record<string, Record<string, { 'x-api-token-group'?: string[] }>>
 
-const permissionPaths = artifact(
-  async (): Promise<PermissionPaths> =>
-    JSON.parse(await specArtifactSource('permissions.json')) as PermissionPaths
+const permissionPaths = isolate.lazy(
+  (): PermissionPaths => JSON.parse(specArtifacts.permissions) as PermissionPaths
 )
 
 /** Every operation's accepted permissions, for explaining a refused `execute` request. */
-export function getPermissionPaths(): Promise<PermissionPaths> {
-  return permissionPaths.get()
+export function getPermissionPaths(): PermissionPaths {
+  return permissionPaths()
 }
 
 const forgeToolList = artifact(
@@ -88,13 +94,11 @@ export function getForgeToolList({ outputSchema = false } = {}): Promise<Tool[]>
   return outputSchema ? forgeToolListWithOutput.get() : forgeToolList.get()
 }
 
-const products = artifact(
-  async (): Promise<string[]> => JSON.parse(await specArtifactSource('products.json')) as string[]
-)
+const products = isolate.lazy((): string[] => JSON.parse(specArtifacts.products) as string[])
 
 /** The product list backing the `search` tool description. */
-export function getProducts(): Promise<string[]> {
-  return products.get()
+export function getProducts(): string[] {
+  return products()
 }
 
 /** The synced skills, indexed for `skills/get` and `resources/read`. */

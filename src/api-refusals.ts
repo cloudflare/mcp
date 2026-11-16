@@ -183,9 +183,8 @@ export async function reviewResponse(
   const refused = isRefusal(response.status)
   if (!refused && !mayBeFilteredList(response, connection, method)) return response
 
-  const paths = await getPermissionPaths().catch(() => undefined)
-  const match = paths ? findOperation(paths, method, path) : undefined
-  // Without the catalog a refusal is still explained, from the status alone.
+  const match = findOperation(getPermissionPaths(), method, path)
+  // A refusal on a path the spec doesn't list is still explained, from the status alone.
   if (!match && !refused) return response
   const permissions = acceptedPermissions(match?.operation)
   const authorization = authorize(

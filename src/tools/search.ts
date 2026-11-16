@@ -72,11 +72,8 @@ const SearchInputSchema = withCachedJsonSchema(
  * the call's `truncate` argument, or the connection's `truncateByDefault`
  * when it is omitted, is `false`.
  */
-export async function registerSearchTool(
-  server: McpServer,
-  truncateByDefault: boolean
-): Promise<void> {
-  const products = await getProducts()
+export function registerSearchTool(server: McpServer, truncateByDefault: boolean): void {
+  const products = getProducts()
 
   server.registerTool(
     'search',

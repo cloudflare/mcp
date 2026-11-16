@@ -233,7 +233,7 @@ export async function handleAuthenticatedMcpRequest(
 
   const response =
     request.method === 'POST' && (await isLegacyRequest(request))
-      ? await serveLegacyAsJson(request, await createServer(props, options, context))
+      ? await serveLegacyAsJson(request, createServer(props, options, context))
       : await createAuthenticatedHandler(props, context).fetch(request)
 
   const challenge = scopeChallenge.response

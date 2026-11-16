@@ -63,7 +63,7 @@ export function directRequestContext(): RequestContext {
  * @param context - The request's connection, step-up challenge and MCP Events environment.
  * @returns A fresh server with the requested tools and the skills catalog registered.
  */
-export async function createServer(
+export function createServer(
   props: AuthProps,
   {
     codemode = true,
@@ -71,7 +71,7 @@ export async function createServer(
     truncateToolResult = codemode
   }: ServerOptions = {},
   { connection, scopeChallenge, events }: RequestContext = directRequestContext()
-): Promise<McpServer> {
+): McpServer {
   const server = new McpServer(SERVER_INFO)
   // The tool set is fixed for the life of each per-request server, so this
   // server never sends notifications/tools/list_changed. Declare that before
@@ -92,7 +92,7 @@ export async function createServer(
   // metrics wrapper also mirrors tool.title into annotations.title.
   attachMetrics(server, props)
   registerDocsTool(server)
-  await registerSearchTool(server, truncateToolResult)
+  registerSearchTool(server, truncateToolResult)
   registerExecuteTool(server, props, truncateToolResult, connection, scopeChallenge)
   registerWhoamiTool(server, props)
 
