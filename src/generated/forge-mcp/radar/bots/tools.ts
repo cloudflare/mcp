@@ -53,11 +53,47 @@ export const tools: readonly Tool[] = [
           "properties": {
             "bot": {
               "properties": {
+                "accessLevel": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "categories": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
                 "category": {
                   "type": "string"
                 },
+                "contentUse": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
                 "description": {
                   "type": "string"
+                },
+                "documentationUrl": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
                 },
                 "kind": {
                   "type": "string"
@@ -70,6 +106,16 @@ export const tools: readonly Tool[] = [
                 },
                 "operatorUrl": {
                   "type": "string"
+                },
+                "operatorWebsiteUrl": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
                 },
                 "signatureAgentUrl": {
                   "oneOf": [
@@ -98,12 +144,17 @@ export const tools: readonly Tool[] = [
                 }
               },
               "required": [
+                "accessLevel",
+                "categories",
                 "category",
+                "contentUse",
                 "description",
+                "documentationUrl",
                 "kind",
                 "name",
                 "operator",
                 "operatorUrl",
+                "operatorWebsiteUrl",
                 "slug",
                 "userAgentPatterns",
                 "userAgents"
@@ -160,11 +211,47 @@ export const tools: readonly Tool[] = [
                 "properties": {
                   "bot": {
                     "properties": {
+                      "accessLevel": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "categories": {
+                        "items": {
+                          "type": "string"
+                        },
+                        "type": "array"
+                      },
                       "category": {
                         "type": "string"
                       },
+                      "contentUse": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
                       "description": {
                         "type": "string"
+                      },
+                      "documentationUrl": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
                       },
                       "kind": {
                         "type": "string"
@@ -177,6 +264,16 @@ export const tools: readonly Tool[] = [
                       },
                       "operatorUrl": {
                         "type": "string"
+                      },
+                      "operatorWebsiteUrl": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
                       },
                       "signatureAgentUrl": {
                         "oneOf": [
@@ -205,12 +302,17 @@ export const tools: readonly Tool[] = [
                       }
                     },
                     "required": [
+                      "accessLevel",
+                      "categories",
                       "category",
+                      "contentUse",
                       "description",
+                      "documentationUrl",
                       "kind",
                       "name",
                       "operator",
                       "operatorUrl",
+                      "operatorWebsiteUrl",
                       "slug",
                       "userAgentPatterns",
                       "userAgents"
@@ -259,24 +361,26 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "botCategory": {
-              "description": "Filters results by bot category.",
+              "description": "Filters results by bot category. `ACCESSIBILITY`, `AGGREGATOR`, `AI_SEARCH`, `ARCHIVER`, `SOCIAL_MEDIA_MARKETING` and `WEBHOOKS` are deprecated legacy categories that match only that exact category.",
               "enum": [
+                "ACADEMIC_RESEARCH",
+                "ADVERTISING_AND_MARKETING",
+                "AI_ASSISTANT",
+                "AI_CRAWLER",
+                "COMMERCE",
+                "FEED_FETCHER",
+                "MONITORING_AND_ANALYTICS",
+                "OTHER",
+                "PAGE_PREVIEW",
                 "SEARCH_ENGINE_CRAWLER",
                 "SEARCH_ENGINE_OPTIMIZATION",
-                "MONITORING_AND_ANALYTICS",
-                "ADVERTISING_AND_MARKETING",
-                "SOCIAL_MEDIA_MARKETING",
-                "PAGE_PREVIEW",
-                "ACADEMIC_RESEARCH",
                 "SECURITY",
                 "ACCESSIBILITY",
-                "WEBHOOKS",
-                "FEED_FETCHER",
-                "AI_CRAWLER",
                 "AGGREGATOR",
-                "AI_ASSISTANT",
                 "AI_SEARCH",
-                "ARCHIVER"
+                "ARCHIVER",
+                "SOCIAL_MEDIA_MARKETING",
+                "WEBHOOKS"
               ],
               "type": "string"
             },
@@ -330,8 +434,34 @@ export const tools: readonly Tool[] = [
             "bots": {
               "items": {
                 "properties": {
+                  "accessLevel": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "categories": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
                   "category": {
                     "type": "string"
+                  },
+                  "contentUse": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
                   },
                   "description": {
                     "type": "string"
@@ -356,7 +486,10 @@ export const tools: readonly Tool[] = [
                   }
                 },
                 "required": [
+                  "accessLevel",
+                  "categories",
                   "category",
+                  "contentUse",
                   "description",
                   "kind",
                   "name",
@@ -425,8 +558,34 @@ export const tools: readonly Tool[] = [
                   "bots": {
                     "items": {
                       "properties": {
+                        "accessLevel": {
+                          "oneOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "categories": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
                         "category": {
                           "type": "string"
+                        },
+                        "contentUse": {
+                          "oneOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
                         },
                         "description": {
                           "type": "string"
@@ -451,7 +610,10 @@ export const tools: readonly Tool[] = [
                         }
                       },
                       "required": [
+                        "accessLevel",
+                        "categories",
                         "category",
+                        "contentUse",
                         "description",
                         "kind",
                         "name",
@@ -557,25 +719,27 @@ export const tools: readonly Tool[] = [
               "type": "array"
             },
             "botCategory": {
-              "description": "Filters results by bot category.",
+              "description": "Filters results by bot category. `ACCESSIBILITY`, `AGGREGATOR`, `AI_SEARCH`, `ARCHIVER`, `SOCIAL_MEDIA_MARKETING` and `WEBHOOKS` are deprecated legacy categories that match only that exact category.",
               "items": {
                 "enum": [
+                  "ACADEMIC_RESEARCH",
+                  "ADVERTISING_AND_MARKETING",
+                  "AI_ASSISTANT",
+                  "AI_CRAWLER",
+                  "COMMERCE",
+                  "FEED_FETCHER",
+                  "MONITORING_AND_ANALYTICS",
+                  "OTHER",
+                  "PAGE_PREVIEW",
                   "SEARCH_ENGINE_CRAWLER",
                   "SEARCH_ENGINE_OPTIMIZATION",
-                  "MONITORING_AND_ANALYTICS",
-                  "ADVERTISING_AND_MARKETING",
-                  "SOCIAL_MEDIA_MARKETING",
-                  "PAGE_PREVIEW",
-                  "ACADEMIC_RESEARCH",
                   "SECURITY",
                   "ACCESSIBILITY",
-                  "WEBHOOKS",
-                  "FEED_FETCHER",
-                  "AI_CRAWLER",
                   "AGGREGATOR",
-                  "AI_ASSISTANT",
                   "AI_SEARCH",
-                  "ARCHIVER"
+                  "ARCHIVER",
+                  "SOCIAL_MEDIA_MARKETING",
+                  "WEBHOOKS"
                 ],
                 "type": "string"
               },
@@ -1157,25 +1321,27 @@ export const tools: readonly Tool[] = [
               "type": "array"
             },
             "botCategory": {
-              "description": "Filters results by bot category.",
+              "description": "Filters results by bot category. `ACCESSIBILITY`, `AGGREGATOR`, `AI_SEARCH`, `ARCHIVER`, `SOCIAL_MEDIA_MARKETING` and `WEBHOOKS` are deprecated legacy categories that match only that exact category.",
               "items": {
                 "enum": [
+                  "ACADEMIC_RESEARCH",
+                  "ADVERTISING_AND_MARKETING",
+                  "AI_ASSISTANT",
+                  "AI_CRAWLER",
+                  "COMMERCE",
+                  "FEED_FETCHER",
+                  "MONITORING_AND_ANALYTICS",
+                  "OTHER",
+                  "PAGE_PREVIEW",
                   "SEARCH_ENGINE_CRAWLER",
                   "SEARCH_ENGINE_OPTIMIZATION",
-                  "MONITORING_AND_ANALYTICS",
-                  "ADVERTISING_AND_MARKETING",
-                  "SOCIAL_MEDIA_MARKETING",
-                  "PAGE_PREVIEW",
-                  "ACADEMIC_RESEARCH",
                   "SECURITY",
                   "ACCESSIBILITY",
-                  "WEBHOOKS",
-                  "FEED_FETCHER",
-                  "AI_CRAWLER",
                   "AGGREGATOR",
-                  "AI_ASSISTANT",
                   "AI_SEARCH",
-                  "ARCHIVER"
+                  "ARCHIVER",
+                  "SOCIAL_MEDIA_MARKETING",
+                  "WEBHOOKS"
                 ],
                 "type": "string"
               },
@@ -1821,25 +1987,27 @@ export const tools: readonly Tool[] = [
               "type": "array"
             },
             "botCategory": {
-              "description": "Filters results by bot category.",
+              "description": "Filters results by bot category. `ACCESSIBILITY`, `AGGREGATOR`, `AI_SEARCH`, `ARCHIVER`, `SOCIAL_MEDIA_MARKETING` and `WEBHOOKS` are deprecated legacy categories that match only that exact category.",
               "items": {
                 "enum": [
+                  "ACADEMIC_RESEARCH",
+                  "ADVERTISING_AND_MARKETING",
+                  "AI_ASSISTANT",
+                  "AI_CRAWLER",
+                  "COMMERCE",
+                  "FEED_FETCHER",
+                  "MONITORING_AND_ANALYTICS",
+                  "OTHER",
+                  "PAGE_PREVIEW",
                   "SEARCH_ENGINE_CRAWLER",
                   "SEARCH_ENGINE_OPTIMIZATION",
-                  "MONITORING_AND_ANALYTICS",
-                  "ADVERTISING_AND_MARKETING",
-                  "SOCIAL_MEDIA_MARKETING",
-                  "PAGE_PREVIEW",
-                  "ACADEMIC_RESEARCH",
                   "SECURITY",
                   "ACCESSIBILITY",
-                  "WEBHOOKS",
-                  "FEED_FETCHER",
-                  "AI_CRAWLER",
                   "AGGREGATOR",
-                  "AI_ASSISTANT",
                   "AI_SEARCH",
-                  "ARCHIVER"
+                  "ARCHIVER",
+                  "SOCIAL_MEDIA_MARKETING",
+                  "WEBHOOKS"
                 ],
                 "type": "string"
               },

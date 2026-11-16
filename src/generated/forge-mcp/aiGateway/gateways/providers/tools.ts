@@ -999,6 +999,280 @@ export const tools: readonly Tool[] = [
     },
   },
   {
+    name: "aiGateway_gateways_providers_test",
+    title: "Check stored provider credentials",
+    description: "Checks whether stored credentials can list models through the provider implementation in AI Gateway. Requires AI Gateway content update permission. Does not run inference, check credits or inference permissions, or return provider response bodies. HTTP 401 from the model-list request is classified as invalid, as is AWS Bedrock HTTP 403 with an UnrecognizedClientException error type. Other failures are inconclusive, including other HTTP 400 or 403 responses; a 403 alone does not distinguish rejected credentials from insufficient permissions. Unsupported providers or credential formats also return an inconclusive result.\n\nPOST /accounts/{account_id}/ai-gateway/gateways/{gateway_id}/provider_configs/{id}/test",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "body": {
+          "type": "object"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "gateway_id": {
+              "description": "Unique identifier of the AI Gateway within the account.",
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "gateway_id",
+            "id"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path"
+      ],
+      additionalProperties: false,
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "properties": {
+            "httpStatus": {
+              "oneOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "providerSlug": {
+              "type": "string"
+            },
+            "reason": {
+              "enum": [
+                "unsupported_provider",
+                "missing_secret",
+                "provider_error",
+                "permission_denied",
+                "request_failed"
+              ],
+              "type": "string"
+            },
+            "status": {
+              "enum": [
+                "valid",
+                "invalid",
+                "error"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "httpStatus",
+            "providerSlug",
+            "status"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Check stored provider credentials"
+    },
+    [OPERATION]: {
+      method: "POST",
+      path: "/accounts/{account_id}/ai-gateway/gateways/{gateway_id}/provider_configs/{id}/test",
+      pathOf: encodePath`/accounts/${"account_id"}/ai-gateway/gateways/${"gateway_id"}/provider_configs/${"id"}/test`,
+      body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-api-token-group": [
+          "Secrets Store Write"
+        ],
+        "x-cfPermissionsRequired": {
+          "enum": [
+            "com.cloudflare.api.account.aig"
+          ]
+        },
+        "x-cfPlanAvailability": {
+          "business": true,
+          "enterprise": true,
+          "free": true,
+          "pro": true
+        }
+      },
+      responses: {
+        schemas: {
+          "200": {
+            "properties": {
+              "result": {
+                "properties": {
+                  "httpStatus": {
+                    "oneOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "providerSlug": {
+                    "type": "string"
+                  },
+                  "reason": {
+                    "enum": [
+                      "unsupported_provider",
+                      "missing_secret",
+                      "provider_error",
+                      "permission_denied",
+                      "request_failed"
+                    ],
+                    "type": "string"
+                  },
+                  "status": {
+                    "enum": [
+                      "valid",
+                      "invalid",
+                      "error"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "httpStatus",
+                  "providerSlug",
+                  "status"
+                ],
+                "type": "object"
+              },
+              "success": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "result",
+              "success"
+            ],
+            "type": "object"
+          },
+          "400": {
+            "properties": {
+              "errors": {
+                "items": {
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "path": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "path"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "success": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "errors",
+              "success"
+            ],
+            "type": "object"
+          },
+          "404": {
+            "properties": {
+              "errors": {
+                "items": {
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "success": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "errors",
+              "success"
+            ],
+            "type": "object"
+          },
+          "501": {
+            "properties": {
+              "errors": {
+                "items": {
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "success": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "errors",
+              "success"
+            ],
+            "type": "object"
+          }
+        },
+      },
+    },
+  },
+  {
     name: "aiGateway_gateways_providers_update",
     title: "Rotate a provider key",
     description: "Replaces the stored API key of a provider key configuration. Only the key can change.\n\nPUT /accounts/{account_id}/ai-gateway/gateways/{gateway_id}/provider_configs/{id}",

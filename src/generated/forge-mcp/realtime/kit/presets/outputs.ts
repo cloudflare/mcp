@@ -146,6 +146,9 @@ export const realtimekit_Preset: JSONObject = {
         "can_edit_display_name": {
           "type": "boolean"
         },
+        "can_edit_meeting_title": {
+          "type": "boolean"
+        },
         "can_livestream": {
           "type": "boolean"
         },

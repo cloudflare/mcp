@@ -3042,10 +3042,12 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "page": {
+              "default": 1,
               "description": "Page number",
               "type": "integer"
             },
             "per_page": {
+              "default": 20,
               "description": "Number of routes per page",
               "type": "integer"
             }

@@ -4,6 +4,97 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
+ * The schema of `cc_AccountUsageMaximum` in responses.
+ */
+export const cc_AccountUsageMaximum: JSONObject = {
+  "properties": {
+    "disk_mb": {
+      "type": "integer"
+    },
+    "memory_mib": {
+      "type": "integer"
+    },
+    "vcpus": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "disk_mb",
+    "memory_mib",
+    "vcpus"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `cc_AccountUsageResources` in responses.
+ */
+export const cc_AccountUsageResources: JSONObject = {
+  "properties": {
+    "disk_mb": {
+      "type": "integer"
+    },
+    "instances": {
+      "type": "integer"
+    },
+    "memory_mib": {
+      "type": "integer"
+    },
+    "vcpus": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "disk_mb",
+    "instances",
+    "memory_mib",
+    "vcpus"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `cc_AccountUsageResponse` in responses.
+ */
+export const cc_AccountUsageResponse: JSONObject = {
+  "properties": {
+    "maximum": {
+      "$ref": "#/$defs/cc_AccountUsageMaximum"
+    },
+    "usage": {
+      "$ref": "#/$defs/cc_AccountUsageResources"
+    },
+    "utilization": {
+      "$ref": "#/$defs/cc_AccountUsageUtilization"
+    }
+  },
+  "required": [
+    "maximum",
+    "usage",
+    "utilization"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `cc_AccountUsageUtilization` in responses.
+ */
+export const cc_AccountUsageUtilization: JSONObject = {
+  "properties": {
+    "disk_mb": {
+      "type": "number"
+    },
+    "memory_mib": {
+      "type": "number"
+    },
+    "vcpus": {
+      "type": "number"
+    }
+  },
+  "type": "object"
+};
+
+/**
  * The schema of `cc_Messages` in responses.
  */
 export const cc_Messages: JSONObject = {

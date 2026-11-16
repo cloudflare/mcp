@@ -33,7 +33,6 @@ export const tools: readonly Tool[] = [
         "body": {
           "properties": {
             "ha": {
-              "default": false,
               "description": "Indicates that the tunnel will be created to be highly available. If omitted, defaults to false.",
               "type": "boolean"
             },

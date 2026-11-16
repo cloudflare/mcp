@@ -105,7 +105,22 @@ export const access_scim_patch_request: JSONObject = {
                 "type": "boolean"
               },
               {
-                "items": {},
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "object"
+                    }
+                  ]
+                },
                 "type": "array"
               },
               {

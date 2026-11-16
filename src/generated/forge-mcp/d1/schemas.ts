@@ -43,22 +43,6 @@ export const d1_database$$update$$partial$$request$$body: JSONObject = {
 };
 
 /**
- * The schema of `d1_database-update-request-body`.
- */
-export const d1_database$$update$$request$$body: JSONObject = {
-  "properties": {
-    "read_replication": {
-      "$ref": "#/$defs/d1_read-replication-details-for-request",
-      "description": "Configuration for D1 read replication."
-    }
-  },
-  "required": [
-    "read_replication"
-  ],
-  "type": "object"
-};
-
-/**
  * The schema of `d1_params`.
  */
 export const d1_params: JSONObject = {

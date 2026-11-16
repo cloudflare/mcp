@@ -16,7 +16,7 @@ import { r2_edit_managed_domain_request } from "./schemas.js";
  */
 export const tools: readonly Tool[] = [
   {
-    name: "r2_buckets_domains_managed_list",
+    name: "r2_buckets_domains_managed_get",
     title: "Get r2.dev Domain of Bucket",
     description: "Gets the R2 bucket's managed r2.dev domain and whether public access is enabled. The r2.dev domain is rate-limited and intended for development use.\n\nGET /accounts/{account_id}/r2/buckets/{bucket_name}/domains/managed",
     inputSchema: {

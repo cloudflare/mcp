@@ -7,11 +7,5 @@ import type { JSONObject } from "@modelcontextprotocol/server";
  * The schema of `stream_webhook_request`.
  */
 export const stream_webhook_request: JSONObject = {
-  "properties": {
-    "notification_url": {
-      "description": "The URL where webhooks will be sent.",
-      "type": "string"
-    }
-  },
   "type": "object"
 };

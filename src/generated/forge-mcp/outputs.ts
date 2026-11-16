@@ -2234,657 +2234,6 @@ export const billable$$usage$$api_v2_usage_response: JSONObject = {
 };
 
 /**
- * The schema of `brand-protection-api_Error` in responses.
- */
-export const brand$$protection$$api_Error: JSONObject = {
-  "properties": {
-    "code": {
-      "type": "integer"
-    },
-    "errors": {
-      "additionalProperties": {
-        "type": "object"
-      },
-      "type": "object"
-    },
-    "message": {
-      "type": "string"
-    },
-    "status": {
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `builds_APIResponse` in responses.
- */
-export const builds_APIResponse: JSONObject = {
-  "properties": {
-    "errors": {
-      "items": {
-        "$ref": "#/$defs/builds_ApiError"
-      },
-      "type": "array"
-    },
-    "messages": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "result": {
-      "oneOf": [
-        {
-          "type": "object"
-        },
-        {
-          "items": {
-            "type": "object"
-          },
-          "type": "array"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "result_info": {
-      "$ref": "#/$defs/builds_PaginationInfo"
-    },
-    "success": {
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `builds_ApiError` in responses.
- */
-export const builds_ApiError: JSONObject = {
-  "properties": {
-    "code": {
-      "type": "integer"
-    },
-    "message": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "message"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `builds_BuildResponse` in responses.
- */
-export const builds_BuildResponse: JSONObject = {
-  "properties": {
-    "build_outcome": {
-      "oneOf": [
-        {
-          "enum": [
-            "success",
-            "fail",
-            "skipped",
-            "cancelled",
-            "terminated"
-          ],
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "build_trigger_metadata": {
-      "$ref": "#/$defs/builds_BuildTriggerMetadataResponse"
-    },
-    "build_uuid": {
-      "format": "uuid",
-      "type": "string"
-    },
-    "created_on": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "deploy_hook": {
-      "oneOf": [
-        {
-          "properties": {
-            "deploy_hook_name": {
-              "type": "string"
-            }
-          },
-          "type": "object"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "initializing_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "modified_on": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "preview_url": {
-      "type": "string"
-    },
-    "pull_request": {
-      "oneOf": [
-        {
-          "properties": {
-            "closed_on": {
-              "oneOf": [
-                {
-                  "format": "date-time",
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "created_on": {
-              "format": "date-time",
-              "type": "string"
-            },
-            "pull_request_url": {
-              "type": "string"
-            }
-          },
-          "type": "object"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "running_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "status": {
-      "enum": [
-        "queued",
-        "initializing",
-        "running",
-        "stopped"
-      ],
-      "type": "string"
-    },
-    "stopped_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "trigger": {
-      "properties": {
-        "branch_excludes": {
-          "$ref": "#/$defs/builds_branch_excludes"
-        },
-        "branch_includes": {
-          "$ref": "#/$defs/builds_branch_includes"
-        },
-        "build_caching_enabled": {
-          "type": "boolean"
-        },
-        "build_command": {
-          "type": "string"
-        },
-        "created_on": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "deleted_on": {
-          "oneOf": [
-            {
-              "format": "date-time",
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "deploy_command": {
-          "type": "string"
-        },
-        "external_script_id": {
-          "type": "string"
-        },
-        "modified_on": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "path_excludes": {
-          "$ref": "#/$defs/builds_path_excludes"
-        },
-        "path_includes": {
-          "$ref": "#/$defs/builds_path_includes"
-        },
-        "repo_connection": {
-          "$ref": "#/$defs/builds_UpsertRepoConnectionResponse"
-        },
-        "root_directory": {
-          "type": "string"
-        },
-        "trigger_name": {
-          "type": "string"
-        },
-        "trigger_uuid": {
-          "format": "uuid",
-          "type": "string"
-        }
-      },
-      "type": "object"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `builds_BuildTriggerMetadataResponse` in responses.
- */
-export const builds_BuildTriggerMetadataResponse: JSONObject = {
-  "properties": {
-    "author": {
-      "type": "string"
-    },
-    "branch": {
-      "type": "string"
-    },
-    "build_command": {
-      "type": "string"
-    },
-    "build_token_name": {
-      "type": "string"
-    },
-    "build_token_uuid": {
-      "format": "uuid",
-      "type": "string"
-    },
-    "build_trigger_source": {
-      "enum": [
-        "push",
-        "pull_request",
-        "manual",
-        "api"
-      ],
-      "type": "string"
-    },
-    "commit_hash": {
-      "type": "string"
-    },
-    "commit_message": {
-      "type": "string"
-    },
-    "deploy_command": {
-      "type": "string"
-    },
-    "environment_variables": {
-      "additionalProperties": {
-        "type": "string"
-      },
-      "type": "object"
-    },
-    "provider_account_name": {
-      "type": "string"
-    },
-    "provider_type": {
-      "enum": [
-        "github",
-        "gitlab",
-        "gitlab_internal",
-        "origin"
-      ],
-      "type": "string"
-    },
-    "repo_name": {
-      "type": "string"
-    },
-    "root_directory": {
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `builds_EnvironmentVariablesResponse` in responses.
- */
-export const builds_EnvironmentVariablesResponse: JSONObject = {
-  "additionalProperties": {
-    "properties": {
-      "created_on": {
-        "format": "date-time",
-        "type": "string"
-      },
-      "is_secret": {
-        "type": "boolean"
-      },
-      "value": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      }
-    },
-    "required": [
-      "created_on",
-      "is_secret"
-    ],
-    "type": "object"
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `builds_ErrorResponse` in responses.
- */
-export const builds_ErrorResponse: JSONObject = {
-  "properties": {
-    "errors": {
-      "items": {
-        "$ref": "#/$defs/builds_ApiError"
-      },
-      "type": "array"
-    },
-    "messages": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "result": {
-      "oneOf": [
-        {
-          "type": "object"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "success": {
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `builds_PaginationInfo` in responses.
- */
-export const builds_PaginationInfo: JSONObject = {
-  "properties": {
-    "count": {
-      "type": "integer"
-    },
-    "page": {
-      "type": "integer"
-    },
-    "per_page": {
-      "type": "integer"
-    },
-    "total_count": {
-      "type": "integer"
-    },
-    "total_pages": {
-      "type": "integer"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `builds_UpsertRepoConnectionResponse` in responses.
- */
-export const builds_UpsertRepoConnectionResponse: JSONObject = {
-  "properties": {
-    "created_on": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "deleted_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "modified_on": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "provider_account_id": {
-      "type": "string"
-    },
-    "provider_account_name": {
-      "type": "string"
-    },
-    "provider_type": {
-      "enum": [
-        "github",
-        "gitlab",
-        "gitlab_internal",
-        "origin"
-      ],
-      "type": "string"
-    },
-    "repo_connection_uuid": {
-      "format": "uuid",
-      "type": "string"
-    },
-    "repo_id": {
-      "type": "string"
-    },
-    "repo_name": {
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `builds_WorkerBuildSettings` in responses.
- */
-export const builds_WorkerBuildSettings: JSONObject = {
-  "properties": {
-    "build_caching_enabled": {
-      "type": "boolean"
-    },
-    "build_command": {
-      "type": "string"
-    },
-    "build_token_uuid": {
-      "format": "uuid",
-      "type": "string"
-    },
-    "deploy_command": {
-      "type": "string"
-    },
-    "environment_variables": {
-      "$ref": "#/$defs/builds_EnvironmentVariablesResponse"
-    },
-    "path_excludes": {
-      "$ref": "#/$defs/builds_path_excludes"
-    },
-    "path_includes": {
-      "$ref": "#/$defs/builds_path_includes"
-    },
-    "proposed_deploy_command": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "root_directory": {
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `builds_WorkerGitRepository` in responses.
- */
-export const builds_WorkerGitRepository: JSONObject = {
-  "properties": {
-    "branch": {
-      "type": "string"
-    },
-    "grant_id": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "provider_account_id": {
-      "type": "string"
-    },
-    "provider_account_name": {
-      "type": "string"
-    },
-    "provider_type": {
-      "enum": [
-        "github",
-        "gitlab",
-        "gitlab_internal",
-        "origin"
-      ],
-      "type": "string"
-    },
-    "repo_id": {
-      "type": "string"
-    },
-    "repo_name": {
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `builds_WorkerResponse` in responses.
- */
-export const builds_WorkerResponse: JSONObject = {
-  "properties": {
-    "git_repository": {
-      "$ref": "#/$defs/builds_WorkerGitRepository"
-    },
-    "previews_base_config": {
-      "$ref": "#/$defs/builds_WorkerBuildSettings"
-    },
-    "previews_enabled": {
-      "type": "boolean"
-    },
-    "production_settings": {
-      "$ref": "#/$defs/builds_WorkerBuildSettings"
-    },
-    "script_tag": {
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `builds_branch_excludes` in responses.
- */
-export const builds_branch_excludes: JSONObject = {
-  "items": {
-    "type": "string"
-  },
-  "type": "array"
-};
-
-/**
- * The schema of `builds_branch_includes` in responses.
- */
-export const builds_branch_includes: JSONObject = {
-  "items": {
-    "type": "string"
-  },
-  "type": "array"
-};
-
-/**
- * The schema of `builds_path_excludes` in responses.
- */
-export const builds_path_excludes: JSONObject = {
-  "items": {
-    "type": "string"
-  },
-  "type": "array"
-};
-
-/**
- * The schema of `builds_path_includes` in responses.
- */
-export const builds_path_includes: JSONObject = {
-  "items": {
-    "type": "string"
-  },
-  "type": "array"
-};
-
-/**
  * The schema of `cache-settings_api-response-common` in responses.
  */
 export const cache$$settings_api$$response$$common: JSONObject = {
@@ -3003,9 +2352,7 @@ export const cache$$settings_result$$object: JSONObject = {
       "format": "date-time",
       "type": "string"
     },
-    "value": {
-      "type": "string"
-    }
+    "value": {}
   },
   "required": [
     "editable",
@@ -5849,20 +5196,6 @@ export const mconn_response: JSONObject = {
 };
 
 /**
- * The schema of `organizations-api_AccountListResultInfo` in responses.
- */
-export const organizations$$api_AccountListResultInfo: JSONObject = {
-  "anyOf": [
-    {
-      "$ref": "#/$defs/organizations-api_PageTokenResultInfo"
-    },
-    {
-      "$ref": "#/$defs/organizations-api_LegacyPaginationResultInfo"
-    }
-  ]
-};
-
-/**
  * The schema of `organizations-api_LegacyAccount` in responses.
  */
 export const organizations$$api_LegacyAccount: JSONObject = {
@@ -5929,33 +5262,6 @@ export const organizations$$api_LegacyAccount: JSONObject = {
     "account_type",
     "created_on",
     "settings"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `organizations-api_LegacyPaginationResultInfo` in responses.
- */
-export const organizations$$api_LegacyPaginationResultInfo: JSONObject = {
-  "properties": {
-    "count": {
-      "type": "integer"
-    },
-    "page": {
-      "type": "integer"
-    },
-    "per_page": {
-      "type": "integer"
-    },
-    "total_count": {
-      "type": "integer"
-    }
-  },
-  "required": [
-    "count",
-    "page",
-    "per_page",
-    "total_count"
   ],
   "type": "object"
 };
@@ -6460,6 +5766,9 @@ export const r2$$data$$catalog_catalog: JSONObject = {
     "bucket": {
       "type": "string"
     },
+    "catalog_uri": {
+      "type": "string"
+    },
     "credential_status": {
       "oneOf": [
         {
@@ -6516,6 +5825,9 @@ export const r2$$data$$catalog_catalog: JSONObject = {
  */
 export const r2$$data$$catalog_catalog$$activation$$response: JSONObject = {
   "properties": {
+    "catalog_uri": {
+      "type": "string"
+    },
     "id": {
       "format": "uuid",
       "type": "string"
@@ -7029,6 +6341,16 @@ export const r2$$data$$catalog_table$$compaction$$config: JSONObject = {
         }
       ]
     },
+    "next_eligible_reason": {
+      "enum": [
+        "disabled",
+        "held_after_user_error",
+        "running",
+        "no_credential",
+        "scheduled"
+      ],
+      "type": "string"
+    },
     "state": {
       "enum": [
         "enabled",
@@ -7252,6 +6574,16 @@ export const r2$$data$$catalog_table$$snapshot$$expiration$$config: JSONObject =
           "type": "null"
         }
       ]
+    },
+    "next_eligible_reason": {
+      "enum": [
+        "disabled",
+        "held_after_user_error",
+        "running",
+        "no_credential",
+        "scheduled"
+      ],
+      "type": "string"
     },
     "state": {
       "enum": [
@@ -9303,6 +8635,9 @@ export const workers_binding_item: JSONObject = {
     },
     {
       "$ref": "#/$defs/workers_binding_kind_vpc_network"
+    },
+    {
+      "$ref": "#/$defs/workers_binding_kind_worker_loader"
     }
   ]
 };
@@ -10395,6 +9730,28 @@ export const workers_binding_kind_wasm_module: JSONObject = {
 };
 
 /**
+ * The schema of `workers_binding_kind_worker_loader` in responses.
+ */
+export const workers_binding_kind_worker_loader: JSONObject = {
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "type": {
+      "enum": [
+        "worker_loader"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "type"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `workers_binding_kind_workflow` in responses.
  */
 export const workers_binding_kind_workflow: JSONObject = {
@@ -11314,6 +10671,40 @@ export const workers_multiple_step_migrations: JSONObject = {
  */
 export const workers_observability$$2: JSONObject = {
   "properties": {
+    "agents": {
+      "oneOf": [
+        {
+          "properties": {
+            "destinations": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "enabled": {
+              "type": "boolean"
+            },
+            "head_sampling_rate": {
+              "oneOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "persist": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
     "enabled": {
       "type": "boolean"
     },

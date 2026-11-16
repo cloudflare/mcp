@@ -25,6 +25,126 @@ import {
  */
 export const tools: readonly Tool[] = [
   {
+    name: "tunnels_config_delete",
+    title: "Reset Tunnel configuration",
+    description: "Resets a remotely managed Cloudflare Tunnel to an empty configuration, removing ingress rules and origin request settings. The tunnel remains remotely managed, and private network routes continue to determine WARP routing. Publishes a new configuration version when the configuration changes. Repeated requests succeed without creating additional versions. If the tunnel or configuration is absent, returns a null result. Locally managed tunnels cannot be reset with this endpoint.\n\nConfirm with the user before calling this tool. This operation resets the tunnel configuration, removing ingress rules and origin request settings.\n\nDELETE /accounts/{account_id}/cfd_tunnel/{tunnel_id}/configurations",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            },
+            "tunnel_id": {
+              "description": "UUID of the tunnel.",
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "tunnel_id"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path"
+      ],
+      additionalProperties: false,
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/tunnel_api-response-single-2"
+        },
+        {
+          "properties": {
+            "result": {
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/tunnel_configuration"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "tunnel_api-response-single-2": tunnel_api$$response$$single$$2,
+        "tunnel_config": tunnel_config,
+        "tunnel_configuration": tunnel_configuration,
+        "tunnel_ingressRule": tunnel_ingressRule,
+        "tunnel_messages-2": tunnel_messages$$2,
+        "tunnel_originRequest": tunnel_originRequest,
+      },
+    },
+    annotations: {
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Reset Tunnel configuration"
+    },
+    [OPERATION]: {
+      method: "DELETE",
+      path: "/accounts/{account_id}/cfd_tunnel/{tunnel_id}/configurations",
+      pathOf: encodePath`/accounts/${"account_id"}/cfd_tunnel/${"tunnel_id"}/configurations`,
+      extensions: {
+        "x-api-token-group": [
+          "Cloudflare One Connectors Write",
+          "Cloudflare One Connector: cloudflared Write",
+          "Cloudflare Tunnel Write"
+        ]
+      },
+      responses: {
+        schemas: {
+          "200": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/tunnel_api-response-single-2"
+              },
+              {
+                "properties": {
+                  "result": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/$defs/tunnel_configuration"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "type": "object"
+              }
+            ]
+          },
+          "4XX": {
+            "$ref": "#/$defs/tunnel_api-response-common-failure-2"
+          }
+        },
+        $defs: {
+          "tunnel_api-response-common-failure-2": tunnel_api$$response$$common$$failure$$2,
+          "tunnel_api-response-single-2": tunnel_api$$response$$single$$2,
+          "tunnel_config": tunnel_config,
+          "tunnel_configuration": tunnel_configuration,
+          "tunnel_ingressRule": tunnel_ingressRule,
+          "tunnel_messages-2": tunnel_messages$$2,
+          "tunnel_originRequest": tunnel_originRequest,
+        },
+      },
+    },
+  },
+  {
     name: "tunnels_config_get",
     title: "Get Tunnel configuration",
     description: "Retrieves the configuration for a remotely managed Cloudflare Tunnel.\n\nGET /accounts/{account_id}/cfd_tunnel/{tunnel_id}/configurations",

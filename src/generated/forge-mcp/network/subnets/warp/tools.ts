@@ -231,10 +231,6 @@ export const tools: readonly Tool[] = [
             "name": {
               "description": "A user-friendly name for the subnet.",
               "type": "string"
-            },
-            "network": {
-              "description": "The private IPv4 or IPv6 range defining the subnet, in CIDR notation.",
-              "type": "string"
             }
           },
           "type": "object"

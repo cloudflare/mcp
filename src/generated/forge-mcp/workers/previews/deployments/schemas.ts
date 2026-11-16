@@ -135,7 +135,7 @@ export const workers_PreviewDeploymentRequest: JSONObject = {
     {
       "properties": {
         "modules": {
-          "description": "Code, sourcemaps, and other content used at runtime.",
+          "description": "Code, sourcemaps, and other content used at runtime.\n\nSource maps use content type `application/source-map`. Responses include them only when requested with\n`include=modules,sourcemaps`. Workers stores the source map fields used to remap stack traces, so a\nreturned source map is equivalent to the uploaded file but not byte-identical.",
           "items": {
             "properties": {
               "content_base64": {

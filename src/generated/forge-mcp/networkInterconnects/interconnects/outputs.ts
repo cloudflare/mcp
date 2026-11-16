@@ -67,13 +67,7 @@ export const nsc_Interconnect_GcpPartner_Body: JSONObject = {
   "allOf": [
     {
       "properties": {
-        "account": {
-          "type": "string"
-        },
         "name": {
-          "type": "string"
-        },
-        "owner": {
           "type": "string"
         },
         "type": {
@@ -81,7 +75,6 @@ export const nsc_Interconnect_GcpPartner_Body: JSONObject = {
         }
       },
       "required": [
-        "account",
         "name",
         "type"
       ],
@@ -130,13 +123,7 @@ export const nsc_Interconnect_Physical_Body: JSONObject = {
   "allOf": [
     {
       "properties": {
-        "account": {
-          "type": "string"
-        },
         "name": {
-          "type": "string"
-        },
-        "owner": {
           "type": "string"
         },
         "type": {
@@ -144,7 +131,6 @@ export const nsc_Interconnect_Physical_Body: JSONObject = {
         }
       },
       "required": [
-        "account",
         "name",
         "type"
       ],

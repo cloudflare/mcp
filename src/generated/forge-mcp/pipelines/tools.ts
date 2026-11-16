@@ -4,6 +4,7 @@
 import { OPERATION, type Tool, encodePath } from "../_/tool.js";
 import {
   cloudflare$$pipelines_PipelineEdge,
+  cloudflare$$pipelines_PipelineExtended,
   cloudflare$$pipelines_PipelineGraph,
   cloudflare$$pipelines_PipelineNode,
 } from "./outputs.js";
@@ -292,73 +293,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "properties": {
         "result": {
-          "properties": {
-            "created_at": {
-              "type": "string"
-            },
-            "failure_reason": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "modified_at": {
-              "type": "string"
-            },
-            "name": {
-              "type": "string"
-            },
-            "sql": {
-              "type": "string"
-            },
-            "status": {
-              "type": "string"
-            },
-            "tables": {
-              "items": {
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "latest": {
-                    "type": "integer"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "type": {
-                    "enum": [
-                      "stream",
-                      "sink"
-                    ],
-                    "type": "string"
-                  },
-                  "version": {
-                    "type": "integer"
-                  }
-                },
-                "required": [
-                  "id",
-                  "latest",
-                  "name",
-                  "type",
-                  "version"
-                ],
-                "type": "object"
-              },
-              "type": "array"
-            }
-          },
-          "required": [
-            "created_at",
-            "id",
-            "modified_at",
-            "name",
-            "sql",
-            "status",
-            "tables"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/cloudflare-pipelines_PipelineExtended"
         },
         "success": {
           "type": "boolean"
@@ -369,6 +304,9 @@ export const tools: readonly Tool[] = [
         "success"
       ],
       "type": "object",
+      $defs: {
+        "cloudflare-pipelines_PipelineExtended": cloudflare$$pipelines_PipelineExtended,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -398,73 +336,7 @@ export const tools: readonly Tool[] = [
           "200": {
             "properties": {
               "result": {
-                "properties": {
-                  "created_at": {
-                    "type": "string"
-                  },
-                  "failure_reason": {
-                    "type": "string"
-                  },
-                  "id": {
-                    "type": "string"
-                  },
-                  "modified_at": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "sql": {
-                    "type": "string"
-                  },
-                  "status": {
-                    "type": "string"
-                  },
-                  "tables": {
-                    "items": {
-                      "properties": {
-                        "id": {
-                          "type": "string"
-                        },
-                        "latest": {
-                          "type": "integer"
-                        },
-                        "name": {
-                          "type": "string"
-                        },
-                        "type": {
-                          "enum": [
-                            "stream",
-                            "sink"
-                          ],
-                          "type": "string"
-                        },
-                        "version": {
-                          "type": "integer"
-                        }
-                      },
-                      "required": [
-                        "id",
-                        "latest",
-                        "name",
-                        "type",
-                        "version"
-                      ],
-                      "type": "object"
-                    },
-                    "type": "array"
-                  }
-                },
-                "required": [
-                  "created_at",
-                  "id",
-                  "modified_at",
-                  "name",
-                  "sql",
-                  "status",
-                  "tables"
-                ],
-                "type": "object"
+                "$ref": "#/$defs/cloudflare-pipelines_PipelineExtended"
               },
               "success": {
                 "type": "boolean"
@@ -477,6 +349,9 @@ export const tools: readonly Tool[] = [
             "type": "object"
           },
           "4XX": null
+        },
+        $defs: {
+          "cloudflare-pipelines_PipelineExtended": cloudflare$$pipelines_PipelineExtended,
         },
       },
     },
@@ -695,6 +570,102 @@ export const tools: readonly Tool[] = [
             "type": "object"
           },
           "4XX": null
+        },
+      },
+    },
+  },
+  {
+    name: "pipelines_updateTables",
+    title: "Update Pipeline Tables",
+    description: "Move a Pipeline to the latest version of every stream and sink it uses, such as after updating a Sink. A running Pipeline restarts on the latest versions from a final checkpoint; a paused or stopped Pipeline uses them once it starts.\n\nPOST /accounts/{account_id}/pipelines/v1/pipelines/{pipeline_id}/update_tables",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Specifies the public ID of the account.",
+              "type": "string"
+            },
+            "pipeline_id": {
+              "description": "Specifies the public ID of the pipeline.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "pipeline_id"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path"
+      ],
+      additionalProperties: false,
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/cloudflare-pipelines_PipelineExtended"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+      $defs: {
+        "cloudflare-pipelines_PipelineExtended": cloudflare$$pipelines_PipelineExtended,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Update Pipeline Tables"
+    },
+    [OPERATION]: {
+      method: "POST",
+      path: "/accounts/{account_id}/pipelines/v1/pipelines/{pipeline_id}/update_tables",
+      pathOf: encodePath`/accounts/${"account_id"}/pipelines/v1/pipelines/${"pipeline_id"}/update_tables`,
+      extensions: {
+        "x-api-token-group": [
+          "Pipelines Write"
+        ],
+        "x-cfPlanAvailability": {
+          "business": true,
+          "enterprise": true,
+          "free": false,
+          "pro": true
+        }
+      },
+      responses: {
+        schemas: {
+          "200": {
+            "properties": {
+              "result": {
+                "$ref": "#/$defs/cloudflare-pipelines_PipelineExtended"
+              },
+              "success": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "result",
+              "success"
+            ],
+            "type": "object"
+          },
+          "4XX": null
+        },
+        $defs: {
+          "cloudflare-pipelines_PipelineExtended": cloudflare$$pipelines_PipelineExtended,
         },
       },
     },

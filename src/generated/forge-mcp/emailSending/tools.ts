@@ -392,7 +392,8 @@ export const tools: readonly Tool[] = [
                       "enum": [
                         "email.sending.error.email.sending_disabled",
                         "email.sending.error.email.sender_not_configured",
-                        "email.sending.error.email.account_suspended"
+                        "email.sending.error.email.account_suspended",
+                        "email.sending.error.email.recipient_plan_restricted"
                       ],
                       "type": "string"
                     }
@@ -900,7 +901,8 @@ export const tools: readonly Tool[] = [
                       "enum": [
                         "email.sending.error.email.sending_disabled",
                         "email.sending.error.email.sender_not_configured",
-                        "email.sending.error.email.account_suspended"
+                        "email.sending.error.email.account_suspended",
+                        "email.sending.error.email.recipient_plan_restricted"
                       ],
                       "type": "string"
                     }

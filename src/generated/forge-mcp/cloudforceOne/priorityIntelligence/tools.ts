@@ -2,6 +2,12 @@
 /* eslint-disable */
 
 import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
+import {
+  cloudforce$$one$$events_PirDefinition,
+  cloudforce$$one$$events_PirOrganizationReference,
+  cloudforce$$one$$events_PirRelevanceCriterion,
+  cloudforce$$one$$events_PirSelections,
+} from "./schemas.js";
 
 /**
  * The tools of `cloudforceOne.priorityIntelligence`.
@@ -10,12 +16,35 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_priorityIntelligence_create",
     title: "Create a priority intelligence requirement",
-    description: "Creates a new PIR for the account. The cfone.priority_intelligence_requirement_limit entitlement sets how many PIRs can be active; drafts do not count, but the account can hold at most five times that many PIRs in total. An active PIR requires a query.\n\nPOST /accounts/{account_id}/cloudforce-one/v2/priority-intelligence",
+    description: "Creates a new PIR for the account. The cfone.priority_intelligence_requirement_limit entitlement sets how many PIRs can be active; drafts do not count, but the account can hold at most five times that many PIRs in total. A free-form PIR has a `requirement`, and an active one requires a query. A structured PIR has a `definition` instead; its requirement and event query are generated, and the response includes them in `resolved`.\n\nPOST /accounts/{account_id}/cloudforce-one/v2/priority-intelligence",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
+            "based_on": {
+              "description": "`resolved.based_on` from the resolution the user reviewed. Required with `definition`; if the organization profile or topic has changed since, the save fails with 409 and must be resolved again.",
+              "properties": {
+                "profile_revision": {
+                  "type": "integer"
+                },
+                "topic_fingerprint": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "profile_revision",
+                "topic_fingerprint"
+              ],
+              "type": "object"
+            },
             "dataset_scope": {
               "description": "`default`: every event dataset the account can read: Cloudforce One intelligence, datasets shared with the account, and the account's own datasets, such as Threat Signals. `datasets`: explicit dataset IDs. Analytics datasets are not matched. An active PIR can cover at most 50 datasets. Access is rechecked whenever the PIR is matched.",
               "oneOf": [
@@ -58,6 +87,10 @@ export const tools: readonly Tool[] = [
                   "type": "object"
                 }
               ]
+            },
+            "definition": {
+              "$ref": "#/$defs/cloudforce-one-events_PirDefinition",
+              "description": "Structured PIR answers. `managed` follows a topic from `GET /topics`; `custom` has its own question and criteria. The requirement text and event query are generated from it."
             },
             "digest_interval_hours": {
               "default": 24,
@@ -147,6 +180,87 @@ export const tools: readonly Tool[] = [
                   "minItems": 1,
                   "type": "array"
                 },
+                "exclusions": {
+                  "default": {
+                    "actors": [],
+                    "attacker_countries": [],
+                    "categories": [],
+                    "cves": [],
+                    "keywords": [],
+                    "target_countries": [],
+                    "target_industries": [],
+                    "techniques": []
+                  },
+                  "properties": {
+                    "actors": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "maxItems": 20,
+                      "type": "array"
+                    },
+                    "attacker_countries": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "maxItems": 20,
+                      "type": "array"
+                    },
+                    "categories": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "maxItems": 20,
+                      "type": "array"
+                    },
+                    "cves": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "maxItems": 20,
+                      "type": "array"
+                    },
+                    "keywords": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "maxItems": 5,
+                      "type": "array"
+                    },
+                    "target_countries": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "maxItems": 20,
+                      "type": "array"
+                    },
+                    "target_industries": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "maxItems": 20,
+                      "type": "array"
+                    },
+                    "techniques": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "maxItems": 20,
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "actors",
+                    "attacker_countries",
+                    "categories",
+                    "cves",
+                    "keywords",
+                    "target_countries",
+                    "target_industries",
+                    "techniques"
+                  ],
+                  "type": "object"
+                },
                 "indicators": {
                   "items": {
                     "type": "string"
@@ -235,7 +349,8 @@ export const tools: readonly Tool[] = [
                                 "contains",
                                 "startsWith",
                                 "endsWith",
-                                "find"
+                                "find",
+                                "notContains"
                               ],
                               "type": "string"
                             },
@@ -274,7 +389,8 @@ export const tools: readonly Tool[] = [
                             },
                             "op": {
                               "enum": [
-                                "in"
+                                "in",
+                                "notIn"
                               ],
                               "type": "string"
                             },
@@ -341,7 +457,8 @@ export const tools: readonly Tool[] = [
                             },
                             "op": {
                               "enum": [
-                                "in"
+                                "in",
+                                "notIn"
                               ],
                               "type": "string"
                             },
@@ -422,7 +539,8 @@ export const tools: readonly Tool[] = [
                             },
                             "op": {
                               "enum": [
-                                "in"
+                                "in",
+                                "notIn"
                               ],
                               "type": "string"
                             },
@@ -484,6 +602,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "requirement": {
+              "description": "Free-form requirement. Required unless `definition` is sent.",
               "type": "string"
             },
             "status": {
@@ -503,9 +622,6 @@ export const tools: readonly Tool[] = [
               "type": "string"
             }
           },
-          "required": [
-            "requirement"
-          ],
           "type": "object"
         },
         "path": {
@@ -525,6 +641,12 @@ export const tools: readonly Tool[] = [
         "path"
       ],
       additionalProperties: false,
+      $defs: {
+        "cloudforce-one-events_PirDefinition": cloudforce$$one$$events_PirDefinition,
+        "cloudforce-one-events_PirOrganizationReference": cloudforce$$one$$events_PirOrganizationReference,
+        "cloudforce-one-events_PirRelevanceCriterion": cloudforce$$one$$events_PirRelevanceCriterion,
+        "cloudforce-one-events_PirSelections": cloudforce$$one$$events_PirSelections,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -612,7 +734,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_priorityIntelligence_get",
     title: "Get a priority intelligence requirement by ID",
-    description: "Returns a single free-form Priority Intelligence Requirement for the authenticated account.\n\nGET /accounts/{account_id}/cloudforce-one/v2/priority-intelligence/{priority_id}",
+    description: "Returns a single Priority Intelligence Requirement for the authenticated account. For a structured PIR, `resolved` has its current generated requirement and event query, which follow later topic and profile changes.\n\nGET /accounts/{account_id}/cloudforce-one/v2/priority-intelligence/{priority_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -735,14 +857,106 @@ export const tools: readonly Tool[] = [
     },
   },
   {
-    name: "cloudforceOne_priorityIntelligence_update",
-    title: "Update a priority intelligence requirement",
-    description: "Updates a Priority Intelligence Requirement for the authenticated account. Changing the query increments its version; editing the requirement without saving a query marks the query stale. Activating a draft needs a free slot in the active PIR quota; setting `active` on a PIR the matcher paused resumes it without one.\n\nPUT /accounts/{account_id}/cloudforce-one/v2/priority-intelligence/{priority_id}",
+    name: "cloudforceOne_priorityIntelligence_resolve",
+    title: "Resolve structured PIR answers without saving",
+    description: "Returns the requirement and event query that saving `definition` would generate, using the account's current organization profile and topic. `resolved.issues` lists problems that would block saving, and `resolved.notices` inputs that would be ignored. Search events with `resolved.event_plan.branches`: a beta value for running searches, not a stable contract, which changes whenever a topic's event rules change. Show `resolved.event_plan.rules[].explanation` to explain matches. Send `resolved.based_on` with the save so it fails with 409 if the profile or topic changes in between. Nothing is saved, and no model is called.\n\nPOST /accounts/{account_id}/cloudforce-one/v2/priority-intelligence/resolve",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
+            "definition": {
+              "$ref": "#/$defs/cloudforce-one-events_PirDefinition",
+              "description": "Structured PIR answers. `managed` follows a topic from `GET /topics`; `custom` has its own question and criteria. The requirement text and event query are generated from it."
+            }
+          },
+          "required": [
+            "definition"
+          ],
+          "type": "object"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path"
+      ],
+      additionalProperties: false,
+      $defs: {
+        "cloudforce-one-events_PirDefinition": cloudforce$$one$$events_PirDefinition,
+        "cloudforce-one-events_PirOrganizationReference": cloudforce$$one$$events_PirOrganizationReference,
+        "cloudforce-one-events_PirRelevanceCriterion": cloudforce$$one$$events_PirRelevanceCriterion,
+        "cloudforce-one-events_PirSelections": cloudforce$$one$$events_PirSelections,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Resolve structured PIR answers without saving"
+    },
+    [OPERATION]: {
+      method: "POST",
+      path: "/accounts/{account_id}/cloudforce-one/v2/priority-intelligence/resolve",
+      pathOf: encodePath`/accounts/${"account_id"}/cloudforce-one/v2/priority-intelligence/resolve`,
+      body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-api-token-group": [
+          "Cloudforce One Write"
+        ],
+        "x-stability": "beta"
+      },
+      responses: {
+        schemas: {
+          "200": null,
+          "400": null
+        },
+      },
+    },
+  },
+  {
+    name: "cloudforceOne_priorityIntelligence_update",
+    title: "Update a priority intelligence requirement",
+    description: "Updates a Priority Intelligence Requirement for the authenticated account. Changing the query increments its version; editing the requirement without saving a query marks the query stale. Activating a draft needs a free slot in the active PIR quota; setting `active` on a PIR the matcher paused resumes it without one. Updates to a structured PIR must send its `revision` and change its answers through `definition`; its requirement, title and query are generated.\n\nPUT /accounts/{account_id}/cloudforce-one/v2/priority-intelligence/{priority_id}",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "body": {
+          "properties": {
+            "based_on": {
+              "description": "`resolved.based_on` from the resolution the user reviewed. Required with `definition`; if the organization profile or topic has changed since, the save fails with 409 and must be resolved again.",
+              "properties": {
+                "profile_revision": {
+                  "type": "integer"
+                },
+                "topic_fingerprint": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "profile_revision",
+                "topic_fingerprint"
+              ],
+              "type": "object"
+            },
             "confirm_query": {
               "description": "Write-only. `true` confirms the query still fits the requirement, clearing `query_stale` without changing the query or its version. Requires a query.",
               "type": "boolean"
@@ -789,6 +1003,9 @@ export const tools: readonly Tool[] = [
                   "type": "object"
                 }
               ]
+            },
+            "definition": {
+              "$ref": "#/$defs/cloudforce-one-events_PirDefinition"
             },
             "digest_interval_hours": {
               "description": "Hours between digests: 6, 12, or 24. Used only when `notification_mode` is `digest`.",
@@ -878,6 +1095,87 @@ export const tools: readonly Tool[] = [
                       "maxItems": 8,
                       "minItems": 1,
                       "type": "array"
+                    },
+                    "exclusions": {
+                      "default": {
+                        "actors": [],
+                        "attacker_countries": [],
+                        "categories": [],
+                        "cves": [],
+                        "keywords": [],
+                        "target_countries": [],
+                        "target_industries": [],
+                        "techniques": []
+                      },
+                      "properties": {
+                        "actors": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "maxItems": 20,
+                          "type": "array"
+                        },
+                        "attacker_countries": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "maxItems": 20,
+                          "type": "array"
+                        },
+                        "categories": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "maxItems": 20,
+                          "type": "array"
+                        },
+                        "cves": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "maxItems": 20,
+                          "type": "array"
+                        },
+                        "keywords": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "maxItems": 5,
+                          "type": "array"
+                        },
+                        "target_countries": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "maxItems": 20,
+                          "type": "array"
+                        },
+                        "target_industries": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "maxItems": 20,
+                          "type": "array"
+                        },
+                        "techniques": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "maxItems": 20,
+                          "type": "array"
+                        }
+                      },
+                      "required": [
+                        "actors",
+                        "attacker_countries",
+                        "categories",
+                        "cves",
+                        "keywords",
+                        "target_countries",
+                        "target_industries",
+                        "techniques"
+                      ],
+                      "type": "object"
                     },
                     "indicators": {
                       "items": {
@@ -978,7 +1276,8 @@ export const tools: readonly Tool[] = [
                                     "contains",
                                     "startsWith",
                                     "endsWith",
-                                    "find"
+                                    "find",
+                                    "notContains"
                                   ],
                                   "type": "string"
                                 },
@@ -1017,7 +1316,8 @@ export const tools: readonly Tool[] = [
                                 },
                                 "op": {
                                   "enum": [
-                                    "in"
+                                    "in",
+                                    "notIn"
                                   ],
                                   "type": "string"
                                 },
@@ -1084,7 +1384,8 @@ export const tools: readonly Tool[] = [
                                 },
                                 "op": {
                                   "enum": [
-                                    "in"
+                                    "in",
+                                    "notIn"
                                   ],
                                   "type": "string"
                                 },
@@ -1165,7 +1466,8 @@ export const tools: readonly Tool[] = [
                                 },
                                 "op": {
                                   "enum": [
-                                    "in"
+                                    "in",
+                                    "notIn"
                                   ],
                                   "type": "string"
                                 },
@@ -1241,6 +1543,10 @@ export const tools: readonly Tool[] = [
             "requirement": {
               "type": "string"
             },
+            "revision": {
+              "description": "The `revision` the change is based on. Required for structured PIRs; a different stored revision returns 409.",
+              "type": "integer"
+            },
             "status": {
               "description": "`draft`: not monitored. `active`: monitored, unless `pause_reason` is set. Setting `active` on a PIR with a `pause_reason` resumes it. Moving a PIR back to `draft` and activating it again starts matching afresh with a 30-day backfill.",
               "enum": [
@@ -1287,6 +1593,12 @@ export const tools: readonly Tool[] = [
         "path"
       ],
       additionalProperties: false,
+      $defs: {
+        "cloudforce-one-events_PirDefinition": cloudforce$$one$$events_PirDefinition,
+        "cloudforce-one-events_PirOrganizationReference": cloudforce$$one$$events_PirOrganizationReference,
+        "cloudforce-one-events_PirRelevanceCriterion": cloudforce$$one$$events_PirRelevanceCriterion,
+        "cloudforce-one-events_PirSelections": cloudforce$$one$$events_PirSelections,
+      },
     },
     annotations: {
       "destructiveHint": true,

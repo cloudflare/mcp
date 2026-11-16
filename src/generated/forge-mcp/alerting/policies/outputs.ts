@@ -50,6 +50,14 @@ export const aaa_filters: JSONObject = {
       },
       "type": "array"
     },
+    "check_id": {
+      "items": {
+        "format": "uuid",
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
     "enabled": {
       "items": {
         "type": "string"
@@ -182,6 +190,14 @@ export const aaa_filters: JSONObject = {
       },
       "type": "array"
     },
+    "query_id": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 1,
+      "minItems": 1,
+      "type": "array"
+    },
     "query_tag": {
       "items": {
         "type": "string"
@@ -240,6 +256,14 @@ export const aaa_filters: JSONObject = {
       "items": {
         "type": "string"
       },
+      "minItems": 1,
+      "type": "array"
+    },
+    "total_spend_dollars": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 1,
       "minItems": 1,
       "type": "array"
     },
@@ -343,7 +367,10 @@ export const aaa_policies: JSONObject = {
         "advanced_ddos_attack_l4_alert",
         "advanced_ddos_attack_l7_alert",
         "advanced_http_alert_error",
+        "attack_lifecycle",
+        "bgp_advertisement_change",
         "bgp_hijack_notification",
+        "billing_budget_alert",
         "billing_usage_alert",
         "block_notification_block_removed",
         "block_notification_new_block",
@@ -351,17 +378,25 @@ export const aaa_policies: JSONObject = {
         "bot_traffic_basic_alert",
         "brand_protection_alert",
         "brand_protection_digest",
+        "casb_weekly_digest",
         "clickhouse_alert_fw_anomaly",
         "clickhouse_alert_fw_ent_anomaly",
+        "closed_port_scan_alert",
         "cloudforce_one_request_notification",
+        "cmd_managed_defense_notification",
         "cni_maintenance_notification",
+        "containers_security_alert",
         "custom_analytics",
         "custom_bot_detection_alert",
         "custom_ssl_certificate_event_type",
         "dedicated_ssl_certificate_event_type",
         "device_connectivity_anomaly_alert",
+        "dex_device_connectivity_alert",
+        "dex_synthetic_test_availability_alert",
+        "dex_synthetic_test_latency_alert",
         "dos_attack_l4",
         "dos_attack_l7",
+        "executive_communications",
         "expiring_service_token_alert",
         "failing_logpush_job_disabled_alert",
         "fbm_auto_advertisement",
@@ -374,13 +409,18 @@ export const aaa_policies: JSONObject = {
         "image_notification",
         "image_resizing_notification",
         "incident_alert",
+        "leaked_service_token_alert",
         "load_balancing_health_alert",
         "load_balancing_pool_enablement_alert",
+        "log_explorer_ingest_rate_limit",
+        "log_explorer_scheduled_query_results_alert",
         "logo_match_alert",
+        "magic_endpoint_healthcheck_alert",
         "magic_tunnel_health_check_event",
         "magic_wan_tunnel_health",
         "maintenance_event_notification",
         "mtls_certificate_store_certificate_expiration_type",
+        "open_port_scan_alert",
         "pages_event_alert",
         "radar_notification",
         "real_origin_monitoring",
@@ -398,6 +438,9 @@ export const aaa_policies: JSONObject = {
         "secondary_dns_zone_validation_warning",
         "security_insights_alert",
         "sentinel_alert",
+        "stakeout_credential_leak_alert",
+        "stakeout_saved_query_daily_digest_alert",
+        "stakeout_saved_query_immediate_alert",
         "stream_live_notifications",
         "synthetic_test_latency_alert",
         "synthetic_test_low_availability_alert",
@@ -406,6 +449,9 @@ export const aaa_policies: JSONObject = {
         "tunnel_update_event",
         "universal_ssl_event_type",
         "web_analytics_metrics_update",
+        "workers_for_platforms_security_alert",
+        "workers_observability_alert",
+        "workers_observability_real_time_issue",
         "zone_aop_custom_certificate_expiration_type"
       ],
       "type": "string"

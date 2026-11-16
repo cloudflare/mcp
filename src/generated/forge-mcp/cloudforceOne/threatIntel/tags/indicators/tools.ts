@@ -46,9 +46,11 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "page": {
+              "description": "Page number (default 1). page × pageSize may not exceed 10000.",
               "type": "number"
             },
             "pageSize": {
+              "description": "Results per page (default 100, maximum 1000; larger values are clamped).",
               "type": "number"
             },
             "relatedEvent": {
@@ -124,6 +126,9 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
+        "failedShardCount": {
+          "type": "number"
+        },
         "indicators": {
           "items": {
             "properties": {
@@ -249,6 +254,9 @@ export const tools: readonly Tool[] = [
             "totalPages"
           ],
           "type": "object"
+        },
+        "partialResults": {
+          "type": "boolean"
         }
       },
       "required": [
@@ -286,6 +294,9 @@ export const tools: readonly Tool[] = [
         schemas: {
           "200": {
             "properties": {
+              "failedShardCount": {
+                "type": "number"
+              },
               "indicators": {
                 "items": {
                   "properties": {
@@ -411,6 +422,9 @@ export const tools: readonly Tool[] = [
                   "totalPages"
                 ],
                 "type": "object"
+              },
+              "partialResults": {
+                "type": "boolean"
               }
             },
             "required": [

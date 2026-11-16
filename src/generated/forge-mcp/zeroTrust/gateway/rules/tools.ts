@@ -70,6 +70,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "description": {
+              "default": "",
               "description": "Specify the rule description.",
               "type": "string"
             },
@@ -717,6 +718,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "description": {
+              "default": "",
               "description": "Specify the rule description.",
               "type": "string"
             },

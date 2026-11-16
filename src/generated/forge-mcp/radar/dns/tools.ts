@@ -8,7 +8,7 @@ import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
  */
 export const tools: readonly Tool[] = [
   {
-    name: "radar_dns_summaryV2",
+    name: "radar_dns_summary",
     title: "Get DNS summary by dimension",
     description: "Retrieves the distribution of DNS queries by the specified dimension.\n\nGET /radar/dns/summary/{dimension}",
     inputSchema: {
@@ -1632,7 +1632,7 @@ export const tools: readonly Tool[] = [
     },
   },
   {
-    name: "radar_dns_timeseriesGroupsV2",
+    name: "radar_dns_timeseriesGroups",
     title: "Get DNS time series grouped by dimension",
     description: "Retrieves the distribution of DNS queries grouped by dimension over time.\n\nGET /radar/dns/timeseries_groups/{dimension}",
     inputSchema: {

@@ -244,6 +244,35 @@ export const zones_automatic_platform_optimization: JSONObject = {
 };
 
 /**
+ * The schema of `zones_avif` in responses.
+ */
+export const zones_avif: JSONObject = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
+    },
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "avif"
+          ],
+          "type": "string"
+        },
+        "value": {
+          "enum": [
+            "off",
+            "on"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `zones_base` in responses.
  */
 export const zones_base: JSONObject = {
@@ -1964,6 +1993,9 @@ export const zones_setting: JSONObject = {
     },
     {
       "$ref": "#/$defs/zones_webp"
+    },
+    {
+      "$ref": "#/$defs/zones_avif"
     },
     {
       "$ref": "#/$defs/zones_websockets"

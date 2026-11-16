@@ -24,6 +24,102 @@ import {
  */
 export const tools: readonly Tool[] = [
   {
+    name: "durableObjects_namespaces_export",
+    title: "Export a Durable Object's SQLite database",
+    description: "Downloads a SQLite-backed Durable Object's database as a zip of main.sqlite and main.sqlite-wal, as of its last write to durable storage. If the export could not read all of the object's history, it holds the last state it could read and an INCOMPLETE.txt. Select the object by ID, or by name and jurisdiction.\n\nThis method is beta.\n\nGET /accounts/{account_id}/workers/durable_objects/namespaces/{id}/export",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            },
+            "id": {
+              "description": "ID of the namespace.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "id"
+          ],
+          "type": "object"
+        },
+        "query": {
+          "additionalProperties": false,
+          "properties": {
+            "durable_object_id": {
+              "description": "The Durable Object's ID. Required unless durable_object_name is given.",
+              "type": "string"
+            },
+            "durable_object_name": {
+              "description": "The name the Durable Object's ID was derived from.",
+              "type": "string"
+            },
+            "jurisdiction": {
+              "description": "The jurisdiction of a Durable Object selected by name.",
+              "enum": [
+                "fedramp",
+                "eu",
+                "none"
+              ],
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      required: [
+        "path"
+      ],
+      additionalProperties: false,
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Export a Durable Object's SQLite database"
+    },
+    [OPERATION]: {
+      method: "GET",
+      path: "/accounts/{account_id}/workers/durable_objects/namespaces/{id}/export",
+      pathOf: encodePath`/accounts/${"account_id"}/workers/durable_objects/namespaces/${"id"}/export`,
+      query: [
+        { name: "durable_object_id", explode: true },
+        { name: "durable_object_name", explode: true },
+        { name: "jurisdiction", explode: true },
+      ],
+      extensions: {
+        "x-api-token-group": [
+          "Workers Scripts Write",
+          "Workers Scripts Read"
+        ],
+        "x-fern-audiences": [
+          "sdk"
+        ]
+      },
+      responses: {
+        schemas: {
+          "200": null,
+          "4XX": {
+            "$ref": "#/$defs/workers_api-response-common-failure"
+          },
+          "503": {
+            "$ref": "#/$defs/workers_api-response-common-failure"
+          }
+        },
+        $defs: {
+          "workers_api-response-common-failure": workers_api$$response$$common$$failure,
+          "workers_messages": workers_messages,
+        },
+      },
+    },
+  },
+  {
     name: "durableObjects_namespaces_list",
     title: "List Durable Object Namespaces",
     description: "Returns the Durable Object namespaces owned by an account.\n\nGET /accounts/{account_id}/workers/durable_objects/namespaces",

@@ -7,7 +7,7 @@ import type { JSONObject } from "@modelcontextprotocol/server";
  * The schema of `tls-certificates-and-hostnames_ct_alerting_emails`.
  */
 export const tls$$certificates$$and$$hostnames_ct_alerting_emails: JSONObject = {
-  "description": "Email addresses that receive CT alert notifications for the zone. A maximum of 100 addresses may be configured. Each address must be a valid RFC 5322 email address and must not contain a comma.",
+  "description": "Email addresses that receive CT alert notifications for the zone. A maximum of 100 addresses may be configured. Each address must be a valid RFC 5322 email address and must not contain a comma. Omitted from responses when no addresses are configured.",
   "items": {
     "type": "string"
   },
@@ -24,7 +24,7 @@ export const tls$$certificates$$and$$hostnames_ct_alerting_subscription_update: 
   "properties": {
     "emails": {
       "$ref": "#/$defs/tls-certificates-and-hostnames_ct_alerting_emails",
-      "description": "Email addresses that receive CT alert notifications for the zone. A maximum of 100 addresses may be configured. Each address must be a valid RFC 5322 email address and must not contain a comma."
+      "description": "Email addresses that receive CT alert notifications for the zone. A maximum of 100 addresses may be configured. Each address must be a valid RFC 5322 email address and must not contain a comma. Omitted from responses when no addresses are configured."
     },
     "enabled": {
       "description": "Whether CT alerting is enabled for the zone.",

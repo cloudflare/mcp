@@ -5,6 +5,7 @@ import { OPERATION, type Tool, encodePath } from "../_/tool.js";
 import {
   lex_ErrorResponse,
   lex_QueryResponse,
+  lex_QueryResultInfo,
   lex_QueryRow,
   lex_V4Error,
 } from "./outputs.js";
@@ -78,6 +79,7 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/lex_QueryResponse",
       $defs: {
         "lex_QueryResponse": lex_QueryResponse,
+        "lex_QueryResultInfo": lex_QueryResultInfo,
         "lex_QueryRow": lex_QueryRow,
         "lex_V4Error": lex_V4Error,
       },
@@ -99,7 +101,6 @@ export const tools: readonly Tool[] = [
           "Logs Write",
           "Logs Read"
         ],
-        "x-auditable": false,
         "x-stability": "beta"
       },
       responses: {
@@ -123,6 +124,7 @@ export const tools: readonly Tool[] = [
         $defs: {
           "lex_ErrorResponse": lex_ErrorResponse,
           "lex_QueryResponse": lex_QueryResponse,
+          "lex_QueryResultInfo": lex_QueryResultInfo,
           "lex_QueryRow": lex_QueryRow,
           "lex_V4Error": lex_V4Error,
         },

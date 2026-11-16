@@ -21,7 +21,7 @@ import {
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zones_ratePlans_get",
+    name: "zones_ratePlans_list",
     title: "List Available Rate Plans",
     description: "Lists all rate plans the zone can subscribe to.\n\nGET /zones/{zone_id}/available_rate_plans",
     inputSchema: {

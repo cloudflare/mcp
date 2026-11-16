@@ -63,11 +63,6 @@ export const dns$$settings_dns$$settings$$patch: JSONObject = {
       "description": "Whether to flatten all CNAME records in the zone. Note that, due to DNS limitations, a CNAME record at the zone apex will always be flattened.",
       "type": "boolean"
     },
-    "foundation_dns": {
-      "deprecated": true,
-      "description": "Deprecated. Use nameservers.type to configure Advanced Nameservers.",
-      "type": "boolean"
-    },
     "internal_dns": {
       "$ref": "#/$defs/dns-settings_internal_dns_base",
       "description": "Settings for this internal zone."

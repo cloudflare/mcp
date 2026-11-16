@@ -314,6 +314,83 @@ export const cloudflare$$pipelines_PipelineEdge: JSONObject = {
 };
 
 /**
+ * The schema of `cloudflare-pipelines_PipelineExtended` in responses.
+ */
+export const cloudflare$$pipelines_PipelineExtended: JSONObject = {
+  "properties": {
+    "created_at": {
+      "type": "string"
+    },
+    "failure_reason": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "modified_at": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "outdated": {
+      "type": "boolean"
+    },
+    "sql": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "tables": {
+      "items": {
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "latest": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "stream",
+              "sink"
+            ],
+            "type": "string"
+          },
+          "version": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "latest",
+          "name",
+          "type",
+          "version"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "created_at",
+    "id",
+    "modified_at",
+    "name",
+    "outdated",
+    "sql",
+    "status",
+    "tables"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `cloudflare-pipelines_PipelineGraph` in responses.
  */
 export const cloudflare$$pipelines_PipelineGraph: JSONObject = {

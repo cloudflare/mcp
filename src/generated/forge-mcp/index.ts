@@ -132,6 +132,7 @@ import { tools as brandProtection_matchesTools } from "./brandProtection/matches
 import { tools as brandProtection_queriesTools } from "./brandProtection/queries/tools.js";
 import { tools as brandProtectionTools } from "./brandProtection/tools.js";
 import { tools as brandProtection_trialTools } from "./brandProtection/trial/tools.js";
+import { tools as brandProtection_urlsTools } from "./brandProtection/urls/tools.js";
 import { tools as browserRun_crawlTools } from "./browserRun/crawl/tools.js";
 import { tools as browserRun_devtools_browser_liveViewTools } from "./browserRun/devtools/browser/liveView/tools.js";
 import { tools as browserRun_devtools_browser_targetsTools } from "./browserRun/devtools/browser/targets/tools.js";
@@ -141,9 +142,10 @@ import { tools as browserRun_devtools_sessionTools } from "./browserRun/devtools
 import { tools as browserRun_quickActionTools } from "./browserRun/quickAction/tools.js";
 import { tools as browserRun_recording_networkTools } from "./browserRun/recording/network/tools.js";
 import { tools as browserRun_recordingTools } from "./browserRun/recording/tools.js";
+import { tools as browserRun_scriptTools } from "./browserRun/script/tools.js";
 import { tools as builds_deployHooksTools } from "./builds/deployHooks/tools.js";
 import { tools as builds_limitsTools } from "./builds/limits/tools.js";
-import { tools as builds_logsTools } from "./builds/logs/tools.js";
+import { tools as builds_previewsTools } from "./builds/previews/tools.js";
 import { tools as builds_repos_configAutofillTools } from "./builds/repos/configAutofill/tools.js";
 import { tools as builds_repos_connectionsTools } from "./builds/repos/connections/tools.js";
 import { tools as builds_tokensTools } from "./builds/tokens/tools.js";
@@ -179,6 +181,7 @@ import { tools as cloudforceOne_priorityIntelligence_matchesTools } from "./clou
 import { tools as cloudforceOne_priorityIntelligence_profileTools } from "./cloudforceOne/priorityIntelligence/profile/tools.js";
 import { tools as cloudforceOne_priorityIntelligence_quotaTools } from "./cloudforceOne/priorityIntelligence/quota/tools.js";
 import { tools as cloudforceOne_priorityIntelligenceTools } from "./cloudforceOne/priorityIntelligence/tools.js";
+import { tools as cloudforceOne_priorityIntelligence_topicsTools } from "./cloudforceOne/priorityIntelligence/topics/tools.js";
 import { tools as cloudforceOne_requests_assetsTools } from "./cloudforceOne/requests/assets/tools.js";
 import { tools as cloudforceOne_requests_constantsTools } from "./cloudforceOne/requests/constants/tools.js";
 import { tools as cloudforceOne_requests_legalResponseTools } from "./cloudforceOne/requests/legalResponse/tools.js";
@@ -202,6 +205,7 @@ import { tools as cloudforceOne_scans_resultsTools } from "./cloudforceOne/scans
 import { tools as cloudforceOne_threatIntel_datasets_access_groups_membersTools } from "./cloudforceOne/threatIntel/datasets/access/groups/members/tools.js";
 import { tools as cloudforceOne_threatIntel_datasets_access_groupsTools } from "./cloudforceOne/threatIntel/datasets/access/groups/tools.js";
 import { tools as cloudforceOne_threatIntel_datasets_access_permissionsTools } from "./cloudforceOne/threatIntel/datasets/access/permissions/tools.js";
+import { tools as cloudforceOne_threatIntel_datasets_preferencesTools } from "./cloudforceOne/threatIntel/datasets/preferences/tools.js";
 import { tools as cloudforceOne_threatIntel_datasetsTools } from "./cloudforceOne/threatIntel/datasets/tools.js";
 import { tools as cloudforceOne_threatIntel_events_attackersTools } from "./cloudforceOne/threatIntel/events/attackers/tools.js";
 import { tools as cloudforceOne_threatIntel_events_categories_catalogTools } from "./cloudforceOne/threatIntel/events/categories/catalog/tools.js";
@@ -249,6 +253,7 @@ import { tools as containers_applications_versionsTools } from "./containers/app
 import { tools as containers_imagesTools } from "./containers/images/tools.js";
 import { tools as containers_registries_credentialsTools } from "./containers/registries/credentials/tools.js";
 import { tools as containers_registriesTools } from "./containers/registries/tools.js";
+import { tools as containersTools } from "./containers/tools.js";
 import { tools as contentScan_expressionsTools } from "./contentScan/expressions/tools.js";
 import { tools as contentScanTools } from "./contentScan/tools.js";
 import { tools as cpsTools } from "./cps/tools.js";
@@ -262,6 +267,7 @@ import { tools as customNameserversTools } from "./customNameservers/tools.js";
 import { tools as customPages_accountAssetsTools } from "./customPages/accountAssets/tools.js";
 import { tools as customPages_accountCustomPages_previewTokensTools } from "./customPages/accountCustomPages/previewTokens/tools.js";
 import { tools as customPages_accountCustomPagesTools } from "./customPages/accountCustomPages/tools.js";
+import { tools as d1_insightsTools } from "./d1/insights/tools.js";
 import { tools as d1_timeTravelTools } from "./d1/timeTravel/tools.js";
 import { tools as d1Tools } from "./d1/tools.js";
 import { tools as diagnostics_endpointHealthchecksTools } from "./diagnostics/endpointHealthchecks/tools.js";
@@ -270,18 +276,16 @@ import { tools as dls_regionalServices_prefixBindingsTools } from "./dls/regiona
 import { tools as dls_regionsTools } from "./dls/regions/tools.js";
 import { tools as dns_dnssec_listTools } from "./dns/dnssec/list/tools.js";
 import { tools as dns_dnssecTools } from "./dns/dnssec/tools.js";
-import { tools as dns_domainconnectTools } from "./dns/domainconnect/tools.js";
 import { tools as dns_recordsTools } from "./dns/records/tools.js";
 import { tools as dns_settings_account_nameserverSetsTools } from "./dns/settings/account/nameserverSets/tools.js";
 import { tools as dns_settings_accountTools } from "./dns/settings/account/tools.js";
 import { tools as dns_settings_account_viewsTools } from "./dns/settings/account/views/tools.js";
 import { tools as dns_usage_accountTools } from "./dns/usage/account/tools.js";
 import { tools as dns_zoneTransfers_aclsTools } from "./dns/zoneTransfers/acls/tools.js";
-import { tools as dns_zoneTransfers_forceAxfrTools } from "./dns/zoneTransfers/forceAxfr/tools.js";
 import { tools as dns_zoneTransfers_incomingTools } from "./dns/zoneTransfers/incoming/tools.js";
-import { tools as dns_zoneTransfers_outgoing_statusTools } from "./dns/zoneTransfers/outgoing/status/tools.js";
 import { tools as dns_zoneTransfers_outgoingTools } from "./dns/zoneTransfers/outgoing/tools.js";
 import { tools as dns_zoneTransfers_peersTools } from "./dns/zoneTransfers/peers/tools.js";
+import { tools as dns_zoneTransfersTools } from "./dns/zoneTransfers/tools.js";
 import { tools as dns_zoneTransfers_tsigsTools } from "./dns/zoneTransfers/tsigs/tools.js";
 import { tools as dnsFirewall_reverseDnsTools } from "./dnsFirewall/reverseDns/tools.js";
 import { tools as dnsFirewallTools } from "./dnsFirewall/tools.js";
@@ -289,7 +293,6 @@ import { tools as durableObjects_namespaces_objectsTools } from "./durableObject
 import { tools as durableObjects_namespacesTools } from "./durableObjects/namespaces/tools.js";
 import { tools as emailAuth_dmarcReportsTools } from "./emailAuth/dmarcReports/tools.js";
 import { tools as emailAuth_spfTools } from "./emailAuth/spf/tools.js";
-import { tools as emailDomainsTools } from "./emailDomains/tools.js";
 import { tools as emailRouting_addressesTools } from "./emailRouting/addresses/tools.js";
 import { tools as emailRouting_dnsTools } from "./emailRouting/dns/tools.js";
 import { tools as emailRouting_rules_catchAllTools } from "./emailRouting/rules/catchAll/tools.js";
@@ -372,7 +375,6 @@ import { tools as intel_sinkholes_ingressesTools } from "./intel/sinkholes/ingre
 import { tools as intel_sinkholesTools } from "./intel/sinkholes/tools.js";
 import { tools as intel_urlsTools } from "./intel/urls/tools.js";
 import { tools as intel_whoisTools } from "./intel/whois/tools.js";
-import { tools as internal_submitTools } from "./internal/submit/tools.js";
 import { tools as ipsTools } from "./ips/tools.js";
 import { tools as k2_streams_subscriptionsTools } from "./k2/streams/subscriptions/tools.js";
 import { tools as k2_streamsTools } from "./k2/streams/tools.js";
@@ -382,7 +384,6 @@ import { tools as kv_metadataTools } from "./kv/metadata/tools.js";
 import { tools as kv_namespacesTools } from "./kv/namespaces/tools.js";
 import { tools as leakedCredentialChecks_detectionsTools } from "./leakedCredentialChecks/detections/tools.js";
 import { tools as leakedCredentialChecksTools } from "./leakedCredentialChecks/tools.js";
-import { tools as liveTools } from "./live/tools.js";
 import { tools as loadBalancers_accountTools } from "./loadBalancers/account/tools.js";
 import { tools as loadBalancers_account_usageTools } from "./loadBalancers/account/usage/tools.js";
 import { tools as loadBalancers_monitorGroups_referencesTools } from "./loadBalancers/monitorGroups/references/tools.js";
@@ -478,7 +479,7 @@ import { tools as networkInterconnects_cnisTools } from "./networkInterconnects/
 import { tools as networkInterconnects_interconnectsTools } from "./networkInterconnects/interconnects/tools.js";
 import { tools as networkInterconnects_settingsTools } from "./networkInterconnects/settings/tools.js";
 import { tools as networkInterconnects_slotsTools } from "./networkInterconnects/slots/tools.js";
-import { tools as o11y_agents_sessionsTools } from "./o11y/agents/sessions/tools.js";
+import { tools as o11y_agents_tracesTools } from "./o11y/agents/traces/tools.js";
 import { tools as o11y_destinationsTools } from "./o11y/destinations/tools.js";
 import { tools as o11y_issues_automationsTools } from "./o11y/issues/automations/tools.js";
 import { tools as o11y_issuesTools } from "./o11y/issues/tools.js";
@@ -552,11 +553,13 @@ import { tools as radar_agentReadinessTools } from "./radar/agentReadiness/tools
 import { tools as radar_ai_botsTools } from "./radar/ai/bots/tools.js";
 import { tools as radar_ai_inferenceTools } from "./radar/ai/inference/tools.js";
 import { tools as radar_ai_markdownForAgentsTools } from "./radar/ai/markdownForAgents/tools.js";
-import { tools as radar_ai_timeseriesGroupsTools } from "./radar/ai/timeseriesGroups/tools.js";
 import { tools as radar_annotations_outagesTools } from "./radar/annotations/outages/tools.js";
 import { tools as radar_annotationsTools } from "./radar/annotations/tools.js";
 import { tools as radar_as112Tools } from "./radar/as112/tools.js";
-import { tools as radar_as112_topTools } from "./radar/as112/top/tools.js";
+import { tools as radar_as112_top_locations_dnssecTools } from "./radar/as112/top/locations/dnssec/tools.js";
+import { tools as radar_as112_top_locations_ednsTools } from "./radar/as112/top/locations/edns/tools.js";
+import { tools as radar_as112_top_locations_ipVersionTools } from "./radar/as112/top/locations/ipVersion/tools.js";
+import { tools as radar_as112_top_locationsTools } from "./radar/as112/top/locations/tools.js";
 import { tools as radar_attacks_layer3Tools } from "./radar/attacks/layer3/tools.js";
 import { tools as radar_attacks_layer3_top_locationsTools } from "./radar/attacks/layer3/top/locations/tools.js";
 import { tools as radar_attacks_layer3_topTools } from "./radar/attacks/layer3/top/tools.js";
@@ -576,8 +579,8 @@ import { tools as radar_bgp_rpki_roasTools } from "./radar/bgp/rpki/roas/tools.j
 import { tools as radar_bgpTools } from "./radar/bgp/tools.js";
 import { tools as radar_bgp_top_asesTools } from "./radar/bgp/top/ases/tools.js";
 import { tools as radar_bgp_topTools } from "./radar/bgp/top/tools.js";
+import { tools as radar_bots_crawlersTools } from "./radar/bots/crawlers/tools.js";
 import { tools as radar_botsTools } from "./radar/bots/tools.js";
-import { tools as radar_bots_webCrawlersTools } from "./radar/bots/webCrawlers/tools.js";
 import { tools as radar_ct_authoritiesTools } from "./radar/ct/authorities/tools.js";
 import { tools as radar_ct_logsTools } from "./radar/ct/logs/tools.js";
 import { tools as radar_ctTools } from "./radar/ct/tools.js";
@@ -591,28 +594,28 @@ import { tools as radar_email_security_top_tlds_spamTools } from "./radar/email/
 import { tools as radar_email_security_top_tlds_spoofTools } from "./radar/email/security/top/tlds/spoof/tools.js";
 import { tools as radar_email_security_top_tldsTools } from "./radar/email/security/top/tlds/tools.js";
 import { tools as radar_entities_asnsTools } from "./radar/entities/asns/tools.js";
+import { tools as radar_entities_ipsTools } from "./radar/entities/ips/tools.js";
 import { tools as radar_entities_locationsTools } from "./radar/entities/locations/tools.js";
-import { tools as radar_entitiesTools } from "./radar/entities/tools.js";
 import { tools as radar_geolocationsTools } from "./radar/geolocations/tools.js";
-import { tools as radar_http_ases_botClassTools } from "./radar/http/ases/botClass/tools.js";
-import { tools as radar_http_ases_browserFamilyTools } from "./radar/http/ases/browserFamily/tools.js";
-import { tools as radar_http_ases_deviceTypeTools } from "./radar/http/ases/deviceType/tools.js";
-import { tools as radar_http_ases_httpMethodTools } from "./radar/http/ases/httpMethod/tools.js";
-import { tools as radar_http_ases_httpProtocolTools } from "./radar/http/ases/httpProtocol/tools.js";
-import { tools as radar_http_ases_ipVersionTools } from "./radar/http/ases/ipVersion/tools.js";
-import { tools as radar_http_ases_osTools } from "./radar/http/ases/os/tools.js";
-import { tools as radar_http_ases_tlsVersionTools } from "./radar/http/ases/tlsVersion/tools.js";
-import { tools as radar_http_asesTools } from "./radar/http/ases/tools.js";
-import { tools as radar_http_locations_botClassTools } from "./radar/http/locations/botClass/tools.js";
-import { tools as radar_http_locations_browserFamilyTools } from "./radar/http/locations/browserFamily/tools.js";
-import { tools as radar_http_locations_deviceTypeTools } from "./radar/http/locations/deviceType/tools.js";
-import { tools as radar_http_locations_httpMethodTools } from "./radar/http/locations/httpMethod/tools.js";
-import { tools as radar_http_locations_httpProtocolTools } from "./radar/http/locations/httpProtocol/tools.js";
-import { tools as radar_http_locations_ipVersionTools } from "./radar/http/locations/ipVersion/tools.js";
-import { tools as radar_http_locations_osTools } from "./radar/http/locations/os/tools.js";
-import { tools as radar_http_locations_tlsVersionTools } from "./radar/http/locations/tlsVersion/tools.js";
-import { tools as radar_http_locationsTools } from "./radar/http/locations/tools.js";
 import { tools as radar_httpTools } from "./radar/http/tools.js";
+import { tools as radar_http_top_ases_botClassTools } from "./radar/http/top/ases/botClass/tools.js";
+import { tools as radar_http_top_ases_browserFamilyTools } from "./radar/http/top/ases/browserFamily/tools.js";
+import { tools as radar_http_top_ases_deviceTypeTools } from "./radar/http/top/ases/deviceType/tools.js";
+import { tools as radar_http_top_ases_httpProtocolTools } from "./radar/http/top/ases/httpProtocol/tools.js";
+import { tools as radar_http_top_ases_httpVersionTools } from "./radar/http/top/ases/httpVersion/tools.js";
+import { tools as radar_http_top_ases_ipVersionTools } from "./radar/http/top/ases/ipVersion/tools.js";
+import { tools as radar_http_top_ases_osTools } from "./radar/http/top/ases/os/tools.js";
+import { tools as radar_http_top_ases_tlsVersionTools } from "./radar/http/top/ases/tlsVersion/tools.js";
+import { tools as radar_http_top_asesTools } from "./radar/http/top/ases/tools.js";
+import { tools as radar_http_top_locations_botClassTools } from "./radar/http/top/locations/botClass/tools.js";
+import { tools as radar_http_top_locations_browserFamilyTools } from "./radar/http/top/locations/browserFamily/tools.js";
+import { tools as radar_http_top_locations_deviceTypeTools } from "./radar/http/top/locations/deviceType/tools.js";
+import { tools as radar_http_top_locations_httpProtocolTools } from "./radar/http/top/locations/httpProtocol/tools.js";
+import { tools as radar_http_top_locations_httpVersionTools } from "./radar/http/top/locations/httpVersion/tools.js";
+import { tools as radar_http_top_locations_ipVersionTools } from "./radar/http/top/locations/ipVersion/tools.js";
+import { tools as radar_http_top_locations_osTools } from "./radar/http/top/locations/os/tools.js";
+import { tools as radar_http_top_locations_tlsVersionTools } from "./radar/http/top/locations/tlsVersion/tools.js";
+import { tools as radar_http_top_locationsTools } from "./radar/http/top/locations/tools.js";
 import { tools as radar_leakedCredentialsTools } from "./radar/leakedCredentials/tools.js";
 import { tools as radar_netflowsTools } from "./radar/netflows/tools.js";
 import { tools as radar_netflows_topTools } from "./radar/netflows/top/tools.js";
@@ -633,7 +636,6 @@ import { tools as radar_tlds_performanceTools } from "./radar/tlds/performance/t
 import { tools as radar_tldsTools } from "./radar/tlds/tools.js";
 import { tools as radar_trafficAnomalies_locationsTools } from "./radar/trafficAnomalies/locations/tools.js";
 import { tools as radar_trafficAnomaliesTools } from "./radar/trafficAnomalies/tools.js";
-import { tools as readyTools } from "./ready/tools.js";
 import { tools as realtime_kit_analytics_livestreams_dailyTools } from "./realtime/kit/analytics/livestreams/daily/tools.js";
 import { tools as realtime_kit_analytics_livestreamsTools } from "./realtime/kit/analytics/livestreams/tools.js";
 import { tools as realtime_kit_analytics_usageTools } from "./realtime/kit/analytics/usage/tools.js";
@@ -702,7 +704,6 @@ import { tools as securityInsights_scansTools } from "./securityInsights/scans/t
 import { tools as securityInsights_stateTools } from "./securityInsights/state/tools.js";
 import { tools as securityInsightsTools } from "./securityInsights/tools.js";
 import { tools as securityTxtTools } from "./securityTxt/tools.js";
-import { tools as signedUrlTools } from "./signedUrl/tools.js";
 import { tools as smartShield_cacheReserveClearTools } from "./smartShield/cacheReserveClear/tools.js";
 import { tools as smartShield_healthChecksTools } from "./smartShield/healthChecks/tools.js";
 import { tools as smartShieldTools } from "./smartShield/tools.js";
@@ -842,8 +843,6 @@ import { tools as workers_tailTools } from "./workers/tail/tools.js";
 import { tools as workersTools } from "./workers/tools.js";
 import { tools as workers_versions_latestTools } from "./workers/versions/latest/tools.js";
 import { tools as workers_versionsTools } from "./workers/versions/tools.js";
-import { tools as workersBuilds_workers_previewsTools } from "./workersBuilds/workers/previews/tools.js";
-import { tools as workersBuilds_workersTools } from "./workersBuilds/workers/tools.js";
 import { tools as workersForPlatforms_dispatchNamespaces_scripts_assets_uploadTools } from "./workersForPlatforms/dispatchNamespaces/scripts/assets/upload/tools.js";
 import { tools as workersForPlatforms_dispatchNamespaces_scripts_bindingsTools } from "./workersForPlatforms/dispatchNamespaces/scripts/bindings/tools.js";
 import { tools as workersForPlatforms_dispatchNamespaces_scripts_contentTools } from "./workersForPlatforms/dispatchNamespaces/scripts/content/tools.js";
@@ -890,7 +889,6 @@ import { tools as zeroTrust_access_samlEncryptionCertificatesTools } from "./zer
 import { tools as zeroTrust_access_serviceTokensTools } from "./zeroTrust/access/serviceTokens/tools.js";
 import { tools as zeroTrust_access_signingKeysTools } from "./zeroTrust/access/signingKeys/tools.js";
 import { tools as zeroTrust_access_tagsTools } from "./zeroTrust/access/tags/tools.js";
-import { tools as zeroTrust_access_targets_bulkTools } from "./zeroTrust/access/targets/bulk/tools.js";
 import { tools as zeroTrust_access_targetsTools } from "./zeroTrust/access/targets/tools.js";
 import { tools as zeroTrust_access_userPopulationsTools } from "./zeroTrust/access/userPopulations/tools.js";
 import { tools as zeroTrust_access_userPopulations_usersTools } from "./zeroTrust/access/userPopulations/users/tools.js";
@@ -933,8 +931,6 @@ import { tools as zeroTrust_devices_networksTools } from "./zeroTrust/devices/ne
 import { tools as zeroTrust_devices_overrideCodesTools } from "./zeroTrust/devices/overrideCodes/tools.js";
 import { tools as zeroTrust_devices_posture_integrationsTools } from "./zeroTrust/devices/posture/integrations/tools.js";
 import { tools as zeroTrust_devices_posture_rulesTools } from "./zeroTrust/devices/posture/rules/tools.js";
-import { tools as zeroTrust_devices_profiles_customTools } from "./zeroTrust/devices/profiles/custom/tools.js";
-import { tools as zeroTrust_devices_profiles_defaultTools } from "./zeroTrust/devices/profiles/default/tools.js";
 import { tools as zeroTrust_devices_registrations_overrideCodesTools } from "./zeroTrust/devices/registrations/overrideCodes/tools.js";
 import { tools as zeroTrust_devices_registrationsTools } from "./zeroTrust/devices/registrations/tools.js";
 import { tools as zeroTrust_devices_settingsTools } from "./zeroTrust/devices/settings/tools.js";
@@ -1004,12 +1000,13 @@ import { tools as zeroTrust_identityProvidersTools } from "./zeroTrust/identityP
 import { tools as zeroTrust_organization_dohTools } from "./zeroTrust/organization/doh/tools.js";
 import { tools as zeroTrust_organizationTools } from "./zeroTrust/organization/tools.js";
 import { tools as zeroTrust_organization_trustSettingsTools } from "./zeroTrust/organization/trustSettings/tools.js";
+import { tools as zeroTrust_regionTools } from "./zeroTrust/region/tools.js";
+import { tools as zeroTrust_regionsTools } from "./zeroTrust/regions/tools.js";
 import { tools as zeroTrust_riskScoring_behavioursTools } from "./zeroTrust/riskScoring/behaviours/tools.js";
 import { tools as zeroTrust_riskScoring_integrations_referencesTools } from "./zeroTrust/riskScoring/integrations/references/tools.js";
 import { tools as zeroTrust_riskScoring_integrationsTools } from "./zeroTrust/riskScoring/integrations/tools.js";
 import { tools as zeroTrust_riskScoring_summaryTools } from "./zeroTrust/riskScoring/summary/tools.js";
 import { tools as zeroTrust_riskScoringTools } from "./zeroTrust/riskScoring/tools.js";
-import { tools as zeroTrust_seatsTools } from "./zeroTrust/seats/tools.js";
 import { tools as zeroTrust_users_mfa_authenticatorsTools } from "./zeroTrust/users/mfa/authenticators/tools.js";
 import { tools as zeroTrust_users_passkeysTools } from "./zeroTrust/users/passkeys/tools.js";
 import { tools as zones_activationCheckTools } from "./zones/activationCheck/tools.js";
@@ -1181,6 +1178,7 @@ export const tools: readonly Tool[] = [
   ...brandProtection_matchesTools,
   ...brandProtection_queriesTools,
   ...brandProtection_trialTools,
+  ...brandProtection_urlsTools,
   ...browserRun_crawlTools,
   ...browserRun_devtools_browserTools,
   ...browserRun_devtools_browser_liveViewTools,
@@ -1190,10 +1188,11 @@ export const tools: readonly Tool[] = [
   ...browserRun_quickActionTools,
   ...browserRun_recordingTools,
   ...browserRun_recording_networkTools,
+  ...browserRun_scriptTools,
   ...buildsTools,
   ...builds_deployHooksTools,
   ...builds_limitsTools,
-  ...builds_logsTools,
+  ...builds_previewsTools,
   ...builds_repos_configAutofillTools,
   ...builds_repos_connectionsTools,
   ...builds_tokensTools,
@@ -1228,6 +1227,7 @@ export const tools: readonly Tool[] = [
   ...cloudforceOne_priorityIntelligence_matchesTools,
   ...cloudforceOne_priorityIntelligence_profileTools,
   ...cloudforceOne_priorityIntelligence_quotaTools,
+  ...cloudforceOne_priorityIntelligence_topicsTools,
   ...cloudforceOne_requestsTools,
   ...cloudforceOne_requests_assetsTools,
   ...cloudforceOne_requests_constantsTools,
@@ -1253,6 +1253,7 @@ export const tools: readonly Tool[] = [
   ...cloudforceOne_threatIntel_datasets_access_groupsTools,
   ...cloudforceOne_threatIntel_datasets_access_groups_membersTools,
   ...cloudforceOne_threatIntel_datasets_access_permissionsTools,
+  ...cloudforceOne_threatIntel_datasets_preferencesTools,
   ...cloudforceOne_threatIntel_eventsTools,
   ...cloudforceOne_threatIntel_events_attackersTools,
   ...cloudforceOne_threatIntel_events_categoriesTools,
@@ -1291,6 +1292,7 @@ export const tools: readonly Tool[] = [
   ...connectorTelemetryEventsTools,
   ...connectorTelemetrySnapshotsTools,
   ...connectorsTools,
+  ...containersTools,
   ...containers_applicationsTools,
   ...containers_applications_instancesTools,
   ...containers_applications_rolloutsTools,
@@ -1312,6 +1314,7 @@ export const tools: readonly Tool[] = [
   ...customPages_accountCustomPagesTools,
   ...customPages_accountCustomPages_previewTokensTools,
   ...d1Tools,
+  ...d1_insightsTools,
   ...d1_timeTravelTools,
   ...diagnostics_endpointHealthchecksTools,
   ...diagnostics_traceroutesTools,
@@ -1319,17 +1322,15 @@ export const tools: readonly Tool[] = [
   ...dls_regionsTools,
   ...dns_dnssecTools,
   ...dns_dnssec_listTools,
-  ...dns_domainconnectTools,
   ...dns_recordsTools,
   ...dns_settings_accountTools,
   ...dns_settings_account_nameserverSetsTools,
   ...dns_settings_account_viewsTools,
   ...dns_usage_accountTools,
+  ...dns_zoneTransfersTools,
   ...dns_zoneTransfers_aclsTools,
-  ...dns_zoneTransfers_forceAxfrTools,
   ...dns_zoneTransfers_incomingTools,
   ...dns_zoneTransfers_outgoingTools,
-  ...dns_zoneTransfers_outgoing_statusTools,
   ...dns_zoneTransfers_peersTools,
   ...dns_zoneTransfers_tsigsTools,
   ...dnsFirewallTools,
@@ -1338,7 +1339,6 @@ export const tools: readonly Tool[] = [
   ...durableObjects_namespaces_objectsTools,
   ...emailAuth_dmarcReportsTools,
   ...emailAuth_spfTools,
-  ...emailDomainsTools,
   ...emailRoutingTools,
   ...emailRouting_addressesTools,
   ...emailRouting_dnsTools,
@@ -1421,7 +1421,6 @@ export const tools: readonly Tool[] = [
   ...intel_sinkholes_ingressesTools,
   ...intel_urlsTools,
   ...intel_whoisTools,
-  ...internal_submitTools,
   ...ipsTools,
   ...k2_streamsTools,
   ...k2_streams_subscriptionsTools,
@@ -1431,7 +1430,6 @@ export const tools: readonly Tool[] = [
   ...kv_namespacesTools,
   ...leakedCredentialChecksTools,
   ...leakedCredentialChecks_detectionsTools,
-  ...liveTools,
   ...loadBalancers_accountTools,
   ...loadBalancers_account_usageTools,
   ...loadBalancers_monitorGroupsTools,
@@ -1528,7 +1526,7 @@ export const tools: readonly Tool[] = [
   ...networkInterconnects_settingsTools,
   ...networkInterconnects_slotsTools,
   ...o11yTools,
-  ...o11y_agents_sessionsTools,
+  ...o11y_agents_tracesTools,
   ...o11y_destinationsTools,
   ...o11y_issuesTools,
   ...o11y_issues_automationsTools,
@@ -1601,11 +1599,13 @@ export const tools: readonly Tool[] = [
   ...radar_ai_botsTools,
   ...radar_ai_inferenceTools,
   ...radar_ai_markdownForAgentsTools,
-  ...radar_ai_timeseriesGroupsTools,
   ...radar_annotationsTools,
   ...radar_annotations_outagesTools,
   ...radar_as112Tools,
-  ...radar_as112_topTools,
+  ...radar_as112_top_locationsTools,
+  ...radar_as112_top_locations_dnssecTools,
+  ...radar_as112_top_locations_ednsTools,
+  ...radar_as112_top_locations_ipVersionTools,
   ...radar_attacks_layer3Tools,
   ...radar_attacks_layer3_topTools,
   ...radar_attacks_layer3_top_locationsTools,
@@ -1626,7 +1626,7 @@ export const tools: readonly Tool[] = [
   ...radar_bgp_topTools,
   ...radar_bgp_top_asesTools,
   ...radar_botsTools,
-  ...radar_bots_webCrawlersTools,
+  ...radar_bots_crawlersTools,
   ...radar_ctTools,
   ...radar_ct_authoritiesTools,
   ...radar_ct_logsTools,
@@ -1639,29 +1639,29 @@ export const tools: readonly Tool[] = [
   ...radar_email_security_top_tlds_maliciousTools,
   ...radar_email_security_top_tlds_spamTools,
   ...radar_email_security_top_tlds_spoofTools,
-  ...radar_entitiesTools,
   ...radar_entities_asnsTools,
+  ...radar_entities_ipsTools,
   ...radar_entities_locationsTools,
   ...radar_geolocationsTools,
   ...radar_httpTools,
-  ...radar_http_asesTools,
-  ...radar_http_ases_botClassTools,
-  ...radar_http_ases_browserFamilyTools,
-  ...radar_http_ases_deviceTypeTools,
-  ...radar_http_ases_httpMethodTools,
-  ...radar_http_ases_httpProtocolTools,
-  ...radar_http_ases_ipVersionTools,
-  ...radar_http_ases_osTools,
-  ...radar_http_ases_tlsVersionTools,
-  ...radar_http_locationsTools,
-  ...radar_http_locations_botClassTools,
-  ...radar_http_locations_browserFamilyTools,
-  ...radar_http_locations_deviceTypeTools,
-  ...radar_http_locations_httpMethodTools,
-  ...radar_http_locations_httpProtocolTools,
-  ...radar_http_locations_ipVersionTools,
-  ...radar_http_locations_osTools,
-  ...radar_http_locations_tlsVersionTools,
+  ...radar_http_top_asesTools,
+  ...radar_http_top_ases_botClassTools,
+  ...radar_http_top_ases_browserFamilyTools,
+  ...radar_http_top_ases_deviceTypeTools,
+  ...radar_http_top_ases_httpProtocolTools,
+  ...radar_http_top_ases_httpVersionTools,
+  ...radar_http_top_ases_ipVersionTools,
+  ...radar_http_top_ases_osTools,
+  ...radar_http_top_ases_tlsVersionTools,
+  ...radar_http_top_locationsTools,
+  ...radar_http_top_locations_botClassTools,
+  ...radar_http_top_locations_browserFamilyTools,
+  ...radar_http_top_locations_deviceTypeTools,
+  ...radar_http_top_locations_httpProtocolTools,
+  ...radar_http_top_locations_httpVersionTools,
+  ...radar_http_top_locations_ipVersionTools,
+  ...radar_http_top_locations_osTools,
+  ...radar_http_top_locations_tlsVersionTools,
   ...radar_leakedCredentialsTools,
   ...radar_netflowsTools,
   ...radar_netflows_topTools,
@@ -1682,7 +1682,6 @@ export const tools: readonly Tool[] = [
   ...radar_tlds_performanceTools,
   ...radar_trafficAnomaliesTools,
   ...radar_trafficAnomalies_locationsTools,
-  ...readyTools,
   ...realtime_kit_analytics_livestreamsTools,
   ...realtime_kit_analytics_livestreams_dailyTools,
   ...realtime_kit_analytics_usageTools,
@@ -1751,7 +1750,6 @@ export const tools: readonly Tool[] = [
   ...securityInsights_scansTools,
   ...securityInsights_stateTools,
   ...securityTxtTools,
-  ...signedUrlTools,
   ...smartShieldTools,
   ...smartShield_cacheReserveClearTools,
   ...smartShield_healthChecksTools,
@@ -1891,8 +1889,6 @@ export const tools: readonly Tool[] = [
   ...workers_tailTools,
   ...workers_versionsTools,
   ...workers_versions_latestTools,
-  ...workersBuilds_workersTools,
-  ...workersBuilds_workers_previewsTools,
   ...workersForPlatforms_dispatchNamespacesTools,
   ...workersForPlatforms_dispatchNamespaces_scriptsTools,
   ...workersForPlatforms_dispatchNamespaces_scripts_assets_uploadTools,
@@ -1940,7 +1936,6 @@ export const tools: readonly Tool[] = [
   ...zeroTrust_access_signingKeysTools,
   ...zeroTrust_access_tagsTools,
   ...zeroTrust_access_targetsTools,
-  ...zeroTrust_access_targets_bulkTools,
   ...zeroTrust_access_userPopulationsTools,
   ...zeroTrust_access_userPopulations_usersTools,
   ...zeroTrust_access_usersTools,
@@ -1983,8 +1978,6 @@ export const tools: readonly Tool[] = [
   ...zeroTrust_devices_overrideCodesTools,
   ...zeroTrust_devices_posture_integrationsTools,
   ...zeroTrust_devices_posture_rulesTools,
-  ...zeroTrust_devices_profiles_customTools,
-  ...zeroTrust_devices_profiles_defaultTools,
   ...zeroTrust_devices_registrationsTools,
   ...zeroTrust_devices_registrations_overrideCodesTools,
   ...zeroTrust_devices_settingsTools,
@@ -2053,12 +2046,13 @@ export const tools: readonly Tool[] = [
   ...zeroTrust_organizationTools,
   ...zeroTrust_organization_dohTools,
   ...zeroTrust_organization_trustSettingsTools,
+  ...zeroTrust_regionTools,
+  ...zeroTrust_regionsTools,
   ...zeroTrust_riskScoringTools,
   ...zeroTrust_riskScoring_behavioursTools,
   ...zeroTrust_riskScoring_integrationsTools,
   ...zeroTrust_riskScoring_integrations_referencesTools,
   ...zeroTrust_riskScoring_summaryTools,
-  ...zeroTrust_seatsTools,
   ...zeroTrust_users_mfa_authenticatorsTools,
   ...zeroTrust_users_passkeysTools,
   ...zonesTools,

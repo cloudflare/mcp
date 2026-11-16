@@ -4,6 +4,93 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
+ * The schema of `cloudflare-pipelines_Sink` in responses.
+ */
+export const cloudflare$$pipelines_Sink: JSONObject = {
+  "properties": {
+    "config": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/cloudflare-pipelines_r2TablePublic"
+        },
+        {
+          "$ref": "#/$defs/cloudflare-pipelines_r2_data_catalogTablePublic"
+        }
+      ]
+    },
+    "created_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "format": {
+      "$ref": "#/$defs/cloudflare-pipelines_SinkFormat"
+    },
+    "id": {
+      "type": "string"
+    },
+    "latest": {
+      "type": "integer"
+    },
+    "modified_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "schema": {
+      "$ref": "#/$defs/cloudflare-pipelines_ConnectionSchema"
+    },
+    "type": {
+      "enum": [
+        "r2",
+        "r2_data_catalog",
+        "basin_catalog"
+      ],
+      "type": "string"
+    },
+    "used_by": {
+      "items": {
+        "properties": {
+          "href": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "pipeline"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "href",
+          "id",
+          "type"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "version": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "created_at",
+    "id",
+    "latest",
+    "modified_at",
+    "name",
+    "type",
+    "version"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `cloudflare-pipelines_SinkFormat` in responses.
  */
 export const cloudflare$$pipelines_SinkFormat: JSONObject = {
@@ -75,6 +162,24 @@ export const cloudflare$$pipelines_SinkParquetFormat: JSONObject = {
 };
 
 /**
+ * The schema of `cloudflare-pipelines_SinkRollingPolicy` in responses.
+ */
+export const cloudflare$$pipelines_SinkRollingPolicy: JSONObject = {
+  "properties": {
+    "file_size_bytes": {
+      "type": "integer"
+    },
+    "inactivity_seconds": {
+      "type": "integer"
+    },
+    "interval_seconds": {
+      "type": "integer"
+    }
+  },
+  "type": "object"
+};
+
+/**
  * The schema of `cloudflare-pipelines_r2Table` in responses.
  */
 export const cloudflare$$pipelines_r2Table: JSONObject = {
@@ -135,18 +240,7 @@ export const cloudflare$$pipelines_r2Table: JSONObject = {
       "type": "string"
     },
     "rolling_policy": {
-      "properties": {
-        "file_size_bytes": {
-          "type": "integer"
-        },
-        "inactivity_seconds": {
-          "type": "integer"
-        },
-        "interval_seconds": {
-          "type": "integer"
-        }
-      },
-      "type": "object"
+      "$ref": "#/$defs/cloudflare-pipelines_SinkRollingPolicy"
     }
   },
   "required": [
@@ -203,18 +297,7 @@ export const cloudflare$$pipelines_r2TablePublic: JSONObject = {
       "type": "string"
     },
     "rolling_policy": {
-      "properties": {
-        "file_size_bytes": {
-          "type": "integer"
-        },
-        "inactivity_seconds": {
-          "type": "integer"
-        },
-        "interval_seconds": {
-          "type": "integer"
-        }
-      },
-      "type": "object"
+      "$ref": "#/$defs/cloudflare-pipelines_SinkRollingPolicy"
     }
   },
   "required": [
@@ -239,18 +322,7 @@ export const cloudflare$$pipelines_r2_data_catalogTable: JSONObject = {
       "type": "string"
     },
     "rolling_policy": {
-      "properties": {
-        "file_size_bytes": {
-          "type": "integer"
-        },
-        "inactivity_seconds": {
-          "type": "integer"
-        },
-        "interval_seconds": {
-          "type": "integer"
-        }
-      },
-      "type": "object"
+      "$ref": "#/$defs/cloudflare-pipelines_SinkRollingPolicy"
     },
     "table_name": {
       "type": "string"
@@ -283,18 +355,7 @@ export const cloudflare$$pipelines_r2_data_catalogTablePublic: JSONObject = {
       "type": "string"
     },
     "rolling_policy": {
-      "properties": {
-        "file_size_bytes": {
-          "type": "integer"
-        },
-        "inactivity_seconds": {
-          "type": "integer"
-        },
-        "interval_seconds": {
-          "type": "integer"
-        }
-      },
-      "type": "object"
+      "$ref": "#/$defs/cloudflare-pipelines_SinkRollingPolicy"
     },
     "table_name": {
       "type": "string"

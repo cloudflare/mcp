@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../../../_/tool.js";
 import {
+  one_IntegrationConfig,
   one_IntegrationCreateResponse,
   one_IntegrationDetailResponse,
   one_IntegrationPauseResponse,
@@ -11,10 +12,14 @@ import {
   one_IntegrationV2Detail,
   one_IntegrationV2ListItem,
   one_PaginatedIntegrationV2ListItemList,
+  one_SelectedGitLabIntegrationConfiguration,
+  one_SelectedGitLabResource,
 } from "./outputs.js";
 import {
+  one_GitLabIntegrationConfigurationRequest,
   one_IntegrationV2CreateRequest,
   one_PatchedUpdateIntegrationV2Request,
+  one_UpdateIntegrationConfigRequest,
 } from "./schemas.js";
 
 /**
@@ -24,7 +29,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_integrations_create",
     title: "Create integration",
-    description: "Creates a new integration for the specified application. Integration creation with OAuth is not supported by API at the moment. For other auth methods, use `GET /v2/applications/{application_id}/credential-guide` to see the required credential structure and example payloads for each vendor.\n\nPOST /accounts/{account_id}/one/integrations",
+    description: "Creates a new integration for the specified application. For other auth methods, use `GET /v2/applications/{application_id}/credential-guide` to see the required credential structure and example payloads for each vendor.\n\nPOST /accounts/{account_id}/one/integrations",
     inputSchema: {
       type: "object",
       properties: {
@@ -80,8 +85,11 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/one_IntegrationCreateResponse",
       $defs: {
+        "one_IntegrationConfig": one_IntegrationConfig,
         "one_IntegrationCreateResponse": one_IntegrationCreateResponse,
         "one_IntegrationV2Detail": one_IntegrationV2Detail,
+        "one_SelectedGitLabIntegrationConfiguration": one_SelectedGitLabIntegrationConfiguration,
+        "one_SelectedGitLabResource": one_SelectedGitLabResource,
       },
     },
     annotations: {
@@ -108,8 +116,11 @@ export const tools: readonly Tool[] = [
           "400": null
         },
         $defs: {
+          "one_IntegrationConfig": one_IntegrationConfig,
           "one_IntegrationCreateResponse": one_IntegrationCreateResponse,
           "one_IntegrationV2Detail": one_IntegrationV2Detail,
+          "one_SelectedGitLabIntegrationConfiguration": one_SelectedGitLabIntegrationConfiguration,
+          "one_SelectedGitLabResource": one_SelectedGitLabResource,
         },
       },
     },
@@ -201,8 +212,11 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/one_IntegrationDetailResponse",
       $defs: {
+        "one_IntegrationConfig": one_IntegrationConfig,
         "one_IntegrationDetailResponse": one_IntegrationDetailResponse,
         "one_IntegrationV2Detail": one_IntegrationV2Detail,
+        "one_SelectedGitLabIntegrationConfiguration": one_SelectedGitLabIntegrationConfiguration,
+        "one_SelectedGitLabResource": one_SelectedGitLabResource,
       },
     },
     annotations: {
@@ -227,8 +241,11 @@ export const tools: readonly Tool[] = [
           "404": null
         },
         $defs: {
+          "one_IntegrationConfig": one_IntegrationConfig,
           "one_IntegrationDetailResponse": one_IntegrationDetailResponse,
           "one_IntegrationV2Detail": one_IntegrationV2Detail,
+          "one_SelectedGitLabIntegrationConfiguration": one_SelectedGitLabIntegrationConfiguration,
+          "one_SelectedGitLabResource": one_SelectedGitLabResource,
         },
       },
     },
@@ -320,8 +337,11 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/one_PaginatedIntegrationV2ListItemList",
       $defs: {
+        "one_IntegrationConfig": one_IntegrationConfig,
         "one_IntegrationV2ListItem": one_IntegrationV2ListItem,
         "one_PaginatedIntegrationV2ListItemList": one_PaginatedIntegrationV2ListItemList,
+        "one_SelectedGitLabIntegrationConfiguration": one_SelectedGitLabIntegrationConfiguration,
+        "one_SelectedGitLabResource": one_SelectedGitLabResource,
       },
     },
     annotations: {
@@ -357,8 +377,11 @@ export const tools: readonly Tool[] = [
           "400": null
         },
         $defs: {
+          "one_IntegrationConfig": one_IntegrationConfig,
           "one_IntegrationV2ListItem": one_IntegrationV2ListItem,
           "one_PaginatedIntegrationV2ListItemList": one_PaginatedIntegrationV2ListItemList,
+          "one_SelectedGitLabIntegrationConfiguration": one_SelectedGitLabIntegrationConfiguration,
+          "one_SelectedGitLabResource": one_SelectedGitLabResource,
         },
       },
     },
@@ -397,8 +420,11 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/one_IntegrationPauseResponse",
       $defs: {
+        "one_IntegrationConfig": one_IntegrationConfig,
         "one_IntegrationPauseResponse": one_IntegrationPauseResponse,
         "one_IntegrationV2Detail": one_IntegrationV2Detail,
+        "one_SelectedGitLabIntegrationConfiguration": one_SelectedGitLabIntegrationConfiguration,
+        "one_SelectedGitLabResource": one_SelectedGitLabResource,
       },
     },
     annotations: {
@@ -423,8 +449,11 @@ export const tools: readonly Tool[] = [
           "400": null
         },
         $defs: {
+          "one_IntegrationConfig": one_IntegrationConfig,
           "one_IntegrationPauseResponse": one_IntegrationPauseResponse,
           "one_IntegrationV2Detail": one_IntegrationV2Detail,
+          "one_SelectedGitLabIntegrationConfiguration": one_SelectedGitLabIntegrationConfiguration,
+          "one_SelectedGitLabResource": one_SelectedGitLabResource,
         },
       },
     },
@@ -463,8 +492,11 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/one_IntegrationResumeResponse",
       $defs: {
+        "one_IntegrationConfig": one_IntegrationConfig,
         "one_IntegrationResumeResponse": one_IntegrationResumeResponse,
         "one_IntegrationV2Detail": one_IntegrationV2Detail,
+        "one_SelectedGitLabIntegrationConfiguration": one_SelectedGitLabIntegrationConfiguration,
+        "one_SelectedGitLabResource": one_SelectedGitLabResource,
       },
     },
     annotations: {
@@ -489,8 +521,11 @@ export const tools: readonly Tool[] = [
           "400": null
         },
         $defs: {
+          "one_IntegrationConfig": one_IntegrationConfig,
           "one_IntegrationResumeResponse": one_IntegrationResumeResponse,
           "one_IntegrationV2Detail": one_IntegrationV2Detail,
+          "one_SelectedGitLabIntegrationConfiguration": one_SelectedGitLabIntegrationConfiguration,
+          "one_SelectedGitLabResource": one_SelectedGitLabResource,
         },
       },
     },
@@ -498,7 +533,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_casb_integrations_update",
     title: "Update integration",
-    description: "Updates an integration's name, permissions, DLP profiles, use cases, or credentials.\n\nPATCH /accounts/{account_id}/one/integrations/{id}",
+    description: "Updates an integration's name, permissions, DLP profiles, use cases, credentials, or GitLab resources.\n\nPATCH /accounts/{account_id}/one/integrations/{id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -552,14 +587,19 @@ export const tools: readonly Tool[] = [
       ],
       additionalProperties: false,
       $defs: {
+        "one_GitLabIntegrationConfigurationRequest": one_GitLabIntegrationConfigurationRequest,
         "one_PatchedUpdateIntegrationV2Request": one_PatchedUpdateIntegrationV2Request,
+        "one_UpdateIntegrationConfigRequest": one_UpdateIntegrationConfigRequest,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/one_IntegrationUpdateResponse",
       $defs: {
+        "one_IntegrationConfig": one_IntegrationConfig,
         "one_IntegrationUpdateResponse": one_IntegrationUpdateResponse,
         "one_IntegrationV2Detail": one_IntegrationV2Detail,
+        "one_SelectedGitLabIntegrationConfiguration": one_SelectedGitLabIntegrationConfiguration,
+        "one_SelectedGitLabResource": one_SelectedGitLabResource,
       },
     },
     annotations: {
@@ -586,8 +626,11 @@ export const tools: readonly Tool[] = [
           "400": null
         },
         $defs: {
+          "one_IntegrationConfig": one_IntegrationConfig,
           "one_IntegrationUpdateResponse": one_IntegrationUpdateResponse,
           "one_IntegrationV2Detail": one_IntegrationV2Detail,
+          "one_SelectedGitLabIntegrationConfiguration": one_SelectedGitLabIntegrationConfiguration,
+          "one_SelectedGitLabResource": one_SelectedGitLabResource,
         },
       },
     },

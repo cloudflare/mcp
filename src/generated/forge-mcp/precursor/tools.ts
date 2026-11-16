@@ -108,14 +108,7 @@ export const tools: readonly Tool[] = [
             "$ref": "#/$defs/precursor_precursor_config_response_body"
           },
           "4XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/precursor_precursor_config_response_body"
-              },
-              {
-                "$ref": "#/$defs/precursor_api-response-common-failure"
-              }
-            ]
+            "$ref": "#/$defs/precursor_api-response-common-failure"
           }
         },
         $defs: {
@@ -226,14 +219,7 @@ export const tools: readonly Tool[] = [
             "$ref": "#/$defs/precursor_precursor_config_response_body"
           },
           "4XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/precursor_precursor_config_response_body"
-              },
-              {
-                "$ref": "#/$defs/precursor_api-response-common-failure"
-              }
-            ]
+            "$ref": "#/$defs/precursor_api-response-common-failure"
           }
         },
         $defs: {

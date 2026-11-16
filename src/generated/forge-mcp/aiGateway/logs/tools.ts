@@ -276,6 +276,16 @@ export const tools: readonly Tool[] = [
             "cached": {
               "type": "boolean"
             },
+            "collect_log_payload": {
+              "oneOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
             "cost": {
               "type": "number"
             },
@@ -438,6 +448,16 @@ export const tools: readonly Tool[] = [
                 "properties": {
                   "cached": {
                     "type": "boolean"
+                  },
+                  "collect_log_payload": {
+                    "oneOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
                   },
                   "cost": {
                     "type": "number"
@@ -1033,6 +1053,16 @@ export const tools: readonly Tool[] = [
               "cached": {
                 "type": "boolean"
               },
+              "collect_log_payload": {
+                "oneOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
               "cost": {
                 "type": "number"
               },
@@ -1244,6 +1274,16 @@ export const tools: readonly Tool[] = [
                   "properties": {
                     "cached": {
                       "type": "boolean"
+                    },
+                    "collect_log_payload": {
+                      "oneOf": [
+                        {
+                          "type": "boolean"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
                     },
                     "cost": {
                       "type": "number"

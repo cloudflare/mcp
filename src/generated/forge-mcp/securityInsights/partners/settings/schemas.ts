@@ -9,7 +9,7 @@ import type { JSONObject } from "@modelcontextprotocol/server";
 export const security$$center_partnerSettings: JSONObject = {
   "properties": {
     "enabled": {
-      "description": "Whether the partner integration is enabled for the account.",
+      "description": "Whether the partner integration is enabled for the account.\nEnabling the integration for the first time also schedules an account scan for that partner.\nDisabling the integration will purge all partner integration-related data, including partner insights, shadow zones, and shadow hosts.",
       "type": "boolean"
     }
   },

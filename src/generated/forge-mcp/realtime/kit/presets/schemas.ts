@@ -168,6 +168,10 @@ export const realtimekit_Preset: JSONObject = {
         "can_edit_display_name": {
           "type": "boolean"
         },
+        "can_edit_meeting_title": {
+          "description": "Allows renaming the meeting for the current session",
+          "type": "boolean"
+        },
         "can_livestream": {
           "type": "boolean"
         },
@@ -766,6 +770,10 @@ export const realtimekit_UpdatePreset: JSONObject = {
           "type": "boolean"
         },
         "can_edit_display_name": {
+          "type": "boolean"
+        },
+        "can_edit_meeting_title": {
+          "description": "Allows renaming the meeting for the current session",
           "type": "boolean"
         },
         "can_livestream": {

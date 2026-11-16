@@ -91,14 +91,7 @@ export const tools: readonly Tool[] = [
             "$ref": "#/$defs/lists_bulk-operation-response-single"
           },
           "4XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/lists_bulk-operation-response-single"
-              },
-              {
-                "$ref": "#/$defs/lists_api-response-common-failure"
-              }
-            ]
+            "$ref": "#/$defs/lists_api-response-common-failure"
           }
         },
         $defs: {

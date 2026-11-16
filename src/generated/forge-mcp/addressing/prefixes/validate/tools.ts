@@ -19,7 +19,7 @@ export const tools: readonly Tool[] = [
   {
     name: "addressing_prefixes_validate_create",
     title: "Validate Prefix",
-    description: "Triggers a new prefix validation. The checks are run asynchronously and include IRR, RPKI, and prefix ownership.\n\nPOST /accounts/{account_id}/addressing/prefixes/{prefix_id}/validate",
+    description: "Triggers a new prefix validation. The checks run asynchronously and include IRR, RPKI, prefix ownership, and, when applicable, ASN ownership and Autonomous System Provider Authorization (ASPA). Use Prefix Details to monitor the results. Approval does not advertise the prefix or activate traffic.\n\nPOST /accounts/{account_id}/addressing/prefixes/{prefix_id}/validate",
     inputSchema: {
       type: "object",
       properties: {
