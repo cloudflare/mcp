@@ -300,216 +300,6 @@ export const bill$$subs$$api_zone: JSONObject = {
 };
 
 /**
- * The schema of `builds_BuildSeedRepoInput`.
- */
-export const builds_BuildSeedRepoInput: JSONObject = {
-  "properties": {
-    "branch": {
-      "description": "Repository branch to seed.",
-      "type": "string"
-    },
-    "files": {
-      "description": "Files to add or replace for this build. Maximum 2.",
-      "items": {
-        "$ref": "#/$defs/builds_BuildSeedRepoInputFile"
-      },
-      "maxItems": 2,
-      "type": "array"
-    },
-    "owner": {
-      "description": "Repository owner or namespace.",
-      "type": "string"
-    },
-    "path": {
-      "description": "Path within the repository to seed.",
-      "type": "string"
-    },
-    "provider": {
-      "description": "Source control provider for the seed repository.",
-      "enum": [
-        "github",
-        "gitlab"
-      ],
-      "type": "string"
-    },
-    "repository": {
-      "description": "Repository name.",
-      "type": "string"
-    }
-  },
-  "required": [
-    "owner",
-    "provider",
-    "repository"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `builds_BuildSeedRepoInputFile`.
- */
-export const builds_BuildSeedRepoInputFile: JSONObject = {
-  "properties": {
-    "content": {
-      "type": "string"
-    },
-    "filename": {
-      "type": "string"
-    },
-    "isBase64": {
-      "default": false,
-      "description": "Whether content is Base64-encoded.",
-      "type": "boolean"
-    },
-    "replace": {
-      "description": "Existing text in the target file to replace with content.",
-      "type": "string"
-    }
-  },
-  "required": [
-    "content",
-    "filename"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `builds_CreateBuildRequest`.
- */
-export const builds_CreateBuildRequest: JSONObject = {
-  "properties": {
-    "branch": {
-      "description": "Git branch name (required if commit_hash not provided)",
-      "type": "string"
-    },
-    "commit_hash": {
-      "description": "Git commit hash (required if branch not provided)",
-      "type": "string"
-    },
-    "seed_repo": {
-      "$ref": "#/$defs/builds_BuildSeedRepoInput",
-      "description": "Optional repository and file overrides used to seed this build."
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `builds_UpdateWorkerBuildSettingsInput`.
- */
-export const builds_UpdateWorkerBuildSettingsInput: JSONObject = {
-  "description": "Partial build settings for updating a Worker build configuration",
-  "properties": {
-    "build_caching_enabled": {
-      "default": false,
-      "description": "Whether builds reuse cached dependencies and build artifacts.",
-      "type": "boolean"
-    },
-    "build_command": {
-      "description": "Command to build the Worker.",
-      "type": "string"
-    },
-    "build_token_uuid": {
-      "description": "UUID of the build token used when deploying the Worker.",
-      "format": "uuid",
-      "type": "string"
-    },
-    "deploy_command": {
-      "description": "Command to deploy the Worker.",
-      "type": "string"
-    },
-    "environment_variables": {
-      "additionalProperties": {
-        "oneOf": [
-          {
-            "properties": {
-              "is_secret": {
-                "description": "Whether to hide the value after it is saved. Secret values remain available to builds but appear as `null` when you list variables; non-secret values remain visible.",
-                "type": "boolean"
-              },
-              "value": {
-                "description": "Value made available to the build. Maximum length is 5000 characters.",
-                "type": "string"
-              }
-            },
-            "required": [
-              "is_secret",
-              "value"
-            ],
-            "type": "object"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "description": "Environment variable updates. Set the variable entry to null to delete it.",
-      "type": "object"
-    },
-    "path_excludes": {
-      "$ref": "#/$defs/builds_path_excludes",
-      "description": "Path patterns that must not start builds."
-    },
-    "path_includes": {
-      "$ref": "#/$defs/builds_path_includes",
-      "default": [
-        "*"
-      ],
-      "description": "Path patterns that can start builds."
-    },
-    "root_directory": {
-      "description": "Repository directory in which build and deploy commands run.",
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `builds_branch_excludes`.
- */
-export const builds_branch_excludes: JSONObject = {
-  "description": "Branch patterns that must not start builds.",
-  "items": {
-    "type": "string"
-  },
-  "type": "array"
-};
-
-/**
- * The schema of `builds_branch_includes`.
- */
-export const builds_branch_includes: JSONObject = {
-  "description": "Branch patterns that can start builds.",
-  "items": {
-    "type": "string"
-  },
-  "type": "array"
-};
-
-/**
- * The schema of `builds_path_excludes`.
- */
-export const builds_path_excludes: JSONObject = {
-  "description": "Path patterns that must not start builds.",
-  "items": {
-    "type": "string"
-  },
-  "type": "array"
-};
-
-/**
- * The schema of `builds_path_includes`.
- */
-export const builds_path_includes: JSONObject = {
-  "description": "Path patterns that can start builds.",
-  "items": {
-    "type": "string"
-  },
-  "type": "array"
-};
-
-/**
  * The schema of `dns-custom-nameservers_CustomNSInput`.
  */
 export const dns$$custom$$nameservers_CustomNSInput: JSONObject = {
@@ -1903,6 +1693,9 @@ export const workers_binding_item: JSONObject = {
     },
     {
       "$ref": "#/$defs/workers_binding_kind_vpc_network"
+    },
+    {
+      "$ref": "#/$defs/workers_binding_kind_worker_loader"
     }
   ]
 };
@@ -3137,6 +2930,30 @@ export const workers_binding_kind_wasm_module: JSONObject = {
 };
 
 /**
+ * The schema of `workers_binding_kind_worker_loader`.
+ */
+export const workers_binding_kind_worker_loader: JSONObject = {
+  "properties": {
+    "name": {
+      "description": "A JavaScript variable name for the binding.",
+      "type": "string"
+    },
+    "type": {
+      "description": "The kind of resource that the binding provides.",
+      "enum": [
+        "worker_loader"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "type"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `workers_binding_kind_workflow`.
  */
 export const workers_binding_kind_workflow: JSONObject = {
@@ -3860,6 +3677,46 @@ export const workers_multiple_step_migrations: JSONObject = {
 export const workers_observability$$2: JSONObject = {
   "description": "Observability settings for the Worker.",
   "properties": {
+    "agents": {
+      "description": "Agents observability settings for the Worker.",
+      "oneOf": [
+        {
+          "properties": {
+            "destinations": {
+              "description": "A list of destinations where Agents observability data will be exported to.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "enabled": {
+              "description": "Whether Agents observability is enabled for the Worker.",
+              "type": "boolean"
+            },
+            "head_sampling_rate": {
+              "description": "The sampling rate for Agents observability. From 0 to 1 (1 = 100%, 0.1 = 10%). Defaults to the root head_sampling_rate.",
+              "oneOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "persist": {
+              "default": true,
+              "description": "Whether Agents observability data is persisted for the Worker.",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
     "enabled": {
       "description": "Whether observability is enabled for the Worker.",
       "type": "boolean"

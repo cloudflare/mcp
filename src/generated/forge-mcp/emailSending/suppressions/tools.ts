@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSending_suppressions_create",
     title: "Create account Email Sending suppression",
-    description: "Creates a suppression for every sending domain of the account (default) or for one sending domain (`scope.type = sending_domain`). Creating an existing active suppression returns its identifier. If a mutable legacy zone-linked account row already exists, it is promoted without changing its identifier.\n\nPOST /accounts/{account_id}/email/sending/suppressions",
+    description: "Creates a suppression for every sending domain of the account (default) or for one sending domain (`scope.type = sending_domain`). Creating an existing active suppression returns its identifier. If a legacy zone-linked account row already exists, it is promoted without changing its identifier.\n\nPOST /accounts/{account_id}/email/sending/suppressions",
     inputSchema: {
       type: "object",
       properties: {
@@ -2009,7 +2009,7 @@ export const tools: readonly Tool[] = [
   {
     name: "emailSending_suppressions_list",
     title: "List account Email Sending suppressions",
-    description: "Lists every active Email Sending suppression owned by the account: sending-domain suppressions first, then account-wide suppressions (including legacy rows with internal zone memberships). Each group is newest first.\n\nGET /accounts/{account_id}/email/sending/suppressions",
+    description: "Lists every active Email Sending suppression owned by the account: sending-domain suppressions and account-wide suppressions (including legacy rows with internal zone memberships). Each scope is listed newest first. The order between sending-domain and account-wide suppressions is not fixed; use `scope_type` to list one scope.\n\nGET /accounts/{account_id}/email/sending/suppressions",
     inputSchema: {
       type: "object",
       properties: {
@@ -2054,7 +2054,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "scope_type": {
-              "description": "Filter by scope: `account` returns only account-wide suppressions, `sending_domain` only sending-domain suppressions. Omit to list both, sending-domain suppressions first.",
+              "description": "Filter by scope: `account` returns only account-wide suppressions, `sending_domain` only sending-domain suppressions. Omit to list both; the order between the two scopes is not fixed.",
               "enum": [
                 "account",
                 "sending_domain"

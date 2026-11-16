@@ -411,6 +411,9 @@ export const realtimekit_Meeting: JSONObject = {
     "session_keep_alive_time_in_secs": {
       "type": "number"
     },
+    "sip": {
+      "$ref": "#/$defs/realtimekit_MeetingSip"
+    },
     "status": {
       "enum": [
         "ACTIVE",
@@ -438,6 +441,36 @@ export const realtimekit_Meeting: JSONObject = {
     "updated_at"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `realtimekit_MeetingSip` in responses.
+ */
+export const realtimekit_MeetingSip: JSONObject = {
+  "oneOf": [
+    {
+      "properties": {
+        "password": {
+          "type": "string"
+        },
+        "sip_uri": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "password",
+        "sip_uri",
+        "username"
+      ],
+      "type": "object"
+    },
+    {
+      "type": "null"
+    }
+  ]
 };
 
 /**

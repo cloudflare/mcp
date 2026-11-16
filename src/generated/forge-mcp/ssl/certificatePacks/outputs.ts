@@ -213,6 +213,113 @@ export const tls$$certificates$$and$$hostnames_certificate_pack_certificate: JSO
 };
 
 /**
+ * The schema of `tls-certificates-and-hostnames_certificate_pack_order` in
+ * responses.
+ */
+export const tls$$certificates$$and$$hostnames_certificate_pack_order: JSONObject = {
+  "properties": {
+    "certificate_authority": {
+      "enum": [
+        "google",
+        "lets_encrypt",
+        "ssl_com"
+      ],
+      "type": "string"
+    },
+    "hosts": {
+      "$ref": "#/$defs/tls-certificates-and-hostnames_hosts-2"
+    },
+    "id": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "initializing",
+        "pending_validation",
+        "deleted",
+        "pending_issuance",
+        "pending_deployment",
+        "pending_deletion",
+        "pending_expiration",
+        "expired",
+        "active",
+        "initializing_timed_out",
+        "validation_timed_out",
+        "issuance_timed_out",
+        "deployment_timed_out",
+        "deletion_timed_out",
+        "pending_cleanup",
+        "staging_deployment",
+        "staging_active",
+        "deactivating",
+        "inactive",
+        "backup_issued",
+        "holding_deployment"
+      ],
+      "type": "string"
+    },
+    "type": {
+      "enum": [
+        "mh_custom",
+        "managed_hostname",
+        "sni_custom",
+        "universal",
+        "advanced",
+        "total_tls",
+        "keyless",
+        "legacy_custom"
+      ],
+      "type": "string"
+    },
+    "validation_method": {
+      "enum": [
+        "txt",
+        "http",
+        "email"
+      ],
+      "type": "string"
+    },
+    "validity_days": {
+      "enum": [
+        14,
+        30,
+        90,
+        365
+      ],
+      "type": "integer"
+    }
+  },
+  "required": [
+    "hosts",
+    "id",
+    "status",
+    "type"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of
+ * `tls-certificates-and-hostnames_certificate_pack_order_response_single` in
+ * responses.
+ */
+export const tls$$certificates$$and$$hostnames_certificate_pack_order_response_single: JSONObject = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_pack_order"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of
  * `tls-certificates-and-hostnames_certificate_pack_response_collection` in
  * responses.

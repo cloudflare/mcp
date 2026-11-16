@@ -531,6 +531,22 @@ export const tools: readonly Tool[] = [
             "zone_id"
           ],
           "type": "object"
+        },
+        "query": {
+          "additionalProperties": false,
+          "properties": {
+            "page": {
+              "default": 1,
+              "description": "Page number of Keyless SSL configurations, starting at 1.",
+              "type": "integer"
+            },
+            "per_page": {
+              "default": 20,
+              "description": "Number of Keyless SSL configurations per page.",
+              "type": "integer"
+            }
+          },
+          "type": "object"
         }
       },
       required: [
@@ -560,6 +576,10 @@ export const tools: readonly Tool[] = [
       method: "GET",
       path: "/zones/{zone_id}/keyless_certificates",
       pathOf: encodePath`/zones/${"zone_id"}/keyless_certificates`,
+      query: [
+        { name: "page", explode: true },
+        { name: "per_page", explode: true },
+      ],
       extensions: {
         "x-api-token-group": [
           "SSL and Certificates Write",

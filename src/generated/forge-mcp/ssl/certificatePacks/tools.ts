@@ -14,6 +14,8 @@ import {
   tls$$certificates$$and$$hostnames_advanced_certificate_pack_response_single,
   tls$$certificates$$and$$hostnames_certificate_pack,
   tls$$certificates$$and$$hostnames_certificate_pack_certificate,
+  tls$$certificates$$and$$hostnames_certificate_pack_order,
+  tls$$certificates$$and$$hostnames_certificate_pack_order_response_single,
   tls$$certificates$$and$$hostnames_certificate_pack_response_collection,
   tls$$certificates$$and$$hostnames_certificate_pack_response_single,
   tls$$certificates$$and$$hostnames_delete_advanced_certificate_pack_response_single,
@@ -111,15 +113,13 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_advanced_certificate_pack_response_single",
+      "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_pack_order_response_single",
       $defs: {
-        "tls-certificates-and-hostnames_advanced_certificate_pack_response_single": tls$$certificates$$and$$hostnames_advanced_certificate_pack_response_single,
         "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
-        "tls-certificates-and-hostnames_certificate_pack": tls$$certificates$$and$$hostnames_certificate_pack,
-        "tls-certificates-and-hostnames_certificate_pack_certificate": tls$$certificates$$and$$hostnames_certificate_pack_certificate,
+        "tls-certificates-and-hostnames_certificate_pack_order": tls$$certificates$$and$$hostnames_certificate_pack_order,
+        "tls-certificates-and-hostnames_certificate_pack_order_response_single": tls$$certificates$$and$$hostnames_certificate_pack_order_response_single,
         "tls-certificates-and-hostnames_hosts-2": tls$$certificates$$and$$hostnames_hosts$$2,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
-        "tls-certificates-and-hostnames_validation_record": tls$$certificates$$and$$hostnames_validation_record,
       },
     },
     annotations: {
@@ -154,12 +154,12 @@ export const tools: readonly Tool[] = [
       responses: {
         schemas: {
           "200": {
-            "$ref": "#/$defs/tls-certificates-and-hostnames_advanced_certificate_pack_response_single"
+            "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_pack_order_response_single"
           },
           "4XX": {
             "allOf": [
               {
-                "$ref": "#/$defs/tls-certificates-and-hostnames_advanced_certificate_pack_response_single"
+                "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_pack_order_response_single"
               },
               {
                 "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-common-failure"
@@ -168,14 +168,12 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
-          "tls-certificates-and-hostnames_advanced_certificate_pack_response_single": tls$$certificates$$and$$hostnames_advanced_certificate_pack_response_single,
           "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
           "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
-          "tls-certificates-and-hostnames_certificate_pack": tls$$certificates$$and$$hostnames_certificate_pack,
-          "tls-certificates-and-hostnames_certificate_pack_certificate": tls$$certificates$$and$$hostnames_certificate_pack_certificate,
+          "tls-certificates-and-hostnames_certificate_pack_order": tls$$certificates$$and$$hostnames_certificate_pack_order,
+          "tls-certificates-and-hostnames_certificate_pack_order_response_single": tls$$certificates$$and$$hostnames_certificate_pack_order_response_single,
           "tls-certificates-and-hostnames_hosts-2": tls$$certificates$$and$$hostnames_hosts$$2,
           "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
-          "tls-certificates-and-hostnames_validation_record": tls$$certificates$$and$$hostnames_validation_record,
         },
       },
     },

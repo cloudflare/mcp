@@ -10,12 +10,335 @@ import {
   infra_messages,
 } from "../../../outputs.js";
 import { infra_IPInfo, infra_Target, infra_TargetArray } from "./outputs.js";
-import { infra_IPInfo as infra_IPInfo$ } from "./schemas.js";
+import {
+  infra_BatchReplaceTargetTagsItem,
+  infra_IPInfo as infra_IPInfo$,
+} from "./schemas.js";
 
 /**
  * The tools of `zeroTrust.access.targets`.
  */
 export const tools: readonly Tool[] = [
+  {
+    name: "zeroTrust_access_targets_bulkCreate",
+    title: "Create new targets",
+    description: "Adds one or more targets.\n\nPUT /accounts/{account_id}/infrastructure/targets/batch",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "body": {
+          "items": {
+            "properties": {
+              "hostname": {
+                "description": "A non-unique field that refers to a target. Case insensitive, maximum\nlength of 255 characters, supports the use of special characters dash\nand period, does not support spaces, and must start and end with an\nalphanumeric character.",
+                "type": "string"
+              },
+              "ip": {
+                "$ref": "#/$defs/infra_IPInfo",
+                "description": "The IPv4/IPv6 address that identifies where to reach a target"
+              },
+              "tags": {
+                "description": "Optional tags to associate with the target. Keys and values are\nuser-defined strings.",
+                "oneOf": [
+                  {
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "hostname",
+              "ip"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account identifier",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path",
+        "body"
+      ],
+      additionalProperties: false,
+      $defs: {
+        "infra_IPInfo": infra_IPInfo$,
+      },
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/infra_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/infra_TargetArray"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "infra_IPInfo": infra_IPInfo,
+        "infra_Target": infra_Target,
+        "infra_TargetArray": infra_TargetArray,
+        "infra_api-response-single": infra_api$$response$$single,
+        "infra_messages": infra_messages,
+      },
+    },
+    annotations: {
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Create new targets"
+    },
+    [OPERATION]: {
+      method: "PUT",
+      path: "/accounts/{account_id}/infrastructure/targets/batch",
+      pathOf: encodePath`/accounts/${"account_id"}/infrastructure/targets/batch`,
+      body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-stainless-skip": [
+          "terraform"
+        ]
+      },
+      responses: {
+        schemas: {
+          "200": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/infra_api-response-single"
+              },
+              {
+                "properties": {
+                  "result": {
+                    "$ref": "#/$defs/infra_TargetArray"
+                  }
+                },
+                "type": "object"
+              }
+            ]
+          },
+          "4XX": {
+            "$ref": "#/$defs/infra_api-response-common-failure"
+          }
+        },
+        $defs: {
+          "infra_IPInfo": infra_IPInfo,
+          "infra_Target": infra_Target,
+          "infra_TargetArray": infra_TargetArray,
+          "infra_api-response-common-failure": infra_api$$response$$common$$failure,
+          "infra_api-response-single": infra_api$$response$$single,
+          "infra_messages": infra_messages,
+        },
+      },
+    },
+  },
+  {
+    name: "zeroTrust_access_targets_bulkDelete",
+    title: "Delete targets",
+    description: "Removes one or more targets.\n\nPOST /accounts/{account_id}/infrastructure/targets/batch_delete",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "body": {
+          "properties": {
+            "target_ids": {
+              "description": "List of target IDs to bulk delete",
+              "items": {
+                "description": "Target identifier",
+                "format": "uuid",
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "target_ids"
+          ],
+          "type": "object"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account identifier",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path",
+        "body"
+      ],
+      additionalProperties: false,
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Delete targets"
+    },
+    [OPERATION]: {
+      method: "POST",
+      path: "/accounts/{account_id}/infrastructure/targets/batch_delete",
+      pathOf: encodePath`/accounts/${"account_id"}/infrastructure/targets/batch_delete`,
+      body: { mediaTypes: ["application/json"] },
+      responses: {
+        schemas: {
+          "200": null,
+          "4XX": {
+            "$ref": "#/$defs/infra_api-response-common-failure"
+          }
+        },
+        $defs: {
+          "infra_api-response-common-failure": infra_api$$response$$common$$failure,
+          "infra_messages": infra_messages,
+        },
+      },
+    },
+  },
+  {
+    name: "zeroTrust_access_targets_bulkReplaceTags",
+    title: "Replace tags on existing targets",
+    description: "Replaces tags for one or more existing infrastructure access targets.\n\nPOST /accounts/{account_id}/infrastructure/targets/batch_tags",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "body": {
+          "properties": {
+            "items": {
+              "items": {
+                "$ref": "#/$defs/infra_BatchReplaceTargetTagsItem"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "items"
+          ],
+          "type": "object"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account identifier",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path",
+        "body"
+      ],
+      additionalProperties: false,
+      $defs: {
+        "infra_BatchReplaceTargetTagsItem": infra_BatchReplaceTargetTagsItem,
+      },
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/infra_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/infra_TargetArray"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "infra_IPInfo": infra_IPInfo,
+        "infra_Target": infra_Target,
+        "infra_TargetArray": infra_TargetArray,
+        "infra_api-response-single": infra_api$$response$$single,
+        "infra_messages": infra_messages,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Replace tags on existing targets"
+    },
+    [OPERATION]: {
+      method: "POST",
+      path: "/accounts/{account_id}/infrastructure/targets/batch_tags",
+      pathOf: encodePath`/accounts/${"account_id"}/infrastructure/targets/batch_tags`,
+      body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-stainless-skip": [
+          "terraform"
+        ]
+      },
+      responses: {
+        schemas: {
+          "200": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/infra_api-response-single"
+              },
+              {
+                "properties": {
+                  "result": {
+                    "$ref": "#/$defs/infra_TargetArray"
+                  }
+                },
+                "type": "object"
+              }
+            ]
+          },
+          "4XX": {
+            "$ref": "#/$defs/infra_api-response-common-failure"
+          }
+        },
+        $defs: {
+          "infra_IPInfo": infra_IPInfo,
+          "infra_Target": infra_Target,
+          "infra_TargetArray": infra_TargetArray,
+          "infra_api-response-common-failure": infra_api$$response$$common$$failure,
+          "infra_api-response-single": infra_api$$response$$single,
+          "infra_messages": infra_messages,
+        },
+      },
+    },
+  },
   {
     name: "zeroTrust_access_targets_create",
     title: "Create new target",

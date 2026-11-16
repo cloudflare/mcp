@@ -198,7 +198,7 @@ export const tools: readonly Tool[] = [
           "4XX": {
             "allOf": [
               {
-                "type": "string"
+                "$ref": "#/$defs/tls-certificates-and-hostnames_custom_trust_store_response_id_only"
               },
               {
                 "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-common-failure"

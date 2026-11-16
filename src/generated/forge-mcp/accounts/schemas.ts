@@ -4,9 +4,9 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
- * The schema of `iam_account`.
+ * The schema of `iam_components-schemas-account`.
  */
-export const iam_account: JSONObject = {
+export const iam_components$$schemas$$account: JSONObject = {
   "properties": {
     "id": {
       "description": "Identifier",
@@ -17,7 +17,7 @@ export const iam_account: JSONObject = {
       "type": "object"
     },
     "name": {
-      "description": "Account name",
+      "description": "Account name. When creating or updating an account, the name is limited to 65 UTF-8 bytes.",
       "type": "string"
     },
     "settings": {
@@ -34,41 +34,13 @@ export const iam_account: JSONObject = {
         }
       },
       "type": "object"
-    },
-    "type": {
-      "enum": [
-        "standard",
-        "enterprise"
-      ],
-      "type": "string"
     }
   },
   "required": [
     "id",
-    "name",
-    "type"
+    "name"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `iam_components-schemas-account`.
- */
-export const iam_components$$schemas$$account: JSONObject = {
-  "allOf": [
-    {
-      "$ref": "#/$defs/iam_account"
-    },
-    {
-      "properties": {
-        "name": {
-          "description": "Account name, limited to 65 UTF-8 bytes.",
-          "type": "string"
-        }
-      },
-      "type": "object"
-    }
-  ]
 };
 
 /**

@@ -5,8 +5,10 @@ import { OPERATION, type Tool, encodePath } from "../_/tool.js";
 import {
   builds_APIResponse,
   builds_ApiError,
+  builds_BuildLogsResponse,
   builds_BuildResponse,
   builds_BuildTriggerMetadataResponse,
+  builds_CanceledBuildResponse,
   builds_ErrorResponse,
   builds_PaginationInfo,
   builds_UpsertRepoConnectionResponse,
@@ -14,13 +16,12 @@ import {
   builds_branch_includes,
   builds_path_excludes,
   builds_path_includes,
-} from "../outputs.js";
+} from "./outputs.js";
 import {
   builds_BuildSeedRepoInput,
   builds_BuildSeedRepoInputFile,
   builds_CreateBuildRequest,
-} from "../schemas.js";
-import { builds_CanceledBuildResponse } from "./outputs.js";
+} from "./schemas.js";
 
 /**
  * The tools of `builds`.
@@ -41,7 +42,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "build_uuid": {
-              "description": "Build UUID.",
+              "description": "UUID of the build, as returned by builds list.",
               "format": "uuid",
               "type": "string"
             }
@@ -131,8 +132,8 @@ export const tools: readonly Tool[] = [
   },
   {
     name: "builds_create",
-    title: "Start a Workers build",
-    description: "Start a build for a branch or commit using the selected trigger.\n\nPOST /accounts/{account_id}/builds/triggers/{trigger_uuid}/builds",
+    title: "Start a Worker build",
+    description: "Start a production build for a branch or commit.\n\nPOST /accounts/{account_id}/builds/workers/{external_script_id}/builds",
     inputSchema: {
       type: "object",
       properties: {
@@ -146,15 +147,14 @@ export const tools: readonly Tool[] = [
               "description": "Account identifier.",
               "type": "string"
             },
-            "trigger_uuid": {
-              "description": "Trigger UUID.",
-              "format": "uuid",
+            "external_script_id": {
+              "description": "Script tag of the Worker.",
               "type": "string"
             }
           },
           "required": [
             "account_id",
-            "trigger_uuid"
+            "external_script_id"
           ],
           "type": "object"
         }
@@ -202,12 +202,12 @@ export const tools: readonly Tool[] = [
       "idempotentHint": false,
       "openWorldHint": true,
       "readOnlyHint": false,
-      "title": "Start a Workers build"
+      "title": "Start a Worker build"
     },
     [OPERATION]: {
       method: "POST",
-      path: "/accounts/{account_id}/builds/triggers/{trigger_uuid}/builds",
-      pathOf: encodePath`/accounts/${"account_id"}/builds/triggers/${"trigger_uuid"}/builds`,
+      path: "/accounts/{account_id}/builds/workers/{external_script_id}/builds",
+      pathOf: encodePath`/accounts/${"account_id"}/builds/workers/${"external_script_id"}/builds`,
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
@@ -231,7 +231,13 @@ export const tools: readonly Tool[] = [
               }
             ]
           },
+          "400": {
+            "$ref": "#/$defs/builds_ErrorResponse"
+          },
           "401": {
+            "$ref": "#/$defs/builds_ErrorResponse"
+          },
+          "404": {
             "$ref": "#/$defs/builds_ErrorResponse"
           }
         },
@@ -266,7 +272,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "build_uuid": {
-              "description": "Build UUID.",
+              "description": "UUID of the build, as returned by builds list.",
               "format": "uuid",
               "type": "string"
             }
@@ -370,7 +376,7 @@ export const tools: readonly Tool[] = [
   {
     name: "builds_list",
     title: "List builds for a Worker",
-    description: "List paginated build records associated with a Worker tag.\n\nGET /accounts/{account_id}/builds/workers/{external_script_id}/builds",
+    description: "List paginated build records associated with a Worker.\n\nGET /accounts/{account_id}/builds/workers/{external_script_id}/builds",
     inputSchema: {
       type: "object",
       properties: {
@@ -382,7 +388,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "external_script_id": {
-              "description": "System-generated tag of the Worker. This is not the Worker name.",
+              "description": "Script tag of the Worker.",
               "type": "string"
             }
           },
@@ -492,6 +498,246 @@ export const tools: readonly Tool[] = [
             ]
           },
           "401": {
+            "$ref": "#/$defs/builds_ErrorResponse"
+          }
+        },
+        $defs: {
+          "builds_APIResponse": builds_APIResponse,
+          "builds_ApiError": builds_ApiError,
+          "builds_BuildResponse": builds_BuildResponse,
+          "builds_BuildTriggerMetadataResponse": builds_BuildTriggerMetadataResponse,
+          "builds_ErrorResponse": builds_ErrorResponse,
+          "builds_PaginationInfo": builds_PaginationInfo,
+          "builds_UpsertRepoConnectionResponse": builds_UpsertRepoConnectionResponse,
+          "builds_branch_excludes": builds_branch_excludes,
+          "builds_branch_includes": builds_branch_includes,
+          "builds_path_excludes": builds_path_excludes,
+          "builds_path_includes": builds_path_includes,
+        },
+      },
+    },
+  },
+  {
+    name: "builds_logs",
+    title: "Get Workers build logs",
+    description: "Retrieve cursor-paginated log lines for a build UUID.\n\nGET /accounts/{account_id}/builds/builds/{build_uuid}/logs",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account identifier.",
+              "type": "string"
+            },
+            "build_uuid": {
+              "description": "UUID of the build, as returned by builds list.",
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "build_uuid"
+          ],
+          "type": "object"
+        },
+        "query": {
+          "additionalProperties": false,
+          "properties": {
+            "cursor": {
+              "description": "Pagination cursor for log retrieval.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      required: [
+        "path"
+      ],
+      additionalProperties: false,
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/builds_APIResponse"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/builds_BuildLogsResponse"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "builds_APIResponse": builds_APIResponse,
+        "builds_ApiError": builds_ApiError,
+        "builds_BuildLogsResponse": builds_BuildLogsResponse,
+        "builds_PaginationInfo": builds_PaginationInfo,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get Workers build logs"
+    },
+    [OPERATION]: {
+      method: "GET",
+      path: "/accounts/{account_id}/builds/builds/{build_uuid}/logs",
+      pathOf: encodePath`/accounts/${"account_id"}/builds/builds/${"build_uuid"}/logs`,
+      query: [
+        { name: "cursor", explode: true },
+      ],
+      extensions: {
+        "x-api-token-group": [
+          "Workers CI Write",
+          "Workers CI Read"
+        ]
+      },
+      responses: {
+        schemas: {
+          "200": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/builds_APIResponse"
+              },
+              {
+                "properties": {
+                  "result": {
+                    "$ref": "#/$defs/builds_BuildLogsResponse"
+                  }
+                },
+                "type": "object"
+              }
+            ]
+          },
+          "401": {
+            "$ref": "#/$defs/builds_ErrorResponse"
+          },
+          "404": {
+            "$ref": "#/$defs/builds_ErrorResponse"
+          }
+        },
+        $defs: {
+          "builds_APIResponse": builds_APIResponse,
+          "builds_ApiError": builds_ApiError,
+          "builds_BuildLogsResponse": builds_BuildLogsResponse,
+          "builds_ErrorResponse": builds_ErrorResponse,
+          "builds_PaginationInfo": builds_PaginationInfo,
+        },
+      },
+    },
+  },
+  {
+    name: "builds_retry",
+    title: "Retry a Worker build",
+    description: "Start a new build from the branch and commit of a stopped build.\n\nPOST /accounts/{account_id}/builds/workers/{script_tag}/builds/{build_uuid}/retry",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account identifier.",
+              "type": "string"
+            },
+            "build_uuid": {
+              "description": "UUID of the build, as returned by builds list.",
+              "format": "uuid",
+              "type": "string"
+            },
+            "script_tag": {
+              "description": "Script tag of the Worker.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "script_tag",
+            "build_uuid"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path"
+      ],
+      additionalProperties: false,
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/builds_APIResponse"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/builds_BuildResponse"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "builds_APIResponse": builds_APIResponse,
+        "builds_ApiError": builds_ApiError,
+        "builds_BuildResponse": builds_BuildResponse,
+        "builds_BuildTriggerMetadataResponse": builds_BuildTriggerMetadataResponse,
+        "builds_PaginationInfo": builds_PaginationInfo,
+        "builds_UpsertRepoConnectionResponse": builds_UpsertRepoConnectionResponse,
+        "builds_branch_excludes": builds_branch_excludes,
+        "builds_branch_includes": builds_branch_includes,
+        "builds_path_excludes": builds_path_excludes,
+        "builds_path_includes": builds_path_includes,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Retry a Worker build"
+    },
+    [OPERATION]: {
+      method: "POST",
+      path: "/accounts/{account_id}/builds/workers/{script_tag}/builds/{build_uuid}/retry",
+      pathOf: encodePath`/accounts/${"account_id"}/builds/workers/${"script_tag"}/builds/${"build_uuid"}/retry`,
+      extensions: {
+        "x-api-token-group": [
+          "Workers CI Write"
+        ]
+      },
+      responses: {
+        schemas: {
+          "200": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/builds_APIResponse"
+              },
+              {
+                "properties": {
+                  "result": {
+                    "$ref": "#/$defs/builds_BuildResponse"
+                  }
+                },
+                "type": "object"
+              }
+            ]
+          },
+          "400": {
+            "$ref": "#/$defs/builds_ErrorResponse"
+          },
+          "401": {
+            "$ref": "#/$defs/builds_ErrorResponse"
+          },
+          "404": {
             "$ref": "#/$defs/builds_ErrorResponse"
           }
         },

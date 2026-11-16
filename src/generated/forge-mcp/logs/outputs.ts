@@ -30,6 +30,9 @@ export const lex_ErrorResponse: JSONObject = {
         }
       ]
     },
+    "result_info": {
+      "$ref": "#/$defs/lex_QueryResultInfo"
+    },
     "success": {
       "enum": [
         false
@@ -76,6 +79,9 @@ export const lex_QueryResponse: JSONObject = {
         }
       ]
     },
+    "result_info": {
+      "$ref": "#/$defs/lex_QueryResultInfo"
+    },
     "success": {
       "type": "boolean"
     }
@@ -83,7 +89,23 @@ export const lex_QueryResponse: JSONObject = {
   "required": [
     "errors",
     "messages",
+    "result_info",
     "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `lex_QueryResultInfo` in responses.
+ */
+export const lex_QueryResultInfo: JSONObject = {
+  "properties": {
+    "dataset": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "dataset"
   ],
   "type": "object"
 };

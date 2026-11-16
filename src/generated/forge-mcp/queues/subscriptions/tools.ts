@@ -337,6 +337,169 @@ export const tools: readonly Tool[] = [
     },
   },
   {
+    name: "queues_subscriptions_edit",
+    title: "Update Event Subscription",
+    description: "Updates an existing Queue event subscription.\n\nPATCH /accounts/{account_id}/event_subscriptions/subscriptions/{subscription_id}",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "body": {
+          "properties": {
+            "destination": {
+              "$ref": "#/$defs/mq_event-destination",
+              "description": "Destination configuration for the subscription"
+            },
+            "enabled": {
+              "description": "Whether the subscription is active",
+              "type": "boolean"
+            },
+            "events": {
+              "description": "List of event types this subscription handles",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1,
+              "type": "array"
+            },
+            "name": {
+              "description": "Name of the subscription",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "A Resource identifier.",
+              "type": "string"
+            },
+            "subscription_id": {
+              "description": "A Resource identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "subscription_id"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path",
+        "body"
+      ],
+      additionalProperties: false,
+      $defs: {
+        "mq_event-destination": mq_event$$destination$,
+        "mq_event-destination-queue": mq_event$$destination$$queue$,
+      },
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/mq_api-v4-success"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/mq_event-subscription"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "mq_api-v4-error": mq_api$$v4$$error,
+        "mq_api-v4-message": mq_api$$v4$$message,
+        "mq_api-v4-success": mq_api$$v4$$success,
+        "mq_event-destination": mq_event$$destination,
+        "mq_event-destination-queue": mq_event$$destination$$queue,
+        "mq_event-source": mq_event$$source,
+        "mq_event-source-images": mq_event$$source$$images,
+        "mq_event-source-kv": mq_event$$source$$kv,
+        "mq_event-source-r2": mq_event$$source$$r2,
+        "mq_event-source-super-slurper": mq_event$$source$$super$$slurper,
+        "mq_event-source-vectorize": mq_event$$source$$vectorize,
+        "mq_event-source-workers-ai-model": mq_event$$source$$workers$$ai$$model,
+        "mq_event-source-workers-builds-worker": mq_event$$source$$workers$$builds$$worker,
+        "mq_event-source-workers-script": mq_event$$source$$workers$$script,
+        "mq_event-source-workflows-workflow": mq_event$$source$$workflows$$workflow,
+        "mq_event-subscription": mq_event$$subscription,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Update Event Subscription"
+    },
+    [OPERATION]: {
+      method: "PATCH",
+      path: "/accounts/{account_id}/event_subscriptions/subscriptions/{subscription_id}",
+      pathOf: encodePath`/accounts/${"account_id"}/event_subscriptions/subscriptions/${"subscription_id"}`,
+      body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-api-token-group": [
+          "Queues Write",
+          "Workers Scripts Write"
+        ],
+        "x-forge-params": {
+          "enabled": {
+            "default": null
+          }
+        }
+      },
+      responses: {
+        schemas: {
+          "200": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/mq_api-v4-success"
+              },
+              {
+                "properties": {
+                  "result": {
+                    "$ref": "#/$defs/mq_event-subscription"
+                  }
+                },
+                "type": "object"
+              }
+            ]
+          },
+          "400": {
+            "$ref": "#/$defs/mq_api-v4-failure"
+          },
+          "404": {
+            "$ref": "#/$defs/mq_api-v4-failure"
+          }
+        },
+        $defs: {
+          "mq_api-v4-error": mq_api$$v4$$error,
+          "mq_api-v4-failure": mq_api$$v4$$failure,
+          "mq_api-v4-message": mq_api$$v4$$message,
+          "mq_api-v4-success": mq_api$$v4$$success,
+          "mq_event-destination": mq_event$$destination,
+          "mq_event-destination-queue": mq_event$$destination$$queue,
+          "mq_event-source": mq_event$$source,
+          "mq_event-source-images": mq_event$$source$$images,
+          "mq_event-source-kv": mq_event$$source$$kv,
+          "mq_event-source-r2": mq_event$$source$$r2,
+          "mq_event-source-super-slurper": mq_event$$source$$super$$slurper,
+          "mq_event-source-vectorize": mq_event$$source$$vectorize,
+          "mq_event-source-workers-ai-model": mq_event$$source$$workers$$ai$$model,
+          "mq_event-source-workers-builds-worker": mq_event$$source$$workers$$builds$$worker,
+          "mq_event-source-workers-script": mq_event$$source$$workers$$script,
+          "mq_event-source-workflows-workflow": mq_event$$source$$workflows$$workflow,
+          "mq_event-subscription": mq_event$$subscription,
+        },
+      },
+    },
+  },
+  {
     name: "queues_subscriptions_get",
     title: "Get Event Subscription",
     description: "Returns an existing Queue event subscription.\n\nGET /accounts/{account_id}/event_subscriptions/subscriptions/{subscription_id}",
@@ -658,169 +821,6 @@ export const tools: readonly Tool[] = [
             ]
           },
           "4XX": {
-            "$ref": "#/$defs/mq_api-v4-failure"
-          }
-        },
-        $defs: {
-          "mq_api-v4-error": mq_api$$v4$$error,
-          "mq_api-v4-failure": mq_api$$v4$$failure,
-          "mq_api-v4-message": mq_api$$v4$$message,
-          "mq_api-v4-success": mq_api$$v4$$success,
-          "mq_event-destination": mq_event$$destination,
-          "mq_event-destination-queue": mq_event$$destination$$queue,
-          "mq_event-source": mq_event$$source,
-          "mq_event-source-images": mq_event$$source$$images,
-          "mq_event-source-kv": mq_event$$source$$kv,
-          "mq_event-source-r2": mq_event$$source$$r2,
-          "mq_event-source-super-slurper": mq_event$$source$$super$$slurper,
-          "mq_event-source-vectorize": mq_event$$source$$vectorize,
-          "mq_event-source-workers-ai-model": mq_event$$source$$workers$$ai$$model,
-          "mq_event-source-workers-builds-worker": mq_event$$source$$workers$$builds$$worker,
-          "mq_event-source-workers-script": mq_event$$source$$workers$$script,
-          "mq_event-source-workflows-workflow": mq_event$$source$$workflows$$workflow,
-          "mq_event-subscription": mq_event$$subscription,
-        },
-      },
-    },
-  },
-  {
-    name: "queues_subscriptions_update",
-    title: "Update Event Subscription",
-    description: "Updates an existing Queue event subscription.\n\nPATCH /accounts/{account_id}/event_subscriptions/subscriptions/{subscription_id}",
-    inputSchema: {
-      type: "object",
-      properties: {
-        "body": {
-          "properties": {
-            "destination": {
-              "$ref": "#/$defs/mq_event-destination",
-              "description": "Destination configuration for the subscription"
-            },
-            "enabled": {
-              "description": "Whether the subscription is active",
-              "type": "boolean"
-            },
-            "events": {
-              "description": "List of event types this subscription handles",
-              "items": {
-                "type": "string"
-              },
-              "minItems": 1,
-              "type": "array"
-            },
-            "name": {
-              "description": "Name of the subscription",
-              "type": "string"
-            }
-          },
-          "type": "object"
-        },
-        "path": {
-          "additionalProperties": false,
-          "properties": {
-            "account_id": {
-              "description": "A Resource identifier.",
-              "type": "string"
-            },
-            "subscription_id": {
-              "description": "A Resource identifier.",
-              "type": "string"
-            }
-          },
-          "required": [
-            "account_id",
-            "subscription_id"
-          ],
-          "type": "object"
-        }
-      },
-      required: [
-        "path",
-        "body"
-      ],
-      additionalProperties: false,
-      $defs: {
-        "mq_event-destination": mq_event$$destination$,
-        "mq_event-destination-queue": mq_event$$destination$$queue$,
-      },
-    },
-    outputSchema: {
-      "allOf": [
-        {
-          "$ref": "#/$defs/mq_api-v4-success"
-        },
-        {
-          "properties": {
-            "result": {
-              "$ref": "#/$defs/mq_event-subscription"
-            }
-          },
-          "type": "object"
-        }
-      ],
-      $defs: {
-        "mq_api-v4-error": mq_api$$v4$$error,
-        "mq_api-v4-message": mq_api$$v4$$message,
-        "mq_api-v4-success": mq_api$$v4$$success,
-        "mq_event-destination": mq_event$$destination,
-        "mq_event-destination-queue": mq_event$$destination$$queue,
-        "mq_event-source": mq_event$$source,
-        "mq_event-source-images": mq_event$$source$$images,
-        "mq_event-source-kv": mq_event$$source$$kv,
-        "mq_event-source-r2": mq_event$$source$$r2,
-        "mq_event-source-super-slurper": mq_event$$source$$super$$slurper,
-        "mq_event-source-vectorize": mq_event$$source$$vectorize,
-        "mq_event-source-workers-ai-model": mq_event$$source$$workers$$ai$$model,
-        "mq_event-source-workers-builds-worker": mq_event$$source$$workers$$builds$$worker,
-        "mq_event-source-workers-script": mq_event$$source$$workers$$script,
-        "mq_event-source-workflows-workflow": mq_event$$source$$workflows$$workflow,
-        "mq_event-subscription": mq_event$$subscription,
-      },
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Update Event Subscription"
-    },
-    [OPERATION]: {
-      method: "PATCH",
-      path: "/accounts/{account_id}/event_subscriptions/subscriptions/{subscription_id}",
-      pathOf: encodePath`/accounts/${"account_id"}/event_subscriptions/subscriptions/${"subscription_id"}`,
-      body: { mediaTypes: ["application/json"] },
-      extensions: {
-        "x-api-token-group": [
-          "Queues Write",
-          "Workers Scripts Write"
-        ],
-        "x-forge-params": {
-          "enabled": {
-            "default": null
-          }
-        }
-      },
-      responses: {
-        schemas: {
-          "200": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/mq_api-v4-success"
-              },
-              {
-                "properties": {
-                  "result": {
-                    "$ref": "#/$defs/mq_event-subscription"
-                  }
-                },
-                "type": "object"
-              }
-            ]
-          },
-          "400": {
-            "$ref": "#/$defs/mq_api-v4-failure"
-          },
-          "404": {
             "$ref": "#/$defs/mq_api-v4-failure"
           }
         },

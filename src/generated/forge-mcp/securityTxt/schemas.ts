@@ -7,53 +7,69 @@ import type { JSONObject } from "@modelcontextprotocol/server";
  * The schema of `security-center_securityTxt`.
  */
 export const security$$center_securityTxt: JSONObject = {
+  "description": "Configuration of the zone security.txt file",
   "properties": {
     "acknowledgments": {
+      "description": "Link(s) to a page where security researchers are recognised for their reports.",
       "items": {
         "type": "string"
       },
       "type": "array"
     },
     "canonical": {
+      "description": "Canonical URI where the security.txt file is located.",
       "items": {
         "type": "string"
       },
       "type": "array"
     },
     "contact": {
+      "description": "Methods that researchers should use for reporting vulnerabilities. Can be a URI for an email address, phone number, or URL.",
       "items": {
         "type": "string"
       },
       "type": "array"
     },
     "enabled": {
+      "default": false,
+      "description": "Whether or not to serve the security.txt file in this zone. If false, security.txt requests will pass through to the origin server.",
       "type": "boolean"
     },
     "encryption": {
+      "description": "URI(s) pointing to a location where an encryption key that researchers should use for encrypted communications can be retrieved. The key itself must not appear in this field.",
       "items": {
         "type": "string"
       },
       "type": "array"
     },
     "expires": {
+      "description": "RFC3339-formatted date and time string indicating the time that, after which, the contents of the security.txt file should be considered stale. It is recommended that this value is less than a year into the future.",
       "format": "date-time",
       "type": "string"
     },
     "hiring": {
+      "description": "Link(s) to any security-related job positions.",
       "items": {
         "type": "string"
       },
       "type": "array"
     },
     "policy": {
+      "description": "Link(s) to where a vulnerability disclosure policy is located.",
       "items": {
         "type": "string"
       },
       "type": "array"
     },
     "preferred_languages": {
+      "default": "",
+      "description": "Comma-separated list of natural languages that are preferred when submitting security reports. Language codes should be as defined in RFC5646.",
       "type": "string"
     }
   },
+  "required": [
+    "contact",
+    "expires"
+  ],
   "type": "object"
 };

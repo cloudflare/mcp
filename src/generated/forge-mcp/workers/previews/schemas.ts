@@ -20,6 +20,42 @@ export const workers_Preview: JSONObject = {
     "observability": {
       "description": "Observability settings for the Preview.",
       "properties": {
+        "agents": {
+          "description": "Agents observability settings for the Preview.",
+          "oneOf": [
+            {
+              "properties": {
+                "destinations": {
+                  "default": [],
+                  "description": "A list of destinations where Agents observability data will be exported to.",
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "enabled": {
+                  "default": false,
+                  "description": "Whether Agents observability is enabled for the Preview.",
+                  "type": "boolean"
+                },
+                "head_sampling_rate": {
+                  "default": 1,
+                  "description": "The sampling rate for Agents observability. From 0 to 1 (1 = 100%, 0.1 = 10%).",
+                  "type": "number"
+                },
+                "persist": {
+                  "default": true,
+                  "description": "Whether Agents observability data is persisted for the Preview.",
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "enabled": {
           "default": false,
           "description": "Whether observability is enabled for the Preview.",

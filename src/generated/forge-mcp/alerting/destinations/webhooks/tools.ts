@@ -384,7 +384,7 @@ export const tools: readonly Tool[] = [
   {
     name: "alerting_destinations_webhooks_update",
     title: "Update a webhook",
-    description: "Update a webhook destination.\n\nPUT /accounts/{account_id}/alerting/v3/destinations/webhooks/{webhook_id}",
+    description: "Update a webhook destination. Only `name` can be updated. `url` and `secret` are immutable; to change them, delete the webhook and create a new one.\n\nPUT /accounts/{account_id}/alerting/v3/destinations/webhooks/{webhook_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -393,19 +393,10 @@ export const tools: readonly Tool[] = [
             "name": {
               "description": "The name of the webhook destination. This will be included in the request body when you receive a webhook notification.",
               "type": "string"
-            },
-            "secret": {
-              "description": "Optional secret that will be passed in the `cf-webhook-auth` header when dispatching generic webhook notifications or formatted for supported destinations. Secrets are not returned in any API response body.",
-              "type": "string"
-            },
-            "url": {
-              "description": "The POST endpoint to call when dispatching a notification.",
-              "type": "string"
             }
           },
           "required": [
-            "name",
-            "url"
+            "name"
           ],
           "type": "object"
         },

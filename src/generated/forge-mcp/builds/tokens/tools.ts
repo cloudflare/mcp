@@ -7,7 +7,7 @@ import {
   builds_ApiError,
   builds_ErrorResponse,
   builds_PaginationInfo,
-} from "../../outputs.js";
+} from "../outputs.js";
 import {
   builds_CreateBuildTokenResponse,
   builds_ListTokensResponse,
@@ -123,7 +123,7 @@ export const tools: readonly Tool[] = [
   {
     name: "builds_tokens_delete",
     title: "Delete a build token",
-    description: "Delete a stored build token owned by the current user.\n\nDELETE /accounts/{account_id}/builds/tokens/{build_token_uuid}",
+    description: "Delete a stored build token owned by the current user.\n\nConfirm with the user before calling this tool. This operation deletes the build token. Builds that use it will fail to deploy.\n\nDELETE /accounts/{account_id}/builds/tokens/{build_token_uuid}",
     inputSchema: {
       type: "object",
       properties: {

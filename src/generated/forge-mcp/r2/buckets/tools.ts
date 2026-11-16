@@ -255,6 +255,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Workers R2 Storage Write"
+        ],
+        "x-fern-audiences": [
+          "sdk"
         ]
       },
       responses: {

@@ -526,7 +526,7 @@ export const access_oidc: JSONObject = {
                   "type": "array"
                 },
                 "token_url": {
-                  "description": "The token_endpoint URL of your IdP",
+                  "description": "The token_endpoint URL of your IdP. Updates that change its origin (scheme, host, or port) require client_secret in the request. Path-only changes do not require client_secret.",
                   "type": "string"
                 }
               },
@@ -763,7 +763,7 @@ export const access_saml: JSONObject = {
               "type": "array"
             },
             "idp_public_certs": {
-              "description": "X509 certificate to verify the signature in the SAML authentication response",
+              "description": "X509 certificate to verify the signature in the SAML authentication response. Mutually exclusive with `metadata_url`.",
               "items": {
                 "type": "string"
               },
@@ -776,6 +776,10 @@ export const access_saml: JSONObject = {
             "max_sso_url_length": {
               "description": "The maximum URL length the IdP accepts for the SSO redirect URL.\nWhen the constructed SSO URL would exceed this length, the RelayState\nis stored server-side and a short nonce is passed to the IdP instead.\nSet this if your IdP enforces a URL length limit.",
               "type": "integer"
+            },
+            "metadata_url": {
+              "description": "HTTPS URL of the IdP's SAML metadata document from which Access reads the signing certificates used to verify SAML authentication responses. Mutually exclusive with `idp_public_certs`.",
+              "type": "string"
             },
             "sign_request": {
               "default": false,

@@ -61,6 +61,20 @@ export const tools: readonly Tool[] = [
             "application_id"
           ],
           "type": "object"
+        },
+        "query": {
+          "additionalProperties": false,
+          "properties": {
+            "environment": {
+              "description": "Environment to request (standard, fedramp). The result follows the account's FedRAMP entitlement: FedRAMP-enabled accounts always receive FedRAMP applications and other accounts receive standard applications. Any other non-empty value returns 400.",
+              "enum": [
+                "fedramp",
+                "standard"
+              ],
+              "type": "string"
+            }
+          },
+          "type": "object"
         }
       },
       required: [
@@ -90,6 +104,9 @@ export const tools: readonly Tool[] = [
       method: "GET",
       path: "/accounts/{account_id}/one/applications/{application_id}",
       pathOf: encodePath`/accounts/${"account_id"}/one/applications/${"application_id"}`,
+      query: [
+        { name: "environment", explode: true },
+      ],
       extensions: {
         "x-stability": "beta"
       },
@@ -98,6 +115,7 @@ export const tools: readonly Tool[] = [
           "200": {
             "$ref": "#/$defs/one_ApplicationDetailResponse"
           },
+          "400": null,
           "404": null
         },
         $defs: {
@@ -135,7 +153,11 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "environment": {
-              "description": "Filter by supported environment (standard, fedramp).",
+              "description": "Environment to request (standard, fedramp). The result follows the account's FedRAMP entitlement: FedRAMP-enabled accounts always receive FedRAMP applications and other accounts receive standard applications. Any other non-empty value returns 400.",
+              "enum": [
+                "fedramp",
+                "standard"
+              ],
               "type": "string"
             },
             "page": {

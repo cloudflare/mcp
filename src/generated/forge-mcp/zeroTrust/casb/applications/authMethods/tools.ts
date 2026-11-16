@@ -58,6 +58,14 @@ export const tools: readonly Tool[] = [
         "query": {
           "additionalProperties": false,
           "properties": {
+            "environment": {
+              "description": "Environment to request (standard, fedramp). The result follows the account's FedRAMP entitlement: FedRAMP-enabled accounts always receive FedRAMP applications and other accounts receive standard applications. Any other non-empty value returns 400.",
+              "enum": [
+                "fedramp",
+                "standard"
+              ],
+              "type": "string"
+            },
             "page": {
               "description": "A page number within the paginated result set.",
               "type": "integer"
@@ -95,6 +103,7 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/one/applications/{application_id}/auth-methods",
       pathOf: encodePath`/accounts/${"account_id"}/one/applications/${"application_id"}/auth-methods`,
       query: [
+        { name: "environment", explode: true },
         { name: "page", explode: true },
         { name: "page_size", explode: true },
       ],
@@ -106,6 +115,7 @@ export const tools: readonly Tool[] = [
           "200": {
             "$ref": "#/$defs/one_PaginatedAuthMethodDetailList"
           },
+          "400": null,
           "404": null
         },
         $defs: {

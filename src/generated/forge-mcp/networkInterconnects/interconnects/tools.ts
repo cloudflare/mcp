@@ -238,7 +238,7 @@ export const tools: readonly Tool[] = [
   {
     name: "networkInterconnects_interconnects_list",
     title: "List existing interconnects",
-    description: "Lists all network interconnects configured for the account, including physical and virtual\nconnections.\n\nGET /accounts/{account_id}/cni/interconnects",
+    description: "Lists network interconnects of a single type configured for the account. The `type` query\nparameter selects the type to list; when omitted, only `direct` interconnects are returned.\n\nGET /accounts/{account_id}/cni/interconnects",
     inputSchema: {
       type: "object",
       properties: {
@@ -290,7 +290,7 @@ export const tools: readonly Tool[] = [
               ]
             },
             "type": {
-              "description": "If specified, only show interconnects of the given type",
+              "description": "Type of interconnect to list, such as `direct` or `gcp_partner`. Defaults to `direct`.",
               "oneOf": [
                 {
                   "type": "string"

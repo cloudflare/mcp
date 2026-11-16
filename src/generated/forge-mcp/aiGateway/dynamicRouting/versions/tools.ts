@@ -2053,6 +2053,22 @@ export const tools: readonly Tool[] = [
             "id"
           ],
           "type": "object"
+        },
+        "query": {
+          "additionalProperties": false,
+          "properties": {
+            "page": {
+              "default": 1,
+              "description": "Page number",
+              "type": "integer"
+            },
+            "per_page": {
+              "default": 20,
+              "description": "Number of versions per page",
+              "type": "integer"
+            }
+          },
+          "type": "object"
         }
       },
       required: [
@@ -2140,6 +2156,10 @@ export const tools: readonly Tool[] = [
       method: "GET",
       path: "/accounts/{account_id}/ai-gateway/gateways/{gateway_id}/routes/{id}/versions",
       pathOf: encodePath`/accounts/${"account_id"}/ai-gateway/gateways/${"gateway_id"}/routes/${"id"}/versions`,
+      query: [
+        { name: "page", explode: true },
+        { name: "per_page", explode: true },
+      ],
       extensions: {
         "x-api-token-group": [
           "AI Gateway Write",

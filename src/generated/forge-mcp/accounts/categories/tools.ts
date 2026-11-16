@@ -100,7 +100,7 @@ export const tools: readonly Tool[] = [
   {
     name: "accounts_categories_list",
     title: "List application categories",
-    description: "List the categories available for classifying applications, ordered by name.\nResults are paginated by `offset` or `cursor`.\n\nGET /accounts/{account_id}/resource-library/categories",
+    description: "List the categories available for classifying applications, ordered by name, ignoring the case of the letters A to Z.\nResults are paginated by `offset` or `cursor`.\n\nGET /accounts/{account_id}/resource-library/categories",
     inputSchema: {
       type: "object",
       properties: {

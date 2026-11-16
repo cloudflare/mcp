@@ -10,7 +10,6 @@ export const precursor_precursor_config: JSONObject = {
   "description": "Precursor Config",
   "properties": {
     "mode": {
-      "default": "off",
       "description": "Controls Precursor detection for the zone. `off` disables detection,\n`monitor` records detections without affecting bot scores, and `arm`\nallows detections to affect bot scores.",
       "enum": [
         "off",

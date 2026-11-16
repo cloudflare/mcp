@@ -530,6 +530,90 @@ export const tools: readonly Tool[] = [
     },
   },
   {
+    name: "dns_zoneTransfers_outgoing_status",
+    title: "Get Outgoing Zone Transfer Status",
+    description: "Get primary zone transfer status.\n\nGET /zones/{zone_id}/secondary_dns/outgoing/status",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path"
+      ],
+      additionalProperties: false,
+    },
+    outputSchema: {
+      "$ref": "#/$defs/secondary-dns_enable_transfer_response",
+      $defs: {
+        "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
+        "secondary-dns_enable_transfer_response": secondary$$dns_enable_transfer_response,
+        "secondary-dns_messages": secondary$$dns_messages,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get Outgoing Zone Transfer Status"
+    },
+    [OPERATION]: {
+      method: "GET",
+      path: "/zones/{zone_id}/secondary_dns/outgoing/status",
+      pathOf: encodePath`/zones/${"zone_id"}/secondary_dns/outgoing/status`,
+      extensions: {
+        "x-api-token-group": [
+          "Zone Settings Write",
+          "Zone Settings Read",
+          "DNS Read",
+          "Zone Write",
+          "DNS Write"
+        ],
+        "x-cfPlanAvailability": {
+          "business": false,
+          "enterprise": true,
+          "free": false,
+          "pro": false
+        }
+      },
+      responses: {
+        schemas: {
+          "200": {
+            "$ref": "#/$defs/secondary-dns_enable_transfer_response"
+          },
+          "4XX": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/secondary-dns_enable_transfer_response"
+              },
+              {
+                "$ref": "#/$defs/secondary-dns_api-response-common-failure"
+              }
+            ]
+          }
+        },
+        $defs: {
+          "secondary-dns_api-response-common-failure": secondary$$dns_api$$response$$common$$failure,
+          "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
+          "secondary-dns_enable_transfer_response": secondary$$dns_enable_transfer_response,
+          "secondary-dns_messages": secondary$$dns_messages,
+        },
+      },
+    },
+  },
+  {
     name: "dns_zoneTransfers_outgoing_update",
     title: "Update Primary Zone Configuration",
     description: "Update primary zone configuration for outgoing zone transfers.\n\nPUT /zones/{zone_id}/secondary_dns/outgoing",

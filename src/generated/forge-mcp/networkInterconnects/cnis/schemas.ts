@@ -48,15 +48,31 @@ export const nsc_Cni: JSONObject = {
       "type": "string"
     },
     "bgp": {
-      "$ref": "#/$defs/nsc_BgpControl"
+      "description": "BGP Control settings. For non-GCP CNIs, null disables BGP Control. GCP CNIs require BGP configuration, so explicit null is rejected; omission preserves stored settings or repairs missing settings with the Google defaults.",
+      "oneOf": [
+        {
+          "$ref": "#/$defs/nsc_BgpControl"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "bgp_mode": {
-      "description": "The BGP mode for a CNI.\nOne of the following:\n* `dynamic_route_exchange`\n* `advertise_only`",
-      "enum": [
-        "dynamic_route_exchange",
-        "advertise_only"
-      ],
-      "type": "string"
+      "description": "Controls the customer-facing route exchange behavior. Omitting this field during an update preserves the current mode. When enabling BGP on a BGP-disabled CNI, an omitted or null mode defaults to AdvertiseOnly. Otherwise, null clears the explicitly selected mode.",
+      "oneOf": [
+        {
+          "description": "The BGP mode for a CNI.\nOne of the following:\n* `dynamic_route_exchange`\n* `advertise_only`",
+          "enum": [
+            "dynamic_route_exchange",
+            "advertise_only"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "cust_ip": {
       "description": "Customer end of the point-to-point link\n\nThis should always be inside the same prefix as `p2p_ip`.",
@@ -99,7 +115,15 @@ export const nsc_CniCreate: JSONObject = {
       "type": "string"
     },
     "bgp": {
-      "$ref": "#/$defs/nsc_BgpControl"
+      "description": "BGP Control settings. For GCP CNIs, omitting this field or setting it to null enables BGP with the Google ASN and AdvertiseOnly mode by default. For other CNI types, omission or null leaves BGP disabled.",
+      "oneOf": [
+        {
+          "$ref": "#/$defs/nsc_BgpControl"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "interconnect": {
       "type": "string"

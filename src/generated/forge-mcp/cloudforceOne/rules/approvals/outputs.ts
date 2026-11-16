@@ -113,6 +113,16 @@ export const cloudforce$$one_RuleApprovalDetailResponse: JSONObject = {
         "audit_log_id": {
           "type": "number"
         },
+        "base_rule": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/cloudforce-one_RulePreview"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "can_review": {
           "type": "boolean"
         },

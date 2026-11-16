@@ -80,6 +80,46 @@ export const cloudflare$$pipelines_SinkParquetFormat: JSONObject = {
 };
 
 /**
+ * The schema of `cloudflare-pipelines_SinkRollingPolicy`.
+ */
+export const cloudflare$$pipelines_SinkRollingPolicy: JSONObject = {
+  "description": "Rolling policy for file sinks (when & why to close a file and open a new one).",
+  "properties": {
+    "file_size_bytes": {
+      "description": "Files will be rolled after reaching this number of bytes",
+      "type": "integer"
+    },
+    "inactivity_seconds": {
+      "description": "Number of seconds of inactivity to wait before rolling over to a new file",
+      "type": "integer"
+    },
+    "interval_seconds": {
+      "description": "Number of seconds to wait before rolling over to a new file",
+      "type": "integer"
+    }
+  },
+  "type": "object"
+};
+
+/**
+ * The schema of `cloudflare-pipelines_basin_catalogTableUpdate`.
+ */
+export const cloudflare$$pipelines_basin_catalogTableUpdate: JSONObject = {
+  "description": "Mutable configuration of a Basin Catalog Sink, including Sinks created with the legacy `r2_data_catalog` type. Omitted fields keep their current values.",
+  "properties": {
+    "rolling_policy": {
+      "$ref": "#/$defs/cloudflare-pipelines_SinkRollingPolicy",
+      "description": "Rolling policy for file sinks (when & why to close a file and open a new one)."
+    },
+    "token": {
+      "description": "Authentication token",
+      "type": "string"
+    }
+  },
+  "type": "object"
+};
+
+/**
  * The schema of `cloudflare-pipelines_r2Table`.
  */
 export const cloudflare$$pipelines_r2Table: JSONObject = {
@@ -153,22 +193,8 @@ export const cloudflare$$pipelines_r2Table: JSONObject = {
       "type": "string"
     },
     "rolling_policy": {
-      "description": "Rolling policy for file sinks (when & why to close a file and open a new one).",
-      "properties": {
-        "file_size_bytes": {
-          "description": "Files will be rolled after reaching this number of bytes",
-          "type": "integer"
-        },
-        "inactivity_seconds": {
-          "description": "Number of seconds of inactivity to wait before rolling over to a new file",
-          "type": "integer"
-        },
-        "interval_seconds": {
-          "description": "Number of seconds to wait before rolling over to a new file",
-          "type": "integer"
-        }
-      },
-      "type": "object"
+      "$ref": "#/$defs/cloudflare-pipelines_SinkRollingPolicy",
+      "description": "Rolling policy for file sinks (when & why to close a file and open a new one)."
     }
   },
   "required": [
@@ -176,6 +202,34 @@ export const cloudflare$$pipelines_r2Table: JSONObject = {
     "bucket",
     "credentials"
   ],
+  "type": "object"
+};
+
+/**
+ * The schema of `cloudflare-pipelines_r2TableUpdate`.
+ */
+export const cloudflare$$pipelines_r2TableUpdate: JSONObject = {
+  "description": "Mutable configuration of an R2 Sink. Omitted fields keep their current values.",
+  "properties": {
+    "credentials": {
+      "description": "R2 credentials to change. Omitted fields keep their current values.",
+      "properties": {
+        "access_key_id": {
+          "description": "R2 Access Key ID",
+          "type": "string"
+        },
+        "secret_access_key": {
+          "description": "R2 Secret Access Key",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "rolling_policy": {
+      "$ref": "#/$defs/cloudflare-pipelines_SinkRollingPolicy",
+      "description": "Rolling policy for file sinks (when & why to close a file and open a new one)."
+    }
+  },
   "type": "object"
 };
 
@@ -198,22 +252,8 @@ export const cloudflare$$pipelines_r2_data_catalogTable: JSONObject = {
       "type": "string"
     },
     "rolling_policy": {
-      "description": "Rolling policy for file sinks (when & why to close a file and open a new one).",
-      "properties": {
-        "file_size_bytes": {
-          "description": "Files will be rolled after reaching this number of bytes",
-          "type": "integer"
-        },
-        "inactivity_seconds": {
-          "description": "Number of seconds of inactivity to wait before rolling over to a new file",
-          "type": "integer"
-        },
-        "interval_seconds": {
-          "description": "Number of seconds to wait before rolling over to a new file",
-          "type": "integer"
-        }
-      },
-      "type": "object"
+      "$ref": "#/$defs/cloudflare-pipelines_SinkRollingPolicy",
+      "description": "Rolling policy for file sinks (when & why to close a file and open a new one)."
     },
     "table_name": {
       "description": "Table name",

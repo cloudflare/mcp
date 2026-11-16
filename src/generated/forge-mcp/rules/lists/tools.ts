@@ -109,14 +109,7 @@ export const tools: readonly Tool[] = [
             "$ref": "#/$defs/lists_list-response-collection"
           },
           "4XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/lists_list-response-collection"
-              },
-              {
-                "$ref": "#/$defs/lists_api-response-common-failure"
-              }
-            ]
+            "$ref": "#/$defs/lists_api-response-common-failure"
           }
         },
         $defs: {
@@ -196,14 +189,7 @@ export const tools: readonly Tool[] = [
             "$ref": "#/$defs/lists_list-delete-response-collection"
           },
           "4XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/lists_list-delete-response-collection"
-              },
-              {
-                "$ref": "#/$defs/lists_api-response-common-failure"
-              }
-            ]
+            "$ref": "#/$defs/lists_api-response-common-failure"
           }
         },
         $defs: {
@@ -283,14 +269,7 @@ export const tools: readonly Tool[] = [
             "$ref": "#/$defs/lists_list-response-collection"
           },
           "4XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/lists_list-response-collection"
-              },
-              {
-                "$ref": "#/$defs/lists_api-response-common-failure"
-              }
-            ]
+            "$ref": "#/$defs/lists_api-response-common-failure"
           }
         },
         $defs: {
@@ -368,14 +347,7 @@ export const tools: readonly Tool[] = [
             "$ref": "#/$defs/lists_lists-response-collection"
           },
           "4XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/lists_lists-response-collection"
-              },
-              {
-                "$ref": "#/$defs/lists_api-response-common-failure"
-              }
-            ]
+            "$ref": "#/$defs/lists_api-response-common-failure"
           }
         },
         $defs: {
@@ -468,14 +440,7 @@ export const tools: readonly Tool[] = [
             "$ref": "#/$defs/lists_list-response-collection"
           },
           "4XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/lists_list-response-collection"
-              },
-              {
-                "$ref": "#/$defs/lists_api-response-common-failure"
-              }
-            ]
+            "$ref": "#/$defs/lists_api-response-common-failure"
           }
         },
         $defs: {

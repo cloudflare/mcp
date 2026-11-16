@@ -24,7 +24,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_access_userPopulations_create",
     title: "Create a user population",
-    description: "Creates a user population in an account.\n\nPOST /accounts/{account_id}/access/user_populations",
+    description: "Creates a user population in an account. Requires permission to update the account's Access organization.\n\nPOST /accounts/{account_id}/access/user_populations",
     inputSchema: {
       type: "object",
       properties: {

@@ -4,6 +4,32 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
+ * The schema of `one_GitLabIntegrationConfigurationRequest`.
+ */
+export const one_GitLabIntegrationConfigurationRequest: JSONObject = {
+  "description": "Selected GitLab groups and projects.",
+  "properties": {
+    "group_ids": {
+      "description": "Selected top-level GitLab group IDs as string-encoded positive integers.",
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 10000,
+      "type": "array"
+    },
+    "project_ids": {
+      "description": "Selected GitLab project IDs as string-encoded positive integers.",
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 10000,
+      "type": "array"
+    }
+  },
+  "type": "object"
+};
+
+/**
  * The schema of `one_IntegrationV2CreateRequest`.
  */
 export const one_IntegrationV2CreateRequest: JSONObject = {
@@ -94,6 +120,10 @@ export const one_IntegrationV2CreateRequest: JSONObject = {
 export const one_PatchedUpdateIntegrationV2Request: JSONObject = {
   "description": "Serializer for v2 integration PATCH requests.",
   "properties": {
+    "config": {
+      "$ref": "#/$defs/one_UpdateIntegrationConfigRequest",
+      "description": "Vendor-specific integration configuration."
+    },
     "credentials": {
       "description": "Partial credential fields to merge with existing.",
       "type": "object"
@@ -129,6 +159,20 @@ export const one_PatchedUpdateIntegrationV2Request: JSONObject = {
         "type": "string"
       },
       "type": "array"
+    }
+  },
+  "type": "object"
+};
+
+/**
+ * The schema of `one_UpdateIntegrationConfigRequest`.
+ */
+export const one_UpdateIntegrationConfigRequest: JSONObject = {
+  "description": "Vendor-specific integration configuration accepted during updates.",
+  "properties": {
+    "gitlab": {
+      "$ref": "#/$defs/one_GitLabIntegrationConfigurationRequest",
+      "description": "GitLab-specific configuration. Accepted only for GitLab integrations."
     }
   },
   "type": "object"

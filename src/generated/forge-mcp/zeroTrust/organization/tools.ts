@@ -218,6 +218,196 @@ export const tools: readonly Tool[] = [
     },
   },
   {
+    name: "zeroTrust_organization_edit",
+    title: "Partially update your Zero Trust organization",
+    description: "Updates only the fields included in the request body. Omitted fields keep their current values. To clear `mfa_config` or `mfa_piv_key_requirements`, send the field as `{}`.\n\nPATCH /{account_or_zone}/{account_or_zone_id}/access/organizations",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "body": {
+          "properties": {
+            "allow_authenticate_via_warp": {
+              "default": false,
+              "description": "When set to true, users can authenticate via WARP for any application in your organization. Application settings will take precedence over this value.",
+              "type": "boolean"
+            },
+            "auth_domain": {
+              "description": "The unique subdomain assigned to your Zero Trust organization. If omitted on creation, a unique subdomain is auto-generated in the format `adjective-noun-hex4` (e.g. `frosty-moon-7a3b.cloudflareaccess.com`).",
+              "type": "string"
+            },
+            "auto_redirect_to_identity": {
+              "default": false,
+              "description": "When set to `true`, users skip the identity provider selection step during login.",
+              "type": "boolean"
+            },
+            "custom_pages": {
+              "$ref": "#/$defs/access_custom_pages"
+            },
+            "deny_unmatched_requests": {
+              "description": "Determines whether to deny all requests to Cloudflare-protected resources that lack an associated Access application. If enabled, you must explicitly configure an Access application and policy to allow traffic to your Cloudflare-protected resources. For domains you want to be public across all subdomains, add the domain to the `deny_unmatched_requests_exempted_zone_names` array.",
+              "type": "boolean"
+            },
+            "deny_unmatched_requests_exempted_zone_names": {
+              "$ref": "#/$defs/access_deny_unmatched_requests_exempted_zone_names",
+              "description": "Contains zone names to exempt from the `deny_unmatched_requests` feature. Requests to a subdomain in an exempted zone will block unauthenticated traffic by default if there is a configured Access application and policy that matches the request."
+            },
+            "disable_end_user_app_creation": {
+              "default": false,
+              "description": "Whether creation of end user applications is disabled for this organization.",
+              "type": "boolean"
+            },
+            "is_ui_read_only": {
+              "default": false,
+              "description": "Lock all settings as Read-Only in the Dashboard, regardless of user permission. Updates may only be made via the API or Terraform for this account when enabled.",
+              "type": "boolean"
+            },
+            "login_design": {
+              "$ref": "#/$defs/access_login_design"
+            },
+            "mfa_config": {
+              "$ref": "#/$defs/access_org_mfa_config",
+              "description": "Configures multi-factor authentication (MFA) settings for an organization."
+            },
+            "mfa_piv_key_requirements": {
+              "$ref": "#/$defs/access_mfa_piv_key_requirements",
+              "description": "Configures PIV key requirements for MFA using hardware security keys."
+            },
+            "mfa_required_for_all_apps": {
+              "default": false,
+              "description": "Determines whether global MFA settings apply to applications by default. The organization must have MFA enabled with at least one authentication method and a session duration configured. Note: 'allowed_authenticators' cannot contain only the infrastructure SSH authenticators ('piv_key' and 'ssh_fido2_key') if the organization has any non-infrastructure applications.",
+              "type": "boolean"
+            },
+            "name": {
+              "description": "The name of your Zero Trust organization. When omitted on creation, defaults to the provided auth_domain; when both are omitted, defaults to the auto-generated subdomain slug (e.g. frosty-moon-7a3b).",
+              "type": "string"
+            },
+            "service_token_inactivity": {
+              "$ref": "#/$defs/access_service_token_inactivity",
+              "description": "Configures automatic enforcement for inactive service tokens. A service token is inactive if no policy references it, and it has not successfully authenticated with an Access application during the selected inactivity period. This setting applies to every service token in your Zero Trust account."
+            },
+            "session_duration": {
+              "description": "The amount of time that tokens issued for applications will be valid. Must be in the format `300ms` or `2h45m`. Valid time units are: ns, us (or µs), ms, s, m, h.",
+              "type": "string"
+            },
+            "strict_service_token_auth": {
+              "description": "Enables new behaviors for requests made with Access service tokens. Unauthorized requests emit audit logs, and return a 401 or 403 status code in the response instead of redirecting to the login page. Successful requests no longer receive a CF_Authorization cookie in the response. Zero Trust organizations created on or after October 5, 2026 will have this setting enabled by default, and cannot disable it.",
+              "type": "boolean"
+            },
+            "ui_read_only_toggle_reason": {
+              "description": "A description of the reason why the UI read only field is being toggled.",
+              "type": "string"
+            },
+            "user_seat_expiration_inactive_time": {
+              "description": "The amount of time a user seat is inactive before it expires. When the user seat exceeds the set time of inactivity, the user is removed as an active seat and no longer counts against your Teams seat count.  Minimum value for this setting is 1 month (730h). Must be in the format `300ms` or `2h45m`. Valid time units are: `ns`, `us` (or `µs`), `ms`, `s`, `m`, `h`.",
+              "type": "string"
+            },
+            "warp_auth_non_browser_401": {
+              "default": false,
+              "description": "When enabled, unsuccessful WARP authentication requests with a non-HTML Accept header return a 401 response instead of redirecting to the login page.",
+              "type": "boolean"
+            },
+            "warp_auth_session_duration": {
+              "description": "The amount of time that tokens issued for applications will be valid. Must be in the format `30m` or `2h45m`. Valid time units are: m, h.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_or_zone": {
+              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "enum": [
+                "accounts",
+                "zones"
+              ],
+              "type": "string"
+            },
+            "account_or_zone_id": {
+              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_or_zone",
+            "account_or_zone_id"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path",
+        "body"
+      ],
+      additionalProperties: false,
+      $defs: {
+        "access_custom_pages": access_custom_pages$,
+        "access_deny_unmatched_requests_exempted_zone_names": access_deny_unmatched_requests_exempted_zone_names$,
+        "access_login_design": access_login_design$,
+        "access_mfa_piv_key_requirements": access_mfa_piv_key_requirements$,
+        "access_org_mfa_config": access_org_mfa_config$,
+        "access_service_token_inactivity": access_service_token_inactivity$,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/access_single_response",
+      $defs: {
+        "access_api-response-single": access_api$$response$$single,
+        "access_custom_pages": access_custom_pages,
+        "access_deny_unmatched_requests_exempted_zone_names": access_deny_unmatched_requests_exempted_zone_names,
+        "access_login_design": access_login_design,
+        "access_messages": access_messages,
+        "access_mfa_piv_key_requirements": access_mfa_piv_key_requirements,
+        "access_org_mfa_config": access_org_mfa_config,
+        "access_organizations": access_organizations,
+        "access_service_token_inactivity": access_service_token_inactivity,
+        "access_single_response": access_single_response,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Partially update your Zero Trust organization"
+    },
+    [OPERATION]: {
+      method: "PATCH",
+      path: "/{account_or_zone}/{account_or_zone_id}/access/organizations",
+      pathOf: encodePath`/${"account_or_zone"}/${"account_or_zone_id"}/access/organizations`,
+      body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-api-token-group": [
+          "Access: Organizations, Identity Providers, and Groups Write"
+        ]
+      },
+      responses: {
+        schemas: {
+          "200": {
+            "$ref": "#/$defs/access_single_response"
+          },
+          "4XX": {
+            "$ref": "#/$defs/access_api-response-common-failure"
+          }
+        },
+        $defs: {
+          "access_api-response-common-failure": access_api$$response$$common$$failure,
+          "access_api-response-single": access_api$$response$$single,
+          "access_custom_pages": access_custom_pages,
+          "access_deny_unmatched_requests_exempted_zone_names": access_deny_unmatched_requests_exempted_zone_names,
+          "access_login_design": access_login_design,
+          "access_messages": access_messages,
+          "access_mfa_piv_key_requirements": access_mfa_piv_key_requirements,
+          "access_org_mfa_config": access_org_mfa_config,
+          "access_organizations": access_organizations,
+          "access_service_token_inactivity": access_service_token_inactivity,
+          "access_single_response": access_single_response,
+        },
+      },
+    },
+  },
+  {
     name: "zeroTrust_organization_get",
     title: "Get your Zero Trust organization",
     description: "Returns the configuration for your Zero Trust organization.\n\nGET /{account_or_zone}/{account_or_zone_id}/access/organizations",

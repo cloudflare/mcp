@@ -8,7 +8,7 @@ import { OPERATION, type Tool, encodePath } from "../../../_/tool.js";
  */
 export const tools: readonly Tool[] = [
   {
-    name: "radar_email_security_summaryV2",
+    name: "radar_email_security_summary",
     title: "Get email security summary by dimension",
     description: "Retrieves the distribution of email security metrics by the specified dimension.\n\nGET /radar/email/security/summary/{dimension}",
     inputSchema: {
@@ -598,7 +598,7 @@ export const tools: readonly Tool[] = [
     },
   },
   {
-    name: "radar_email_security_timeseriesGroupsV2",
+    name: "radar_email_security_timeseriesGroups",
     title: "Get email security time series grouped by dimension",
     description: "Retrieves the distribution of email security metrics grouped by dimension over time.\n\nGET /radar/email/security/timeseries_groups/{dimension}",
     inputSchema: {

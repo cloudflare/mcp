@@ -7,7 +7,7 @@ import {
   builds_ApiError,
   builds_ErrorResponse,
   builds_PaginationInfo,
-} from "../../outputs.js";
+} from "../outputs.js";
 import { builds_GetAccountLimitResponse } from "./outputs.js";
 
 /**

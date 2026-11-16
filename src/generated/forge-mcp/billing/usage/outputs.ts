@@ -334,6 +334,12 @@ export const billable$$usage$$api_v2_account_billable_metric: JSONObject = {
         "$ref": "#/$defs/billable-usage-api_v2_product_family"
       },
       "type": "array"
+    },
+    "TagKeys": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
     }
   },
   "required": [
@@ -341,7 +347,8 @@ export const billable$$usage$$api_v2_account_billable_metric: JSONObject = {
     "Id",
     "Name",
     "ProductCategory",
-    "ProductFamily"
+    "ProductFamily",
+    "TagKeys"
   ],
   "type": "object"
 };

@@ -1354,6 +1354,17 @@ export const workers$$observability_telemetry_event: JSONObject = {
               ],
               "type": "string"
             },
+            "gateway": {
+              "properties": {
+                "requestId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "requestId"
+              ],
+              "type": "object"
+            },
             "outcome": {
               "type": "string"
             },
@@ -1469,6 +1480,17 @@ export const workers$$observability_telemetry_event: JSONObject = {
                 "stateless"
               ],
               "type": "string"
+            },
+            "gateway": {
+              "properties": {
+                "requestId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "requestId"
+              ],
+              "type": "object"
             },
             "outcome": {
               "type": "string"

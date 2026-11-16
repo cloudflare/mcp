@@ -29,6 +29,7 @@ export const tools: readonly Tool[] = [
         "body": {
           "properties": {
             "comment": {
+              "default": "",
               "description": "An optional description of the hostname route.",
               "type": "string"
             },
@@ -211,6 +212,7 @@ export const tools: readonly Tool[] = [
         "body": {
           "properties": {
             "comment": {
+              "default": "",
               "description": "An optional description of the hostname route.",
               "type": "string"
             },

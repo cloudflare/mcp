@@ -8,7 +8,7 @@ import {
   builds_EnvironmentVariablesResponse,
   builds_ErrorResponse,
   builds_PaginationInfo,
-} from "../../../outputs.js";
+} from "../../outputs.js";
 import { builds_EnvironmentVariablesRequest } from "../../schemas.js";
 
 /**
@@ -74,6 +74,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Workers CI Write"
+        ],
+        "x-fern-audiences": [
+          "sdk"
         ]
       },
       responses: {
@@ -91,6 +94,120 @@ export const tools: readonly Tool[] = [
         $defs: {
           "builds_APIResponse": builds_APIResponse,
           "builds_ApiError": builds_ApiError,
+          "builds_ErrorResponse": builds_ErrorResponse,
+          "builds_PaginationInfo": builds_PaginationInfo,
+        },
+      },
+    },
+  },
+  {
+    name: "builds_triggers_environmentVariables_edit",
+    title: "Set build variables",
+    description: "Add or replace build-time variables and secrets without changing unspecified keys.\n\nPATCH /accounts/{account_id}/builds/triggers/{trigger_uuid}/environment_variables",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "body": {
+          "$ref": "#/$defs/builds_EnvironmentVariablesRequest"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account identifier.",
+              "type": "string"
+            },
+            "trigger_uuid": {
+              "description": "Trigger UUID.",
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "trigger_uuid"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path",
+        "body"
+      ],
+      additionalProperties: false,
+      $defs: {
+        "builds_EnvironmentVariablesRequest": builds_EnvironmentVariablesRequest,
+      },
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/builds_APIResponse"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/builds_EnvironmentVariablesResponse"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "builds_APIResponse": builds_APIResponse,
+        "builds_ApiError": builds_ApiError,
+        "builds_EnvironmentVariablesResponse": builds_EnvironmentVariablesResponse,
+        "builds_PaginationInfo": builds_PaginationInfo,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Set build variables"
+    },
+    [OPERATION]: {
+      method: "PATCH",
+      path: "/accounts/{account_id}/builds/triggers/{trigger_uuid}/environment_variables",
+      pathOf: encodePath`/accounts/${"account_id"}/builds/triggers/${"trigger_uuid"}/environment_variables`,
+      body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-api-token-group": [
+          "Workers CI Write"
+        ],
+        "x-fern-audiences": [
+          "sdk"
+        ]
+      },
+      responses: {
+        schemas: {
+          "200": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/builds_APIResponse"
+              },
+              {
+                "properties": {
+                  "result": {
+                    "$ref": "#/$defs/builds_EnvironmentVariablesResponse"
+                  }
+                },
+                "type": "object"
+              }
+            ]
+          },
+          "401": {
+            "$ref": "#/$defs/builds_ErrorResponse"
+          },
+          "404": {
+            "$ref": "#/$defs/builds_ErrorResponse"
+          }
+        },
+        $defs: {
+          "builds_APIResponse": builds_APIResponse,
+          "builds_ApiError": builds_ApiError,
+          "builds_EnvironmentVariablesResponse": builds_EnvironmentVariablesResponse,
           "builds_ErrorResponse": builds_ErrorResponse,
           "builds_PaginationInfo": builds_PaginationInfo,
         },
@@ -165,6 +282,9 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Workers CI Write",
           "Workers CI Read"
+        ],
+        "x-fern-audiences": [
+          "sdk"
         ]
       },
       responses: {
@@ -185,117 +305,6 @@ export const tools: readonly Tool[] = [
             ]
           },
           "401": {
-            "$ref": "#/$defs/builds_ErrorResponse"
-          }
-        },
-        $defs: {
-          "builds_APIResponse": builds_APIResponse,
-          "builds_ApiError": builds_ApiError,
-          "builds_EnvironmentVariablesResponse": builds_EnvironmentVariablesResponse,
-          "builds_ErrorResponse": builds_ErrorResponse,
-          "builds_PaginationInfo": builds_PaginationInfo,
-        },
-      },
-    },
-  },
-  {
-    name: "builds_triggers_environmentVariables_upsert",
-    title: "Set build variables",
-    description: "Add or replace build-time variables and secrets without changing unspecified keys.\n\nPATCH /accounts/{account_id}/builds/triggers/{trigger_uuid}/environment_variables",
-    inputSchema: {
-      type: "object",
-      properties: {
-        "body": {
-          "$ref": "#/$defs/builds_EnvironmentVariablesRequest"
-        },
-        "path": {
-          "additionalProperties": false,
-          "properties": {
-            "account_id": {
-              "description": "Account identifier.",
-              "type": "string"
-            },
-            "trigger_uuid": {
-              "description": "Trigger UUID.",
-              "format": "uuid",
-              "type": "string"
-            }
-          },
-          "required": [
-            "account_id",
-            "trigger_uuid"
-          ],
-          "type": "object"
-        }
-      },
-      required: [
-        "path",
-        "body"
-      ],
-      additionalProperties: false,
-      $defs: {
-        "builds_EnvironmentVariablesRequest": builds_EnvironmentVariablesRequest,
-      },
-    },
-    outputSchema: {
-      "allOf": [
-        {
-          "$ref": "#/$defs/builds_APIResponse"
-        },
-        {
-          "properties": {
-            "result": {
-              "$ref": "#/$defs/builds_EnvironmentVariablesResponse"
-            }
-          },
-          "type": "object"
-        }
-      ],
-      $defs: {
-        "builds_APIResponse": builds_APIResponse,
-        "builds_ApiError": builds_ApiError,
-        "builds_EnvironmentVariablesResponse": builds_EnvironmentVariablesResponse,
-        "builds_PaginationInfo": builds_PaginationInfo,
-      },
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Set build variables"
-    },
-    [OPERATION]: {
-      method: "PATCH",
-      path: "/accounts/{account_id}/builds/triggers/{trigger_uuid}/environment_variables",
-      pathOf: encodePath`/accounts/${"account_id"}/builds/triggers/${"trigger_uuid"}/environment_variables`,
-      body: { mediaTypes: ["application/json"] },
-      extensions: {
-        "x-api-token-group": [
-          "Workers CI Write"
-        ]
-      },
-      responses: {
-        schemas: {
-          "200": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/builds_APIResponse"
-              },
-              {
-                "properties": {
-                  "result": {
-                    "$ref": "#/$defs/builds_EnvironmentVariablesResponse"
-                  }
-                },
-                "type": "object"
-              }
-            ]
-          },
-          "401": {
-            "$ref": "#/$defs/builds_ErrorResponse"
-          },
-          "404": {
             "$ref": "#/$defs/builds_ErrorResponse"
           }
         },

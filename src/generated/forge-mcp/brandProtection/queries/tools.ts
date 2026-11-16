@@ -9,8 +9,8 @@ import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
 export const tools: readonly Tool[] = [
   {
     name: "brandProtection_queries_dismiss",
-    title: "Dismiss a match",
-    description: "Mark a specific domain as dismissed for a given query. Dismissals are per-query — dismissing a domain in one query does not affect other queries.\n\nPOST /accounts/{account_id}/cloudforce-one/v2/brand-protection/queries/{query_id}/matches/{domain_id}/dismiss",
+    title: "Dismiss a domain match",
+    description: "Marks a matched domain as dismissed for one domain query. Dismissals are per query: dismissing a domain in one query does not affect other queries. Get `domain_id` from List domain matches with `include_domain_id=true`. Dismissing an already dismissed match succeeds. If the query or match does not exist, the request fails with error code 404.\n\nPOST /accounts/{account_id}/cloudforce-one/v2/brand-protection/queries/{query_id}/matches/{domain_id}/dismiss",
     inputSchema: {
       type: "object",
       properties: {
@@ -21,9 +21,11 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "domain_id": {
+              "description": "ID of the matched domain, as returned in `domain_id` by List domain matches with `include_domain_id=true`.",
               "type": "integer"
             },
             "query_id": {
+              "description": "ID of the domain query that the match belongs to.",
               "type": "integer"
             }
           },
@@ -76,7 +78,7 @@ export const tools: readonly Tool[] = [
       "idempotentHint": false,
       "openWorldHint": true,
       "readOnlyHint": false,
-      "title": "Dismiss a match"
+      "title": "Dismiss a domain match"
     },
     [OPERATION]: {
       method: "POST",
@@ -127,8 +129,8 @@ export const tools: readonly Tool[] = [
   },
   {
     name: "brandProtection_queries_get",
-    title: "Get queries",
-    description: "Get all saved brand protection queries for an account\n\nGET /accounts/{account_id}/cloudforce-one/v2/brand-protection/domain/queries",
+    title: "List domain queries",
+    description: "Lists the account's saved domain queries, most recently updated first. Set `id` to return a single query object instead of an array. Set `page` or `per_page` to paginate the list; the response then includes `result_info`. Without them, every query is returned.\n\nGET /accounts/{account_id}/cloudforce-one/v2/brand-protection/domain/queries",
     inputSchema: {
       type: "object",
       properties: {
@@ -148,14 +150,15 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "id": {
+              "description": "ID of a domain query. When set, `result` is that single query object instead of an array, and `page` and `per_page` are ignored.",
               "type": "string"
             },
             "page": {
-              "description": "Optional page number for paginated list requests. Defaults to 1 when only per_page is supplied. Omit page and per_page to preserve the legacy full-list response.",
+              "description": "Page number for paginated list requests. Defaults to 1 when only per_page is supplied. Omit page and per_page to return every query.",
               "type": "integer"
             },
             "per_page": {
-              "description": "Optional number of queries per page for paginated list requests. Defaults to 100 when only page is supplied. Maximum 100. Omit page and per_page to preserve the legacy full-list response.",
+              "description": "Number of queries per page for paginated list requests. Defaults to 100 when only page is supplied. Maximum 100. Omit page and per_page to return every query.",
               "type": "integer"
             }
           },
@@ -390,7 +393,7 @@ export const tools: readonly Tool[] = [
       "idempotentHint": true,
       "openWorldHint": true,
       "readOnlyHint": true,
-      "title": "Get queries"
+      "title": "List domain queries"
     },
     [OPERATION]: {
       method: "GET",
@@ -634,8 +637,8 @@ export const tools: readonly Tool[] = [
   },
   {
     name: "brandProtection_queries_undismiss",
-    title: "Undismiss a match",
-    description: "Remove the dismissed status from a specific domain for a given query. Undismissals are per-query — undismissing a domain in one query does not affect other queries.\n\nPOST /accounts/{account_id}/cloudforce-one/v2/brand-protection/queries/{query_id}/matches/{domain_id}/undismiss",
+    title: "Undismiss a domain match",
+    description: "Removes the dismissed status from a matched domain for one domain query. Undismissing a domain in one query does not affect other queries. Get `domain_id` from List domain matches with `include_domain_id=true`. Undismissing a match that is not dismissed succeeds. If the query or match does not exist, the request fails with error code 404.\n\nPOST /accounts/{account_id}/cloudforce-one/v2/brand-protection/queries/{query_id}/matches/{domain_id}/undismiss",
     inputSchema: {
       type: "object",
       properties: {
@@ -646,9 +649,11 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "domain_id": {
+              "description": "ID of the matched domain, as returned in `domain_id` by List domain matches with `include_domain_id=true`.",
               "type": "integer"
             },
             "query_id": {
+              "description": "ID of the domain query that the match belongs to.",
               "type": "integer"
             }
           },
@@ -701,7 +706,7 @@ export const tools: readonly Tool[] = [
       "idempotentHint": false,
       "openWorldHint": true,
       "readOnlyHint": false,
-      "title": "Undismiss a match"
+      "title": "Undismiss a domain match"
     },
     [OPERATION]: {
       method: "POST",

@@ -29,7 +29,7 @@ export const tools: readonly Tool[] = [
         "body": {
           "properties": {
             "asn": {
-              "description": "Autonomous System Number (ASN) the prefix will be advertised under.",
+              "description": "Autonomous System Number (ASN) the prefix will be advertised under. Use 13335 for Cloudflare's ASN, or your own ASN as an integer without the AS prefix. The IRR route and RPKI ROA must authorize this ASN.",
               "type": "integer"
             },
             "cidr": {

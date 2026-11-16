@@ -122,6 +122,25 @@ export const secondary$$dns_api$$response$$single: JSONObject = {
 };
 
 /**
+ * The schema of `secondary-dns_force_response` in responses.
+ */
+export const secondary$$dns_force_response: JSONObject = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/secondary-dns_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `secondary-dns_id_response` in responses.
  */
 export const secondary$$dns_id_response: JSONObject = {

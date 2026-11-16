@@ -80,6 +80,9 @@ export const workers_version$$item$$full: JSONObject = {
                   "properties": {
                     "cpu_ms": {
                       "type": "integer"
+                    },
+                    "subrequests": {
+                      "type": "integer"
                     }
                   },
                   "type": "object"

@@ -13,7 +13,7 @@ export const abuse$$reports_BaseReportFields: JSONObject = {
       "type": "string"
     },
     "comments": {
-      "description": "Any additional comments about the infringement not exceeding 2000 characters. Comments are kept internal to Cloudflare and not shared with the host or customer as part of regular processing. For delegated reports, comments may be shared in full.",
+      "description": "Any additional comments about the infringement not exceeding 2000 characters. With the exception of delegated reports, comments are kept internal to Cloudflare and not shared with the host or customer as part of regular processing. For the limited circumstances where we delegate reports to customers with established abuse-handling programs, comments may be shared in full.",
       "type": "string"
     },
     "company": {

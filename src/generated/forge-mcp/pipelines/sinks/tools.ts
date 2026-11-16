@@ -23,9 +23,11 @@ import {
   cloudflare$$pipelines_TimestampField as cloudflare$$pipelines_TimestampField$,
 } from "../schemas.js";
 import {
+  cloudflare$$pipelines_Sink,
   cloudflare$$pipelines_SinkFormat,
   cloudflare$$pipelines_SinkJsonFormat,
   cloudflare$$pipelines_SinkParquetFormat,
+  cloudflare$$pipelines_SinkRollingPolicy,
   cloudflare$$pipelines_r2Table,
   cloudflare$$pipelines_r2TablePublic,
   cloudflare$$pipelines_r2_data_catalogTable,
@@ -35,7 +37,10 @@ import {
   cloudflare$$pipelines_SinkFormat as cloudflare$$pipelines_SinkFormat$,
   cloudflare$$pipelines_SinkJsonFormat as cloudflare$$pipelines_SinkJsonFormat$,
   cloudflare$$pipelines_SinkParquetFormat as cloudflare$$pipelines_SinkParquetFormat$,
+  cloudflare$$pipelines_SinkRollingPolicy as cloudflare$$pipelines_SinkRollingPolicy$,
+  cloudflare$$pipelines_basin_catalogTableUpdate,
   cloudflare$$pipelines_r2Table as cloudflare$$pipelines_r2Table$,
+  cloudflare$$pipelines_r2TableUpdate,
   cloudflare$$pipelines_r2_data_catalogTable as cloudflare$$pipelines_r2_data_catalogTable$,
 } from "./schemas.js";
 
@@ -118,6 +123,7 @@ export const tools: readonly Tool[] = [
         "cloudflare-pipelines_SinkFormat": cloudflare$$pipelines_SinkFormat$,
         "cloudflare-pipelines_SinkJsonFormat": cloudflare$$pipelines_SinkJsonFormat$,
         "cloudflare-pipelines_SinkParquetFormat": cloudflare$$pipelines_SinkParquetFormat$,
+        "cloudflare-pipelines_SinkRollingPolicy": cloudflare$$pipelines_SinkRollingPolicy$,
         "cloudflare-pipelines_SourceField": cloudflare$$pipelines_SourceField$,
         "cloudflare-pipelines_StructField": cloudflare$$pipelines_StructField$,
         "cloudflare-pipelines_TimestampField": cloudflare$$pipelines_TimestampField$,
@@ -195,6 +201,7 @@ export const tools: readonly Tool[] = [
         "cloudflare-pipelines_SinkFormat": cloudflare$$pipelines_SinkFormat,
         "cloudflare-pipelines_SinkJsonFormat": cloudflare$$pipelines_SinkJsonFormat,
         "cloudflare-pipelines_SinkParquetFormat": cloudflare$$pipelines_SinkParquetFormat,
+        "cloudflare-pipelines_SinkRollingPolicy": cloudflare$$pipelines_SinkRollingPolicy,
         "cloudflare-pipelines_SourceField": cloudflare$$pipelines_SourceField,
         "cloudflare-pipelines_StructField": cloudflare$$pipelines_StructField,
         "cloudflare-pipelines_TimestampField": cloudflare$$pipelines_TimestampField,
@@ -300,6 +307,7 @@ export const tools: readonly Tool[] = [
           "cloudflare-pipelines_SinkFormat": cloudflare$$pipelines_SinkFormat,
           "cloudflare-pipelines_SinkJsonFormat": cloudflare$$pipelines_SinkJsonFormat,
           "cloudflare-pipelines_SinkParquetFormat": cloudflare$$pipelines_SinkParquetFormat,
+          "cloudflare-pipelines_SinkRollingPolicy": cloudflare$$pipelines_SinkRollingPolicy,
           "cloudflare-pipelines_SourceField": cloudflare$$pipelines_SourceField,
           "cloudflare-pipelines_StructField": cloudflare$$pipelines_StructField,
           "cloudflare-pipelines_TimestampField": cloudflare$$pipelines_TimestampField,
@@ -430,54 +438,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "properties": {
         "result": {
-          "properties": {
-            "config": {
-              "oneOf": [
-                {
-                  "$ref": "#/$defs/cloudflare-pipelines_r2TablePublic"
-                },
-                {
-                  "$ref": "#/$defs/cloudflare-pipelines_r2_data_catalogTablePublic"
-                }
-              ]
-            },
-            "created_at": {
-              "format": "date-time",
-              "type": "string"
-            },
-            "format": {
-              "$ref": "#/$defs/cloudflare-pipelines_SinkFormat"
-            },
-            "id": {
-              "type": "string"
-            },
-            "modified_at": {
-              "format": "date-time",
-              "type": "string"
-            },
-            "name": {
-              "type": "string"
-            },
-            "schema": {
-              "$ref": "#/$defs/cloudflare-pipelines_ConnectionSchema"
-            },
-            "type": {
-              "enum": [
-                "r2",
-                "r2_data_catalog",
-                "basin_catalog"
-              ],
-              "type": "string"
-            }
-          },
-          "required": [
-            "created_at",
-            "id",
-            "modified_at",
-            "name",
-            "type"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/cloudflare-pipelines_Sink"
         },
         "success": {
           "type": "boolean"
@@ -494,9 +455,11 @@ export const tools: readonly Tool[] = [
         "cloudflare-pipelines_JsonFormat": cloudflare$$pipelines_JsonFormat,
         "cloudflare-pipelines_ListField": cloudflare$$pipelines_ListField,
         "cloudflare-pipelines_ParquetFormat": cloudflare$$pipelines_ParquetFormat,
+        "cloudflare-pipelines_Sink": cloudflare$$pipelines_Sink,
         "cloudflare-pipelines_SinkFormat": cloudflare$$pipelines_SinkFormat,
         "cloudflare-pipelines_SinkJsonFormat": cloudflare$$pipelines_SinkJsonFormat,
         "cloudflare-pipelines_SinkParquetFormat": cloudflare$$pipelines_SinkParquetFormat,
+        "cloudflare-pipelines_SinkRollingPolicy": cloudflare$$pipelines_SinkRollingPolicy,
         "cloudflare-pipelines_SourceField": cloudflare$$pipelines_SourceField,
         "cloudflare-pipelines_StructField": cloudflare$$pipelines_StructField,
         "cloudflare-pipelines_TimestampField": cloudflare$$pipelines_TimestampField,
@@ -532,54 +495,7 @@ export const tools: readonly Tool[] = [
           "200": {
             "properties": {
               "result": {
-                "properties": {
-                  "config": {
-                    "oneOf": [
-                      {
-                        "$ref": "#/$defs/cloudflare-pipelines_r2TablePublic"
-                      },
-                      {
-                        "$ref": "#/$defs/cloudflare-pipelines_r2_data_catalogTablePublic"
-                      }
-                    ]
-                  },
-                  "created_at": {
-                    "format": "date-time",
-                    "type": "string"
-                  },
-                  "format": {
-                    "$ref": "#/$defs/cloudflare-pipelines_SinkFormat"
-                  },
-                  "id": {
-                    "type": "string"
-                  },
-                  "modified_at": {
-                    "format": "date-time",
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "schema": {
-                    "$ref": "#/$defs/cloudflare-pipelines_ConnectionSchema"
-                  },
-                  "type": {
-                    "enum": [
-                      "r2",
-                      "r2_data_catalog",
-                      "basin_catalog"
-                    ],
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "created_at",
-                  "id",
-                  "modified_at",
-                  "name",
-                  "type"
-                ],
-                "type": "object"
+                "$ref": "#/$defs/cloudflare-pipelines_Sink"
               },
               "success": {
                 "type": "boolean"
@@ -599,9 +515,11 @@ export const tools: readonly Tool[] = [
           "cloudflare-pipelines_JsonFormat": cloudflare$$pipelines_JsonFormat,
           "cloudflare-pipelines_ListField": cloudflare$$pipelines_ListField,
           "cloudflare-pipelines_ParquetFormat": cloudflare$$pipelines_ParquetFormat,
+          "cloudflare-pipelines_Sink": cloudflare$$pipelines_Sink,
           "cloudflare-pipelines_SinkFormat": cloudflare$$pipelines_SinkFormat,
           "cloudflare-pipelines_SinkJsonFormat": cloudflare$$pipelines_SinkJsonFormat,
           "cloudflare-pipelines_SinkParquetFormat": cloudflare$$pipelines_SinkParquetFormat,
+          "cloudflare-pipelines_SinkRollingPolicy": cloudflare$$pipelines_SinkRollingPolicy,
           "cloudflare-pipelines_SourceField": cloudflare$$pipelines_SourceField,
           "cloudflare-pipelines_StructField": cloudflare$$pipelines_StructField,
           "cloudflare-pipelines_TimestampField": cloudflare$$pipelines_TimestampField,
@@ -771,6 +689,7 @@ export const tools: readonly Tool[] = [
         "cloudflare-pipelines_SinkFormat": cloudflare$$pipelines_SinkFormat,
         "cloudflare-pipelines_SinkJsonFormat": cloudflare$$pipelines_SinkJsonFormat,
         "cloudflare-pipelines_SinkParquetFormat": cloudflare$$pipelines_SinkParquetFormat,
+        "cloudflare-pipelines_SinkRollingPolicy": cloudflare$$pipelines_SinkRollingPolicy,
         "cloudflare-pipelines_SourceField": cloudflare$$pipelines_SourceField,
         "cloudflare-pipelines_StructField": cloudflare$$pipelines_StructField,
         "cloudflare-pipelines_TimestampField": cloudflare$$pipelines_TimestampField,
@@ -911,6 +830,154 @@ export const tools: readonly Tool[] = [
           "cloudflare-pipelines_SinkFormat": cloudflare$$pipelines_SinkFormat,
           "cloudflare-pipelines_SinkJsonFormat": cloudflare$$pipelines_SinkJsonFormat,
           "cloudflare-pipelines_SinkParquetFormat": cloudflare$$pipelines_SinkParquetFormat,
+          "cloudflare-pipelines_SinkRollingPolicy": cloudflare$$pipelines_SinkRollingPolicy,
+          "cloudflare-pipelines_SourceField": cloudflare$$pipelines_SourceField,
+          "cloudflare-pipelines_StructField": cloudflare$$pipelines_StructField,
+          "cloudflare-pipelines_TimestampField": cloudflare$$pipelines_TimestampField,
+          "cloudflare-pipelines_r2TablePublic": cloudflare$$pipelines_r2TablePublic,
+          "cloudflare-pipelines_r2_data_catalogTablePublic": cloudflare$$pipelines_r2_data_catalogTablePublic,
+        },
+      },
+    },
+  },
+  {
+    name: "pipelines_sinks_update",
+    title: "Update Sink",
+    description: "Update a Sink's credentials or rolling policy, creating a new version of the Sink. Only `credentials` and `rolling_policy` (R2) or `token` and `rolling_policy` (Basin Catalog, including Sinks created with the legacy `r2_data_catalog` type) can be changed; omitted fields keep their current values. Secrets are never returned in responses. Pipelines that use the Sink keep their current version until they are moved to the latest one with Update Pipeline Tables.\n\nPATCH /accounts/{account_id}/pipelines/v1/sinks/{sink_id}",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "body": {
+          "properties": {
+            "config": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/cloudflare-pipelines_r2TableUpdate"
+                },
+                {
+                  "$ref": "#/$defs/cloudflare-pipelines_basin_catalogTableUpdate"
+                }
+              ],
+              "description": "Defines the Sink configuration fields to change. At least one field is required; omitted fields keep their current values."
+            }
+          },
+          "required": [
+            "config"
+          ],
+          "type": "object"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Specifies the public ID of the account.",
+              "type": "string"
+            },
+            "sink_id": {
+              "description": "Specifies the publid ID of the sink.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "sink_id"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path",
+        "body"
+      ],
+      additionalProperties: false,
+      $defs: {
+        "cloudflare-pipelines_SinkRollingPolicy": cloudflare$$pipelines_SinkRollingPolicy$,
+        "cloudflare-pipelines_basin_catalogTableUpdate": cloudflare$$pipelines_basin_catalogTableUpdate,
+        "cloudflare-pipelines_r2TableUpdate": cloudflare$$pipelines_r2TableUpdate,
+      },
+    },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/cloudflare-pipelines_Sink"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+      $defs: {
+        "cloudflare-pipelines_ConnectionSchema": cloudflare$$pipelines_ConnectionSchema,
+        "cloudflare-pipelines_FieldType": cloudflare$$pipelines_FieldType,
+        "cloudflare-pipelines_JsonFormat": cloudflare$$pipelines_JsonFormat,
+        "cloudflare-pipelines_ListField": cloudflare$$pipelines_ListField,
+        "cloudflare-pipelines_ParquetFormat": cloudflare$$pipelines_ParquetFormat,
+        "cloudflare-pipelines_Sink": cloudflare$$pipelines_Sink,
+        "cloudflare-pipelines_SinkFormat": cloudflare$$pipelines_SinkFormat,
+        "cloudflare-pipelines_SinkJsonFormat": cloudflare$$pipelines_SinkJsonFormat,
+        "cloudflare-pipelines_SinkParquetFormat": cloudflare$$pipelines_SinkParquetFormat,
+        "cloudflare-pipelines_SinkRollingPolicy": cloudflare$$pipelines_SinkRollingPolicy,
+        "cloudflare-pipelines_SourceField": cloudflare$$pipelines_SourceField,
+        "cloudflare-pipelines_StructField": cloudflare$$pipelines_StructField,
+        "cloudflare-pipelines_TimestampField": cloudflare$$pipelines_TimestampField,
+        "cloudflare-pipelines_r2TablePublic": cloudflare$$pipelines_r2TablePublic,
+        "cloudflare-pipelines_r2_data_catalogTablePublic": cloudflare$$pipelines_r2_data_catalogTablePublic,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Update Sink"
+    },
+    [OPERATION]: {
+      method: "PATCH",
+      path: "/accounts/{account_id}/pipelines/v1/sinks/{sink_id}",
+      pathOf: encodePath`/accounts/${"account_id"}/pipelines/v1/sinks/${"sink_id"}`,
+      body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-cfPlanAvailability": {
+          "business": true,
+          "enterprise": true,
+          "free": false,
+          "pro": true
+        }
+      },
+      responses: {
+        schemas: {
+          "200": {
+            "properties": {
+              "result": {
+                "$ref": "#/$defs/cloudflare-pipelines_Sink"
+              },
+              "success": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "result",
+              "success"
+            ],
+            "type": "object"
+          },
+          "4XX": null
+        },
+        $defs: {
+          "cloudflare-pipelines_ConnectionSchema": cloudflare$$pipelines_ConnectionSchema,
+          "cloudflare-pipelines_FieldType": cloudflare$$pipelines_FieldType,
+          "cloudflare-pipelines_JsonFormat": cloudflare$$pipelines_JsonFormat,
+          "cloudflare-pipelines_ListField": cloudflare$$pipelines_ListField,
+          "cloudflare-pipelines_ParquetFormat": cloudflare$$pipelines_ParquetFormat,
+          "cloudflare-pipelines_Sink": cloudflare$$pipelines_Sink,
+          "cloudflare-pipelines_SinkFormat": cloudflare$$pipelines_SinkFormat,
+          "cloudflare-pipelines_SinkJsonFormat": cloudflare$$pipelines_SinkJsonFormat,
+          "cloudflare-pipelines_SinkParquetFormat": cloudflare$$pipelines_SinkParquetFormat,
+          "cloudflare-pipelines_SinkRollingPolicy": cloudflare$$pipelines_SinkRollingPolicy,
           "cloudflare-pipelines_SourceField": cloudflare$$pipelines_SourceField,
           "cloudflare-pipelines_StructField": cloudflare$$pipelines_StructField,
           "cloudflare-pipelines_TimestampField": cloudflare$$pipelines_TimestampField,

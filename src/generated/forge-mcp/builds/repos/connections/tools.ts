@@ -8,7 +8,7 @@ import {
   builds_ErrorResponse,
   builds_PaginationInfo,
   builds_UpsertRepoConnectionResponse,
-} from "../../../outputs.js";
+} from "../../outputs.js";
 import { builds_UpsertRepoConnectionRequest } from "./schemas.js";
 
 /**
@@ -18,7 +18,7 @@ export const tools: readonly Tool[] = [
   {
     name: "builds_repos_connections_delete",
     title: "Delete a repository connection",
-    description: "Delete a saved repository connection.\n\nDELETE /accounts/{account_id}/builds/repos/connections/{repo_connection_uuid}",
+    description: "Delete a saved repository connection.\n\nConfirm with the user before calling this tool. This operation deletes the repository connection.\n\nDELETE /accounts/{account_id}/builds/repos/connections/{repo_connection_uuid}",
     inputSchema: {
       type: "object",
       properties: {
@@ -93,7 +93,7 @@ export const tools: readonly Tool[] = [
     },
   },
   {
-    name: "builds_repos_connections_upsert",
+    name: "builds_repos_connections_replace",
     title: "Create or update a repository connection",
     description: "Save the repository connection required by build triggers.\n\nPUT /accounts/{account_id}/builds/repos/connections",
     inputSchema: {
