@@ -252,10 +252,7 @@ export async function withRateLimitNotice(
   const hold = holdOf(response.status, response.headers)
   const hint = rateLimitHint(response.status, response.headers)
   if (!hold && !hint) return response
-  const paths =
-    hold && hold.limit !== SHARED_LIMIT
-      ? await getPermissionPaths().catch(() => undefined)
-      : undefined
+  const paths = hold && hold.limit !== SHARED_LIMIT ? getPermissionPaths() : undefined
   const notice: RateLimitNotice = {
     ...(hold ? holdScope(hold.limit, paths, method, path) : {}),
     hold,
