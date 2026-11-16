@@ -55,9 +55,48 @@ describe('policyRefusalHint', () => {
   })
 
   it('allows a text model named in the body, and leaves the body readable', async () => {
-    const request = apiRequest('POST', `${ACCOUNT}/ai/run`, { model: 'openai/gpt-5.5', input: {} })
+    const body = { model: '@cf/meta/llama-3.1-8b-instruct', input: {} }
+    const request = apiRequest('POST', `${ACCOUNT}/ai/run`, body)
     expect(await policyRefusalHint(request)).toBeUndefined()
-    expect(await request.json()).toEqual({ model: 'openai/gpt-5.5', input: {} })
+    expect(await request.json()).toEqual(body)
+  })
+
+  it.each([
+    [`${ACCOUNT}/ai/run`, 'google/nano-banana'],
+    [`${ACCOUNT}/ai/run`, 'google/veo-3.1'],
+    [`${ACCOUNT}/ai/run`, 'openai/gpt-image-2'],
+    [`${ACCOUNT}/ai/run`, 'elevenlabs/eleven-v3'],
+    [`${ACCOUNT}/ai/run`, 'openai/gpt-5.5'],
+    [`${ACCOUNT}/ai/v1/responses`, 'openai/gpt-image-2'],
+    [`${ACCOUNT}/ai/v1/chat/completions`, 'openai/tts-1']
+  ])('refuses the third-party model in the body of POST %s (%s)', async (path, model) => {
+    expect(await policyRefusalHint(apiRequest('POST', path, { model }))).toContain(
+      'Workers AI models'
+    )
+  })
+
+  it('refuses a third-party model named in the run path', async () => {
+    const path = `${ACCOUNT}/ai/run/bytedance/seedream-5-pro`
+    expect(await policyRefusalHint(apiRequest('POST', path))).toContain('Workers AI models')
+  })
+
+  it.each([`${ACCOUNT}/ai/v1/chat/completions`, `${ACCOUNT}/ai/v1/responses`])(
+    'refuses a Workers AI media model in the body of POST %s',
+    async (path) => {
+      const body = { model: '@cf/black-forest-labs/flux-1-schnell' }
+      expect(await policyRefusalHint(apiRequest('POST', path, body))).toContain('generate images')
+    }
+  )
+
+  it.each([
+    [
+      `${ACCOUNT}/ai/v1/chat/completions`,
+      { model: '@cf/meta/llama-3.1-8b-instruct', messages: [] }
+    ],
+    [`${ACCOUNT}/ai/tomarkdown`, undefined],
+    [`${ACCOUNT}/ai-gateway/gateways`, { id: 'g1' }]
+  ])('allows POST %s', async (path, body) => {
+    expect(await policyRefusalHint(apiRequest('POST', path, body))).toBeUndefined()
   })
 
   it.each([
