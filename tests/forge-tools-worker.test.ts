@@ -105,27 +105,20 @@ describe('generated direct tools (?codemode=false)', () => {
     ).resolves.toEqual({ error: 'nothing matched' })
   })
 
-  it("streams the pinned release's spec artifacts", async () => {
-    const text = async (name: Parameters<typeof env.FORGE_TOOLS.specArtifact>[0]) =>
-      new Response(await env.FORGE_TOOLS.specArtifact(name)).text()
-
-    const spec = JSON.parse(await text('spec.json')) as {
-      paths: Record<string, Record<string, { 'x-api-token-group'?: string[] }>>
-    }
-    expect(spec.paths['/accounts/{account_id}/d1/database'].get['x-api-token-group']).toContain(
-      'D1 Read'
-    )
+  it("searches the pinned release's spec, whose schemas are the API's own", async () => {
+    const { result } = await env.FORGE_TOOLS.search(`async () => {
+      const subdomain = spec.paths['/accounts/{account_id}/workers/subdomain'].get.responses['200'];
+      return {
+        permissions: spec.paths['/accounts/{account_id}/d1/database'].get['x-api-token-group'],
+        schema: JSON.stringify(subdomain.content['application/json'].schema),
+        resultInfo: 'x-result-info' in subdomain
+      };
+    }`)
+    const found = result as { permissions: string[]; schema: string; resultInfo: boolean }
+    expect(found.permissions).toContain('D1 Read')
     // Built with the current processSpec(): schemas are the API's own, envelope included.
-    const subdomain = (spec.paths['/accounts/{account_id}/workers/subdomain'].get as any).responses[
-      '200'
-    ]
-    expect(JSON.stringify(subdomain.content['application/json'].schema)).toContain('"success"')
-    expect(subdomain).not.toHaveProperty('x-result-info')
-    expect(JSON.parse(await text('products.json'))).toContain('workers')
-    const permissions = JSON.parse(await text('permissions.json')) as typeof spec.paths
-    expect(permissions['/accounts/{account_id}/d1/database'].get).toEqual({
-      'x-api-token-group': spec.paths['/accounts/{account_id}/d1/database'].get['x-api-token-group']
-    })
+    expect(found.schema).toContain('"success"')
+    expect(found.resultInfo).toBe(false)
   })
 
   it("fills in the session's account and sends the token", async () => {

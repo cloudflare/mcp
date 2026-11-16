@@ -1,4 +1,7 @@
-import { SPEC_ARTIFACTS } from './spec'
+// The pinned release's spec (`src/generated/forge-mcp/source.json`), which
+// `scripts/generate-tools.ts` writes with the generated tools. A text module,
+// so loading it costs a string, not a parse.
+import specText from '../generated/spec/spec.json.txt'
 
 /** A value search code returns, as RPC carries it from the sandbox. */
 export type SearchValue = null | undefined | boolean | number | bigint | string | object
@@ -29,7 +32,7 @@ export async function runSearch(loader: WorkerLoader, code: string): Promise<Sea
     globalOutbound: null,
     mainModule: 'worker.js',
     modules: {
-      'spec.json.txt': { text: SPEC_ARTIFACTS['spec.json'] },
+      'spec.json.txt': { text: specText },
       'worker.js': `
 import { WorkerEntrypoint } from "cloudflare:workers";
 import specText from "./spec.json.txt";

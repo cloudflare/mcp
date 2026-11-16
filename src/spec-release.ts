@@ -10,6 +10,7 @@ export const SPEC_RELEASE: string = source.release
 
 /**
  * The artifacts built from the spec. `scripts/generate-tools.ts` writes them to
- * `src/generated/spec`, and the forge tools service serves them.
+ * `src/generated/spec`: the forge tools service ships `spec.json` for `search`,
+ * and the main Worker bundles the other two.
  */
 export type SpecArtifactName = 'spec.json' | 'products.json' | 'permissions.json'
