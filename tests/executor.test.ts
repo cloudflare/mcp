@@ -803,3 +803,141 @@ describe('execute: rate limit holds', () => {
     expect(error).toContain('Send the remaining requests in another call')
   })
 })
+
+describe('execute: rate-limited requests are sent again by the sandbox', () => {
+  const bucket = `/accounts/${ACCOUNT_ID}/r2/buckets/b`
+  const scripts = `/accounts/${ACCOUNT_ID}/workers/scripts`
+
+  async function seedOperations(): Promise<void> {
+    await seedSpec({
+      '/accounts/{account_id}/r2/buckets/{bucket_name}/objects/{object_name}': {
+        get: { summary: 'Get object' }
+      },
+      '/accounts/{account_id}/workers/scripts': { get: { summary: 'List scripts' } }
+    })
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+  }
+
+  /** Answer every GET of the scripts list with a 429, and count them. */
+  function refuseScripts(headers: Record<string, string>): { calls: number } {
+    const seen = { calls: 0 }
+    server.use(
+      http.get(`${API_BASE}${scripts}`, () => {
+        seen.calls++
+        return HttpResponse.json(cfError([{ code: 10429, message: 'rate limited' }]), {
+          status: 429,
+          headers
+        })
+      })
+    )
+    return seen
+  }
+
+  it('holds every request when a 429 says the shared limit is exhausted too', async () => {
+    await seedOperations()
+    let scriptCalls = 0
+    server.use(
+      http.get(`${API_BASE}${bucket}/objects/*`, () =>
+        HttpResponse.json(cfError([{ code: 10429, message: 'rate limited' }]), {
+          status: 429,
+          headers: {
+            'Retry-After': '300',
+            Ratelimit: '"rtwo_gw_apigw";r=0;t=300, "default";r=0;t=60'
+          }
+        })
+      ),
+      http.get(`${API_BASE}${scripts}`, () => {
+        scriptCalls++
+        return HttpResponse.json(cfSuccess([]))
+      })
+    )
+
+    const result = await callTool(API_TOKEN, 'execute', {
+      code: `async () => {
+        await cloudflare.request({ method: "GET", path: "${bucket}/objects/a" }).catch(() => {});
+        return cloudflare.request({ method: "GET", path: "${scripts}" }).catch((e) => e.message);
+      }`
+    })
+
+    // Cloudflare asked for 60 s on `default`, which every endpoint shares.
+    expect(scriptCalls).toBe(0)
+    expect(toolText(result)).toContain('Cloudflare API request not sent')
+  })
+
+  it("holds the run's other requests while a refused one waits to be sent again", async () => {
+    await seedOperations()
+    let refusedAt: number | undefined
+    const otherAt: number[] = []
+    server.use(
+      http.get(`${API_BASE}${bucket}/objects/*`, () => {
+        if (refusedAt !== undefined) return HttpResponse.json(cfSuccess({}))
+        refusedAt = Date.now()
+        return HttpResponse.json(cfError([{ code: 10429, message: 'rate limited' }]), {
+          status: 429,
+          headers: { 'Retry-After': '2', Ratelimit: '"default";r=0;t=2' }
+        })
+      }),
+      http.get(`${API_BASE}${scripts}`, () => {
+        otherAt.push(Date.now())
+        return HttpResponse.json(cfSuccess([]))
+      })
+    )
+
+    await callTool(API_TOKEN, 'execute', {
+      code: `async () => Promise.all([
+        cloudflare.request({ method: "GET", path: "${bucket}/objects/a" }),
+        (async () => {
+          await new Promise((resolve) => setTimeout(resolve, 500));
+          return cloudflare.request({ method: "GET", path: "${scripts}" });
+        })()
+      ])`
+    })
+
+    expect(refusedAt).toBeDefined()
+    expect(otherAt).toHaveLength(1)
+    // Cloudflare asked every request under `default` to wait 2 s.
+    expect(otherAt[0]! - refusedAt!).toBeGreaterThanOrEqual(2000)
+  })
+
+  it("counts the waits between attempts against the run's budget", async () => {
+    setWaitBudgetMs(1000)
+    await seedOperations()
+    const seen = refuseScripts({ 'Retry-After': '1', Ratelimit: '"default";r=0;t=300' })
+
+    const started = Date.now()
+    const result = await callTool(API_TOKEN, 'execute', {
+      code: `async () => cloudflare.request({ method: "GET", path: "${scripts}" })`
+    })
+
+    // One wait of a second fits the budget; a second one would not, so the code gets the 429.
+    expect(seen.calls).toBe(2)
+    expect(Date.now() - started).toBeLessThan(2500)
+    expect(toolText(result)).toContain(`GET ${scripts} returned HTTP 429`)
+  })
+
+  it('backs off after a 429 that gives no wait, within the budget and for the whole run', async () => {
+    setWaitBudgetMs(1000)
+    await seedOperations()
+    // As D1, KV and URL Scanner answer: no Retry-After and no exhausted limit.
+    const seen = refuseScripts({})
+
+    const started = Date.now()
+    const result = await callTool(API_TOKEN, 'execute', {
+      code: `async () => {
+        const errors = [];
+        for (let i = 0; i < 5; i++) {
+          await cloudflare.request({ method: "GET", path: "${scripts}" }).catch((e) => errors.push(e.message));
+        }
+        return errors;
+      }`
+    })
+
+    // 1 s of backoff fits the budget and the 2 s after it does not. The other four
+    // requests are then not sent: before, each slept through 7 s of retries of its own.
+    expect(seen.calls).toBe(2)
+    expect(Date.now() - started).toBeLessThan(3000)
+    const errors = JSON.parse(toolText(result)) as string[]
+    expect(errors[0]).toContain('returned HTTP 429')
+    expect(errors[4]).toContain('Cloudflare API request not sent')
+  })
+})

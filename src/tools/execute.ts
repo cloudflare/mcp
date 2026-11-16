@@ -22,7 +22,9 @@ import { policyRefusalHint } from '../policy-guards'
 import { WWW_AUTHENTICATE_META_KEY, type ScopeChallenge } from '../scope-challenge'
 import {
   getWaitBudgetMs,
+  FIRST_BACKOFF_MS,
   LONGEST_WAIT_MS,
+  MOST_RETRIES,
   MOST_UNSENT_REQUESTS,
   NOT_SENT_HEADER,
   RATE_LIMIT_HEADER,
@@ -96,8 +98,11 @@ export class GlobalOutbound extends WorkerEntrypoint<Env, GlobalOutboundProps> {
       ['Authorization', `Bearer ${this.ctx.props.apiToken}`]
     ])
     const authedRequest = new Request(request, { headers })
+    // No 429 is retried here: the sandbox waits out rate limits, where the wait
+    // holds back the run's other requests and counts against its wait budget.
     const response = await fetchWithRetry(authedRequest, undefined, {
-      caller: this.ctx.props.fetchWithRetryCaller
+      caller: this.ctx.props.fetchWithRetryCaller,
+      retryRateLimited: false
     })
 
     const basePath = new URL(this.env.CLOUDFLARE_API_BASE).pathname.replace(/\/$/, '')
@@ -184,11 +189,17 @@ function holdOn(method, path) {
   return latest;
 }
 
-function rememberHold(response) {
+// Remember the hold a response asks for. A 429 that gives no wait, as a
+// product's own limit does, is held for a backoff that doubles with each
+// attempt at the request.
+function rememberHold(response, attempt) {
   if (response.status === 429) rateLimitStats.limited++;
   const header = response.headers.get(${JSON.stringify(RATE_LIMIT_HEADER)});
   if (!header) return;
-  const { hold, method, pattern } = JSON.parse(decodeURIComponent(header));
+  const notice = JSON.parse(decodeURIComponent(header));
+  const { method, pattern } = notice;
+  const hold = notice.hold ||
+    (response.status === 429 ? { waitMs: ${FIRST_BACKOFF_MS} * 2 ** attempt } : undefined);
   if (!hold) return;
   const key = (method || "*") + " " + (pattern || "*");
   const until = Date.now() + hold.waitMs;
@@ -242,32 +253,58 @@ async function answerUnsent(hold, outOfTime) {
   return response;
 }
 
+// What waiting out a hold would cost the run: whether the hold is too long to
+// wait out, and whether the run has no time left for it.
+function waitFor(hold) {
+  const now = Date.now();
+  const waitMs = hold.until - now;
+  // The part of this wait the run is not already waiting out for another request.
+  const addedMs = Math.max(0, hold.until - Math.max(now, waitedUntil));
+  return {
+    waitMs,
+    addedMs,
+    tooLong: waitMs > ${LONGEST_WAIT_MS},
+    outOfTime: rateLimitStats.waitedMs + addedMs > ${getWaitBudgetMs()}
+  };
+}
+
+// Every request the code sends goes through here. It waits out the holds on
+// the request, sends it, and after a 429 sends it again once the new hold is
+// over, a few times. GlobalOutbound retries no 429 itself, so every wait is a
+// hold the run's other requests see and its budget counts.
 const outboundFetch = globalThis.fetch.bind(globalThis);
 globalThis.fetch = async (input, init) => {
   const request = new Request(input, init);
   const method = request.method.toUpperCase();
   const path = new URL(request.url).pathname.slice(apiBasePath.length);
-  if (runIsStopped) return neverAnswered();
-  for (let hold = holdOn(method, path); hold; hold = holdOn(method, path)) {
-    const now = Date.now();
-    const waitMs = hold.until - now;
-    // The part of this wait the run is not already waiting out for another request.
-    const addedMs = Math.max(0, hold.until - Math.max(now, waitedUntil));
-    const outOfTime = rateLimitStats.waitedMs + addedMs > ${getWaitBudgetMs()};
-    if (waitMs > ${LONGEST_WAIT_MS} || outOfTime) return answerUnsent(hold, waitMs <= ${LONGEST_WAIT_MS});
-    rateLimitStats.waitedMs += addedMs;
-    waitedUntil = Math.max(waitedUntil, hold.until);
-    await new Promise((resolve) => setTimeout(resolve, waitMs));
-    if (runIsStopped) return neverAnswered();
-  }
   // The GraphQL Analytics API has no mutations, so its POSTs are reads too.
   const read = method === "GET" || method === "HEAD" || /\\/graphql\\/?$/.test(new URL(request.url).pathname);
-  const sent = { read, status: undefined };
-  sentRequests.push(sent);
-  const response = await outboundFetch(request);
-  sent.status = response.status;
-  rememberHold(response);
-  return response;
+  let sent;
+  for (let attempt = 0; ; attempt++) {
+    if (runIsStopped) return neverAnswered();
+    for (let hold = holdOn(method, path); hold; hold = holdOn(method, path)) {
+      const { waitMs, addedMs, tooLong, outOfTime } = waitFor(hold);
+      if (tooLong || outOfTime) return answerUnsent(hold, !tooLong);
+      rateLimitStats.waitedMs += addedMs;
+      waitedUntil = Math.max(waitedUntil, hold.until);
+      await new Promise((resolve) => setTimeout(resolve, waitMs));
+      if (runIsStopped) return neverAnswered();
+    }
+    if (!sent) sentRequests.push(sent = { read, status: undefined });
+    const lastAttempt = attempt >= ${MOST_RETRIES};
+    // Sending a request uses up its body, so an attempt that may be repeated sends a copy.
+    const response = await outboundFetch(lastAttempt ? request : request.clone());
+    sent.status = response.status;
+    rememberHold(response, attempt);
+    if (response.status !== 429 || lastAttempt || !response.headers.has(${JSON.stringify(RATE_LIMIT_HEADER)})) return response;
+    // The code gets the 429 when its hold is one the run will not wait out.
+    const hold = holdOn(method, path);
+    if (hold) {
+      const { tooLong, outOfTime } = waitFor(hold);
+      if (tooLong || outOfTime) return response;
+    }
+    if (response.body) await response.body.cancel();
+  }
 };
 
 // "Cloudflare API error: GET /zones/x/dns_records returned HTTP 403 (Ray ID 8f...).",

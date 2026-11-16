@@ -18,8 +18,10 @@ import { serverRetryDelayMs } from './utils/fetch-retry'
  *   same limit should wait. Close to empty, long enough for the bucket to
  *   refill to its reserve (pacing). On a 429, as long as Cloudflare asks.
  * - `execute` applies holds inside one run (`src/tools/execute.ts`): it waits
- *   out a short hold and doesn't send a request under a long one, or once the
- *   run has waited its budget. A run that keeps sending held requests is
+ *   out a short hold, sends a refused request again after it, and doesn't send
+ *   a request under a long one, or once the run has waited its budget.
+ *   `GlobalOutbound` retries no 429 itself: a wait there is one the run's
+ *   other requests and its budget never hear of. A run that keeps sending held requests is
  *   stopped.
  * - {@link rateLimitHint} tells the agent the wait, on every tool surface.
  *   Nothing is remembered between tool calls.
@@ -68,6 +70,15 @@ export function setWaitBudgetMs(ms: number = DEFAULT_WAIT_BUDGET_MS): void {
  * and carries on stays under it.
  */
 export const MOST_UNSENT_REQUESTS = 1_000
+
+/** How often the sandbox sends a rate-limited request again, after waiting out its hold. */
+export const MOST_RETRIES = 3
+
+/**
+ * The first wait before sending a request again after a 429 that gives none,
+ * as products' own limits do (D1, KV, URL Scanner). It doubles with each retry.
+ */
+export const FIRST_BACKOFF_MS = 1_000
 
 /** The share of a limit's quota kept unused, for the user's other clients and requests in flight. */
 const RESERVE_SHARE = 0.05
@@ -146,8 +157,11 @@ export function holdOf(status: number, headers: Headers, now = Date.now()): Hold
     if (!waitMs) return undefined
     const exhausted = limits
       .filter((limit) => limit.remaining === 0)
-      .sort((a, b) => b.refillSeconds - a.refillSeconds)[0]
-    return { limit: exhausted?.name, waitMs }
+      .sort((a, b) => b.refillSeconds - a.refillSeconds)
+    // A 429 gives one wait. When it names the shared limit among the exhausted ones, the
+    // hold must cover every request, so that limit is the one reported.
+    const limit = exhausted.find(({ name }) => name === SHARED_LIMIT) ?? exhausted[0]
+    return { limit: limit?.name, waitMs }
   }
   let hold: Hold | undefined
   for (const limit of limits) {
@@ -233,7 +247,10 @@ export function holdScope(
 
 /** What `GlobalOutbound` tells the `execute` sandbox about a response's rate limits. */
 export interface RateLimitNotice extends HoldScope {
-  /** The hold to apply to the requests in scope. */
+  /**
+   * The hold to apply to the requests in scope. A 429 without one gave no
+   * wait: the sandbox holds the requests in scope for its own backoff.
+   */
   readonly hold?: Hold
   /** What to tell the agent, on a 429. */
   readonly hint?: string
@@ -241,8 +258,8 @@ export interface RateLimitNotice extends HoldScope {
 
 /**
  * `response` with its {@link RateLimitNotice} in {@link RATE_LIMIT_HEADER},
- * when it asks for a hold or is a 429. The spec is looked up only for a hold
- * under a limit other than the shared one.
+ * when it asks for a hold or is a 429. Every 429 gets a scope, with or without
+ * a wait. The spec is looked up only for a limit other than the shared one.
  */
 export async function withRateLimitNotice(
   response: Response,
@@ -252,12 +269,8 @@ export async function withRateLimitNotice(
   const hold = holdOf(response.status, response.headers)
   const hint = rateLimitHint(response.status, response.headers)
   if (!hold && !hint) return response
-  const paths = hold && hold.limit !== SHARED_LIMIT ? getPermissionPaths() : undefined
-  const notice: RateLimitNotice = {
-    ...(hold ? holdScope(hold.limit, paths, method, path) : {}),
-    hold,
-    hint
-  }
+  const paths = hold?.limit === SHARED_LIMIT ? undefined : getPermissionPaths()
+  const notice: RateLimitNotice = { ...holdScope(hold?.limit, paths, method, path), hold, hint }
   const headers = new Headers(response.headers)
   headers.set(RATE_LIMIT_HEADER, encodeURIComponent(JSON.stringify(notice)))
   return new Response(response.body, {
