@@ -21,6 +21,7 @@ import { apiCallResult } from './api-call-result'
 import type { ScopeChallenge } from '../scope-challenge'
 import type { CallPlan } from '../forge-tools/plan'
 import { FORGE_ACCOUNT_DISCOVERY_GUIDANCE, PERMISSIONS_EXTENSION } from '../forge-tools/policy'
+import { policyRefusalHint } from '../policy-guards'
 
 /** The forge tools service, which holds the generated tools (`src/forge-tools/worker.ts`). */
 function forgeTools() {
@@ -120,6 +121,11 @@ async function callForgeTool(
     case 'request':
       break
   }
+
+  const refusal = await policyRefusalHint(
+    new Request(plan.url, { method: plan.method, body: plan.body })
+  )
+  if (refusal) return toolError(refusal)
 
   const response = await fetchWithRetry(
     plan.url,
