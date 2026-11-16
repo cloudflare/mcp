@@ -18,6 +18,7 @@ import { WHOAMI_TOOL, WhoamiInputSchema, runWhoamiTool } from './whoami'
 import type { AuthProps } from '../auth/types'
 import { acceptedPermissions, type Connection } from '../api-permissions'
 import { apiCallResult } from './api-call-result'
+import { binaryContent, bodyValue, readResponse } from './response-body'
 import type { ScopeChallenge } from '../scope-challenge'
 import type { CallPlan } from '../forge-tools/plan'
 import { FORGE_ACCOUNT_DISCOVERY_GUIDANCE, PERMISSIONS_EXTENSION } from '../forge-tools/policy'
@@ -138,19 +139,18 @@ async function callForgeTool(
   )
   // A 429's headers say how long to wait; the agent only sees the body.
   const rateLimit = rateLimitHint(response.status, response.headers)
-  const json = isJson(response)
-  const bodyText = await response.text()
-  const result: unknown = json ? JSON.parse(bodyText) : bodyText
+  const body = await readResponse(response)
+  const result = bodyValue(body)
 
   // Background check against the spec's response schema; never affects the result.
-  if (json) {
+  if (body.kind === 'json') {
     checkResponse({
       toolName: name,
       method: plan.method,
       pathTemplate: plan.template,
       status: response.status,
       body: result,
-      bodyChars: bodyText.length,
+      bodyChars: body.chars,
       props
     })
   }
@@ -169,7 +169,10 @@ async function callForgeTool(
     ),
     { connection, scopeChallenge, formatResult }
   )
-  if (!structured || !json || toolResult.isError) return toolResult
+  if (toolResult.isError) return toolResult
+  // Binary is returned as MCP's own content for it, whole: cutting it would corrupt it.
+  if (body.kind === 'binary') return { content: [binaryContent(body, plan.url)] }
+  if (!structured || body.kind !== 'json') return toolResult
   // The output schema describes the whole body, as the API sends it.
   return { ...toolResult, structuredContent: result }
 }
@@ -181,12 +184,6 @@ async function callForgeTool(
 function isModern(ctx: ServerContext): boolean {
   const envelope: Record<string, unknown> | undefined = ctx.mcpReq.envelope
   return typeof envelope?.[PROTOCOL_VERSION_META_KEY] === 'string'
-}
-
-/** Whether `response` is JSON, including `+json` types such as `application/scim+json`. */
-function isJson(response: Response): boolean {
-  const type = (response.headers.get('content-type') ?? '').split(';', 1)[0]!.trim().toLowerCase()
-  return type === 'application/json' || type.endsWith('+json')
 }
 
 function toolError(message: string): CallToolResult {

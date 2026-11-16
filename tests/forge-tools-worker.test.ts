@@ -296,6 +296,129 @@ describe('generated direct tools (?codemode=false)', () => {
     expect(JSON.parse(toolText(result))).toEqual({ Resources: [{ id: 'u1' }] })
   })
 
+  describe('responses that are not JSON', () => {
+    // A JPEG's first bytes: not valid UTF-8, so reading them as text loses them (#400).
+    const JPEG = new Uint8Array([0xff, 0xd8, 0xff, 0xe0, 0x00, 0x10, 0x4a, 0x46, 0x80, 0x81, 0xfe])
+    const KV_VALUE = `/accounts/${ACCOUNT_ID}/storage/kv/namespaces/ns/values/k`
+    const getKvValue = () =>
+      callForgeTool(ACCOUNT_TOKEN, 'kv_keys_get', {
+        path: { account_id: ACCOUNT_ID, namespace_id: 'ns', key_name: 'k' }
+      })
+    const serve = (path: string, body: BodyInit, type: string | undefined, status = 200) =>
+      server.use(
+        http.all(
+          `${API_BASE}${path}`,
+          () => new HttpResponse(body, { status, headers: type ? { 'Content-Type': type } : {} })
+        )
+      )
+    const bytesOf = (base64: string) => Uint8Array.from(atob(base64), (char) => char.charCodeAt(0))
+
+    it('returns a binary KV value as an embedded resource, byte for byte', async () => {
+      // Every byte value, many times over: larger than one base64 chunk.
+      const value = Uint8Array.from({ length: 100_000 }, (_, i) => i % 256)
+      serve(KV_VALUE, value, 'application/octet-stream')
+
+      const { result } = await getKvValue()
+
+      expect(result?.isError).toBeFalsy()
+      expect(result?.content).toHaveLength(1)
+      const [block] = result!.content as unknown as [
+        { type: string; resource: { uri: string; mimeType: string; blob: string } }
+      ]
+      expect(block.type).toBe('resource')
+      expect(block.resource.uri).toBe(`${API_BASE}${KV_VALUE}`)
+      expect(block.resource.mimeType).toBe('application/octet-stream')
+      expect(bytesOf(block.resource.blob)).toEqual(value)
+    })
+
+    it('returns a text KV value as text, though KV serves it as application/octet-stream', async () => {
+      serve(KV_VALUE, 'hello, kv ✓', 'application/octet-stream')
+
+      const { result } = await getKvValue()
+
+      expect(result?.content).toEqual([{ type: 'text', text: 'hello, kv ✓' }])
+    })
+
+    it.each([
+      ['image/jpeg', 'images_getBlob', `/accounts/${ACCOUNT_ID}/images/v1/img/blob`, 'image'],
+      ['IMAGE/PNG; q=1', 'images_getBlob', `/accounts/${ACCOUNT_ID}/images/v1/img/blob`, 'image'],
+      ['audio/mpeg', 'images_getBlob', `/accounts/${ACCOUNT_ID}/images/v1/img/blob`, 'audio']
+    ])('returns %s as MCP %s content', async (type, tool, path, kind) => {
+      serve(path, JPEG, type)
+
+      const { result } = await callForgeTool(ACCOUNT_TOKEN, tool, {
+        path: { account_id: ACCOUNT_ID, image_id: 'img' }
+      })
+
+      const [block] = result!.content as unknown as [
+        { type: string; data: string; mimeType: string }
+      ]
+      expect(block.type).toBe(kind)
+      expect(block.mimeType).toBe(type.split(';')[0].toLowerCase())
+      expect(bytesOf(block.data)).toEqual(JPEG)
+    })
+
+    it.each([
+      ['application/pdf', 'application/pdf'],
+      ['application/zip', 'application/zip'],
+      [undefined, 'application/octet-stream']
+    ])('returns %s bytes from R2 as an embedded resource', async (type, mimeType) => {
+      const path = `/accounts/${ACCOUNT_ID}/r2/buckets/b/objects/report`
+      serve(path, JPEG, type)
+
+      const { result } = await callForgeTool(ACCOUNT_TOKEN, 'r2_objects_get', {
+        path: { account_id: ACCOUNT_ID, bucket_name: 'b', object_key: 'report' },
+        headers: { 'cf-r2-jurisdiction': 'eu' }
+      })
+
+      const [block] = result!.content as unknown as [
+        { type: string; resource: { mimeType: string; blob: string } }
+      ]
+      expect(block.type).toBe('resource')
+      expect(block.resource.mimeType).toBe(mimeType)
+      expect(bytesOf(block.resource.blob)).toEqual(JPEG)
+    })
+
+    it.each([
+      ['text/csv', 'a,b\n1,2'],
+      ['application/x-ndjson', '{"a":1}\n{"a":2}'],
+      ['image/svg+xml', '<svg xmlns="http://www.w3.org/2000/svg"/>'],
+      ['application/octet-stream', '']
+    ])('returns a %s body that is text as text', async (type, body) => {
+      serve(KV_VALUE, body, type)
+
+      const { result } = await getKvValue()
+
+      expect(result?.content).toEqual([{ type: 'text', text: body }])
+    })
+
+    it('does not cut binary with ?truncateToolResult=true', async () => {
+      const value = Uint8Array.from({ length: 100_000 }, (_, i) => 128 + (i % 128))
+      serve(KV_VALUE, value, 'application/octet-stream')
+
+      const { result } = await callForgeTool(
+        ACCOUNT_TOKEN,
+        'kv_keys_get',
+        { path: { account_id: ACCOUNT_ID, namespace_id: 'ns', key_name: 'k' } },
+        `${FORGE_URL}&truncateToolResult=true`
+      )
+
+      const [block] = result!.content as unknown as [{ resource: { blob: string } }]
+      expect(bytesOf(block.resource.blob)).toEqual(value)
+    })
+
+    it('names a binary error body by its size and type instead of sending it', async () => {
+      serve(KV_VALUE, JPEG, 'application/octet-stream', 500)
+
+      const result = await getKvValue()
+
+      expect(result.result?.isError).toBe(true)
+      expect(result.result?.content).toHaveLength(1)
+      expect(toolText(result)).toContain(`GET ${KV_VALUE} returned HTTP 500`)
+      expect(toolText(result)).toContain('[11 bytes of application/octet-stream]')
+    })
+  })
+
   it('reports an unknown tool', async () => {
     const result = await callForgeTool(ACCOUNT_TOKEN, 'nope', {})
 
