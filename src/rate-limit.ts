@@ -21,7 +21,9 @@ import { serverRetryDelayMs } from './utils/fetch-retry'
  *   out a short hold, sends a refused request again after it, and doesn't send
  *   a request under a long one, or once the run has waited its budget.
  *   `GlobalOutbound` retries no 429 itself: a wait there is one the run's
- *   other requests and its budget never hear of. A run that keeps sending held requests is
+ *   other requests and its budget never hear of. At most
+ *   {@link MOST_IN_FLIGHT} requests are in flight at once, so a hold reaches
+ *   the rest before they are sent. A run that keeps sending held requests is
  *   stopped.
  * - {@link rateLimitHint} tells the agent the wait, on every tool surface.
  *   Nothing is remembered between tool calls.
@@ -70,6 +72,19 @@ export function setWaitBudgetMs(ms: number = DEFAULT_WAIT_BUDGET_MS): void {
  * and carries on stays under it.
  */
 export const MOST_UNSENT_REQUESTS = 1_000
+
+/**
+ * The most requests of one run that wait for Cloudflare's answer at once.
+ *
+ * A hold only stops requests that have not been sent. Code that sends a few
+ * hundred at once (`Promise.all` over R2 objects) has them all in flight before
+ * the first 429 comes back, so every one is refused and counted: runs with
+ * `limited=125 not_sent=0` in production, about 4,400 refusals in six minutes
+ * from one client. Workers' limit of six open connections does not help: each
+ * request is its own `GlobalOutbound` invocation. With this cap, at most this
+ * many are refused before the rest are held.
+ */
+export const MOST_IN_FLIGHT = 6
 
 /** How often the sandbox sends a rate-limited request again, after waiting out its hold. */
 export const MOST_RETRIES = 3
