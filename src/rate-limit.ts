@@ -83,8 +83,12 @@ export const MOST_UNSENT_REQUESTS = 1_000
  * from one client. Workers' limit of six open connections does not help: each
  * request is its own `GlobalOutbound` invocation. With this cap, at most this
  * many are refused before the rest are held.
+ *
+ * The number trades those refusals against how long healthy code waits: a
+ * hundred requests sent together go out in five rounds. Six, the first value,
+ * made a thousand reads take close to a client's 60-second timeout.
  */
-export const MOST_IN_FLIGHT = 6
+export const MOST_IN_FLIGHT = 20
 
 /** How often the sandbox sends a rate-limited request again, after waiting out its hold. */
 export const MOST_RETRIES = 3
