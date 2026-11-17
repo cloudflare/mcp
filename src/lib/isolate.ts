@@ -43,8 +43,7 @@ export interface IsolateValueOptions {
   readonly ttlMs?: number
   /**
    * How long a request waits on a load another request started before loading
-   * for itself. A load is I/O owned by the request that began it; if that
-   * request is cancelled, its promise may never settle. Default: 15 seconds.
+   * for itself. Default: 15 seconds.
    */
   readonly sharedLoadWaitMs?: number
   /** The clock, for tests. Default: `Date.now`. */
@@ -61,8 +60,19 @@ const DEFAULT_SHARED_LOAD_WAIT_MS = 15_000
  * isolate's memory. A failed load is not cached: the next `get` tries again.
  * With `ttlMs`, the value is reloaded once it is that old.
  *
- * @param load - Loads the value. Called at most once at a time, unless a load
- *   outlives `sharedLoadWaitMs`.
+ * A load is I/O owned by the request that began it. When that request ends
+ * first (its client disconnected), workerd rejects every other request's wait
+ * on the promise at once: "This promise was created by a request that has
+ * since ended, so it can never settle". The promise itself stays pending for
+ * ever. So a request whose wait on another's load fails, or outlasts
+ * `sharedLoadWaitMs`, takes the load over: it loads in its own request, and
+ * that load is the one later requests share. Without this, every direct
+ * `tools/list` on the isolate failed until the dead load's TTL ran out, which
+ * was about 70 exceptions a day in production and 1,700 in the minutes after
+ * a deploy, when every isolate is cold.
+ *
+ * @param load - Loads the value. Called at most once at a time, unless a
+ *   request takes over another's load.
  */
 function value<T>(load: () => Promise<T>, options: IsolateValueOptions = {}): IsolateValue<T> {
   const {
@@ -92,13 +102,25 @@ function value<T>(load: () => Promise<T>, options: IsolateValueOptions = {}): Is
       const at = now()
       if (!entry || entry.expiresAt <= at) return start(at)
       if (entry.settled) return entry.promise
-      // Another request is loading. Wait for it, but not forever.
-      const shared = entry.promise
+      // Another request is loading. Wait for it, but take the load over if the
+      // wait fails or goes on too long. If a third request already has, share its load.
+      const waitedOn = entry
+      const takeOver = (): Promise<T> =>
+        entry && entry !== waitedOn ? entry.promise : start(now())
       let timer: ReturnType<typeof setTimeout> | undefined
-      const fallback = new Promise<T>((resolve, reject) => {
-        timer = setTimeout(() => load().then(resolve, reject), sharedLoadWaitMs)
+      const tooLong = new Promise<T>((resolve, reject) => {
+        timer = setTimeout(() => takeOver().then(resolve, reject), sharedLoadWaitMs)
       })
-      return Promise.race([shared, fallback]).finally(() => {
+      // Awaited here, in this request: workerd rejects the await itself when the load's
+      // request has ended, and the load's own promise never settles.
+      const shared = (async () => {
+        try {
+          return await waitedOn.promise
+        } catch {
+          return takeOver()
+        }
+      })()
+      return Promise.race([shared, tooLong]).finally(() => {
         if (timer !== undefined) clearTimeout(timer)
       })
     },
