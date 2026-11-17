@@ -941,3 +941,71 @@ describe('execute: rate-limited requests are sent again by the sandbox', () => {
     expect(errors[4]).toContain('Cloudflare API request not sent')
   })
 })
+
+describe('execute: requests sent together', () => {
+  const bucket = `/accounts/${ACCOUNT_ID}/r2/buckets/b`
+
+  async function seedObjects(): Promise<void> {
+    await seedSpec({
+      '/accounts/{account_id}/r2/buckets/{bucket_name}/objects/{object_key}': {
+        get: { summary: 'Get object' }
+      }
+    })
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+  }
+
+  const getAll = (count: number) => `async () => {
+    const keys = Array.from({ length: ${count} }, (_, i) => "dir/" + i + ".jpg");
+    const results = await Promise.allSettled(
+      keys.map((key) => cloudflare.request({ method: "GET", path: "${bucket}/objects/" + key }))
+    );
+    return {
+      ok: results.filter((r) => r.status === "fulfilled").length,
+      refused: results.filter((r) => r.status === "rejected" && r.reason.message.includes("returned HTTP 429")).length,
+      notSent: results.filter((r) => r.status === "rejected" && r.reason.message.includes("request not sent")).length
+    };
+  }`
+
+  it('has at most six in flight, and still answers them all', async () => {
+    await seedObjects()
+    let inFlight = 0
+    let most = 0
+    server.use(
+      http.get(`${API_BASE}${bucket}/objects/*`, async () => {
+        most = Math.max(most, ++inFlight)
+        await new Promise((resolve) => setTimeout(resolve, 20))
+        inFlight--
+        return HttpResponse.json(cfSuccess({}))
+      })
+    )
+
+    const result = await callTool(API_TOKEN, 'execute', { code: getAll(40) })
+
+    expect(JSON.parse(toolText(result))).toEqual({ ok: 40, refused: 0, notSent: 0 })
+    expect(most).toBeLessThanOrEqual(6)
+    expect(most).toBeGreaterThan(1)
+  })
+
+  it('holds the rest of a batch once the first answers say the limit is exhausted', async () => {
+    await seedObjects()
+    let calls = 0
+    server.use(
+      http.get(`${API_BASE}${bucket}/objects/*`, () => {
+        calls++
+        // As R2 answers once its limit is spent.
+        return HttpResponse.json(cfError([{ code: 10429, message: 'rate limited' }]), {
+          status: 429,
+          headers: { 'Retry-After': '300', Ratelimit: '"rtwo_gw_apigw";r=0;t=300' }
+        })
+      })
+    )
+
+    const result = await callTool(API_TOKEN, 'execute', { code: getAll(125) })
+
+    // Before the cap all 125 were in flight before the first 429 came back, and all were refused.
+    expect(calls).toBeLessThanOrEqual(6)
+    const counts = JSON.parse(toolText(result)) as { refused: number; notSent: number }
+    expect(counts.refused).toBe(calls)
+    expect(counts.notSent).toBe(125 - calls)
+  })
+})

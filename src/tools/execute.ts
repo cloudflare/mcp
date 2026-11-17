@@ -24,6 +24,7 @@ import {
   getWaitBudgetMs,
   FIRST_BACKOFF_MS,
   LONGEST_WAIT_MS,
+  MOST_IN_FLIGHT,
   MOST_RETRIES,
   MOST_UNSENT_REQUESTS,
   NOT_SENT_HEADER,
@@ -268,6 +269,25 @@ function waitFor(hold) {
   };
 }
 
+// At most a few requests wait for Cloudflare's answer at once. A hold only
+// stops requests not yet sent, and code that sends hundreds together would
+// have them all in flight before the first 429 came back.
+let inFlight = 0;
+const queued = [];
+function takeSlot() {
+  if (inFlight < ${MOST_IN_FLIGHT}) {
+    inFlight++;
+    return Promise.resolve();
+  }
+  return new Promise((resolve) => queued.push(resolve));
+}
+// The slot goes straight to the request that has queued longest, if any.
+function freeSlot() {
+  const next = queued.shift();
+  if (next) next();
+  else inFlight--;
+}
+
 // Every request the code sends goes through here. It waits out the holds on
 // the request, sends it, and after a 429 sends it again once the new hold is
 // over, a few times. GlobalOutbound retries no 429 itself, so every wait is a
@@ -281,19 +301,31 @@ globalThis.fetch = async (input, init) => {
   const read = method === "GET" || method === "HEAD" || /\\/graphql\\/?$/.test(new URL(request.url).pathname);
   let sent;
   for (let attempt = 0; ; attempt++) {
-    if (runIsStopped) return neverAnswered();
-    for (let hold = holdOn(method, path); hold; hold = holdOn(method, path)) {
-      const { waitMs, addedMs, tooLong, outOfTime } = waitFor(hold);
-      if (tooLong || outOfTime) return answerUnsent(hold, !tooLong);
-      rateLimitStats.waitedMs += addedMs;
-      waitedUntil = Math.max(waitedUntil, hold.until);
-      await new Promise((resolve) => setTimeout(resolve, waitMs));
+    // Wait out the holds, then wait for a slot. A hold that arrived while the
+    // request queued for its slot is waited out too, without the slot.
+    for (;;) {
       if (runIsStopped) return neverAnswered();
+      for (let hold = holdOn(method, path); hold; hold = holdOn(method, path)) {
+        const { waitMs, addedMs, tooLong, outOfTime } = waitFor(hold);
+        if (tooLong || outOfTime) return answerUnsent(hold, !tooLong);
+        rateLimitStats.waitedMs += addedMs;
+        waitedUntil = Math.max(waitedUntil, hold.until);
+        await new Promise((resolve) => setTimeout(resolve, waitMs));
+        if (runIsStopped) return neverAnswered();
+      }
+      await takeSlot();
+      if (!runIsStopped && !holdOn(method, path)) break;
+      freeSlot();
     }
     if (!sent) sentRequests.push(sent = { read, status: undefined });
     const lastAttempt = attempt >= ${MOST_RETRIES};
-    // Sending a request uses up its body, so an attempt that may be repeated sends a copy.
-    const response = await outboundFetch(lastAttempt ? request : request.clone());
+    let response;
+    try {
+      // Sending a request uses up its body, so an attempt that may be repeated sends a copy.
+      response = await outboundFetch(lastAttempt ? request : request.clone());
+    } finally {
+      freeSlot();
+    }
     sent.status = response.status;
     rememberHold(response, attempt);
     if (response.status !== 429 || lastAttempt || !response.headers.has(${JSON.stringify(RATE_LIMIT_HEADER)})) return response;
