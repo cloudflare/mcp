@@ -288,7 +288,7 @@ To check it in production, search Workers Logs for `fetchWithRetry: failed calle
 
 A warm isolate serves many requests, so anything that doesn't depend on the request is built once and reused. Use `isolate` from `src/lib/isolate.ts` rather than a module-level `let` or `Map`:
 
-- `isolate.value(load, { ttlMs })`: an async load shared by concurrent requests (one read from the forge tools service on a cold isolate, not one per request), reloaded after `ttlMs`. A failed load is not cached.
+- `isolate.value(load, { ttlMs })`: an async load shared by concurrent requests (one read from the forge tools service on a cold isolate, not one per request), reloaded after `ttlMs`. A failed load is not cached. A load belongs to the request that started it: if that request ends first, workerd rejects every other request's wait on it and the promise never settles. A request whose wait fails, or lasts 15 seconds, takes the load over in its own request, and later requests share that one.
 - `isolate.lazy(build)`: a synchronous value built on first use.
 - `isolate.map({ maxEntries, maxSize, sizeOf })`: values by key, cleared when a cap would be passed, so a long-lived isolate can't grow without bound.
 - `isolate.derived(compute)`: a value computed from another cached object (an index, serialized bytes), keyed on that object's identity, so it is recomputed when the source reloads.

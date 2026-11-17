@@ -46,6 +46,46 @@ describe('isolate.value', () => {
 
     void cache.get()
     await expect(cache.get()).resolves.toBe('fresh')
+    // The load it started is the one later callers share.
+    await expect(cache.get()).resolves.toBe('fresh')
+    expect(load).toHaveBeenCalledTimes(2)
+  })
+
+  it('takes over a load whose request ended, for itself and later callers', async () => {
+    // What workerd does to a wait on a promise whose request has ended: the
+    // wait is rejected, and the load's own bookkeeping never runs.
+    let endRequest!: (reason: Error) => void
+    const dead = new Promise<string>((_, reject) => {
+      endRequest = reject
+    })
+    const load = vi
+      .fn<() => Promise<string>>()
+      .mockReturnValueOnce(dead)
+      .mockResolvedValueOnce('fresh')
+    const cache = isolate.value(load)
+
+    const first = cache.get()
+    first.catch(() => {})
+    const waiters = [cache.get(), cache.get()]
+    endRequest(new Error('This promise was created by a request that has since ended'))
+
+    await expect(Promise.all(waiters)).resolves.toEqual(['fresh', 'fresh'])
+    await expect(cache.get()).resolves.toBe('fresh')
+    // One load to replace the dead one, shared by both waiters and the later caller.
+    expect(load).toHaveBeenCalledTimes(2)
+  })
+
+  it('fails a waiter when the load it took over fails too', async () => {
+    const load = vi.fn<() => Promise<string>>().mockRejectedValue(new Error('service down'))
+    const cache = isolate.value(load)
+
+    const first = cache.get()
+    const waiter = cache.get()
+
+    await expect(first).rejects.toThrow('service down')
+    await expect(waiter).rejects.toThrow('service down')
+    // Its own attempt, and no more.
+    expect(load).toHaveBeenCalledTimes(2)
   })
 
   it('reloads after reset', async () => {
