@@ -15,6 +15,7 @@ import { recordToolCall } from '../metrics'
 import { checkResponse } from '../response-validation'
 import { DOCS_TOOL, runDocsTool } from './docs-search'
 import { WHOAMI_TOOL, WhoamiInputSchema, runWhoamiTool } from './whoami'
+import { SUBMIT_FEEDBACK_TOOL, feedbackTools, runSubmitFeedbackTool } from './submit-feedback'
 import type { AuthProps } from '../auth/types'
 import { acceptedPermissions, type Connection } from '../api-permissions'
 import { apiCallResult } from './api-call-result'
@@ -58,6 +59,7 @@ export function registerForgeTools(
     tools: [
       DOCS_TOOL,
       WHOAMI_TOOL,
+      ...feedbackTools(),
       ...(await getForgeToolList({ outputSchema: outputSchema && isModern(ctx) }))
     ]
   }))
@@ -78,6 +80,8 @@ export function registerForgeTools(
         result = parsed.success
           ? runWhoamiTool(props)
           : toolError(`Invalid arguments for tool ${name}: ${parsed.error.message}`)
+      } else if (name === SUBMIT_FEEDBACK_TOOL.name && feedbackTools().length > 0) {
+        result = await runSubmitFeedbackTool(args, 'direct')
       } else {
         const sessionAccountId = autoResolvedAccountId(props)
         const plan = (await forgeTools().plan(name, args, {
