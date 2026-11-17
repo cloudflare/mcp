@@ -12,7 +12,7 @@ import { clearKv } from './helpers/kv'
 import { clearSpec, seedSpec } from './helpers/spec'
 import { callTool, toolText } from './helpers/mcp'
 import { server } from './setup/msw'
-import { setWaitBudgetMs } from '../src/rate-limit'
+import { MOST_IN_FLIGHT, setWaitBudgetMs } from '../src/rate-limit'
 
 /**
  * Behaviour tests for the code executors, run through the REAL worker: a
@@ -966,7 +966,7 @@ describe('execute: requests sent together', () => {
     };
   }`
 
-  it('has at most six in flight, and still answers them all', async () => {
+  it('has a bounded number in flight, and still answers them all', async () => {
     await seedObjects()
     let inFlight = 0
     let most = 0
@@ -979,10 +979,10 @@ describe('execute: requests sent together', () => {
       })
     )
 
-    const result = await callTool(API_TOKEN, 'execute', { code: getAll(40) })
+    const result = await callTool(API_TOKEN, 'execute', { code: getAll(60) })
 
-    expect(JSON.parse(toolText(result))).toEqual({ ok: 40, refused: 0, notSent: 0 })
-    expect(most).toBeLessThanOrEqual(6)
+    expect(JSON.parse(toolText(result))).toEqual({ ok: 60, refused: 0, notSent: 0 })
+    expect(most).toBeLessThanOrEqual(MOST_IN_FLIGHT)
     expect(most).toBeGreaterThan(1)
   })
 
@@ -1003,7 +1003,7 @@ describe('execute: requests sent together', () => {
     const result = await callTool(API_TOKEN, 'execute', { code: getAll(125) })
 
     // Before the cap all 125 were in flight before the first 429 came back, and all were refused.
-    expect(calls).toBeLessThanOrEqual(6)
+    expect(calls).toBeLessThanOrEqual(MOST_IN_FLIGHT)
     const counts = JSON.parse(toolText(result)) as { refused: number; notSent: number }
     expect(counts.refused).toBe(calls)
     expect(counts.notSent).toBe(125 - calls)
