@@ -15,7 +15,8 @@ describe('computeRetryDelay', () => {
     baseDelayMs: 1000,
     backoffFactor: 2,
     maxDelayMs: 30_000,
-    jitter: false
+    jitter: false,
+    retryRateLimited: true
   }
 
   it('computes exponential delays without jitter', () => {
@@ -220,6 +221,21 @@ describe('fetchWithRetry', () => {
 
     expect(errorSpy).toHaveBeenCalledWith(
       'fetchWithRetry: failed caller=api_token_identity_probe url=https://api.example.com/accounts after 1 attempts with status 429 retry-after=1 ratelimit="default";r=0;t=300 ratelimit-policy="default";q=1200;w=300 ray=8f1a2b3c4d5e6f70-LHR'
+    )
+  })
+
+  it('returns a 429 at once when the caller waits out rate limits itself', async () => {
+    const api = respondInSequence(TEST_URL, 429, 200)
+
+    const result = await fetchWithRetry(TEST_URL, undefined, {
+      retryRateLimited: false,
+      caller: 'codemode_execute_tool_call'
+    })
+
+    expect(result.status).toBe(429)
+    expect(api.calls()).toBe(1)
+    expect(warnSpy).toHaveBeenCalledWith(
+      'fetchWithRetry: 429 caller=codemode_execute_tool_call url=https://api.example.com/test, not retried here'
     )
   })
 

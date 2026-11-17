@@ -79,6 +79,15 @@ describe('holdOf', () => {
     })
   })
 
+  it('reports the shared limit when a 429 says it is exhausted along with another', () => {
+    const both = headers({
+      'Retry-After': '300',
+      Ratelimit: '"rtwo_gw_apigw";r=0;t=300, "default";r=0;t=60'
+    })
+    // The hold then covers every request, not only the R2 operation.
+    expect(holdOf(429, both)).toEqual({ limit: 'default', waitMs: 300_000 })
+  })
+
   it("asks for nothing on a product's own 429 that gives no wait", () => {
     // URL Scanner and Email Routing send the untouched shared limit and no Retry-After.
     expect(holdOf(429, shared(1199))).toBeUndefined()
@@ -199,6 +208,8 @@ describe('withRateLimitNotice', () => {
   it('tells the agent about a 429 that asks for no hold', async () => {
     const response = await withRateLimitNotice(new Response(null, { status: 429 }), 'GET', '/user')
     expect(notice(response).hold).toBeUndefined()
+    // With its scope, so the sandbox can hold the same requests for its own backoff.
+    expect(notice(response)).toMatchObject({ method: 'GET', pattern: '^\\/user\\/?$' })
     expect(notice(response).hint).toContain('did not say for how long')
   })
 })

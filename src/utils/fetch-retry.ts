@@ -10,6 +10,12 @@ export interface RetryOptions {
    */
   maxDelayMs?: number
   jitter?: boolean
+  /**
+   * Whether a 429 is retried here. `execute` turns it off: its sandbox waits out rate limits
+   * itself, where the wait is held against the run's other requests and its wait budget.
+   * Network errors are retried either way.
+   */
+  retryRateLimited?: boolean
   caller?: string
 }
 
@@ -20,7 +26,8 @@ const DEFAULT_OPTIONS: Required<Omit<RetryOptions, 'caller'>> = {
   // A user waits on these calls: a few seconds slower beats a failure, but a longer server-given
   // wait is worse than failing fast with the server's Retry-After.
   maxDelayMs: 5_000,
-  jitter: true
+  jitter: true,
+  retryRateLimited: true
 }
 
 /**
@@ -126,6 +133,12 @@ export async function fetchWithRetry(
       const response = await fetch(attemptInput, fetchInit)
 
       if (response.status !== 429) {
+        return response
+      }
+      if (!opts.retryRateLimited) {
+        console.warn(
+          `fetchWithRetry: 429${caller} url=${url}, not retried here${rateLimitHints(response.headers)}`
+        )
         return response
       }
 

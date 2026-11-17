@@ -67,8 +67,9 @@ type ProbeHold = z.infer<typeof ProbeHoldSchema>
  *   production 429s, so not probing is what lets that clear.
  *
  * The hold is in `OAUTH_KV` by token hash, like the identity cache, and holds
- * only the refusal and the time it ends. KV is eventually consistent, so a
- * request elsewhere may still probe once; that is load shedding, not a lock.
+ * only the refusal and the time it ends. It is load shedding, not a lock:
+ * every request that read KV before the hold was written still probes, in
+ * the same location or, since KV is eventually consistent, in another.
  */
 async function heldRefusal(holdKey: string, kv: KVNamespace): Promise<OAuthError | undefined> {
   try {
