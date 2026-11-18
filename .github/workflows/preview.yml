@@ -60,7 +60,7 @@ jobs:
         id: config
         run: |
           mkdir -p .preview
-          node base/scripts/preview-config.mjs "$PR_NUMBER" "${{ vars.PREVIEW_DOMAIN_SUFFIX }}" "${{ vars.PREVIEW_KV_ID }}" "${{ vars.PREVIEW_BUCKET }}" > .preview/out.json
+          node base/scripts/preview-config.mjs "$PR_NUMBER" "${{ vars.PREVIEW_DOMAIN_SUFFIX }}" "${{ vars.PREVIEW_KV_ID }}" "${{ vars.PREVIEW_BUCKET }}" "${{ vars.PREVIEW_FORGE_TOOLS_SERVICE }}" > .preview/out.json
           echo "url=$(node -p "require('./.preview/out.json').url")" >> "$GITHUB_OUTPUT"
 
       - name: Deploy

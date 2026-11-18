@@ -1,9 +1,15 @@
 import { writeFileSync } from 'node:fs'
 
-const [prNumber, domainSuffix, kvId, bucketName] = process.argv.slice(2)
-if (!/^\d+$/.test(prNumber ?? '') || !domainSuffix || !kvId || !bucketName) {
+const [prNumber, domainSuffix, kvId, bucketName, forgeToolsService] = process.argv.slice(2)
+if (
+  !/^\d+$/.test(prNumber ?? '') ||
+  !domainSuffix ||
+  !kvId ||
+  !bucketName ||
+  !forgeToolsService
+) {
   throw new Error(
-    'Usage: node scripts/preview-config.mjs <pr-number> <domain-suffix> <kv-id> <bucket-name>'
+    'Usage: node scripts/preview-config.mjs <pr-number> <domain-suffix> <kv-id> <bucket-name> <forge-tools-service>'
   )
 }
 
@@ -21,7 +27,10 @@ const config = {
   routes: [{ pattern: hostname, custom_domain: true }],
   ai: { binding: 'AI' },
   worker_loaders: [{ binding: 'LOADER' }],
-  services: [{ binding: 'GLOBAL_OUTBOUND', service: name, entrypoint: 'GlobalOutbound' }],
+  services: [
+    { binding: 'GLOBAL_OUTBOUND', service: name, entrypoint: 'GlobalOutbound' },
+    { binding: 'FORGE_TOOLS', service: forgeToolsService }
+  ],
   kv_namespaces: [{ binding: 'OAUTH_KV', id: kvId }],
   r2_buckets: [{ binding: 'SPEC_BUCKET', bucket_name: bucketName }],
   analytics_engine_datasets: [{ binding: 'MCP_METRICS', dataset: 'mcp-metrics-preview' }],
@@ -29,7 +38,7 @@ const config = {
     CLOUDFLARE_API_BASE: 'https://api.cloudflare.com/client/v4',
     CLOUDFLARE_OAUTH_DOMAIN: 'https://dash.cloudflare.com',
     MCP_RESOURCE: `https://${hostname}/mcp`,
-    OPENAPI_SPEC_URL: 'https://raw.githubusercontent.com/cloudflare/api-schemas/main/openapi.json'
+    RESPONSE_VALIDATION_SAMPLE_RATE: '1'
   }
 }
 
