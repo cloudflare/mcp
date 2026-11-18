@@ -111,7 +111,7 @@ try {
   forge(['normalize', '--write', normalized])
 
   const out = join(tmp, 'out')
-  forge([normalized, '--target', 'mcp', '--out', out])
+  forge(['generate', normalized, '--target', 'mcp', '--out', out])
 
   const before = toolNames(OUT)
   const permissionsBefore = withPermissions(OUT)
