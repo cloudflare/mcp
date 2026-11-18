@@ -6,6 +6,7 @@ import { MCP_HOST, MCP_URL, modernMcpRequest, parseMcpResult } from '../helpers/
 import { clearSpec, seedSpec } from '../helpers/spec'
 import { seedSkills, skillMarkdown } from '../helpers/skills'
 import { SKILL_FILES_PREFIX } from '../../src/skills/types'
+import { MCP_APP_RESOURCES } from '../../src/mcp-apps/registry'
 
 /**
  * Drives the real worker through `exports.default.fetch`: auth, the MCP
@@ -180,7 +181,7 @@ describe('skills extension with a synced catalog', () => {
     expect(body.error?.code).toBe(-32603)
   })
 
-  it('lists only SKILL.md files in resources/list', async () => {
+  it('lists SKILL.md files and the MCP App resources in resources/list', async () => {
     const body = await modern('resources/list')
 
     expect(body.result?.resources).toEqual([
@@ -195,7 +196,8 @@ describe('skills extension with a synced catalog', () => {
         name: 'wrangler',
         description: 'Use the Wrangler CLI',
         mimeType: 'text/markdown'
-      }
+      },
+      ...MCP_APP_RESOURCES.map((resource) => resource.descriptor)
     ])
   })
 

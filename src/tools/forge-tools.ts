@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { env } from 'cloudflare:workers'
 import { PROTOCOL_VERSION_META_KEY } from '@modelcontextprotocol/server'
-import type { McpServer, CallToolResult, ServerContext } from '@modelcontextprotocol/server'
+import type { McpServer, CallToolResult, ServerContext, Tool } from '@modelcontextprotocol/server'
 import type { FormatToolResult } from '../truncate'
 import { fetchWithRetry } from '../utils/fetch-retry'
 import { rateLimitHint } from '../rate-limit'
@@ -16,6 +16,7 @@ import { checkResponse } from '../response-validation'
 import { DOCS_TOOL, runDocsTool } from './docs-search'
 import { WHOAMI_TOOL, WhoamiInputSchema, runWhoamiTool } from './whoami'
 import { SUBMIT_FEEDBACK_TOOL, feedbackTools, runSubmitFeedbackTool } from './submit-feedback'
+import { MCP_APP_TOOLS, mcpAppNamed } from '../mcp-apps/registry'
 import type { AuthProps } from '../auth/types'
 import { acceptedPermissions, type Connection } from '../api-permissions'
 import { apiCallResult } from './api-call-result'
@@ -25,6 +26,16 @@ import type { ScopeChallenge } from '../scope-challenge'
 import type { CallPlan } from '../forge-tools/plan'
 import { FORGE_ACCOUNT_DISCOVERY_GUIDANCE, PERMISSIONS_EXTENSION } from '../forge-tools/policy'
 import { policyRefusalHint } from '../policy-guards'
+
+/**
+ * The tools this Worker serves itself in direct mode, listed before the
+ * generated ones: `docs`, `whoami`, `submit_feedback` when it is configured,
+ * and the MCP Apps. Both `tools/list` paths
+ * (the SDK's and `cachedToolListResponse`) send this list.
+ */
+export function localDirectTools(): Tool[] {
+  return [DOCS_TOOL, WHOAMI_TOOL, ...feedbackTools(), ...MCP_APP_TOOLS]
+}
 
 /** The forge tools service, which holds the generated tools (`src/forge-tools/worker.ts`). */
 function forgeTools() {
@@ -58,9 +69,7 @@ export function registerForgeTools(
 ): void {
   server.server.setRequestHandler('tools/list', async (_request, ctx) => ({
     tools: [
-      DOCS_TOOL,
-      WHOAMI_TOOL,
-      ...feedbackTools(),
+      ...localDirectTools(),
       ...(await getForgeToolList({ outputSchema: outputSchema && isModern(ctx) }))
     ]
   }))
@@ -83,6 +92,8 @@ export function registerForgeTools(
           : toolError(`Invalid arguments for tool ${name}: ${parsed.error.message}`)
       } else if (name === SUBMIT_FEEDBACK_TOOL.name && feedbackTools().length > 0) {
         result = await runSubmitFeedbackTool(args, 'direct', props)
+      } else if (mcpAppNamed(name)) {
+        result = await mcpAppNamed(name)!.call(args, { props, connection, scopeChallenge }, ctx)
       } else {
         const sessionAccountId = autoResolvedAccountId(props)
         const plan = (await forgeTools().plan(name, args, {

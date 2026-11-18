@@ -6,6 +6,7 @@ import { registerExecuteTool } from './tools/execute'
 import { registerWhoamiTool } from './tools/whoami'
 import { registerSubmitFeedbackTool } from './tools/submit-feedback'
 import { registerSkills } from './skills/handlers'
+import { MCP_APP_RESOURCES, registerMcpApps } from './mcp-apps/registry'
 import { attachMetrics } from './metrics'
 import { SERVER_INFO } from './constants'
 import { stringifyResponse, truncateResponse } from './truncate'
@@ -19,8 +20,8 @@ import { ScopeChallenge } from './scope-challenge'
 export interface ServerOptions {
   /**
    * Register the Code Mode tools (`search`, `execute`). When `false`, register
-   * the direct tools forge generates, one per API method, instead. `docs` and
-   * `whoami` are registered in both modes. Defaults to `true`.
+   * the direct tools forge generates, one per API method, instead. `docs`,
+   * `whoami` and the MCP Apps (`src/mcp-apps/registry.ts`) are registered in both modes. Defaults to `true`.
    */
   readonly codemode?: boolean
   /**
@@ -79,7 +80,8 @@ export function createServer(
   // registerTool can default the capability to true.
   server.server.registerCapabilities({ tools: { listChanged: false } })
   // Skills (io.modelcontextprotocol/skills) are served in both tool modes.
-  registerSkills(server)
+  // MCP Apps' HTML resources are served next to the skills' files.
+  registerSkills(server, MCP_APP_RESOURCES)
   if (events) registerEventMethods(server, events.env, props, events.bearer)
   if (!codemode) {
     const formatResult = truncateToolResult ? truncateResponse : stringifyResponse
@@ -97,6 +99,7 @@ export function createServer(
   registerExecuteTool(server, props, truncateToolResult, connection, scopeChallenge)
   registerWhoamiTool(server, props)
   registerSubmitFeedbackTool(server, props)
+  registerMcpApps(server, { props, connection, scopeChallenge })
 
   return server
 }

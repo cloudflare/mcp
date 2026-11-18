@@ -22,6 +22,7 @@ cloudflare-mcp/
 │   ├── mcp-handler.ts             # Stateless MCP HTTP handler & deployment guards
 │   ├── server.ts                  # MCP server setup & tool registration
 │   ├── events/                    # Stateless MCP Events mapping to ANS policies and Vega automations
+│   ├── mcp-apps/                  # Shared MCP Apps: defineMcpApp, read-only apiReader, registry, app-shell
 │   ├── executor.ts                # Code executor (Worker Loader API)
 │   ├── spec-processor.ts          # OpenAPI spec $ref resolution & splitting merged paths
 │   ├── spec-release.ts            # The pinned spec release and its artifact names
@@ -67,6 +68,7 @@ cloudflare-mcp/
 ├── scripts/
 │   ├── cloudflare-account.ts      # The account scripts run cf against
 │   ├── seed-r2.ts                 # Seed skills to R2 (cf r2 objects put)
+│   ├── build-mcp-apps.ts          # Build every src/<app>/app into app-html.generated.ts
 │   ├── generate-tools.ts          # Regenerate src/generated/forge-mcp with forge
 │   ├── schema-mismatch-report.ts  # Response schema mismatches by product, for teams
 │   └── bench-response-validation.ts # Cost of response schema checks on the generated schemas
@@ -103,6 +105,7 @@ Node 22+ required.
 | `npm run deploy`       | Deploy to staging                             |
 | `npm run deploy:prod`  | Deploy to production by hand (merging to `main` already deploys) |
 | `npm run deploy:forge-tools` / `deploy:forge-tools:prod` | Deploy the forge tools service to staging / production |
+| `npm run app:build`    | Build every MCP App's HTML (`-- <app>` for one) |
 | `npm run generate:tools` | Regenerate `src/generated/forge-mcp` with the pinned `@cloudflare/forge` |
 | `npm run types`        | Generate worker type definitions              |
 | `npm run typecheck`    | TypeScript type checking (no emit)            |
@@ -162,6 +165,10 @@ The core innovation: instead of 2,500 MCP tools (~244K tokens), two tools handle
 - ANS policies/destinations and Vega automations own subscription state. No token or signing secret is stored: the client's `whsec_` secret and callback URL are sealed into the ANS destination secret (ANS presents it on every call), `OAUTH_KV` `mcp-events:subscription:<id>` holds plain routing/expiry and a hash of the signing secret, and the policy description holds encrypted metadata with that hash. A new signing secret gets a new destination. Access is checked on subscribe/refresh, not per delivery. Every token for an account shares one principal, so the KV record is written or deleted only after Cloudflare accepts the caller's change to the policy. Keep KV to hashes, never raw tokens or secrets.
 - `src/events/callback.ts` opens the sealed destination secret ANS presents, checks the KV subscription record and synchronously signs the MCP callback, with no Cloudflare API call. ANS owns retries.
 - `npm run test:events` runs local workerd coverage with simulated external HTTP endpoints. See `docs/mcp-events.md` for live tests and lifecycle constraints.
+
+### MCP Apps
+
+`src/mcp-apps/` holds what every MCP App shares: `defineMcpApp()` (a tool plus its static `ui://` HTML resource, served in both tool modes), `apiReader()` (bounded, read-only Cloudflare API and GraphQL reads with the direct tools' refusal explanations and step-up), `MCP_APPS` in `registry.ts` (the one list an App is added to) and `app-shell/` (the browser-side host connection and Kumo base CSS). Each App lives in `src/<app>/`, with its React/Kumo view in `src/<app>/app/`, built into `app-html.generated.ts` by `npm run app:build`; never hand-edit those. `npm run check` verifies they are fresh and type-checks the view with `tsconfig.app.json`. See `docs/mcp-apps.md`. Keep raw customer prompts, account output and host screenshots outside this public repository.
 
 ### Worker Loader API
 
