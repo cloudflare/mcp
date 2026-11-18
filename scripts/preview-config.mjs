@@ -1,13 +1,7 @@
 import { writeFileSync } from 'node:fs'
 
 const [prNumber, domainSuffix, kvId, bucketName, forgeToolsService] = process.argv.slice(2)
-if (
-  !/^\d+$/.test(prNumber ?? '') ||
-  !domainSuffix ||
-  !kvId ||
-  !bucketName ||
-  !forgeToolsService
-) {
+if (!/^\d+$/.test(prNumber ?? '') || !domainSuffix || !kvId || !bucketName || !forgeToolsService) {
   throw new Error(
     'Usage: node scripts/preview-config.mjs <pr-number> <domain-suffix> <kv-id> <bucket-name> <forge-tools-service>'
   )
