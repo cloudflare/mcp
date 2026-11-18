@@ -1,12 +1,14 @@
 import type { McpServer, Tool } from '@modelcontextprotocol/server'
 import type { StaticResource } from '../skills/handlers'
 // App imports, one per line.
+import { workersUsageAlertApp } from '../workers-usage-alert/tool'
 import type { AppContext, McpApp } from './define'
 
 const apps: McpApp[] = []
 // Each App adds its import above and one push here; nothing else in the server
 // changes. One statement per App, on either side of this comment, so Apps in
 // flight at once merge in any order. See `docs/mcp-apps.md`.
+apps.push(workersUsageAlertApp)
 
 /** Every MCP App this Worker serves, in listing order. */
 export const MCP_APPS: readonly McpApp[] = apps

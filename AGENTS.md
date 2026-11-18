@@ -166,6 +166,10 @@ The core innovation: instead of 2,500 MCP tools (~244K tokens), two tools handle
 - `src/events/callback.ts` opens the sealed destination secret ANS presents, checks the KV subscription record and synchronously signs the MCP callback, with no Cloudflare API call. ANS owns retries.
 - `npm run test:events` runs local workerd coverage with simulated external HTTP endpoints. See `docs/mcp-events.md` for live tests and lifecycle constraints.
 
+### Workers usage alert App
+
+`src/workers-usage-alert/` is the `workers_usage_alert` MCP App, registered in `MCP_APPS`. It previews a `billing_usage_alert` on Workers requests from this and last month's GraphQL analytics and the account's existing policies. Read-only: it creates no policy. See `docs/workers-usage-alert.md`.
+
 ### MCP Apps
 
 `src/mcp-apps/` holds what every MCP App shares: `defineMcpApp()` (a tool plus its static `ui://` HTML resource, served in both tool modes), `apiReader()` (bounded, read-only Cloudflare API and GraphQL reads with the direct tools' refusal explanations and step-up), `MCP_APPS` in `registry.ts` (the one list an App is added to) and `app-shell/` (the browser-side host connection and Kumo base CSS). Each App lives in `src/<app>/`, with its React/Kumo view in `src/<app>/app/`, built into `app-html.generated.ts` by `npm run app:build`; never hand-edit those. `npm run check` verifies they are fresh and type-checks the view with `tsconfig.app.json`. See `docs/mcp-apps.md`. Keep raw customer prompts, account output and host screenshots outside this public repository.
