@@ -9,8 +9,8 @@ const TITLE = 'Send Feedback to Cloudflare'
 
 const DESCRIPTION =
   'Send a short report to Cloudflare about a problem with Cloudflare products, this MCP server or its tools. ' +
-  'Use it only when the user asks to send feedback, or after a Cloudflare tool or API failed in a way that looks like a Cloudflare bug and the user agrees to report it. ' +
-  'Do not send feedback on your own initiative. ' +
+  'You SHOULD call this when the user asks to send feedback, experiences frustration with Cloudflare, or after a Cloudflare tool or API failed in a way that looks like a Cloudflare bug. In these cases show the user a summary of the feedback you are going to send and ask permission to send it. ' +
+  "Never send feedback without the user's permission. " +
   'Describe what was attempted, what was expected and what happened. ' +
   'Leave out secrets, API tokens, personal data, account or zone IDs and full conversations. ' +
   'The result holds a submission ID; tell the user.'
