@@ -170,6 +170,10 @@ The core innovation: instead of 2,500 MCP tools (~244K tokens), two tools handle
 
 `src/mcp-apps/` holds what every MCP App shares: `defineMcpApp()` (a tool plus its static `ui://` HTML resource, served in both tool modes), `apiReader()` (bounded, read-only Cloudflare API and GraphQL reads with the direct tools' refusal explanations and step-up), `MCP_APPS` in `registry.ts` (the one list an App is added to) and `app-shell/` (the browser-side host connection and Kumo base CSS). Each App lives in `src/<app>/`, with its React/Kumo view in `src/<app>/app/`, built into `app-html.generated.ts` by `npm run app:build`; never hand-edit those. `npm run check` verifies they are fresh and type-checks the view with `tsconfig.app.json`. See `docs/mcp-apps.md`. Keep raw customer prompts, account output and host screenshots outside this public repository.
 
+### Worker deployment status App
+
+`src/deployment-status/` is the `workers_deployment_status` MCP App, registered in `MCP_APPS`. The read-only collector links Workers Builds to active version traffic and refuses to equate deployment with website availability. See `docs/deployment-status.md` for scope and verification.
+
 ### Worker Loader API
 
 Code execution uses Cloudflare's Worker Loader API to dynamically create isolated worker instances. The API token is passed via props (never enters user code isolate). A `globalOutbound` service restricts network access.

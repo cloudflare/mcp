@@ -1,0 +1,244 @@
+@import '../../mcp-apps/app-shell/base.css';
+@source './deployment-app.tsx';
+.card {
+  container-type: inline-size;
+  min-width: 0;
+  border: 1px solid var(--color-kumo-line);
+  border-radius: 8px;
+  background: var(--color-kumo-elevated);
+  isolation: isolate;
+  overflow: hidden;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  flex-wrap: wrap;
+}
+.title {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  min-width: 0;
+  flex-wrap: wrap;
+}
+.logo {
+  width: 26px;
+  flex-shrink: 0;
+}
+.title strong {
+  font-weight: 400;
+  overflow-wrap: anywhere;
+}
+.subtle,
+.metadata,
+.observed {
+  color: var(--text-color-kumo-subtle);
+}
+.receipt {
+  background: var(--color-kumo-base);
+  border-top: 1px solid var(--color-kumo-line);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.body {
+  padding: 16px;
+}
+.metadata {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+.metadata span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.metadata svg {
+  width: 16px;
+  height: 16px;
+}
+p {
+  margin: 0;
+}
+.subject {
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 6px;
+  overflow-wrap: anywhere;
+}
+.author {
+  margin-top: 2px;
+}
+.outcome {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  background: var(--color-kumo-control);
+}
+.outcome svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.outcome.failed {
+  color: var(--text-color-kumo-danger);
+  background: var(--color-kumo-danger-tint);
+}
+.stages {
+  list-style: none;
+  display: flex;
+  gap: 6px;
+  padding: 20px 0 0;
+  margin: 0;
+}
+.stages li {
+  flex: 1;
+  min-width: 0;
+}
+.stage-label,
+.stage-time {
+  color: var(--text-color-kumo-subtle);
+}
+.stage-time {
+  font-family: ui-monospace, monospace;
+  font-size: 12px;
+  padding-top: 4px;
+  font-variant-numeric: tabular-nums;
+}
+.stage-track {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  border: 1px solid var(--color-kumo-line);
+  border-radius: 4px;
+  padding: 4px 8px;
+  margin-top: 4px;
+  font-variant-numeric: tabular-nums;
+}
+.stage-track svg,
+.traffic-summary svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+.stages [data-state='complete'] svg,
+.confirmed {
+  color: var(--text-color-kumo-success);
+}
+.stages [data-state='failed'] {
+  color: var(--text-color-kumo-danger);
+}
+.stages [data-state='unknown'] .stage-track {
+  border-style: dashed;
+  color: var(--text-color-kumo-subtle);
+}
+.traffic-summary {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  border-top: 1px solid var(--color-kumo-line);
+  padding: 8px 16px;
+}
+footer > span {
+  overflow-wrap: anywhere;
+}
+.details {
+  border-top: 1px solid var(--color-kumo-line);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+dl {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+dt {
+  font-weight: 500;
+}
+dd {
+  color: var(--text-color-kumo-subtle);
+  margin: 0;
+  text-align: right;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+.observed {
+  font-size: 12px;
+  padding: 8px 16px;
+}
+footer button {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  flex-shrink: 0;
+}
+pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: 12px;
+}
+@container (max-width:480px) {
+  .stages {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .stages li {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    align-items: center;
+    gap: 0 12px;
+  }
+  .stage-time {
+    grid-column: 2;
+  }
+  footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  dl > div {
+    flex-direction: column;
+    gap: 2px;
+  }
+  dd {
+    text-align: left;
+  }
+}
+
+@container (min-width:600px) {
+  .stages li:nth-child(4) {
+    flex: 2.5;
+  }
+}
+@container (max-width:480px) {
+  .outcome {
+    font-size: 16px;
+  }
+  header {
+    padding: 10px 14px;
+  }
+  .body {
+    padding: 14px;
+  }
+}

@@ -1,9 +1,11 @@
 import type { McpServer, Tool } from '@modelcontextprotocol/server'
 import type { StaticResource } from '../skills/handlers'
+import { deploymentStatusApp } from '../deployment-status/tool'
 // App imports, one per line.
 import type { AppContext, McpApp } from './define'
 
 const apps: McpApp[] = []
+apps.push(deploymentStatusApp)
 // Each App adds its import above and one push here; nothing else in the server
 // changes. One statement per App, on either side of this comment, so Apps in
 // flight at once merge in any order. See `docs/mcp-apps.md`.
