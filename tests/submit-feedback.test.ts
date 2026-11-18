@@ -76,9 +76,13 @@ describe('submit_feedback definition', () => {
     expect(SUBMIT_FEEDBACK_TOOL).not.toHaveProperty('outputSchema')
   })
 
-  it('tells agents not to send feedback unprompted or include secrets', () => {
+  it('tells agents when to offer feedback, to ask first, and not to include secrets', () => {
+    expect(SUBMIT_FEEDBACK_TOOL.description).toContain('experiences frustration with Cloudflare')
     expect(SUBMIT_FEEDBACK_TOOL.description).toContain(
-      'Do not send feedback on your own initiative'
+      'show the user a summary of the feedback you are going to send and ask permission'
+    )
+    expect(SUBMIT_FEEDBACK_TOOL.description).toContain(
+      "Never send feedback without the user's permission"
     )
     expect(SUBMIT_FEEDBACK_TOOL.description).toContain('Leave out secrets')
   })
