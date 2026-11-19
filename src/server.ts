@@ -4,6 +4,7 @@ import { registerForgeTools } from './tools/forge-tools'
 import { registerSearchTool } from './tools/search'
 import { registerExecuteTool } from './tools/execute'
 import { registerWhoamiTool } from './tools/whoami'
+import { registerGraphqlAnalyticsTool } from './tools/graphql-analytics'
 import { registerSkills } from './skills/handlers'
 import { attachMetrics } from './metrics'
 import { SERVER_INFO } from './constants'
@@ -18,8 +19,8 @@ import { ScopeChallenge } from './scope-challenge'
 export interface ServerOptions {
   /**
    * Register the Code Mode tools (`search`, `execute`). When `false`, register
-   * the direct tools forge generates, one per API method, instead. `docs` and
-   * `whoami` are registered in both modes. Defaults to `true`.
+   * the direct tools forge generates, one per API method, instead. `docs`,
+   * `whoami` and `graphql_analytics` are registered in both modes. Defaults to `true`.
    */
   readonly codemode?: boolean
   /**
@@ -80,8 +81,8 @@ export function createServer(
   // Skills (io.modelcontextprotocol/skills) are served in both tool modes.
   registerSkills(server)
   if (events) registerEventMethods(server, events.env, props, events.bearer)
+  const formatResult = truncateToolResult ? truncateResponse : stringifyResponse
   if (!codemode) {
-    const formatResult = truncateToolResult ? truncateResponse : stringifyResponse
     registerForgeTools(server, props, formatResult, connection, scopeChallenge, {
       outputSchema: experimentalOutputSchema
     })
@@ -95,6 +96,7 @@ export function createServer(
   registerSearchTool(server, truncateToolResult)
   registerExecuteTool(server, props, truncateToolResult, connection, scopeChallenge)
   registerWhoamiTool(server, props)
+  registerGraphqlAnalyticsTool(server, props, formatResult, connection, scopeChallenge)
 
   return server
 }

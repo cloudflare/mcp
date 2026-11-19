@@ -164,6 +164,8 @@ export async function fetchWithRetry(
       }
     } catch (error) {
       lastError = error
+      // An aborted signal fails every attempt at once; waiting out the backoff would only add to the caller's deadline.
+      if (init?.signal?.aborted) break
 
       if (attempt < opts.maxRetries) {
         const delay = computeRetryDelay(attempt, opts)

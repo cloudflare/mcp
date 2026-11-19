@@ -163,7 +163,8 @@ describe('MCP 2026-07-28 stateless handler', () => {
       'docs',
       'search',
       'execute',
-      'whoami'
+      'whoami',
+      'graphql_analytics'
     ])
   })
 
@@ -283,10 +284,11 @@ describe('MCP 2026-07-28 stateless handler', () => {
       'docs',
       'search',
       'execute',
-      'whoami'
+      'whoami',
+      'graphql_analytics'
     ])
     const direct = endpoints.result?.tools?.map((tool) => tool.name) ?? []
-    expect(direct.slice(0, 2)).toEqual(['docs', 'whoami'])
+    expect(direct.slice(0, 3)).toEqual(['docs', 'whoami', 'graphql_analytics'])
     expect(direct).toContain('workers_legacy_scripts_list')
     expect(codemodeResponse.headers.get('mcp-session-id')).toBeNull()
     expect(endpointResponse.headers.get('mcp-session-id')).toBeNull()
@@ -323,7 +325,8 @@ describe('MCP 2026-07-28 stateless handler', () => {
       'docs',
       'search',
       'execute',
-      'whoami'
+      'whoami',
+      'graphql_analytics'
     ])
   })
 

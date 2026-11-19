@@ -163,7 +163,8 @@ describe('Client ID Metadata Documents', () => {
       'docs',
       'search',
       'execute',
-      'whoami'
+      'whoami',
+      'graphql_analytics'
     ])
 
     expect(metadataFetches).toBeGreaterThan(0)

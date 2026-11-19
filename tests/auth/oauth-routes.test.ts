@@ -925,7 +925,8 @@ describe('GET /oauth/callback', () => {
       'docs',
       'search',
       'execute',
-      'whoami'
+      'whoami',
+      'graphql_analytics'
     ])
     expect((await env.OAUTH_KV.list({ prefix: 'client:' })).keys).toHaveLength(1)
   })
