@@ -52,6 +52,13 @@
 			"bucket_name": "mcp-spec"
 		}
 	],
+	"ratelimits": [
+		{
+			"name": "FEEDBACK_LIMITER",
+			"namespace_id": "1141101",
+			"simple": { "limit": 5, "period": 60 }
+		}
+	],
 	"analytics_engine_datasets": [
 		{
 			"binding": "MCP_METRICS",
@@ -102,6 +109,13 @@
 				{
 					"binding": "SPEC_BUCKET",
 					"bucket_name": "mcp-spec-staging"
+				}
+			],
+			"ratelimits": [
+				{
+					"name": "FEEDBACK_LIMITER",
+					"namespace_id": "1141111",
+					"simple": { "limit": 5, "period": 60 }
 				}
 			],
 			"analytics_engine_datasets": [
@@ -157,6 +171,13 @@
 				{
 					"binding": "SPEC_BUCKET",
 					"bucket_name": "mcp-spec-production"
+				}
+			],
+			"ratelimits": [
+				{
+					"name": "FEEDBACK_LIMITER",
+					"namespace_id": "1141121",
+					"simple": { "limit": 5, "period": 60 }
 				}
 			],
 			"analytics_engine_datasets": [

@@ -2,6 +2,7 @@ import { isLegacyRequest, SUPPORTED_PROTOCOL_VERSIONS } from '@modelcontextproto
 import type { Tool } from '@modelcontextprotocol/server'
 import { DOCS_TOOL } from './docs-search'
 import { WHOAMI_TOOL } from './whoami'
+import { feedbackTools } from './submit-feedback'
 import { isolate } from '../lib/isolate'
 
 /**
@@ -17,7 +18,7 @@ const MAX_BODY_BYTES = 4096
  * the stringify this replaces.
  */
 const toolsJson = isolate.derived((tools: readonly Tool[]) =>
-  new TextEncoder().encode(JSON.stringify([DOCS_TOOL, WHOAMI_TOOL, ...tools]))
+  new TextEncoder().encode(JSON.stringify([DOCS_TOOL, WHOAMI_TOOL, ...feedbackTools(), ...tools]))
 )
 
 /** A lone 2025-era `tools/list` request for the first page, or `undefined` for anything else. */
