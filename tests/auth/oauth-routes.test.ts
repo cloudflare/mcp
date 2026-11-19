@@ -705,7 +705,11 @@ describe('GET /oauth/callback', () => {
   })
 
   /** Sign in end to end and exchange the code, returning a refresh() for the issued refresh token. */
-  async function signInAndIssueTokens(): Promise<{ refresh: () => Promise<Response> }> {
+  async function signInAndIssueTokens(): Promise<{
+    clientId: string
+    refreshToken: string
+    refresh: () => Promise<Response>
+  }> {
     const { clientId, state, sessionCookie } = await beginAuthorization()
     useCloudflareAuthSuccess()
     const callback = await exports.default.fetch(
@@ -734,6 +738,8 @@ describe('GET /oauth/callback', () => {
     ).json()) as { refresh_token: string }
     expect((await env.OAUTH_KV.list({ prefix: 'grant:' })).keys).toHaveLength(1)
     return {
+      clientId,
+      refreshToken: tokens.refresh_token,
       refresh: () =>
         token({
           grant_type: 'refresh_token',
@@ -742,6 +748,47 @@ describe('GET /oauth/callback', () => {
         })
     }
   }
+
+  it('slides grant expiry on refresh and renews active DCR client registrations past 30 and 90 days', async () => {
+    const { clientId, refreshToken, refresh } = await signInAndIssueTokens()
+    const [userId, grantId] = refreshToken.split(':')
+    const grantKey = `grant:${userId}:${grantId}`
+    const clientKey = `client:${clientId}`
+
+    const initialGrant = await env.OAUTH_KV.get<{ expiresAt: number }>(grantKey, 'json')
+    const initialClient = await env.OAUTH_KV.get<{ registrationExpiresAt: number }>(
+      clientKey,
+      'json'
+    )
+    expect(initialGrant?.expiresAt).toBeDefined()
+    expect(initialClient?.registrationExpiresAt).toBeDefined()
+
+    // Simulate 20 days elapsed: the grant has 10 days left, and the DCR client has 40 days left
+    // (past half of its 90-day clientRegistrationTTL, so renewal is due on the next refresh).
+    const now = Math.floor(Date.now() / 1000)
+    await env.OAUTH_KV.put(
+      grantKey,
+      JSON.stringify({ ...initialGrant, expiresAt: now + 10 * 24 * 60 * 60 })
+    )
+    await env.OAUTH_KV.put(
+      clientKey,
+      JSON.stringify({ ...initialClient, registrationExpiresAt: now + 40 * 24 * 60 * 60 })
+    )
+
+    const refreshed = await refresh()
+    expect(refreshed.status).toBe(200)
+
+    const updatedGrant = await env.OAUTH_KV.get<{ expiresAt: number }>(grantKey, 'json')
+    const updatedClient = await env.OAUTH_KV.get<{ registrationExpiresAt: number }>(
+      clientKey,
+      'json'
+    )
+
+    expect(updatedGrant!.expiresAt).toBeGreaterThanOrEqual(now + 30 * 24 * 60 * 60 - 10)
+    expect(updatedClient!.registrationExpiresAt).toBeGreaterThanOrEqual(
+      now + 90 * 24 * 60 * 60 - 10
+    )
+  })
 
   it('revokes the grant when Cloudflare says the upstream refresh token is dead', async () => {
     const { refresh } = await signInAndIssueTokens()
