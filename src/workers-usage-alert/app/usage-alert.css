@@ -588,6 +588,7 @@ body {
   filter: blur(2px);
   pointer-events: none;
 }
+[data-phase='created'] .f-form,
 [data-phase='sent'] .f-form,
 [data-phase='review'] .f-form {
   opacity: 0;
@@ -595,6 +596,7 @@ body {
   filter: blur(2px);
   pointer-events: none;
 }
+[data-phase='created'] .f-done,
 [data-phase='sent'] .f-done,
 [data-phase='review'] .f-done {
   opacity: 1;
@@ -705,11 +707,13 @@ body {
   stroke-dasharray: 14;
   stroke-dashoffset: 14;
 }
+[data-phase='created'] .ck-ring,
 [data-phase='sent'] .ck-ring,
 [data-phase='review'] .ck-ring {
   stroke-dashoffset: 0;
   transition: stroke-dashoffset 380ms var(--ease-out) 90ms;
 }
+[data-phase='created'] .ck-tick,
 [data-phase='sent'] .ck-tick,
 [data-phase='review'] .ck-tick {
   stroke-dashoffset: 0;

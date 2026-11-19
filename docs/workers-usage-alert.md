@@ -1,8 +1,15 @@
 # Workers usage alert App
 
-`workers_usage_alert` is a read-only MCP App, served in both tool modes at `ui://cloudflare/workers-usage-alert.html`. It previews a monitor that emails when a rolling 7 days of Workers requests passes a threshold. The user drags the threshold over a weekly chart of the last 89 days, enters an email, and confirms.
+`workers_usage_alert` is an MCP App, served in both tool modes at `ui://cloudflare/workers-usage-alert.html`. It previews a monitor that emails when a rolling 7 days of Workers requests passes a threshold. The user drags the threshold over a weekly chart of the last 89 days, enters an email, and confirms.
 
-**It creates nothing.** On confirm, the App sends the exact `POST /accounts/{account_id}/alerting/v3/policies` body to the chat with `sendMessage` (and `updateModelContext` when the host has it). The model then creates it only with a write the user approves. A host without the `message` capability shows the body for review instead.
+**The tool reads; the button writes.** The `workers_usage_alert` tool only reads. Clicking Create alert is the user's confirmation, and the App creates exactly the policy it shows (`monitorPolicy()`) with a tool this server already lists, through the host's `callServerTool`. No tool is added for it:
+
+- With the direct tools (`?codemode=false`), `alerting_policies_create` with `path.account_id` and the body.
+- In Code Mode, `execute` with one fixed `cloudflare.request()` POST to `/accounts/{account_id}/alerting/v3/policies`.
+
+The App can't tell which mode its connection is in, so it tries them in that order and moves on when the host answers that the tool isn't found. Both go through the session's credential and the usual refusal explanations and step-up. The App never holds a token. On success it shows "Alert on" and tells the model with `updateModelContext`, so the model doesn't offer to create it again, and no second model turn is needed. When Cloudflare refuses, it shows Cloudflare's message ("Didn’t save: this account can have at most 5 custom analytics policies") and Try again. A host without `serverTools` falls back to sending the policy to the chat with `sendMessage`, and one without `message` shows the body for review.
+
+Verified against real accounts through the local adapter, which allows this POST only for one named test account: Code Mode (`execute` after `alerting_policies_create` wasn't found) and direct mode each created the policy in one click. Cloudflare stored the `168h` window, `1h` interval, threshold, SQL and email as sent, and both policies were deleted. The refusal path was checked on an account already at its five `custom_analytics` policies.
 
 ## What it reads
 

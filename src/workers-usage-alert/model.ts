@@ -262,7 +262,7 @@ WHERE accountTag = '${accountId}'
   AND timestamp >= NOW() - INTERVAL '7' DAY`
 }
 
-/** The `custom_analytics` policy the App proposes. Nothing sends it; see `docs/workers-usage-alert.md`. */
+/** The `custom_analytics` policy the App shows and, on Create alert, creates; see `docs/workers-usage-alert.md`. */
 export function monitorPolicy(accountId: string, limit: number, email: string, name: string) {
   return {
     name,

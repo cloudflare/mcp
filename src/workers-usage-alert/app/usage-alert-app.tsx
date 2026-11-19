@@ -26,15 +26,18 @@ import {
   type Model,
   type Week
 } from '../model'
+import { createPolicy } from '../create'
 import { EMAIL, fmt, fmtDay, monthShort, sig, words } from './format'
 import './usage-alert.css'
 
 /**
- * What "Create alert" did. The App never writes: with a host that takes
- * messages it hands the alert to the chat, where the model proposes the write
- * through a tool the user approves; otherwise it shows the request.
+ * What "Create alert" did. The click is the user's confirmation, so the App
+ * creates the policy itself with a tool this server already lists
+ * (`createPolicy`): `created`. A host that can't call server tools gets the
+ * alert handed to the chat (`sent`), or else the request to send (`review`).
+ * A refused or failed create is `failed`, with Cloudflare's reason.
  */
-type Phase = 'editing' | 'sending' | 'sent' | 'review'
+type Phase = 'editing' | 'sending' | 'created' | 'failed' | 'sent' | 'review'
 type Tone = '' | 'hit' | 'now' | 'warn'
 type Fact = readonly [Tone, string]
 
@@ -171,9 +174,10 @@ function UsageAlertCard({ preview: p, app }: { preview: UsageAlertPreview; app: 
     setLimitState(v)
   }
 
-  const locked = !ready || phase !== 'editing'
+  const locked = !ready || (phase !== 'editing' && phase !== 'failed')
   const address = email.trim()
   const invalid = touched && !EMAIL.test(address)
+  const done = phase === 'created' || phase === 'sent' || phase === 'review'
   const unavailable = p.alertAvailable === false
   const [past, now] = ready ? outcome(m, limit) : emptyFacts(m)
 
@@ -400,13 +404,39 @@ function UsageAlertCard({ preview: p, app }: { preview: UsageAlertPreview; app: 
     setPhase(next)
     requestAnimationFrame(() => refs.done.current?.focus({ preventScroll: true }))
   }
+  const [failure, setFailure] = useState('')
   const submit = async () => {
     if (locked || unavailable) return
     setTouched(true)
     if (!EMAIL.test(address)) return refs.email.current?.focus()
     const caps = app.getHostCapabilities()
-    if (!caps?.message) return settle('review')
     setPhase('sending')
+    setFailure('')
+    if (caps?.serverTools) {
+      const created = await createPolicy((c) => app.callServerTool(c), p.accountId, policy).catch(
+        () => undefined
+      )
+      if (created?.ok) {
+        // Tell the model what happened, so it doesn't offer to create it again.
+        void app
+          .updateModelContext?.({
+            content: [
+              {
+                type: 'text',
+                text: `The user created this Workers usage alert from the workers_usage_alert App${created.id ? ` (policy ${created.id})` : ''}: email ${address} when Workers requests pass ${limit.toLocaleString('en')} in 7 days. Don't create it again.`
+              }
+            ]
+          })
+          .catch(() => {})
+        return settle('created')
+      }
+      if (created && !created.ok) {
+        setFailure(created.error)
+        setPhase('failed')
+        return
+      }
+    }
+    if (!caps?.message) return settle('review')
     try {
       if (caps.updateModelContext)
         await app.updateModelContext({
@@ -573,7 +603,7 @@ function UsageAlertCard({ preview: p, app }: { preview: UsageAlertPreview; app: 
         )}
       </LayerCard.Primary>
       <div className="foot">
-        <div className="f-layer f-form" inert={phase === 'sent' || phase === 'review'}>
+        <div className="f-layer f-form" inert={done}>
           <label className="to">
             <span className="to-l">To</span>
             <input
@@ -589,7 +619,10 @@ function UsageAlertCard({ preview: p, app }: { preview: UsageAlertPreview; app: 
               readOnly={phase === 'sending'}
               disabled={!ready}
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value)
+                if (phase === 'failed') setPhase('editing')
+              }}
               onBlur={() => address && setTouched(true)}
               onKeyDown={(e) => e.key === 'Enter' && submit()}
             />
@@ -601,13 +634,23 @@ function UsageAlertCard({ preview: p, app }: { preview: UsageAlertPreview; app: 
             disabled={!ready || unavailable}
             onClick={submit}
           >
-            Create alert
+            {phase === 'failed' ? 'Try again' : 'Create alert'}
           </Button>
-          <p className="err" id={ids.err} data-show={invalid || undefined} role="alert">
-            {invalid ? 'Enter a valid email address.' : ''}
+          <p
+            className="err"
+            id={ids.err}
+            data-show={invalid || phase === 'failed' || undefined}
+            role="alert"
+            title={failure || undefined}
+          >
+            {invalid
+              ? 'Enter a valid email address.'
+              : phase === 'failed'
+                ? `Didn’t save: ${failureReason(failure)}`
+                : ''}
           </p>
         </div>
-        <div className="f-layer f-done" inert={phase !== 'sent' && phase !== 'review'}>
+        <div className="f-layer f-done" inert={!done}>
           <div className="done" ref={refs.done} tabIndex={-1} role="status">
             <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
               <circle
@@ -629,7 +672,11 @@ function UsageAlertCard({ preview: p, app }: { preview: UsageAlertPreview; app: 
               />
             </svg>
             <span className="done-1">
-              {phase === 'review' ? 'Ready to create' : 'Sent to chat'}
+              {phase === 'created'
+                ? 'Alert on'
+                : phase === 'review'
+                  ? 'Ready to create'
+                  : 'Sent to chat'}
             </span>
             <span className="done-2" title={`Past ${fmt(limit)} in 7 days, emails ${address}`}>
               <span>
@@ -662,6 +709,12 @@ function UsageAlertCard({ preview: p, app }: { preview: UsageAlertPreview; app: 
       )}
     </LayerCard>
   )
+}
+
+/** Cloudflare's reason for a refused create, short enough for one line: its message, not the whole tool error. */
+function failureReason(text: string): string {
+  const message = /"message"\s*:\s*"([^"]+)"/.exec(text)?.[1]
+  return (message ?? (text.split('\n').find(Boolean) || 'try again')).slice(0, 120)
 }
 
 const plain = (html: string) => html.replace(/<[^>]+>/g, '')

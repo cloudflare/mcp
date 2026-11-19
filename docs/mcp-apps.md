@@ -33,7 +33,7 @@ scripts/build-mcp-apps.ts   Vite + Tailwind single-file build for every App
 
 ## Rules
 
-- **Read-only unless the user confirms.** Collectors read with `apiReader`: GETs to fixed paths and GraphQL Analytics queries, with the request's credential, from this Worker. An App that offers a write (creating an alert, say) must show exactly what it will send and send it only through a separate, non-read-only tool the user confirms in the host. The App itself never holds a token.
+- **Read-only unless the user confirms.** Collectors read with `apiReader`: GETs to fixed paths and GraphQL Analytics queries, with the request's credential, from this Worker. An App that offers a write (creating an alert, say) must show exactly what it will send and send it only when the user clicks for it, through a tool this server already lists (`callServerTool`), so the write gets the same credential, refusal explanations and step-up as any other call. The App itself never holds a token.
 - **No network from the App.** Its CSP allows no connect or resource domains. Everything it renders comes from the tool result, and `mountMcpApp` refuses a result that fails the output schema.
 - **Bounded.** One read is at most 1 MB (`MAX_READ_BYTES`); collectors bound their own pagination and say what they skipped.
 - **Refusals are explained, not hidden.** `apiReader` throws `ApiReadError` with the same explanation and step-up `_meta` the direct tools give. A GraphQL error with no data is a refusal only when its message names the analytics permission; a quota or query error passes through as Cloudflare's message.

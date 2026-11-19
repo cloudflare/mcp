@@ -2,7 +2,14 @@ import { env, exports } from 'cloudflare:workers'
 import { http, HttpResponse } from 'msw'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { fillDays, historyWindows } from '../src/workers-usage-alert/history'
-import { deriveModel, replayEmails, rolling7, type Day } from '../src/workers-usage-alert/model'
+import { createPolicy, type CallTool } from '../src/workers-usage-alert/create'
+import {
+  deriveModel,
+  monitorPolicy,
+  replayEmails,
+  rolling7,
+  type Day
+} from '../src/workers-usage-alert/model'
 import { API_BASE, cfError, cfSuccess, mockIdentityProbe } from './helpers/cloudflare-api'
 import { clearKv } from './helpers/kv'
 import { MCP_URL, modernMcpRequest, parseMcpResult } from './helpers/mcp'
@@ -359,5 +366,89 @@ describe('workers_usage_alert reads', () => {
     expect(body).toContain('text/html;profile=mcp-app')
     expect(body).not.toContain(ACCOUNT)
     expect(body).not.toContain(TOKEN)
+  })
+})
+
+describe.each([
+  ['Code Mode', MCP_URL, ['alerting_policies_create', 'execute']],
+  ['direct tools', `${MCP_URL}?codemode=false`, ['alerting_policies_create']]
+])('Create alert (%s)', (_mode, url, expectedCalls) => {
+  const policy = monitorPolicy(
+    ACCOUNT,
+    2_000_000_000,
+    'me@example.com',
+    'Workers requests over 2B in 7 days'
+  )
+  const tried: string[] = []
+  const callTool: CallTool = async (c) => {
+    tried.push(c.name)
+    const response = await exports.default.fetch(modernMcpRequest(TOKEN, 'tools/call', c, { url }))
+    const parsed = (await parseMcpResult(response)) as {
+      result?: Awaited<ReturnType<CallTool>>
+      error?: { message: string }
+    }
+    if (parsed.error) throw new Error(parsed.error.message)
+    return parsed.result!
+  }
+
+  beforeEach(async () => {
+    tried.length = 0
+    await seedSpec({
+      '/accounts/{account_id}/alerting/v3/policies': {
+        post: { 'x-api-token-group': ['Notifications Write'] }
+      }
+    })
+  })
+
+  it('creates exactly the policy the App shows, with a tool the connection lists', async () => {
+    let sent: unknown
+    server.use(
+      http.post(`${ALERTING}/policies`, async ({ request }) => {
+        sent = await request.json()
+        return HttpResponse.json(cfSuccess({ id: 'a'.repeat(32) }))
+      })
+    )
+
+    const result = await createPolicy(callTool, ACCOUNT, policy)
+
+    expect(result).toEqual({ ok: true, id: 'a'.repeat(32) })
+    expect(sent).toEqual(policy)
+    expect(tried).toEqual(expectedCalls)
+  })
+
+  it("shows Cloudflare's refusal and doesn't try another tool", async () => {
+    server.use(
+      http.post(`${ALERTING}/policies`, () =>
+        HttpResponse.json(
+          cfError([
+            { code: 17204, message: 'this account can have at most 5 custom analytics policies' }
+          ]),
+          { status: 400 }
+        )
+      )
+    )
+
+    const result = await createPolicy(callTool, ACCOUNT, policy)
+
+    expect(result).toMatchObject({ ok: false })
+    expect(result?.ok === false && result.error).toContain('at most 5 custom analytics policies')
+    expect(tried).toEqual(expectedCalls)
+  })
+})
+
+describe('createPolicy', () => {
+  const policy = monitorPolicy(ACCOUNT, 1000, 'me@example.com', 'n')
+
+  it('returns undefined when no create tool exists, so the App hands off to the chat', async () => {
+    const result = await createPolicy(
+      async (c) => ({
+        isError: true,
+        content: [{ type: 'text', text: `Tool ${c.name} not found` }]
+      }),
+      ACCOUNT,
+      policy
+    )
+
+    expect(result).toBeUndefined()
   })
 })

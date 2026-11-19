@@ -168,7 +168,7 @@ The core innovation: instead of 2,500 MCP tools (~244K tokens), two tools handle
 
 ### Workers usage alert App
 
-`src/workers-usage-alert/` is the `workers_usage_alert` MCP App, registered in `MCP_APPS`. It previews a `billing_usage_alert` on Workers requests from this and last month's GraphQL analytics and the account's existing policies. Read-only: it creates no policy. See `docs/workers-usage-alert.md`.
+`src/workers-usage-alert/` is the `workers_usage_alert` MCP App, registered in `MCP_APPS`. It charts 89 days of Workers requests and previews an hourly `custom_analytics` monitor on a rolling 7 days. The tool only reads; the App's Create alert button creates the policy with an existing tool (`alerting_policies_create`, or `execute` in Code Mode) through `callServerTool`. See `docs/workers-usage-alert.md`.
 
 ### MCP Apps
 
