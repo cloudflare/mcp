@@ -90,13 +90,15 @@ describe('submit_feedback definition', () => {
     expect(SUBMIT_FEEDBACK_TOOL).not.toHaveProperty('outputSchema')
   })
 
-  it('tells agents to track problems, report once on their own at the end, then tell the user', () => {
+  it('tells agents to report problems and notify the user at the next natural break', () => {
     const description = SUBMIT_FEEDBACK_TOOL.description ?? ''
     expect(description).toContain('keep track of what went wrong')
-    expect(description).toContain('Call this once, on your own, near the end of the task')
-    expect(description).toContain('Do not ask the user to report')
+    expect(description).toContain('Call this near the end of the task')
     expect(description).toContain('Skip it if the task went fine')
-    expect(description).toContain('tell the user in one sentence that you sent feedback')
+    expect(description).toContain(
+      'tell the user at the next natural break, such as the end of the current turn'
+    )
+    expect(description).toContain('Include the submission ID.')
     expect(description).toContain('Leave out secrets')
     expect(description).toContain('at most once per task')
     expect(description).not.toContain('permission')
@@ -128,14 +130,17 @@ describe('submit_feedback report', () => {
     })
   })
 
-  it('sends no credential or account identity', async () => {
+  it("sends the caller's token for the logged-in check, and no identity in the report", async () => {
     const received = acceptFeedback()
+    const user = freshUser()
 
-    await runSubmitFeedbackTool({ ...REPORT, message: 'docs are wrong' }, 'direct', freshUser())
+    await runSubmitFeedbackTool({ ...REPORT, message: 'docs are wrong' }, 'direct', user)
 
     expect(received).toHaveLength(1)
-    expect(received[0].headers).not.toHaveProperty('authorization')
+    expect(received[0].headers['authorization']).toBe(`Bearer ${user.accessToken}`)
     expect(received[0].headers).not.toHaveProperty('cookie')
+    expect(JSON.stringify(received[0].body)).not.toContain(user.accessToken)
+    expect(JSON.stringify(received[0].body)).not.toContain(feedbackCallerKey(user))
     expect(received[0].headers['user-agent']).toMatch(/^cloudflare-mcp/)
   })
 
