@@ -5,7 +5,6 @@ import { OPERATION, type Tool, encodePath } from "../../../_/tool.js";
 import {
   cloudforce$$one_ApprovalConflictResponse,
   cloudforce$$one_ApprovalPendingResponse,
-  cloudforce$$one_ApprovalProposedChanges,
   cloudforce$$one_ErrorResponse,
   cloudforce$$one_PendingRuleChange,
   cloudforce$$one_RuleMetaEntry,
@@ -14,10 +13,8 @@ import {
 } from "../outputs.js";
 import { cloudforce$$one_MetaInputEntry } from "../schemas.js";
 import {
-  cloudforce$$one_EditApprovalResponse,
   cloudforce$$one_EmailRuleValidationResponse,
   cloudforce$$one_EmailRulesListResponse,
-  cloudforce$$one_PendingApproval,
 } from "./outputs.js";
 import {
   cloudforce$$one_EmailRuleArrayCondition,
@@ -745,203 +742,6 @@ export const tools: readonly Tool[] = [
           "cloudforce-one_ApprovalConflictResponse": cloudforce$$one_ApprovalConflictResponse,
           "cloudforce-one_ApprovalPendingResponse": cloudforce$$one_ApprovalPendingResponse,
           "cloudforce-one_ErrorResponse": cloudforce$$one_ErrorResponse,
-          "cloudforce-one_PendingRuleChange": cloudforce$$one_PendingRuleChange,
-          "cloudforce-one_RuleMetaEntry": cloudforce$$one_RuleMetaEntry,
-          "cloudforce-one_RulePreview": cloudforce$$one_RulePreview,
-        },
-      },
-    },
-  },
-  {
-    name: "cloudforceOne_rules_email_updatePendingApproval",
-    title: "Update a pending structured email rule approval",
-    description: "Validate, compile, and replace the proposed structured email rule on a pending approval. Only the original requester may update it.\n\nPUT /accounts/{account_id}/cloudforce-one/rules/structured/approvals/{id}",
-    inputSchema: {
-      type: "object",
-      properties: {
-        "body": {
-          "properties": {
-            "condition": {
-              "$ref": "#/$defs/cloudforce-one_EmailRuleConditionGroup",
-              "description": "Nested condition groups support up to 10 levels of depth."
-            },
-            "description": {
-              "type": "string"
-            },
-            "enabled": {
-              "default": true,
-              "type": "boolean"
-            },
-            "meta": {
-              "items": {
-                "$ref": "#/$defs/cloudforce-one_MetaInputEntry"
-              },
-              "maxItems": 50,
-              "type": "array"
-            },
-            "name": {
-              "type": "string"
-            },
-            "status": {
-              "default": "silent",
-              "description": "Disposition for matching email. This emits status metadata with the selected value.",
-              "enum": [
-                "silent",
-                "blocking"
-              ],
-              "type": "string"
-            },
-            "strings": {
-              "default": [],
-              "items": {
-                "properties": {
-                  "identifier": {
-                    "type": "string"
-                  },
-                  "match_type": {
-                    "default": "text",
-                    "enum": [
-                      "text",
-                      "hex",
-                      "regex"
-                    ],
-                    "type": "string"
-                  },
-                  "modifiers": {
-                    "default": [],
-                    "items": {
-                      "enum": [
-                        "nocase",
-                        "wide",
-                        "ascii",
-                        "fullword"
-                      ],
-                      "type": "string"
-                    },
-                    "type": "array"
-                  },
-                  "type": {
-                    "enum": [
-                      "string_match"
-                    ],
-                    "type": "string"
-                  },
-                  "value": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "identifier",
-                  "type",
-                  "value"
-                ],
-                "type": "object"
-              },
-              "maxItems": 50,
-              "type": "array"
-            }
-          },
-          "required": [
-            "condition",
-            "name"
-          ],
-          "type": "object"
-        },
-        "path": {
-          "additionalProperties": false,
-          "properties": {
-            "account_id": {
-              "description": "Cloudflare account ID.",
-              "type": "string"
-            },
-            "id": {
-              "description": "The unique identifier for the approval.",
-              "type": "string"
-            }
-          },
-          "required": [
-            "account_id",
-            "id"
-          ],
-          "type": "object"
-        },
-        "query": {
-          "additionalProperties": false,
-          "properties": {
-            "module": {
-              "default": "eml",
-              "description": "Structured rule module.",
-              "enum": [
-                "eml"
-              ],
-              "type": "string"
-            }
-          },
-          "type": "object"
-        }
-      },
-      required: [
-        "path"
-      ],
-      additionalProperties: false,
-      $defs: {
-        "cloudforce-one_EmailRuleArrayCondition": cloudforce$$one_EmailRuleArrayCondition,
-        "cloudforce-one_EmailRuleCondition": cloudforce$$one_EmailRuleCondition,
-        "cloudforce-one_EmailRuleConditionGroup": cloudforce$$one_EmailRuleConditionGroup,
-        "cloudforce-one_EmailRuleHeaderCondition": cloudforce$$one_EmailRuleHeaderCondition,
-        "cloudforce-one_EmailRuleScalarCondition": cloudforce$$one_EmailRuleScalarCondition,
-        "cloudforce-one_MetaInputEntry": cloudforce$$one_MetaInputEntry,
-      },
-    },
-    outputSchema: {
-      "$ref": "#/$defs/cloudforce-one_EditApprovalResponse",
-      $defs: {
-        "cloudforce-one_ApprovalProposedChanges": cloudforce$$one_ApprovalProposedChanges,
-        "cloudforce-one_EditApprovalResponse": cloudforce$$one_EditApprovalResponse,
-        "cloudforce-one_PendingApproval": cloudforce$$one_PendingApproval,
-        "cloudforce-one_PendingRuleChange": cloudforce$$one_PendingRuleChange,
-        "cloudforce-one_RuleMetaEntry": cloudforce$$one_RuleMetaEntry,
-        "cloudforce-one_RulePreview": cloudforce$$one_RulePreview,
-      },
-    },
-    annotations: {
-      "destructiveHint": true,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Update a pending structured email rule approval"
-    },
-    [OPERATION]: {
-      method: "PUT",
-      path: "/accounts/{account_id}/cloudforce-one/rules/structured/approvals/{id}",
-      pathOf: encodePath`/accounts/${"account_id"}/cloudforce-one/rules/structured/approvals/${"id"}`,
-      query: [
-        { name: "module", explode: true },
-      ],
-      body: { mediaTypes: ["application/json"] },
-      responses: {
-        schemas: {
-          "200": {
-            "$ref": "#/$defs/cloudforce-one_EditApprovalResponse"
-          },
-          "400": {
-            "$ref": "#/$defs/cloudforce-one_ErrorResponse"
-          },
-          "403": {
-            "$ref": "#/$defs/cloudforce-one_ErrorResponse"
-          },
-          "404": {
-            "$ref": "#/$defs/cloudforce-one_ErrorResponse"
-          },
-          "409": {
-            "$ref": "#/$defs/cloudforce-one_ErrorResponse"
-          }
-        },
-        $defs: {
-          "cloudforce-one_ApprovalProposedChanges": cloudforce$$one_ApprovalProposedChanges,
-          "cloudforce-one_EditApprovalResponse": cloudforce$$one_EditApprovalResponse,
-          "cloudforce-one_ErrorResponse": cloudforce$$one_ErrorResponse,
-          "cloudforce-one_PendingApproval": cloudforce$$one_PendingApproval,
           "cloudforce-one_PendingRuleChange": cloudforce$$one_PendingRuleChange,
           "cloudforce-one_RuleMetaEntry": cloudforce$$one_RuleMetaEntry,
           "cloudforce-one_RulePreview": cloudforce$$one_RulePreview,

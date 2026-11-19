@@ -385,6 +385,9 @@ export const zero$$trust$$gateway_gateway$$account$$settings: JSONObject = {
         "protocol_detection": {
           "$ref": "#/$defs/zero-trust-gateway_protocol-detection"
         },
+        "regions": {
+          "$ref": "#/$defs/zero-trust-gateway_regions-settings"
+        },
         "sandbox": {
           "$ref": "#/$defs/zero-trust-gateway_sandbox"
         },
@@ -528,6 +531,41 @@ export const zero$$trust$$gateway_protocol$$detection: JSONObject = {
             }
           ]
         }
+      },
+      "type": "object"
+    },
+    {
+      "type": "null"
+    }
+  ]
+};
+
+/**
+ * The schema of `zero-trust-gateway_region-setting` in responses.
+ */
+export const zero$$trust$$gateway_region$$setting: JSONObject = {
+  "properties": {
+    "certificate": {
+      "$ref": "#/$defs/zero-trust-gateway_certificate-settings"
+    },
+    "tls_decrypt": {
+      "$ref": "#/$defs/zero-trust-gateway_tls-settings"
+    }
+  },
+  "required": [
+    "tls_decrypt"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `zero-trust-gateway_regions-settings` in responses.
+ */
+export const zero$$trust$$gateway_regions$$settings: JSONObject = {
+  "oneOf": [
+    {
+      "additionalProperties": {
+        "$ref": "#/$defs/zero-trust-gateway_region-setting"
       },
       "type": "object"
     },

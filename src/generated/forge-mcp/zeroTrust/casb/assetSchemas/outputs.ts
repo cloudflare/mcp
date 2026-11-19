@@ -11,12 +11,34 @@ export const posture$$api_AssetSchemaDetail: JSONObject = {
     "asset_class": {
       "type": "string"
     },
+    "content_schema": {
+      "$ref": "#/$defs/posture-api_AssetTypeContentSchema"
+    },
+    "display_name": {
+      "type": "string"
+    },
+    "id": {
+      "format": "uuid",
+      "type": "string"
+    },
+    "origin": {
+      "enum": [
+        "system",
+        "cloudflare",
+        "custom"
+      ],
+      "type": "string"
+    },
     "schema": {
       "type": "object"
+    },
+    "version": {
+      "type": "integer"
     }
   },
   "required": [
     "asset_class",
+    "origin",
     "schema"
   ],
   "type": "object"
@@ -70,10 +92,29 @@ export const posture$$api_AssetSchemaSummary: JSONObject = {
   "properties": {
     "asset_class": {
       "type": "string"
+    },
+    "display_name": {
+      "type": "string"
+    },
+    "id": {
+      "format": "uuid",
+      "type": "string"
+    },
+    "origin": {
+      "enum": [
+        "system",
+        "cloudflare",
+        "custom"
+      ],
+      "type": "string"
+    },
+    "version": {
+      "type": "integer"
     }
   },
   "required": [
-    "asset_class"
+    "asset_class",
+    "origin"
   ],
   "type": "object"
 };
@@ -97,5 +138,12 @@ export const posture$$api_AssetSchemaVendorGroup: JSONObject = {
     "asset_classes",
     "vendor"
   ],
+  "type": "object"
+};
+
+/**
+ * The schema of `posture-api_AssetTypeContentSchema` in responses.
+ */
+export const posture$$api_AssetTypeContentSchema: JSONObject = {
   "type": "object"
 };

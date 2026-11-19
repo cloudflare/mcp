@@ -239,6 +239,48 @@ export const tools: readonly Tool[] = [
                       "properties": {
                         "field": {
                           "enum": [
+                            "attacker",
+                            "attackerCountry",
+                            "category",
+                            "createdAt",
+                            "event",
+                            "indicatorType",
+                            "mitreAttack",
+                            "mitreCapec",
+                            "tags",
+                            "targetCountry",
+                            "targetIndustry",
+                            "tlp",
+                            "uuid"
+                          ],
+                          "type": "string"
+                        },
+                        "op": {
+                          "enum": [
+                            "containsAny"
+                          ],
+                          "type": "string"
+                        },
+                        "value": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "maxItems": 50,
+                          "minItems": 1,
+                          "type": "array"
+                        }
+                      },
+                      "required": [
+                        "field",
+                        "op",
+                        "value"
+                      ],
+                      "type": "object"
+                    },
+                    {
+                      "properties": {
+                        "field": {
+                          "enum": [
                             "killChain"
                           ],
                           "type": "string"
@@ -844,6 +886,48 @@ export const tools: readonly Tool[] = [
                                   "type": "string"
                                 },
                                 "maxItems": 100,
+                                "minItems": 1,
+                                "type": "array"
+                              }
+                            },
+                            "required": [
+                              "field",
+                              "op",
+                              "value"
+                            ],
+                            "type": "object"
+                          },
+                          {
+                            "properties": {
+                              "field": {
+                                "enum": [
+                                  "attacker",
+                                  "attackerCountry",
+                                  "category",
+                                  "createdAt",
+                                  "event",
+                                  "indicatorType",
+                                  "mitreAttack",
+                                  "mitreCapec",
+                                  "tags",
+                                  "targetCountry",
+                                  "targetIndustry",
+                                  "tlp",
+                                  "uuid"
+                                ],
+                                "type": "string"
+                              },
+                              "op": {
+                                "enum": [
+                                  "containsAny"
+                                ],
+                                "type": "string"
+                              },
+                              "value": {
+                                "items": {
+                                  "type": "string"
+                                },
+                                "maxItems": 50,
                                 "minItems": 1,
                                 "type": "array"
                               }

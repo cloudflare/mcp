@@ -281,6 +281,9 @@ export const zaraz_custom$$managed$$component: JSONObject = {
             "escapedWorkerName": {
               "type": "string"
             },
+            "mutableId": {
+              "type": "string"
+            },
             "workerTag": {
               "type": "string"
             }
@@ -823,6 +826,9 @@ export const zaraz_zaraz$$config$$base: JSONObject = {
       "properties": {
         "autoInjectScript": {
           "type": "boolean"
+        },
+        "botScoreThreshold": {
+          "type": "integer"
         },
         "contextEnricher": {
           "properties": {

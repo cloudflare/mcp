@@ -23,7 +23,7 @@ import {
  */
 export const tools: readonly Tool[] = [
   {
-    name: "emailSecurity_urlIgnorePatterns_batch",
+    name: "emailSecurity_urlIgnorePatterns_bulkApply",
     title: "Batch URL ignore pattern operations",
     description: "Executes multiple operations atomically. All four operation arrays\n(deletes, patches, puts, posts) are required and executed in order.\nSend empty arrays for unused operations.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation may delete the selected URL rewrite ignore patterns and cause matching URLs to be rewritten again.\n\nPOST /accounts/{account_id}/email-security/settings/url_ignore_patterns/batch",
     inputSchema: {

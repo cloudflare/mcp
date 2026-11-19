@@ -23,6 +23,7 @@ export const tools: readonly Tool[] = [
                 "ADM1",
                 "API_TRAFFIC",
                 "AS",
+                "AS_CATEGORY",
                 "BOT_CLASS",
                 "BROWSER",
                 "BROWSER_FAMILY",
@@ -53,6 +54,19 @@ export const tools: readonly Tool[] = [
                 "enum": [
                   "API",
                   "NON_API"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "asCategory": {
+              "description": "Filters results by the inferred network type of the Autonomous System: `ACCESS_ISP` (networks connecting end users, plus transit), `HOSTING_CLOUD_CONTENT` (hosting providers, clouds and CDNs), `ORGANIZATION` (enterprises, universities, governments, banks and IXP route servers), or `UNCLASSIFIED` (the AS isn't classified, or the traffic couldn't be mapped to an AS). In HTTP, only supported for date ranges starting on or after 2023-05-01.",
+              "items": {
+                "enum": [
+                  "ACCESS_ISP",
+                  "HOSTING_CLOUD_CONTENT",
+                  "ORGANIZATION",
+                  "UNCLASSIFIED"
                 ],
                 "type": "string"
               },
@@ -456,6 +470,7 @@ export const tools: readonly Tool[] = [
         { name: "continent", explode: true },
         { name: "geoId", explode: true },
         { name: "apiTraffic", explode: true },
+        { name: "asCategory", explode: true },
         { name: "botClass", explode: true },
         { name: "contentType", explode: true },
         { name: "deviceType", explode: true },
@@ -727,6 +742,19 @@ export const tools: readonly Tool[] = [
                 "enum": [
                   "API",
                   "NON_API"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "asCategory": {
+              "description": "Filters results by the inferred network type of the Autonomous System: `ACCESS_ISP` (networks connecting end users, plus transit), `HOSTING_CLOUD_CONTENT` (hosting providers, clouds and CDNs), `ORGANIZATION` (enterprises, universities, governments, banks and IXP route servers), or `UNCLASSIFIED` (the AS isn't classified, or the traffic couldn't be mapped to an AS). In HTTP, only supported for date ranges starting on or after 2023-05-01.",
+              "items": {
+                "enum": [
+                  "ACCESS_ISP",
+                  "HOSTING_CLOUD_CONTENT",
+                  "ORGANIZATION",
+                  "UNCLASSIFIED"
                 ],
                 "type": "string"
               },
@@ -1172,6 +1200,7 @@ export const tools: readonly Tool[] = [
         { name: "geoId", explode: true },
         { name: "normalization", explode: true },
         { name: "apiTraffic", explode: true },
+        { name: "asCategory", explode: true },
         { name: "botClass", explode: true },
         { name: "contentType", explode: true },
         { name: "deviceType", explode: true },
@@ -1459,6 +1488,7 @@ export const tools: readonly Tool[] = [
                 "ADM1",
                 "API_TRAFFIC",
                 "AS",
+                "AS_CATEGORY",
                 "BOT_CLASS",
                 "BROWSER",
                 "BROWSER_FAMILY",
@@ -1499,6 +1529,19 @@ export const tools: readonly Tool[] = [
                 "enum": [
                   "API",
                   "NON_API"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "asCategory": {
+              "description": "Filters results by the inferred network type of the Autonomous System: `ACCESS_ISP` (networks connecting end users, plus transit), `HOSTING_CLOUD_CONTENT` (hosting providers, clouds and CDNs), `ORGANIZATION` (enterprises, universities, governments, banks and IXP route servers), or `UNCLASSIFIED` (the AS isn't classified, or the traffic couldn't be mapped to an AS). In HTTP, only supported for date ranges starting on or after 2023-05-01.",
+              "items": {
+                "enum": [
+                  "ACCESS_ISP",
+                  "HOSTING_CLOUD_CONTENT",
+                  "ORGANIZATION",
+                  "UNCLASSIFIED"
                 ],
                 "type": "string"
               },
@@ -1938,6 +1981,7 @@ export const tools: readonly Tool[] = [
         { name: "continent", explode: true },
         { name: "geoId", explode: true },
         { name: "apiTraffic", explode: true },
+        { name: "asCategory", explode: true },
         { name: "botClass", explode: true },
         { name: "contentType", explode: true },
         { name: "limitPerGroup", explode: true },

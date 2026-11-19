@@ -24,7 +24,7 @@ import {
  */
 export const tools: readonly Tool[] = [
   {
-    name: "emailSecurity_blockSenders_batch",
+    name: "emailSecurity_blockSenders_bulkApply",
     title: "Batch blocked sender operations",
     description: "Executes multiple blocked sender operations atomically: delete, partially update,\nreplace, and create blocked sender patterns in a single request. All four operation\narrays (deletes, patches, puts, posts) are required and executed in order.\nSend empty arrays for unused operations.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation may delete the selected blocked sender patterns and stop automatically blocking matching emails based on those rules.\n\nPOST /accounts/{account_id}/email-security/settings/block_senders/batch",
     inputSchema: {

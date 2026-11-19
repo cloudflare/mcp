@@ -24,7 +24,7 @@ import {
  */
 export const tools: readonly Tool[] = [
   {
-    name: "emailSecurity_contentPolicies_batch",
+    name: "emailSecurity_contentPolicies_bulkApply",
     title: "Batch content policy operations",
     description: "Executes multiple content policy operations atomically: delete, partially update,\nreplace, and create content policies in a single request. All four operation arrays\n(deletes, patches, puts, posts) are required and executed in order.\nSend empty arrays for unused operations.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation may delete the selected content policies and stop evaluating emails against their patterns.\n\nPOST /accounts/{account_id}/email-security/settings/content_policies/batch",
     inputSchema: {

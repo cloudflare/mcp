@@ -4,15 +4,15 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
- * The schema of `registrar-api_api-response-common` in responses.
+ * The schema of `registrar_api-response-common` in responses.
  */
-export const registrar$$api_api$$response$$common: JSONObject = {
+export const registrar_api$$response$$common: JSONObject = {
   "properties": {
     "errors": {
-      "$ref": "#/$defs/registrar-api_messages"
+      "$ref": "#/$defs/registrar_messages"
     },
     "messages": {
-      "$ref": "#/$defs/registrar-api_messages"
+      "$ref": "#/$defs/registrar_messages"
     },
     "result": {
       "anyOf": [
@@ -47,15 +47,15 @@ export const registrar$$api_api$$response$$common: JSONObject = {
 };
 
 /**
- * The schema of `registrar-api_api-response-common-failure` in responses.
+ * The schema of `registrar_api-response-common-failure` in responses.
  */
-export const registrar$$api_api$$response$$common$$failure: JSONObject = {
+export const registrar_api$$response$$common$$failure: JSONObject = {
   "properties": {
     "errors": {
-      "$ref": "#/$defs/registrar-api_messages"
+      "$ref": "#/$defs/registrar_messages"
     },
     "messages": {
-      "$ref": "#/$defs/registrar-api_messages"
+      "$ref": "#/$defs/registrar_messages"
     },
     "result": {
       "type": "null"
@@ -77,9 +77,9 @@ export const registrar$$api_api$$response$$common$$failure: JSONObject = {
 };
 
 /**
- * The schema of `registrar-api_messages` in responses.
+ * The schema of `registrar_messages` in responses.
  */
-export const registrar$$api_messages: JSONObject = {
+export const registrar_messages: JSONObject = {
   "items": {
     "properties": {
       "code": {

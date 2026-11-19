@@ -17,6 +17,19 @@ export const tools: readonly Tool[] = [
         "query": {
           "additionalProperties": false,
           "properties": {
+            "asCategory": {
+              "description": "Filters results by the inferred network type of the Autonomous System: `ACCESS_ISP` (networks connecting end users, plus transit), `HOSTING_CLOUD_CONTENT` (hosting providers, clouds and CDNs), `ORGANIZATION` (enterprises, universities, governments, banks and IXP route servers), or `UNCLASSIFIED` (the AS isn't classified, or the traffic couldn't be mapped to an AS). In HTTP, only supported for date ranges starting on or after 2023-05-01.",
+              "items": {
+                "enum": [
+                  "ACCESS_ISP",
+                  "HOSTING_CLOUD_CONTENT",
+                  "ORGANIZATION",
+                  "UNCLASSIFIED"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            },
             "asn": {
               "description": "Filters results by Autonomous System. Specify one or more Autonomous System Numbers (ASNs) as a comma-separated list. Prefix with `-` to exclude ASNs from results. For example, `-174, 3356` excludes results from AS174, but includes results from AS3356.",
               "items": {
@@ -560,6 +573,7 @@ export const tools: readonly Tool[] = [
         { name: "dnssec", explode: true },
         { name: "dnssecAware", explode: true },
         { name: "dnssecE2e", explode: true },
+        { name: "asCategory", explode: true },
         { name: "ipVersion", explode: true },
         { name: "matchingAnswer", explode: true },
         { name: "format", explode: true },
@@ -812,6 +826,19 @@ export const tools: readonly Tool[] = [
         "query": {
           "additionalProperties": false,
           "properties": {
+            "asCategory": {
+              "description": "Filters results by the inferred network type of the Autonomous System: `ACCESS_ISP` (networks connecting end users, plus transit), `HOSTING_CLOUD_CONTENT` (hosting providers, clouds and CDNs), `ORGANIZATION` (enterprises, universities, governments, banks and IXP route servers), or `UNCLASSIFIED` (the AS isn't classified, or the traffic couldn't be mapped to an AS). In HTTP, only supported for date ranges starting on or after 2023-05-01.",
+              "items": {
+                "enum": [
+                  "ACCESS_ISP",
+                  "HOSTING_CLOUD_CONTENT",
+                  "ORGANIZATION",
+                  "UNCLASSIFIED"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            },
             "asn": {
               "description": "Filters results by Autonomous System. Specify one or more Autonomous System Numbers (ASNs) as a comma-separated list. Prefix with `-` to exclude ASNs from results. For example, `-174, 3356` excludes results from AS174, but includes results from AS3356.",
               "items": {
@@ -1362,6 +1389,7 @@ export const tools: readonly Tool[] = [
         { name: "dnssec", explode: true },
         { name: "dnssecAware", explode: true },
         { name: "dnssecE2e", explode: true },
+        { name: "asCategory", explode: true },
         { name: "ipVersion", explode: true },
         { name: "matchingAnswer", explode: true },
         { name: "tld", explode: true },

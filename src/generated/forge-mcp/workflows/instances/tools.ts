@@ -1336,7 +1336,6 @@ export const tools: readonly Tool[] = [
                       }
                     },
                     "required": [
-                      "end",
                       "error",
                       "finished",
                       "name",
@@ -1969,7 +1968,6 @@ export const tools: readonly Tool[] = [
                             }
                           },
                           "required": [
-                            "end",
                             "error",
                             "finished",
                             "name",

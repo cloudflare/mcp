@@ -390,6 +390,10 @@ export const zero$$trust$$gateway_gateway$$account$$settings: JSONObject = {
           "$ref": "#/$defs/zero-trust-gateway_protocol-detection",
           "description": "Specify whether to detect protocols from the initial bytes of client traffic."
         },
+        "regions": {
+          "$ref": "#/$defs/zero-trust-gateway_regions-settings",
+          "description": "Specify per-region TLS interception and certificate settings for Gateway, keyed by Data Localization Suite region key. Relies on the Zero Trust account region setting  (`GET`/`PUT /accounts/{account_id}/zerotrust/region`) - the account must select a region before Gateway applies these settings for it."
+        },
         "sandbox": {
           "$ref": "#/$defs/zero-trust-gateway_sandbox",
           "description": "Specify whether to enable the sandbox."
@@ -510,6 +514,45 @@ export const zero$$trust$$gateway_protocol$$detection: JSONObject = {
             }
           ]
         }
+      },
+      "type": "object"
+    },
+    {
+      "type": "null"
+    }
+  ]
+};
+
+/**
+ * The schema of `zero-trust-gateway_region-setting`.
+ */
+export const zero$$trust$$gateway_region$$setting: JSONObject = {
+  "description": "Specify the TLS interception and certificate settings Gateway applies to traffic routed through this region.",
+  "properties": {
+    "certificate": {
+      "$ref": "#/$defs/zero-trust-gateway_certificate-settings",
+      "description": "Specify certificate settings for Gateway TLS interception. If unset, the Cloudflare Root CA handles interception."
+    },
+    "tls_decrypt": {
+      "$ref": "#/$defs/zero-trust-gateway_tls-settings",
+      "description": "Specify whether to inspect encrypted HTTP traffic."
+    }
+  },
+  "required": [
+    "tls_decrypt"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `zero-trust-gateway_regions-settings`.
+ */
+export const zero$$trust$$gateway_regions$$settings: JSONObject = {
+  "description": "Specify per-region TLS interception and certificate settings for Gateway, keyed by Data Localization Suite region key. Relies on the Zero Trust account region setting  (`GET`/`PUT /accounts/{account_id}/zerotrust/region`) - the account must select a region before Gateway applies these settings for it.",
+  "oneOf": [
+    {
+      "additionalProperties": {
+        "$ref": "#/$defs/zero-trust-gateway_region-setting"
       },
       "type": "object"
     },

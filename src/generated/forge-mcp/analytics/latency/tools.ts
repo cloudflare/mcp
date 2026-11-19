@@ -94,14 +94,7 @@ export const tools: readonly Tool[] = [
             "$ref": "#/$defs/argo-analytics_response_single"
           },
           "4XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/argo-analytics_response_single"
-              },
-              {
-                "$ref": "#/$defs/argo-analytics_api-response-common-failure"
-              }
-            ]
+            "$ref": "#/$defs/argo-analytics_api-response-common-failure"
           }
         },
         $defs: {

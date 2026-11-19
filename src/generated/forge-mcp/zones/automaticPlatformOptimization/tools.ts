@@ -12,7 +12,7 @@ import {
   speed_automatic_platform_optimization_response,
   speed_automatic_platform_optimization_value,
 } from "./outputs.js";
-import { speed_automatic_platform_optimization_value as speed_automatic_platform_optimization_value$ } from "./schemas.js";
+import { speed_automatic_platform_optimization_patch_value } from "./schemas.js";
 
 /**
  * The tools of `zones.automaticPlatformOptimization`.
@@ -21,15 +21,15 @@ export const tools: readonly Tool[] = [
   {
     name: "zones_automaticPlatformOptimization_edit",
     title: "Change Automatic Platform Optimization setting",
-    description: "Automatic Platform Optimization (APO) for WordPress is a performance feature that serves your\nWordPress site from Cloudflare's edge network, reducing load times for visitors.\nRefer to the APO documentation for more information.\n\nPATCH /zones/{zone_id}/settings/automatic_platform_optimization",
+    description: "Automatic Platform Optimization (APO) for WordPress is a performance feature that serves your\nWordPress site from Cloudflare's edge network, reducing load times for visitors.\nRefer to the APO documentation for more information.\nWhen an APO configuration already exists, fields omitted from an object `value` keep their current value, except `recheck`, which is false unless the request sends it. Setting `value` to `\"off\"` disables APO but keeps the detected zone/site/plugin facts.\nOn the first write for a zone (no existing configuration) an object `value` must include `enabled`, `cf`, `wordpress` and `wp_plugin`; otherwise the request fails with error 1023. `\"off\"` is a no-op when no configuration exists.\n\nPATCH /zones/{zone_id}/settings/automatic_platform_optimization",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
           "properties": {
             "value": {
-              "$ref": "#/$defs/speed_automatic_platform_optimization_value",
-              "description": "Configuration for Automatic Platform Optimization (APO) for WordPress.\nSet to \"off\" to disable, or provide an object to configure APO settings."
+              "$ref": "#/$defs/speed_automatic_platform_optimization_patch_value",
+              "description": "Configuration for Automatic Platform Optimization (APO) for WordPress.\nSet to \"off\" to disable, or provide an object to configure APO settings.\nWhen an APO configuration already exists, fields omitted from the object keep their current value, and \"off\" disables APO without erasing the detected zone/site/plugin facts.\nOn the first write for a zone (no existing configuration) an object must include `enabled`, `cf`, `wordpress` and `wp_plugin`; otherwise the request fails with error 1023 and no configuration is created. Setting \"off\" when no configuration exists is a no-op."
             }
           },
           "required": [
@@ -57,7 +57,7 @@ export const tools: readonly Tool[] = [
       ],
       additionalProperties: false,
       $defs: {
-        "speed_automatic_platform_optimization_value": speed_automatic_platform_optimization_value$,
+        "speed_automatic_platform_optimization_patch_value": speed_automatic_platform_optimization_patch_value,
       },
     },
     outputSchema: {

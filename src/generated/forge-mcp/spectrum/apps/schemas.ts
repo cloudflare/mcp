@@ -55,7 +55,7 @@ export const spectrum$$config_app_config: JSONObject = {
           "description": "The destination port at the origin. Only specified in conjunction with origin_dns. May use an integer to specify a single origin port, for example `1000`, or a string to specify a range of origin ports, for example `\"1000-2000\"`.\nNotes: If specifying a port range, the number of ports in the range must match the number of ports specified in the \"protocol\" field."
         },
         "origin_worker_id": {
-          "description": "Optional Worker script tag (worker ID) to use as the application's origin. Only supported for TCP applications with traffic_type \"worker\"; mutually exclusive with origin_direct, origin_dns, origin_port, proxy_protocol, and argo_smart_routing. tls may only be \"off\" or \"flexible\".",
+          "description": "Optional Worker script tag (worker ID) to use as the application's origin. Requires traffic_type \"worker\"; mutually exclusive with origin_direct, origin_dns, origin_port, proxy_protocol, and argo_smart_routing. For TCP applications, tls may be \"off\" or \"flexible\"; UDP applications require tls \"off\".",
           "type": "string"
         },
         "protocol": {
@@ -246,9 +246,29 @@ export const spectrum$$config_paygo_app_config: JSONObject = {
           "$ref": "#/$defs/spectrum-config_origin_direct",
           "description": "List of origin IP addresses. Array may contain multiple IP addresses for load balancing."
         },
+        "origin_worker_id": {
+          "description": "Optional Worker script tag (worker ID) to use as the application's origin. Requires traffic_type \"worker\"; mutually exclusive with origin_direct, origin_dns, origin_port, proxy_protocol, and argo_smart_routing. For TCP applications, tls may be \"off\" or \"flexible\"; UDP applications require tls \"off\".",
+          "type": "string"
+        },
         "protocol": {
           "description": "The port configuration at Cloudflare's edge. May specify a single port, for example `\"tcp/1000\"`, or a range of ports, for example `\"tcp/1000-2000\"`.",
           "type": "string"
+        },
+        "traffic_type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "enum": [
+                "direct",
+                "worker"
+              ],
+              "type": "string"
+            }
+          ],
+          "default": "direct",
+          "description": "Determines how traffic is sent to the origin. If absent or empty, defaults to \"direct\". Direct mode uses origin_direct. Worker mode requires origin_worker_id, TCP or UDP with a single port, and CNAME DNS; origin_worker_id and origin_direct are mutually exclusive. A PAYG zone may have at most one Worker application per transport (one TCP and one UDP); creating another for the same transport, or converting another application to Worker while that quota is full, is rejected with error code 11034 and HTTP status 400."
         }
       },
       "required": [

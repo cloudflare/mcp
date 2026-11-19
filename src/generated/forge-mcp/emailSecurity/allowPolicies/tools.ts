@@ -24,7 +24,7 @@ import {
  */
 export const tools: readonly Tool[] = [
   {
-    name: "emailSecurity_allowPolicies_batch",
+    name: "emailSecurity_allowPolicies_bulkApply",
     title: "Batch allow policy operations",
     description: "Executes multiple allow policy operations atomically: delete, partially update,\nreplace, and create allow policies in a single request. All four operation arrays\n(deletes, patches, puts, posts) are required and executed in order.\nSend empty arrays for unused operations.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation may delete the selected allow policies and restore normal security scanning and disposition actions for matching emails.\n\nPOST /accounts/{account_id}/email-security/settings/allow_policies/batch",
     inputSchema: {

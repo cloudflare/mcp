@@ -13,6 +13,7 @@ import {
   posture$$api_AssetSchemaResponse,
   posture$$api_AssetSchemaSummary,
   posture$$api_AssetSchemaVendorGroup,
+  posture$$api_AssetTypeContentSchema,
 } from "./outputs.js";
 
 /**
@@ -55,6 +56,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "posture-api_AssetSchemaDetail": posture$$api_AssetSchemaDetail,
         "posture-api_AssetSchemaResponse": posture$$api_AssetSchemaResponse,
+        "posture-api_AssetTypeContentSchema": posture$$api_AssetTypeContentSchema,
         "posture-api_api-response-common": posture$$api_api$$response$$common,
         "posture-api_messages": posture$$api_messages,
       },
@@ -97,6 +99,7 @@ export const tools: readonly Tool[] = [
         $defs: {
           "posture-api_AssetSchemaDetail": posture$$api_AssetSchemaDetail,
           "posture-api_AssetSchemaResponse": posture$$api_AssetSchemaResponse,
+          "posture-api_AssetTypeContentSchema": posture$$api_AssetTypeContentSchema,
           "posture-api_api-response-common": posture$$api_api$$response$$common,
           "posture-api_error-response": posture$$api_error$$response,
           "posture-api_messages": posture$$api_messages,

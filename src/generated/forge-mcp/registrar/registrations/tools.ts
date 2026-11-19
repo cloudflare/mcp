@@ -3,39 +3,39 @@
 
 import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
 import {
-  registrar$$api_api$$response$$common,
-  registrar$$api_api$$response$$common$$failure,
-  registrar$$api_messages,
+  registrar_api$$response$$common,
+  registrar_api$$response$$common$$failure,
+  registrar_messages,
 } from "../outputs.js";
 import {
-  registrar$$api_cursor_result_info,
-  registrar$$api_domain_check_response,
-  registrar$$api_domain_check_result,
-  registrar$$api_domain_search_response,
-  registrar$$api_domain_search_result,
-  registrar$$api_domain_transfer_check_response,
-  registrar$$api_domain_transfer_check_result,
-  registrar$$api_pricing_base,
-  registrar$$api_pricing_registration,
-  registrar$$api_pricing_transfer,
-  registrar$$api_registration,
-  registrar$$api_registration$$response$$collection,
-  registrar$$api_registration$$response$$single,
-  registrar$$api_workflow$$status$$response$$single,
-  registrar$$api_workflow_error,
-  registrar$$api_workflow_links,
-  registrar$$api_workflow_status,
+  registrar_cursor_result_info,
+  registrar_domain_check_response,
+  registrar_domain_check_result,
+  registrar_domain_search_response,
+  registrar_domain_search_result,
+  registrar_domain_transfer_check_response,
+  registrar_domain_transfer_check_result,
+  registrar_pricing_base,
+  registrar_pricing_registration,
+  registrar_pricing_transfer,
+  registrar_registration,
+  registrar_registration$$response$$collection,
+  registrar_registration$$response$$single,
+  registrar_workflow$$status$$response$$single,
+  registrar_workflow_error,
+  registrar_workflow_links,
+  registrar_workflow_status,
 } from "./outputs.js";
 import {
-  registrar$$api_domain_check_request,
-  registrar$$api_domain_transfer_check_request,
-  registrar$$api_registration_contact,
-  registrar$$api_registration_contact_address,
-  registrar$$api_registration_contact_postal_info,
-  registrar$$api_registration_contacts,
-  registrar$$api_registration_create_request,
-  registrar$$api_registration_update_request,
-  registrar$$api_transfer_in_create_request,
+  registrar_domain_check_request,
+  registrar_domain_transfer_check_request,
+  registrar_registration_contact,
+  registrar_registration_contact_address,
+  registrar_registration_contact_postal_info,
+  registrar_registration_contacts,
+  registrar_registration_create_request,
+  registrar_registration_update_request,
+  registrar_transfer_in_create_request,
 } from "./schemas.js";
 
 /**
@@ -50,7 +50,7 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "body": {
-          "$ref": "#/$defs/registrar-api_domain_check_request",
+          "$ref": "#/$defs/registrar_domain_check_request",
           "description": "List of fully qualified domain names (FQDNs) to check. Each domain must include the extension (e.g., \"example.com\", not \"example\")."
         },
         "path": {
@@ -73,18 +73,18 @@ export const tools: readonly Tool[] = [
       ],
       additionalProperties: false,
       $defs: {
-        "registrar-api_domain_check_request": registrar$$api_domain_check_request,
+        "registrar_domain_check_request": registrar_domain_check_request,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/registrar-api_domain_check_response",
+      "$ref": "#/$defs/registrar_domain_check_response",
       $defs: {
-        "registrar-api_api-response-common": registrar$$api_api$$response$$common,
-        "registrar-api_domain_check_response": registrar$$api_domain_check_response,
-        "registrar-api_domain_check_result": registrar$$api_domain_check_result,
-        "registrar-api_messages": registrar$$api_messages,
-        "registrar-api_pricing_base": registrar$$api_pricing_base,
-        "registrar-api_pricing_registration": registrar$$api_pricing_registration,
+        "registrar_api-response-common": registrar_api$$response$$common,
+        "registrar_domain_check_response": registrar_domain_check_response,
+        "registrar_domain_check_result": registrar_domain_check_result,
+        "registrar_messages": registrar_messages,
+        "registrar_pricing_base": registrar_pricing_base,
+        "registrar_pricing_registration": registrar_pricing_registration,
       },
     },
     annotations: {
@@ -109,20 +109,20 @@ export const tools: readonly Tool[] = [
       responses: {
         schemas: {
           "200": {
-            "$ref": "#/$defs/registrar-api_domain_check_response"
+            "$ref": "#/$defs/registrar_domain_check_response"
           },
           "400": {
-            "$ref": "#/$defs/registrar-api_api-response-common-failure"
+            "$ref": "#/$defs/registrar_api-response-common-failure"
           }
         },
         $defs: {
-          "registrar-api_api-response-common": registrar$$api_api$$response$$common,
-          "registrar-api_api-response-common-failure": registrar$$api_api$$response$$common$$failure,
-          "registrar-api_domain_check_response": registrar$$api_domain_check_response,
-          "registrar-api_domain_check_result": registrar$$api_domain_check_result,
-          "registrar-api_messages": registrar$$api_messages,
-          "registrar-api_pricing_base": registrar$$api_pricing_base,
-          "registrar-api_pricing_registration": registrar$$api_pricing_registration,
+          "registrar_api-response-common": registrar_api$$response$$common,
+          "registrar_api-response-common-failure": registrar_api$$response$$common$$failure,
+          "registrar_domain_check_response": registrar_domain_check_response,
+          "registrar_domain_check_result": registrar_domain_check_result,
+          "registrar_messages": registrar_messages,
+          "registrar_pricing_base": registrar_pricing_base,
+          "registrar_pricing_registration": registrar_pricing_registration,
         },
       },
     },
@@ -135,7 +135,7 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "body": {
-          "$ref": "#/$defs/registrar-api_registration_create_request"
+          "$ref": "#/$defs/registrar_registration_create_request"
         },
         "headers": {
           "additionalProperties": false,
@@ -167,22 +167,22 @@ export const tools: readonly Tool[] = [
       ],
       additionalProperties: false,
       $defs: {
-        "registrar-api_registration_contact": registrar$$api_registration_contact,
-        "registrar-api_registration_contact_address": registrar$$api_registration_contact_address,
-        "registrar-api_registration_contact_postal_info": registrar$$api_registration_contact_postal_info,
-        "registrar-api_registration_contacts": registrar$$api_registration_contacts,
-        "registrar-api_registration_create_request": registrar$$api_registration_create_request,
+        "registrar_registration_contact": registrar_registration_contact,
+        "registrar_registration_contact_address": registrar_registration_contact_address,
+        "registrar_registration_contact_postal_info": registrar_registration_contact_postal_info,
+        "registrar_registration_contacts": registrar_registration_contacts,
+        "registrar_registration_create_request": registrar_registration_create_request,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/registrar-api_workflow-status-response-single",
+      "$ref": "#/$defs/registrar_workflow-status-response-single",
       $defs: {
-        "registrar-api_api-response-common": registrar$$api_api$$response$$common,
-        "registrar-api_messages": registrar$$api_messages,
-        "registrar-api_workflow-status-response-single": registrar$$api_workflow$$status$$response$$single,
-        "registrar-api_workflow_error": registrar$$api_workflow_error,
-        "registrar-api_workflow_links": registrar$$api_workflow_links,
-        "registrar-api_workflow_status": registrar$$api_workflow_status,
+        "registrar_api-response-common": registrar_api$$response$$common,
+        "registrar_messages": registrar_messages,
+        "registrar_workflow-status-response-single": registrar_workflow$$status$$response$$single,
+        "registrar_workflow_error": registrar_workflow_error,
+        "registrar_workflow_links": registrar_workflow_links,
+        "registrar_workflow_status": registrar_workflow_status,
       },
     },
     annotations: {
@@ -201,23 +201,23 @@ export const tools: readonly Tool[] = [
       responses: {
         schemas: {
           "201": {
-            "$ref": "#/$defs/registrar-api_workflow-status-response-single"
+            "$ref": "#/$defs/registrar_workflow-status-response-single"
           },
           "202": {
-            "$ref": "#/$defs/registrar-api_workflow-status-response-single"
+            "$ref": "#/$defs/registrar_workflow-status-response-single"
           },
           "4XX": {
-            "$ref": "#/$defs/registrar-api_api-response-common-failure"
+            "$ref": "#/$defs/registrar_api-response-common-failure"
           }
         },
         $defs: {
-          "registrar-api_api-response-common": registrar$$api_api$$response$$common,
-          "registrar-api_api-response-common-failure": registrar$$api_api$$response$$common$$failure,
-          "registrar-api_messages": registrar$$api_messages,
-          "registrar-api_workflow-status-response-single": registrar$$api_workflow$$status$$response$$single,
-          "registrar-api_workflow_error": registrar$$api_workflow_error,
-          "registrar-api_workflow_links": registrar$$api_workflow_links,
-          "registrar-api_workflow_status": registrar$$api_workflow_status,
+          "registrar_api-response-common": registrar_api$$response$$common,
+          "registrar_api-response-common-failure": registrar_api$$response$$common$$failure,
+          "registrar_messages": registrar_messages,
+          "registrar_workflow-status-response-single": registrar_workflow$$status$$response$$single,
+          "registrar_workflow_error": registrar_workflow_error,
+          "registrar_workflow_links": registrar_workflow_links,
+          "registrar_workflow_status": registrar_workflow_status,
         },
       },
     },
@@ -254,12 +254,12 @@ export const tools: readonly Tool[] = [
       additionalProperties: false,
     },
     outputSchema: {
-      "$ref": "#/$defs/registrar-api_registration-response-single",
+      "$ref": "#/$defs/registrar_registration-response-single",
       $defs: {
-        "registrar-api_api-response-common": registrar$$api_api$$response$$common,
-        "registrar-api_messages": registrar$$api_messages,
-        "registrar-api_registration": registrar$$api_registration,
-        "registrar-api_registration-response-single": registrar$$api_registration$$response$$single,
+        "registrar_api-response-common": registrar_api$$response$$common,
+        "registrar_messages": registrar_messages,
+        "registrar_registration": registrar_registration,
+        "registrar_registration-response-single": registrar_registration$$response$$single,
       },
     },
     annotations: {
@@ -276,18 +276,18 @@ export const tools: readonly Tool[] = [
       responses: {
         schemas: {
           "200": {
-            "$ref": "#/$defs/registrar-api_registration-response-single"
+            "$ref": "#/$defs/registrar_registration-response-single"
           },
           "4XX": {
-            "$ref": "#/$defs/registrar-api_api-response-common-failure"
+            "$ref": "#/$defs/registrar_api-response-common-failure"
           }
         },
         $defs: {
-          "registrar-api_api-response-common": registrar$$api_api$$response$$common,
-          "registrar-api_api-response-common-failure": registrar$$api_api$$response$$common$$failure,
-          "registrar-api_messages": registrar$$api_messages,
-          "registrar-api_registration": registrar$$api_registration,
-          "registrar-api_registration-response-single": registrar$$api_registration$$response$$single,
+          "registrar_api-response-common": registrar_api$$response$$common,
+          "registrar_api-response-common-failure": registrar_api$$response$$common$$failure,
+          "registrar_messages": registrar_messages,
+          "registrar_registration": registrar_registration,
+          "registrar_registration-response-single": registrar_registration$$response$$single,
         },
       },
     },
@@ -324,14 +324,14 @@ export const tools: readonly Tool[] = [
       additionalProperties: false,
     },
     outputSchema: {
-      "$ref": "#/$defs/registrar-api_workflow-status-response-single",
+      "$ref": "#/$defs/registrar_workflow-status-response-single",
       $defs: {
-        "registrar-api_api-response-common": registrar$$api_api$$response$$common,
-        "registrar-api_messages": registrar$$api_messages,
-        "registrar-api_workflow-status-response-single": registrar$$api_workflow$$status$$response$$single,
-        "registrar-api_workflow_error": registrar$$api_workflow_error,
-        "registrar-api_workflow_links": registrar$$api_workflow_links,
-        "registrar-api_workflow_status": registrar$$api_workflow_status,
+        "registrar_api-response-common": registrar_api$$response$$common,
+        "registrar_messages": registrar_messages,
+        "registrar_workflow-status-response-single": registrar_workflow$$status$$response$$single,
+        "registrar_workflow_error": registrar_workflow_error,
+        "registrar_workflow_links": registrar_workflow_links,
+        "registrar_workflow_status": registrar_workflow_status,
       },
     },
     annotations: {
@@ -348,20 +348,20 @@ export const tools: readonly Tool[] = [
       responses: {
         schemas: {
           "200": {
-            "$ref": "#/$defs/registrar-api_workflow-status-response-single"
+            "$ref": "#/$defs/registrar_workflow-status-response-single"
           },
           "4XX": {
-            "$ref": "#/$defs/registrar-api_api-response-common-failure"
+            "$ref": "#/$defs/registrar_api-response-common-failure"
           }
         },
         $defs: {
-          "registrar-api_api-response-common": registrar$$api_api$$response$$common,
-          "registrar-api_api-response-common-failure": registrar$$api_api$$response$$common$$failure,
-          "registrar-api_messages": registrar$$api_messages,
-          "registrar-api_workflow-status-response-single": registrar$$api_workflow$$status$$response$$single,
-          "registrar-api_workflow_error": registrar$$api_workflow_error,
-          "registrar-api_workflow_links": registrar$$api_workflow_links,
-          "registrar-api_workflow_status": registrar$$api_workflow_status,
+          "registrar_api-response-common": registrar_api$$response$$common,
+          "registrar_api-response-common-failure": registrar_api$$response$$common$$failure,
+          "registrar_messages": registrar_messages,
+          "registrar_workflow-status-response-single": registrar_workflow$$status$$response$$single,
+          "registrar_workflow_error": registrar_workflow_error,
+          "registrar_workflow_links": registrar_workflow_links,
+          "registrar_workflow_status": registrar_workflow_status,
         },
       },
     },
@@ -398,14 +398,14 @@ export const tools: readonly Tool[] = [
       additionalProperties: false,
     },
     outputSchema: {
-      "$ref": "#/$defs/registrar-api_workflow-status-response-single",
+      "$ref": "#/$defs/registrar_workflow-status-response-single",
       $defs: {
-        "registrar-api_api-response-common": registrar$$api_api$$response$$common,
-        "registrar-api_messages": registrar$$api_messages,
-        "registrar-api_workflow-status-response-single": registrar$$api_workflow$$status$$response$$single,
-        "registrar-api_workflow_error": registrar$$api_workflow_error,
-        "registrar-api_workflow_links": registrar$$api_workflow_links,
-        "registrar-api_workflow_status": registrar$$api_workflow_status,
+        "registrar_api-response-common": registrar_api$$response$$common,
+        "registrar_messages": registrar_messages,
+        "registrar_workflow-status-response-single": registrar_workflow$$status$$response$$single,
+        "registrar_workflow_error": registrar_workflow_error,
+        "registrar_workflow_links": registrar_workflow_links,
+        "registrar_workflow_status": registrar_workflow_status,
       },
     },
     annotations: {
@@ -422,20 +422,20 @@ export const tools: readonly Tool[] = [
       responses: {
         schemas: {
           "200": {
-            "$ref": "#/$defs/registrar-api_workflow-status-response-single"
+            "$ref": "#/$defs/registrar_workflow-status-response-single"
           },
           "4XX": {
-            "$ref": "#/$defs/registrar-api_api-response-common-failure"
+            "$ref": "#/$defs/registrar_api-response-common-failure"
           }
         },
         $defs: {
-          "registrar-api_api-response-common": registrar$$api_api$$response$$common,
-          "registrar-api_api-response-common-failure": registrar$$api_api$$response$$common$$failure,
-          "registrar-api_messages": registrar$$api_messages,
-          "registrar-api_workflow-status-response-single": registrar$$api_workflow$$status$$response$$single,
-          "registrar-api_workflow_error": registrar$$api_workflow_error,
-          "registrar-api_workflow_links": registrar$$api_workflow_links,
-          "registrar-api_workflow_status": registrar$$api_workflow_status,
+          "registrar_api-response-common": registrar_api$$response$$common,
+          "registrar_api-response-common-failure": registrar_api$$response$$common$$failure,
+          "registrar_messages": registrar_messages,
+          "registrar_workflow-status-response-single": registrar_workflow$$status$$response$$single,
+          "registrar_workflow_error": registrar_workflow_error,
+          "registrar_workflow_links": registrar_workflow_links,
+          "registrar_workflow_status": registrar_workflow_status,
         },
       },
     },
@@ -472,14 +472,14 @@ export const tools: readonly Tool[] = [
       additionalProperties: false,
     },
     outputSchema: {
-      "$ref": "#/$defs/registrar-api_workflow-status-response-single",
+      "$ref": "#/$defs/registrar_workflow-status-response-single",
       $defs: {
-        "registrar-api_api-response-common": registrar$$api_api$$response$$common,
-        "registrar-api_messages": registrar$$api_messages,
-        "registrar-api_workflow-status-response-single": registrar$$api_workflow$$status$$response$$single,
-        "registrar-api_workflow_error": registrar$$api_workflow_error,
-        "registrar-api_workflow_links": registrar$$api_workflow_links,
-        "registrar-api_workflow_status": registrar$$api_workflow_status,
+        "registrar_api-response-common": registrar_api$$response$$common,
+        "registrar_messages": registrar_messages,
+        "registrar_workflow-status-response-single": registrar_workflow$$status$$response$$single,
+        "registrar_workflow_error": registrar_workflow_error,
+        "registrar_workflow_links": registrar_workflow_links,
+        "registrar_workflow_status": registrar_workflow_status,
       },
     },
     annotations: {
@@ -496,20 +496,20 @@ export const tools: readonly Tool[] = [
       responses: {
         schemas: {
           "200": {
-            "$ref": "#/$defs/registrar-api_workflow-status-response-single"
+            "$ref": "#/$defs/registrar_workflow-status-response-single"
           },
           "4XX": {
-            "$ref": "#/$defs/registrar-api_api-response-common-failure"
+            "$ref": "#/$defs/registrar_api-response-common-failure"
           }
         },
         $defs: {
-          "registrar-api_api-response-common": registrar$$api_api$$response$$common,
-          "registrar-api_api-response-common-failure": registrar$$api_api$$response$$common$$failure,
-          "registrar-api_messages": registrar$$api_messages,
-          "registrar-api_workflow-status-response-single": registrar$$api_workflow$$status$$response$$single,
-          "registrar-api_workflow_error": registrar$$api_workflow_error,
-          "registrar-api_workflow_links": registrar$$api_workflow_links,
-          "registrar-api_workflow_status": registrar$$api_workflow_status,
+          "registrar_api-response-common": registrar_api$$response$$common,
+          "registrar_api-response-common-failure": registrar_api$$response$$common$$failure,
+          "registrar_messages": registrar_messages,
+          "registrar_workflow-status-response-single": registrar_workflow$$status$$response$$single,
+          "registrar_workflow_error": registrar_workflow_error,
+          "registrar_workflow_links": registrar_workflow_links,
+          "registrar_workflow_status": registrar_workflow_status,
         },
       },
     },
@@ -575,13 +575,13 @@ export const tools: readonly Tool[] = [
       additionalProperties: false,
     },
     outputSchema: {
-      "$ref": "#/$defs/registrar-api_registration-response-collection",
+      "$ref": "#/$defs/registrar_registration-response-collection",
       $defs: {
-        "registrar-api_api-response-common": registrar$$api_api$$response$$common,
-        "registrar-api_cursor_result_info": registrar$$api_cursor_result_info,
-        "registrar-api_messages": registrar$$api_messages,
-        "registrar-api_registration": registrar$$api_registration,
-        "registrar-api_registration-response-collection": registrar$$api_registration$$response$$collection,
+        "registrar_api-response-common": registrar_api$$response$$common,
+        "registrar_cursor_result_info": registrar_cursor_result_info,
+        "registrar_messages": registrar_messages,
+        "registrar_registration": registrar_registration,
+        "registrar_registration-response-collection": registrar_registration$$response$$collection,
       },
     },
     annotations: {
@@ -604,19 +604,19 @@ export const tools: readonly Tool[] = [
       responses: {
         schemas: {
           "200": {
-            "$ref": "#/$defs/registrar-api_registration-response-collection"
+            "$ref": "#/$defs/registrar_registration-response-collection"
           },
           "4XX": {
-            "$ref": "#/$defs/registrar-api_api-response-common-failure"
+            "$ref": "#/$defs/registrar_api-response-common-failure"
           }
         },
         $defs: {
-          "registrar-api_api-response-common": registrar$$api_api$$response$$common,
-          "registrar-api_api-response-common-failure": registrar$$api_api$$response$$common$$failure,
-          "registrar-api_cursor_result_info": registrar$$api_cursor_result_info,
-          "registrar-api_messages": registrar$$api_messages,
-          "registrar-api_registration": registrar$$api_registration,
-          "registrar-api_registration-response-collection": registrar$$api_registration$$response$$collection,
+          "registrar_api-response-common": registrar_api$$response$$common,
+          "registrar_api-response-common-failure": registrar_api$$response$$common$$failure,
+          "registrar_cursor_result_info": registrar_cursor_result_info,
+          "registrar_messages": registrar_messages,
+          "registrar_registration": registrar_registration,
+          "registrar_registration-response-collection": registrar_registration$$response$$collection,
         },
       },
     },
@@ -675,14 +675,14 @@ export const tools: readonly Tool[] = [
       additionalProperties: false,
     },
     outputSchema: {
-      "$ref": "#/$defs/registrar-api_domain_search_response",
+      "$ref": "#/$defs/registrar_domain_search_response",
       $defs: {
-        "registrar-api_api-response-common": registrar$$api_api$$response$$common,
-        "registrar-api_domain_search_response": registrar$$api_domain_search_response,
-        "registrar-api_domain_search_result": registrar$$api_domain_search_result,
-        "registrar-api_messages": registrar$$api_messages,
-        "registrar-api_pricing_base": registrar$$api_pricing_base,
-        "registrar-api_pricing_registration": registrar$$api_pricing_registration,
+        "registrar_api-response-common": registrar_api$$response$$common,
+        "registrar_domain_search_response": registrar_domain_search_response,
+        "registrar_domain_search_result": registrar_domain_search_result,
+        "registrar_messages": registrar_messages,
+        "registrar_pricing_base": registrar_pricing_base,
+        "registrar_pricing_registration": registrar_pricing_registration,
       },
     },
     annotations: {
@@ -704,20 +704,20 @@ export const tools: readonly Tool[] = [
       responses: {
         schemas: {
           "200": {
-            "$ref": "#/$defs/registrar-api_domain_search_response"
+            "$ref": "#/$defs/registrar_domain_search_response"
           },
           "400": {
-            "$ref": "#/$defs/registrar-api_api-response-common-failure"
+            "$ref": "#/$defs/registrar_api-response-common-failure"
           }
         },
         $defs: {
-          "registrar-api_api-response-common": registrar$$api_api$$response$$common,
-          "registrar-api_api-response-common-failure": registrar$$api_api$$response$$common$$failure,
-          "registrar-api_domain_search_response": registrar$$api_domain_search_response,
-          "registrar-api_domain_search_result": registrar$$api_domain_search_result,
-          "registrar-api_messages": registrar$$api_messages,
-          "registrar-api_pricing_base": registrar$$api_pricing_base,
-          "registrar-api_pricing_registration": registrar$$api_pricing_registration,
+          "registrar_api-response-common": registrar_api$$response$$common,
+          "registrar_api-response-common-failure": registrar_api$$response$$common$$failure,
+          "registrar_domain_search_response": registrar_domain_search_response,
+          "registrar_domain_search_result": registrar_domain_search_result,
+          "registrar_messages": registrar_messages,
+          "registrar_pricing_base": registrar_pricing_base,
+          "registrar_pricing_registration": registrar_pricing_registration,
         },
       },
     },
@@ -730,7 +730,7 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "body": {
-          "$ref": "#/$defs/registrar-api_domain_transfer_check_request",
+          "$ref": "#/$defs/registrar_domain_transfer_check_request",
           "description": "List of transferable domain objects to check."
         },
         "path": {
@@ -753,18 +753,18 @@ export const tools: readonly Tool[] = [
       ],
       additionalProperties: false,
       $defs: {
-        "registrar-api_domain_transfer_check_request": registrar$$api_domain_transfer_check_request,
+        "registrar_domain_transfer_check_request": registrar_domain_transfer_check_request,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/registrar-api_domain_transfer_check_response",
+      "$ref": "#/$defs/registrar_domain_transfer_check_response",
       $defs: {
-        "registrar-api_api-response-common": registrar$$api_api$$response$$common,
-        "registrar-api_domain_transfer_check_response": registrar$$api_domain_transfer_check_response,
-        "registrar-api_domain_transfer_check_result": registrar$$api_domain_transfer_check_result,
-        "registrar-api_messages": registrar$$api_messages,
-        "registrar-api_pricing_base": registrar$$api_pricing_base,
-        "registrar-api_pricing_transfer": registrar$$api_pricing_transfer,
+        "registrar_api-response-common": registrar_api$$response$$common,
+        "registrar_domain_transfer_check_response": registrar_domain_transfer_check_response,
+        "registrar_domain_transfer_check_result": registrar_domain_transfer_check_result,
+        "registrar_messages": registrar_messages,
+        "registrar_pricing_base": registrar_pricing_base,
+        "registrar_pricing_transfer": registrar_pricing_transfer,
       },
     },
     annotations: {
@@ -782,23 +782,23 @@ export const tools: readonly Tool[] = [
       responses: {
         schemas: {
           "200": {
-            "$ref": "#/$defs/registrar-api_domain_transfer_check_response"
+            "$ref": "#/$defs/registrar_domain_transfer_check_response"
           },
           "400": {
-            "$ref": "#/$defs/registrar-api_api-response-common-failure"
+            "$ref": "#/$defs/registrar_api-response-common-failure"
           },
           "503": {
-            "$ref": "#/$defs/registrar-api_api-response-common-failure"
+            "$ref": "#/$defs/registrar_api-response-common-failure"
           }
         },
         $defs: {
-          "registrar-api_api-response-common": registrar$$api_api$$response$$common,
-          "registrar-api_api-response-common-failure": registrar$$api_api$$response$$common$$failure,
-          "registrar-api_domain_transfer_check_response": registrar$$api_domain_transfer_check_response,
-          "registrar-api_domain_transfer_check_result": registrar$$api_domain_transfer_check_result,
-          "registrar-api_messages": registrar$$api_messages,
-          "registrar-api_pricing_base": registrar$$api_pricing_base,
-          "registrar-api_pricing_transfer": registrar$$api_pricing_transfer,
+          "registrar_api-response-common": registrar_api$$response$$common,
+          "registrar_api-response-common-failure": registrar_api$$response$$common$$failure,
+          "registrar_domain_transfer_check_response": registrar_domain_transfer_check_response,
+          "registrar_domain_transfer_check_result": registrar_domain_transfer_check_result,
+          "registrar_messages": registrar_messages,
+          "registrar_pricing_base": registrar_pricing_base,
+          "registrar_pricing_transfer": registrar_pricing_transfer,
         },
       },
     },
@@ -811,7 +811,7 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "body": {
-          "$ref": "#/$defs/registrar-api_transfer_in_create_request"
+          "$ref": "#/$defs/registrar_transfer_in_create_request"
         },
         "headers": {
           "additionalProperties": false,
@@ -848,22 +848,22 @@ export const tools: readonly Tool[] = [
       ],
       additionalProperties: false,
       $defs: {
-        "registrar-api_registration_contact": registrar$$api_registration_contact,
-        "registrar-api_registration_contact_address": registrar$$api_registration_contact_address,
-        "registrar-api_registration_contact_postal_info": registrar$$api_registration_contact_postal_info,
-        "registrar-api_registration_contacts": registrar$$api_registration_contacts,
-        "registrar-api_transfer_in_create_request": registrar$$api_transfer_in_create_request,
+        "registrar_registration_contact": registrar_registration_contact,
+        "registrar_registration_contact_address": registrar_registration_contact_address,
+        "registrar_registration_contact_postal_info": registrar_registration_contact_postal_info,
+        "registrar_registration_contacts": registrar_registration_contacts,
+        "registrar_transfer_in_create_request": registrar_transfer_in_create_request,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/registrar-api_workflow-status-response-single",
+      "$ref": "#/$defs/registrar_workflow-status-response-single",
       $defs: {
-        "registrar-api_api-response-common": registrar$$api_api$$response$$common,
-        "registrar-api_messages": registrar$$api_messages,
-        "registrar-api_workflow-status-response-single": registrar$$api_workflow$$status$$response$$single,
-        "registrar-api_workflow_error": registrar$$api_workflow_error,
-        "registrar-api_workflow_links": registrar$$api_workflow_links,
-        "registrar-api_workflow_status": registrar$$api_workflow_status,
+        "registrar_api-response-common": registrar_api$$response$$common,
+        "registrar_messages": registrar_messages,
+        "registrar_workflow-status-response-single": registrar_workflow$$status$$response$$single,
+        "registrar_workflow_error": registrar_workflow_error,
+        "registrar_workflow_links": registrar_workflow_links,
+        "registrar_workflow_status": registrar_workflow_status,
       },
     },
     annotations: {
@@ -882,20 +882,20 @@ export const tools: readonly Tool[] = [
       responses: {
         schemas: {
           "202": {
-            "$ref": "#/$defs/registrar-api_workflow-status-response-single"
+            "$ref": "#/$defs/registrar_workflow-status-response-single"
           },
           "4XX": {
-            "$ref": "#/$defs/registrar-api_api-response-common-failure"
+            "$ref": "#/$defs/registrar_api-response-common-failure"
           }
         },
         $defs: {
-          "registrar-api_api-response-common": registrar$$api_api$$response$$common,
-          "registrar-api_api-response-common-failure": registrar$$api_api$$response$$common$$failure,
-          "registrar-api_messages": registrar$$api_messages,
-          "registrar-api_workflow-status-response-single": registrar$$api_workflow$$status$$response$$single,
-          "registrar-api_workflow_error": registrar$$api_workflow_error,
-          "registrar-api_workflow_links": registrar$$api_workflow_links,
-          "registrar-api_workflow_status": registrar$$api_workflow_status,
+          "registrar_api-response-common": registrar_api$$response$$common,
+          "registrar_api-response-common-failure": registrar_api$$response$$common$$failure,
+          "registrar_messages": registrar_messages,
+          "registrar_workflow-status-response-single": registrar_workflow$$status$$response$$single,
+          "registrar_workflow_error": registrar_workflow_error,
+          "registrar_workflow_links": registrar_workflow_links,
+          "registrar_workflow_status": registrar_workflow_status,
         },
       },
     },
@@ -908,7 +908,7 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "body": {
-          "$ref": "#/$defs/registrar-api_registration_update_request"
+          "$ref": "#/$defs/registrar_registration_update_request"
         },
         "headers": {
           "additionalProperties": false,
@@ -948,18 +948,18 @@ export const tools: readonly Tool[] = [
       ],
       additionalProperties: false,
       $defs: {
-        "registrar-api_registration_update_request": registrar$$api_registration_update_request,
+        "registrar_registration_update_request": registrar_registration_update_request,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/registrar-api_workflow-status-response-single",
+      "$ref": "#/$defs/registrar_workflow-status-response-single",
       $defs: {
-        "registrar-api_api-response-common": registrar$$api_api$$response$$common,
-        "registrar-api_messages": registrar$$api_messages,
-        "registrar-api_workflow-status-response-single": registrar$$api_workflow$$status$$response$$single,
-        "registrar-api_workflow_error": registrar$$api_workflow_error,
-        "registrar-api_workflow_links": registrar$$api_workflow_links,
-        "registrar-api_workflow_status": registrar$$api_workflow_status,
+        "registrar_api-response-common": registrar_api$$response$$common,
+        "registrar_messages": registrar_messages,
+        "registrar_workflow-status-response-single": registrar_workflow$$status$$response$$single,
+        "registrar_workflow_error": registrar_workflow_error,
+        "registrar_workflow_links": registrar_workflow_links,
+        "registrar_workflow_status": registrar_workflow_status,
       },
     },
     annotations: {
@@ -978,23 +978,23 @@ export const tools: readonly Tool[] = [
       responses: {
         schemas: {
           "200": {
-            "$ref": "#/$defs/registrar-api_workflow-status-response-single"
+            "$ref": "#/$defs/registrar_workflow-status-response-single"
           },
           "202": {
-            "$ref": "#/$defs/registrar-api_workflow-status-response-single"
+            "$ref": "#/$defs/registrar_workflow-status-response-single"
           },
           "4XX": {
-            "$ref": "#/$defs/registrar-api_api-response-common-failure"
+            "$ref": "#/$defs/registrar_api-response-common-failure"
           }
         },
         $defs: {
-          "registrar-api_api-response-common": registrar$$api_api$$response$$common,
-          "registrar-api_api-response-common-failure": registrar$$api_api$$response$$common$$failure,
-          "registrar-api_messages": registrar$$api_messages,
-          "registrar-api_workflow-status-response-single": registrar$$api_workflow$$status$$response$$single,
-          "registrar-api_workflow_error": registrar$$api_workflow_error,
-          "registrar-api_workflow_links": registrar$$api_workflow_links,
-          "registrar-api_workflow_status": registrar$$api_workflow_status,
+          "registrar_api-response-common": registrar_api$$response$$common,
+          "registrar_api-response-common-failure": registrar_api$$response$$common$$failure,
+          "registrar_messages": registrar_messages,
+          "registrar_workflow-status-response-single": registrar_workflow$$status$$response$$single,
+          "registrar_workflow_error": registrar_workflow_error,
+          "registrar_workflow_links": registrar_workflow_links,
+          "registrar_workflow_status": registrar_workflow_status,
         },
       },
     },

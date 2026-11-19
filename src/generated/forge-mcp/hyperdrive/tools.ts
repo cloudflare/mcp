@@ -308,6 +308,153 @@ export const tools: readonly Tool[] = [
     },
   },
   {
+    name: "hyperdrive_edit",
+    title: "Update Hyperdrive",
+    description: "Updates and returns the specified fields of the Hyperdrive configuration. Custom caching settings are not kept if caching is disabled. For an integration-backed configuration, the integration association is preserved but cannot be changed; omit the integration field.\n\nPATCH /accounts/{account_id}/hyperdrive/configs/{hyperdrive_id}",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "body": {
+          "$ref": "#/$defs/hyperdrive_hyperdrive-config-patch"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "The Cloudflare account ID.",
+              "type": "string"
+            },
+            "hyperdrive_id": {
+              "description": "The unique identifier of the Hyperdrive configuration.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "hyperdrive_id"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path",
+        "body"
+      ],
+      additionalProperties: false,
+      $defs: {
+        "hyperdrive_hyperdrive-caching": hyperdrive_hyperdrive$$caching,
+        "hyperdrive_hyperdrive-caching-common": hyperdrive_hyperdrive$$caching$$common,
+        "hyperdrive_hyperdrive-caching-disabled": hyperdrive_hyperdrive$$caching$$disabled,
+        "hyperdrive_hyperdrive-caching-enabled": hyperdrive_hyperdrive$$caching$$enabled,
+        "hyperdrive_hyperdrive-config-patch": hyperdrive_hyperdrive$$config$$patch,
+        "hyperdrive_hyperdrive-database": hyperdrive_hyperdrive$$database,
+        "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive$$mtls$,
+        "hyperdrive_internet-origin": hyperdrive_internet$$origin$,
+        "hyperdrive_over-access-origin": hyperdrive_over$$access$$origin$,
+        "hyperdrive_vpc-service-origin": hyperdrive_vpc$$service$$origin$,
+      },
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/hyperdrive_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/hyperdrive_hyperdrive-config-response"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "hyperdrive_api-response-common": hyperdrive_api$$response$$common,
+        "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive$$caching$$response,
+        "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive$$config$$response,
+        "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive$$database$$full,
+        "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive$$mtls,
+        "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive$$origin$$full,
+        "hyperdrive_hyperdrive-planet-scale-integration": hyperdrive_hyperdrive$$planet$$scale$$integration,
+        "hyperdrive_internet-origin": hyperdrive_internet$$origin,
+        "hyperdrive_messages": hyperdrive_messages,
+        "hyperdrive_over-access-origin": hyperdrive_over$$access$$origin,
+        "hyperdrive_vpc-service-origin": hyperdrive_vpc$$service$$origin,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Update Hyperdrive"
+    },
+    [OPERATION]: {
+      method: "PATCH",
+      path: "/accounts/{account_id}/hyperdrive/configs/{hyperdrive_id}",
+      pathOf: encodePath`/accounts/${"account_id"}/hyperdrive/configs/${"hyperdrive_id"}`,
+      body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-api-token-group": [
+          "Hyperdrive Write"
+        ],
+        "x-cfPermissionsRequired": {
+          "enum": [
+            "com.cloudflare.edge.hyperdrive.database.update"
+          ]
+        },
+        "x-forge-params": {
+          "mtls.sslmode": {
+            "choices": [
+              "require",
+              "verify-ca",
+              "verify-full",
+              "REQUIRED",
+              "VERIFY_CA",
+              "VERIFY_IDENTITY"
+            ]
+          }
+        }
+      },
+      responses: {
+        schemas: {
+          "200": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/hyperdrive_api-response-common"
+              },
+              {
+                "properties": {
+                  "result": {
+                    "$ref": "#/$defs/hyperdrive_hyperdrive-config-response"
+                  }
+                },
+                "type": "object"
+              }
+            ]
+          },
+          "4XX": {
+            "$ref": "#/$defs/hyperdrive_api-response-common-failure"
+          }
+        },
+        $defs: {
+          "hyperdrive_api-response-common": hyperdrive_api$$response$$common,
+          "hyperdrive_api-response-common-failure": hyperdrive_api$$response$$common$$failure,
+          "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive$$caching$$response,
+          "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive$$config$$response,
+          "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive$$database$$full,
+          "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive$$mtls,
+          "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive$$origin$$full,
+          "hyperdrive_hyperdrive-planet-scale-integration": hyperdrive_hyperdrive$$planet$$scale$$integration,
+          "hyperdrive_internet-origin": hyperdrive_internet$$origin,
+          "hyperdrive_messages": hyperdrive_messages,
+          "hyperdrive_over-access-origin": hyperdrive_over$$access$$origin,
+          "hyperdrive_vpc-service-origin": hyperdrive_vpc$$service$$origin,
+        },
+      },
+    },
+  },
+  {
     name: "hyperdrive_get",
     title: "Get Hyperdrive",
     description: "Returns the specified Hyperdrive configuration.\n\nGET /accounts/{account_id}/hyperdrive/configs/{hyperdrive_id}",
@@ -817,153 +964,6 @@ export const tools: readonly Tool[] = [
         $defs: {
           "hyperdrive_api-response-common-failure": hyperdrive_api$$response$$common$$failure,
           "hyperdrive_api-response-single": hyperdrive_api$$response$$single,
-          "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive$$caching$$response,
-          "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive$$config$$response,
-          "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive$$database$$full,
-          "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive$$mtls,
-          "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive$$origin$$full,
-          "hyperdrive_hyperdrive-planet-scale-integration": hyperdrive_hyperdrive$$planet$$scale$$integration,
-          "hyperdrive_internet-origin": hyperdrive_internet$$origin,
-          "hyperdrive_messages": hyperdrive_messages,
-          "hyperdrive_over-access-origin": hyperdrive_over$$access$$origin,
-          "hyperdrive_vpc-service-origin": hyperdrive_vpc$$service$$origin,
-        },
-      },
-    },
-  },
-  {
-    name: "hyperdrive_update",
-    title: "Update Hyperdrive",
-    description: "Updates and returns the specified fields of the Hyperdrive configuration. Custom caching settings are not kept if caching is disabled. For an integration-backed configuration, the integration association is preserved but cannot be changed; omit the integration field.\n\nPATCH /accounts/{account_id}/hyperdrive/configs/{hyperdrive_id}",
-    inputSchema: {
-      type: "object",
-      properties: {
-        "body": {
-          "$ref": "#/$defs/hyperdrive_hyperdrive-config-patch"
-        },
-        "path": {
-          "additionalProperties": false,
-          "properties": {
-            "account_id": {
-              "description": "The Cloudflare account ID.",
-              "type": "string"
-            },
-            "hyperdrive_id": {
-              "description": "The unique identifier of the Hyperdrive configuration.",
-              "type": "string"
-            }
-          },
-          "required": [
-            "account_id",
-            "hyperdrive_id"
-          ],
-          "type": "object"
-        }
-      },
-      required: [
-        "path",
-        "body"
-      ],
-      additionalProperties: false,
-      $defs: {
-        "hyperdrive_hyperdrive-caching": hyperdrive_hyperdrive$$caching,
-        "hyperdrive_hyperdrive-caching-common": hyperdrive_hyperdrive$$caching$$common,
-        "hyperdrive_hyperdrive-caching-disabled": hyperdrive_hyperdrive$$caching$$disabled,
-        "hyperdrive_hyperdrive-caching-enabled": hyperdrive_hyperdrive$$caching$$enabled,
-        "hyperdrive_hyperdrive-config-patch": hyperdrive_hyperdrive$$config$$patch,
-        "hyperdrive_hyperdrive-database": hyperdrive_hyperdrive$$database,
-        "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive$$mtls$,
-        "hyperdrive_internet-origin": hyperdrive_internet$$origin$,
-        "hyperdrive_over-access-origin": hyperdrive_over$$access$$origin$,
-        "hyperdrive_vpc-service-origin": hyperdrive_vpc$$service$$origin$,
-      },
-    },
-    outputSchema: {
-      "allOf": [
-        {
-          "$ref": "#/$defs/hyperdrive_api-response-common"
-        },
-        {
-          "properties": {
-            "result": {
-              "$ref": "#/$defs/hyperdrive_hyperdrive-config-response"
-            }
-          },
-          "type": "object"
-        }
-      ],
-      $defs: {
-        "hyperdrive_api-response-common": hyperdrive_api$$response$$common,
-        "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive$$caching$$response,
-        "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive$$config$$response,
-        "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive$$database$$full,
-        "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive$$mtls,
-        "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive$$origin$$full,
-        "hyperdrive_hyperdrive-planet-scale-integration": hyperdrive_hyperdrive$$planet$$scale$$integration,
-        "hyperdrive_internet-origin": hyperdrive_internet$$origin,
-        "hyperdrive_messages": hyperdrive_messages,
-        "hyperdrive_over-access-origin": hyperdrive_over$$access$$origin,
-        "hyperdrive_vpc-service-origin": hyperdrive_vpc$$service$$origin,
-      },
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Update Hyperdrive"
-    },
-    [OPERATION]: {
-      method: "PATCH",
-      path: "/accounts/{account_id}/hyperdrive/configs/{hyperdrive_id}",
-      pathOf: encodePath`/accounts/${"account_id"}/hyperdrive/configs/${"hyperdrive_id"}`,
-      body: { mediaTypes: ["application/json"] },
-      extensions: {
-        "x-api-token-group": [
-          "Hyperdrive Write"
-        ],
-        "x-cfPermissionsRequired": {
-          "enum": [
-            "com.cloudflare.edge.hyperdrive.database.update"
-          ]
-        },
-        "x-forge-params": {
-          "mtls.sslmode": {
-            "choices": [
-              "require",
-              "verify-ca",
-              "verify-full",
-              "REQUIRED",
-              "VERIFY_CA",
-              "VERIFY_IDENTITY"
-            ]
-          }
-        }
-      },
-      responses: {
-        schemas: {
-          "200": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/hyperdrive_api-response-common"
-              },
-              {
-                "properties": {
-                  "result": {
-                    "$ref": "#/$defs/hyperdrive_hyperdrive-config-response"
-                  }
-                },
-                "type": "object"
-              }
-            ]
-          },
-          "4XX": {
-            "$ref": "#/$defs/hyperdrive_api-response-common-failure"
-          }
-        },
-        $defs: {
-          "hyperdrive_api-response-common": hyperdrive_api$$response$$common,
-          "hyperdrive_api-response-common-failure": hyperdrive_api$$response$$common$$failure,
           "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive$$caching$$response,
           "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive$$config$$response,
           "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive$$database$$full,

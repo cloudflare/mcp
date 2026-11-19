@@ -378,7 +378,6 @@ import { tools as intel_whoisTools } from "./intel/whois/tools.js";
 import { tools as ipsTools } from "./ips/tools.js";
 import { tools as k2_streams_subscriptionsTools } from "./k2/streams/subscriptions/tools.js";
 import { tools as k2_streamsTools } from "./k2/streams/tools.js";
-import { tools as kv_bulkTools } from "./kv/bulk/tools.js";
 import { tools as kv_keysTools } from "./kv/keys/tools.js";
 import { tools as kv_metadataTools } from "./kv/metadata/tools.js";
 import { tools as kv_namespacesTools } from "./kv/namespaces/tools.js";
@@ -766,10 +765,12 @@ import { tools as tags_summaryTools } from "./tags/summary/tools.js";
 import { tools as tags_valuesTools } from "./tags/values/tools.js";
 import { tools as tenantCustomNameserversTools } from "./tenantCustomNameservers/tools.js";
 import { tools as tenants_accountsTools } from "./tenants/accounts/tools.js";
+import { tools as rootTools } from "./tools.js";
 import { tools as tunnelTools } from "./tunnel/tools.js";
 import { tools as tunnels_configTools } from "./tunnels/config/tools.js";
 import { tools as tunnels_connectionsTools } from "./tunnels/connections/tools.js";
 import { tools as tunnels_connectorsTools } from "./tunnels/connectors/tools.js";
+import { tools as tunnels_hostnamesTools } from "./tunnels/hostnames/tools.js";
 import { tools as tunnels_managementTokenTools } from "./tunnels/managementToken/tools.js";
 import { tools as tunnels_tokenTools } from "./tunnels/token/tools.js";
 import { tools as tunnelsTools } from "./tunnels/tools.js";
@@ -783,7 +784,6 @@ import { tools as user_invitesTools } from "./user/invites/tools.js";
 import { tools as user_loadBalancers_monitors_previewTools } from "./user/loadBalancers/monitors/preview/tools.js";
 import { tools as user_loadBalancers_monitors_referencesTools } from "./user/loadBalancers/monitors/references/tools.js";
 import { tools as user_loadBalancers_monitorsTools } from "./user/loadBalancers/monitors/tools.js";
-import { tools as user_loadBalancers_pools_edit_poolsTools } from "./user/loadBalancers/pools/edit/pools/tools.js";
 import { tools as user_loadBalancers_pools_healthTools } from "./user/loadBalancers/pools/health/tools.js";
 import { tools as user_loadBalancers_pools_previewTools } from "./user/loadBalancers/pools/preview/tools.js";
 import { tools as user_loadBalancers_pools_referencesTools } from "./user/loadBalancers/pools/references/tools.js";
@@ -1048,6 +1048,7 @@ export const api = {
  * Every tool, by group and then by name.
  */
 export const tools: readonly Tool[] = [
+  ...rootTools,
   ...abuseReportsTools,
   ...abuseReports_appealsTools,
   ...abuseReports_emailsTools,
@@ -1424,7 +1425,6 @@ export const tools: readonly Tool[] = [
   ...ipsTools,
   ...k2_streamsTools,
   ...k2_streams_subscriptionsTools,
-  ...kv_bulkTools,
   ...kv_keysTools,
   ...kv_metadataTools,
   ...kv_namespacesTools,
@@ -1817,6 +1817,7 @@ export const tools: readonly Tool[] = [
   ...tunnels_configTools,
   ...tunnels_connectionsTools,
   ...tunnels_connectorsTools,
+  ...tunnels_hostnamesTools,
   ...tunnels_managementTokenTools,
   ...tunnels_tokenTools,
   ...turnstile_widgetsTools,
@@ -1831,7 +1832,6 @@ export const tools: readonly Tool[] = [
   ...user_loadBalancers_monitors_previewTools,
   ...user_loadBalancers_monitors_referencesTools,
   ...user_loadBalancers_poolsTools,
-  ...user_loadBalancers_pools_edit_poolsTools,
   ...user_loadBalancers_pools_healthTools,
   ...user_loadBalancers_pools_previewTools,
   ...user_loadBalancers_pools_referencesTools,

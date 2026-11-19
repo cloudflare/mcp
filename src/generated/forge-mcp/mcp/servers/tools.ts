@@ -3056,60 +3056,74 @@ export const tools: readonly Tool[] = [
               "type": "boolean"
             },
             "updated_prompts": {
-              "description": "Server-wide prompt capability overrides.",
-              "items": {
-                "properties": {
-                  "alias": {
-                    "description": "Custom name exposed for the capability.",
-                    "type": "string"
+              "description": "Prompt overrides. Omit to preserve, send [] to clear, or null to reset the field to absence.",
+              "oneOf": [
+                {
+                  "items": {
+                    "properties": {
+                      "alias": {
+                        "description": "Custom name exposed for the capability.",
+                        "type": "string"
+                      },
+                      "description": {
+                        "description": "Custom description exposed for the capability.",
+                        "type": "string"
+                      },
+                      "enabled": {
+                        "description": "Whether the capability is available through the MCP server.",
+                        "type": "boolean"
+                      },
+                      "name": {
+                        "description": "Name of the tool or prompt capability to override.",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "name"
+                    ],
+                    "type": "object"
                   },
-                  "description": {
-                    "description": "Custom description exposed for the capability.",
-                    "type": "string"
-                  },
-                  "enabled": {
-                    "description": "Whether the capability is available through the MCP server.",
-                    "type": "boolean"
-                  },
-                  "name": {
-                    "description": "Name of the tool or prompt capability to override.",
-                    "type": "string"
-                  }
+                  "type": "array"
                 },
-                "required": [
-                  "name"
-                ],
-                "type": "object"
-              },
-              "type": "array"
+                {
+                  "type": "null"
+                }
+              ]
             },
             "updated_tools": {
-              "description": "Server-wide tool capability overrides.",
-              "items": {
-                "properties": {
-                  "alias": {
-                    "description": "Custom name exposed for the capability.",
-                    "type": "string"
+              "description": "Tool overrides. Omit to preserve, send [] to clear, or null to reset the field to absence.",
+              "oneOf": [
+                {
+                  "items": {
+                    "properties": {
+                      "alias": {
+                        "description": "Custom name exposed for the capability.",
+                        "type": "string"
+                      },
+                      "description": {
+                        "description": "Custom description exposed for the capability.",
+                        "type": "string"
+                      },
+                      "enabled": {
+                        "description": "Whether the capability is available through the MCP server.",
+                        "type": "boolean"
+                      },
+                      "name": {
+                        "description": "Name of the tool or prompt capability to override.",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "name"
+                    ],
+                    "type": "object"
                   },
-                  "description": {
-                    "description": "Custom description exposed for the capability.",
-                    "type": "string"
-                  },
-                  "enabled": {
-                    "description": "Whether the capability is available through the MCP server.",
-                    "type": "boolean"
-                  },
-                  "name": {
-                    "description": "Name of the tool or prompt capability to override.",
-                    "type": "string"
-                  }
+                  "type": "array"
                 },
-                "required": [
-                  "name"
-                ],
-                "type": "object"
-              },
-              "type": "array"
+                {
+                  "type": "null"
+                }
+              ]
             }
           },
           "type": "object"

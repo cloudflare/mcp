@@ -10,7 +10,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_requests_quota_get",
     title: "Get request token quota",
-    description: "Returns the account's token quota for the current anniversary quarter: total granted, used, remaining, and the quarter/anniversary boundaries.\n\nGET /accounts/{account_id}/cloudforce-one/v2/requests/{project_type}/quota",
+    description: "Returns the account's token quota for the current anniversary quarter: total granted, used, remaining, and the quarter/anniversary boundaries. Also returns the annual allocation, usage, and remaining tokens for the current anniversary year; quarterly remaining controls usage.\n\nGET /accounts/{account_id}/cloudforce-one/v2/requests/{project_type}/quota",
     inputSchema: {
       type: "object",
       properties: {
@@ -52,6 +52,64 @@ export const tools: readonly Tool[] = [
       ],
       additionalProperties: false,
     },
+    outputSchema: {
+      "properties": {
+        "result": {
+          "properties": {
+            "anniversary_date": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "annual_allocation": {
+              "type": "integer"
+            },
+            "annual_remaining": {
+              "type": "integer"
+            },
+            "annual_used": {
+              "type": "integer"
+            },
+            "quarter_end": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "quarter_start": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "quota": {
+              "type": "integer"
+            },
+            "remaining": {
+              "type": "integer"
+            },
+            "used": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "anniversary_date",
+            "annual_allocation",
+            "annual_remaining",
+            "annual_used",
+            "quarter_end",
+            "quarter_start",
+            "quota",
+            "remaining",
+            "used"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
     annotations: {
       "destructiveHint": false,
       "idempotentHint": true,
@@ -71,7 +129,64 @@ export const tools: readonly Tool[] = [
       },
       responses: {
         schemas: {
-          "200": null,
+          "200": {
+            "properties": {
+              "result": {
+                "properties": {
+                  "anniversary_date": {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "annual_allocation": {
+                    "type": "integer"
+                  },
+                  "annual_remaining": {
+                    "type": "integer"
+                  },
+                  "annual_used": {
+                    "type": "integer"
+                  },
+                  "quarter_end": {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "quarter_start": {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "quota": {
+                    "type": "integer"
+                  },
+                  "remaining": {
+                    "type": "integer"
+                  },
+                  "used": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "anniversary_date",
+                  "annual_allocation",
+                  "annual_remaining",
+                  "annual_used",
+                  "quarter_end",
+                  "quarter_start",
+                  "quota",
+                  "remaining",
+                  "used"
+                ],
+                "type": "object"
+              },
+              "success": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "result",
+              "success"
+            ],
+            "type": "object"
+          },
           "404": null,
           "422": null
         },

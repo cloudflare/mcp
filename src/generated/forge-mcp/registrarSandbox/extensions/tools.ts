@@ -3,14 +3,14 @@
 
 import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
 import {
-  registrar$$api$$sandbox_api$$response$$common,
-  registrar$$api$$sandbox_api$$response$$common$$failure,
-  registrar$$api$$sandbox_messages,
+  registrar$$sandbox_api$$response$$common,
+  registrar$$sandbox_api$$response$$common$$failure,
+  registrar$$sandbox_messages,
 } from "../outputs.js";
 import {
-  registrar$$api$$sandbox_extension$$item,
-  registrar$$api$$sandbox_extension$$response$$collection,
-  registrar$$api$$sandbox_extension$$response$$single,
+  registrar$$sandbox_extension$$item,
+  registrar$$sandbox_extension$$response$$collection,
+  registrar$$sandbox_extension$$response$$single,
 } from "./outputs.js";
 
 /**
@@ -49,12 +49,12 @@ export const tools: readonly Tool[] = [
       additionalProperties: false,
     },
     outputSchema: {
-      "$ref": "#/$defs/registrar-api-sandbox_extension-response-single",
+      "$ref": "#/$defs/registrar-sandbox_extension-response-single",
       $defs: {
-        "registrar-api-sandbox_api-response-common": registrar$$api$$sandbox_api$$response$$common,
-        "registrar-api-sandbox_extension-item": registrar$$api$$sandbox_extension$$item,
-        "registrar-api-sandbox_extension-response-single": registrar$$api$$sandbox_extension$$response$$single,
-        "registrar-api-sandbox_messages": registrar$$api$$sandbox_messages,
+        "registrar-sandbox_api-response-common": registrar$$sandbox_api$$response$$common,
+        "registrar-sandbox_extension-item": registrar$$sandbox_extension$$item,
+        "registrar-sandbox_extension-response-single": registrar$$sandbox_extension$$response$$single,
+        "registrar-sandbox_messages": registrar$$sandbox_messages,
       },
     },
     annotations: {
@@ -71,19 +71,19 @@ export const tools: readonly Tool[] = [
       responses: {
         schemas: {
           "200": {
-            "$ref": "#/$defs/registrar-api-sandbox_extension-response-single"
+            "$ref": "#/$defs/registrar-sandbox_extension-response-single"
           },
           "304": null,
           "4XX": {
-            "$ref": "#/$defs/registrar-api-sandbox_api-response-common-failure"
+            "$ref": "#/$defs/registrar-sandbox_api-response-common-failure"
           }
         },
         $defs: {
-          "registrar-api-sandbox_api-response-common": registrar$$api$$sandbox_api$$response$$common,
-          "registrar-api-sandbox_api-response-common-failure": registrar$$api$$sandbox_api$$response$$common$$failure,
-          "registrar-api-sandbox_extension-item": registrar$$api$$sandbox_extension$$item,
-          "registrar-api-sandbox_extension-response-single": registrar$$api$$sandbox_extension$$response$$single,
-          "registrar-api-sandbox_messages": registrar$$api$$sandbox_messages,
+          "registrar-sandbox_api-response-common": registrar$$sandbox_api$$response$$common,
+          "registrar-sandbox_api-response-common-failure": registrar$$sandbox_api$$response$$common$$failure,
+          "registrar-sandbox_extension-item": registrar$$sandbox_extension$$item,
+          "registrar-sandbox_extension-response-single": registrar$$sandbox_extension$$response$$single,
+          "registrar-sandbox_messages": registrar$$sandbox_messages,
         },
       },
     },
@@ -153,12 +153,12 @@ export const tools: readonly Tool[] = [
       additionalProperties: false,
     },
     outputSchema: {
-      "$ref": "#/$defs/registrar-api-sandbox_extension-response-collection",
+      "$ref": "#/$defs/registrar-sandbox_extension-response-collection",
       $defs: {
-        "registrar-api-sandbox_api-response-common": registrar$$api$$sandbox_api$$response$$common,
-        "registrar-api-sandbox_extension-item": registrar$$api$$sandbox_extension$$item,
-        "registrar-api-sandbox_extension-response-collection": registrar$$api$$sandbox_extension$$response$$collection,
-        "registrar-api-sandbox_messages": registrar$$api$$sandbox_messages,
+        "registrar-sandbox_api-response-common": registrar$$sandbox_api$$response$$common,
+        "registrar-sandbox_extension-item": registrar$$sandbox_extension$$item,
+        "registrar-sandbox_extension-response-collection": registrar$$sandbox_extension$$response$$collection,
+        "registrar-sandbox_messages": registrar$$sandbox_messages,
       },
     },
     annotations: {
@@ -182,19 +182,19 @@ export const tools: readonly Tool[] = [
       responses: {
         schemas: {
           "200": {
-            "$ref": "#/$defs/registrar-api-sandbox_extension-response-collection"
+            "$ref": "#/$defs/registrar-sandbox_extension-response-collection"
           },
           "304": null,
           "4XX": {
-            "$ref": "#/$defs/registrar-api-sandbox_api-response-common-failure"
+            "$ref": "#/$defs/registrar-sandbox_api-response-common-failure"
           }
         },
         $defs: {
-          "registrar-api-sandbox_api-response-common": registrar$$api$$sandbox_api$$response$$common,
-          "registrar-api-sandbox_api-response-common-failure": registrar$$api$$sandbox_api$$response$$common$$failure,
-          "registrar-api-sandbox_extension-item": registrar$$api$$sandbox_extension$$item,
-          "registrar-api-sandbox_extension-response-collection": registrar$$api$$sandbox_extension$$response$$collection,
-          "registrar-api-sandbox_messages": registrar$$api$$sandbox_messages,
+          "registrar-sandbox_api-response-common": registrar$$sandbox_api$$response$$common,
+          "registrar-sandbox_api-response-common-failure": registrar$$sandbox_api$$response$$common$$failure,
+          "registrar-sandbox_extension-item": registrar$$sandbox_extension$$item,
+          "registrar-sandbox_extension-response-collection": registrar$$sandbox_extension$$response$$collection,
+          "registrar-sandbox_messages": registrar$$sandbox_messages,
         },
       },
     },

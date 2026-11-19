@@ -18,7 +18,8 @@ export const google$$tag$$gateway_google$$tag$$gateway$$config: JSONObject = {
       "type": "string"
     },
     "hideOriginalIp": {
-      "description": "Hides the original client IP address from Google when enabled.",
+      "deprecated": true,
+      "description": "Deprecated. This value is stored but has no effect on traffic. Optional in requests: if omitted, the previously stored value is kept. Responses always include it.",
       "type": "boolean"
     },
     "measurementId": {
@@ -40,7 +41,6 @@ export const google$$tag$$gateway_google$$tag$$gateway$$config: JSONObject = {
   "required": [
     "enabled",
     "endpoint",
-    "hideOriginalIp",
     "measurementId"
   ],
   "type": "object"

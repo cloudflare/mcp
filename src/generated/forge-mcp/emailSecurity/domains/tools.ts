@@ -27,7 +27,7 @@ import {
  */
 export const tools: readonly Tool[] = [
   {
-    name: "emailSecurity_domains_batch",
+    name: "emailSecurity_domains_bulkApply",
     title: "Batch domain operations",
     description: "Executes multiple domain operations in a single request. All four operation arrays\n(deletes, patches, puts, posts) are required and executed in order.\nSend empty arrays for unused operations.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation may permanently delete protection for the selected email domains. Emails for those domains will no longer be processed by Email Security.\n\nPOST /accounts/{account_id}/email-security/settings/domains/batch",
     inputSchema: {

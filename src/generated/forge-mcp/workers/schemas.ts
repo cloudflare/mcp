@@ -74,14 +74,6 @@ export const workers_Worker: JSONObject = {
           "oneOf": [
             {
               "properties": {
-                "destinations": {
-                  "default": [],
-                  "description": "A list of destinations where Agents observability data will be exported to.",
-                  "items": {
-                    "type": "string"
-                  },
-                  "type": "array"
-                },
                 "enabled": {
                   "default": false,
                   "description": "Whether Agents observability is enabled for the Worker.",
@@ -343,14 +335,6 @@ export const workers_observability: JSONObject = {
       "oneOf": [
         {
           "properties": {
-            "destinations": {
-              "default": [],
-              "description": "A list of destinations where Agents observability data will be exported to.",
-              "items": {
-                "type": "string"
-              },
-              "type": "array"
-            },
             "enabled": {
               "default": false,
               "description": "Whether Agents observability is enabled for the Worker.",

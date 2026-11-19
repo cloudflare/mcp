@@ -8,6 +8,10 @@ import type { JSONObject } from "@modelcontextprotocol/server";
  */
 export const zero$$trust$$gateway_generate$$cert$$request: JSONObject = {
   "properties": {
+    "region": {
+      "description": "Pin the generated certificate authority's key material to one of the account's selected Data Localization Suite regions. **Important**: This field is only settable during certificate creation. Certificates become immutable after creation - use the `/activate` and `/deactivate` endpoints to manage certificate lifecycle.",
+      "type": "string"
+    },
     "validity_period_days": {
       "description": "Sets the certificate validity period in days (range: 1-10,950 days / ~30 years). Defaults to 1,825 days (5 years). **Important**: This field is only settable during the certificate creation.  Certificates becomes immutable after creation - use the `/activate` and `/deactivate` endpoints to manage certificate lifecycle.",
       "type": "integer"
