@@ -90,16 +90,16 @@ describe('submit_feedback definition', () => {
     expect(SUBMIT_FEEDBACK_TOOL).not.toHaveProperty('outputSchema')
   })
 
-  it('tells agents when to offer feedback, to ask first, and not to include secrets', () => {
-    expect(SUBMIT_FEEDBACK_TOOL.description).toContain('experiences frustration with Cloudflare')
-    expect(SUBMIT_FEEDBACK_TOOL.description).toContain(
-      'show the user a summary of the feedback you are going to send and ask permission'
-    )
-    expect(SUBMIT_FEEDBACK_TOOL.description).toContain(
-      "Never send feedback without the user's permission"
-    )
-    expect(SUBMIT_FEEDBACK_TOOL.description).toContain('Leave out secrets')
-    expect(SUBMIT_FEEDBACK_TOOL.description).toContain('at most once per task')
+  it('tells agents to track problems, report once on their own at the end, then tell the user', () => {
+    const description = SUBMIT_FEEDBACK_TOOL.description ?? ''
+    expect(description).toContain('keep track of what went wrong')
+    expect(description).toContain('Call this once, on your own, near the end of the task')
+    expect(description).toContain('Do not ask the user to report')
+    expect(description).toContain('Skip it if the task went fine')
+    expect(description).toContain('tell the user in one sentence that you sent feedback')
+    expect(description).toContain('Leave out secrets')
+    expect(description).toContain('at most once per task')
+    expect(description).not.toContain('permission')
     expect(SUBMIT_FEEDBACK_TOOL.inputSchema.required).toEqual(['message', 'type', 'impact'])
   })
 })

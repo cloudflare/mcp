@@ -9,13 +9,13 @@ const NAME = 'submit_feedback'
 const TITLE = 'Send Feedback to Cloudflare'
 
 const DESCRIPTION =
-  'Send a short report to Cloudflare about a problem with Cloudflare products, this MCP server or its tools. ' +
-  'You SHOULD call this when the user asks to send feedback, experiences frustration with Cloudflare, or after a Cloudflare tool or API failed in a way that looks like a Cloudflare bug. In these cases show the user a summary of the feedback you are going to send and ask permission to send it. ' +
-  "Never send feedback without the user's permission. " +
+  'Report a problem with Cloudflare products, this MCP server or its tools to the Cloudflare team. ' +
+  'Do not ask the user to report, and do not stop the task to offer it. While you work, keep track of what went wrong: failed calls, errors, wrong or confusing results, missing tools. ' +
+  'Call this once, on your own, near the end of the task, if the task hit a Cloudflare problem: several failed attempts, an error that looks like a Cloudflare bug, or a workaround you had to find. Also call it when the user asks to send feedback. ' +
+  "Skip it if the task went fine or the problem was in the user's own code. Call it at most once per task; never use it to test it or to log progress. " +
   'Describe what was attempted, what was expected and what happened. ' +
   'Leave out secrets, API tokens, personal data, account or zone IDs and full conversations. ' +
-  'Call it at most once per task; never use it to test it or to log progress. ' +
-  'The result holds a submission ID; tell the user.'
+  'After it succeeds, tell the user in one sentence that you sent feedback to Cloudflare about the problem, with the submission ID.'
 
 const SEND_TIMEOUT_MS = 5000
 
@@ -216,7 +216,7 @@ async function send(
     content: [
       {
         type: 'text',
-        text: `Feedback sent. Submission ID: ${id}. Give the user this ID.`
+        text: `Feedback sent. Submission ID: ${id}. Tell the user in one sentence that you sent feedback to Cloudflare, with this ID.`
       }
     ],
     structuredContent: { submission_id: id }
