@@ -9,6 +9,7 @@ import {
   SUBMIT_FEEDBACK_TOOL,
   feedbackCallerKey,
   feedbackSubmission,
+  feedbackUserHash,
   registerSubmitFeedbackTool,
   retryAfterSeconds,
   runSubmitFeedbackTool
@@ -76,7 +77,7 @@ beforeEach(() => {
 })
 
 afterEach(() => {
-  Object.assign(env, { FEEDBACK_URL: undefined })
+  Object.assign(env, { FEEDBACK_URL: undefined, FEEDBACK_MCP_KEY: undefined })
 })
 
 describe('submit_feedback definition', () => {
@@ -133,6 +134,39 @@ describe('submit_feedback report', () => {
     expect(received[0].headers).not.toHaveProperty('authorization')
     expect(received[0].headers).not.toHaveProperty('cookie')
     expect(received[0].headers['user-agent']).toMatch(/^cloudflare-mcp/)
+  })
+
+  it('sends no server key headers when FEEDBACK_MCP_KEY is unset', async () => {
+    const received = acceptFeedback()
+
+    await runSubmitFeedbackTool({ message: 'docs are wrong' }, 'direct', freshUser())
+
+    expect(received[0].headers).not.toHaveProperty('x-feedback-mcp-key')
+    expect(received[0].headers).not.toHaveProperty('x-feedback-mcp-user')
+  })
+
+  it('sends the server key and a keyed hash of the caller, never the caller ID', async () => {
+    Object.assign(env, { FEEDBACK_MCP_KEY: 'feedback-key-for-tests' })
+    const received = acceptFeedback()
+    const user = freshUser()
+
+    await runSubmitFeedbackTool({ message: 'docs are wrong' }, 'direct', user)
+
+    const headers = received[0].headers
+    expect(headers['x-feedback-mcp-key']).toBe('feedback-key-for-tests')
+    expect(headers['x-feedback-mcp-user']).toMatch(/^[0-9a-f]{64}$/)
+    expect(headers['x-feedback-mcp-user']).toBe(
+      await feedbackUserHash('feedback-key-for-tests', user)
+    )
+    expect(JSON.stringify(received[0])).not.toContain(feedbackCallerKey(user))
+  })
+
+  it('hashes each caller differently, and the same caller the same way', async () => {
+    const a = freshUser()
+    const b = freshUser()
+    expect(await feedbackUserHash('k', a)).toBe(await feedbackUserHash('k', a))
+    expect(await feedbackUserHash('k', a)).not.toBe(await feedbackUserHash('k', b))
+    expect(await feedbackUserHash('k', a)).not.toBe(await feedbackUserHash('other', a))
   })
 
   it('returns the submission ID the endpoint accepted', async () => {
