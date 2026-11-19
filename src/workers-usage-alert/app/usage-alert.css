@@ -500,46 +500,184 @@ body {
 [data-locked] .hc-knob {
   cursor: default;
 }
+/* Loading: the same dot + text slots as the loaded facts, so nothing moves when the numbers arrive. The dot stays
+   (in the skeleton colour) and each line is about the width of its loaded text, drawn 12px tall in its 20px box. */
+[data-data='loading'] .sub-i i {
+  background: var(--color-kumo-recessed);
+}
+[data-data='loading'] .sub-i > span {
+  position: relative;
+  overflow: hidden;
+  height: 20px;
+  border-radius: 4px;
+  background: var(--color-kumo-recessed);
+  background-clip: content-box;
+  padding: 4px 0;
+  clip-path: inset(4px 0 round 4px);
+}
+[data-data='loading'] [data-slot='past'] > span {
+  width: 150px;
+}
+[data-data='loading'] [data-slot='now'] > span {
+  width: 104px;
+}
+[data-data='loading'] .sub-i > span::after,
+.hc-skel i::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    transparent,
+    color-mix(in oklch, var(--color-kumo-contrast) 8%, transparent),
+    transparent
+  );
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+/* Skeleton (Kumo SkeletonLine shimmer) and the empty/error message share the plot box. */
+.hc-skel {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  align-items: end;
+  column-gap: 3px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+.hc-skel i {
+  position: relative;
+  overflow: hidden;
+  border-radius: 3px 3px 0 0;
+  background: var(--color-kumo-recessed);
+}
+[data-data='loading'] .hc-skel {
+  opacity: 1;
+  transition-duration: 0ms;
+}
+@keyframes shimmer {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+/* Empty and read-failed share one composition, from Stratus's NotFoundPage: copy left, the dashed cloud of circles
+   large at the right, standing on the plot's floor. The drawing fills the space the bars would; the copy sits on the
+   chart's left edge like a label, so nothing floats in the middle. */
 .hc-msg {
   position: absolute;
   inset: 0 calc(-1 * var(--pad-r)) 0 calc(-1 * var(--gut));
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  justify-content: center;
-  gap: 8px;
-  text-align: center;
-  font-size: var(--text-sm);
-  color: var(--text-color-kumo-subtle);
+  column-gap: 16px;
   opacity: 0;
   pointer-events: none;
   transition: opacity 200ms ease;
 }
-.hc-msg b {
-  color: var(--text-color-kumo-default);
-  font-weight: 500;
-}
-[data-data='empty'] .hc-msg {
+:is([data-data='empty'], [data-data='error']) .hc-msg {
   opacity: 1;
   pointer-events: auto;
 }
-.hc-msg span {
-  max-width: 340px;
+.es-copy {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  max-width: 232px;
+  text-align: left;
+}
+.es-copy h3 {
+  margin: 0;
+  font-size: var(--text-lg);
+  font-weight: 500;
+  line-height: 24px;
+  color: var(--text-color-kumo-default);
   text-wrap: balance;
+}
+.es-copy p {
+  margin: 0;
+  font-size: var(--text-sm);
   line-height: 20px;
+  color: var(--text-color-kumo-subtle);
+  text-wrap: pretty;
+}
+.es-copy .retry {
+  margin-top: 6px;
+}
+.es-stage {
+  align-self: end;
+  display: flex;
+}
+/* Stratus draws it in currentColor at 20% on a page; on a card it needs more ink. */
+.es-art {
+  display: block;
+  height: 148px;
+  width: auto;
+  color: color-mix(in oklch, var(--text-color-kumo-subtle) 55%, transparent);
+  overflow: visible;
+}
+[data-mode='dark'] .es-art {
+  color: color-mix(in oklch, var(--text-color-kumo-subtle) 50%, transparent);
+}
+/* Stratus's own motion: dashes crawl, 6 units per 0.4s; the outer circle and the floor run the other way. */
+.es-dash {
+  animation: dash-move 0.4s linear infinite;
+}
+.es-dash-r {
+  animation: dash-move-r 0.4s linear infinite;
+}
+@keyframes dash-move {
+  to {
+    stroke-dashoffset: 6;
+  }
+}
+@keyframes dash-move-r {
+  to {
+    stroke-dashoffset: -6;
+  }
+}
+/* Narrow cards: the drawing slides behind the copy's right side and steps back, so the copy keeps its width. */
+@container card (max-width: 460px) {
+  .hc-msg {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .es-stage {
+    position: absolute;
+    right: -56px;
+    bottom: 0;
+  }
+  .es-art {
+    height: 104px;
+    color: color-mix(in oklch, var(--text-color-kumo-subtle) 35%, transparent);
+  }
+  .es-copy {
+    max-width: 100%;
+    align-self: start;
+    padding-top: 4px;
+  }
 }
 /* With no numbers there's no scale: the ticks leave with the line. */
 .hc-gridset {
   transition: opacity 200ms ease;
 }
-:is([data-data='loading'], [data-data='empty']) .hc-gridset {
+:is([data-data='loading'], [data-data='entering'], [data-data='empty'], [data-data='error'])
+  .hc-gridset {
   opacity: 0;
 }
-:is([data-data='loading'], [data-data='empty']) :is(.hc-line, .hc-typ) {
+:is([data-data='loading'], [data-data='entering'], [data-data='empty'], [data-data='error'])
+  :is(.hc-line, .hc-typ) {
   opacity: 0;
   translate: 0 10px;
 }
-:is([data-data='loading'], [data-data='empty']) .hc-clip {
+:is([data-data='loading'], [data-data='entering'], [data-data='empty'], [data-data='error'])
+  .hc-clip {
   opacity: 0;
 }
 
@@ -662,35 +800,39 @@ body {
 [data-phase='sending'] .to {
   opacity: 0.6;
 }
-.err {
-  position: absolute;
-  left: 16px;
-  right: 136px;
-  bottom: 2px;
-  margin: 0;
-  font-size: var(--text-xs);
-  line-height: 14px;
-  color: var(--text-color-kumo-danger);
-  white-space: nowrap;
+/* The field's trailing message: short ("Invalid email", "Didn't save"), muted or danger. It takes room from the
+   address, never from the row, and it's gone when there's nothing to say. */
+.to-hint {
+  flex: none;
+  max-width: 45%;
   overflow: hidden;
   text-overflow: ellipsis;
-  opacity: 0;
-  translate: 0 -3px;
-  transition:
-    opacity 150ms ease,
-    translate 200ms var(--ease-out);
+  white-space: nowrap;
+  font-size: var(--text-sm);
+  color: var(--text-color-kumo-subtle);
 }
-.err[data-show] {
-  opacity: 1;
-  translate: 0 0;
+.to-hint:empty {
+  display: none;
+}
+.to-hint[data-tone='bad'] {
+  color: var(--text-color-kumo-danger);
+}
+.sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
-/* Created: the check draws itself (ring, then tick), the status line rises in, Edit sits where Create was. */
+/* Created: one row. The check, then title over meta (18 + 18 = the row's 36px), Edit centred at the right edge.
+   The check's 22px box starts at the content edge, where the field's border was. */
 .done {
   flex: 1;
   min-width: 0;
   display: grid;
-  grid-template-columns: 22px 1fr;
+  grid-template-columns: 22px minmax(0, 1fr);
   column-gap: 10px;
   align-items: center;
   outline: none;
@@ -726,15 +868,11 @@ body {
   color: var(--text-color-kumo-success);
 }
 .done-2 {
-  display: flex;
   min-width: 0;
   font-size: var(--text-sm);
   line-height: 18px;
   color: var(--text-color-kumo-subtle);
   white-space: nowrap;
-}
-.done-2 .em {
-  min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -818,4 +956,33 @@ body {
 /* Edit is a ghost button: its label, not its padding, sits on the content edge. The hover fill overhangs into the card padding. */
 .edit {
   margin-right: -12px;
+}
+
+/* Reduced motion: keep the fades that explain state; drop travel, wipes, blur and crawl. */
+@media (prefers-reduced-motion: reduce) {
+  .hc-col {
+    animation: fade 200ms ease both;
+  }
+  .f-layer,
+  .hc-line,
+  .hc-typ {
+    translate: none !important;
+    filter: none !important;
+  }
+  .es-dash,
+  .es-dash-r,
+  .hc-skel i::after,
+  .sub-i > span::after {
+    animation: none !important;
+  }
+  .ck-ring,
+  .ck-tick {
+    stroke-dashoffset: 0 !important;
+    transition: none !important;
+  }
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
 }

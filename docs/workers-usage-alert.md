@@ -5,7 +5,7 @@
 **The tool reads; the button writes.** The `workers_usage_alert` tool only reads. Clicking Create alert is the user's confirmation: the card shows the threshold, the email and that the alert only emails, and creating it adds one policy the user can delete. The App creates exactly the policy it shows (`monitorPolicy()`) with the generated `alerting_policies_create`, through the host's `callServerTool`, in one call (`src/workers-usage-alert/create.ts`). No tool is added for it: the direct tools list it already, and Code Mode lists it for the App only (`appTools`; see `docs/mcp-apps.md`). It goes through the session's credential with the usual refusal explanations and step-up, and the App never holds a token.
 
 - **Created:** the card shows "Alert on", and the App tells the model with `updateModelContext` that the alert exists, so it neither asks to confirm it nor creates it again. No second model turn is needed. The tool description says the same.
-- **Refused:** the card shows Cloudflare's message ("Didn’t save: this account can have at most 5 custom analytics policies") and Try again.
+- **Refused:** the field says "Didn’t save" at its trailing edge, the button reads Try again, and screen readers hear Cloudflare's message ("Didn’t save: this account can have at most 5 custom analytics policies"), which is also the hint's tooltip.
 - **No `serverTools`:** the App sends the policy to the chat with `sendMessage`, and a host without `message` shows the body for review.
 
 Why not `execute`, or the hand-off to the chat: OpenAI's directory guidelines refuse writes through a generic executor ("Do not use … a generic executor to enable operations not individually exposed for review"), and the hand-off cost a second model turn that asked the user to confirm what they had just confirmed. The MCP Apps spec meant app-only tools for this ("UI-only interactions (refresh buttons, form submissions)"), and neither ChatGPT nor Claude prompts again for a call the view makes ("When your view calls your own server's tools with `app.callServerTool`, the user doesn't see the prompt", Claude).
@@ -45,7 +45,7 @@ Request counts come from Workers analytics, not billing, and are not dollar cost
 - `history.ts`: the query windows and missing-day filling.
 - `model.ts`: the axis, rolling 7-day totals, typical week, email replay and the proposed policy, shared by the collector and the view.
 - `tool.ts`: `workersUsageAlertApp`, a `defineMcpApp` whose collector reads with `apiReader`.
-- `app/`: the React/Kumo view, mounted with `mountMcpApp`. The design reference is the fuzzy-input mockup, kept outside this repository.
+- `app/`: the React/Kumo view, mounted with `mountMcpApp`. While the tool runs it shows a skeleton in the card's own boxes; empty history and a failed read (a tool error) share Stratus's NotFoundPage drawing on the plot's floor, the failed read with Try again, which calls the tool again through the host. Field messages ("Invalid email", "Didn’t save") sit inside the field, so the footer never grows. The design reference is the fuzzy-input mockup, kept outside this repository.
 
 ## Verification
 

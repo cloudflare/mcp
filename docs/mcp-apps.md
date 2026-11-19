@@ -27,7 +27,7 @@ scripts/build-mcp-apps.ts   Vite + Tailwind single-file build for every App
 
 1. `src/<app>/contract.ts`: the input schema (`z.strictObject`) and the output schema. The output is the whole contract with the view and the model: give it a `kind` literal, and keep it to what the collector established. Anything it could not establish goes in a `limitations` list rather than being guessed.
 2. `src/<app>/tool.ts`: `export const myApp = defineMcpApp({ name, title, description, annotations, input, output, resource: { uri: 'ui://cloudflare/<app>.html', name, html: appHtml }, run })`. `run` returns `{ ok: true, value }` or `{ ok: false, text }`, and passes a refused read's `_meta` through so the client can step up.
-3. `src/<app>/app/`: `index.html` loading a `.tsx` that calls `mountMcpApp({ name, output, render })`, and a CSS file that starts with `@import '../../mcp-apps/app-shell/base.css';` and `@source './<file>.tsx';`.
+3. `src/<app>/app/`: `index.html` loading a `.tsx` that calls `mountMcpApp({ name, output, render })` (optionally `renderPending` while the tool runs, and `renderError(text, retry)` for a tool error, where `retry` calls the tool again with the same arguments when the host has `serverTools`), and a CSS file that starts with `@import '../../mcp-apps/app-shell/base.css';` and `@source './<file>.tsx';`.
 4. Add the App to `MCP_APPS` in `src/mcp-apps/registry.ts`, then `npm run app:build`.
 5. Tests: the collector against MSW, both tool modes through `exports.default.fetch`, and the tool-name lists that name every local tool (search the tests for `'whoami'`).
 

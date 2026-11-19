@@ -38,7 +38,7 @@ import './usage-alert.css'
  * A refused or failed create is `failed`, with Cloudflare's reason.
  */
 type Phase = 'editing' | 'sending' | 'created' | 'failed' | 'sent' | 'review'
-type Tone = '' | 'hit' | 'now' | 'warn'
+type Tone = '' | 'hit' | 'now' | 'warn' | 'bad'
 type Fact = readonly [Tone, string]
 
 const reduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -63,7 +63,7 @@ function outcome(m: Model, limit: number): [Fact, Fact] {
             `<b>${sent.length}</b> past ${sent.length === 1 ? 'email' : 'emails'}, first <b>${fmtDay(first.date)}</b>`
           ]
         : limit >= 2 * m.peak
-          ? ['', `No past emails; <b>${sig(limit / m.peak)}×</b> busiest week`]
+          ? ['', `No past emails; <b>${sig(limit / m.peak)}×</b> the busiest week`]
           : ['', `No past emails; busiest week <b>${sig(m.peak)}</b>`]
   const now: Fact =
     m.last7 >= limit
@@ -72,9 +72,9 @@ function outcome(m: Model, limit: number): [Fact, Fact] {
   return [past, now]
 }
 
-function FactLine({ fact }: { fact: Fact }) {
+function FactLine({ fact, slot }: { fact: Fact; slot: 'past' | 'now' }) {
   return (
-    <span className="sub-i" data-tone={fact[0]}>
+    <span className="sub-i" data-tone={fact[0]} data-slot={slot}>
       <i aria-hidden="true" />
       <span dangerouslySetInnerHTML={{ __html: fact[1] }} />
     </span>
@@ -128,9 +128,24 @@ function tipBody(m: Model, w: Week, limit: number) {
   )
 }
 
-function UsageAlertCard({ preview: p, app }: { preview: UsageAlertPreview; app: App }) {
+/**
+ * What the card shows before a result: `loading` while the tool runs (a
+ * skeleton in the same boxes), `error` when it failed, with Try again when the
+ * host can call the tool again.
+ */
+type Pending = { kind: 'loading' } | { kind: 'error'; retry: (() => void) | undefined }
+
+function UsageAlertCard({
+  preview: p,
+  app,
+  pending
+}: {
+  preview: UsageAlertPreview
+  app: App | undefined
+  pending?: Pending
+}) {
   const m = useMemo(() => deriveModel(p.days, p.today), [p.days, p.today])
-  const ready = m.typical != null
+  const ready = !pending && m.typical != null
   const [limit, setLimitState] = useState(() =>
     clamp(p.summary.suggestedLimit ?? m.suggested ?? m.minLimit, m.minLimit, m.maxLimit)
   )
@@ -140,7 +155,7 @@ function UsageAlertCard({ preview: p, app }: { preview: UsageAlertPreview; app: 
   const [phase, setPhase] = useState<Phase>('editing')
   const [email, setEmail] = useState(p.userEmail ?? '')
   const [touched, setTouched] = useState(false)
-  const ids = { title: useId(), sub: useId(), err: useId() }
+  const ids = { title: useId(), sub: useId(), err: useId(), hint: useId() }
 
   const refs = {
     plot: useRef<HTMLDivElement>(null),
@@ -179,7 +194,20 @@ function UsageAlertCard({ preview: p, app }: { preview: UsageAlertPreview; app: 
   const invalid = touched && !EMAIL.test(address)
   const done = phase === 'created' || phase === 'sent' || phase === 'review'
   const unavailable = p.alertAvailable === false
-  const [past, now] = ready ? outcome(m, limit) : emptyFacts(m)
+  const [past, now]: [Fact, Fact] =
+    pending?.kind === 'loading'
+      ? [
+          ['', '\u00a0'],
+          ['', '\u00a0']
+        ]
+      : pending?.kind === 'error'
+        ? [
+            ['bad', 'Usage unavailable'],
+            ['', 'Try again to see past weeks']
+          ]
+        : ready
+          ? outcome(m, limit)
+          : emptyFacts(m)
 
   // ── Drawing: positions only, with transforms; runs every frame while moving ──
   const placeTip = useCallback(() => {
@@ -405,8 +433,27 @@ function UsageAlertCard({ preview: p, app }: { preview: UsageAlertPreview; app: 
     requestAnimationFrame(() => refs.done.current?.focus({ preventScroll: true }))
   }
   const [failure, setFailure] = useState('')
+  /**
+   * The field's trailing message: a fixed short phrase, so it never crowds the
+   * address, or nothing. `say` is the full sentence a screen reader hears.
+   */
+  const hint: { tone: 'bad'; text: string; say: string } | null = invalid
+    ? address
+      ? {
+          tone: 'bad',
+          text: 'Invalid email',
+          say: 'Enter a full email address, like name@example.com.'
+        }
+      : { tone: 'bad', text: 'Required', say: 'Enter the email address to send alerts to.' }
+    : phase === 'failed'
+      ? {
+          tone: 'bad',
+          text: 'Didn’t save',
+          say: `Didn’t save: ${failureReason(failure)}. Nothing was created. Try again.`
+        }
+      : null
   const submit = async () => {
-    if (locked || unavailable) return
+    if (locked || unavailable || !app) return
     setTouched(true)
     if (!EMAIL.test(address)) return refs.email.current?.focus()
     const caps = app.getHostCapabilities()
@@ -485,7 +532,7 @@ function UsageAlertCard({ preview: p, app }: { preview: UsageAlertPreview; app: 
       </div>
     ))
   const existing = p.existingAlerts ?? []
-  const state = !ready ? 'empty' : entered ? 'ready' : 'loading'
+  const state = pending ? pending.kind : !ready ? 'empty' : entered ? 'ready' : 'entering'
 
   return (
     <LayerCard
@@ -493,7 +540,7 @@ function UsageAlertCard({ preview: p, app }: { preview: UsageAlertPreview; app: 
       data-data={state}
       data-phase={phase}
       data-dragging={dragging || undefined}
-      aria-busy={phase === 'sending'}
+      aria-busy={pending?.kind === 'loading' || phase === 'sending'}
       render={<section aria-labelledby={ids.title} aria-describedby={ids.sub} />}
     >
       <LayerCard.Primary className="lc-primary">
@@ -504,8 +551,8 @@ function UsageAlertCard({ preview: p, app }: { preview: UsageAlertPreview; app: 
               Email me when a week of Workers requests passes the line
             </h2>
             <p className="sub" id={ids.sub} aria-live="polite">
-              <FactLine fact={past} />
-              <FactLine fact={now} />
+              <FactLine fact={past} slot="past" />
+              <FactLine fact={now} slot="now" />
             </p>
           </div>
         </header>
@@ -545,8 +592,41 @@ function UsageAlertCard({ preview: p, app }: { preview: UsageAlertPreview; app: 
             <div className="hc-hot" ref={refs.hot} aria-hidden="true">
               {bars(true)}
             </div>
+            <div className="hc-skel" aria-hidden="true">
+              {SKELETON.map((h, i) => (
+                <i key={i} style={{ height: `${h}%` }} />
+              ))}
+            </div>
             <div className="hc-msg">
-              {!ready && <span dangerouslySetInnerHTML={{ __html: emptyMessage(m) }} />}
+              {pending?.kind === 'error' ? (
+                <>
+                  <div className="es-copy">
+                    <h3>Couldn’t read your usage</h3>
+                    <p>Workers analytics didn’t answer. Nothing was changed.</p>
+                    {pending.retry && (
+                      <Button variant="outline" size="sm" className="retry" onClick={pending.retry}>
+                        Try again
+                      </Button>
+                    )}
+                  </div>
+                  <div className="es-stage" aria-hidden="true">
+                    <EmptyArt />
+                  </div>
+                </>
+              ) : (
+                !ready &&
+                !pending && (
+                  <>
+                    <div className="es-copy">
+                      <h3>{emptyCopy(m)[0]}</h3>
+                      <p>{emptyCopy(m)[1]}</p>
+                    </div>
+                    <div className="es-stage" aria-hidden="true">
+                      <EmptyArt />
+                    </div>
+                  </>
+                )
+              )}
             </div>
             <div className="hc-line" ref={refs.line}>
               <div
@@ -614,7 +694,7 @@ function UsageAlertCard({ preview: p, app }: { preview: UsageAlertPreview; app: 
               spellCheck={false}
               placeholder="Email address"
               aria-label="Alert email"
-              aria-describedby={ids.err}
+              aria-describedby={ids.hint}
               aria-invalid={invalid}
               readOnly={phase === 'sending'}
               disabled={!ready}
@@ -626,6 +706,14 @@ function UsageAlertCard({ preview: p, app }: { preview: UsageAlertPreview; app: 
               onBlur={() => address && setTouched(true)}
               onKeyDown={(e) => e.key === 'Enter' && submit()}
             />
+            <span
+              className="to-hint"
+              id={ids.hint}
+              data-tone={hint?.tone}
+              title={phase === 'failed' ? failureReason(failure) : undefined}
+            >
+              {hint?.text}
+            </span>
           </label>
           <Button
             variant="primary"
@@ -636,18 +724,8 @@ function UsageAlertCard({ preview: p, app }: { preview: UsageAlertPreview; app: 
           >
             {phase === 'failed' ? 'Try again' : 'Create alert'}
           </Button>
-          <p
-            className="err"
-            id={ids.err}
-            data-show={invalid || phase === 'failed' || undefined}
-            role="alert"
-            title={failure || undefined}
-          >
-            {invalid
-              ? 'Enter a valid email address.'
-              : phase === 'failed'
-                ? `Didn’t save: ${failureReason(failure)}`
-                : ''}
+          <p className="sr" id={ids.err} role="alert">
+            {hint?.say}
           </p>
         </div>
         <div className="f-layer f-done" inert={!done}>
@@ -678,11 +756,8 @@ function UsageAlertCard({ preview: p, app }: { preview: UsageAlertPreview; app: 
                   ? 'Ready to create'
                   : 'Sent to chat'}
             </span>
-            <span className="done-2" title={`Past ${fmt(limit)} in 7 days, emails ${address}`}>
-              <span>
-                Past <b>{fmt(limit)}</b> in 7 days, emails&nbsp;
-              </span>
-              <span className="em">{address}</span>
+            <span className="done-2" title={`Past ${fmt(limit)} in 7 days · ${address}`}>
+              Past <b>{fmt(limit)}</b> in 7 days · {address}
             </span>
           </div>
           <Button
@@ -719,24 +794,116 @@ function failureReason(text: string): string {
 
 const plain = (html: string) => html.replace(/<[^>]+>/g, '')
 
+/** The loading bars, in % of the plot: a plausible week shape, not data. */
+const SKELETON = [40, 52, 66, 50, 44, 40, 36]
+
+/** Some traffic, but under a week of it: nothing to compare against yet. */
+const shortHistory = (m: Model) => m.days.length > 0 && m.days.length < 7
+
 /** Too little history and no history read the same way: nothing to compare against, so the limit comes from chat. */
 function emptyFacts(m: Model): [Fact, Fact] {
   const n = m.days.length
-  return n
+  return shortHistory(m)
     ? [
-        ['', `Only ${n} ${n === 1 ? 'day' : 'days'} of history`],
-        ['', 'Not a full week yet']
+        ['', `Only ${n} ${n === 1 ? 'day' : 'days'} of requests`],
+        ['', 'No typical week']
       ]
     : [
         ['', 'No requests in 89 days'],
-        ['', 'Nothing to compare yet']
+        ['', 'No typical week']
       ]
 }
-function emptyMessage(m: Model): string {
-  const n = m.days.length
-  return n
-    ? `<b>Only ${n} ${n === 1 ? 'day' : 'days'} of Workers requests so far.</b><br>A full week shows what normal looks like. Tell me a number in chat and I’ll set the limit.`
-    : `<b>No Workers requests in the last 89 days.</b><br>There’s no normal week to compare against yet. Tell me a number in chat and I’ll set the limit.`
+/** The header facts say what was read; the stage says what that means and what to do. */
+function emptyCopy(m: Model): [string, string] {
+  return shortHistory(m)
+    ? [
+        'Not a full week yet',
+        'A week of traffic shows what normal looks like. Until then, tell me a number in chat.'
+      ]
+    : [
+        'No traffic to compare yet',
+        'Normal weeks show up here once your Workers get requests. Until then, tell me a number in chat.'
+      ]
+}
+
+/**
+ * Stratus's NotFoundPage drawing: a dashed cloud of circles standing on the
+ * chart's floor. The dashes crawl (`es-dash`), the outer circle and the floor
+ * the other way (`es-dash-r`).
+ */
+function EmptyArt() {
+  const line = { stroke: 'currentColor', strokeWidth: 1.5 }
+  const dash = { ...line, strokeDasharray: '3 3' }
+  return (
+    <svg
+      className="es-art"
+      aria-hidden="true"
+      focusable="false"
+      preserveAspectRatio="xMidYMax meet"
+      viewBox="0 0 455 209"
+      fill="none"
+    >
+      <circle cx="114.453" cy="113.587" r="48.4347" {...dash} className="es-dash-r" />
+      <line x1="208.629" y1="207.904" x2="4.24023" y2="207.904" {...dash} className="es-dash-r" />
+      <line x1="449.281" y1="207.943" x2="280.042" y2="207.943" {...dash} className="es-dash-r" />
+      <line x1="280.93" y1="207.939" x2="208.946" y2="207.939" {...line} />
+      <path
+        d="M449.299 208.419C452.346 199.411 453.999 189.761 453.999 179.725C453.999 130.292 413.926 90.2192 364.494 90.2192C315.061 90.2192 274.988 130.292 274.988 179.725C274.988 189.761 276.641 199.411 279.688 208.419"
+        {...dash}
+        className="es-dash"
+      />
+      <path
+        d="M142.289 208.277C142.952 204.384 143.299 200.383 143.299 196.302C143.299 157.246 111.639 125.587 72.5835 125.586C33.5269 125.586 1.86365 157.245 1.86328 196.302C1.86328 200.384 2.21464 204.384 2.87857 208.277"
+        {...dash}
+        className="es-dash"
+      />
+      <path
+        d="M314.396 208.419C314.458 206.848 314.498 205.27 314.498 203.684C314.498 137.921 261.188 84.6075 195.425 84.6064C129.662 84.6064 76.3477 137.92 76.3477 203.684C76.3477 205.27 76.3882 206.848 76.4496 208.419"
+        {...dash}
+        className="es-dash"
+      />
+      <path
+        d="M244.943 0.835938C303.403 0.835938 350.883 47.8566 351.622 106.141L351.631 107.52C351.631 153.749 322.222 193.108 281.094 207.919H208.798C167.669 193.109 138.261 153.749 138.261 107.52C138.261 48.6007 186.025 0.8368 244.943 0.835938Z"
+        fill="url(#es-hatch)"
+        {...line}
+      />
+      <defs>
+        <pattern
+          id="es-hatch"
+          patternUnits="userSpaceOnUse"
+          patternTransform="matrix(17.55 0 0 17.55 137.762 0.336914)"
+          preserveAspectRatio="none"
+          viewBox="0 0 16.32 16.32"
+          width="1.5"
+          height="1.5"
+        >
+          <use href="#es-hatch_inner" transform="translate(-16.32 -16.32)" />
+          <use href="#es-hatch_inner" transform="translate(0 -16.32)" />
+          <use href="#es-hatch_inner" transform="translate(-16.32 0)" />
+          <g id="es-hatch_inner">
+            <line x1="17.3536" y1="0.353553" x2="0.353554" y2="17.3536" stroke="currentColor" />
+          </g>
+        </pattern>
+      </defs>
+    </svg>
+  )
+}
+
+/** No result yet: no days, so nothing to draw, edit or create. */
+function placeholder(): UsageAlertPreview {
+  return {
+    kind: 'workers_usage_alert_preview',
+    nextStep: '',
+    checkedAt: new Date().toISOString(),
+    accountId: '',
+    today: new Date().toISOString().slice(0, 10),
+    days: [],
+    summary: { typicalWeek: null, last7Days: 0, busiestWeek: 0, suggestedLimit: null },
+    alertAvailable: null,
+    existingAlerts: null,
+    otherPolicies: {},
+    limitations: []
+  }
 }
 
 mountMcpApp({
@@ -744,6 +911,22 @@ mountMcpApp({
   output: UsageAlertPreviewSchema,
   render: (preview, { app }) => (
     <UsageAlertCard key={preview.checkedAt} preview={preview} app={app} />
+  ),
+  renderPending: () => (
+    <UsageAlertCard
+      key="pending"
+      preview={placeholder()}
+      app={undefined}
+      pending={{ kind: 'loading' }}
+    />
+  ),
+  renderError: (_text, retry) => (
+    <UsageAlertCard
+      key="error"
+      preview={placeholder()}
+      app={undefined}
+      pending={{ kind: 'error', retry }}
+    />
   ),
   copy: {
     pending: 'Reading Workers usage…',
