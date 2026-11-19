@@ -23,7 +23,7 @@ export const UsageAlertInputSchema = z.strictObject({
     .date()
     .optional()
     .describe(
-      'Treat this UTC date as today. Defaults to the current date. Analytics older than about 90 days cannot be read.'
+      'Treat this UTC date as today. Defaults to the current date. Analytics older than 89 complete days cannot be read.'
     )
 })
 export type UsageAlertInput = z.infer<typeof UsageAlertInputSchema>
@@ -80,7 +80,7 @@ export type UsageAlertPreview = z.infer<typeof UsageAlertPreviewSchema>
 export const USAGE_ALERT_TOOL_CONFIG = {
   title: 'Workers usage alert',
   description:
-    'Set up an email alert for when Workers traffic gets clearly bigger than normal. Use for requests like “ping me if our Workers traffic gets way out of hand” or “alert me if Workers requests spike”. Reads up to 90 days of daily Workers requests and the account’s existing notification policies, and shows a weekly chart in MCP Apps hosts where the user drags the threshold (requests in 7 days) and enters an email. Read-only: it creates nothing. When the user confirms in the App, it sends the exact notification policy to the chat; create it only with a write the user approves. Summarize the typical week and any existing alert rather than repeating the daily data. Request counts are not dollar cost, and the alert never blocks traffic.',
+    'Set up an email alert for when Workers traffic gets clearly bigger than normal, such as “ping me if our Workers traffic gets way out of hand”. Reads the account’s daily Workers requests for the last 89 complete days (all that Workers analytics keep) and its notification policies, then shows a weekly chart where the user drags the threshold (requests in 7 days) and enters an email. Read-only: it creates nothing. On confirm the App sends the exact notification policy to the chat; create it only with a write the user approves. Summarize the typical week and any existing alert instead of repeating the daily data. Request counts are not dollar cost, and the alert never blocks traffic.',
   annotations: {
     readOnlyHint: true,
     destructiveHint: false,

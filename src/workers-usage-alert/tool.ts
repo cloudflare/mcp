@@ -99,7 +99,7 @@ async function collect(
   const reader = apiReader(context, signal, 'workers_usage_alert')
   const limitations = [
     'Request counts come from Workers analytics, not billing. They are not dollar cost.',
-    'Workers analytics keep about 90 days; older traffic cannot be read.'
+    'Workers analytics keep 89 complete days; older traffic cannot be read.'
   ]
 
   // Usage is what the App is about: without it there is nothing to preview.

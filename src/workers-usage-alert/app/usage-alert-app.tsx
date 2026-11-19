@@ -640,6 +640,7 @@ function UsageAlertCard({ preview: p, app }: { preview: UsageAlertPreview; app: 
           </div>
           <Button
             variant="ghost"
+            className="edit"
             onClick={() => {
               setPhase('editing')
               requestAnimationFrame(() => refs.knob.current?.focus({ preventScroll: true }))
@@ -674,7 +675,7 @@ function emptyFacts(m: Model): [Fact, Fact] {
         ['', 'Not a full week yet']
       ]
     : [
-        ['', 'No requests in 90 days'],
+        ['', 'No requests in 89 days'],
         ['', 'Nothing to compare yet']
       ]
 }
@@ -682,7 +683,7 @@ function emptyMessage(m: Model): string {
   const n = m.days.length
   return n
     ? `<b>Only ${n} ${n === 1 ? 'day' : 'days'} of Workers requests so far.</b><br>A full week shows what normal looks like. Tell me a number in chat and I’ll set the limit.`
-    : `<b>No Workers requests in the last 90 days.</b><br>There’s no normal week to compare against yet. Tell me a number in chat and I’ll set the limit.`
+    : `<b>No Workers requests in the last 89 days.</b><br>There’s no normal week to compare against yet. Tell me a number in chat and I’ll set the limit.`
 }
 
 mountMcpApp({
