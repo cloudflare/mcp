@@ -81,7 +81,7 @@ export function registerForgeTools(
           ? runWhoamiTool(props)
           : toolError(`Invalid arguments for tool ${name}: ${parsed.error.message}`)
       } else if (name === SUBMIT_FEEDBACK_TOOL.name && feedbackTools().length > 0) {
-        result = await runSubmitFeedbackTool(args, 'direct')
+        result = await runSubmitFeedbackTool(args, 'direct', props)
       } else {
         const sessionAccountId = autoResolvedAccountId(props)
         const plan = (await forgeTools().plan(name, args, {

@@ -96,7 +96,7 @@ export function createServer(
   registerSearchTool(server, truncateToolResult)
   registerExecuteTool(server, props, truncateToolResult, connection, scopeChallenge)
   registerWhoamiTool(server, props)
-  registerSubmitFeedbackTool(server)
+  registerSubmitFeedbackTool(server, props)
 
   return server
 }

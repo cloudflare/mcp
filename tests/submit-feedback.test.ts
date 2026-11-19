@@ -4,15 +4,18 @@ import { InMemoryTransport, McpServer } from '@modelcontextprotocol/server'
 import { http, HttpResponse } from 'msw'
 import { z } from 'zod'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import type { AuthProps } from '../src/auth/types'
 import {
   SUBMIT_FEEDBACK_TOOL,
+  feedbackCallerKey,
   feedbackSubmission,
   registerSubmitFeedbackTool,
+  retryAfterSeconds,
   runSubmitFeedbackTool
 } from '../src/tools/submit-feedback'
 import { mockIdentityProbe } from './helpers/cloudflare-api'
 import { clearKv } from './helpers/kv'
-import { MCP_URL, modernMcpRequest, parseMcpResult } from './helpers/mcp'
+import { MCP_URL, mcpToolListRequest, modernMcpRequest, parseMcpResult } from './helpers/mcp'
 import { clearSpec, seedSpec } from './helpers/spec'
 import { server as msw } from './setup/msw'
 
@@ -20,6 +23,15 @@ const FEEDBACK_URL = 'https://feedback.example.com/v1/feedback'
 const ACCOUNT_ID = '023e105f4ecef8ad9ca31a8372d0c353'
 const TOKEN = 'cfat_feedback'
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/
+
+function freshUser(): AuthProps {
+  return {
+    type: 'user_token',
+    accessToken: TOKEN,
+    user: { id: crypto.randomUUID(), email: 'feedback-test@example.com' },
+    accounts: []
+  }
+}
 
 interface Received {
   body: Record<string, unknown>
@@ -47,7 +59,7 @@ function respondWith(response: () => Response) {
 
 async function sdkListing(): Promise<unknown> {
   const mcp = new McpServer({ name: 'feedback-schema-test', version: '1.0.0' })
-  registerSubmitFeedbackTool(mcp)
+  registerSubmitFeedbackTool(mcp, freshUser())
   const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair()
   const client = new Client({ name: 'test-client', version: '1.0.0' })
   await Promise.all([mcp.connect(serverTransport), client.connect(clientTransport)])
@@ -91,7 +103,12 @@ describe('submit_feedback definition', () => {
 describe('submit_feedback report', () => {
   it('uses the shared feedback schema, with the MCP details in fields', () => {
     const body = feedbackSubmission(
-      { message: 'execute failed', type: 'bug', impact: 'blocked', tool: 'execute' },
+      {
+        message: 'execute failed',
+        type: 'bug',
+        impact: 'blocked',
+        tool: 'execute'
+      },
       'codemode',
       '7f0c2b8e-2f43-4c1a-9a51-0d3f6c1e8b2a'
     )
@@ -110,7 +127,7 @@ describe('submit_feedback report', () => {
   it('sends no credential or account identity', async () => {
     const received = acceptFeedback()
 
-    await runSubmitFeedbackTool({ message: 'docs are wrong' }, 'direct')
+    await runSubmitFeedbackTool({ message: 'docs are wrong' }, 'direct', freshUser())
 
     expect(received).toHaveLength(1)
     expect(received[0].headers).not.toHaveProperty('authorization')
@@ -121,10 +138,12 @@ describe('submit_feedback report', () => {
   it('returns the submission ID the endpoint accepted', async () => {
     acceptFeedback()
 
-    const result = await runSubmitFeedbackTool({ message: 'works great' }, 'codemode')
+    const result = await runSubmitFeedbackTool({ message: 'works great' }, 'codemode', freshUser())
 
     expect(result.isError).toBeUndefined()
-    expect(result.structuredContent).toEqual({ submission_id: expect.stringMatching(UUID) })
+    expect(result.structuredContent).toEqual({
+      submission_id: expect.stringMatching(UUID)
+    })
   })
 
   it('reports a rate limit with its retry time', async () => {
@@ -135,7 +154,7 @@ describe('submit_feedback report', () => {
       )
     )
 
-    const result = await runSubmitFeedbackTool({ message: 'x' }, 'codemode')
+    const result = await runSubmitFeedbackTool({ message: 'x' }, 'codemode', freshUser())
 
     expect(result).toMatchObject({ isError: true })
     expect(result.content).toEqual([{ type: 'text', text: expect.stringContaining('60 seconds') }])
@@ -143,13 +162,13 @@ describe('submit_feedback report', () => {
 
   it('reports a refused or unreachable endpoint as an error', async () => {
     respondWith(() => HttpResponse.json({ error: 'invalid' }, { status: 422 }))
-    expect(await runSubmitFeedbackTool({ message: 'x' }, 'codemode')).toMatchObject({
+    expect(await runSubmitFeedbackTool({ message: 'x' }, 'codemode', freshUser())).toMatchObject({
       isError: true,
       content: [{ type: 'text', text: expect.stringContaining('HTTP 422') }]
     })
 
     respondWith(() => HttpResponse.error())
-    expect(await runSubmitFeedbackTool({ message: 'x' }, 'codemode')).toMatchObject({
+    expect(await runSubmitFeedbackTool({ message: 'x' }, 'codemode', freshUser())).toMatchObject({
       isError: true,
       content: [{ type: 'text', text: expect.stringContaining('Could not reach') }]
     })
@@ -158,16 +177,90 @@ describe('submit_feedback report', () => {
   it('refuses arguments outside the schema without sending', async () => {
     const received = acceptFeedback()
 
-    const result = await runSubmitFeedbackTool({ message: 'x', account_id: ACCOUNT_ID }, 'direct')
+    const result = await runSubmitFeedbackTool(
+      { message: 'x', account_id: ACCOUNT_ID },
+      'direct',
+      freshUser()
+    )
 
     expect(result).toMatchObject({ isError: true })
     expect(received).toHaveLength(0)
   })
 
-  it('refuses a plain-http endpoint', async () => {
-    Object.assign(env, { FEEDBACK_URL: 'http://feedback.example.com/v1/feedback' })
+  it('sends an other_type label only with type other', () => {
+    const id = '7f0c2b8e-2f43-4c1a-9a51-0d3f6c1e8b2a'
+    expect(
+      feedbackSubmission({ message: 'x', type: 'other', other_type: 'billing' }, 'direct', id)
+        .fields
+    ).toEqual({ mcp_mode: 'direct', other_type: 'billing' })
+    expect(
+      feedbackSubmission({ message: 'x', type: 'bug', other_type: 'billing' }, 'direct', id).fields
+    ).toEqual({ mcp_mode: 'direct' })
+  })
 
-    expect(await runSubmitFeedbackTool({ message: 'x' }, 'codemode')).toMatchObject({
+  it('refuses an other_type label longer than three words', async () => {
+    const received = acceptFeedback()
+
+    const result = await runSubmitFeedbackTool(
+      { message: 'x', type: 'other', other_type: 'one two three four' },
+      'direct',
+      freshUser()
+    )
+
+    expect(result).toMatchObject({ isError: true })
+    expect(received).toHaveLength(0)
+  })
+
+  it('allows five reports a minute per user and refuses the sixth without sending', async () => {
+    const received = acceptFeedback()
+    const user = freshUser()
+
+    for (let n = 0; n < 5; n++) {
+      expect(
+        (await runSubmitFeedbackTool({ message: `r${n}` }, 'direct', user)).isError
+      ).toBeUndefined()
+    }
+    const sixth = await runSubmitFeedbackTool({ message: 'r5' }, 'direct', user)
+
+    expect(sixth).toMatchObject({ isError: true })
+    expect(received).toHaveLength(5)
+    expect(
+      (await runSubmitFeedbackTool({ message: 'other user' }, 'direct', freshUser())).isError
+    ).toBeUndefined()
+  })
+
+  it('keys the limit on the user, or on the account for account tokens', () => {
+    expect(
+      feedbackCallerKey({
+        type: 'user_token',
+        accessToken: TOKEN,
+        user: { id: 'u1', email: 'e' },
+        accounts: []
+      })
+    ).toBe('user:u1')
+    expect(
+      feedbackCallerKey({
+        type: 'account_token',
+        accessToken: TOKEN,
+        account: { id: ACCOUNT_ID, name: 'Acc' }
+      })
+    ).toBe(`account:${ACCOUNT_ID}`)
+  })
+
+  it('reads Retry-After as seconds or as an HTTP date', () => {
+    const now = Date.parse('2026-11-18T12:00:00Z')
+    expect(retryAfterSeconds('60', now)).toBe(60)
+    expect(retryAfterSeconds('Wed, 18 Nov 2026 12:01:30 GMT', now)).toBe(90)
+    expect(retryAfterSeconds('soon', now)).toBeUndefined()
+    expect(retryAfterSeconds(null, now)).toBeUndefined()
+  })
+
+  it('refuses a plain-http endpoint', async () => {
+    Object.assign(env, {
+      FEEDBACK_URL: 'http://feedback.example.com/v1/feedback'
+    })
+
+    expect(await runSubmitFeedbackTool({ message: 'x' }, 'codemode', freshUser())).toMatchObject({
       isError: true
     })
   })
@@ -213,7 +306,10 @@ describe('submit_feedback over MCP', () => {
         modernMcpRequest(
           TOKEN,
           'tools/call',
-          { name: 'submit_feedback', arguments: { message: 'the D1 tool timed out' } },
+          {
+            name: 'submit_feedback',
+            arguments: { message: 'the D1 tool timed out' }
+          },
           { url }
         )
       )
@@ -223,5 +319,11 @@ describe('submit_feedback over MCP', () => {
     expect(received).toHaveLength(1)
     expect(received[0].body.fields).toEqual({ mcp_mode: mode })
     expect(JSON.stringify(received[0].body)).not.toContain(ACCOUNT_ID)
+  })
+
+  it('is listed on the legacy tools/list path with feedback enabled', async () => {
+    const listed = await parseMcpResult(await exports.default.fetch(mcpToolListRequest(TOKEN)))
+
+    expect(listed.result?.tools?.map((tool) => tool.name)).toContain('submit_feedback')
   })
 })
