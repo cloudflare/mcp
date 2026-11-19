@@ -23,6 +23,7 @@ import { server as msw } from './setup/msw'
 const FEEDBACK_URL = 'https://feedback.example.com/v1/feedback'
 const ACCOUNT_ID = '023e105f4ecef8ad9ca31a8372d0c353'
 const TOKEN = 'cfat_feedback'
+const REPORT = { type: 'bug', impact: 'friction' } as const
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/
 
 function freshUser(): AuthProps {
@@ -98,6 +99,8 @@ describe('submit_feedback definition', () => {
       "Never send feedback without the user's permission"
     )
     expect(SUBMIT_FEEDBACK_TOOL.description).toContain('Leave out secrets')
+    expect(SUBMIT_FEEDBACK_TOOL.description).toContain('at most once per task')
+    expect(SUBMIT_FEEDBACK_TOOL.inputSchema.required).toEqual(['message', 'type', 'impact'])
   })
 })
 
@@ -128,7 +131,7 @@ describe('submit_feedback report', () => {
   it('sends no credential or account identity', async () => {
     const received = acceptFeedback()
 
-    await runSubmitFeedbackTool({ message: 'docs are wrong' }, 'direct', freshUser())
+    await runSubmitFeedbackTool({ ...REPORT, message: 'docs are wrong' }, 'direct', freshUser())
 
     expect(received).toHaveLength(1)
     expect(received[0].headers).not.toHaveProperty('authorization')
@@ -139,7 +142,7 @@ describe('submit_feedback report', () => {
   it('sends no server key headers when FEEDBACK_MCP_KEY is unset', async () => {
     const received = acceptFeedback()
 
-    await runSubmitFeedbackTool({ message: 'docs are wrong' }, 'direct', freshUser())
+    await runSubmitFeedbackTool({ ...REPORT, message: 'docs are wrong' }, 'direct', freshUser())
 
     expect(received[0].headers).not.toHaveProperty('x-feedback-mcp-key')
     expect(received[0].headers).not.toHaveProperty('x-feedback-mcp-user')
@@ -150,7 +153,7 @@ describe('submit_feedback report', () => {
     const received = acceptFeedback()
     const user = freshUser()
 
-    await runSubmitFeedbackTool({ message: 'docs are wrong' }, 'direct', user)
+    await runSubmitFeedbackTool({ ...REPORT, message: 'docs are wrong' }, 'direct', user)
 
     const headers = received[0].headers
     expect(headers['x-feedback-mcp-key']).toBe('feedback-key-for-tests')
@@ -172,7 +175,11 @@ describe('submit_feedback report', () => {
   it('returns the submission ID the endpoint accepted', async () => {
     acceptFeedback()
 
-    const result = await runSubmitFeedbackTool({ message: 'works great' }, 'codemode', freshUser())
+    const result = await runSubmitFeedbackTool(
+      { ...REPORT, message: 'works great' },
+      'codemode',
+      freshUser()
+    )
 
     expect(result.isError).toBeUndefined()
     expect(result.structuredContent).toEqual({
@@ -188,7 +195,11 @@ describe('submit_feedback report', () => {
       )
     )
 
-    const result = await runSubmitFeedbackTool({ message: 'x' }, 'codemode', freshUser())
+    const result = await runSubmitFeedbackTool(
+      { ...REPORT, message: 'the docs search returned nothing' },
+      'codemode',
+      freshUser()
+    )
 
     expect(result).toMatchObject({ isError: true })
     expect(result.content).toEqual([{ type: 'text', text: expect.stringContaining('60 seconds') }])
@@ -196,13 +207,25 @@ describe('submit_feedback report', () => {
 
   it('reports a refused or unreachable endpoint as an error', async () => {
     respondWith(() => HttpResponse.json({ error: 'invalid' }, { status: 422 }))
-    expect(await runSubmitFeedbackTool({ message: 'x' }, 'codemode', freshUser())).toMatchObject({
+    expect(
+      await runSubmitFeedbackTool(
+        { ...REPORT, message: 'the docs search returned nothing' },
+        'codemode',
+        freshUser()
+      )
+    ).toMatchObject({
       isError: true,
       content: [{ type: 'text', text: expect.stringContaining('HTTP 422') }]
     })
 
     respondWith(() => HttpResponse.error())
-    expect(await runSubmitFeedbackTool({ message: 'x' }, 'codemode', freshUser())).toMatchObject({
+    expect(
+      await runSubmitFeedbackTool(
+        { ...REPORT, message: 'the docs search returned nothing' },
+        'codemode',
+        freshUser()
+      )
+    ).toMatchObject({
       isError: true,
       content: [{ type: 'text', text: expect.stringContaining('Could not reach') }]
     })
@@ -212,7 +235,7 @@ describe('submit_feedback report', () => {
     const received = acceptFeedback()
 
     const result = await runSubmitFeedbackTool(
-      { message: 'x', account_id: ACCOUNT_ID },
+      { ...REPORT, message: 'the docs search returned nothing', account_id: ACCOUNT_ID },
       'direct',
       freshUser()
     )
@@ -224,11 +247,18 @@ describe('submit_feedback report', () => {
   it('sends an other_type label only with type other', () => {
     const id = '7f0c2b8e-2f43-4c1a-9a51-0d3f6c1e8b2a'
     expect(
-      feedbackSubmission({ message: 'x', type: 'other', other_type: 'billing' }, 'direct', id)
-        .fields
+      feedbackSubmission(
+        { message: 'x', type: 'other', impact: 'none', other_type: 'billing' },
+        'direct',
+        id
+      ).fields
     ).toEqual({ mcp_mode: 'direct', other_type: 'billing' })
     expect(
-      feedbackSubmission({ message: 'x', type: 'bug', other_type: 'billing' }, 'direct', id).fields
+      feedbackSubmission(
+        { message: 'x', type: 'bug', impact: 'none', other_type: 'billing' },
+        'direct',
+        id
+      ).fields
     ).toEqual({ mcp_mode: 'direct' })
   })
 
@@ -236,12 +266,46 @@ describe('submit_feedback report', () => {
     const received = acceptFeedback()
 
     const result = await runSubmitFeedbackTool(
-      { message: 'x', type: 'other', other_type: 'one two three four' },
+      {
+        message: 'billing page is unclear',
+        type: 'other',
+        impact: 'friction',
+        other_type: 'one two three four'
+      },
       'direct',
       freshUser()
     )
 
     expect(result).toMatchObject({ isError: true })
+    expect(received).toHaveLength(0)
+  })
+
+  it.each(['test', 'TODO', 'n/a', 'None.', '  null  '])(
+    'refuses the placeholder message %j without sending',
+    async (message) => {
+      const received = acceptFeedback()
+
+      const result = await runSubmitFeedbackTool({ ...REPORT, message }, 'direct', freshUser())
+
+      expect(result).toMatchObject({
+        isError: true,
+        content: [{ type: 'text', text: expect.stringContaining('placeholder') }]
+      })
+      expect(received).toHaveLength(0)
+    }
+  )
+
+  it('refuses a report without type or impact', async () => {
+    const received = acceptFeedback()
+
+    for (const args of [
+      { message: 'the docs search returned nothing', impact: 'friction' },
+      { message: 'the docs search returned nothing', type: 'bug' }
+    ]) {
+      expect(await runSubmitFeedbackTool(args, 'direct', freshUser())).toMatchObject({
+        isError: true
+      })
+    }
     expect(received).toHaveLength(0)
   })
 
@@ -251,15 +315,16 @@ describe('submit_feedback report', () => {
 
     for (let n = 0; n < 5; n++) {
       expect(
-        (await runSubmitFeedbackTool({ message: `r${n}` }, 'direct', user)).isError
+        (await runSubmitFeedbackTool({ ...REPORT, message: `r${n}` }, 'direct', user)).isError
       ).toBeUndefined()
     }
-    const sixth = await runSubmitFeedbackTool({ message: 'r5' }, 'direct', user)
+    const sixth = await runSubmitFeedbackTool({ ...REPORT, message: 'r5' }, 'direct', user)
 
     expect(sixth).toMatchObject({ isError: true })
     expect(received).toHaveLength(5)
     expect(
-      (await runSubmitFeedbackTool({ message: 'other user' }, 'direct', freshUser())).isError
+      (await runSubmitFeedbackTool({ ...REPORT, message: 'other user' }, 'direct', freshUser()))
+        .isError
     ).toBeUndefined()
   })
 
@@ -294,7 +359,13 @@ describe('submit_feedback report', () => {
       FEEDBACK_URL: 'http://feedback.example.com/v1/feedback'
     })
 
-    expect(await runSubmitFeedbackTool({ message: 'x' }, 'codemode', freshUser())).toMatchObject({
+    expect(
+      await runSubmitFeedbackTool(
+        { ...REPORT, message: 'the docs search returned nothing' },
+        'codemode',
+        freshUser()
+      )
+    ).toMatchObject({
       isError: true
     })
   })
@@ -342,7 +413,7 @@ describe('submit_feedback over MCP', () => {
           'tools/call',
           {
             name: 'submit_feedback',
-            arguments: { message: 'the D1 tool timed out' }
+            arguments: { ...REPORT, message: 'the D1 tool timed out' }
           },
           { url }
         )

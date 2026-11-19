@@ -14,18 +14,35 @@ const DESCRIPTION =
   "Never send feedback without the user's permission. " +
   'Describe what was attempted, what was expected and what happened. ' +
   'Leave out secrets, API tokens, personal data, account or zone IDs and full conversations. ' +
+  'Call it at most once per task; never use it to test it or to log progress. ' +
   'The result holds a submission ID; tell the user.'
 
 const SEND_TIMEOUT_MS = 5000
 
 const OTHER_TYPE_LABEL = /^\S+(?:\s+\S+){0,2}$/
 
+const PLACEHOLDER_MESSAGES = new Set([
+  '',
+  'na',
+  'none',
+  'noop',
+  'null',
+  'placeholder',
+  'tbd',
+  'test',
+  'todo',
+  'undefined'
+])
+
+export function isPlaceholderMessage(text: string): boolean {
+  return PLACEHOLDER_MESSAGES.has(text.toLowerCase().replace(/[^\p{L}\p{N}]/gu, ''))
+}
+
 const InputSchema = withCachedJsonSchema(
   z.strictObject({
     message: z.string().min(1).max(4000).describe('The feedback, in plain words.'),
     type: z
       .enum(['bug', 'friction', 'feature', 'docs', 'praise', 'other'])
-      .optional()
       .describe('What kind of feedback this is.'),
     other_type: z
       .string()
@@ -38,7 +55,6 @@ const InputSchema = withCachedJsonSchema(
       ),
     impact: z
       .enum(['blocked', 'worked_around', 'friction', 'none'])
-      .optional()
       .describe('How much the problem got in the way.'),
     product: z
       .string()
@@ -175,6 +191,11 @@ async function send(
   url: string,
   props: AuthProps
 ): Promise<CallToolResult> {
+  if (isPlaceholderMessage(input.message)) {
+    return toolError(
+      '`message` is a placeholder. Describe what was attempted and what went wrong, or skip this tool if there is nothing to report.'
+    )
+  }
   if (!(await withinCallerLimit(props))) return toolError(PER_CALLER_LIMIT_TEXT)
   const submissionId = crypto.randomUUID()
   let response: Response
