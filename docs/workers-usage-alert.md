@@ -33,7 +33,7 @@ The chart's "would have emailed" facts replay that rule over the 89 days (`repla
 
 ## The output
 
-`today`, `days` (complete days `[date, requests]`, oldest first, from the first day with traffic, missing days as 0), `summary` (`typicalWeek` = median day × 7, `last7Days`, `busiestWeek`, `suggestedLimit` = a typical week plus a quarter, rounded, or the input `limit`), `alertAvailable`, `existingAlerts`, `otherPolicies` and `limitations`.
+`today`, `days` (complete days `[date, requests]`, oldest first, from the first day with traffic, missing days as 0), `summary` (`typicalWeek` = median day × 7, `last7Days`, `busiestWeek`, `suggestedLimit` = a tenth above the busiest 7 days, rounded up, so nothing in the history would have emailed, or the input `limit`), `alertAvailable`, `existingAlerts`, `otherPolicies` and `limitations`.
 
 ## What it doesn't prove
 

@@ -6,6 +6,7 @@ import { CREATE_POLICY_TOOL, createPolicy, type CallTool } from '../src/workers-
 import type { Tool } from '@modelcontextprotocol/server'
 import {
   deriveModel,
+  fitTop,
   monitorPolicy,
   replayEmails,
   rolling7,
@@ -187,10 +188,26 @@ describe('model', () => {
     expect(deriveModel(days([0, 0, 0, 0, 0, 0, 70]), '2026-11-08').typical).toBe(70)
   })
 
-  it('suggests a typical week plus a quarter, on the axis’s step', () => {
-    const m = deriveModel(days(Array(28).fill(100_000_000)), '2026-11-29')
+  it('suggests a tenth above the busiest week, so no past week would have emailed', () => {
+    const m = deriveModel(
+      days([...Array(21).fill(100_000_000), ...Array(7).fill(300_000_000)]),
+      '2026-11-29'
+    )
     expect(m.typical).toBe(700_000_000)
-    expect(m.suggested).toBe(900_000_000)
+    expect(m.peak).toBe(2_100_000_000)
+    expect(m.suggested).toBe(2_400_000_000)
+    expect(replayEmails(m.days, m.rolling, m.suggested!)).toEqual([])
+  })
+
+  it('suggests above a lone spike too, and the axis grows to show it', () => {
+    const m = deriveModel(
+      days([...Array(28).fill(10), ...Array(7).fill(1000), ...Array(7).fill(10)]),
+      '2026-10-05'
+    )
+    expect(m.peak).toBe(7000)
+    expect(m.suggested).toBe(8000)
+    expect(replayEmails(m.days, m.rolling, m.suggested!)).toEqual([])
+    expect(fitTop(m, m.suggested!)).toBeGreaterThan(m.suggested!)
   })
 
   it('fits the axis to normal weeks, not one far above the rest', () => {
@@ -230,12 +247,12 @@ describe.each([
         { id: 'p4', enabled: false, kind: 'monitor', limit: 1_000_000_000 }
       ],
       otherPolicies: { workers_observability_alert: 2, custom_analytics: 1 },
-      // 100M a day: a 700M week, plus a quarter on the axis's step.
+      // 100M a day: a 700M week, and a tenth above it, rounded up.
       summary: {
         typicalWeek: 700_000_000,
         last7Days: 700_000_000,
         busiestWeek: 700_000_000,
-        suggestedLimit: 900_000_000
+        suggestedLimit: 800_000_000
       }
     })
     const days = result?.structuredContent?.days as [string, number][]

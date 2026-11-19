@@ -142,9 +142,16 @@ export interface Model {
   readonly minTop: number
   readonly minLimit: number
   readonly maxLimit: number
-  /** "Clearly bigger than normal": a typical week plus a quarter, on the axis's step. */
+  /**
+   * "Clearly bigger than normal": a tenth above the busiest 7 days in the
+   * history, rounded up on the axis's step. Nothing in the history would
+   * have emailed, and the chart scales up to show the line above every week.
+   */
   readonly suggested: number | null
 }
+
+/** The suggested threshold over the busiest 7 days. */
+export const SUGGESTED_OVER_BUSIEST = 1.1
 
 /** Headroom above whichever is higher, the normal weeks or the line. */
 export const fitTop = (model: Model, limit: number) =>
@@ -233,9 +240,11 @@ export function deriveModel(days: readonly Day[], today: string): Model {
   const base = niceTop(dataTop * 1.15)
   const minTop = Math.max(10, niceTop(base / 100))
   const minLimit = stepOf(minTop)
-  const maxLimit = niceTop(Math.max(dataTop, 10) * 100)
+  const maxLimit = niceTop(Math.max(dataTop * 100, peak * 10, 10))
+  const over = peak * SUGGESTED_OVER_BUSIEST
+  const step = stepOf(niceTop(over))
   const suggested =
-    typical == null ? null : clamp(snapTo(typical * 1.25, stepOf(base)), minLimit, maxLimit)
+    typical == null ? null : clamp(Math.ceil(over / step) * step, minLimit, maxLimit)
   return {
     days,
     weeks: placed,
