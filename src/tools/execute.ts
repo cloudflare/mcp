@@ -16,8 +16,13 @@ import {
 } from '../auth/account-access'
 import type { AuthProps } from '../auth/types'
 import type { Connection } from '../api-permissions'
-import { authorize, explainRefusal, isCatalogScope } from '../api-permissions'
-import { MISSING_SCOPE_HEADER, REFUSAL_HINT_HEADER, reviewResponse } from '../api-refusals'
+import { isCatalogScope } from '../api-permissions'
+import {
+  graphqlRefusalFor,
+  MISSING_SCOPE_HEADER,
+  REFUSAL_HINT_HEADER,
+  reviewResponse
+} from '../api-refusals'
 import { policyRefusalHint } from '../policy-guards'
 import { WWW_AUTHENTICATE_META_KEY, type ScopeChallenge } from '../scope-challenge'
 import {
@@ -50,8 +55,7 @@ const Evaluation = z.union([
     message: z.string(),
     // The OAuth scope GlobalOutbound said the failing request lacked.
     missingScope: z.string().optional(),
-    // The analytics permission a failed GraphQL query lacked, by dataset kind.
-    graphqlRefusal: z.enum(['zone', 'account']).optional(),
+    graphqlErrors: z.array(z.string()).optional(),
     // Whether every request the code sent was a read or was refused, so rerunning repeats no change.
     replaySafe: z.boolean()
   })
@@ -458,16 +462,6 @@ function encodeBytes(value, seen = new Set()) {
   return copy ?? value;
 }
 
-// Which analytics permission a failed GraphQL query lacked. A zone dataset
-// names it ("does not have permission 'com.cloudflare.api.account.zone.analytics.read'
-// for zone ..."); an account dataset says only "authorization denied".
-function graphqlRefusal(errors) {
-  const messages = errors.map((e) => String(e.message || ""));
-  if (messages.some((m) => m.includes("'com.cloudflare.api.account.zone.analytics.read'"))) return "zone";
-  if (messages.some((m) => /^authorization denied$/i.test(m.trim()) || m.includes("'com.cloudflare.api.account.analytics.read'"))) return "account";
-  return undefined;
-}
-
 export default class CodeExecutor extends WorkerEntrypoint {
   async evaluate() {
     const cloudflare = {
@@ -511,7 +505,7 @@ export default class CodeExecutor extends WorkerEntrypoint {
           const graphqlErrors = Array.isArray(data?.errors) ? data.errors : [];
           if (graphqlErrors.length > 0 && (data.data === null || data.data === undefined)) {
             const error = new Error("GraphQL error: " + graphqlErrors.map(e => e.message).join(", "));
-            error.graphqlRefusal = graphqlRefusal(graphqlErrors);
+            error.graphqlErrors = graphqlErrors.map((e) => String(e.message || ""));
             throw error;
           }
           return data;
@@ -535,7 +529,7 @@ export default class CodeExecutor extends WorkerEntrypoint {
         ok: false,
         message: err instanceof Error ? err.message : String(err),
         missingScope: typeof err?.missingScope === "string" ? err.missingScope : undefined,
-        graphqlRefusal: err?.graphqlRefusal === "zone" || err?.graphqlRefusal === "account" ? err.graphqlRefusal : undefined,
+        graphqlErrors: Array.isArray(err?.graphqlErrors) ? err.graphqlErrors.map(String) : undefined,
         replaySafe: sentRequests.every(({ read, status }) => read || status === 401 || status === 403),
         rateLimits: rateLimitStats
       };
@@ -583,15 +577,6 @@ function challengeableScope(
   if (execution.ok || connection.kind !== 'oauth' || !scope) return undefined
   return isCatalogScope(scope) && !connection.scopes.includes(scope) ? scope : undefined
 }
-
-/** The GraphQL Analytics API, which the spec doesn't list. */
-const GRAPHQL_REQUEST = { method: 'POST', path: '/graphql' }
-
-/** The permission each kind of GraphQL dataset needs. */
-const GRAPHQL_PERMISSIONS = {
-  zone: ['Analytics Read'],
-  account: ['Account Analytics Read']
-} as const
 
 /**
  * The account in the path of the refused request a failure names, such as
@@ -705,12 +690,12 @@ export function registerExecuteTool(
             ? unknownPathAccountHint(props, pathAccount)
             : ''
         if (hint) failure.content[0].text += `\n\n${hint}`
-        const graphql = execution.graphqlRefusal
-          ? authorize(connection, GRAPHQL_REQUEST, GRAPHQL_PERMISSIONS[execution.graphqlRefusal])
+        const graphql = execution.graphqlErrors
+          ? graphqlRefusalFor(connection, execution.graphqlErrors)
           : undefined
-        if (graphql) failure.content[0].text += `\n\n${explainRefusal(403, graphql)}`
+        if (graphql) failure.content[0].text += `\n\n${graphql.hint}`
         const scope = challengeableScope(
-          execution.missingScope ?? (graphql?.kind === 'missing' ? graphql.scope : undefined),
+          execution.missingScope ?? graphql?.scope,
           execution,
           connection
         )

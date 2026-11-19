@@ -341,6 +341,54 @@ describe('execute explains a GraphQL query refused for a missing analytics permi
     expect(challenges[0]).toContain('analytics.read')
   })
 
+  it('names the account analytics scope and steps up for it', async () => {
+    const token = await connectWithOAuth(['user:read', 'account:read'])
+    answerGraphql(ACCOUNT_DENIED)
+
+    const { text, meta } = await executeResult(token, QUERY)
+
+    expect(text).toContain('GraphQL error: authorization denied')
+    expect(text).toContain('`account-analytics.read` (Account Analytics Read)')
+    const challenges = meta?.['mcp/www_authenticate'] as string[]
+    expect(challenges).toHaveLength(1)
+    expect(challenges[0]).toContain('account-analytics.read')
+  })
+
+  it('reads a named account analytics permission as an account dataset', async () => {
+    const token = await connectWithOAuth(['user:read', 'account:read'])
+    answerGraphql({
+      data: null,
+      errors: [
+        {
+          message: `Actor 'x' does not have permission 'com.cloudflare.api.account.analytics.read' for account ${ACCOUNT_ID}`
+        }
+      ]
+    })
+
+    const { text } = await executeResult(token, QUERY)
+
+    expect(text).toContain('`account-analytics.read` (Account Analytics Read)')
+  })
+
+  it('does not step up when earlier requests may have changed something', async () => {
+    const token = await connectWithOAuth(['user:read', 'account:read'])
+    answerGraphql(ZONE_DENIED)
+    server.use(
+      http.post(`${API_BASE}/accounts/${ACCOUNT_ID}/workers/scripts/w/deployments`, () =>
+        HttpResponse.json({ success: true, errors: [], messages: [], result: {} })
+      )
+    )
+
+    const { text, meta } = await executeResult(
+      token,
+      `async () => { await cloudflare.request({ method: "POST", path: "/accounts/${ACCOUNT_ID}/workers/scripts/w/deployments", body: {} }); return (${QUERY})() }`
+    )
+
+    expect(text).toContain('`analytics.read` (Analytics Read)')
+    expect(text).toContain('not offered for an automatic retry')
+    expect(meta).not.toHaveProperty('mcp/www_authenticate')
+  })
+
   it('names the account analytics permission an API token needs', async () => {
     mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
     answerGraphql(ACCOUNT_DENIED)

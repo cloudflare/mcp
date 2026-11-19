@@ -228,7 +228,7 @@ Cloudflare answers a missing OAuth scope, an endpoint OAuth can't reach (billing
 
 #### GraphQL refusals
 
-The GraphQL Analytics API isn't in the spec and answers a missing permission with `200` and `data: null`: a zone dataset names `com.cloudflare.api.account.zone.analytics.read`, an account dataset says only `authorization denied` (measured for #364). The `execute` sandbox marks those errors, and the host explains them as a refusal of `Analytics Read` (`analytics.read`) or `Account Analytics Read` (`account-analytics.read`) and steps up for a missing scope. The sandbox counts GraphQL POSTs as reads for replay safety, since the API has no mutations. When `execute` code puts an account the session can't use in a refused request's path, the error names the session's accounts (`unknownPathAccountHint`), as the `account_id` argument already did.
+The GraphQL Analytics API isn't in the spec and answers a missing permission with `200` and `data: null`: a zone dataset names `com.cloudflare.api.account.zone.analytics.read`, an account dataset says only `authorization denied` (measured for #364). The `execute` sandbox reports the messages of a query that returned no data, and `graphqlRefusalFor()` in `src/api-refusals.ts` explains them as a refusal of `Analytics Read` (`analytics.read`) or `Account Analytics Read` (`account-analytics.read`) and steps up for a missing scope. The sandbox counts GraphQL POSTs as reads for replay safety, since the API has no mutations. When `execute` code puts an account the session can't use in a refused request's path, the error names the session's accounts (`unknownPathAccountHint`), as the `account_id` argument already did.
 
 #### Lists emptied by permission
 

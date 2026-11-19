@@ -127,6 +127,55 @@ export function refusalFor(
   return undefined
 }
 
+/** The GraphQL Analytics API, which the spec doesn't list. */
+const GRAPHQL_REQUEST = { method: 'POST', path: '/graphql' }
+
+/**
+ * The permission a GraphQL query refused for its dataset lacked. A zone
+ * dataset names it (`does not have permission
+ * 'com.cloudflare.api.account.zone.analytics.read' for zone …`); an account
+ * dataset says only `authorization denied`.
+ */
+function graphqlPermissions(messages: readonly string[]): readonly string[] | undefined {
+  if (messages.some((m) => m.includes("'com.cloudflare.api.account.zone.analytics.read'"))) {
+    return ['Analytics Read']
+  }
+  if (
+    messages.some(
+      (m) =>
+        /^authorization denied$/i.test(m.trim()) ||
+        m.includes("'com.cloudflare.api.account.analytics.read'")
+    )
+  ) {
+    return ['Account Analytics Read']
+  }
+  return undefined
+}
+
+/**
+ * Decide whether a GraphQL Analytics query that returned no data was refused
+ * for a missing analytics permission.
+ *
+ * The API answers such a query with `200` and `data: null`, so only its error
+ * messages tell: see {@link graphqlPermissions}.
+ *
+ * @param connection - The credential that sent the query.
+ * @param messages - The `message` of each GraphQL error.
+ * @returns The explanation and the scope to step up for, or `undefined` for any other error.
+ */
+export function graphqlRefusalFor(
+  connection: Connection,
+  messages: readonly string[]
+): Pick<Refusal, 'hint' | 'scope'> | undefined {
+  const permissions = graphqlPermissions(messages)
+  if (!permissions) return undefined
+  const authorization = authorize(connection, GRAPHQL_REQUEST, permissions)
+  return {
+    hint: explainRefusal(403, authorization),
+    scope: authorization.kind === 'missing' ? authorization.scope : undefined
+  }
+}
+
 /** An empty list with `result_info` is a couple of hundred bytes; longer bodies aren't read. */
 const MAX_EMPTY_LIST_BYTES = 4096
 
