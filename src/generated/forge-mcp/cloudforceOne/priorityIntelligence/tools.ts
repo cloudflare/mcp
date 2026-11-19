@@ -414,6 +414,48 @@ export const tools: readonly Tool[] = [
                           "properties": {
                             "field": {
                               "enum": [
+                                "attacker",
+                                "attackerCountry",
+                                "category",
+                                "createdAt",
+                                "event",
+                                "indicatorType",
+                                "mitreAttack",
+                                "mitreCapec",
+                                "tags",
+                                "targetCountry",
+                                "targetIndustry",
+                                "tlp",
+                                "uuid"
+                              ],
+                              "type": "string"
+                            },
+                            "op": {
+                              "enum": [
+                                "containsAny"
+                              ],
+                              "type": "string"
+                            },
+                            "value": {
+                              "items": {
+                                "type": "string"
+                              },
+                              "maxItems": 50,
+                              "minItems": 1,
+                              "type": "array"
+                            }
+                          },
+                          "required": [
+                            "field",
+                            "op",
+                            "value"
+                          ],
+                          "type": "object"
+                        },
+                        {
+                          "properties": {
+                            "field": {
+                              "enum": [
                                 "killChain"
                               ],
                               "type": "string"
@@ -928,7 +970,7 @@ export const tools: readonly Tool[] = [
   {
     name: "cloudforceOne_priorityIntelligence_update",
     title: "Update a priority intelligence requirement",
-    description: "Updates a Priority Intelligence Requirement for the authenticated account. Changing the query increments its version; editing the requirement without saving a query marks the query stale. Activating a draft needs a free slot in the active PIR quota; setting `active` on a PIR the matcher paused resumes it without one. Updates to a structured PIR must send its `revision` and change its answers through `definition`; its requirement, title and query are generated.\n\nPUT /accounts/{account_id}/cloudforce-one/v2/priority-intelligence/{priority_id}",
+    description: "Updates a Priority Intelligence Requirement for the authenticated account. Changing the query increments its version; editing the requirement without saving a query marks the query stale. Activating a draft needs a free slot in the active PIR quota; setting `active` on a PIR the matcher paused resumes it without one. Updates to a structured PIR must send its `revision` and change its answers through `definition`; its requirement, title and query are generated. Sending a `definition` and `revision` for a free-form PIR converts it in place: it keeps its ID, status, labels, priority, TLP and match history, and its query, dataset scope and notifications are removed, since structured PIRs are not matched by the PIR matcher and send no notifications. A conversion must not send a `dataset_scope`.\n\nPUT /accounts/{account_id}/cloudforce-one/v2/priority-intelligence/{priority_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -1005,7 +1047,8 @@ export const tools: readonly Tool[] = [
               ]
             },
             "definition": {
-              "$ref": "#/$defs/cloudforce-one-events_PirDefinition"
+              "$ref": "#/$defs/cloudforce-one-events_PirDefinition",
+              "description": "Replaces a structured PIR's definition, or converts a free-form PIR to a structured one in place. Requires `revision` and `based_on`."
             },
             "digest_interval_hours": {
               "description": "Hours between digests: 6, 12, or 24. Used only when `notification_mode` is `digest`.",
@@ -1341,6 +1384,48 @@ export const tools: readonly Tool[] = [
                               "properties": {
                                 "field": {
                                   "enum": [
+                                    "attacker",
+                                    "attackerCountry",
+                                    "category",
+                                    "createdAt",
+                                    "event",
+                                    "indicatorType",
+                                    "mitreAttack",
+                                    "mitreCapec",
+                                    "tags",
+                                    "targetCountry",
+                                    "targetIndustry",
+                                    "tlp",
+                                    "uuid"
+                                  ],
+                                  "type": "string"
+                                },
+                                "op": {
+                                  "enum": [
+                                    "containsAny"
+                                  ],
+                                  "type": "string"
+                                },
+                                "value": {
+                                  "items": {
+                                    "type": "string"
+                                  },
+                                  "maxItems": 50,
+                                  "minItems": 1,
+                                  "type": "array"
+                                }
+                              },
+                              "required": [
+                                "field",
+                                "op",
+                                "value"
+                              ],
+                              "type": "object"
+                            },
+                            {
+                              "properties": {
+                                "field": {
+                                  "enum": [
                                     "killChain"
                                   ],
                                   "type": "string"
@@ -1544,7 +1629,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "revision": {
-              "description": "The `revision` the change is based on. Required for structured PIRs; a different stored revision returns 409.",
+              "description": "The `revision` the change is based on. Required for structured PIRs and when sending a `definition`; a different stored revision returns 409.",
               "type": "integer"
             },
             "status": {

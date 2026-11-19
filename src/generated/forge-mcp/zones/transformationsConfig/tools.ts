@@ -5,10 +5,10 @@ import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
 import {
   speed_api$$response$$common,
   speed_api$$response$$common$$failure,
-  speed_base,
   speed_messages,
 } from "../../outputs.js";
 import {
+  speed_setting_metadata,
   speed_transformations_config_response,
   speed_transformations_config_value,
 } from "./outputs.js";
@@ -76,8 +76,8 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "speed_api-response-common": speed_api$$response$$common,
-        "speed_base": speed_base,
         "speed_messages": speed_messages,
+        "speed_setting_metadata": speed_setting_metadata,
         "speed_transformations_config_response": speed_transformations_config_response,
         "speed_transformations_config_value": speed_transformations_config_value,
       },
@@ -129,8 +129,8 @@ export const tools: readonly Tool[] = [
         $defs: {
           "speed_api-response-common": speed_api$$response$$common,
           "speed_api-response-common-failure": speed_api$$response$$common$$failure,
-          "speed_base": speed_base,
           "speed_messages": speed_messages,
+          "speed_setting_metadata": speed_setting_metadata,
           "speed_transformations_config_response": speed_transformations_config_response,
           "speed_transformations_config_value": speed_transformations_config_value,
         },
@@ -179,8 +179,8 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "speed_api-response-common": speed_api$$response$$common,
-        "speed_base": speed_base,
         "speed_messages": speed_messages,
+        "speed_setting_metadata": speed_setting_metadata,
         "speed_transformations_config_response": speed_transformations_config_response,
         "speed_transformations_config_value": speed_transformations_config_value,
       },
@@ -232,8 +232,8 @@ export const tools: readonly Tool[] = [
         $defs: {
           "speed_api-response-common": speed_api$$response$$common,
           "speed_api-response-common-failure": speed_api$$response$$common$$failure,
-          "speed_base": speed_base,
           "speed_messages": speed_messages,
+          "speed_setting_metadata": speed_setting_metadata,
           "speed_transformations_config_response": speed_transformations_config_response,
           "speed_transformations_config_value": speed_transformations_config_value,
         },

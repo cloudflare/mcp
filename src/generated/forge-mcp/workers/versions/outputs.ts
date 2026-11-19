@@ -100,6 +100,9 @@ export const workers_Version: JSONObject = {
       "format": "date-time",
       "type": "string"
     },
+    "env": {
+      "$ref": "#/$defs/workers_env"
+    },
     "exports": {
       "$ref": "#/$defs/workers_exports_config_map"
     },

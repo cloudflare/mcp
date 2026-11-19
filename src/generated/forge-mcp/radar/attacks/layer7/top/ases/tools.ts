@@ -17,6 +17,19 @@ export const tools: readonly Tool[] = [
         "query": {
           "additionalProperties": false,
           "properties": {
+            "asCategory": {
+              "description": "Filters results by the inferred network type of the Autonomous System: `ACCESS_ISP` (networks connecting end users, plus transit), `HOSTING_CLOUD_CONTENT` (hosting providers, clouds and CDNs), `ORGANIZATION` (enterprises, universities, governments, banks and IXP route servers), or `UNCLASSIFIED` (the AS isn't classified, or the traffic couldn't be mapped to an AS). In HTTP, only supported for date ranges starting on or after 2023-05-01.",
+              "items": {
+                "enum": [
+                  "ACCESS_ISP",
+                  "HOSTING_CLOUD_CONTENT",
+                  "ORGANIZATION",
+                  "UNCLASSIFIED"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            },
             "continent": {
               "description": "Filters results by continent. Specify a comma-separated list of alpha-2 codes. Prefix with `-` to exclude continents from results. For example, `-EU,NA` excludes results from EU, but includes results from NA.",
               "items": {
@@ -410,6 +423,7 @@ export const tools: readonly Tool[] = [
         { name: "httpVersion", explode: true },
         { name: "httpMethod", explode: true },
         { name: "mitigationProduct", explode: true },
+        { name: "asCategory", explode: true },
         { name: "format", explode: true },
       ],
       extensions: {

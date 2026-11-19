@@ -38,12 +38,6 @@ export const workers_Preview: JSONObject = {
           "oneOf": [
             {
               "properties": {
-                "destinations": {
-                  "items": {
-                    "type": "string"
-                  },
-                  "type": "array"
-                },
                 "enabled": {
                   "type": "boolean"
                 },

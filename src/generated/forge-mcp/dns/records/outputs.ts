@@ -1162,6 +1162,39 @@ export const dns$$records_dns_response_import_scan: JSONObject = {
 };
 
 /**
+ * The schema of `dns-records_dns_response_list` in responses.
+ */
+export const dns$$records_dns_response_list: JSONObject = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/dns-records_dns-record-response"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "cursor": {
+              "type": "string"
+            },
+            "prev_cursor": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `dns-records_dns_response_review_scan` in responses.
  */
 export const dns$$records_dns_response_review_scan: JSONObject = {

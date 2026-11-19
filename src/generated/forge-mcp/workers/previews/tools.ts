@@ -42,14 +42,6 @@ export const tools: readonly Tool[] = [
                   "oneOf": [
                     {
                       "properties": {
-                        "destinations": {
-                          "default": [],
-                          "description": "A list of destinations where Agents observability data will be exported to.",
-                          "items": {
-                            "type": "string"
-                          },
-                          "type": "array"
-                        },
                         "enabled": {
                           "default": false,
                           "description": "Whether Agents observability is enabled for the Preview.",
@@ -769,14 +761,6 @@ export const tools: readonly Tool[] = [
                   "oneOf": [
                     {
                       "properties": {
-                        "destinations": {
-                          "default": [],
-                          "description": "A list of destinations where Agents observability data will be exported to.",
-                          "items": {
-                            "type": "string"
-                          },
-                          "type": "array"
-                        },
                         "enabled": {
                           "default": false,
                           "description": "Whether Agents observability is enabled for the Preview.",

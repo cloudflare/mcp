@@ -4,12 +4,42 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
+ * The schema of `speed_setting_metadata` in responses.
+ */
+export const speed_setting_metadata: JSONObject = {
+  "properties": {
+    "editable": {
+      "enum": [
+        true,
+        false
+      ],
+      "type": "boolean"
+    },
+    "id": {
+      "type": "string"
+    },
+    "modified_on": {
+      "oneOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "type": "object"
+};
+
+/**
  * The schema of `speed_transformations_config_response` in responses.
  */
 export const speed_transformations_config_response: JSONObject = {
   "allOf": [
     {
-      "$ref": "#/$defs/speed_base"
+      "$ref": "#/$defs/speed_setting_metadata"
     },
     {
       "properties": {

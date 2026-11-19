@@ -388,12 +388,6 @@ export const workers_Worker: JSONObject = {
           "oneOf": [
             {
               "properties": {
-                "destinations": {
-                  "items": {
-                    "type": "string"
-                  },
-                  "type": "array"
-                },
                 "enabled": {
                   "type": "boolean"
                 },
@@ -749,12 +743,6 @@ export const workers_observability: JSONObject = {
       "oneOf": [
         {
           "properties": {
-            "destinations": {
-              "items": {
-                "type": "string"
-              },
-              "type": "array"
-            },
             "enabled": {
               "type": "boolean"
             },

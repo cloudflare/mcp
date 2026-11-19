@@ -182,6 +182,7 @@ export const spectrum$$config_app_config_collection: JSONObject = {
               "items": {
                 "$ref": "#/$defs/spectrum-config_paygo_app_config"
               },
+              "minItems": 1,
               "type": "array"
             }
           ]
@@ -356,8 +357,36 @@ export const spectrum$$config_paygo_app_config: JSONObject = {
         "origin_direct": {
           "$ref": "#/$defs/spectrum-config_origin_direct"
         },
+        "origin_worker_id": {
+          "type": "string"
+        },
+        "origin_worker_name": {
+          "type": "string"
+        },
+        "origin_worker_status": {
+          "enum": [
+            "available",
+            "not_found",
+            "unknown"
+          ],
+          "type": "string"
+        },
         "protocol": {
           "type": "string"
+        },
+        "traffic_type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "enum": [
+                "direct",
+                "worker"
+              ],
+              "type": "string"
+            }
+          ]
         }
       },
       "required": [

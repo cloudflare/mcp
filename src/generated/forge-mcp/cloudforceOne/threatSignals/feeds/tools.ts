@@ -63,6 +63,11 @@ export const tools: readonly Tool[] = [
               "description": "Polling interval in seconds (60-86400). Default 300s (5 minutes).",
               "type": "integer"
             },
+            "tagging_enabled": {
+              "default": false,
+              "description": "When enabled, new articles from this feed are tagged automatically by AI. Changes apply to articles processed afterwards. Default false.",
+              "type": "boolean"
+            },
             "title": {
               "description": "Override the feed's title. Null clears it; omit to keep existing or derived value.",
               "oneOf": [
@@ -240,6 +245,9 @@ export const tools: readonly Tool[] = [
                 }
               ]
             },
+            "tagging_enabled": {
+              "type": "boolean"
+            },
             "title": {
               "oneOf": [
                 {
@@ -270,6 +278,7 @@ export const tools: readonly Tool[] = [
             "source_type",
             "status",
             "subscribed_at",
+            "tagging_enabled",
             "title",
             "updated_at",
             "url"
@@ -451,6 +460,9 @@ export const tools: readonly Tool[] = [
                       }
                     ]
                   },
+                  "tagging_enabled": {
+                    "type": "boolean"
+                  },
                   "title": {
                     "oneOf": [
                       {
@@ -481,6 +493,7 @@ export const tools: readonly Tool[] = [
                   "source_type",
                   "status",
                   "subscribed_at",
+                  "tagging_enabled",
                   "title",
                   "updated_at",
                   "url"
@@ -1002,6 +1015,9 @@ export const tools: readonly Tool[] = [
                 }
               ]
             },
+            "tagging_enabled": {
+              "type": "boolean"
+            },
             "title": {
               "oneOf": [
                 {
@@ -1032,6 +1048,7 @@ export const tools: readonly Tool[] = [
             "source_type",
             "status",
             "subscribed_at",
+            "tagging_enabled",
             "title",
             "updated_at",
             "url"
@@ -1212,6 +1229,9 @@ export const tools: readonly Tool[] = [
                       }
                     ]
                   },
+                  "tagging_enabled": {
+                    "type": "boolean"
+                  },
                   "title": {
                     "oneOf": [
                       {
@@ -1242,6 +1262,7 @@ export const tools: readonly Tool[] = [
                   "source_type",
                   "status",
                   "subscribed_at",
+                  "tagging_enabled",
                   "title",
                   "updated_at",
                   "url"
@@ -1563,6 +1584,9 @@ export const tools: readonly Tool[] = [
                       }
                     ]
                   },
+                  "tagging_enabled": {
+                    "type": "boolean"
+                  },
                   "title": {
                     "oneOf": [
                       {
@@ -1593,6 +1617,7 @@ export const tools: readonly Tool[] = [
                   "source_type",
                   "status",
                   "subscribed_at",
+                  "tagging_enabled",
                   "title",
                   "updated_at",
                   "url"
@@ -1819,6 +1844,9 @@ export const tools: readonly Tool[] = [
                             }
                           ]
                         },
+                        "tagging_enabled": {
+                          "type": "boolean"
+                        },
                         "title": {
                           "oneOf": [
                             {
@@ -1849,6 +1877,7 @@ export const tools: readonly Tool[] = [
                         "source_type",
                         "status",
                         "subscribed_at",
+                        "tagging_enabled",
                         "title",
                         "updated_at",
                         "url"
@@ -2279,6 +2308,10 @@ export const tools: readonly Tool[] = [
               "description": "New polling interval in seconds (60-86400). Omit to keep current value.",
               "type": "integer"
             },
+            "tagging_enabled": {
+              "description": "When enabled, new articles from this feed are tagged automatically by AI. Changes apply to articles processed afterwards. Omit to keep current value.",
+              "type": "boolean"
+            },
             "title": {
               "description": "Override the feed's title. Null clears it; omit to keep existing or derived value.",
               "oneOf": [
@@ -2458,6 +2491,9 @@ export const tools: readonly Tool[] = [
                 }
               ]
             },
+            "tagging_enabled": {
+              "type": "boolean"
+            },
             "title": {
               "oneOf": [
                 {
@@ -2488,6 +2524,7 @@ export const tools: readonly Tool[] = [
             "source_type",
             "status",
             "subscribed_at",
+            "tagging_enabled",
             "title",
             "updated_at",
             "url"
@@ -2669,6 +2706,9 @@ export const tools: readonly Tool[] = [
                       }
                     ]
                   },
+                  "tagging_enabled": {
+                    "type": "boolean"
+                  },
                   "title": {
                     "oneOf": [
                       {
@@ -2699,6 +2739,7 @@ export const tools: readonly Tool[] = [
                   "source_type",
                   "status",
                   "subscribed_at",
+                  "tagging_enabled",
                   "title",
                   "updated_at",
                   "url"

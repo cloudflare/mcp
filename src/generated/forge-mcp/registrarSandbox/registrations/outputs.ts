@@ -4,9 +4,9 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
- * The schema of `registrar-api-sandbox_cursor_result_info` in responses.
+ * The schema of `registrar-sandbox_cursor_result_info` in responses.
  */
-export const registrar$$api$$sandbox_cursor_result_info: JSONObject = {
+export const registrar$$sandbox_cursor_result_info: JSONObject = {
   "properties": {
     "count": {
       "type": "integer"
@@ -27,12 +27,12 @@ export const registrar$$api$$sandbox_cursor_result_info: JSONObject = {
 };
 
 /**
- * The schema of `registrar-api-sandbox_domain_check_response` in responses.
+ * The schema of `registrar-sandbox_domain_check_response` in responses.
  */
-export const registrar$$api$$sandbox_domain_check_response: JSONObject = {
+export const registrar$$sandbox_domain_check_response: JSONObject = {
   "allOf": [
     {
-      "$ref": "#/$defs/registrar-api-sandbox_api-response-common"
+      "$ref": "#/$defs/registrar-sandbox_api-response-common"
     },
     {
       "properties": {
@@ -40,7 +40,7 @@ export const registrar$$api$$sandbox_domain_check_response: JSONObject = {
           "properties": {
             "domains": {
               "items": {
-                "$ref": "#/$defs/registrar-api-sandbox_domain_check_result"
+                "$ref": "#/$defs/registrar-sandbox_domain_check_result"
               },
               "type": "array"
             }
@@ -60,15 +60,15 @@ export const registrar$$api$$sandbox_domain_check_response: JSONObject = {
 };
 
 /**
- * The schema of `registrar-api-sandbox_domain_check_result` in responses.
+ * The schema of `registrar-sandbox_domain_check_result` in responses.
  */
-export const registrar$$api$$sandbox_domain_check_result: JSONObject = {
+export const registrar$$sandbox_domain_check_result: JSONObject = {
   "properties": {
     "name": {
       "type": "string"
     },
     "pricing": {
-      "$ref": "#/$defs/registrar-api-sandbox_pricing_registration"
+      "$ref": "#/$defs/registrar-sandbox_pricing_registration"
     },
     "reason": {
       "enum": [
@@ -99,12 +99,12 @@ export const registrar$$api$$sandbox_domain_check_result: JSONObject = {
 };
 
 /**
- * The schema of `registrar-api-sandbox_domain_search_response` in responses.
+ * The schema of `registrar-sandbox_domain_search_response` in responses.
  */
-export const registrar$$api$$sandbox_domain_search_response: JSONObject = {
+export const registrar$$sandbox_domain_search_response: JSONObject = {
   "allOf": [
     {
-      "$ref": "#/$defs/registrar-api-sandbox_api-response-common"
+      "$ref": "#/$defs/registrar-sandbox_api-response-common"
     },
     {
       "properties": {
@@ -112,7 +112,7 @@ export const registrar$$api$$sandbox_domain_search_response: JSONObject = {
           "properties": {
             "domains": {
               "items": {
-                "$ref": "#/$defs/registrar-api-sandbox_domain_search_result"
+                "$ref": "#/$defs/registrar-sandbox_domain_search_result"
               },
               "type": "array"
             }
@@ -132,15 +132,15 @@ export const registrar$$api$$sandbox_domain_search_response: JSONObject = {
 };
 
 /**
- * The schema of `registrar-api-sandbox_domain_search_result` in responses.
+ * The schema of `registrar-sandbox_domain_search_result` in responses.
  */
-export const registrar$$api$$sandbox_domain_search_result: JSONObject = {
+export const registrar$$sandbox_domain_search_result: JSONObject = {
   "properties": {
     "name": {
       "type": "string"
     },
     "pricing": {
-      "$ref": "#/$defs/registrar-api-sandbox_pricing_registration"
+      "$ref": "#/$defs/registrar-sandbox_pricing_registration"
     },
     "reason": {
       "enum": [
@@ -171,9 +171,9 @@ export const registrar$$api$$sandbox_domain_search_result: JSONObject = {
 };
 
 /**
- * The schema of `registrar-api-sandbox_pricing_base` in responses.
+ * The schema of `registrar-sandbox_pricing_base` in responses.
  */
-export const registrar$$api$$sandbox_pricing_base: JSONObject = {
+export const registrar$$sandbox_pricing_base: JSONObject = {
   "properties": {
     "currency": {
       "type": "string"
@@ -190,12 +190,12 @@ export const registrar$$api$$sandbox_pricing_base: JSONObject = {
 };
 
 /**
- * The schema of `registrar-api-sandbox_pricing_registration` in responses.
+ * The schema of `registrar-sandbox_pricing_registration` in responses.
  */
-export const registrar$$api$$sandbox_pricing_registration: JSONObject = {
+export const registrar$$sandbox_pricing_registration: JSONObject = {
   "allOf": [
     {
-      "$ref": "#/$defs/registrar-api-sandbox_pricing_base"
+      "$ref": "#/$defs/registrar-sandbox_pricing_base"
     },
     {
       "properties": {
@@ -212,9 +212,9 @@ export const registrar$$api$$sandbox_pricing_registration: JSONObject = {
 };
 
 /**
- * The schema of `registrar-api-sandbox_registration` in responses.
+ * The schema of `registrar-sandbox_registration` in responses.
  */
-export const registrar$$api$$sandbox_registration: JSONObject = {
+export const registrar$$sandbox_registration: JSONObject = {
   "properties": {
     "auto_renew": {
       "type": "boolean"
@@ -273,24 +273,24 @@ export const registrar$$api$$sandbox_registration: JSONObject = {
 };
 
 /**
- * The schema of `registrar-api-sandbox_registration-response-collection` in
+ * The schema of `registrar-sandbox_registration-response-collection` in
  * responses.
  */
-export const registrar$$api$$sandbox_registration$$response$$collection: JSONObject = {
+export const registrar$$sandbox_registration$$response$$collection: JSONObject = {
   "allOf": [
     {
-      "$ref": "#/$defs/registrar-api-sandbox_api-response-common"
+      "$ref": "#/$defs/registrar-sandbox_api-response-common"
     },
     {
       "properties": {
         "result": {
           "items": {
-            "$ref": "#/$defs/registrar-api-sandbox_registration"
+            "$ref": "#/$defs/registrar-sandbox_registration"
           },
           "type": "array"
         },
         "result_info": {
-          "$ref": "#/$defs/registrar-api-sandbox_cursor_result_info"
+          "$ref": "#/$defs/registrar-sandbox_cursor_result_info"
         }
       },
       "required": [
@@ -303,18 +303,17 @@ export const registrar$$api$$sandbox_registration$$response$$collection: JSONObj
 };
 
 /**
- * The schema of `registrar-api-sandbox_registration-response-single` in
- * responses.
+ * The schema of `registrar-sandbox_registration-response-single` in responses.
  */
-export const registrar$$api$$sandbox_registration$$response$$single: JSONObject = {
+export const registrar$$sandbox_registration$$response$$single: JSONObject = {
   "allOf": [
     {
-      "$ref": "#/$defs/registrar-api-sandbox_api-response-common"
+      "$ref": "#/$defs/registrar-sandbox_api-response-common"
     },
     {
       "properties": {
         "result": {
-          "$ref": "#/$defs/registrar-api-sandbox_registration"
+          "$ref": "#/$defs/registrar-sandbox_registration"
         }
       },
       "type": "object"
@@ -323,18 +322,18 @@ export const registrar$$api$$sandbox_registration$$response$$single: JSONObject 
 };
 
 /**
- * The schema of `registrar-api-sandbox_workflow-status-response-single` in
+ * The schema of `registrar-sandbox_workflow-status-response-single` in
  * responses.
  */
-export const registrar$$api$$sandbox_workflow$$status$$response$$single: JSONObject = {
+export const registrar$$sandbox_workflow$$status$$response$$single: JSONObject = {
   "allOf": [
     {
-      "$ref": "#/$defs/registrar-api-sandbox_api-response-common"
+      "$ref": "#/$defs/registrar-sandbox_api-response-common"
     },
     {
       "properties": {
         "result": {
-          "$ref": "#/$defs/registrar-api-sandbox_workflow_status"
+          "$ref": "#/$defs/registrar-sandbox_workflow_status"
         }
       },
       "type": "object"
@@ -343,9 +342,9 @@ export const registrar$$api$$sandbox_workflow$$status$$response$$single: JSONObj
 };
 
 /**
- * The schema of `registrar-api-sandbox_workflow_error` in responses.
+ * The schema of `registrar-sandbox_workflow_error` in responses.
  */
-export const registrar$$api$$sandbox_workflow_error: JSONObject = {
+export const registrar$$sandbox_workflow_error: JSONObject = {
   "properties": {
     "code": {
       "type": "string"
@@ -362,9 +361,9 @@ export const registrar$$api$$sandbox_workflow_error: JSONObject = {
 };
 
 /**
- * The schema of `registrar-api-sandbox_workflow_links` in responses.
+ * The schema of `registrar-sandbox_workflow_links` in responses.
  */
-export const registrar$$api$$sandbox_workflow_links: JSONObject = {
+export const registrar$$sandbox_workflow_links: JSONObject = {
   "properties": {
     "resource": {
       "type": "string"
@@ -380,9 +379,9 @@ export const registrar$$api$$sandbox_workflow_links: JSONObject = {
 };
 
 /**
- * The schema of `registrar-api-sandbox_workflow_status` in responses.
+ * The schema of `registrar-sandbox_workflow_status` in responses.
  */
-export const registrar$$api$$sandbox_workflow_status: JSONObject = {
+export const registrar$$sandbox_workflow_status: JSONObject = {
   "properties": {
     "completed": {
       "type": "boolean"
@@ -397,7 +396,7 @@ export const registrar$$api$$sandbox_workflow_status: JSONObject = {
     "error": {
       "oneOf": [
         {
-          "$ref": "#/$defs/registrar-api-sandbox_workflow_error"
+          "$ref": "#/$defs/registrar-sandbox_workflow_error"
         },
         {
           "type": "null"
@@ -405,7 +404,7 @@ export const registrar$$api$$sandbox_workflow_status: JSONObject = {
       ]
     },
     "links": {
-      "$ref": "#/$defs/registrar-api-sandbox_workflow_links"
+      "$ref": "#/$defs/registrar-sandbox_workflow_links"
     },
     "state": {
       "enum": [

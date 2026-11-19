@@ -4,10 +4,10 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
- * The schema of `speed_automatic_platform_optimization_value`.
+ * The schema of `speed_automatic_platform_optimization_patch_value`.
  */
-export const speed_automatic_platform_optimization_value: JSONObject = {
-  "description": "Configuration for Automatic Platform Optimization (APO) for WordPress.\nSet to \"off\" to disable, or provide an object to configure APO settings.",
+export const speed_automatic_platform_optimization_patch_value: JSONObject = {
+  "description": "Configuration for Automatic Platform Optimization (APO) for WordPress.\nSet to \"off\" to disable, or provide an object to configure APO settings.\nWhen an APO configuration already exists, fields omitted from the object keep their current value, and \"off\" disables APO without erasing the detected zone/site/plugin facts.\nOn the first write for a zone (no existing configuration) an object must include `enabled`, `cf`, `wordpress` and `wp_plugin`; otherwise the request fails with error 1023 and no configuration is created. Setting \"off\" when no configuration exists is a no-op.",
   "oneOf": [
     {
       "properties": {
@@ -31,7 +31,7 @@ export const speed_automatic_platform_optimization_value: JSONObject = {
           "type": "array"
         },
         "recheck": {
-          "description": "Whether to recheck WordPress and plugin detection.",
+          "description": "Whether to recheck WordPress and plugin detection. When an APO configuration already exists, an omitted `recheck` is false, not its stored value.",
           "type": "boolean"
         },
         "wordpress": {
@@ -43,12 +43,6 @@ export const speed_automatic_platform_optimization_value: JSONObject = {
           "type": "boolean"
         }
       },
-      "required": [
-        "cf",
-        "enabled",
-        "wordpress",
-        "wp_plugin"
-      ],
       "type": "object"
     },
     {

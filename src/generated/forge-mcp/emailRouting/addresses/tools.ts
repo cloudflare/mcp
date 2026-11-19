@@ -192,6 +192,97 @@ export const tools: readonly Tool[] = [
     },
   },
   {
+    name: "emailRouting_addresses_edit",
+    title: "Update destination address",
+    description: "Updates the status of a specific destination address.\n\nPATCH /accounts/{account_id}/email/routing/addresses/{destination_address_identifier}",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "body": {
+          "$ref": "#/$defs/email_update_destination_address_properties"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier.",
+              "type": "string"
+            },
+            "destination_address_identifier": {
+              "description": "Destination address identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "destination_address_identifier"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path",
+        "body"
+      ],
+      additionalProperties: false,
+      $defs: {
+        "email_update_destination_address_properties": email_update_destination_address_properties,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/email_destination_address_response_single",
+      $defs: {
+        "email_addresses": email_addresses,
+        "email_api-response-single": email_api$$response$$single,
+        "email_destination_address_response_single": email_destination_address_response_single,
+        "email_messages": email_messages,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Update destination address"
+    },
+    [OPERATION]: {
+      method: "PATCH",
+      path: "/accounts/{account_id}/email/routing/addresses/{destination_address_identifier}",
+      pathOf: encodePath`/accounts/${"account_id"}/email/routing/addresses/${"destination_address_identifier"}`,
+      body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-api-token-group": [
+          "Email Routing Addresses Write"
+        ],
+        "x-cfPermissionsRequired": {
+          "enum": [
+            "com.cloudflare.api.account.email.routing.address.update"
+          ]
+        },
+        "x-cfPlanAvailability": {
+          "business": true,
+          "enterprise": true,
+          "free": true,
+          "pro": true
+        }
+      },
+      responses: {
+        schemas: {
+          "200": {
+            "$ref": "#/$defs/email_destination_address_response_single"
+          },
+          "404": null
+        },
+        $defs: {
+          "email_addresses": email_addresses,
+          "email_api-response-single": email_api$$response$$single,
+          "email_destination_address_response_single": email_destination_address_response_single,
+          "email_messages": email_messages,
+        },
+      },
+    },
+  },
+  {
     name: "emailRouting_addresses_get",
     title: "Get a destination address",
     description: "Gets information for a specific destination email already created.\n\nGET /accounts/{account_id}/email/routing/addresses/{destination_address_identifier}",
@@ -391,97 +482,6 @@ export const tools: readonly Tool[] = [
           "email_api-response-collection": email_api$$response$$collection,
           "email_api-response-common": email_api$$response$$common,
           "email_destination_addresses_response_collection": email_destination_addresses_response_collection,
-          "email_messages": email_messages,
-        },
-      },
-    },
-  },
-  {
-    name: "emailRouting_addresses_update",
-    title: "Update destination address",
-    description: "Updates the status of a specific destination address.\n\nPATCH /accounts/{account_id}/email/routing/addresses/{destination_address_identifier}",
-    inputSchema: {
-      type: "object",
-      properties: {
-        "body": {
-          "$ref": "#/$defs/email_update_destination_address_properties"
-        },
-        "path": {
-          "additionalProperties": false,
-          "properties": {
-            "account_id": {
-              "description": "Identifier.",
-              "type": "string"
-            },
-            "destination_address_identifier": {
-              "description": "Destination address identifier.",
-              "type": "string"
-            }
-          },
-          "required": [
-            "account_id",
-            "destination_address_identifier"
-          ],
-          "type": "object"
-        }
-      },
-      required: [
-        "path",
-        "body"
-      ],
-      additionalProperties: false,
-      $defs: {
-        "email_update_destination_address_properties": email_update_destination_address_properties,
-      },
-    },
-    outputSchema: {
-      "$ref": "#/$defs/email_destination_address_response_single",
-      $defs: {
-        "email_addresses": email_addresses,
-        "email_api-response-single": email_api$$response$$single,
-        "email_destination_address_response_single": email_destination_address_response_single,
-        "email_messages": email_messages,
-      },
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Update destination address"
-    },
-    [OPERATION]: {
-      method: "PATCH",
-      path: "/accounts/{account_id}/email/routing/addresses/{destination_address_identifier}",
-      pathOf: encodePath`/accounts/${"account_id"}/email/routing/addresses/${"destination_address_identifier"}`,
-      body: { mediaTypes: ["application/json"] },
-      extensions: {
-        "x-api-token-group": [
-          "Email Routing Addresses Write"
-        ],
-        "x-cfPermissionsRequired": {
-          "enum": [
-            "com.cloudflare.api.account.email.routing.address.update"
-          ]
-        },
-        "x-cfPlanAvailability": {
-          "business": true,
-          "enterprise": true,
-          "free": true,
-          "pro": true
-        }
-      },
-      responses: {
-        schemas: {
-          "200": {
-            "$ref": "#/$defs/email_destination_address_response_single"
-          },
-          "404": null
-        },
-        $defs: {
-          "email_addresses": email_addresses,
-          "email_api-response-single": email_api$$response$$single,
-          "email_destination_address_response_single": email_destination_address_response_single,
           "email_messages": email_messages,
         },
       },

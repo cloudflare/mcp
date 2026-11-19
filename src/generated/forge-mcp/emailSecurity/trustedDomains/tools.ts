@@ -24,7 +24,7 @@ import {
  */
 export const tools: readonly Tool[] = [
   {
-    name: "emailSecurity_trustedDomains_batch",
+    name: "emailSecurity_trustedDomains_bulkApply",
     title: "Batch trusted domain operations",
     description: "Executes multiple trusted domain operations atomically: delete, partially update,\nreplace, and create trusted domain patterns in a single request. All four operation\narrays (deletes, patches, puts, posts) are required and executed in order.\nSend empty arrays for unused operations.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation may delete the selected trusted domain patterns and restore normal recent domain and similarity checks for matching emails.\n\nPOST /accounts/{account_id}/email-security/settings/trusted_domains/batch",
     inputSchema: {

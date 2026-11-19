@@ -589,6 +589,21 @@ export const tools: readonly Tool[] = [
                 "asn": {
                   "type": "integer"
                 },
+                "category": {
+                  "oneOf": [
+                    {
+                      "enum": [
+                        "ACCESS_ISP",
+                        "HOSTING_CLOUD_CONTENT",
+                        "ORGANIZATION"
+                      ],
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
                 "confidenceLevel": {
                   "type": "integer"
                 },
@@ -645,6 +660,21 @@ export const tools: readonly Tool[] = [
                       "asn": {
                         "type": "integer"
                       },
+                      "category": {
+                        "oneOf": [
+                          {
+                            "enum": [
+                              "ACCESS_ISP",
+                              "HOSTING_CLOUD_CONTENT",
+                              "ORGANIZATION"
+                            ],
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
                       "estimatedUsers": {
                         "type": "integer"
                       },
@@ -654,6 +684,7 @@ export const tools: readonly Tool[] = [
                     },
                     "required": [
                       "asn",
+                      "category",
                       "name"
                     ],
                     "type": "object"
@@ -669,6 +700,7 @@ export const tools: readonly Tool[] = [
               },
               "required": [
                 "asn",
+                "category",
                 "confidenceLevel",
                 "country",
                 "countryName",
@@ -737,6 +769,21 @@ export const tools: readonly Tool[] = [
                       "asn": {
                         "type": "integer"
                       },
+                      "category": {
+                        "oneOf": [
+                          {
+                            "enum": [
+                              "ACCESS_ISP",
+                              "HOSTING_CLOUD_CONTENT",
+                              "ORGANIZATION"
+                            ],
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
                       "confidenceLevel": {
                         "type": "integer"
                       },
@@ -793,6 +840,21 @@ export const tools: readonly Tool[] = [
                             "asn": {
                               "type": "integer"
                             },
+                            "category": {
+                              "oneOf": [
+                                {
+                                  "enum": [
+                                    "ACCESS_ISP",
+                                    "HOSTING_CLOUD_CONTENT",
+                                    "ORGANIZATION"
+                                  ],
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
                             "estimatedUsers": {
                               "type": "integer"
                             },
@@ -802,6 +864,7 @@ export const tools: readonly Tool[] = [
                           },
                           "required": [
                             "asn",
+                            "category",
                             "name"
                           ],
                           "type": "object"
@@ -817,6 +880,7 @@ export const tools: readonly Tool[] = [
                     },
                     "required": [
                       "asn",
+                      "category",
                       "confidenceLevel",
                       "country",
                       "countryName",
@@ -906,6 +970,21 @@ export const tools: readonly Tool[] = [
                 "asn": {
                   "type": "integer"
                 },
+                "category": {
+                  "oneOf": [
+                    {
+                      "enum": [
+                        "ACCESS_ISP",
+                        "HOSTING_CLOUD_CONTENT",
+                        "ORGANIZATION"
+                      ],
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
                 "country": {
                   "type": "string"
                 },
@@ -959,6 +1038,21 @@ export const tools: readonly Tool[] = [
                       "asn": {
                         "type": "integer"
                       },
+                      "category": {
+                        "oneOf": [
+                          {
+                            "enum": [
+                              "ACCESS_ISP",
+                              "HOSTING_CLOUD_CONTENT",
+                              "ORGANIZATION"
+                            ],
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
                       "estimatedUsers": {
                         "type": "integer"
                       },
@@ -968,6 +1062,7 @@ export const tools: readonly Tool[] = [
                     },
                     "required": [
                       "asn",
+                      "category",
                       "name"
                     ],
                     "type": "object"
@@ -983,6 +1078,7 @@ export const tools: readonly Tool[] = [
               },
               "required": [
                 "asn",
+                "category",
                 "country",
                 "countryName",
                 "estimatedUsers",
@@ -1051,6 +1147,21 @@ export const tools: readonly Tool[] = [
                       "asn": {
                         "type": "integer"
                       },
+                      "category": {
+                        "oneOf": [
+                          {
+                            "enum": [
+                              "ACCESS_ISP",
+                              "HOSTING_CLOUD_CONTENT",
+                              "ORGANIZATION"
+                            ],
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
                       "country": {
                         "type": "string"
                       },
@@ -1104,6 +1215,21 @@ export const tools: readonly Tool[] = [
                             "asn": {
                               "type": "integer"
                             },
+                            "category": {
+                              "oneOf": [
+                                {
+                                  "enum": [
+                                    "ACCESS_ISP",
+                                    "HOSTING_CLOUD_CONTENT",
+                                    "ORGANIZATION"
+                                  ],
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
                             "estimatedUsers": {
                               "type": "integer"
                             },
@@ -1113,6 +1239,7 @@ export const tools: readonly Tool[] = [
                           },
                           "required": [
                             "asn",
+                            "category",
                             "name"
                           ],
                           "type": "object"
@@ -1128,6 +1255,7 @@ export const tools: readonly Tool[] = [
                     },
                     "required": [
                       "asn",
+                      "category",
                       "country",
                       "countryName",
                       "estimatedUsers",
@@ -1233,6 +1361,21 @@ export const tools: readonly Tool[] = [
                   "asn": {
                     "type": "integer"
                   },
+                  "category": {
+                    "oneOf": [
+                      {
+                        "enum": [
+                          "ACCESS_ISP",
+                          "HOSTING_CLOUD_CONTENT",
+                          "ORGANIZATION"
+                        ],
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
                   "country": {
                     "type": "string"
                   },
@@ -1259,6 +1402,7 @@ export const tools: readonly Tool[] = [
                 },
                 "required": [
                   "asn",
+                  "category",
                   "country",
                   "countryName",
                   "estimatedUsers",
@@ -1330,6 +1474,21 @@ export const tools: readonly Tool[] = [
                         "asn": {
                           "type": "integer"
                         },
+                        "category": {
+                          "oneOf": [
+                            {
+                              "enum": [
+                                "ACCESS_ISP",
+                                "HOSTING_CLOUD_CONTENT",
+                                "ORGANIZATION"
+                              ],
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
                         "country": {
                           "type": "string"
                         },
@@ -1356,6 +1515,7 @@ export const tools: readonly Tool[] = [
                       },
                       "required": [
                         "asn",
+                        "category",
                         "country",
                         "countryName",
                         "estimatedUsers",
