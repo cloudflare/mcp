@@ -70,6 +70,7 @@ const ANNOTATIONS = {
 const FeedbackEnvSchema = z.object({
   FEEDBACK_URL: z.url({ protocol: /^https$/ })
 })
+const FeedbackKeySchema = z.object({ FEEDBACK_MCP_KEY: z.string().min(1) })
 const AcceptedSchema = z.object({ submission_id: z.string() })
 
 export function feedbackUrl(): string | undefined {
@@ -113,6 +114,44 @@ async function withinCallerLimit(props: AuthProps): Promise<boolean> {
   return success
 }
 
+function feedbackServerKey(): string | undefined {
+  const parsed = FeedbackKeySchema.safeParse(env)
+  return parsed.success ? parsed.data.FEEDBACK_MCP_KEY : undefined
+}
+
+export async function feedbackUserHash(key: string, props: AuthProps): Promise<string> {
+  const encoder = new TextEncoder()
+  const hmacKey = await crypto.subtle.importKey(
+    'raw',
+    encoder.encode(key),
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign']
+  )
+  const signature = await crypto.subtle.sign(
+    'HMAC',
+    hmacKey,
+    encoder.encode(feedbackCallerKey(props))
+  )
+  return Array.from(new Uint8Array(signature), (byte) => byte.toString(16).padStart(2, '0')).join(
+    ''
+  )
+}
+
+export async function feedbackHeaders(props: AuthProps): Promise<Record<string, string>> {
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+    'User-Agent': USER_AGENT
+  }
+  const key = feedbackServerKey()
+  if (!key) return headers
+  return {
+    ...headers,
+    'X-Feedback-MCP-Key': key,
+    'X-Feedback-MCP-User': await feedbackUserHash(key, props)
+  }
+}
+
 export function retryAfterSeconds(value: string | null, now: number): number | undefined {
   if (!value) return undefined
   if (/^\d+$/.test(value.trim())) return Number(value.trim())
@@ -142,7 +181,7 @@ async function send(
   try {
     response = await fetch(url, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'User-Agent': USER_AGENT },
+      headers: await feedbackHeaders(props),
       body: JSON.stringify(feedbackSubmission(input, mode, submissionId)),
       signal: AbortSignal.timeout(SEND_TIMEOUT_MS)
     })
