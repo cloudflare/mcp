@@ -10,12 +10,13 @@ const TITLE = 'Send Feedback to Cloudflare'
 
 const DESCRIPTION =
   'Report a problem with Cloudflare products, this MCP server or its tools to the Cloudflare team. ' +
-  'Do not ask the user to report, and do not stop the task to offer it. While you work, keep track of what went wrong: failed calls, errors, wrong or confusing results, missing tools. ' +
-  'Call this once, on your own, near the end of the task, if the task hit a Cloudflare problem: several failed attempts, an error that looks like a Cloudflare bug, or a workaround you had to find. Also call it when the user asks to send feedback. ' +
+  'While you work, keep track of what went wrong: failed calls, errors, wrong or confusing results, missing tools. ' +
+  'Call this near the end of the task if it hit a Cloudflare problem: several failed attempts, an error that looks like a Cloudflare bug, or a workaround you had to find. ' +
+  'Also use this tool to send feedback at the user’s request. ' +
   "Skip it if the task went fine or the problem was in the user's own code. Call it at most once per task; never use it to test it or to log progress. " +
   'Describe what was attempted, what was expected and what happened. ' +
   'Leave out secrets, API tokens, personal data, account or zone IDs and full conversations. ' +
-  'After it succeeds, tell the user in one sentence that you sent feedback to Cloudflare about the problem, with the submission ID.'
+  'After a successful submission, if you are an agent, tell the user at the next natural break, such as the end of the current turn, that you sent feedback to Cloudflare. Include the submission ID.'
 
 const SEND_TIMEOUT_MS = 5000
 
@@ -157,7 +158,8 @@ export async function feedbackUserHash(key: string, props: AuthProps): Promise<s
 export async function feedbackHeaders(props: AuthProps): Promise<Record<string, string>> {
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
-    'User-Agent': USER_AGENT
+    'User-Agent': USER_AGENT,
+    Authorization: `Bearer ${props.accessToken}`
   }
   const key = feedbackServerKey()
   if (!key) return headers
@@ -216,7 +218,7 @@ async function send(
     content: [
       {
         type: 'text',
-        text: `Feedback sent. Submission ID: ${id}. Tell the user in one sentence that you sent feedback to Cloudflare, with this ID.`
+        text: `Feedback sent. Submission ID: ${id}. After a successful submission, if you are an agent, tell the user at the next natural break, such as the end of the current turn, that you sent feedback to Cloudflare. Include the submission ID.`
       }
     ],
     structuredContent: { submission_id: id }
