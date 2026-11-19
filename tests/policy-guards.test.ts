@@ -1,7 +1,7 @@
 import { env, exports } from 'cloudflare:workers'
 import { http, HttpResponse } from 'msw'
 import { afterEach, describe, expect, it } from 'vitest'
-import { policyRefusalHint } from '../src/policy-guards'
+import { policyRefusalHint, subscriptionCreate } from '../src/policy-guards'
 import { API_BASE, cfAccountsSuccess, cfSuccess } from './helpers/cloudflare-api'
 import { clearKv } from './helpers/kv'
 import { MCP_URL, callTool, modernMcpRequest, parseMcpResult, toolText } from './helpers/mcp'
@@ -111,6 +111,46 @@ describe('policyRefusalHint', () => {
   ])('allows %s %s', async (method, path) => {
     expect(await policyRefusalHint(apiRequest(method, path))).toBeUndefined()
   })
+
+  describe('a confirmed account subscription', () => {
+    const confirmed = { accountId: ACCOUNT_ID, ratePlan: 'r2_paid' }
+    const create = (ratePlan: string, account = ACCOUNT) =>
+      apiRequest('POST', `${account}/subscriptions`, { rate_plan: { id: ratePlan } })
+
+    it('is sent, with the body intact', async () => {
+      const request = create('r2_paid')
+      expect(await subscriptionCreate(request)).toEqual(confirmed)
+      expect(await policyRefusalHint(request, confirmed)).toBeUndefined()
+      expect(await request.json()).toEqual({ rate_plan: { id: 'r2_paid' } })
+    })
+
+    it('is refused until it is confirmed', async () => {
+      expect(await policyRefusalHint(create('r2_paid'))).toBeDefined()
+    })
+
+    it.each([
+      ['another rate plan', create('workers_paid')],
+      [
+        'another account',
+        create('r2_paid', '/client/v4/accounts/00000000000000000000000000000002')
+      ],
+      ['no rate plan', apiRequest('POST', `${ACCOUNT}/subscriptions`, {})],
+      [
+        'an update',
+        apiRequest('PUT', `${ACCOUNT}/subscriptions/sub_1`, { rate_plan: { id: 'r2_paid' } })
+      ],
+      [
+        'a zone subscription',
+        apiRequest('POST', '/client/v4/zones/z1/subscription', { rate_plan: { id: 'r2_paid' } })
+      ],
+      [
+        'a payment method',
+        apiRequest('POST', `${ACCOUNT}/payment-methods`, { rate_plan: { id: 'r2_paid' } })
+      ]
+    ])('unlocks nothing else: %s', async (_name, request) => {
+      expect(await policyRefusalHint(request, confirmed)).toBeDefined()
+    })
+  })
 })
 
 describe('execute', () => {
@@ -193,5 +233,143 @@ describe('generated tools (?codemode=false)', () => {
     expect(result.result?.isError).toBe(true)
     expect(toolText(result)).toContain(hint)
     expect(sent).toBe(false)
+  })
+})
+
+describe('creating a subscription asks the user to confirm', () => {
+  const SUBSCRIPTION = { rate_plan: { id: 'r2_paid' }, frequency: 'monthly' }
+  const KEY = `subscription:${ACCOUNT_ID}:r2_paid`
+  const CAN_ASK = { elicitation: {} }
+  const ACCEPT = { [KEY]: { action: 'accept', content: { confirm: true } } }
+
+  /** Mock the API and record the subscription bodies and other writes it receives. */
+  function mockApi(): { subscriptions: unknown[]; writes: string[] } {
+    const received = { subscriptions: [] as unknown[], writes: [] as string[] }
+    server.use(
+      http.get(`${API_BASE}/accounts`, () =>
+        HttpResponse.json(cfAccountsSuccess([{ id: ACCOUNT_ID, name: 'Policy Test Account' }]))
+      ),
+      http.post(`${API_BASE}/accounts/${ACCOUNT_ID}/subscriptions`, async ({ request }) => {
+        received.subscriptions.push(await request.json())
+        return HttpResponse.json(cfSuccess({ id: 'sub_1' }))
+      }),
+      http.post(`${API_BASE}/accounts/${ACCOUNT_ID}/storage/kv/namespaces`, () => {
+        received.writes.push('kv')
+        return HttpResponse.json(cfSuccess({ id: 'ns_1' }))
+      })
+    )
+    return received
+  }
+
+  describe.each([
+    [
+      'execute',
+      MCP_URL,
+      'execute',
+      {
+        code: `async () => cloudflare.request({ method: "POST", path: "/accounts/${ACCOUNT_ID}/subscriptions", body: ${JSON.stringify(SUBSCRIPTION)} })`
+      }
+    ],
+    [
+      'the generated tool',
+      `${MCP_URL}?codemode=false`,
+      'accounts_subscriptions_create',
+      { path: { account_or_zone: 'accounts', account_or_zone_id: ACCOUNT_ID }, body: SUBSCRIPTION }
+    ]
+  ])('%s', (_route, url, name, args) => {
+    const call = (
+      extra: Record<string, unknown> = {},
+      clientCapabilities: Record<string, unknown> = CAN_ASK
+    ) =>
+      exports.default
+        .fetch(
+          modernMcpRequest(
+            API_TOKEN,
+            'tools/call',
+            { name, arguments: args, ...extra },
+            { url, clientCapabilities }
+          )
+        )
+        .then(parseMcpResult)
+
+    it('asks before sending anything', async () => {
+      const api = mockApi()
+      const { result } = await call()
+      expect(result?.resultType).toBe('input_required')
+      expect(result?.inputRequests?.[KEY]?.method).toBe('elicitation/create')
+      expect(result?.inputRequests?.[KEY]?.params.message).toContain('"r2_paid"')
+      expect(result?.inputRequests?.[KEY]?.params.message).toContain(ACCOUNT_ID)
+      expect(api.subscriptions).toEqual([])
+    })
+
+    it('sends it once the user accepts', async () => {
+      const api = mockApi()
+      const result = await call({ inputResponses: ACCEPT })
+      expect(result.result?.isError).not.toBe(true)
+      expect(toolText(result)).toContain('sub_1')
+      expect(api.subscriptions).toEqual([SUBSCRIPTION])
+    })
+
+    it.each([
+      ['declines', { [KEY]: { action: 'decline' } }],
+      ['cancels', { [KEY]: { action: 'cancel' } }],
+      ['accepts without confirming', { [KEY]: { action: 'accept', content: { confirm: false } } }]
+    ])('does not send it when the user %s', async (_answer, inputResponses) => {
+      const api = mockApi()
+      const result = await call({ inputResponses })
+      expect(result.result?.isError).toBe(true)
+      expect(toolText(result)).toContain('declined')
+      expect(api.subscriptions).toEqual([])
+    })
+
+    it('does not send a subscription other than the one the user accepted', async () => {
+      const api = mockApi()
+      const other = `subscription:${ACCOUNT_ID}:workers_paid`
+      const { result } = await call({
+        inputResponses: { [other]: { action: 'accept', content: { confirm: true } } }
+      })
+      expect(result?.resultType).toBe('input_required')
+      expect(Object.keys(result?.inputRequests ?? {})).toEqual([KEY])
+      expect(api.subscriptions).toEqual([])
+    })
+
+    it('keeps the block for a client that cannot ask', async () => {
+      const api = mockApi()
+      const result = await call({}, {})
+      expect(result.result?.isError).toBe(true)
+      expect(toolText(result)).toContain('spend money')
+      expect(api.subscriptions).toEqual([])
+    })
+  })
+
+  it('does not rerun code that already changed something', async () => {
+    const api = mockApi()
+    const code = `async () => {
+      await cloudflare.request({ method: "POST", path: "/accounts/${ACCOUNT_ID}/storage/kv/namespaces", body: { title: "t" } })
+      return cloudflare.request({ method: "POST", path: "/accounts/${ACCOUNT_ID}/subscriptions", body: ${JSON.stringify(SUBSCRIPTION)} })
+    }`
+    const result = await exports.default
+      .fetch(
+        modernMcpRequest(
+          API_TOKEN,
+          'tools/call',
+          { name: 'execute', arguments: { code } },
+          { clientCapabilities: CAN_ASK }
+        )
+      )
+      .then(parseMcpResult)
+    expect(result.result?.isError).toBe(true)
+    expect(toolText(result)).toContain('a call of its own')
+    expect(api.writes).toEqual(['kv'])
+    expect(api.subscriptions).toEqual([])
+  })
+
+  it('keeps the block for a 2025-era request', async () => {
+    const api = mockApi()
+    const code = `async () => cloudflare.request({ method: "POST", path: "/accounts/${ACCOUNT_ID}/subscriptions", body: ${JSON.stringify(SUBSCRIPTION)} })`
+    const result = await callTool(API_TOKEN, 'execute', { code })
+    expect(result.result?.isError).toBe(true)
+    expect(toolText(result)).toContain('spend money')
+    expect(api.subscriptions).toEqual([])
   })
 })
