@@ -1,6 +1,10 @@
 const CHARGEABLE_WRITE =
   /\/(accounts\/[^/]+\/(registrar\/registrations|ai-gateway\/billing\/topup|payment-methods|billing\/profile\/payment-method|subscriptions)|user\/subscriptions|zones\/[^/]+\/subscriptions?)(\/|$)/i
 
+const ACCOUNT_SUBSCRIPTIONS_PATH = /^\/client\/v4\/accounts\/([0-9a-f]{32})\/subscriptions\/?$/i
+
+const RATE_PLAN_ID = /^[\w.-]{1,64}$/
+
 const ACCOUNT_AI_PATH = /^\/client\/v4\/accounts\/[^/]+\/ai(\/|$)/i
 
 const MODEL_IN_RUN_PATH = /\/ai\/run\/(.+)$/i
@@ -43,18 +47,65 @@ async function modelInBody(request: Request): Promise<string> {
   }
 }
 
+/** An account subscription a request would create: the one chargeable write a user can confirm. */
+export interface SubscriptionCreate {
+  readonly accountId: string
+  /** The body's `rate_plan.id`, such as `r2_paid`. */
+  readonly ratePlan: string
+}
+
+/**
+ * The account subscription `request` would create, if it is
+ * `POST /accounts/{account_id}/subscriptions` with a rate plan in its body.
+ * The body stays readable.
+ */
+export async function subscriptionCreate(
+  request: Request
+): Promise<SubscriptionCreate | undefined> {
+  if (request.method !== 'POST') return undefined
+  const path = plainPath(new URL(request.url).pathname)
+  const accountId = path === undefined ? undefined : ACCOUNT_SUBSCRIPTIONS_PATH.exec(path)?.[1]
+  if (!accountId) return undefined
+  try {
+    const body: unknown = await request.clone().json()
+    const ratePlan = (body as { rate_plan?: { id?: unknown } } | null)?.rate_plan?.id
+    return typeof ratePlan === 'string' && RATE_PLAN_ID.test(ratePlan)
+      ? { accountId: accountId.toLowerCase(), ratePlan }
+      : undefined
+  } catch {
+    return undefined
+  }
+}
+
+/** Whether two subscriptions are the same account and rate plan. */
+export function sameSubscription(
+  a: SubscriptionCreate,
+  b: SubscriptionCreate | undefined
+): boolean {
+  return a.accountId === b?.accountId && a.ratePlan === b.ratePlan
+}
+
 /**
  * Why `request` must not be sent, or `undefined` to send it. Refuses writes to
  * endpoints that spend money and, on any write under `/accounts/{id}/ai/`, a
  * model named in the `/ai/run/` path or the body's `model` that is not a Workers
  * AI model or is a media-generation one. Reads never are. Both routes to
  * the API call it: `execute`'s `GlobalOutbound` and the generated tools.
+ *
+ * The one write that spends money and is sent is the account subscription the
+ * user `confirmed` (`src/charge-confirmation.ts`): the same account and rate plan.
  */
-export async function policyRefusalHint(request: Request): Promise<string | undefined> {
+export async function policyRefusalHint(
+  request: Request,
+  confirmed?: SubscriptionCreate
+): Promise<string | undefined> {
   if (request.method === 'GET' || request.method === 'HEAD') return undefined
   const path = plainPath(new URL(request.url).pathname)
   if (path === undefined) return UNREADABLE_PATH_HINT
-  if (CHARGEABLE_WRITE.test(path)) return CHARGEABLE_HINT
+  if (CHARGEABLE_WRITE.test(path)) {
+    const subscription = confirmed && (await subscriptionCreate(request))
+    return subscription && sameSubscription(subscription, confirmed) ? undefined : CHARGEABLE_HINT
+  }
   if (!ACCOUNT_AI_PATH.test(path)) return undefined
   const models = [path.match(MODEL_IN_RUN_PATH)?.[1] ?? '', await modelInBody(request)].filter(
     (model) => model !== ''
