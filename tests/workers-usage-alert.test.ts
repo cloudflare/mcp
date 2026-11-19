@@ -1,7 +1,8 @@
 import { env, exports } from 'cloudflare:workers'
 import { http, HttpResponse } from 'msw'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
-import { periodsAsOf, roundLimit } from '../src/workers-usage-alert/periods'
+import { fillDays, historyWindows } from '../src/workers-usage-alert/history'
+import { deriveModel, replayEmails, rolling7, type Day } from '../src/workers-usage-alert/model'
 import { API_BASE, cfError, cfSuccess, mockIdentityProbe } from './helpers/cloudflare-api'
 import { clearKv } from './helpers/kv'
 import { MCP_URL, modernMcpRequest, parseMcpResult } from './helpers/mcp'
@@ -13,19 +14,26 @@ const TOKEN = 'usage-alert-token'
 const ALERTING = `${API_BASE}/accounts/${ACCOUNT}/alerting/v3`
 const ALERTING_PERMISSIONS = { 'x-api-token-group': ['Notifications Read'] }
 
-const day = (month: string, d: number, requests: number) => ({
-  sum: { requests },
-  dimensions: { date: `${month}-${String(d).padStart(2, '0')}` }
-})
-const october = Array.from({ length: 31 }, (_, i) => day('2026-10', i + 1, 100_000_000))
-const november = Array.from({ length: 18 }, (_, i) => day('2026-11', i + 1, 90_000_000))
+const AS_OF = '2026-11-19'
+const WINDOWS = historyWindows(AS_OF)
+const row = (date: string, requests: number) => ({ sum: { requests }, dimensions: { date } })
+/** Every day of each window at `requests`, as GraphQL returns it: one alias per window. */
+const steady = (requests = 100_000_000) =>
+  Object.fromEntries(
+    WINDOWS.map((w, i) => {
+      const rows = []
+      for (let t = Date.parse(w.start); t <= Date.parse(w.end); t += 864e5)
+        rows.push(row(new Date(t).toISOString().slice(0, 10), requests))
+      return [`w${i}`, rows]
+    })
+  )
 
 let graphqlBody: { query?: string; variables?: Record<string, unknown> } | undefined
 
 function mockApi({
   graphql = () =>
     HttpResponse.json({
-      data: { viewer: { accounts: [{ previous: october, current: november }] } },
+      data: { viewer: { accounts: [steady()] } },
       errors: null
     }),
   policies = () =>
@@ -38,6 +46,23 @@ function mockApi({
           alert_type: 'billing_usage_alert',
           filters: { product: ['worker_requests'], limit: ['4000000000'] },
           mechanisms: { email: [{ id: 'private@example.com' }] }
+        },
+        {
+          id: 'p4',
+          name: 'Workers requests over 1B in 7 days',
+          enabled: false,
+          alert_type: 'custom_analytics',
+          filters: {
+            selectors: ['SELECT COUNT(*) AS value FROM events.workersInvocations WHERE 1'],
+            alert_trigger_preferences_value: ['1000000000']
+          }
+        },
+        {
+          id: 'p5',
+          name: 'error anomaly',
+          enabled: true,
+          alert_type: 'custom_analytics',
+          filters: { selectors: ['SELECT COUNT(*) AS value FROM logs.workersLogs'] }
         },
         { id: 'p2', name: 'errors', enabled: true, alert_type: 'workers_observability_alert' },
         { id: 'p3', name: 'errors 2', enabled: true, alert_type: 'workers_observability_alert' }
@@ -55,7 +80,7 @@ function mockApi({
     http.get(`${ALERTING}/available_alerts`, () =>
       HttpResponse.json(
         cfSuccess({
-          Billing: [{ type: 'billing_usage_alert', display_name: 'Usage Based Billing' }]
+          'Custom Analytics': [{ type: 'custom_analytics', display_name: 'Custom Alert' }]
         })
       )
     ),
@@ -63,7 +88,7 @@ function mockApi({
   )
 }
 
-async function call(args: Record<string, unknown> = { as_of: '2026-11-18' }, url = MCP_URL) {
+async function call(args: Record<string, unknown> = { as_of: AS_OF }, url = MCP_URL) {
   const response = await exports.default.fetch(
     modernMcpRequest(TOKEN, 'tools/call', { name: 'workers_usage_alert', arguments: args }, { url })
   )
@@ -92,30 +117,82 @@ afterEach(async () => {
   await clearKv(env.OAUTH_KV)
 })
 
-describe('periods', () => {
-  it('reads the current month to date and the whole previous month', () => {
-    expect(periodsAsOf('2026-11-18')).toEqual({
-      current: { month: '2026-11', start: '2026-11-01', end: '2026-11-18', days: 30 },
-      previous: { month: '2026-10', start: '2026-10-01', end: '2026-10-31', days: 31 }
-    })
+describe('history', () => {
+  it('reads the 89 complete days analytics keep, in ranges one alias accepts', () => {
+    expect(historyWindows('2026-11-19')).toEqual([
+      { start: '2026-08-22', end: '2026-09-20' },
+      { start: '2026-09-21', end: '2026-10-20' },
+      { start: '2026-10-21', end: '2026-11-18' }
+    ])
   })
 
-  it('crosses the year', () => {
-    expect(periodsAsOf('2026-01-05').previous).toEqual({
-      month: '2025-12',
-      start: '2025-12-01',
-      end: '2025-12-31',
-      days: 31
-    })
+  it('starts at the first day with traffic and fills quiet days with 0', () => {
+    const windows = [{ start: '2026-11-01', end: '2026-11-06' }]
+    expect(
+      fillDays(
+        [
+          ['2026-11-03', 5],
+          ['2026-11-05', 7],
+          ['2026-11-05', 1]
+        ],
+        windows
+      )
+    ).toEqual([
+      ['2026-11-03', 5],
+      ['2026-11-04', 0],
+      ['2026-11-05', 8],
+      ['2026-11-06', 0]
+    ])
+    expect(fillDays([['2026-11-02', 0]], windows)).toEqual([])
+  })
+})
+
+describe('model', () => {
+  const days = (values: number[], from = '2026-11-01'): Day[] =>
+    values.map((n, i) => [new Date(Date.parse(from) + i * 864e5).toISOString().slice(0, 10), n])
+
+  it('sums each 7 days, from the seventh day on', () => {
+    expect([...rolling7(days([1, 1, 1, 1, 1, 1, 1, 10, 1])).values()]).toEqual([7, 16, 16])
   })
 
-  it.each([
-    [3_800_000_000, 3_750_000_000],
-    [3_900_000_000, 4_000_000_000],
-    [40_000_000, 50_000_000],
-    [1, 25_000_000]
-  ])('roundLimit(%d) is %d', (n, rounded) => {
-    expect(roundLimit(n)).toBe(rounded)
+  it('replays the monitor: an email on first passing the line, then every 7 days while over', () => {
+    const d = days([
+      ...Array(7).fill(1),
+      ...Array(16).fill(10),
+      ...Array(7).fill(0),
+      ...Array(7).fill(10)
+    ])
+    const sent = replayEmails(d, rolling7(d), 50)
+    expect(sent.map((e) => [e.date, e.first])).toEqual([
+      ['2026-11-12', true],
+      ['2026-11-19', false],
+      ['2026-12-05', true]
+    ])
+  })
+
+  it('has no typical week under a week of history, or with no traffic', () => {
+    expect(deriveModel(days([5, 5, 5]), '2026-11-04').typical).toBeNull()
+    expect(deriveModel(days(Array(10).fill(0)), '2026-11-11').typical).toBeNull()
+  })
+
+  it('takes the mean for an account idle most days', () => {
+    expect(deriveModel(days([0, 0, 0, 0, 0, 0, 70]), '2026-11-08').typical).toBe(70)
+  })
+
+  it('suggests a typical week plus a quarter, on the axis’s step', () => {
+    const m = deriveModel(days(Array(28).fill(100_000_000)), '2026-11-29')
+    expect(m.typical).toBe(700_000_000)
+    expect(m.suggested).toBe(900_000_000)
+  })
+
+  it('fits the axis to normal weeks, not one far above the rest', () => {
+    const d = days(
+      [...Array(28).fill(10), ...Array(7).fill(1000), ...Array(7).fill(10)],
+      '2026-10-05'
+    )
+    const m = deriveModel(d, '2026-11-16')
+    expect(m.peak).toBe(7000)
+    expect(m.base).toBeLessThan(1000)
   })
 })
 
@@ -125,23 +202,37 @@ describe.each([
 ])('workers_usage_alert (%s)', (_mode, url) => {
   it('previews usage, existing alerts and a suggested limit', async () => {
     mockApi()
-    const result = await call({ as_of: '2026-11-18' }, url)
+    const result = await call({ as_of: AS_OF }, url)
 
     expect(result?.isError).toBeUndefined()
     expect(result?.structuredContent).toMatchObject({
       kind: 'workers_usage_alert_preview',
       accountId: ACCOUNT,
       accountName: 'Usage Co',
-      currentMonth: '2026-11',
-      previousMonth: '2026-10',
+      today: AS_OF,
       alertAvailable: true,
-      existingAlerts: [{ id: 'p1', name: 'Workers above 4B', enabled: true, limit: 4_000_000_000 }],
-      otherPolicies: { workers_observability_alert: 2 },
-      // 3.1B in October, plus 25%, rounded.
-      suggestedLimit: 4_000_000_000
+      existingAlerts: [
+        {
+          id: 'p1',
+          name: 'Workers above 4B',
+          enabled: true,
+          kind: 'billing',
+          limit: 4_000_000_000
+        },
+        { id: 'p4', enabled: false, kind: 'monitor', limit: 1_000_000_000 }
+      ],
+      otherPolicies: { workers_observability_alert: 2, custom_analytics: 1 },
+      // 100M a day: a 700M week, plus a quarter on the axis's step.
+      summary: {
+        typicalWeek: 700_000_000,
+        last7Days: 700_000_000,
+        busiestWeek: 700_000_000,
+        suggestedLimit: 900_000_000
+      }
     })
-    expect(result?.structuredContent?.previous).toHaveLength(31)
-    expect(result?.structuredContent?.current).toHaveLength(18)
+    const days = result?.structuredContent?.days as [string, number][]
+    expect(days).toHaveLength(89)
+    expect([days[0][0], days.at(-1)?.[0]]).toEqual(['2026-08-22', '2026-11-18'])
     expect(JSON.stringify(result)).not.toContain('private@example.com')
     // An account token has no user, so the view has no default recipient.
     expect(result?.structuredContent).not.toHaveProperty('userEmail')
@@ -153,23 +244,31 @@ describe.each([
       accounts: [{ id: ACCOUNT, name: 'Usage Co' }]
     })
     mockApi()
-    const result = await call({ as_of: '2026-11-18' }, url)
+    const result = await call({ as_of: AS_OF }, url)
     expect(result?.structuredContent).toMatchObject({ userEmail: 'me@example.com' })
+  })
+
+  it('starts the threshold at a limit the user named', async () => {
+    mockApi()
+    const result = await call({ as_of: AS_OF, limit: 2_000_000_000 }, url)
+    expect(result?.structuredContent).toMatchObject({ summary: { suggestedLimit: 2_000_000_000 } })
   })
 })
 
 describe('workers_usage_alert reads', () => {
-  it('queries each month separately, within the dataset’s widest range', async () => {
+  it('reads 89 days in one query, one alias per range the dataset accepts', async () => {
     mockApi()
     await call()
     expect(graphqlBody?.variables).toEqual({
       account: ACCOUNT,
-      previousStart: '2026-10-01',
-      previousEnd: '2026-10-31',
-      currentStart: '2026-11-01',
-      currentEnd: '2026-11-18'
+      s0: '2026-08-22',
+      e0: '2026-09-20',
+      s1: '2026-09-21',
+      e1: '2026-10-20',
+      s2: '2026-10-21',
+      e2: '2026-11-18'
     })
-    expect(graphqlBody?.query).toContain('previous: workersInvocationsAdaptive')
+    expect(graphqlBody?.query).toContain('w2: workersInvocationsAdaptive')
   })
 
   it('is an error when usage cannot be read, naming the missing analytics permission', async () => {
@@ -210,15 +309,37 @@ describe('workers_usage_alert reads', () => {
     )
   })
 
-  it('notes a previous month with missing days', async () => {
+  it('has no typical week or suggestion with under a week of traffic', async () => {
     mockApi({
       graphql: () =>
         HttpResponse.json({
-          data: { viewer: { accounts: [{ previous: october.slice(10), current: november }] } }
+          data: {
+            viewer: {
+              accounts: [{ w0: [], w1: [], w2: [row('2026-11-16', 40), row('2026-11-18', 2)] }]
+            }
+          }
         })
     })
     const result = await call()
-    expect(JSON.stringify(result?.structuredContent?.limitations)).toContain('21 of 31 days')
+    expect(result?.structuredContent).toMatchObject({
+      days: [
+        ['2026-11-16', 40],
+        ['2026-11-17', 0],
+        ['2026-11-18', 2]
+      ],
+      summary: { typicalWeek: null, suggestedLimit: null }
+    })
+    expect(JSON.stringify(result?.structuredContent?.limitations)).toContain('Only 3 days')
+  })
+
+  it('is no traffic, not an error, for an account with no Workers requests', async () => {
+    mockApi({
+      graphql: () =>
+        HttpResponse.json({ data: { viewer: { accounts: [{ w0: [], w1: [], w2: [] }] } } })
+    })
+    const result = await call()
+    expect(result?.isError).toBeUndefined()
+    expect(result?.structuredContent).toMatchObject({ days: [], summary: { typicalWeek: null } })
   })
 
   it('is an error when the account returns no analytics', async () => {

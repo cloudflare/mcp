@@ -1,240 +1,829 @@
 @import '../../mcp-apps/app-shell/base.css';
 @source './usage-alert-app.tsx';
 
-/* Kumo sizes in rem and assumes a 16px root; the shared base sets html to 14px,
-   which shrinks every Kumo control by an eighth. Body text stays at 14px. */
+/*
+ * The fuzzy-input design (kept outside this repository): a LayerCard holding a
+ * weekly bar chart of Workers requests with a draggable 7-day threshold, and
+ * an email footer. Ported rule for rule; Kumo's tokens are the design's.
+ * Positions change with transforms only, so dragging never relayouts.
+ */
 html {
   font-size: 16px;
 }
 body {
   font-family: var(--font-sans);
-  font-size: 14px;
+  font-size: var(--text-base);
 }
 
-/*
- * The fuzzy-input design: a LayerDialog-style card. An elevated LayerCard holds
- * a Primary layer (glyph, question, card radios with the Custom slider) and an
- * actions row beneath it. Kumo renders the parts; this file sets the design's
- * spacing where Kumo's defaults differ.
- */
-.ld {
-  container-type: inline-size;
-  min-width: 0;
-  padding: 6px;
-  border-radius: 12px;
-  box-shadow: 0 8px 10px -6px rgb(0 0 0 / 0.03);
+/* Chart fills follow Kumo's ChartPalette:
+   Chart fills from ChartPalette (components/chart/Color.ts):
+     neutral past weeks (data, not brand) · sequential("blues")[2] this week, the only blue bar · semantic("Warning") the alert
+     text("primary") the typical-week reference line. */
+:root {
+  color-scheme: light;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --shadow-xs: 0 1px 2px 0 #0000000d;
+  --shadow-sm: 0 1px 3px 0 #0000001a, 0 1px 2px -1px #0000001a;
+  --cta-end: light-dark(var(--color-kumo-brand-hover), var(--color-kumo-brand));
+  --cta-start: color-mix(in oklch, var(--cta-end), white 10%);
+  --c-past: light-dark(#d4d4d8, #52525b);
+  --c-now: #4290f0;
+  --c-ref: light-dark(#6b7280, #9ca3af);
+  --c-dis: light-dark(#cbcbcb, #878787);
+  --c-warn: #f8a054;
+  --c-warn-tint: light-dark(
+    color-mix(in oklch, #f8a054 8%, transparent),
+    color-mix(in oklch, #f8a054 12%, transparent)
+  );
+  --c-skel: light-dark(#dddddd, #5c5c5c);
 }
-.ld-primary {
-  gap: 0;
-  padding: 0;
-  border-radius: 8px;
-}
-.ld-head {
+
+/* ── LayerCard. The card is the query container: layout follows its width, never its content. ── */
+.lc {
+  container: card / inline-size;
   display: flex;
-  gap: 12px;
-  align-items: flex-start;
-  padding: 16px 18px;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--color-kumo-elevated);
+  box-shadow: 0 0 0 1px var(--color-kumo-hairline);
 }
+.lc-primary {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-radius: 8px;
+  background: var(--color-kumo-base);
+  padding: 16px;
+  box-shadow: 0 0 0 1px var(--color-kumo-fill);
+}
+
+/* Header: static words wrap however they like, the number has its own fixed slot, so dragging can't rewrap anything. */
+.hd {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  column-gap: 12px;
+  align-items: start;
+}
+/* 40px logo is ~18px tall: (24px line - 18px) / 2 = 3px puts it on the title's first line */
 .cf {
-  width: 28px;
-  flex: none;
-  margin-top: 5px;
+  width: 40px;
+  height: auto;
+  margin-top: 3px;
 }
-.ld-title {
+.title {
   margin: 0;
   font-size: var(--text-lg);
   font-weight: 500;
-  line-height: 1.5;
+  line-height: 24px;
   text-wrap: balance;
 }
-.ld-body {
-  padding: 2px 18px 18px;
-}
-.rg {
-  min-width: 0;
-  border: 0;
-}
-.num {
-  font-variant-numeric: tabular-nums;
-}
-
-/* Custom card: the slider panel continues the Custom row, with no divider. */
-.rc-custom {
-  border-bottom-width: 0;
-}
-.collapse-panel {
-  display: grid;
-  grid-template-rows: 0fr;
-  opacity: 0;
-  transition:
-    grid-template-rows 200ms ease-out,
-    opacity 200ms ease-out;
-}
-.collapse-panel[data-open='true'] {
-  grid-template-rows: 1fr;
-  opacity: 1;
-  background: var(--color-kumo-tint);
-}
-/* The reveal clips while it animates. The track's ring and the thumb's focus
-   ring draw outside their boxes, so the clip box starts 4px above the track
-   (padding inside, pulled back up by the same margin): nothing is cut off and
-   nothing moves. */
-.collapse-panel > div {
-  min-height: 0;
-  overflow: hidden;
-  margin-top: -4px;
-}
-.sl {
-  padding: 4px 12px 12px;
-  user-select: none;
-}
-/* Kumo centres the value badge on the thumb, so at either end it spills past
-   the track. Slide its anchor across the thumb with the value instead: its
-   left edge meets the thumb's at the minimum, its right edge at the maximum,
-   and in between it stays over the thumb. */
-.sl [data-index] > span:nth-of-type(2) {
-  left: calc(var(--thumb-at, 0.5) * 100%);
-  translate: calc(var(--thumb-at, 0.5) * -100%) 0;
-}
-/* Room for the value badge under the thumb, above the +5% / +100% ends. */
-.sl > div:last-child {
-  margin-top: 22px;
-}
-
-/* Locked once confirmed: nothing washes out. The rows simply stop responding,
-   and the unchosen radios recede a little. */
-[data-locked] .rg [data-kumo-part='item-label'] {
-  opacity: 1;
-  cursor: default;
-}
-[data-locked] .rg [data-kumo-part='item-label']:not(:has([data-checked])) [data-kumo-part='item'] {
-  opacity: 0.5;
-}
-[data-locked] .sl {
-  opacity: 1;
-}
-[data-locked] .sl [data-index] {
-  cursor: default;
-}
-[data-locked] .sl [data-index] > span:nth-of-type(2) {
-  background: var(--color-kumo-contrast);
-  color: var(--text-color-kumo-inverse);
-}
-
-/* Preset marks at +10/+25/+50%, over Kumo's track (inset 3px, edge-aligned 16px thumb). */
-.collapse-panel > div {
-  position: relative;
-}
-.sl-marks {
-  position: absolute;
-  top: 4px;
-  left: 23px;
-  right: 23px;
-  height: 32px;
-  pointer-events: none;
-  z-index: 1;
-}
-.sl-marks span {
-  position: absolute;
-  top: 50%;
-  width: 4px;
-  height: 4px;
-  margin: -2px 0 0 -2px;
-  border-radius: 50%;
-  background: color-mix(in oklch, var(--color-kumo-contrast) 22%, transparent);
-}
-.sl [data-index] {
-  z-index: 2;
-}
-/* Kumo rings the thumb on any focus; the design shows it only for the keyboard. */
-.sl [data-index]:not(:has(:focus-visible)) {
-  box-shadow: none;
-}
-
-.request-disclosure {
-  flex-basis: 100%;
+/* Outcome, moved up under the heading: two facts, one row on wide cards, two fixed rows on narrow ones. */
+.sub {
   display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.note {
-  margin: 10px 0 0;
+  gap: 4px 20px;
+  height: 20px;
+  margin: 4px 0 0;
   font-size: var(--text-sm);
+  line-height: 20px;
   color: var(--text-color-kumo-subtle);
 }
-.note.warn {
+.sub-i {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  max-width: 100%;
+}
+.sub-i > span {
+  display: block;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sub-i i {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--c-dis);
+  transition: background-color 150ms ease;
+}
+.sub-i[data-tone='hit'] i {
+  background: var(--c-warn);
+}
+.sub-i[data-tone='now'] i {
+  background: var(--c-now);
+}
+.sub-i[data-tone='warn'] {
+  color: var(--text-color-kumo-warning);
+}
+.sub-i[data-tone='warn'] i {
+  background: var(--c-warn);
+}
+.sub-i[data-tone='bad'] {
+  color: var(--text-color-kumo-danger);
+}
+.sub-i[data-tone='bad'] i {
+  background: var(--color-kumo-danger);
+}
+.sub b {
+  color: var(--text-color-kumo-default);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+.sub-i[data-tone='warn'] b,
+.sub-i[data-tone='bad'] b {
+  color: inherit;
+}
+
+/* ── Chart: fixed box; every label is absolutely placed; position changes use transform only ── */
+/* Two lanes: x=0 (logo, tag, "To" field) and x=52 (title, facts, plot), the header's 40px logo + 12px gap.
+   Ticks right-align 8px before the plot. No right gutter: bars, line and button share the content edge. */
+.chart {
+  --gut: 52px;
+  --pad-r: 0px;
+}
+.hc {
+  --h: 200px;
+  position: relative;
+  height: var(--h);
+  margin: 12px var(--pad-r) 0 var(--gut);
+  user-select: none;
+  touch-action: none;
+  cursor: ns-resize;
+}
+[data-locked] .hc {
+  cursor: default;
+}
+.hc-grid {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 0;
+  border-top: 1px dashed var(--color-kumo-line);
+  will-change: transform;
+}
+.hc-grid span {
+  position: absolute;
+  left: calc(-1 * var(--gut));
+  top: -9px;
+  width: calc(var(--gut) - 8px);
+  text-align: right;
+  font-size: var(--text-xs);
+  color: var(--text-color-kumo-subtle);
+  font-variant-numeric: tabular-nums;
+  transition: opacity 150ms ease;
+}
+.hc-grid span[data-hidden] {
+  opacity: 0;
+}
+.hc-grid {
+  transition: opacity 150ms ease;
+}
+.hc-grid[data-in] {
+  opacity: 0;
+}
+.hc-clip {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 6px 6px 0 0;
+  pointer-events: none;
+}
+.hc-zone {
+  position: absolute;
+  inset: 0;
+  background: var(--c-warn-tint);
+  will-change: transform;
+}
+.hc-typ {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 0;
+  border-top: 1.5px dashed var(--c-ref);
+  pointer-events: none;
+  will-change: transform;
+}
+.hc-typ > span {
+  position: absolute;
+  left: 8px;
+  top: 4px;
+  text-shadow:
+    0 0 2px var(--color-kumo-base),
+    0 0 2px var(--color-kumo-base),
+    0 0 4px var(--color-kumo-base);
+  font-size: var(--text-xs);
+  line-height: 16px;
+  color: var(--text-color-kumo-subtle);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  transition: opacity 150ms ease;
+}
+.hc-typ > span i {
+  font-style: normal;
+}
+.hc-typ > span b {
+  font-weight: 500;
+  color: var(--text-color-kumo-default);
+}
+.hc-typ > span[data-hidden] {
+  opacity: 0;
+}
+.hc-bars {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+/* One week per column. left/width come from day offsets; the 3px inset is the gap between weeks. */
+.hc-col {
+  position: absolute;
+  bottom: 0;
+  height: 100%;
+  padding: 0 1.5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+/* The orange copy of the bars, clipped to above the line: the part of a week running faster than the pace
+   you set. Dragging only changes this clip, so it tracks the line every frame with no relayout. */
+.hc-hot {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  will-change: clip-path;
+}
+.hc-hot .hc-bar,
+.hc-hot .hc-bar.now,
+.hc-hot .hc-bar.partial {
+  background: var(--c-warn);
+  box-shadow: none;
+}
+.hc-hot .hc-bar.est {
+  background: repeating-linear-gradient(135deg, var(--c-warn) 0 2px, transparent 2px 6px);
+  box-shadow: inset 0 0 0 1px var(--c-warn);
+}
+.hc-bar {
+  position: relative;
+  flex: none;
+  height: calc(var(--v) / var(--top) * 100%);
+  background: var(--c-past);
+  transition:
+    background-color 150ms ease,
+    box-shadow 150ms ease;
+}
+.hc-col > .hc-bar:first-child {
+  border-radius: 3px 3px 0 0;
+}
+.hc-bar.now {
+  background: var(--c-now);
+}
+.hc-bar.est {
+  background: repeating-linear-gradient(135deg, var(--c-now) 0 2px, transparent 2px 6px);
+  box-shadow: inset 0 0 0 1px var(--c-now);
+}
+.hc-bar.partial {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--c-dis);
+}
+.hc-v {
+  position: absolute;
+  bottom: 100%;
+  left: -8px;
+  right: -8px;
+  pointer-events: none;
+  padding-bottom: 3px;
+  text-align: center;
+  font-size: var(--text-xs);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.hc-v.dim {
+  font-weight: 400;
+  color: var(--text-color-kumo-subtle);
+}
+.hc-x {
+  position: relative;
+  height: 16px;
+  margin: 8px var(--pad-r) 0 var(--gut);
+}
+/* Months are labelled under the weeks they cover. */
+.hc-x span {
+  position: absolute;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  font-size: var(--text-xs);
+  line-height: 16px;
+  color: var(--text-color-kumo-subtle);
+  white-space: nowrap;
+}
+.hc-x b {
+  font-weight: 500;
+  color: var(--text-color-kumo-default);
+  font-variant-numeric: tabular-nums;
+  transition: color 150ms ease;
+}
+.hc-x small {
+  font-size: inherit;
+  color: var(--text-color-kumo-placeholder);
+}
+.hc-x span[data-over] b {
   color: var(--text-color-kumo-warning);
 }
 
-.ld-actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  padding: 7px 0 0 6px;
-  min-height: 43px;
+/* Hover: the week you point at stays, the others step back. */
+.hc-bars .hc-col {
+  pointer-events: auto;
+  transition: opacity 120ms ease;
 }
+.hc-hot .hc-col {
+  pointer-events: none;
+  transition: opacity 120ms ease;
+}
+.hc[data-hl] .hc-col:not(.hl) {
+  opacity: 0.4;
+}
+/* Tooltip: Kumo Tooltip popup (bg-kumo-base, rounded-md, px-2.5 py-1.5, shadow-md, outline-kumo-line, 150ms scale-in). */
+.chart {
+  position: relative;
+}
+.hc-tip {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 3;
+  width: 200px;
+  padding: 6px 10px 7px;
+  border-radius: 6px;
+  background: var(--color-kumo-base);
+  color: var(--text-color-kumo-default);
+  font-size: var(--text-xs);
+  line-height: 18px;
+  box-shadow:
+    0 4px 6px -1px #0000001a,
+    0 2px 4px -2px #0000001a;
+  outline: 1px solid var(--color-kumo-line);
+  pointer-events: none;
+  opacity: 0;
+  scale: 0.96;
+  transform-origin: var(--o, left center);
+  transition:
+    opacity 150ms var(--ease-out),
+    scale 150ms var(--ease-out);
+}
+.hc-tip[data-show] {
+  opacity: 1;
+  scale: 1;
+}
+.tip-h {
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+.tip-r {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-color-kumo-subtle);
+}
+.tip-r i {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+}
+.tip-r b {
+  margin-left: auto;
+  color: var(--text-color-kumo-default);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.tip-e {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  padding-top: 4px;
+  border-top: 1px solid var(--color-kumo-line);
+  color: var(--text-color-kumo-warning);
+  font-weight: 500;
+}
+.tip-e i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--c-warn);
+}
+/* Threshold line: from the tag's right edge to the plot's right edge. The tag is the handle: it rides the line,
+   and it's the one focus stop. The whole plot also drags (pointer anywhere sets the line). */
+.hc-line {
+  position: absolute;
+  left: -8px;
+  right: 0;
+  bottom: 0;
+  height: 0;
+  border-top: 2px solid var(--c-warn);
+  will-change: transform;
+  pointer-events: none;
+}
+.hc-line .hc-knob {
+  pointer-events: auto;
+}
+/* The far end of the line: a small dot that says the line is grabbable. Decorative; the tag stays the slider.
+   Centered on the 2px line (the border sits 2px above the padding box). */
+.hc-line::after {
+  content: '';
+  position: absolute;
+  right: -4px;
+  top: -5px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--c-warn);
+  transition:
+    scale 160ms var(--ease-out),
+    box-shadow 160ms var(--ease-out),
+    opacity 160ms ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .hc:not([data-locked]):hover .hc-line::after {
+    scale: 1.25;
+  }
+}
+[data-dragging] .hc-line::after {
+  scale: 1.25;
+  box-shadow: 0 0 0 4px color-mix(in oklch, var(--c-warn) 30%, transparent);
+}
+[data-locked] .hc-line::after {
+  scale: 0.5;
+  opacity: 0;
+}
+.hc-knob {
+  position: absolute;
+  left: calc(-1 * var(--gut) + 8px);
+  top: -11px;
+  min-width: calc(var(--gut) - 8px);
+  padding: 0 5px;
+  height: 20px;
+  border-radius: 4px;
+  background: var(--c-warn);
+  color: #000;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  line-height: 20px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  outline: none;
+  cursor: ns-resize;
+  transition:
+    box-shadow 160ms var(--ease-out),
+    background-color 200ms ease;
+}
+.hc-knob::before {
+  content: '';
+  position: absolute;
+  inset: -12px -4px;
+} /* 44px tall hit area */
+@media (hover: hover) and (pointer: fine) {
+  .hc:not([data-locked]) .hc-knob:hover {
+    box-shadow: 0 0 0 3px color-mix(in oklch, var(--c-warn) 25%, transparent);
+  }
+}
+[data-dragging] .hc-knob {
+  box-shadow: 0 0 0 4px color-mix(in oklch, var(--c-warn) 30%, transparent);
+}
+[data-dragging],
+[data-dragging] * {
+  cursor: ns-resize !important;
+}
+/* Focus wins over hover and drag halos: the keyboard ring is the one ring. */
+.hc .hc-knob:focus-visible {
+  box-shadow:
+    0 0 0 2px var(--color-kumo-base),
+    0 0 0 4px var(--color-kumo-focus);
+}
+[data-locked] .hc-knob {
+  cursor: default;
+}
+.hc-msg {
+  position: absolute;
+  inset: 0 calc(-1 * var(--pad-r)) 0 calc(-1 * var(--gut));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-align: center;
+  font-size: var(--text-sm);
+  color: var(--text-color-kumo-subtle);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms ease;
+}
+.hc-msg b {
+  color: var(--text-color-kumo-default);
+  font-weight: 500;
+}
+[data-data='empty'] .hc-msg {
+  opacity: 1;
+  pointer-events: auto;
+}
+.hc-msg span {
+  max-width: 340px;
+  text-wrap: balance;
+  line-height: 20px;
+}
+/* With no numbers there's no scale: the ticks leave with the line. */
+.hc-gridset {
+  transition: opacity 200ms ease;
+}
+:is([data-data='loading'], [data-data='empty']) .hc-gridset {
+  opacity: 0;
+}
+:is([data-data='loading'], [data-data='empty']) :is(.hc-line, .hc-typ) {
+  opacity: 0;
+  translate: 0 10px;
+}
+:is([data-data='loading'], [data-data='empty']) .hc-clip {
+  opacity: 0;
+}
+
+/* Entrance, once per data load: bars wipe up from the baseline (support), then the threshold drops in (lead). */
+.hc-line,
+.hc-typ,
+.hc-clip {
+  transition:
+    opacity 320ms ease 200ms,
+    translate 420ms var(--ease-out) 180ms;
+}
+.hc-col {
+  animation: rise 520ms var(--ease-out) both;
+  animation-delay: var(--d, 0ms);
+}
+
+@keyframes rise {
+  from {
+    clip-path: inset(100% -12px 0 -12px);
+  }
+  to {
+    clip-path: inset(-24px -12px 0 -12px);
+  }
+}
+
+/* ── Footer: fixed height; two layers crossfade in place; nothing below it ever moves ── */
+.foot {
+  position: relative;
+  height: 68px;
+}
+.f-layer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  transition:
+    opacity 150ms var(--ease-out),
+    translate 150ms var(--ease-out),
+    filter 150ms var(--ease-out);
+}
+.f-done {
+  opacity: 0;
+  translate: 0 8px;
+  filter: blur(2px);
+  pointer-events: none;
+}
+[data-phase='sent'] .f-form,
+[data-phase='review'] .f-form {
+  opacity: 0;
+  translate: 0 -8px;
+  filter: blur(2px);
+  pointer-events: none;
+}
+[data-phase='sent'] .f-done,
+[data-phase='review'] .f-done {
+  opacity: 1;
+  translate: 0 0;
+  filter: none;
+  pointer-events: auto;
+  transition-duration: 280ms;
+  transition-delay: 50ms;
+}
+/* The field is the label: "To" is a muted prefix inside it, so nothing floats in the gutter. */
 .to {
   flex: 1 1 auto;
   min-width: 0;
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: var(--text-sm);
+  height: 36px;
+  padding: 0 12px;
+  border-radius: 8px;
+  cursor: text;
+  font-size: var(--text-base);
+  color: var(--text-color-kumo-default);
+  background: var(--color-kumo-control);
+  box-shadow:
+    var(--shadow-xs),
+    0 0 0 1px var(--color-kumo-line);
+  transition:
+    box-shadow 150ms ease,
+    opacity 150ms ease;
+}
+.to-l {
+  flex: none;
   color: var(--text-color-kumo-subtle);
 }
-.to .email {
+.input {
   flex: 1 1 auto;
   min-width: 0;
-  max-width: 280px;
-}
-.err {
-  flex-basis: 100%;
-  margin: -2px 0 0;
-  padding-left: 30px;
-  font-size: var(--text-sm);
-  color: var(--text-color-kumo-danger);
-}
-.saved {
-  flex: 1 1 0;
-  min-width: 0;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: var(--text-sm);
-  font-weight: 500;
-  color: var(--text-color-kumo-success);
+  height: 100%;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: var(--text-base);
+  color: var(--text-color-kumo-default);
+  background: none;
   outline: none;
 }
-.saved[data-sent='false'] {
-  font-weight: 400;
-  color: var(--text-color-kumo-subtle);
+.input::placeholder {
+  color: var(--text-color-kumo-placeholder);
 }
-.saved svg {
-  flex: none;
+.to:focus-within {
+  box-shadow:
+    0 0 0 1px var(--color-kumo-line),
+    0 0 0 3px color-mix(in oklch, var(--color-kumo-brand), transparent 70%);
 }
-.request {
-  margin: 0 6px 0 0;
-  padding: 10px;
-  border-radius: 8px;
-  background: var(--color-kumo-recessed);
-  box-shadow: 0 0 0 1px var(--color-kumo-line);
-  font: 12px/1.45 var(--font-mono);
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
+.to:has([aria-invalid='true']) {
+  box-shadow: 0 0 0 1px var(--color-kumo-danger);
+}
+.to:has([aria-invalid='true']):focus-within {
+  box-shadow:
+    0 0 0 1px var(--color-kumo-danger),
+    0 0 0 3px color-mix(in oklch, var(--color-kumo-danger), transparent 75%);
+}
+[data-phase='sending'] .to {
+  opacity: 0.6;
+}
+.err {
+  position: absolute;
+  left: 16px;
+  right: 136px;
+  bottom: 2px;
+  margin: 0;
+  font-size: var(--text-xs);
+  line-height: 14px;
+  color: var(--text-color-kumo-danger);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0;
+  translate: 0 -3px;
+  transition:
+    opacity 150ms ease,
+    translate 200ms var(--ease-out);
+}
+.err[data-show] {
+  opacity: 1;
+  translate: 0 0;
 }
 
-@container (max-width: 480px) {
-  .ld-head {
-    padding: 14px;
+/* Created: the check draws itself (ring, then tick), the status line rises in, Edit sits where Create was. */
+.done {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  column-gap: 10px;
+  align-items: center;
+  outline: none;
+}
+.done svg {
+  grid-row: span 2;
+  color: var(--text-color-kumo-success);
+}
+.ck-ring {
+  stroke-dasharray: 57;
+  stroke-dashoffset: 57;
+}
+.ck-tick {
+  stroke-dasharray: 14;
+  stroke-dashoffset: 14;
+}
+[data-phase='sent'] .ck-ring,
+[data-phase='review'] .ck-ring {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 380ms var(--ease-out) 90ms;
+}
+[data-phase='sent'] .ck-tick,
+[data-phase='review'] .ck-tick {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 240ms var(--ease-out) 330ms;
+}
+.done-1 {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  line-height: 18px;
+  color: var(--text-color-kumo-success);
+}
+.done-2 {
+  display: flex;
+  min-width: 0;
+  font-size: var(--text-sm);
+  line-height: 18px;
+  color: var(--text-color-kumo-subtle);
+  white-space: nowrap;
+}
+.done-2 .em {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.done-2 b {
+  color: var(--text-color-kumo-default);
+  font-weight: 500;
+}
+
+/* Narrow cards: outcome stacks into two fixed rows; chart gutters tighten. */
+@container card (max-width: 460px) {
+  .sub {
+    flex-direction: column;
+    height: 44px;
   }
-  .ld-body {
-    padding: 2px 14px 14px;
+  .hc-skel {
+    column-gap: 2px;
+  }
+  .hc-col {
+    padding: 0 1px;
+  }
+  .hc-typ .wk {
+    display: none;
+  }
+  /* The address needs the width: "To" stays for screen readers, the field's placeholder says the rest. */
+  .to-l {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
   }
 }
-@media (prefers-reduced-motion: reduce) {
-  .collapse-panel {
-    transition: none;
-  }
+
+/* Kumo's LayerCard paints the surfaces; the design's spacing wins.
+   Its hairline is a ring (box-shadow) outside the box, and ChatGPT sizes the
+   frame to the card's box, cutting the top and bottom edges off. A real border
+   sits inside the box, so no host crop can hide it. */
+.lc.lc {
+  gap: 0;
+  box-shadow: none;
+  border: 1px solid var(--color-kumo-hairline);
+}
+.lc-primary.lc-primary {
+  padding: 16px;
+  gap: 16px;
+}
+:root[data-mode='dark'] {
+  color-scheme: dark;
+}
+.create {
+  width: 112px;
+  flex: none;
+}
+.input:disabled {
+  cursor: not-allowed;
+}
+.hc-tip .sw-est {
+  background: repeating-linear-gradient(135deg, var(--c-now) 0 2px, transparent 2px 4px);
+}
+.note {
+  margin: 0;
+  font-size: var(--text-xs);
+  line-height: 16px;
+  color: var(--text-color-kumo-subtle);
+}
+.note[data-tone='warn'] {
+  color: var(--text-color-kumo-warning);
+}
+.request-disclosure {
+  padding: 0 16px 12px;
+}
+.request {
+  margin: 8px 0 0;
+  max-height: 240px;
+  overflow: auto;
+  font: 11.5px/1.5 var(--font-mono);
+  white-space: pre-wrap;
+  word-break: break-word;
 }

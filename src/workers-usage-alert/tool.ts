@@ -8,31 +8,33 @@ import {
   USAGE_ALERT_TOOL_CONFIG,
   UsageAlertInputSchema,
   UsageAlertPreviewSchema,
-  WORKER_REQUESTS_PRODUCT,
   type UsageAlertInput,
   type UsageAlertPreview
 } from './contract'
-import { periodsAsOf, roundLimit } from './periods'
+import { fillDays, historyWindows, type Window } from './history'
+import { clamp, deriveModel, type Day } from './model'
 import { appHtml } from './app-html.generated'
 
-/**
- * Daily Workers requests for both periods in one query. Each alias stays within
- * the dataset's widest range, which a single six-week range exceeds.
- */
-const DAILY_REQUESTS_QUERY = `query WorkersUsageAlert($account: String!, $previousStart: Date!, $previousEnd: Date!, $currentStart: Date!, $currentEnd: Date!) {
+/** Daily Workers requests for each window, as one alias per window in one query. */
+function dailyRequestsQuery(windows: readonly Window[]): string {
+  const aliases = windows
+    .map(
+      (_, i) =>
+        `      w${i}: workersInvocationsAdaptive(limit: 100, filter: { date_geq: $s${i}, date_leq: $e${i} }, orderBy: [date_ASC]) {
+        sum { requests }
+        dimensions { date }
+      }`
+    )
+    .join('\n')
+  const params = windows.map((_, i) => `$s${i}: Date!, $e${i}: Date!`).join(', ')
+  return `query WorkersUsageAlert($account: String!, ${params}) {
   viewer {
     accounts(filter: { accountTag: $account }) {
-      previous: workersInvocationsAdaptive(limit: 100, filter: { date_geq: $previousStart, date_leq: $previousEnd }, orderBy: [date_ASC]) {
-        sum { requests }
-        dimensions { date }
-      }
-      current: workersInvocationsAdaptive(limit: 100, filter: { date_geq: $currentStart, date_leq: $currentEnd }, orderBy: [date_ASC]) {
-        sum { requests }
-        dimensions { date }
-      }
+${aliases}
     }
   }
 }`
+}
 
 const DailyRows = z.array(
   z.object({
@@ -42,7 +44,7 @@ const DailyRows = z.array(
 )
 const DailyRequestsData = z.object({
   viewer: z.object({
-    accounts: z.array(z.object({ previous: DailyRows, current: DailyRows })).max(1)
+    accounts: z.array(z.record(z.string(), DailyRows)).max(1)
   })
 })
 
@@ -68,8 +70,18 @@ function accountName(props: AuthProps, accountId: string): string | undefined {
   return props.accounts.find((account) => account.id === accountId)?.name
 }
 
-const rows = (list: z.output<typeof DailyRows>): [string, number][] =>
-  list.map((row) => [row.dimensions.date, Math.round(row.sum.requests)])
+/** Whether a policy watches Workers requests, and how. */
+function workersAlertKind(policy: z.output<typeof Policies>['result'][number]) {
+  const filters = policy.filters ?? {}
+  if (policy.alert_type === 'billing_usage_alert' && filters.product?.includes('worker_requests'))
+    return { kind: 'billing' as const, limit: Number(filters.limit?.[0]) }
+  if (
+    policy.alert_type === 'custom_analytics' &&
+    filters.selectors?.some((sql) => /\bevents\.workersInvocations\b/i.test(sql))
+  )
+    return { kind: 'monitor' as const, limit: Number(filters.alert_trigger_preferences_value?.[0]) }
+  return null
+}
 
 /** Collects the usage and alerting evidence the preview shows. Read-only. */
 async function collect(
@@ -82,25 +94,27 @@ async function collect(
     return { ok: false, text: missingAccountMessage(context.props, 'Use GET /accounts.') }
 
   const now = new Date()
-  const asOf = input.as_of ?? now.toISOString().slice(0, 10)
-  const { current, previous } = periodsAsOf(asOf)
+  const today = input.as_of ?? now.toISOString().slice(0, 10)
+  const windows = historyWindows(today)
   const reader = apiReader(context, signal, 'workers_usage_alert')
   const limitations = [
-    'Months are UTC calendar months; the account’s billing period may start on another day.',
-    'Request counts come from Workers analytics, not billing. They are not dollar cost.'
+    'Request counts come from Workers analytics, not billing. They are not dollar cost.',
+    'Workers analytics keep about 90 days; older traffic cannot be read.'
   ]
 
   // Usage is what the App is about: without it there is nothing to preview.
   let usage: z.output<typeof DailyRequestsData>
   try {
     usage = await reader.graphql(
-      DAILY_REQUESTS_QUERY,
+      dailyRequestsQuery(windows),
       {
         account: accountId,
-        previousStart: previous.start,
-        previousEnd: previous.end,
-        currentStart: current.start,
-        currentEnd: current.end
+        ...Object.fromEntries(
+          windows.flatMap((w, i) => [
+            [`s${i}`, w.start],
+            [`e${i}`, w.end]
+          ])
+        )
       },
       'account',
       DailyRequestsData
@@ -149,53 +163,57 @@ async function collect(
   const otherPolicies: Record<string, number> = {}
   const existingAlerts = policies
     ? policies.result.flatMap((policy) => {
-        const product = policy.filters?.product ?? []
-        if (
-          policy.alert_type === 'billing_usage_alert' &&
-          product.includes(WORKER_REQUESTS_PRODUCT)
-        ) {
-          const limit = Number(policy.filters?.limit?.[0])
-          return [
-            {
-              id: policy.id,
-              name: policy.name,
-              enabled: policy.enabled,
-              ...(Number.isFinite(limit) ? { limit } : {})
-            }
-          ]
+        const watch = workersAlertKind(policy)
+        if (!watch) {
+          otherPolicies[policy.alert_type] = (otherPolicies[policy.alert_type] ?? 0) + 1
+          return []
         }
-        otherPolicies[policy.alert_type] = (otherPolicies[policy.alert_type] ?? 0) + 1
-        return []
+        return [
+          {
+            id: policy.id,
+            name: policy.name,
+            enabled: policy.enabled,
+            kind: watch.kind,
+            ...(Number.isFinite(watch.limit) ? { limit: watch.limit } : {})
+          }
+        ]
       })
     : null
 
-  const previousRows = rows(account.previous)
-  const previousTotal = previousRows.reduce((sum, [, requests]) => sum + requests, 0)
-  if (previousRows.length < previous.days)
+  const rows: Day[] = Object.values(account).flatMap((list) =>
+    list.map((row): Day => [row.dimensions.date, Math.round(row.sum.requests)])
+  )
+  const days = fillDays(rows, windows)
+  const model = deriveModel(days, today)
+  if (days.length && days.length < 7)
     limitations.push(
-      `${previous.month} has ${previousRows.length} of ${previous.days} days of data; its total may be low.`
+      `Only ${days.length} days of Workers traffic: under a week, so there is no typical week to compare against.`
     )
+  const suggestedLimit =
+    input.limit != null ? clamp(input.limit, model.minLimit, model.maxLimit) : model.suggested
 
+  const name = accountName(context.props, accountId)
   const preview: UsageAlertPreview = {
     kind: 'workers_usage_alert_preview',
     checkedAt: now.toISOString(),
     accountId,
-    ...(accountName(context.props, accountId)
-      ? { accountName: accountName(context.props, accountId) }
-      : {}),
+    ...(name ? { accountName: name } : {}),
     ...(context.props.type === 'user_token' ? { userEmail: context.props.user.email } : {}),
-    currentMonth: current.month,
-    previousMonth: previous.month,
-    current: rows(account.current),
-    previous: previousRows,
+    today,
+    days,
+    summary: {
+      typicalWeek: model.typical == null ? null : Math.round(model.typical),
+      last7Days: Math.round(model.last7),
+      busiestWeek: Math.round(model.peak),
+      suggestedLimit: model.typical == null && input.limit == null ? null : suggestedLimit
+    },
     alertAvailable: available
       ? Object.values(available.result).some((types) =>
-          types.some((type) => type.type === 'billing_usage_alert')
+          types.some((type) => type.type === 'custom_analytics')
         )
       : null,
     existingAlerts,
     otherPolicies,
-    ...(previousTotal > 0 ? { suggestedLimit: roundLimit(previousTotal * 1.25) } : {}),
     limitations
   }
   return { ok: true, value: preview, ...(challenge ? { meta: challenge } : {}) }
