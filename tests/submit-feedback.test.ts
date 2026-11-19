@@ -107,6 +107,34 @@ describe('submit_feedback definition', () => {
 })
 
 describe('submit_feedback report', () => {
+  it('does not follow a redirect, so the token never leaves for another origin', async () => {
+    const elsewhere: string[] = []
+    msw.use(
+      http.post(FEEDBACK_URL, () =>
+        HttpResponse.text('', {
+          status: 307,
+          headers: { Location: 'https://elsewhere.example.com/collect' }
+        })
+      ),
+      http.post('https://elsewhere.example.com/collect', ({ request }) => {
+        elsewhere.push(request.headers.get('authorization') ?? '')
+        return HttpResponse.json({}, { status: 202 })
+      })
+    )
+
+    const result = await runSubmitFeedbackTool(
+      { ...REPORT, message: 'docs are wrong' },
+      'direct',
+      freshUser()
+    )
+
+    expect(elsewhere).toEqual([])
+    expect(result).toMatchObject({
+      isError: true,
+      content: [{ type: 'text', text: expect.stringContaining('HTTP 307') }]
+    })
+  })
+
   it('uses the shared feedback schema, with the MCP details in fields', () => {
     const body = feedbackSubmission(
       {
@@ -357,6 +385,7 @@ describe('submit_feedback report', () => {
     expect(retryAfterSeconds('Wed, 18 Nov 2026 12:01:30 GMT', now)).toBe(90)
     expect(retryAfterSeconds('soon', now)).toBeUndefined()
     expect(retryAfterSeconds(null, now)).toBeUndefined()
+    expect(retryAfterSeconds('60abc', now)).toBeUndefined()
   })
 
   it('refuses a plain-http endpoint', async () => {
