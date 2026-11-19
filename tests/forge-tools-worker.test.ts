@@ -66,12 +66,13 @@ afterEach(async () => {
 })
 
 describe('generated direct tools (?codemode=false)', () => {
-  it('lists docs, whoami and every generated tool, without their request code or response schemas', async () => {
+  it('lists docs, whoami, graphql_analytics and every generated tool, without their request code or response schemas', async () => {
     const tools = await listForgeTools(ACCOUNT_TOKEN)
 
     expect(tools.map((tool) => tool.name)).toEqual([
       'docs',
       'whoami',
+      'graphql_analytics',
       ...generatedTools.map((tool) => tool.name)
     ])
     const d1 = tools.find((tool) => tool.name === 'd1_list')!
@@ -424,7 +425,7 @@ describe('generated direct tools (?codemode=false)', () => {
     const codemode = (await listTools(ACCOUNT_TOKEN, MCP_URL)).map((t) => t.name)
 
     expect(direct).toContain('d1_list')
-    expect(codemode).toEqual(['docs', 'search', 'execute', 'whoami'])
+    expect(codemode).toEqual(['docs', 'search', 'execute', 'whoami', 'graphql_analytics'])
   })
 
   describe('results', () => {

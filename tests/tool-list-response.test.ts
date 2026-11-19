@@ -83,8 +83,12 @@ describe('direct tools/list fast path', () => {
       expect(fast.response.headers.get('Content-Type')).toBe('application/json')
       expect(fast.message).toEqual(sdk.message)
       const tools = (fast.message.result as { tools: Array<{ name: string }> }).tools
-      expect(tools.slice(0, 2).map((tool) => tool.name)).toEqual(['docs', 'whoami'])
-      expect(tools.length).toBeGreaterThan(2)
+      expect(tools.slice(0, 3).map((tool) => tool.name)).toEqual([
+        'docs',
+        'whoami',
+        'graphql_analytics'
+      ])
+      expect(tools.length).toBeGreaterThan(3)
     })
   }
 

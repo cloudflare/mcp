@@ -2,6 +2,7 @@ import { isLegacyRequest, SUPPORTED_PROTOCOL_VERSIONS } from '@modelcontextproto
 import type { Tool } from '@modelcontextprotocol/server'
 import { DOCS_TOOL } from './docs-search'
 import { WHOAMI_TOOL } from './whoami'
+import { GRAPHQL_ANALYTICS_TOOL } from './graphql-analytics'
 import { isolate } from '../lib/isolate'
 
 /**
@@ -17,7 +18,9 @@ const MAX_BODY_BYTES = 4096
  * the stringify this replaces.
  */
 const toolsJson = isolate.derived((tools: readonly Tool[]) =>
-  new TextEncoder().encode(JSON.stringify([DOCS_TOOL, WHOAMI_TOOL, ...tools]))
+  new TextEncoder().encode(
+    JSON.stringify([DOCS_TOOL, WHOAMI_TOOL, GRAPHQL_ANALYTICS_TOOL, ...tools])
+  )
 )
 
 /** A lone 2025-era `tools/list` request for the first page, or `undefined` for anything else. */
@@ -63,13 +66,13 @@ async function plainToolListRequestId(request: Request): Promise<string | number
  * most of the CPU `?codemode=false` used: clients list the tools far more
  * often than they call one.
  *
- * The listing is the one the SDK would send: `docs`, `whoami`, then `tools`.
+ * The listing is the one the SDK would send: `docs`, `whoami`, `graphql_analytics`, then `tools`.
  * 2025-era listings carry no output schemas, so the SDK's legacy encoding
  * leaves every tool as it is. Any other request returns `undefined` and is
  * served by the SDK as before.
  *
  * @param request - The authenticated MCP request.
- * @param listTools - The cached direct-tool listing, without `docs` and `whoami`.
+ * @param listTools - The cached direct-tool listing, without the three hand-written tools.
  */
 export async function cachedToolListResponse(
   request: Request,

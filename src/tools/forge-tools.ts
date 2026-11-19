@@ -15,6 +15,11 @@ import { recordToolCall } from '../metrics'
 import { checkResponse } from '../response-validation'
 import { DOCS_TOOL, runDocsTool } from './docs-search'
 import { WHOAMI_TOOL, WhoamiInputSchema, runWhoamiTool } from './whoami'
+import {
+  GRAPHQL_ANALYTICS_TOOL,
+  GraphqlAnalyticsInputSchema,
+  runGraphqlAnalyticsTool
+} from './graphql-analytics'
 import type { AuthProps } from '../auth/types'
 import { acceptedPermissions, type Connection } from '../api-permissions'
 import { apiCallResult } from './api-call-result'
@@ -31,7 +36,7 @@ function forgeTools() {
 
 /**
  * Serve the direct tools forge generates from `openapi.forge.json`
- * (`?codemode=false`), alongside `docs` and `whoami`.
+ * (`?codemode=false`), alongside `docs`, `whoami` and `graphql_analytics`.
  *
  * The generated tools live in the forge tools service, a Worker of their own,
  * so that isolates serving Code Mode never compile them. `tools/list` asks it
@@ -58,6 +63,7 @@ export function registerForgeTools(
     tools: [
       DOCS_TOOL,
       WHOAMI_TOOL,
+      GRAPHQL_ANALYTICS_TOOL,
       ...(await getForgeToolList({ outputSchema: outputSchema && isModern(ctx) }))
     ]
   }))
@@ -77,6 +83,16 @@ export function registerForgeTools(
         const parsed = WhoamiInputSchema.safeParse(args)
         result = parsed.success
           ? runWhoamiTool(props)
+          : toolError(`Invalid arguments for tool ${name}: ${parsed.error.message}`)
+      } else if (name === GRAPHQL_ANALYTICS_TOOL.name) {
+        const parsed = GraphqlAnalyticsInputSchema.safeParse(args)
+        result = parsed.success
+          ? await runGraphqlAnalyticsTool(parsed.data, {
+              props,
+              connection,
+              scopeChallenge,
+              formatResult
+            })
           : toolError(`Invalid arguments for tool ${name}: ${parsed.error.message}`)
       } else {
         const sessionAccountId = autoResolvedAccountId(props)
