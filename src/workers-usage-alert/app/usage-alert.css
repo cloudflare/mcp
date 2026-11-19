@@ -1,195 +1,240 @@
 @import '../../mcp-apps/app-shell/base.css';
 @source './usage-alert-app.tsx';
 
-/* Kumo ChartPalette (chart/Color.ts) */
-:root {
-  --chart-blue: #4290f0;
-  --chart-warning: #f8a054;
-  --chart-disabled: light-dark(#cbcbcb, #878787);
-  --chart-text: light-dark(#6b7280, #9ca3af);
-  --chart-grid: light-dark(rgb(107 114 128 / 0.2), rgb(156 163 175 / 0.2));
+/* Kumo sizes in rem and assumes a 16px root; the shared base sets html to 14px,
+   which shrinks every Kumo control by an eighth. Body text stays at 14px. */
+html {
+  font-size: 16px;
+}
+body {
+  font-family: var(--font-sans);
+  font-size: 14px;
 }
 
-.card {
+/*
+ * The fuzzy-input design: a LayerDialog-style card. An elevated LayerCard holds
+ * a Primary layer (glyph, question, card radios with the Custom slider) and an
+ * actions row beneath it. Kumo renders the parts; this file sets the design's
+ * spacing where Kumo's defaults differ.
+ */
+.ld {
   container-type: inline-size;
   min-width: 0;
+  padding: 6px;
+  border-radius: 12px;
+  box-shadow: 0 8px 10px -6px rgb(0 0 0 / 0.03);
+}
+.ld-primary {
+  gap: 0;
+  padding: 0;
   border-radius: 8px;
-  background: var(--color-kumo-elevated);
-  box-shadow: 0 0 0 1px var(--color-kumo-hairline);
-  overflow: hidden;
 }
-header {
+.ld-head {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 12px 8px 14px;
-  min-height: 40px;
-  flex-wrap: wrap;
-}
-.title {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  min-width: 0;
-}
-.title strong {
-  font-weight: 500;
-}
-.logo {
-  width: 22px;
-  flex-shrink: 0;
-}
-.body {
-  margin: 0 4px 4px;
-  border-radius: 6px;
-  background: var(--color-kumo-base);
-  box-shadow:
-    0 1px 2px 0 oklch(0% 0 0 / 0.05),
-    0 0 0 1px var(--color-kumo-line);
-  padding: 14px 16px 16px;
-  display: flex;
-  flex-direction: column;
   gap: 12px;
+  align-items: flex-start;
+  padding: 16px 18px;
 }
-.legend {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
+.cf {
+  width: 28px;
+  flex: none;
+  margin-top: 5px;
 }
-.lg {
-  display: inline-flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.lg .k {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  color: var(--text-color-kumo-subtle);
-  white-space: nowrap;
-}
-.lg .dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-}
-.lg .dot.dash {
-  width: 10px;
-  height: 2px;
-  border-radius: 1px;
-}
-.lg .v {
-  display: flex;
-  align-items: baseline;
-  gap: 3px;
-}
-.lg .v b {
-  font-size: 16px;
-  line-height: 1;
+.ld-title {
+  margin: 0;
+  font-size: var(--text-lg);
   font-weight: 500;
+  line-height: 1.5;
+  text-wrap: balance;
+}
+.ld-body {
+  padding: 2px 18px 18px;
+}
+.rg {
+  min-width: 0;
+  border: 0;
+}
+.num {
   font-variant-numeric: tabular-nums;
 }
-.lg .v span {
-  font-size: 12px;
-  color: var(--text-color-kumo-subtle);
+
+/* Custom card: the slider panel continues the Custom row, with no divider. */
+.rc-custom {
+  border-bottom-width: 0;
 }
-.chart {
-  display: block;
-  width: 100%;
-  height: auto;
-  overflow: visible;
-  touch-action: none;
+.collapse-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 200ms ease-out,
+    opacity 200ms ease-out;
+}
+.collapse-panel[data-open='true'] {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  background: var(--color-kumo-tint);
+}
+/* The reveal clips while it animates. The track's ring and the thumb's focus
+   ring draw outside their boxes, so the clip box starts 4px above the track
+   (padding inside, pulled back up by the same margin): nothing is cut off and
+   nothing moves. */
+.collapse-panel > div {
+  min-height: 0;
+  overflow: hidden;
+  margin-top: -4px;
+}
+.sl {
+  padding: 4px 12px 12px;
   user-select: none;
 }
-.tick {
-  font-size: 10px;
-  fill: var(--chart-text);
+/* Kumo centres the value badge on the thumb, so at either end it spills past
+   the track. Slide its anchor across the thumb with the value instead: its
+   left edge meets the thumb's at the minimum, its right edge at the maximum,
+   and in between it stays over the thumb. */
+.sl [data-index] > span:nth-of-type(2) {
+  left: calc(var(--thumb-at, 0.5) * 100%);
+  translate: calc(var(--thumb-at, 0.5) * -100%) 0;
 }
-.handle {
-  cursor: ns-resize;
-  outline: none;
+/* Room for the value badge under the thumb, above the +5% / +100% ends. */
+.sl > div:last-child {
+  margin-top: 22px;
 }
-.handle .pill {
-  fill: var(--color-kumo-base);
-  stroke: var(--color-kumo-line);
-}
-.handle:focus-visible .pill {
-  stroke: var(--color-kumo-brand);
-  stroke-width: 2;
-}
-.pill-text {
-  font-size: 11px;
-  font-weight: 500;
-  fill: var(--text-color-kumo-default);
-}
-.pills {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-  align-items: center;
-}
-.pills .lbl {
-  font-size: 13px;
-  color: var(--text-color-kumo-subtle);
-}
-.pill-btn {
-  font: inherit;
-  font-size: 12px;
-  border-radius: 999px;
-  padding: 2px 10px;
-  border: 1px solid var(--color-kumo-line);
-  background: var(--color-kumo-base);
-  color: var(--text-color-kumo-default);
-  cursor: pointer;
-}
-.pill-btn[aria-pressed='true'] {
-  background: var(--color-kumo-fill);
-  border-color: transparent;
-}
-.pill-btn:focus-visible {
-  outline: 2px solid var(--color-kumo-brand);
-  outline-offset: 1px;
-}
-.pill-btn:disabled {
+
+/* Locked once confirmed: nothing washes out. The rows simply stop responding,
+   and the unchosen radios recede a little. */
+[data-locked] .rg [data-kumo-part='item-label'] {
+  opacity: 1;
   cursor: default;
-  opacity: 0.6;
 }
-.summary {
-  margin: 0;
+[data-locked] .rg [data-kumo-part='item-label']:not(:has([data-checked])) [data-kumo-part='item'] {
+  opacity: 0.5;
 }
-.subtle,
-.observed {
-  margin: 0;
-  font-size: 12px;
+[data-locked] .sl {
+  opacity: 1;
+}
+[data-locked] .sl [data-index] {
+  cursor: default;
+}
+[data-locked] .sl [data-index] > span:nth-of-type(2) {
+  background: var(--color-kumo-contrast);
+  color: var(--text-color-kumo-inverse);
+}
+
+/* Preset marks at +10/+25/+50%, over Kumo's track (inset 3px, edge-aligned 16px thumb). */
+.collapse-panel > div {
+  position: relative;
+}
+.sl-marks {
+  position: absolute;
+  top: 4px;
+  left: 23px;
+  right: 23px;
+  height: 32px;
+  pointer-events: none;
+  z-index: 1;
+}
+.sl-marks span {
+  position: absolute;
+  top: 50%;
+  width: 4px;
+  height: 4px;
+  margin: -2px 0 0 -2px;
+  border-radius: 50%;
+  background: color-mix(in oklch, var(--color-kumo-contrast) 22%, transparent);
+}
+.sl [data-index] {
+  z-index: 2;
+}
+/* Kumo rings the thumb on any focus; the design shows it only for the keyboard. */
+.sl [data-index]:not(:has(:focus-visible)) {
+  box-shadow: none;
+}
+
+.request-disclosure {
+  flex-basis: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.note {
+  margin: 10px 0 0;
+  font-size: var(--text-sm);
   color: var(--text-color-kumo-subtle);
 }
-.observed {
-  padding: 8px 14px 10px;
-}
-.warn {
-  margin: 0;
+.note.warn {
   color: var(--text-color-kumo-warning);
 }
-.foot {
+
+.ld-actions {
   display: flex;
-  gap: 8px;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 7px 0 0 6px;
+  min-height: 43px;
 }
-.foot > :first-child {
-  flex: 1;
+.to {
+  flex: 1 1 auto;
   min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--text-sm);
+  color: var(--text-color-kumo-subtle);
 }
-.review pre {
-  margin: 6px 0 0;
+.to .email {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 280px;
+}
+.err {
+  flex-basis: 100%;
+  margin: -2px 0 0;
+  padding-left: 30px;
+  font-size: var(--text-sm);
+  color: var(--text-color-kumo-danger);
+}
+.saved {
+  flex: 1 1 0;
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--text-color-kumo-success);
+  outline: none;
+}
+.saved[data-sent='false'] {
+  font-weight: 400;
+  color: var(--text-color-kumo-subtle);
+}
+.saved svg {
+  flex: none;
+}
+.request {
+  margin: 0 6px 0 0;
   padding: 10px;
-  border-radius: 6px;
+  border-radius: 8px;
   background: var(--color-kumo-recessed);
-  font:
-    12px/1.45 ui-monospace,
-    SFMono-Regular,
-    Menlo,
-    monospace;
-  overflow-x: auto;
+  box-shadow: 0 0 0 1px var(--color-kumo-line);
+  font: 12px/1.45 var(--font-mono);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+@container (max-width: 480px) {
+  .ld-head {
+    padding: 14px;
+  }
+  .ld-body {
+    padding: 2px 14px 14px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .collapse-panel {
+    transition: none;
+  }
 }

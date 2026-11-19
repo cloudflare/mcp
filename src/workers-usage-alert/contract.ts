@@ -37,6 +37,8 @@ export const UsageAlertPreviewSchema = z.object({
   checkedAt: z.iso.datetime(),
   accountId: z.string(),
   accountName: z.string().optional(),
+  /** The signed-in user's own email, for a user credential: the view's default recipient. */
+  userEmail: z.string().optional(),
   /** UTC calendar months, `YYYY-MM`. Billing periods may not align with them. */
   currentMonth: z.string(),
   previousMonth: z.string(),

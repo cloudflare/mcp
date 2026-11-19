@@ -143,6 +143,18 @@ describe.each([
     expect(result?.structuredContent?.previous).toHaveLength(31)
     expect(result?.structuredContent?.current).toHaveLength(18)
     expect(JSON.stringify(result)).not.toContain('private@example.com')
+    // An account token has no user, so the view has no default recipient.
+    expect(result?.structuredContent).not.toHaveProperty('userEmail')
+  })
+
+  it('offers a user credential’s own email as the default recipient', async () => {
+    mockIdentityProbe({
+      user: { id: 'u1', email: 'me@example.com' },
+      accounts: [{ id: ACCOUNT, name: 'Usage Co' }]
+    })
+    mockApi()
+    const result = await call({ as_of: '2026-11-18' }, url)
+    expect(result?.structuredContent).toMatchObject({ userEmail: 'me@example.com' })
   })
 })
 

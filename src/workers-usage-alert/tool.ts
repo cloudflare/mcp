@@ -183,6 +183,7 @@ async function collect(
     ...(accountName(context.props, accountId)
       ? { accountName: accountName(context.props, accountId) }
       : {}),
+    ...(context.props.type === 'user_token' ? { userEmail: context.props.user.email } : {}),
     currentMonth: current.month,
     previousMonth: previous.month,
     current: rows(account.current),
