@@ -4,6 +4,7 @@ import type { CallToolResult, McpServer, Tool } from '@modelcontextprotocol/serv
 import type { AuthProps } from '../auth/types'
 import { USER_AGENT } from '../constants'
 import { withCachedJsonSchema } from '../lib/isolate-json-schema'
+import { toolError } from './tool-error'
 
 const NAME = 'submit_feedback'
 const TITLE = 'Send Feedback to Cloudflare'
@@ -113,10 +114,6 @@ export function feedbackSubmission(
   }
 }
 
-function toolError(text: string): CallToolResult {
-  return { content: [{ type: 'text', text }], isError: true }
-}
-
 const PER_CALLER_LIMIT_TEXT =
   'Too much feedback from this user in the last minute. Try again in a minute.'
 
@@ -206,7 +203,8 @@ async function send(
       method: 'POST',
       headers: await feedbackHeaders(props),
       body: JSON.stringify(feedbackSubmission(input, mode, submissionId)),
-      signal: AbortSignal.timeout(SEND_TIMEOUT_MS)
+      signal: AbortSignal.timeout(SEND_TIMEOUT_MS),
+      redirect: 'manual'
     })
   } catch {
     return toolError('Could not reach the Cloudflare feedback service.')

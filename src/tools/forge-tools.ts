@@ -19,6 +19,7 @@ import { SUBMIT_FEEDBACK_TOOL, feedbackTools, runSubmitFeedbackTool } from './su
 import type { AuthProps } from '../auth/types'
 import { acceptedPermissions, type Connection } from '../api-permissions'
 import { apiCallResult } from './api-call-result'
+import { toolError } from './tool-error'
 import { binaryContent, bodyValue, readResponse } from './response-body'
 import type { ScopeChallenge } from '../scope-challenge'
 import type { CallPlan } from '../forge-tools/plan'
@@ -188,8 +189,4 @@ async function callForgeTool(
 function isModern(ctx: ServerContext): boolean {
   const envelope: Record<string, unknown> | undefined = ctx.mcpReq.envelope
   return typeof envelope?.[PROTOCOL_VERSION_META_KEY] === 'string'
-}
-
-function toolError(message: string): CallToolResult {
-  return { content: [{ type: 'text', text: message }], isError: true }
 }
