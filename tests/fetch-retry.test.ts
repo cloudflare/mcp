@@ -295,6 +295,23 @@ describe('fetchWithRetry', () => {
     expect(api.calls()).toBe(2)
   })
 
+  it("does not retry once the caller's signal has aborted", async () => {
+    const api = respondInSequence(TEST_URL, 200)
+    const started = Date.now()
+
+    await expect(
+      fetchWithRetry(
+        TEST_URL,
+        { signal: AbortSignal.abort() },
+        { maxRetries: 3, baseDelayMs: 1000, jitter: false }
+      )
+    ).rejects.toThrow()
+
+    // Every retry would fail at once, so the backoff (1 + 2 + 4 seconds) is skipped.
+    expect(Date.now() - started).toBeLessThan(500)
+    expect(api.calls()).toBe(0)
+  })
+
   it('passes through request init options and injects User-Agent', async () => {
     let received:
       | { method: string; authorization: string | null; userAgent: string | null; body: string }
