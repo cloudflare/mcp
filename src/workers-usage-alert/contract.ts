@@ -42,8 +42,17 @@ export const ExistingAlertSchema = z.object({
   limit: z.number().optional()
 })
 
+/**
+ * What the model does next, in the result it reads. ChatGPT asked in chat for
+ * the limit and email with this guidance only in the tool description.
+ */
+export const USAGE_ALERT_NEXT_STEP =
+  'Where the App shows, the user sets the threshold and email on the card and clicks Create alert, which creates it: summarize in a sentence or two and end without a question. Where no App shows, give the suggested threshold and ask for the limit and email.'
+
 export const UsageAlertPreviewSchema = z.object({
   kind: z.literal('workers_usage_alert_preview'),
+  /** How to reply: see `USAGE_ALERT_NEXT_STEP`. */
+  nextStep: z.string(),
   checkedAt: z.iso.datetime(),
   accountId: z.string(),
   accountName: z.string().optional(),

@@ -4,6 +4,7 @@ import type { AuthProps } from '../auth/types'
 import { defineMcpApp, type AppContext, type AppOutcome } from '../mcp-apps/define'
 import { ApiReadError, ApiReadUnsupported, apiReader } from '../mcp-apps/api-read'
 import {
+  USAGE_ALERT_NEXT_STEP,
   USAGE_ALERT_RESOURCE_URI,
   USAGE_ALERT_TOOL_CONFIG,
   UsageAlertInputSchema,
@@ -197,6 +198,7 @@ async function collect(
   const name = accountName(context.props, accountId)
   const preview: UsageAlertPreview = {
     kind: 'workers_usage_alert_preview',
+    nextStep: USAGE_ALERT_NEXT_STEP,
     checkedAt: now.toISOString(),
     accountId,
     ...(name ? { accountName: name } : {}),
