@@ -5,7 +5,7 @@ import { mockIdentityProbe } from './helpers/cloudflare-api'
 import { clearKv } from './helpers/kv'
 import { MCP_HOST, MCP_URL, MODERN_MCP_VERSION } from './helpers/mcp'
 import { clearSpec, seedSpec } from './helpers/spec'
-import { MCP_APP_TOOLS } from '../src/mcp-apps/registry'
+import { MCP_APP_GENERATED_TOOLS, MCP_APP_TOOLS } from '../src/mcp-apps/registry'
 
 const API_TOKEN = 'modern-client-token'
 const ACCOUNT_ID = '00000000000000000000000000000001'
@@ -70,7 +70,8 @@ describe('automatic protocol negotiation', () => {
         'search',
         'execute',
         'whoami',
-        ...MCP_APP_TOOLS.map((tool) => tool.name)
+        ...MCP_APP_TOOLS.map((tool) => tool.name),
+        ...MCP_APP_GENERATED_TOOLS.map((tool) => tool.name)
       ])
 
       const called = await client.callTool({

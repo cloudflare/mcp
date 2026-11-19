@@ -2,7 +2,8 @@ import { env, exports } from 'cloudflare:workers'
 import { http, HttpResponse } from 'msw'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { fillDays, historyWindows } from '../src/workers-usage-alert/history'
-import { createPolicy, type CallTool } from '../src/workers-usage-alert/create'
+import { CREATE_POLICY_TOOL, createPolicy, type CallTool } from '../src/workers-usage-alert/create'
+import type { Tool } from '@modelcontextprotocol/server'
 import {
   deriveModel,
   monitorPolicy,
@@ -370,18 +371,16 @@ describe('workers_usage_alert reads', () => {
 })
 
 describe.each([
-  ['Code Mode', MCP_URL, ['alerting_policies_create', 'execute']],
-  ['direct tools', `${MCP_URL}?codemode=false`, ['alerting_policies_create']]
-])('Create alert (%s)', (_mode, url, expectedCalls) => {
+  ['Code Mode', MCP_URL],
+  ['direct tools', `${MCP_URL}?codemode=false`]
+])('Create alert (%s)', (mode, url) => {
   const policy = monitorPolicy(
     ACCOUNT,
     2_000_000_000,
     'me@example.com',
     'Workers requests over 2B in 7 days'
   )
-  const tried: string[] = []
   const callTool: CallTool = async (c) => {
-    tried.push(c.name)
     const response = await exports.default.fetch(modernMcpRequest(TOKEN, 'tools/call', c, { url }))
     const parsed = (await parseMcpResult(response)) as {
       result?: Awaited<ReturnType<CallTool>>
@@ -392,7 +391,6 @@ describe.each([
   }
 
   beforeEach(async () => {
-    tried.length = 0
     await seedSpec({
       '/accounts/{account_id}/alerting/v3/policies': {
         post: { 'x-api-token-group': ['Notifications Write'] }
@@ -400,10 +398,30 @@ describe.each([
     })
   })
 
-  it('creates exactly the policy the App shows, with a tool the connection lists', async () => {
+  it('lists the generated create tool, for the App only in Code Mode', async () => {
+    const response = await exports.default.fetch(modernMcpRequest(TOKEN, 'tools/list', {}, { url }))
+    const tools = ((await parseMcpResult(response)) as { result: { tools: Tool[] } }).result.tools
+    const create = tools.find((tool) => tool.name === CREATE_POLICY_TOOL)
+
+    expect(create?.annotations).toMatchObject({ readOnlyHint: false, destructiveHint: false })
+    if (mode === 'Code Mode') {
+      expect(create?._meta).toEqual({ ui: { visibility: ['app'] } })
+      expect(
+        tools
+          .filter((tool) => !(tool._meta?.ui as { visibility?: string[] } | undefined)?.visibility)
+          .map((t) => t.name)
+      ).not.toContain(CREATE_POLICY_TOOL)
+    } else {
+      expect(create?._meta?.ui).toBeUndefined()
+    }
+  })
+
+  it('creates exactly the policy the App shows, in one call', async () => {
     let sent: unknown
+    let posts = 0
     server.use(
       http.post(`${ALERTING}/policies`, async ({ request }) => {
+        posts++
         sent = await request.json()
         return HttpResponse.json(cfSuccess({ id: 'a'.repeat(32) }))
       })
@@ -411,12 +429,12 @@ describe.each([
 
     const result = await createPolicy(callTool, ACCOUNT, policy)
 
-    expect(result).toEqual({ ok: true, id: 'a'.repeat(32) })
+    expect(result).toEqual({ status: 'created', id: 'a'.repeat(32) })
     expect(sent).toEqual(policy)
-    expect(tried).toEqual(expectedCalls)
+    expect(posts).toBe(1)
   })
 
-  it("shows Cloudflare's refusal and doesn't try another tool", async () => {
+  it("shows Cloudflare's refusal", async () => {
     server.use(
       http.post(`${ALERTING}/policies`, () =>
         HttpResponse.json(
@@ -430,16 +448,17 @@ describe.each([
 
     const result = await createPolicy(callTool, ACCOUNT, policy)
 
-    expect(result).toMatchObject({ ok: false })
-    expect(result?.ok === false && result.error).toContain('at most 5 custom analytics policies')
-    expect(tried).toEqual(expectedCalls)
+    expect(result.status).toBe('refused')
+    expect(result.status === 'refused' && result.error).toContain(
+      'at most 5 custom analytics policies'
+    )
   })
 })
 
 describe('createPolicy', () => {
   const policy = monitorPolicy(ACCOUNT, 1000, 'me@example.com', 'n')
 
-  it('returns undefined when no create tool exists, so the App hands off to the chat', async () => {
+  it('is unavailable when the connection lists no create tool, so the App hands off to the chat', async () => {
     const result = await createPolicy(
       async (c) => ({
         isError: true,
@@ -449,6 +468,6 @@ describe('createPolicy', () => {
       policy
     )
 
-    expect(result).toBeUndefined()
+    expect(result).toEqual({ status: 'unavailable' })
   })
 })

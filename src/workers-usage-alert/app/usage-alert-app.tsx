@@ -414,23 +414,23 @@ function UsageAlertCard({ preview: p, app }: { preview: UsageAlertPreview; app: 
     setFailure('')
     if (caps?.serverTools) {
       const created = await createPolicy((c) => app.callServerTool(c), p.accountId, policy).catch(
-        () => undefined
+        (error: unknown) => ({ status: 'refused' as const, error: String(error) })
       )
-      if (created?.ok) {
-        // Tell the model what happened, so it doesn't offer to create it again.
+      if (created.status === 'created') {
+        // Tell the model, so it doesn't offer to create it again.
         void app
           .updateModelContext?.({
             content: [
               {
                 type: 'text',
-                text: `The user created this Workers usage alert from the workers_usage_alert App${created.id ? ` (policy ${created.id})` : ''}: email ${address} when Workers requests pass ${limit.toLocaleString('en')} in 7 days. Don't create it again.`
+                text: `The user clicked Create alert in the workers_usage_alert App, and the alert was created${created.id ? ` (policy ${created.id})` : ''}: email ${address} when Workers requests pass ${limit.toLocaleString('en')} in 7 days. It's done: don't create it again or ask to confirm it.`
               }
             ]
           })
           .catch(() => {})
         return settle('created')
       }
-      if (created && !created.ok) {
+      if (created.status === 'refused') {
         setFailure(created.error)
         setPhase('failed')
         return

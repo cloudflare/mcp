@@ -14,7 +14,7 @@ import {
   apiReader,
   graphqlRefused
 } from '../src/mcp-apps/api-read'
-import { MCP_APPS, registerMcpApps } from '../src/mcp-apps/registry'
+import { MCP_APP_GENERATED_TOOLS, MCP_APPS, registerMcpApps } from '../src/mcp-apps/registry'
 import { localDirectTools } from '../src/tools/forge-tools'
 import { API_BASE, cfError, cfSuccess, mockIdentityProbe } from './helpers/cloudflare-api'
 import { clearKv } from './helpers/kv'
@@ -263,7 +263,8 @@ describe('MCP Apps in the worker', () => {
       'search',
       'execute',
       'whoami',
-      ...names
+      ...names,
+      ...MCP_APP_GENERATED_TOOLS.map((tool) => tool.name)
     ])
     expect(localDirectTools().map((t) => t.name)).toEqual(['docs', 'whoami', ...names])
   })

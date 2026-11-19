@@ -1,7 +1,13 @@
 import { z } from 'zod'
 import { env } from 'cloudflare:workers'
 import { PROTOCOL_VERSION_META_KEY } from '@modelcontextprotocol/server'
-import type { McpServer, CallToolResult, ServerContext, Tool } from '@modelcontextprotocol/server'
+import type {
+  McpServer,
+  CallToolResult,
+  ServerContext,
+  StandardSchemaWithJSON,
+  Tool
+} from '@modelcontextprotocol/server'
 import type { FormatToolResult } from '../truncate'
 import { fetchWithRetry } from '../utils/fetch-retry'
 import { rateLimitHint } from '../rate-limit'
@@ -16,7 +22,9 @@ import { checkResponse } from '../response-validation'
 import { DOCS_TOOL, runDocsTool } from './docs-search'
 import { WHOAMI_TOOL, WhoamiInputSchema, runWhoamiTool } from './whoami'
 import { SUBMIT_FEEDBACK_TOOL, feedbackTools, runSubmitFeedbackTool } from './submit-feedback'
-import { MCP_APP_TOOLS, mcpAppNamed } from '../mcp-apps/registry'
+import { MCP_APP_GENERATED_TOOLS, MCP_APP_TOOLS, mcpAppNamed } from '../mcp-apps/registry'
+import type { AppContext } from '../mcp-apps/define'
+import { stringifyResponse } from '../truncate'
 import type { AuthProps } from '../auth/types'
 import { acceptedPermissions, type Connection } from '../api-permissions'
 import { apiCallResult } from './api-call-result'
@@ -95,12 +103,7 @@ export function registerForgeTools(
       } else if (mcpAppNamed(name)) {
         result = await mcpAppNamed(name)!.call(args, { props, connection, scopeChallenge }, ctx)
       } else {
-        const sessionAccountId = autoResolvedAccountId(props)
-        const plan = (await forgeTools().plan(name, args, {
-          baseUrl: env.CLOUDFLARE_API_BASE,
-          ...(sessionAccountId && { sessionAccountId })
-        })) as CallPlan
-        result = await callForgeTool(name, plan, props, formatResult, {
+        result = await callGeneratedTool(name, args, props, formatResult, {
           connection,
           scopeChallenge,
           structured: outputSchema && isModern(ctx)
@@ -113,6 +116,76 @@ export function registerForgeTools(
     recordToolCall(props, name, result.isError === true)
     return result
   })
+}
+
+/**
+ * Call one generated tool: the forge tools service plans the request from
+ * `args`, checked against the tool's input schema, and this Worker sends it
+ * with the session's token. The direct tools call every generated tool this
+ * way, and Code Mode the few an MCP App's view calls (`appTools`).
+ */
+export async function callGeneratedTool(
+  name: string,
+  args: Record<string, unknown>,
+  props: AuthProps,
+  formatResult: FormatToolResult,
+  options: { connection: Connection; scopeChallenge: ScopeChallenge; structured: boolean }
+): Promise<CallToolResult> {
+  const sessionAccountId = autoResolvedAccountId(props)
+  const plan = (await forgeTools().plan(name, args, {
+    baseUrl: env.CLOUDFLARE_API_BASE,
+    ...(sessionAccountId && { sessionAccountId })
+  })) as CallPlan
+  return callForgeTool(name, plan, props, formatResult, options)
+}
+
+/**
+ * Register, on a Code Mode server, the generated tools MCP Apps' views call
+ * (`appTools` in `defineMcpApp`), app-only so the model never sees them.
+ * Each is served as the direct tools serve it: planned and checked against
+ * its input schema by the forge tools service, sent with the session's token,
+ * with the same refusal explanations and step-up, and never truncated, since
+ * the view reads the result.
+ */
+export function registerAppGeneratedTools(
+  server: McpServer,
+  context: AppContext,
+  tools: readonly Tool[] = MCP_APP_GENERATED_TOOLS
+): void {
+  for (const tool of tools) {
+    server.registerTool(
+      tool.name,
+      {
+        ...(tool.title !== undefined && { title: tool.title }),
+        ...(tool.description !== undefined && { description: tool.description }),
+        ...(tool.annotations && { annotations: { ...tool.annotations } }),
+        ...(tool._meta && { _meta: tool._meta }),
+        inputSchema: listedAs(tool.inputSchema)
+      },
+      (args: Record<string, unknown>) =>
+        callGeneratedTool(tool.name, args, context.props, stringifyResponse, {
+          connection: context.connection,
+          scopeChallenge: context.scopeChallenge,
+          structured: false
+        })
+    )
+  }
+}
+
+/**
+ * A generated tool's JSON Schema as the SDK takes an input schema: listed as
+ * it is, and accepting every value, since the forge tools service checks the
+ * arguments when it plans the call, as it does for the direct tools.
+ */
+function listedAs(schema: Tool['inputSchema']): StandardSchemaWithJSON<Record<string, unknown>> {
+  return {
+    '~standard': {
+      version: 1,
+      vendor: 'cloudflare-mcp',
+      validate: (value) => ({ value: value as Record<string, unknown> }),
+      jsonSchema: { input: () => schema, output: () => schema }
+    }
+  }
 }
 
 async function callForgeTool(

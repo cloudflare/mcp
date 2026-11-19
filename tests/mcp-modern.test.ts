@@ -19,7 +19,7 @@ import {
 } from './helpers/mcp'
 import { clearSpec, seedSpec } from './helpers/spec'
 import { server } from './setup/msw'
-import { MCP_APP_TOOLS } from '../src/mcp-apps/registry'
+import { MCP_APP_GENERATED_TOOLS, MCP_APP_TOOLS } from '../src/mcp-apps/registry'
 
 const API_TOKEN = 'modern-mcp-token'
 const ACCOUNT_ID = '00000000000000000000000000000001'
@@ -165,7 +165,8 @@ describe('MCP 2026-07-28 stateless handler', () => {
       'search',
       'execute',
       'whoami',
-      ...MCP_APP_TOOLS.map((tool) => tool.name)
+      ...MCP_APP_TOOLS.map((tool) => tool.name),
+      ...MCP_APP_GENERATED_TOOLS.map((tool) => tool.name)
     ])
   })
 
@@ -286,7 +287,8 @@ describe('MCP 2026-07-28 stateless handler', () => {
       'search',
       'execute',
       'whoami',
-      ...MCP_APP_TOOLS.map((tool) => tool.name)
+      ...MCP_APP_TOOLS.map((tool) => tool.name),
+      ...MCP_APP_GENERATED_TOOLS.map((tool) => tool.name)
     ])
     const direct = endpoints.result?.tools?.map((tool) => tool.name) ?? []
     expect(direct.slice(0, 2 + MCP_APP_TOOLS.length)).toEqual([
@@ -331,7 +333,8 @@ describe('MCP 2026-07-28 stateless handler', () => {
       'search',
       'execute',
       'whoami',
-      ...MCP_APP_TOOLS.map((tool) => tool.name)
+      ...MCP_APP_TOOLS.map((tool) => tool.name),
+      ...MCP_APP_GENERATED_TOOLS.map((tool) => tool.name)
     ])
   })
 

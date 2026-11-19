@@ -10,6 +10,7 @@ import type { Connection } from '../api-permissions'
 import type { ScopeChallenge } from '../scope-challenge'
 import type { StaticResource } from '../skills/handlers'
 import { withCachedJsonSchema } from '../lib/isolate-json-schema'
+import type { Tool as GeneratedTool } from '../generated/forge-mcp/_/tool'
 
 /** The MIME type MCP Apps hosts render as an App. */
 export const MCP_APP_MIME = 'text/html;profile=mcp-app'
@@ -35,6 +36,8 @@ export interface McpApp {
   readonly tool: Tool
   /** The App's HTML, served through `resources/list` and `resources/read`. */
   readonly resource: StaticResource
+  /** The generated tools the App's view calls with `callServerTool`; see {@link McpAppDefinition.appTools}. */
+  readonly appTools: readonly GeneratedTool[]
   /** The zod schemas Code Mode registers, JSON Schema conversion cached per isolate. */
   readonly inputSchema: z.ZodObject
   readonly outputSchema: z.ZodType
@@ -58,6 +61,17 @@ export interface McpAppDefinition<Input extends z.ZodObject, Output extends z.Zo
     /** The self-contained HTML `npm run app:build` generates. */
     readonly html: string
   }
+  /**
+   * Generated tools (such as `alerting_policies_create`, imported from its
+   * group in `src/generated/forge-mcp`) the App's view calls with
+   * `callServerTool` when the user clicks for a write. The direct tools
+   * already list every one. Code Mode lists only these, with
+   * `_meta.ui.visibility: ['app']` so the model never sees them, and serves
+   * them through the forge tools service like the direct tools, so a write
+   * needs no tool of its own. Import the group's `tools.ts`, never the index:
+   * the index pulls in every generated tool.
+   */
+  readonly appTools?: readonly GeneratedTool[]
   /** Collect the result. Reads must stop when `signal` aborts. */
   run(
     input: z.output<Input>,
@@ -114,6 +128,7 @@ export function defineMcpApp<Input extends z.ZodObject, Output extends z.ZodType
   return {
     tool,
     resource,
+    appTools: definition.appTools ?? [],
     inputSchema: withCachedJsonSchema(definition.input),
     outputSchema: withCachedJsonSchema(definition.output),
     async call(args, context, ctx) {

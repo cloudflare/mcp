@@ -14,6 +14,8 @@ import {
 import { fillDays, historyWindows, type Window } from './history'
 import { clamp, deriveModel, type Day } from './model'
 import { appHtml } from './app-html.generated'
+import { tools as alertingPolicyTools } from '../generated/forge-mcp/alerting/policies/tools'
+import { CREATE_POLICY_TOOL } from './create'
 
 /** Daily Workers requests for each window, as one alias per window in one query. */
 function dailyRequestsQuery(windows: readonly Window[]): string {
@@ -219,12 +221,17 @@ async function collect(
   return { ok: true, value: preview, ...(challenge ? { meta: challenge } : {}) }
 }
 
-/** The read-only Workers usage alert preview App, served in both tool modes. */
+/**
+ * The Workers usage alert App, served in both tool modes. Its tool only
+ * reads; the view's Create alert button creates the policy.
+ */
 export const workersUsageAlertApp = defineMcpApp({
   name: 'workers_usage_alert',
   ...USAGE_ALERT_TOOL_CONFIG,
   input: UsageAlertInputSchema,
   output: UsageAlertPreviewSchema,
   resource: { uri: USAGE_ALERT_RESOURCE_URI, name: 'Workers usage alert', html: appHtml },
+  // Create alert creates the policy it shows with the generated tool; see `create.ts`.
+  appTools: alertingPolicyTools.filter((tool) => tool.name === CREATE_POLICY_TOOL),
   run: collect
 })

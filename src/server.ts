@@ -1,6 +1,6 @@
 import { McpServer } from '@modelcontextprotocol/server'
 import { registerDocsTool } from './tools/docs-search'
-import { registerForgeTools } from './tools/forge-tools'
+import { registerAppGeneratedTools, registerForgeTools } from './tools/forge-tools'
 import { registerSearchTool } from './tools/search'
 import { registerExecuteTool } from './tools/execute'
 import { registerWhoamiTool } from './tools/whoami'
@@ -100,6 +100,7 @@ export function createServer(
   registerWhoamiTool(server, props)
   registerSubmitFeedbackTool(server, props)
   registerMcpApps(server, { props, connection, scopeChallenge })
+  registerAppGeneratedTools(server, { props, connection, scopeChallenge })
 
   return server
 }

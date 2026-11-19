@@ -1,6 +1,5 @@
 import type { JSONObject } from '@modelcontextprotocol/server'
-import { operation } from '../generated/forge-mcp'
-import type { Tool } from '../generated/forge-mcp/_/tool'
+import { operation, type Tool } from '../generated/forge-mcp/_/tool'
 import {
   ACCOUNT_OR_ZONE_ID_DESCRIPTION,
   FORGE_ACCOUNT_ID_DESCRIPTION,
