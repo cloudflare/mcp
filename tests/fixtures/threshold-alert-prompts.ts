@@ -1,7 +1,6 @@
 /**
  * User prompts and the threshold alert tool each should reach, or none.
- * `docs/threshold-alerts.md` lists the same prompts; the ChatGPT runs it
- * records were made with them. Keep both in step.
+ * `docs/threshold-alerts.md` lists the same prompts. Keep both in step.
  */
 export type Route = 'workers_usage_alert' | 'workers_billing_alert' | 'none'
 

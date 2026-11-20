@@ -961,7 +961,7 @@ function emptyCopy(m: Model, preset: ThresholdAlertPreset): [string, string] {
 }
 
 /**
- * Stratus's NotFoundPage drawing: a dashed cloud of circles standing on the
+ * The empty-state drawing: a dashed cloud of circles standing on the
  * chart's floor. The dashes crawl (`es-dash`), the outer circle and the floor
  * the other way (`es-dash-r`).
  */

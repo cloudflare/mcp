@@ -4,22 +4,10 @@ A threshold alert App charts the history of one number, previews an alert on it,
 
 Every preset creates one notification policy, `POST /accounts/{account_id}/alerting/v3/policies`, with the generated `alerting_policies_create` (Save alert and Undo use `alerting_policies_update` and `alerting_policies_delete`). Only `alert_type`, the threshold filter and the history differ.
 
-| Preset                     | Tool                    | `alert_type`           | Threshold field                                              | Measures                                                                        | Chart                                 | Status          |
-| -------------------------- | ----------------------- | ---------------------- | ------------------------------------------------------------ | ------------------------------------------------------------------------------- | ------------------------------------- | --------------- |
-| `workers-requests-monitor` | `workers_usage_alert`   | `custom_analytics`     | `filters.alert_trigger_preferences_value`                    | Workers requests in a rolling 7 days, hourly SQL on `events.workersInvocations` | weeks of `workersInvocationsAdaptive` | registered      |
-| `workers-requests-billing` | `workers_billing_alert` | `billing_usage_alert`  | `filters.limit`, with `filters.product: ["worker_requests"]` | billed Workers requests in the billing period                                   | calendar months of the same 89 days   | registered      |
-| `account-budget`           | —                       | `billing_budget_alert` | `filters.total_spend_dollars`: one string > 0                | account-wide usage-based spend in the billing period, USD                       | —                                     | documented only |
-
-## What generalised
-
-Read from `usage-alert-app.tsx`, `model.ts` and `contract.ts` before extracting anything:
-
-- **Generalised as is:** the axis (nice 1-2-5 steps, ticks, the axis growing when the line is dragged past the top, the one-outlier rule that keeps a spike from flattening the rest), the drag and keyboard slider, the hot overlay above the line, the typical-period line, the tooltip, the email field, Create alert → Alert on → Undo/Edit/Save alert, the refused and handed-off states, `updateModelContext` after every write, and the policy writes (`create.ts`). None of it knew it was counting Workers requests.
-- **Workers-specific, beyond copy:** the alert's rule. The monitor measures a _rolling 7 days_ and emails again every 7 days while over (`alert_interval: 168h`); the chart's buckets, "typical week" (median day × 7), "last 7 days", the busiest 7 days the suggestion sits above, and the "would have emailed" replay all follow from that rule. A billing alert measures the _total since the billing period began_ and emails once per period, so those had to become a parameter. That is `Cadence` (`rolling` 7 days, or calendar `month`) in `src/threshold-alert/model.ts`: it decides what is measured each day (`measured`), the buckets (Monday weeks or calendar months), the typical period (median day × 7, or × 30.44), what "now" is, the busiest period and the replay.
-- **Also specific:** the history reader (89 days of `workersInvocationsAdaptive` in three aliased windows), the existing-policy recognition (`tool.ts:78` before), the output's field names (`typicalWeek`, `last7Days`), and the copy.
-- **Didn't generalise, and stays a constant:** the suggestion works for every preset in its own unit, so it is shared rather than per preset. The line opens a tenth above the tallest thing on the chart (the busiest period, or a taller bar such as this month's estimate), rounded up on the axis step, so nothing in the history would have emailed. A number the user named moves it only when that number is above the busiest period. A lower one would already have emailed and would open the card with every bar over the line, so it is noted in `limitations` and the suggestion is kept. Count formatting (K/M/B) is shared too; a dollar preset would need a currency format (see `account-budget`).
-
-The monitor preset reproduces the old model: the old `deriveModel`, `replayEmails` and `fitTop` and the new ones with the default cadence agree on 3,000 random histories. The only difference is `suggested`, which in 516 of them now sits above this week's estimated bar where that bar was taller than the busiest 7 days. In addition, and the `workers_usage_alert` input and output JSON Schemas are byte-identical to before.
+| Preset                     | Tool                    | `alert_type`           | Threshold field                                              | Measures                                                                        | Chart                                 |
+| -------------------------- | ----------------------- | ---------------------- | ------------------------------------------------------------ | ------------------------------------------------------------------------------- | ------------------------------------- |
+| `workers-requests-monitor` | `workers_usage_alert`   | `custom_analytics`     | `filters.alert_trigger_preferences_value`                    | Workers requests in a rolling 7 days, hourly SQL on `events.workersInvocations` | weeks of `workersInvocationsAdaptive` |
+| `workers-requests-billing` | `workers_billing_alert` | `billing_usage_alert`  | `filters.limit`, with `filters.product: ["worker_requests"]` | billed Workers requests in the billing period                                   | calendar months of the same 89 days   |
 
 ## The shape
 
@@ -102,18 +90,8 @@ The view, the model, the reads of alerting state and the writes are shared, so a
 | block traffic over 1M requests                                                        | neither (alerts never block)             |
 | just shut off our Workers if they go over 1M requests, I don't want a surprise bill   | neither (alerts never block)             |
 | cap our Workers so we never pay more than $20                                         | neither (a spending limit, not an alert) |
-| warn me if we're going to spend more than $500 this month                             | neither, until `account-budget` ships    |
+| warn me if we're going to spend more than $500 this month                             | neither (dollars, not requests)          |
 | alert me when our R2 storage passes 1 TB                                              | neither                                  |
-
-## `account-budget`: documented, not registered
-
-The preset would be `billing_budget_alert` with `filters: { total_spend_dollars: ["<n>"] }` (the spec: "Takes exactly one value, the budget threshold in US dollars, as a string greater than zero"), the same body the dashboard's `BudgetAlertDialog` sends through `toAPIv2`. Its cadence is `month` (Cloudflare's docs: cumulative usage-based spend for the current billing period, one email per crossing, reset each period, Pay-as-you-go accounts only), and its unit dollars. It isn't registered because its history couldn't be verified:
-
-- **No chartable spend history was readable.** With the OAuth scopes this session has (analytics and notifications read/write), every candidate refused with `10000: Authentication error`: `GET /accounts/{id}/billing/history`, `/billing/usage`, `/billable-usage`, `/billable-usage/info` and `/billable/usage`. Their shapes, from the spec: `billing/history` is invoice and charge items (`amount`, `occurred_at`), not per-day spend; `billable-usage` (v1, alpha) returns FOCUS records with `BilledCost` and `ChargePeriodStart`, but only for a range that includes the subscription's billing-cycle anchor day (from `billable-usage/info`), so a reader has to fetch the anchor first; `billable/usage` (v2, alpha, restricted) serves usage without cost fields. The dashboard sums `CumulatedContractedCost` per service from the paygo pool to get period spend (`useSustainedHighSpend.ts`), which a reader would have to reproduce.
-- **Permissions are unmapped.** The pinned `permissions.json` lists no `x-api-token-group` for `billable-usage`, `billable-usage/info` or `billable/usage` (`billable/usage` says `#billing:read` in prose), so a refusal couldn't be explained or stepped up. The policy write is `Notifications Write`, like the others, but whether creating a `billing_budget_alert` also needs a billing permission isn't recorded anywhere this repository can read.
-- **The card needs a currency format.** `fmt`/`sig` format counts; dollars need `$` and cents below $1.
-
-Open questions before registering it: which spend endpoint is stable enough to chart (and its OAuth scope); whether the billing-period anchor or calendar months is the right bucket; whether Enterprise contract accounts should get a "not available" card (they can't create the alert); and the permission the budget write needs.
 
 ## Card copy
 
@@ -131,21 +109,6 @@ Open questions before registering it: which spend endpoint is stable enough to c
 
 ## Verification
 
-- `npm run check`'s steps: app build fresh, format, lint, both type checks, and 928 tests in 51 files.
+- `npm run check`: the app build is fresh, then format, lint, both type checks and the tests.
 - The shared view ran in a local `AppBridge` host for both presets at 352 and 560 px, light and dark, with no overflow and no errors. Create alert sent `alerting_policies_create` once with exactly the preset's body (`custom_analytics` or `billing_usage_alert` on `worker_requests`), and `updateModelContext` named the right tool.
-- In ChatGPT desktop, through the local read-only adapter (creates refused), each prompt went to a new chat, with only the account named:
-
-| Prompt | Tool ChatGPT called |
-|---|---|
-| email me before our Workers bill passes 50M requests | `workers_billing_alert` |
-| ping me if our Workers traffic gets way out of hand | `workers_usage_alert` |
-| tell me when we go over 10 million billed Workers requests this month | `workers_billing_alert` |
-| set up a usage based billing notification for Workers requests | `workers_billing_alert` |
-| I want a heads-up when our Workers usage this billing cycle gets past 100M requests | `workers_billing_alert` |
-| let me know if our Workers suddenly get a lot more requests than usual | `workers_usage_alert` |
-| block traffic over 1M requests | neither; it asked what scope to rate-limit, created nothing |
-| warn me if we're going to spend more than $500 this month | neither; it said the alerts count requests, not dollars, created nothing |
-
-A second ChatGPT run (November 19) found two misses, both fixed in the descriptions: “just shut off our Workers if they go over 1M requests” opened the billing card (its reply did say alerts can't block), so both descriptions now say not to call them to shut off, cap or block; and “is there a way to get told when a bot hammers our Workers?” went to a web search, so `workers_usage_alert` now claims those questions.
-
-In the first run of the 10M prompt, the line opened at the named 10M, under every bar, with the card already firing. The suggestion now ignores a named number at or below the busiest period and says why in `limitations`. The re-run opened a tenth above the tallest bar, and the reply pointed to the card.
+- In ChatGPT desktop, each sample prompt went to a new chat with only the account named, and reached the tool in the table above, or neither.

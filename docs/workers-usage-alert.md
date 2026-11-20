@@ -49,7 +49,7 @@ Request counts come from Workers analytics, not billing, and are not dollar cost
 - `src/threshold-alert/model.ts`: the axis, the alert's rule per cadence (rolling 7 days or calendar month), typical period, email replay, shared by the collectors and the view. `model.ts` here re-exports it.
 - `src/threshold-alert/presets.ts`: both presets, with the policies they create and the policies they recognise.
 - `tool.ts`: `workersUsageAlertApp` and `workersBillingAlertApp`, each a `defineThresholdAlertApp`.
-- `app/`: the React/Kumo view, mounted with `mountMcpApp`. While the tool runs it shows a skeleton in the card's own boxes; empty history and a failed read (a tool error) share Stratus's NotFoundPage drawing on the plot's floor, the failed read with Try again, which calls the tool again through the host. Field messages ("Invalid email", "Didn’t save") sit inside the field, so the footer never grows. The design reference is the fuzzy-input mockup, kept outside this repository.
+- `app/`: the React/Kumo view, mounted with `mountMcpApp`. While the tool runs it shows a skeleton in the card's own boxes; empty history and a failed read (a tool error) share one empty-state drawing on the plot's floor, the failed read with Try again, which calls the tool again through the host. Field messages ("Invalid email", "Didn’t save") sit inside the field, so the footer never grows.
 
 ## Verification
 

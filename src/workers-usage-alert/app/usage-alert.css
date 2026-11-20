@@ -2,9 +2,8 @@
 @source './usage-alert-app.tsx';
 
 /*
- * The fuzzy-input design (kept outside this repository): a LayerCard holding a
- * weekly bar chart of Workers requests with a draggable 7-day threshold, and
- * an email footer. Ported rule for rule; Kumo's tokens are the design's.
+ * A LayerCard holding a weekly bar chart of Workers requests with a draggable
+ * 7-day threshold, and an email footer, in Kumo's tokens.
  * Positions change with transforms only, so dragging never relayouts.
  */
 html {
@@ -611,7 +610,7 @@ body {
   }
 }
 
-/* Empty and read-failed share one composition, from Stratus's NotFoundPage: copy at the start, the dashed cloud of
+/* Empty and read-failed share one composition: copy at the start, the dashed cloud of
    circles large at the end, standing on the plot's floor. The drawing fills the space the bars would; the copy sits on the
    chart's left edge like a label, so nothing floats in the middle. */
 .hc-msg {
@@ -662,7 +661,7 @@ body {
   align-self: end;
   display: flex;
 }
-/* Stratus draws it in currentColor at 20% on a page; on a card it needs more ink. */
+/* currentColor at 20% is too faint on a card; it needs more ink. */
 .es-art {
   display: block;
   height: 148px;
@@ -673,7 +672,7 @@ body {
 [data-mode='dark'] .es-art {
   color: color-mix(in oklch, var(--text-color-kumo-subtle) 50%, transparent);
 }
-/* Stratus's own motion: dashes crawl, 6 units per 0.4s; the outer circle and the floor run the other way. */
+/* Dashes crawl, 6 units per 0.4s; the outer circle and the floor run the other way. */
 .es-dash {
   animation: dash-move 0.4s linear infinite;
 }
