@@ -5,6 +5,7 @@ import { mockIdentityProbe } from './helpers/cloudflare-api'
 import { clearKv } from './helpers/kv'
 import { MCP_HOST, MCP_URL, MODERN_MCP_VERSION } from './helpers/mcp'
 import { clearSpec, seedSpec } from './helpers/spec'
+import { MCP_APP_TOOLS } from '../src/mcp-apps/registry'
 
 const API_TOKEN = 'modern-client-token'
 const ACCOUNT_ID = '00000000000000000000000000000001'
@@ -64,7 +65,13 @@ describe('automatic protocol negotiation', () => {
       expect(client.getDiscoverResult()?.supportedVersions).toEqual([MODERN_MCP_VERSION])
 
       const listed = await client.listTools()
-      expect(listed.tools.map((tool) => tool.name)).toEqual(['docs', 'search', 'execute', 'whoami'])
+      expect(listed.tools.map((tool) => tool.name)).toEqual([
+        'docs',
+        'search',
+        'execute',
+        'whoami',
+        ...MCP_APP_TOOLS.map((tool) => tool.name)
+      ])
 
       const called = await client.callTool({
         name: 'search',

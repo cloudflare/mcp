@@ -19,6 +19,7 @@ import {
 } from './helpers/mcp'
 import { clearSpec, seedSpec } from './helpers/spec'
 import { server } from './setup/msw'
+import { MCP_APP_TOOLS } from '../src/mcp-apps/registry'
 
 const API_TOKEN = 'modern-mcp-token'
 const ACCOUNT_ID = '00000000000000000000000000000001'
@@ -163,7 +164,8 @@ describe('MCP 2026-07-28 stateless handler', () => {
       'docs',
       'search',
       'execute',
-      'whoami'
+      'whoami',
+      ...MCP_APP_TOOLS.map((tool) => tool.name)
     ])
   })
 
@@ -283,10 +285,15 @@ describe('MCP 2026-07-28 stateless handler', () => {
       'docs',
       'search',
       'execute',
-      'whoami'
+      'whoami',
+      ...MCP_APP_TOOLS.map((tool) => tool.name)
     ])
     const direct = endpoints.result?.tools?.map((tool) => tool.name) ?? []
-    expect(direct.slice(0, 2)).toEqual(['docs', 'whoami'])
+    expect(direct.slice(0, 2 + MCP_APP_TOOLS.length)).toEqual([
+      'docs',
+      'whoami',
+      ...MCP_APP_TOOLS.map((tool) => tool.name)
+    ])
     expect(direct).toContain('workers_legacy_scripts_list')
     expect(codemodeResponse.headers.get('mcp-session-id')).toBeNull()
     expect(endpointResponse.headers.get('mcp-session-id')).toBeNull()
@@ -323,7 +330,8 @@ describe('MCP 2026-07-28 stateless handler', () => {
       'docs',
       'search',
       'execute',
-      'whoami'
+      'whoami',
+      ...MCP_APP_TOOLS.map((tool) => tool.name)
     ])
   })
 

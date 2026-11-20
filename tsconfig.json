@@ -14,5 +14,6 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true
   },
+  "exclude": ["src/*/app", "src/mcp-apps/app-shell"],
   "include": ["src/**/*", "tests/**/*", "worker-configuration.d.ts"]
 }

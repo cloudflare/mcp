@@ -10,7 +10,7 @@
     "deploy:forge-tools:prod": "wrangler deploy -c wrangler.forge-tools.jsonc --env production",
     "deploy:prod": "wrangler deploy --env production",
     "types": "wrangler types --env-file .env_example -c wrangler.jsonc -c wrangler.forge-tools.jsonc",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit && tsc -p tsconfig.app.json",
     "lint": "oxlint src/ --ignore-pattern 'src/generated/**'",
     "format": "oxfmt --write src/ tests/ scripts/ vitest.config.ts",
     "generate:tools": "tsx scripts/generate-tools.ts",
@@ -19,10 +19,12 @@
     "test:events": "vitest run tests/events-e2e.test.ts tests/ans-bridge.test.ts",
     "events:receiver": "node scripts/mcp-events-receiver.mjs",
     "test:watch": "vitest",
-    "check": "npm run format:check && npm run lint && npm run typecheck && npm run test",
+    "check": "npm run app:check && npm run format:check && npm run lint && npm run typecheck && npm run test",
     "seed:staging": "tsx scripts/seed-r2.ts staging",
     "seed:prod": "tsx scripts/seed-r2.ts production",
-    "report:schema-mismatches": "tsx scripts/schema-mismatch-report.ts"
+    "report:schema-mismatches": "tsx scripts/schema-mismatch-report.ts",
+    "app:build": "tsx scripts/build-mcp-apps.ts",
+    "app:check": "tsx scripts/build-mcp-apps.ts --check"
   },
   "dependencies": {
     "@cfworker/json-schema": "^4.1.1",
@@ -45,6 +47,17 @@
     "vitest": "^4.1.12",
     "workers-oauth-provider-0-10-2": "npm:@cloudflare/workers-oauth-provider@^0.10.2",
     "workers-oauth-provider-1-1-0": "npm:@cloudflare/workers-oauth-provider@^1.1.0",
-    "wrangler": "^4.154.0"
+    "wrangler": "^4.154.0",
+    "@cloudflare/kumo": "2.19.0",
+    "@modelcontextprotocol/ext-apps": "2.0.4",
+    "@phosphor-icons/react": "2.1.10",
+    "@tailwindcss/vite": "4.3.5",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "tailwindcss": "4.3.5",
+    "vite": "8.3.8",
+    "vite-plugin-singlefile": "2.3.4"
   }
 }

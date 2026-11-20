@@ -6,6 +6,7 @@ import { MCP_HOST, MCP_URL, modernMcpRequest, parseMcpResult } from '../helpers/
 import { clearSpec, seedSpec } from '../helpers/spec'
 import { seedSkills, skillMarkdown } from '../helpers/skills'
 import { SKILL_FILES_PREFIX } from '../../src/skills/types'
+import { MCP_APP_RESOURCES } from '../../src/mcp-apps/registry'
 
 /**
  * Drives the real worker through `exports.default.fetch`: auth, the MCP
@@ -102,7 +103,10 @@ describe('skills extension with a synced catalog', () => {
     const body = await modern('server/discover', {}, url)
 
     expect(body.result?.capabilities?.resources).toEqual({})
-    expect(body.result?.capabilities?.extensions).toEqual({ 'io.modelcontextprotocol/skills': {} })
+    expect(body.result?.capabilities?.extensions).toEqual({
+      'io.modelcontextprotocol/skills': {},
+      'io.modelcontextprotocol/ui': {}
+    })
   })
 
   it('lists every skill as a complete, cacheable manifest', async () => {
@@ -180,8 +184,11 @@ describe('skills extension with a synced catalog', () => {
     expect(body.error?.code).toBe(-32603)
   })
 
-  it('lists only SKILL.md files in resources/list', async () => {
-    const body = await modern('resources/list')
+  it('lists SKILL.md files, and the MCP App resources to an MCP Apps host, in resources/list', async () => {
+    const response = await exports.default.fetch(
+      modernMcpRequest(API_TOKEN, 'resources/list', {}, { mcpApps: true })
+    )
+    const body = (await parseMcpResult(response)) as JsonRpcBody
 
     expect(body.result?.resources).toEqual([
       {
@@ -195,7 +202,8 @@ describe('skills extension with a synced catalog', () => {
         name: 'wrangler',
         description: 'Use the Wrangler CLI',
         mimeType: 'text/markdown'
-      }
+      },
+      ...MCP_APP_RESOURCES.map((resource) => resource.descriptor)
     ])
   })
 

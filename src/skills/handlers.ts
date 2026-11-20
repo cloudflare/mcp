@@ -3,7 +3,9 @@ import {
   ProtocolError,
   ProtocolErrorCode,
   ResourceNotFoundError,
-  type McpServer
+  type McpServer,
+  type ReadResourceResult,
+  type Resource
 } from '@modelcontextprotocol/server'
 import { getSkills, readSkillFile } from '../isolate-cache'
 import { SKILLS_EXTENSION_ID } from './types'
@@ -24,6 +26,17 @@ function toBase64(bytes: Uint8Array): string {
   return btoa(binary)
 }
 
+/**
+ * A resource that ships with the Worker and is the same for every user, such
+ * as an MCP App's HTML. Served next to the skills' files.
+ */
+export interface StaticResource {
+  /** The entry in `resources/list`. */
+  readonly descriptor: Resource
+  /** The content `resources/read` returns for the descriptor's URI. */
+  readonly content: ReadResourceResult['contents'][number]
+}
+
 const ListSkillsParams = z.looseObject({ cursor: z.string().optional() }).optional()
 const GetSkillParams = z.looseObject({ uri: z.string() })
 
@@ -39,8 +52,17 @@ const GetSkillParams = z.looseObject({ uri: z.string() })
  *
  * The capability is declared without `directoryRead`: every entry carries a
  * complete manifest, which the spec lets hosts answer directory questions from.
+ *
+ * @param server - The per-request MCP server.
+ * @param staticResources - Resources that ship with the Worker, read through
+ *   the same handlers.
+ * @param options.listStatic - Whether `resources/list` lists them too. Defaults to `true`.
  */
-export function registerSkills(server: McpServer): void {
+export function registerSkills(
+  server: McpServer,
+  staticResources: readonly StaticResource[] = [],
+  { listStatic = true }: { listStatic?: boolean } = {}
+): void {
   server.server.registerCapabilities({
     resources: {},
     extensions: { [SKILLS_EXTENSION_ID]: {} }
@@ -66,12 +88,15 @@ export function registerSkills(server: McpServer): void {
   server.server.setRequestHandler('resources/list', async () => {
     const { skills } = await getSkills()
     return {
-      resources: skills.map((skill) => ({
-        uri: skill.uri,
-        name: skill.frontmatter.name,
-        description: skill.frontmatter.description,
-        mimeType: 'text/markdown'
-      })),
+      resources: [
+        ...skills.map((skill) => ({
+          uri: skill.uri,
+          name: skill.frontmatter.name,
+          description: skill.frontmatter.description,
+          mimeType: 'text/markdown'
+        })),
+        ...(listStatic ? staticResources.map((resource) => resource.descriptor) : [])
+      ],
       ...SKILLS_CACHE
     }
   })
@@ -83,6 +108,8 @@ export function registerSkills(server: McpServer): void {
 
   server.server.setRequestHandler('resources/read', async (request) => {
     const { uri } = request.params
+    const shipped = staticResources.find((resource) => resource.descriptor.uri === uri)
+    if (shipped) return { contents: [shipped.content], ...SKILLS_CACHE }
     const file = (await getSkills()).filesByUri.get(uri)
     if (!file) throw new ResourceNotFoundError(uri, `No resource is served at ${uri}`)
     const bytes = await readSkillFile(file)

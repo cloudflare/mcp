@@ -1,8 +1,6 @@
 import { isLegacyRequest, SUPPORTED_PROTOCOL_VERSIONS } from '@modelcontextprotocol/server'
 import type { Tool } from '@modelcontextprotocol/server'
-import { DOCS_TOOL } from './docs-search'
-import { WHOAMI_TOOL } from './whoami'
-import { feedbackTools } from './submit-feedback'
+import { localDirectTools } from './forge-tools'
 import { isolate } from '../lib/isolate'
 
 /**
@@ -15,10 +13,11 @@ const MAX_BODY_BYTES = 4096
  * Each direct-tool listing as UTF-8 JSON, encoded once per cached listing and
  * so again whenever the listing's own cache reloads. Bytes, not a string:
  * building and encoding a 3.7 MB string per response costs about as much as
- * the stringify this replaces.
+ * the stringify this replaces. A 2025-era request never declares MCP Apps, so
+ * the Apps are listed without their views.
  */
 const toolsJson = isolate.derived((tools: readonly Tool[]) =>
-  new TextEncoder().encode(JSON.stringify([DOCS_TOOL, WHOAMI_TOOL, ...feedbackTools(), ...tools]))
+  new TextEncoder().encode(JSON.stringify([...localDirectTools(), ...tools]))
 )
 
 /** A lone 2025-era `tools/list` request for the first page, or `undefined` for anything else. */
@@ -64,13 +63,14 @@ async function plainToolListRequestId(request: Request): Promise<string | number
  * most of the CPU `?codemode=false` used: clients list the tools far more
  * often than they call one.
  *
- * The listing is the one the SDK would send: `docs`, `whoami`, then `tools`.
+ * The listing is the one the SDK would send: the local tools (`localDirectTools()`,
+ * without MCP Apps), then `tools`.
  * 2025-era listings carry no output schemas, so the SDK's legacy encoding
  * leaves every tool as it is. Any other request returns `undefined` and is
  * served by the SDK as before.
  *
  * @param request - The authenticated MCP request.
- * @param listTools - The cached direct-tool listing, without `docs` and `whoami`.
+ * @param listTools - The cached direct-tool listing, without the local tools.
  */
 export async function cachedToolListResponse(
   request: Request,
