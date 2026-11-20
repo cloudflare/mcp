@@ -866,7 +866,8 @@ function UsageAlertCard({
                 onChange={(e) => {
                   setEmail(e.target.value)
                   setNotice('')
-                  if (phase === 'failed') setPhase('editing')
+                  // A create with no answer stays unconfirmed: editing the address doesn't settle it.
+                  if (phase === 'failed' && !unconfirmed) setPhase('editing')
                 }}
                 onBlur={() => address && setTouched(true)}
                 // Not after a create that got no answer: sending it again takes the button's own click.
