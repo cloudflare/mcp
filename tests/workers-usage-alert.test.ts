@@ -2,7 +2,14 @@ import { env, exports } from 'cloudflare:workers'
 import { http, HttpResponse } from 'msw'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { fillDays, historyWindows } from '../src/workers-usage-alert/history'
-import { CREATE_POLICY_TOOL, createPolicy, type CallTool } from '../src/workers-usage-alert/create'
+import {
+  CREATE_POLICY_TOOL,
+  POLICY_WRITE_TOOLS,
+  createPolicy,
+  deletePolicy,
+  updatePolicy,
+  type CallTool
+} from '../src/workers-usage-alert/create'
 import type { Tool } from '@modelcontextprotocol/server'
 import {
   deriveModel,
@@ -411,26 +418,66 @@ describe.each([
     await seedSpec({
       '/accounts/{account_id}/alerting/v3/policies': {
         post: { 'x-api-token-group': ['Notifications Write'] }
+      },
+      '/accounts/{account_id}/alerting/v3/policies/{policy_id}': {
+        put: { 'x-api-token-group': ['Notifications Write'] },
+        delete: { 'x-api-token-group': ['Notifications Write'] }
       }
     })
   })
 
-  it('lists the generated create tool, for the App only in Code Mode', async () => {
+  it('lists the generated create, update and delete tools, for the App only in Code Mode', async () => {
     const response = await exports.default.fetch(modernMcpRequest(TOKEN, 'tools/list', {}, { url }))
     const tools = ((await parseMcpResult(response)) as { result: { tools: Tool[] } }).result.tools
     const create = tools.find((tool) => tool.name === CREATE_POLICY_TOOL)
+    const writes = tools.filter((tool) => POLICY_WRITE_TOOLS.includes(tool.name))
 
     expect(create?.annotations).toMatchObject({ readOnlyHint: false, destructiveHint: false })
+    expect(writes.map((t) => t.name).sort()).toEqual([...POLICY_WRITE_TOOLS].sort())
     if (mode === 'Code Mode') {
-      expect(create?._meta).toEqual({ ui: { visibility: ['app'] } })
-      expect(
-        tools
-          .filter((tool) => !(tool._meta?.ui as { visibility?: string[] } | undefined)?.visibility)
-          .map((t) => t.name)
-      ).not.toContain(CREATE_POLICY_TOOL)
+      for (const tool of writes) expect(tool._meta).toEqual({ ui: { visibility: ['app'] } })
+      const modelTools = tools
+        .filter((tool) => !(tool._meta?.ui as { visibility?: string[] } | undefined)?.visibility)
+        .map((t) => t.name)
+      for (const name of POLICY_WRITE_TOOLS) expect(modelTools).not.toContain(name)
     } else {
-      expect(create?._meta?.ui).toBeUndefined()
+      for (const tool of writes) expect(tool._meta?.ui).toBeUndefined()
     }
+  })
+
+  it('Save alert updates the alert the App created, in one call', async () => {
+    const id = 'b'.repeat(32)
+    let sent: unknown
+    let puts = 0
+    server.use(
+      http.put(`${ALERTING}/policies/${id}`, async ({ request }) => {
+        puts++
+        sent = await request.json()
+        return HttpResponse.json(cfSuccess({ id }))
+      })
+    )
+
+    const result = await updatePolicy(callTool, ACCOUNT, id, policy)
+
+    expect(result.status).toBe('done')
+    expect(sent).toEqual(policy)
+    expect(puts).toBe(1)
+  })
+
+  it('Undo deletes the alert the App created, by its id', async () => {
+    const id = 'c'.repeat(32)
+    let deletes = 0
+    server.use(
+      http.delete(`${ALERTING}/policies/${id}`, () => {
+        deletes++
+        return HttpResponse.json(cfSuccess([]))
+      })
+    )
+
+    const result = await deletePolicy(callTool, ACCOUNT, id)
+
+    expect(result.status).toBe('done')
+    expect(deletes).toBe(1)
   })
 
   it('creates exactly the policy the App shows, in one call', async () => {
@@ -446,7 +493,7 @@ describe.each([
 
     const result = await createPolicy(callTool, ACCOUNT, policy)
 
-    expect(result).toEqual({ status: 'created', id: 'a'.repeat(32) })
+    expect(result).toEqual({ status: 'done', id: 'a'.repeat(32) })
     expect(sent).toEqual(policy)
     expect(posts).toBe(1)
   })

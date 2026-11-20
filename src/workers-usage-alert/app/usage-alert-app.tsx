@@ -26,7 +26,7 @@ import {
   type Model,
   type Week
 } from '../model'
-import { createPolicy } from '../create'
+import { createPolicy, deletePolicy, updatePolicy, type CallTool } from '../create'
 import { EMAIL, fmt, fmtDay, monthShort, sig, words } from './format'
 import './usage-alert.css'
 
@@ -169,7 +169,8 @@ function UsageAlertCard({
     tip: useRef<HTMLDivElement>(null),
     bars: useRef<HTMLDivElement>(null),
     email: useRef<HTMLInputElement>(null),
-    done: useRef<HTMLDivElement>(null)
+    done: useRef<HTMLDivElement>(null),
+    create: useRef<HTMLButtonElement>(null)
   }
   // The live axis: `top` is drawn, `target` is where it settles; `line` is the drawn line, `limit` the snapped value.
   const A = useRef({
@@ -433,11 +434,23 @@ function UsageAlertCard({
     requestAnimationFrame(() => refs.done.current?.focus({ preventScroll: true }))
   }
   const [failure, setFailure] = useState('')
+  /** The alert this card created, by the id the create returned: Undo deletes it, Save alert updates it. */
+  const [policyId, setPolicyId] = useState<string | null>(null)
+  /** Editing that alert: the button reads Save alert and updates it instead of creating a second one. */
+  const [live, setLive] = useState(false)
+  const [undoing, setUndoing] = useState(false)
+  const [undoFailed, setUndoFailed] = useState('')
+  /** A neutral one-line notice in the field, after Undo. */
+  const [notice, setNotice] = useState('')
+  const createdAt = useRef(0)
+  const saving = live && policyId != null
+  const tell = (text: string) =>
+    void app?.updateModelContext?.({ content: [{ type: 'text', text }] }).catch(() => {})
   /**
    * The field's trailing message: a fixed short phrase, so it never crowds the
    * address, or nothing. `say` is the full sentence a screen reader hears.
    */
-  const hint: { tone: 'bad'; text: string; say: string } | null = invalid
+  const hint: { tone: '' | 'bad'; text: string; say: string } | null = invalid
     ? address
       ? {
           tone: 'bad',
@@ -449,9 +462,11 @@ function UsageAlertCard({
       ? {
           tone: 'bad',
           text: 'Didn’t save',
-          say: `Didn’t save: ${failureReason(failure)}. Nothing was created. Try again.`
+          say: `Didn’t save: ${failureReason(failure)}. ${saving ? 'The alert wasn’t changed' : 'Nothing was created'}. Try again.`
         }
-      : null
+      : notice
+        ? { tone: '', text: 'Alert deleted', say: notice }
+        : null
   const submit = async () => {
     if (locked || unavailable || !app) return
     setTouched(true)
@@ -459,22 +474,36 @@ function UsageAlertCard({
     const caps = app.getHostCapabilities()
     setPhase('sending')
     setFailure('')
-    if (caps?.serverTools) {
-      const created = await createPolicy((c) => app.callServerTool(c), p.accountId, policy).catch(
+    setNotice('')
+    const call: CallTool = (c) => app.callServerTool(c)
+    if (saving && policyId) {
+      const saved = await updatePolicy(call, p.accountId, policyId, policy).catch(
         (error: unknown) => ({ status: 'refused' as const, error: String(error) })
       )
-      if (created.status === 'created') {
+      if (saved.status === 'done') {
+        tell(
+          `The user clicked Save alert in the workers_usage_alert App, and alert ${policyId} was updated: email ${address} when Workers requests pass ${limit.toLocaleString('en')} in 7 days. It's done: don't change it again or ask to confirm it.`
+        )
+        setLive(false)
+        createdAt.current = performance.now()
+        return settle('created')
+      }
+      setFailure(saved.status === 'refused' ? saved.error : 'this connection can’t update alerts')
+      setPhase('failed')
+      return
+    }
+    if (caps?.serverTools) {
+      const created = await createPolicy(call, p.accountId, policy).catch((error: unknown) => ({
+        status: 'refused' as const,
+        error: String(error)
+      }))
+      if (created.status === 'done') {
         // Tell the model, so it doesn't offer to create it again.
-        void app
-          .updateModelContext?.({
-            content: [
-              {
-                type: 'text',
-                text: `The user clicked Create alert in the workers_usage_alert App, and the alert was created${created.id ? ` (policy ${created.id})` : ''}: email ${address} when Workers requests pass ${limit.toLocaleString('en')} in 7 days. It's done: don't create it again or ask to confirm it.`
-              }
-            ]
-          })
-          .catch(() => {})
+        tell(
+          `The user clicked Create alert in the workers_usage_alert App, and the alert was created${created.id ? ` (policy ${created.id})` : ''}: email ${address} when Workers requests pass ${limit.toLocaleString('en')} in 7 days. It's done: don't create it again or ask to confirm it.`
+        )
+        setPolicyId(created.id ?? null)
+        createdAt.current = performance.now()
         return settle('created')
       }
       if (created.status === 'refused') {
@@ -509,6 +538,30 @@ function UsageAlertCard({
     }
   }
 
+  // Undo: delete the alert just created; the form returns as it was, with a neutral notice in the field.
+  const undo = async () => {
+    // Undo appears under the pointer that just clicked Create: ignore the second click of a double-click.
+    if (!app || !policyId || undoing || performance.now() - createdAt.current < 500) return
+    setUndoing(true)
+    setUndoFailed('')
+    const deleted = await deletePolicy((c) => app.callServerTool(c), p.accountId, policyId).catch(
+      (error: unknown) => ({ status: 'refused' as const, error: String(error) })
+    )
+    setUndoing(false)
+    if (deleted.status !== 'done') {
+      setUndoFailed(deleted.status === 'refused' ? failureReason(deleted.error) : 'try again')
+      return
+    }
+    tell(
+      `The user clicked Undo in the workers_usage_alert App, and alert ${policyId} was deleted. No Workers usage alert from this card exists now: don't recreate it unless the user asks.`
+    )
+    setPolicyId(null)
+    setLive(false)
+    setNotice('Alert deleted. Nothing will be emailed.')
+    setPhase('editing')
+    requestAnimationFrame(() => refs.create.current?.focus({ preventScroll: true }))
+  }
+
   const n = m.weeks.length
   const delay = (i: number) => Math.round(260 * Math.sqrt(i / Math.max(1, n - 1)))
   const pct = (d: number) => `${(d / m.span) * 100}%`
@@ -540,7 +593,7 @@ function UsageAlertCard({
       data-data={state}
       data-phase={phase}
       data-dragging={dragging || undefined}
-      aria-busy={pending?.kind === 'loading' || phase === 'sending'}
+      aria-busy={pending?.kind === 'loading' || phase === 'sending' || undoing}
       render={<section aria-labelledby={ids.title} aria-describedby={ids.sub} />}
     >
       <LayerCard.Primary className="lc-primary">
@@ -701,6 +754,7 @@ function UsageAlertCard({
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value)
+                setNotice('')
                 if (phase === 'failed') setPhase('editing')
               }}
               onBlur={() => address && setTouched(true)}
@@ -716,13 +770,14 @@ function UsageAlertCard({
             </span>
           </label>
           <Button
+            ref={refs.create}
             variant="primary"
             className="create"
             loading={phase === 'sending'}
-            disabled={!ready || unavailable}
+            disabled={!ready || (unavailable && !saving)}
             onClick={submit}
           >
-            {phase === 'failed' ? 'Try again' : 'Create alert'}
+            {phase === 'failed' ? 'Try again' : saving ? 'Save alert' : 'Create alert'}
           </Button>
           <p className="sr" id={ids.err} role="alert">
             {hint?.say}
@@ -756,20 +811,53 @@ function UsageAlertCard({
                   ? 'Ready to create'
                   : 'Sent to chat'}
             </span>
-            <span className="done-2" title={`Past ${fmt(limit)} in 7 days · ${address}`}>
-              Past <b>{fmt(limit)}</b> in 7 days · {address}
+            <span
+              className="done-2"
+              data-tone={undoFailed ? 'bad' : undefined}
+              title={
+                undoFailed
+                  ? `Didn’t delete: ${undoFailed}`
+                  : `Past ${fmt(limit)} in 7 days · ${address}`
+              }
+            >
+              {undoing ? (
+                'Deleting…'
+              ) : undoFailed ? (
+                'Didn’t delete. Try again.'
+              ) : (
+                <>
+                  Past <b>{fmt(limit)}</b> in 7 days · {address}
+                </>
+              )}
             </span>
           </div>
-          <Button
-            variant="ghost"
-            className="edit"
-            onClick={() => {
-              setPhase('editing')
-              requestAnimationFrame(() => refs.knob.current?.focus({ preventScroll: true }))
-            }}
-          >
-            Edit
-          </Button>
+          <div className="done-acts">
+            {phase === 'created' && policyId && (
+              <Button
+                variant="ghost"
+                className="undo"
+                loading={undoing}
+                aria-description="Deletes this alert"
+                onClick={undo}
+              >
+                Undo
+              </Button>
+            )}
+            <Button
+              variant="ghost"
+              className="edit"
+              disabled={undoing}
+              onClick={() => {
+                // On an alert this card made, Edit changes that alert (Save alert), not a second one.
+                setLive(phase === 'created' && policyId != null)
+                setUndoFailed('')
+                setPhase('editing')
+                requestAnimationFrame(() => refs.knob.current?.focus({ preventScroll: true }))
+              }}
+            >
+              Edit
+            </Button>
+          </div>
         </div>
       </div>
       {phase === 'review' && (

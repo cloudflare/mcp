@@ -953,10 +953,21 @@ body {
   word-break: break-word;
 }
 
-/* Edit is a ghost button: its label, not its padding, sits on the content edge. The hover fill overhangs into the card padding. */
-.edit {
+/* Undo and Edit share the right edge; the trailing button's label, not its padding, sits on the content edge. */
+.done-acts {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
   margin-right: -12px;
 }
+.undo {
+  min-width: 64px;
+}
+.done-2[data-tone='bad'] {
+  color: var(--text-color-kumo-danger);
+}
+/* Edit is a ghost button: its label, not its padding, sits on the content edge. The hover fill overhangs into the card padding. */
 
 /* Reduced motion: keep the fades that explain state; drop travel, wipes, blur and crawl. */
 @media (prefers-reduced-motion: reduce) {
