@@ -1,7 +1,7 @@
-import { build } from 'vite'
+import { build, type Plugin, type Rollup } from 'vite'
 import tailwindcss from '@tailwindcss/vite'
 import { viteSingleFile } from 'vite-plugin-singlefile'
-import { readdir, readFile, writeFile } from 'node:fs/promises'
+import { mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises'
 import { existsSync } from 'node:fs'
 import path from 'node:path'
 
@@ -14,9 +14,45 @@ import path from 'node:path'
  *
  *   npm run app:build            # every App
  *   npm run app:build -- <app>   # one App, by its src/ directory name
+ *
+ * Each App builds twice. The first build finds the JavaScript the view really
+ * ships; Tailwind then scans only that, plus the App's own sources, so the
+ * stylesheet holds the classes the view can render and not every Kumo
+ * component's (175 KB of CSS became 69 KB for the Workers usage alert).
  */
 const check = process.argv.includes('--check')
 const only = process.argv.slice(2).filter((arg) => !arg.startsWith('--'))
+
+/** What Tailwind scans for Kumo's classes, in place of every Kumo module; see `app-shell/base.css`. */
+const SHIPPED_JS = path.resolve('.mcp-apps-build/shipped')
+
+/**
+ * Kumo's `Button` imports its `Tooltip` for a `title` prop, and the tooltip
+ * brings floating-ui and Base UI's popup stores: about 80 KB of the view's
+ * JavaScript, for a prop no App passes. This swaps it for a stub that throws,
+ * so a `title` on a Button fails loudly in the view rather than quietly
+ * rendering no tooltip. Any other import of the tooltip is left alone.
+ */
+function withoutButtonTooltip(): Plugin {
+  const stub = '\0mcp-apps:kumo-button-tooltip'
+  return {
+    name: 'mcp-apps:without-button-tooltip',
+    enforce: 'pre',
+    resolveId(source, importer) {
+      if (
+        importer?.includes('/@cloudflare/kumo/dist/chunks/button-') &&
+        /\/tooltip-[a-z0-9]+\.js$/.test(source)
+      )
+        return stub
+    },
+    load(id) {
+      if (id === stub)
+        return `export const t = () => {
+  throw new Error('MCP Apps build Kumo Button without Tooltip: pass aria-label or aria-description, not title.')
+}`
+    }
+  }
+}
 
 const apps = (await readdir('src', { withFileTypes: true }))
   .filter(
@@ -26,14 +62,33 @@ const apps = (await readdir('src', { withFileTypes: true }))
   .filter((name) => only.length === 0 || only.includes(name))
   .sort()
 
+const output = (result: Awaited<ReturnType<typeof build>>) =>
+  (Array.isArray(result) ? result : [result as Rollup.RolldownOutput]).flatMap((r) => r.output)
+
 const stale: string[] = []
 for (const name of apps) {
+  const root = path.join('src', name, 'app')
   const outDir = path.resolve('.mcp-apps-build', name)
+
+  // 1. The JavaScript the view ships, unminified so Tailwind can read its class strings.
+  await rm(SHIPPED_JS, { recursive: true, force: true })
+  await mkdir(SHIPPED_JS, { recursive: true })
+  const scan = await build({
+    configFile: false,
+    logLevel: 'error',
+    root,
+    plugins: [withoutButtonTooltip(), tailwindcss()],
+    build: { write: false, minify: false }
+  })
+  const chunks = output(scan).filter((o): o is Rollup.OutputChunk => o.type === 'chunk')
+  await writeFile(path.join(SHIPPED_JS, 'view.js'), chunks.map((c) => c.code).join('\n'))
+
+  // 2. The App, its stylesheet generated from what step 1 shipped.
   await build({
     configFile: false,
     logLevel: 'error',
-    root: path.join('src', name, 'app'),
-    plugins: [tailwindcss(), viteSingleFile()],
+    root,
+    plugins: [withoutButtonTooltip(), tailwindcss(), viteSingleFile()],
     build: { outDir, emptyOutDir: true, minify: true }
   })
   const html = await readFile(path.join(outDir, 'index.html'), 'utf8')
