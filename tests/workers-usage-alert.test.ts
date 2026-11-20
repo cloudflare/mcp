@@ -546,6 +546,18 @@ describe.each([
     expect(posts).toBe(1)
   })
 
+  it('is unknown, not refused, when a gateway answers the create with a 5xx', async () => {
+    server.use(
+      http.post(`${ALERTING}/policies`, () =>
+        HttpResponse.json(cfError([{ code: 504, message: 'Gateway Timeout' }]), { status: 504 })
+      )
+    )
+
+    const result = await createPolicy(callTool, ACCOUNT, policy)
+
+    expect(result.status).toBe('unknown')
+  })
+
   it('creates exactly the policy the App shows, in one call', async () => {
     let sent: unknown
     let posts = 0

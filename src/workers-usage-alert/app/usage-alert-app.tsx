@@ -70,6 +70,7 @@ function outcome(m: Model, limit: number, preset: ThresholdAlertPreset): [Fact, 
   // By month, the replay is Workers analytics by calendar month, not billing's count in its
   // period: an estimate, and said as one.
   const about = m.cadence.kind === 'month' ? 'About ' : ''
+  const none = m.cadence.kind === 'month' ? 'No crossings charted' : 'No past emails'
   const past: Fact =
     m.typical && limit < m.typical
       ? ['warn', [`Below a typical ${bucket} (`, { b: approx(m.typical, 2) }, ')']]
@@ -84,8 +85,8 @@ function outcome(m: Model, limit: number, preset: ThresholdAlertPreset): [Fact, 
             ]
           ]
         : limit >= 2 * m.peak
-          ? ['', ['No past emails; ', { b: `${sig(limit / m.peak)}×` }, ` the busiest ${bucket}`]]
-          : ['', [`No past emails; busiest ${bucket} `, { b: sig(m.peak) }]]
+          ? ['', [`${none}; `, { b: `${sig(limit / m.peak)}×` }, ` the busiest ${bucket}`]]
+          : ['', [`${none}; busiest ${bucket} `, { b: sig(m.peak) }]]
   const now: Fact =
     m.current >= limit ? ['warn', [alreadyOver]] : ['now', [`${current}: `, { b: sig(m.current) }]]
   return [past, now]
@@ -559,7 +560,9 @@ function UsageAlertCard({
         createdAt.current = performance.now()
         return settle('created')
       }
-      setFailure(saved.status === 'refused' ? saved.error : 'this connection can’t update alerts')
+      setFailure(
+        saved.status === 'unavailable' ? 'this connection can’t update alerts' : saved.error
+      )
       setPhase('failed')
       return
     }
@@ -812,6 +815,13 @@ function UsageAlertCard({
             <FactLine fact={facts[1]} slot="now" />
           </p>
         )}
+        {/* A create with no answer may have been made: say so where everyone sees it, before Create anyway. */}
+        {phase === 'failed' && unconfirmed && (
+          <p className="note" data-tone="bad">
+            No answer from Cloudflare, so this alert may already exist. Check this account’s
+            notifications before creating it again.
+          </p>
+        )}
         {/* Create alert writes to this account: name it before the click, as the model may have picked it. */}
         {ready && p.accountId && (
           <p className="note">
@@ -859,7 +869,10 @@ function UsageAlertCard({
                   if (phase === 'failed') setPhase('editing')
                 }}
                 onBlur={() => address && setTouched(true)}
-                onKeyDown={(e) => e.key === 'Enter' && submit()}
+                // Not after a create that got no answer: sending it again takes the button's own click.
+                onKeyDown={(e) =>
+                  e.key === 'Enter' && !(phase === 'failed' && unconfirmed) && submit()
+                }
               />
               <span
                 className="to-hint"
@@ -878,7 +891,13 @@ function UsageAlertCard({
               disabled={!ready}
               onClick={submit}
             >
-              {phase === 'failed' ? 'Try again' : saving ? 'Save alert' : 'Create alert'}
+              {phase === 'failed' && unconfirmed
+                ? 'Create anyway'
+                : phase === 'failed'
+                  ? 'Try again'
+                  : saving
+                    ? 'Save alert'
+                    : 'Create alert'}
             </Button>
             <p className="sr" id={ids.err} role="alert">
               {hint?.say}

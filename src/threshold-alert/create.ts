@@ -51,9 +51,11 @@ async function write(
   }
   if (r.isError) {
     if (notFound(text(r))) return { status: 'unavailable' }
-    // Cloudflare answered: its refusal is the tool error's first line. Anything else (a lost
-    // connection, a timeout) has no answer, and the write may have been made.
-    return text(r).startsWith('Cloudflare API error:')
+    // Cloudflare refused: its 4xx answer is the tool error's first line. Anything else has no
+    // answer the write wasn't made: a lost connection, a timeout, or a 5xx, which a gateway can
+    // send after the API saved it.
+    const first = text(r).split('\n', 1)[0]
+    return first.startsWith('Cloudflare API error:') && !/\breturned HTTP 5\d\d\b/.test(first)
       ? { status: 'refused', error: text(r) }
       : { status: 'unknown', error: text(r) }
   }
