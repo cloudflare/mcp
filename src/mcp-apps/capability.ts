@@ -31,14 +31,37 @@ export function declaresMcpApps(body: unknown): boolean {
   if (typeof meta?.[PROTOCOL_VERSION_META_KEY] !== 'string') return false
   const extensions = record(record(meta[CLIENT_CAPABILITIES_META_KEY])?.extensions)
   const mimeTypes = record(extensions?.[MCP_APPS_EXTENSION_ID])?.mimeTypes
-  return Array.isArray(mimeTypes) && mimeTypes.includes(MCP_APP_MIME)
+  return (
+    Array.isArray(mimeTypes) &&
+    mimeTypes.some(
+      (type) => typeof type === 'string' && type.replace(/\s+/g, '').toLowerCase() === MCP_APP_MIME
+    )
+  )
 }
 
-/** The client's name from a 2026-07-28 envelope, for logging which hosts declare Apps. */
-export function envelopeClientName(body: unknown): string | undefined {
-  const meta = record(record(record(body)?.params)?._meta)
-  const name = record(meta?.['io.modelcontextprotocol/clientInfo'])?.name
-  return typeof name === 'string' ? name : undefined
+function quoted(value: string): string {
+  return JSON.stringify(value.slice(0, 64))
+}
+
+/**
+ * The log line recording whether a 2026-07-28 `tools/list` or `tools/call`
+ * declared MCP Apps, by client, or `undefined` for any other request. Names
+ * are the client's own strings, so each is cut to 64 characters and quoted.
+ */
+export function mcpAppsLogLine(body: unknown, declared: boolean): string | undefined {
+  const message = record(body)
+  const params = record(message?.params)
+  const meta = record(params?._meta)
+  if (typeof meta?.[PROTOCOL_VERSION_META_KEY] !== 'string') return undefined
+  const method = message?.method
+  if (method !== 'tools/list' && method !== 'tools/call') return undefined
+  const name = record(meta['io.modelcontextprotocol/clientInfo'])?.name
+  const client = typeof name === 'string' ? quoted(name) : '<none>'
+  const tool =
+    method === 'tools/call' && typeof params?.name === 'string'
+      ? ` tool=${quoted(params.name)}`
+      : ''
+  return `mcp_apps ${method}: declared=${declared} client=${client}${tool}`
 }
 
 /**

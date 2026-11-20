@@ -118,7 +118,7 @@ export function createServer(
   registerSubmitFeedbackTool(server, props)
   // Without MCP Apps, the Apps' tools are plain tools whose JSON text result is
   // the text-only fallback, and the writes only their views make aren't
-  // registered: about 26 KB of `tools/list` the model must not call.
+  // registered: about 25 KB of `tools/list` the model must not call.
   registerMcpApps(server, { props, connection, scopeChallenge }, undefined, { view: mcpApps })
   if (mcpApps) registerAppGeneratedTools(server, { props, connection, scopeChallenge })
 

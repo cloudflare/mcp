@@ -173,19 +173,19 @@ The core innovation: instead of 2,500 MCP tools (~244K tokens), two tools handle
 
 ### Workers usage alert App
 
-`src/workers-usage-alert/` is the `workers_usage_alert` MCP App, registered in `MCP_APPS`. It charts 89 days of Workers requests and previews an hourly `custom_analytics` monitor on a rolling 7 days. The tool only reads; the App's Create alert button creates the policy with the generated `alerting_policies_create` through `callServerTool`, which Code Mode lists for the App only (`appTools`).
+`src/workers-usage-alert/` is the `workers_usage_alert` MCP App, registered in `MCP_APPS`. It charts 89 days of Workers requests and previews an hourly `custom_analytics` monitor on a rolling 7 days. The tool only reads; the App's Create alert button creates the policy with the generated `alerting_policies_create` through `callServerTool`, which Code Mode lists, for the App only, to an MCP Apps host (`appTools`).
 
 ### MCP Apps
 
 `src/mcp-apps/` holds what every MCP App shares: `defineMcpApp()` (a tool plus its static `ui://` HTML resource, served in both tool modes, and `appTools`, the generated tools its view writes with, which Code Mode lists app-only), `apiReader()` (bounded, read-only Cloudflare API and GraphQL reads with the direct tools' refusal explanations and step-up), `MCP_APPS` in `registry.ts` (the one list an App is added to) and `app-shell/` (the browser-side host connection and Kumo base CSS). Each App lives in `src/<app>/`, with its React/Kumo view in `src/<app>/app/`, built into `app-html.generated.ts` by `npm run app:build`; never hand-edit those. `npm run check` verifies they are fresh and type-checks the view with `tsconfig.app.json`. Keep raw customer prompts, account output and host screenshots outside this public repository.
 
-Apps are served only to a client that declares them (`src/mcp-apps/capability.ts`): a 2026-07-28 request whose `_meta` envelope lists `text/html;profile=mcp-app` under `extensions["io.modelcontextprotocol/ui"].mimeTypes`, as the Apps spec asks ("Servers SHOULD check client capabilities before registering UI-enabled tools"). `mcp-handler.ts` reads the body once to decide (`RequestContext.mcpApps`). A 2025-era request sends capabilities only in `initialize`, which this stateless server never sees again, so it always counts as not declaring them; in production (November 2026) 98% of `tools/list` requests, and nearly all of Claude's and ChatGPT's, were 2026-07-28. For any other client:
+Apps are served only to a client that declares them (`src/mcp-apps/capability.ts`): a 2026-07-28 request whose `_meta` envelope lists `text/html;profile=mcp-app` under `extensions["io.modelcontextprotocol/ui"].mimeTypes`, as the Apps spec asks ("Servers SHOULD check client capabilities before registering UI-enabled tools"). `mcp-handler.ts` parses the body once more to decide (`RequestContext.mcpApps`) and hands it to `isLegacyRequest`. The MIME type is compared ignoring whitespace and case. A 2025-era request sends capabilities only in `initialize`, which this stateless server never sees again, so it always counts as not declaring them, and a 2025-era host that renders Apps loses them (accepted); in production (November 2026) 98% of `tools/list` requests, and nearly all of Claude's and ChatGPT's, were 2026-07-28. For any other client:
 
 - Each App's tool is listed as a plain tool, with no `_meta.ui` or `ui/resourceUri` (`withoutAppView`). Its JSON text result is the spec's text-only fallback.
-- Code Mode doesn't register the `appTools`, so they are neither listed nor callable (about 26 KB of `tools/list`). The direct tools list every generated tool anyway.
+- Code Mode doesn't register the `appTools`, so they are neither listed nor callable (about 25 KB: Code Mode's `tools/list` goes from ~46 KB to ~21 KB). The direct tools list every generated tool anyway.
 - `resources/list` leaves out the `ui://` pages; `resources/read` still serves them, since they are static.
 
-The server declares `io.modelcontextprotocol/ui` in its capabilities to every client. A 2026-07-28 `tools/list` without the declaration logs `mcp_apps not declared: tools/list client=<clientInfo.name>`, to check that the hosts that render Apps declare them.
+The server declares `io.modelcontextprotocol/ui` in its capabilities to every client. A 1% sample of 2026-07-28 `tools/list` and `tools/call` requests logs `mcp_apps <method>: declared=<bool> client="<clientInfo.name>"` (plus `tool=` for calls), to check that the hosts that render Apps declare them on both, including the view's own write calls.
 
 ### Worker Loader API
 
