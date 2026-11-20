@@ -20,14 +20,22 @@ export interface MountOptions<Output extends z.ZodType> {
   readonly output: Output
   /** Render a validated result. */
   readonly render: (value: z.output<Output>, mounted: MountedApp) => ReactNode
-  /** Render while the tool runs. Defaults to `copy.pending` as text. */
-  readonly renderPending?: () => ReactNode
+  /**
+   * Render while the tool runs. Defaults to `copy.pending` as text. `toolName`
+   * is the host's `toolInfo`, for an App one view serves for several tools;
+   * it is absent until the host connects.
+   */
+  readonly renderPending?: (toolName: string | undefined) => ReactNode
   /**
    * Render a tool error (`isError`), with its text. `retry` calls the tool
    * again with the same arguments, through the host, and renders what it
    * returns; it is absent when the host can't call server tools.
    */
-  readonly renderError?: (text: string, retry: (() => void) | undefined) => ReactNode
+  readonly renderError?: (
+    text: string,
+    retry: (() => void) | undefined,
+    toolName: string | undefined
+  ) => ReactNode
   /** Copy for the states no tool result describes. Defaults are generic. */
   readonly copy?: Partial<Record<'pending' | 'cancelled' | 'malformed' | 'disconnected', string>>
   /**
@@ -77,12 +85,15 @@ export function mountMcpApp<Output extends z.ZodType>(options: MountOptions<Outp
     if (applyLocale(resolveLocale(context?.locale, options.languages ?? ['en'])))
       root.render(last())
   }
-  const pending = () => draw(() => options.renderPending?.() ?? <p role="status">{copy.pending}</p>)
+  const toolName = () => app.getHostContext()?.toolInfo?.tool.name
+  // Drawn again on connect (`followHost` redraws the last thing), when the tool's name is known.
+  const pending = () =>
+    draw(() => options.renderPending?.(toolName()) ?? <p role="status">{copy.pending}</p>)
   let input: Record<string, unknown> | undefined
   const show = (result: CallToolResult) => {
     if (result.isError && options.renderError) {
       const text = result.content.flatMap((c) => (c.type === 'text' ? [c.text] : [])).join('\n')
-      const name = app.getHostContext()?.toolInfo?.tool.name
+      const name = toolName()
       const retry =
         name && app.getHostCapabilities()?.serverTools
           ? () => {
@@ -95,7 +106,7 @@ export function mountMcpApp<Output extends z.ZodType>(options: MountOptions<Outp
                 )
             }
           : undefined
-      return draw(() => options.renderError!(text, retry))
+      return draw(() => options.renderError!(text, retry, toolName()))
     }
     const parsed = options.output.safeParse(result.structuredContent)
     draw(() =>
@@ -115,6 +126,10 @@ export function mountMcpApp<Output extends z.ZodType>(options: MountOptions<Outp
   app.ontoolcancelled = () => draw(() => <p role="status">{copy.cancelled}</p>)
   app
     .connect()
-    .then(followHost)
+    .then(() => {
+      followHost()
+      // Now with the host's `toolInfo`: the pending view can name its tool.
+      root.render(last())
+    })
     .catch(() => draw(() => <p role="alert">{copy.disconnected}</p>))
 }

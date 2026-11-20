@@ -12,6 +12,7 @@ import type { ToolAnnotations } from '@modelcontextprotocol/server'
 import { z } from 'zod'
 import { autoResolvedAccountId, missingAccountMessage } from '../auth/account-access'
 import type { AuthProps } from '../auth/types'
+import { ScopeChallenge } from '../scope-challenge'
 import { ApiReadError, ApiReadUnsupported, apiReader, type ApiReader } from '../mcp-apps/api-read'
 import { defineMcpApp, type AppContext, type AppOutcome, type McpApp } from '../mcp-apps/define'
 import { tools as alertingPolicyTools } from '../generated/forge-mcp/alerting/policies/tools'
@@ -127,15 +128,21 @@ export function defineThresholdAlertApp<Input extends z.ZodObject, Output extend
     limitations.push(...(history.limitations ?? []))
 
     // Alerting reads only add context. A refusal is noted, not fatal, and
-    // never reads as "no alerts exist".
-    let challenge: Record<string, unknown> | undefined
+    // never reads as "no alerts exist". They never ask for a scope: a step-up
+    // would replace the whole preview with a 403 for clients that take it over
+    // HTTP, though the history it needs was read. Create alert asks for the
+    // scope it needs when the user clicks it.
+    const contextReader = apiReader(
+      { ...context, scopeChallenge: new ScopeChallenge(undefined) },
+      signal,
+      preset.toolName
+    )
     const optional = async <T>(read: () => Promise<T>, what: string): Promise<T | null> => {
       try {
         return await read()
       } catch (error) {
         if (signal.aborted) throw error
         if (error instanceof ApiReadError) {
-          challenge ??= error.result._meta
           limitations.push(`${what} could not be read: ${error.text}`)
         } else if (error instanceof ApiReadUnsupported || error instanceof z.ZodError) {
           limitations.push(
@@ -148,10 +155,13 @@ export function defineThresholdAlertApp<Input extends z.ZodObject, Output extend
     const prefix = `/accounts/${accountId}/alerting/v3`
     const [available, policies] = await Promise.all([
       optional(
-        () => reader.get(`${prefix}/available_alerts`, AvailableAlerts),
+        () => contextReader.get(`${prefix}/available_alerts`, AvailableAlerts),
         'Available alert types'
       ),
-      optional(() => reader.get(`${prefix}/policies`, Policies), 'Existing notification policies')
+      optional(
+        () => contextReader.get(`${prefix}/policies`, Policies),
+        'Existing notification policies'
+      )
     ])
 
     const otherPolicies: Record<string, number> = {}
@@ -180,10 +190,17 @@ export function defineThresholdAlertApp<Input extends z.ZodObject, Output extend
       limitations.push(
         `Only ${days.length} days of history: under a week, so there is no typical ${preset.copy.bucket} to compare against.`
       )
-    // The line starts a tenth over the busiest period. A number the user named moves it only when
-    // it is above that period: one below would already have emailed, so it can't be what they meant
-    // by "clearly bigger", and the card would open over the bars with the alert firing.
-    const named = limit != null && limit > model.peak
+    // The line starts a tenth over the busiest period. On a rolling monitor, a number the user named
+    // moves it only when it is above that period: one below would already have emailed, so it can't
+    // be what they meant by "clearly bigger", and the card would open over the bars with the alert
+    // firing. A monthly alert starts over each billing period, and crossing a number most months
+    // (the included requests) is the point, so a named number is kept and the overlap is said.
+    const monthly = preset.cadence.kind === 'month'
+    const named = limit != null && (monthly || limit > model.peak)
+    if (limit != null && monthly && limit <= model.peak)
+      limitations.push(
+        `The busiest ${preset.copy.bucket} charted (${Math.round(model.peak).toLocaleString('en')}, counting this ${preset.copy.bucket} projected to its end) is at or above ${limit.toLocaleString('en')}, so this alert would email in a ${preset.copy.bucket} like it. Say so in one sentence.`
+      )
     if (limit != null && !named)
       limitations.push(
         `The line starts a tenth above the busiest ${preset.copy.bucket}, not at the number named (${limit.toLocaleString('en')}): that number is at or below the busiest ${preset.copy.bucket} (${Math.round(model.peak).toLocaleString('en')}), so it would already have emailed. Lead with this in one sentence and point to the card, where the user drags the line; don't ask for a number in chat.`
@@ -208,7 +225,7 @@ export function defineThresholdAlertApp<Input extends z.ZodObject, Output extend
       otherPolicies,
       limitations
     })
-    return { ok: true, value, ...(challenge ? { meta: challenge } : {}) }
+    return { ok: true, value }
   }
 
   return defineMcpApp({

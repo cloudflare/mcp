@@ -584,7 +584,7 @@ function UsageAlertCard({
         content: [
           {
             type: 'text',
-            text: `Create the ${copy.label} on ${p.accountName ?? p.accountId}: email ${address} when Workers ${what}.`
+            text: `Create the ${copy.label} on account ${p.accountId}: email ${address} when Workers ${what}.`
           }
         ]
       })
@@ -786,6 +786,12 @@ function UsageAlertCard({
           <p className="sub" id={ids.sub} aria-live="polite">
             <FactLine fact={facts[0]} slot="past" />
             <FactLine fact={facts[1]} slot="now" />
+          </p>
+        )}
+        {/* Create alert writes to this account: name it before the click, as the model may have picked it. */}
+        {ready && p.accountId && (
+          <p className="note">
+            Account: <bdi>{p.accountName ?? p.accountId}</bdi>
           </p>
         )}
         {ready && existing.length > 0 && (
@@ -1042,21 +1048,34 @@ function EmptyArt() {
 const presetOf = (p: WorkersThresholdPreview) =>
   p.kind === 'workers_billing_alert_preview' ? WORKERS_REQUESTS_BILLING : WORKERS_REQUESTS_MONITOR
 
-/** No result yet: no days, so nothing to draw, edit or create. */
-function placeholder(): WorkersThresholdPreview {
-  return {
-    kind: 'workers_usage_alert_preview',
+/**
+ * No result yet: no days, so nothing to draw, edit or create. Shaped as the
+ * result of the tool the host says is running, so a billing card that is
+ * loading or failed shows the billing copy.
+ */
+function placeholder(toolName: string | undefined): WorkersThresholdPreview {
+  const common = {
     nextStep: '',
     checkedAt: new Date().toISOString(),
     accountId: '',
     today: new Date().toISOString().slice(0, 10),
     days: [],
-    summary: { typicalWeek: null, last7Days: 0, busiestWeek: 0, suggestedLimit: null },
     alertAvailable: null,
     existingAlerts: null,
     otherPolicies: {},
     limitations: []
   }
+  return toolName === WORKERS_REQUESTS_BILLING.toolName
+    ? {
+        kind: 'workers_billing_alert_preview',
+        ...common,
+        summary: { typicalMonth: null, thisMonth: 0, busiestMonth: 0, suggestedLimit: null }
+      }
+    : {
+        kind: 'workers_usage_alert_preview',
+        ...common,
+        summary: { typicalWeek: null, last7Days: 0, busiestWeek: 0, suggestedLimit: null }
+      }
 }
 
 mountMcpApp({
@@ -1065,18 +1084,18 @@ mountMcpApp({
   render: (preview, { app }) => (
     <UsageAlertCard key={preview.checkedAt} preview={preview} app={app} />
   ),
-  renderPending: () => (
+  renderPending: (toolName) => (
     <UsageAlertCard
       key="pending"
-      preview={placeholder()}
+      preview={placeholder(toolName)}
       app={undefined}
       pending={{ kind: 'loading' }}
     />
   ),
-  renderError: (_text, retry) => (
+  renderError: (_text, retry, toolName) => (
     <UsageAlertCard
       key="error"
-      preview={placeholder()}
+      preview={placeholder(toolName)}
       app={undefined}
       pending={{ kind: 'error', retry }}
     />

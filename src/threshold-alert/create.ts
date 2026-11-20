@@ -49,8 +49,18 @@ async function write(
   }
   if (r.isError)
     return notFound(text(r)) ? { status: 'unavailable' } : { status: 'refused', error: text(r) }
-  const id = /"id"\s*:\s*"([0-9a-f]{32})"/.exec(text(r))?.[1]
+  const id = createdId(text(r))
   return { status: 'done', ...(id && { id }) }
+}
+
+/** The policy id in a write's result: the envelope's `result.id`, as the tool returns the body. */
+function createdId(body: string): string | undefined {
+  try {
+    const id = (JSON.parse(body) as { result?: { id?: unknown } } | null)?.result?.id
+    return typeof id === 'string' && id ? id : undefined
+  } catch {
+    return undefined
+  }
 }
 
 /**

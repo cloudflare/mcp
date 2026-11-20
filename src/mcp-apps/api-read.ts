@@ -102,7 +102,7 @@ export interface ApiReader {
    * POST a GraphQL Analytics query and parse its `data` with `schema`.
    *
    * @param dataset - Which permission the query's datasets need: `account` or `zone`.
-   * @throws {ApiReadError} when it returns errors and no data, explained as a refusal of the analytics permission.
+   * @throws {ApiReadError} when it returns errors, with or without data, explained as a refusal of the analytics permission when it is one.
    */
   graphql<S extends z.ZodType>(
     query: string,
@@ -168,7 +168,9 @@ export function apiReader(context: AppContext, signal: AbortSignal, caller: stri
       })
       const body = (await readBounded(response)) as { data?: unknown; errors?: unknown }
       const errors = Array.isArray(body?.errors) ? (body.errors as { message?: unknown }[]) : []
-      if (response.ok && body?.data != null) return schema.parse(body.data)
+      // Data with errors is partial: one alias failed (a quota, a timeout) and is missing. A
+      // summary read from it would show a missing window as no traffic, so it fails as a whole.
+      if (response.ok && body?.data != null && !errors.length) return schema.parse(body.data)
       const messages = errors.map((e) => String(e.message ?? '')).filter(Boolean)
       // The API answers a missing permission with 200 and `data: null`, as it
       // does a quota or a bad query, so only a permission message is a refusal.
@@ -181,7 +183,7 @@ export function apiReader(context: AppContext, signal: AbortSignal, caller: stri
           )
         : undefined
       const text = [
-        `Cloudflare API error: POST /graphql returned HTTP ${response.status} with no data.`,
+        `Cloudflare API error: POST /graphql returned HTTP ${response.status} with ${body?.data == null ? 'no data' : 'partial data'}.`,
         truncateResponse(messages),
         authorization && explainRefusal(403, authorization)
       ]

@@ -16,7 +16,8 @@ describe('computeRetryDelay', () => {
     backoffFactor: 2,
     maxDelayMs: 30_000,
     jitter: false,
-    retryRateLimited: true
+    retryRateLimited: true,
+    retryNetworkErrors: true
   }
 
   it('computes exponential delays without jitter', () => {

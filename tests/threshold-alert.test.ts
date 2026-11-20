@@ -321,12 +321,12 @@ describe.each([
     expect(result?.structuredContent).toMatchObject({ summary: { suggestedLimit: 50_000_000 } })
   })
 
-  it('opens a tenth over the tallest bar when the named number is below it, and says why', async () => {
+  it('keeps a named number below the busiest month, such as the included requests, and says it would email', async () => {
     const result = await call('workers_billing_alert', { as_of: AS_OF, limit: 10_000_000 })
-    // October, 31M, is the tallest bar: 34.1M rounds up to 36M.
-    expect(result?.structuredContent).toMatchObject({ summary: { suggestedLimit: 36_000_000 } })
+    // A billing alert crosses its number once a period; October's 31M passes 10M.
+    expect(result?.structuredContent).toMatchObject({ summary: { suggestedLimit: 10_000_000 } })
     expect(JSON.stringify(result?.structuredContent?.limitations)).toContain(
-      'would already have emailed'
+      'would email in a month like it'
     )
   })
 

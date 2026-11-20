@@ -83,8 +83,11 @@ export async function readWorkersRequests(
       ok: false,
       text: `No Workers analytics were returned for account ${accountId}. Check the account ID and that the connection can read its analytics.`
     }
-  const rows: Day[] = Object.values(account).flatMap((list) =>
-    list.map((row): Day => [row.dimensions.date, Math.round(row.sum.requests)])
+  // Every window must answer: a missing one would be filled with zeros as days without traffic.
+  if (windows.some((_, i) => !Array.isArray(account[`w${i}`])))
+    return { ok: false, text: 'Cloudflare returned an unsupported analytics response.' }
+  const rows: Day[] = windows.flatMap((_, i) =>
+    account[`w${i}`].map((row): Day => [row.dimensions.date, Math.round(row.sum.requests)])
   )
   return { ok: true, days: fillDays(rows, windows) }
 }

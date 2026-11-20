@@ -224,7 +224,11 @@ async function callForgeTool(
       headers: { ...plan.headers, authorization: `Bearer ${props.accessToken}` },
       body: plan.body
     },
-    { caller: 'forge_tool_call' }
+    {
+      caller: 'forge_tool_call',
+      // A POST or PATCH that may have reached Cloudflare isn't sent again: it could create a second policy.
+      retryNetworkErrors: !['POST', 'PATCH'].includes(plan.method.toUpperCase())
+    }
   )
   // A 429's headers say how long to wait; the agent only sees the body.
   const rateLimit = rateLimitHint(response.status, response.headers)

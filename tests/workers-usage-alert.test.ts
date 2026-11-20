@@ -9,19 +9,14 @@ import {
   deletePolicy,
   updatePolicy,
   type CallTool
-} from '../src/workers-usage-alert/create'
+} from '../src/threshold-alert/create'
 import type { Tool } from '@modelcontextprotocol/server'
-import {
-  deriveModel,
-  fitTop,
-  monitorPolicy,
-  replayEmails,
-  rolling7,
-  type Day
-} from '../src/workers-usage-alert/model'
+import { deriveModel, fitTop, replayEmails, rolling7, type Day } from '../src/threshold-alert/model'
+import { monitorPolicy } from '../src/threshold-alert/presets'
 import { API_BASE, cfError, cfSuccess, mockIdentityProbe } from './helpers/cloudflare-api'
 import { clearKv } from './helpers/kv'
 import { MCP_URL, modernMcpRequest, parseMcpResult } from './helpers/mcp'
+import { connectWithOAuth } from './helpers/oauth'
 import { clearSpec, seedSpec } from './helpers/spec'
 import { server } from './setup/msw'
 
@@ -341,6 +336,61 @@ describe('workers_usage_alert reads', () => {
     )
   })
 
+  it('is an error, not quiet days, when GraphQL returns partial data with errors', async () => {
+    mockApi({
+      graphql: () =>
+        HttpResponse.json({
+          data: { viewer: { accounts: [{ ...steady(), w1: null }] } },
+          errors: [{ message: 'query timed out', path: ['viewer', 'accounts', 0, 'w1'] }]
+        })
+    })
+    const result = await call()
+    expect(result?.isError).toBe(true)
+    expect(result?.content?.[0].text).toContain('partial data')
+    expect(result?.content?.[0].text).toContain('query timed out')
+  })
+
+  it('is an error, not quiet days, when a window is missing from the answer', async () => {
+    const { w1: _missing, ...rest } = steady()
+    mockApi({
+      graphql: () => HttpResponse.json({ data: { viewer: { accounts: [rest] } } })
+    })
+    const result = await call()
+    expect(result?.isError).toBe(true)
+    expect(result?.content?.[0].text).toContain('unsupported analytics response')
+  })
+
+  it('returns the preview, not a step-up, when an OAuth connection cannot read notifications', async () => {
+    const token = await connectWithOAuth(['user:read', 'account:read', 'account-analytics.read'], {
+      id: ACCOUNT,
+      name: 'Usage Co'
+    })
+    const refused = () =>
+      HttpResponse.json(cfError([{ code: 10000, message: 'Authentication error' }]), {
+        status: 403
+      })
+    mockApi({ policies: refused })
+    server.use(http.get(`${ALERTING}/available_alerts`, refused))
+
+    const response = await exports.default.fetch(
+      modernMcpRequest(token, 'tools/call', {
+        name: 'workers_usage_alert',
+        arguments: { as_of: AS_OF }
+      })
+    )
+
+    expect(response.status).toBe(200)
+    expect(response.headers.get('WWW-Authenticate')).toBeNull()
+    const result = (await parseMcpResult(response)).result as {
+      isError?: boolean
+      structuredContent?: Record<string, unknown>
+      _meta?: Record<string, unknown>
+    }
+    expect(result.isError).toBeUndefined()
+    expect(result._meta?.['mcp/www_authenticate']).toBeUndefined()
+    expect(result.structuredContent).toMatchObject({ existingAlerts: null, alertAvailable: null })
+  })
+
   it('has no typical week or suggestion with under a week of traffic', async () => {
     mockApi({
       graphql: () =>
@@ -478,6 +528,21 @@ describe.each([
 
     expect(result.status).toBe('done')
     expect(deletes).toBe(1)
+  })
+
+  it('sends the create once when the network fails, since it may have reached Cloudflare', async () => {
+    let posts = 0
+    server.use(
+      http.post(`${ALERTING}/policies`, () => {
+        posts++
+        return HttpResponse.error()
+      })
+    )
+
+    const result = await createPolicy(callTool, ACCOUNT, policy)
+
+    expect(result.status).toBe('refused')
+    expect(posts).toBe(1)
   })
 
   it('creates exactly the policy the App shows, in one call', async () => {
