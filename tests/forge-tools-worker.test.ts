@@ -14,7 +14,7 @@ import {
   toolText
 } from './helpers/mcp'
 import { server } from './setup/msw'
-import { MCP_APP_GENERATED_TOOLS, MCP_APP_TOOLS } from '../src/mcp-apps/registry'
+import { MCP_APP_TOOLS } from '../src/mcp-apps/registry'
 
 /**
  * The generated direct tools at /mcp?codemode=false,
@@ -431,8 +431,7 @@ describe('generated direct tools (?codemode=false)', () => {
       'search',
       'execute',
       'whoami',
-      ...MCP_APP_TOOLS.map((tool) => tool.name),
-      ...MCP_APP_GENERATED_TOOLS.map((tool) => tool.name)
+      ...MCP_APP_TOOLS.map((tool) => tool.name)
     ])
   })
 

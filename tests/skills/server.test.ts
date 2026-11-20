@@ -103,7 +103,10 @@ describe('skills extension with a synced catalog', () => {
     const body = await modern('server/discover', {}, url)
 
     expect(body.result?.capabilities?.resources).toEqual({})
-    expect(body.result?.capabilities?.extensions).toEqual({ 'io.modelcontextprotocol/skills': {} })
+    expect(body.result?.capabilities?.extensions).toEqual({
+      'io.modelcontextprotocol/skills': {},
+      'io.modelcontextprotocol/ui': {}
+    })
   })
 
   it('lists every skill as a complete, cacheable manifest', async () => {
@@ -181,8 +184,11 @@ describe('skills extension with a synced catalog', () => {
     expect(body.error?.code).toBe(-32603)
   })
 
-  it('lists SKILL.md files and the MCP App resources in resources/list', async () => {
-    const body = await modern('resources/list')
+  it('lists SKILL.md files, and the MCP App resources to an MCP Apps host, in resources/list', async () => {
+    const response = await exports.default.fetch(
+      modernMcpRequest(API_TOKEN, 'resources/list', {}, { mcpApps: true })
+    )
+    const body = (await parseMcpResult(response)) as JsonRpcBody
 
     expect(body.result?.resources).toEqual([
       {

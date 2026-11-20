@@ -248,16 +248,28 @@ describe('MCP Apps in the worker', () => {
     mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Apps Co' }] })
   })
 
-  async function modern(method: string, params: Record<string, unknown> = {}, url = MCP_URL) {
-    const response = await exports.default.fetch(modernMcpRequest(TOKEN, method, params, { url }))
+  async function modern(
+    method: string,
+    params: Record<string, unknown> = {},
+    { url = MCP_URL, mcpApps = false }: { url?: string; mcpApps?: boolean } = {}
+  ) {
+    const response = await exports.default.fetch(
+      modernMcpRequest(TOKEN, method, params, { url, mcpApps })
+    )
     return (await parseMcpResult(response)) as {
-      result?: { tools?: { name: string }[]; resources?: { uri: string }[] }
+      result?: {
+        tools?: { name: string; _meta?: Record<string, unknown> }[]
+        resources?: { uri: string }[]
+        contents?: { uri: string; mimeType?: string }[]
+        capabilities?: { extensions?: Record<string, unknown> }
+      }
     }
   }
 
-  it('lists every registered App in both tool modes, after docs and whoami', async () => {
-    const names = MCP_APPS.map((app) => app.tool.name)
-    const codemode = await modern('tools/list')
+  const names = MCP_APPS.map((app) => app.tool.name)
+
+  it('lists every App with its view and the writes it calls to an MCP Apps host', async () => {
+    const codemode = await modern('tools/list', {}, { mcpApps: true })
     expect(codemode.result?.tools?.map((t) => t.name)).toEqual([
       'docs',
       'search',
@@ -266,12 +278,83 @@ describe('MCP Apps in the worker', () => {
       ...names,
       ...MCP_APP_GENERATED_TOOLS.map((tool) => tool.name)
     ])
-    expect(localDirectTools().map((t) => t.name)).toEqual(['docs', 'whoami', ...names])
+    for (const app of MCP_APPS)
+      expect(codemode.result?.tools?.find((t) => t.name === app.tool.name)?._meta).toEqual(
+        app.tool._meta
+      )
+    expect(localDirectTools({ mcpApps: true })).toEqual(
+      expect.arrayContaining(MCP_APPS.map((app) => app.tool))
+    )
   })
 
-  it('lists every registered App resource', async () => {
-    const body = await modern('resources/list')
-    const uris = body.result?.resources?.map((r) => r.uri) ?? []
-    for (const app of MCP_APPS) expect(uris).toContain(app.resource.descriptor.uri)
+  it.each([
+    ['declares no MCP Apps', {}],
+    ['declares MCP Apps without the App MIME type', { mimeTypes: ['text/html'] }]
+  ])(
+    'lists the Apps as plain tools, without the writes, to a client that %s',
+    async (_case, ui) => {
+      const request = modernMcpRequest(TOKEN, 'tools/list')
+      const body = (await request.json()) as { params: { _meta: Record<string, unknown> } }
+      body.params._meta['io.modelcontextprotocol/clientCapabilities'] =
+        Object.keys(ui).length > 0 ? { extensions: { 'io.modelcontextprotocol/ui': ui } } : {}
+      const response = await exports.default.fetch(
+        new Request(request, { body: JSON.stringify(body) })
+      )
+      const tools = (
+        (await parseMcpResult(response)) as {
+          result: { tools: { name: string; _meta?: unknown }[] }
+        }
+      ).result.tools
+      expect(tools.map((t) => t.name)).toEqual(['docs', 'search', 'execute', 'whoami', ...names])
+      for (const name of names) expect(tools.find((t) => t.name === name)?._meta).toBeUndefined()
+    }
+  )
+
+  it('lists the Apps as plain tools in direct mode to a client without MCP Apps', () => {
+    const direct = localDirectTools()
+    expect(direct.map((t) => t.name)).toEqual(['docs', 'whoami', ...names])
+    for (const name of names) expect(direct.find((t) => t.name === name)?._meta).toBeUndefined()
+  })
+
+  it('lists the App resources only to an MCP Apps host, and reads them for anyone', async () => {
+    const host = await modern('resources/list', {}, { mcpApps: true })
+    const other = await modern('resources/list')
+    const hostUris = host.result?.resources?.map((r) => r.uri) ?? []
+    const otherUris = other.result?.resources?.map((r) => r.uri) ?? []
+    for (const app of MCP_APPS) {
+      expect(hostUris).toContain(app.resource.descriptor.uri)
+      expect(otherUris).not.toContain(app.resource.descriptor.uri)
+      const read = await modern('resources/read', { uri: app.resource.descriptor.uri })
+      expect(read.result?.contents?.[0]).toMatchObject({
+        uri: app.resource.descriptor.uri,
+        mimeType: MCP_APP_MIME
+      })
+    }
+  })
+
+  it.each([
+    ['Code Mode', MCP_URL],
+    ['direct tools', `${MCP_URL}?codemode=false`]
+  ])('declares the MCP Apps extension to every client (%s)', async (_mode, url) => {
+    const body = await modern('server/discover', {}, { url })
+    expect(body.result?.capabilities?.extensions).toHaveProperty(['io.modelcontextprotocol/ui'])
+  })
+
+  it('never counts a 2025-era request as an MCP Apps host', async () => {
+    const response = await exports.default.fetch(
+      new Request(MCP_URL, {
+        method: 'POST',
+        headers: {
+          Host: 'mcp.cloudflare.com',
+          Authorization: `Bearer ${TOKEN}`,
+          'Content-Type': 'application/json',
+          Accept: 'application/json, text/event-stream'
+        },
+        body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'tools/list' })
+      })
+    )
+    const tools = ((await parseMcpResult(response)) as { result: { tools: { name: string }[] } })
+      .result.tools
+    expect(tools.map((t) => t.name)).toEqual(['docs', 'search', 'execute', 'whoami', ...names])
   })
 })

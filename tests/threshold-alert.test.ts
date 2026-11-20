@@ -350,7 +350,7 @@ describe.each([
     )
     const callTool: CallTool = async (c) => {
       const response = await exports.default.fetch(
-        modernMcpRequest(TOKEN, 'tools/call', c, { url })
+        modernMcpRequest(TOKEN, 'tools/call', c, { url, mcpApps: true })
       )
       return ((await parseMcpResult(response)) as { result: Awaited<ReturnType<CallTool>> }).result
     }

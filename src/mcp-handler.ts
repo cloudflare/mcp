@@ -10,7 +10,8 @@ import {
   hostHeaderValidationResponse,
   localhostAllowedHostnames,
   localhostAllowedOrigins,
-  originValidationResponse
+  originValidationResponse,
+  readRequestBody
 } from '@modelcontextprotocol/server'
 import type { McpServer } from '@modelcontextprotocol/server'
 import { createServer, type RequestContext, type ServerOptions } from './server'
@@ -20,6 +21,7 @@ import { identifyClient, type ClientBehavior } from './clients'
 import { AuthProps as AuthPropsSchema, type AuthProps } from './auth/types'
 import { cachedToolListResponse } from './tools/tool-list-response'
 import { getForgeToolList } from './isolate-cache'
+import { declaresMcpApps, envelopeClientName } from './mcp-apps/capability'
 
 export const MCP_ROUTE = '/mcp'
 
@@ -60,6 +62,20 @@ function serverOptionsFromUrl(url: string): ServerOptions {
 function challengeDeliveryOverride(url: string): ClientBehavior['scopeChallenge'] | undefined {
   const value = new URL(url).searchParams.get('scopeChallenge')
   return value === 'http' || value === 'tool' ? value : undefined
+}
+
+/**
+ * A POST's JSON-RPC body, read from a clone so the request stays readable, or
+ * `undefined` when it isn't JSON or is too large; the SDK answers those.
+ */
+async function parsedBodyOf(request: Request): Promise<unknown> {
+  if (request.method !== 'POST') return undefined
+  try {
+    const read = await readRequestBody(request.clone())
+    return read.tooLarge || read.text.length === 0 ? undefined : JSON.parse(read.text)
+  } catch {
+    return undefined
+  }
 }
 
 function createAuthenticatedHandler(props: AuthProps, context: RequestContext) {
@@ -215,6 +231,13 @@ export async function handleAuthenticatedMcpRequest(
     const listed = await cachedToolListResponse(request, () => getForgeToolList())
     if (listed) return withCors(listed, request)
   }
+  const body = await parsedBodyOf(request)
+  const mcpApps = declaresMcpApps(body)
+  const client = envelopeClientName(body)
+  // Which 2026-07-28 clients list tools without declaring MCP Apps, to check
+  // that the hosts that render them (Claude, ChatGPT) aren't among them.
+  if (!mcpApps && client !== undefined && (body as { method?: unknown }).method === 'tools/list')
+    console.log(`mcp_apps not declared: tools/list client=${client}`)
   const connection = connectionFromAuth(auth)
   // Only tokens this server issued can step up; their tools can ask for a scope.
   const issued = connection.kind === 'oauth' ? auth : undefined
@@ -223,6 +246,7 @@ export async function handleAuthenticatedMcpRequest(
   const context: RequestContext = {
     connection,
     scopeChallenge,
+    mcpApps,
     ...(env && {
       events: {
         env,

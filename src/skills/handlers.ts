@@ -54,12 +54,14 @@ const GetSkillParams = z.looseObject({ uri: z.string() })
  * complete manifest, which the spec lets hosts answer directory questions from.
  *
  * @param server - The per-request MCP server.
- * @param staticResources - Resources that ship with the Worker, listed and read
- *   through the same handlers.
+ * @param staticResources - Resources that ship with the Worker, read through
+ *   the same handlers.
+ * @param options.listStatic - Whether `resources/list` lists them too. Defaults to `true`.
  */
 export function registerSkills(
   server: McpServer,
-  staticResources: readonly StaticResource[] = []
+  staticResources: readonly StaticResource[] = [],
+  { listStatic = true }: { listStatic?: boolean } = {}
 ): void {
   server.server.registerCapabilities({
     resources: {},
@@ -93,7 +95,7 @@ export function registerSkills(
           description: skill.frontmatter.description,
           mimeType: 'text/markdown'
         })),
-        ...staticResources.map((resource) => resource.descriptor)
+        ...(listStatic ? staticResources.map((resource) => resource.descriptor) : [])
       ],
       ...SKILLS_CACHE
     }

@@ -455,7 +455,10 @@ describe.each([
     'Workers requests over 2B in 7 days'
   )
   const callTool: CallTool = async (c) => {
-    const response = await exports.default.fetch(modernMcpRequest(TOKEN, 'tools/call', c, { url }))
+    // The App's view calls the writes, so the request comes from an MCP Apps host.
+    const response = await exports.default.fetch(
+      modernMcpRequest(TOKEN, 'tools/call', c, { url, mcpApps: true })
+    )
     const parsed = (await parseMcpResult(response)) as {
       result?: Awaited<ReturnType<CallTool>>
       error?: { message: string }
@@ -477,7 +480,9 @@ describe.each([
   })
 
   it('lists the generated create, update and delete tools, for the App only in Code Mode', async () => {
-    const response = await exports.default.fetch(modernMcpRequest(TOKEN, 'tools/list', {}, { url }))
+    const response = await exports.default.fetch(
+      modernMcpRequest(TOKEN, 'tools/list', {}, { url, mcpApps: true })
+    )
     const tools = ((await parseMcpResult(response)) as { result: { tools: Tool[] } }).result.tools
     const create = tools.find((tool) => tool.name === CREATE_POLICY_TOOL)
     const writes = tools.filter((tool) => POLICY_WRITE_TOOLS.includes(tool.name))
@@ -494,6 +499,36 @@ describe.each([
       for (const tool of writes) expect(tool._meta?.ui).toBeUndefined()
     }
   })
+
+  it('lists the writes only in direct mode, and the App as a plain tool, for a client without MCP Apps', async () => {
+    const response = await exports.default.fetch(modernMcpRequest(TOKEN, 'tools/list', {}, { url }))
+    const tools = ((await parseMcpResult(response)) as { result: { tools: Tool[] } }).result.tools
+    const names = tools.map((tool) => tool.name)
+
+    for (const name of POLICY_WRITE_TOOLS)
+      if (mode === 'Code Mode') expect(names).not.toContain(name)
+      else expect(names).toContain(name)
+    const app = tools.find((tool) => tool.name === 'workers_usage_alert')
+    expect(app).toBeDefined()
+    expect(app?._meta).toBeUndefined()
+  })
+
+  it.runIf(mode === 'Code Mode')(
+    "doesn't serve the writes to a client without MCP Apps",
+    async () => {
+      const response = await exports.default.fetch(
+        modernMcpRequest(
+          TOKEN,
+          'tools/call',
+          { name: CREATE_POLICY_TOOL, arguments: { path: { account_id: ACCOUNT }, body: policy } },
+          { url }
+        )
+      )
+      const body = JSON.stringify(await parseMcpResult(response))
+      expect(body).toContain(CREATE_POLICY_TOOL)
+      expect(body).toMatch(/not found|unknown tool/i)
+    }
+  )
 
   it('Save alert updates the alert the App created, in one call', async () => {
     const id = 'b'.repeat(32)

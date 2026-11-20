@@ -22,7 +22,12 @@ import { checkResponse } from '../response-validation'
 import { DOCS_TOOL, runDocsTool } from './docs-search'
 import { WHOAMI_TOOL, WhoamiInputSchema, runWhoamiTool } from './whoami'
 import { SUBMIT_FEEDBACK_TOOL, feedbackTools, runSubmitFeedbackTool } from './submit-feedback'
-import { MCP_APP_GENERATED_TOOLS, MCP_APP_TOOLS, mcpAppNamed } from '../mcp-apps/registry'
+import {
+  MCP_APP_GENERATED_TOOLS,
+  MCP_APP_TEXT_TOOLS,
+  MCP_APP_TOOLS,
+  mcpAppNamed
+} from '../mcp-apps/registry'
 import type { AppContext } from '../mcp-apps/define'
 import { stringifyResponse } from '../truncate'
 import type { AuthProps } from '../auth/types'
@@ -38,11 +43,17 @@ import { policyRefusalHint } from '../policy-guards'
 /**
  * The tools this Worker serves itself in direct mode, listed before the
  * generated ones: `docs`, `whoami`, `submit_feedback` when it is configured,
- * and the MCP Apps. Both `tools/list` paths
- * (the SDK's and `cachedToolListResponse`) send this list.
+ * and the MCP Apps, linked to their views only for a client that declared MCP
+ * Apps. Both `tools/list` paths (the SDK's and `cachedToolListResponse`) send
+ * this list.
  */
-export function localDirectTools(): Tool[] {
-  return [DOCS_TOOL, WHOAMI_TOOL, ...feedbackTools(), ...MCP_APP_TOOLS]
+export function localDirectTools({ mcpApps = false }: { mcpApps?: boolean } = {}): Tool[] {
+  return [
+    DOCS_TOOL,
+    WHOAMI_TOOL,
+    ...feedbackTools(),
+    ...(mcpApps ? MCP_APP_TOOLS : MCP_APP_TEXT_TOOLS)
+  ]
 }
 
 /** The forge tools service, which holds the generated tools (`src/forge-tools/worker.ts`). */
@@ -73,11 +84,11 @@ export function registerForgeTools(
   formatResult: FormatToolResult,
   connection: Connection,
   scopeChallenge: ScopeChallenge,
-  { outputSchema = false }: { outputSchema?: boolean } = {}
+  { outputSchema = false, mcpApps = false }: { outputSchema?: boolean; mcpApps?: boolean } = {}
 ): void {
   server.server.setRequestHandler('tools/list', async (_request, ctx) => ({
     tools: [
-      ...localDirectTools(),
+      ...localDirectTools({ mcpApps }),
       ...(await getForgeToolList({ outputSchema: outputSchema && isModern(ctx) }))
     ]
   }))
