@@ -7,7 +7,13 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { AUTH_PROPS_VERSION, type AuthProps } from '../src/auth/types'
 import { DIRECT_CONNECTION, type Connection } from '../src/api-permissions'
 import { ScopeChallenge } from '../src/scope-challenge'
-import { defineMcpApp, MCP_APP_MIME, type AppContext } from '../src/mcp-apps/define'
+import {
+  compactJsonSchema,
+  defineMcpApp,
+  MCP_APP_MIME,
+  type AppContext,
+  type McpAppDefinition
+} from '../src/mcp-apps/define'
 import {
   ApiReadError,
   ApiReadUnsupported,
@@ -33,14 +39,17 @@ function context(connection: Connection = DIRECT_CONNECTION): AppContext {
   return { props, connection, scopeChallenge: new ScopeChallenge(undefined) }
 }
 
+const FixtureInput = z.strictObject({ prefix: z.string().optional() })
+const FixtureOutput = z.strictObject({ kind: z.literal('fixture'), names: z.array(z.string()) })
+
 /** A fixture App: reads the account's Worker names. */
-const fixture = defineMcpApp({
+const fixtureDefinition: McpAppDefinition<typeof FixtureInput, typeof FixtureOutput> = {
   name: 'fixture_app',
   title: 'Fixture App',
   description: 'Lists Worker names. Test fixture only.',
   annotations: { readOnlyHint: true, destructiveHint: false, openWorldHint: false },
-  input: z.strictObject({ prefix: z.string().optional() }),
-  output: z.strictObject({ kind: z.literal('fixture'), names: z.array(z.string()) }),
+  input: FixtureInput,
+  output: FixtureOutput,
   resource: { uri: 'ui://cloudflare/fixture.html', name: 'Fixture', html: '<p>fixture</p>' },
   async run(input, ctx, signal) {
     const scripts = await apiReader(ctx, signal, 'fixture_app')
@@ -57,7 +66,8 @@ const fixture = defineMcpApp({
       .filter((id) => !input.prefix || id.startsWith(input.prefix))
     return { ok: true, value: { kind: 'fixture' as const, names } }
   }
-})
+}
+const fixture = defineMcpApp(fixtureDefinition)
 
 async function connected(apps = [fixture]) {
   const mcp = new McpServer({ name: 'apps-test', version: '1.0.0' })
@@ -136,6 +146,63 @@ describe('defineMcpApp', () => {
     } as never)
     expect(result.isError).toBe(true)
     expect(JSON.stringify(result.content)).toContain('Invalid arguments for tool fixture_app')
+  })
+
+  it('gives a client that renders the view the App’s own model text', async () => {
+    const app = defineMcpApp({
+      ...fixtureDefinition,
+      modelText: (value) => `${value.names.length} names`
+    })
+    server.use(
+      http.get(`${API_BASE}/accounts/${ACCOUNT_ID}/workers/scripts`, () =>
+        HttpResponse.json(cfSuccess([{ id: 'api-mcp' }]))
+      )
+    )
+    const ctx = { mcpReq: { signal: new AbortController().signal } } as never
+    const viewed = await app.call({}, { ...context(), view: true }, ctx)
+    expect(viewed.content).toEqual([{ type: 'text', text: '1 names' }])
+    expect(viewed.structuredContent).toEqual({ kind: 'fixture', names: ['api-mcp'] })
+    // A host without the view has only the text, so it gets the whole result.
+    const text = await app.call({}, context(), ctx)
+    expect(text.content).toEqual([{ type: 'text', text: '{"kind":"fixture","names":["api-mcp"]}' }])
+  })
+})
+
+describe('compactJsonSchema', () => {
+  const schema = z.toJSONSchema(
+    z.object({
+      day: z.iso.date(),
+      at: z.iso.datetime(),
+      id: z.string().regex(/^[a-f0-9]{32}$/),
+      count: z.number().int().nonnegative(),
+      limit: z.number().int().max(10)
+    })
+  )
+
+  it('drops zod’s $schema, its date regexes and its safe-integer bounds', () => {
+    const compact = compactJsonSchema(schema) as {
+      properties: Record<string, Record<string, unknown>>
+    }
+    expect(compact).not.toHaveProperty('$schema')
+    expect(compact.properties.day).toEqual({ type: 'string', format: 'date' })
+    expect(compact.properties.at).toEqual({ type: 'string', format: 'date-time' })
+    expect(compact.properties.count).toEqual({ type: 'integer', minimum: 0 })
+  })
+
+  it('keeps every pattern and bound that is the tool’s own', () => {
+    const compact = compactJsonSchema(schema) as {
+      properties: Record<string, Record<string, unknown>>
+    }
+    expect(compact.properties.id.pattern).toBe('^[a-f0-9]{32}$')
+    expect(compact.properties.limit.maximum).toBe(10)
+  })
+
+  it('lists App tools compact in Code Mode and the direct tools alike', async () => {
+    const client = await connected()
+    const [listed] = (await client.listTools()).tools
+    expect(JSON.stringify(listed)).not.toContain('json-schema.org')
+    expect(listed.inputSchema).toEqual(fixture.tool.inputSchema)
+    expect(listed.outputSchema).toEqual(fixture.tool.outputSchema)
   })
 })
 

@@ -112,7 +112,11 @@ export function registerForgeTools(
       } else if (name === SUBMIT_FEEDBACK_TOOL.name && feedbackTools().length > 0) {
         result = await runSubmitFeedbackTool(args, 'direct', props)
       } else if (mcpAppNamed(name)) {
-        result = await mcpAppNamed(name)!.call(args, { props, connection, scopeChallenge }, ctx)
+        result = await mcpAppNamed(name)!.call(
+          args,
+          { props, connection, scopeChallenge, view: mcpApps },
+          ctx
+        )
       } else {
         result = await callGeneratedTool(name, args, props, formatResult, {
           connection,

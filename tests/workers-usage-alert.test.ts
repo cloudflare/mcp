@@ -99,9 +99,18 @@ function mockApi({
   )
 }
 
-async function call(args: Record<string, unknown> = { as_of: AS_OF }, url = MCP_URL) {
+async function call(
+  args: Record<string, unknown> = { as_of: AS_OF },
+  url = MCP_URL,
+  { mcpApps = false }: { mcpApps?: boolean } = {}
+) {
   const response = await exports.default.fetch(
-    modernMcpRequest(TOKEN, 'tools/call', { name: 'workers_usage_alert', arguments: args }, { url })
+    modernMcpRequest(
+      TOKEN,
+      'tools/call',
+      { name: 'workers_usage_alert', arguments: args },
+      { url, mcpApps }
+    )
   )
   return (
     (await parseMcpResult(response)) as {
@@ -279,6 +288,25 @@ describe.each([
     const result = await call({ as_of: AS_OF, limit: 2_000_000_000 }, url)
     expect(result?.structuredContent).toMatchObject({ summary: { suggestedLimit: 2_000_000_000 } })
   })
+
+  it('gives a host that renders the card every day, and its model the rest without the series', async () => {
+    mockApi()
+    const result = await call({ as_of: AS_OF }, url, { mcpApps: true })
+    const card = result?.structuredContent as Record<string, unknown>
+    expect(card.days).toHaveLength(89)
+    const text = JSON.parse(result?.content?.[0].text ?? '{}') as Record<string, unknown>
+    // Everything the model uses is there, the same as on the card.
+    const { days: _days, ...rest } = card
+    expect(text).toMatchObject(rest)
+    expect(text.days).toEqual({ from: '2026-08-22', to: '2026-11-18', count: 89 })
+    expect(result?.content?.[0].text.length).toBeLessThan(JSON.stringify(card).length / 2)
+  })
+
+  it('gives a client without Apps the whole result as text: it has no card', async () => {
+    mockApi()
+    const result = await call({ as_of: AS_OF }, url)
+    expect(JSON.parse(result?.content?.[0].text ?? '{}')).toEqual(result?.structuredContent)
+  })
 })
 
 describe('workers_usage_alert reads', () => {
@@ -295,6 +323,85 @@ describe('workers_usage_alert reads', () => {
       e2: '2026-11-18'
     })
     expect(graphqlBody?.query).toContain('w2: workersInvocationsAdaptive')
+  })
+
+  it('sends the history and both alerting reads together, not one after another', async () => {
+    // Each read answers only once all three have arrived: a collector that waited
+    // for the history before the alerting reads would never see them and time out.
+    let arrived = 0
+    let release!: () => void
+    const together = new Promise<void>((resolve) => (release = resolve))
+    const meet = async () => {
+      if (++arrived === 3) release()
+      await together
+    }
+    mockApi()
+    server.use(
+      http.post(`${API_BASE}/graphql`, async ({ request }) => {
+        graphqlBody = (await request.json()) as typeof graphqlBody
+        await meet()
+        return HttpResponse.json({ data: { viewer: { accounts: [steady()] } } })
+      }),
+      http.get(`${ALERTING}/available_alerts`, async () => {
+        await meet()
+        return HttpResponse.json(cfSuccess({ 'Custom Analytics': [{ type: 'custom_analytics' }] }))
+      }),
+      http.get(`${ALERTING}/policies`, async () => {
+        await meet()
+        return HttpResponse.json(cfSuccess([]))
+      })
+    )
+    const result = await call()
+    expect(arrived).toBe(3)
+    expect(result?.isError).toBeUndefined()
+    expect(result?.structuredContent).toMatchObject({ alertAvailable: true, existingAlerts: [] })
+  })
+
+  it.each([
+    ['the history', 'policies'],
+    ['the policies', 'graphql']
+  ] as const)('lists the notes in the same order when %s answers first', async (_first, slow) => {
+    const later = () => new Promise((resolve) => setTimeout(resolve, 30))
+    mockApi({
+      graphql: () =>
+        HttpResponse.json({
+          data: {
+            viewer: {
+              accounts: [{ w0: [], w1: [], w2: [row('2026-11-16', 40), row('2026-11-18', 2)] }]
+            }
+          }
+        }),
+      policies: () =>
+        HttpResponse.json(cfError([{ code: 10000, message: 'Authentication error' }]), {
+          status: 403
+        })
+    })
+    server.use(
+      slow === 'graphql'
+        ? http.post(`${API_BASE}/graphql`, async () => {
+            await later()
+            return HttpResponse.json({
+              data: {
+                viewer: {
+                  accounts: [{ w0: [], w1: [], w2: [row('2026-11-16', 40), row('2026-11-18', 2)] }]
+                }
+              }
+            })
+          })
+        : http.get(`${ALERTING}/policies`, async () => {
+            await later()
+            return HttpResponse.json(cfError([{ code: 10000, message: 'Authentication error' }]), {
+              status: 403
+            })
+          })
+    )
+    const limitations = (await call())?.structuredContent?.limitations as string[]
+    expect(limitations.map((l) => l.split(':')[0].split(' of history')[0])).toEqual([
+      'Request counts come from Workers analytics, not billing. They are not dollar cost.',
+      'Workers analytics keep 89 complete days; older traffic cannot be read.',
+      'Existing notification policies could not be read',
+      'Only 3 days'
+    ])
   })
 
   it('is an error when usage cannot be read, naming the missing analytics permission', async () => {

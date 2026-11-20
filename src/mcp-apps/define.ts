@@ -23,6 +23,12 @@ export interface AppContext {
   readonly connection: Connection
   /** Where a refused read records a missing OAuth scope, for step-up. */
   readonly scopeChallenge: ScopeChallenge
+  /**
+   * Whether the client declared MCP Apps, so a view renders the result. Only
+   * then may the result's text leave out what only the view shows
+   * ({@link McpAppDefinition.modelText}); a text-only host has nothing else.
+   */
+  readonly view?: boolean
 }
 
 /** What an App's collector returns: its validated result, or a tool error. */
@@ -72,12 +78,53 @@ export interface McpAppDefinition<Input extends z.ZodObject, Output extends z.Zo
    * the index pulls in every generated tool.
    */
   readonly appTools?: readonly GeneratedTool[]
+  /**
+   * The result's text for a client that renders the view, which the model
+   * reads and re-reads on every later turn. Defaults to the whole result as
+   * JSON. An App whose view needs more than the model does (a chart's series)
+   * returns a smaller JSON here: the view still gets the whole result as
+   * `structuredContent`, validated against the output schema. A client
+   * without Apps always gets the whole result as text, the spec's fallback.
+   */
+  readonly modelText?: (value: z.output<Output>) => string
   /** Collect the result. Reads must stop when `signal` aborts. */
   run(
     input: z.output<Input>,
     context: AppContext,
     signal: AbortSignal
   ): Promise<AppOutcome<z.output<Output>>>
+}
+
+/** zod's bounds for `.int()`, which say nothing a JSON number doesn't. */
+const SAFE_INTEGER_BOUNDS = [Number.MAX_SAFE_INTEGER, Number.MIN_SAFE_INTEGER]
+
+/**
+ * An App's JSON Schema as clients list it, without what zod adds that no
+ * client needs: the `$schema` URI, the regex it writes beside each
+ * `format: date` and `date-time` (500 characters apiece, the same rule the
+ * format names), and the safe-integer bounds of every `.int()`. About a
+ * fifth of each App tool's listing (1.1 KB of 5.2 KB), sent on every
+ * `tools/list`; the input schema's share also reaches the model with the
+ * tool. The server still validates every argument and result with the zod
+ * schema itself, so nothing is checked less.
+ */
+export function compactJsonSchema<T>(schema: T): T {
+  if (Array.isArray(schema)) return schema.map(compactJsonSchema) as T
+  if (!schema || typeof schema !== 'object') return schema
+  const out: Record<string, unknown> = {}
+  const node = schema as Record<string, unknown>
+  for (const [key, value] of Object.entries(node)) {
+    if (key === '$schema') continue
+    if (key === 'pattern' && (node.format === 'date' || node.format === 'date-time')) continue
+    if ((key === 'maximum' || key === 'minimum') && SAFE_INTEGER_BOUNDS.includes(value as number))
+      continue
+    out[key] = compactJsonSchema(value)
+  }
+  return out as T
+}
+
+function listedJsonSchema(schema: z.ZodType): Record<string, unknown> {
+  return compactJsonSchema(z.toJSONSchema(schema) as Record<string, unknown>)
 }
 
 /**
@@ -113,8 +160,8 @@ export function defineMcpApp<Input extends z.ZodObject, Output extends z.ZodType
     description: definition.description,
     annotations: definition.annotations,
     _meta: meta,
-    inputSchema: z.toJSONSchema(definition.input) as Tool['inputSchema'],
-    outputSchema: z.toJSONSchema(definition.output) as Tool['outputSchema']
+    inputSchema: listedJsonSchema(definition.input) as Tool['inputSchema'],
+    outputSchema: listedJsonSchema(definition.output) as Tool['outputSchema']
   }
   const resource: StaticResource = {
     descriptor: { uri, name: resourceName, mimeType: MCP_APP_MIME },
@@ -129,8 +176,8 @@ export function defineMcpApp<Input extends z.ZodObject, Output extends z.ZodType
     tool,
     resource,
     appTools: definition.appTools ?? [],
-    inputSchema: withCachedJsonSchema(definition.input),
-    outputSchema: withCachedJsonSchema(definition.output),
+    inputSchema: withCachedJsonSchema(definition.input, compactJsonSchema),
+    outputSchema: withCachedJsonSchema(definition.output, compactJsonSchema),
     async call(args, context, ctx) {
       const parsed = definition.input.safeParse(args)
       if (!parsed.success)
@@ -147,9 +194,12 @@ export function defineMcpApp<Input extends z.ZodObject, Output extends z.ZodType
       const meta = outcome.meta ? { _meta: outcome.meta } : {}
       if (!outcome.ok)
         return { isError: true, content: [{ type: 'text', text: outcome.text }], ...meta }
-      const value = definition.output.parse(outcome.value) as Record<string, unknown>
+      const output = definition.output.parse(outcome.value)
+      const value = output as Record<string, unknown>
+      const text =
+        context.view && definition.modelText ? definition.modelText(output) : JSON.stringify(value)
       return {
-        content: [{ type: 'text', text: JSON.stringify(value) }],
+        content: [{ type: 'text', text }],
         structuredContent: value,
         ...meta
       }

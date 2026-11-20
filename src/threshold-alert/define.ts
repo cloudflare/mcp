@@ -91,6 +91,24 @@ const Policies = z.object({
 })
 
 /**
+ * The result as the model reads it: everything but the daily series, which
+ * only the chart draws. The model summarises the history from `summary` (the
+ * descriptions ask it not to repeat the daily data), and re-reads the result
+ * on every later turn, so 89 days of counts there are ~2 KB it never uses.
+ * `days` becomes the range read, in the same place, so the model still knows
+ * what the summary covers and that the card has the rest.
+ */
+export function thresholdAlertModelText(value: { readonly days: readonly Day[] }): string {
+  const { days } = value
+  return JSON.stringify({
+    ...value,
+    days: days.length
+      ? { from: days[0][0], to: days[days.length - 1][0], count: days.length }
+      : { count: 0 }
+  })
+}
+
+/**
  * Define a threshold alert App: the preset's tool, its static view and a
  * read-only collector. The generated policy write tools are its `appTools`.
  *
@@ -115,29 +133,33 @@ export function defineThresholdAlertApp<Input extends z.ZodObject, Output extend
     const reader = apiReader(context, signal, preset.toolName)
     const limitations = [...definition.limitations]
 
-    const history = await definition.readHistory(accountId, today, reader, signal)
-    if (!history.ok) return history
-    limitations.push(...(history.limitations ?? []))
-
     // Alerting reads only add context. A refusal is noted, not fatal, and
     // never reads as "no alerts exist". They never ask for a scope: a step-up
     // would replace the whole preview with a 403 for clients that take it over
     // HTTP, though the history it needs was read. Create alert asks for the
     // scope it needs when the user clicks it.
+    //
+    // The three reads are independent, so they go out together: the call takes
+    // the slowest of them, not their sum (about 370 ms against 545 ms measured).
+    // A failed history ends the call, so it stops the alerting reads too.
+    const stopAlerting = new AbortController()
+    const alertingSignal = AbortSignal.any([signal, stopAlerting.signal])
     const contextReader = apiReader(
       { ...context, scopeChallenge: new ScopeChallenge(undefined) },
-      signal,
+      alertingSignal,
       preset.toolName
     )
+    // Kept apart until the history is read, so the history's notes come first as before.
+    const alertingNotes: string[] = []
     const optional = async <T>(read: () => Promise<T>, what: string): Promise<T | null> => {
       try {
         return await read()
       } catch (error) {
-        if (signal.aborted) throw error
+        if (alertingSignal.aborted) throw error
         if (error instanceof ApiReadError) {
-          limitations.push(`${what} could not be read: ${error.text}`)
+          alertingNotes.push(`${what} could not be read: ${error.text}`)
         } else if (error instanceof ApiReadUnsupported || error instanceof z.ZodError) {
-          limitations.push(
+          alertingNotes.push(
             `${what} could not be read: Cloudflare returned an unsupported response.`
           )
         } else throw error
@@ -145,7 +167,7 @@ export function defineThresholdAlertApp<Input extends z.ZodObject, Output extend
       }
     }
     const prefix = `/accounts/${accountId}/alerting/v3`
-    const [available, policies] = await Promise.all([
+    const alerting = Promise.all([
       optional(
         () => contextReader.get(`${prefix}/available_alerts`, AvailableAlerts),
         'Available alert types'
@@ -155,6 +177,20 @@ export function defineThresholdAlertApp<Input extends z.ZodObject, Output extend
         'Existing notification policies'
       )
     ])
+    // Handled now, so an early return below leaves no rejection unhandled; the await rethrows.
+    alerting.catch(() => {})
+    const history = await definition
+      .readHistory(accountId, today, reader, signal)
+      .catch((error: unknown) => {
+        stopAlerting.abort()
+        throw error
+      })
+    if (!history.ok) {
+      stopAlerting.abort()
+      return history
+    }
+    const [available, policies] = await alerting
+    limitations.push(...(history.limitations ?? []), ...alertingNotes)
 
     const otherPolicies: Record<string, number> = {}
     const existingAlerts = policies
@@ -233,6 +269,7 @@ export function defineThresholdAlertApp<Input extends z.ZodObject, Output extend
     resource: definition.resource,
     // Create alert, Save alert and Undo call the generated tools; see `create.ts`.
     appTools: alertingPolicyTools.filter((tool) => POLICY_WRITE_TOOLS.includes(tool.name)),
+    modelText: thresholdAlertModelText,
     run: collect
   })
 }

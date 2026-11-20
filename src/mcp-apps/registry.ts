@@ -78,7 +78,7 @@ export function registerMcpApps(
         inputSchema: app.inputSchema,
         outputSchema: app.outputSchema
       },
-      (args, ctx) => app.call(args, context, ctx)
+      (args, ctx) => app.call(args, { ...context, view }, ctx)
     )
   }
 }

@@ -10,9 +10,14 @@ import { isolate } from './isolate'
  * schema through zod's `~standard` setter. The SDK only reads the result.
  *
  * @param schema - A schema defined once at module scope, never per request.
+ * @param post - Applied to each conversion once, before it is cached, such as
+ *   `compactJsonSchema` for an MCP App's listed schemas. Defaults to none.
  * @returns The same schema, with its JSON Schema conversion cached.
  */
-export function withCachedJsonSchema<T extends z.ZodType>(schema: T): T {
+export function withCachedJsonSchema<T extends z.ZodType>(
+  schema: T,
+  post: (json: Record<string, unknown>) => Record<string, unknown> = (json) => json
+): T {
   const standard = schema['~standard']
   const { jsonSchema } = standard
   const converted = isolate.map<string, Record<string, unknown>>()
@@ -21,7 +26,7 @@ export function withCachedJsonSchema<T extends z.ZodType>(schema: T): T {
     (options: Parameters<typeof jsonSchema.input>[0]): Record<string, unknown> =>
       converted.getOrSet(
         `${io}:${options.target}:${JSON.stringify(options.libraryOptions ?? {})}`,
-        () => jsonSchema[io](options)
+        () => post(jsonSchema[io](options))
       )
   schema['~standard'] = {
     ...standard,
