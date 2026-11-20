@@ -48,7 +48,9 @@ import './usage-alert.css'
  */
 type Phase = 'editing' | 'sending' | 'created' | 'failed' | 'sent' | 'review'
 type Tone = '' | 'hit' | 'now' | 'warn' | 'bad'
-type Fact = readonly [Tone, string]
+/** Plain text, or a figure shown bold and direction-isolated. */
+type FactPart = string | { readonly b: string }
+type Fact = readonly [Tone, readonly FactPart[]]
 
 const reduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches
 const canHover = () => matchMedia('(hover: hover) and (pointer: fine)').matches
@@ -66,19 +68,21 @@ function outcome(m: Model, limit: number, preset: ThresholdAlertPreset): [Fact, 
   const first = sent.find((e) => e.first)
   const past: Fact =
     m.typical && limit < m.typical
-      ? ['warn', `Below a typical ${bucket} (<b><bdi>${approx(m.typical, 2)}</bdi></b>)`]
+      ? ['warn', [`Below a typical ${bucket} (`, { b: approx(m.typical, 2) }, ')']]
       : sent.length && first
         ? [
             'hit',
-            `<b>${sent.length}</b> past ${sent.length === 1 ? 'email' : 'emails'}, first <b><bdi>${fmtDay(first.date)}</bdi></b>`
+            [
+              { b: String(sent.length) },
+              ` past ${sent.length === 1 ? 'email' : 'emails'}, first `,
+              { b: fmtDay(first.date) }
+            ]
           ]
         : limit >= 2 * m.peak
-          ? ['', `No past emails; <b><bdi>${sig(limit / m.peak)}×</bdi></b> the busiest ${bucket}`]
-          : ['', `No past emails; busiest ${bucket} <b><bdi>${sig(m.peak)}</bdi></b>`]
+          ? ['', ['No past emails; ', { b: `${sig(limit / m.peak)}×` }, ` the busiest ${bucket}`]]
+          : ['', [`No past emails; busiest ${bucket} `, { b: sig(m.peak) }]]
   const now: Fact =
-    m.current >= limit
-      ? ['warn', alreadyOver]
-      : ['now', `${current}: <b><bdi>${sig(m.current)}</bdi></b>`]
+    m.current >= limit ? ['warn', [alreadyOver]] : ['now', [`${current}: `, { b: sig(m.current) }]]
   return [past, now]
 }
 
@@ -86,7 +90,17 @@ function FactLine({ fact, slot }: { fact: Fact; slot: 'past' | 'now' }) {
   return (
     <span className="sub-i" data-tone={fact[0]} data-slot={slot}>
       <i aria-hidden="true" />
-      <span dangerouslySetInnerHTML={{ __html: fact[1] }} />
+      <span>
+        {fact[1].map((part, i) =>
+          typeof part === 'string' ? (
+            part
+          ) : (
+            <b key={i}>
+              <bdi>{part.b}</bdi>
+            </b>
+          )
+        )}
+      </span>
     </span>
   )
 }
@@ -239,8 +253,8 @@ function UsageAlertCard({
   const facts: readonly [Fact, Fact] | null =
     view === 'loading'
       ? [
-          ['', '\u00a0'],
-          ['', '\u00a0']
+          ['', ['\u00a0']],
+          ['', ['\u00a0']]
         ]
       : view === 'chart'
         ? outcome(m, limit, preset)
@@ -938,7 +952,8 @@ function failureReason(text: string): string {
   return (message ?? (text.split('\n').find(Boolean) || 'try again')).slice(0, 120)
 }
 
-const plain = (html: string) => html.replace(/<[^>]+>/g, '')
+const plain = (parts: readonly FactPart[]) =>
+  parts.map((part) => (typeof part === 'string' ? part : part.b)).join('')
 
 /** The loading bars, in % of the plot: a plausible week shape, not data. */
 const SKELETON = [40, 52, 66, 50, 44, 40, 36]
