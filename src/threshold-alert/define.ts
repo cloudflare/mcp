@@ -11,7 +11,6 @@
 import type { ToolAnnotations } from '@modelcontextprotocol/server'
 import { z } from 'zod'
 import { autoResolvedAccountId, missingAccountMessage } from '../auth/account-access'
-import type { AuthProps } from '../auth/types'
 import { ScopeChallenge } from '../scope-challenge'
 import { ApiReadError, ApiReadUnsupported, apiReader, type ApiReader } from '../mcp-apps/api-read'
 import { defineMcpApp, type AppContext, type AppOutcome, type McpApp } from '../mcp-apps/define'
@@ -28,7 +27,6 @@ export type { ExistingAlert, ThresholdAlertInput } from './contract'
 export interface Collected {
   readonly checkedAt: string
   readonly accountId: string
-  readonly accountName?: string
   readonly userEmail?: string
   readonly today: string
   readonly days: Day[]
@@ -91,12 +89,6 @@ const Policies = z.object({
     })
   )
 })
-
-function accountName(props: AuthProps, accountId: string): string | undefined {
-  if (props.type === 'account_token')
-    return props.account.id === accountId ? props.account.name : undefined
-  return props.accounts.find((account) => account.id === accountId)?.name
-}
 
 /**
  * Define a threshold alert App: the preset's tool, its static view and a
@@ -211,11 +203,9 @@ export function defineThresholdAlertApp<Input extends z.ZodObject, Output extend
         `The line starts at ${clamped!.toLocaleString('en')}, not at the number named (${limit.toLocaleString('en')}): that is the ${clamped! > limit ? 'lowest' : 'highest'} the card's line reaches for this history. Say so in one sentence.`
       )
     const suggested = clamped ?? model.suggested
-    const name = accountName(context.props, accountId)
     const value = definition.shape({
       checkedAt: now.toISOString(),
       accountId,
-      ...(name ? { accountName: name } : {}),
       ...(context.props.type === 'user_token' ? { userEmail: context.props.user.email } : {}),
       today,
       days,

@@ -235,7 +235,6 @@ describe.each([
     expect(result?.structuredContent).toMatchObject({
       kind: 'workers_usage_alert_preview',
       accountId: ACCOUNT,
-      accountName: 'Usage Co',
       today: AS_OF,
       alertAvailable: true,
       existingAlerts: [

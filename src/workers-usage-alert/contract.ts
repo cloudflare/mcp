@@ -40,7 +40,6 @@ const head = {
   nextStep: z.string(),
   checkedAt: z.iso.datetime(),
   accountId: z.string(),
-  accountName: z.string().optional(),
   /** The signed-in user's own email, for a user credential: the view's default recipient. */
   userEmail: z.string().optional(),
   /** The day treated as today, `YYYY-MM-DD`. It is still counting, so it isn't in `days`. */

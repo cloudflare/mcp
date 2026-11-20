@@ -40,14 +40,26 @@ import { EMAIL, approx, fmt, fmtDay, fmtDays, fmtPolicy, monthShort, sig, words 
 import './usage-alert.css'
 
 /**
- * What "Create alert" did. The click is the user's confirmation, so the App
- * creates the policy itself with a tool this server already lists
- * (`createPolicy`): `created`. A host that can't call server tools gets the
- * alert handed to the chat (`sent`), or else the request to send (`review`).
- * A refused or failed create is `failed`, with Cloudflare's reason; one that
- * got no answer is `failed` and unconfirmed, since it may have been made.
+ * Where the form is, with what only that step knows. The click is the user's
+ * confirmation, so the App creates the policy itself with a tool this server
+ * already lists (`createPolicy`): `created`. A host that can't call server
+ * tools gets the alert handed to the chat (`sent`), or else the request to
+ * send (`review`).
  */
-type Phase = 'editing' | 'sending' | 'created' | 'failed' | 'sent' | 'review'
+type Phase =
+  /** `deleted`: Undo just deleted the alert this card made; the field says so until the next edit. */
+  | { readonly kind: 'editing'; readonly deleted?: true }
+  | { readonly kind: 'sending' }
+  /** `undo`: Undo is deleting it, or Cloudflare refused, with the reason. */
+  | { readonly kind: 'created'; readonly undo?: 'deleting' | { readonly failed: string } }
+  /**
+   * A refused write, with Cloudflare's reason, or one that got no answer
+   * (`unconfirmed`): that create may have been made, so the card never says nothing was.
+   */
+  | { readonly kind: 'failed'; readonly reason: string; readonly unconfirmed: boolean }
+  | { readonly kind: 'sent' }
+  | { readonly kind: 'review' }
+const EDITING: Phase = { kind: 'editing' }
 type Tone = '' | 'hit' | 'now' | 'warn' | 'bad'
 /** Plain text, or a figure shown bold and direction-isolated. */
 type FactPart = string | { readonly b: string }
@@ -213,7 +225,7 @@ function UsageAlertCard({
   const [entered, setEntered] = useState(false)
   const [dragging, setDragging] = useState(false)
   const [tip, setTip] = useState<number | null>(null)
-  const [phase, setPhase] = useState<Phase>('editing')
+  const [phase, setPhase] = useState<Phase>(EDITING)
   const [email, setEmail] = useState(p.userEmail ?? '')
   const [touched, setTouched] = useState(false)
   const ids = { title: useId(), sub: useId(), err: useId(), hint: useId() }
@@ -251,10 +263,14 @@ function UsageAlertCard({
     setLimitState(v)
   }
 
-  const locked = !ready || (phase !== 'editing' && phase !== 'failed')
+  const locked = !ready || (phase.kind !== 'editing' && phase.kind !== 'failed')
   const address = email.trim()
   const invalid = touched && !EMAIL.test(address)
-  const done = phase === 'created' || phase === 'sent' || phase === 'review'
+  const done = phase.kind === 'created' || phase.kind === 'sent' || phase.kind === 'review'
+  const unconfirmed = phase.kind === 'failed' && phase.unconfirmed
+  const undo = phase.kind === 'created' ? phase.undo : undefined
+  const undoing = undo === 'deleting'
+  const undoFailed = typeof undo === 'object' ? undo.failed : ''
   // The legend under the chart, shimmering while it loads. An empty or failed card has no chart, so no legend:
   // its message says it all.
   const facts: readonly [Fact, Fact] | null =
@@ -496,19 +512,16 @@ function UsageAlertCard({
     setPhase(next)
     requestAnimationFrame(() => refs.done.current?.focus({ preventScroll: true }))
   }
-  const [failure, setFailure] = useState('')
-  /** The create got no answer: it may have been made, so the card doesn't say nothing was created. */
-  const [unconfirmed, setUnconfirmed] = useState(false)
-  /** The alert this card created, by the id the create returned: Undo deletes it, Save alert updates it. */
+  const fail = (reason: string, unconfirmed = false) =>
+    setPhase({ kind: 'failed', reason, unconfirmed })
+  /**
+   * The alert this card created and hasn't deleted, by the id the create
+   * returned: Undo deletes it. Once Edit reopens the form, the button reads
+   * Save alert and updates it instead of creating a second one.
+   */
   const [policyId, setPolicyId] = useState<string | null>(null)
-  /** Editing that alert: the button reads Save alert and updates it instead of creating a second one. */
-  const [live, setLive] = useState(false)
-  const [undoing, setUndoing] = useState(false)
-  const [undoFailed, setUndoFailed] = useState('')
-  /** A neutral one-line notice in the field, after Undo. */
-  const [notice, setNotice] = useState('')
   const createdAt = useRef(0)
-  const saving = live && policyId != null
+  const saving = policyId != null && phase.kind !== 'created'
   const tell = (text: string) =>
     void app?.updateModelContext?.({ content: [{ type: 'text', text }] }).catch(() => {})
   /**
@@ -523,30 +536,27 @@ function UsageAlertCard({
           say: 'Enter a full email address, like name@example.com.'
         }
       : { tone: 'bad', text: 'Required', say: 'Enter the email address to send alerts to.' }
-    : phase === 'failed' && unconfirmed
+    : unconfirmed
       ? {
           tone: 'bad',
           text: 'May have saved',
           say: 'No answer from Cloudflare: the alert may have been created. Check this account’s notifications before trying again.'
         }
-      : phase === 'failed'
+      : phase.kind === 'failed'
         ? {
             tone: 'bad',
             text: 'Didn’t save',
-            say: `Didn’t save: ${failureReason(failure)}. ${saving ? 'The alert wasn’t changed' : 'Nothing was created'}. Try again.`
+            say: `Didn’t save: ${failureReason(phase.reason)}. ${saving ? 'The alert wasn’t changed' : 'Nothing was created'}. Try again.`
           }
-        : notice
-          ? { tone: '', text: 'Alert deleted', say: notice }
+        : phase.kind === 'editing' && phase.deleted
+          ? { tone: '', text: 'Alert deleted', say: 'Alert deleted. Nothing will be emailed.' }
           : null
   const submit = async () => {
     if (locked || !app) return
     setTouched(true)
     if (!EMAIL.test(address)) return refs.email.current?.focus()
     const caps = app.getHostCapabilities()
-    setPhase('sending')
-    setFailure('')
-    setUnconfirmed(false)
-    setNotice('')
+    setPhase({ kind: 'sending' })
     const call: CallTool = (c) => app.callServerTool(c)
     if (saving && policyId) {
       const saved = await updatePolicy(call, p.accountId, policyId, policy).catch(
@@ -556,15 +566,12 @@ function UsageAlertCard({
         tell(
           `Alert ${policyId} updated: it emails ${address} when Workers ${what}. The user clicked Save alert in the ${preset.toolName} App. It's done: don't change it again or ask to confirm it.`
         )
-        setLive(false)
         createdAt.current = performance.now()
-        return settle('created')
+        return settle({ kind: 'created' })
       }
-      setFailure(
+      return fail(
         saved.status === 'unavailable' ? 'this connection can’t update alerts' : saved.error
       )
-      setPhase('failed')
-      return
     }
     if (caps?.serverTools) {
       const created = await createPolicy(call, p.accountId, policy).catch((error: unknown) => ({
@@ -578,24 +585,17 @@ function UsageAlertCard({
         )
         setPolicyId(created.id ?? null)
         createdAt.current = performance.now()
-        return settle('created')
+        return settle({ kind: 'created' })
       }
-      if (created.status === 'refused') {
-        setFailure(created.error)
-        setPhase('failed')
-        return
-      }
+      if (created.status === 'refused') return fail(created.error)
       if (created.status === 'unknown') {
         tell(
           `Create alert got no answer from Cloudflare (${failureReason(created.error)}): the ${copy.label} may have been created on account ${p.accountId}. Before creating it again, list the account's notification policies and check for "${name}".`
         )
-        setFailure(created.error)
-        setUnconfirmed(true)
-        setPhase('failed')
-        return
+        return fail(created.error, true)
       }
     }
-    if (!caps?.message) return settle('review')
+    if (!caps?.message) return settle({ kind: 'review' })
     try {
       if (caps.updateModelContext)
         await app.updateModelContext({
@@ -615,33 +615,29 @@ function UsageAlertCard({
           }
         ]
       })
-      settle(result.isError ? 'review' : 'sent')
+      settle({ kind: result.isError ? 'review' : 'sent' })
     } catch {
-      settle('review')
+      settle({ kind: 'review' })
     }
   }
 
   // Undo: delete the alert just created; the form returns as it was, with a neutral notice in the field.
-  const undo = async () => {
+  const onUndo = async () => {
     // Undo appears under the pointer that just clicked Create: ignore the second click of a double-click.
     if (!app || !policyId || undoing || performance.now() - createdAt.current < 500) return
-    setUndoing(true)
-    setUndoFailed('')
+    setPhase({ kind: 'created', undo: 'deleting' })
     const deleted = await deletePolicy((c) => app.callServerTool(c), p.accountId, policyId).catch(
       (error: unknown) => ({ status: 'refused' as const, error: String(error) })
     )
-    setUndoing(false)
     if (deleted.status !== 'done') {
-      setUndoFailed(deleted.status === 'refused' ? failureReason(deleted.error) : 'try again')
-      return
+      const failed = deleted.status === 'refused' ? failureReason(deleted.error) : 'try again'
+      return setPhase({ kind: 'created', undo: { failed } })
     }
     tell(
       `Alert ${policyId} deleted: no ${copy.label} from this card exists now. The user clicked Undo in the ${preset.toolName} App. Don't recreate it unless the user asks.`
     )
     setPolicyId(null)
-    setLive(false)
-    setNotice('Alert deleted. Nothing will be emailed.')
-    setPhase('editing')
+    setPhase({ kind: 'editing', deleted: true })
     requestAnimationFrame(() => refs.create.current?.focus({ preventScroll: true }))
   }
 
@@ -680,9 +676,9 @@ function UsageAlertCard({
     <LayerCard
       className="lc"
       data-data={state}
-      data-phase={phase}
+      data-phase={phase.kind}
       data-dragging={dragging || undefined}
-      aria-busy={pending?.kind === 'loading' || phase === 'sending' || undoing}
+      aria-busy={pending?.kind === 'loading' || phase.kind === 'sending' || undoing}
       render={<section aria-labelledby={ids.title} aria-describedby={ids.sub} />}
     >
       <LayerCard.Primary className="lc-primary">
@@ -816,7 +812,7 @@ function UsageAlertCard({
           </p>
         )}
         {/* A create with no answer may have been made: say so where everyone sees it, before Create anyway. */}
-        {phase === 'failed' && unconfirmed && (
+        {unconfirmed && (
           <p className="note" data-tone="bad">
             No answer from Cloudflare, so this alert may already exist. Check this account’s
             notifications before creating it again.
@@ -854,26 +850,28 @@ function UsageAlertCard({
                 aria-label="Alert email"
                 aria-describedby={ids.hint}
                 aria-invalid={invalid}
-                readOnly={phase === 'sending'}
+                readOnly={phase.kind === 'sending'}
                 disabled={!ready}
                 value={email}
                 onChange={(e) => {
                   setEmail(e.target.value)
-                  setNotice('')
                   // A create with no answer stays unconfirmed: editing the address doesn't settle it.
-                  if (phase === 'failed' && !unconfirmed) setPhase('editing')
+                  if (
+                    phase.kind === 'editing'
+                      ? phase.deleted
+                      : !unconfirmed && phase.kind === 'failed'
+                  )
+                    setPhase(EDITING)
                 }}
                 onBlur={() => address && setTouched(true)}
                 // Not after a create that got no answer: sending it again takes the button's own click.
-                onKeyDown={(e) =>
-                  e.key === 'Enter' && !(phase === 'failed' && unconfirmed) && submit()
-                }
+                onKeyDown={(e) => e.key === 'Enter' && !unconfirmed && submit()}
               />
               <span
                 className="to-hint"
                 id={ids.hint}
                 data-tone={hint?.tone}
-                title={phase === 'failed' ? failureReason(failure) : undefined}
+                title={phase.kind === 'failed' ? failureReason(phase.reason) : undefined}
               >
                 {hint?.text}
               </span>
@@ -882,13 +880,13 @@ function UsageAlertCard({
               ref={refs.create}
               variant="primary"
               className="create"
-              loading={phase === 'sending'}
+              loading={phase.kind === 'sending'}
               disabled={!ready}
               onClick={submit}
             >
-              {phase === 'failed' && unconfirmed
+              {unconfirmed
                 ? 'Create anyway'
-                : phase === 'failed'
+                : phase.kind === 'failed'
                   ? 'Try again'
                   : saving
                     ? 'Save alert'
@@ -920,9 +918,9 @@ function UsageAlertCard({
                 />
               </svg>
               <span className="done-1">
-                {phase === 'created'
+                {phase.kind === 'created'
                   ? 'Alert on'
-                  : phase === 'review'
+                  : phase.kind === 'review'
                     ? 'Ready to create'
                     : 'Sent to chat'}
               </span>
@@ -947,13 +945,13 @@ function UsageAlertCard({
               </span>
             </div>
             <div className="done-acts">
-              {phase === 'created' && policyId && (
+              {phase.kind === 'created' && policyId && (
                 <Button
                   variant="ghost"
                   className="undo"
                   loading={undoing}
                   aria-description="Deletes this alert"
-                  onClick={undo}
+                  onClick={onUndo}
                 >
                   Undo
                 </Button>
@@ -964,9 +962,7 @@ function UsageAlertCard({
                 disabled={undoing}
                 onClick={() => {
                   // On an alert this card made, Edit changes that alert (Save alert), not a second one.
-                  setLive(phase === 'created' && policyId != null)
-                  setUndoFailed('')
-                  setPhase('editing')
+                  setPhase(EDITING)
                   requestAnimationFrame(() => refs.knob.current?.focus({ preventScroll: true }))
                 }}
               >
@@ -976,7 +972,7 @@ function UsageAlertCard({
           </div>
         </div>
       )}
-      {phase === 'review' && (
+      {phase.kind === 'review' && (
         <Collapsible className="request-disclosure">
           <Collapsible.DefaultTrigger className="text-sm font-normal text-kumo-subtle">
             Request to create it

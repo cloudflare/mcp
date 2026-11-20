@@ -29,7 +29,6 @@ const common = (c: Collected) => ({
   nextStep: USAGE_ALERT_NEXT_STEP,
   checkedAt: c.checkedAt,
   accountId: c.accountId,
-  ...(c.accountName ? { accountName: c.accountName } : {}),
   ...(c.userEmail ? { userEmail: c.userEmail } : {}),
   today: c.today,
   days: c.days
