@@ -16,11 +16,11 @@ import {
 } from "./outputs.js";
 
 /**
- * The tools of `dns.dnssec.list`.
+ * The tools of `dns.dnssec.zsks`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "dns_dnssec_list_zsks",
+    name: "dns_dnssec_zsks_list",
     title: "List DNSSEC ZSKs",
     description: "List the Zone Signing Keys (ZSKs) that DNSSEC uses for the zone.\n\nGET /zones/{zone_id}/dnssec/zsk",
     inputSchema: {

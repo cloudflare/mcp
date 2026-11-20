@@ -21,7 +21,14 @@ export const realtimekit_ActiveSession: JSONObject = {
       "type": "string"
     },
     "ended_at": {
-      "type": "string"
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "id": {
       "type": "string"
@@ -632,9 +639,27 @@ export const realtimekit_StorageConfig: JSONObject = {
               "properties": {
                 "access_key": {},
                 "region": {},
+                "secret": {},
                 "type": {
                   "enum": [
-                    "aws",
+                    "aws"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "access_key",
+                "region",
+                "secret"
+              ],
+              "type": "object"
+            },
+            {
+              "properties": {
+                "access_key": {},
+                "region": {},
+                "type": {
+                  "enum": [
                     "azure",
                     "digitalocean"
                   ],

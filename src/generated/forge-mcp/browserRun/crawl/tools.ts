@@ -2,6 +2,7 @@
 /* eslint-disable */
 
 import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
+import { brapi_CrawlJsonValue } from "./outputs.js";
 
 /**
  * The tools of `browserRun.crawl`.
@@ -1263,23 +1264,46 @@ export const tools: readonly Tool[] = [
               "items": {
                 "properties": {
                   "html": {
-                    "type": "string"
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
                   },
                   "json": {
-                    "additionalProperties": {
-                      "oneOf": [
-                        {
-                          "type": "object"
+                    "anyOf": [
+                      {
+                        "additionalProperties": {
+                          "$ref": "#/$defs/brapi_CrawlJsonValue"
                         },
-                        {
-                          "type": "null"
-                        }
-                      ]
-                    },
-                    "type": "object"
+                        "type": "object"
+                      },
+                      {
+                        "items": {
+                          "$ref": "#/$defs/brapi_CrawlJsonValue"
+                        },
+                        "type": "array"
+                      },
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
                   },
                   "markdown": {
-                    "type": "string"
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
                   },
                   "metadata": {
                     "properties": {
@@ -1415,6 +1439,9 @@ export const tools: readonly Tool[] = [
         "success"
       ],
       "type": "object",
+      $defs: {
+        "brapi_CrawlJsonValue": brapi_CrawlJsonValue,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -1491,23 +1518,46 @@ export const tools: readonly Tool[] = [
                     "items": {
                       "properties": {
                         "html": {
-                          "type": "string"
+                          "oneOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
                         },
                         "json": {
-                          "additionalProperties": {
-                            "oneOf": [
-                              {
-                                "type": "object"
+                          "anyOf": [
+                            {
+                              "additionalProperties": {
+                                "$ref": "#/$defs/brapi_CrawlJsonValue"
                               },
-                              {
-                                "type": "null"
-                              }
-                            ]
-                          },
-                          "type": "object"
+                              "type": "object"
+                            },
+                            {
+                              "items": {
+                                "$ref": "#/$defs/brapi_CrawlJsonValue"
+                              },
+                              "type": "array"
+                            },
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
                         },
                         "markdown": {
-                          "type": "string"
+                          "oneOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
                         },
                         "metadata": {
                           "properties": {
@@ -1702,6 +1752,9 @@ export const tools: readonly Tool[] = [
             ],
             "type": "object"
           }
+        },
+        $defs: {
+          "brapi_CrawlJsonValue": brapi_CrawlJsonValue,
         },
       },
     },

@@ -373,6 +373,203 @@ export const tools: readonly Tool[] = [
     },
   },
   {
+    name: "realtime_kit_meetings_participants_edit",
+    title: "Edit a participant's detail",
+    description: "Updates a participant's details for the given meeting and participant ID.\n\nThis method is beta.\n\nPATCH /accounts/{account_id}/realtime/kit/{app_id}/meetings/{meeting_id}/participants/{participant_id}",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "body": {
+          "properties": {
+            "name": {
+              "description": "(Optional) Name of the participant.",
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "picture": {
+              "description": "(Optional) A URL to a picture to be used for the participant.",
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "preset_name": {
+              "description": "(Optional) Name of the preset to apply to this participant.",
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "type": "object"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "The account identifier tag.",
+              "type": "string"
+            },
+            "app_id": {
+              "description": "The app identifier tag.",
+              "type": "string"
+            },
+            "meeting_id": {
+              "description": "ID of the meeting. You can fetch the meeting ID using the create a meeting API.",
+              "format": "uuid",
+              "type": "string"
+            },
+            "participant_id": {
+              "description": "ID of the participant. You can fetch the participant ID using the add a participant API.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "app_id",
+            "meeting_id",
+            "participant_id"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path",
+        "body"
+      ],
+      additionalProperties: false,
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/realtimekit_GenericSuccessResponse"
+        },
+        {
+          "properties": {
+            "data": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/realtimekit_Participant"
+                },
+                {
+                  "properties": {
+                    "expires_on": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "not_before": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "token": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "token"
+                  ],
+                  "type": "object"
+                }
+              ]
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse,
+        "realtimekit_Participant": realtimekit_Participant,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Edit a participant's detail"
+    },
+    [OPERATION]: {
+      method: "PATCH",
+      path: "/accounts/{account_id}/realtime/kit/{app_id}/meetings/{meeting_id}/participants/{participant_id}",
+      pathOf: encodePath`/accounts/${"account_id"}/realtime/kit/${"app_id"}/meetings/${"meeting_id"}/participants/${"participant_id"}`,
+      body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-api-token-group": [
+          "Realtime Admin",
+          "Realtime"
+        ]
+      },
+      responses: {
+        schemas: {
+          "200": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/realtimekit_GenericSuccessResponse"
+              },
+              {
+                "properties": {
+                  "data": {
+                    "allOf": [
+                      {
+                        "$ref": "#/$defs/realtimekit_Participant"
+                      },
+                      {
+                        "properties": {
+                          "expires_on": {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "not_before": {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "token": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "token"
+                        ],
+                        "type": "object"
+                      }
+                    ]
+                  }
+                },
+                "type": "object"
+              }
+            ]
+          },
+          "4XX": {
+            "$ref": "#/$defs/realtimekit_GenericErrorResponse"
+          },
+          "500": {
+            "$ref": "#/$defs/realtimekit_GenericErrorResponse"
+          }
+        },
+        $defs: {
+          "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse,
+          "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse,
+          "realtimekit_Participant": realtimekit_Participant,
+          "realtimekit_ValidationIssue": realtimekit_ValidationIssue,
+        },
+      },
+    },
+  },
+  {
     name: "realtime_kit_meetings_participants_get",
     title: "Fetch a participant's detail",
     description: "Returns a participant details for the given meeting and participant ID.\n\nThis method is beta.\n\nGET /accounts/{account_id}/realtime/kit/{app_id}/meetings/{meeting_id}/participants/{participant_id}",
@@ -754,203 +951,6 @@ export const tools: readonly Tool[] = [
     },
     [OPERATION]: {
       method: "PUT",
-      path: "/accounts/{account_id}/realtime/kit/{app_id}/meetings/{meeting_id}/participants/{participant_id}",
-      pathOf: encodePath`/accounts/${"account_id"}/realtime/kit/${"app_id"}/meetings/${"meeting_id"}/participants/${"participant_id"}`,
-      body: { mediaTypes: ["application/json"] },
-      extensions: {
-        "x-api-token-group": [
-          "Realtime Admin",
-          "Realtime"
-        ]
-      },
-      responses: {
-        schemas: {
-          "200": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/realtimekit_GenericSuccessResponse"
-              },
-              {
-                "properties": {
-                  "data": {
-                    "allOf": [
-                      {
-                        "$ref": "#/$defs/realtimekit_Participant"
-                      },
-                      {
-                        "properties": {
-                          "expires_on": {
-                            "format": "date-time",
-                            "type": "string"
-                          },
-                          "not_before": {
-                            "format": "date-time",
-                            "type": "string"
-                          },
-                          "token": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "token"
-                        ],
-                        "type": "object"
-                      }
-                    ]
-                  }
-                },
-                "type": "object"
-              }
-            ]
-          },
-          "4XX": {
-            "$ref": "#/$defs/realtimekit_GenericErrorResponse"
-          },
-          "500": {
-            "$ref": "#/$defs/realtimekit_GenericErrorResponse"
-          }
-        },
-        $defs: {
-          "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse,
-          "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse,
-          "realtimekit_Participant": realtimekit_Participant,
-          "realtimekit_ValidationIssue": realtimekit_ValidationIssue,
-        },
-      },
-    },
-  },
-  {
-    name: "realtime_kit_meetings_participants_update",
-    title: "Edit a participant's detail",
-    description: "Updates a participant's details for the given meeting and participant ID.\n\nThis method is beta.\n\nPATCH /accounts/{account_id}/realtime/kit/{app_id}/meetings/{meeting_id}/participants/{participant_id}",
-    inputSchema: {
-      type: "object",
-      properties: {
-        "body": {
-          "properties": {
-            "name": {
-              "description": "(Optional) Name of the participant.",
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "picture": {
-              "description": "(Optional) A URL to a picture to be used for the participant.",
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "preset_name": {
-              "description": "(Optional) Name of the preset to apply to this participant.",
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            }
-          },
-          "type": "object"
-        },
-        "path": {
-          "additionalProperties": false,
-          "properties": {
-            "account_id": {
-              "description": "The account identifier tag.",
-              "type": "string"
-            },
-            "app_id": {
-              "description": "The app identifier tag.",
-              "type": "string"
-            },
-            "meeting_id": {
-              "description": "ID of the meeting. You can fetch the meeting ID using the create a meeting API.",
-              "format": "uuid",
-              "type": "string"
-            },
-            "participant_id": {
-              "description": "ID of the participant. You can fetch the participant ID using the add a participant API.",
-              "type": "string"
-            }
-          },
-          "required": [
-            "account_id",
-            "app_id",
-            "meeting_id",
-            "participant_id"
-          ],
-          "type": "object"
-        }
-      },
-      required: [
-        "path",
-        "body"
-      ],
-      additionalProperties: false,
-    },
-    outputSchema: {
-      "allOf": [
-        {
-          "$ref": "#/$defs/realtimekit_GenericSuccessResponse"
-        },
-        {
-          "properties": {
-            "data": {
-              "allOf": [
-                {
-                  "$ref": "#/$defs/realtimekit_Participant"
-                },
-                {
-                  "properties": {
-                    "expires_on": {
-                      "format": "date-time",
-                      "type": "string"
-                    },
-                    "not_before": {
-                      "format": "date-time",
-                      "type": "string"
-                    },
-                    "token": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "token"
-                  ],
-                  "type": "object"
-                }
-              ]
-            }
-          },
-          "type": "object"
-        }
-      ],
-      $defs: {
-        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse,
-        "realtimekit_Participant": realtimekit_Participant,
-      },
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Edit a participant's detail"
-    },
-    [OPERATION]: {
-      method: "PATCH",
       path: "/accounts/{account_id}/realtime/kit/{app_id}/meetings/{meeting_id}/participants/{participant_id}",
       pathOf: encodePath`/accounts/${"account_id"}/realtime/kit/${"app_id"}/meetings/${"meeting_id"}/participants/${"participant_id"}`,
       body: { mediaTypes: ["application/json"] },
