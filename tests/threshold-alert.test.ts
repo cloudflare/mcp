@@ -330,6 +330,16 @@ describe.each([
     )
   })
 
+  it('says so when a named number is below the lowest the line reaches', async () => {
+    const result = await call('workers_billing_alert', { as_of: AS_OF, limit: 10_000 })
+    const suggested = (result?.structuredContent?.summary as { suggestedLimit: number })
+      .suggestedLimit
+    expect(suggested).toBeGreaterThan(10_000)
+    expect(JSON.stringify(result?.structuredContent?.limitations)).toContain(
+      'not at the number named (10,000)'
+    )
+  })
+
   it('creates exactly the billing policy the card shows, with the same generated tool', async () => {
     let sent: unknown
     server.use(

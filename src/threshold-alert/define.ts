@@ -205,7 +205,12 @@ export function defineThresholdAlertApp<Input extends z.ZodObject, Output extend
       limitations.push(
         `The line starts a tenth above the busiest ${preset.copy.bucket}, not at the number named (${limit.toLocaleString('en')}): that number is at or below the busiest ${preset.copy.bucket} (${Math.round(model.peak).toLocaleString('en')}), so it would already have emailed. Lead with this in one sentence and point to the card, where the user drags the line; don't ask for a number in chat.`
       )
-    const suggested = named ? clamp(limit, model.minLimit, model.maxLimit) : model.suggested
+    const clamped = named ? clamp(limit, model.minLimit, model.maxLimit) : null
+    if (named && clamped !== limit)
+      limitations.push(
+        `The line starts at ${clamped!.toLocaleString('en')}, not at the number named (${limit.toLocaleString('en')}): that is the ${clamped! > limit ? 'lowest' : 'highest'} the card's line reaches for this history. Say so in one sentence.`
+      )
+    const suggested = clamped ?? model.suggested
     const name = accountName(context.props, accountId)
     const value = definition.shape({
       checkedAt: now.toISOString(),

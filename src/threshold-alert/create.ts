@@ -29,6 +29,8 @@ export type CallTool = (call: {
 export type WriteResult =
   | { status: 'done'; id?: string }
   | { status: 'refused'; error: string }
+  /** No answer from Cloudflare: the write may have been made, so it isn't safe to send again. */
+  | { status: 'unknown'; error: string }
   | { status: 'unavailable' }
 
 const text = (r: ToolResult) => r.content?.find((c) => c.type === 'text')?.text ?? ''
@@ -45,10 +47,16 @@ async function write(
     r = await call({ name, arguments: args })
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error)
-    return notFound(message) ? { status: 'unavailable' } : { status: 'refused', error: message }
+    return notFound(message) ? { status: 'unavailable' } : { status: 'unknown', error: message }
   }
-  if (r.isError)
-    return notFound(text(r)) ? { status: 'unavailable' } : { status: 'refused', error: text(r) }
+  if (r.isError) {
+    if (notFound(text(r))) return { status: 'unavailable' }
+    // Cloudflare answered: its refusal is the tool error's first line. Anything else (a lost
+    // connection, a timeout) has no answer, and the write may have been made.
+    return text(r).startsWith('Cloudflare API error:')
+      ? { status: 'refused', error: text(r) }
+      : { status: 'unknown', error: text(r) }
+  }
   const id = createdId(text(r))
   return { status: 'done', ...(id && { id }) }
 }

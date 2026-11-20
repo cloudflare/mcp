@@ -541,7 +541,8 @@ describe.each([
 
     const result = await createPolicy(callTool, ACCOUNT, policy)
 
-    expect(result.status).toBe('refused')
+    // No answer: it may have been created, so the card doesn't offer a plain retry.
+    expect(result.status).toBe('unknown')
     expect(posts).toBe(1)
   })
 

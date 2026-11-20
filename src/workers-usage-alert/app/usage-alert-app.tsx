@@ -44,7 +44,8 @@ import './usage-alert.css'
  * creates the policy itself with a tool this server already lists
  * (`createPolicy`): `created`. A host that can't call server tools gets the
  * alert handed to the chat (`sent`), or else the request to send (`review`).
- * A refused or failed create is `failed`, with Cloudflare's reason.
+ * A refused or failed create is `failed`, with Cloudflare's reason; one that
+ * got no answer is `failed` and unconfirmed, since it may have been made.
  */
 type Phase = 'editing' | 'sending' | 'created' | 'failed' | 'sent' | 'review'
 type Tone = '' | 'hit' | 'now' | 'warn' | 'bad'
@@ -66,6 +67,9 @@ function outcome(m: Model, limit: number, preset: ThresholdAlertPreset): [Fact, 
   const { bucket, current, alreadyOver } = preset.copy
   const sent = replayEmails(m.days, m.rolling, limit, m.cadence)
   const first = sent.find((e) => e.first)
+  // By month, the replay is Workers analytics by calendar month, not billing's count in its
+  // period: an estimate, and said as one.
+  const about = m.cadence.kind === 'month' ? 'About ' : ''
   const past: Fact =
     m.typical && limit < m.typical
       ? ['warn', [`Below a typical ${bucket} (`, { b: approx(m.typical, 2) }, ')']]
@@ -73,6 +77,7 @@ function outcome(m: Model, limit: number, preset: ThresholdAlertPreset): [Fact, 
         ? [
             'hit',
             [
+              about,
               { b: String(sent.length) },
               ` past ${sent.length === 1 ? 'email' : 'emails'}, first `,
               { b: fmtDay(first.date) }
@@ -150,7 +155,8 @@ function tipBody(m: Model, w: Week, limit: number, preset: ThresholdAlertPreset)
       {email && (
         <div className="tip-e">
           <i />
-          {email.first ? 'Would have emailed' : 'Would have emailed again'} {fmtDay(email.date)}
+          {monthly ? 'Would likely have emailed' : 'Would have emailed'}
+          {email.first ? '' : ' again'} {fmtDay(email.date)}
         </div>
       )}
     </>
@@ -490,6 +496,8 @@ function UsageAlertCard({
     requestAnimationFrame(() => refs.done.current?.focus({ preventScroll: true }))
   }
   const [failure, setFailure] = useState('')
+  /** The create got no answer: it may have been made, so the card doesn't say nothing was created. */
+  const [unconfirmed, setUnconfirmed] = useState(false)
   /** The alert this card created, by the id the create returned: Undo deletes it, Save alert updates it. */
   const [policyId, setPolicyId] = useState<string | null>(null)
   /** Editing that alert: the button reads Save alert and updates it instead of creating a second one. */
@@ -514,15 +522,21 @@ function UsageAlertCard({
           say: 'Enter a full email address, like name@example.com.'
         }
       : { tone: 'bad', text: 'Required', say: 'Enter the email address to send alerts to.' }
-    : phase === 'failed'
+    : phase === 'failed' && unconfirmed
       ? {
           tone: 'bad',
-          text: 'Didn’t save',
-          say: `Didn’t save: ${failureReason(failure)}. ${saving ? 'The alert wasn’t changed' : 'Nothing was created'}. Try again.`
+          text: 'May have saved',
+          say: 'No answer from Cloudflare: the alert may have been created. Check this account’s notifications before trying again.'
         }
-      : notice
-        ? { tone: '', text: 'Alert deleted', say: notice }
-        : null
+      : phase === 'failed'
+        ? {
+            tone: 'bad',
+            text: 'Didn’t save',
+            say: `Didn’t save: ${failureReason(failure)}. ${saving ? 'The alert wasn’t changed' : 'Nothing was created'}. Try again.`
+          }
+        : notice
+          ? { tone: '', text: 'Alert deleted', say: notice }
+          : null
   const submit = async () => {
     if (locked || !app) return
     setTouched(true)
@@ -530,6 +544,7 @@ function UsageAlertCard({
     const caps = app.getHostCapabilities()
     setPhase('sending')
     setFailure('')
+    setUnconfirmed(false)
     setNotice('')
     const call: CallTool = (c) => app.callServerTool(c)
     if (saving && policyId) {
@@ -564,6 +579,15 @@ function UsageAlertCard({
       }
       if (created.status === 'refused') {
         setFailure(created.error)
+        setPhase('failed')
+        return
+      }
+      if (created.status === 'unknown') {
+        tell(
+          `Create alert got no answer from Cloudflare (${failureReason(created.error)}): the ${copy.label} may have been created on account ${p.accountId}. Before creating it again, list the account's notification policies and check for "${name}".`
+        )
+        setFailure(created.error)
+        setUnconfirmed(true)
         setPhase('failed')
         return
       }

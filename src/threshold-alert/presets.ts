@@ -176,7 +176,7 @@ export const WORKERS_REQUESTS_BILLING: ThresholdAlertPreset = {
     per: 'in a billing period',
     bucket: 'month',
     current: 'This month',
-    alreadyOver: 'Already over this month: emails once billing counts it',
+    alreadyOver: 'Likely over this month: emails once billing counts it',
     source: 'Workers analytics',
     unavailable: {
       title: 'Billing alerts aren’t on this plan',

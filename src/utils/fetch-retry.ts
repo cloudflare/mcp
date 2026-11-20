@@ -13,7 +13,7 @@ export interface RetryOptions {
   /**
    * Whether a 429 is retried here. `execute` turns it off: its sandbox waits out rate limits
    * itself, where the wait is held against the run's other requests and its wait budget.
-   * Network errors are retried either way.
+   * Network errors are retried either way, unless `retryNetworkErrors` is off.
    */
   retryRateLimited?: boolean
   /**
@@ -171,6 +171,7 @@ export async function fetchWithRetry(
       }
     } catch (error) {
       lastError = error
+      // Even after a 429: this attempt is a new request, and it may have reached the server.
       if (!opts.retryNetworkErrors) {
         console.warn(
           `fetchWithRetry: network error${caller} url=${url}, not retried: the request may have been received: ${error instanceof Error ? error.message : error}`

@@ -76,25 +76,29 @@ export function mountMcpApp<Output extends z.ZodType>(options: MountOptions<Outp
   // The last thing drawn, so a locale change re-renders it in the new formats and direction.
   let last: () => ReactNode = () => null
   const draw = (node: () => ReactNode) => {
-    last = node
-    root.render(node())
+    last = () => {
+      drawnFor = toolName()
+      return node()
+    }
+    root.render(last())
   }
+  const toolName = () => app.getHostContext()?.toolInfo?.tool.name
+  // The tool name last drawn with: the pending and error views depend on it, and it can arrive late.
+  let drawnFor: string | undefined
   const followHost = () => {
     const context = app.getHostContext()
     applyTheme(context?.theme)
-    if (applyLocale(resolveLocale(context?.locale, options.languages ?? ['en'])))
-      root.render(last())
+    const relocalised = applyLocale(resolveLocale(context?.locale, options.languages ?? ['en']))
+    if (relocalised || toolName() !== drawnFor) root.render(last())
   }
-  const toolName = () => app.getHostContext()?.toolInfo?.tool.name
-  // Drawn again on connect (`followHost` redraws the last thing), when the tool's name is known.
   const pending = () =>
     draw(() => options.renderPending?.(toolName()) ?? <p role="status">{copy.pending}</p>)
   let input: Record<string, unknown> | undefined
   const show = (result: CallToolResult) => {
     if (result.isError && options.renderError) {
       const text = result.content.flatMap((c) => (c.type === 'text' ? [c.text] : [])).join('\n')
-      const name = toolName()
-      const retry =
+      // Decided at each draw, from the host's current context: `toolInfo` can arrive after the error.
+      const retryFor = (name: string | undefined) =>
         name && app.getHostCapabilities()?.serverTools
           ? () => {
               pending()
@@ -106,7 +110,7 @@ export function mountMcpApp<Output extends z.ZodType>(options: MountOptions<Outp
                 )
             }
           : undefined
-      return draw(() => options.renderError!(text, retry, toolName()))
+      return draw(() => options.renderError!(text, retryFor(toolName()), toolName()))
     }
     const parsed = options.output.safeParse(result.structuredContent)
     draw(() =>
@@ -126,10 +130,7 @@ export function mountMcpApp<Output extends z.ZodType>(options: MountOptions<Outp
   app.ontoolcancelled = () => draw(() => <p role="status">{copy.cancelled}</p>)
   app
     .connect()
-    .then(() => {
-      followHost()
-      // Now with the host's `toolInfo`: the pending view can name its tool.
-      root.render(last())
-    })
+    // With the host's `toolInfo` now known, `followHost` redraws the pending view for its tool.
+    .then(followHost)
     .catch(() => draw(() => <p role="alert">{copy.disconnected}</p>))
 }
