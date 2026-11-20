@@ -94,11 +94,13 @@ The view, the model, the reads of alerting state and the writes are shared, so a
 | let me know if our Workers suddenly get a lot more requests than usual                | `workers_usage_alert`                    |
 | alert me when a week of Worker requests passes 2 billion                              | `workers_usage_alert`                    |
 | set up a spike alert for our Workers, not every bump, just clearly bigger than normal | `workers_usage_alert`                    |
+| I keep worrying a bot will hammer our Workers overnight. is there a way to get told when that happens? | `workers_usage_alert` |
 | email me before our Workers bill passes 50M requests                                  | `workers_billing_alert`                  |
 | tell me when we go over 10 million billed Workers requests this month                 | `workers_billing_alert`                  |
 | set up a usage based billing notification for Workers requests                        | `workers_billing_alert`                  |
 | I want a heads-up when our Workers usage this billing cycle gets past 100M requests   | `workers_billing_alert`                  |
 | block traffic over 1M requests                                                        | neither (alerts never block)             |
+| just shut off our Workers if they go over 1M requests, I don't want a surprise bill   | neither (alerts never block)             |
 | cap our Workers so we never pay more than $20                                         | neither (a spending limit, not an alert) |
 | warn me if we're going to spend more than $500 this month                             | neither, until `account-budget` ships    |
 | alert me when our R2 storage passes 1 TB                                              | neither                                  |
@@ -143,5 +145,7 @@ Open questions before registering it: which spend endpoint is stable enough to c
 | let me know if our Workers suddenly get a lot more requests than usual | `workers_usage_alert` |
 | block traffic over 1M requests | neither; it asked what scope to rate-limit, created nothing |
 | warn me if we're going to spend more than $500 this month | neither; it said the alerts count requests, not dollars, created nothing |
+
+A second ChatGPT run (November 19) found two misses, both fixed in the descriptions: “just shut off our Workers if they go over 1M requests” opened the billing card (its reply did say alerts can't block), so both descriptions now say not to call them to shut off, cap or block; and “is there a way to get told when a bot hammers our Workers?” went to a web search, so `workers_usage_alert` now claims those questions.
 
 In the first run of the 10M prompt, the line opened at the named 10M, under every bar, with the card already firing. The suggestion now ignores a named number at or below the busiest period and says why in `limitations`. The re-run opened a tenth above the tallest bar, and the reply pointed to the card.

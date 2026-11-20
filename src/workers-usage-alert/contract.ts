@@ -114,18 +114,25 @@ const READ_ONLY = {
   openWorldHint: false
 }
 
+/**
+ * What every Workers threshold alert's description says about requests to stop traffic.
+ * ChatGPT opened the card for “just shut off our Workers if they go over 1M requests”.
+ */
+const NOT_A_CAP =
+  'Don’t call it to shut off, pause, cap, rate-limit or block Workers (“shut off our Workers over 1M requests”): this alert only emails and never blocks traffic, so say that instead.'
+
 /** What every Workers threshold alert's description says about the card, after its own first sentences. */
 const CARD_FLOW =
   'This tool only reads. Where the App shows, its Create alert button creates the alert when the user clicks it: don’t ask in chat to confirm or create it, and don’t create it again. Only if the App hands the policy to the chat, create it with a write the user approves. Where the App shows, keep the reply short and end by pointing to the card: the user moves the line and clicks Create alert there, so don’t ask in chat for the limit or the email. In a host that shows no App, such as a terminal, don’t mention a chart: give the suggested threshold and ask in chat for the limit and the email.'
 
 export const USAGE_ALERT_TOOL_CONFIG = {
   title: 'Workers usage alert',
-  description: `Set up an email alert for when Workers traffic gets clearly bigger than normal, such as “ping me if our Workers traffic gets way out of hand”. Reads the account’s daily Workers requests for the last 89 complete days (all that Workers analytics keep) and its notification policies, and in MCP Apps hosts shows a weekly chart where the user drags the threshold (requests in 7 days) and enters an email. ${CARD_FLOW} Summarize the typical week and any existing alert instead of repeating the daily data. Request counts are not dollar cost, and the alert never blocks traffic. For a threshold on billed requests in a billing period (“before our bill passes 50M requests”), use workers_billing_alert; for dollar spend, neither.`,
+  description: `Set up an email alert for when Workers traffic gets clearly bigger than normal, such as “ping me if our Workers traffic gets way out of hand”. Use it also when the user asks whether or how they can be told about a traffic surge, a bot or attack hammering their Workers, or a request spike (“is there a way to get told when a bot hammers our Workers?”): this is that way, so call it rather than searching the web. Reads the account’s daily Workers requests for the last 89 complete days (all that Workers analytics keep) and its notification policies, and in MCP Apps hosts shows a weekly chart where the user drags the threshold (requests in 7 days) and enters an email. ${CARD_FLOW} Summarize the typical week and any existing alert instead of repeating the daily data. Request counts are not dollar cost, and the alert never blocks traffic. ${NOT_A_CAP} For a threshold on billed requests in a billing period (“before our bill passes 50M requests”), use workers_billing_alert; for dollar spend, neither.`,
   annotations: READ_ONLY
 }
 
 export const BILLING_ALERT_TOOL_CONFIG = {
   title: 'Workers billing usage alert',
-  description: `Set up a Cloudflare billing usage notification for when billed Workers requests in the current billing period pass a number, such as “email me before our Workers bill passes 50M requests” or “tell me when we go over our included Workers requests this month”. Creates a billing_usage_alert on worker_requests, the dashboard’s Usage Based Billing notification. Reads the last 89 complete days of Workers requests and the account’s notification policies, and in MCP Apps hosts shows a monthly chart where the user drags the threshold (requests in a month) and enters an email. ${CARD_FLOW} Summarize the typical month and any existing alert instead of repeating the daily data. The threshold is a request count, not dollars; the chart is Workers analytics by calendar month, which approximates billed usage in the billing period. It isn’t a spending limit and never blocks traffic. For traffic clearly above normal in any 7 days (“way out of hand”), use workers_usage_alert; for a dollar budget, neither.`,
+  description: `Set up a Cloudflare billing usage notification for when billed Workers requests in the current billing period pass a number, such as “email me before our Workers bill passes 50M requests” or “tell me when we go over our included Workers requests this month”. Creates a billing_usage_alert on worker_requests, the dashboard’s Usage Based Billing notification. Reads the last 89 complete days of Workers requests and the account’s notification policies, and in MCP Apps hosts shows a monthly chart where the user drags the threshold (requests in a month) and enters an email. ${CARD_FLOW} Summarize the typical month and any existing alert instead of repeating the daily data. The threshold is a request count, not dollars; the chart is Workers analytics by calendar month, which approximates billed usage in the billing period. It isn’t a spending limit and never blocks traffic. ${NOT_A_CAP} For traffic clearly above normal in any 7 days (“way out of hand”), use workers_usage_alert; for a dollar budget, neither.`,
   annotations: READ_ONLY
 }

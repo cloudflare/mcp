@@ -202,7 +202,13 @@ describe('routing', () => {
       expect(description).toMatch(/never blocks traffic/)
       expect(description).toMatch(/not (dollar cost|dollars)/)
       expect(description).toMatch(/dollar (spend|budget), neither/)
+      expect(description).toMatch(/Don’t call it to shut off, pause, cap/)
     }
+  })
+
+  it('claims “is there a way to get told” questions about spikes, so they don’t go to a web search', () => {
+    expect(described.workers_usage_alert).toContain('is there a way to get told')
+    expect(described.workers_usage_alert).toContain('rather than searching the web')
   })
 })
 

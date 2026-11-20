@@ -20,6 +20,11 @@ export const ROUTING_PROMPTS: readonly { readonly prompt: string; readonly route
     prompt: 'set up a spike alert for our Workers, not every bump, just clearly bigger than normal',
     route: 'workers_usage_alert'
   },
+  {
+    prompt:
+      'I keep worrying a bot will hammer our Workers overnight. is there a way to get told when that happens?',
+    route: 'workers_usage_alert'
+  },
   // workers-requests-billing: billed requests in the billing period.
   {
     prompt: 'email me before our Workers bill passes 50M requests',
@@ -39,6 +44,10 @@ export const ROUTING_PROMPTS: readonly { readonly prompt: string; readonly route
   },
   // Neither: alerts never block, and neither tool measures dollars or other products.
   { prompt: 'block traffic over 1M requests', route: 'none' },
+  {
+    prompt: "just shut off our Workers if they go over 1M requests, I don't want a surprise bill",
+    route: 'none'
+  },
   { prompt: 'cap our Workers so we never pay more than $20', route: 'none' },
   { prompt: 'warn me if we’re going to spend more than $500 this month', route: 'none' },
   { prompt: 'alert me when our R2 storage passes 1 TB', route: 'none' }
