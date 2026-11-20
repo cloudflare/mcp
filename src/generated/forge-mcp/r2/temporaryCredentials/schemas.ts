@@ -8,6 +8,34 @@ import type { JSONObject } from "@modelcontextprotocol/server";
  */
 export const r2_temp_access_creds_request: JSONObject = {
   "properties": {
+    "actions": {
+      "description": "S3 actions allowed on the credentials; requests for any other action are denied. For example, `[\"GetObject\", \"HeadObject\"]` allows reading objects without listing them. Exactly one of `permission` or `actions` must be provided. The parent token must have Object Read & Write permission if any action writes, and Object Read otherwise.",
+      "items": {
+        "enum": [
+          "HeadBucket",
+          "HeadObject",
+          "GetObject",
+          "GetBucketLocation",
+          "ListObjectsV1",
+          "ListObjectsV2",
+          "ListMultipartUploads",
+          "ListParts",
+          "PutObject",
+          "DeleteObject",
+          "DeleteObjects",
+          "DeleteObjectsByPrefix",
+          "CopyObject",
+          "CreateMultipartUpload",
+          "UploadPart",
+          "UploadPartCopy",
+          "AbortMultipartUpload",
+          "CompleteMultipartUpload"
+        ],
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
     "bucket": {
       "description": "Name of the R2 bucket.",
       "type": "string"
@@ -24,7 +52,7 @@ export const r2_temp_access_creds_request: JSONObject = {
       "type": "string"
     },
     "permission": {
-      "description": "Permissions allowed on the credentials.",
+      "description": "Permissions allowed on the credentials. Exactly one of `permission` or `actions` must be provided.",
       "enum": [
         "admin-read-write",
         "admin-read-only",
@@ -49,7 +77,6 @@ export const r2_temp_access_creds_request: JSONObject = {
   "required": [
     "bucket",
     "parentAccessKeyId",
-    "permission",
     "ttlSeconds"
   ],
   "type": "object"

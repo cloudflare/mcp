@@ -8,7 +8,7 @@ import type { JSONObject } from "@modelcontextprotocol/server";
  */
 export const realtimekit_Transcript: JSONObject = {
   "properties": {
-    "sessionId": {
+    "session_id": {
       "type": "string"
     },
     "transcript_download_url": {
@@ -19,7 +19,7 @@ export const realtimekit_Transcript: JSONObject = {
     }
   },
   "required": [
-    "sessionId",
+    "session_id",
     "transcript_download_url",
     "transcript_download_url_expiry"
   ],

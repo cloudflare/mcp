@@ -274,8 +274,8 @@ import { tools as diagnostics_endpointHealthchecksTools } from "./diagnostics/en
 import { tools as diagnostics_traceroutesTools } from "./diagnostics/traceroutes/tools.js";
 import { tools as dls_regionalServices_prefixBindingsTools } from "./dls/regionalServices/prefixBindings/tools.js";
 import { tools as dls_regionsTools } from "./dls/regions/tools.js";
-import { tools as dns_dnssec_listTools } from "./dns/dnssec/list/tools.js";
 import { tools as dns_dnssecTools } from "./dns/dnssec/tools.js";
+import { tools as dns_dnssec_zsksTools } from "./dns/dnssec/zsks/tools.js";
 import { tools as dns_recordsTools } from "./dns/records/tools.js";
 import { tools as dns_settings_account_nameserverSetsTools } from "./dns/settings/account/nameserverSets/tools.js";
 import { tools as dns_settings_accountTools } from "./dns/settings/account/tools.js";
@@ -502,6 +502,7 @@ import { tools as organizations_sharesTools } from "./organizations/shares/tools
 import { tools as organizationsTools } from "./organizations/tools.js";
 import { tools as pageRulesTools } from "./pageRules/tools.js";
 import { tools as pages_buildCacheTools } from "./pages/buildCache/tools.js";
+import { tools as pages_deployHooksTools } from "./pages/deployHooks/tools.js";
 import { tools as pages_deployments_history_logsTools } from "./pages/deployments/history/logs/tools.js";
 import { tools as pages_deploymentsTools } from "./pages/deployments/tools.js";
 import { tools as pages_domainsTools } from "./pages/domains/tools.js";
@@ -1322,7 +1323,7 @@ export const tools: readonly Tool[] = [
   ...dls_regionalServices_prefixBindingsTools,
   ...dls_regionsTools,
   ...dns_dnssecTools,
-  ...dns_dnssec_listTools,
+  ...dns_dnssec_zsksTools,
   ...dns_recordsTools,
   ...dns_settings_accountTools,
   ...dns_settings_account_nameserverSetsTools,
@@ -1550,6 +1551,7 @@ export const tools: readonly Tool[] = [
   ...pageRulesTools,
   ...pagesTools,
   ...pages_buildCacheTools,
+  ...pages_deployHooksTools,
   ...pages_deploymentsTools,
   ...pages_deployments_history_logsTools,
   ...pages_domainsTools,
