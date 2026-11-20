@@ -169,15 +169,15 @@ The core innovation: instead of 2,500 MCP tools (~244K tokens), two tools handle
 
 ### Threshold alert Apps
 
-`src/threshold-alert/` is what every "history of one number + a line + who to tell" App shares: `defineThresholdAlertApp()` (the read-only collector: history, `available_alerts`, existing policies), the model per cadence (rolling 7 days or calendar month), the presets (each an `alert_type`, its policy body, how it recognises an existing policy, its copy) and the generated `alerting_policies_*` writes. One tool per preset, sharing the view; `workers_billing_alert` is the `billing_usage_alert` preset. See `docs/threshold-alerts.md`.
+`src/threshold-alert/` is what every "history of one number + a line + who to tell" App shares: `defineThresholdAlertApp()` (the read-only collector: history, `available_alerts`, existing policies), the model per cadence (rolling 7 days or calendar month), the presets (each an `alert_type`, its policy body, how it recognises an existing policy, its copy) and the generated `alerting_policies_*` writes. One tool per preset, sharing the view; `workers_billing_alert` is the `billing_usage_alert` preset.
 
 ### Workers usage alert App
 
-`src/workers-usage-alert/` is the `workers_usage_alert` MCP App, registered in `MCP_APPS`. It charts 89 days of Workers requests and previews an hourly `custom_analytics` monitor on a rolling 7 days. The tool only reads; the App's Create alert button creates the policy with the generated `alerting_policies_create` through `callServerTool`, which Code Mode lists for the App only (`appTools`). See `docs/workers-usage-alert.md`.
+`src/workers-usage-alert/` is the `workers_usage_alert` MCP App, registered in `MCP_APPS`. It charts 89 days of Workers requests and previews an hourly `custom_analytics` monitor on a rolling 7 days. The tool only reads; the App's Create alert button creates the policy with the generated `alerting_policies_create` through `callServerTool`, which Code Mode lists for the App only (`appTools`).
 
 ### MCP Apps
 
-`src/mcp-apps/` holds what every MCP App shares: `defineMcpApp()` (a tool plus its static `ui://` HTML resource, served in both tool modes, and `appTools`, the generated tools its view writes with, which Code Mode lists app-only), `apiReader()` (bounded, read-only Cloudflare API and GraphQL reads with the direct tools' refusal explanations and step-up), `MCP_APPS` in `registry.ts` (the one list an App is added to) and `app-shell/` (the browser-side host connection and Kumo base CSS). Each App lives in `src/<app>/`, with its React/Kumo view in `src/<app>/app/`, built into `app-html.generated.ts` by `npm run app:build`; never hand-edit those. `npm run check` verifies they are fresh and type-checks the view with `tsconfig.app.json`. See `docs/mcp-apps.md`. Keep raw customer prompts, account output and host screenshots outside this public repository.
+`src/mcp-apps/` holds what every MCP App shares: `defineMcpApp()` (a tool plus its static `ui://` HTML resource, served in both tool modes, and `appTools`, the generated tools its view writes with, which Code Mode lists app-only), `apiReader()` (bounded, read-only Cloudflare API and GraphQL reads with the direct tools' refusal explanations and step-up), `MCP_APPS` in `registry.ts` (the one list an App is added to) and `app-shell/` (the browser-side host connection and Kumo base CSS). Each App lives in `src/<app>/`, with its React/Kumo view in `src/<app>/app/`, built into `app-html.generated.ts` by `npm run app:build`; never hand-edit those. `npm run check` verifies they are fresh and type-checks the view with `tsconfig.app.json`. Keep raw customer prompts, account output and host screenshots outside this public repository.
 
 ### Worker Loader API
 

@@ -10,7 +10,7 @@
  */
 import { CALENDAR_MONTH, ROLLING_7_DAYS, type Cadence } from './model'
 
-/** Every preset, registered or not. `account-budget` is documented only; see `docs/threshold-alerts.md`. */
+/** Every registered preset. */
 export type PresetId = 'workers-requests-monitor' | 'workers-requests-billing'
 
 /** How an existing policy is reported: by the preset that would have created it. */

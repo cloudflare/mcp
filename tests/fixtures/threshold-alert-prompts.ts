@@ -1,6 +1,5 @@
 /**
  * User prompts and the threshold alert tool each should reach, or none.
- * `docs/threshold-alerts.md` lists the same prompts. Keep both in step.
  */
 export type Route = 'workers_usage_alert' | 'workers_billing_alert' | 'none'
 

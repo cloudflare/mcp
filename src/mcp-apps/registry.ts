@@ -8,7 +8,7 @@ import type { AppContext, McpApp } from './define'
 const apps: McpApp[] = []
 // Each App adds its import above and one push here; nothing else in the server
 // changes. One statement per App, on either side of this comment, so Apps in
-// flight at once merge in any order. See `docs/mcp-apps.md`.
+// flight at once merge in any order.
 apps.push(workersUsageAlertApp)
 apps.push(workersBillingAlertApp)
 
