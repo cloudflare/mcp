@@ -1,8 +1,8 @@
 # Workers usage alert App
 
-`workers_usage_alert` is an MCP App, served in both tool modes at `ui://cloudflare/workers-usage-alert.html`. It previews a monitor that emails when a rolling 7 days of Workers requests passes a threshold. The user drags the threshold over a weekly chart of the last 89 days, enters an email, and confirms.
+`workers_usage_alert` is an MCP App, served in both tool modes at `ui://cloudflare/workers-usage-alert.html`. It is the `workers-requests-monitor` preset of the shared threshold alert (`docs/threshold-alerts.md`); `workers_billing_alert`, the `billing_usage_alert` preset, shares its view and reads. It previews a monitor that emails when a rolling 7 days of Workers requests passes a threshold. The user drags the threshold over a weekly chart of the last 89 days, enters an email, and confirms.
 
-**The tool reads; the button writes.** The `workers_usage_alert` tool only reads. Clicking Create alert is the user's confirmation: the card shows the threshold, the email and that the alert only emails, and creating it adds one policy the user can delete. The App creates exactly the policy it shows (`monitorPolicy()`) with the generated `alerting_policies_create`, through the host's `callServerTool`, in one call (`src/workers-usage-alert/create.ts`); Undo and Save alert use `alerting_policies_delete` and `alerting_policies_update` the same way. No tool is added for them: the direct tools list them already, and Code Mode lists them for the App only (`appTools`; see `docs/mcp-apps.md`). It goes through the session's credential with the usual refusal explanations and step-up, and the App never holds a token.
+**The tool reads; the button writes.** The `workers_usage_alert` tool only reads. Clicking Create alert is the user's confirmation: the card shows the threshold, the email and that the alert only emails, and creating it adds one policy the user can delete. The App creates exactly the policy it shows (`monitorPolicy()`) with the generated `alerting_policies_create`, through the host's `callServerTool`, in one call (`src/threshold-alert/create.ts`); Undo and Save alert use `alerting_policies_delete` and `alerting_policies_update` the same way. No tool is added for them: the direct tools list them already, and Code Mode lists them for the App only (`appTools`; see `docs/mcp-apps.md`). It goes through the session's credential with the usual refusal explanations and step-up, and the App never holds a token.
 
 - **Created:** the card shows "Alert on", and the App tells the model with `updateModelContext` that the alert exists, so it neither asks to confirm it nor creates it again. No second model turn is needed. The tool description says the same.
 - **Undo:** next to Edit on the created row. It deletes the alert the click just made with the generated `alerting_policies_delete`, by the id the create returned, and the form comes back with the same line and email and "Alert deleted" in the field. It stays until the user edits or leaves, with no timer (a countdown would fail WCAG 2.2.1), and ignores a click within 500 ms of Create, the second half of a double-click. A refused delete says "Didn’t delete" in the row and keeps Undo.
@@ -19,7 +19,7 @@ Verified against real accounts through the local adapter, which allows this POST
 
 - `POST /graphql`, `workersInvocationsAdaptive` summed by date, for the 89 complete UTC days before today, in one query. Workers analytics refuse anything older than `12w6d` ("cannot request data older than 12w6d"), which is 89 complete days plus today, and one field accepts at most about 32 days (`4w4d`, measured). So the query has three aliased fields of up to 30 days each (`src/workers-usage-alert/history.ts`). Today is still counting, so it isn't read.
 - `GET /accounts/{account_id}/alerting/v3/available_alerts`: whether the account can create `custom_analytics`.
-- `GET /accounts/{account_id}/alerting/v3/policies`: existing alerts on Workers requests, either `custom_analytics` monitors on `events.workersInvocations` or `billing_usage_alert` on `worker_requests`, with their limit. Other policies are only counted by type. Destinations and email addresses are not returned.
+- `GET /accounts/{account_id}/alerting/v3/policies`: existing alerts on Workers requests, either `custom_analytics` monitors on `events.workersInvocations` or `billing_usage_alert` on `worker_requests`, with their limit (each preset's `recognise`). Other policies are only counted by type. Destinations and email addresses are not returned.
 
 The App's server code sends these reads with the session's credential (`apiReader`), so it gets all 89 days in both tool modes. It doesn't depend on `execute` or on any tool the model can call.
 
@@ -27,7 +27,7 @@ Usage is required. Without it the call is a tool error, explained as missing Acc
 
 ## The proposed monitor
 
-`monitorPolicy()` in `src/workers-usage-alert/model.ts` builds a `custom_analytics` policy on the SQL API:
+`monitorPolicy()` in `src/threshold-alert/presets.ts` builds a `custom_analytics` policy on the SQL API:
 
 - `SELECT COUNT(*) AS value FROM events.workersInvocations WHERE accountTag = '<account>' AND timestamp >= NOW() - INTERVAL '7' DAY`
 - `threshold`, `>=`, the chosen limit, a `168h` short window, run every `1h`, and `alert_interval: 168h`, so it emails at most once a week while traffic stays over.
@@ -44,10 +44,11 @@ Request counts come from Workers analytics, not billing, and are not dollar cost
 
 ## Implementation
 
-- `contract.ts`: the input (`account_id`, `limit`, `as_of`) and the `workers_usage_alert_preview` output.
-- `history.ts`: the query windows and missing-day filling.
-- `model.ts`: the axis, rolling 7-day totals, typical week, email replay and the proposed policy, shared by the collector and the view.
-- `tool.ts`: `workersUsageAlertApp`, a `defineMcpApp` whose collector reads with `apiReader`.
+- `contract.ts`: the inputs (`account_id`, `limit`, `as_of`), the `workers_usage_alert_preview` and `workers_billing_alert_preview` outputs, and both descriptions.
+- `history.ts`: the query windows and missing-day filling; `read.ts`: the GraphQL read with `apiReader`.
+- `src/threshold-alert/model.ts`: the axis, the alert's rule per cadence (rolling 7 days or calendar month), typical period, email replay, shared by the collectors and the view. `model.ts` here re-exports it.
+- `src/threshold-alert/presets.ts`: both presets, with the policies they create and the policies they recognise.
+- `tool.ts`: `workersUsageAlertApp` and `workersBillingAlertApp`, each a `defineThresholdAlertApp`.
 - `app/`: the React/Kumo view, mounted with `mountMcpApp`. While the tool runs it shows a skeleton in the card's own boxes; empty history and a failed read (a tool error) share Stratus's NotFoundPage drawing on the plot's floor, the failed read with Try again, which calls the tool again through the host. Field messages ("Invalid email", "Didn’t save") sit inside the field, so the footer never grows. The design reference is the fuzzy-input mockup, kept outside this repository.
 
 ## Verification

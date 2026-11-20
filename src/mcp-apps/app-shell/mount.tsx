@@ -3,6 +3,8 @@ import { createRoot } from 'react-dom/client'
 import { App } from '@modelcontextprotocol/ext-apps'
 import type { CallToolResult } from '@modelcontextprotocol/client'
 import type { z } from 'zod'
+import { applyLocale } from './apply-locale'
+import { resolveLocale } from './locale'
 
 /** How the host's state reaches the App's view. */
 export interface MountedApp {
@@ -28,6 +30,12 @@ export interface MountOptions<Output extends z.ZodType> {
   readonly renderError?: (text: string, retry: (() => void) | undefined) => ReactNode
   /** Copy for the states no tool result describes. Defaults are generic. */
   readonly copy?: Partial<Record<'pending' | 'cancelled' | 'malformed' | 'disconnected', string>>
+  /**
+   * The languages the App's copy is in, the default first. The host's
+   * `locale` picks one (and so `lang` and `dir`); its region picks the number
+   * and date formats. Defaults to English only. See `./locale.ts`.
+   */
+  readonly languages?: readonly [string, ...string[]]
 }
 
 function applyTheme(mode: string | undefined) {
@@ -37,7 +45,7 @@ function applyTheme(mode: string | undefined) {
 }
 
 /**
- * Mount an MCP App into `#root`: connect to the host, follow its theme, and
+ * Mount an MCP App into `#root`: connect to the host, follow its theme and locale, and
  * render each tool result that matches the output schema.
  *
  * Apps hold no credentials and make no network requests; everything they show
@@ -57,8 +65,19 @@ export function mountMcpApp<Output extends z.ZodType>(options: MountOptions<Outp
   const app = new App({ name: options.name, version: options.version ?? '1.0.0' }, {})
   const mounted: MountedApp = { app }
 
-  const pending = () =>
-    root.render(options.renderPending?.() ?? <p role="status">{copy.pending}</p>)
+  // The last thing drawn, so a locale change re-renders it in the new formats and direction.
+  let last: () => ReactNode = () => null
+  const draw = (node: () => ReactNode) => {
+    last = node
+    root.render(node())
+  }
+  const followHost = () => {
+    const context = app.getHostContext()
+    applyTheme(context?.theme)
+    if (applyLocale(resolveLocale(context?.locale, options.languages ?? ['en'])))
+      root.render(last())
+  }
+  const pending = () => draw(() => options.renderPending?.() ?? <p role="status">{copy.pending}</p>)
   let input: Record<string, unknown> | undefined
   const show = (result: CallToolResult) => {
     if (result.isError && options.renderError) {
@@ -76,26 +95,26 @@ export function mountMcpApp<Output extends z.ZodType>(options: MountOptions<Outp
                 )
             }
           : undefined
-      return root.render(options.renderError(text, retry))
+      return draw(() => options.renderError!(text, retry))
     }
     const parsed = options.output.safeParse(result.structuredContent)
-    root.render(
+    draw(() =>
       parsed.success ? options.render(parsed.data, mounted) : <p role="alert">{copy.malformed}</p>
     )
   }
 
   pending()
-  app.onhostcontextchanged = (context) => applyTheme(context.theme)
+  app.onhostcontextchanged = followHost
   app.ontoolinput = (params) => {
     input = params.arguments
   }
   app.ontoolresult = (result) => {
-    applyTheme(app.getHostContext()?.theme)
+    followHost()
     show(result)
   }
-  app.ontoolcancelled = () => root.render(<p role="status">{copy.cancelled}</p>)
+  app.ontoolcancelled = () => draw(() => <p role="status">{copy.cancelled}</p>)
   app
     .connect()
-    .then(() => applyTheme(app.getHostContext()?.theme))
-    .catch(() => root.render(<p role="alert">{copy.disconnected}</p>))
+    .then(followHost)
+    .catch(() => draw(() => <p role="alert">{copy.disconnected}</p>))
 }

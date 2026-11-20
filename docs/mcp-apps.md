@@ -12,7 +12,9 @@ src/mcp-apps/
   api-read.ts       apiReader(): bounded, read-only Cloudflare API and GraphQL reads
   registry.ts       MCP_APPS: the one list every App is added to
   app-shell/        browser side, shared by every App's HTML
-    mount.tsx       mountMcpApp(): host connection, theme, validated results, fallback states
+    mount.tsx       mountMcpApp(): host connection, theme, locale, validated results, fallback states
+    locale.ts       resolveLocale(): the host's locale → lang, dir and the format locale (pure, tested)
+    apply-locale.ts sets lang/dir on the document; appLocale() for formatters
     base.css        Kumo + Tailwind base
 src/<app>/
   contract.ts       input and output zod schemas, tool name, description
@@ -38,6 +40,7 @@ scripts/build-mcp-apps.ts   Vite + Tailwind single-file build for every App
 - **No network from the App.** Its CSP allows no connect or resource domains. Everything it renders comes from the tool result, and `mountMcpApp` refuses a result that fails the output schema.
 - **Bounded.** One read is at most 1 MB (`MAX_READ_BYTES`); collectors bound their own pagination and say what they skipped.
 - **Refusals are explained, not hidden.** `apiReader` throws `ApiReadError` with the same explanation and step-up `_meta` the direct tools give. A GraphQL error with no data is a refusal only when its message names the analytics permission; a quota or query error passes through as Cloudflare's message.
+- **Locale and direction, no catalog.** The host's `locale` (host context) decides two things, kept apart: the language and direction follow the copy the App has (`languages`, default `['en']`), and the number and date formats follow the host's region (`de-DE` → `en-DE`, "1,35B"). So an Arabic host gets English copy left to right with its formats; mirroring English text would misdeclare it to screen readers. Format with `Intl` against `appLocale().formats`, never a hand-written format. The `-XB` pseudo-locales (`ar-XB`, `he-XB`) lay the same copy out right to left to test mirroring, as Android and Chromium use them; the playground's Locales view shows four. Style with logical properties (`inset-inline-start`, `margin-inline-end`, `text-align: start`) and `:dir(rtl)` for what has no logical form (a transform, a gradient angle); isolate formatted values and user-typed text (`<bdi>`, `unicode-bidi: isolate`). Anything stored, such as a policy's name, stays in one fixed format. If an App's copy is ever translated, the copy should arrive with the result, not as a catalog in the bundle.
 - **Public repository.** Keep real customer prompts, account output and host screenshots out of it.
 
 ## Build and check

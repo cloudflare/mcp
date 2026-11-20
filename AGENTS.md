@@ -23,6 +23,7 @@ cloudflare-mcp/
 │   ├── server.ts                  # MCP server setup & tool registration
 │   ├── events/                    # Stateless MCP Events mapping to ANS policies and Vega automations
 │   ├── mcp-apps/                  # Shared MCP Apps: defineMcpApp, read-only apiReader, registry, app-shell
+│   ├── threshold-alert/           # Shared threshold alert Apps: presets, model, collector, policy writes
 │   ├── executor.ts                # Code executor (Worker Loader API)
 │   ├── spec-processor.ts          # OpenAPI spec $ref resolution & splitting merged paths
 │   ├── spec-release.ts            # The pinned spec release and its artifact names
@@ -165,6 +166,10 @@ The core innovation: instead of 2,500 MCP tools (~244K tokens), two tools handle
 - ANS policies/destinations and Vega automations own subscription state. No token or signing secret is stored: the client's `whsec_` secret and callback URL are sealed into the ANS destination secret (ANS presents it on every call), `OAUTH_KV` `mcp-events:subscription:<id>` holds plain routing/expiry and a hash of the signing secret, and the policy description holds encrypted metadata with that hash. A new signing secret gets a new destination. Access is checked on subscribe/refresh, not per delivery. Every token for an account shares one principal, so the KV record is written or deleted only after Cloudflare accepts the caller's change to the policy. Keep KV to hashes, never raw tokens or secrets.
 - `src/events/callback.ts` opens the sealed destination secret ANS presents, checks the KV subscription record and synchronously signs the MCP callback, with no Cloudflare API call. ANS owns retries.
 - `npm run test:events` runs local workerd coverage with simulated external HTTP endpoints. See `docs/mcp-events.md` for live tests and lifecycle constraints.
+
+### Threshold alert Apps
+
+`src/threshold-alert/` is what every "history of one number + a line + who to tell" App shares: `defineThresholdAlertApp()` (the read-only collector: history, `available_alerts`, existing policies), the model per cadence (rolling 7 days or calendar month), the presets (each an `alert_type`, its policy body, how it recognises an existing policy, its copy) and the generated `alerting_policies_*` writes. One tool per preset, sharing the view; `workers_billing_alert` is the `billing_usage_alert` preset. See `docs/threshold-alerts.md`.
 
 ### Workers usage alert App
 

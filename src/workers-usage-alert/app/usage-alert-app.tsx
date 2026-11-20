@@ -13,21 +13,30 @@ import {
 import { Button, CloudflareLogo, Collapsible, LayerCard } from '@cloudflare/kumo'
 import type { App } from '@modelcontextprotocol/ext-apps'
 import { mountMcpApp } from '../../mcp-apps/app-shell/mount'
-import { UsageAlertPreviewSchema, type UsageAlertPreview } from '../contract'
+import { WorkersThresholdPreviewSchema, type WorkersThresholdPreview } from '../contract'
 import {
   clamp,
   deriveModel,
   fitTop,
-  monitorPolicy,
   replayEmails,
   snapTo,
   stepOf,
   tickOf,
   type Model,
   type Week
-} from '../model'
-import { createPolicy, deletePolicy, updatePolicy, type CallTool } from '../create'
-import { EMAIL, fmt, fmtDay, monthShort, sig, words } from './format'
+} from '../../threshold-alert/model'
+import {
+  WORKERS_REQUESTS_BILLING,
+  WORKERS_REQUESTS_MONITOR,
+  type ThresholdAlertPreset
+} from '../../threshold-alert/presets'
+import {
+  createPolicy,
+  deletePolicy,
+  updatePolicy,
+  type CallTool
+} from '../../threshold-alert/create'
+import { EMAIL, approx, fmt, fmtDay, fmtDays, fmtPolicy, monthShort, sig, words } from './format'
 import './usage-alert.css'
 
 /**
@@ -50,25 +59,26 @@ const RAMP = 110
 const GROW = 1.8
 const TAU = 0.055
 
-/** Two short facts under the title, each sized to fit one line at 320px. */
-function outcome(m: Model, limit: number): [Fact, Fact] {
-  const sent = replayEmails(m.days, m.rolling, limit)
+/** Two short facts under the chart, verdict first (BLUF), each sized to fit one line at 320px. */
+function outcome(m: Model, limit: number, preset: ThresholdAlertPreset): [Fact, Fact] {
+  const { bucket, current, alreadyOver } = preset.copy
+  const sent = replayEmails(m.days, m.rolling, limit, m.cadence)
   const first = sent.find((e) => e.first)
   const past: Fact =
     m.typical && limit < m.typical
-      ? ['warn', `Below a typical week (<b>~${sig(m.typical)}</b>)`]
+      ? ['warn', `Below a typical ${bucket} (<b><bdi>${approx(m.typical, 2)}</bdi></b>)`]
       : sent.length && first
         ? [
             'hit',
-            `<b>${sent.length}</b> past ${sent.length === 1 ? 'email' : 'emails'}, first <b>${fmtDay(first.date)}</b>`
+            `<b>${sent.length}</b> past ${sent.length === 1 ? 'email' : 'emails'}, first <b><bdi>${fmtDay(first.date)}</bdi></b>`
           ]
         : limit >= 2 * m.peak
-          ? ['', `No past emails; <b>${sig(limit / m.peak)}×</b> the busiest week`]
-          : ['', `No past emails; busiest week <b>${sig(m.peak)}</b>`]
+          ? ['', `No past emails; <b><bdi>${sig(limit / m.peak)}×</bdi></b> the busiest ${bucket}`]
+          : ['', `No past emails; busiest ${bucket} <b><bdi>${sig(m.peak)}</bdi></b>`]
   const now: Fact =
-    m.last7 >= limit
-      ? ['warn', 'Already over: emails within the hour']
-      : ['now', `Last 7 days: <b>${sig(m.last7)}</b>`]
+    m.current >= limit
+      ? ['warn', alreadyOver]
+      : ['now', `${current}: <b><bdi>${sig(m.current)}</bdi></b>`]
   return [past, now]
 }
 
@@ -81,10 +91,11 @@ function FactLine({ fact, slot }: { fact: Fact; slot: 'past' | 'now' }) {
   )
 }
 
-function tipBody(m: Model, w: Week, limit: number) {
+function tipBody(m: Model, w: Week, limit: number, preset: ThresholdAlertPreset) {
+  const monthly = m.cadence.kind === 'month'
   const from = w.partial ? (m.days.find(([d]) => d >= w.start)?.[0] ?? w.start) : w.start
-  const range = `${fmtDay(from)}–${from.slice(0, 7) === w.end.slice(0, 7) ? Number(w.end.slice(8)) : fmtDay(w.end)}`
-  const email = replayEmails(m.days, m.rolling, limit).find(
+  const range = fmtDays(from, w.end)
+  const email = replayEmails(m.days, m.rolling, limit, m.cadence).find(
     (e) => e.date >= w.start && e.date <= w.end
   )
   const swatch = w.partial ? 'var(--c-dis)' : w.daysEstimate ? 'var(--c-now)' : 'var(--c-past)'
@@ -95,11 +106,13 @@ function tipBody(m: Model, w: Week, limit: number) {
         <div className="tip-r">
           <i style={{ background: swatch }} />
           <span>
-            {w.daysActual < 7
+            {w.daysActual < 7 || (monthly && w.partial)
               ? `${w.daysActual} ${w.daysActual === 1 ? 'day' : 'days'}`
               : w.daysEstimate
-                ? 'This week'
-                : 'Week'}
+                ? `This ${preset.copy.bucket}`
+                : monthly
+                  ? `${w.daysActual} days`
+                  : 'Week'}
           </span>
           <b>{sig(w.rawActual, 3)}</b>
         </div>
@@ -108,13 +121,15 @@ function tipBody(m: Model, w: Week, limit: number) {
         <div className="tip-r">
           <i className="sw-est" />
           <span>Estimate, {w.daysEstimate} days</span>
-          <b>~{sig(w.rawEstimate, 3)}</b>
+          <b>{approx(w.rawEstimate, 3)}</b>
         </div>
       )}
       {w.rolling != null && w.lastDay && (
         <div className="tip-r">
           <i />
-          <span>7 days to {fmtDay(w.lastDay)}</span>
+          <span>
+            {monthly ? 'Month to' : '7 days to'} {fmtDay(w.lastDay)}
+          </span>
           <b>{sig(w.rolling, 3)}</b>
         </div>
       )}
@@ -135,17 +150,42 @@ function tipBody(m: Model, w: Week, limit: number) {
  */
 type Pending = { kind: 'loading' } | { kind: 'error'; retry: (() => void) | undefined }
 
+/**
+ * The card's one content state: still reading, failed, an alert this account
+ * can't create, nothing to compare against, or a chart.
+ */
+type View = Pending['kind'] | 'unavailable' | 'empty' | 'chart'
+
 function UsageAlertCard({
   preview: p,
   app,
   pending
 }: {
-  preview: UsageAlertPreview
+  preview: WorkersThresholdPreview
   app: App | undefined
   pending?: Pending
 }) {
-  const m = useMemo(() => deriveModel(p.days, p.today), [p.days, p.today])
-  const ready = !pending && m.typical != null
+  const preset = presetOf(p)
+  const copy = preset.copy
+  const m = useMemo(
+    () => deriveModel(p.days, p.today, preset.cadence),
+    [p.days, p.today, preset.cadence]
+  )
+  /**
+   * What the card is showing, decided once: `chart` only when there is a
+   * typical period to draw the bars and line against. Everything else (bars,
+   * months, legend, the slider) follows from this, so an empty card can't
+   * draw bars.
+   */
+  // `alertAvailable: null` is unknown (the read was refused), not "no": only `false` closes the card.
+  const view: View = pending
+    ? pending.kind
+    : p.alertAvailable === false
+      ? 'unavailable'
+      : m.typical != null
+        ? 'chart'
+        : 'empty'
+  const ready = view === 'chart'
   const [limit, setLimitState] = useState(() =>
     clamp(p.summary.suggestedLimit ?? m.suggested ?? m.minLimit, m.minLimit, m.maxLimit)
   )
@@ -194,21 +234,17 @@ function UsageAlertCard({
   const address = email.trim()
   const invalid = touched && !EMAIL.test(address)
   const done = phase === 'created' || phase === 'sent' || phase === 'review'
-  const unavailable = p.alertAvailable === false
-  const [past, now]: [Fact, Fact] =
-    pending?.kind === 'loading'
+  // The legend under the chart, shimmering while it loads. An empty or failed card has no chart, so no legend:
+  // its message says it all.
+  const facts: readonly [Fact, Fact] | null =
+    view === 'loading'
       ? [
           ['', '\u00a0'],
           ['', '\u00a0']
         ]
-      : pending?.kind === 'error'
-        ? [
-            ['bad', 'Usage unavailable'],
-            ['', 'Try again to see past weeks']
-          ]
-        : ready
-          ? outcome(m, limit)
-          : emptyFacts(m)
+      : view === 'chart'
+        ? outcome(m, limit, preset)
+        : null
 
   // ── Drawing: positions only, with transforms; runs every frame while moving ──
   const placeTip = useCallback(() => {
@@ -227,7 +263,9 @@ function UsageAlertCard({
     )
     const w = el.offsetWidth
     const h = el.offsetHeight
-    const right = r.right + 8 + w <= c.right
+    // Prefer the side the week's text would continue on: right in left-to-right, left in right-to-left.
+    const rtl = getComputedStyle(chart).direction === 'rtl'
+    const right = rtl ? r.left - 8 - w < c.left : r.right + 8 + w <= c.right
     const x = clamp(right ? r.right - c.left + 8 : r.left - c.left - 8 - w, 0, c.width - w)
     const y = clamp((top + r.bottom) / 2 - c.top - h / 2, 0, plot.offsetTop + plot.offsetHeight - h)
     el.style.setProperty('--o', right ? 'left center' : 'right center')
@@ -401,12 +439,14 @@ function UsageAlertCard({
     const big = tickOf(a.target)
     const st = e.shiftKey ? big : stepOf(a.target)
     const L = limitRef.current
+    // The slider is vertical; the horizontal arrows follow reading direction, as ARIA's slider pattern says.
+    const fwd = getComputedStyle(e.currentTarget).direction === 'rtl' ? -st : st
     const v = (
       {
         ArrowUp: L + st,
-        ArrowRight: L + st,
+        ArrowRight: L + fwd,
         ArrowDown: L - st,
-        ArrowLeft: L - st,
+        ArrowLeft: L - fwd,
         PageUp: L + big,
         PageDown: L - big,
         Home: m.minLimit,
@@ -426,8 +466,10 @@ function UsageAlertCard({
   }
 
   // ── Hand-off: editing → sending → sent | review ──
-  const name = `Workers requests over ${fmt(limit)} in 7 days`
-  const policy = monitorPolicy(p.accountId, limit, address, name)
+  // The policy's name is stored in Cloudflare and read by everyone on the account: one fixed format.
+  const name = preset.name(fmtPolicy(limit))
+  const policy = preset.policy(p.accountId, limit, address, name)
+  const what = `${preset.unit.noun} pass ${limit.toLocaleString('en')} ${copy.per}`
   const request = `POST /accounts/${p.accountId}/alerting/v3/policies\n${JSON.stringify(policy, null, 2)}`
   const settle = (next: Phase) => {
     setPhase(next)
@@ -468,7 +510,7 @@ function UsageAlertCard({
         ? { tone: '', text: 'Alert deleted', say: notice }
         : null
   const submit = async () => {
-    if (locked || unavailable || !app) return
+    if (locked || !app) return
     setTouched(true)
     if (!EMAIL.test(address)) return refs.email.current?.focus()
     const caps = app.getHostCapabilities()
@@ -482,7 +524,7 @@ function UsageAlertCard({
       )
       if (saved.status === 'done') {
         tell(
-          `The user clicked Save alert in the workers_usage_alert App, and alert ${policyId} was updated: email ${address} when Workers requests pass ${limit.toLocaleString('en')} in 7 days. It's done: don't change it again or ask to confirm it.`
+          `Alert ${policyId} updated: it emails ${address} when Workers ${what}. The user clicked Save alert in the ${preset.toolName} App. It's done: don't change it again or ask to confirm it.`
         )
         setLive(false)
         createdAt.current = performance.now()
@@ -500,7 +542,7 @@ function UsageAlertCard({
       if (created.status === 'done') {
         // Tell the model, so it doesn't offer to create it again.
         tell(
-          `The user clicked Create alert in the workers_usage_alert App, and the alert was created${created.id ? ` (policy ${created.id})` : ''}: email ${address} when Workers requests pass ${limit.toLocaleString('en')} in 7 days. It's done: don't create it again or ask to confirm it.`
+          `Alert created${created.id ? ` (policy ${created.id})` : ''}: it emails ${address} when Workers ${what}. The user clicked Create alert in the ${preset.toolName} App. It's done: don't create it again or ask to confirm it.`
         )
         setPolicyId(created.id ?? null)
         createdAt.current = performance.now()
@@ -519,7 +561,7 @@ function UsageAlertCard({
           content: [
             {
               type: 'text',
-              text: `The user confirmed this Workers usage alert in the workers_usage_alert App. It has not been created. Create it only with a write the user approves, exactly as written:\n${request}`
+              text: `Not created yet: the user confirmed this ${copy.label} in the ${preset.toolName} App. Create it only with a write the user approves, exactly as written:\n${request}`
             }
           ]
         })
@@ -528,7 +570,7 @@ function UsageAlertCard({
         content: [
           {
             type: 'text',
-            text: `Create the Workers usage alert on ${p.accountName ?? p.accountId}: email ${address} when Workers requests pass ${limit.toLocaleString('en')} in 7 days.`
+            text: `Create the ${copy.label} on ${p.accountName ?? p.accountId}: email ${address} when Workers ${what}.`
           }
         ]
       })
@@ -553,7 +595,7 @@ function UsageAlertCard({
       return
     }
     tell(
-      `The user clicked Undo in the workers_usage_alert App, and alert ${policyId} was deleted. No Workers usage alert from this card exists now: don't recreate it unless the user asks.`
+      `Alert ${policyId} deleted: no ${copy.label} from this card exists now. The user clicked Undo in the ${preset.toolName} App. Don't recreate it unless the user asks.`
     )
     setPolicyId(null)
     setLive(false)
@@ -571,7 +613,13 @@ function UsageAlertCard({
         key={w.start}
         className={`hc-col${tip === i ? ' hl' : ''}`}
         {...{ [hot ? 'data-hw' : 'data-w']: i }}
-        style={{ left: pct(w.offset), width: pct(7), '--d': `${delay(i)}ms` } as CSSProperties}
+        style={
+          {
+            insetInlineStart: pct(w.offset),
+            inlineSize: pct(w.length),
+            '--d': `${delay(i)}ms`
+          } as CSSProperties
+        }
       >
         {w.estimate > 0 && (
           <div className="hc-bar est" style={{ '--v': w.estimate / m.base } as CSSProperties} />
@@ -585,7 +633,7 @@ function UsageAlertCard({
       </div>
     ))
   const existing = p.existingAlerts ?? []
-  const state = pending ? pending.kind : !ready ? 'empty' : entered ? 'ready' : 'entering'
+  const state = view === 'chart' ? (entered ? 'ready' : 'entering') : view
 
   return (
     <LayerCard
@@ -601,12 +649,8 @@ function UsageAlertCard({
           <CloudflareLogo variant="glyph" className="cf" aria-hidden />
           <div>
             <h2 className="title" id={ids.title}>
-              Email me when a week of Workers requests passes the line
+              {copy.title}
             </h2>
-            <p className="sub" id={ids.sub} aria-live="polite">
-              <FactLine fact={past} slot="past" />
-              <FactLine fact={now} slot="now" />
-            </p>
           </div>
         </header>
         <div className="chart">
@@ -614,7 +658,7 @@ function UsageAlertCard({
             className="hc"
             ref={refs.plot}
             role="group"
-            aria-label="Workers requests per week, with the 7-day alert threshold"
+            aria-label={copy.chartLabel}
             data-locked={locked || undefined}
             data-hl={tip != null || undefined}
             onPointerDown={onPointerDown}
@@ -626,7 +670,7 @@ function UsageAlertCard({
             {m.typical != null && (
               <div className="hc-typ" ref={refs.typ}>
                 <span ref={refs.typLabel}>
-                  Typical<i className="wk"> week</i> <b>{sig(m.typical)}</b>
+                  Typical<i className="wk"> {copy.bucket}</i> <b>{sig(m.typical)}</b>
                 </span>
               </div>
             )}
@@ -640,10 +684,10 @@ function UsageAlertCard({
               }}
               onPointerLeave={() => !draggingRef.current && setTip(null)}
             >
-              {bars(false)}
+              {ready && bars(false)}
             </div>
             <div className="hc-hot" ref={refs.hot} aria-hidden="true">
-              {bars(true)}
+              {ready && bars(true)}
             </div>
             <div className="hc-skel" aria-hidden="true">
               {SKELETON.map((h, i) => (
@@ -651,11 +695,11 @@ function UsageAlertCard({
               ))}
             </div>
             <div className="hc-msg">
-              {pending?.kind === 'error' ? (
+              {view === 'error' && pending?.kind === 'error' ? (
                 <>
                   <div className="es-copy">
                     <h3>Couldn’t read your usage</h3>
-                    <p>Workers analytics didn’t answer. Nothing was changed.</p>
+                    <p id={ids.sub}>{copy.source} didn’t answer. Nothing was changed.</p>
                     {pending.retry && (
                       <Button variant="outline" size="sm" className="retry" onClick={pending.retry}>
                         Try again
@@ -667,12 +711,16 @@ function UsageAlertCard({
                   </div>
                 </>
               ) : (
-                !ready &&
-                !pending && (
+                (view === 'empty' || view === 'unavailable') && (
                   <>
                     <div className="es-copy">
-                      <h3>{emptyCopy(m)[0]}</h3>
-                      <p>{emptyCopy(m)[1]}</p>
+                      <h3>
+                        {view === 'unavailable' ? copy.unavailable.title : emptyCopy(m, preset)[0]}
+                      </h3>
+                      {/* No legend on an empty or failed card, so its message is what describes it. */}
+                      <p id={ids.sub}>
+                        {view === 'unavailable' ? copy.unavailable.body : emptyCopy(m, preset)[1]}
+                      </p>
                     </div>
                     <div className="es-stage" aria-hidden="true">
                       <EmptyArt />
@@ -688,15 +736,15 @@ function UsageAlertCard({
                 role="slider"
                 tabIndex={locked ? -1 : 0}
                 aria-disabled={locked}
-                aria-label="Alert threshold, requests in 7 days"
+                aria-label={copy.sliderLabel}
                 aria-orientation="vertical"
                 aria-valuemin={m.minLimit}
                 aria-valuemax={m.maxLimit}
                 aria-valuenow={limit}
-                aria-valuetext={`About ${words(limit)} requests in 7 days. ${plain(past[1])}. ${plain(now[1])}.`}
+                aria-valuetext={`About ${words(limit)} ${preset.unit.noun} ${copy.per}.${facts ? ` ${plain(facts[0][1])}. ${plain(facts[1][1])}.` : ''}`}
                 onKeyDown={onKeyDown}
               >
-                <span aria-hidden="true">~{fmt(limit)}</span>
+                <span aria-hidden="true">{approx(limit)}</span>
               </div>
             </div>
           </div>
@@ -705,10 +753,7 @@ function UsageAlertCard({
               m.months
                 .filter((mo) => mo.to - mo.from >= 4)
                 .map((mo) => (
-                  <span
-                    key={mo.key}
-                    style={{ left: pct((mo.from + mo.to) / 2), translate: '-50% 0' }}
-                  >
+                  <span key={mo.key} style={{ insetInlineStart: pct((mo.from + mo.to) / 2) }}>
                     {monthShort(mo.key)}
                   </span>
                 ))}
@@ -719,147 +764,160 @@ function UsageAlertCard({
             data-show={tip != null || undefined}
             aria-hidden="true"
           >
-            {tip != null && m.weeks[tip] && tipBody(m, m.weeks[tip], limit)}
+            {tip != null && m.weeks[tip] && tipBody(m, m.weeks[tip], limit, preset)}
           </div>
         </div>
-        {(existing.length > 0 || unavailable) && (
-          <p className="note" data-tone={unavailable ? 'warn' : undefined}>
-            {unavailable
-              ? 'This account can’t create custom analytics alerts.'
-              : `Already on this account: ${existing
-                  .map(
-                    (a) =>
-                      `${a.name}${a.limit ? ` (~${sig(a.limit)})` : ''}${a.enabled ? '' : ', off'}`
-                  )
-                  .join('; ')}`}
+        {/* The outcome reads as the chart's legend: grey for past periods, blue for now. */}
+        {facts && (
+          <p className="sub" id={ids.sub} aria-live="polite">
+            <FactLine fact={facts[0]} slot="past" />
+            <FactLine fact={facts[1]} slot="now" />
+          </p>
+        )}
+        {ready && existing.length > 0 && (
+          <p className="note">
+            Already on this account:{' '}
+            {existing.map((a, i) => (
+              <span key={i}>
+                {i > 0 && '; '}
+                {/* A name someone typed, in any script: isolated so it can't reorder what's around it. */}
+                <bdi>{a.name}</bdi>
+                {a.limit ? ` (${approx(a.limit, 2)})` : ''}
+                {a.enabled ? '' : ', off'}
+              </span>
+            ))}
           </p>
         )}
       </LayerCard.Primary>
-      <div className="foot">
-        <div className="f-layer f-form" inert={done}>
-          <label className="to">
-            <span className="to-l">To</span>
-            <input
-              ref={refs.email}
-              className="input"
-              type="email"
-              autoComplete="email"
-              spellCheck={false}
-              placeholder="Email address"
-              aria-label="Alert email"
-              aria-describedby={ids.hint}
-              aria-invalid={invalid}
-              readOnly={phase === 'sending'}
+      {/* An alert this account can't create has nothing to fill in: no form, not a disabled one. */}
+      {view !== 'unavailable' && (
+        <div className="foot">
+          <div className="f-layer f-form" inert={done}>
+            <label className="to">
+              <span className="to-l">To</span>
+              <input
+                ref={refs.email}
+                className="input"
+                type="email"
+                dir="auto"
+                autoComplete="email"
+                spellCheck={false}
+                placeholder="Email address"
+                aria-label="Alert email"
+                aria-describedby={ids.hint}
+                aria-invalid={invalid}
+                readOnly={phase === 'sending'}
+                disabled={!ready}
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value)
+                  setNotice('')
+                  if (phase === 'failed') setPhase('editing')
+                }}
+                onBlur={() => address && setTouched(true)}
+                onKeyDown={(e) => e.key === 'Enter' && submit()}
+              />
+              <span
+                className="to-hint"
+                id={ids.hint}
+                data-tone={hint?.tone}
+                title={phase === 'failed' ? failureReason(failure) : undefined}
+              >
+                {hint?.text}
+              </span>
+            </label>
+            <Button
+              ref={refs.create}
+              variant="primary"
+              className="create"
+              loading={phase === 'sending'}
               disabled={!ready}
-              value={email}
-              onChange={(e) => {
-                setEmail(e.target.value)
-                setNotice('')
-                if (phase === 'failed') setPhase('editing')
-              }}
-              onBlur={() => address && setTouched(true)}
-              onKeyDown={(e) => e.key === 'Enter' && submit()}
-            />
-            <span
-              className="to-hint"
-              id={ids.hint}
-              data-tone={hint?.tone}
-              title={phase === 'failed' ? failureReason(failure) : undefined}
+              onClick={submit}
             >
-              {hint?.text}
-            </span>
-          </label>
-          <Button
-            ref={refs.create}
-            variant="primary"
-            className="create"
-            loading={phase === 'sending'}
-            disabled={!ready || (unavailable && !saving)}
-            onClick={submit}
-          >
-            {phase === 'failed' ? 'Try again' : saving ? 'Save alert' : 'Create alert'}
-          </Button>
-          <p className="sr" id={ids.err} role="alert">
-            {hint?.say}
-          </p>
-        </div>
-        <div className="f-layer f-done" inert={!done}>
-          <div className="done" ref={refs.done} tabIndex={-1} role="status">
-            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
-              <circle
-                className="ck-ring"
-                cx="11"
-                cy="11"
-                r="9"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                transform="rotate(-90 11 11)"
-              />
-              <path
-                className="ck-tick"
-                d="M7 11.3l2.7 2.7L15 8.6"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-            <span className="done-1">
-              {phase === 'created'
-                ? 'Alert on'
-                : phase === 'review'
-                  ? 'Ready to create'
-                  : 'Sent to chat'}
-            </span>
-            <span
-              className="done-2"
-              data-tone={undoFailed ? 'bad' : undefined}
-              title={
-                undoFailed
-                  ? `Didn’t delete: ${undoFailed}`
-                  : `Past ${fmt(limit)} in 7 days · ${address}`
-              }
-            >
-              {undoing ? (
-                'Deleting…'
-              ) : undoFailed ? (
-                'Didn’t delete. Try again.'
-              ) : (
-                <>
-                  Past <b>{fmt(limit)}</b> in 7 days · {address}
-                </>
-              )}
-            </span>
+              {phase === 'failed' ? 'Try again' : saving ? 'Save alert' : 'Create alert'}
+            </Button>
+            <p className="sr" id={ids.err} role="alert">
+              {hint?.say}
+            </p>
           </div>
-          <div className="done-acts">
-            {phase === 'created' && policyId && (
+          <div className="f-layer f-done" inert={!done}>
+            <div className="done" ref={refs.done} tabIndex={-1} role="status">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+                <circle
+                  className="ck-ring"
+                  cx="11"
+                  cy="11"
+                  r="9"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  transform="rotate(-90 11 11)"
+                />
+                <path
+                  className="ck-tick"
+                  d="M7 11.3l2.7 2.7L15 8.6"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              <span className="done-1">
+                {phase === 'created'
+                  ? 'Alert on'
+                  : phase === 'review'
+                    ? 'Ready to create'
+                    : 'Sent to chat'}
+              </span>
+              <span
+                className="done-2"
+                data-tone={undoFailed ? 'bad' : undefined}
+                title={
+                  undoFailed
+                    ? `Didn’t delete: ${undoFailed}`
+                    : `Past ${fmt(limit)} ${copy.per} · ${address}`
+                }
+              >
+                {undoing ? (
+                  'Deleting…'
+                ) : undoFailed ? (
+                  'Didn’t delete. Try again.'
+                ) : (
+                  <>
+                    Past <b>{fmt(limit)}</b> {copy.per} · <bdi>{address}</bdi>
+                  </>
+                )}
+              </span>
+            </div>
+            <div className="done-acts">
+              {phase === 'created' && policyId && (
+                <Button
+                  variant="ghost"
+                  className="undo"
+                  loading={undoing}
+                  aria-description="Deletes this alert"
+                  onClick={undo}
+                >
+                  Undo
+                </Button>
+              )}
               <Button
                 variant="ghost"
-                className="undo"
-                loading={undoing}
-                aria-description="Deletes this alert"
-                onClick={undo}
+                className="edit"
+                disabled={undoing}
+                onClick={() => {
+                  // On an alert this card made, Edit changes that alert (Save alert), not a second one.
+                  setLive(phase === 'created' && policyId != null)
+                  setUndoFailed('')
+                  setPhase('editing')
+                  requestAnimationFrame(() => refs.knob.current?.focus({ preventScroll: true }))
+                }}
               >
-                Undo
+                Edit
               </Button>
-            )}
-            <Button
-              variant="ghost"
-              className="edit"
-              disabled={undoing}
-              onClick={() => {
-                // On an alert this card made, Edit changes that alert (Save alert), not a second one.
-                setLive(phase === 'created' && policyId != null)
-                setUndoFailed('')
-                setPhase('editing')
-                requestAnimationFrame(() => refs.knob.current?.focus({ preventScroll: true }))
-              }}
-            >
-              Edit
-            </Button>
+            </div>
           </div>
         </div>
-      </div>
+      )}
       {phase === 'review' && (
         <Collapsible className="request-disclosure">
           <Collapsible.DefaultTrigger className="text-sm font-normal text-kumo-subtle">
@@ -888,21 +946,9 @@ const SKELETON = [40, 52, 66, 50, 44, 40, 36]
 /** Some traffic, but under a week of it: nothing to compare against yet. */
 const shortHistory = (m: Model) => m.days.length > 0 && m.days.length < 7
 
-/** Too little history and no history read the same way: nothing to compare against, so the limit comes from chat. */
-function emptyFacts(m: Model): [Fact, Fact] {
-  const n = m.days.length
-  return shortHistory(m)
-    ? [
-        ['', `Only ${n} ${n === 1 ? 'day' : 'days'} of requests`],
-        ['', 'No typical week']
-      ]
-    : [
-        ['', 'No requests in 89 days'],
-        ['', 'No typical week']
-      ]
-}
-/** The header facts say what was read; the stage says what that means and what to do. */
-function emptyCopy(m: Model): [string, string] {
+/** An empty card's message: what was read, what that means and what to do. */
+function emptyCopy(m: Model, preset: ThresholdAlertPreset): [string, string] {
+  const bucket = preset.copy.bucket
   return shortHistory(m)
     ? [
         'Not a full week yet',
@@ -910,7 +956,7 @@ function emptyCopy(m: Model): [string, string] {
       ]
     : [
         'No traffic to compare yet',
-        'Normal weeks show up here once your Workers get requests. Until then, tell me a number in chat.'
+        `Normal ${bucket}s show up here once your Workers get requests. Until then, tell me a number in chat.`
       ]
 }
 
@@ -977,8 +1023,12 @@ function EmptyArt() {
   )
 }
 
+/** Which preset a result is, by its `kind`. */
+const presetOf = (p: WorkersThresholdPreview) =>
+  p.kind === 'workers_billing_alert_preview' ? WORKERS_REQUESTS_BILLING : WORKERS_REQUESTS_MONITOR
+
 /** No result yet: no days, so nothing to draw, edit or create. */
-function placeholder(): UsageAlertPreview {
+function placeholder(): WorkersThresholdPreview {
   return {
     kind: 'workers_usage_alert_preview',
     nextStep: '',
@@ -996,7 +1046,7 @@ function placeholder(): UsageAlertPreview {
 
 mountMcpApp({
   name: 'Cloudflare Workers usage alert',
-  output: UsageAlertPreviewSchema,
+  output: WorkersThresholdPreviewSchema,
   render: (preview, { app }) => (
     <UsageAlertCard key={preview.checkedAt} preview={preview} app={app} />
   ),

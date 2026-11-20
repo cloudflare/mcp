@@ -1,49 +1,57 @@
+import { appLocale } from '../../mcp-apps/app-shell/apply-locale'
+
 /**
- * Counts at any size: K, M, B, T. `fmt` is a value the user picked (a
- * multiple of a nice step), in its shortest exact form; `sig` a measured
- * value to `n` significant digits; `words` the same for screen readers.
+ * Counts and dates in the host's formats, from the browser's `Intl`: no
+ * catalog, and every locale's separators, digits and compact units for free
+ * ("1.35B", "1,35B", "١٫٣٥B"). Formatters are built once per locale.
+ *
+ * `fmt` is a value the user picked (a multiple of a nice step), in its
+ * shortest exact form; `sig` a measured value to `n` significant digits;
+ * `approx` either with the locale's "about" sign; `words` the long form for
+ * screen readers ("1.35 billion").
  */
-const UNITS = [
-  [1e12, 'T', 'trillion'],
-  [1e9, 'B', 'billion'],
-  [1e6, 'M', 'million'],
-  [1e3, 'K', 'thousand'],
-  [1, '', '']
-] as const
-const unitOf = (v: number) => UNITS.find(([u]) => Math.abs(v) >= u * 0.9995) ?? UNITS[4]
-const trim = (t: string) => (t.includes('.') ? t.replace(/\.?0+$/, '') : t)
-
-export function fmt(v: number): string {
-  if (!v) return '0'
-  const [u, s] = unitOf(v)
-  const x = v / u
-  let d = 0
-  while (d < 3 && Math.abs(x * 10 ** d - Math.round(x * 10 ** d)) > 1e-6) d++
-  return trim(x.toFixed(d)) + s
+const cache = new Map<string, Intl.NumberFormat | Intl.DateTimeFormat>()
+function cached<T extends Intl.NumberFormat | Intl.DateTimeFormat>(
+  key: string,
+  make: (lang: string) => T
+): T {
+  const lang = appLocale().formats
+  const k = `${lang}|${key}`
+  let f = cache.get(k) as T | undefined
+  if (!f) cache.set(k, (f = make(lang)))
+  return f
 }
+const number = (key: string, options: Intl.NumberFormatOptions) =>
+  cached(key, (lang) => new Intl.NumberFormat(lang, { notation: 'compact', ...options }))
+const date = (key: string, options: Intl.DateTimeFormatOptions) =>
+  cached(
+    key,
+    (lang) => new Intl.DateTimeFormat(lang, { calendar: 'gregory', timeZone: 'UTC', ...options })
+  )
 
-export function sig(v: number, n = 2): string {
-  if (!v) return '0'
-  const [u, s] = unitOf(v)
-  const x = v / u
-  return trim(x.toFixed(Math.max(0, n - 1 - Math.floor(Math.log10(x) + 1e-9)))) + s
-}
+export const fmt = (v: number) => number('fmt', { maximumFractionDigits: 3 }).format(v)
+export const sig = (v: number, n = 2) =>
+  number(`sig${n}`, { maximumSignificantDigits: n }).format(v)
+/** "~1.35B": `formatRange` of one value is the locale's approximate form. */
+export const approx = (v: number, n?: number) =>
+  number(
+    n ? `sig${n}` : 'fmt',
+    n ? { maximumSignificantDigits: n } : { maximumFractionDigits: 3 }
+  ).formatRange(v, v)
+export const words = (v: number) =>
+  number('words', { compactDisplay: 'long', maximumFractionDigits: 3 }).format(v)
 
-export function words(v: number): string {
-  const [u, , w] = unitOf(v)
-  return (u === 1 ? String(Math.round(v)) : fmt(v).replace(/[KMBT]$/, '')) + (w ? ` ${w}` : '')
-}
-
-/** `2026-11-03` → `Nov 3`. */
-export const fmtDay = (d: string) =>
-  new Date(`${d}T00:00:00Z`).toLocaleString('en', {
-    month: 'short',
-    day: 'numeric',
-    timeZone: 'UTC'
-  })
-
+const utc = (d: string) => new Date(`${d}T00:00:00Z`)
+/** `2026-11-03` → `Nov 3` (`3 Nov` in en-GB). */
+export const fmtDay = (d: string) => date('day', { month: 'short', day: 'numeric' }).format(utc(d))
+/** `2026-11-03`, `2026-11-09` → `Nov 3 – 9`, the month once when both share it. */
+export const fmtDays = (from: string, to: string) =>
+  date('day', { month: 'short', day: 'numeric' }).formatRange(utc(from), utc(to))
 /** `2026-11` → `Nov`. */
-export const monthShort = (k: string) =>
-  new Date(`${k}-15T00:00:00Z`).toLocaleString('en', { month: 'short', timeZone: 'UTC' })
+export const monthShort = (k: string) => date('month', { month: 'short' }).format(utc(`${k}-15`))
+
+/** The threshold in a policy's name ("Workers requests over 1.35B in 7 days"): stored, so never localized. */
+const POLICY = new Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 3 })
+export const fmtPolicy = (v: number) => POLICY.format(v)
 
 export const EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]+$/

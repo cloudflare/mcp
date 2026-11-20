@@ -1,8 +1,11 @@
 /**
- * The days the collector reads, in UTC. Pure, so tests need no clock.
+ * The days the collector reads, in UTC. Pure, so tests need no clock and the
+ * view can import it. The read itself is `read.ts`.
  */
-import { HISTORY_DAYS } from './contract'
-import { isoDay, dayMs, type Day } from './model'
+import { isoDay, dayMs, type Day } from '../threshold-alert/model'
+
+/** Days of history read: the Workers analytics retention (12w6d), less today. */
+export const HISTORY_DAYS = 89
 
 const DAY_MS = 864e5
 /** The widest range one `workersInvocationsAdaptive` alias accepts is 4w4d (measured); 30 days stays inside it. */
