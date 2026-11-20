@@ -822,12 +822,6 @@ function UsageAlertCard({
             notifications before creating it again.
           </p>
         )}
-        {/* Create alert writes to this account: name it before the click, as the model may have picked it. */}
-        {ready && p.accountId && (
-          <p className="note">
-            Account: <bdi>{p.accountName ?? p.accountId}</bdi>
-          </p>
-        )}
         {ready && existing.length > 0 && (
           <p className="note">
             Already on this account:{' '}
