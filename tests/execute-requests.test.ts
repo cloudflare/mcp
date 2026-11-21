@@ -22,6 +22,12 @@ const ACCOUNT = '00000000000000000000000000000001'
 const ZONE = '00000000000000000000000000000002'
 const API_TOKEN = 'test-api-token-execute-requests'
 
+function uploadToken(): string {
+  const encode = (value: object) =>
+    btoa(JSON.stringify(value)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '')
+  return `${encode({ alg: 'HS256', typ: 'JWT' })}.${encode({ exp: Math.floor(Date.now() / 1000) + 300 })}.${encode({ test: true })}`
+}
+
 afterEach(async () => {
   await clearKv(env.OAUTH_KV)
   await clearSpec()
@@ -294,6 +300,49 @@ describe('execute: how headers are sent', () => {
       }`
     )
     expect(received[0].headers.get('authorization')).toBe(`Bearer ${API_TOKEN}`)
+  })
+
+  it('sends the upload JWT the code names to a Pages asset upload', async () => {
+    const uploadJwt = uploadToken()
+    const received = await send(
+      `method: "POST", path: "/pages/assets/check-missing", headers: { Authorization: "Bearer ${uploadJwt}" }, body: { hashes: ["a"] }`
+    )
+    expect(received.headers.get('authorization')).toBe(`Bearer ${uploadJwt}`)
+  })
+
+  it('sends the upload JWT the code names to a Workers asset upload', async () => {
+    const uploadJwt = uploadToken()
+    const received = await send(
+      `method: "POST", path: "/accounts/${ACCOUNT}/workers/assets/upload", headers: { Authorization: "Bearer ${uploadJwt}" }, body: {}`
+    )
+    expect(received.headers.get('authorization')).toBe(`Bearer ${uploadJwt}`)
+  })
+
+  it("sends the session's token to an asset upload when the code names no JWT", async () => {
+    const received = await send(
+      `method: "POST", path: "/pages/assets/check-missing", body: { hashes: ["a"] }`
+    )
+    expect(received.headers.get('authorization')).toBe(`Bearer ${API_TOKEN}`)
+  })
+
+  it("sends the session's token when the code names a JWT for any other path", async () => {
+    const received = await send(
+      `method: "GET", path: "${PATH}", headers: { Authorization: "Bearer ${uploadToken()}" }`
+    )
+    expect(received.headers.get('authorization')).toBe(`Bearer ${API_TOKEN}`)
+  })
+
+  it('reads a refused asset upload as Cloudflare sent it, without asking for a scope', async () => {
+    const { text, isError } = await run(
+      `async () => cloudflare.request({ method: "POST", path: "/pages/assets/check-missing", headers: { Authorization: "Bearer ${uploadToken()}" }, body: {} })`,
+      () =>
+        HttpResponse.json(cfError([{ code: 8000013, message: 'Authorization failed' }]), {
+          status: 403
+        })
+    )
+    expect(isError).toBe(true)
+    expect(text).toContain('8000013')
+    expect(text).not.toContain('insufficient_scope')
   })
 
   it('leaves out a header whose value is undefined or null', async () => {

@@ -19,6 +19,7 @@ import type { Connection } from '../api-permissions'
 import { authorize, explainRefusal, isCatalogScope } from '../api-permissions'
 import { MISSING_SCOPE_HEADER, REFUSAL_HINT_HEADER, reviewResponse } from '../api-refusals'
 import { policyRefusalHint } from '../policy-guards'
+import { assetUploadToken } from '../asset-upload-token'
 import { WWW_AUTHENTICATE_META_KEY, type ScopeChallenge } from '../scope-challenge'
 import {
   getWaitBudgetMs,
@@ -94,9 +95,12 @@ export class GlobalOutbound extends WorkerEntrypoint<Env, GlobalOutboundProps> {
     // joined into one value the API can't read. The headers are rebuilt from
     // their entries: in workerd, a copy made with new Headers(request.headers)
     // lost every header but Authorization when fetchWithRetry copied it again.
+    const basePath = new URL(this.env.CLOUDFLARE_API_BASE).pathname.replace(/\/$/, '')
+    const path = new URL(request.url).pathname.slice(basePath.length)
+    const uploadToken = assetUploadToken(request, path, this.ctx.props.apiToken)
     const headers = new Headers([
       ...[...request.headers].filter(([name]) => name.toLowerCase() !== 'authorization'),
-      ['Authorization', `Bearer ${this.ctx.props.apiToken}`]
+      ['Authorization', `Bearer ${uploadToken ?? this.ctx.props.apiToken}`]
     ])
     const authedRequest = new Request(request, { headers })
     // No 429 is retried here: the sandbox waits out rate limits, where the wait
@@ -106,11 +110,10 @@ export class GlobalOutbound extends WorkerEntrypoint<Env, GlobalOutboundProps> {
       retryRateLimited: false
     })
 
-    const basePath = new URL(this.env.CLOUDFLARE_API_BASE).pathname.replace(/\/$/, '')
-    const path = new URL(request.url).pathname.slice(basePath.length)
     // What the response's rate limits ask of the run: the sandbox holds its
     // next requests back for it, and tells the agent about a 429.
     const noticed = await withRateLimitNotice(response, request.method, path)
+    if (uploadToken) return noticed
 
     // Cloudflare's 401/403 bodies don't say why, and some lists come back empty
     // instead of refused. Report both as refusals with an explanation the
