@@ -108,23 +108,25 @@ describe('direct-tool response schema checks', () => {
 
   it('finds the schema of a forge tool on a merged account-or-zone path', async () => {
     server.use(
-      http.get(`${API_BASE}/accounts/${ACCOUNT_ID}/access/apps`, () =>
+      http.get(`${API_BASE}/accounts/${ACCOUNT_ID}/waiting_rooms`, () =>
         HttpResponse.json(cfSuccess('not a list'))
       )
     )
     const writeSpy = vi.spyOn(env.MCP_METRICS, 'writeDataPoint')
     vi.spyOn(console, 'warn').mockImplementation(() => {})
 
-    await forgeTool('zeroTrust_access_applications_list', { path: { account_or_zone: 'accounts' } })
+    await forgeTool('waitingRooms_accountWaitingRooms_list', {
+      path: { account_or_zone: 'accounts' }
+    })
 
     await vi.waitFor(() => expect(mismatches(writeSpy)).toHaveLength(1))
     expect(mismatches(writeSpy)[0].blobs?.slice(5, 12)).toEqual([
-      '/{account_or_zone}/{account_or_zone_id}/access/apps',
-      'access',
-      'zeroTrust_access_applications_list',
+      '/{account_or_zone}/{account_or_zone_id}/waiting_rooms',
+      'waiting_rooms',
+      'waitingRooms_accountWaitingRooms_list',
       '200',
       'type',
-      '#/components/schemas/access_response_collection-8/allOf/1/properties/result/type',
+      '#/components/schemas/waitingroom_response_collection/allOf/1/properties/result/type',
       '/result'
     ])
   })

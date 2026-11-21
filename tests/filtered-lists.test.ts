@@ -305,18 +305,21 @@ describe('forge tools', () => {
     expect(text).toContain('db-1')
   })
 
-  it('challenge for the zone scope on a zone path and the account scope on an account path', async () => {
+  it('challenge for the scope of a merged account-or-zone tool whose list came back empty', async () => {
     const token = await connectWithOAuth(BASELINE)
-    answer(`/zones/${ZONE_ID}/access/apps`, cfSuccess([]))
-    answer(`/accounts/${ACCOUNT_ID}/access/apps`, cfSuccess([]))
-    const apps = (args: Record<string, unknown>) =>
-      callDirectTool(token, 'zeroTrust_access_applications_list', args, FORGE_QUERY)
+    answer(`/zones/${ZONE_ID}/waiting_rooms`, cfSuccess([]))
+    answer(`/accounts/${ACCOUNT_ID}/waiting_rooms`, cfSuccess([]))
+    const rooms = (args: Record<string, unknown>) =>
+      callDirectTool(token, 'waitingRooms_accountWaitingRooms_list', args, FORGE_QUERY)
 
     expectChallenge(
-      await apps({ path: { account_or_zone: 'zones', account_or_zone_id: ZONE_ID } }),
-      'zone-access.read'
+      await rooms({ path: { account_or_zone: 'zones', account_or_zone_id: ZONE_ID } }),
+      'account-waiting-rooms.read'
     )
-    expectChallenge(await apps({ path: { account_or_zone: 'accounts' } }), 'access.read')
+    expectChallenge(
+      await rooms({ path: { account_or_zone: 'accounts' } }),
+      'account-waiting-rooms.read'
+    )
   })
 })
 

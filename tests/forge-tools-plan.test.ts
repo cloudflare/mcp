@@ -33,7 +33,7 @@ describe('planning a generated tool call', () => {
       argument: 'path.account_id'
     })
     expect(
-      await plan('zeroTrust_access_applications_list', { path: { account_or_zone: 'accounts' } })
+      await plan('waitingRooms_accountWaitingRooms_list', { path: { account_or_zone: 'accounts' } })
     ).toEqual({ kind: 'needs_account', argument: 'path.account_or_zone_id' })
   })
 
@@ -87,22 +87,22 @@ describe('planning a generated tool call', () => {
   })
 
   it('fills in the account for a merged account-or-zone path called with accounts', async () => {
-    const zone = await plan('zeroTrust_access_applications_list', {
+    const zone = await plan('waitingRooms_accountWaitingRooms_list', {
       path: { account_or_zone: 'zones', account_or_zone_id: 'z1' }
     })
     const account = await plan(
-      'zeroTrust_access_applications_list',
+      'waitingRooms_accountWaitingRooms_list',
       { path: { account_or_zone: 'accounts' } },
       { sessionAccountId: ACCOUNT }
     )
 
     expect(zone).toMatchObject({
-      url: `${BASE}/zones/z1/access/apps`,
-      template: '/{account_or_zone}/{account_or_zone_id}/access/apps'
+      url: `${BASE}/zones/z1/waiting_rooms`,
+      template: '/{account_or_zone}/{account_or_zone_id}/waiting_rooms'
     })
     expect(zone.kind === 'request' && zone.accountId).toBeFalsy()
     expect(account).toMatchObject({
-      url: `${BASE}/accounts/${ACCOUNT}/access/apps`,
+      url: `${BASE}/accounts/${ACCOUNT}/waiting_rooms`,
       accountId: ACCOUNT
     })
   })
