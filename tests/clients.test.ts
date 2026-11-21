@@ -15,6 +15,17 @@ describe('identifyClient', () => {
     expect(redirectUris).not.toHaveBeenCalled()
   })
 
+  it('recognises the ChatGPT connector by its Client ID Metadata Document without reading redirect URIs', async () => {
+    const redirectUris = vi.fn(noRedirectUris)
+    const client = await identifyClient({
+      clientId: 'https://chatgpt.com/oauth/client.json',
+      redirectUris
+    })
+
+    expect(client).toEqual({ id: 'chatgpt', behavior: { scopeChallenge: 'tool' } })
+    expect(redirectUris).not.toHaveBeenCalled()
+  })
+
   it('gives any other metadata document client the spec behavior without reading redirect URIs', async () => {
     const redirectUris = vi.fn(noRedirectUris)
     const client = await identifyClient({
