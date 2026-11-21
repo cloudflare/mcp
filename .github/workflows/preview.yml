@@ -1,0 +1,156 @@
+name: Preview
+
+on:
+  pull_request_target:
+    types: [labeled, unlabeled, synchronize, closed]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+
+env:
+  PR_NUMBER: ${{ github.event.pull_request.number }}
+
+jobs:
+  require-review:
+    name: Require a new review after each push
+    if: github.event.action == 'synchronize' && contains(github.event.pull_request.labels.*.name, 'preview')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v8
+        with:
+          script: |
+            await github.rest.issues.removeLabel({ ...context.repo, issue_number: context.issue.number, name: 'preview' })
+            await github.rest.issues.createComment({
+              ...context.repo,
+              issue_number: context.issue.number,
+              body: 'New commits were pushed. A maintainer must review them and add the `preview` label again to update the preview.'
+            })
+
+  deploy:
+    name: Deploy preview
+    if: github.event.action == 'labeled' && github.event.label.name == 'preview'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+      - uses: actions/checkout@v6
+        with:
+          path: base
+          persist-credentials: false
+
+      - name: Install wrangler from main
+        working-directory: base
+        run: npm ci --ignore-scripts --registry=https://registry.npmjs.org/
+
+      - name: Write preview config
+        id: config
+        run: |
+          mkdir -p .preview
+          node base/scripts/preview-config.mjs "$PR_NUMBER" "${{ vars.PREVIEW_DOMAIN_SUFFIX }}" "${{ vars.PREVIEW_KV_ID }}" "${{ vars.PREVIEW_BUCKET }}" "${{ vars.PREVIEW_FORGE_TOOLS_SERVICE }}" > .preview/out.json
+          echo "url=$(node -p "require('./.preview/out.json').url")" >> "$GITHUB_OUTPUT"
+
+      - name: Deploy
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.PREVIEW_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.PREVIEW_DEPLOY_TOKEN }}
+          CLOUDFLARE_API_BASE_URL: https://api.cloudflare.com/client/v4
+        run: |
+          wrangler=base/node_modules/.bin/wrangler
+          empty_env="$RUNNER_TEMP/empty.env"
+          : > "$empty_env"
+          "$wrangler" deploy -c .preview/wrangler.json --env-file "$empty_env"
+          openssl rand -hex 32 | "$wrangler" secret put MCP_COOKIE_ENCRYPTION_KEY -c .preview/wrangler.json --env-file "$empty_env"
+
+      - name: Check the deployed server
+        env:
+          PREVIEW_URL: ${{ steps.config.outputs.url }}
+        run: |
+          for _ in $(seq 1 18); do
+            status=$(curl -s -o /dev/null -w '%{http_code}' -X POST "$PREVIEW_URL" \
+              -H 'content-type: application/json' -H 'accept: application/json, text/event-stream' \
+              -d '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"preview-check","version":"1"}}}' || true)
+            [ "$status" = "401" ] && exit 0
+            sleep 10
+          done
+          echo "Expected 401 from $PREVIEW_URL, got $status"
+          exit 1
+
+      - name: Comment the preview URL
+        uses: actions/github-script@v8
+        env:
+          PREVIEW_URL: ${{ steps.config.outputs.url }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        with:
+          script: |
+            const marker = '<!-- mcp-preview -->'
+            const body = [
+              marker,
+              `Preview of ${process.env.HEAD_SHA.slice(0, 7)}: \`${process.env.PREVIEW_URL}\``,
+              '',
+              'Sign in with a Cloudflare API token:',
+              '```',
+              `claude mcp add --transport http cf-pr-${context.issue.number} ${process.env.PREVIEW_URL} --header "Authorization: Bearer $CLOUDFLARE_API_TOKEN"`,
+              '```',
+              'The preview is deleted when this PR gets new commits, loses the label, or closes.'
+            ].join('\n')
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              ...context.repo,
+              issue_number: context.issue.number
+            })
+            const existing = comments.find((comment) => comment.body?.startsWith(marker))
+            if (existing) {
+              await github.rest.issues.updateComment({ ...context.repo, comment_id: existing.id, body })
+            } else {
+              await github.rest.issues.createComment({ ...context.repo, issue_number: context.issue.number, body })
+            }
+
+  teardown:
+    name: Delete preview
+    if: >-
+      github.event.action == 'closed' ||
+      (github.event.action == 'unlabeled' && github.event.label.name == 'preview') ||
+      (github.event.action == 'synchronize' && contains(github.event.pull_request.labels.*.name, 'preview'))
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          path: base
+          persist-credentials: false
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+
+      - name: Install wrangler from main
+        working-directory: base
+        run: npm ci --ignore-scripts --registry=https://registry.npmjs.org/
+
+      - name: Delete the preview Worker
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.PREVIEW_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.PREVIEW_DEPLOY_TOKEN }}
+          CLOUDFLARE_API_BASE_URL: https://api.cloudflare.com/client/v4
+        run: |
+          wrangler=base/node_modules/.bin/wrangler
+          empty_env="$RUNNER_TEMP/empty.env"
+          : > "$empty_env"
+          if "$wrangler" deployments list --name "cloudflare-api-mcp-pr-$PR_NUMBER" --env-file "$empty_env" > /dev/null 2>&1; then
+            "$wrangler" delete --name "cloudflare-api-mcp-pr-$PR_NUMBER" --force --env-file "$empty_env"
+          else
+            echo "No preview Worker for PR $PR_NUMBER"
+          fi
