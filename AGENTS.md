@@ -165,6 +165,10 @@ The core innovation: instead of 2,500 MCP tools (~244K tokens), two tools handle
 - `src/events/callback.ts` opens the sealed destination secret ANS presents, checks the KV subscription record and synchronously signs the MCP callback, with no Cloudflare API call. ANS owns retries.
 - `npm run test:events` runs local workerd coverage with simulated external HTTP endpoints. See `docs/mcp-events.md` for live tests and lifecycle constraints.
 
+### Asset upload tokens
+
+`execute` swaps any bearer the code sends for the session's token, except on the four asset upload POSTs (`/pages/assets/check-missing`, `/pages/assets/upload`, `/pages/assets/upsert-hashes`, `/accounts/{account_id}/workers/assets/upload`). Those take only the short-lived JWT the upload-token and assets-upload-session calls return, so `src/asset-upload-token.ts` forwards the code's bearer there when it is an unexpired JWT other than the session token. Their responses skip the refusal review: a 403 there is about the JWT, not a scope.
+
 ### Worker Loader API
 
 Code execution uses Cloudflare's Worker Loader API to dynamically create isolated worker instances. The API token is passed via props (never enters user code isolate). A `globalOutbound` service restricts network access.
