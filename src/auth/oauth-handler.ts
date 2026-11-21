@@ -57,6 +57,40 @@ function authErrorMessage(prefix: string, e: unknown): string {
 }
 
 /**
+ * workers-oauth-provider's descriptions of a sign-in transaction it can't use, and what to tell the
+ * person instead. The provider gives these no distinct error code, so they are matched by text;
+ * tests/auth/oauth-routes.test.ts drives each through the real provider, so a reworded provider
+ * message fails a test rather than silently falling back to the provider's text.
+ */
+const TRANSACTION_ERROR_PAGES: readonly {
+  readonly matches: readonly string[]
+  readonly title: string
+  readonly message: string
+}[] = [
+  {
+    matches: ['expired or was already used'],
+    title: 'This sign-in has already finished',
+    message:
+      'This sign-in was already completed, or it took longer than 10 minutes. If your app shows Cloudflare as connected, you can close this page. Otherwise, go back to the app and connect again.'
+  },
+  {
+    matches: ['not started in this browser', 'belongs to a different browser session'],
+    title: 'Finish signing in where you started',
+    message:
+      'This sign-in was started in a different browser or browser profile. Go back to the app, connect again, and complete every step in the same browser.'
+  }
+]
+
+/** The error page for an `AuthorizationError`, explaining unusable sign-in transactions in plain words. */
+function authorizationErrorResponse(error: AuthorizationError): Response {
+  const page = TRANSACTION_ERROR_PAGES.find(({ matches }) =>
+    matches.some((match) => error.description.includes(match))
+  )
+  if (!page) return new OAuthError(error.code, error.description).toHtmlResponse()
+  return renderErrorPage(page.title, page.message, `Error code: ${error.code}`, 400)
+}
+
+/**
  * The scopes an MCP token may claim: those requested that Cloudflare actually granted. Cloudflare can
  * grant fewer than requested (the account can't grant one, or the user narrows them on its consent);
  * the MCP token must not claim more than the upstream token can do. Without an upstream `scope`,
@@ -286,8 +320,7 @@ export function createAuthHandlers() {
     } catch (e) {
       metrics.logEvent(new AuthUser({ errorMessage: authErrorMessage('Authorize POST Error', e) }))
       // Consent/upstream transaction expired, used, or opened in another browser: render locally.
-      if (e instanceof AuthorizationError)
-        return new OAuthError(e.code, e.description).toHtmlResponse()
+      if (e instanceof AuthorizationError) return authorizationErrorResponse(e)
       if (e instanceof OAuthError) return e.toHtmlResponse()
       const errorId = crypto.randomUUID()
       console.error(`Authorize POST error [${errorId}]:`, e)
@@ -369,8 +402,7 @@ export function createAuthHandlers() {
       if (e instanceof CimdFetchError) return cimdCallbackFailureResponse()
       metrics.logEvent(new AuthUser({ errorMessage: authErrorMessage('Callback Error', e) }))
       // Consent/upstream transaction expired, used, or opened in another browser: render locally.
-      if (e instanceof AuthorizationError)
-        return new OAuthError(e.code, e.description).toHtmlResponse()
+      if (e instanceof AuthorizationError) return authorizationErrorResponse(e)
       if (e instanceof OAuthError) return e.toHtmlResponse()
       const errorId = crypto.randomUUID()
       console.error(`Callback error [${errorId}]:`, e)

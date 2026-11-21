@@ -1006,7 +1006,9 @@ describe('GET /oauth/callback', () => {
     )
 
     expect(res.status).toBe(400)
-    expect(await res.text()).toContain('not started in this browser')
+    const html = await res.text()
+    expect(html).toContain('started in a different browser or browser profile')
+    expect(html).toContain('Error code: invalid_request')
   })
 
   it('rejects a valid state token bound to a different browser session', async () => {
@@ -1021,7 +1023,7 @@ describe('GET /oauth/callback', () => {
     )
 
     expect(res.status).toBe(400)
-    expect(await res.text()).toContain('not started in this browser')
+    expect(await res.text()).toContain('started in a different browser or browser profile')
   })
 
   it('rejects replay after a state token has completed authorization', async () => {
@@ -1038,7 +1040,41 @@ describe('GET /oauth/callback', () => {
       new Request(callbackUrl, { headers: { Cookie: sessionCookie }, redirect: 'manual' })
     )
     expect(replay.status).toBe(400)
-    expect(await replay.text()).toContain('expired or was already used')
+    const html = await replay.text()
+    expect(html).toContain('This sign-in has already finished')
+    expect(html).toContain('If your app shows Cloudflare as connected, you can close this page.')
+    expect(html).not.toContain('start again')
+  })
+
+  it('explains a consent form submitted twice as a finished sign-in', async () => {
+    const clientId = await registerClient()
+    const authRes = await exports.default.fetch(
+      new Request(
+        authorizeUrl({
+          response_type: 'code',
+          client_id: clientId,
+          redirect_uri: REDIRECT_URI,
+          scope: 'user:read'
+        })
+      )
+    )
+    const consentCookie = cookiesFrom(authRes)
+    const handle = consentHandle(await authRes.text())
+    const submit = () =>
+      exports.default.fetch(
+        new Request(`${MCP_ORIGIN}/authorize`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded', Cookie: consentCookie },
+          body: new URLSearchParams({ handle, scopes: 'user:read' }).toString(),
+          redirect: 'manual'
+        })
+      )
+
+    expect((await submit()).status).toBe(302)
+    const again = await submit()
+
+    expect(again.status).toBe(400)
+    expect(await again.text()).toContain('This sign-in has already finished')
   })
 
   it('returns 400 invalid_request when the code is missing', async () => {
