@@ -2,7 +2,7 @@ name: Preview
 
 on:
   pull_request_target:
-    types: [labeled, synchronize, closed]
+    types: [labeled, unlabeled, synchronize, closed]
 
 permissions:
   contents: read
@@ -13,10 +13,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  WRANGLER: wrangler@4.149.0
   PR_NUMBER: ${{ github.event.pull_request.number }}
-  CLOUDFLARE_ACCOUNT_ID: ${{ vars.PREVIEW_ACCOUNT_ID }}
-  CLOUDFLARE_API_TOKEN: ${{ secrets.PREVIEW_DEPLOY_TOKEN }}
 
 jobs:
   require-review:
@@ -56,6 +53,10 @@ jobs:
           path: base
           persist-credentials: false
 
+      - name: Install wrangler from main
+        working-directory: base
+        run: npm ci --ignore-scripts --registry=https://registry.npmjs.org/
+
       - name: Write preview config
         id: config
         run: |
@@ -64,9 +65,16 @@ jobs:
           echo "url=$(node -p "require('./.preview/out.json').url")" >> "$GITHUB_OUTPUT"
 
       - name: Deploy
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.PREVIEW_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.PREVIEW_DEPLOY_TOKEN }}
+          CLOUDFLARE_API_BASE_URL: https://api.cloudflare.com/client/v4
         run: |
-          npx --yes "$WRANGLER" deploy -c .preview/wrangler.json
-          openssl rand -hex 32 | npx --yes "$WRANGLER" secret put MCP_COOKIE_ENCRYPTION_KEY -c .preview/wrangler.json
+          wrangler=base/node_modules/.bin/wrangler
+          empty_env="$RUNNER_TEMP/empty.env"
+          : > "$empty_env"
+          "$wrangler" deploy -c .preview/wrangler.json --env-file "$empty_env"
+          openssl rand -hex 32 | "$wrangler" secret put MCP_COOKIE_ENCRYPTION_KEY -c .preview/wrangler.json --env-file "$empty_env"
 
       - name: Check the deployed server
         env:
@@ -96,9 +104,9 @@ jobs:
               '',
               'Sign in with a Cloudflare API token:',
               '```',
-              `codex mcp add cf-pr-${context.issue.number} --url ${process.env.PREVIEW_URL} --bearer-token-env-var CF_PREVIEW_TOKEN`,
+              `claude mcp add --transport http cf-pr-${context.issue.number} ${process.env.PREVIEW_URL} --header "Authorization: Bearer $CLOUDFLARE_API_TOKEN"`,
               '```',
-              'The preview is deleted when this PR closes.'
+              'The preview is deleted when this PR gets new commits, loses the label, or closes.'
             ].join('\n')
             const comments = await github.paginate(github.rest.issues.listComments, {
               ...context.repo,
@@ -113,12 +121,36 @@ jobs:
 
   teardown:
     name: Delete preview
-    if: github.event.action == 'closed' && contains(github.event.pull_request.labels.*.name, 'preview')
+    if: >-
+      github.event.action == 'closed' ||
+      (github.event.action == 'unlabeled' && github.event.label.name == 'preview') ||
+      (github.event.action == 'synchronize' && contains(github.event.pull_request.labels.*.name, 'preview'))
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v6
+        with:
+          path: base
+          persist-credentials: false
+
       - uses: actions/setup-node@v6
         with:
           node-version: "22"
 
+      - name: Install wrangler from main
+        working-directory: base
+        run: npm ci --ignore-scripts --registry=https://registry.npmjs.org/
+
       - name: Delete the preview Worker
-        run: npx --yes "$WRANGLER" delete --name "cloudflare-api-mcp-pr-$PR_NUMBER" --force
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.PREVIEW_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.PREVIEW_DEPLOY_TOKEN }}
+          CLOUDFLARE_API_BASE_URL: https://api.cloudflare.com/client/v4
+        run: |
+          wrangler=base/node_modules/.bin/wrangler
+          empty_env="$RUNNER_TEMP/empty.env"
+          : > "$empty_env"
+          if "$wrangler" deployments list --name "cloudflare-api-mcp-pr-$PR_NUMBER" --env-file "$empty_env" > /dev/null 2>&1; then
+            "$wrangler" delete --name "cloudflare-api-mcp-pr-$PR_NUMBER" --force --env-file "$empty_env"
+          else
+            echo "No preview Worker for PR $PR_NUMBER"
+          fi
