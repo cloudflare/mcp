@@ -236,6 +236,71 @@ describe('generated tools (?codemode=false)', () => {
   })
 })
 
+describe('a subscription the code catches the refusal of', () => {
+  const KEY = `subscription:${ACCOUNT_ID}:teams_free`
+  const code = `async () => cloudflare.request({ method: "POST", path: "/accounts/${ACCOUNT_ID}/subscriptions", body: { rate_plan: { id: "teams_free" } } }).catch(e => ({ error: String(e) }))`
+
+  function mockApi(): unknown[] {
+    const sent: unknown[] = []
+    server.use(
+      http.get(`${API_BASE}/accounts`, () =>
+        HttpResponse.json(cfAccountsSuccess([{ id: ACCOUNT_ID, name: 'Policy Test Account' }]))
+      ),
+      http.post(`${API_BASE}/accounts/${ACCOUNT_ID}/subscriptions`, async ({ request }) => {
+        sent.push(await request.json())
+        return HttpResponse.json(cfSuccess({ id: 'sub_zt' }))
+      })
+    )
+    return sent
+  }
+
+  const call = (extra: Record<string, unknown> = {}) =>
+    exports.default
+      .fetch(
+        modernMcpRequest(
+          API_TOKEN,
+          'tools/call',
+          { name: 'execute', arguments: { code }, ...extra },
+          { url: MCP_URL, clientCapabilities: { elicitation: {} } }
+        )
+      )
+      .then(parseMcpResult)
+
+  it('still asks the user, and sends nothing first', async () => {
+    const sent = mockApi()
+    const { result } = await call()
+    expect(result?.resultType).toBe('input_required')
+    expect(result?.inputRequests?.[KEY]?.params.message).toContain('"teams_free"')
+    expect(sent).toEqual([])
+  })
+
+  it('sends it once the user accepts', async () => {
+    const sent = mockApi()
+    const result = await call({
+      inputResponses: { [KEY]: { action: 'accept', content: { confirm: true } } }
+    })
+    expect(toolText(result)).toContain('sub_zt')
+    expect(sent).toEqual([{ rate_plan: { id: 'teams_free' } }])
+  })
+})
+
+describe('execute names the call that turns on a product', () => {
+  it('tells agents that enabling R2 or Zero Trust is an account subscription', async () => {
+    server.use(
+      http.get(`${API_BASE}/accounts`, () =>
+        HttpResponse.json(cfAccountsSuccess([{ id: ACCOUNT_ID, name: 'Policy Test Account' }]))
+      )
+    )
+    const listed = (await callTool(API_TOKEN, '', null, { method: 'tools/list' })) as unknown as {
+      result?: { tools?: { name: string; description?: string }[] }
+    }
+    const execute = listed.result?.tools?.find((tool) => tool.name === 'execute')
+    expect(execute?.description).toContain('POST /accounts/{account_id}/subscriptions')
+    expect(execute?.description).toContain('r2_paid (R2 Storage)')
+    expect(execute?.description).toContain('teams_free (Zero Trust)')
+  })
+})
+
 describe('creating a subscription asks the user to confirm', () => {
   const SUBSCRIPTION = { rate_plan: { id: 'r2_paid' }, frequency: 'monthly' }
   const KEY = `subscription:${ACCOUNT_ID}:r2_paid`
