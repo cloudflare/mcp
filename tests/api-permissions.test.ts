@@ -236,6 +236,8 @@ describe('explainRefusal', () => {
     expect(text).toContain('was not granted a scope this endpoint accepts')
     expect(text).toContain('`dns.read` (DNS Read)')
     expect(text).toContain('`dns.write` (DNS Write)')
+    expect(text).toContain('Do not retry this operation without an updated grant')
+    expect(text).not.toContain('Reconnect and grant')
   })
 
   it('says reconnecting will not help when the connection already has an accepted scope', () => {
@@ -276,8 +278,11 @@ describe('explainRefusal', () => {
       'Reconnect only if other requests fail with 401 too.'
     )
     expect(explain(403, oauth('dns.read'), DNS)).toContain('reconnecting will not help')
-    // No permissions in the spec.
-    expect(explain(401, oauth(), undefined)).toContain('Reconnect to sign in again')
+    // No permissions in the spec: an isolated OAuth 401 must not force reconnection.
+    const unknownScope401 = explain(401, oauth(), undefined)
+    expect(unknownScope401).toContain('endpoint returned HTTP 401')
+    expect(unknownScope401).toContain('do not reconnect or retry this denied endpoint')
+    expect(unknownScope401).not.toContain('Reconnect to sign in again')
     expect(explain(401, DIRECT_CONNECTION, undefined)).toContain('API token is valid')
     // A direct token's permissions are unknown, so a 401 lists what it needs too.
     expect(explain(401, DIRECT_CONNECTION, DNS)).toBe(
