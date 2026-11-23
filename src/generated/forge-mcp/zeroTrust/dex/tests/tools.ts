@@ -68,6 +68,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/digital-experience-monitoring_dex-single_response",
       $defs: {
+        "digital-experience-monitoring_api-response-common": digital$$experience$$monitoring_api$$response$$common,
         "digital-experience-monitoring_api-response-single": digital$$experience$$monitoring_api$$response$$single,
         "digital-experience-monitoring_device-dex-test-schemas-data": digital$$experience$$monitoring_device$$dex$$test$$schemas$$data,
         "digital-experience-monitoring_device-dex-test-schemas-http": digital$$experience$$monitoring_device$$dex$$test$$schemas$$http,
@@ -92,6 +93,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Cloudflare DEX Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-dex.write"
         ]
       },
       responses: {
@@ -104,6 +108,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "digital-experience-monitoring_api-response-common": digital$$experience$$monitoring_api$$response$$common,
           "digital-experience-monitoring_api-response-common-failure": digital$$experience$$monitoring_api$$response$$common$$failure,
           "digital-experience-monitoring_api-response-single": digital$$experience$$monitoring_api$$response$$single,
           "digital-experience-monitoring_device-dex-test-schemas-data": digital$$experience$$monitoring_device$$dex$$test$$schemas$$data,
@@ -173,6 +178,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Cloudflare DEX Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-dex.write"
         ]
       },
       responses: {
@@ -231,6 +239,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/digital-experience-monitoring_dex-single_response",
       $defs: {
+        "digital-experience-monitoring_api-response-common": digital$$experience$$monitoring_api$$response$$common,
         "digital-experience-monitoring_api-response-single": digital$$experience$$monitoring_api$$response$$single,
         "digital-experience-monitoring_device-dex-test-schemas-data": digital$$experience$$monitoring_device$$dex$$test$$schemas$$data,
         "digital-experience-monitoring_device-dex-test-schemas-http": digital$$experience$$monitoring_device$$dex$$test$$schemas$$http,
@@ -257,6 +266,12 @@ export const tools: readonly Tool[] = [
           "Cloudflare DEX Read",
           "Zero Trust Report",
           "Zero Trust Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-dex.read",
+          "teams-dex.write",
+          "teams.report",
+          "teams.read"
         ]
       },
       responses: {
@@ -269,6 +284,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "digital-experience-monitoring_api-response-common": digital$$experience$$monitoring_api$$response$$common,
           "digital-experience-monitoring_api-response-common-failure": digital$$experience$$monitoring_api$$response$$common$$failure,
           "digital-experience-monitoring_api-response-single": digital$$experience$$monitoring_api$$response$$single,
           "digital-experience-monitoring_device-dex-test-schemas-data": digital$$experience$$monitoring_device$$dex$$test$$schemas$$data,
@@ -371,6 +387,12 @@ export const tools: readonly Tool[] = [
           "Cloudflare DEX Read",
           "Zero Trust Report",
           "Zero Trust Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-dex.read",
+          "teams-dex.write",
+          "teams.report",
+          "teams.read"
         ]
       },
       responses: {
@@ -440,6 +462,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/digital-experience-monitoring_dex-single_response",
       $defs: {
+        "digital-experience-monitoring_api-response-common": digital$$experience$$monitoring_api$$response$$common,
         "digital-experience-monitoring_api-response-single": digital$$experience$$monitoring_api$$response$$single,
         "digital-experience-monitoring_device-dex-test-schemas-data": digital$$experience$$monitoring_device$$dex$$test$$schemas$$data,
         "digital-experience-monitoring_device-dex-test-schemas-http": digital$$experience$$monitoring_device$$dex$$test$$schemas$$http,
@@ -464,6 +487,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Cloudflare DEX Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-dex.write"
         ]
       },
       responses: {
@@ -476,6 +502,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "digital-experience-monitoring_api-response-common": digital$$experience$$monitoring_api$$response$$common,
           "digital-experience-monitoring_api-response-common-failure": digital$$experience$$monitoring_api$$response$$common$$failure,
           "digital-experience-monitoring_api-response-single": digital$$experience$$monitoring_api$$response$$single,
           "digital-experience-monitoring_device-dex-test-schemas-data": digital$$experience$$monitoring_device$$dex$$test$$schemas$$data,

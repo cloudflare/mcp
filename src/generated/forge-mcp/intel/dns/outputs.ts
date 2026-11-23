@@ -79,32 +79,6 @@ export const intel_schemas$$api$$response$$collection: JSONObject = {
 };
 
 /**
- * The schema of `intel_schemas-api-response-common` in responses.
- */
-export const intel_schemas$$api$$response$$common: JSONObject = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/intel_schemas-messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/intel_schemas-messages"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
  * The schema of `intel_schemas-result_info` in responses.
  */
 export const intel_schemas$$result_info: JSONObject = {

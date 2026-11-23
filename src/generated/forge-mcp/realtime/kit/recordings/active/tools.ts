@@ -84,8 +84,14 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/realtime/kit/${"app_id"}/recordings/active-recording/${"meeting_id"}`,
       extensions: {
         "x-api-token-group": [
+          "Realtime Read",
           "Realtime Admin",
           "Realtime"
+        ],
+        "x-forge-oauth-scopes": [
+          "realtime.read",
+          "realtime.write",
+          "realtime.admin"
         ]
       },
       responses: {

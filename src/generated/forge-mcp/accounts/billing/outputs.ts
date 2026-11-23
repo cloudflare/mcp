@@ -4,9 +4,9 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
- * The schema of `bill-subs-api_account_billing_history` in responses.
+ * The schema of `bill-subs_account_billing_history` in responses.
  */
-export const bill$$subs$$api_account_billing_history: JSONObject = {
+export const bill$$subs_account_billing_history: JSONObject = {
   "properties": {
     "action": {
       "type": "string"
@@ -59,12 +59,12 @@ export const bill$$subs$$api_account_billing_history: JSONObject = {
 };
 
 /**
- * The schema of `bill-subs-api_account_credits_response` in responses.
+ * The schema of `bill-subs_account_credits_response` in responses.
  */
-export const bill$$subs$$api_account_credits_response: JSONObject = {
+export const bill$$subs_account_credits_response: JSONObject = {
   "allOf": [
     {
-      "$ref": "#/$defs/bill-subs-api_api-response-single"
+      "$ref": "#/$defs/bill-subs_api-response-single"
     },
     {
       "properties": {
@@ -113,9 +113,9 @@ export const bill$$subs$$api_account_credits_response: JSONObject = {
 };
 
 /**
- * The schema of `bill-subs-api_bad_debt_info` in responses.
+ * The schema of `bill-subs_bad_debt_info` in responses.
  */
-export const bill$$subs$$api_bad_debt_info: JSONObject = {
+export const bill$$subs_bad_debt_info: JSONObject = {
   "properties": {
     "already_paid": {
       "type": "number"
@@ -125,7 +125,7 @@ export const bill$$subs$$api_bad_debt_info: JSONObject = {
     },
     "invoices": {
       "items": {
-        "$ref": "#/$defs/bill-subs-api_account_billing_history"
+        "$ref": "#/$defs/bill-subs_account_billing_history"
       },
       "type": "array"
     },
@@ -137,17 +137,17 @@ export const bill$$subs$$api_bad_debt_info: JSONObject = {
 };
 
 /**
- * The schema of `bill-subs-api_bad_debt_response_single` in responses.
+ * The schema of `bill-subs_bad_debt_response_single` in responses.
  */
-export const bill$$subs$$api_bad_debt_response_single: JSONObject = {
+export const bill$$subs_bad_debt_response_single: JSONObject = {
   "allOf": [
     {
-      "$ref": "#/$defs/bill-subs-api_api-response-single"
+      "$ref": "#/$defs/bill-subs_api-response-single"
     },
     {
       "properties": {
         "result": {
-          "$ref": "#/$defs/bill-subs-api_bad_debt_info"
+          "$ref": "#/$defs/bill-subs_bad_debt_info"
         }
       },
       "type": "object"
@@ -156,12 +156,12 @@ export const bill$$subs$$api_bad_debt_response_single: JSONObject = {
 };
 
 /**
- * The schema of `bill-subs-api_client_secret_response_single` in responses.
+ * The schema of `bill-subs_client_secret_response_single` in responses.
  */
-export const bill$$subs$$api_client_secret_response_single: JSONObject = {
+export const bill$$subs_client_secret_response_single: JSONObject = {
   "allOf": [
     {
-      "$ref": "#/$defs/bill-subs-api_api-response-single"
+      "$ref": "#/$defs/bill-subs_api-response-single"
     },
     {
       "properties": {
@@ -180,12 +180,12 @@ export const bill$$subs$$api_client_secret_response_single: JSONObject = {
 };
 
 /**
- * The schema of `bill-subs-api_unpaid_invoices_response_single` in responses.
+ * The schema of `bill-subs_unpaid_invoices_response_single` in responses.
  */
-export const bill$$subs$$api_unpaid_invoices_response_single: JSONObject = {
+export const bill$$subs_unpaid_invoices_response_single: JSONObject = {
   "allOf": [
     {
-      "$ref": "#/$defs/bill-subs-api_api-response-single"
+      "$ref": "#/$defs/bill-subs_api-response-single"
     },
     {
       "properties": {
@@ -193,7 +193,7 @@ export const bill$$subs$$api_unpaid_invoices_response_single: JSONObject = {
           "properties": {
             "invoices": {
               "items": {
-                "$ref": "#/$defs/bill-subs-api_account_billing_history"
+                "$ref": "#/$defs/bill-subs_account_billing_history"
               },
               "type": "array"
             }

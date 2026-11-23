@@ -67,6 +67,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.write"
         ]
       },
       responses: {
@@ -212,6 +215,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.write"
         ]
       },
       responses: {

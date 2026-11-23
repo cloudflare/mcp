@@ -3,18 +3,18 @@
 
 import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
 import {
-  bill$$subs$$api_api$$response$$common,
-  bill$$subs$$api_api$$response$$common$$failure,
-  bill$$subs$$api_api$$response$$single,
-  bill$$subs$$api_messages,
+  bill$$subs_api$$response$$common,
+  bill$$subs_api$$response$$common$$failure,
+  bill$$subs_api$$response$$single,
+  bill$$subs_messages,
 } from "../../outputs.js";
 import {
-  bill$$subs$$api_account_billing_history,
-  bill$$subs$$api_account_credits_response,
-  bill$$subs$$api_bad_debt_info,
-  bill$$subs$$api_bad_debt_response_single,
-  bill$$subs$$api_client_secret_response_single,
-  bill$$subs$$api_unpaid_invoices_response_single,
+  bill$$subs_account_billing_history,
+  bill$$subs_account_credits_response,
+  bill$$subs_bad_debt_info,
+  bill$$subs_bad_debt_response_single,
+  bill$$subs_client_secret_response_single,
+  bill$$subs_unpaid_invoices_response_single,
 } from "./outputs.js";
 
 /**
@@ -48,12 +48,12 @@ export const tools: readonly Tool[] = [
       additionalProperties: false,
     },
     outputSchema: {
-      "$ref": "#/$defs/bill-subs-api_client_secret_response_single",
+      "$ref": "#/$defs/bill-subs_client_secret_response_single",
       $defs: {
-        "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
-        "bill-subs-api_api-response-single": bill$$subs$$api_api$$response$$single,
-        "bill-subs-api_client_secret_response_single": bill$$subs$$api_client_secret_response_single,
-        "bill-subs-api_messages": bill$$subs$$api_messages,
+        "bill-subs_api-response-common": bill$$subs_api$$response$$common,
+        "bill-subs_api-response-single": bill$$subs_api$$response$$single,
+        "bill-subs_client_secret_response_single": bill$$subs_client_secret_response_single,
+        "bill-subs_messages": bill$$subs_messages,
       },
     },
     annotations: {
@@ -78,18 +78,18 @@ export const tools: readonly Tool[] = [
       responses: {
         schemas: {
           "200": {
-            "$ref": "#/$defs/bill-subs-api_client_secret_response_single"
+            "$ref": "#/$defs/bill-subs_client_secret_response_single"
           },
           "4XX": {
-            "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
+            "$ref": "#/$defs/bill-subs_api-response-common-failure"
           }
         },
         $defs: {
-          "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
-          "bill-subs-api_api-response-common-failure": bill$$subs$$api_api$$response$$common$$failure,
-          "bill-subs-api_api-response-single": bill$$subs$$api_api$$response$$single,
-          "bill-subs-api_client_secret_response_single": bill$$subs$$api_client_secret_response_single,
-          "bill-subs-api_messages": bill$$subs$$api_messages,
+          "bill-subs_api-response-common": bill$$subs_api$$response$$common,
+          "bill-subs_api-response-common-failure": bill$$subs_api$$response$$common$$failure,
+          "bill-subs_api-response-single": bill$$subs_api$$response$$single,
+          "bill-subs_client_secret_response_single": bill$$subs_client_secret_response_single,
+          "bill-subs_messages": bill$$subs_messages,
         },
       },
     },
@@ -121,14 +121,14 @@ export const tools: readonly Tool[] = [
       additionalProperties: false,
     },
     outputSchema: {
-      "$ref": "#/$defs/bill-subs-api_bad_debt_response_single",
+      "$ref": "#/$defs/bill-subs_bad_debt_response_single",
       $defs: {
-        "bill-subs-api_account_billing_history": bill$$subs$$api_account_billing_history,
-        "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
-        "bill-subs-api_api-response-single": bill$$subs$$api_api$$response$$single,
-        "bill-subs-api_bad_debt_info": bill$$subs$$api_bad_debt_info,
-        "bill-subs-api_bad_debt_response_single": bill$$subs$$api_bad_debt_response_single,
-        "bill-subs-api_messages": bill$$subs$$api_messages,
+        "bill-subs_account_billing_history": bill$$subs_account_billing_history,
+        "bill-subs_api-response-common": bill$$subs_api$$response$$common,
+        "bill-subs_api-response-single": bill$$subs_api$$response$$single,
+        "bill-subs_bad_debt_info": bill$$subs_bad_debt_info,
+        "bill-subs_bad_debt_response_single": bill$$subs_bad_debt_response_single,
+        "bill-subs_messages": bill$$subs_messages,
       },
     },
     annotations: {
@@ -153,20 +153,20 @@ export const tools: readonly Tool[] = [
       responses: {
         schemas: {
           "200": {
-            "$ref": "#/$defs/bill-subs-api_bad_debt_response_single"
+            "$ref": "#/$defs/bill-subs_bad_debt_response_single"
           },
           "4XX": {
-            "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
+            "$ref": "#/$defs/bill-subs_api-response-common-failure"
           }
         },
         $defs: {
-          "bill-subs-api_account_billing_history": bill$$subs$$api_account_billing_history,
-          "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
-          "bill-subs-api_api-response-common-failure": bill$$subs$$api_api$$response$$common$$failure,
-          "bill-subs-api_api-response-single": bill$$subs$$api_api$$response$$single,
-          "bill-subs-api_bad_debt_info": bill$$subs$$api_bad_debt_info,
-          "bill-subs-api_bad_debt_response_single": bill$$subs$$api_bad_debt_response_single,
-          "bill-subs-api_messages": bill$$subs$$api_messages,
+          "bill-subs_account_billing_history": bill$$subs_account_billing_history,
+          "bill-subs_api-response-common": bill$$subs_api$$response$$common,
+          "bill-subs_api-response-common-failure": bill$$subs_api$$response$$common$$failure,
+          "bill-subs_api-response-single": bill$$subs_api$$response$$single,
+          "bill-subs_bad_debt_info": bill$$subs_bad_debt_info,
+          "bill-subs_bad_debt_response_single": bill$$subs_bad_debt_response_single,
+          "bill-subs_messages": bill$$subs_messages,
         },
       },
     },
@@ -198,12 +198,12 @@ export const tools: readonly Tool[] = [
       additionalProperties: false,
     },
     outputSchema: {
-      "$ref": "#/$defs/bill-subs-api_account_credits_response",
+      "$ref": "#/$defs/bill-subs_account_credits_response",
       $defs: {
-        "bill-subs-api_account_credits_response": bill$$subs$$api_account_credits_response,
-        "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
-        "bill-subs-api_api-response-single": bill$$subs$$api_api$$response$$single,
-        "bill-subs-api_messages": bill$$subs$$api_messages,
+        "bill-subs_account_credits_response": bill$$subs_account_credits_response,
+        "bill-subs_api-response-common": bill$$subs_api$$response$$common,
+        "bill-subs_api-response-single": bill$$subs_api$$response$$single,
+        "bill-subs_messages": bill$$subs_messages,
       },
     },
     annotations: {
@@ -237,18 +237,18 @@ export const tools: readonly Tool[] = [
       responses: {
         schemas: {
           "200": {
-            "$ref": "#/$defs/bill-subs-api_account_credits_response"
+            "$ref": "#/$defs/bill-subs_account_credits_response"
           },
           "4XX": {
-            "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
+            "$ref": "#/$defs/bill-subs_api-response-common-failure"
           }
         },
         $defs: {
-          "bill-subs-api_account_credits_response": bill$$subs$$api_account_credits_response,
-          "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
-          "bill-subs-api_api-response-common-failure": bill$$subs$$api_api$$response$$common$$failure,
-          "bill-subs-api_api-response-single": bill$$subs$$api_api$$response$$single,
-          "bill-subs-api_messages": bill$$subs$$api_messages,
+          "bill-subs_account_credits_response": bill$$subs_account_credits_response,
+          "bill-subs_api-response-common": bill$$subs_api$$response$$common,
+          "bill-subs_api-response-common-failure": bill$$subs_api$$response$$common$$failure,
+          "bill-subs_api-response-single": bill$$subs_api$$response$$single,
+          "bill-subs_messages": bill$$subs_messages,
         },
       },
     },
@@ -320,12 +320,12 @@ export const tools: readonly Tool[] = [
         schemas: {
           "200": null,
           "4XX": {
-            "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
+            "$ref": "#/$defs/bill-subs_api-response-common-failure"
           }
         },
         $defs: {
-          "bill-subs-api_api-response-common-failure": bill$$subs$$api_api$$response$$common$$failure,
-          "bill-subs-api_messages": bill$$subs$$api_messages,
+          "bill-subs_api-response-common-failure": bill$$subs_api$$response$$common$$failure,
+          "bill-subs_messages": bill$$subs_messages,
         },
       },
     },
@@ -357,13 +357,13 @@ export const tools: readonly Tool[] = [
       additionalProperties: false,
     },
     outputSchema: {
-      "$ref": "#/$defs/bill-subs-api_unpaid_invoices_response_single",
+      "$ref": "#/$defs/bill-subs_unpaid_invoices_response_single",
       $defs: {
-        "bill-subs-api_account_billing_history": bill$$subs$$api_account_billing_history,
-        "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
-        "bill-subs-api_api-response-single": bill$$subs$$api_api$$response$$single,
-        "bill-subs-api_messages": bill$$subs$$api_messages,
-        "bill-subs-api_unpaid_invoices_response_single": bill$$subs$$api_unpaid_invoices_response_single,
+        "bill-subs_account_billing_history": bill$$subs_account_billing_history,
+        "bill-subs_api-response-common": bill$$subs_api$$response$$common,
+        "bill-subs_api-response-single": bill$$subs_api$$response$$single,
+        "bill-subs_messages": bill$$subs_messages,
+        "bill-subs_unpaid_invoices_response_single": bill$$subs_unpaid_invoices_response_single,
       },
     },
     annotations: {
@@ -388,19 +388,19 @@ export const tools: readonly Tool[] = [
       responses: {
         schemas: {
           "200": {
-            "$ref": "#/$defs/bill-subs-api_unpaid_invoices_response_single"
+            "$ref": "#/$defs/bill-subs_unpaid_invoices_response_single"
           },
           "4XX": {
-            "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
+            "$ref": "#/$defs/bill-subs_api-response-common-failure"
           }
         },
         $defs: {
-          "bill-subs-api_account_billing_history": bill$$subs$$api_account_billing_history,
-          "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
-          "bill-subs-api_api-response-common-failure": bill$$subs$$api_api$$response$$common$$failure,
-          "bill-subs-api_api-response-single": bill$$subs$$api_api$$response$$single,
-          "bill-subs-api_messages": bill$$subs$$api_messages,
-          "bill-subs-api_unpaid_invoices_response_single": bill$$subs$$api_unpaid_invoices_response_single,
+          "bill-subs_account_billing_history": bill$$subs_account_billing_history,
+          "bill-subs_api-response-common": bill$$subs_api$$response$$common,
+          "bill-subs_api-response-common-failure": bill$$subs_api$$response$$common$$failure,
+          "bill-subs_api-response-single": bill$$subs_api$$response$$single,
+          "bill-subs_messages": bill$$subs_messages,
+          "bill-subs_unpaid_invoices_response_single": bill$$subs_unpaid_invoices_response_single,
         },
       },
     },
@@ -450,12 +450,12 @@ export const tools: readonly Tool[] = [
       additionalProperties: false,
     },
     outputSchema: {
-      "$ref": "#/$defs/bill-subs-api_client_secret_response_single",
+      "$ref": "#/$defs/bill-subs_client_secret_response_single",
       $defs: {
-        "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
-        "bill-subs-api_api-response-single": bill$$subs$$api_api$$response$$single,
-        "bill-subs-api_client_secret_response_single": bill$$subs$$api_client_secret_response_single,
-        "bill-subs-api_messages": bill$$subs$$api_messages,
+        "bill-subs_api-response-common": bill$$subs_api$$response$$common,
+        "bill-subs_api-response-single": bill$$subs_api$$response$$single,
+        "bill-subs_client_secret_response_single": bill$$subs_client_secret_response_single,
+        "bill-subs_messages": bill$$subs_messages,
       },
     },
     annotations: {
@@ -484,18 +484,18 @@ export const tools: readonly Tool[] = [
       responses: {
         schemas: {
           "200": {
-            "$ref": "#/$defs/bill-subs-api_client_secret_response_single"
+            "$ref": "#/$defs/bill-subs_client_secret_response_single"
           },
           "4XX": {
-            "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
+            "$ref": "#/$defs/bill-subs_api-response-common-failure"
           }
         },
         $defs: {
-          "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
-          "bill-subs-api_api-response-common-failure": bill$$subs$$api_api$$response$$common$$failure,
-          "bill-subs-api_api-response-single": bill$$subs$$api_api$$response$$single,
-          "bill-subs-api_client_secret_response_single": bill$$subs$$api_client_secret_response_single,
-          "bill-subs-api_messages": bill$$subs$$api_messages,
+          "bill-subs_api-response-common": bill$$subs_api$$response$$common,
+          "bill-subs_api-response-common-failure": bill$$subs_api$$response$$common$$failure,
+          "bill-subs_api-response-single": bill$$subs_api$$response$$single,
+          "bill-subs_client_secret_response_single": bill$$subs_client_secret_response_single,
+          "bill-subs_messages": bill$$subs_messages,
         },
       },
     },
@@ -537,11 +537,11 @@ export const tools: readonly Tool[] = [
       additionalProperties: false,
     },
     outputSchema: {
-      "$ref": "#/$defs/bill-subs-api_api-response-single",
+      "$ref": "#/$defs/bill-subs_api-response-single",
       $defs: {
-        "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
-        "bill-subs-api_api-response-single": bill$$subs$$api_api$$response$$single,
-        "bill-subs-api_messages": bill$$subs$$api_messages,
+        "bill-subs_api-response-common": bill$$subs_api$$response$$common,
+        "bill-subs_api-response-single": bill$$subs_api$$response$$single,
+        "bill-subs_messages": bill$$subs_messages,
       },
     },
     annotations: {
@@ -567,17 +567,17 @@ export const tools: readonly Tool[] = [
       responses: {
         schemas: {
           "200": {
-            "$ref": "#/$defs/bill-subs-api_api-response-single"
+            "$ref": "#/$defs/bill-subs_api-response-single"
           },
           "4XX": {
-            "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
+            "$ref": "#/$defs/bill-subs_api-response-common-failure"
           }
         },
         $defs: {
-          "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
-          "bill-subs-api_api-response-common-failure": bill$$subs$$api_api$$response$$common$$failure,
-          "bill-subs-api_api-response-single": bill$$subs$$api_api$$response$$single,
-          "bill-subs-api_messages": bill$$subs$$api_messages,
+          "bill-subs_api-response-common": bill$$subs_api$$response$$common,
+          "bill-subs_api-response-common-failure": bill$$subs_api$$response$$common$$failure,
+          "bill-subs_api-response-single": bill$$subs_api$$response$$single,
+          "bill-subs_messages": bill$$subs_messages,
         },
       },
     },

@@ -63,26 +63,7 @@ export const calls_api$$response$$common$$failure: JSONObject = {
  * The schema of `calls_api-response-single` in responses.
  */
 export const calls_api$$response$$single: JSONObject = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/calls_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/calls_messages"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  "$ref": "#/$defs/calls_api-response-common"
 };
 
 /**

@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../../../_/tool.js";
 import {
+  stream_api$$response$$common,
   stream_api$$response$$common$$failure,
   stream_api$$response$$single,
   stream_messages,
@@ -56,6 +57,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/stream_signed_token_response",
       $defs: {
+        "stream_api-response-common": stream_api$$response$$common,
         "stream_api-response-single": stream_api$$response$$single,
         "stream_messages": stream_messages,
         "stream_signed_token_response": stream_signed_token_response,
@@ -83,6 +85,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "stream_api-response-common": stream_api$$response$$common,
           "stream_api-response-common-failure": stream_api$$response$$common$$failure,
           "stream_api-response-single": stream_api$$response$$single,
           "stream_messages": stream_messages,

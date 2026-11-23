@@ -3,12 +3,12 @@
 
 import { OPERATION, type Tool, encodePath } from "../../../_/tool.js";
 import {
+  zero$$trust$$gateway_api$$response$$common,
   zero$$trust$$gateway_api$$response$$common$$failure,
   zero$$trust$$gateway_messages,
 } from "../../outputs.js";
 import {
   zero$$trust$$gateway_api$$response$$collection,
-  zero$$trust$$gateway_api$$response$$common,
   zero$$trust$$gateway_result_info,
 } from "../outputs.js";
 import {
@@ -73,6 +73,11 @@ export const tools: readonly Tool[] = [
           "Cloudflare Zero Trust Secure DNS Locations Write",
           "Zero Trust Read",
           "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-secure.location",
+          "teams.read",
+          "teams.write"
         ]
       },
       responses: {

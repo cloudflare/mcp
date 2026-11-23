@@ -100,7 +100,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "magic-wan.write",
+          "magic-transit.write"
+        ]
       },
       responses: {
         schemas: {
@@ -191,7 +195,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "magic-wan.write",
+          "magic-transit.write"
+        ]
       },
       responses: {
         schemas: {
@@ -284,7 +292,13 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "magic-wan.read",
+          "magic-transit.read",
+          "magic-wan.write",
+          "magic-transit.write"
+        ]
       },
       responses: {
         schemas: {
@@ -372,7 +386,13 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "magic-wan.read",
+          "magic-transit.read",
+          "magic-wan.write",
+          "magic-transit.write"
+        ]
       },
       responses: {
         schemas: {
@@ -472,7 +492,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "magic-wan.write",
+          "magic-transit.write"
+        ]
       },
       responses: {
         schemas: {

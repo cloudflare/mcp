@@ -78,7 +78,12 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "scim-provisioning.write",
+          "account-settings.read",
+          "account-settings.write"
+        ]
       },
       responses: {
         schemas: {

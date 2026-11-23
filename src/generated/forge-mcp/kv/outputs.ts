@@ -25,7 +25,7 @@ export const workers$$kv_any: JSONObject = {
     },
     {
       "items": {
-        "type": "object"
+        "$ref": "#/$defs/workers-kv_any"
       },
       "type": "array"
     },

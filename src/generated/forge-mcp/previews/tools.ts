@@ -81,7 +81,13 @@ export const tools: readonly Tool[] = [
       ],
       extensions: {
         "x-api-token-group": [
+          "Workers Admin",
+          "Individual Workers Admin",
           "Workers Scripts Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-scripts.write",
+          "workers-scripts.admin"
         ]
       },
       responses: {

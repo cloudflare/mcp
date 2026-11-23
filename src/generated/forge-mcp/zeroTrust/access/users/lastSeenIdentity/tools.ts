@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../../../../_/tool.js";
 import {
+  access_api$$response$$common,
   access_api$$response$$common$$failure,
   access_api$$response$$single,
   access_messages,
@@ -55,6 +56,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_last_seen_identity_response",
       $defs: {
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_device_posture_check": access_device_posture_check,
         "access_device_posture_rule-2": access_device_posture_rule$$2,
@@ -79,7 +81,20 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/access/users/${"user_id"}/last_seen_identity`,
       extensions: {
         "x-api-token-group": [
-          "Access: Audit Logs Read"
+          "Access: Users Write",
+          "Access: Users Read",
+          "Access: Audit Logs Read",
+          "Zero Trust Read",
+          "Zero Trust Write",
+          "Access: Organizations, Identity Providers, and Groups Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "access-users.read",
+          "access-audit-log.read",
+          "access-users.write",
+          "access-acct.write",
+          "teams.read",
+          "teams.write"
         ]
       },
       responses: {
@@ -92,6 +107,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_device_posture_check": access_device_posture_check,

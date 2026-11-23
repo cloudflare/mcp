@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../../../_/tool.js";
 import {
+  aaa_api$$response$$common$$2,
   aaa_api$$response$$common$$failure$$3,
   aaa_api$$response$$single,
   aaa_messages$$3,
@@ -69,6 +70,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/aaa_unsubscribe_email_single_response",
       $defs: {
+        "aaa_api-response-common-2": aaa_api$$response$$common$$2,
         "aaa_api-response-single": aaa_api$$response$$single,
         "aaa_messages-3": aaa_messages$$3,
         "aaa_unsubscribe_email": aaa_unsubscribe_email,
@@ -97,6 +99,13 @@ export const tools: readonly Tool[] = [
           "Notifications Read",
           "Account Settings Write",
           "Account Settings Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "notifications.read",
+          "notifications.write",
+          "teams-pii.read",
+          "account-settings.read",
+          "account-settings.write"
         ]
       },
       responses: {
@@ -109,6 +118,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "aaa_api-response-common-2": aaa_api$$response$$common$$2,
           "aaa_api-response-common-failure-3": aaa_api$$response$$common$$failure$$3,
           "aaa_api-response-single": aaa_api$$response$$single,
           "aaa_messages-3": aaa_messages$$3,
@@ -169,6 +179,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/aaa_unsubscribe_email_post_single_response",
       $defs: {
+        "aaa_api-response-common-2": aaa_api$$response$$common$$2,
         "aaa_api-response-single": aaa_api$$response$$single,
         "aaa_messages-3": aaa_messages$$3,
         "aaa_unsubscribe_email_post": aaa_unsubscribe_email_post,
@@ -200,6 +211,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "aaa_api-response-common-2": aaa_api$$response$$common$$2,
           "aaa_api-response-common-failure-3": aaa_api$$response$$common$$failure$$3,
           "aaa_api-response-single": aaa_api$$response$$single,
           "aaa_messages-3": aaa_messages$$3,

@@ -826,32 +826,6 @@ export const dns$$records_api$$response$$collection: JSONObject = {
 };
 
 /**
- * The schema of `dns-records_api-response-common` in responses.
- */
-export const dns$$records_api$$response$$common: JSONObject = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/dns-records_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/dns-records_messages"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
  * The schema of `dns-records_dns-record-response` in responses.
  */
 export const dns$$records_dns$$record$$response: JSONObject = {
@@ -1236,26 +1210,7 @@ export const dns$$records_dns_response_single: JSONObject = {
  * The schema of `dns-records_dns_response_trigger_scan` in responses.
  */
 export const dns$$records_dns_response_trigger_scan: JSONObject = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/dns-records_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/dns-records_messages"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  "$ref": "#/$defs/dns-records_api-response-single"
 };
 
 /**

@@ -4,6 +4,7 @@
 import { OPERATION, type Tool, encodePath } from "../../../_/tool.js";
 import {
   intel$$sinkholes_api$$response$$common,
+  intel$$sinkholes_api$$response$$common$$failure,
   intel$$sinkholes_api_response_common_failure,
   intel$$sinkholes_api_response_single_empty,
   intel$$sinkholes_messages,
@@ -81,6 +82,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Intel Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "intel.write"
         ]
       },
       responses: {
@@ -94,6 +98,7 @@ export const tools: readonly Tool[] = [
         },
         $defs: {
           "intel-sinkholes_api-response-common": intel$$sinkholes_api$$response$$common,
+          "intel-sinkholes_api-response-common-failure": intel$$sinkholes_api$$response$$common$$failure,
           "intel-sinkholes_api_response_common_failure": intel$$sinkholes_api_response_common_failure,
           "intel-sinkholes_ingress_item": intel$$sinkholes_ingress_item,
           "intel-sinkholes_ingress_single_response": intel$$sinkholes_ingress_single_response,
@@ -160,6 +165,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Intel Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "intel.write"
         ]
       },
       responses: {
@@ -173,6 +181,7 @@ export const tools: readonly Tool[] = [
         },
         $defs: {
           "intel-sinkholes_api-response-common": intel$$sinkholes_api$$response$$common,
+          "intel-sinkholes_api-response-common-failure": intel$$sinkholes_api$$response$$common$$failure,
           "intel-sinkholes_api_response_common_failure": intel$$sinkholes_api_response_common_failure,
           "intel-sinkholes_api_response_single_empty": intel$$sinkholes_api_response_single_empty,
           "intel-sinkholes_messages": intel$$sinkholes_messages,
@@ -240,6 +249,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Intel Write",
           "Intel Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "intel.read",
+          "intel.write"
         ]
       },
       responses: {
@@ -253,6 +266,7 @@ export const tools: readonly Tool[] = [
         },
         $defs: {
           "intel-sinkholes_api-response-common": intel$$sinkholes_api$$response$$common,
+          "intel-sinkholes_api-response-common-failure": intel$$sinkholes_api$$response$$common$$failure,
           "intel-sinkholes_api_response_common_failure": intel$$sinkholes_api_response_common_failure,
           "intel-sinkholes_ingress_item": intel$$sinkholes_ingress_item,
           "intel-sinkholes_ingress_single_response": intel$$sinkholes_ingress_single_response,
@@ -272,7 +286,7 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "account_or_zone": {
-              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "description": "Whether ${account_or_zone} is an account ID (`accounts`) or a zone ID (`zones`).",
               "enum": [
                 "accounts",
                 "zones"
@@ -280,7 +294,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "description": "The account ID or zone ID, as selected by ${account_or_zone}.",
               "type": "string"
             },
             "sinkhole_id": {
@@ -325,7 +339,8 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Intel Write",
           "Intel Read"
-        ]
+        ],
+        "x-stainless-skip": true
       },
       responses: {
         schemas: {
@@ -338,6 +353,7 @@ export const tools: readonly Tool[] = [
         },
         $defs: {
           "intel-sinkholes_api-response-common": intel$$sinkholes_api$$response$$common,
+          "intel-sinkholes_api-response-common-failure": intel$$sinkholes_api$$response$$common$$failure,
           "intel-sinkholes_api_response_common_failure": intel$$sinkholes_api_response_common_failure,
           "intel-sinkholes_ingress_collection_response": intel$$sinkholes_ingress_collection_response,
           "intel-sinkholes_ingress_item": intel$$sinkholes_ingress_item,
@@ -412,6 +428,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Intel Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "intel.write"
         ]
       },
       responses: {
@@ -425,6 +444,7 @@ export const tools: readonly Tool[] = [
         },
         $defs: {
           "intel-sinkholes_api-response-common": intel$$sinkholes_api$$response$$common,
+          "intel-sinkholes_api-response-common-failure": intel$$sinkholes_api$$response$$common$$failure,
           "intel-sinkholes_api_response_common_failure": intel$$sinkholes_api_response_common_failure,
           "intel-sinkholes_api_response_single_empty": intel$$sinkholes_api_response_single_empty,
           "intel-sinkholes_messages": intel$$sinkholes_messages,

@@ -4,9 +4,9 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
- * The schema of `dns-settings_dns-view-patch`.
+ * The schema of `dns-settings_dns-view`.
  */
-export const dns$$settings_dns$$view$$patch: JSONObject = {
+export const dns$$settings_dns$$view: JSONObject = {
   "properties": {
     "name": {
       "description": "The name of the view.",
@@ -21,24 +21,17 @@ export const dns$$settings_dns$$view$$patch: JSONObject = {
 };
 
 /**
+ * The schema of `dns-settings_dns-view-patch`.
+ */
+export const dns$$settings_dns$$view$$patch: JSONObject = {
+  "$ref": "#/$defs/dns-settings_dns-view"
+};
+
+/**
  * The schema of `dns-settings_dns-view-post`.
  */
 export const dns$$settings_dns$$view$$post: JSONObject = {
-  "properties": {
-    "name": {
-      "description": "The name of the view.",
-      "type": "string"
-    },
-    "zones": {
-      "$ref": "#/$defs/dns-settings_zones",
-      "description": "The list of zones linked to this view."
-    }
-  },
-  "required": [
-    "name",
-    "zones"
-  ],
-  "type": "object"
+  "$ref": "#/$defs/dns-settings_dns-view"
 };
 
 /**

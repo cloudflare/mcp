@@ -7,24 +7,5 @@ import type { JSONObject } from "@modelcontextprotocol/server";
  * The schema of `api-shield_api-response-single` in responses.
  */
 export const api$$shield_api$$response$$single: JSONObject = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/api-shield_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/api-shield_messages"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  "$ref": "#/$defs/api-shield_api-response-common"
 };

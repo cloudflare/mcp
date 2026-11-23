@@ -81,6 +81,10 @@ export const tools: readonly Tool[] = [
           "free": true,
           "pro": true
         },
+        "x-forge-oauth-scopes": [
+          "secrets-store.read",
+          "secrets-store.write"
+        ],
         "x-stability": "beta"
       },
       responses: {
@@ -200,6 +204,10 @@ export const tools: readonly Tool[] = [
           "free": true,
           "pro": true
         },
+        "x-forge-oauth-scopes": [
+          "secrets-store.read",
+          "secrets-store.write"
+        ],
         "x-stability": "beta"
       },
       responses: {

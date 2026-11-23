@@ -76,6 +76,9 @@ export const tools: readonly Tool[] = [
       method: "GET",
       path: "/zones/{zone_id}/pay-per-use/can_be_enabled",
       pathOf: encodePath`/zones/${"zone_id"}/pay-per-use/can_be_enabled`,
+      extensions: {
+        "x-stability": "beta"
+      },
       responses: {
         schemas: {
           "200": {
@@ -146,6 +149,9 @@ export const tools: readonly Tool[] = [
       method: "GET",
       path: "/zones/{zone_id}/pay-per-use/configuration",
       pathOf: encodePath`/zones/${"zone_id"}/pay-per-use/configuration`,
+      extensions: {
+        "x-stability": "beta"
+      },
       responses: {
         schemas: {
           "200": {
@@ -225,6 +231,9 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/pay-per-use/zones_can_be_enabled",
       pathOf: encodePath`/accounts/${"account_id"}/pay-per-use/zones_can_be_enabled`,
       body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-stability": "beta"
+      },
       responses: {
         schemas: {
           "200": {
@@ -305,6 +314,9 @@ export const tools: readonly Tool[] = [
       path: "/zones/{zone_id}/pay-per-use/configuration",
       pathOf: encodePath`/zones/${"zone_id"}/pay-per-use/configuration`,
       body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-stability": "beta"
+      },
       responses: {
         schemas: {
           "200": {

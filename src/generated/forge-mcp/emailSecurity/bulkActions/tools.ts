@@ -76,6 +76,7 @@ export const tools: readonly Tool[] = [
         "email-security_BulkJobActionParams": email$$security_BulkJobActionParams,
         "email-security_BulkJobDetail": email$$security_BulkJobDetail,
         "email-security_BulkSearchParams": email$$security_BulkSearchParams,
+        "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
       },
@@ -94,6 +95,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Cloud Email Security: Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "cloud-email-security.write"
         ],
         "x-stability": "beta"
       },
@@ -125,6 +129,7 @@ export const tools: readonly Tool[] = [
           "email-security_BulkJobActionParams": email$$security_BulkJobActionParams,
           "email-security_BulkJobDetail": email$$security_BulkJobDetail,
           "email-security_BulkSearchParams": email$$security_BulkSearchParams,
+          "email-security_api-response-common": email$$security_api$$response$$common,
           "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
           "email-security_api-response-single": email$$security_api$$response$$single,
           "email-security_messages": email$$security_messages,
@@ -187,6 +192,7 @@ export const tools: readonly Tool[] = [
         "email-security_BulkJobActionParams": email$$security_BulkJobActionParams,
         "email-security_BulkJobDetail": email$$security_BulkJobDetail,
         "email-security_BulkSearchParams": email$$security_BulkSearchParams,
+        "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
       },
@@ -206,6 +212,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Cloud Email Security: Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "cloud-email-security.write"
         ],
         "x-stability": "beta"
       },
@@ -237,6 +246,7 @@ export const tools: readonly Tool[] = [
           "email-security_BulkJobActionParams": email$$security_BulkJobActionParams,
           "email-security_BulkJobDetail": email$$security_BulkJobDetail,
           "email-security_BulkSearchParams": email$$security_BulkSearchParams,
+          "email-security_api-response-common": email$$security_api$$response$$common,
           "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
           "email-security_api-response-single": email$$security_api$$response$$single,
           "email-security_messages": email$$security_messages,
@@ -303,6 +313,7 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
+        "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
       },
@@ -355,6 +366,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "email-security_api-response-common": email$$security_api$$response$$common,
           "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
           "email-security_api-response-single": email$$security_api$$response$$single,
           "email-security_messages": email$$security_messages,
@@ -415,6 +427,7 @@ export const tools: readonly Tool[] = [
         "email-security_BulkJobActionParams": email$$security_BulkJobActionParams,
         "email-security_BulkJobDetail": email$$security_BulkJobDetail,
         "email-security_BulkSearchParams": email$$security_BulkSearchParams,
+        "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
       },
@@ -434,6 +447,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Cloud Email Security: Write",
           "Cloud Email Security: Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "cloud-email-security.read",
+          "cloud-email-security.write"
         ],
         "x-stability": "beta"
       },
@@ -465,6 +482,7 @@ export const tools: readonly Tool[] = [
           "email-security_BulkJobActionParams": email$$security_BulkJobActionParams,
           "email-security_BulkJobDetail": email$$security_BulkJobDetail,
           "email-security_BulkSearchParams": email$$security_BulkSearchParams,
+          "email-security_api-response-common": email$$security_api$$response$$common,
           "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
           "email-security_api-response-single": email$$security_api$$response$$single,
           "email-security_messages": email$$security_messages,
@@ -588,6 +606,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Cloud Email Security: Write",
           "Cloud Email Security: Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "cloud-email-security.read",
+          "cloud-email-security.write"
         ],
         "x-stability": "beta"
       },

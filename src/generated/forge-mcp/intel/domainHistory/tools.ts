@@ -79,6 +79,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Intel Write",
           "Intel Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "intel.read",
+          "intel.write"
         ]
       },
       responses: {

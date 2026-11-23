@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../../../../_/tool.js";
 import {
+  access_api$$response$$common,
   access_api$$response$$common$$failure,
   access_api$$response$$single,
   access_messages,
@@ -31,7 +32,7 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "account_or_zone": {
-              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "description": "Whether ${account_or_zone} is an account ID (`accounts`) or a zone ID (`zones`).",
               "enum": [
                 "accounts",
                 "zones"
@@ -39,7 +40,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "description": "The account ID or zone ID, as selected by ${account_or_zone}.",
               "type": "string"
             },
             "app_id": {
@@ -75,6 +76,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_single_response_update",
       $defs: {
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_app_settings_response": access_app_settings_response,
         "access_messages": access_messages,
@@ -95,8 +97,12 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "Individual Access App Admin",
+          "Access: Apps Write",
+          "Zero Trust Write",
           "Access: Apps and Policies Write"
-        ]
+        ],
+        "x-stainless-skip": true
       },
       responses: {
         schemas: {
@@ -108,6 +114,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_app_settings_response": access_app_settings_response,

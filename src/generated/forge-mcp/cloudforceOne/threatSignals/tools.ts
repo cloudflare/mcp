@@ -35,8 +35,18 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "max_results": {
-              "description": "Maximum search matches to request, an integer from 1 to 50. Defaults to 20 when omitted or empty; multiple matches from one article can produce fewer returned articles.",
-              "type": "string"
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "Maximum search matches to request, an integer from 1 to 50. Defaults to 20 when omitted or empty; multiple matches from one article can produce fewer returned articles."
             },
             "query": {
               "description": "Keyword and semantic article-search text, from 1 to 1000 characters.",
@@ -169,6 +179,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Cloudforce One Write",
           "Cloudforce One Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "cloudforce-one.read",
+          "cloudforce-one.write"
         ]
       },
       responses: {

@@ -9,7 +9,7 @@ import type { JSONObject } from "@modelcontextprotocol/server";
 export const web3_content_list_entry_collection_response: JSONObject = {
   "allOf": [
     {
-      "$ref": "#/$defs/web3_api-response-collection"
+      "$ref": "#/$defs/web3_api-response-common"
     },
     {
       "properties": {

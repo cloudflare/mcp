@@ -3,13 +3,11 @@
 
 import { OPERATION, type Tool, encodePath } from "../../../_/tool.js";
 import {
+  dlp_api$$response$$common,
   dlp_api$$response$$common$$failure,
   dlp_messages,
 } from "../../outputs.js";
-import {
-  dlp_api$$response$$collection,
-  dlp_api$$response$$common,
-} from "../outputs.js";
+import { dlp_api$$response$$collection } from "../outputs.js";
 import { dlp_RiskSummary, dlp_UserRiskInfo } from "./outputs.js";
 
 /**
@@ -77,6 +75,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Zero Trust: PII Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-pii.read"
         ]
       },
       responses: {

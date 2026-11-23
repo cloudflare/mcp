@@ -86,6 +86,12 @@ export const tools: readonly Tool[] = [
           "Cloudflare One Connectors Read",
           "Cloudflare One Connector: WARP Write",
           "Cloudflare One Connector: WARP Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-connector-warp.read",
+          "teams-connector-warp.write",
+          "teams-connectors.read",
+          "teams-connectors.write"
         ]
       },
       responses: {

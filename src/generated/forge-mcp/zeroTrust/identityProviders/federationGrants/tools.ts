@@ -57,6 +57,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_idp_federation_grant_response",
       $defs: {
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_idp_federation_grant": access_idp_federation_grant,
         "access_idp_federation_grant_response": access_idp_federation_grant_response,
@@ -88,6 +89,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_idp_federation_grant": access_idp_federation_grant,
@@ -131,6 +133,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_idp_federation_grant_id_response",
       $defs: {
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_idp_federation_grant_id_response": access_idp_federation_grant_id_response,
         "access_messages": access_messages,
@@ -160,6 +163,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_idp_federation_grant_id_response": access_idp_federation_grant_id_response,
@@ -202,6 +206,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_idp_federation_grant_response",
       $defs: {
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_idp_federation_grant": access_idp_federation_grant,
         "access_idp_federation_grant_response": access_idp_federation_grant_response,
@@ -235,6 +240,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_idp_federation_grant": access_idp_federation_grant,

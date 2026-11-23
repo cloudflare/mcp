@@ -559,6 +559,10 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/ai-search/namespaces/${"namespace"}/instances/${"id"}/chat/completions`,
       body: { mediaTypes: ["application/json"] },
       extensions: {
+        "x-api-token-group": [
+          "AI Search Write",
+          "Auto Rag Write"
+        ],
         "x-cfPermissionsRequired": {
           "enum": [
             "com.cloudflare.api.account.ai-search"
@@ -570,6 +574,10 @@ export const tools: readonly Tool[] = [
           "free": true,
           "pro": true
         },
+        "x-forge-oauth-scopes": [
+          "rag.write",
+          "ai-search.write"
+        ],
         "x-forge-params": {
           "id": {
             "description": "AI Search instance ID."
@@ -2252,6 +2260,10 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/ai-search/namespaces/${"namespace"}/instances`,
       body: { mediaTypes: ["application/json"] },
       extensions: {
+        "x-api-token-group": [
+          "AI Search Write",
+          "Auto Rag Write"
+        ],
         "x-cfPermissionsRequired": {
           "enum": [
             "com.cloudflare.api.account.ai-search"
@@ -2263,6 +2275,10 @@ export const tools: readonly Tool[] = [
           "free": true,
           "pro": true
         },
+        "x-forge-oauth-scopes": [
+          "rag.write",
+          "ai-search.write"
+        ],
         "x-forge-params": {
           "id": {
             "description": "Unique ID for the new AI Search instance.",
@@ -3722,6 +3738,10 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}",
       pathOf: encodePath`/accounts/${"account_id"}/ai-search/namespaces/${"namespace"}/instances/${"id"}`,
       extensions: {
+        "x-api-token-group": [
+          "AI Search Write",
+          "Auto Rag Write"
+        ],
         "x-cfPermissionsRequired": {
           "enum": [
             "com.cloudflare.api.account.ai-search"
@@ -3733,6 +3753,10 @@ export const tools: readonly Tool[] = [
           "free": true,
           "pro": true
         },
+        "x-forge-oauth-scopes": [
+          "rag.write",
+          "ai-search.write"
+        ],
         "x-forge-params": {
           "id": {
             "description": "AI Search instance ID."
@@ -5048,6 +5072,13 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}",
       pathOf: encodePath`/accounts/${"account_id"}/ai-search/namespaces/${"namespace"}/instances/${"id"}`,
       extensions: {
+        "x-api-token-group": [
+          "AI Search Metadata Read",
+          "AI Search Write",
+          "AI Search Read",
+          "Auto Rag Write",
+          "Auto Rag Read"
+        ],
         "x-cfPermissionsRequired": {
           "enum": [
             "com.cloudflare.api.account.ai-search"
@@ -5059,6 +5090,13 @@ export const tools: readonly Tool[] = [
           "free": true,
           "pro": true
         },
+        "x-forge-oauth-scopes": [
+          "ai-search.metadata_read",
+          "rag.read",
+          "ai-search.read",
+          "rag.write",
+          "ai-search.write"
+        ],
         "x-forge-params": {
           "id": {
             "description": "AI Search instance ID."
@@ -6555,6 +6593,13 @@ export const tools: readonly Tool[] = [
         { name: "order_by_direction", explode: true },
       ],
       extensions: {
+        "x-api-token-group": [
+          "AI Search Metadata Read",
+          "AI Search Write",
+          "AI Search Read",
+          "Auto Rag Write",
+          "Auto Rag Read"
+        ],
         "x-cfPermissionsRequired": {
           "enum": [
             "com.cloudflare.api.account.ai-search"
@@ -6566,6 +6611,13 @@ export const tools: readonly Tool[] = [
           "free": true,
           "pro": true
         },
+        "x-forge-oauth-scopes": [
+          "ai-search.metadata_read",
+          "rag.read",
+          "ai-search.read",
+          "rag.write",
+          "ai-search.write"
+        ],
         "x-forge-params": {
           "namespace": {
             "default": "default",
@@ -7459,6 +7511,10 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/ai-search/namespaces/${"namespace"}/instances/${"id"}`,
       body: { mediaTypes: ["application/json"] },
       extensions: {
+        "x-api-token-group": [
+          "AI Search Write",
+          "Auto Rag Write"
+        ],
         "x-cfPermissionsRequired": {
           "enum": [
             "com.cloudflare.api.account.ai-search"
@@ -7470,6 +7526,10 @@ export const tools: readonly Tool[] = [
           "free": true,
           "pro": true
         },
+        "x-forge-oauth-scopes": [
+          "rag.write",
+          "ai-search.write"
+        ],
         "x-forge-params": {
           "id": {
             "description": "AI Search instance ID."
@@ -8210,6 +8270,10 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/ai-search/namespaces/${"name"}/chat/completions`,
       body: { mediaTypes: ["application/json"] },
       extensions: {
+        "x-api-token-group": [
+          "AI Search Write",
+          "Auto Rag Write"
+        ],
         "x-cfPermissionsRequired": {
           "enum": [
             "com.cloudflare.api.account.ai-search"
@@ -8221,6 +8285,10 @@ export const tools: readonly Tool[] = [
           "free": true,
           "pro": true
         },
+        "x-forge-oauth-scopes": [
+          "rag.write",
+          "ai-search.write"
+        ],
         "x-forge-params": {
           "name": {
             "default": "default",
@@ -9162,6 +9230,10 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/ai-search/namespaces/${"name"}/search`,
       body: { mediaTypes: ["application/json"] },
       extensions: {
+        "x-api-token-group": [
+          "AI Search Write",
+          "Auto Rag Write"
+        ],
         "x-cfPermissionsRequired": {
           "enum": [
             "com.cloudflare.api.account.ai-search"
@@ -9173,6 +9245,10 @@ export const tools: readonly Tool[] = [
           "free": true,
           "pro": true
         },
+        "x-forge-oauth-scopes": [
+          "rag.write",
+          "ai-search.write"
+        ],
         "x-forge-params": {
           "name": {
             "default": "default",
@@ -9568,6 +9644,10 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}/purge_cache",
       pathOf: encodePath`/accounts/${"account_id"}/ai-search/namespaces/${"namespace"}/instances/${"id"}/purge_cache`,
       extensions: {
+        "x-api-token-group": [
+          "AI Search Write",
+          "Auto Rag Write"
+        ],
         "x-cfPermissionsRequired": {
           "enum": [
             "com.cloudflare.api.account.ai-search"
@@ -9579,6 +9659,10 @@ export const tools: readonly Tool[] = [
           "free": true,
           "pro": true
         },
+        "x-forge-oauth-scopes": [
+          "rag.write",
+          "ai-search.write"
+        ],
         "x-forge-params": {
           "id": {
             "description": "AI Search instance ID."
@@ -10106,6 +10190,10 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/ai-search/namespaces/${"namespace"}/instances/${"id"}/search`,
       body: { mediaTypes: ["application/json"] },
       extensions: {
+        "x-api-token-group": [
+          "AI Search Write",
+          "Auto Rag Write"
+        ],
         "x-cfPermissionsRequired": {
           "enum": [
             "com.cloudflare.api.account.ai-search"
@@ -10117,6 +10205,10 @@ export const tools: readonly Tool[] = [
           "free": true,
           "pro": true
         },
+        "x-forge-oauth-scopes": [
+          "rag.write",
+          "ai-search.write"
+        ],
         "x-forge-params": {
           "id": {
             "description": "AI Search instance ID."
@@ -10569,6 +10661,13 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}/stats",
       pathOf: encodePath`/accounts/${"account_id"}/ai-search/namespaces/${"namespace"}/instances/${"id"}/stats`,
       extensions: {
+        "x-api-token-group": [
+          "AI Search Metadata Read",
+          "AI Search Write",
+          "AI Search Read",
+          "Auto Rag Write",
+          "Auto Rag Read"
+        ],
         "x-cfPermissionsRequired": {
           "enum": [
             "com.cloudflare.api.account.ai-search"
@@ -10580,6 +10679,13 @@ export const tools: readonly Tool[] = [
           "free": true,
           "pro": true
         },
+        "x-forge-oauth-scopes": [
+          "ai-search.metadata_read",
+          "rag.read",
+          "ai-search.read",
+          "rag.write",
+          "ai-search.write"
+        ],
         "x-forge-params": {
           "id": {
             "description": "AI Search instance ID."
@@ -11964,6 +12070,10 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/ai-search/namespaces/${"namespace"}/instances/${"id"}`,
       body: { mediaTypes: ["application/json"] },
       extensions: {
+        "x-api-token-group": [
+          "AI Search Write",
+          "Auto Rag Write"
+        ],
         "x-cfPermissionsRequired": {
           "enum": [
             "com.cloudflare.api.account.ai-search"
@@ -11975,6 +12085,10 @@ export const tools: readonly Tool[] = [
           "free": true,
           "pro": true
         },
+        "x-forge-oauth-scopes": [
+          "rag.write",
+          "ai-search.write"
+        ],
         "x-forge-params": {
           "id": {
             "description": "AI Search instance ID."

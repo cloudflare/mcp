@@ -86,6 +86,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Workers KV Storage Write",
           "Workers KV Storage Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-kv-storage.read",
+          "workers-kv-storage.write"
         ]
       },
       responses: {

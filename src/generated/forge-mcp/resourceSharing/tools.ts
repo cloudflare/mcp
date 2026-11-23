@@ -102,7 +102,6 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/shares`,
       body: { mediaTypes: ["application/json"] },
       extensions: {
-        "x-api-token-group": null,
         "x-cfPlanAvailability": {
           "business": false,
           "enterprise": true,
@@ -194,7 +193,6 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/shares/{share_id}",
       pathOf: encodePath`/accounts/${"account_id"}/shares/${"share_id"}`,
       extensions: {
-        "x-api-token-group": null,
         "x-cfPlanAvailability": {
           "business": false,
           "enterprise": true,
@@ -326,7 +324,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "resource-sharing.read"
+        ]
       },
       responses: {
         schemas: {
@@ -538,7 +539,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "resource-sharing.read"
+        ]
       },
       responses: {
         schemas: {

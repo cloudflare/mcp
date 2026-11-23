@@ -4,6 +4,32 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
+ * The schema of `cloudforce-one-whois_api-response-common` in responses.
+ */
+export const cloudforce$$one$$whois_api$$response$$common: JSONObject = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/cloudforce-one-whois_schemas-messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/cloudforce-one-whois_schemas-messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `cloudforce-one-whois_api-response-common-failure` in
  * responses.
  */
@@ -38,26 +64,7 @@ export const cloudforce$$one$$whois_api$$response$$common$$failure: JSONObject =
  * The schema of `cloudforce-one-whois_api-response-single` in responses.
  */
 export const cloudforce$$one$$whois_api$$response$$single: JSONObject = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/cloudforce-one-whois_schemas-messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/cloudforce-one-whois_schemas-messages"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  "$ref": "#/$defs/cloudforce-one-whois_api-response-common"
 };
 
 /**

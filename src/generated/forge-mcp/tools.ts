@@ -76,6 +76,10 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Zone Settings Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-routes.write",
+          "zone-settings.write"
         ]
       },
       responses: {
@@ -155,6 +159,16 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Zone Settings Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-routes.read",
+          "zone-settings.read",
+          "workers-scripts.content_read",
+          "workers-scripts.metadata_read",
+          "workers-routes.write",
+          "workers-scripts.edit",
+          "workers-scripts.admin",
+          "zone-settings.write"
         ]
       },
       responses: {

@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../../../_/tool.js";
 import {
+  stream_api$$response$$common,
   stream_api$$response$$common$$failure,
   stream_api$$response$$single,
   stream_deleted_response,
@@ -48,6 +49,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/stream_downloads_response",
       $defs: {
+        "stream_api-response-common": stream_api$$response$$common,
         "stream_api-response-single": stream_api$$response$$single,
         "stream_downloads": stream_downloads,
         "stream_downloads_response": stream_downloads_response,
@@ -75,6 +77,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "stream_api-response-common": stream_api$$response$$common,
           "stream_api-response-common-failure": stream_api$$response$$common$$failure,
           "stream_api-response-single": stream_api$$response$$single,
           "stream_downloads": stream_downloads,
@@ -118,6 +121,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/stream_deleted_response",
       $defs: {
+        "stream_api-response-common": stream_api$$response$$common,
         "stream_api-response-single": stream_api$$response$$single,
         "stream_deleted_response": stream_deleted_response,
         "stream_messages": stream_messages,
@@ -137,6 +141,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Stream Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "stream.write"
         ]
       },
       responses: {
@@ -149,6 +156,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "stream_api-response-common": stream_api$$response$$common,
           "stream_api-response-common-failure": stream_api$$response$$common$$failure,
           "stream_api-response-single": stream_api$$response$$single,
           "stream_deleted_response": stream_deleted_response,
@@ -191,6 +199,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/stream_downloads_response",
       $defs: {
+        "stream_api-response-common": stream_api$$response$$common,
         "stream_api-response-single": stream_api$$response$$single,
         "stream_downloads": stream_downloads,
         "stream_downloads_response": stream_downloads_response,
@@ -210,8 +219,16 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/stream/${"identifier"}/downloads`,
       extensions: {
         "x-api-token-group": [
+          "Stream Metadata Read",
+          "AI Search Index Engine",
           "Stream Write",
           "Stream Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "stream.metadata_read",
+          "stream.read",
+          "stream.write",
+          "ai-search.index"
         ]
       },
       responses: {
@@ -224,6 +241,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "stream_api-response-common": stream_api$$response$$common,
           "stream_api-response-common-failure": stream_api$$response$$common$$failure,
           "stream_api-response-single": stream_api$$response$$single,
           "stream_downloads": stream_downloads,

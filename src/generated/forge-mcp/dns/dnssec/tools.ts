@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
 import {
+  dnssec_api$$response$$common,
   dnssec_api$$response$$common$$failure,
   dnssec_api$$response$$single,
   dnssec_delete_dnssec_response_single,
@@ -44,6 +45,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/dnssec_delete_dnssec_response_single",
       $defs: {
+        "dnssec_api-response-common": dnssec_api$$response$$common,
         "dnssec_api-response-single": dnssec_api$$response$$single,
         "dnssec_delete_dnssec_response_single": dnssec_delete_dnssec_response_single,
         "dnssec_messages": dnssec_messages,
@@ -74,7 +76,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "dns.write"
+        ]
       },
       responses: {
         schemas: {
@@ -86,6 +91,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "dnssec_api-response-common": dnssec_api$$response$$common,
           "dnssec_api-response-common-failure": dnssec_api$$response$$common$$failure,
           "dnssec_api-response-single": dnssec_api$$response$$single,
           "dnssec_delete_dnssec_response_single": dnssec_delete_dnssec_response_single,
@@ -149,6 +155,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/dnssec_dnssec_response_single",
       $defs: {
+        "dnssec_api-response-common": dnssec_api$$response$$common,
         "dnssec_api-response-single": dnssec_api$$response$$single,
         "dnssec_dnssec": dnssec_dnssec,
         "dnssec_dnssec_response_single": dnssec_dnssec_response_single,
@@ -181,7 +188,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "dns.write"
+        ]
       },
       responses: {
         schemas: {
@@ -193,6 +203,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "dnssec_api-response-common": dnssec_api$$response$$common,
           "dnssec_api-response-common-failure": dnssec_api$$response$$common$$failure,
           "dnssec_api-response-single": dnssec_api$$response$$single,
           "dnssec_dnssec": dnssec_dnssec,
@@ -231,6 +242,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/dnssec_dnssec_response_single",
       $defs: {
+        "dnssec_api-response-common": dnssec_api$$response$$common,
         "dnssec_api-response-single": dnssec_api$$response$$single,
         "dnssec_dnssec": dnssec_dnssec,
         "dnssec_dnssec_response_single": dnssec_dnssec_response_single,
@@ -263,7 +275,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "dns.read",
+          "dns.write"
+        ]
       },
       responses: {
         schemas: {
@@ -275,6 +291,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "dnssec_api-response-common": dnssec_api$$response$$common,
           "dnssec_api-response-common-failure": dnssec_api$$response$$common$$failure,
           "dnssec_api-response-single": dnssec_api$$response$$single,
           "dnssec_dnssec": dnssec_dnssec,

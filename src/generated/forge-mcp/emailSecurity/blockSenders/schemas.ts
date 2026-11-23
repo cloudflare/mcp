@@ -4,10 +4,10 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
- * The schema of `email-security_CreateBlockedSender`.
+ * The schema of `email-security_BlockedSender`.
  */
-export const email$$security_CreateBlockedSender: JSONObject = {
-  "description": "Create a blocked sender pattern.",
+export const email$$security_BlockedSender: JSONObject = {
+  "description": "A blocked sender pattern.",
   "properties": {
     "comments": {
       "oneOf": [
@@ -50,60 +50,21 @@ export const email$$security_CreateBlockedSender: JSONObject = {
       "type": "string"
     }
   },
-  "required": [
-    "is_regex",
-    "pattern",
-    "pattern_type"
-  ],
   "type": "object"
+};
+
+/**
+ * The schema of `email-security_CreateBlockedSender`.
+ */
+export const email$$security_CreateBlockedSender: JSONObject = {
+  "$ref": "#/$defs/email-security_BlockedSender",
+  "description": "Create a blocked sender pattern."
 };
 
 /**
  * The schema of `email-security_UpdateBlockedSender`.
  */
 export const email$$security_UpdateBlockedSender: JSONObject = {
-  "description": "Update a blocked sender pattern.",
-  "properties": {
-    "comments": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "expires_at": {
-      "description": "Timestamp at which the pattern expires. After this time, Email Security ignores the pattern. The value must lie in the future. Send `null` to clear the expiration.",
-      "oneOf": [
-        {
-          "format": "date-time",
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "is_regex": {
-      "description": "Whether `pattern` is a regular expression instead of a literal value.",
-      "type": "boolean"
-    },
-    "pattern": {
-      "description": "The pattern value to match. The format depends on `pattern_type`: a valid email address for EMAIL (e.g. `user@example.com`), a valid domain name for DOMAIN (e.g. `example.com`), or a plain IPv4 or IPv6 address or CIDR block for IP (e.g. `1.2.3.4`, `1.2.3.0/24`, `2606:4700:4700::1111`, or `2606:4700:4700::/48`); the API rejects private or unique-local, loopback, link-local, unspecified, and IPv4 broadcast addresses, including their IPv4-mapped IPv6 equivalents.",
-      "type": "string"
-    },
-    "pattern_type": {
-      "description": "Type of pattern matching.\n- EMAIL: matches a full email address (e.g. `user@example.com`)\n- DOMAIN: matches a domain name (e.g. `example.com`)\n- IP: matches a plain IPv4 or IPv6 address (e.g. `1.2.3.4` or `2606:4700:4700::1111`) or CIDR block (e.g. `1.2.3.0/24` or `2606:4700:4700::/48`). The API rejects private or unique-local, loopback, link-local, unspecified, and IPv4 broadcast addresses, including their IPv4-mapped IPv6 equivalents.\n- UNKNOWN: deprecated; you cannot use this when creating or updating policies, but it may appear on existing entries.",
-      "enum": [
-        "EMAIL",
-        "DOMAIN",
-        "IP",
-        "UNKNOWN"
-      ],
-      "type": "string"
-    }
-  },
-  "type": "object"
+  "$ref": "#/$defs/email-security_BlockedSender",
+  "description": "Update a blocked sender pattern."
 };

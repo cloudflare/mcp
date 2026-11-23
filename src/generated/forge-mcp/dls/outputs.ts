@@ -41,7 +41,7 @@ export const dls_coded_message: JSONObject = {
     },
     "error_chain": {
       "items": {
-        "type": "object"
+        "$ref": "#/$defs/dls_coded_message"
       },
       "type": "array"
     },

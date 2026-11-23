@@ -112,7 +112,7 @@ export const request$$tracer_trace: JSONObject = {
         "type": "string"
       },
       "trace": {
-        "type": "object"
+        "$ref": "#/$defs/request-tracer_trace"
       },
       "type": {
         "type": "string"

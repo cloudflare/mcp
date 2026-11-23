@@ -87,7 +87,12 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "zaraz.read",
+          "zaraz.edit",
+          "zaraz.write"
+        ]
       },
       responses: {
         schemas: {
@@ -199,7 +204,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "zaraz.edit",
+          "zaraz.write"
+        ]
       },
       responses: {
         schemas: {

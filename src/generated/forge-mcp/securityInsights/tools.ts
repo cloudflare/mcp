@@ -37,7 +37,7 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "account_or_zone": {
-              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "description": "Whether ${account_or_zone} is an account ID (`accounts`) or a zone ID (`zones`).",
               "enum": [
                 "accounts",
                 "zones"
@@ -45,7 +45,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "description": "The account ID or zone ID, as selected by ${account_or_zone}.",
               "type": "string"
             },
             "issue_id": {
@@ -72,6 +72,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/security-center_api-response-single",
       $defs: {
+        "security-center_api-response-common": security$$center_api$$response$$common,
         "security-center_api-response-single": security$$center_api$$response$$single,
         "security-center_messages": security$$center_messages,
       },
@@ -88,6 +89,9 @@ export const tools: readonly Tool[] = [
       path: "/{account_or_zone}/{account_or_zone_id}/security-center/insights/{issue_id}/classification",
       pathOf: encodePath`/${"account_or_zone"}/${"account_or_zone_id"}/security-center/insights/${"issue_id"}/classification`,
       body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-stainless-skip": true
+      },
       responses: {
         schemas: {
           "200": {
@@ -98,6 +102,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "security-center_api-response-common": security$$center_api$$response$$common,
           "security-center_api-response-common-failure": security$$center_api$$response$$common$$failure,
           "security-center_api-response-single": security$$center_api$$response$$single,
           "security-center_messages": security$$center_messages,
@@ -125,7 +130,7 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "account_or_zone": {
-              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "description": "Whether ${account_or_zone} is an account ID (`accounts`) or a zone ID (`zones`).",
               "enum": [
                 "accounts",
                 "zones"
@@ -133,7 +138,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "description": "The account ID or zone ID, as selected by ${account_or_zone}.",
               "type": "string"
             },
             "issue_id": {
@@ -157,6 +162,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/security-center_api-response-single",
       $defs: {
+        "security-center_api-response-common": security$$center_api$$response$$common,
         "security-center_api-response-single": security$$center_api$$response$$single,
         "security-center_messages": security$$center_messages,
       },
@@ -174,11 +180,15 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/${"account_or_zone"}/${"account_or_zone_id"}/security-center/insights/${"issue_id"}/dismiss`,
       body: { mediaTypes: ["application/json"] },
       extensions: {
+        "x-api-token-group": [
+          "Zone Settings Write"
+        ],
         "x-forge-params": {
           "dismiss": {
             "default": null
           }
-        }
+        },
+        "x-stainless-skip": true
       },
       responses: {
         schemas: {
@@ -190,6 +200,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "security-center_api-response-common": security$$center_api$$response$$common,
           "security-center_api-response-common-failure": security$$center_api$$response$$common$$failure,
           "security-center_api-response-single": security$$center_api$$response$$single,
           "security-center_messages": security$$center_messages,
@@ -208,7 +219,7 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "account_or_zone": {
-              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "description": "Whether ${account_or_zone} is an account ID (`accounts`) or a zone ID (`zones`).",
               "enum": [
                 "accounts",
                 "zones"
@@ -216,7 +227,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "description": "The account ID or zone ID, as selected by ${account_or_zone}.",
               "type": "string"
             }
           },
@@ -356,6 +367,13 @@ export const tools: readonly Tool[] = [
         { name: "page", explode: true },
         { name: "per_page", explode: true },
       ],
+      extensions: {
+        "x-api-token-group": [
+          "Zone Settings Write",
+          "Zone Settings Read"
+        ],
+        "x-stainless-skip": true
+      },
       responses: {
         schemas: {
           "200": {

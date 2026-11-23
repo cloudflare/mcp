@@ -4,6 +4,32 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
+ * The schema of `precursor_api-response-common` in responses.
+ */
+export const precursor_api$$response$$common: JSONObject = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/precursor_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/precursor_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `precursor_api-response-common-failure` in responses.
  */
 export const precursor_api$$response$$common$$failure: JSONObject = {
@@ -37,26 +63,7 @@ export const precursor_api$$response$$common$$failure: JSONObject = {
  * The schema of `precursor_api-response-single` in responses.
  */
 export const precursor_api$$response$$single: JSONObject = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/precursor_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/precursor_messages"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  "$ref": "#/$defs/precursor_api-response-common"
 };
 
 /**

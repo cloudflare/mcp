@@ -4,65 +4,6 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
- * The schema of `tls-certificates-and-hostnames_base` in responses.
- */
-export const tls$$certificates$$and$$hostnames_base: JSONObject = {
-  "properties": {
-    "created_on": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "enabled": {
-      "type": "boolean"
-    },
-    "host": {
-      "type": "string"
-    },
-    "id": {
-      "type": "string"
-    },
-    "modified_on": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "name": {
-      "type": "string"
-    },
-    "permissions": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "port": {
-      "type": "number"
-    },
-    "status": {
-      "enum": [
-        "active",
-        "deleted"
-      ],
-      "type": "string"
-    },
-    "tunnel": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_keyless_tunnel"
-    }
-  },
-  "required": [
-    "created_on",
-    "enabled",
-    "host",
-    "id",
-    "modified_on",
-    "name",
-    "permissions",
-    "port",
-    "status"
-  ],
-  "type": "object"
-};
-
-/**
  * The schema of `tls-certificates-and-hostnames_keyless_response_collection` in
  * responses.
  */

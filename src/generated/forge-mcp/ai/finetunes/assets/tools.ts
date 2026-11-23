@@ -101,6 +101,8 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["multipart/form-data"] },
       extensions: {
         "x-api-token-group": [
+          "AI Search Index Engine",
+          "Auto Rag Write Run Engine",
           "Workers AI Write"
         ],
         "x-cfPermissionsRequired": {
@@ -113,7 +115,12 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "ai.write",
+          "ai-search.index",
+          "rag.run"
+        ]
       },
       responses: {
         schemas: {

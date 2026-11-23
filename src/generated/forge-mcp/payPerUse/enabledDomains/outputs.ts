@@ -29,17 +29,6 @@ export const pay$$per$$crawl_EnabledDomain: JSONObject = {
       ],
       "type": "string"
     },
-    "non_billable_since": {
-      "oneOf": [
-        {
-          "format": "date-time",
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
     "price_usd_microcents": {
       "type": "integer"
     }
@@ -48,7 +37,6 @@ export const pay$$per$$crawl_EnabledDomain: JSONObject = {
     "domain",
     "license_expires_at",
     "license_status",
-    "non_billable_since",
     "price_usd_microcents"
   ],
   "type": "object"

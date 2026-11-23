@@ -77,7 +77,12 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "CASB Write",
           "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "casb.write",
+          "teams.write"
         ]
       },
       responses: {

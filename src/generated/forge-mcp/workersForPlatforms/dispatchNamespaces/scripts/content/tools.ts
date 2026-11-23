@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../../../../_/tool.js";
 import {
+  workers_api$$response$$common,
   workers_api$$response$$common$$failure,
   workers_api$$response$$single,
   workers_cache_options,
@@ -81,12 +82,31 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/workers/dispatch/namespaces/${"dispatch_namespace"}/scripts/${"script_name"}/content`,
       extensions: {
         "x-api-token-group": [
+          "Workers Metadata Read-Only",
+          "Workers Editor",
+          "Workers Content Read-Only",
+          "Workers Admin",
+          "Individual Workers Metadata Read-Only",
+          "Individual Workers Editor",
+          "Individual Workers Content Read-Only",
+          "Individual Workers Admin",
+          "Granular Workers Scripts Read",
+          "IAM Test - Granular Workers Read",
           "Workers Tail Read",
           "Workers Scripts Write",
           "Workers Scripts Read"
         ],
         "x-fern-audiences": [
           "sdk"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-tail.read",
+          "workers-scripts.read",
+          "workers-scripts.write",
+          "workers-scripts.content_read",
+          "workers-scripts.metadata_read",
+          "workers-scripts.edit",
+          "workers-scripts.admin"
         ]
       },
       responses: {
@@ -209,6 +229,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/workers_script-response-single",
       $defs: {
+        "workers_api-response-common": workers_api$$response$$common,
         "workers_api-response-single": workers_api$$response$$single,
         "workers_cache_options": workers_cache_options,
         "workers_compatibility_flags": workers_compatibility_flags,
@@ -248,10 +269,19 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["multipart/form-data"] },
       extensions: {
         "x-api-token-group": [
+          "Workers Editor",
+          "Workers Admin",
+          "Individual Workers Editor",
+          "Individual Workers Admin",
           "Workers Scripts Write"
         ],
         "x-fern-audiences": [
           "sdk"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-scripts.write",
+          "workers-scripts.edit",
+          "workers-scripts.admin"
         ]
       },
       responses: {
@@ -264,6 +294,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "workers_api-response-common": workers_api$$response$$common,
           "workers_api-response-common-failure": workers_api$$response$$common$$failure,
           "workers_api-response-single": workers_api$$response$$single,
           "workers_cache_options": workers_cache_options,

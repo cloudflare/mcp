@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../../../../../_/tool.js";
 import {
+  access_api$$response$$common,
   access_api$$response$$common$$failure,
   access_api$$response$$single,
   access_messages,
@@ -71,6 +72,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_policy_users_resp",
       $defs: {
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_messages": access_messages,
         "access_policy_users": access_policy_users,
@@ -97,6 +99,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Access: Policy Test Write",
           "Access: Policy Test Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "access-policy-test.read",
+          "access-policy-test.write"
         ]
       },
       responses: {
@@ -109,6 +115,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_messages": access_messages,

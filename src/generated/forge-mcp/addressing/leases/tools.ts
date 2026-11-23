@@ -64,9 +64,6 @@ export const tools: readonly Tool[] = [
       method: "GET",
       path: "/accounts/{account_id}/addressing/leases",
       pathOf: encodePath`/accounts/${"account_id"}/addressing/leases`,
-      extensions: {
-        "x-api-token-group": null
-      },
       responses: {
         schemas: {
           "200": {

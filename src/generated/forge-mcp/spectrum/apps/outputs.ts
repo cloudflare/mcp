@@ -7,26 +7,7 @@ import type { JSONObject } from "@modelcontextprotocol/server";
  * The schema of `spectrum-config_api-response-single` in responses.
  */
 export const spectrum$$config_api$$response$$single: JSONObject = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/spectrum-config_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/spectrum-config_messages"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  "$ref": "#/$defs/spectrum-config_api-response-common"
 };
 
 /**

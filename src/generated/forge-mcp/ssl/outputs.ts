@@ -123,10 +123,9 @@ export const cache_result: JSONObject = {
 };
 
 /**
- * The schema of `tls-certificates-and-hostnames_keyless-certificate` in
- * responses.
+ * The schema of `tls-certificates-and-hostnames_base` in responses.
  */
-export const tls$$certificates$$and$$hostnames_keyless$$certificate: JSONObject = {
+export const tls$$certificates$$and$$hostnames_base: JSONObject = {
   "properties": {
     "created_on": {
       "format": "date-time",
@@ -180,6 +179,14 @@ export const tls$$certificates$$and$$hostnames_keyless$$certificate: JSONObject 
     "status"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `tls-certificates-and-hostnames_keyless-certificate` in
+ * responses.
+ */
+export const tls$$certificates$$and$$hostnames_keyless$$certificate: JSONObject = {
+  "$ref": "#/$defs/tls-certificates-and-hostnames_base"
 };
 
 /**

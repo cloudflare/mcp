@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
 import {
+  organizations$$api_AccountListResultInfo,
   organizations$$api_LegacyAccount,
   organizations$$api_PageTokenResultInfo,
   organizations$$api_V4ErrorResponse,
@@ -139,7 +140,7 @@ export const tools: readonly Tool[] = [
           "type": "array"
         },
         "result_info": {
-          "$ref": "#/$defs/organizations-api_PageTokenResultInfo"
+          "$ref": "#/$defs/organizations-api_AccountListResultInfo"
         },
         "success": {
           "enum": [
@@ -157,6 +158,7 @@ export const tools: readonly Tool[] = [
       ],
       "type": "object",
       $defs: {
+        "organizations-api_AccountListResultInfo": organizations$$api_AccountListResultInfo,
         "organizations-api_LegacyAccount": organizations$$api_LegacyAccount,
         "organizations-api_PageTokenResultInfo": organizations$$api_PageTokenResultInfo,
         "organizations-api_V4Message": organizations$$api_V4Message,
@@ -213,7 +215,7 @@ export const tools: readonly Tool[] = [
                 "type": "array"
               },
               "result_info": {
-                "$ref": "#/$defs/organizations-api_PageTokenResultInfo"
+                "$ref": "#/$defs/organizations-api_AccountListResultInfo"
               },
               "success": {
                 "enum": [
@@ -239,6 +241,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "organizations-api_AccountListResultInfo": organizations$$api_AccountListResultInfo,
           "organizations-api_LegacyAccount": organizations$$api_LegacyAccount,
           "organizations-api_PageTokenResultInfo": organizations$$api_PageTokenResultInfo,
           "organizations-api_V4ErrorResponse": organizations$$api_V4ErrorResponse,

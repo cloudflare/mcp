@@ -129,7 +129,12 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "Auto Rag Write Run Engine",
           "Workers R2 Storage Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-r2.write",
+          "rag.run"
         ]
       },
       responses: {

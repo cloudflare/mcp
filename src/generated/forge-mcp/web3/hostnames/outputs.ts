@@ -7,30 +7,43 @@ import type { JSONObject } from "@modelcontextprotocol/server";
  * The schema of `web3_api-response-collection` in responses.
  */
 export const web3_api$$response$$collection: JSONObject = {
-  "allOf": [
-    {
-      "$ref": "#/$defs/web3_api-response-common"
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/web3_messages"
     },
-    {
-      "properties": {
-        "result": {
-          "oneOf": [
-            {
-              "items": {},
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ]
+    "messages": {
+      "$ref": "#/$defs/web3_messages"
+    },
+    "result": {
+      "oneOf": [
+        {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
         },
-        "result_info": {
-          "$ref": "#/$defs/web3_result_info"
+        {
+          "type": "null"
         }
-      },
-      "type": "object"
+      ]
+    },
+    "result_info": {
+      "$ref": "#/$defs/web3_result_info"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
     }
-  ]
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
+  ],
+  "type": "object"
 };
 
 /**
@@ -50,7 +63,9 @@ export const web3_api$$response$$common: JSONObject = {
           "type": "object"
         },
         {
-          "items": {},
+          "items": {
+            "type": "object"
+          },
           "type": "array"
         },
         {

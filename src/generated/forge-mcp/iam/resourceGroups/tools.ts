@@ -73,6 +73,7 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
+        "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-single": iam_api$$response$$single,
         "iam_messages": iam_messages,
         "iam_resource_group": iam_resource_group,
@@ -107,7 +108,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "scim-provisioning.write",
+          "account-settings.write"
+        ]
       },
       responses: {
         schemas: {
@@ -131,6 +136,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "iam_api-response-common": iam_api$$response$$common,
           "iam_api-response-common-failure": iam_api$$response$$common$$failure,
           "iam_api-response-single": iam_api$$response$$single,
           "iam_messages": iam_messages,
@@ -206,7 +212,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "scim-provisioning.write",
+          "account-settings.write"
+        ]
       },
       responses: {
         schemas: {
@@ -272,6 +282,7 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
+        "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-single": iam_api$$response$$single,
         "iam_messages": iam_messages,
         "iam_resource_group": iam_resource_group,
@@ -306,7 +317,12 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "scim-provisioning.write",
+          "account-settings.read",
+          "account-settings.write"
+        ]
       },
       responses: {
         schemas: {
@@ -330,6 +346,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "iam_api-response-common": iam_api$$response$$common,
           "iam_api-response-common-failure": iam_api$$response$$common$$failure,
           "iam_api-response-single": iam_api$$response$$single,
           "iam_messages": iam_messages,
@@ -436,7 +453,12 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "scim-provisioning.write",
+          "account-settings.read",
+          "account-settings.write"
+        ]
       },
       responses: {
         schemas: {
@@ -528,6 +550,7 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
+        "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-single": iam_api$$response$$single,
         "iam_messages": iam_messages,
         "iam_resource_group": iam_resource_group,
@@ -562,7 +585,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "scim-provisioning.write",
+          "account-settings.write"
+        ]
       },
       responses: {
         schemas: {
@@ -586,6 +613,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "iam_api-response-common": iam_api$$response$$common,
           "iam_api-response-common-failure": iam_api$$response$$common$$failure,
           "iam_api-response-single": iam_api$$response$$single,
           "iam_messages": iam_messages,

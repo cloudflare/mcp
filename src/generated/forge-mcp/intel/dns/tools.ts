@@ -5,13 +5,13 @@ import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
 import {
   intel_api$$response$$common$$failure,
   intel_messages,
+  intel_schemas$$api$$response$$common,
   intel_schemas$$messages,
 } from "../outputs.js";
 import {
   intel_components$$schemas$$single_response,
   intel_passive$$dns$$by$$ip,
   intel_schemas$$api$$response$$collection,
-  intel_schemas$$api$$response$$common,
   intel_schemas$$result_info,
 } from "./outputs.js";
 import { intel_start_end_params } from "./schemas.js";
@@ -101,6 +101,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Intel Write",
           "Intel Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "intel.read",
+          "intel.write"
         ]
       },
       responses: {

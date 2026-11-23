@@ -4,6 +4,7 @@
 import { OPERATION, type Tool, encodePath } from "../_/tool.js";
 import {
   bot$$management_ai_agents,
+  bot$$management_api$$response$$common,
   bot$$management_api$$response$$common$$failure,
   bot$$management_api$$response$$single,
   bot$$management_base_config,
@@ -58,6 +59,7 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/bot-management_bot_management_response_body",
       $defs: {
         "bot-management_ai_agents": bot$$management_ai_agents,
+        "bot-management_api-response-common": bot$$management_api$$response$$common,
         "bot-management_api-response-single": bot$$management_api$$response$$single,
         "bot-management_base_config": bot$$management_base_config,
         "bot-management_bm_subscription_config": bot$$management_bm_subscription_config,
@@ -89,7 +91,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "bot-management.read",
+          "bot-management.write"
+        ]
       },
       responses: {
         schemas: {
@@ -102,6 +108,7 @@ export const tools: readonly Tool[] = [
         },
         $defs: {
           "bot-management_ai_agents": bot$$management_ai_agents,
+          "bot-management_api-response-common": bot$$management_api$$response$$common,
           "bot-management_api-response-common-failure": bot$$management_api$$response$$common$$failure,
           "bot-management_api-response-single": bot$$management_api$$response$$single,
           "bot-management_base_config": bot$$management_base_config,
@@ -158,6 +165,7 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/bot-management_bot_management_response_body",
       $defs: {
         "bot-management_ai_agents": bot$$management_ai_agents,
+        "bot-management_api-response-common": bot$$management_api$$response$$common,
         "bot-management_api-response-single": bot$$management_api$$response$$single,
         "bot-management_base_config": bot$$management_base_config,
         "bot-management_bm_subscription_config": bot$$management_bm_subscription_config,
@@ -189,7 +197,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "bot-management.write"
+        ]
       },
       responses: {
         schemas: {
@@ -202,6 +213,7 @@ export const tools: readonly Tool[] = [
         },
         $defs: {
           "bot-management_ai_agents": bot$$management_ai_agents,
+          "bot-management_api-response-common": bot$$management_api$$response$$common,
           "bot-management_api-response-common-failure": bot$$management_api$$response$$common$$failure,
           "bot-management_api-response-single": bot$$management_api$$response$$single,
           "bot-management_base_config": bot$$management_base_config,

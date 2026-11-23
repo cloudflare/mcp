@@ -70,6 +70,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/secrets-store_delete_response",
       $defs: {
+        "secrets-store_api-response-common": secrets$$store_api$$response$$common,
         "secrets-store_api-response-single": secrets$$store_api$$response$$single,
         "secrets-store_delete_response": secrets$$store_delete_response,
         "secrets-store_messages": secrets$$store_messages,
@@ -97,6 +98,9 @@ export const tools: readonly Tool[] = [
           "free": true,
           "pro": true
         },
+        "x-forge-oauth-scopes": [
+          "secrets-store.write"
+        ],
         "x-stability": "beta"
       },
       responses: {
@@ -109,6 +113,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "secrets-store_api-response-common": secrets$$store_api$$response$$common,
           "secrets-store_api-response-common-failure": secrets$$store_api$$response$$common$$failure,
           "secrets-store_api-response-single": secrets$$store_api$$response$$single,
           "secrets-store_delete_response": secrets$$store_delete_response,
@@ -192,6 +197,9 @@ export const tools: readonly Tool[] = [
           "free": true,
           "pro": true
         },
+        "x-forge-oauth-scopes": [
+          "secrets-store.write"
+        ],
         "x-stability": "beta"
       },
       responses: {
@@ -254,6 +262,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/secrets-store_delete_response",
       $defs: {
+        "secrets-store_api-response-common": secrets$$store_api$$response$$common,
         "secrets-store_api-response-single": secrets$$store_api$$response$$single,
         "secrets-store_delete_response": secrets$$store_delete_response,
         "secrets-store_messages": secrets$$store_messages,
@@ -280,6 +289,9 @@ export const tools: readonly Tool[] = [
           "free": true,
           "pro": true
         },
+        "x-forge-oauth-scopes": [
+          "secrets-store.write"
+        ],
         "x-stability": "beta"
       },
       responses: {
@@ -292,6 +304,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "secrets-store_api-response-common": secrets$$store_api$$response$$common,
           "secrets-store_api-response-common-failure": secrets$$store_api$$response$$common$$failure,
           "secrets-store_api-response-single": secrets$$store_api$$response$$single,
           "secrets-store_delete_response": secrets$$store_delete_response,
@@ -347,6 +360,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/secrets-store_secret_response",
       $defs: {
+        "secrets-store_api-response-common": secrets$$store_api$$response$$common,
         "secrets-store_api-response-single": secrets$$store_api$$response$$single,
         "secrets-store_inheritable_scopes": secrets$$store_inheritable_scopes,
         "secrets-store_messages": secrets$$store_messages,
@@ -376,6 +390,9 @@ export const tools: readonly Tool[] = [
           "free": true,
           "pro": true
         },
+        "x-forge-oauth-scopes": [
+          "secrets-store.write"
+        ],
         "x-stability": "beta"
       },
       responses: {
@@ -388,6 +405,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "secrets-store_api-response-common": secrets$$store_api$$response$$common,
           "secrets-store_api-response-common-failure": secrets$$store_api$$response$$common$$failure,
           "secrets-store_api-response-single": secrets$$store_api$$response$$single,
           "secrets-store_inheritable_scopes": secrets$$store_inheritable_scopes,
@@ -445,6 +463,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/secrets-store_secret_response",
       $defs: {
+        "secrets-store_api-response-common": secrets$$store_api$$response$$common,
         "secrets-store_api-response-single": secrets$$store_api$$response$$single,
         "secrets-store_inheritable_scopes": secrets$$store_inheritable_scopes,
         "secrets-store_messages": secrets$$store_messages,
@@ -474,6 +493,9 @@ export const tools: readonly Tool[] = [
           "free": true,
           "pro": true
         },
+        "x-forge-oauth-scopes": [
+          "secrets-store.write"
+        ],
         "x-stability": "beta"
       },
       responses: {
@@ -486,6 +508,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "secrets-store_api-response-common": secrets$$store_api$$response$$common,
           "secrets-store_api-response-common-failure": secrets$$store_api$$response$$common$$failure,
           "secrets-store_api-response-single": secrets$$store_api$$response$$single,
           "secrets-store_inheritable_scopes": secrets$$store_inheritable_scopes,
@@ -535,6 +558,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/secrets-store_secret_response",
       $defs: {
+        "secrets-store_api-response-common": secrets$$store_api$$response$$common,
         "secrets-store_api-response-single": secrets$$store_api$$response$$single,
         "secrets-store_inheritable_scopes": secrets$$store_inheritable_scopes,
         "secrets-store_messages": secrets$$store_messages,
@@ -564,6 +588,10 @@ export const tools: readonly Tool[] = [
           "free": true,
           "pro": true
         },
+        "x-forge-oauth-scopes": [
+          "secrets-store.read",
+          "secrets-store.write"
+        ],
         "x-stability": "beta"
       },
       responses: {
@@ -576,6 +604,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "secrets-store_api-response-common": secrets$$store_api$$response$$common,
           "secrets-store_api-response-common-failure": secrets$$store_api$$response$$common$$failure,
           "secrets-store_api-response-single": secrets$$store_api$$response$$single,
           "secrets-store_inheritable_scopes": secrets$$store_inheritable_scopes,
@@ -712,6 +741,10 @@ export const tools: readonly Tool[] = [
           "free": true,
           "pro": true
         },
+        "x-forge-oauth-scopes": [
+          "secrets-store.read",
+          "secrets-store.write"
+        ],
         "x-stability": "beta"
       },
       responses: {

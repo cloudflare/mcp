@@ -454,6 +454,9 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Cloudforce One Write"
         ],
+        "x-forge-oauth-scopes": [
+          "cloudforce-one.write"
+        ],
         "x-stability": "beta"
       },
       responses: {

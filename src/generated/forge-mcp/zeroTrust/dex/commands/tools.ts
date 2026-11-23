@@ -175,6 +175,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Cloudflare DEX Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-dex.write"
         ]
       },
       responses: {
@@ -339,6 +342,12 @@ export const tools: readonly Tool[] = [
           "Cloudflare DEX Read",
           "Zero Trust Report",
           "Zero Trust Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-dex.read",
+          "teams-dex.write",
+          "teams.report",
+          "teams.read"
         ]
       },
       responses: {

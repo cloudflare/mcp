@@ -222,8 +222,14 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/images/v1/keys`,
       extensions: {
         "x-api-token-group": [
+          "Images Metadata Read",
           "Images Read",
           "Images Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "images.metadata_read",
+          "images.read",
+          "images.write"
         ]
       },
       responses: {

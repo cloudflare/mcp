@@ -151,20 +151,6 @@ export const vectorize_create$$index$$response: JSONObject = {
 };
 
 /**
- * The schema of `vectorize_index-delete-vectors-by-id-v2-response` in
- * responses.
- */
-export const vectorize_index$$delete$$vectors$$by$$id$$v2$$response: JSONObject = {
-  "properties": {
-    "mutationId": {
-      "format": "uuid",
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
  * The schema of `vectorize_index-dimension-configuration` in responses.
  */
 export const vectorize_index$$dimension$$configuration: JSONObject = {
@@ -186,40 +172,6 @@ export const vectorize_index$$dimension$$configuration: JSONObject = {
     "metric"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `vectorize_index-get-vectors-by-id-response` in responses.
- */
-export const vectorize_index$$get$$vectors$$by$$id$$response: JSONObject = {
-  "items": {
-    "properties": {
-      "id": {
-        "type": "string"
-      },
-      "metadata": {
-        "type": "object"
-      },
-      "namespace": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "values": {
-        "items": {
-          "type": "number"
-        },
-        "type": "array"
-      }
-    },
-    "type": "object"
-  },
-  "type": "array"
 };
 
 /**
@@ -260,142 +212,6 @@ export const vectorize_index$$info$$response: JSONObject = {
 };
 
 /**
- * The schema of `vectorize_index-insert-v2-response` in responses.
- */
-export const vectorize_index$$insert$$v2$$response: JSONObject = {
-  "properties": {
-    "mutationId": {
-      "format": "uuid",
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `vectorize_index-list-vectors-response` in responses.
- */
-export const vectorize_index$$list$$vectors$$response: JSONObject = {
-  "properties": {
-    "count": {
-      "type": "integer"
-    },
-    "cursorExpirationTimestamp": {
-      "oneOf": [
-        {
-          "format": "date-time",
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "isTruncated": {
-      "type": "boolean"
-    },
-    "nextCursor": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "totalCount": {
-      "type": "integer"
-    },
-    "vectors": {
-      "items": {
-        "$ref": "#/$defs/vectorize_vector-list-item"
-      },
-      "type": "array"
-    }
-  },
-  "required": [
-    "count",
-    "isTruncated",
-    "totalCount",
-    "vectors"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `vectorize_index-query-v2-response` in responses.
- */
-export const vectorize_index$$query$$v2$$response: JSONObject = {
-  "properties": {
-    "count": {
-      "type": "integer"
-    },
-    "matches": {
-      "items": {
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "metadata": {
-            "oneOf": [
-              {
-                "type": "object"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "namespace": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "score": {
-            "type": "number"
-          },
-          "values": {
-            "oneOf": [
-              {
-                "items": {
-                  "type": "number"
-                },
-                "type": "array"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          }
-        },
-        "type": "object"
-      },
-      "type": "array"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `vectorize_index-upsert-v2-response` in responses.
- */
-export const vectorize_index$$upsert$$v2$$response: JSONObject = {
-  "properties": {
-    "mutationId": {
-      "format": "uuid",
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
  * The schema of `vectorize_messages` in responses.
  */
 export const vectorize_messages: JSONObject = {
@@ -415,19 +231,4 @@ export const vectorize_messages: JSONObject = {
     "type": "object"
   },
   "type": "array"
-};
-
-/**
- * The schema of `vectorize_vector-list-item` in responses.
- */
-export const vectorize_vector$$list$$item: JSONObject = {
-  "properties": {
-    "id": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "id"
-  ],
-  "type": "object"
 };

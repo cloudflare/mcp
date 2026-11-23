@@ -112,7 +112,20 @@ export const tools: readonly Tool[] = [
           "Workers Editor",
           "Individual Workers Admin",
           "Individual Workers Editor"
-        ]
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-scripts.write",
+          "workers-scripts.edit",
+          "workers-scripts.admin"
+        ],
+        "x-forge-params": {
+          "code_update_strategy.max_delay": {
+            "description": "Maximum number of seconds, up to 86400, that an active Durable Object can keep running its current code before it resets and adopts the new code. Only valid with `deferred`. When omitted, the default maximum delay applies."
+          },
+          "code_update_strategy.mode": {
+            "description": "How to apply Durable Object code updates. `immediate` resets active objects and applies the new code right away. `deferred` lets active objects keep running their current code until they hibernate or the maximum delay passes."
+          }
+        }
       },
       responses: {
         schemas: {
@@ -209,6 +222,10 @@ export const tools: readonly Tool[] = [
           "Workers Admin",
           "Individual Workers Admin",
           "Individual Workers Editor"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-scripts.write",
+          "workers-scripts.admin"
         ]
       },
       responses: {
@@ -313,6 +330,15 @@ export const tools: readonly Tool[] = [
           "Individual Workers Editor",
           "Individual Workers Content Read-Only",
           "Individual Workers Metadata Read-Only"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-tail.read",
+          "workers-scripts.read",
+          "workers-scripts.write",
+          "workers-scripts.content_read",
+          "workers-scripts.metadata_read",
+          "workers-scripts.edit",
+          "workers-scripts.admin"
         ]
       },
       responses: {
@@ -472,6 +498,15 @@ export const tools: readonly Tool[] = [
           "Individual Workers Editor",
           "Individual Workers Content Read-Only",
           "Individual Workers Metadata Read-Only"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-tail.read",
+          "workers-scripts.read",
+          "workers-scripts.write",
+          "workers-scripts.content_read",
+          "workers-scripts.metadata_read",
+          "workers-scripts.edit",
+          "workers-scripts.admin"
         ]
       },
       responses: {

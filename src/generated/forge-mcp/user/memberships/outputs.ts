@@ -136,78 +136,7 @@ export const iam_membership$$with$$policies: JSONObject = {
  * The schema of `iam_schemas-account` in responses.
  */
 export const iam_schemas$$account: JSONObject = {
-  "properties": {
-    "created_on": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "id": {
-      "type": "string"
-    },
-    "legacy_flags": {
-      "properties": {
-        "enterprise_zone_quota": {
-          "properties": {
-            "available": {
-              "type": "integer"
-            },
-            "current": {
-              "type": "integer"
-            },
-            "maximum": {
-              "type": "integer"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "type": "object"
-    },
-    "managed_by": {
-      "properties": {
-        "parent_org_id": {
-          "type": "string"
-        },
-        "parent_org_name": {
-          "type": "string"
-        },
-        "root_org_id": {
-          "type": "string"
-        },
-        "should_display_parent_orgs": {
-          "type": "boolean"
-        }
-      },
-      "type": "object"
-    },
-    "name": {
-      "type": "string"
-    },
-    "settings": {
-      "properties": {
-        "abuse_contact_email": {
-          "type": "string"
-        },
-        "enforce_twofactor": {
-          "type": "boolean"
-        }
-      },
-      "type": "object"
-    },
-    "type": {
-      "enum": [
-        "standard",
-        "enterprise"
-      ],
-      "type": "string"
-    }
-  },
-  "required": [
-    "id",
-    "name",
-    "type"
-  ],
-  "type": "object"
+  "$ref": "#/$defs/iam_account"
 };
 
 /**

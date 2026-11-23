@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../../../../../_/tool.js";
 import {
+  digital$$experience$$monitoring_api$$response$$common,
   digital$$experience$$monitoring_api$$response$$common$$failure,
   digital$$experience$$monitoring_api$$response$$single,
   digital$$experience$$monitoring_messages,
@@ -59,6 +60,7 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
+        "digital-experience-monitoring_api-response-common": digital$$experience$$monitoring_api$$response$$common,
         "digital-experience-monitoring_api-response-single": digital$$experience$$monitoring_api$$response$$single,
         "digital-experience-monitoring_messages": digital$$experience$$monitoring_messages,
         "digital-experience-monitoring_traceroute_test_result_network_path_response": digital$$experience$$monitoring_traceroute_test_result_network_path_response,
@@ -81,6 +83,12 @@ export const tools: readonly Tool[] = [
           "Cloudflare DEX Read",
           "Zero Trust Report",
           "Zero Trust Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-dex.read",
+          "teams-dex.write",
+          "teams.report",
+          "teams.read"
         ]
       },
       responses: {
@@ -105,6 +113,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "digital-experience-monitoring_api-response-common": digital$$experience$$monitoring_api$$response$$common,
           "digital-experience-monitoring_api-response-common-failure": digital$$experience$$monitoring_api$$response$$common$$failure,
           "digital-experience-monitoring_api-response-single": digital$$experience$$monitoring_api$$response$$single,
           "digital-experience-monitoring_messages": digital$$experience$$monitoring_messages,

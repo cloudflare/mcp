@@ -128,6 +128,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Realtime Admin",
           "Realtime"
+        ],
+        "x-forge-oauth-scopes": [
+          "realtime.write",
+          "realtime.admin"
         ]
       },
       responses: {
@@ -291,6 +295,186 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Realtime Admin",
           "Realtime"
+        ],
+        "x-forge-oauth-scopes": [
+          "realtime.write",
+          "realtime.admin"
+        ]
+      },
+      responses: {
+        schemas: {
+          "200": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/realtimekit_GenericSuccessResponse"
+              },
+              {
+                "properties": {
+                  "data": {
+                    "allOf": [
+                      {
+                        "properties": {
+                          "created_at": {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "id": {
+                            "format": "uuid",
+                            "type": "string"
+                          },
+                          "updated_at": {
+                            "format": "date-time",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "created_at",
+                          "id",
+                          "updated_at"
+                        ],
+                        "type": "object"
+                      },
+                      {
+                        "$ref": "#/$defs/realtimekit_Preset"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "data"
+                ],
+                "type": "object"
+              }
+            ]
+          },
+          "4XX": {
+            "$ref": "#/$defs/realtimekit_GenericErrorResponse"
+          }
+        },
+        $defs: {
+          "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse,
+          "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse,
+          "realtimekit_Preset": realtimekit_Preset,
+          "realtimekit_PresetPluginConfig": realtimekit_PresetPluginConfig,
+          "realtimekit_ValidationIssue": realtimekit_ValidationIssue,
+        },
+      },
+    },
+  },
+  {
+    name: "realtime_kit_presets_edit",
+    title: "Update a preset",
+    description: "Update a preset by the provided preset ID\n\nThis method is beta.\n\nPATCH /accounts/{account_id}/realtime/kit/{app_id}/presets/{preset_id}",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "body": {
+          "$ref": "#/$defs/realtimekit_UpdatePreset"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "The account identifier tag.",
+              "type": "string"
+            },
+            "app_id": {
+              "description": "The app identifier tag.",
+              "type": "string"
+            },
+            "preset_id": {
+              "description": "ID of the preset to fetch",
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "app_id",
+            "preset_id"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path",
+        "body"
+      ],
+      additionalProperties: false,
+      $defs: {
+        "realtimekit_PresetPluginConfig": realtimekit_PresetPluginConfig$,
+        "realtimekit_UpdatePreset": realtimekit_UpdatePreset,
+      },
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/realtimekit_GenericSuccessResponse"
+        },
+        {
+          "properties": {
+            "data": {
+              "allOf": [
+                {
+                  "properties": {
+                    "created_at": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "id": {
+                      "format": "uuid",
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "format": "date-time",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "created_at",
+                    "id",
+                    "updated_at"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "$ref": "#/$defs/realtimekit_Preset"
+                }
+              ]
+            }
+          },
+          "required": [
+            "data"
+          ],
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse,
+        "realtimekit_Preset": realtimekit_Preset,
+        "realtimekit_PresetPluginConfig": realtimekit_PresetPluginConfig,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Update a preset"
+    },
+    [OPERATION]: {
+      method: "PATCH",
+      path: "/accounts/{account_id}/realtime/kit/{app_id}/presets/{preset_id}",
+      pathOf: encodePath`/accounts/${"account_id"}/realtime/kit/${"app_id"}/presets/${"preset_id"}`,
+      body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-api-token-group": [
+          "Realtime Admin",
+          "Realtime"
+        ],
+        "x-forge-oauth-scopes": [
+          "realtime.write",
+          "realtime.admin"
         ]
       },
       responses: {
@@ -452,8 +636,14 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/realtime/kit/${"app_id"}/presets/${"preset_id"}`,
       extensions: {
         "x-api-token-group": [
+          "Realtime Read",
           "Realtime Admin",
           "Realtime"
+        ],
+        "x-forge-oauth-scopes": [
+          "realtime.read",
+          "realtime.write",
+          "realtime.admin"
         ]
       },
       responses: {
@@ -606,8 +796,14 @@ export const tools: readonly Tool[] = [
       ],
       extensions: {
         "x-api-token-group": [
+          "Realtime Read",
           "Realtime Admin",
           "Realtime"
+        ],
+        "x-forge-oauth-scopes": [
+          "realtime.read",
+          "realtime.write",
+          "realtime.admin"
         ]
       },
       responses: {
@@ -754,178 +950,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Realtime Admin",
           "Realtime"
-        ]
-      },
-      responses: {
-        schemas: {
-          "200": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/realtimekit_GenericSuccessResponse"
-              },
-              {
-                "properties": {
-                  "data": {
-                    "allOf": [
-                      {
-                        "properties": {
-                          "created_at": {
-                            "format": "date-time",
-                            "type": "string"
-                          },
-                          "id": {
-                            "format": "uuid",
-                            "type": "string"
-                          },
-                          "updated_at": {
-                            "format": "date-time",
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "created_at",
-                          "id",
-                          "updated_at"
-                        ],
-                        "type": "object"
-                      },
-                      {
-                        "$ref": "#/$defs/realtimekit_Preset"
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "data"
-                ],
-                "type": "object"
-              }
-            ]
-          },
-          "4XX": {
-            "$ref": "#/$defs/realtimekit_GenericErrorResponse"
-          }
-        },
-        $defs: {
-          "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse,
-          "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse,
-          "realtimekit_Preset": realtimekit_Preset,
-          "realtimekit_PresetPluginConfig": realtimekit_PresetPluginConfig,
-          "realtimekit_ValidationIssue": realtimekit_ValidationIssue,
-        },
-      },
-    },
-  },
-  {
-    name: "realtime_kit_presets_update",
-    title: "Update a preset",
-    description: "Update a preset by the provided preset ID\n\nThis method is beta.\n\nPATCH /accounts/{account_id}/realtime/kit/{app_id}/presets/{preset_id}",
-    inputSchema: {
-      type: "object",
-      properties: {
-        "body": {
-          "$ref": "#/$defs/realtimekit_UpdatePreset"
-        },
-        "path": {
-          "additionalProperties": false,
-          "properties": {
-            "account_id": {
-              "description": "The account identifier tag.",
-              "type": "string"
-            },
-            "app_id": {
-              "description": "The app identifier tag.",
-              "type": "string"
-            },
-            "preset_id": {
-              "description": "ID of the preset to fetch",
-              "format": "uuid",
-              "type": "string"
-            }
-          },
-          "required": [
-            "account_id",
-            "app_id",
-            "preset_id"
-          ],
-          "type": "object"
-        }
-      },
-      required: [
-        "path",
-        "body"
-      ],
-      additionalProperties: false,
-      $defs: {
-        "realtimekit_PresetPluginConfig": realtimekit_PresetPluginConfig$,
-        "realtimekit_UpdatePreset": realtimekit_UpdatePreset,
-      },
-    },
-    outputSchema: {
-      "allOf": [
-        {
-          "$ref": "#/$defs/realtimekit_GenericSuccessResponse"
-        },
-        {
-          "properties": {
-            "data": {
-              "allOf": [
-                {
-                  "properties": {
-                    "created_at": {
-                      "format": "date-time",
-                      "type": "string"
-                    },
-                    "id": {
-                      "format": "uuid",
-                      "type": "string"
-                    },
-                    "updated_at": {
-                      "format": "date-time",
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "created_at",
-                    "id",
-                    "updated_at"
-                  ],
-                  "type": "object"
-                },
-                {
-                  "$ref": "#/$defs/realtimekit_Preset"
-                }
-              ]
-            }
-          },
-          "required": [
-            "data"
-          ],
-          "type": "object"
-        }
-      ],
-      $defs: {
-        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse,
-        "realtimekit_Preset": realtimekit_Preset,
-        "realtimekit_PresetPluginConfig": realtimekit_PresetPluginConfig,
-      },
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Update a preset"
-    },
-    [OPERATION]: {
-      method: "PATCH",
-      path: "/accounts/{account_id}/realtime/kit/{app_id}/presets/{preset_id}",
-      pathOf: encodePath`/accounts/${"account_id"}/realtime/kit/${"app_id"}/presets/${"preset_id"}`,
-      body: { mediaTypes: ["application/json"] },
-      extensions: {
-        "x-api-token-group": [
-          "Realtime Admin",
-          "Realtime"
+        ],
+        "x-forge-oauth-scopes": [
+          "realtime.write",
+          "realtime.admin"
         ]
       },
       responses: {

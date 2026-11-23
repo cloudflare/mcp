@@ -97,8 +97,14 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/basin-catalog/${"bucket_name"}/namespaces/${"namespace"}/tables/${"table_name"}`,
       extensions: {
         "x-api-token-group": [
+          "Workers R2 SQL Read",
           "Workers R2 Data Catalog Write",
           "Workers R2 Data Catalog Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "r2-catalog-sql.read",
+          "r2-catalog.read",
+          "r2-catalog.write"
         ]
       },
       responses: {
@@ -251,8 +257,14 @@ export const tools: readonly Tool[] = [
       ],
       extensions: {
         "x-api-token-group": [
+          "Workers R2 SQL Read",
           "Workers R2 Data Catalog Write",
           "Workers R2 Data Catalog Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "r2-catalog-sql.read",
+          "r2-catalog.read",
+          "r2-catalog.write"
         ]
       },
       responses: {

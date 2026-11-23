@@ -63,7 +63,7 @@ export const zero$$trust$$gateway_dns_resolver_settings_v6: JSONObject = {
  * The schema of `zero-trust-gateway_expiration`.
  */
 export const zero$$trust$$gateway_expiration: JSONObject = {
-  "description": "Defines the expiration time stamp and default duration of a DNS policy. Takes precedence over the policy's `schedule` configuration, if any. This  does not apply to HTTP or network policies. Settable only for `dns` rules.",
+  "description": "Defines the expiration time stamp and default duration of a DNS policy. Takes precedence over the policy's `schedule` configuration, if any. This does not apply to HTTP or network policies. Settable only for `dns` rules.",
   "oneOf": [
     {
       "properties": {

@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../../../_/tool.js";
 import {
+  hyperdrive_api$$response$$common,
   hyperdrive_api$$response$$common$$failure,
   hyperdrive_api$$response$$single,
   hyperdrive_messages,
@@ -54,6 +55,7 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
+        "hyperdrive_api-response-common": hyperdrive_api$$response$$common,
         "hyperdrive_api-response-single": hyperdrive_api$$response$$single,
         "hyperdrive_hyperdrive-database-signature-response": hyperdrive_hyperdrive$$database$$signature$$response,
         "hyperdrive_messages": hyperdrive_messages,
@@ -92,6 +94,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "hyperdrive_api-response-common": hyperdrive_api$$response$$common,
           "hyperdrive_api-response-common-failure": hyperdrive_api$$response$$common$$failure,
           "hyperdrive_api-response-single": hyperdrive_api$$response$$single,
           "hyperdrive_hyperdrive-database-signature-response": hyperdrive_hyperdrive$$database$$signature$$response,

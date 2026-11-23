@@ -96,6 +96,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Cloudflare One Networks Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-networks.write"
         ]
       },
       responses: {

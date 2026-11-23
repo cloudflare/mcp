@@ -23,7 +23,7 @@ export const tools: readonly Tool[] = [
   {
     name: "web3_hostnames_create",
     title: "Create Web3 Hostname",
-    description: "Create Web3 Hostname\n\nPOST /zones/{zone_id}/web3/hostnames",
+    description: "Creates a new Web3 hostname for serving decentralized web content.\n\nPOST /zones/{zone_id}/web3/hostnames",
     inputSchema: {
       type: "object",
       properties: {
@@ -84,7 +84,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "web3-hostnames.write"
+        ]
       },
       responses: {
         schemas: {
@@ -92,34 +95,17 @@ export const tools: readonly Tool[] = [
             "$ref": "#/$defs/web3_single_response"
           },
           "4XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/web3_collection_response"
-              },
-              {
-                "$ref": "#/$defs/web3_api-response-common-failure"
-              }
-            ]
+            "$ref": "#/$defs/web3_api-response-common-failure"
           },
           "5XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/web3_single_response"
-              },
-              {
-                "$ref": "#/$defs/web3_api-response-common-failure"
-              }
-            ]
+            "$ref": "#/$defs/web3_api-response-common-failure"
           }
         },
         $defs: {
-          "web3_api-response-collection": web3_api$$response$$collection,
           "web3_api-response-common": web3_api$$response$$common,
           "web3_api-response-common-failure": web3_api$$response$$common$$failure,
           "web3_api-response-single": web3_api$$response$$single,
-          "web3_collection_response": web3_collection_response,
           "web3_messages": web3_messages,
-          "web3_result_info": web3_result_info,
           "web3_single_response": web3_single_response,
           "web3_web3-hostname": web3_web3$$hostname,
         },
@@ -129,11 +115,10 @@ export const tools: readonly Tool[] = [
   {
     name: "web3_hostnames_delete",
     title: "Delete Web3 Hostname",
-    description: "Delete Web3 Hostname\n\nDELETE /zones/{zone_id}/web3/hostnames/{identifier}",
+    description: "Deletes a Web3 hostname and its configuration from the zone.\n\nDELETE /zones/{zone_id}/web3/hostnames/{identifier}",
     inputSchema: {
       type: "object",
       properties: {
-        "body": {},
         "path": {
           "additionalProperties": false,
           "properties": {
@@ -154,8 +139,7 @@ export const tools: readonly Tool[] = [
         }
       },
       required: [
-        "path",
-        "body"
+        "path"
       ],
       additionalProperties: false,
     },
@@ -178,7 +162,6 @@ export const tools: readonly Tool[] = [
       method: "DELETE",
       path: "/zones/{zone_id}/web3/hostnames/{identifier}",
       pathOf: encodePath`/zones/${"zone_id"}/web3/hostnames/${"identifier"}`,
-      body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
           "Web3 Hostnames Write"
@@ -188,7 +171,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "web3-hostnames.write"
+        ]
       },
       responses: {
         schemas: {
@@ -196,35 +182,17 @@ export const tools: readonly Tool[] = [
             "$ref": "#/$defs/web3_api-response-single-id"
           },
           "4XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/web3_collection_response"
-              },
-              {
-                "$ref": "#/$defs/web3_api-response-common-failure"
-              }
-            ]
+            "$ref": "#/$defs/web3_api-response-common-failure"
           },
           "5XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/web3_api-response-single-id"
-              },
-              {
-                "$ref": "#/$defs/web3_api-response-common-failure"
-              }
-            ]
+            "$ref": "#/$defs/web3_api-response-common-failure"
           }
         },
         $defs: {
-          "web3_api-response-collection": web3_api$$response$$collection,
           "web3_api-response-common": web3_api$$response$$common,
           "web3_api-response-common-failure": web3_api$$response$$common$$failure,
           "web3_api-response-single-id": web3_api$$response$$single$$id,
-          "web3_collection_response": web3_collection_response,
           "web3_messages": web3_messages,
-          "web3_result_info": web3_result_info,
-          "web3_web3-hostname": web3_web3$$hostname,
         },
       },
     },
@@ -232,7 +200,7 @@ export const tools: readonly Tool[] = [
   {
     name: "web3_hostnames_edit",
     title: "Edit Web3 Hostname",
-    description: "Edit Web3 Hostname\n\nPATCH /zones/{zone_id}/web3/hostnames/{identifier}",
+    description: "Updates a Web3 hostname configuration.\n\nPATCH /zones/{zone_id}/web3/hostnames/{identifier}",
     inputSchema: {
       type: "object",
       properties: {
@@ -298,7 +266,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "web3-hostnames.write"
+        ]
       },
       responses: {
         schemas: {
@@ -306,34 +277,17 @@ export const tools: readonly Tool[] = [
             "$ref": "#/$defs/web3_single_response"
           },
           "4XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/web3_collection_response"
-              },
-              {
-                "$ref": "#/$defs/web3_api-response-common-failure"
-              }
-            ]
+            "$ref": "#/$defs/web3_api-response-common-failure"
           },
           "5XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/web3_single_response"
-              },
-              {
-                "$ref": "#/$defs/web3_api-response-common-failure"
-              }
-            ]
+            "$ref": "#/$defs/web3_api-response-common-failure"
           }
         },
         $defs: {
-          "web3_api-response-collection": web3_api$$response$$collection,
           "web3_api-response-common": web3_api$$response$$common,
           "web3_api-response-common-failure": web3_api$$response$$common$$failure,
           "web3_api-response-single": web3_api$$response$$single,
-          "web3_collection_response": web3_collection_response,
           "web3_messages": web3_messages,
-          "web3_result_info": web3_result_info,
           "web3_single_response": web3_single_response,
           "web3_web3-hostname": web3_web3$$hostname,
         },
@@ -343,7 +297,7 @@ export const tools: readonly Tool[] = [
   {
     name: "web3_hostnames_get",
     title: "Web3 Hostname Details",
-    description: "Web3 Hostname Details\n\nGET /zones/{zone_id}/web3/hostnames/{identifier}",
+    description: "Retrieves details for a specific Web3 hostname, including its target gateway and DNSLink settings.\n\nGET /zones/{zone_id}/web3/hostnames/{identifier}",
     inputSchema: {
       type: "object",
       properties: {
@@ -402,7 +356,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "web3-hostnames.read",
+          "web3-hostnames.write"
+        ]
       },
       responses: {
         schemas: {
@@ -410,34 +368,17 @@ export const tools: readonly Tool[] = [
             "$ref": "#/$defs/web3_single_response"
           },
           "4XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/web3_collection_response"
-              },
-              {
-                "$ref": "#/$defs/web3_api-response-common-failure"
-              }
-            ]
+            "$ref": "#/$defs/web3_api-response-common-failure"
           },
           "5XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/web3_single_response"
-              },
-              {
-                "$ref": "#/$defs/web3_api-response-common-failure"
-              }
-            ]
+            "$ref": "#/$defs/web3_api-response-common-failure"
           }
         },
         $defs: {
-          "web3_api-response-collection": web3_api$$response$$collection,
           "web3_api-response-common": web3_api$$response$$common,
           "web3_api-response-common-failure": web3_api$$response$$common$$failure,
           "web3_api-response-single": web3_api$$response$$single,
-          "web3_collection_response": web3_collection_response,
           "web3_messages": web3_messages,
-          "web3_result_info": web3_result_info,
           "web3_single_response": web3_single_response,
           "web3_web3-hostname": web3_web3$$hostname,
         },
@@ -447,7 +388,7 @@ export const tools: readonly Tool[] = [
   {
     name: "web3_hostnames_list",
     title: "List Web3 Hostnames",
-    description: "List Web3 Hostnames\n\nGET /zones/{zone_id}/web3/hostnames",
+    description: "Lists all Web3 hostnames configured for the zone.\n\nGET /zones/{zone_id}/web3/hostnames",
     inputSchema: {
       type: "object",
       properties: {
@@ -474,7 +415,6 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/web3_collection_response",
       $defs: {
         "web3_api-response-collection": web3_api$$response$$collection,
-        "web3_api-response-common": web3_api$$response$$common,
         "web3_collection_response": web3_collection_response,
         "web3_messages": web3_messages,
         "web3_result_info": web3_result_info,
@@ -502,7 +442,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "web3-hostnames.read",
+          "web3-hostnames.write"
+        ]
       },
       responses: {
         schemas: {
@@ -510,29 +454,14 @@ export const tools: readonly Tool[] = [
             "$ref": "#/$defs/web3_collection_response"
           },
           "4XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/web3_collection_response"
-              },
-              {
-                "$ref": "#/$defs/web3_api-response-common-failure"
-              }
-            ]
+            "$ref": "#/$defs/web3_api-response-common-failure"
           },
           "5XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/web3_collection_response"
-              },
-              {
-                "$ref": "#/$defs/web3_api-response-common-failure"
-              }
-            ]
+            "$ref": "#/$defs/web3_api-response-common-failure"
           }
         },
         $defs: {
           "web3_api-response-collection": web3_api$$response$$collection,
-          "web3_api-response-common": web3_api$$response$$common,
           "web3_api-response-common-failure": web3_api$$response$$common$$failure,
           "web3_collection_response": web3_collection_response,
           "web3_messages": web3_messages,

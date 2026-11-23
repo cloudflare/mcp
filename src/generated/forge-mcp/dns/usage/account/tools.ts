@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../../../_/tool.js";
 import {
+  dns$$records_api$$response$$common,
   dns$$records_api$$response$$common$$failure,
   dns$$records_api$$response$$single,
   dns$$records_messages,
@@ -24,7 +25,7 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "account_or_zone": {
-              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "description": "Whether ${account_or_zone} is an account ID (`accounts`) or a zone ID (`zones`).",
               "enum": [
                 "accounts",
                 "zones"
@@ -32,7 +33,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "description": "The account ID or zone ID, as selected by ${account_or_zone}.",
               "type": "string"
             }
           },
@@ -51,6 +52,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/dns-records_dns_response_account_usage",
       $defs: {
+        "dns-records_api-response-common": dns$$records_api$$response$$common,
         "dns-records_api-response-single": dns$$records_api$$response$$single,
         "dns-records_dns_response_account_usage": dns$$records_dns_response_account_usage,
         "dns-records_messages": dns$$records_messages,
@@ -70,19 +72,19 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Account DNS Settings Write",
-          "Account DNS Settings Read"
+          "Account DNS Settings Read",
+          "Zone DNS Settings Write",
+          "Zone DNS Settings Read",
+          "DNS Read",
+          "DNS Write"
         ],
-        "x-cfPermissionsRequired": {
-          "enum": [
-            "#dns_records:read"
-          ]
-        },
         "x-cfPlanAvailability": {
           "business": true,
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-stainless-skip": true
       },
       responses: {
         schemas: {
@@ -94,6 +96,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "dns-records_api-response-common": dns$$records_api$$response$$common,
           "dns-records_api-response-common-failure": dns$$records_api$$response$$common$$failure,
           "dns-records_api-response-single": dns$$records_api$$response$$single,
           "dns-records_dns_response_account_usage": dns$$records_dns_response_account_usage,

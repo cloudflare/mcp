@@ -309,6 +309,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Workers Containers Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "containers.write"
         ]
       },
       responses: {
@@ -456,6 +459,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Workers Containers Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "containers.write"
         ]
       },
       responses: {
@@ -620,6 +626,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Workers Containers Write",
           "Workers Containers Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "containers.read",
+          "containers.write"
         ]
       },
       responses: {

@@ -179,6 +179,11 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Access: SCIM Logs Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "access-scim-log.read",
+          "teams.read",
+          "teams.write"
         ]
       },
       responses: {

@@ -153,7 +153,8 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
-          "Secrets Store Write"
+          "Secrets Store Write",
+          "AI Gateway Write"
         ],
         "x-cfPermissionsRequired": {
           "enum": [
@@ -165,7 +166,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "secrets-store.write",
+          "aig.write"
+        ]
       },
       responses: {
         schemas: {
@@ -395,7 +400,8 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/ai-gateway/gateways/${"gateway_id"}/provider_configs/${"id"}`,
       extensions: {
         "x-api-token-group": [
-          "Secrets Store Write"
+          "Secrets Store Write",
+          "AI Gateway Write"
         ],
         "x-cfPermissionsRequired": {
           "enum": [
@@ -407,7 +413,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "secrets-store.write",
+          "aig.write"
+        ]
       },
       responses: {
         schemas: {
@@ -1102,7 +1112,8 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
-          "Secrets Store Write"
+          "Secrets Store Write",
+          "AI Gateway Write"
         ],
         "x-cfPermissionsRequired": {
           "enum": [
@@ -1114,7 +1125,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "secrets-store.write",
+          "aig.write"
+        ]
       },
       responses: {
         schemas: {
@@ -1401,7 +1416,8 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
-          "Secrets Store Write"
+          "Secrets Store Write",
+          "AI Gateway Write"
         ],
         "x-cfPermissionsRequired": {
           "enum": [
@@ -1413,7 +1429,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "secrets-store.write",
+          "aig.write"
+        ]
       },
       responses: {
         schemas: {

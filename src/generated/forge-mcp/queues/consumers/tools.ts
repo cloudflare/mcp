@@ -97,6 +97,7 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "Workers Admin",
           "Queues Write",
           "Workers Scripts Write"
         ],
@@ -104,7 +105,12 @@ export const tools: readonly Tool[] = [
           "enum": [
             "com.cloudflare.edge.worker.queue.create"
           ]
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "queues.write",
+          "workers-scripts.write",
+          "workers-scripts.admin"
+        ]
       },
       responses: {
         schemas: {
@@ -196,6 +202,7 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/queues/${"queue_id"}/consumers/${"consumer_id"}`,
       extensions: {
         "x-api-token-group": [
+          "Workers Admin",
           "Queues Write",
           "Workers Scripts Write"
         ],
@@ -203,7 +210,12 @@ export const tools: readonly Tool[] = [
           "enum": [
             "com.cloudflare.edge.worker.queue.delete"
           ]
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "queues.write",
+          "workers-scripts.write",
+          "workers-scripts.admin"
+        ]
       },
       responses: {
         schemas: {
@@ -295,6 +307,11 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/queues/${"queue_id"}/consumers/${"consumer_id"}`,
       extensions: {
         "x-api-token-group": [
+          "Workers Metadata Read-Only",
+          "Workers Editor",
+          "Workers Content Read-Only",
+          "Workers Admin",
+          "Queues Metadata Read",
           "Queues Write",
           "Queues Read",
           "Workers Scripts Write",
@@ -304,7 +321,18 @@ export const tools: readonly Tool[] = [
           "enum": [
             "com.cloudflare.edge.worker.queue.read"
           ]
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "queues.metadata_read",
+          "queues.read",
+          "queues.write",
+          "workers-scripts.read",
+          "workers-scripts.write",
+          "workers-scripts.content_read",
+          "workers-scripts.metadata_read",
+          "workers-scripts.edit",
+          "workers-scripts.admin"
+        ]
       },
       responses: {
         schemas: {
@@ -409,6 +437,11 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/queues/${"queue_id"}/consumers`,
       extensions: {
         "x-api-token-group": [
+          "Workers Metadata Read-Only",
+          "Workers Editor",
+          "Workers Content Read-Only",
+          "Workers Admin",
+          "Queues Metadata Read",
           "Queues Write",
           "Queues Read",
           "Workers Scripts Write",
@@ -418,7 +451,18 @@ export const tools: readonly Tool[] = [
           "enum": [
             "com.cloudflare.edge.worker.queue.list"
           ]
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "queues.metadata_read",
+          "queues.read",
+          "queues.write",
+          "workers-scripts.read",
+          "workers-scripts.write",
+          "workers-scripts.content_read",
+          "workers-scripts.metadata_read",
+          "workers-scripts.edit",
+          "workers-scripts.admin"
+        ]
       },
       responses: {
         schemas: {
@@ -538,6 +582,7 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "Workers Admin",
           "Queues Write",
           "Workers Scripts Write"
         ],
@@ -545,7 +590,12 @@ export const tools: readonly Tool[] = [
           "enum": [
             "com.cloudflare.edge.worker.queue.update"
           ]
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "queues.write",
+          "workers-scripts.write",
+          "workers-scripts.admin"
+        ]
       },
       responses: {
         schemas: {

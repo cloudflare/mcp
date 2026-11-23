@@ -99,26 +99,7 @@ export const addressing_api$$response$$common$$failure: JSONObject = {
  * The schema of `addressing_api-response-single` in responses.
  */
 export const addressing_api$$response$$single: JSONObject = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/addressing_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/addressing_messages"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  "$ref": "#/$defs/addressing_api-response-common"
 };
 
 /**

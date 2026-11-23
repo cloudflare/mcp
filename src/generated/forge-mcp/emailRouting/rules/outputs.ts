@@ -391,39 +391,5 @@ export const email_rule_response_single: JSONObject = {
  * The schema of `email_rules` in responses.
  */
 export const email_rules: JSONObject = {
-  "properties": {
-    "actions": {
-      "$ref": "#/$defs/email_rule_actions"
-    },
-    "enabled": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
-    },
-    "id": {
-      "type": "string"
-    },
-    "matchers": {
-      "$ref": "#/$defs/email_rule_matchers"
-    },
-    "name": {
-      "type": "string"
-    },
-    "priority": {
-      "type": "number"
-    },
-    "source": {
-      "enum": [
-        "api",
-        "wrangler"
-      ],
-      "type": "string"
-    },
-    "tag": {
-      "type": "string"
-    }
-  },
-  "type": "object"
+  "$ref": "#/$defs/email_rule_properties"
 };

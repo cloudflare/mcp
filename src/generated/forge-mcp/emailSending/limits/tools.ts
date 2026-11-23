@@ -2,7 +2,11 @@
 /* eslint-disable */
 
 import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
-import { email_api$$response$$single, email_messages } from "../../outputs.js";
+import {
+  email_api$$response$$common,
+  email_api$$response$$single,
+  email_messages,
+} from "../../outputs.js";
 import {
   email_sending_limits_properties,
   email_sending_limits_response_single,
@@ -41,6 +45,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/email_sending_limits_response_single",
       $defs: {
+        "email_api-response-common": email_api$$response$$common,
         "email_api-response-single": email_api$$response$$single,
         "email_messages": email_messages,
         "email_sending_limits_properties": email_sending_limits_properties,
@@ -59,17 +64,20 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/email/sending/limits",
       pathOf: encodePath`/accounts/${"account_id"}/email/sending/limits`,
       extensions: {
-        "x-cfPermissionsRequired": {
-          "enum": [
-            "com.cloudflare.api.account.email.sending.read"
-          ]
-        },
+        "x-api-token-group": [
+          "Email Sending Write",
+          "Email Sending Read"
+        ],
         "x-cfPlanAvailability": {
           "business": true,
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "email-sending.read",
+          "email-sending.write"
+        ]
       },
       responses: {
         schemas: {
@@ -79,6 +87,7 @@ export const tools: readonly Tool[] = [
           "403": null
         },
         $defs: {
+          "email_api-response-common": email_api$$response$$common,
           "email_api-response-single": email_api$$response$$single,
           "email_messages": email_messages,
           "email_sending_limits_properties": email_sending_limits_properties,

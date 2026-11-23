@@ -4,10 +4,9 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
- * The schema of `dns-firewall_dns-firewall-reverse-dns-response-with-ptr` in
- * responses.
+ * The schema of `dns-firewall_dns-firewall-reverse-dns` in responses.
  */
-export const dns$$firewall_dns$$firewall$$reverse$$dns$$response$$with$$ptr: JSONObject = {
+export const dns$$firewall_dns$$firewall$$reverse$$dns: JSONObject = {
   "properties": {
     "ptr": {
       "additionalProperties": {
@@ -16,10 +15,15 @@ export const dns$$firewall_dns$$firewall$$reverse$$dns$$response$$with$$ptr: JSO
       "type": "object"
     }
   },
-  "required": [
-    "ptr"
-  ],
   "type": "object"
+};
+
+/**
+ * The schema of `dns-firewall_dns-firewall-reverse-dns-response-with-ptr` in
+ * responses.
+ */
+export const dns$$firewall_dns$$firewall$$reverse$$dns$$response$$with$$ptr: JSONObject = {
+  "$ref": "#/$defs/dns-firewall_dns-firewall-reverse-dns"
 };
 
 /**

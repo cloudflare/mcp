@@ -182,7 +182,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "waiting-rooms.write"
+        ]
       },
       responses: {
         schemas: {
@@ -285,7 +288,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "waiting-rooms.write"
+        ]
       },
       responses: {
         schemas: {
@@ -315,7 +321,7 @@ export const tools: readonly Tool[] = [
     },
   },
   {
-    name: "waitingRooms_rules_get",
+    name: "waitingRooms_rules_list",
     title: "List Waiting Room Rules",
     description: "Lists rules for a waiting room.\n\nGET /zones/{zone_id}/waiting_rooms/{waiting_room_id}/rules",
     inputSchema: {
@@ -375,7 +381,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "waiting-rooms.read",
+          "waiting-rooms.write"
+        ]
       },
       responses: {
         schemas: {
@@ -473,7 +483,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "waiting-rooms.write"
+        ]
       },
       responses: {
         schemas: {

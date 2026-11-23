@@ -95,7 +95,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "zone.write",
+          "zone-settings.write"
+        ]
       },
       responses: {
         schemas: {
@@ -216,7 +220,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "zone.write",
+          "zone-settings.write"
+        ]
       },
       responses: {
         schemas: {
@@ -322,7 +330,13 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "zone.read",
+          "zone.write",
+          "zone-settings.read",
+          "zone-settings.write"
+        ]
       },
       responses: {
         schemas: {

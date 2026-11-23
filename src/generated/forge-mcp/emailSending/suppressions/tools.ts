@@ -187,6 +187,14 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/email/sending/suppressions",
       pathOf: encodePath`/accounts/${"account_id"}/email/sending/suppressions`,
       body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-api-token-group": [
+          "Email Sending Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "email-sending.write"
+        ]
+      },
       responses: {
         schemas: {
           "200": {
@@ -1416,6 +1424,16 @@ export const tools: readonly Tool[] = [
       method: "GET",
       path: "/accounts/{account_id}/email/sending/suppressions/{suppression_id}",
       pathOf: encodePath`/accounts/${"account_id"}/email/sending/suppressions/${"suppression_id"}`,
+      extensions: {
+        "x-api-token-group": [
+          "Email Sending Write",
+          "Email Sending Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "email-sending.read",
+          "email-sending.write"
+        ]
+      },
       responses: {
         schemas: {
           "200": {
@@ -1827,6 +1845,14 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/email/sending/suppressions/bulk",
       pathOf: encodePath`/accounts/${"account_id"}/email/sending/suppressions/bulk`,
       body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-api-token-group": [
+          "Email Sending Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "email-sending.write"
+        ]
+      },
       responses: {
         schemas: {
           "200": {
@@ -2241,6 +2267,16 @@ export const tools: readonly Tool[] = [
         { name: "scope_type", explode: true },
         { name: "scope_value", explode: true },
       ],
+      extensions: {
+        "x-api-token-group": [
+          "Email Sending Write",
+          "Email Sending Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "email-sending.read",
+          "email-sending.write"
+        ]
+      },
       responses: {
         schemas: {
           "200": {

@@ -4,28 +4,9 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
- * The schema of `rum_rum-site-response-single` in responses.
+ * The schema of `rum_rum-site` in responses.
  */
-export const rum_rum$$site$$response$$single: JSONObject = {
-  "allOf": [
-    {
-      "$ref": "#/$defs/rum_api-response-common"
-    },
-    {
-      "properties": {
-        "result": {
-          "$ref": "#/$defs/rum_rum_site"
-        }
-      },
-      "type": "object"
-    }
-  ]
-};
-
-/**
- * The schema of `rum_rum_site` in responses.
- */
-export const rum_rum_site: JSONObject = {
+export const rum_rum$$site: JSONObject = {
   "properties": {
     "editable": {
       "type": "boolean"
@@ -38,4 +19,23 @@ export const rum_rum_site: JSONObject = {
     }
   },
   "type": "object"
+};
+
+/**
+ * The schema of `rum_rum-site-response-single` in responses.
+ */
+export const rum_rum$$site$$response$$single: JSONObject = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/rum_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/rum_rum-site"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };

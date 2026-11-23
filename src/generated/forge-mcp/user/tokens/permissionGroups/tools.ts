@@ -79,7 +79,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "user-api-tokens.write"
+        ]
       },
       responses: {
         schemas: {

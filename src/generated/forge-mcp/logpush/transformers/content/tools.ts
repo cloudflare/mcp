@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../../../_/tool.js";
 import {
+  logpush_api$$response$$common,
   logpush_api$$response$$common$$failure,
   logpush_api$$response$$single,
   logpush_messages,
@@ -57,6 +58,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/logpush_transformer_content_response",
       $defs: {
+        "logpush_api-response-common": logpush_api$$response$$common,
         "logpush_api-response-single": logpush_api$$response$$single,
         "logpush_messages": logpush_messages,
         "logpush_transformer_content_response": logpush_transformer_content_response,
@@ -102,6 +104,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "logpush_api-response-common": logpush_api$$response$$common,
           "logpush_api-response-common-failure": logpush_api$$response$$common$$failure,
           "logpush_api-response-single": logpush_api$$response$$single,
           "logpush_messages": logpush_messages,

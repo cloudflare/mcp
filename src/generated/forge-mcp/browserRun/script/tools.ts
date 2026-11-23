@@ -163,7 +163,9 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
-          "Browser Rendering Write"
+          "AI Search Index Engine",
+          "Auto Rag Write Run Engine",
+          "Browser Run Write"
         ],
         "x-cfPermissionsRequired": {
           "enum": [
@@ -176,7 +178,12 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "browser-rendering.write",
+          "ai-search.index",
+          "rag.run"
+        ]
       },
       responses: {
         schemas: {
@@ -636,7 +643,9 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
-          "Browser Rendering Write"
+          "AI Search Index Engine",
+          "Auto Rag Write Run Engine",
+          "Browser Run Write"
         ],
         "x-cfPermissionsRequired": {
           "enum": [
@@ -649,7 +658,12 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "browser-rendering.write",
+          "ai-search.index",
+          "rag.run"
+        ]
       },
       responses: {
         schemas: {

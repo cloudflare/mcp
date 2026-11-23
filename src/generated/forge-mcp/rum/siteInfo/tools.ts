@@ -94,7 +94,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "account-settings.write"
+        ]
       },
       responses: {
         schemas: {
@@ -178,7 +181,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "account-settings.write"
+        ]
       },
       responses: {
         schemas: {
@@ -262,7 +268,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "account-settings.read"
+        ]
       },
       responses: {
         schemas: {
@@ -373,7 +382,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "account-settings.read"
+        ]
       },
       responses: {
         schemas: {
@@ -466,7 +478,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "account-settings.read"
+        ]
       },
       responses: {
         schemas: {
@@ -541,7 +556,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "account-settings.read"
+        ]
       },
       responses: {
         schemas: {
@@ -633,7 +651,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "account-settings.write"
+        ]
       },
       responses: {
         schemas: {
@@ -717,7 +738,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "account-settings.read"
+        ]
       },
       responses: {
         schemas: {

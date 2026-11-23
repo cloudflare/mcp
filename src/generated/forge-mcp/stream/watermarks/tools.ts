@@ -109,6 +109,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/stream_watermark_response_single",
       $defs: {
+        "stream_api-response-common": stream_api$$response$$common,
         "stream_api-response-single": stream_api$$response$$single,
         "stream_messages": stream_messages,
         "stream_watermark_response_single": stream_watermark_response_single,
@@ -131,6 +132,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Stream Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "stream.write"
         ]
       },
       responses: {
@@ -143,6 +147,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "stream_api-response-common": stream_api$$response$$common,
           "stream_api-response-common-failure": stream_api$$response$$common$$failure,
           "stream_api-response-single": stream_api$$response$$single,
           "stream_messages": stream_messages,
@@ -198,6 +203,7 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
+        "stream_api-response-common": stream_api$$response$$common,
         "stream_api-response-single": stream_api$$response$$single,
         "stream_messages": stream_messages,
       },
@@ -216,6 +222,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Stream Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "stream.write"
         ]
       },
       responses: {
@@ -240,6 +249,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "stream_api-response-common": stream_api$$response$$common,
           "stream_api-response-common-failure": stream_api$$response$$common$$failure,
           "stream_api-response-single": stream_api$$response$$single,
           "stream_messages": stream_messages,
@@ -281,6 +291,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/stream_watermark_response_single",
       $defs: {
+        "stream_api-response-common": stream_api$$response$$common,
         "stream_api-response-single": stream_api$$response$$single,
         "stream_messages": stream_messages,
         "stream_watermark_response_single": stream_watermark_response_single,
@@ -300,8 +311,14 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/stream/watermarks/${"identifier"}`,
       extensions: {
         "x-api-token-group": [
+          "Stream Metadata Read",
           "Stream Write",
           "Stream Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "stream.metadata_read",
+          "stream.read",
+          "stream.write"
         ]
       },
       responses: {
@@ -314,6 +331,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "stream_api-response-common": stream_api$$response$$common,
           "stream_api-response-common-failure": stream_api$$response$$common$$failure,
           "stream_api-response-single": stream_api$$response$$single,
           "stream_messages": stream_messages,
@@ -371,8 +389,14 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/stream/watermarks`,
       extensions: {
         "x-api-token-group": [
+          "Stream Metadata Read",
           "Stream Write",
           "Stream Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "stream.metadata_read",
+          "stream.read",
+          "stream.write"
         ]
       },
       responses: {

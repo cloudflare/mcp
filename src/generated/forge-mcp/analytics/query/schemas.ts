@@ -98,47 +98,7 @@ export const art_Filter: JSONObject = {
  * The schema of `art_QuerySummary`.
  */
 export const art_QuerySummary: JSONObject = {
-  "properties": {
-    "filters": {
-      "description": "Filters to apply before aggregating results.",
-      "items": {
-        "$ref": "#/$defs/art_Filter"
-      },
-      "type": "array"
-    },
-    "from": {
-      "description": "The start of the query time range (inclusive). RFC3339 format with timezone is required (e.g. `2024-11-05T00:00:00Z`).",
-      "format": "date-time",
-      "type": "string"
-    },
-    "groupBy": {
-      "description": "Specifies the column names to group results by. Requires valid columns for the target dataset.",
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "stats": {
-      "description": "Specifies the stat names to include in results. Requires valid stats for the target dataset (e.g. `attemptsTotal`, `bytesTotal`).",
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "to": {
-      "description": "Specifies the end of the query time range (exclusive). Requires RFC3339 format with timezone.",
-      "format": "date-time",
-      "type": "string"
-    }
-  },
-  "required": [
-    "filters",
-    "from",
-    "groupBy",
-    "stats",
-    "to"
-  ],
-  "type": "object"
+  "$ref": "#/$defs/art_CommonQuery"
 };
 
 /**

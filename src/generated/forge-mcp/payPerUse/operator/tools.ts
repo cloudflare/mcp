@@ -72,6 +72,9 @@ export const tools: readonly Tool[] = [
       method: "GET",
       path: "/accounts/{account_id}/pay-per-use/operator/configuration",
       pathOf: encodePath`/accounts/${"account_id"}/pay-per-use/operator/configuration`,
+      extensions: {
+        "x-stability": "beta"
+      },
       responses: {
         schemas: {
           "200": {
@@ -153,6 +156,9 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/pay-per-use/operator/configuration",
       pathOf: encodePath`/accounts/${"account_id"}/pay-per-use/operator/configuration`,
       body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-stability": "beta"
+      },
       responses: {
         schemas: {
           "200": {
@@ -237,6 +243,9 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/pay-per-use/operator/configuration",
       pathOf: encodePath`/accounts/${"account_id"}/pay-per-use/operator/configuration`,
       body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-stability": "beta"
+      },
       responses: {
         schemas: {
           "200": {

@@ -90,7 +90,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "snippets.write"
+        ]
       },
       responses: {
         schemas: {
@@ -245,7 +248,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "snippets.read",
+          "snippets.write"
+        ]
       },
       responses: {
         schemas: {
@@ -416,7 +423,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "snippets.write"
+        ]
       },
       responses: {
         schemas: {

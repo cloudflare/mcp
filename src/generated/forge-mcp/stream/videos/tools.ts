@@ -73,6 +73,7 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/stream_clipResponseSingle",
       $defs: {
         "stream_allowedOrigins": stream_allowedOrigins,
+        "stream_api-response-common": stream_api$$response$$common,
         "stream_api-response-single": stream_api$$response$$single,
         "stream_clipResponseSingle": stream_clipResponseSingle,
         "stream_input": stream_input,
@@ -99,6 +100,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Stream Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "stream.write"
         ]
       },
       responses: {
@@ -112,6 +116,7 @@ export const tools: readonly Tool[] = [
         },
         $defs: {
           "stream_allowedOrigins": stream_allowedOrigins,
+          "stream_api-response-common": stream_api$$response$$common,
           "stream_api-response-common-failure": stream_api$$response$$common$$failure,
           "stream_api-response-single": stream_api$$response$$single,
           "stream_clipResponseSingle": stream_clipResponseSingle,
@@ -176,6 +181,7 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/stream_video_response_single",
       $defs: {
         "stream_allowedOrigins": stream_allowedOrigins,
+        "stream_api-response-common": stream_api$$response$$common,
         "stream_api-response-single": stream_api$$response$$single,
         "stream_input": stream_input,
         "stream_media_metadata": stream_media_metadata,
@@ -203,6 +209,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Stream Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "stream.write"
         ]
       },
       responses: {
@@ -216,6 +225,7 @@ export const tools: readonly Tool[] = [
         },
         $defs: {
           "stream_allowedOrigins": stream_allowedOrigins,
+          "stream_api-response-common": stream_api$$response$$common,
           "stream_api-response-common-failure": stream_api$$response$$common$$failure,
           "stream_api-response-single": stream_api$$response$$single,
           "stream_input": stream_input,
@@ -256,7 +266,7 @@ export const tools: readonly Tool[] = [
               "type": "integer"
             },
             "upload-metadata": {
-              "description": "Comma-separated key-value pairs following the TUS protocol specification. Values are Base-64 encoded.\nSupported keys: `name`, `requiresignedurls`, `allowedorigins`, `thumbnailtimestamppct`, `watermark`, `scheduleddeletion`, `maxdurationseconds`.",
+              "description": "Comma-separated key-value pairs following the TUS protocol specification. Values are Base-64 encoded.\nSupported keys: `name`, `requiresignedurls`, `allowedorigins`, `thumbnailtimestamppct`, `watermark`, `scheduleddeletion`, `maxdurationseconds`, `encodingmode`.\n`encodingmode` accepts `default` or `previewFirst`.",
               "type": "string"
             }
           },
@@ -315,6 +325,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Stream Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "stream.write"
         ]
       },
       responses: {
@@ -376,6 +389,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Stream Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "stream.write"
         ]
       },
       responses: {
@@ -436,6 +452,7 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/stream_video_response_single",
       $defs: {
         "stream_allowedOrigins": stream_allowedOrigins,
+        "stream_api-response-common": stream_api$$response$$common,
         "stream_api-response-single": stream_api$$response$$single,
         "stream_input": stream_input,
         "stream_media_metadata": stream_media_metadata,
@@ -470,6 +487,7 @@ export const tools: readonly Tool[] = [
         },
         $defs: {
           "stream_allowedOrigins": stream_allowedOrigins,
+          "stream_api-response-common": stream_api$$response$$common,
           "stream_api-response-common-failure": stream_api$$response$$common$$failure,
           "stream_api-response-single": stream_api$$response$$single,
           "stream_input": stream_input,
@@ -528,8 +546,16 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/stream/${"identifier"}/embed`,
       extensions: {
         "x-api-token-group": [
+          "Stream Metadata Read",
+          "AI Search Index Engine",
           "Stream Write",
           "Stream Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "stream.metadata_read",
+          "stream.read",
+          "stream.write",
+          "ai-search.index"
         ]
       },
       responses: {
@@ -581,6 +607,7 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/stream_video_response_single",
       $defs: {
         "stream_allowedOrigins": stream_allowedOrigins,
+        "stream_api-response-common": stream_api$$response$$common,
         "stream_api-response-single": stream_api$$response$$single,
         "stream_input": stream_input,
         "stream_media_metadata": stream_media_metadata,
@@ -605,8 +632,16 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/stream/${"identifier"}`,
       extensions: {
         "x-api-token-group": [
+          "Stream Metadata Read",
+          "AI Search Index Engine",
           "Stream Write",
           "Stream Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "stream.metadata_read",
+          "stream.read",
+          "stream.write",
+          "ai-search.index"
         ]
       },
       responses: {
@@ -620,6 +655,7 @@ export const tools: readonly Tool[] = [
         },
         $defs: {
           "stream_allowedOrigins": stream_allowedOrigins,
+          "stream_api-response-common": stream_api$$response$$common,
           "stream_api-response-common-failure": stream_api$$response$$common$$failure,
           "stream_api-response-single": stream_api$$response$$single,
           "stream_input": stream_input,
@@ -786,8 +822,16 @@ export const tools: readonly Tool[] = [
       ],
       extensions: {
         "x-api-token-group": [
+          "Stream Metadata Read",
+          "AI Search Index Engine",
           "Stream Write",
           "Stream Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "stream.metadata_read",
+          "stream.read",
+          "stream.write",
+          "ai-search.index"
         ]
       },
       responses: {

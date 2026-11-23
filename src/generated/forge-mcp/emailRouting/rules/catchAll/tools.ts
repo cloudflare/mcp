@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../../../_/tool.js";
 import {
+  email_api$$response$$common,
   email_api$$response$$single,
   email_messages,
 } from "../../../outputs.js";
@@ -57,6 +58,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/email_catch_all_rule_response_single",
       $defs: {
+        "email_api-response-common": email_api$$response$$common,
         "email_api-response-single": email_api$$response$$single,
         "email_catch_all_rule": email_catch_all_rule,
         "email_catch_all_rule_response_single": email_catch_all_rule_response_single,
@@ -93,7 +95,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "email-routing-rule.read",
+          "email-routing-rule.write"
+        ]
       },
       responses: {
         schemas: {
@@ -103,6 +109,7 @@ export const tools: readonly Tool[] = [
           "403": null
         },
         $defs: {
+          "email_api-response-common": email_api$$response$$common,
           "email_api-response-single": email_api$$response$$single,
           "email_catch_all_rule": email_catch_all_rule,
           "email_catch_all_rule_response_single": email_catch_all_rule_response_single,
@@ -155,6 +162,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/email_catch_all_rule_response_single",
       $defs: {
+        "email_api-response-common": email_api$$response$$common,
         "email_api-response-single": email_api$$response$$single,
         "email_catch_all_rule": email_catch_all_rule,
         "email_catch_all_rule_response_single": email_catch_all_rule_response_single,
@@ -191,7 +199,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "email-routing-rule.write"
+        ]
       },
       responses: {
         schemas: {
@@ -202,6 +213,7 @@ export const tools: readonly Tool[] = [
           "422": null
         },
         $defs: {
+          "email_api-response-common": email_api$$response$$common,
           "email_api-response-single": email_api$$response$$single,
           "email_catch_all_rule": email_catch_all_rule,
           "email_catch_all_rule_response_single": email_catch_all_rule_response_single,

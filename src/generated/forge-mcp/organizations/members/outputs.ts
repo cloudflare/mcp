@@ -128,7 +128,7 @@ export const organizations$$api_MemberPolicyScope: JSONObject = {
     },
     "subset_of": {
       "items": {
-        "type": "object"
+        "$ref": "#/$defs/organizations-api_MemberPolicyScope"
       },
       "type": "array"
     }

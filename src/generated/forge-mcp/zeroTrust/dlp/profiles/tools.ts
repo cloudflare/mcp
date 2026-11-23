@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../../../_/tool.js";
 import {
+  dlp_api$$response$$common,
   dlp_api$$response$$common$$failure,
   dlp_api$$response$$single,
   dlp_messages,
@@ -98,6 +99,7 @@ export const tools: readonly Tool[] = [
         "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef,
         "dlp_SkipConfig": dlp_SkipConfig,
         "dlp_WordListEntry": dlp_WordListEntry,
+        "dlp_api-response-common": dlp_api$$response$$common,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
       },
@@ -117,6 +119,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Zero Trust Read",
           "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.read",
+          "teams.write"
         ]
       },
       responses: {
@@ -159,6 +165,7 @@ export const tools: readonly Tool[] = [
           "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef,
           "dlp_SkipConfig": dlp_SkipConfig,
           "dlp_WordListEntry": dlp_WordListEntry,
+          "dlp_api-response-common": dlp_api$$response$$common,
           "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
           "dlp_api-response-single": dlp_api$$response$$single,
           "dlp_messages": dlp_messages,
@@ -235,6 +242,7 @@ export const tools: readonly Tool[] = [
         "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef,
         "dlp_SkipConfig": dlp_SkipConfig,
         "dlp_WordListEntry": dlp_WordListEntry,
+        "dlp_api-response-common": dlp_api$$response$$common,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
       },
@@ -257,6 +265,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Zero Trust Read",
           "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.read",
+          "teams.write"
         ]
       },
       responses: {
@@ -300,6 +312,7 @@ export const tools: readonly Tool[] = [
           "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef,
           "dlp_SkipConfig": dlp_SkipConfig,
           "dlp_WordListEntry": dlp_WordListEntry,
+          "dlp_api-response-common": dlp_api$$response$$common,
           "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
           "dlp_api-response-single": dlp_api$$response$$single,
           "dlp_messages": dlp_messages,

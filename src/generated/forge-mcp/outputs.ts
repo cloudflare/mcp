@@ -440,7 +440,7 @@ export const analytics$$sql_ApiErrorResponse: JSONObject = {
     },
     "error_chain": {
       "items": {
-        "type": "object"
+        "$ref": "#/$defs/analytics-sql_ApiErrorResponse"
       },
       "type": "array"
     },
@@ -1312,12 +1312,12 @@ export const api$$shield_standard_operation: JSONObject = {
 };
 
 /**
- * The schema of `bill-subs-api_api-response-collection` in responses.
+ * The schema of `bill-subs_api-response-collection` in responses.
  */
-export const bill$$subs$$api_api$$response$$collection: JSONObject = {
+export const bill$$subs_api$$response$$collection: JSONObject = {
   "allOf": [
     {
-      "$ref": "#/$defs/bill-subs-api_api-response-common"
+      "$ref": "#/$defs/bill-subs_api-response-common"
     },
     {
       "properties": {
@@ -1335,7 +1335,7 @@ export const bill$$subs$$api_api$$response$$collection: JSONObject = {
           ]
         },
         "result_info": {
-          "$ref": "#/$defs/bill-subs-api_result_info"
+          "$ref": "#/$defs/bill-subs_result_info"
         }
       },
       "type": "object"
@@ -1344,15 +1344,15 @@ export const bill$$subs$$api_api$$response$$collection: JSONObject = {
 };
 
 /**
- * The schema of `bill-subs-api_api-response-common` in responses.
+ * The schema of `bill-subs_api-response-common` in responses.
  */
-export const bill$$subs$$api_api$$response$$common: JSONObject = {
+export const bill$$subs_api$$response$$common: JSONObject = {
   "properties": {
     "errors": {
-      "$ref": "#/$defs/bill-subs-api_messages"
+      "$ref": "#/$defs/bill-subs_messages"
     },
     "messages": {
-      "$ref": "#/$defs/bill-subs-api_messages"
+      "$ref": "#/$defs/bill-subs_messages"
     },
     "result": {
       "anyOf": [
@@ -1387,15 +1387,15 @@ export const bill$$subs$$api_api$$response$$common: JSONObject = {
 };
 
 /**
- * The schema of `bill-subs-api_api-response-common-failure` in responses.
+ * The schema of `bill-subs_api-response-common-failure` in responses.
  */
-export const bill$$subs$$api_api$$response$$common$$failure: JSONObject = {
+export const bill$$subs_api$$response$$common$$failure: JSONObject = {
   "properties": {
     "errors": {
-      "$ref": "#/$defs/bill-subs-api_messages"
+      "$ref": "#/$defs/bill-subs_messages"
     },
     "messages": {
-      "$ref": "#/$defs/bill-subs-api_messages"
+      "$ref": "#/$defs/bill-subs_messages"
     },
     "result": {
       "type": "null"
@@ -1417,12 +1417,12 @@ export const bill$$subs$$api_api$$response$$common$$failure: JSONObject = {
 };
 
 /**
- * The schema of `bill-subs-api_api-response-single` in responses.
+ * The schema of `bill-subs_api-response-single` in responses.
  */
-export const bill$$subs$$api_api$$response$$single: JSONObject = {
+export const bill$$subs_api$$response$$single: JSONObject = {
   "allOf": [
     {
-      "$ref": "#/$defs/bill-subs-api_api-response-common"
+      "$ref": "#/$defs/bill-subs_api-response-common"
     },
     {
       "properties": {
@@ -1446,12 +1446,12 @@ export const bill$$subs$$api_api$$response$$single: JSONObject = {
 };
 
 /**
- * The schema of `bill-subs-api_billing_response_single` in responses.
+ * The schema of `bill-subs_billing_response_single` in responses.
  */
-export const bill$$subs$$api_billing_response_single: JSONObject = {
+export const bill$$subs_billing_response_single: JSONObject = {
   "allOf": [
     {
-      "$ref": "#/$defs/bill-subs-api_api-response-single"
+      "$ref": "#/$defs/bill-subs_api-response-single"
     },
     {
       "properties": {
@@ -1584,9 +1584,9 @@ export const bill$$subs$$api_billing_response_single: JSONObject = {
 };
 
 /**
- * The schema of `bill-subs-api_component_value` in responses.
+ * The schema of `bill-subs_component_value` in responses.
  */
-export const bill$$subs$$api_component_value: JSONObject = {
+export const bill$$subs_component_value: JSONObject = {
   "properties": {
     "default": {
       "type": "number"
@@ -1616,19 +1616,19 @@ export const bill$$subs$$api_component_value: JSONObject = {
 };
 
 /**
- * The schema of `bill-subs-api_component_values` in responses.
+ * The schema of `bill-subs_component_values` in responses.
  */
-export const bill$$subs$$api_component_values: JSONObject = {
+export const bill$$subs_component_values: JSONObject = {
   "items": {
-    "$ref": "#/$defs/bill-subs-api_component_value"
+    "$ref": "#/$defs/bill-subs_component_value"
   },
   "type": "array"
 };
 
 /**
- * The schema of `bill-subs-api_messages` in responses.
+ * The schema of `bill-subs_messages` in responses.
  */
-export const bill$$subs$$api_messages: JSONObject = {
+export const bill$$subs_messages: JSONObject = {
   "items": {
     "properties": {
       "code": {
@@ -1648,9 +1648,9 @@ export const bill$$subs$$api_messages: JSONObject = {
 };
 
 /**
- * The schema of `bill-subs-api_rate_plan` in responses.
+ * The schema of `bill-subs_rate_plan` in responses.
  */
-export const bill$$subs$$api_rate_plan: JSONObject = {
+export const bill$$subs_rate_plan: JSONObject = {
   "properties": {
     "currency": {
       "type": "string"
@@ -1681,9 +1681,9 @@ export const bill$$subs$$api_rate_plan: JSONObject = {
 };
 
 /**
- * The schema of `bill-subs-api_result_info` in responses.
+ * The schema of `bill-subs_result_info` in responses.
  */
-export const bill$$subs$$api_result_info: JSONObject = {
+export const bill$$subs_result_info: JSONObject = {
   "properties": {
     "count": {
       "type": "number"
@@ -1702,9 +1702,16 @@ export const bill$$subs$$api_result_info: JSONObject = {
 };
 
 /**
- * The schema of `bill-subs-api_subscription` in responses.
+ * The schema of `bill-subs_subscription` in responses.
  */
-export const bill$$subs$$api_subscription: JSONObject = {
+export const bill$$subs_subscription: JSONObject = {
+  "$ref": "#/$defs/bill-subs_subscription-v2"
+};
+
+/**
+ * The schema of `bill-subs_subscription-v2` in responses.
+ */
+export const bill$$subs_subscription$$v2: JSONObject = {
   "properties": {
     "app": {
       "properties": {
@@ -1715,7 +1722,7 @@ export const bill$$subs$$api_subscription: JSONObject = {
       "type": "object"
     },
     "component_values": {
-      "$ref": "#/$defs/bill-subs-api_component_values"
+      "$ref": "#/$defs/bill-subs_component_values"
     },
     "currency": {
       "type": "string"
@@ -1744,7 +1751,7 @@ export const bill$$subs$$api_subscription: JSONObject = {
       "type": "number"
     },
     "rate_plan": {
-      "$ref": "#/$defs/bill-subs-api_rate_plan"
+      "$ref": "#/$defs/bill-subs_rate_plan"
     },
     "state": {
       "enum": [
@@ -1759,80 +1766,16 @@ export const bill$$subs$$api_subscription: JSONObject = {
       "type": "string"
     },
     "zone": {
-      "$ref": "#/$defs/bill-subs-api_zone"
+      "$ref": "#/$defs/bill-subs_zone"
     }
   },
   "type": "object"
 };
 
 /**
- * The schema of `bill-subs-api_subscription-v2` in responses.
+ * The schema of `bill-subs_zone` in responses.
  */
-export const bill$$subs$$api_subscription$$v2: JSONObject = {
-  "properties": {
-    "app": {
-      "properties": {
-        "install_id": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "component_values": {
-      "$ref": "#/$defs/bill-subs-api_component_values"
-    },
-    "currency": {
-      "type": "string"
-    },
-    "current_period_end": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "current_period_start": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "frequency": {
-      "enum": [
-        "weekly",
-        "monthly",
-        "quarterly",
-        "yearly"
-      ],
-      "type": "string"
-    },
-    "id": {
-      "type": "string"
-    },
-    "price": {
-      "type": "number"
-    },
-    "rate_plan": {
-      "$ref": "#/$defs/bill-subs-api_rate_plan"
-    },
-    "state": {
-      "enum": [
-        "Trial",
-        "Provisioned",
-        "Paid",
-        "AwaitingPayment",
-        "Cancelled",
-        "Failed",
-        "Expired"
-      ],
-      "type": "string"
-    },
-    "zone": {
-      "$ref": "#/$defs/bill-subs-api_zone"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `bill-subs-api_zone` in responses.
- */
-export const bill$$subs$$api_zone: JSONObject = {
+export const bill$$subs_zone: JSONObject = {
   "properties": {
     "id": {
       "type": "string"
@@ -2522,26 +2465,7 @@ export const dns$$custom$$nameservers_api$$response$$common$$failure: JSONObject
  * The schema of `dns-custom-nameservers_api-response-single` in responses.
  */
 export const dns$$custom$$nameservers_api$$response$$single: JSONObject = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/dns-custom-nameservers_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/dns-custom-nameservers_messages"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  "$ref": "#/$defs/dns-custom-nameservers_api-response-common"
 };
 
 /**
@@ -2643,26 +2567,7 @@ export const email_api$$response$$common: JSONObject = {
  * The schema of `email_api-response-single` in responses.
  */
 export const email_api$$response$$single: JSONObject = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/email_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/email_messages"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  "$ref": "#/$defs/email_api-response-common"
 };
 
 /**
@@ -3120,6 +3025,84 @@ export const firewall_rule: JSONObject = {
 };
 
 /**
+ * The schema of `iam_account` in responses.
+ */
+export const iam_account: JSONObject = {
+  "properties": {
+    "created_on": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "legacy_flags": {
+      "properties": {
+        "enterprise_zone_quota": {
+          "properties": {
+            "available": {
+              "type": "integer"
+            },
+            "current": {
+              "type": "integer"
+            },
+            "maximum": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "managed_by": {
+      "properties": {
+        "parent_org_id": {
+          "type": "string"
+        },
+        "parent_org_name": {
+          "type": "string"
+        },
+        "root_org_id": {
+          "type": "string"
+        },
+        "should_display_parent_orgs": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "name": {
+      "type": "string"
+    },
+    "settings": {
+      "properties": {
+        "abuse_contact_email": {
+          "type": "string"
+        },
+        "enforce_twofactor": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "type": {
+      "enum": [
+        "standard",
+        "enterprise"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "type"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `iam_api-response-collection` in responses.
  */
 export const iam_api$$response$$collection: JSONObject = {
@@ -3198,26 +3181,7 @@ export const iam_api$$response$$common$$failure: JSONObject = {
  * The schema of `iam_api-response-single` in responses.
  */
 export const iam_api$$response$$single: JSONObject = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/iam_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/iam_messages"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  "$ref": "#/$defs/iam_api-response-common"
 };
 
 /**
@@ -4014,26 +3978,7 @@ export const infra_api$$response$$common$$failure: JSONObject = {
  * The schema of `infra_api-response-single` in responses.
  */
 export const infra_api$$response$$single: JSONObject = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/infra_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/infra_messages"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  "$ref": "#/$defs/infra_api-response-common"
 };
 
 /**
@@ -5333,6 +5278,13 @@ export const nel$$config_nel_value: JSONObject = {
 };
 
 /**
+ * The schema of `organizations-api_AccountListResultInfo` in responses.
+ */
+export const organizations$$api_AccountListResultInfo: JSONObject = {
+  "$ref": "#/$defs/organizations-api_PageTokenResultInfo"
+};
+
+/**
  * The schema of `organizations-api_LegacyAccount` in responses.
  */
 export const organizations$$api_LegacyAccount: JSONObject = {
@@ -5647,7 +5599,7 @@ export const pay$$per$$crawl_Msg: JSONObject = {
     },
     "error_chain": {
       "items": {
-        "type": "object"
+        "$ref": "#/$defs/pay-per-crawl_Msg"
       },
       "type": "array"
     },
@@ -7063,104 +7015,6 @@ export const resource$$sharing_v4errors: JSONObject = {
 };
 
 /**
- * The schema of `rulesets_Errors` in responses.
- */
-export const rulesets_Errors: JSONObject = {
-  "items": {
-    "$ref": "#/$defs/rulesets_Message"
-  },
-  "type": "array"
-};
-
-/**
- * The schema of `rulesets_Message` in responses.
- */
-export const rulesets_Message: JSONObject = {
-  "properties": {
-    "code": {
-      "type": "integer"
-    },
-    "message": {
-      "type": "string"
-    },
-    "source": {
-      "properties": {
-        "pointer": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "pointer"
-      ],
-      "type": "object"
-    }
-  },
-  "required": [
-    "message"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `rulesets_Messages` in responses.
- */
-export const rulesets_Messages: JSONObject = {
-  "items": {
-    "$ref": "#/$defs/rulesets_Message"
-  },
-  "type": "array"
-};
-
-/**
- * The schema of `rulesets_Response` in responses.
- */
-export const rulesets_Response: JSONObject = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/rulesets_Errors"
-    },
-    "messages": {
-      "$ref": "#/$defs/rulesets_Messages"
-    },
-    "result": {
-      "oneOf": [
-        {
-          "type": "object"
-        },
-        {
-          "items": {
-            "type": "object"
-          },
-          "type": "array"
-        },
-        {
-          "type": "string"
-        },
-        {
-          "type": "number"
-        },
-        {
-          "type": "boolean"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "success": {
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
  * The schema of `rum_api-response-common` in responses.
  */
 export const rum_api$$response$$common: JSONObject = {
@@ -7328,26 +7182,7 @@ export const security$$center_api$$response$$common$$failure: JSONObject = {
  * The schema of `security-center_api-response-single` in responses.
  */
 export const security$$center_api$$response$$single: JSONObject = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/security-center_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/security-center_messages"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  "$ref": "#/$defs/security-center_api-response-common"
 };
 
 /**
@@ -7726,26 +7561,7 @@ export const tls$$certificates$$and$$hostnames_api$$response$$common$$failure: J
  * responses.
  */
 export const tls$$certificates$$and$$hostnames_api$$response$$single: JSONObject = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_messages"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-common"
 };
 
 /**
@@ -7894,6 +7710,32 @@ export const tunnel_api$$response$$common: JSONObject = {
 };
 
 /**
+ * The schema of `tunnel_api-response-common-2` in responses.
+ */
+export const tunnel_api$$response$$common$$2: JSONObject = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/tunnel_messages-2"
+    },
+    "messages": {
+      "$ref": "#/$defs/tunnel_messages-2"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `tunnel_api-response-common-failure` in responses.
  */
 export const tunnel_api$$response$$common$$failure: JSONObject = {
@@ -7957,26 +7799,7 @@ export const tunnel_api$$response$$common$$failure$$2: JSONObject = {
  * The schema of `tunnel_api-response-single-2` in responses.
  */
 export const tunnel_api$$response$$single$$2: JSONObject = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/tunnel_messages-2"
-    },
-    "messages": {
-      "$ref": "#/$defs/tunnel_messages-2"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  "$ref": "#/$defs/tunnel_api-response-common-2"
 };
 
 /**
@@ -8295,135 +8118,6 @@ export const tunnel_warp_connector_tunnel: JSONObject = {
 };
 
 /**
- * The schema of `usage-analytics_api_error` in responses.
- */
-export const usage$$analytics_api_error: JSONObject = {
-  "properties": {
-    "code": {
-      "type": "integer"
-    },
-    "message": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "code",
-    "message"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `usage-analytics_api_message` in responses.
- */
-export const usage$$analytics_api_message: JSONObject = {
-  "properties": {
-    "code": {
-      "type": "integer"
-    },
-    "message": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "code",
-    "message"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `usage-analytics_error_response` in responses.
- */
-export const usage$$analytics_error_response: JSONObject = {
-  "properties": {
-    "errors": {
-      "items": {
-        "$ref": "#/$defs/usage-analytics_api_error"
-      },
-      "type": "array"
-    },
-    "messages": {
-      "items": {
-        "$ref": "#/$defs/usage-analytics_api_message"
-      },
-      "type": "array"
-    },
-    "result": {
-      "oneOf": [
-        {
-          "items": {
-            "type": "object"
-          },
-          "type": "array"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "success": {
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `usage-analytics_stream_usage_data_point` in responses.
- */
-export const usage$$analytics_stream_usage_data_point: JSONObject = {
-  "properties": {
-    "streamMinutesViewed": {
-      "type": "integer"
-    },
-    "ts": {
-      "type": "integer"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `usage-analytics_stream_usage_response` in responses.
- */
-export const usage$$analytics_stream_usage_response: JSONObject = {
-  "properties": {
-    "errors": {
-      "items": {
-        "$ref": "#/$defs/usage-analytics_api_error"
-      },
-      "type": "array"
-    },
-    "messages": {
-      "items": {
-        "$ref": "#/$defs/usage-analytics_api_message"
-      },
-      "type": "array"
-    },
-    "result": {
-      "items": {
-        "$ref": "#/$defs/usage-analytics_stream_usage_data_point"
-      },
-      "type": "array"
-    },
-    "success": {
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "result",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
  * The schema of `waf-product-api-bundle_api-response-common` in responses.
  */
 export const waf$$product$$api$$bundle_api$$response$$common: JSONObject = {
@@ -8632,26 +8326,7 @@ export const workers_api$$response$$null$$result: JSONObject = {
  * The schema of `workers_api-response-single` in responses.
  */
 export const workers_api$$response$$single: JSONObject = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/workers_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/workers_messages"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  "$ref": "#/$defs/workers_api-response-common"
 };
 
 /**

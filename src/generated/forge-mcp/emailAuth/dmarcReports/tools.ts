@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
 import {
+  email$$auth_api$$response$$common,
   email$$auth_api$$response$$common$$failure,
   email$$auth_api$$response$$single,
   email$$auth_messages,
@@ -73,6 +74,7 @@ export const tools: readonly Tool[] = [
         "email-auth_DnsRecordInfo": email$$auth_DnsRecordInfo,
         "email-auth_ResolvedDmarcRecord": email$$auth_ResolvedDmarcRecord,
         "email-auth_ZoneDnsRecords": email$$auth_ZoneDnsRecords,
+        "email-auth_api-response-common": email$$auth_api$$response$$common,
         "email-auth_api-response-single": email$$auth_api$$response$$single,
         "email-auth_messages": email$$auth_messages,
       },
@@ -116,6 +118,7 @@ export const tools: readonly Tool[] = [
           "email-auth_DnsRecordInfo": email$$auth_DnsRecordInfo,
           "email-auth_ResolvedDmarcRecord": email$$auth_ResolvedDmarcRecord,
           "email-auth_ZoneDnsRecords": email$$auth_ZoneDnsRecords,
+          "email-auth_api-response-common": email$$auth_api$$response$$common,
           "email-auth_api-response-common-failure": email$$auth_api$$response$$common$$failure,
           "email-auth_api-response-single": email$$auth_api$$response$$single,
           "email-auth_messages": email$$auth_messages,
@@ -169,6 +172,7 @@ export const tools: readonly Tool[] = [
         "email-auth_DnsRecordInfo": email$$auth_DnsRecordInfo,
         "email-auth_ResolvedDmarcRecord": email$$auth_ResolvedDmarcRecord,
         "email-auth_ZoneDnsRecords": email$$auth_ZoneDnsRecords,
+        "email-auth_api-response-common": email$$auth_api$$response$$common,
         "email-auth_api-response-single": email$$auth_api$$response$$single,
         "email-auth_messages": email$$auth_messages,
       },
@@ -211,6 +215,7 @@ export const tools: readonly Tool[] = [
           "email-auth_DnsRecordInfo": email$$auth_DnsRecordInfo,
           "email-auth_ResolvedDmarcRecord": email$$auth_ResolvedDmarcRecord,
           "email-auth_ZoneDnsRecords": email$$auth_ZoneDnsRecords,
+          "email-auth_api-response-common": email$$auth_api$$response$$common,
           "email-auth_api-response-common-failure": email$$auth_api$$response$$common$$failure,
           "email-auth_api-response-single": email$$auth_api$$response$$single,
           "email-auth_messages": email$$auth_messages,

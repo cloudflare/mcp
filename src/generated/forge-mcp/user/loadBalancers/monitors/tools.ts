@@ -72,6 +72,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Load Balancing: Monitors and Pools Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "load-balancing-monitors-and-pools.write"
         ]
       },
       responses: {
@@ -144,6 +147,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Load Balancing: Monitors and Pools Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "load-balancing-monitors-and-pools.write"
         ]
       },
       responses: {
@@ -225,6 +231,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Load Balancing: Monitors and Pools Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "load-balancing-monitors-and-pools.write"
         ]
       },
       responses: {
@@ -301,6 +310,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Load Balancing: Monitors and Pools Write",
           "Load Balancing: Monitors and Pools Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "load-balancing-monitors-and-pools.read",
+          "load-balancing-monitors-and-pools.write"
         ]
       },
       responses: {
@@ -362,6 +375,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Load Balancing: Monitors and Pools Write",
           "Load Balancing: Monitors and Pools Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "load-balancing-monitors-and-pools.read",
+          "load-balancing-monitors-and-pools.write"
         ]
       },
       responses: {
@@ -447,6 +464,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Load Balancing: Monitors and Pools Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "load-balancing-monitors-and-pools.write"
         ]
       },
       responses: {

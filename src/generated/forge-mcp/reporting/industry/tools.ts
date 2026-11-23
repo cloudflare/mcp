@@ -89,6 +89,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "#reports:read"
+        ],
+        "x-forge-oauth-scopes": [
+          "reports-application-security-report.read"
         ]
       },
       responses: {

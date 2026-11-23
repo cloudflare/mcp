@@ -3,16 +3,16 @@
 
 import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
 import {
-  bill$$subs$$api_api$$response$$common,
-  bill$$subs$$api_api$$response$$common$$failure,
-  bill$$subs$$api_api$$response$$single,
-  bill$$subs$$api_messages,
+  bill$$subs_api$$response$$common,
+  bill$$subs_api$$response$$common$$failure,
+  bill$$subs_api$$response$$single,
+  bill$$subs_messages,
 } from "../../outputs.js";
 import {
-  bill$$subs$$api_address_validation_response_single,
-  bill$$subs$$api_validated_address,
+  bill$$subs_address_validation_response_single,
+  bill$$subs_validated_address,
 } from "./outputs.js";
-import { bill$$subs$$api_address_validation_request } from "./schemas.js";
+import { bill$$subs_address_validation_request } from "./schemas.js";
 
 /**
  * The tools of `billing.addresses`.
@@ -26,7 +26,7 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "body": {
-          "$ref": "#/$defs/bill-subs-api_address_validation_request"
+          "$ref": "#/$defs/bill-subs_address_validation_request"
         }
       },
       required: [
@@ -34,17 +34,17 @@ export const tools: readonly Tool[] = [
       ],
       additionalProperties: false,
       $defs: {
-        "bill-subs-api_address_validation_request": bill$$subs$$api_address_validation_request,
+        "bill-subs_address_validation_request": bill$$subs_address_validation_request,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/bill-subs-api_address_validation_response_single",
+      "$ref": "#/$defs/bill-subs_address_validation_response_single",
       $defs: {
-        "bill-subs-api_address_validation_response_single": bill$$subs$$api_address_validation_response_single,
-        "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
-        "bill-subs-api_api-response-single": bill$$subs$$api_api$$response$$single,
-        "bill-subs-api_messages": bill$$subs$$api_messages,
-        "bill-subs-api_validated_address": bill$$subs$$api_validated_address,
+        "bill-subs_address_validation_response_single": bill$$subs_address_validation_response_single,
+        "bill-subs_api-response-common": bill$$subs_api$$response$$common,
+        "bill-subs_api-response-single": bill$$subs_api$$response$$single,
+        "bill-subs_messages": bill$$subs_messages,
+        "bill-subs_validated_address": bill$$subs_validated_address,
       },
     },
     annotations: {
@@ -70,19 +70,19 @@ export const tools: readonly Tool[] = [
       responses: {
         schemas: {
           "200": {
-            "$ref": "#/$defs/bill-subs-api_address_validation_response_single"
+            "$ref": "#/$defs/bill-subs_address_validation_response_single"
           },
           "4XX": {
-            "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
+            "$ref": "#/$defs/bill-subs_api-response-common-failure"
           }
         },
         $defs: {
-          "bill-subs-api_address_validation_response_single": bill$$subs$$api_address_validation_response_single,
-          "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
-          "bill-subs-api_api-response-common-failure": bill$$subs$$api_api$$response$$common$$failure,
-          "bill-subs-api_api-response-single": bill$$subs$$api_api$$response$$single,
-          "bill-subs-api_messages": bill$$subs$$api_messages,
-          "bill-subs-api_validated_address": bill$$subs$$api_validated_address,
+          "bill-subs_address_validation_response_single": bill$$subs_address_validation_response_single,
+          "bill-subs_api-response-common": bill$$subs_api$$response$$common,
+          "bill-subs_api-response-common-failure": bill$$subs_api$$response$$common$$failure,
+          "bill-subs_api-response-single": bill$$subs_api$$response$$single,
+          "bill-subs_messages": bill$$subs_messages,
+          "bill-subs_validated_address": bill$$subs_validated_address,
         },
       },
     },

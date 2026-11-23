@@ -87,8 +87,24 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "Workers Metadata Read-Only",
+          "Workers Editor",
+          "Workers Content Read-Only",
+          "Workers Admin",
           "Zone Settings Write",
-          "Zone Settings Read"
+          "Zone Settings Read",
+          "Workers Routes Write",
+          "Workers Routes Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-routes.read",
+          "zone-settings.read",
+          "workers-scripts.content_read",
+          "workers-scripts.metadata_read",
+          "workers-routes.write",
+          "workers-scripts.edit",
+          "workers-scripts.admin",
+          "zone-settings.write"
         ]
       },
       responses: {
@@ -216,8 +232,24 @@ export const tools: readonly Tool[] = [
       ],
       extensions: {
         "x-api-token-group": [
+          "Workers Metadata Read-Only",
+          "Workers Editor",
+          "Workers Content Read-Only",
+          "Workers Admin",
           "Zone Settings Write",
-          "Zone Settings Read"
+          "Zone Settings Read",
+          "Workers Routes Write",
+          "Workers Routes Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-routes.read",
+          "zone-settings.read",
+          "workers-scripts.content_read",
+          "workers-scripts.metadata_read",
+          "workers-routes.write",
+          "workers-scripts.edit",
+          "workers-scripts.admin",
+          "zone-settings.write"
         ]
       },
       responses: {

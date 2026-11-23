@@ -62,6 +62,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/logpush_transformer_response_single",
       $defs: {
+        "logpush_api-response-common": logpush_api$$response$$common,
         "logpush_api-response-single": logpush_api$$response$$single,
         "logpush_messages": logpush_messages,
         "logpush_transformer": logpush_transformer,
@@ -107,6 +108,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "logpush_api-response-common": logpush_api$$response$$common,
           "logpush_api-response-common-failure": logpush_api$$response$$common$$failure,
           "logpush_api-response-single": logpush_api$$response$$single,
           "logpush_messages": logpush_messages,
@@ -151,6 +153,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/logpush_transformer_delete_response",
       $defs: {
+        "logpush_api-response-common": logpush_api$$response$$common,
         "logpush_api-response-single": logpush_api$$response$$single,
         "logpush_messages": logpush_messages,
         "logpush_transformer_delete_response": logpush_transformer_delete_response,
@@ -196,6 +199,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "logpush_api-response-common": logpush_api$$response$$common,
           "logpush_api-response-common-failure": logpush_api$$response$$common$$failure,
           "logpush_api-response-single": logpush_api$$response$$single,
           "logpush_messages": logpush_messages,
@@ -238,6 +242,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/logpush_transformer_response_single",
       $defs: {
+        "logpush_api-response-common": logpush_api$$response$$common,
         "logpush_api-response-single": logpush_api$$response$$single,
         "logpush_messages": logpush_messages,
         "logpush_transformer": logpush_transformer,
@@ -282,6 +287,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "logpush_api-response-common": logpush_api$$response$$common,
           "logpush_api-response-common-failure": logpush_api$$response$$common$$failure,
           "logpush_api-response-single": logpush_api$$response$$single,
           "logpush_messages": logpush_messages,
@@ -411,6 +417,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/logpush_transformer_preview_response",
       $defs: {
+        "logpush_api-response-common": logpush_api$$response$$common,
         "logpush_api-response-single": logpush_api$$response$$single,
         "logpush_messages": logpush_messages,
         "logpush_transformer_preview_response": logpush_transformer_preview_response,
@@ -454,6 +461,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "logpush_api-response-common": logpush_api$$response$$common,
           "logpush_api-response-common-failure": logpush_api$$response$$common$$failure,
           "logpush_api-response-single": logpush_api$$response$$single,
           "logpush_messages": logpush_messages,
@@ -503,6 +511,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/logpush_transformer_response_single",
       $defs: {
+        "logpush_api-response-common": logpush_api$$response$$common,
         "logpush_api-response-single": logpush_api$$response$$single,
         "logpush_messages": logpush_messages,
         "logpush_transformer": logpush_transformer,
@@ -548,6 +557,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "logpush_api-response-common": logpush_api$$response$$common,
           "logpush_api-response-common-failure": logpush_api$$response$$common$$failure,
           "logpush_api-response-single": logpush_api$$response$$single,
           "logpush_messages": logpush_messages,

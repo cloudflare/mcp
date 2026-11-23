@@ -123,26 +123,7 @@ export const intel_api$$response$$common$$failure: JSONObject = {
  * The schema of `intel_api-response-single` in responses.
  */
 export const intel_api$$response$$single: JSONObject = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/intel_schemas-messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/intel_schemas-messages"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  "$ref": "#/$defs/intel_schemas-api-response-common"
 };
 
 /**
@@ -185,6 +166,32 @@ export const intel_result_info: JSONObject = {
       "type": "number"
     }
   },
+  "type": "object"
+};
+
+/**
+ * The schema of `intel_schemas-api-response-common` in responses.
+ */
+export const intel_schemas$$api$$response$$common: JSONObject = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/intel_schemas-messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/intel_schemas-messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
   "type": "object"
 };
 

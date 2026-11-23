@@ -225,6 +225,8 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "AI Search Index Engine",
+          "Auto Rag Write Run Engine",
           "AI Gateway Write"
         ],
         "x-cfPermissionsRequired": {
@@ -237,7 +239,12 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "aig.write",
+          "ai-search.index",
+          "rag.run"
+        ]
       },
       responses: {
         schemas: {
@@ -533,6 +540,8 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/ai-gateway/gateways/${"gateway_id"}/datasets/${"id"}`,
       extensions: {
         "x-api-token-group": [
+          "AI Search Index Engine",
+          "Auto Rag Write Run Engine",
           "AI Gateway Write"
         ],
         "x-cfPermissionsRequired": {
@@ -545,7 +554,12 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "aig.write",
+          "ai-search.index",
+          "rag.run"
+        ]
       },
       responses: {
         schemas: {
@@ -834,6 +848,9 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/ai-gateway/gateways/${"gateway_id"}/datasets/${"id"}`,
       extensions: {
         "x-api-token-group": [
+          "AI Gateway Metadata Read",
+          "AI Search Index Engine",
+          "Auto Rag Write Run Engine",
           "AI Gateway Write",
           "AI Gateway Read"
         ],
@@ -847,7 +864,14 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "aig.metadata_read",
+          "aig.read",
+          "aig.write",
+          "ai-search.index",
+          "rag.run"
+        ]
       },
       responses: {
         schemas: {
@@ -1166,6 +1190,9 @@ export const tools: readonly Tool[] = [
       ],
       extensions: {
         "x-api-token-group": [
+          "AI Gateway Metadata Read",
+          "AI Search Index Engine",
+          "Auto Rag Write Run Engine",
           "AI Gateway Write",
           "AI Gateway Read"
         ],
@@ -1179,7 +1206,14 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "aig.metadata_read",
+          "aig.read",
+          "aig.write",
+          "ai-search.index",
+          "rag.run"
+        ]
       },
       responses: {
         schemas: {
@@ -1544,6 +1578,8 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "AI Search Index Engine",
+          "Auto Rag Write Run Engine",
           "AI Gateway Write"
         ],
         "x-cfPermissionsRequired": {
@@ -1556,7 +1592,12 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "aig.write",
+          "ai-search.index",
+          "rag.run"
+        ]
       },
       responses: {
         schemas: {

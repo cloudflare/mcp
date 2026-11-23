@@ -103,26 +103,7 @@ export const digital$$experience$$monitoring_api$$response$$common$$failure: JSO
  * responses.
  */
 export const digital$$experience$$monitoring_api$$response$$single: JSONObject = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/digital-experience-monitoring_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/digital-experience-monitoring_messages"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  "$ref": "#/$defs/digital-experience-monitoring_api-response-common"
 };
 
 /**

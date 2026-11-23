@@ -55,6 +55,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_response_single",
       $defs: {
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_jit_request_event": access_jit_request_event,
         "access_jit_request_log": access_jit_request_log,
@@ -87,6 +88,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_jit_request_event": access_jit_request_event,

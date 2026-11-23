@@ -145,6 +145,8 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "Cloudforce One Write",
+          "Cloudforce One Read",
           "URL Scanner Write",
           "URL Scanner Read"
         ],
@@ -153,7 +155,13 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "url-scanner.read",
+          "url-scanner.write",
+          "cloudforce-one.read",
+          "cloudforce-one.write"
+        ]
       },
       responses: {
         schemas: {
@@ -320,14 +328,12 @@ export const tools: readonly Tool[] = [
                 "BW",
                 "BY",
                 "CA",
-                "CD",
                 "CH",
                 "CI",
                 "CL",
                 "CM",
                 "CO",
                 "CR",
-                "CW",
                 "CY",
                 "CZ",
                 "DE",
@@ -344,17 +350,14 @@ export const tools: readonly Tool[] = [
                 "FJ",
                 "FR",
                 "GB",
-                "GD",
                 "GE",
                 "GH",
                 "GR",
                 "GT",
-                "GU",
                 "GY",
                 "HK",
                 "HN",
                 "HR",
-                "HT",
                 "HU",
                 "ID",
                 "IE",
@@ -375,21 +378,17 @@ export const tools: readonly Tool[] = [
                 "LA",
                 "LB",
                 "LK",
-                "LR",
                 "LT",
                 "LU",
                 "LV",
-                "MA",
                 "MD",
                 "MG",
                 "MK",
-                "MM",
                 "MN",
                 "MO",
                 "MT",
                 "MU",
                 "MV",
-                "MW",
                 "MX",
                 "MY",
                 "MZ",
@@ -425,7 +424,6 @@ export const tools: readonly Tool[] = [
                 "SN",
                 "SR",
                 "TH",
-                "TJ",
                 "TN",
                 "TR",
                 "TT",
@@ -434,7 +432,6 @@ export const tools: readonly Tool[] = [
                 "UA",
                 "UG",
                 "US",
-                "UZ",
                 "VN",
                 "ZA",
                 "ZM",
@@ -565,6 +562,8 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "Cloudforce One Write",
+          "Cloudforce One Read",
           "URL Scanner Write",
           "URL Scanner Read"
         ],
@@ -573,7 +572,13 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "url-scanner.read",
+          "url-scanner.write",
+          "cloudforce-one.read",
+          "cloudforce-one.write"
+        ]
       },
       responses: {
         schemas: {
@@ -790,6 +795,8 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/urlscanner/v2/dom/${"scan_id"}`,
       extensions: {
         "x-api-token-group": [
+          "Cloudforce One Write",
+          "Cloudforce One Read",
           "URL Scanner Write",
           "URL Scanner Read"
         ],
@@ -798,7 +805,13 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "url-scanner.read",
+          "url-scanner.write",
+          "cloudforce-one.read",
+          "cloudforce-one.write"
+        ]
       },
       responses: {
         schemas: {
@@ -5582,6 +5595,8 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/urlscanner/v2/result/${"scan_id"}`,
       extensions: {
         "x-api-token-group": [
+          "Cloudforce One Write",
+          "Cloudforce One Read",
           "URL Scanner Write",
           "URL Scanner Read"
         ],
@@ -5590,7 +5605,13 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "url-scanner.read",
+          "url-scanner.write",
+          "cloudforce-one.read",
+          "cloudforce-one.write"
+        ]
       },
       responses: {
         schemas: {
@@ -10631,6 +10652,8 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/urlscanner/v2/har/${"scan_id"}`,
       extensions: {
         "x-api-token-group": [
+          "Cloudforce One Write",
+          "Cloudforce One Read",
           "URL Scanner Write",
           "URL Scanner Read"
         ],
@@ -10639,7 +10662,13 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "url-scanner.read",
+          "url-scanner.write",
+          "cloudforce-one.read",
+          "cloudforce-one.write"
+        ]
       },
       responses: {
         schemas: {
@@ -11176,6 +11205,8 @@ export const tools: readonly Tool[] = [
       ],
       extensions: {
         "x-api-token-group": [
+          "Cloudforce One Write",
+          "Cloudforce One Read",
           "URL Scanner Write",
           "URL Scanner Read"
         ],
@@ -11184,7 +11215,13 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "url-scanner.read",
+          "url-scanner.write",
+          "cloudforce-one.read",
+          "cloudforce-one.write"
+        ]
       },
       responses: {
         schemas: {
@@ -11404,6 +11441,8 @@ export const tools: readonly Tool[] = [
       ],
       extensions: {
         "x-api-token-group": [
+          "Cloudforce One Write",
+          "Cloudforce One Read",
           "URL Scanner Write",
           "URL Scanner Read"
         ],
@@ -11412,7 +11451,13 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "url-scanner.read",
+          "url-scanner.write",
+          "cloudforce-one.read",
+          "cloudforce-one.write"
+        ]
       },
       responses: {
         schemas: {

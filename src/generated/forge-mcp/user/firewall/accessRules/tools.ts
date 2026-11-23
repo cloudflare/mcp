@@ -122,7 +122,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "account-firewall-access-rules.write"
+        ]
       },
       responses: {
         schemas: {
@@ -205,7 +208,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "account-firewall-access-rules.write"
+        ]
       },
       responses: {
         schemas: {
@@ -310,7 +316,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "account-firewall-access-rules.write"
+        ]
       },
       responses: {
         schemas: {
@@ -401,7 +410,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "account-firewall-access-rules.read",
+          "account-firewall-access-rules.write"
+        ]
       },
       responses: {
         schemas: {
@@ -557,7 +570,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "account-firewall-access-rules.read",
+          "account-firewall-access-rules.write"
+        ]
       },
       responses: {
         schemas: {

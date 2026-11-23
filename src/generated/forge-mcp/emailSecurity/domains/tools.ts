@@ -188,6 +188,7 @@ export const tools: readonly Tool[] = [
         "email-security_DomainAuthorization": email$$security_DomainAuthorization,
         "email-security_DomainList": email$$security_DomainList,
         "email-security_EmailsProcessed": email$$security_EmailsProcessed,
+        "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
       },
@@ -207,6 +208,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Cloud Email Security: Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "cloud-email-security.write"
         ],
         "x-stability": "beta"
       },
@@ -260,6 +264,7 @@ export const tools: readonly Tool[] = [
           "email-security_DomainAuthorization": email$$security_DomainAuthorization,
           "email-security_DomainList": email$$security_DomainList,
           "email-security_EmailsProcessed": email$$security_EmailsProcessed,
+          "email-security_api-response-common": email$$security_api$$response$$common,
           "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
           "email-security_api-response-single": email$$security_api$$response$$single,
           "email-security_messages": email$$security_messages,
@@ -318,6 +323,7 @@ export const tools: readonly Tool[] = [
         "email-security_Domain": email$$security_Domain,
         "email-security_DomainAuthorization": email$$security_DomainAuthorization,
         "email-security_EmailsProcessed": email$$security_EmailsProcessed,
+        "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
       },
@@ -337,6 +343,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Cloud Email Security: Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "cloud-email-security.write"
         ],
         "x-stability": "beta"
       },
@@ -365,6 +374,7 @@ export const tools: readonly Tool[] = [
           "email-security_Domain": email$$security_Domain,
           "email-security_DomainAuthorization": email$$security_DomainAuthorization,
           "email-security_EmailsProcessed": email$$security_EmailsProcessed,
+          "email-security_api-response-common": email$$security_api$$response$$common,
           "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
           "email-security_api-response-single": email$$security_api$$response$$single,
           "email-security_messages": email$$security_messages,
@@ -420,6 +430,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_DeletedDomain": email$$security_DeletedDomain,
+        "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
       },
@@ -438,6 +449,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Cloud Email Security: Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "cloud-email-security.write"
         ],
         "x-stability": "beta"
       },
@@ -464,6 +478,7 @@ export const tools: readonly Tool[] = [
         },
         $defs: {
           "email-security_DeletedDomain": email$$security_DeletedDomain,
+          "email-security_api-response-common": email$$security_api$$response$$common,
           "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
           "email-security_api-response-single": email$$security_api$$response$$single,
           "email-security_messages": email$$security_messages,
@@ -528,6 +543,7 @@ export const tools: readonly Tool[] = [
         "email-security_Domain": email$$security_Domain,
         "email-security_DomainAuthorization": email$$security_DomainAuthorization,
         "email-security_EmailsProcessed": email$$security_EmailsProcessed,
+        "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
       },
@@ -547,6 +563,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Cloud Email Security: Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "cloud-email-security.write"
         ],
         "x-stability": "beta"
       },
@@ -575,6 +594,7 @@ export const tools: readonly Tool[] = [
           "email-security_Domain": email$$security_Domain,
           "email-security_DomainAuthorization": email$$security_DomainAuthorization,
           "email-security_EmailsProcessed": email$$security_EmailsProcessed,
+          "email-security_api-response-common": email$$security_api$$response$$common,
           "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
           "email-security_api-response-single": email$$security_api$$response$$single,
           "email-security_messages": email$$security_messages,
@@ -632,6 +652,7 @@ export const tools: readonly Tool[] = [
         "email-security_Domain": email$$security_Domain,
         "email-security_DomainAuthorization": email$$security_DomainAuthorization,
         "email-security_EmailsProcessed": email$$security_EmailsProcessed,
+        "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
       },
@@ -651,6 +672,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Cloud Email Security: Write",
           "Cloud Email Security: Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "cloud-email-security.read",
+          "cloud-email-security.write"
         ],
         "x-stability": "beta"
       },
@@ -679,6 +704,7 @@ export const tools: readonly Tool[] = [
           "email-security_Domain": email$$security_Domain,
           "email-security_DomainAuthorization": email$$security_DomainAuthorization,
           "email-security_EmailsProcessed": email$$security_EmailsProcessed,
+          "email-security_api-response-common": email$$security_api$$response$$common,
           "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
           "email-security_api-response-single": email$$security_api$$response$$single,
           "email-security_messages": email$$security_messages,
@@ -851,6 +877,10 @@ export const tools: readonly Tool[] = [
           "Cloud Email Security: Write",
           "Cloud Email Security: Read"
         ],
+        "x-forge-oauth-scopes": [
+          "cloud-email-security.read",
+          "cloud-email-security.write"
+        ],
         "x-stability": "beta"
       },
       responses: {
@@ -944,6 +974,7 @@ export const tools: readonly Tool[] = [
         "email-security_Domain": email$$security_Domain,
         "email-security_DomainAuthorization": email$$security_DomainAuthorization,
         "email-security_EmailsProcessed": email$$security_EmailsProcessed,
+        "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
       },
@@ -988,6 +1019,7 @@ export const tools: readonly Tool[] = [
           "email-security_Domain": email$$security_Domain,
           "email-security_DomainAuthorization": email$$security_DomainAuthorization,
           "email-security_EmailsProcessed": email$$security_EmailsProcessed,
+          "email-security_api-response-common": email$$security_api$$response$$common,
           "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
           "email-security_api-response-single": email$$security_api$$response$$single,
           "email-security_messages": email$$security_messages,

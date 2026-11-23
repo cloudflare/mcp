@@ -140,7 +140,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "ssl-and-certificates.write"
+        ]
       },
       responses: {
         schemas: {
@@ -241,7 +244,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "ssl-and-certificates.write"
+        ]
       },
       responses: {
         schemas: {
@@ -380,7 +386,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "ssl-and-certificates.write"
+        ]
       },
       responses: {
         schemas: {
@@ -492,7 +501,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "ssl-and-certificates.read",
+          "ssl-and-certificates.write"
+        ]
       },
       responses: {
         schemas: {
@@ -745,7 +758,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "ssl-and-certificates.read",
+          "ssl-and-certificates.write"
+        ]
       },
       responses: {
         schemas: {

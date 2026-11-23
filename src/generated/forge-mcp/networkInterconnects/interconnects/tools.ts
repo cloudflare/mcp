@@ -81,6 +81,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Magic WAN Write",
           "Magic Transit Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "magic-wan.write",
+          "magic-transit.write"
         ]
       },
       responses: {
@@ -146,6 +150,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Magic WAN Write",
           "Magic Transit Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "magic-wan.write",
+          "magic-transit.write"
         ]
       },
       responses: {
@@ -215,6 +223,12 @@ export const tools: readonly Tool[] = [
           "Magic WAN Read",
           "Magic Transit Read",
           "Magic Transit Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "magic-wan.read",
+          "magic-transit.read",
+          "magic-wan.write",
+          "magic-transit.write"
         ]
       },
       responses: {
@@ -342,6 +356,12 @@ export const tools: readonly Tool[] = [
           "Magic WAN Read",
           "Magic Transit Read",
           "Magic Transit Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "magic-wan.read",
+          "magic-transit.read",
+          "magic-wan.write",
+          "magic-transit.write"
         ]
       },
       responses: {
@@ -430,6 +450,12 @@ export const tools: readonly Tool[] = [
           "Magic WAN Read",
           "Magic Transit Read",
           "Magic Transit Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "magic-wan.read",
+          "magic-transit.read",
+          "magic-wan.write",
+          "magic-transit.write"
         ]
       },
       responses: {
@@ -496,6 +522,12 @@ export const tools: readonly Tool[] = [
           "Magic WAN Read",
           "Magic Transit Read",
           "Magic Transit Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "magic-wan.read",
+          "magic-transit.read",
+          "magic-wan.write",
+          "magic-transit.write"
         ]
       },
       responses: {
@@ -567,6 +599,12 @@ export const tools: readonly Tool[] = [
           "Magic WAN Read",
           "Magic Transit Read",
           "Magic Transit Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "magic-wan.read",
+          "magic-transit.read",
+          "magic-wan.write",
+          "magic-transit.write"
         ]
       },
       responses: {

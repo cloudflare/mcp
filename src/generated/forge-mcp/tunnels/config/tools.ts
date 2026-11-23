@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
 import {
+  tunnel_api$$response$$common$$2,
   tunnel_api$$response$$common$$failure$$2,
   tunnel_api$$response$$single$$2,
   tunnel_messages$$2,
@@ -78,6 +79,7 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
+        "tunnel_api-response-common-2": tunnel_api$$response$$common$$2,
         "tunnel_api-response-single-2": tunnel_api$$response$$single$$2,
         "tunnel_config": tunnel_config,
         "tunnel_configuration": tunnel_configuration,
@@ -102,6 +104,11 @@ export const tools: readonly Tool[] = [
           "Cloudflare One Connectors Write",
           "Cloudflare One Connector: cloudflared Write",
           "Cloudflare Tunnel Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-connector-cloudflared.write",
+          "teams-connectors.write",
+          "argotunnel.write"
         ]
       },
       responses: {
@@ -133,6 +140,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "tunnel_api-response-common-2": tunnel_api$$response$$common$$2,
           "tunnel_api-response-common-failure-2": tunnel_api$$response$$common$$failure$$2,
           "tunnel_api-response-single-2": tunnel_api$$response$$single$$2,
           "tunnel_config": tunnel_config,
@@ -179,6 +187,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/tunnel_configuration_response",
       $defs: {
+        "tunnel_api-response-common-2": tunnel_api$$response$$common$$2,
         "tunnel_api-response-single-2": tunnel_api$$response$$single$$2,
         "tunnel_config": tunnel_config,
         "tunnel_configuration": tunnel_configuration,
@@ -201,12 +210,26 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/cfd_tunnel/${"tunnel_id"}/configurations`,
       extensions: {
         "x-api-token-group": [
+          "Connectivity Directory Read",
+          "Connectivity Directory Bind",
+          "Connectivity Directory Admin",
           "Cloudflare One Connectors Write",
           "Cloudflare One Connectors Read",
           "Cloudflare One Connector: cloudflared Write",
           "Cloudflare One Connector: cloudflared Read",
           "Cloudflare Tunnel Write",
           "Cloudflare Tunnel Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-connector-cloudflared.read",
+          "teams-connectors.read",
+          "connectivity-directory.read",
+          "argotunnel.read",
+          "connectivity-directory.bind",
+          "teams-connector-cloudflared.write",
+          "connectivity-directory.admin",
+          "teams-connectors.write",
+          "argotunnel.write"
         ]
       },
       responses: {
@@ -219,6 +242,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "tunnel_api-response-common-2": tunnel_api$$response$$common$$2,
           "tunnel_api-response-common-failure-2": tunnel_api$$response$$common$$failure$$2,
           "tunnel_api-response-single-2": tunnel_api$$response$$single$$2,
           "tunnel_config": tunnel_config,
@@ -280,6 +304,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/tunnel_configuration_response",
       $defs: {
+        "tunnel_api-response-common-2": tunnel_api$$response$$common$$2,
         "tunnel_api-response-single-2": tunnel_api$$response$$single$$2,
         "tunnel_config": tunnel_config,
         "tunnel_configuration": tunnel_configuration,
@@ -306,6 +331,11 @@ export const tools: readonly Tool[] = [
           "Cloudflare One Connectors Write",
           "Cloudflare One Connector: cloudflared Write",
           "Cloudflare Tunnel Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-connector-cloudflared.write",
+          "teams-connectors.write",
+          "argotunnel.write"
         ]
       },
       responses: {
@@ -318,6 +348,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "tunnel_api-response-common-2": tunnel_api$$response$$common$$2,
           "tunnel_api-response-common-failure-2": tunnel_api$$response$$common$$failure$$2,
           "tunnel_api-response-single-2": tunnel_api$$response$$single$$2,
           "tunnel_config": tunnel_config,

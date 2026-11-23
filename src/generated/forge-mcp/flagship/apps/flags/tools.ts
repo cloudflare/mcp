@@ -265,7 +265,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "flagship.write"
+        ]
       },
       responses: {
         schemas: {
@@ -463,7 +466,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "flagship.write"
+        ]
       },
       responses: {
         schemas: {
@@ -629,7 +635,12 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "flagship.evaluate",
+          "flagship.read",
+          "flagship.write"
+        ]
       },
       responses: {
         schemas: {
@@ -788,7 +799,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "flagship.read",
+          "flagship.write"
+        ]
       },
       responses: {
         schemas: {
@@ -1019,7 +1034,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "flagship.read",
+          "flagship.write"
+        ]
       },
       responses: {
         schemas: {
@@ -1286,7 +1305,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "flagship.write"
+        ]
       },
       responses: {
         schemas: {
@@ -1598,7 +1620,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "flagship.write"
+        ]
       },
       responses: {
         schemas: {

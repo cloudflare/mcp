@@ -16,6 +16,15 @@ export const stream_direct_upload_request: JSONObject = {
       "description": "A user-defined identifier for the media creator.",
       "type": "string"
     },
+    "encodingMode": {
+      "default": "default",
+      "description": "Specifies whether to generate a preview rendition before the standard encoding ladder. `default` generates only the standard encoding ladder. `previewFirst` generates a preview rendition first.",
+      "enum": [
+        "default",
+        "previewFirst"
+      ],
+      "type": "string"
+    },
     "expiry": {
       "default": "Now + 30 minutes",
       "description": "The date and time after upload when videos will not be accepted.",

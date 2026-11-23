@@ -3,16 +3,11 @@
 
 import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
 import {
-  rulesets_Errors,
-  rulesets_Message,
-  rulesets_Messages,
-  rulesets_Response,
-} from "../../outputs.js";
-import {
   rulesets_BlockRule,
   rulesets_ChallengeRule,
   rulesets_CompressResponseRule,
   rulesets_DDoSDynamicRule,
+  rulesets_Errors,
   rulesets_ExecuteCategoryOverrides,
   rulesets_ExecuteMatchedData,
   rulesets_ExecuteOverrides,
@@ -28,10 +23,13 @@ import {
   rulesets_LogCustomFieldTransformedRequestFields,
   rulesets_LogRule,
   rulesets_ManagedChallengeRule,
+  rulesets_Message,
+  rulesets_Messages,
   rulesets_RedirectFromList,
   rulesets_RedirectFromValue,
   rulesets_RedirectRule,
   rulesets_RequestRule,
+  rulesets_Response,
   rulesets_ResponseRule,
   rulesets_ResponseRules,
   rulesets_RewriteHeaders,
@@ -237,7 +235,7 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "account_or_zone": {
-              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "description": "Whether ${account_or_zone} is an account ID (`accounts`) or a zone ID (`zones`).",
               "enum": [
                 "accounts",
                 "zones"
@@ -245,7 +243,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "description": "The account ID or zone ID, as selected by ${account_or_zone}.",
               "type": "string"
             },
             "ruleset_id": {
@@ -537,6 +535,8 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "Account Custom Error Rules Write",
+          "Account Custom Pages Write",
           "Mass URL Redirects Write",
           "Magic Firewall Write",
           "L4 DDoS Managed Ruleset Write",
@@ -544,14 +544,28 @@ export const tools: readonly Tool[] = [
           "Select Configuration Write",
           "Account WAF Write",
           "Account Rulesets Write",
-          "Logs Write"
+          "Logs Write",
+          "Response Compression Write",
+          "Custom Pages Write",
+          "Config Settings Write",
+          "Dynamic URL Redirects Write",
+          "Cache Settings Write",
+          "Custom Errors Write",
+          "Origin Write",
+          "Managed headers Write",
+          "Zone Transform Rules Write",
+          "HTTP DDoS Managed Ruleset Write",
+          "Sanitize Write",
+          "Bot Management Write",
+          "Zone WAF Write"
         ],
         "x-cfPlanAvailability": {
           "business": true,
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-stainless-skip": true
       },
       responses: {
         schemas: {
@@ -760,7 +774,7 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "account_or_zone": {
-              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "description": "Whether ${account_or_zone} is an account ID (`accounts`) or a zone ID (`zones`).",
               "enum": [
                 "accounts",
                 "zones"
@@ -768,7 +782,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "description": "The account ID or zone ID, as selected by ${account_or_zone}.",
               "type": "string"
             },
             "rule_id": {
@@ -990,6 +1004,8 @@ export const tools: readonly Tool[] = [
       ],
       extensions: {
         "x-api-token-group": [
+          "Account Custom Error Rules Write",
+          "Account Custom Pages Write",
           "Mass URL Redirects Write",
           "Magic Firewall Write",
           "L4 DDoS Managed Ruleset Write",
@@ -997,14 +1013,28 @@ export const tools: readonly Tool[] = [
           "Select Configuration Write",
           "Account WAF Write",
           "Account Rulesets Write",
-          "Logs Write"
+          "Logs Write",
+          "Response Compression Write",
+          "Custom Pages Write",
+          "Config Settings Write",
+          "Dynamic URL Redirects Write",
+          "Cache Settings Write",
+          "Custom Errors Write",
+          "Origin Write",
+          "Managed headers Write",
+          "Zone Transform Rules Write",
+          "HTTP DDoS Managed Ruleset Write",
+          "Sanitize Write",
+          "Bot Management Write",
+          "Zone WAF Write"
         ],
         "x-cfPlanAvailability": {
           "business": true,
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-stainless-skip": true
       },
       responses: {
         schemas: {
@@ -1277,7 +1307,7 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "account_or_zone": {
-              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "description": "Whether ${account_or_zone} is an account ID (`accounts`) or a zone ID (`zones`).",
               "enum": [
                 "accounts",
                 "zones"
@@ -1285,7 +1315,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "description": "The account ID or zone ID, as selected by ${account_or_zone}.",
               "type": "string"
             },
             "rule_id": {
@@ -1582,6 +1612,8 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "Account Custom Error Rules Write",
+          "Account Custom Pages Write",
           "Mass URL Redirects Write",
           "Magic Firewall Write",
           "L4 DDoS Managed Ruleset Write",
@@ -1589,14 +1621,28 @@ export const tools: readonly Tool[] = [
           "Select Configuration Write",
           "Account WAF Write",
           "Account Rulesets Write",
-          "Logs Write"
+          "Logs Write",
+          "Response Compression Write",
+          "Custom Pages Write",
+          "Config Settings Write",
+          "Dynamic URL Redirects Write",
+          "Cache Settings Write",
+          "Custom Errors Write",
+          "Origin Write",
+          "Managed headers Write",
+          "Zone Transform Rules Write",
+          "HTTP DDoS Managed Ruleset Write",
+          "Sanitize Write",
+          "Bot Management Write",
+          "Zone WAF Write"
         ],
         "x-cfPlanAvailability": {
           "business": true,
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-stainless-skip": true
       },
       responses: {
         schemas: {

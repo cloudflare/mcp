@@ -3,13 +3,13 @@
 
 import { OPERATION, type Tool, encodePath } from "../../../_/tool.js";
 import {
+  zero$$trust$$gateway_api$$response$$common,
   zero$$trust$$gateway_api$$response$$common$$failure,
   zero$$trust$$gateway_api$$response$$single,
   zero$$trust$$gateway_messages,
 } from "../../outputs.js";
 import {
   zero$$trust$$gateway_api$$response$$collection,
-  zero$$trust$$gateway_api$$response$$common,
   zero$$trust$$gateway_empty_response,
   zero$$trust$$gateway_result_info,
 } from "../outputs.js";
@@ -78,6 +78,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_single_response-7",
       $defs: {
+        "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
         "zero-trust-gateway_pacfile": zero$$trust$$gateway_pacfile,
@@ -99,6 +100,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.write"
         ]
       },
       responses: {
@@ -118,6 +122,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
           "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
           "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
           "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
@@ -160,6 +165,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_empty_response",
       $defs: {
+        "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
         "zero-trust-gateway_empty_response": zero$$trust$$gateway_empty_response,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
@@ -179,6 +185,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.write"
         ]
       },
       responses: {
@@ -198,6 +207,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
           "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
           "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
           "zero-trust-gateway_empty_response": zero$$trust$$gateway_empty_response,
@@ -239,6 +249,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_single_response-7",
       $defs: {
+        "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
         "zero-trust-gateway_pacfile": zero$$trust$$gateway_pacfile,
@@ -260,6 +271,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Zero Trust Read",
           "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.read",
+          "teams.write"
         ]
       },
       responses: {
@@ -279,6 +294,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
           "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
           "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
           "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
@@ -359,6 +375,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Zero Trust Read",
           "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.read",
+          "teams.write"
         ]
       },
       responses: {
@@ -444,6 +464,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_single_response-7",
       $defs: {
+        "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
         "zero-trust-gateway_pacfile": zero$$trust$$gateway_pacfile,
@@ -465,6 +486,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.write"
         ]
       },
       responses: {
@@ -484,6 +508,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
           "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
           "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
           "zero-trust-gateway_messages": zero$$trust$$gateway_messages,

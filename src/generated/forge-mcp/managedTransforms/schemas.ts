@@ -4,9 +4,9 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
- * The schema of `rulesets_ManagedTransform`.
+ * The schema of `managed-transforms_ManagedTransform`.
  */
-export const rulesets_ManagedTransform: JSONObject = {
+export const managed$$transforms_ManagedTransform: JSONObject = {
   "description": "A Managed Transform object.",
   "properties": {
     "enabled": {
@@ -26,9 +26,9 @@ export const rulesets_ManagedTransform: JSONObject = {
 };
 
 /**
- * The schema of `rulesets_ManagedTransformsPatch`.
+ * The schema of `managed-transforms_ManagedTransformsPatch`.
  */
-export const rulesets_ManagedTransformsPatch: JSONObject = {
+export const managed$$transforms_ManagedTransformsPatch: JSONObject = {
   "description": "A Managed Transforms patch object. Both fields are optional; only the sections provided will be updated.",
   "properties": {
     "managed_request_headers": {
@@ -36,7 +36,7 @@ export const rulesets_ManagedTransformsPatch: JSONObject = {
       "items": {
         "allOf": [
           {
-            "$ref": "#/$defs/rulesets_ManagedTransform"
+            "$ref": "#/$defs/managed-transforms_ManagedTransform"
           },
           {
             "properties": {
@@ -55,7 +55,7 @@ export const rulesets_ManagedTransformsPatch: JSONObject = {
       "items": {
         "allOf": [
           {
-            "$ref": "#/$defs/rulesets_ManagedTransform"
+            "$ref": "#/$defs/managed-transforms_ManagedTransform"
           },
           {
             "properties": {

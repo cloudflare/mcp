@@ -199,7 +199,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "request-tracer.read"
+        ]
       },
       responses: {
         schemas: {

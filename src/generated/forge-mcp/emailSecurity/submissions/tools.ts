@@ -383,7 +383,14 @@ export const tools: readonly Tool[] = [
         { name: "per_page", explode: true },
       ],
       extensions: {
-        "x-api-token-group": null,
+        "x-api-token-group": [
+          "Cloud Email Security: Write",
+          "Cloud Email Security: Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "cloud-email-security.read",
+          "cloud-email-security.write"
+        ],
         "x-stability": "beta"
       },
       responses: {

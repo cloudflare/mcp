@@ -104,6 +104,11 @@ export const tools: readonly Tool[] = [
           "Cloudflare One Connectors Write",
           "Cloudflare One Connector: cloudflared Write",
           "Cloudflare Tunnel Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-connector-cloudflared.write",
+          "teams-connectors.write",
+          "argotunnel.write"
         ]
       },
       responses: {
@@ -195,6 +200,11 @@ export const tools: readonly Tool[] = [
           "Cloudflare One Connectors Write",
           "Cloudflare One Connector: cloudflared Write",
           "Cloudflare Tunnel Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-connector-cloudflared.write",
+          "teams-connectors.write",
+          "argotunnel.write"
         ]
       },
       responses: {
@@ -301,6 +311,11 @@ export const tools: readonly Tool[] = [
           "Cloudflare One Connectors Write",
           "Cloudflare One Connector: cloudflared Write",
           "Cloudflare Tunnel Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-connector-cloudflared.write",
+          "teams-connectors.write",
+          "argotunnel.write"
         ]
       },
       responses: {
@@ -389,12 +404,26 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/cfd_tunnel/${"tunnel_id"}`,
       extensions: {
         "x-api-token-group": [
+          "Connectivity Directory Read",
+          "Connectivity Directory Bind",
+          "Connectivity Directory Admin",
           "Cloudflare One Connectors Write",
           "Cloudflare One Connectors Read",
           "Cloudflare One Connector: cloudflared Write",
           "Cloudflare One Connector: cloudflared Read",
           "Cloudflare Tunnel Write",
           "Cloudflare Tunnel Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-connector-cloudflared.read",
+          "teams-connectors.read",
+          "connectivity-directory.read",
+          "argotunnel.read",
+          "connectivity-directory.bind",
+          "teams-connector-cloudflared.write",
+          "connectivity-directory.admin",
+          "teams-connectors.write",
+          "argotunnel.write"
         ]
       },
       responses: {
@@ -557,12 +586,26 @@ export const tools: readonly Tool[] = [
       ],
       extensions: {
         "x-api-token-group": [
+          "Connectivity Directory Read",
+          "Connectivity Directory Bind",
+          "Connectivity Directory Admin",
           "Cloudflare One Connectors Write",
           "Cloudflare One Connectors Read",
           "Cloudflare One Connector: cloudflared Write",
           "Cloudflare One Connector: cloudflared Read",
           "Cloudflare Tunnel Write",
           "Cloudflare Tunnel Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-connector-cloudflared.read",
+          "teams-connectors.read",
+          "connectivity-directory.read",
+          "argotunnel.read",
+          "connectivity-directory.bind",
+          "teams-connector-cloudflared.write",
+          "connectivity-directory.admin",
+          "teams-connectors.write",
+          "argotunnel.write"
         ]
       },
       responses: {

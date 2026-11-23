@@ -70,6 +70,9 @@ export const tools: readonly Tool[] = [
         ],
         "x-fern-audiences": [
           "sdk"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-ci.write"
         ]
       },
       responses: {

@@ -50,6 +50,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/iam_single_invite_response",
       $defs: {
+        "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-single": iam_api$$response$$single,
         "iam_messages": iam_messages,
         "iam_role_names": iam_role_names,
@@ -78,7 +79,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "memberships.read",
+          "memberships.write"
+        ]
       },
       responses: {
         schemas: {
@@ -90,6 +95,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "iam_api-response-common": iam_api$$response$$common,
           "iam_api-response-common-failure": iam_api$$response$$common$$failure,
           "iam_api-response-single": iam_api$$response$$single,
           "iam_messages": iam_messages,
@@ -142,7 +148,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "memberships.read",
+          "memberships.write"
+        ]
       },
       responses: {
         schemas: {
@@ -212,6 +222,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/iam_single_invite_response",
       $defs: {
+        "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-single": iam_api$$response$$single,
         "iam_messages": iam_messages,
         "iam_role_names": iam_role_names,
@@ -240,7 +251,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "memberships.write"
+        ]
       },
       responses: {
         schemas: {
@@ -252,6 +266,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "iam_api-response-common": iam_api$$response$$common,
           "iam_api-response-common-failure": iam_api$$response$$common$$failure,
           "iam_api-response-single": iam_api$$response$$single,
           "iam_messages": iam_messages,

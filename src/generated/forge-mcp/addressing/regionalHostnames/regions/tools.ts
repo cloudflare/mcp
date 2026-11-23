@@ -83,8 +83,16 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/addressing/regional_hostnames/regions`,
       extensions: {
         "x-api-token-group": [
+          "DLS: Write",
+          "DLS: Read",
           "DNS Read",
           "DNS Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "dls.read",
+          "dns.read",
+          "dls.write",
+          "dns.write"
         ]
       },
       responses: {

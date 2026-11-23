@@ -4,19 +4,18 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
- * The schema of `bill-subs-api_user_subscription_response_collection` in
- * responses.
+ * The schema of `bill-subs_user_subscription_response_collection` in responses.
  */
-export const bill$$subs$$api_user_subscription_response_collection: JSONObject = {
+export const bill$$subs_user_subscription_response_collection: JSONObject = {
   "allOf": [
     {
-      "$ref": "#/$defs/bill-subs-api_api-response-collection"
+      "$ref": "#/$defs/bill-subs_api-response-collection"
     },
     {
       "properties": {
         "result": {
           "items": {
-            "$ref": "#/$defs/bill-subs-api_subscription"
+            "$ref": "#/$defs/bill-subs_subscription"
           },
           "type": "array"
         }
@@ -27,12 +26,12 @@ export const bill$$subs$$api_user_subscription_response_collection: JSONObject =
 };
 
 /**
- * The schema of `bill-subs-api_user_subscription_response_single` in responses.
+ * The schema of `bill-subs_user_subscription_response_single` in responses.
  */
-export const bill$$subs$$api_user_subscription_response_single: JSONObject = {
+export const bill$$subs_user_subscription_response_single: JSONObject = {
   "allOf": [
     {
-      "$ref": "#/$defs/bill-subs-api_api-response-single"
+      "$ref": "#/$defs/bill-subs_api-response-single"
     },
     {
       "properties": {

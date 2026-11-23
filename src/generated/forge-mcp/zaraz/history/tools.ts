@@ -123,6 +123,11 @@ export const tools: readonly Tool[] = [
           "Zaraz Edit",
           "Zaraz Read",
           "Zaraz Admin"
+        ],
+        "x-forge-oauth-scopes": [
+          "zaraz.read",
+          "zaraz.edit",
+          "zaraz.write"
         ]
       },
       responses: {
@@ -214,6 +219,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Zaraz Edit",
           "Zaraz Admin"
+        ],
+        "x-forge-oauth-scopes": [
+          "zaraz.edit",
+          "zaraz.write"
         ]
       },
       responses: {

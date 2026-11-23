@@ -6,6 +6,7 @@ import {
   intel_api$$response$$common$$failure,
   intel_api$$response$$single,
   intel_messages,
+  intel_schemas$$api$$response$$common,
   intel_schemas$$messages,
 } from "../outputs.js";
 import {
@@ -80,6 +81,7 @@ export const tools: readonly Tool[] = [
         "intel_domain": intel_domain,
         "intel_resolves_to_ref": intel_resolves_to_ref,
         "intel_resolves_to_refs": intel_resolves_to_refs,
+        "intel_schemas-api-response-common": intel_schemas$$api$$response$$common,
         "intel_schemas-messages": intel_schemas$$messages,
         "intel_single_response": intel_single_response,
       },
@@ -104,6 +106,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Intel Write",
           "Intel Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "intel.read",
+          "intel.write"
         ]
       },
       responses: {
@@ -134,6 +140,7 @@ export const tools: readonly Tool[] = [
           "intel_messages": intel_messages,
           "intel_resolves_to_ref": intel_resolves_to_ref,
           "intel_resolves_to_refs": intel_resolves_to_refs,
+          "intel_schemas-api-response-common": intel_schemas$$api$$response$$common,
           "intel_schemas-messages": intel_schemas$$messages,
           "intel_single_response": intel_single_response,
         },

@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
 import {
+  observatory_api$$response$$common,
   observatory_api$$response$$common$$failure,
   observatory_api$$response$$single,
   observatory_labeled_region,
@@ -47,6 +48,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/observatory_availabilities-response",
       $defs: {
+        "observatory_api-response-common": observatory_api$$response$$common,
         "observatory_api-response-single": observatory_api$$response$$single,
         "observatory_availabilities": observatory_availabilities,
         "observatory_availabilities-response": observatory_availabilities$$response,
@@ -68,15 +70,31 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/zones/${"zone_id"}/speed_api/availabilities`,
       extensions: {
         "x-api-token-group": [
+          "Workers Metadata Read-Only",
+          "Workers Editor",
+          "Workers Content Read-Only",
+          "Workers Admin",
           "Zone Settings Write",
-          "Zone Settings Read"
+          "Zone Settings Read",
+          "Workers Routes Write",
+          "Workers Routes Read"
         ],
         "x-cfPlanAvailability": {
           "business": true,
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "workers-routes.read",
+          "zone-settings.read",
+          "workers-scripts.content_read",
+          "workers-scripts.metadata_read",
+          "workers-routes.write",
+          "workers-scripts.edit",
+          "workers-scripts.admin",
+          "zone-settings.write"
+        ]
       },
       responses: {
         schemas: {
@@ -88,6 +106,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "observatory_api-response-common": observatory_api$$response$$common,
           "observatory_api-response-common-failure": observatory_api$$response$$common$$failure,
           "observatory_api-response-single": observatory_api$$response$$single,
           "observatory_availabilities": observatory_availabilities,

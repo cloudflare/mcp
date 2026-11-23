@@ -306,7 +306,7 @@ export const organizations$$api_UserTenantAllocationValue: JSONObject = {
     },
     {
       "items": {
-        "type": "object"
+        "$ref": "#/$defs/organizations-api_UserTenantAllocationValue"
       },
       "type": "array"
     },

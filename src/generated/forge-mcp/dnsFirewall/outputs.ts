@@ -99,26 +99,7 @@ export const dns$$firewall_api$$response$$common$$failure: JSONObject = {
  * The schema of `dns-firewall_api-response-single` in responses.
  */
 export const dns$$firewall_api$$response$$single: JSONObject = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/dns-firewall_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/dns-firewall_messages"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  "$ref": "#/$defs/dns-firewall_api-response-common"
 };
 
 /**

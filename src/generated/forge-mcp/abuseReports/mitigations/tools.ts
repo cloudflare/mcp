@@ -209,6 +209,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Trust and Safety Write",
           "Trust and Safety Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "trust-and-safety.read",
+          "trust-and-safety.write"
         ]
       },
       responses: {
@@ -381,6 +385,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Trust and Safety Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "trust-and-safety.write"
         ]
       },
       responses: {

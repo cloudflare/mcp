@@ -4,9 +4,107 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
- * The schema of `rulesets_UrlNormalization` in responses.
+ * The schema of `url-normalization_Errors` in responses.
  */
-export const rulesets_UrlNormalization: JSONObject = {
+export const url$$normalization_Errors: JSONObject = {
+  "items": {
+    "$ref": "#/$defs/url-normalization_Message"
+  },
+  "type": "array"
+};
+
+/**
+ * The schema of `url-normalization_Message` in responses.
+ */
+export const url$$normalization_Message: JSONObject = {
+  "properties": {
+    "code": {
+      "type": "integer"
+    },
+    "message": {
+      "type": "string"
+    },
+    "source": {
+      "properties": {
+        "pointer": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "pointer"
+      ],
+      "type": "object"
+    }
+  },
+  "required": [
+    "message"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `url-normalization_Messages` in responses.
+ */
+export const url$$normalization_Messages: JSONObject = {
+  "items": {
+    "$ref": "#/$defs/url-normalization_Message"
+  },
+  "type": "array"
+};
+
+/**
+ * The schema of `url-normalization_Response` in responses.
+ */
+export const url$$normalization_Response: JSONObject = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/url-normalization_Errors"
+    },
+    "messages": {
+      "$ref": "#/$defs/url-normalization_Messages"
+    },
+    "result": {
+      "oneOf": [
+        {
+          "type": "object"
+        },
+        {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `url-normalization_UrlNormalization` in responses.
+ */
+export const url$$normalization_UrlNormalization: JSONObject = {
   "properties": {
     "scope": {
       "enum": [

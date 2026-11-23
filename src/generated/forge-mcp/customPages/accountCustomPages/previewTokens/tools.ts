@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../../../_/tool.js";
 import {
+  custom$$pages_api$$response$$common,
   custom$$pages_api$$response$$common$$failure,
   custom$$pages_api$$response$$single,
   custom$$pages_messages,
@@ -31,7 +32,7 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "account_or_zone": {
-              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "description": "Whether ${account_or_zone} is an account ID (`accounts`) or a zone ID (`zones`).",
               "enum": [
                 "accounts",
                 "zones"
@@ -39,7 +40,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "description": "The account ID or zone ID, as selected by ${account_or_zone}.",
               "type": "string"
             }
           },
@@ -62,6 +63,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/custom-pages_preview_token_result",
       $defs: {
+        "custom-pages_api-response-common": custom$$pages_api$$response$$common,
         "custom-pages_api-response-single": custom$$pages_api$$response$$single,
         "custom-pages_messages": custom$$pages_messages,
         "custom-pages_preview_token": custom$$pages_preview_token,
@@ -86,19 +88,19 @@ export const tools: readonly Tool[] = [
           "Account Custom Pages Write",
           "Account Custom Pages Read",
           "Account Settings Write",
-          "Account Settings Read"
+          "Account Settings Read",
+          "Custom Pages Write",
+          "Custom Pages Read",
+          "Zone Settings Write",
+          "Zone Settings Read"
         ],
-        "x-cfPermissionsRequired": {
-          "enum": [
-            "#organization:edit"
-          ]
-        },
         "x-cfPlanAvailability": {
           "business": true,
           "enterprise": true,
           "free": false,
           "pro": true
-        }
+        },
+        "x-stainless-skip": true
       },
       responses: {
         schemas: {
@@ -110,6 +112,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "custom-pages_api-response-common": custom$$pages_api$$response$$common,
           "custom-pages_api-response-common-failure": custom$$pages_api$$response$$common$$failure,
           "custom-pages_api-response-single": custom$$pages_api$$response$$single,
           "custom-pages_messages": custom$$pages_messages,

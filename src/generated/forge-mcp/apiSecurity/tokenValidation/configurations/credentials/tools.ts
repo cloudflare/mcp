@@ -143,6 +143,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Account API Gateway",
           "Domain API Gateway"
+        ],
+        "x-forge-oauth-scopes": [
+          "api-gateway.write",
+          "account-api-gateway.write"
         ]
       },
       responses: {
@@ -291,6 +295,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Account API Gateway",
           "Domain API Gateway"
+        ],
+        "x-forge-oauth-scopes": [
+          "api-gateway.write",
+          "account-api-gateway.write"
         ]
       },
       responses: {

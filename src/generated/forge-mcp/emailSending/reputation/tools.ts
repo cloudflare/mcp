@@ -2,7 +2,11 @@
 /* eslint-disable */
 
 import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
-import { email_api$$response$$single, email_messages } from "../../outputs.js";
+import {
+  email_api$$response$$common,
+  email_api$$response$$single,
+  email_messages,
+} from "../../outputs.js";
 import {
   email_ReputationPolicy,
   email_ReputationThreshold,
@@ -45,6 +49,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email_ReputationPolicy": email_ReputationPolicy,
         "email_ReputationThreshold": email_ReputationThreshold,
+        "email_api-response-common": email_api$$response$$common,
         "email_api-response-single": email_api$$response$$single,
         "email_messages": email_messages,
         "email_sending_reputation_properties": email_sending_reputation_properties,
@@ -63,17 +68,20 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/email/sending/reputation",
       pathOf: encodePath`/accounts/${"account_id"}/email/sending/reputation`,
       extensions: {
-        "x-cfPermissionsRequired": {
-          "enum": [
-            "com.cloudflare.api.account.email.sending.read"
-          ]
-        },
+        "x-api-token-group": [
+          "Email Sending Write",
+          "Email Sending Read"
+        ],
         "x-cfPlanAvailability": {
           "business": true,
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "email-sending.read",
+          "email-sending.write"
+        ]
       },
       responses: {
         schemas: {
@@ -85,6 +93,7 @@ export const tools: readonly Tool[] = [
         $defs: {
           "email_ReputationPolicy": email_ReputationPolicy,
           "email_ReputationThreshold": email_ReputationThreshold,
+          "email_api-response-common": email_api$$response$$common,
           "email_api-response-single": email_api$$response$$single,
           "email_messages": email_messages,
           "email_sending_reputation_properties": email_sending_reputation_properties,

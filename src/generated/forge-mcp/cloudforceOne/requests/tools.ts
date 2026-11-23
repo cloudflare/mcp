@@ -8,859 +8,7 @@ import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
  */
 export const tools: readonly Tool[] = [
   {
-    name: "cloudforceOne_requests_getRequestList",
-    title: "List RFIs",
-    description: "Retrieves a paginated list of RFIs with filtering and sorting options.\n\nGET /accounts/{account_id}/cloudforce-one/v2/requests/{project_type}",
-    inputSchema: {
-      type: "object",
-      properties: {
-        "path": {
-          "additionalProperties": false,
-          "properties": {
-            "account_id": {
-              "description": "Account ID.",
-              "type": "string"
-            },
-            "project_type": {
-              "description": "RFI project type",
-              "enum": [
-                "threat-intelligence",
-                "incident-response",
-                "ir-emergency-response",
-                "table-top",
-                "pentest",
-                "irp",
-                "threat-hunting",
-                "cybersecurity-assessment",
-                "react-general",
-                "legal-response",
-                "soc-alerts",
-                "demo"
-              ],
-              "type": "string"
-            }
-          },
-          "required": [
-            "account_id",
-            "project_type"
-          ],
-          "type": "object"
-        },
-        "query": {
-          "additionalProperties": false,
-          "properties": {
-            "accountId": {
-              "type": "string"
-            },
-            "assignee": {
-              "type": "string"
-            },
-            "createdBy": {
-              "description": "Filter by creator email. NOTE: For the `legal-response` project type this query parameter is **rejected with HTTP 400** — the server derives the filter from the authenticated user's JWT automatically and does not accept a client-supplied value. Requests to `legal-response` with no valid JWT identity are rejected with HTTP 401.",
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "metadata": {
-              "description": "JSON string object of metadata filters. Supports two formats: 1) Simple values for exact match (backward compatible): {\"status\": \"open\"} 2) Operator objects for advanced filtering: {\"identifiers\": {\"operator\": \"contains_line\", \"value\": \"blah.com\"}}. Available operators: 'eq' (exact match, default), 'contains' (substring match), 'contains_line' (match complete line in newline-separated text). Date fields are automatically normalized to YYYY-MM-DD format.",
-              "type": "string"
-            },
-            "order": {
-              "type": "string"
-            },
-            "orderBy": {
-              "description": "Sort field. SOC Communications support customer-safe latest_activity ordering.",
-              "type": "string"
-            },
-            "page": {
-              "type": "number"
-            },
-            "pageSize": {
-              "type": "number"
-            },
-            "priority": {
-              "type": "string"
-            },
-            "readableId": {
-              "type": "string"
-            },
-            "requestType": {
-              "type": "string"
-            },
-            "search": {
-              "type": "string"
-            },
-            "status": {
-              "description": "Status filter. Projects with a narrowed dashboard vocabulary accept only their customer-facing values.",
-              "type": "string"
-            },
-            "summary": {
-              "type": "string"
-            },
-            "tlp": {
-              "type": "string"
-            }
-          },
-          "type": "object"
-        }
-      },
-      required: [
-        "path"
-      ],
-      additionalProperties: false,
-    },
-    outputSchema: {
-      "properties": {
-        "pagination": {
-          "properties": {
-            "page": {
-              "type": "number"
-            },
-            "pageSize": {
-              "type": "number"
-            },
-            "total": {
-              "type": "number"
-            },
-            "totalPages": {
-              "type": "number"
-            }
-          },
-          "required": [
-            "page",
-            "pageSize",
-            "total",
-            "totalPages"
-          ],
-          "type": "object"
-        },
-        "result": {
-          "items": {
-            "properties": {
-              "accountId": {
-                "type": "string"
-              },
-              "createdAt": {
-                "type": "string"
-              },
-              "createdBy": {
-                "type": "string"
-              },
-              "description": {
-                "type": "string"
-              },
-              "id": {
-                "type": "string"
-              },
-              "priority_id": {
-                "oneOf": [
-                  {
-                    "type": "integer"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "projectType": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "updatedAt": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "accountId",
-              "createdAt",
-              "createdBy",
-              "description",
-              "id",
-              "projectType",
-              "status",
-              "title",
-              "updatedAt"
-            ],
-            "type": "object"
-          },
-          "type": "array"
-        },
-        "success": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "pagination",
-        "result",
-        "success"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "List RFIs"
-    },
-    [OPERATION]: {
-      method: "GET",
-      path: "/accounts/{account_id}/cloudforce-one/v2/requests/{project_type}",
-      pathOf: encodePath`/accounts/${"account_id"}/cloudforce-one/v2/requests/${"project_type"}`,
-      query: [
-        { name: "page", explode: true },
-        { name: "pageSize", explode: true },
-        { name: "status", explode: true },
-        { name: "search", explode: true },
-        { name: "createdBy", explode: true },
-        { name: "assignee", explode: true },
-        { name: "requestType", explode: true },
-        { name: "priority", explode: true },
-        { name: "tlp", explode: true },
-        { name: "id", explode: true },
-        { name: "readableId", explode: true },
-        { name: "summary", explode: true },
-        { name: "accountId", explode: true },
-        { name: "metadata", explode: true },
-        { name: "orderBy", explode: true },
-        { name: "order", explode: true },
-      ],
-      extensions: {
-        "x-api-token-group": [
-          "Cloudforce One Write",
-          "Cloudforce One Read"
-        ]
-      },
-      responses: {
-        schemas: {
-          "200": {
-            "properties": {
-              "pagination": {
-                "properties": {
-                  "page": {
-                    "type": "number"
-                  },
-                  "pageSize": {
-                    "type": "number"
-                  },
-                  "total": {
-                    "type": "number"
-                  },
-                  "totalPages": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "page",
-                  "pageSize",
-                  "total",
-                  "totalPages"
-                ],
-                "type": "object"
-              },
-              "result": {
-                "items": {
-                  "properties": {
-                    "accountId": {
-                      "type": "string"
-                    },
-                    "createdAt": {
-                      "type": "string"
-                    },
-                    "createdBy": {
-                      "type": "string"
-                    },
-                    "description": {
-                      "type": "string"
-                    },
-                    "id": {
-                      "type": "string"
-                    },
-                    "priority_id": {
-                      "oneOf": [
-                        {
-                          "type": "integer"
-                        },
-                        {
-                          "type": "null"
-                        }
-                      ]
-                    },
-                    "projectType": {
-                      "type": "string"
-                    },
-                    "status": {
-                      "type": "string"
-                    },
-                    "title": {
-                      "type": "string"
-                    },
-                    "updatedAt": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "accountId",
-                    "createdAt",
-                    "createdBy",
-                    "description",
-                    "id",
-                    "projectType",
-                    "status",
-                    "title",
-                    "updatedAt"
-                  ],
-                  "type": "object"
-                },
-                "type": "array"
-              },
-              "success": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "pagination",
-              "result",
-              "success"
-            ],
-            "type": "object"
-          },
-          "4XX": null
-        },
-      },
-    },
-  },
-  {
-    name: "cloudforceOne_requests_getRequestRead",
-    title: "Get an RFI by ID",
-    description: "Retrieves a specific RFI by its UUID with related data.\n\nGET /accounts/{account_id}/cloudforce-one/v2/requests/{project_type}/{request_id}",
-    inputSchema: {
-      type: "object",
-      properties: {
-        "path": {
-          "additionalProperties": false,
-          "properties": {
-            "account_id": {
-              "description": "Account ID.",
-              "type": "string"
-            },
-            "project_type": {
-              "description": "RFI project type. Valid values: threat-intelligence, incident-response, ir-emergency-response, table-top, pentest, irp, threat-hunting, cybersecurity-assessment, react-general, legal-response, soc-alerts, demo",
-              "enum": [
-                "threat-intelligence",
-                "incident-response",
-                "ir-emergency-response",
-                "table-top",
-                "pentest",
-                "irp",
-                "threat-hunting",
-                "cybersecurity-assessment",
-                "react-general",
-                "legal-response",
-                "soc-alerts",
-                "demo"
-              ],
-              "type": "string"
-            },
-            "request_id": {
-              "description": "RFI UUID",
-              "type": "string"
-            }
-          },
-          "required": [
-            "account_id",
-            "project_type",
-            "request_id"
-          ],
-          "type": "object"
-        }
-      },
-      required: [
-        "path"
-      ],
-      additionalProperties: false,
-    },
-    outputSchema: {
-      "properties": {
-        "account": {
-          "properties": {
-            "anniversary": {
-              "format": "date-time",
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "name": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "anniversary",
-            "id",
-            "name"
-          ],
-          "type": "object"
-        },
-        "assignee": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "completed": {
-          "oneOf": [
-            {
-              "format": "date-time",
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "created": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "investigation_id": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "is_free_request": {
-          "type": "boolean"
-        },
-        "message_tokens": {
-          "type": "number"
-        },
-        "priority": {
-          "enum": [
-            "unknown",
-            "low",
-            "routine",
-            "medium",
-            "high",
-            "urgent",
-            "critical"
-          ],
-          "type": "string"
-        },
-        "priority_id": {
-          "oneOf": [
-            {
-              "type": "integer"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "readable_id": {
-          "type": "string"
-        },
-        "release_entitlements": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "report_id": {
-          "type": "string"
-        },
-        "request": {
-          "properties": {
-            "category": {
-              "type": "string"
-            },
-            "message_tokens": {
-              "type": "number"
-            },
-            "name": {
-              "type": "string"
-            },
-            "request_tokens": {
-              "type": "number"
-            },
-            "response_tokens": {
-              "type": "number"
-            },
-            "result": {
-              "type": "string"
-            },
-            "source": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "category",
-            "message_tokens",
-            "name",
-            "request_tokens",
-            "response_tokens",
-            "result",
-            "source"
-          ],
-          "type": "object"
-        },
-        "status": {
-          "enum": [
-            "draft",
-            "submitted",
-            "accepted",
-            "in_progress",
-            "awaiting_customer",
-            "awaiting_external",
-            "response_needed",
-            "completed",
-            "closed"
-          ],
-          "type": "string"
-        },
-        "summary": {
-          "type": "string"
-        },
-        "tlp": {
-          "enum": [
-            "clear",
-            "green",
-            "amber",
-            "red"
-          ],
-          "type": "string"
-        },
-        "tokens": {
-          "type": "number"
-        },
-        "updated": {
-          "format": "date-time",
-          "type": "string"
-        }
-      },
-      "required": [
-        "account",
-        "assignee",
-        "completed",
-        "created",
-        "id",
-        "investigation_id",
-        "is_free_request",
-        "message_tokens",
-        "priority",
-        "readable_id",
-        "release_entitlements",
-        "report_id",
-        "request",
-        "status",
-        "summary",
-        "tlp",
-        "tokens",
-        "updated"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get an RFI by ID"
-    },
-    [OPERATION]: {
-      method: "GET",
-      path: "/accounts/{account_id}/cloudforce-one/v2/requests/{project_type}/{request_id}",
-      pathOf: encodePath`/accounts/${"account_id"}/cloudforce-one/v2/requests/${"project_type"}/${"request_id"}`,
-      extensions: {
-        "x-api-token-group": [
-          "Cloudforce One Write",
-          "Cloudforce One Read"
-        ]
-      },
-      responses: {
-        schemas: {
-          "200": {
-            "properties": {
-              "account": {
-                "properties": {
-                  "anniversary": {
-                    "format": "date-time",
-                    "type": "string"
-                  },
-                  "id": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "anniversary",
-                  "id",
-                  "name"
-                ],
-                "type": "object"
-              },
-              "assignee": {
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "completed": {
-                "oneOf": [
-                  {
-                    "format": "date-time",
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "created": {
-                "format": "date-time",
-                "type": "string"
-              },
-              "id": {
-                "type": "string"
-              },
-              "investigation_id": {
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "is_free_request": {
-                "type": "boolean"
-              },
-              "message_tokens": {
-                "type": "number"
-              },
-              "priority": {
-                "enum": [
-                  "unknown",
-                  "low",
-                  "routine",
-                  "medium",
-                  "high",
-                  "urgent",
-                  "critical"
-                ],
-                "type": "string"
-              },
-              "priority_id": {
-                "oneOf": [
-                  {
-                    "type": "integer"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "readable_id": {
-                "type": "string"
-              },
-              "release_entitlements": {
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "report_id": {
-                "type": "string"
-              },
-              "request": {
-                "properties": {
-                  "category": {
-                    "type": "string"
-                  },
-                  "message_tokens": {
-                    "type": "number"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "request_tokens": {
-                    "type": "number"
-                  },
-                  "response_tokens": {
-                    "type": "number"
-                  },
-                  "result": {
-                    "type": "string"
-                  },
-                  "source": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "category",
-                  "message_tokens",
-                  "name",
-                  "request_tokens",
-                  "response_tokens",
-                  "result",
-                  "source"
-                ],
-                "type": "object"
-              },
-              "status": {
-                "enum": [
-                  "draft",
-                  "submitted",
-                  "accepted",
-                  "in_progress",
-                  "awaiting_customer",
-                  "awaiting_external",
-                  "response_needed",
-                  "completed",
-                  "closed"
-                ],
-                "type": "string"
-              },
-              "summary": {
-                "type": "string"
-              },
-              "tlp": {
-                "enum": [
-                  "clear",
-                  "green",
-                  "amber",
-                  "red"
-                ],
-                "type": "string"
-              },
-              "tokens": {
-                "type": "number"
-              },
-              "updated": {
-                "format": "date-time",
-                "type": "string"
-              }
-            },
-            "required": [
-              "account",
-              "assignee",
-              "completed",
-              "created",
-              "id",
-              "investigation_id",
-              "is_free_request",
-              "message_tokens",
-              "priority",
-              "readable_id",
-              "release_entitlements",
-              "report_id",
-              "request",
-              "status",
-              "summary",
-              "tlp",
-              "tokens",
-              "updated"
-            ],
-            "type": "object"
-          },
-          "400": {
-            "properties": {
-              "errors": {
-                "items": {
-                  "properties": {
-                    "message": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "message"
-                  ],
-                  "type": "object"
-                },
-                "type": "array"
-              },
-              "result": {
-                "type": "object"
-              },
-              "success": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "errors",
-              "result",
-              "success"
-            ],
-            "type": "object"
-          },
-          "404": {
-            "properties": {
-              "errors": {
-                "items": {
-                  "properties": {
-                    "message": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "message"
-                  ],
-                  "type": "object"
-                },
-                "type": "array"
-              },
-              "result": {
-                "type": "object"
-              },
-              "success": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "errors",
-              "result",
-              "success"
-            ],
-            "type": "object"
-          }
-        },
-      },
-    },
-  },
-  {
-    name: "cloudforceOne_requests_postRequestCreate",
+    name: "cloudforceOne_requests_create",
     title: "Creates a new RFI",
     description: "Creates a new Request for Information with the specified project type and details.\n\nPOST /accounts/{account_id}/cloudforce-one/v2/requests/{project_type}",
     inputSchema: {
@@ -1191,6 +339,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Cloudforce One Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "cloudforce-one.write"
         ]
       },
       responses: {
@@ -1455,7 +606,867 @@ export const tools: readonly Tool[] = [
     },
   },
   {
-    name: "cloudforceOne_requests_putRequestUpdate",
+    name: "cloudforceOne_requests_get",
+    title: "Get an RFI by ID",
+    description: "Retrieves a specific RFI by its UUID with related data.\n\nGET /accounts/{account_id}/cloudforce-one/v2/requests/{project_type}/{request_id}",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account ID.",
+              "type": "string"
+            },
+            "project_type": {
+              "description": "RFI project type. Valid values: threat-intelligence, incident-response, ir-emergency-response, table-top, pentest, irp, threat-hunting, cybersecurity-assessment, react-general, legal-response, soc-alerts, demo",
+              "enum": [
+                "threat-intelligence",
+                "incident-response",
+                "ir-emergency-response",
+                "table-top",
+                "pentest",
+                "irp",
+                "threat-hunting",
+                "cybersecurity-assessment",
+                "react-general",
+                "legal-response",
+                "soc-alerts",
+                "demo"
+              ],
+              "type": "string"
+            },
+            "request_id": {
+              "description": "RFI UUID",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "project_type",
+            "request_id"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path"
+      ],
+      additionalProperties: false,
+    },
+    outputSchema: {
+      "properties": {
+        "account": {
+          "properties": {
+            "anniversary": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "anniversary",
+            "id",
+            "name"
+          ],
+          "type": "object"
+        },
+        "assignee": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "completed": {
+          "oneOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "created": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "investigation_id": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "is_free_request": {
+          "type": "boolean"
+        },
+        "message_tokens": {
+          "type": "number"
+        },
+        "priority": {
+          "enum": [
+            "unknown",
+            "low",
+            "routine",
+            "medium",
+            "high",
+            "urgent",
+            "critical"
+          ],
+          "type": "string"
+        },
+        "priority_id": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "readable_id": {
+          "type": "string"
+        },
+        "release_entitlements": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "report_id": {
+          "type": "string"
+        },
+        "request": {
+          "properties": {
+            "category": {
+              "type": "string"
+            },
+            "message_tokens": {
+              "type": "number"
+            },
+            "name": {
+              "type": "string"
+            },
+            "request_tokens": {
+              "type": "number"
+            },
+            "response_tokens": {
+              "type": "number"
+            },
+            "result": {
+              "type": "string"
+            },
+            "source": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "category",
+            "message_tokens",
+            "name",
+            "request_tokens",
+            "response_tokens",
+            "result",
+            "source"
+          ],
+          "type": "object"
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "submitted",
+            "accepted",
+            "in_progress",
+            "awaiting_customer",
+            "awaiting_external",
+            "response_needed",
+            "completed",
+            "closed"
+          ],
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "tlp": {
+          "enum": [
+            "clear",
+            "green",
+            "amber",
+            "red"
+          ],
+          "type": "string"
+        },
+        "tokens": {
+          "type": "number"
+        },
+        "updated": {
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "required": [
+        "account",
+        "assignee",
+        "completed",
+        "created",
+        "id",
+        "investigation_id",
+        "is_free_request",
+        "message_tokens",
+        "priority",
+        "readable_id",
+        "release_entitlements",
+        "report_id",
+        "request",
+        "status",
+        "summary",
+        "tlp",
+        "tokens",
+        "updated"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get an RFI by ID"
+    },
+    [OPERATION]: {
+      method: "GET",
+      path: "/accounts/{account_id}/cloudforce-one/v2/requests/{project_type}/{request_id}",
+      pathOf: encodePath`/accounts/${"account_id"}/cloudforce-one/v2/requests/${"project_type"}/${"request_id"}`,
+      extensions: {
+        "x-api-token-group": [
+          "Cloudforce One Write",
+          "Cloudforce One Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "cloudforce-one.read",
+          "cloudforce-one.write"
+        ]
+      },
+      responses: {
+        schemas: {
+          "200": {
+            "properties": {
+              "account": {
+                "properties": {
+                  "anniversary": {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "anniversary",
+                  "id",
+                  "name"
+                ],
+                "type": "object"
+              },
+              "assignee": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "completed": {
+                "oneOf": [
+                  {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "created": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "investigation_id": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "is_free_request": {
+                "type": "boolean"
+              },
+              "message_tokens": {
+                "type": "number"
+              },
+              "priority": {
+                "enum": [
+                  "unknown",
+                  "low",
+                  "routine",
+                  "medium",
+                  "high",
+                  "urgent",
+                  "critical"
+                ],
+                "type": "string"
+              },
+              "priority_id": {
+                "oneOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "readable_id": {
+                "type": "string"
+              },
+              "release_entitlements": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "report_id": {
+                "type": "string"
+              },
+              "request": {
+                "properties": {
+                  "category": {
+                    "type": "string"
+                  },
+                  "message_tokens": {
+                    "type": "number"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "request_tokens": {
+                    "type": "number"
+                  },
+                  "response_tokens": {
+                    "type": "number"
+                  },
+                  "result": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "category",
+                  "message_tokens",
+                  "name",
+                  "request_tokens",
+                  "response_tokens",
+                  "result",
+                  "source"
+                ],
+                "type": "object"
+              },
+              "status": {
+                "enum": [
+                  "draft",
+                  "submitted",
+                  "accepted",
+                  "in_progress",
+                  "awaiting_customer",
+                  "awaiting_external",
+                  "response_needed",
+                  "completed",
+                  "closed"
+                ],
+                "type": "string"
+              },
+              "summary": {
+                "type": "string"
+              },
+              "tlp": {
+                "enum": [
+                  "clear",
+                  "green",
+                  "amber",
+                  "red"
+                ],
+                "type": "string"
+              },
+              "tokens": {
+                "type": "number"
+              },
+              "updated": {
+                "format": "date-time",
+                "type": "string"
+              }
+            },
+            "required": [
+              "account",
+              "assignee",
+              "completed",
+              "created",
+              "id",
+              "investigation_id",
+              "is_free_request",
+              "message_tokens",
+              "priority",
+              "readable_id",
+              "release_entitlements",
+              "report_id",
+              "request",
+              "status",
+              "summary",
+              "tlp",
+              "tokens",
+              "updated"
+            ],
+            "type": "object"
+          },
+          "400": {
+            "properties": {
+              "errors": {
+                "items": {
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "result": {
+                "type": "object"
+              },
+              "success": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "errors",
+              "result",
+              "success"
+            ],
+            "type": "object"
+          },
+          "404": {
+            "properties": {
+              "errors": {
+                "items": {
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "result": {
+                "type": "object"
+              },
+              "success": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "errors",
+              "result",
+              "success"
+            ],
+            "type": "object"
+          }
+        },
+      },
+    },
+  },
+  {
+    name: "cloudforceOne_requests_list",
+    title: "List RFIs",
+    description: "Retrieves a paginated list of RFIs with filtering and sorting options.\n\nGET /accounts/{account_id}/cloudforce-one/v2/requests/{project_type}",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Account ID.",
+              "type": "string"
+            },
+            "project_type": {
+              "description": "RFI project type",
+              "enum": [
+                "threat-intelligence",
+                "incident-response",
+                "ir-emergency-response",
+                "table-top",
+                "pentest",
+                "irp",
+                "threat-hunting",
+                "cybersecurity-assessment",
+                "react-general",
+                "legal-response",
+                "soc-alerts",
+                "demo"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "project_type"
+          ],
+          "type": "object"
+        },
+        "query": {
+          "additionalProperties": false,
+          "properties": {
+            "accountId": {
+              "type": "string"
+            },
+            "assignee": {
+              "type": "string"
+            },
+            "createdBy": {
+              "description": "Filter by creator email. NOTE: For the `legal-response` project type this query parameter is **rejected with HTTP 400** — the server derives the filter from the authenticated user's JWT automatically and does not accept a client-supplied value. Requests to `legal-response` with no valid JWT identity are rejected with HTTP 401.",
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "metadata": {
+              "description": "JSON string object of metadata filters. Supports two formats: 1) Simple values for exact match (backward compatible): {\"status\": \"open\"} 2) Operator objects for advanced filtering: {\"identifiers\": {\"operator\": \"contains_line\", \"value\": \"blah.com\"}}. Available operators: 'eq' (exact match, default), 'contains' (substring match), 'contains_line' (match complete line in newline-separated text). Date fields are automatically normalized to YYYY-MM-DD format.",
+              "type": "string"
+            },
+            "order": {
+              "type": "string"
+            },
+            "orderBy": {
+              "description": "Sort field. SOC Communications support customer-safe latest_activity ordering.",
+              "type": "string"
+            },
+            "page": {
+              "type": "number"
+            },
+            "pageSize": {
+              "type": "number"
+            },
+            "priority": {
+              "type": "string"
+            },
+            "readableId": {
+              "type": "string"
+            },
+            "requestType": {
+              "type": "string"
+            },
+            "search": {
+              "type": "string"
+            },
+            "status": {
+              "description": "Status filter. Projects with a narrowed dashboard vocabulary accept only their customer-facing values.",
+              "type": "string"
+            },
+            "summary": {
+              "type": "string"
+            },
+            "tlp": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      required: [
+        "path"
+      ],
+      additionalProperties: false,
+    },
+    outputSchema: {
+      "properties": {
+        "pagination": {
+          "properties": {
+            "page": {
+              "type": "number"
+            },
+            "pageSize": {
+              "type": "number"
+            },
+            "total": {
+              "type": "number"
+            },
+            "totalPages": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "page",
+            "pageSize",
+            "total",
+            "totalPages"
+          ],
+          "type": "object"
+        },
+        "result": {
+          "items": {
+            "properties": {
+              "accountId": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "createdBy": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "priority_id": {
+                "oneOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "projectType": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "updatedAt": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "accountId",
+              "createdAt",
+              "createdBy",
+              "description",
+              "id",
+              "projectType",
+              "status",
+              "title",
+              "updatedAt"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "success": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "pagination",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "List RFIs"
+    },
+    [OPERATION]: {
+      method: "GET",
+      path: "/accounts/{account_id}/cloudforce-one/v2/requests/{project_type}",
+      pathOf: encodePath`/accounts/${"account_id"}/cloudforce-one/v2/requests/${"project_type"}`,
+      query: [
+        { name: "page", explode: true },
+        { name: "pageSize", explode: true },
+        { name: "status", explode: true },
+        { name: "search", explode: true },
+        { name: "createdBy", explode: true },
+        { name: "assignee", explode: true },
+        { name: "requestType", explode: true },
+        { name: "priority", explode: true },
+        { name: "tlp", explode: true },
+        { name: "id", explode: true },
+        { name: "readableId", explode: true },
+        { name: "summary", explode: true },
+        { name: "accountId", explode: true },
+        { name: "metadata", explode: true },
+        { name: "orderBy", explode: true },
+        { name: "order", explode: true },
+      ],
+      extensions: {
+        "x-api-token-group": [
+          "Cloudforce One Write",
+          "Cloudforce One Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "cloudforce-one.read",
+          "cloudforce-one.write"
+        ]
+      },
+      responses: {
+        schemas: {
+          "200": {
+            "properties": {
+              "pagination": {
+                "properties": {
+                  "page": {
+                    "type": "number"
+                  },
+                  "pageSize": {
+                    "type": "number"
+                  },
+                  "total": {
+                    "type": "number"
+                  },
+                  "totalPages": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "page",
+                  "pageSize",
+                  "total",
+                  "totalPages"
+                ],
+                "type": "object"
+              },
+              "result": {
+                "items": {
+                  "properties": {
+                    "accountId": {
+                      "type": "string"
+                    },
+                    "createdAt": {
+                      "type": "string"
+                    },
+                    "createdBy": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "priority_id": {
+                      "oneOf": [
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "projectType": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "updatedAt": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "accountId",
+                    "createdAt",
+                    "createdBy",
+                    "description",
+                    "id",
+                    "projectType",
+                    "status",
+                    "title",
+                    "updatedAt"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "success": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "pagination",
+              "result",
+              "success"
+            ],
+            "type": "object"
+          },
+          "4XX": null
+        },
+      },
+    },
+  },
+  {
+    name: "cloudforceOne_requests_update",
     title: "Update an RFI",
     description: "Updates an existing RFI with the provided fields. Only provided fields will be updated.\n\nPUT /accounts/{account_id}/cloudforce-one/v2/requests/{project_type}/{request_id}",
     inputSchema: {
@@ -1770,6 +1781,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Cloudforce One Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "cloudforce-one.write"
         ]
       },
       responses: {

@@ -68,6 +68,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "DDoS Protection Write",
           "DDoS Protection Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "ddos-protection.read",
+          "ddos-protection.write"
         ]
       },
       responses: {
@@ -147,6 +151,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "DDoS Protection Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "ddos-protection.write"
         ]
       },
       responses: {

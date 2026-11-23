@@ -142,8 +142,14 @@ export const tools: readonly Tool[] = [
       ],
       extensions: {
         "x-api-token-group": [
+          "Realtime Read",
           "Realtime Admin",
           "Realtime"
+        ],
+        "x-forge-oauth-scopes": [
+          "realtime.read",
+          "realtime.write",
+          "realtime.admin"
         ]
       },
       responses: {

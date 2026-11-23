@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../../../_/tool.js";
 import {
+  email_api$$response$$common,
   email_api$$response$$single,
   email_messages,
 } from "../../../outputs.js";
@@ -68,6 +69,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/email_sending_subdomain_reputation_complaints_response",
       $defs: {
+        "email_api-response-common": email_api$$response$$common,
         "email_api-response-single": email_api$$response$$single,
         "email_messages": email_messages,
         "email_sending_subdomain_reputation_complaints": email_sending_subdomain_reputation_complaints,
@@ -90,17 +92,20 @@ export const tools: readonly Tool[] = [
         { name: "end_at", explode: true },
       ],
       extensions: {
-        "x-cfPermissionsRequired": {
-          "enum": [
-            "com.cloudflare.api.account.email.sending.read"
-          ]
-        },
+        "x-api-token-group": [
+          "Email Sending Write",
+          "Email Sending Read"
+        ],
         "x-cfPlanAvailability": {
           "business": true,
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "email-sending.read",
+          "email-sending.write"
+        ]
       },
       responses: {
         schemas: {
@@ -113,6 +118,7 @@ export const tools: readonly Tool[] = [
           "502": null
         },
         $defs: {
+          "email_api-response-common": email_api$$response$$common,
           "email_api-response-single": email_api$$response$$single,
           "email_messages": email_messages,
           "email_sending_subdomain_reputation_complaints": email_sending_subdomain_reputation_complaints,

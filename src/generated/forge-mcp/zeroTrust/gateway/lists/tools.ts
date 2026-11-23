@@ -3,13 +3,13 @@
 
 import { OPERATION, type Tool, encodePath } from "../../../_/tool.js";
 import {
+  zero$$trust$$gateway_api$$response$$common,
   zero$$trust$$gateway_api$$response$$common$$failure,
   zero$$trust$$gateway_api$$response$$single,
   zero$$trust$$gateway_messages,
 } from "../../outputs.js";
 import {
   zero$$trust$$gateway_api$$response$$collection,
-  zero$$trust$$gateway_api$$response$$common,
   zero$$trust$$gateway_empty_response,
   zero$$trust$$gateway_result_info,
 } from "../outputs.js";
@@ -95,6 +95,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_single_response_with_list_items",
       $defs: {
+        "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
         "zero-trust-gateway_items": zero$$trust$$gateway_items,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
@@ -113,6 +114,14 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/gateway/lists",
       pathOf: encodePath`/accounts/${"account_id"}/gateway/lists`,
       body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-api-token-group": [
+          "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.write"
+        ]
+      },
       responses: {
         schemas: {
           "200": {
@@ -130,6 +139,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
           "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
           "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
           "zero-trust-gateway_items": zero$$trust$$gateway_items,
@@ -173,6 +183,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_empty_response",
       $defs: {
+        "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
         "zero-trust-gateway_empty_response": zero$$trust$$gateway_empty_response,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
@@ -189,6 +200,14 @@ export const tools: readonly Tool[] = [
       method: "DELETE",
       path: "/accounts/{account_id}/gateway/lists/{list_id}",
       pathOf: encodePath`/accounts/${"account_id"}/gateway/lists/${"list_id"}`,
+      extensions: {
+        "x-api-token-group": [
+          "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.write"
+        ]
+      },
       responses: {
         schemas: {
           "200": {
@@ -206,6 +225,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
           "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
           "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
           "zero-trust-gateway_empty_response": zero$$trust$$gateway_empty_response,
@@ -269,6 +289,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_list_single_response",
       $defs: {
+        "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
         "zero-trust-gateway_items": zero$$trust$$gateway_items,
         "zero-trust-gateway_list_single_response": zero$$trust$$gateway_list_single_response,
@@ -288,6 +309,14 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/gateway/lists/{list_id}",
       pathOf: encodePath`/accounts/${"account_id"}/gateway/lists/${"list_id"}`,
       body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-api-token-group": [
+          "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.write"
+        ]
+      },
       responses: {
         schemas: {
           "200": {
@@ -305,6 +334,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
           "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
           "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
           "zero-trust-gateway_items": zero$$trust$$gateway_items,
@@ -349,6 +379,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_list_single_response",
       $defs: {
+        "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
         "zero-trust-gateway_items": zero$$trust$$gateway_items,
         "zero-trust-gateway_list_single_response": zero$$trust$$gateway_list_single_response,
@@ -367,6 +398,16 @@ export const tools: readonly Tool[] = [
       method: "GET",
       path: "/accounts/{account_id}/gateway/lists/{list_id}",
       pathOf: encodePath`/accounts/${"account_id"}/gateway/lists/${"list_id"}`,
+      extensions: {
+        "x-api-token-group": [
+          "Zero Trust Read",
+          "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.read",
+          "teams.write"
+        ]
+      },
       responses: {
         schemas: {
           "200": {
@@ -384,6 +425,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
           "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
           "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
           "zero-trust-gateway_items": zero$$trust$$gateway_items,
@@ -501,6 +543,16 @@ export const tools: readonly Tool[] = [
         { name: "order_by", explode: true },
         { name: "direction", explode: true },
       ],
+      extensions: {
+        "x-api-token-group": [
+          "Zero Trust Read",
+          "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.read",
+          "teams.write"
+        ]
+      },
       responses: {
         schemas: {
           "200": {
@@ -588,6 +640,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_list_single_response",
       $defs: {
+        "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
         "zero-trust-gateway_items": zero$$trust$$gateway_items,
         "zero-trust-gateway_list_single_response": zero$$trust$$gateway_list_single_response,
@@ -607,6 +660,14 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/gateway/lists/{list_id}",
       pathOf: encodePath`/accounts/${"account_id"}/gateway/lists/${"list_id"}`,
       body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-api-token-group": [
+          "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.write"
+        ]
+      },
       responses: {
         schemas: {
           "200": {
@@ -624,6 +685,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
           "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
           "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
           "zero-trust-gateway_items": zero$$trust$$gateway_items,

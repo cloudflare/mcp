@@ -79,6 +79,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/iam_single_token_create_response",
       $defs: {
+        "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-single": iam_api$$response$$single,
         "iam_cidr_list": iam_cidr_list,
         "iam_condition": iam_condition,
@@ -122,7 +123,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "user-api-tokens.write"
+        ]
       },
       responses: {
         schemas: {
@@ -134,6 +138,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "iam_api-response-common": iam_api$$response$$common,
           "iam_api-response-common-failure": iam_api$$response$$common$$failure,
           "iam_api-response-single": iam_api$$response$$single,
           "iam_cidr_list": iam_cidr_list,
@@ -213,7 +218,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "user-api-tokens.write"
+        ]
       },
       responses: {
         schemas: {
@@ -262,6 +270,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/iam_single_token_response",
       $defs: {
+        "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-single": iam_api$$response$$single,
         "iam_cidr_list": iam_cidr_list,
         "iam_condition": iam_condition,
@@ -304,7 +313,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "user-api-tokens.write"
+        ]
       },
       responses: {
         schemas: {
@@ -316,6 +328,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "iam_api-response-common": iam_api$$response$$common,
           "iam_api-response-common-failure": iam_api$$response$$common$$failure,
           "iam_api-response-single": iam_api$$response$$single,
           "iam_cidr_list": iam_cidr_list,
@@ -427,7 +440,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "user-api-tokens.write"
+        ]
       },
       responses: {
         schemas: {
@@ -489,6 +505,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/iam_response_single_value",
       $defs: {
+        "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-single": iam_api$$response$$single,
         "iam_messages": iam_messages,
         "iam_response_single_value": iam_response_single_value,
@@ -519,7 +536,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "user-api-tokens.write"
+        ]
       },
       responses: {
         schemas: {
@@ -531,6 +551,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "iam_api-response-common": iam_api$$response$$common,
           "iam_api-response-common-failure": iam_api$$response$$common$$failure,
           "iam_api-response-single": iam_api$$response$$single,
           "iam_messages": iam_messages,
@@ -585,6 +606,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/iam_single_token_response",
       $defs: {
+        "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-single": iam_api$$response$$single,
         "iam_cidr_list": iam_cidr_list,
         "iam_condition": iam_condition,
@@ -627,7 +649,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "user-api-tokens.write"
+        ]
       },
       responses: {
         schemas: {
@@ -639,6 +664,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "iam_api-response-common": iam_api$$response$$common,
           "iam_api-response-common-failure": iam_api$$response$$common$$failure,
           "iam_api-response-single": iam_api$$response$$single,
           "iam_cidr_list": iam_cidr_list,
@@ -670,6 +696,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/iam_token_verify_response_single_segment",
       $defs: {
+        "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-single": iam_api$$response$$single,
         "iam_messages": iam_messages,
         "iam_token_verify_response_single_segment": iam_token_verify_response_single_segment,
@@ -704,6 +731,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "iam_api-response-common": iam_api$$response$$common,
           "iam_api-response-common-failure": iam_api$$response$$common$$failure,
           "iam_api-response-single": iam_api$$response$$single,
           "iam_messages": iam_messages,

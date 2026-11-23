@@ -92,8 +92,16 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "CASB Write",
+          "CASB Read",
           "Zero Trust Read",
           "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "casb.read",
+          "casb.write",
+          "teams.read",
+          "teams.write"
         ]
       },
       responses: {
@@ -178,8 +186,16 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/data-security/posture/findings/${"finding_id"}`,
       extensions: {
         "x-api-token-group": [
+          "CASB Write",
+          "CASB Read",
           "Zero Trust Read",
           "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "casb.read",
+          "casb.write",
+          "teams.read",
+          "teams.write"
         ]
       },
       responses: {
@@ -287,7 +303,12 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "CASB Write",
           "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "casb.write",
+          "teams.write"
         ]
       },
       responses: {
@@ -517,8 +538,16 @@ export const tools: readonly Tool[] = [
       ],
       extensions: {
         "x-api-token-group": [
+          "CASB Write",
+          "CASB Read",
           "Zero Trust Read",
           "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "casb.read",
+          "casb.write",
+          "teams.read",
+          "teams.write"
         ]
       },
       responses: {
@@ -623,7 +652,12 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/data-security/posture/findings/${"finding_id"}/reset_finding_severity`,
       extensions: {
         "x-api-token-group": [
+          "CASB Write",
           "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "casb.write",
+          "teams.write"
         ]
       },
       responses: {
@@ -730,7 +764,12 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "CASB Write",
           "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "casb.write",
+          "teams.write"
         ]
       },
       responses: {
@@ -831,7 +870,12 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "CASB Write",
           "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "casb.write",
+          "teams.write"
         ]
       },
       responses: {

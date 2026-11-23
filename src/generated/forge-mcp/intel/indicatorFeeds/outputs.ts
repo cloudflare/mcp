@@ -33,26 +33,7 @@ export const custom$$indicator$$feeds_api$$response$$common: JSONObject = {
  * The schema of `custom-indicator-feeds_api-response-single` in responses.
  */
 export const custom$$indicator$$feeds_api$$response$$single: JSONObject = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/custom-indicator-feeds_messages-2"
-    },
-    "messages": {
-      "$ref": "#/$defs/custom-indicator-feeds_messages-2"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  "$ref": "#/$defs/custom-indicator-feeds_api-response-common"
 };
 
 /**

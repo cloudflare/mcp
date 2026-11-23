@@ -161,26 +161,7 @@ export const zones_api$$response$$common$$2: JSONObject = {
  * The schema of `zones_api-response-single` in responses.
  */
 export const zones_api$$response$$single: JSONObject = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/zones_messages-2"
-    },
-    "messages": {
-      "$ref": "#/$defs/zones_messages-2"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  "$ref": "#/$defs/zones_api-response-common-2"
 };
 
 /**

@@ -10,7 +10,7 @@ export const cloudforce$$one_TreeNode: JSONObject = {
   "properties": {
     "children": {
       "items": {
-        "type": "object"
+        "$ref": "#/$defs/cloudforce-one_TreeNode"
       },
       "type": "array"
     },

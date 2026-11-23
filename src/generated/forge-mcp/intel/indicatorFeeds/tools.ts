@@ -61,6 +61,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/custom-indicator-feeds_create_feed_response",
       $defs: {
+        "custom-indicator-feeds_api-response-common": custom$$indicator$$feeds_api$$response$$common,
         "custom-indicator-feeds_api-response-single": custom$$indicator$$feeds_api$$response$$single,
         "custom-indicator-feeds_create_feed_response": custom$$indicator$$feeds_create_feed_response,
         "custom-indicator-feeds_indicator_feed_item": custom$$indicator$$feeds_indicator_feed_item,
@@ -79,6 +80,14 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/intel/indicator-feeds",
       pathOf: encodePath`/accounts/${"account_id"}/intel/indicator-feeds`,
       body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-api-token-group": [
+          "Intel Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "intel.write"
+        ]
+      },
       responses: {
         schemas: {
           "200": {
@@ -96,6 +105,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "custom-indicator-feeds_api-response-common": custom$$indicator$$feeds_api$$response$$common,
           "custom-indicator-feeds_api-response-single": custom$$indicator$$feeds_api$$response$$single,
           "custom-indicator-feeds_api_response_common_failure": custom$$indicator$$feeds_api_response_common_failure,
           "custom-indicator-feeds_create_feed_response": custom$$indicator$$feeds_create_feed_response,
@@ -152,6 +162,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Intel Write",
           "Intel Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "intel.read",
+          "intel.write"
         ]
       },
       responses: {
@@ -202,6 +216,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/custom-indicator-feeds_indicator_feed_metadata_response",
       $defs: {
+        "custom-indicator-feeds_api-response-common": custom$$indicator$$feeds_api$$response$$common,
         "custom-indicator-feeds_api-response-single": custom$$indicator$$feeds_api$$response$$single,
         "custom-indicator-feeds_indicator_feed_metadata": custom$$indicator$$feeds_indicator_feed_metadata,
         "custom-indicator-feeds_indicator_feed_metadata_response": custom$$indicator$$feeds_indicator_feed_metadata_response,
@@ -224,6 +239,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Intel Write",
           "Intel Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "intel.read",
+          "intel.write"
         ]
       },
       responses: {
@@ -243,6 +262,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "custom-indicator-feeds_api-response-common": custom$$indicator$$feeds_api$$response$$common,
           "custom-indicator-feeds_api-response-single": custom$$indicator$$feeds_api$$response$$single,
           "custom-indicator-feeds_api_response_common_failure": custom$$indicator$$feeds_api_response_common_failure,
           "custom-indicator-feeds_indicator_feed_metadata": custom$$indicator$$feeds_indicator_feed_metadata,
@@ -304,6 +324,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Intel Write",
           "Intel Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "intel.read",
+          "intel.write"
         ]
       },
       responses: {
@@ -374,6 +398,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/custom-indicator-feeds_update_public_field_response",
       $defs: {
+        "custom-indicator-feeds_api-response-common": custom$$indicator$$feeds_api$$response$$common,
         "custom-indicator-feeds_api-response-single": custom$$indicator$$feeds_api$$response$$single,
         "custom-indicator-feeds_indicator_feed_item": custom$$indicator$$feeds_indicator_feed_item,
         "custom-indicator-feeds_messages-2": custom$$indicator$$feeds_messages$$2,
@@ -409,6 +434,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "custom-indicator-feeds_api-response-common": custom$$indicator$$feeds_api$$response$$common,
           "custom-indicator-feeds_api-response-single": custom$$indicator$$feeds_api$$response$$single,
           "custom-indicator-feeds_api_response_common_failure": custom$$indicator$$feeds_api_response_common_failure,
           "custom-indicator-feeds_indicator_feed_item": custom$$indicator$$feeds_indicator_feed_item,

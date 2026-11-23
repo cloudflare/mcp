@@ -8,7 +8,7 @@ import {
   dns$$settings_api$$response$$common$$failure,
   dns$$settings_api$$response$$single,
   dns$$settings_messages,
-} from "../outputs.js";
+} from "../../../outputs.js";
 import {
   dns$$settings_nameserver$$set$$address$$groups,
   dns$$settings_nameserver$$set$$advanced$$response,
@@ -70,6 +70,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/dns-settings_nameserver_set_response_single",
       $defs: {
+        "dns-settings_api-response-common": dns$$settings_api$$response$$common,
         "dns-settings_api-response-single": dns$$settings_api$$response$$single,
         "dns-settings_messages": dns$$settings_messages,
         "dns-settings_nameserver-set-address-groups": dns$$settings_nameserver$$set$$address$$groups,
@@ -97,11 +98,12 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/dns_settings/nameserver_sets`,
       body: { mediaTypes: ["application/json"] },
       extensions: {
-        "x-cfPermissionsRequired": {
-          "enum": [
-            "com.cloudflare.api.account.custom-ns-set.create"
-          ]
-        },
+        "x-api-token-group": [
+          "Account Settings Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "account-settings.write"
+        ],
         "x-stability": "beta"
       },
       responses: {
@@ -114,6 +116,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "dns-settings_api-response-common": dns$$settings_api$$response$$common,
           "dns-settings_api-response-common-failure": dns$$settings_api$$response$$common$$failure,
           "dns-settings_api-response-single": dns$$settings_api$$response$$single,
           "dns-settings_messages": dns$$settings_messages,
@@ -165,6 +168,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/dns-settings_nameserver_set_delete_response",
       $defs: {
+        "dns-settings_api-response-common": dns$$settings_api$$response$$common,
         "dns-settings_api-response-single": dns$$settings_api$$response$$single,
         "dns-settings_messages": dns$$settings_messages,
         "dns-settings_nameserver_set_delete_response": dns$$settings_nameserver_set_delete_response,
@@ -182,11 +186,12 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/dns_settings/nameserver_sets/{nameserver_set_id}",
       pathOf: encodePath`/accounts/${"account_id"}/dns_settings/nameserver_sets/${"nameserver_set_id"}`,
       extensions: {
-        "x-cfPermissionsRequired": {
-          "enum": [
-            "com.cloudflare.api.account.custom-ns-set.delete"
-          ]
-        },
+        "x-api-token-group": [
+          "Account Settings Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "account-settings.write"
+        ],
         "x-stability": "beta"
       },
       responses: {
@@ -199,6 +204,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "dns-settings_api-response-common": dns$$settings_api$$response$$common,
           "dns-settings_api-response-common-failure": dns$$settings_api$$response$$common$$failure,
           "dns-settings_api-response-single": dns$$settings_api$$response$$single,
           "dns-settings_messages": dns$$settings_messages,
@@ -248,6 +254,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/dns-settings_nameserver_set_response_single",
       $defs: {
+        "dns-settings_api-response-common": dns$$settings_api$$response$$common,
         "dns-settings_api-response-single": dns$$settings_api$$response$$single,
         "dns-settings_messages": dns$$settings_messages,
         "dns-settings_nameserver-set-address-groups": dns$$settings_nameserver$$set$$address$$groups,
@@ -276,13 +283,11 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
-          "Account DNS Settings Write"
+          "Account Settings Write"
         ],
-        "x-cfPermissionsRequired": {
-          "enum": [
-            "com.cloudflare.api.account.custom-ns-set.update"
-          ]
-        },
+        "x-forge-oauth-scopes": [
+          "account-settings.write"
+        ],
         "x-stability": "beta"
       },
       responses: {
@@ -295,6 +300,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "dns-settings_api-response-common": dns$$settings_api$$response$$common,
           "dns-settings_api-response-common-failure": dns$$settings_api$$response$$common$$failure,
           "dns-settings_api-response-single": dns$$settings_api$$response$$single,
           "dns-settings_messages": dns$$settings_messages,
@@ -346,6 +352,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/dns-settings_nameserver_set_response_single",
       $defs: {
+        "dns-settings_api-response-common": dns$$settings_api$$response$$common,
         "dns-settings_api-response-single": dns$$settings_api$$response$$single,
         "dns-settings_messages": dns$$settings_messages,
         "dns-settings_nameserver-set-address-groups": dns$$settings_nameserver$$set$$address$$groups,
@@ -373,14 +380,13 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/dns_settings/nameserver_sets/${"nameserver_set_id"}`,
       extensions: {
         "x-api-token-group": [
-          "Account DNS Settings Write",
-          "Account DNS Settings Read"
+          "Account Settings Write",
+          "Account Settings Read"
         ],
-        "x-cfPermissionsRequired": {
-          "enum": [
-            "com.cloudflare.api.account.custom-ns-set.read"
-          ]
-        },
+        "x-forge-oauth-scopes": [
+          "account-settings.read",
+          "account-settings.write"
+        ],
         "x-stability": "beta"
       },
       responses: {
@@ -393,6 +399,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "dns-settings_api-response-common": dns$$settings_api$$response$$common,
           "dns-settings_api-response-common-failure": dns$$settings_api$$response$$common$$failure,
           "dns-settings_api-response-single": dns$$settings_api$$response$$single,
           "dns-settings_messages": dns$$settings_messages,
@@ -487,14 +494,13 @@ export const tools: readonly Tool[] = [
       ],
       extensions: {
         "x-api-token-group": [
-          "Account DNS Settings Write",
-          "Account DNS Settings Read"
+          "Account Settings Write",
+          "Account Settings Read"
         ],
-        "x-cfPermissionsRequired": {
-          "enum": [
-            "com.cloudflare.api.account.custom-ns-set.list"
-          ]
-        },
+        "x-forge-oauth-scopes": [
+          "account-settings.read",
+          "account-settings.write"
+        ],
         "x-stability": "beta"
       },
       responses: {

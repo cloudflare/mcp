@@ -3,9 +3,9 @@
 
 import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
 import {
-  botnet$$feed$$api_api$$response$$common,
-  botnet$$feed$$api_api$$response$$common$$failure,
-  botnet$$feed$$api_messages,
+  botnet$$feed_api$$response$$common,
+  botnet$$feed_api$$response$$common$$failure,
+  botnet$$feed_messages,
 } from "../outputs.js";
 
 /**
@@ -55,7 +55,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "allOf": [
         {
-          "$ref": "#/$defs/botnet-feed-api_api-response-common"
+          "$ref": "#/$defs/botnet-feed_api-response-common"
         },
         {
           "properties": {
@@ -79,8 +79,8 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "botnet-feed-api_api-response-common": botnet$$feed$$api_api$$response$$common,
-        "botnet-feed-api_messages": botnet$$feed$$api_messages,
+        "botnet-feed_api-response-common": botnet$$feed_api$$response$$common,
+        "botnet-feed_messages": botnet$$feed_messages,
       },
     },
     annotations: {
@@ -101,6 +101,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "DDoS Botnet Feed Write",
           "DDoS Botnet Feed Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "ddos-botnet-feed.read",
+          "ddos-botnet-feed.write"
         ]
       },
       responses: {
@@ -108,7 +112,7 @@ export const tools: readonly Tool[] = [
           "200": {
             "allOf": [
               {
-                "$ref": "#/$defs/botnet-feed-api_api-response-common"
+                "$ref": "#/$defs/botnet-feed_api-response-common"
               },
               {
                 "properties": {
@@ -133,13 +137,13 @@ export const tools: readonly Tool[] = [
             ]
           },
           "4XX": {
-            "$ref": "#/$defs/botnet-feed-api_api-response-common-failure"
+            "$ref": "#/$defs/botnet-feed_api-response-common-failure"
           }
         },
         $defs: {
-          "botnet-feed-api_api-response-common": botnet$$feed$$api_api$$response$$common,
-          "botnet-feed-api_api-response-common-failure": botnet$$feed$$api_api$$response$$common$$failure,
-          "botnet-feed-api_messages": botnet$$feed$$api_messages,
+          "botnet-feed_api-response-common": botnet$$feed_api$$response$$common,
+          "botnet-feed_api-response-common-failure": botnet$$feed_api$$response$$common$$failure,
+          "botnet-feed_messages": botnet$$feed_messages,
         },
       },
     },
@@ -177,7 +181,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "allOf": [
         {
-          "$ref": "#/$defs/botnet-feed-api_api-response-common"
+          "$ref": "#/$defs/botnet-feed_api-response-common"
         },
         {
           "properties": {
@@ -201,8 +205,8 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "botnet-feed-api_api-response-common": botnet$$feed$$api_api$$response$$common,
-        "botnet-feed-api_messages": botnet$$feed$$api_messages,
+        "botnet-feed_api-response-common": botnet$$feed_api$$response$$common,
+        "botnet-feed_messages": botnet$$feed_messages,
       },
     },
     annotations: {
@@ -220,6 +224,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "DDoS Botnet Feed Write",
           "DDoS Botnet Feed Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "ddos-botnet-feed.read",
+          "ddos-botnet-feed.write"
         ]
       },
       responses: {
@@ -227,7 +235,7 @@ export const tools: readonly Tool[] = [
           "200": {
             "allOf": [
               {
-                "$ref": "#/$defs/botnet-feed-api_api-response-common"
+                "$ref": "#/$defs/botnet-feed_api-response-common"
               },
               {
                 "properties": {
@@ -252,13 +260,13 @@ export const tools: readonly Tool[] = [
             ]
           },
           "4XX": {
-            "$ref": "#/$defs/botnet-feed-api_api-response-common-failure"
+            "$ref": "#/$defs/botnet-feed_api-response-common-failure"
           }
         },
         $defs: {
-          "botnet-feed-api_api-response-common": botnet$$feed$$api_api$$response$$common,
-          "botnet-feed-api_api-response-common-failure": botnet$$feed$$api_api$$response$$common$$failure,
-          "botnet-feed-api_messages": botnet$$feed$$api_messages,
+          "botnet-feed_api-response-common": botnet$$feed_api$$response$$common,
+          "botnet-feed_api-response-common-failure": botnet$$feed_api$$response$$common$$failure,
+          "botnet-feed_messages": botnet$$feed_messages,
         },
       },
     },

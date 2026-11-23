@@ -3,12 +3,12 @@
 
 import { OPERATION, type Tool, encodePath } from "../../../../_/tool.js";
 import {
+  logcontrol_api$$response$$common,
   logcontrol_api$$response$$common$$failure,
   logcontrol_api$$response$$single,
   logcontrol_messages,
 } from "../../outputs.js";
 import {
-  logcontrol_api$$response$$common,
   logcontrol_cmb_config,
   logcontrol_cmb_config_response_single,
 } from "./outputs.js";
@@ -54,6 +54,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/logcontrol_cmb_config_response_single",
       $defs: {
+        "logcontrol_api-response-common": logcontrol_api$$response$$common,
         "logcontrol_api-response-single": logcontrol_api$$response$$single,
         "logcontrol_cmb_config": logcontrol_cmb_config,
         "logcontrol_cmb_config_response_single": logcontrol_cmb_config_response_single,
@@ -80,7 +81,10 @@ export const tools: readonly Tool[] = [
           "enum": [
             "#logs:edit"
           ]
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "account-logs.write"
+        ]
       },
       responses: {
         schemas: {
@@ -92,6 +96,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "logcontrol_api-response-common": logcontrol_api$$response$$common,
           "logcontrol_api-response-common-failure": logcontrol_api$$response$$common$$failure,
           "logcontrol_api-response-single": logcontrol_api$$response$$single,
           "logcontrol_cmb_config": logcontrol_cmb_config,
@@ -165,7 +170,10 @@ export const tools: readonly Tool[] = [
           "enum": [
             "#logs:edit"
           ]
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "account-logs.write"
+        ]
       },
       responses: {
         schemas: {
@@ -225,6 +233,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/logcontrol_cmb_config_response_single",
       $defs: {
+        "logcontrol_api-response-common": logcontrol_api$$response$$common,
         "logcontrol_api-response-single": logcontrol_api$$response$$single,
         "logcontrol_cmb_config": logcontrol_cmb_config,
         "logcontrol_cmb_config_response_single": logcontrol_cmb_config_response_single,
@@ -252,7 +261,11 @@ export const tools: readonly Tool[] = [
             "#logs:read",
             "#analytics:read"
           ]
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "account-logs.read",
+          "account-logs.write"
+        ]
       },
       responses: {
         schemas: {
@@ -264,6 +277,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "logcontrol_api-response-common": logcontrol_api$$response$$common,
           "logcontrol_api-response-common-failure": logcontrol_api$$response$$common$$failure,
           "logcontrol_api-response-single": logcontrol_api$$response$$single,
           "logcontrol_cmb_config": logcontrol_cmb_config,

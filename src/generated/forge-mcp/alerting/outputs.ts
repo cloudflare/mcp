@@ -78,26 +78,7 @@ export const aaa_api$$response$$common$$failure$$3: JSONObject = {
  * The schema of `aaa_api-response-single` in responses.
  */
 export const aaa_api$$response$$single: JSONObject = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/aaa_messages-3"
-    },
-    "messages": {
-      "$ref": "#/$defs/aaa_messages-3"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  "$ref": "#/$defs/aaa_api-response-common-2"
 };
 
 /**

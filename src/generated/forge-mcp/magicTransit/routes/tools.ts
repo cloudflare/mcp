@@ -116,7 +116,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "magic-wan.write",
+          "magic-transit.write"
+        ]
       },
       responses: {
         schemas: {
@@ -217,7 +221,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "magic-wan.write",
+          "magic-transit.write"
+        ]
       },
       responses: {
         schemas: {
@@ -312,7 +320,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "magic-wan.write",
+          "magic-transit.write"
+        ]
       },
       responses: {
         schemas: {
@@ -411,7 +423,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "magic-wan.write",
+          "magic-transit.write"
+        ]
       },
       responses: {
         schemas: {
@@ -508,7 +524,13 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "magic-wan.read",
+          "magic-transit.read",
+          "magic-wan.write",
+          "magic-transit.write"
+        ]
       },
       responses: {
         schemas: {
@@ -595,7 +617,13 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "magic-wan.read",
+          "magic-transit.read",
+          "magic-wan.write",
+          "magic-transit.write"
+        ]
       },
       responses: {
         schemas: {
@@ -657,6 +685,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "magic_colo_names": magic_colo_names$,
         "magic_colo_regions": magic_colo_regions$,
+        "magic_route_add_single_request": magic_route_add_single_request,
         "magic_route_update_request": magic_route_update_request,
         "magic_scope": magic_scope$,
       },
@@ -701,7 +730,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "magic-wan.write",
+          "magic-transit.write"
+        ]
       },
       responses: {
         schemas: {

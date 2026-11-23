@@ -4,9 +4,9 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
- * The schema of `bill-subs-api_address_validation_request`.
+ * The schema of `bill-subs_address_validation_request`.
  */
-export const bill$$subs$$api_address_validation_request: JSONObject = {
+export const bill$$subs_address_validation_request: JSONObject = {
   "properties": {
     "address": {
       "description": "Address line 1.",

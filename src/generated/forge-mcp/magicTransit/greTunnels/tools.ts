@@ -30,6 +30,7 @@ import {
 } from "./outputs.js";
 import {
   magic_create_gre_tunnel_request,
+  magic_gre_tunnel_add_single_request,
   magic_gre_tunnel_update_request,
 } from "./schemas.js";
 
@@ -115,7 +116,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "magic-wan.write",
+          "magic-transit.write"
+        ]
       },
       responses: {
         schemas: {
@@ -227,7 +232,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "magic-wan.write",
+          "magic-transit.write"
+        ]
       },
       responses: {
         schemas: {
@@ -332,7 +341,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "magic-wan.write",
+          "magic-transit.write"
+        ]
       },
       responses: {
         schemas: {
@@ -439,7 +452,13 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "magic-wan.read",
+          "magic-transit.read",
+          "magic-wan.write",
+          "magic-transit.write"
+        ]
       },
       responses: {
         schemas: {
@@ -541,7 +560,13 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "magic-wan.read",
+          "magic-transit.read",
+          "magic-wan.write",
+          "magic-transit.write"
+        ]
       },
       responses: {
         schemas: {
@@ -613,6 +638,7 @@ export const tools: readonly Tool[] = [
       ],
       additionalProperties: false,
       $defs: {
+        "magic_gre_tunnel_add_single_request": magic_gre_tunnel_add_single_request,
         "magic_gre_tunnel_update_request": magic_gre_tunnel_update_request,
         "magic_health_check_base": magic_health_check_base$,
         "magic_health_check_target": magic_health_check_target$,
@@ -657,7 +683,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "magic-wan.write",
+          "magic-transit.write"
+        ]
       },
       responses: {
         schemas: {

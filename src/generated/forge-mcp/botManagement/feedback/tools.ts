@@ -86,7 +86,13 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "bot-management-feedback.read",
+          "bot-management-feedback.write",
+          "bot-management.read",
+          "bot-management.write"
+        ]
       },
       responses: {
         schemas: {
@@ -164,7 +170,13 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "bot-management-feedback.read",
+          "bot-management-feedback.write",
+          "bot-management.read",
+          "bot-management.write"
+        ]
       },
       responses: {
         schemas: {

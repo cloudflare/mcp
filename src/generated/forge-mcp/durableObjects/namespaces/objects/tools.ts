@@ -122,6 +122,14 @@ export const tools: readonly Tool[] = [
           "Individual Workers Editor",
           "Individual Workers Content Read-Only",
           "Individual Workers Metadata Read-Only"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-scripts.read",
+          "workers-scripts.write",
+          "workers-scripts.content_read",
+          "workers-scripts.metadata_read",
+          "workers-scripts.edit",
+          "workers-scripts.admin"
         ]
       },
       responses: {

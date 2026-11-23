@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../../../_/tool.js";
 import {
+  dnssec_api$$response$$common,
   dnssec_api$$response$$common$$failure,
   dnssec_api$$response$$single,
   dnssec_messages,
@@ -16,11 +17,11 @@ import {
 } from "./outputs.js";
 
 /**
- * The tools of `dns.dnssec.list`.
+ * The tools of `dns.dnssec.zsks`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "dns_dnssec_list_zsks",
+    name: "dns_dnssec_zsks_list",
     title: "List DNSSEC ZSKs",
     description: "List the Zone Signing Keys (ZSKs) that DNSSEC uses for the zone.\n\nGET /zones/{zone_id}/dnssec/zsk",
     inputSchema: {
@@ -48,6 +49,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/dnssec_dnssec_zsk_response_collection",
       $defs: {
+        "dnssec_api-response-common": dnssec_api$$response$$common,
         "dnssec_api-response-single": dnssec_api$$response$$single,
         "dnssec_dnskey_record": dnssec_dnskey_record,
         "dnssec_dnskey_record_header": dnssec_dnskey_record_header,
@@ -78,7 +80,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "dns.read",
+          "dns.write"
+        ]
       },
       responses: {
         schemas: {
@@ -90,6 +96,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "dnssec_api-response-common": dnssec_api$$response$$common,
           "dnssec_api-response-common-failure": dnssec_api$$response$$common$$failure,
           "dnssec_api-response-single": dnssec_api$$response$$single,
           "dnssec_dnskey_record": dnssec_dnskey_record,

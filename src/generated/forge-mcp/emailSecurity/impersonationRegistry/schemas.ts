@@ -7,7 +7,15 @@ import type { JSONObject } from "@modelcontextprotocol/server";
  * The schema of `email-security_CreateImpersonationRegistry`.
  */
 export const email$$security_CreateImpersonationRegistry: JSONObject = {
-  "description": "Create an impersonation registry entry.",
+  "$ref": "#/$defs/email-security_ImpersonationRegistry",
+  "description": "Create an impersonation registry entry."
+};
+
+/**
+ * The schema of `email-security_ImpersonationRegistry`.
+ */
+export const email$$security_ImpersonationRegistry: JSONObject = {
+  "description": "An impersonation registry entry.",
   "properties": {
     "comments": {
       "description": "Optional note describing the entry.",
@@ -84,11 +92,6 @@ export const email$$security_CreateImpersonationRegistry: JSONObject = {
       ]
     }
   },
-  "required": [
-    "email",
-    "is_email_regex",
-    "name"
-  ],
   "type": "object"
 };
 
@@ -96,82 +99,6 @@ export const email$$security_CreateImpersonationRegistry: JSONObject = {
  * The schema of `email-security_UpdateImpersonationRegistry`.
  */
 export const email$$security_UpdateImpersonationRegistry: JSONObject = {
-  "description": "Update an impersonation registry entry.",
-  "properties": {
-    "comments": {
-      "description": "Optional note describing the entry.",
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "directory_id": {
-      "description": "Identifier of the directory the entry was synced from, when directory-synced.",
-      "oneOf": [
-        {
-          "type": "integer"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "directory_node_id": {
-      "description": "Identifier of the directory node the entry was synced from, when directory-synced.",
-      "oneOf": [
-        {
-          "type": "integer"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "email": {
-      "description": "Email address (or pattern) of the protected identity.",
-      "type": "string"
-    },
-    "external_directory_node_id": {
-      "deprecated": true,
-      "description": "Deprecated. External identifier of the directory node.",
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "is_email_regex": {
-      "description": "Whether `email` is a regular expression instead of a literal address.",
-      "type": "boolean"
-    },
-    "name": {
-      "description": "Display name of the protected identity.",
-      "type": "string"
-    },
-    "provenance": {
-      "description": "Source the entry was created from.",
-      "oneOf": [
-        {
-          "enum": [
-            "A1S_INTERNAL",
-            "SNOOPY-CASB_OFFICE_365",
-            "SNOOPY-OFFICE_365",
-            "SNOOPY-GOOGLE_DIRECTORY"
-          ],
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    }
-  },
-  "type": "object"
+  "$ref": "#/$defs/email-security_ImpersonationRegistry",
+  "description": "Update an impersonation registry entry."
 };

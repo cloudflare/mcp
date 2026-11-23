@@ -64,9 +64,9 @@ export const magic_create_gre_tunnel_request: JSONObject = {
 };
 
 /**
- * The schema of `magic_gre_tunnel_update_request`.
+ * The schema of `magic_gre_tunnel_add_single_request`.
  */
-export const magic_gre_tunnel_update_request: JSONObject = {
+export const magic_gre_tunnel_add_single_request: JSONObject = {
   "properties": {
     "automatic_return_routing": {
       "default": false,
@@ -118,4 +118,11 @@ export const magic_gre_tunnel_update_request: JSONObject = {
     "name"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `magic_gre_tunnel_update_request`.
+ */
+export const magic_gre_tunnel_update_request: JSONObject = {
+  "$ref": "#/$defs/magic_gre_tunnel_add_single_request"
 };

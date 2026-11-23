@@ -47,6 +47,10 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "User Details Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "user-details.read",
+          "user-details.write"
         ]
       },
       responses: {
@@ -123,6 +127,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "User Details Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "user-details.write"
         ]
       },
       responses: {

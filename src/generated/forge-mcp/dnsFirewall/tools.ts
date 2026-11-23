@@ -67,6 +67,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/dns-firewall_dns_firewall_single_response",
       $defs: {
+        "dns-firewall_api-response-common": dns$$firewall_api$$response$$common,
         "dns-firewall_api-response-single": dns$$firewall_api$$response$$single,
         "dns-firewall_attack_mitigation": dns$$firewall_attack_mitigation,
         "dns-firewall_dns-firewall-cluster": dns$$firewall_dns$$firewall$$cluster,
@@ -103,7 +104,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "dns-firewall.write"
+        ]
       },
       responses: {
         schemas: {
@@ -115,6 +119,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "dns-firewall_api-response-common": dns$$firewall_api$$response$$common,
           "dns-firewall_api-response-common-failure": dns$$firewall_api$$response$$common$$failure,
           "dns-firewall_api-response-single": dns$$firewall_api$$response$$single,
           "dns-firewall_attack_mitigation": dns$$firewall_attack_mitigation,
@@ -179,6 +184,7 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
+        "dns-firewall_api-response-common": dns$$firewall_api$$response$$common,
         "dns-firewall_api-response-single": dns$$firewall_api$$response$$single,
         "dns-firewall_messages": dns$$firewall_messages,
       },
@@ -208,7 +214,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "dns-firewall.write"
+        ]
       },
       responses: {
         schemas: {
@@ -237,6 +246,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "dns-firewall_api-response-common": dns$$firewall_api$$response$$common,
           "dns-firewall_api-response-common-failure": dns$$firewall_api$$response$$common$$failure,
           "dns-firewall_api-response-single": dns$$firewall_api$$response$$single,
           "dns-firewall_messages": dns$$firewall_messages,
@@ -280,6 +290,7 @@ export const tools: readonly Tool[] = [
       additionalProperties: false,
       $defs: {
         "dns-firewall_attack_mitigation": dns$$firewall_attack_mitigation$,
+        "dns-firewall_dns-firewall-cluster": dns$$firewall_dns$$firewall$$cluster$,
         "dns-firewall_dns-firewall-cluster-patch": dns$$firewall_dns$$firewall$$cluster$$patch,
         "dns-firewall_upstream_ips": dns$$firewall_upstream_ips$,
       },
@@ -287,6 +298,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/dns-firewall_dns_firewall_single_response",
       $defs: {
+        "dns-firewall_api-response-common": dns$$firewall_api$$response$$common,
         "dns-firewall_api-response-single": dns$$firewall_api$$response$$single,
         "dns-firewall_attack_mitigation": dns$$firewall_attack_mitigation,
         "dns-firewall_dns-firewall-cluster": dns$$firewall_dns$$firewall$$cluster,
@@ -323,7 +335,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "dns-firewall.write"
+        ]
       },
       responses: {
         schemas: {
@@ -335,6 +350,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "dns-firewall_api-response-common": dns$$firewall_api$$response$$common,
           "dns-firewall_api-response-common-failure": dns$$firewall_api$$response$$common$$failure,
           "dns-firewall_api-response-single": dns$$firewall_api$$response$$single,
           "dns-firewall_attack_mitigation": dns$$firewall_attack_mitigation,
@@ -382,6 +398,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/dns-firewall_dns_firewall_single_response",
       $defs: {
+        "dns-firewall_api-response-common": dns$$firewall_api$$response$$common,
         "dns-firewall_api-response-single": dns$$firewall_api$$response$$single,
         "dns-firewall_attack_mitigation": dns$$firewall_attack_mitigation,
         "dns-firewall_dns-firewall-cluster": dns$$firewall_dns$$firewall$$cluster,
@@ -418,7 +435,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "dns-firewall.read",
+          "dns-firewall.write"
+        ]
       },
       responses: {
         schemas: {
@@ -430,6 +451,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "dns-firewall_api-response-common": dns$$firewall_api$$response$$common,
           "dns-firewall_api-response-common-failure": dns$$firewall_api$$response$$common$$failure,
           "dns-firewall_api-response-single": dns$$firewall_api$$response$$single,
           "dns-firewall_attack_mitigation": dns$$firewall_attack_mitigation,
@@ -529,7 +551,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "dns-firewall.read",
+          "dns-firewall.write"
+        ]
       },
       responses: {
         schemas: {

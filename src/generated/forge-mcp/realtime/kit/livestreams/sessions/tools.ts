@@ -79,8 +79,14 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/realtime/kit/${"app_id"}/livestreams/sessions/${"livestream-session-id"}`,
       extensions: {
         "x-api-token-group": [
+          "Realtime Read",
           "Realtime Admin",
           "Realtime"
+        ],
+        "x-forge-oauth-scopes": [
+          "realtime.read",
+          "realtime.write",
+          "realtime.admin"
         ]
       },
       responses: {
@@ -191,8 +197,14 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/realtime/kit/${"app_id"}/livestreams/${"livestream_id"}/active-livestream-session`,
       extensions: {
         "x-api-token-group": [
+          "Realtime Read",
           "Realtime Admin",
           "Realtime"
+        ],
+        "x-forge-oauth-scopes": [
+          "realtime.read",
+          "realtime.write",
+          "realtime.admin"
         ]
       },
       responses: {

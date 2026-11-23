@@ -4,33 +4,16 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
- * The schema of `realtimekit_SessionParticipant` in responses.
+ * The schema of `realtimekit_ActionParticipant` in responses.
  */
-export const realtimekit_SessionParticipant: JSONObject = {
+export const realtimekit_ActionParticipant: JSONObject = {
   "properties": {
-    "created_at": {
-      "type": "string"
-    },
-    "email": {
-      "type": "string"
-    },
     "id": {
-      "type": "string"
-    },
-    "name": {
-      "type": "string"
-    },
-    "picture": {
-      "type": "string"
-    },
-    "updated_at": {
       "type": "string"
     }
   },
   "required": [
-    "created_at",
-    "id",
-    "updated_at"
+    "id"
   ],
   "type": "object"
 };

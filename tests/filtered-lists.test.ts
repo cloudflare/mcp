@@ -307,16 +307,16 @@ describe('forge tools', () => {
 
   it('challenge for the zone scope on a zone path and the account scope on an account path', async () => {
     const token = await connectWithOAuth(BASELINE)
-    answer(`/zones/${ZONE_ID}/access/apps`, cfSuccess([]))
-    answer(`/accounts/${ACCOUNT_ID}/access/apps`, cfSuccess([]))
-    const apps = (args: Record<string, unknown>) =>
-      callDirectTool(token, 'zeroTrust_access_applications_list', args, FORGE_QUERY)
+    answer(`/zones/${ZONE_ID}/logs/explorer/datasets`, cfSuccess([]))
+    answer(`/accounts/${ACCOUNT_ID}/logs/explorer/datasets`, cfSuccess([]))
+    const datasets = (args: Record<string, unknown>) =>
+      callDirectTool(token, 'logs_datasets_list', args, FORGE_QUERY)
 
     expectChallenge(
-      await apps({ path: { account_or_zone: 'zones', account_or_zone_id: ZONE_ID } }),
-      'zone-access.read'
+      await datasets({ path: { account_or_zone: 'zones', account_or_zone_id: ZONE_ID } }),
+      'logs.read'
     )
-    expectChallenge(await apps({ path: { account_or_zone: 'accounts' } }), 'access.read')
+    expectChallenge(await datasets({ path: { account_or_zone: 'accounts' } }), 'account-logs.read')
   })
 })
 

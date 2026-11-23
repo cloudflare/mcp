@@ -58,6 +58,7 @@ import { tools as aiGateway_evaluationsTools } from "./aiGateway/evaluations/too
 import { tools as aiGateway_gateways_providersTools } from "./aiGateway/gateways/providers/tools.js";
 import { tools as aiGateway_gatewaysTools } from "./aiGateway/gateways/tools.js";
 import { tools as aiGateway_logsTools } from "./aiGateway/logs/tools.js";
+import { tools as aiGateway_modelAliasesTools } from "./aiGateway/modelAliases/tools.js";
 import { tools as aiSearch_itemsTools } from "./aiSearch/items/tools.js";
 import { tools as aiSearch_jobsTools } from "./aiSearch/jobs/tools.js";
 import { tools as aiSearch_namespaceTools } from "./aiSearch/namespace/tools.js";
@@ -155,7 +156,6 @@ import { tools as builds_triggers_environmentVariablesTools } from "./builds/tri
 import { tools as builds_triggersTools } from "./builds/triggers/tools.js";
 import { tools as builds_versionsTools } from "./builds/versions/tools.js";
 import { tools as builds_workersTools } from "./builds/workers/tools.js";
-import { tools as cache_originCloudRegions_bulkTools } from "./cache/originCloudRegions/bulk/tools.js";
 import { tools as cache_originCloudRegions_regionsTools } from "./cache/originCloudRegions/regions/tools.js";
 import { tools as cache_originCloudRegionsTools } from "./cache/originCloudRegions/tools.js";
 import { tools as cache_settings_regionalTieredCacheTools } from "./cache/settings/regionalTieredCache/tools.js";
@@ -274,13 +274,13 @@ import { tools as diagnostics_endpointHealthchecksTools } from "./diagnostics/en
 import { tools as diagnostics_traceroutesTools } from "./diagnostics/traceroutes/tools.js";
 import { tools as dls_regionalServices_prefixBindingsTools } from "./dls/regionalServices/prefixBindings/tools.js";
 import { tools as dls_regionsTools } from "./dls/regions/tools.js";
-import { tools as dns_dnssec_listTools } from "./dns/dnssec/list/tools.js";
 import { tools as dns_dnssecTools } from "./dns/dnssec/tools.js";
+import { tools as dns_dnssec_zsksTools } from "./dns/dnssec/zsks/tools.js";
 import { tools as dns_recordsTools } from "./dns/records/tools.js";
 import { tools as dns_settings_account_nameserverSetsTools } from "./dns/settings/account/nameserverSets/tools.js";
 import { tools as dns_settings_accountTools } from "./dns/settings/account/tools.js";
-import { tools as dns_settings_account_viewsTools } from "./dns/settings/account/views/tools.js";
 import { tools as dns_usage_accountTools } from "./dns/usage/account/tools.js";
+import { tools as dns_viewsTools } from "./dns/views/tools.js";
 import { tools as dns_zoneTransfers_aclsTools } from "./dns/zoneTransfers/acls/tools.js";
 import { tools as dns_zoneTransfers_incomingTools } from "./dns/zoneTransfers/incoming/tools.js";
 import { tools as dns_zoneTransfers_outgoingTools } from "./dns/zoneTransfers/outgoing/tools.js";
@@ -326,6 +326,7 @@ import { tools as emailSending_subdomains_reputationTools } from "./emailSending
 import { tools as emailSending_subdomainsTools } from "./emailSending/subdomains/tools.js";
 import { tools as emailSending_suppressionsTools } from "./emailSending/suppressions/tools.js";
 import { tools as emailSendingTools } from "./emailSending/tools.js";
+import { tools as feedbackTools } from "./feedback/tools.js";
 import { tools as fieldExtractorsTools } from "./fieldExtractors/tools.js";
 import { tools as firewall_accessRulesTools } from "./firewall/accessRules/tools.js";
 import { tools as firewall_lockdownsTools } from "./firewall/lockdowns/tools.js";
@@ -458,7 +459,6 @@ import { tools as managedDefense_vulnerabilityDiscovery_scansTools } from "./man
 import { tools as managedTransformsTools } from "./managedTransforms/tools.js";
 import { tools as mcp_portalsTools } from "./mcp/portals/tools.js";
 import { tools as mcp_serversTools } from "./mcp/servers/tools.js";
-import { tools as media_usageTools } from "./media/usage/tools.js";
 import { tools as mesh_nodes_configurationsTools } from "./mesh/nodes/configurations/tools.js";
 import { tools as mesh_nodes_connectionsTools } from "./mesh/nodes/connections/tools.js";
 import { tools as mesh_nodes_connectorsTools } from "./mesh/nodes/connectors/tools.js";
@@ -502,6 +502,7 @@ import { tools as organizations_sharesTools } from "./organizations/shares/tools
 import { tools as organizationsTools } from "./organizations/tools.js";
 import { tools as pageRulesTools } from "./pageRules/tools.js";
 import { tools as pages_buildCacheTools } from "./pages/buildCache/tools.js";
+import { tools as pages_deployHooksTools } from "./pages/deployHooks/tools.js";
 import { tools as pages_deployments_history_logsTools } from "./pages/deployments/history/logs/tools.js";
 import { tools as pages_deploymentsTools } from "./pages/deployments/tools.js";
 import { tools as pages_domainsTools } from "./pages/domains/tools.js";
@@ -514,7 +515,9 @@ import { tools as payPerCrawl_crawlersTools } from "./payPerCrawl/crawlers/tools
 import { tools as payPerCrawl_publisher_stripeTools } from "./payPerCrawl/publisher/stripe/tools.js";
 import { tools as payPerCrawl_termsTools } from "./payPerCrawl/terms/tools.js";
 import { tools as payPerCrawl_zonesTools } from "./payPerCrawl/zones/tools.js";
+import { tools as payPerUse_agreementsTools } from "./payPerUse/agreements/tools.js";
 import { tools as payPerUse_enabledDomainsTools } from "./payPerUse/enabledDomains/tools.js";
+import { tools as payPerUse_enabledPublishersTools } from "./payPerUse/enabledPublishers/tools.js";
 import { tools as payPerUse_operatorTools } from "./payPerUse/operator/tools.js";
 import { tools as payPerUse_pricingTools } from "./payPerUse/pricing/tools.js";
 import { tools as payPerUse_proposalsTools } from "./payPerUse/proposals/tools.js";
@@ -746,7 +749,6 @@ import { tools as stream_keysTools } from "./stream/keys/tools.js";
 import { tools as stream_liveInputs_outputsTools } from "./stream/liveInputs/outputs/tools.js";
 import { tools as stream_liveInputsTools } from "./stream/liveInputs/tools.js";
 import { tools as streamTools } from "./stream/tools.js";
-import { tools as stream_usageTools } from "./stream/usage/tools.js";
 import { tools as stream_videos_audioTracksTools } from "./stream/videos/audioTracks/tools.js";
 import { tools as stream_videos_captions_languageTools } from "./stream/videos/captions/language/tools.js";
 import { tools as stream_videos_captions_language_vttTools } from "./stream/videos/captions/language/vtt/tools.js";
@@ -797,8 +799,9 @@ import { tools as user_tenantsTools } from "./user/tenants/tools.js";
 import { tools as user_tokens_permissionGroupsTools } from "./user/tokens/permissionGroups/tools.js";
 import { tools as user_tokensTools } from "./user/tokens/tools.js";
 import { tools as userTools } from "./user/tools.js";
-import { tools as vectorize_metadataIndexTools } from "./vectorize/metadataIndex/tools.js";
+import { tools as vectorize_metadataIndexesTools } from "./vectorize/metadataIndexes/tools.js";
 import { tools as vectorizeTools } from "./vectorize/tools.js";
+import { tools as vectorize_vectorsTools } from "./vectorize/vectors/tools.js";
 import { tools as waitingRooms_accountWaitingRoomsTools } from "./waitingRooms/accountWaitingRooms/tools.js";
 import { tools as waitingRooms_events_detailsTools } from "./waitingRooms/events/details/tools.js";
 import { tools as waitingRooms_eventsTools } from "./waitingRooms/events/tools.js";
@@ -1105,6 +1108,7 @@ export const tools: readonly Tool[] = [
   ...aiGateway_gatewaysTools,
   ...aiGateway_gateways_providersTools,
   ...aiGateway_logsTools,
+  ...aiGateway_modelAliasesTools,
   ...aiSearchTools,
   ...aiSearch_itemsTools,
   ...aiSearch_jobsTools,
@@ -1204,7 +1208,6 @@ export const tools: readonly Tool[] = [
   ...builds_workersTools,
   ...cacheTools,
   ...cache_originCloudRegionsTools,
-  ...cache_originCloudRegions_bulkTools,
   ...cache_originCloudRegions_regionsTools,
   ...cache_settings_regionalTieredCacheTools,
   ...cache_settings_reserveTools,
@@ -1322,12 +1325,12 @@ export const tools: readonly Tool[] = [
   ...dls_regionalServices_prefixBindingsTools,
   ...dls_regionsTools,
   ...dns_dnssecTools,
-  ...dns_dnssec_listTools,
+  ...dns_dnssec_zsksTools,
   ...dns_recordsTools,
   ...dns_settings_accountTools,
   ...dns_settings_account_nameserverSetsTools,
-  ...dns_settings_account_viewsTools,
   ...dns_usage_accountTools,
+  ...dns_viewsTools,
   ...dns_zoneTransfersTools,
   ...dns_zoneTransfers_aclsTools,
   ...dns_zoneTransfers_incomingTools,
@@ -1373,6 +1376,7 @@ export const tools: readonly Tool[] = [
   ...emailSending_subdomains_dnsTools,
   ...emailSending_subdomains_reputationTools,
   ...emailSending_suppressionsTools,
+  ...feedbackTools,
   ...fieldExtractorsTools,
   ...firewall_accessRulesTools,
   ...firewall_lockdownsTools,
@@ -1505,7 +1509,6 @@ export const tools: readonly Tool[] = [
   ...managedTransformsTools,
   ...mcp_portalsTools,
   ...mcp_serversTools,
-  ...media_usageTools,
   ...mesh_nodesTools,
   ...mesh_nodes_configurationsTools,
   ...mesh_nodes_connectionsTools,
@@ -1550,6 +1553,7 @@ export const tools: readonly Tool[] = [
   ...pageRulesTools,
   ...pagesTools,
   ...pages_buildCacheTools,
+  ...pages_deployHooksTools,
   ...pages_deploymentsTools,
   ...pages_deployments_history_logsTools,
   ...pages_domainsTools,
@@ -1561,7 +1565,9 @@ export const tools: readonly Tool[] = [
   ...payPerCrawl_publisher_stripeTools,
   ...payPerCrawl_termsTools,
   ...payPerCrawl_zonesTools,
+  ...payPerUse_agreementsTools,
   ...payPerUse_enabledDomainsTools,
+  ...payPerUse_enabledPublishersTools,
   ...payPerUse_operatorTools,
   ...payPerUse_pricingTools,
   ...payPerUse_proposalsTools,
@@ -1793,7 +1799,6 @@ export const tools: readonly Tool[] = [
   ...stream_keysTools,
   ...stream_liveInputsTools,
   ...stream_liveInputs_outputsTools,
-  ...stream_usageTools,
   ...stream_videosTools,
   ...stream_videos_audioTracksTools,
   ...stream_videos_captionsTools,
@@ -1844,7 +1849,8 @@ export const tools: readonly Tool[] = [
   ...user_tokensTools,
   ...user_tokens_permissionGroupsTools,
   ...vectorizeTools,
-  ...vectorize_metadataIndexTools,
+  ...vectorize_metadataIndexesTools,
+  ...vectorize_vectorsTools,
   ...waitingRoomsTools,
   ...waitingRooms_accountWaitingRoomsTools,
   ...waitingRooms_eventsTools,

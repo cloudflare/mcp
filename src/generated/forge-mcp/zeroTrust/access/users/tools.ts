@@ -67,6 +67,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_single_user_response",
       $defs: {
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_messages": access_messages,
         "access_single_user_response": access_single_user_response,
@@ -86,7 +87,16 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/access/users`,
       body: { mediaTypes: ["application/json"] },
       extensions: {
-        "x-api-token-group": null
+        "x-api-token-group": [
+          "Access: Users Write",
+          "Zero Trust Write",
+          "Access: Organizations, Identity Providers, and Groups Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "access-users.write",
+          "access-acct.write",
+          "teams.write"
+        ]
       },
       responses: {
         schemas: {
@@ -98,6 +108,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_messages": access_messages,
@@ -141,6 +152,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_delete_user_response",
       $defs: {
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_delete_user_response": access_delete_user_response,
         "access_messages": access_messages,
@@ -158,7 +170,16 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/access/users/{user_id}",
       pathOf: encodePath`/accounts/${"account_id"}/access/users/${"user_id"}`,
       extensions: {
-        "x-api-token-group": null
+        "x-api-token-group": [
+          "Access: Users Write",
+          "Zero Trust Write",
+          "Access: Organizations, Identity Providers, and Groups Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "access-users.write",
+          "access-acct.write",
+          "teams.write"
+        ]
       },
       responses: {
         schemas: {
@@ -170,6 +191,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_delete_user_response": access_delete_user_response,
@@ -212,6 +234,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_single_user_response",
       $defs: {
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_messages": access_messages,
         "access_single_user_response": access_single_user_response,
@@ -231,7 +254,20 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/access/users/${"user_id"}`,
       extensions: {
         "x-api-token-group": [
-          "Access: Audit Logs Read"
+          "Access: Users Write",
+          "Access: Users Read",
+          "Access: Audit Logs Read",
+          "Zero Trust Read",
+          "Zero Trust Write",
+          "Access: Organizations, Identity Providers, and Groups Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "access-users.read",
+          "access-audit-log.read",
+          "access-users.write",
+          "access-acct.write",
+          "teams.read",
+          "teams.write"
         ]
       },
       responses: {
@@ -244,6 +280,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_messages": access_messages,
@@ -337,7 +374,20 @@ export const tools: readonly Tool[] = [
       ],
       extensions: {
         "x-api-token-group": [
-          "Access: Audit Logs Read"
+          "Access: Users Write",
+          "Access: Users Read",
+          "Access: Audit Logs Read",
+          "Zero Trust Read",
+          "Zero Trust Write",
+          "Access: Organizations, Identity Providers, and Groups Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "access-users.read",
+          "access-audit-log.read",
+          "access-users.write",
+          "access-acct.write",
+          "teams.read",
+          "teams.write"
         ]
       },
       responses: {
@@ -395,7 +445,7 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "account_or_zone": {
-              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "description": "Whether ${account_or_zone} is an account ID (`accounts`) or a zone ID (`zones`).",
               "enum": [
                 "accounts",
                 "zones"
@@ -403,7 +453,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "description": "The account ID or zone ID, as selected by ${account_or_zone}.",
               "type": "string"
             }
           },
@@ -453,8 +503,11 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "Access: Organizations Write",
+          "Zero Trust Write",
           "Access: Organizations, Identity Providers, and Groups Write"
-        ]
+        ],
+        "x-stainless-skip": true
       },
       responses: {
         schemas: {
@@ -525,6 +578,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_single_user_response",
       $defs: {
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_messages": access_messages,
         "access_single_user_response": access_single_user_response,
@@ -545,7 +599,16 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
-          "Zero Trust: Seats Write"
+          "Access: Users Write",
+          "Zero Trust: Seats Write",
+          "Zero Trust Write",
+          "Access: Organizations, Identity Providers, and Groups Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "access-seats.write",
+          "access-users.write",
+          "access-acct.write",
+          "teams.write"
         ]
       },
       responses: {
@@ -558,6 +621,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_messages": access_messages,

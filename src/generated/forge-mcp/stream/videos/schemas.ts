@@ -104,6 +104,15 @@ export const stream_video_copy_request: JSONObject = {
       "description": "A user-defined identifier for the media creator.",
       "type": "string"
     },
+    "encodingMode": {
+      "default": "default",
+      "description": "Specifies whether to generate a preview rendition before the standard encoding ladder. `default` generates only the standard encoding ladder. `previewFirst` generates a preview rendition first.",
+      "enum": [
+        "default",
+        "previewFirst"
+      ],
+      "type": "string"
+    },
     "input": {
       "description": "A video's URL. The server must be publicly routable and support `HTTP HEAD` requests and `HTTP GET` range requests. The server should respond to `HTTP HEAD` requests with a `content-range` header that includes the size of the file. This is the preferred field over `url`.",
       "type": "string"

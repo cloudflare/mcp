@@ -68,6 +68,9 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/pay-per-use/usage-reports",
       pathOf: encodePath`/accounts/${"account_id"}/pay-per-use/usage-reports`,
       body: { mediaTypes: ["application/jsonl"] },
+      extensions: {
+        "x-stability": "beta"
+      },
       responses: {
         schemas: {
           "200": {

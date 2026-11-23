@@ -40,32 +40,6 @@ export const spectrum$$analytics_api$$response$$collection: JSONObject = {
 };
 
 /**
- * The schema of `spectrum-analytics_api-response-common` in responses.
- */
-export const spectrum$$analytics_api$$response$$common: JSONObject = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/spectrum-analytics_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/spectrum-analytics_messages"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
  * The schema of `spectrum-analytics_zone_report` in responses.
  */
 export const spectrum$$analytics_zone_report: JSONObject = {

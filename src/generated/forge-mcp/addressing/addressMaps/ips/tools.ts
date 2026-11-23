@@ -14,274 +14,7 @@ import {
  */
 export const tools: readonly Tool[] = [
   {
-    name: "addressing_addressMaps_ips_delete",
-    title: "Remove an IP from an Address Map",
-    description: "Remove an IP from a particular address map.\n\nDELETE /accounts/{account_id}/addressing/address_maps/{address_map_id}/ips/{ip_address}",
-    inputSchema: {
-      type: "object",
-      properties: {
-        "path": {
-          "additionalProperties": false,
-          "properties": {
-            "account_id": {
-              "description": "Identifier of a Cloudflare account.",
-              "type": "string"
-            },
-            "address_map_id": {
-              "description": "Identifier of an Address Map.",
-              "type": "string"
-            },
-            "ip_address": {
-              "description": "An IPv4 or IPv6 address.",
-              "type": "string"
-            }
-          },
-          "required": [
-            "account_id",
-            "address_map_id",
-            "ip_address"
-          ],
-          "type": "object"
-        }
-      },
-      required: [
-        "path"
-      ],
-      additionalProperties: false,
-    },
-    outputSchema: {
-      "$ref": "#/$defs/addressing_api-response-collection",
-      $defs: {
-        "addressing_api-response-collection": addressing_api$$response$$collection,
-        "addressing_api-response-common": addressing_api$$response$$common,
-        "addressing_messages": addressing_messages,
-      },
-    },
-    annotations: {
-      "destructiveHint": true,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Remove an IP from an Address Map"
-    },
-    [OPERATION]: {
-      method: "DELETE",
-      path: "/accounts/{account_id}/addressing/address_maps/{address_map_id}/ips/{ip_address}",
-      pathOf: encodePath`/accounts/${"account_id"}/addressing/address_maps/${"address_map_id"}/ips/${"ip_address"}`,
-      extensions: {
-        "x-api-token-group": [
-          "Address Maps Write"
-        ]
-      },
-      responses: {
-        schemas: {
-          "200": {
-            "$ref": "#/$defs/addressing_api-response-collection"
-          },
-          "4XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/addressing_api-response-collection"
-              },
-              {
-                "$ref": "#/$defs/addressing_api-response-common-failure"
-              }
-            ]
-          }
-        },
-        $defs: {
-          "addressing_api-response-collection": addressing_api$$response$$collection,
-          "addressing_api-response-common": addressing_api$$response$$common,
-          "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
-          "addressing_messages": addressing_messages,
-        },
-      },
-    },
-  },
-  {
-    name: "addressing_addressMaps_ips_deleteBulk",
-    title: "Remove Multiple IPs from an Address Map",
-    description: "Remove multiple IPs from a particular address map.\n\nDELETE /accounts/{account_id}/addressing/address_maps/{address_map_id}/ips",
-    inputSchema: {
-      type: "object",
-      properties: {
-        "body": {
-          "properties": {
-            "ips": {
-              "items": {
-                "description": "An IPv4 or IPv6 address.",
-                "type": "string"
-              },
-              "type": "array"
-            }
-          },
-          "required": [
-            "ips"
-          ],
-          "type": "object"
-        },
-        "path": {
-          "additionalProperties": false,
-          "properties": {
-            "account_id": {
-              "description": "Identifier of a Cloudflare account.",
-              "type": "string"
-            },
-            "address_map_id": {
-              "description": "Identifier of an Address Map.",
-              "type": "string"
-            }
-          },
-          "required": [
-            "account_id",
-            "address_map_id"
-          ],
-          "type": "object"
-        }
-      },
-      required: [
-        "path",
-        "body"
-      ],
-      additionalProperties: false,
-    },
-    outputSchema: {
-      "$ref": "#/$defs/addressing_api-response-collection",
-      $defs: {
-        "addressing_api-response-collection": addressing_api$$response$$collection,
-        "addressing_api-response-common": addressing_api$$response$$common,
-        "addressing_messages": addressing_messages,
-      },
-    },
-    annotations: {
-      "destructiveHint": true,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Remove Multiple IPs from an Address Map"
-    },
-    [OPERATION]: {
-      method: "DELETE",
-      path: "/accounts/{account_id}/addressing/address_maps/{address_map_id}/ips",
-      pathOf: encodePath`/accounts/${"account_id"}/addressing/address_maps/${"address_map_id"}/ips`,
-      body: { mediaTypes: ["application/json"] },
-      extensions: {
-        "x-api-token-group": [
-          "Address Maps Write"
-        ]
-      },
-      responses: {
-        schemas: {
-          "200": {
-            "$ref": "#/$defs/addressing_api-response-collection"
-          },
-          "4XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/addressing_api-response-collection"
-              },
-              {
-                "$ref": "#/$defs/addressing_api-response-common-failure"
-              }
-            ]
-          }
-        },
-        $defs: {
-          "addressing_api-response-collection": addressing_api$$response$$collection,
-          "addressing_api-response-common": addressing_api$$response$$common,
-          "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
-          "addressing_messages": addressing_messages,
-        },
-      },
-    },
-  },
-  {
-    name: "addressing_addressMaps_ips_update",
-    title: "Add an IP to an Address Map",
-    description: "Add an IP from a prefix owned by the account to a particular address map.\n\nPUT /accounts/{account_id}/addressing/address_maps/{address_map_id}/ips/{ip_address}",
-    inputSchema: {
-      type: "object",
-      properties: {
-        "path": {
-          "additionalProperties": false,
-          "properties": {
-            "account_id": {
-              "description": "Identifier of a Cloudflare account.",
-              "type": "string"
-            },
-            "address_map_id": {
-              "description": "Identifier of an Address Map.",
-              "type": "string"
-            },
-            "ip_address": {
-              "description": "An IPv4 or IPv6 address.",
-              "type": "string"
-            }
-          },
-          "required": [
-            "account_id",
-            "address_map_id",
-            "ip_address"
-          ],
-          "type": "object"
-        }
-      },
-      required: [
-        "path"
-      ],
-      additionalProperties: false,
-    },
-    outputSchema: {
-      "$ref": "#/$defs/addressing_api-response-collection",
-      $defs: {
-        "addressing_api-response-collection": addressing_api$$response$$collection,
-        "addressing_api-response-common": addressing_api$$response$$common,
-        "addressing_messages": addressing_messages,
-      },
-    },
-    annotations: {
-      "destructiveHint": true,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Add an IP to an Address Map"
-    },
-    [OPERATION]: {
-      method: "PUT",
-      path: "/accounts/{account_id}/addressing/address_maps/{address_map_id}/ips/{ip_address}",
-      pathOf: encodePath`/accounts/${"account_id"}/addressing/address_maps/${"address_map_id"}/ips/${"ip_address"}`,
-      extensions: {
-        "x-api-token-group": [
-          "Address Maps Write"
-        ]
-      },
-      responses: {
-        schemas: {
-          "201": {
-            "$ref": "#/$defs/addressing_api-response-collection"
-          },
-          "4XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/addressing_api-response-collection"
-              },
-              {
-                "$ref": "#/$defs/addressing_api-response-common-failure"
-              }
-            ]
-          }
-        },
-        $defs: {
-          "addressing_api-response-collection": addressing_api$$response$$collection,
-          "addressing_api-response-common": addressing_api$$response$$common,
-          "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
-          "addressing_messages": addressing_messages,
-        },
-      },
-    },
-  },
-  {
-    name: "addressing_addressMaps_ips_updateBulk",
+    name: "addressing_addressMaps_ips_bulkCreate",
     title: "Add Multiple IPs to an Address Map",
     description: "Add multiple IPs to a particular address map.\n\nPOST /accounts/{account_id}/addressing/address_maps/{address_map_id}/ips",
     inputSchema: {
@@ -350,6 +83,282 @@ export const tools: readonly Tool[] = [
       responses: {
         schemas: {
           "201": {
+            "$ref": "#/$defs/addressing_api-response-collection"
+          },
+          "4XX": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/addressing_api-response-collection"
+              },
+              {
+                "$ref": "#/$defs/addressing_api-response-common-failure"
+              }
+            ]
+          }
+        },
+        $defs: {
+          "addressing_api-response-collection": addressing_api$$response$$collection,
+          "addressing_api-response-common": addressing_api$$response$$common,
+          "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
+          "addressing_messages": addressing_messages,
+        },
+      },
+    },
+  },
+  {
+    name: "addressing_addressMaps_ips_bulkDelete",
+    title: "Remove Multiple IPs from an Address Map",
+    description: "Remove multiple IPs from a particular address map.\n\nDELETE /accounts/{account_id}/addressing/address_maps/{address_map_id}/ips",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "body": {
+          "properties": {
+            "ips": {
+              "items": {
+                "description": "An IPv4 or IPv6 address.",
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "ips"
+          ],
+          "type": "object"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
+            },
+            "address_map_id": {
+              "description": "Identifier of an Address Map.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "address_map_id"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path",
+        "body"
+      ],
+      additionalProperties: false,
+    },
+    outputSchema: {
+      "$ref": "#/$defs/addressing_api-response-collection",
+      $defs: {
+        "addressing_api-response-collection": addressing_api$$response$$collection,
+        "addressing_api-response-common": addressing_api$$response$$common,
+        "addressing_messages": addressing_messages,
+      },
+    },
+    annotations: {
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Remove Multiple IPs from an Address Map"
+    },
+    [OPERATION]: {
+      method: "DELETE",
+      path: "/accounts/{account_id}/addressing/address_maps/{address_map_id}/ips",
+      pathOf: encodePath`/accounts/${"account_id"}/addressing/address_maps/${"address_map_id"}/ips`,
+      body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-api-token-group": [
+          "Address Maps Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "address-maps.write"
+        ]
+      },
+      responses: {
+        schemas: {
+          "200": {
+            "$ref": "#/$defs/addressing_api-response-collection"
+          },
+          "4XX": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/addressing_api-response-collection"
+              },
+              {
+                "$ref": "#/$defs/addressing_api-response-common-failure"
+              }
+            ]
+          }
+        },
+        $defs: {
+          "addressing_api-response-collection": addressing_api$$response$$collection,
+          "addressing_api-response-common": addressing_api$$response$$common,
+          "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
+          "addressing_messages": addressing_messages,
+        },
+      },
+    },
+  },
+  {
+    name: "addressing_addressMaps_ips_create",
+    title: "Add an IP to an Address Map",
+    description: "Add an IP from a prefix owned by the account to a particular address map.\n\nPUT /accounts/{account_id}/addressing/address_maps/{address_map_id}/ips/{ip_address}",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
+            },
+            "address_map_id": {
+              "description": "Identifier of an Address Map.",
+              "type": "string"
+            },
+            "ip_address": {
+              "description": "An IPv4 or IPv6 address.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "address_map_id",
+            "ip_address"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path"
+      ],
+      additionalProperties: false,
+    },
+    outputSchema: {
+      "$ref": "#/$defs/addressing_api-response-collection",
+      $defs: {
+        "addressing_api-response-collection": addressing_api$$response$$collection,
+        "addressing_api-response-common": addressing_api$$response$$common,
+        "addressing_messages": addressing_messages,
+      },
+    },
+    annotations: {
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Add an IP to an Address Map"
+    },
+    [OPERATION]: {
+      method: "PUT",
+      path: "/accounts/{account_id}/addressing/address_maps/{address_map_id}/ips/{ip_address}",
+      pathOf: encodePath`/accounts/${"account_id"}/addressing/address_maps/${"address_map_id"}/ips/${"ip_address"}`,
+      extensions: {
+        "x-api-token-group": [
+          "Address Maps Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "address-maps.write"
+        ]
+      },
+      responses: {
+        schemas: {
+          "201": {
+            "$ref": "#/$defs/addressing_api-response-collection"
+          },
+          "4XX": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/addressing_api-response-collection"
+              },
+              {
+                "$ref": "#/$defs/addressing_api-response-common-failure"
+              }
+            ]
+          }
+        },
+        $defs: {
+          "addressing_api-response-collection": addressing_api$$response$$collection,
+          "addressing_api-response-common": addressing_api$$response$$common,
+          "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
+          "addressing_messages": addressing_messages,
+        },
+      },
+    },
+  },
+  {
+    name: "addressing_addressMaps_ips_delete",
+    title: "Remove an IP from an Address Map",
+    description: "Remove an IP from a particular address map.\n\nDELETE /accounts/{account_id}/addressing/address_maps/{address_map_id}/ips/{ip_address}",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier of a Cloudflare account.",
+              "type": "string"
+            },
+            "address_map_id": {
+              "description": "Identifier of an Address Map.",
+              "type": "string"
+            },
+            "ip_address": {
+              "description": "An IPv4 or IPv6 address.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "address_map_id",
+            "ip_address"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path"
+      ],
+      additionalProperties: false,
+    },
+    outputSchema: {
+      "$ref": "#/$defs/addressing_api-response-collection",
+      $defs: {
+        "addressing_api-response-collection": addressing_api$$response$$collection,
+        "addressing_api-response-common": addressing_api$$response$$common,
+        "addressing_messages": addressing_messages,
+      },
+    },
+    annotations: {
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Remove an IP from an Address Map"
+    },
+    [OPERATION]: {
+      method: "DELETE",
+      path: "/accounts/{account_id}/addressing/address_maps/{address_map_id}/ips/{ip_address}",
+      pathOf: encodePath`/accounts/${"account_id"}/addressing/address_maps/${"address_map_id"}/ips/${"ip_address"}`,
+      extensions: {
+        "x-api-token-group": [
+          "Address Maps Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "address-maps.write"
+        ]
+      },
+      responses: {
+        schemas: {
+          "200": {
             "$ref": "#/$defs/addressing_api-response-collection"
           },
           "4XX": {

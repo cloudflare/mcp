@@ -10,6 +10,7 @@ import {
   tls$$certificates$$and$$hostnames_messages,
 } from "../../outputs.js";
 import {
+  tls$$certificates$$and$$hostnames_base,
   tls$$certificates$$and$$hostnames_keyless$$certificate,
   tls$$certificates$$and$$hostnames_keyless_tunnel,
 } from "../outputs.js";
@@ -116,7 +117,9 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_response_single",
       $defs: {
+        "tls-certificates-and-hostnames_api-response-common": tls$$certificates$$and$$hostnames_api$$response$$common,
         "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
+        "tls-certificates-and-hostnames_base": tls$$certificates$$and$$hostnames_base,
         "tls-certificates-and-hostnames_certificate_response_single": tls$$certificates$$and$$hostnames_certificate_response_single,
         "tls-certificates-and-hostnames_custom-certificate": tls$$certificates$$and$$hostnames_custom$$certificate,
         "tls-certificates-and-hostnames_geo_restrictions": tls$$certificates$$and$$hostnames_geo_restrictions,
@@ -153,7 +156,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "access-certificate.write",
+          "ssl-and-certificates.write"
+        ]
       },
       responses: {
         schemas: {
@@ -172,8 +179,10 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "tls-certificates-and-hostnames_api-response-common": tls$$certificates$$and$$hostnames_api$$response$$common,
           "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
           "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
+          "tls-certificates-and-hostnames_base": tls$$certificates$$and$$hostnames_base,
           "tls-certificates-and-hostnames_certificate_response_single": tls$$certificates$$and$$hostnames_certificate_response_single,
           "tls-certificates-and-hostnames_custom-certificate": tls$$certificates$$and$$hostnames_custom$$certificate,
           "tls-certificates-and-hostnames_geo_restrictions": tls$$certificates$$and$$hostnames_geo_restrictions,
@@ -219,6 +228,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_response_id_only",
       $defs: {
+        "tls-certificates-and-hostnames_api-response-common": tls$$certificates$$and$$hostnames_api$$response$$common,
         "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
         "tls-certificates-and-hostnames_certificate_response_id_only": tls$$certificates$$and$$hostnames_certificate_response_id_only,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
@@ -250,7 +260,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "access-certificate.write",
+          "ssl-and-certificates.write"
+        ]
       },
       responses: {
         schemas: {
@@ -269,6 +283,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "tls-certificates-and-hostnames_api-response-common": tls$$certificates$$and$$hostnames_api$$response$$common,
           "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
           "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
           "tls-certificates-and-hostnames_certificate_response_id_only": tls$$certificates$$and$$hostnames_certificate_response_id_only,
@@ -359,7 +374,9 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_response_single",
       $defs: {
+        "tls-certificates-and-hostnames_api-response-common": tls$$certificates$$and$$hostnames_api$$response$$common,
         "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
+        "tls-certificates-and-hostnames_base": tls$$certificates$$and$$hostnames_base,
         "tls-certificates-and-hostnames_certificate_response_single": tls$$certificates$$and$$hostnames_certificate_response_single,
         "tls-certificates-and-hostnames_custom-certificate": tls$$certificates$$and$$hostnames_custom$$certificate,
         "tls-certificates-and-hostnames_geo_restrictions": tls$$certificates$$and$$hostnames_geo_restrictions,
@@ -396,7 +413,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "access-certificate.write",
+          "ssl-and-certificates.write"
+        ]
       },
       responses: {
         schemas: {
@@ -415,8 +436,10 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "tls-certificates-and-hostnames_api-response-common": tls$$certificates$$and$$hostnames_api$$response$$common,
           "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
           "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
+          "tls-certificates-and-hostnames_base": tls$$certificates$$and$$hostnames_base,
           "tls-certificates-and-hostnames_certificate_response_single": tls$$certificates$$and$$hostnames_certificate_response_single,
           "tls-certificates-and-hostnames_custom-certificate": tls$$certificates$$and$$hostnames_custom$$certificate,
           "tls-certificates-and-hostnames_geo_restrictions": tls$$certificates$$and$$hostnames_geo_restrictions,
@@ -462,7 +485,9 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_response_single",
       $defs: {
+        "tls-certificates-and-hostnames_api-response-common": tls$$certificates$$and$$hostnames_api$$response$$common,
         "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
+        "tls-certificates-and-hostnames_base": tls$$certificates$$and$$hostnames_base,
         "tls-certificates-and-hostnames_certificate_response_single": tls$$certificates$$and$$hostnames_certificate_response_single,
         "tls-certificates-and-hostnames_custom-certificate": tls$$certificates$$and$$hostnames_custom$$certificate,
         "tls-certificates-and-hostnames_geo_restrictions": tls$$certificates$$and$$hostnames_geo_restrictions,
@@ -500,7 +525,13 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "access-certificate.read",
+          "access-certificate.write",
+          "ssl-and-certificates.read",
+          "ssl-and-certificates.write"
+        ]
       },
       responses: {
         schemas: {
@@ -519,8 +550,10 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "tls-certificates-and-hostnames_api-response-common": tls$$certificates$$and$$hostnames_api$$response$$common,
           "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
           "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
+          "tls-certificates-and-hostnames_base": tls$$certificates$$and$$hostnames_base,
           "tls-certificates-and-hostnames_certificate_response_single": tls$$certificates$$and$$hostnames_certificate_response_single,
           "tls-certificates-and-hostnames_custom-certificate": tls$$certificates$$and$$hostnames_custom$$certificate,
           "tls-certificates-and-hostnames_geo_restrictions": tls$$certificates$$and$$hostnames_geo_restrictions,
@@ -599,6 +632,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "tls-certificates-and-hostnames_api-response-collection": tls$$certificates$$and$$hostnames_api$$response$$collection,
         "tls-certificates-and-hostnames_api-response-common": tls$$certificates$$and$$hostnames_api$$response$$common,
+        "tls-certificates-and-hostnames_base": tls$$certificates$$and$$hostnames_base,
         "tls-certificates-and-hostnames_certificate_response_collection": tls$$certificates$$and$$hostnames_certificate_response_collection,
         "tls-certificates-and-hostnames_custom-certificate": tls$$certificates$$and$$hostnames_custom$$certificate,
         "tls-certificates-and-hostnames_geo_restrictions": tls$$certificates$$and$$hostnames_geo_restrictions,
@@ -642,7 +676,13 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "access-certificate.read",
+          "access-certificate.write",
+          "ssl-and-certificates.read",
+          "ssl-and-certificates.write"
+        ]
       },
       responses: {
         schemas: {
@@ -664,6 +704,7 @@ export const tools: readonly Tool[] = [
           "tls-certificates-and-hostnames_api-response-collection": tls$$certificates$$and$$hostnames_api$$response$$collection,
           "tls-certificates-and-hostnames_api-response-common": tls$$certificates$$and$$hostnames_api$$response$$common,
           "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
+          "tls-certificates-and-hostnames_base": tls$$certificates$$and$$hostnames_base,
           "tls-certificates-and-hostnames_certificate_response_collection": tls$$certificates$$and$$hostnames_certificate_response_collection,
           "tls-certificates-and-hostnames_custom-certificate": tls$$certificates$$and$$hostnames_custom$$certificate,
           "tls-certificates-and-hostnames_geo_restrictions": tls$$certificates$$and$$hostnames_geo_restrictions,

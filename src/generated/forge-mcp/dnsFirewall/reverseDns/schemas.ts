@@ -4,9 +4,9 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
- * The schema of `dns-firewall_dns-firewall-reverse-dns-patch`.
+ * The schema of `dns-firewall_dns-firewall-reverse-dns`.
  */
-export const dns$$firewall_dns$$firewall$$reverse$$dns$$patch: JSONObject = {
+export const dns$$firewall_dns$$firewall$$reverse$$dns: JSONObject = {
   "properties": {
     "ptr": {
       "additionalProperties": {
@@ -17,4 +17,11 @@ export const dns$$firewall_dns$$firewall$$reverse$$dns$$patch: JSONObject = {
     }
   },
   "type": "object"
+};
+
+/**
+ * The schema of `dns-firewall_dns-firewall-reverse-dns-patch`.
+ */
+export const dns$$firewall_dns$$firewall$$reverse$$dns$$patch: JSONObject = {
+  "$ref": "#/$defs/dns-firewall_dns-firewall-reverse-dns"
 };

@@ -94,6 +94,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Cloudflare One Connectors Write",
           "Cloudflare One Connector: WARP Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-connector-warp.write",
+          "teams-connectors.write"
         ]
       },
       responses: {
@@ -184,6 +188,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Cloudflare One Connectors Write",
           "Cloudflare One Connector: WARP Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-connector-warp.write",
+          "teams-connectors.write"
         ]
       },
       responses: {
@@ -289,6 +297,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Cloudflare One Connectors Write",
           "Cloudflare One Connector: WARP Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-connector-warp.write",
+          "teams-connectors.write"
         ]
       },
       responses: {
@@ -390,6 +402,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Cloudflare One Connectors Write",
           "Cloudflare One Connector: WARP Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-connector-warp.write",
+          "teams-connectors.write"
         ]
       },
       responses: {
@@ -478,6 +494,12 @@ export const tools: readonly Tool[] = [
           "Cloudflare One Connectors Read",
           "Cloudflare One Connector: WARP Write",
           "Cloudflare One Connector: WARP Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-connector-warp.read",
+          "teams-connector-warp.write",
+          "teams-connectors.read",
+          "teams-connectors.write"
         ]
       },
       responses: {
@@ -635,6 +657,12 @@ export const tools: readonly Tool[] = [
           "Cloudflare One Connectors Read",
           "Cloudflare One Connector: WARP Write",
           "Cloudflare One Connector: WARP Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-connector-warp.read",
+          "teams-connector-warp.write",
+          "teams-connectors.read",
+          "teams-connectors.write"
         ]
       },
       responses: {

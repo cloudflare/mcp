@@ -3,13 +3,13 @@
 
 import { OPERATION, type Tool, encodePath } from "../../../_/tool.js";
 import {
+  zero$$trust$$gateway_api$$response$$common,
   zero$$trust$$gateway_api$$response$$common$$failure,
   zero$$trust$$gateway_api$$response$$single,
   zero$$trust$$gateway_messages,
 } from "../../outputs.js";
 import {
   zero$$trust$$gateway_api$$response$$collection,
-  zero$$trust$$gateway_api$$response$$common,
   zero$$trust$$gateway_empty_response,
   zero$$trust$$gateway_result_info,
 } from "../outputs.js";
@@ -139,6 +139,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_single_response-3",
       $defs: {
+        "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
         "zero-trust-gateway_doh_endpoint": zero$$trust$$gateway_doh_endpoint,
         "zero-trust-gateway_dot_endpoint": zero$$trust$$gateway_dot_endpoint,
@@ -173,6 +174,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Cloudflare Zero Trust Secure DNS Locations Write",
           "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-secure.location",
+          "teams.write"
         ]
       },
       responses: {
@@ -192,6 +197,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
           "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
           "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
           "zero-trust-gateway_doh_endpoint": zero$$trust$$gateway_doh_endpoint,
@@ -246,6 +252,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_empty_response",
       $defs: {
+        "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
         "zero-trust-gateway_empty_response": zero$$trust$$gateway_empty_response,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
@@ -266,6 +273,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Cloudflare Zero Trust Secure DNS Locations Write",
           "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-secure.location",
+          "teams.write"
         ]
       },
       responses: {
@@ -285,6 +296,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
           "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
           "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
           "zero-trust-gateway_empty_response": zero$$trust$$gateway_empty_response,
@@ -326,6 +338,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_single_response-3",
       $defs: {
+        "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
         "zero-trust-gateway_doh_endpoint": zero$$trust$$gateway_doh_endpoint,
         "zero-trust-gateway_dot_endpoint": zero$$trust$$gateway_dot_endpoint,
@@ -360,6 +373,11 @@ export const tools: readonly Tool[] = [
           "Cloudflare Zero Trust Secure DNS Locations Write",
           "Zero Trust Read",
           "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-secure.location",
+          "teams.read",
+          "teams.write"
         ]
       },
       responses: {
@@ -379,6 +397,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
           "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
           "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
           "zero-trust-gateway_doh_endpoint": zero$$trust$$gateway_doh_endpoint,
@@ -505,6 +524,11 @@ export const tools: readonly Tool[] = [
           "Cloudflare Zero Trust Secure DNS Locations Write",
           "Zero Trust Read",
           "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-secure.location",
+          "teams.read",
+          "teams.write"
         ]
       },
       responses: {
@@ -641,6 +665,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_single_response-3",
       $defs: {
+        "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
         "zero-trust-gateway_doh_endpoint": zero$$trust$$gateway_doh_endpoint,
         "zero-trust-gateway_dot_endpoint": zero$$trust$$gateway_dot_endpoint,
@@ -675,6 +700,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Cloudflare Zero Trust Secure DNS Locations Write",
           "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-secure.location",
+          "teams.write"
         ]
       },
       responses: {
@@ -694,6 +723,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
           "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
           "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
           "zero-trust-gateway_doh_endpoint": zero$$trust$$gateway_doh_endpoint,

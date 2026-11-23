@@ -147,7 +147,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "user-details.read",
+          "user-details.write"
+        ]
       },
       responses: {
         schemas: {
@@ -431,7 +435,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "user-details.read",
+          "user-details.write"
+        ]
       },
       responses: {
         schemas: {
@@ -567,6 +575,11 @@ export const tools: readonly Tool[] = [
                 "CSV"
               ],
               "type": "string"
+            },
+            "includeConfidenceLevel": {
+              "default": true,
+              "description": "Include the traffic data confidence level in the response. Set to `false` to skip it and get a faster response.",
+              "type": "boolean"
             }
           },
           "type": "object"
@@ -701,7 +714,6 @@ export const tools: readonly Tool[] = [
               "required": [
                 "asn",
                 "category",
-                "confidenceLevel",
                 "country",
                 "countryName",
                 "estimatedUsers",
@@ -741,6 +753,7 @@ export const tools: readonly Tool[] = [
       path: "/radar/entities/asns/{asn}",
       pathOf: encodePath`/radar/entities/asns/${"asn"}`,
       query: [
+        { name: "includeConfidenceLevel", explode: true },
         { name: "format", explode: true },
       ],
       extensions: {
@@ -753,7 +766,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "user-details.read",
+          "user-details.write"
+        ]
       },
       responses: {
         schemas: {
@@ -881,7 +898,6 @@ export const tools: readonly Tool[] = [
                     "required": [
                       "asn",
                       "category",
-                      "confidenceLevel",
                       "country",
                       "countryName",
                       "estimatedUsers",
@@ -1131,7 +1147,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "user-details.read",
+          "user-details.write"
+        ]
       },
       responses: {
         schemas: {
@@ -1457,7 +1477,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "user-details.read",
+          "user-details.write"
+        ]
       },
       responses: {
         schemas: {
@@ -1722,7 +1746,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "user-details.read",
+          "user-details.write"
+        ]
       },
       responses: {
         schemas: {

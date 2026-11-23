@@ -86,6 +86,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Pages Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "page.write"
         ]
       },
       responses: {

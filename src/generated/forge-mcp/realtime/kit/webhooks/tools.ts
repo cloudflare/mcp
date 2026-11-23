@@ -78,6 +78,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Realtime Admin",
           "Realtime"
+        ],
+        "x-forge-oauth-scopes": [
+          "realtime.write",
+          "realtime.admin"
         ]
       },
       responses: {
@@ -158,6 +162,102 @@ export const tools: readonly Tool[] = [
           "Realtime Admin",
           "Realtime"
         ],
+        "x-forge-oauth-scopes": [
+          "realtime.write",
+          "realtime.admin"
+        ],
+        "x-stability": "beta"
+      },
+      responses: {
+        schemas: {
+          "200": {
+            "$ref": "#/$defs/realtimekit_WebhookSuccessResponse"
+          },
+          "400": {
+            "$ref": "#/$defs/realtimekit_ErrorResponse"
+          },
+          "401": {}
+        },
+        $defs: {
+          "realtimekit_ErrorResponse": realtimekit_ErrorResponse,
+          "realtimekit_Webhook": realtimekit_Webhook,
+          "realtimekit_WebhookSuccessResponse": realtimekit_WebhookSuccessResponse,
+        },
+      },
+    },
+  },
+  {
+    name: "realtime_kit_webhooks_edit",
+    title: "Edit a webhook",
+    description: "Edits the webhook details for the given webhook ID.\n\nThis method is beta.\n\nPATCH /accounts/{account_id}/realtime/kit/{app_id}/webhooks/{webhook_id}",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "body": {
+          "$ref": "#/$defs/realtimekit_PatchWebhookRequest"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "The account identifier tag.",
+              "type": "string"
+            },
+            "app_id": {
+              "description": "The app identifier tag.",
+              "type": "string"
+            },
+            "webhook_id": {
+              "description": "ID of the webhook",
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "app_id",
+            "webhook_id"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path",
+        "body"
+      ],
+      additionalProperties: false,
+      $defs: {
+        "realtimekit_PatchWebhookRequest": realtimekit_PatchWebhookRequest,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/realtimekit_WebhookSuccessResponse",
+      $defs: {
+        "realtimekit_Webhook": realtimekit_Webhook,
+        "realtimekit_WebhookSuccessResponse": realtimekit_WebhookSuccessResponse,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Edit a webhook"
+    },
+    [OPERATION]: {
+      method: "PATCH",
+      path: "/accounts/{account_id}/realtime/kit/{app_id}/webhooks/{webhook_id}",
+      pathOf: encodePath`/accounts/${"account_id"}/realtime/kit/${"app_id"}/webhooks/${"webhook_id"}`,
+      body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-api-token-group": [
+          "Realtime Admin",
+          "Realtime"
+        ],
+        "x-forge-oauth-scopes": [
+          "realtime.write",
+          "realtime.admin"
+        ],
         "x-stability": "beta"
       },
       responses: {
@@ -235,8 +335,14 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/realtime/kit/${"app_id"}/webhooks/${"webhook_id"}`,
       extensions: {
         "x-api-token-group": [
+          "Realtime Read",
           "Realtime Admin",
           "Realtime"
+        ],
+        "x-forge-oauth-scopes": [
+          "realtime.read",
+          "realtime.write",
+          "realtime.admin"
         ],
         "x-stability": "beta"
       },
@@ -309,8 +415,14 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/realtime/kit/${"app_id"}/webhooks`,
       extensions: {
         "x-api-token-group": [
+          "Realtime Read",
           "Realtime Admin",
           "Realtime"
+        ],
+        "x-forge-oauth-scopes": [
+          "realtime.read",
+          "realtime.write",
+          "realtime.admin"
         ]
       },
       responses: {
@@ -395,93 +507,9 @@ export const tools: readonly Tool[] = [
           "Realtime Admin",
           "Realtime"
         ],
-        "x-stability": "beta"
-      },
-      responses: {
-        schemas: {
-          "200": {
-            "$ref": "#/$defs/realtimekit_WebhookSuccessResponse"
-          },
-          "400": {
-            "$ref": "#/$defs/realtimekit_ErrorResponse"
-          },
-          "401": {}
-        },
-        $defs: {
-          "realtimekit_ErrorResponse": realtimekit_ErrorResponse,
-          "realtimekit_Webhook": realtimekit_Webhook,
-          "realtimekit_WebhookSuccessResponse": realtimekit_WebhookSuccessResponse,
-        },
-      },
-    },
-  },
-  {
-    name: "realtime_kit_webhooks_update",
-    title: "Edit a webhook",
-    description: "Edits the webhook details for the given webhook ID.\n\nThis method is beta.\n\nPATCH /accounts/{account_id}/realtime/kit/{app_id}/webhooks/{webhook_id}",
-    inputSchema: {
-      type: "object",
-      properties: {
-        "body": {
-          "$ref": "#/$defs/realtimekit_PatchWebhookRequest"
-        },
-        "path": {
-          "additionalProperties": false,
-          "properties": {
-            "account_id": {
-              "description": "The account identifier tag.",
-              "type": "string"
-            },
-            "app_id": {
-              "description": "The app identifier tag.",
-              "type": "string"
-            },
-            "webhook_id": {
-              "description": "ID of the webhook",
-              "format": "uuid",
-              "type": "string"
-            }
-          },
-          "required": [
-            "account_id",
-            "app_id",
-            "webhook_id"
-          ],
-          "type": "object"
-        }
-      },
-      required: [
-        "path",
-        "body"
-      ],
-      additionalProperties: false,
-      $defs: {
-        "realtimekit_PatchWebhookRequest": realtimekit_PatchWebhookRequest,
-      },
-    },
-    outputSchema: {
-      "$ref": "#/$defs/realtimekit_WebhookSuccessResponse",
-      $defs: {
-        "realtimekit_Webhook": realtimekit_Webhook,
-        "realtimekit_WebhookSuccessResponse": realtimekit_WebhookSuccessResponse,
-      },
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Edit a webhook"
-    },
-    [OPERATION]: {
-      method: "PATCH",
-      path: "/accounts/{account_id}/realtime/kit/{app_id}/webhooks/{webhook_id}",
-      pathOf: encodePath`/accounts/${"account_id"}/realtime/kit/${"app_id"}/webhooks/${"webhook_id"}`,
-      body: { mediaTypes: ["application/json"] },
-      extensions: {
-        "x-api-token-group": [
-          "Realtime Admin",
-          "Realtime"
+        "x-forge-oauth-scopes": [
+          "realtime.write",
+          "realtime.admin"
         ],
         "x-stability": "beta"
       },

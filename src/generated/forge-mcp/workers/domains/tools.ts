@@ -65,10 +65,15 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/workers/domains/${"domain_id"}`,
       extensions: {
         "x-api-token-group": [
+          "Workers Admin",
           "Workers Scripts Write"
         ],
         "x-fern-audiences": [
           "sdk"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-scripts.write",
+          "workers-scripts.admin"
         ]
       },
       responses: {
@@ -155,11 +160,23 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/workers/domains/${"domain_id"}`,
       extensions: {
         "x-api-token-group": [
+          "Workers Metadata Read-Only",
+          "Workers Editor",
+          "Workers Content Read-Only",
+          "Workers Admin",
           "Workers Scripts Write",
           "Workers Scripts Read"
         ],
         "x-fern-audiences": [
           "sdk"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-scripts.read",
+          "workers-scripts.write",
+          "workers-scripts.content_read",
+          "workers-scripts.metadata_read",
+          "workers-scripts.edit",
+          "workers-scripts.admin"
         ]
       },
       responses: {
@@ -305,11 +322,23 @@ export const tools: readonly Tool[] = [
       ],
       extensions: {
         "x-api-token-group": [
+          "Workers Metadata Read-Only",
+          "Workers Editor",
+          "Workers Content Read-Only",
+          "Workers Admin",
           "Workers Scripts Write",
           "Workers Scripts Read"
         ],
         "x-fern-audiences": [
           "sdk"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-scripts.read",
+          "workers-scripts.write",
+          "workers-scripts.content_read",
+          "workers-scripts.metadata_read",
+          "workers-scripts.edit",
+          "workers-scripts.admin"
         ]
       },
       responses: {
@@ -452,10 +481,17 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "Workers Editor",
+          "Workers Admin",
           "Workers Scripts Write"
         ],
         "x-fern-audiences": [
           "sdk"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-scripts.write",
+          "workers-scripts.edit",
+          "workers-scripts.admin"
         ]
       },
       responses: {

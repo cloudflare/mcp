@@ -15,7 +15,10 @@ import {
   mconn_connector_interrupts_result,
   mconn_interrupt,
 } from "./outputs.js";
-import { mconn_interrupt as mconn_interrupt$ } from "./schemas.js";
+import {
+  mconn_connector_interrupts_create_request,
+  mconn_interrupt as mconn_interrupt$,
+} from "./schemas.js";
 
 /**
  * The tools of `connectorInterrupts`.
@@ -29,7 +32,7 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "body": {
-          "$ref": "#/$defs/mconn_interrupt"
+          "$ref": "#/$defs/mconn_connector_interrupts_create_request"
         },
         "path": {
           "additionalProperties": false,
@@ -54,6 +57,7 @@ export const tools: readonly Tool[] = [
       ],
       additionalProperties: false,
       $defs: {
+        "mconn_connector_interrupts_create_request": mconn_connector_interrupts_create_request,
         "mconn_interrupt": mconn_interrupt$,
       },
     },
@@ -186,7 +190,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "magic-wan.read",
+          "magic-wan.write"
+        ]
       },
       responses: {
         schemas: {

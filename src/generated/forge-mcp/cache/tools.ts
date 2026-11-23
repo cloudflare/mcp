@@ -204,6 +204,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Zone Versioning Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "zone-versioning.write"
         ]
       },
       responses: {
@@ -314,7 +317,10 @@ export const tools: readonly Tool[] = [
           "enum": [
             "#cache_purge:edit"
           ]
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "cache.purge"
+        ]
       },
       responses: {
         schemas: {
@@ -429,7 +435,10 @@ export const tools: readonly Tool[] = [
           "enum": [
             "#cache_purge:edit"
           ]
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "cache.purge"
+        ]
       },
       responses: {
         schemas: {

@@ -118,6 +118,9 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Workers CI Write"
         ],
+        "x-forge-oauth-scopes": [
+          "workers-ci.write"
+        ],
         "x-forge-params": {
           "script_tag": {
             "description": "Script tag of the Worker.",
@@ -235,6 +238,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Workers CI Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-ci.write"
         ]
       },
       responses: {
@@ -370,6 +376,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Workers CI Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-ci.write"
         ]
       },
       responses: {
@@ -486,6 +495,11 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Workers CI Write",
           "Workers CI Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-ci.read",
+          "workers-ci.write",
+          "workers-scripts.metadata_read"
         ]
       },
       responses: {
@@ -606,6 +620,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Workers CI Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-ci.write"
         ]
       },
       responses: {
@@ -703,6 +720,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Workers CI Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-ci.write"
         ]
       },
       responses: {

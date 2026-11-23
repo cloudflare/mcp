@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
 import {
+  zone$$activation_api$$response$$common,
   zone$$activation_api$$response$$common$$failure,
   zone$$activation_api$$response$$single,
   zone$$activation_messages,
@@ -58,6 +59,7 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
+        "zone-activation_api-response-common": zone$$activation_api$$response$$common,
         "zone-activation_api-response-single": zone$$activation_api$$response$$single,
         "zone-activation_messages": zone$$activation_messages,
       },
@@ -76,6 +78,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Zone Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "zone.write"
         ]
       },
       responses: {
@@ -105,6 +110,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "zone-activation_api-response-common": zone$$activation_api$$response$$common,
           "zone-activation_api-response-common-failure": zone$$activation_api$$response$$common$$failure,
           "zone-activation_api-response-single": zone$$activation_api$$response$$single,
           "zone-activation_messages": zone$$activation_messages,

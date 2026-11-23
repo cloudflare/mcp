@@ -138,6 +138,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Logs Write",
           "Logs Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "account-logs.read",
+          "account-logs.write"
         ]
       },
       responses: {

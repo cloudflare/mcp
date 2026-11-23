@@ -60,7 +60,7 @@ describe('ResponseSchemaMismatch', () => {
       product: 'dns_records',
       forgeTool: 'dns_records_list',
       responseKey: '200',
-      specRelease: 'openapi@933e9f6',
+      specRevision: 'cloudflare/api-schemas@933e9f6',
       status: 200,
       errorCount: 3,
       counted: true,
@@ -89,13 +89,13 @@ describe('ResponseSchemaMismatch', () => {
       'required', // blob10 keyword
       '#/components/schemas/dns-records_dns-record-response/required', // blob11 schema location
       '/result/*', // blob12 instance path
-      'openapi@933e9f6' // blob13 spec release
+      'cloudflare/api-schemas@933e9f6' // blob13 spec revision
     ])
     // double1 errorCode 0, double2 status, double3 count, double4 sample interval, double5 counted
     expect(dp.doubles).toEqual([0, 200, 3, 4, 1])
   })
 
-  it('writes null for an absent user or spec release, keeping later positions in place', () => {
+  it('writes null for an absent user or spec revision, keeping later positions in place', () => {
     const event = new ResponseSchemaMismatch({
       toolName: 't',
       method: 'GET',
@@ -103,7 +103,7 @@ describe('ResponseSchemaMismatch', () => {
       product: 'p',
       forgeTool: 't_list',
       responseKey: 'default',
-      specRelease: null,
+      specRevision: null,
       status: 500,
       errorCount: 1,
       counted: false,

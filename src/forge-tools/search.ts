@@ -1,4 +1,4 @@
-// The pinned release's spec (`src/generated/forge-mcp/source.json`), which
+// The pinned commit's spec (`src/generated/forge-mcp/source.json`), which
 // `scripts/generate-tools.ts` writes with the generated tools. A text module,
 // so loading it costs a string, not a parse.
 import specText from '../generated/spec/spec.json.txt'

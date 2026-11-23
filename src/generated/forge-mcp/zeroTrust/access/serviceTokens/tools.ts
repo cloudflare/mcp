@@ -68,7 +68,7 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "account_or_zone": {
-              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "description": "Whether ${account_or_zone} is an account ID (`accounts`) or a zone ID (`zones`).",
               "enum": [
                 "accounts",
                 "zones"
@@ -76,7 +76,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "description": "The account ID or zone ID, as selected by ${account_or_zone}.",
               "type": "string"
             }
           },
@@ -99,6 +99,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_create_response",
       $defs: {
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_create_response": access_create_response,
         "access_messages": access_messages,
@@ -119,8 +120,11 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
-          "Access: Service Tokens Write"
-        ]
+          "Individual Access Service Token Admin",
+          "Access: Service Tokens Write",
+          "Zero Trust Write"
+        ],
+        "x-stainless-skip": true
       },
       responses: {
         schemas: {
@@ -132,6 +136,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_create_response": access_create_response,
@@ -152,7 +157,7 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "account_or_zone": {
-              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "description": "Whether ${account_or_zone} is an account ID (`accounts`) or a zone ID (`zones`).",
               "enum": [
                 "accounts",
                 "zones"
@@ -160,7 +165,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "description": "The account ID or zone ID, as selected by ${account_or_zone}.",
               "type": "string"
             },
             "service_token_id": {
@@ -184,6 +189,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_single_response-2",
       $defs: {
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_messages": access_messages,
         "access_service-tokens": access_service$$tokens,
@@ -204,8 +210,11 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/${"account_or_zone"}/${"account_or_zone_id"}/access/service_tokens/${"service_token_id"}`,
       extensions: {
         "x-api-token-group": [
-          "Access: Service Tokens Write"
-        ]
+          "Individual Access Service Token Admin",
+          "Access: Service Tokens Write",
+          "Zero Trust Write"
+        ],
+        "x-stainless-skip": true
       },
       responses: {
         schemas: {
@@ -217,6 +226,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_messages": access_messages,
@@ -238,7 +248,7 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "account_or_zone": {
-              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "description": "Whether ${account_or_zone} is an account ID (`accounts`) or a zone ID (`zones`).",
               "enum": [
                 "accounts",
                 "zones"
@@ -246,7 +256,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "description": "The account ID or zone ID, as selected by ${account_or_zone}.",
               "type": "string"
             },
             "service_token_id": {
@@ -270,6 +280,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_single_response-2",
       $defs: {
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_messages": access_messages,
         "access_service-tokens": access_service$$tokens,
@@ -290,9 +301,14 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/${"account_or_zone"}/${"account_or_zone_id"}/access/service_tokens/${"service_token_id"}`,
       extensions: {
         "x-api-token-group": [
+          "Individual Access Service Token Read",
+          "Individual Access Service Token Admin",
           "Access: Service Tokens Write",
-          "Access: Service Tokens Read"
-        ]
+          "Access: Service Tokens Read",
+          "Zero Trust Read",
+          "Zero Trust Write"
+        ],
+        "x-stainless-skip": true
       },
       responses: {
         schemas: {
@@ -304,6 +320,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_messages": access_messages,
@@ -325,7 +342,7 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "account_or_zone": {
-              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "description": "Whether ${account_or_zone} is an account ID (`accounts`) or a zone ID (`zones`).",
               "enum": [
                 "accounts",
                 "zones"
@@ -333,7 +350,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "description": "The account ID or zone ID, as selected by ${account_or_zone}.",
               "type": "string"
             }
           },
@@ -403,9 +420,14 @@ export const tools: readonly Tool[] = [
       ],
       extensions: {
         "x-api-token-group": [
+          "Individual Access Service Token Read",
+          "Individual Access Service Token Admin",
           "Access: Service Tokens Write",
-          "Access: Service Tokens Read"
-        ]
+          "Access: Service Tokens Read",
+          "Zero Trust Read",
+          "Zero Trust Write"
+        ],
+        "x-stainless-skip": true
       },
       responses: {
         schemas: {
@@ -462,6 +484,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_single_response-2",
       $defs: {
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_messages": access_messages,
         "access_service-tokens": access_service$$tokens,
@@ -482,7 +505,13 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/access/service_tokens/${"service_token_id"}/refresh`,
       extensions: {
         "x-api-token-group": [
-          "Access: Service Tokens Write"
+          "Individual Access Service Token Admin",
+          "Access: Service Tokens Write",
+          "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "access-service-token.write",
+          "teams.write"
         ]
       },
       responses: {
@@ -495,6 +524,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_messages": access_messages,
@@ -549,6 +579,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_create_response",
       $defs: {
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_create_response": access_create_response,
         "access_messages": access_messages,
@@ -577,6 +608,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_create_response": access_create_response,
@@ -629,7 +661,7 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "account_or_zone": {
-              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "description": "Whether ${account_or_zone} is an account ID (`accounts`) or a zone ID (`zones`).",
               "enum": [
                 "accounts",
                 "zones"
@@ -637,7 +669,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "description": "The account ID or zone ID, as selected by ${account_or_zone}.",
               "type": "string"
             },
             "service_token_id": {
@@ -665,6 +697,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_single_response-2",
       $defs: {
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_messages": access_messages,
         "access_service-tokens": access_service$$tokens,
@@ -686,8 +719,11 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
-          "Access: Service Tokens Write"
-        ]
+          "Individual Access Service Token Admin",
+          "Access: Service Tokens Write",
+          "Zero Trust Write"
+        ],
+        "x-stainless-skip": true
       },
       responses: {
         schemas: {
@@ -699,6 +735,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_messages": access_messages,

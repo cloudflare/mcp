@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../_/tool.js";
 import {
+  fraud_api$$response$$common,
   fraud_api$$response$$common$$failure,
   fraud_api$$response$$single,
   fraud_auth_criteria,
@@ -52,6 +53,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/fraud_fraud_settings_response_body",
       $defs: {
+        "fraud_api-response-common": fraud_api$$response$$common,
         "fraud_api-response-single": fraud_api$$response$$single,
         "fraud_auth_criteria": fraud_auth_criteria,
         "fraud_authentication_settings": fraud_authentication_settings,
@@ -76,6 +78,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Fraud Detection Read",
           "Fraud Detection Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "fraud-detection.read",
+          "fraud-detection.write"
         ]
       },
       responses: {
@@ -88,6 +94,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "fraud_api-response-common": fraud_api$$response$$common,
           "fraud_api-response-common-failure": fraud_api$$response$$common$$failure,
           "fraud_api-response-single": fraud_api$$response$$single,
           "fraud_auth_criteria": fraud_auth_criteria,
@@ -139,6 +146,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/fraud_fraud_settings_response_body",
       $defs: {
+        "fraud_api-response-common": fraud_api$$response$$common,
         "fraud_api-response-single": fraud_api$$response$$single,
         "fraud_auth_criteria": fraud_auth_criteria,
         "fraud_authentication_settings": fraud_authentication_settings,
@@ -163,6 +171,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Fraud Detection Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "fraud-detection.write"
         ]
       },
       responses: {
@@ -175,6 +186,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "fraud_api-response-common": fraud_api$$response$$common,
           "fraud_api-response-common-failure": fraud_api$$response$$common$$failure,
           "fraud_api-response-single": fraud_api$$response$$single,
           "fraud_auth_criteria": fraud_auth_criteria,

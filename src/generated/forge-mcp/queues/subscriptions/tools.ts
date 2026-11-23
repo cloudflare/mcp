@@ -159,8 +159,14 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "Workers Admin",
           "Queues Write",
           "Workers Scripts Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "queues.write",
+          "workers-scripts.write",
+          "workers-scripts.admin"
         ]
       },
       responses: {
@@ -289,8 +295,14 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/event_subscriptions/subscriptions/${"subscription_id"}`,
       extensions: {
         "x-api-token-group": [
+          "Workers Admin",
           "Queues Write",
           "Workers Scripts Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "queues.write",
+          "workers-scripts.write",
+          "workers-scripts.admin"
         ]
       },
       responses: {
@@ -444,8 +456,14 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "Workers Admin",
           "Queues Write",
           "Workers Scripts Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "queues.write",
+          "workers-scripts.write",
+          "workers-scripts.admin"
         ],
         "x-forge-params": {
           "enabled": {
@@ -576,8 +594,14 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/event_subscriptions/subscriptions/${"subscription_id"}`,
       extensions: {
         "x-api-token-group": [
+          "Workers Admin",
           "Queues Write",
           "Workers Scripts Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "queues.write",
+          "workers-scripts.write",
+          "workers-scripts.admin"
         ]
       },
       responses: {
@@ -675,6 +699,10 @@ export const tools: readonly Tool[] = [
               "default": 20,
               "description": "Number of items per page",
               "type": "integer"
+            },
+            "queue_id": {
+              "description": "Filter event subscriptions by destination queue ID.",
+              "type": "string"
             }
           },
           "type": "object"
@@ -760,6 +788,7 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/event_subscriptions/subscriptions",
       pathOf: encodePath`/accounts/${"account_id"}/event_subscriptions/subscriptions`,
       query: [
+        { name: "queue_id", explode: true },
         { name: "page", explode: true },
         { name: "per_page", explode: true },
         { name: "order", explode: true },
@@ -767,10 +796,26 @@ export const tools: readonly Tool[] = [
       ],
       extensions: {
         "x-api-token-group": [
+          "Workers Metadata Read-Only",
+          "Workers Editor",
+          "Workers Content Read-Only",
+          "Workers Admin",
+          "Queues Metadata Read",
           "Queues Write",
           "Queues Read",
           "Workers Scripts Write",
           "Workers Scripts Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "queues.metadata_read",
+          "queues.read",
+          "queues.write",
+          "workers-scripts.read",
+          "workers-scripts.write",
+          "workers-scripts.content_read",
+          "workers-scripts.metadata_read",
+          "workers-scripts.edit",
+          "workers-scripts.admin"
         ]
       },
       responses: {

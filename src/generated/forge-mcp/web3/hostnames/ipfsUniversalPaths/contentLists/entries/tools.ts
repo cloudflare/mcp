@@ -3,13 +3,11 @@
 
 import { OPERATION, type Tool, encodePath } from "../../../../../_/tool.js";
 import {
-  web3_api$$response$$collection,
   web3_api$$response$$common,
   web3_api$$response$$common$$failure,
   web3_api$$response$$single,
   web3_api$$response$$single$$id,
   web3_messages,
-  web3_result_info,
 } from "../../../outputs.js";
 import {
   web3_content_list_entries,
@@ -28,7 +26,7 @@ export const tools: readonly Tool[] = [
   {
     name: "web3_hostnames_ipfsUniversalPaths_contentLists_entries_create",
     title: "Create IPFS Universal Path Gateway Content List Entry",
-    description: "Create IPFS Universal Path Gateway Content List Entry\n\nPOST /zones/{zone_id}/web3/hostnames/{identifier}/ipfs_universal_path/content_list/entries",
+    description: "Creates a new entry in an IPFS Universal Path Gateway content list.\n\nPOST /zones/{zone_id}/web3/hostnames/{identifier}/ipfs_universal_path/content_list/entries",
     inputSchema: {
       type: "object",
       properties: {
@@ -99,24 +97,10 @@ export const tools: readonly Tool[] = [
             "$ref": "#/$defs/web3_content_list_entry_single_response"
           },
           "4XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/web3_content_list_entry_single_response"
-              },
-              {
-                "$ref": "#/$defs/web3_api-response-common-failure"
-              }
-            ]
+            "$ref": "#/$defs/web3_api-response-common-failure"
           },
           "5XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/web3_content_list_entry_single_response"
-              },
-              {
-                "$ref": "#/$defs/web3_api-response-common-failure"
-              }
-            ]
+            "$ref": "#/$defs/web3_api-response-common-failure"
           }
         },
         $defs: {
@@ -133,11 +117,10 @@ export const tools: readonly Tool[] = [
   {
     name: "web3_hostnames_ipfsUniversalPaths_contentLists_entries_delete",
     title: "Delete IPFS Universal Path Gateway Content List Entry",
-    description: "Delete IPFS Universal Path Gateway Content List Entry\n\nDELETE /zones/{zone_id}/web3/hostnames/{identifier}/ipfs_universal_path/content_list/entries/{content_list_entry_identifier}",
+    description: "Deletes an entry from an IPFS Universal Path Gateway content list.\n\nDELETE /zones/{zone_id}/web3/hostnames/{identifier}/ipfs_universal_path/content_list/entries/{content_list_entry_identifier}",
     inputSchema: {
       type: "object",
       properties: {
-        "body": {},
         "path": {
           "additionalProperties": false,
           "properties": {
@@ -163,8 +146,7 @@ export const tools: readonly Tool[] = [
         }
       },
       required: [
-        "path",
-        "body"
+        "path"
       ],
       additionalProperties: false,
     },
@@ -187,7 +169,6 @@ export const tools: readonly Tool[] = [
       method: "DELETE",
       path: "/zones/{zone_id}/web3/hostnames/{identifier}/ipfs_universal_path/content_list/entries/{content_list_entry_identifier}",
       pathOf: encodePath`/zones/${"zone_id"}/web3/hostnames/${"identifier"}/ipfs_universal_path/content_list/entries/${"content_list_entry_identifier"}`,
-      body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
           "Web3 Hostnames Write"
@@ -197,7 +178,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "web3-hostnames.write"
+        ]
       },
       responses: {
         schemas: {
@@ -205,24 +189,10 @@ export const tools: readonly Tool[] = [
             "$ref": "#/$defs/web3_api-response-single-id"
           },
           "4XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/web3_api-response-single-id"
-              },
-              {
-                "$ref": "#/$defs/web3_api-response-common-failure"
-              }
-            ]
+            "$ref": "#/$defs/web3_api-response-common-failure"
           },
           "5XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/web3_api-response-single-id"
-              },
-              {
-                "$ref": "#/$defs/web3_api-response-common-failure"
-              }
-            ]
+            "$ref": "#/$defs/web3_api-response-common-failure"
           }
         },
         $defs: {
@@ -237,7 +207,7 @@ export const tools: readonly Tool[] = [
   {
     name: "web3_hostnames_ipfsUniversalPaths_contentLists_entries_get",
     title: "IPFS Universal Path Gateway Content List Entry Details",
-    description: "IPFS Universal Path Gateway Content List Entry Details\n\nGET /zones/{zone_id}/web3/hostnames/{identifier}/ipfs_universal_path/content_list/entries/{content_list_entry_identifier}",
+    description: "Retrieves details for a specific IPFS Universal Path Gateway content list entry.\n\nGET /zones/{zone_id}/web3/hostnames/{identifier}/ipfs_universal_path/content_list/entries/{content_list_entry_identifier}",
     inputSchema: {
       type: "object",
       properties: {
@@ -301,7 +271,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "web3-hostnames.read",
+          "web3-hostnames.write"
+        ]
       },
       responses: {
         schemas: {
@@ -309,24 +283,10 @@ export const tools: readonly Tool[] = [
             "$ref": "#/$defs/web3_content_list_entry_single_response"
           },
           "4XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/web3_content_list_entry_single_response"
-              },
-              {
-                "$ref": "#/$defs/web3_api-response-common-failure"
-              }
-            ]
+            "$ref": "#/$defs/web3_api-response-common-failure"
           },
           "5XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/web3_content_list_entry_single_response"
-              },
-              {
-                "$ref": "#/$defs/web3_api-response-common-failure"
-              }
-            ]
+            "$ref": "#/$defs/web3_api-response-common-failure"
           }
         },
         $defs: {
@@ -343,7 +303,7 @@ export const tools: readonly Tool[] = [
   {
     name: "web3_hostnames_ipfsUniversalPaths_contentLists_entries_list",
     title: "List IPFS Universal Path Gateway Content List Entries",
-    description: "List IPFS Universal Path Gateway Content List Entries\n\nGET /zones/{zone_id}/web3/hostnames/{identifier}/ipfs_universal_path/content_list/entries",
+    description: "Lists entries in an IPFS Universal Path Gateway content list.\n\nGET /zones/{zone_id}/web3/hostnames/{identifier}/ipfs_universal_path/content_list/entries",
     inputSchema: {
       type: "object",
       properties: {
@@ -374,13 +334,11 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/web3_content_list_entry_collection_response",
       $defs: {
-        "web3_api-response-collection": web3_api$$response$$collection,
         "web3_api-response-common": web3_api$$response$$common,
         "web3_content_list_entries": web3_content_list_entries,
         "web3_content_list_entry": web3_content_list_entry,
         "web3_content_list_entry_collection_response": web3_content_list_entry_collection_response,
         "web3_messages": web3_messages,
-        "web3_result_info": web3_result_info,
       },
     },
     annotations: {
@@ -404,7 +362,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "web3-hostnames.read",
+          "web3-hostnames.write"
+        ]
       },
       responses: {
         schemas: {
@@ -412,35 +374,19 @@ export const tools: readonly Tool[] = [
             "$ref": "#/$defs/web3_content_list_entry_collection_response"
           },
           "4XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/web3_content_list_entry_collection_response"
-              },
-              {
-                "$ref": "#/$defs/web3_api-response-common-failure"
-              }
-            ]
+            "$ref": "#/$defs/web3_api-response-common-failure"
           },
           "5XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/web3_content_list_entry_collection_response"
-              },
-              {
-                "$ref": "#/$defs/web3_api-response-common-failure"
-              }
-            ]
+            "$ref": "#/$defs/web3_api-response-common-failure"
           }
         },
         $defs: {
-          "web3_api-response-collection": web3_api$$response$$collection,
           "web3_api-response-common": web3_api$$response$$common,
           "web3_api-response-common-failure": web3_api$$response$$common$$failure,
           "web3_content_list_entries": web3_content_list_entries,
           "web3_content_list_entry": web3_content_list_entry,
           "web3_content_list_entry_collection_response": web3_content_list_entry_collection_response,
           "web3_messages": web3_messages,
-          "web3_result_info": web3_result_info,
         },
       },
     },
@@ -448,7 +394,7 @@ export const tools: readonly Tool[] = [
   {
     name: "web3_hostnames_ipfsUniversalPaths_contentLists_entries_update",
     title: "Edit IPFS Universal Path Gateway Content List Entry",
-    description: "Edit IPFS Universal Path Gateway Content List Entry\n\nPUT /zones/{zone_id}/web3/hostnames/{identifier}/ipfs_universal_path/content_list/entries/{content_list_entry_identifier}",
+    description: "Updates an IPFS Universal Path Gateway content list entry.\n\nPUT /zones/{zone_id}/web3/hostnames/{identifier}/ipfs_universal_path/content_list/entries/{content_list_entry_identifier}",
     inputSchema: {
       type: "object",
       properties: {
@@ -519,7 +465,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "web3-hostnames.write"
+        ]
       },
       responses: {
         schemas: {
@@ -527,24 +476,10 @@ export const tools: readonly Tool[] = [
             "$ref": "#/$defs/web3_content_list_entry_single_response"
           },
           "4XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/web3_content_list_entry_single_response"
-              },
-              {
-                "$ref": "#/$defs/web3_api-response-common-failure"
-              }
-            ]
+            "$ref": "#/$defs/web3_api-response-common-failure"
           },
           "5XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/web3_content_list_entry_single_response"
-              },
-              {
-                "$ref": "#/$defs/web3_api-response-common-failure"
-              }
-            ]
+            "$ref": "#/$defs/web3_api-response-common-failure"
           }
         },
         $defs: {

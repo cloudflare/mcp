@@ -58,6 +58,7 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/dns-custom-nameservers_tcns_response_single",
       $defs: {
         "dns-custom-nameservers_CustomNS-2": dns$$custom$$nameservers_CustomNS$$2,
+        "dns-custom-nameservers_api-response-common": dns$$custom$$nameservers_api$$response$$common,
         "dns-custom-nameservers_api-response-single": dns$$custom$$nameservers_api$$response$$single,
         "dns-custom-nameservers_messages": dns$$custom$$nameservers_messages,
         "dns-custom-nameservers_tcns_response_single": dns$$custom$$nameservers_tcns_response_single,
@@ -101,6 +102,7 @@ export const tools: readonly Tool[] = [
         },
         $defs: {
           "dns-custom-nameservers_CustomNS-2": dns$$custom$$nameservers_CustomNS$$2,
+          "dns-custom-nameservers_api-response-common": dns$$custom$$nameservers_api$$response$$common,
           "dns-custom-nameservers_api-response-common-failure": dns$$custom$$nameservers_api$$response$$common$$failure,
           "dns-custom-nameservers_api-response-single": dns$$custom$$nameservers_api$$response$$single,
           "dns-custom-nameservers_messages": dns$$custom$$nameservers_messages,

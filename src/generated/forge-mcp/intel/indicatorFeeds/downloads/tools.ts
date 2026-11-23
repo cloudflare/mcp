@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../../../_/tool.js";
 import {
+  custom$$indicator$$feeds_api$$response$$common,
   custom$$indicator$$feeds_api$$response$$single,
   custom$$indicator$$feeds_api_response_common_failure,
   custom$$indicator$$feeds_messages,
@@ -49,6 +50,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/custom-indicator-feeds_update_feed_response",
       $defs: {
+        "custom-indicator-feeds_api-response-common": custom$$indicator$$feeds_api$$response$$common,
         "custom-indicator-feeds_api-response-single": custom$$indicator$$feeds_api$$response$$single,
         "custom-indicator-feeds_messages-2": custom$$indicator$$feeds_messages$$2,
         "custom-indicator-feeds_update_feed": custom$$indicator$$feeds_update_feed,
@@ -70,6 +72,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Intel Write",
           "Intel Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "intel.read",
+          "intel.write"
         ]
       },
       responses: {
@@ -82,6 +88,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "custom-indicator-feeds_api-response-common": custom$$indicator$$feeds_api$$response$$common,
           "custom-indicator-feeds_api-response-single": custom$$indicator$$feeds_api$$response$$single,
           "custom-indicator-feeds_api_response_common_failure": custom$$indicator$$feeds_api_response_common_failure,
           "custom-indicator-feeds_messages": custom$$indicator$$feeds_messages,

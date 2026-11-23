@@ -129,7 +129,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "D1 Write"
         ],
-        "x-forge-epilogue": "This command acts on remote D1 Databases."
+        "x-forge-epilogue": "This command acts on remote D1 Databases.",
+        "x-forge-oauth-scopes": [
+          "d1.write"
+        ]
       },
       responses: {
         schemas: {
@@ -227,7 +230,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "D1 Write"
         ],
-        "x-forge-epilogue": "This command acts on remote D1 Databases."
+        "x-forge-epilogue": "This command acts on remote D1 Databases.",
+        "x-forge-oauth-scopes": [
+          "d1.write"
+        ]
       },
       responses: {
         schemas: {
@@ -333,6 +339,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "D1 Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "d1.write"
         ]
       },
       responses: {
@@ -466,10 +475,18 @@ export const tools: readonly Tool[] = [
       ],
       extensions: {
         "x-api-token-group": [
+          "D1 Metadata Read",
+          "AI Search Index Engine",
           "D1 Read",
           "D1 Write"
         ],
-        "x-forge-epilogue": "This command acts on remote D1 Databases."
+        "x-forge-epilogue": "This command acts on remote D1 Databases.",
+        "x-forge-oauth-scopes": [
+          "d1.metadata_read",
+          "d1.read",
+          "d1.write",
+          "ai-search.index"
+        ]
       },
       responses: {
         schemas: {
@@ -606,10 +623,18 @@ export const tools: readonly Tool[] = [
       ],
       extensions: {
         "x-api-token-group": [
+          "D1 Metadata Read",
+          "AI Search Index Engine",
           "D1 Read",
           "D1 Write"
         ],
-        "x-forge-epilogue": "This command acts on remote D1 Databases."
+        "x-forge-epilogue": "This command acts on remote D1 Databases.",
+        "x-forge-oauth-scopes": [
+          "d1.metadata_read",
+          "d1.read",
+          "d1.write",
+          "ai-search.index"
+        ]
       },
       responses: {
         schemas: {
@@ -739,10 +764,18 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "D1 Metadata Read",
+          "AI Search Index Engine",
           "D1 Read",
           "D1 Write"
         ],
-        "x-forge-epilogue": "This command acts on remote D1 Databases."
+        "x-forge-epilogue": "This command acts on remote D1 Databases.",
+        "x-forge-oauth-scopes": [
+          "d1.metadata_read",
+          "d1.read",
+          "d1.write",
+          "ai-search.index"
+        ]
       },
       responses: {
         schemas: {
@@ -856,10 +889,18 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "D1 Metadata Read",
+          "AI Search Index Engine",
           "D1 Read",
           "D1 Write"
         ],
-        "x-forge-epilogue": "This command acts on remote D1 Databases."
+        "x-forge-epilogue": "This command acts on remote D1 Databases.",
+        "x-forge-oauth-scopes": [
+          "d1.metadata_read",
+          "d1.read",
+          "d1.write",
+          "ai-search.index"
+        ]
       },
       responses: {
         schemas: {

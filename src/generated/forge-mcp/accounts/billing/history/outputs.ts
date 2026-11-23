@@ -4,19 +4,18 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
- * The schema of `bill-subs-api_account_billing_history_collection` in
- * responses.
+ * The schema of `bill-subs_account_billing_history_collection` in responses.
  */
-export const bill$$subs$$api_account_billing_history_collection: JSONObject = {
+export const bill$$subs_account_billing_history_collection: JSONObject = {
   "allOf": [
     {
-      "$ref": "#/$defs/bill-subs-api_api-response-collection"
+      "$ref": "#/$defs/bill-subs_api-response-collection"
     },
     {
       "properties": {
         "result": {
           "items": {
-            "$ref": "#/$defs/bill-subs-api_account_billing_history"
+            "$ref": "#/$defs/bill-subs_account_billing_history"
           },
           "type": "array"
         }

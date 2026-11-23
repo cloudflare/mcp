@@ -4,6 +4,13 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
+ * The schema of `mconn_connector_interrupts_create_request`.
+ */
+export const mconn_connector_interrupts_create_request: JSONObject = {
+  "$ref": "#/$defs/mconn_interrupt"
+};
+
+/**
  * The schema of `mconn_interrupt`.
  */
 export const mconn_interrupt: JSONObject = {

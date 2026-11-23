@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../../../_/tool.js";
 import {
+  addressing_api$$response$$common,
   addressing_api$$response$$common$$failure,
   addressing_api$$response$$single,
   addressing_messages,
@@ -50,6 +51,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/addressing_single_response",
       $defs: {
+        "addressing_api-response-common": addressing_api$$response$$common,
         "addressing_api-response-single": addressing_api$$response$$single,
         "addressing_ipam-prefixes": addressing_ipam$$prefixes,
         "addressing_messages": addressing_messages,
@@ -71,6 +73,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Magic Transit Write",
           "IP Prefixes: Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "ip-prefix.write",
+          "magic-transit.write"
         ]
       },
       responses: {
@@ -90,6 +96,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "addressing_api-response-common": addressing_api$$response$$common,
           "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
           "addressing_api-response-single": addressing_api$$response$$single,
           "addressing_ipam-prefixes": addressing_ipam$$prefixes,

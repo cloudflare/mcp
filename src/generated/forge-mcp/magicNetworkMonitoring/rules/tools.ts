@@ -84,6 +84,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Magic Network Monitoring Admin"
+        ],
+        "x-forge-oauth-scopes": [
+          "fbm.admin"
         ]
       },
       responses: {
@@ -92,14 +95,7 @@ export const tools: readonly Tool[] = [
             "$ref": "#/$defs/magic-visibility-mnm_mnm_rules_single_response"
           },
           "4XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/magic-visibility-mnm_mnm_rules_single_response"
-              },
-              {
-                "$ref": "#/$defs/magic-visibility-mnm_api-response-common-failure"
-              }
-            ]
+            "$ref": "#/$defs/magic-visibility-mnm_api-response-common-failure"
           }
         },
         $defs: {
@@ -169,6 +165,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Magic Network Monitoring Admin"
+        ],
+        "x-forge-oauth-scopes": [
+          "fbm.admin"
         ]
       },
       responses: {
@@ -177,14 +176,7 @@ export const tools: readonly Tool[] = [
             "$ref": "#/$defs/magic-visibility-mnm_mnm_rules_single_response"
           },
           "4XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/magic-visibility-mnm_mnm_rules_single_response"
-              },
-              {
-                "$ref": "#/$defs/magic-visibility-mnm_api-response-common-failure"
-              }
-            ]
+            "$ref": "#/$defs/magic-visibility-mnm_api-response-common-failure"
           }
         },
         $defs: {
@@ -264,6 +256,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Magic Network Monitoring Admin",
           "Magic Network Monitoring Config Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "fbm.write",
+          "fbm.admin"
         ]
       },
       responses: {
@@ -272,14 +268,7 @@ export const tools: readonly Tool[] = [
             "$ref": "#/$defs/magic-visibility-mnm_mnm_rules_single_response"
           },
           "4XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/magic-visibility-mnm_mnm_rules_single_response"
-              },
-              {
-                "$ref": "#/$defs/magic-visibility-mnm_api-response-common-failure"
-              }
-            ]
+            "$ref": "#/$defs/magic-visibility-mnm_api-response-common-failure"
           }
         },
         $defs: {
@@ -351,6 +340,11 @@ export const tools: readonly Tool[] = [
           "Magic Network Monitoring Admin",
           "Magic Network Monitoring Config Write",
           "Magic Network Monitoring Config Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "fbm.read",
+          "fbm.write",
+          "fbm.admin"
         ]
       },
       responses: {
@@ -359,14 +353,7 @@ export const tools: readonly Tool[] = [
             "$ref": "#/$defs/magic-visibility-mnm_mnm_rules_single_response"
           },
           "4XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/magic-visibility-mnm_mnm_rules_single_response"
-              },
-              {
-                "$ref": "#/$defs/magic-visibility-mnm_api-response-common-failure"
-              }
-            ]
+            "$ref": "#/$defs/magic-visibility-mnm_api-response-common-failure"
           }
         },
         $defs: {
@@ -434,6 +421,11 @@ export const tools: readonly Tool[] = [
           "Magic Network Monitoring Admin",
           "Magic Network Monitoring Config Write",
           "Magic Network Monitoring Config Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "fbm.read",
+          "fbm.write",
+          "fbm.admin"
         ]
       },
       responses: {
@@ -442,14 +434,7 @@ export const tools: readonly Tool[] = [
             "$ref": "#/$defs/magic-visibility-mnm_mnm_rules_collection_response"
           },
           "4XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/magic-visibility-mnm_mnm_rules_collection_response"
-              },
-              {
-                "$ref": "#/$defs/magic-visibility-mnm_api-response-common-failure"
-              }
-            ]
+            "$ref": "#/$defs/magic-visibility-mnm_api-response-common-failure"
           }
         },
         $defs: {
@@ -525,6 +510,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Magic Network Monitoring Admin",
           "Magic Network Monitoring Config Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "fbm.write",
+          "fbm.admin"
         ]
       },
       responses: {
@@ -533,14 +522,7 @@ export const tools: readonly Tool[] = [
             "$ref": "#/$defs/magic-visibility-mnm_mnm_rules_single_response"
           },
           "4XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/magic-visibility-mnm_mnm_rules_single_response"
-              },
-              {
-                "$ref": "#/$defs/magic-visibility-mnm_api-response-common-failure"
-              }
-            ]
+            "$ref": "#/$defs/magic-visibility-mnm_api-response-common-failure"
           }
         },
         $defs: {

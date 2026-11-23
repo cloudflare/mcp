@@ -363,6 +363,11 @@ export const tools: readonly Tool[] = [
         ],
         "x-fern-audiences": [
           "sdk"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-scripts.write",
+          "workers-scripts.edit",
+          "workers-scripts.admin"
         ]
       },
       responses: {
@@ -600,6 +605,15 @@ export const tools: readonly Tool[] = [
         ],
         "x-fern-audiences": [
           "sdk"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-tail.read",
+          "workers-scripts.read",
+          "workers-scripts.write",
+          "workers-scripts.content_read",
+          "workers-scripts.metadata_read",
+          "workers-scripts.edit",
+          "workers-scripts.admin"
         ]
       },
       responses: {

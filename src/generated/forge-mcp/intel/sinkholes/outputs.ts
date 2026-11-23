@@ -30,9 +30,9 @@ export const intel$$sinkholes_api$$response$$common: JSONObject = {
 };
 
 /**
- * The schema of `intel-sinkholes_api_response_common_failure` in responses.
+ * The schema of `intel-sinkholes_api-response-common-failure` in responses.
  */
-export const intel$$sinkholes_api_response_common_failure: JSONObject = {
+export const intel$$sinkholes_api$$response$$common$$failure: JSONObject = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/intel-sinkholes_messages"
@@ -57,6 +57,13 @@ export const intel$$sinkholes_api_response_common_failure: JSONObject = {
     "success"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `intel-sinkholes_api_response_common_failure` in responses.
+ */
+export const intel$$sinkholes_api_response_common_failure: JSONObject = {
+  "$ref": "#/$defs/intel-sinkholes_api-response-common-failure"
 };
 
 /**

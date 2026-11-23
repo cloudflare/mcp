@@ -3,13 +3,13 @@
 
 import { OPERATION, type Tool, encodePath } from "../_/tool.js";
 import {
-  rulesets_Errors,
-  rulesets_Message,
-  rulesets_Messages,
-  rulesets_Response,
-} from "../outputs.js";
-import { rulesets_UrlNormalization } from "./outputs.js";
-import { rulesets_UrlNormalization as rulesets_UrlNormalization$ } from "./schemas.js";
+  url$$normalization_Errors,
+  url$$normalization_Message,
+  url$$normalization_Messages,
+  url$$normalization_Response,
+  url$$normalization_UrlNormalization,
+} from "./outputs.js";
+import { url$$normalization_UrlNormalization as url$$normalization_UrlNormalization$ } from "./schemas.js";
 
 /**
  * The tools of `urlNormalization`.
@@ -54,7 +54,10 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/zones/${"zone_id"}/url_normalization`,
       extensions: {
         "x-api-token-group": [
+          "Account Custom Error Rules Write",
           "Response Compression Write",
+          "Account Custom Pages Write",
+          "Custom Pages Write",
           "Config Settings Write",
           "Dynamic URL Redirects Write",
           "Cache Settings Write",
@@ -81,7 +84,33 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "config-settings.write",
+          "dynamic-redirect.write",
+          "http-ddos-managed-ruleset.write",
+          "origin.write",
+          "response-compression.write",
+          "sanitize.write",
+          "cache-settings.write",
+          "custom-errors.write",
+          "l4-ddos-managed-ruleset.write",
+          "managed-headers.write",
+          "mass-url-redirects.write",
+          "bot-management.write",
+          "custom-pages.write",
+          "logs.write",
+          "account-custom-error-rules.write",
+          "select-configuration.write",
+          "zone-transform-rules.write",
+          "account-custom-pages.write",
+          "account-logs.write",
+          "magic-firewall.write",
+          "zone-waf.write",
+          "transform-rules.write",
+          "account-waf.write",
+          "account-rulesets.write"
+        ]
       },
       responses: {
         schemas: {
@@ -89,7 +118,7 @@ export const tools: readonly Tool[] = [
           "4XX": {
             "allOf": [
               {
-                "$ref": "#/$defs/rulesets_Response"
+                "$ref": "#/$defs/url-normalization_Response"
               },
               {
                 "properties": {
@@ -109,10 +138,10 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
-          "rulesets_Errors": rulesets_Errors,
-          "rulesets_Message": rulesets_Message,
-          "rulesets_Messages": rulesets_Messages,
-          "rulesets_Response": rulesets_Response,
+          "url-normalization_Errors": url$$normalization_Errors,
+          "url-normalization_Message": url$$normalization_Message,
+          "url-normalization_Messages": url$$normalization_Messages,
+          "url-normalization_Response": url$$normalization_Response,
         },
       },
     },
@@ -146,13 +175,13 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "allOf": [
         {
-          "$ref": "#/$defs/rulesets_Response"
+          "$ref": "#/$defs/url-normalization_Response"
         },
         {
           "properties": {
             "errors": {},
             "result": {
-              "$ref": "#/$defs/rulesets_UrlNormalization"
+              "$ref": "#/$defs/url-normalization_UrlNormalization"
             },
             "success": {
               "enum": [
@@ -165,11 +194,11 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "rulesets_Errors": rulesets_Errors,
-        "rulesets_Message": rulesets_Message,
-        "rulesets_Messages": rulesets_Messages,
-        "rulesets_Response": rulesets_Response,
-        "rulesets_UrlNormalization": rulesets_UrlNormalization,
+        "url-normalization_Errors": url$$normalization_Errors,
+        "url-normalization_Message": url$$normalization_Message,
+        "url-normalization_Messages": url$$normalization_Messages,
+        "url-normalization_Response": url$$normalization_Response,
+        "url-normalization_UrlNormalization": url$$normalization_UrlNormalization,
       },
     },
     annotations: {
@@ -185,8 +214,14 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/zones/${"zone_id"}/url_normalization`,
       extensions: {
         "x-api-token-group": [
+          "Account Custom Error Rules Write",
+          "Account Custom Error Rules Read",
           "Response Compression Write",
           "Response Compression Read",
+          "Account Custom Pages Write",
+          "Account Custom Pages Read",
+          "Custom Pages Write",
+          "Custom Pages Read",
           "Config Settings Write",
           "Config Settings Read",
           "Dynamic URL Redirects Write",
@@ -233,20 +268,70 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "config-settings.read",
+          "dynamic-redirect.read",
+          "http-ddos-managed-ruleset.read",
+          "origin.read",
+          "response-compression.read",
+          "sanitize.read",
+          "cache-settings.read",
+          "custom-errors.read",
+          "l4-ddos-managed-ruleset.read",
+          "managed-headers.read",
+          "mass-url-redirects.read",
+          "bot-management.read",
+          "account-custom-error-rules.read",
+          "custom-pages.read",
+          "logs.read",
+          "select-configuration.read",
+          "zone-transform-rules.read",
+          "account-logs.read",
+          "account-custom-pages.read",
+          "config-settings.write",
+          "dynamic-redirect.write",
+          "http-ddos-managed-ruleset.write",
+          "origin.write",
+          "response-compression.write",
+          "sanitize.write",
+          "magic-firewall.read",
+          "cache-settings.write",
+          "custom-errors.write",
+          "l4-ddos-managed-ruleset.write",
+          "managed-headers.write",
+          "mass-url-redirects.write",
+          "transform-rules.read",
+          "zone-waf.read",
+          "bot-management.write",
+          "custom-pages.write",
+          "logs.write",
+          "account-custom-error-rules.write",
+          "select-configuration.write",
+          "zone-transform-rules.write",
+          "account-custom-pages.write",
+          "account-logs.write",
+          "magic-firewall.write",
+          "account-waf.read",
+          "zone-waf.write",
+          "transform-rules.write",
+          "account-rulesets.read",
+          "account-waf.write",
+          "account-rulesets.write"
+        ]
       },
       responses: {
         schemas: {
           "200": {
             "allOf": [
               {
-                "$ref": "#/$defs/rulesets_Response"
+                "$ref": "#/$defs/url-normalization_Response"
               },
               {
                 "properties": {
                   "errors": {},
                   "result": {
-                    "$ref": "#/$defs/rulesets_UrlNormalization"
+                    "$ref": "#/$defs/url-normalization_UrlNormalization"
                   },
                   "success": {
                     "enum": [
@@ -262,7 +347,7 @@ export const tools: readonly Tool[] = [
           "4XX": {
             "allOf": [
               {
-                "$ref": "#/$defs/rulesets_Response"
+                "$ref": "#/$defs/url-normalization_Response"
               },
               {
                 "properties": {
@@ -282,11 +367,11 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
-          "rulesets_Errors": rulesets_Errors,
-          "rulesets_Message": rulesets_Message,
-          "rulesets_Messages": rulesets_Messages,
-          "rulesets_Response": rulesets_Response,
-          "rulesets_UrlNormalization": rulesets_UrlNormalization,
+          "url-normalization_Errors": url$$normalization_Errors,
+          "url-normalization_Message": url$$normalization_Message,
+          "url-normalization_Messages": url$$normalization_Messages,
+          "url-normalization_Response": url$$normalization_Response,
+          "url-normalization_UrlNormalization": url$$normalization_UrlNormalization,
         },
       },
     },
@@ -299,7 +384,7 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "body": {
-          "$ref": "#/$defs/rulesets_UrlNormalization"
+          "$ref": "#/$defs/url-normalization_UrlNormalization"
         },
         "path": {
           "additionalProperties": false,
@@ -321,19 +406,19 @@ export const tools: readonly Tool[] = [
       ],
       additionalProperties: false,
       $defs: {
-        "rulesets_UrlNormalization": rulesets_UrlNormalization$,
+        "url-normalization_UrlNormalization": url$$normalization_UrlNormalization$,
       },
     },
     outputSchema: {
       "allOf": [
         {
-          "$ref": "#/$defs/rulesets_Response"
+          "$ref": "#/$defs/url-normalization_Response"
         },
         {
           "properties": {
             "errors": {},
             "result": {
-              "$ref": "#/$defs/rulesets_UrlNormalization"
+              "$ref": "#/$defs/url-normalization_UrlNormalization"
             },
             "success": {
               "enum": [
@@ -346,11 +431,11 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "rulesets_Errors": rulesets_Errors,
-        "rulesets_Message": rulesets_Message,
-        "rulesets_Messages": rulesets_Messages,
-        "rulesets_Response": rulesets_Response,
-        "rulesets_UrlNormalization": rulesets_UrlNormalization,
+        "url-normalization_Errors": url$$normalization_Errors,
+        "url-normalization_Message": url$$normalization_Message,
+        "url-normalization_Messages": url$$normalization_Messages,
+        "url-normalization_Response": url$$normalization_Response,
+        "url-normalization_UrlNormalization": url$$normalization_UrlNormalization,
       },
     },
     annotations: {
@@ -367,7 +452,10 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "Account Custom Error Rules Write",
           "Response Compression Write",
+          "Account Custom Pages Write",
+          "Custom Pages Write",
           "Config Settings Write",
           "Dynamic URL Redirects Write",
           "Cache Settings Write",
@@ -394,20 +482,46 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "config-settings.write",
+          "dynamic-redirect.write",
+          "http-ddos-managed-ruleset.write",
+          "origin.write",
+          "response-compression.write",
+          "sanitize.write",
+          "cache-settings.write",
+          "custom-errors.write",
+          "l4-ddos-managed-ruleset.write",
+          "managed-headers.write",
+          "mass-url-redirects.write",
+          "bot-management.write",
+          "custom-pages.write",
+          "logs.write",
+          "account-custom-error-rules.write",
+          "select-configuration.write",
+          "zone-transform-rules.write",
+          "account-custom-pages.write",
+          "account-logs.write",
+          "magic-firewall.write",
+          "zone-waf.write",
+          "transform-rules.write",
+          "account-waf.write",
+          "account-rulesets.write"
+        ]
       },
       responses: {
         schemas: {
           "200": {
             "allOf": [
               {
-                "$ref": "#/$defs/rulesets_Response"
+                "$ref": "#/$defs/url-normalization_Response"
               },
               {
                 "properties": {
                   "errors": {},
                   "result": {
-                    "$ref": "#/$defs/rulesets_UrlNormalization"
+                    "$ref": "#/$defs/url-normalization_UrlNormalization"
                   },
                   "success": {
                     "enum": [
@@ -423,7 +537,7 @@ export const tools: readonly Tool[] = [
           "4XX": {
             "allOf": [
               {
-                "$ref": "#/$defs/rulesets_Response"
+                "$ref": "#/$defs/url-normalization_Response"
               },
               {
                 "properties": {
@@ -443,11 +557,11 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
-          "rulesets_Errors": rulesets_Errors,
-          "rulesets_Message": rulesets_Message,
-          "rulesets_Messages": rulesets_Messages,
-          "rulesets_Response": rulesets_Response,
-          "rulesets_UrlNormalization": rulesets_UrlNormalization,
+          "url-normalization_Errors": url$$normalization_Errors,
+          "url-normalization_Message": url$$normalization_Message,
+          "url-normalization_Messages": url$$normalization_Messages,
+          "url-normalization_Response": url$$normalization_Response,
+          "url-normalization_UrlNormalization": url$$normalization_UrlNormalization,
         },
       },
     },

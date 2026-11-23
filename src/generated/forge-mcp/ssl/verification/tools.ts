@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
 import {
+  tls$$certificates$$and$$hostnames_api$$response$$common,
   tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
   tls$$certificates$$and$$hostnames_api$$response$$single,
   tls$$certificates$$and$$hostnames_messages,
@@ -21,8 +22,8 @@ import { tls$$certificates$$and$$hostnames_validation_method$$3 } from "./schema
 export const tools: readonly Tool[] = [
   {
     name: "ssl_verification_edit",
-    title: "Edit SSL Certificate Pack Validation Method",
-    description: "Edit SSL validation method for a certificate pack. A PATCH request will request an immediate validation check on any certificate, and return the updated status. If a validation method is provided, the validation will be immediately attempted using that method.\n\nPATCH /zones/{zone_id}/ssl/verification/{certificate_pack_id}",
+    title: "Update SSL Certificate Pack Validation Method",
+    description: "Update the configured SSL validation method for a Universal SSL certificate pack, or request another validation attempt for a pack in pending_validation. This endpoint does not change the validation method for advanced certificates.\nFor an active certificate pack, a method-only update saves the method without rerunning validation or replacing the active certificate. For a pack pending validation, changing the method initializes validation using the requested method. Cloudflare may select a different method during automatic renewal.\nOmit validation_method, send an empty JSON object, or omit the request body to use the current or default method. For a pack in pending_validation, keeping the current method requests another validation attempt. Cloudflare may queue this attempt rather than complete validation before returning. For an active pack, an empty JSON object or a request without a body does not rerun DCV. The response returns the current status and does not guarantee that validation has completed.\nAvailable methods depend on the DNS setup and certificate authority. For Google Trust Services, Let's Encrypt, and SSL.com, full DNS setups support txt only, while partial DNS setups support txt or http. HTTP validation does not support wildcard certificates. This endpoint allows four PATCH requests per zone per 60 seconds.\n\nPATCH /zones/{zone_id}/ssl/verification/{certificate_pack_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -49,8 +50,7 @@ export const tools: readonly Tool[] = [
         }
       },
       required: [
-        "path",
-        "body"
+        "path"
       ],
       additionalProperties: false,
       $defs: {
@@ -60,6 +60,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_ssl_validation_method_response_collection",
       $defs: {
+        "tls-certificates-and-hostnames_api-response-common": tls$$certificates$$and$$hostnames_api$$response$$common,
         "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
         "tls-certificates-and-hostnames_ssl_validation_method_response_collection": tls$$certificates$$and$$hostnames_ssl_validation_method_response_collection,
@@ -70,7 +71,7 @@ export const tools: readonly Tool[] = [
       "idempotentHint": false,
       "openWorldHint": true,
       "readOnlyHint": false,
-      "title": "Edit SSL Certificate Pack Validation Method"
+      "title": "Update SSL Certificate Pack Validation Method"
     },
     [OPERATION]: {
       method: "PATCH",
@@ -95,7 +96,13 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "access-certificate.read",
+          "access-certificate.write",
+          "ssl-and-certificates.read",
+          "ssl-and-certificates.write"
+        ]
       },
       responses: {
         schemas: {
@@ -114,6 +121,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "tls-certificates-and-hostnames_api-response-common": tls$$certificates$$and$$hostnames_api$$response$$common,
           "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
           "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
           "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
@@ -200,7 +208,13 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "access-certificate.read",
+          "access-certificate.write",
+          "ssl-and-certificates.read",
+          "ssl-and-certificates.write"
+        ]
       },
       responses: {
         schemas: {

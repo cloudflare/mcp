@@ -226,6 +226,13 @@ export const stream_videos: JSONObject = {
     "duration": {
       "type": "number"
     },
+    "encodingMode": {
+      "enum": [
+        "default",
+        "previewFirst"
+      ],
+      "type": "string"
+    },
     "input": {
       "$ref": "#/$defs/stream_input"
     },
@@ -250,6 +257,29 @@ export const stream_videos: JSONObject = {
     },
     "preview": {
       "type": "string"
+    },
+    "previewStatus": {
+      "oneOf": [
+        {
+          "enum": [
+            "pending",
+            "ready",
+            "error",
+            "not-eligible-container",
+            "not-eligible-video-codec",
+            "not-eligible-audio-codec",
+            "not-eligible-resolution",
+            "not-eligible-bitrate",
+            "not-eligible-gop",
+            "not-eligible-pixel-format",
+            "not-eligible-edit-list"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "publicDetails": {
       "properties": {

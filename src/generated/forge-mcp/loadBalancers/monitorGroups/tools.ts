@@ -79,6 +79,14 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/load_balancers/monitor_groups",
       pathOf: encodePath`/accounts/${"account_id"}/load_balancers/monitor_groups`,
       body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-api-token-group": [
+          "Load Balancing: Monitors and Pools Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "load-balancing-monitors-and-pools.write"
+        ]
+      },
       responses: {
         schemas: {
           "200": {
@@ -153,6 +161,14 @@ export const tools: readonly Tool[] = [
       method: "DELETE",
       path: "/accounts/{account_id}/load_balancers/monitor_groups/{monitor_group_id}",
       pathOf: encodePath`/accounts/${"account_id"}/load_balancers/monitor_groups/${"monitor_group_id"}`,
+      extensions: {
+        "x-api-token-group": [
+          "Load Balancing: Monitors and Pools Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "load-balancing-monitors-and-pools.write"
+        ]
+      },
       responses: {
         schemas: {
           "200": {
@@ -236,6 +252,14 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/load_balancers/monitor_groups/{monitor_group_id}",
       pathOf: encodePath`/accounts/${"account_id"}/load_balancers/monitor_groups/${"monitor_group_id"}`,
       body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-api-token-group": [
+          "Load Balancing: Monitors and Pools Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "load-balancing-monitors-and-pools.write"
+        ]
+      },
       responses: {
         schemas: {
           "200": {
@@ -310,6 +334,16 @@ export const tools: readonly Tool[] = [
       method: "GET",
       path: "/accounts/{account_id}/load_balancers/monitor_groups/{monitor_group_id}",
       pathOf: encodePath`/accounts/${"account_id"}/load_balancers/monitor_groups/${"monitor_group_id"}`,
+      extensions: {
+        "x-api-token-group": [
+          "Load Balancing: Monitors and Pools Write",
+          "Load Balancing: Monitors and Pools Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "load-balancing-monitors-and-pools.read",
+          "load-balancing-monitors-and-pools.write"
+        ]
+      },
       responses: {
         schemas: {
           "200": {
@@ -378,6 +412,16 @@ export const tools: readonly Tool[] = [
       method: "GET",
       path: "/accounts/{account_id}/load_balancers/monitor_groups",
       pathOf: encodePath`/accounts/${"account_id"}/load_balancers/monitor_groups`,
+      extensions: {
+        "x-api-token-group": [
+          "Load Balancing: Monitors and Pools Write",
+          "Load Balancing: Monitors and Pools Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "load-balancing-monitors-and-pools.read",
+          "load-balancing-monitors-and-pools.write"
+        ]
+      },
       responses: {
         schemas: {
           "200": {
@@ -459,6 +503,14 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/load_balancers/monitor_groups/{monitor_group_id}",
       pathOf: encodePath`/accounts/${"account_id"}/load_balancers/monitor_groups/${"monitor_group_id"}`,
       body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-api-token-group": [
+          "Load Balancing: Monitors and Pools Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "load-balancing-monitors-and-pools.write"
+        ]
+      },
       responses: {
         schemas: {
           "200": {

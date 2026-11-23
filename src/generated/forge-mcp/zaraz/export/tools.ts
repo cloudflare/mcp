@@ -90,6 +90,11 @@ export const tools: readonly Tool[] = [
           "Zaraz Edit",
           "Zaraz Read",
           "Zaraz Admin"
+        ],
+        "x-forge-oauth-scopes": [
+          "zaraz.read",
+          "zaraz.edit",
+          "zaraz.write"
         ]
       },
       responses: {

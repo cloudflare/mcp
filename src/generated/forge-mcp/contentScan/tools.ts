@@ -68,6 +68,12 @@ export const tools: readonly Tool[] = [
           "Zone WAF Read",
           "Account WAF Write",
           "Account WAF Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "zone-waf.read",
+          "account-waf.read",
+          "zone-waf.write",
+          "account-waf.write"
         ]
       },
       responses: {
@@ -160,6 +166,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Zone WAF Write",
           "Account WAF Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "zone-waf.write",
+          "account-waf.write"
         ]
       },
       responses: {

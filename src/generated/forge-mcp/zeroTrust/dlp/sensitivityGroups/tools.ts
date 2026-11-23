@@ -4,6 +4,7 @@
 import { OPERATION, type Tool, encodePath } from "../../../_/tool.js";
 import {
   dlp_Empty,
+  dlp_api$$response$$common,
   dlp_api$$response$$common$$failure,
   dlp_api$$response$$single,
   dlp_messages,
@@ -80,6 +81,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dlp_SensitivityGroup": dlp_SensitivityGroup,
         "dlp_SensitivityLevel": dlp_SensitivityLevel,
+        "dlp_api-response-common": dlp_api$$response$$common,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
       },
@@ -99,6 +101,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.write"
         ]
       },
       responses: {
@@ -125,6 +130,7 @@ export const tools: readonly Tool[] = [
         $defs: {
           "dlp_SensitivityGroup": dlp_SensitivityGroup,
           "dlp_SensitivityLevel": dlp_SensitivityLevel,
+          "dlp_api-response-common": dlp_api$$response$$common,
           "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
           "dlp_api-response-single": dlp_api$$response$$single,
           "dlp_messages": dlp_messages,
@@ -178,6 +184,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "dlp_Empty": dlp_Empty,
+        "dlp_api-response-common": dlp_api$$response$$common,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
       },
@@ -196,6 +203,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.write"
         ]
       },
       responses: {
@@ -221,6 +231,7 @@ export const tools: readonly Tool[] = [
         },
         $defs: {
           "dlp_Empty": dlp_Empty,
+          "dlp_api-response-common": dlp_api$$response$$common,
           "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
           "dlp_api-response-single": dlp_api$$response$$single,
           "dlp_messages": dlp_messages,
@@ -275,6 +286,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dlp_SensitivityGroup": dlp_SensitivityGroup,
         "dlp_SensitivityLevel": dlp_SensitivityLevel,
+        "dlp_api-response-common": dlp_api$$response$$common,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
       },
@@ -294,6 +306,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Zero Trust Read",
           "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.read",
+          "teams.write"
         ]
       },
       responses: {
@@ -320,6 +336,7 @@ export const tools: readonly Tool[] = [
         $defs: {
           "dlp_SensitivityGroup": dlp_SensitivityGroup,
           "dlp_SensitivityLevel": dlp_SensitivityLevel,
+          "dlp_api-response-common": dlp_api$$response$$common,
           "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
           "dlp_api-response-single": dlp_api$$response$$single,
           "dlp_messages": dlp_messages,
@@ -373,6 +390,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "dlp_SensitivityLevelOrder": dlp_SensitivityLevelOrder,
+        "dlp_api-response-common": dlp_api$$response$$common,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
       },
@@ -392,6 +410,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Zero Trust Read",
           "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.read",
+          "teams.write"
         ]
       },
       responses: {
@@ -417,6 +439,7 @@ export const tools: readonly Tool[] = [
         },
         $defs: {
           "dlp_SensitivityLevelOrder": dlp_SensitivityLevelOrder,
+          "dlp_api-response-common": dlp_api$$response$$common,
           "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
           "dlp_api-response-single": dlp_api$$response$$single,
           "dlp_messages": dlp_messages,
@@ -467,6 +490,7 @@ export const tools: readonly Tool[] = [
         "dlp_SensitivityGroup": dlp_SensitivityGroup,
         "dlp_SensitivityGroupArray": dlp_SensitivityGroupArray,
         "dlp_SensitivityLevel": dlp_SensitivityLevel,
+        "dlp_api-response-common": dlp_api$$response$$common,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
       },
@@ -486,6 +510,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Zero Trust Read",
           "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.read",
+          "teams.write"
         ]
       },
       responses: {
@@ -513,6 +541,7 @@ export const tools: readonly Tool[] = [
           "dlp_SensitivityGroup": dlp_SensitivityGroup,
           "dlp_SensitivityGroupArray": dlp_SensitivityGroupArray,
           "dlp_SensitivityLevel": dlp_SensitivityLevel,
+          "dlp_api-response-common": dlp_api$$response$$common,
           "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
           "dlp_api-response-single": dlp_api$$response$$single,
           "dlp_messages": dlp_messages,
@@ -577,6 +606,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dlp_SensitivityGroup": dlp_SensitivityGroup,
         "dlp_SensitivityLevel": dlp_SensitivityLevel,
+        "dlp_api-response-common": dlp_api$$response$$common,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
       },
@@ -596,6 +626,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.write"
         ]
       },
       responses: {
@@ -622,6 +655,7 @@ export const tools: readonly Tool[] = [
         $defs: {
           "dlp_SensitivityGroup": dlp_SensitivityGroup,
           "dlp_SensitivityLevel": dlp_SensitivityLevel,
+          "dlp_api-response-common": dlp_api$$response$$common,
           "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
           "dlp_api-response-single": dlp_api$$response$$single,
           "dlp_messages": dlp_messages,
@@ -683,6 +717,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "dlp_SensitivityLevelOrder": dlp_SensitivityLevelOrder,
+        "dlp_api-response-common": dlp_api$$response$$common,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
       },
@@ -702,6 +737,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.write"
         ]
       },
       responses: {
@@ -727,6 +765,7 @@ export const tools: readonly Tool[] = [
         },
         $defs: {
           "dlp_SensitivityLevelOrder": dlp_SensitivityLevelOrder,
+          "dlp_api-response-common": dlp_api$$response$$common,
           "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
           "dlp_api-response-single": dlp_api$$response$$single,
           "dlp_messages": dlp_messages,

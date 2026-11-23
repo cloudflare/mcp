@@ -78,7 +78,7 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "account_or_zone": {
-              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "description": "Whether ${account_or_zone} is an account ID (`accounts`) or a zone ID (`zones`).",
               "enum": [
                 "accounts",
                 "zones"
@@ -86,7 +86,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "description": "The account ID or zone ID, as selected by ${account_or_zone}.",
               "type": "string"
             }
           },
@@ -142,19 +142,16 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
-          "Account Firewall Access Rules Write"
+          "Account Firewall Access Rules Write",
+          "Firewall Services Write"
         ],
-        "x-cfPermissionsRequired": {
-          "enum": [
-            "#waf:edit"
-          ]
-        },
         "x-cfPlanAvailability": {
           "business": true,
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-stainless-skip": true
       },
       responses: {
         schemas: {
@@ -194,7 +191,7 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "account_or_zone": {
-              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "description": "Whether ${account_or_zone} is an account ID (`accounts`) or a zone ID (`zones`).",
               "enum": [
                 "accounts",
                 "zones"
@@ -202,7 +199,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "description": "The account ID or zone ID, as selected by ${account_or_zone}.",
               "type": "string"
             },
             "rule_id": {
@@ -244,19 +241,16 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/${"account_or_zone"}/${"account_or_zone_id"}/firewall/access_rules/rules/${"rule_id"}`,
       extensions: {
         "x-api-token-group": [
-          "Account Firewall Access Rules Write"
+          "Account Firewall Access Rules Write",
+          "Firewall Services Write"
         ],
-        "x-cfPermissionsRequired": {
-          "enum": [
-            "#waf:edit"
-          ]
-        },
         "x-cfPlanAvailability": {
           "business": true,
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-stainless-skip": true
       },
       responses: {
         schemas: {
@@ -290,7 +284,7 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "account_or_zone": {
-              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "description": "Whether ${account_or_zone} is an account ID (`accounts`) or a zone ID (`zones`).",
               "enum": [
                 "accounts",
                 "zones"
@@ -298,7 +292,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "description": "The account ID or zone ID, as selected by ${account_or_zone}.",
               "type": "string"
             },
             "rule_id": {
@@ -361,19 +355,16 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
-          "Account Firewall Access Rules Write"
+          "Account Firewall Access Rules Write",
+          "Firewall Services Write"
         ],
-        "x-cfPermissionsRequired": {
-          "enum": [
-            "#waf:edit"
-          ]
-        },
         "x-cfPlanAvailability": {
           "business": true,
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-stainless-skip": true
       },
       responses: {
         schemas: {
@@ -413,7 +404,7 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "account_or_zone": {
-              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "description": "Whether ${account_or_zone} is an account ID (`accounts`) or a zone ID (`zones`).",
               "enum": [
                 "accounts",
                 "zones"
@@ -421,7 +412,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "description": "The account ID or zone ID, as selected by ${account_or_zone}.",
               "type": "string"
             },
             "rule_id": {
@@ -475,17 +466,13 @@ export const tools: readonly Tool[] = [
           "Account Firewall Access Rules Write",
           "Account Firewall Access Rules Read"
         ],
-        "x-cfPermissionsRequired": {
-          "enum": [
-            "#waf:read"
-          ]
-        },
         "x-cfPlanAvailability": {
           "business": true,
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-stainless-skip": true
       },
       responses: {
         schemas: {
@@ -525,7 +512,7 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "account_or_zone": {
-              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "description": "Whether ${account_or_zone} is an account ID (`accounts`) or a zone ID (`zones`).",
               "enum": [
                 "accounts",
                 "zones"
@@ -533,7 +520,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "description": "The account ID or zone ID, as selected by ${account_or_zone}.",
               "type": "string"
             }
           },
@@ -661,19 +648,17 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Account Firewall Access Rules Write",
-          "Account Firewall Access Rules Read"
+          "Account Firewall Access Rules Read",
+          "Firewall Services Write",
+          "Firewall Services Read"
         ],
-        "x-cfPermissionsRequired": {
-          "enum": [
-            "#waf:read"
-          ]
-        },
         "x-cfPlanAvailability": {
           "business": true,
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-stainless-skip": true
       },
       responses: {
         schemas: {

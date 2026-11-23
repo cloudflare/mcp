@@ -94,7 +94,8 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
-          "Zone Settings Write"
+          "Zone Settings Write",
+          "Workers Routes Write"
         ],
         "x-cfPermissionsRequired": {
           "enum": [
@@ -106,7 +107,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "workers-routes.write",
+          "zone-settings.write"
+        ]
       },
       responses: {
         schemas: {
@@ -199,8 +204,14 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/zones/${"zone_id"}/settings/image_resizing`,
       extensions: {
         "x-api-token-group": [
+          "Workers Metadata Read-Only",
+          "Workers Editor",
+          "Workers Content Read-Only",
+          "Workers Admin",
           "Zone Settings Write",
-          "Zone Settings Read"
+          "Zone Settings Read",
+          "Workers Routes Write",
+          "Workers Routes Read"
         ],
         "x-cfPermissionsRequired": {
           "enum": [
@@ -212,7 +223,17 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "workers-routes.read",
+          "zone-settings.read",
+          "workers-scripts.content_read",
+          "workers-scripts.metadata_read",
+          "workers-routes.write",
+          "workers-scripts.edit",
+          "workers-scripts.admin",
+          "zone-settings.write"
+        ]
       },
       responses: {
         schemas: {

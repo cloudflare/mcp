@@ -63,26 +63,7 @@ export const stream_api$$response$$common$$failure: JSONObject = {
  * The schema of `stream_api-response-single` in responses.
  */
 export const stream_api$$response$$single: JSONObject = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/stream_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/stream_messages"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  "$ref": "#/$defs/stream_api-response-common"
 };
 
 /**
