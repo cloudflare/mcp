@@ -20,6 +20,7 @@ import { identifyClient, type ClientBehavior } from './clients'
 import { AuthProps as AuthPropsSchema, type AuthProps } from './auth/types'
 import { cachedToolListResponse } from './tools/tool-list-response'
 import { getForgeToolList } from './isolate-cache'
+import { userAgentProduct } from './metrics'
 
 export const MCP_ROUTE = '/mcp'
 
@@ -223,6 +224,10 @@ export async function handleAuthenticatedMcpRequest(
   const context: RequestContext = {
     connection,
     scopeChallenge,
+    client: {
+      userAgent: userAgentProduct(request.headers.get('User-Agent')),
+      oauthClientId: issued?.clientId
+    },
     ...(env && {
       events: {
         env,

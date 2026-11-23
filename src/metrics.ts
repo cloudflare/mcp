@@ -14,6 +14,19 @@
  *   blob4   = toolName (tool_call, response_schema_mismatch) | errorMessage (auth_user)
  *   double1 = errorCode (tool_call; always 0 for response_schema_mismatch)
  *
+ * `tool_call` adds who made the call (see {@link ToolCallClient}), so usage can
+ * be broken down by harness:
+ *   blob5   = client name: the 2026-07-28 `_meta` clientInfo name, else the
+ *             User-Agent's product name
+ *   blob6   = client version, from the same source as blob5
+ *   blob7   = User-Agent's first product token (`claude-code/2.1.0`)
+ *   blob8   = protocol: the 2026-07-28 envelope's protocol version, else `2025`
+ *   blob9   = tool mode (`codemode` | `direct`)
+ *   blob10  = connection kind (`oauth` | `direct`)
+ *   blob11  = OAuth client ID of a token this server issued (a Client ID
+ *             Metadata Document URL or a registered ID)
+ * Events written before these fields existed leave them empty.
+ *
  * `response_schema_mismatch` (a direct-tool response that doesn't match its
  * OpenAPI response schema, see `src/response-validation.ts`) adds:
  *   blob5   = HTTP method (`GET`)
@@ -37,13 +50,13 @@
  * emit `session_start` events the way the Durable-Object-backed Cloudflare MCP
  * servers do. MCP 2026-07-28 has no protocol session or initialize handshake;
  * the 2025 compatibility path also retains no initialization state between
- * requests. The slots reserved upstream for session client info remain unused,
- * keeping shared-dataset queries compatible. Client identity is available at
- * the HTTP layer via the User-Agent header instead.
+ * requests. There is no `session_start` to carry client info, so each
+ * `tool_call` carries it instead (blob5–blob11).
  */
 
 import { env } from 'cloudflare:workers'
-import type { McpServer } from '@modelcontextprotocol/server'
+import { CLIENT_INFO_META_KEY, PROTOCOL_VERSION_META_KEY } from '@modelcontextprotocol/server'
+import type { McpServer, ServerContext } from '@modelcontextprotocol/server'
 import type { AuthProps } from './auth/types'
 import { SERVER_INFO, type ServerInfo } from './constants'
 
@@ -156,23 +169,45 @@ export abstract class MetricsEvent {
   }
 }
 
+/** Who made a tool call: the client, its protocol, the tool mode and the credential. */
+export interface ToolCallClient {
+  readonly name?: string
+  readonly version?: string
+  readonly userAgent?: string
+  readonly protocol: string
+  readonly mode: 'codemode' | 'direct'
+  readonly connection: 'oauth' | 'direct'
+  readonly oauthClientId?: string
+}
+
 export class ToolCall extends MetricsEvent {
   constructor(
     private toolCall: {
       userId?: string
       toolName: string
       errorCode?: number
+      client?: ToolCallClient
     }
   ) {
     super()
   }
 
   toDataPoint(): AnalyticsEngineDataPoint {
+    const { client } = this.toolCall
     return {
       indexes: [MetricsEventIndexId.TOOL_CALL],
       blobs: this.mapBlobs({
         blob3: this.toolCall.userId,
-        blob4: this.toolCall.toolName
+        blob4: this.toolCall.toolName,
+        ...(client && {
+          blob5: client.name,
+          blob6: client.version,
+          blob7: client.userAgent,
+          blob8: client.protocol,
+          blob9: client.mode,
+          blob10: client.connection,
+          blob11: client.oauthClientId
+        })
       }),
       doubles: this.mapDoubles({
         double1: this.toolCall.errorCode
@@ -284,14 +319,70 @@ function userIdFromProps(props?: AuthProps): string | undefined {
   return props?.type === 'user_token' ? props.user.id : undefined
 }
 
+/**
+ * What the HTTP request says about its client, the same for every tool call in
+ * it. Built once per request in `src/mcp-handler.ts`.
+ */
+export interface RequestClient {
+  readonly mode: ToolCallClient['mode']
+  readonly connection: ToolCallClient['connection']
+  /** The User-Agent's first product token, from {@link userAgentProduct}. */
+  readonly userAgent?: string
+  readonly oauthClientId?: string
+}
+
+const MAX_CLIENT_FIELD = 128
+
+function clientField(value: unknown): string | undefined {
+  if (typeof value !== 'string') return undefined
+  const trimmed = value.trim()
+  return trimmed ? trimmed.slice(0, MAX_CLIENT_FIELD) : undefined
+}
+
+/**
+ * The first product token of a User-Agent (`claude-code/2.1.0 (darwin)` →
+ * `claude-code/2.1.0`). The rest, such as the OS and platform, is left out.
+ */
+export function userAgentProduct(userAgent: string | null | undefined): string | undefined {
+  return clientField(userAgent?.trim().split(/\s+/, 1)[0])
+}
+
+/**
+ * Who made one tool call. A 2026-07-28 request names its client and protocol
+ * in its `_meta` envelope. A 2025-era request names its client only in
+ * `initialize`, which is a request of its own here, so its User-Agent stands in.
+ */
+export function toolCallClient(request: RequestClient, ctx?: ServerContext): ToolCallClient {
+  const envelope = ctx?.mcpReq?.envelope as Record<string, unknown> | undefined
+  const info = envelope?.[CLIENT_INFO_META_KEY] as { name?: unknown; version?: unknown } | undefined
+  const protocol = clientField(envelope?.[PROTOCOL_VERSION_META_KEY]) ?? '2025'
+  const name = clientField(info?.name)
+  const [uaName, uaVersion] = request.userAgent?.split('/', 2) ?? []
+  return {
+    name: name ?? clientField(uaName),
+    version: name ? clientField(info?.version) : clientField(uaVersion),
+    userAgent: request.userAgent,
+    protocol,
+    mode: request.mode,
+    connection: request.connection,
+    oauthClientId: clientField(request.oauthClientId)
+  }
+}
+
 /** Record one tool call from a low-level protocol handler. */
-export function recordToolCall(props: AuthProps, toolName: string, isError: boolean): void {
+export function recordToolCall(
+  props: AuthProps,
+  toolName: string,
+  isError: boolean,
+  client?: ToolCallClient
+): void {
   const metrics = new MetricsTracker(env.MCP_METRICS, SERVER_INFO)
   metrics.logEvent(
     new ToolCall({
       toolName,
       userId: userIdFromProps(props),
-      errorCode: isError ? -1 : undefined
+      errorCode: isError ? -1 : undefined,
+      client
     })
   )
 }
@@ -314,22 +405,27 @@ export function recordResponseSchemaMismatch(
  * Note: unlike the Durable-Object-backed Cloudflare MCP servers, this server is
  * stateless (a fresh McpServer per request), so there is no meaningful
  * `session_start` to log. Modern MCP has no initialize handshake, and the
- * stateless 2025 fallback retains no client lifecycle between requests. Client
- * identity is instead available at the HTTP layer via the User-Agent header.
+ * stateless 2025 fallback retains no client lifecycle between requests. Each
+ * `tool_call` names its client instead, from `request` and the call's context.
  */
-export function attachMetrics(server: McpServer, props?: AuthProps): void {
+export function attachMetrics(server: McpServer, props?: AuthProps, request?: RequestClient): void {
   const metrics = new MetricsTracker(env.MCP_METRICS, SERVER_INFO)
   const userId = userIdFromProps(props)
 
   const errorCodeOf = (e: unknown): number =>
     typeof (e as { code?: unknown })?.code === 'number' ? (e as { code: number }).code : -1
 
+  // The SDK passes the call's context last: `(args, ctx)`, or `(ctx)` for a tool without input.
+  const clientOf = (cbArgs: unknown[]): ToolCallClient | undefined =>
+    request && toolCallClient(request, cbArgs.at(-1) as ServerContext | undefined)
+
+  const log = (name: string, cbArgs: unknown[], errorCode: number | undefined) =>
+    metrics.logEvent(new ToolCall({ toolName: name, userId, errorCode, client: clientOf(cbArgs) }))
+
   // Our tool callbacks signal failure by returning `{ isError: true }` rather
   // than throwing, so inspect the resolved result as well as the thrown path.
-  const logResult = (name: string, result: unknown) => {
-    const errorCode = (result as { isError?: boolean })?.isError ? -1 : undefined
-    metrics.logEvent(new ToolCall({ toolName: name, userId, errorCode }))
-  }
+  const logResult = (name: string, cbArgs: unknown[], result: unknown) =>
+    log(name, cbArgs, (result as { isError?: boolean })?.isError ? -1 : undefined)
 
   const originalRegisterTool = server.registerTool.bind(server) as (
     ...args: unknown[]
@@ -351,18 +447,18 @@ export function attachMetrics(server: McpServer, props?: AuthProps): void {
         if (out instanceof Promise) {
           return out
             .then((r) => {
-              logResult(name, r)
+              logResult(name, cbArgs, r)
               return r
             })
             .catch((e: unknown) => {
-              metrics.logEvent(new ToolCall({ toolName: name, userId, errorCode: errorCodeOf(e) }))
+              log(name, cbArgs, errorCodeOf(e))
               throw e
             })
         }
-        logResult(name, out)
+        logResult(name, cbArgs, out)
         return out
       } catch (e) {
-        metrics.logEvent(new ToolCall({ toolName: name, userId, errorCode: errorCodeOf(e) }))
+        log(name, cbArgs, errorCodeOf(e))
         throw e
       }
     }
