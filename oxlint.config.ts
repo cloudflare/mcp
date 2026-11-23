@@ -6,9 +6,10 @@ export default defineConfig({
   categories: { ...cloudflare.categories, correctness: 'warn' },
   rules: {
     ...cloudflare.rules,
+    // The Worker writes operational logs at these levels.
+    'no-console': ['error', { allow: ['error', 'log', 'warn'] }],
     // Temporarily disabled during preset migration.
     '@nkzw/no-instanceof': 'off',
-    'no-console': 'off',
     'quality/no-chained-type-assertions': 'off',
     'quality/no-conditional-empty-object-spread': 'off',
     'quality/no-known-value-widening': 'off',
