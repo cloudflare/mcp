@@ -46,7 +46,7 @@ describe('ToolCall', () => {
     expect(dp.doubles).toEqual([-32602])
   })
 
-  it('puts the client in blob5-blob11, keeping the shared slots in place', () => {
+  it('puts the client in blob5-blob10, keeping the shared slots in place', () => {
     const event = new ToolCall({
       userId: 'user-1',
       toolName: 'execute',
@@ -56,8 +56,7 @@ describe('ToolCall', () => {
         userAgent: 'claude-code/2.1.0',
         protocol: '2026-07-28',
         mode: 'codemode',
-        connection: 'oauth',
-        oauthClientId: 'https://claude.ai/oauth/client.json'
+        connection: 'oauth'
       }
     })
     event.serverInfo = SERVER_INFO
@@ -72,8 +71,7 @@ describe('ToolCall', () => {
       'claude-code/2.1.0', // blob7 User-Agent product
       '2026-07-28', // blob8 protocol
       'codemode', // blob9 tool mode
-      'oauth', // blob10 connection kind
-      'https://claude.ai/oauth/client.json' // blob11 OAuth client ID
+      'oauth' // blob10 connection kind
     ])
   })
 
@@ -94,8 +92,7 @@ describe('ToolCall', () => {
       null,
       '2025',
       'direct',
-      'direct',
-      null
+      'direct'
     ])
   })
 })
@@ -120,8 +117,7 @@ describe('toolCallClient', () => {
   const request = {
     mode: 'codemode',
     connection: 'oauth',
-    userAgent: 'node/22.1.0',
-    oauthClientId: 'abc'
+    userAgent: 'node/22.1.0'
   } as const
 
   function contextWith(envelope: Record<string, unknown> | undefined) {
@@ -140,8 +136,7 @@ describe('toolCallClient', () => {
       userAgent: 'node/22.1.0',
       protocol: '2026-07-28',
       mode: 'codemode',
-      connection: 'oauth',
-      oauthClientId: 'abc'
+      connection: 'oauth'
     })
   })
 
@@ -160,8 +155,7 @@ describe('toolCallClient', () => {
       userAgent: undefined,
       protocol: '2025',
       mode: 'direct',
-      connection: 'direct',
-      oauthClientId: undefined
+      connection: 'direct'
     })
     const ctx = contextWith({ 'io.modelcontextprotocol/clientInfo': { name: 42 } })
     expect(toolCallClient(request, ctx).name).toBe('node')
@@ -375,15 +369,14 @@ describe('tool_call emission via the real worker', () => {
 
     await parseMcpResult(await exports.default.fetch(request))
 
-    // blob5..blob11: name, version, UA product, protocol, mode, connection, OAuth client
+    // blob5..blob10: name, version, UA product, protocol, mode, connection
     expect(findToolCall(writeSpy)!.blobs?.slice(4)).toEqual([
       'opencode',
       '1.4.2',
       'opencode/1.4.2',
       '2025',
       'direct',
-      'direct',
-      null
+      'direct'
     ])
   })
 
@@ -406,8 +399,7 @@ describe('tool_call emission via the real worker', () => {
       'node',
       '2026-07-28',
       'codemode',
-      'direct',
-      null
+      'direct'
     ])
   })
 

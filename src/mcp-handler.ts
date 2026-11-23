@@ -224,10 +224,7 @@ export async function handleAuthenticatedMcpRequest(
   const context: RequestContext = {
     connection,
     scopeChallenge,
-    client: {
-      userAgent: userAgentProduct(request.headers.get('User-Agent')),
-      oauthClientId: issued?.clientId
-    },
+    client: { userAgent: userAgentProduct(request.headers.get('User-Agent')) },
     ...(env && {
       events: {
         env,
