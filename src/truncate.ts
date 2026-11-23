@@ -224,8 +224,9 @@ function allocate(sizes: Array<number>, floors: Array<number>, available: number
   return allocation
 }
 
+const marker = (dropped: number) => `${TRUNCATION_MARKER} ${dropped.toLocaleString()} more items`
+
 function shrinkArray(items: Array<Json>, maxChars: number): Array<Json> {
-  const marker = (dropped: number) => `${TRUNCATION_MARKER} ${dropped.toLocaleString()} more items`
   // Items keep every key, so a list of records keeps whole records from the
   // start rather than every record cut down to a few fields.
   const floors = items.map((item) => keyFloor(item, maxChars))

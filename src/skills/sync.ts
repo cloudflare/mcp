@@ -157,11 +157,12 @@ async function listStoredFiles(bucket: R2Bucket): Promise<Set<string>> {
 }
 
 /** Names of skills whose entry differs between two manifests, including added and removed ones. */
+const serialize = (skill: Skill) => JSON.stringify(skill)
+
 function diffSkills(
   before: SkillsManifest['skills'],
   after: SkillsManifest['skills']
 ): Array<string> {
-  const serialize = (skill: Skill) => JSON.stringify(skill)
   const beforeByUri = new Map(before.map(({ skill }) => [skill.uri, serialize(skill)]))
   const afterByUri = new Map(after.map(({ skill }) => [skill.uri, serialize(skill)]))
   const names = new Set<string>()

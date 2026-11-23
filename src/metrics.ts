@@ -308,6 +308,9 @@ export function recordResponseSchemaMismatch(
   metrics.logEvent(new ResponseSchemaMismatch({ ...mismatch, userId: userIdFromProps(props) }))
 }
 
+const errorCodeOf = (e: unknown): number =>
+  typeof (e as { code?: unknown })?.code === 'number' ? (e as { code: number }).code : -1
+
 /**
  * Wire Analytics Engine metrics into a server instance: log a `tool_call` for
  * every tool invocation (with an `errorCode` on failure). Monkey-patches
@@ -323,9 +326,6 @@ export function recordResponseSchemaMismatch(
 export function attachMetrics(server: McpServer, props?: AuthProps): void {
   const metrics = new MetricsTracker(env.MCP_METRICS, SERVER_INFO)
   const userId = userIdFromProps(props)
-
-  const errorCodeOf = (e: unknown): number =>
-    typeof (e as { code?: unknown })?.code === 'number' ? (e as { code: number }).code : -1
 
   // Our tool callbacks signal failure by returning `{ isError: true }` rather
   // than throwing, so inspect the resolved result as well as the thrown path.
