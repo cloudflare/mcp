@@ -2,6 +2,7 @@ import type { McpServer, Tool } from '@modelcontextprotocol/server'
 import { cloudflareTool } from '../forge-tools/cloudflare'
 import type { StaticResource } from '../skills/handlers'
 // App imports, one per line.
+import { d1StudioApp } from '../d1-studio/tool'
 import { workersBillingAlertApp, workersUsageAlertApp } from '../workers-usage-alert/tool'
 import type { AppContext, McpApp } from './define'
 import { withoutAppView } from './capability'
@@ -12,6 +13,7 @@ const apps: McpApp[] = []
 // flight at once merge in any order.
 apps.push(workersUsageAlertApp)
 apps.push(workersBillingAlertApp)
+apps.push(d1StudioApp)
 
 /** Every MCP App this Worker serves, in listing order. */
 export const MCP_APPS: readonly McpApp[] = apps

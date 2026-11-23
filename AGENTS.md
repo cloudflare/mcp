@@ -24,6 +24,7 @@ cloudflare-mcp/
 │   ├── events/                    # Stateless MCP Events mapping to ANS policies and Vega automations
 │   ├── mcp-apps/                  # Shared MCP Apps: defineMcpApp, read-only apiReader, registry, app-shell
 │   ├── threshold-alert/           # Shared threshold alert Apps: presets, model, collector, policy writes
+│   ├── d1-studio/                 # d1_studio MCP App: compact D1 SQL editor and table explorer (scaffold)
 │   ├── executor.ts                # Code executor (Worker Loader API)
 │   ├── spec-processor.ts          # OpenAPI spec $ref resolution & splitting merged paths
 │   ├── spec-release.ts            # The pinned spec release and its artifact names
