@@ -233,7 +233,7 @@ export interface HoldScope {
 }
 
 function escapeRegExp(text: string): string {
-  return text.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&')
+  return text.replaceAll(/[.*+?^${}()|[\]\\/]/g, '\\$&')
 }
 
 /**

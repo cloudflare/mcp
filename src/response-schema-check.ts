@@ -387,11 +387,11 @@ export function safeInstancePath(instanceLocation: string, propertyNames: Set<st
 }
 
 function encodePointerToken(token: string): string {
-  return token.replace(/~/g, '~0').replace(/\//g, '~1')
+  return token.replaceAll('~', '~0').replaceAll('/', '~1')
 }
 
 function decodePointerToken(token: string): string {
-  return token.replace(/~1/g, '/').replace(/~0/g, '~')
+  return token.replaceAll('~1', '/').replaceAll('~0', '~')
 }
 
 /** A key as the validator writes it in a location: `encodeURI` over `~0`/`~1` escaping. */

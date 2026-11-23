@@ -37,7 +37,7 @@ const PLACEHOLDER_MESSAGES = new Set([
 ])
 
 export function isPlaceholderMessage(text: string): boolean {
-  return PLACEHOLDER_MESSAGES.has(text.toLowerCase().replace(/[^\p{L}\p{N}]/gu, ''))
+  return PLACEHOLDER_MESSAGES.has(text.toLowerCase().replaceAll(/[^\p{L}\p{N}]/gu, ''))
 }
 
 const InputSchema = withCachedJsonSchema(

@@ -254,5 +254,5 @@ function isRetryableError(error: unknown): boolean {
 }
 
 function titleCase(value: string): string {
-  return value.replace(/[-_]/g, ' ').replace(/\b\w/g, (letter) => letter.toUpperCase())
+  return value.replaceAll(/[-_]/g, ' ').replaceAll(/\b\w/g, (letter) => letter.toUpperCase())
 }

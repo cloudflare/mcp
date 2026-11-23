@@ -247,7 +247,7 @@ function scopeToAskFor(
     return pool[0]
   }
 
-  const pathWords = words(path.replace(/\{[^}]+\}/g, ''))
+  const pathWords = words(path.replaceAll(/\{[^}]+\}/g, ''))
   const ranked = pool
     .map((scope) => ({ scope, overlap: [...words(scope)].filter((w) => pathWords.has(w)).length }))
     .sort((a, b) => b.overlap - a.overlap)

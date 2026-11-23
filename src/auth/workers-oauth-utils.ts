@@ -90,11 +90,11 @@ export interface ApprovalDialogOptions {
  */
 function sanitizeHtml(unsafe: string): string {
   return unsafe
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;')
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#039;')
 }
 
 /**
@@ -115,7 +115,7 @@ function renderDisplayUrl(
       return undefined
     }
     // Let long URLs wrap after a slash rather than mid-word on narrow screens.
-    const rest = sanitizeHtml(url.pathname + url.search).replace(/\//g, '/<wbr>')
+    const rest = sanitizeHtml(url.pathname + url.search).replaceAll('/', '/<wbr>')
     return `<span class="client-detail-url"><span class="url-dim">${sanitizeHtml(url.protocol)}//</span>${sanitizeHtml(url.host)}<span class="url-dim">${rest}</span></span>`
   } catch {
     return undefined
@@ -708,7 +708,7 @@ ${ADVANCED_SCOPES_CSS}
       // The server preselects the matching template, or REQUESTED when the
       // client's scopes match none. Only then is "Requested scopes" offered.
       const INITIAL_TEMPLATE = ${JSON.stringify(initialTemplate)};
-      const SCOPE_NAMES = ${JSON.stringify(Object.fromEntries(Object.entries(scopeDefinitions).map(([k, v]) => [k, v.name]))).replace(/</g, '\\u003c')};
+      const SCOPE_NAMES = ${JSON.stringify(Object.fromEntries(Object.entries(scopeDefinitions).map(([k, v]) => [k, v.name]))).replaceAll('<', '\\u003c')};
 
       const selected = new Set();
       let activeTemplate = null;

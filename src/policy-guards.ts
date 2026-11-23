@@ -28,7 +28,7 @@ export const MEDIA_GENERATION_HINT =
 
 function plainPath(pathname: string): string | undefined {
   try {
-    return decodeURIComponent(pathname).replace(/\/{2,}/g, '/')
+    return decodeURIComponent(pathname).replaceAll(/\/{2,}/g, '/')
   } catch {
     return undefined
   }
