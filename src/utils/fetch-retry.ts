@@ -159,7 +159,7 @@ export async function fetchWithRetry(
           // Retrying before the server said to would only spend the same quota on another 429.
           console.warn(
             `fetchWithRetry: 429${caller} url=${url} on attempt ${attempt + 1}/${opts.maxRetries + 1}, ` +
-              `not retrying: the server asks for ${Math.ceil(serverDelay! / 1000)}s${hints}`
+              `not retrying: the server asks for ${Math.ceil((serverDelay ?? 0) / 1000)}s${hints}`
           )
           return response
         }
