@@ -100,7 +100,7 @@ export function feedbackSubmission(
   { tool, other_type: otherType, ...report }: FeedbackInput,
   mode: ToolMode,
   submissionId: string
-): Record<string, unknown> {
+) {
   return {
     schema_version: 1,
     submission_id: submissionId,

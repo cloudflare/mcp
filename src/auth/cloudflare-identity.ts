@@ -83,7 +83,7 @@ const DEFAULT_RETRY_AFTER_SECONDS = 30
  * When `/user` and `/accounts` are both refused, either may be the one with the
  * wait, so every refused response is read, not only the first.
  */
-function retryAfterHeaders(...responses: Array<Response>): Record<string, string> {
+function retryAfterHeaders(...responses: Array<Response>) {
   const waits = responses
     .filter((response) => response.status === 429)
     .map((response) => serverRetryDelayMs(response.headers))
