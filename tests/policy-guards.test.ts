@@ -27,6 +27,8 @@ describe('policyRefusalHint', () => {
     ['POST', `${ACCOUNT}/ai-gateway/billing/topup`],
     ['POST', `${ACCOUNT}/ai-gateway/billing/topup/config`],
     ['POST', `${ACCOUNT}/subscriptions`],
+    ['POST', `${ACCOUNT}/bulk/subscriptions`],
+    ['POST', `${ACCOUNT}/pay-invoice`],
     ['PUT', `${ACCOUNT}/subscriptions/sub_1`],
     ['PUT', '/client/v4/zones/z1/subscription'],
     ['POST', '/client/v4/user/subscriptions'],
@@ -102,6 +104,7 @@ describe('policyRefusalHint', () => {
   it.each([
     ['GET', `${ACCOUNT}/registrar/registrations`],
     ['GET', `${ACCOUNT}/subscriptions`],
+    ['POST', `${ACCOUNT}/storage/kv/namespaces/ns1/bulk/delete`],
     ['POST', `${ACCOUNT}/registrar/domain-check`],
     ['POST', `${ACCOUNT}/event_subscriptions/subscriptions`],
     ['POST', '/client/v4/subscriptions/sub_1/consume'],
