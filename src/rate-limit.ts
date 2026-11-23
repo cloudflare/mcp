@@ -127,7 +127,7 @@ function items(header: string | null): Map<string, Record<string, number>> {
     }
     const values: Record<string, number> = {}
     for (const [, key, value] of item.matchAll(/;\s*([a-z]+)=(\d+)/g)) {
-      values[key!] = Number(value)
+      values[key] = Number(value)
     }
     byName.set(name, values)
   }
@@ -274,7 +274,7 @@ export function holdScope(
     const parts = template.split('/').map((part, index) => {
       // The account or zone is the request's; every other parameter is any value.
       if (scoped && index <= 2) {
-        return escapeRegExp(segments[index]!)
+        return escapeRegExp(segments[index])
       }
       if (!/^\{[^}]+\}$/.test(part)) {
         return escapeRegExp(part)

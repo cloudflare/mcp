@@ -150,7 +150,7 @@ export abstract class MetricsEvent {
       if (index - 1 >= doublesArray.length) {
         throw new MetricsError('Failed to map doubles, missing double')
       }
-      doublesArray[index - 1] = value as number
+      doublesArray[index - 1] = value
     }
     return doublesArray
   }
@@ -337,7 +337,7 @@ export function attachMetrics(server: McpServer, props?: AuthProps): void {
     ...args: Array<unknown>
   ) => ReturnType<McpServer['registerTool']>
 
-  server.registerTool = ((name: string, ...rest: Array<unknown>) => {
+  server.registerTool = (name: string, ...rest: Array<unknown>) => {
     const config = rest[0] as { title?: string; annotations?: { title?: string } } | undefined
     // Mirror any tool.title into annotations.title so clients consistently see
     // a display label regardless of which field they prefer.
@@ -371,5 +371,5 @@ export function attachMetrics(server: McpServer, props?: AuthProps): void {
       }
     }
     return originalRegisterTool(name, ...rest)
-  }) as McpServer['registerTool']
+  }
 }

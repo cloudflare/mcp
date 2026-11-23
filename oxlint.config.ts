@@ -18,7 +18,6 @@ export default defineConfig({
     'quality/no-unsafe-dictionary-type': 'off',
     'typescript/no-misused-promises': 'off',
     'typescript/no-non-null-assertion': 'off',
-    'typescript/no-unnecessary-type-assertion': 'off',
     'typescript/no-unsafe-argument': 'off',
     'typescript/no-unsafe-member-access': 'off',
     'typescript/no-unsafe-return': 'off',

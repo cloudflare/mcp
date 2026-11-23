@@ -85,10 +85,10 @@ export function registerForgeTools(
         result = await runSubmitFeedbackTool(args, 'direct', props)
       } else {
         const sessionAccountId = autoResolvedAccountId(props)
-        const plan = (await forgeTools().plan(name, args, {
+        const plan = await forgeTools().plan(name, args, {
           baseUrl: env.CLOUDFLARE_API_BASE,
           ...(sessionAccountId && { sessionAccountId })
-        })) as CallPlan
+        })
         result = await callForgeTool(name, plan, props, formatResult, {
           connection,
           scopeChallenge,

@@ -11,7 +11,7 @@ import {
 } from './types'
 import { OAuthError } from './workers-oauth-utils'
 
-const env = cloudflareEnv as Env
+const env = cloudflareEnv
 const API_TOKEN_IDENTITY_CALLER = 'api_token_identity_probe'
 const OAUTH_IDENTITY_CALLER = 'oauth_callback_identity_probe'
 /**
