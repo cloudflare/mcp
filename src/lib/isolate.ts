@@ -115,7 +115,9 @@ function value<T>(load: () => Promise<T>, options: IsolateValueOptions = {}): Is
         entry && entry !== waitedOn ? entry.promise : start(now())
       let timer: ReturnType<typeof setTimeout> | undefined
       const tooLong = new Promise<T>((resolve, reject) => {
-        timer = setTimeout(() => takeOver().then(resolve, reject), sharedLoadWaitMs)
+        timer = setTimeout(() => {
+          void takeOver().then(resolve, reject)
+        }, sharedLoadWaitMs)
       })
       // Awaited here, in this request: workerd rejects the await itself when the load's
       // request has ended, and the load's own promise never settles.
