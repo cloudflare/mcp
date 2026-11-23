@@ -356,6 +356,7 @@ export function attachMetrics(server: McpServer, props?: AuthProps): void {
     rest[lastIndex] = (...cbArgs: Array<unknown>) => {
       try {
         const out = cb(...cbArgs)
+        // oxlint-disable-next-line @nkzw/no-instanceof -- Preserve the SDK callback's synchronous and promise results.
         if (out instanceof Promise) {
           return out
             .then((r: unknown) => {

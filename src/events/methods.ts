@@ -38,9 +38,11 @@ async function operation<T>(run: () => Promise<T>) {
         reason: error.reason
       })
     }
+    // oxlint-disable-next-line @nkzw/no-instanceof -- The event service reports these failures through its error classes.
     if (error instanceof EventNotFound) {
       throw new ProtocolError(NOT_FOUND, 'NotFound', { kind: 'event' })
     }
+    // oxlint-disable-next-line @nkzw/no-instanceof -- The event service reports these failures through its error classes.
     if (error instanceof SubscriptionForbidden) {
       throw new ProtocolError(FORBIDDEN, 'Forbidden', { reason: error.message })
     }

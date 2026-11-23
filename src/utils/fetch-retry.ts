@@ -112,6 +112,7 @@ export async function fetchWithRetry(
   // When input is a string/URL, merge into init.headers as a plain object.
   let fetchInput: RequestInfo
   let fetchInit: RequestInit | undefined
+  // oxlint-disable-next-line @nkzw/no-instanceof -- Workers' fetch uses branded request, header, and error objects.
   if (input instanceof Request) {
     const headers = new Headers(input.headers)
     headers.set('User-Agent', USER_AGENT)
@@ -122,6 +123,7 @@ export async function fetchWithRetry(
     // Spread existing headers as a plain object to preserve casing, then set User-Agent last
     // so it always takes precedence over any caller-supplied value.
     const existingHeaders =
+      // oxlint-disable-next-line @nkzw/no-instanceof -- Workers' fetch uses branded request, header, and error objects.
       init?.headers instanceof Headers
         ? Object.fromEntries(init.headers)
         : // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The non-Headers case copies the caller's existing header properties.
@@ -137,6 +139,7 @@ export async function fetchWithRetry(
       // Sending a Request consumes its body, so retryable attempts must use a
       // clone. The final attempt consumes `fetchInput` itself.
       const attemptInput =
+        // oxlint-disable-next-line @nkzw/no-instanceof -- Workers' fetch uses branded request, header, and error objects.
         fetchInput instanceof Request && attempt < opts.maxRetries ? fetchInput.clone() : fetchInput
       const response = await fetch(attemptInput, fetchInit)
 
