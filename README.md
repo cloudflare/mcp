@@ -15,6 +15,8 @@
 
 MCP URL: `https://mcp.cloudflare.com/mcp`
 
+Per-client setup (including the required `"type": "http"` field): [Claude Code](docs/connection-guides/claude-code.md), [Cursor](docs/connection-guides/cursor.md), [Windsurf](docs/connection-guides/windsurf.md).
+
 ### Option 1: OAuth (Recommended)
 
 Just connect to the MCP server URL - you'll be redirected to Cloudflare to authorize and select permissions.
