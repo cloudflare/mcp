@@ -98,6 +98,7 @@ export function parseFrontmatter(
   }
 
   // Round-trip through JSON so the entry carries exactly what a host's parser sees.
+  // oxlint-disable-next-line unicorn/prefer-structured-clone -- Match JSON serialization of the served manifest.
   const frontmatter = JSON.parse(JSON.stringify(parsed)) as Record<string, unknown>
   const { name, description } = frontmatter
   if (typeof name !== 'string' || typeof description !== 'string') {
