@@ -13,7 +13,7 @@ export interface ApiCall {
   /** The endpoint's path template, such as `/zones/{zone_id}/dns_records`. */
   readonly template: string
   /** The permissions the endpoint accepts, from its tool entry. */
-  readonly permissions: readonly string[] | undefined
+  readonly permissions: ReadonlyArray<string> | undefined
   /** The HTTP status Cloudflare returned. */
   readonly status: number
   /** The parsed JSON body, or the text of any other body. */
@@ -37,7 +37,7 @@ export interface ApiCall {
  */
 export function apiCallResult(
   call: ApiCall,
-  notes: readonly string[],
+  notes: ReadonlyArray<string>,
   {
     connection,
     scopeChallenge,

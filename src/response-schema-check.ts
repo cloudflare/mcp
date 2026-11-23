@@ -32,7 +32,7 @@ export interface TrimmedResponse {
   /** The parsed JSON body, with arrays cut to their first items. */
   body: unknown
   /** Instance locations, as the validator writes them, of the arrays that were cut. */
-  trimmed: string[]
+  trimmed: Array<string>
   /** How many JSON values the trimmed body holds. */
   values: number
 }
@@ -56,7 +56,7 @@ export interface Mismatch {
   errorCount: number
   /** Whether the whole body was checked and every violation counted. */
   counted: boolean
-  errors: MismatchError[]
+  errors: Array<MismatchError>
 }
 
 interface CompiledSchema {
@@ -152,7 +152,7 @@ export function responseKeyFor(
  * written as the validator writes them.
  */
 export function trimForCheck(status: number, body: unknown, maxItems: number): TrimmedResponse {
-  const trimmed: string[] = []
+  const trimmed: Array<string> = []
   let values = 0
   const copy = (value: unknown, location: string): unknown => {
     values++
@@ -200,7 +200,7 @@ function compile(
 
 function declaredPropertyNames(root: unknown): Set<string> {
   const names = new Set<string>()
-  const queue: unknown[] = [root]
+  const queue: Array<unknown> = [root]
   while (queue.length > 0) {
     const node = queue.pop()
     if (Array.isArray(node)) {
@@ -251,8 +251,8 @@ const TRIM_SENSITIVE = new Set(['minItems', 'contains'])
  * `additionalProperties` and reported twice. Each such error is followed by its
  * child, whose instance location ends in the property's key.
  */
-function withoutRecheckedProperties(root: Schema, errors: OutputUnit[]): OutputUnit[] {
-  const kept: OutputUnit[] = []
+function withoutRecheckedProperties(root: Schema, errors: Array<OutputUnit>): Array<OutputUnit> {
+  const kept: Array<OutputUnit> = []
   for (let i = 0; i < errors.length; i++) {
     const error = errors[i]
     const child = errors[i + 1]
@@ -288,13 +288,17 @@ function withoutRecheckedProperties(root: Schema, errors: OutputUnit[]): OutputU
  * The validator reports errors in pre-order, a parent directly before its
  * children, so one pass finds them.
  */
-function leafErrors(root: Schema, errors: OutputUnit[], trimmed: Set<string>): OutputUnit[] {
+function leafErrors(
+  root: Schema,
+  errors: Array<OutputUnit>,
+  trimmed: Set<string>
+): Array<OutputUnit> {
   // `false` schemas (e.g. `additionalProperties: false`) report the instance
   // location as their keyword location; their parent names the violation.
   const units = withoutRecheckedProperties(root, errors).filter(
     (error) => error.keyword !== 'false'
   )
-  const leaves: OutputUnit[] = []
+  const leaves: Array<OutputUnit> = []
   for (let i = 0; i < units.length; i++) {
     const error = units[i]
     const childPrefix = `${error.keywordLocation}/`
@@ -340,9 +344,9 @@ function schemaLocation(root: Schema, keywordLocation: string, responseKey: stri
 function walkSchema(
   root: Schema,
   keywordLocation: string
-): { node: unknown; defName?: string; rest: string[] } {
+): { node: unknown; defName?: string; rest: Array<string> } {
   let defName: string | undefined
-  let rest: string[] = []
+  let rest: Array<string> = []
   let node: unknown = root
   for (const token of keywordLocation.replace(/^#\/?/, '').split('/')) {
     if (token === '') {

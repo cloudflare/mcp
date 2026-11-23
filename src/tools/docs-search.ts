@@ -40,7 +40,7 @@ type DocsSearchResult = {
 }
 
 type DocsSearchOutput = {
-  results: DocsSearchResult[]
+  results: Array<DocsSearchResult>
 }
 
 export const docsToolDescription = `Search the Cloudflare documentation.
@@ -152,7 +152,7 @@ export function registerDocsTool(server: McpServer) {
   )
 }
 
-export async function queryCloudflareDocs(ai: Ai, query: string): Promise<DocsSearchResult[]> {
+export async function queryCloudflareDocs(ai: Ai, query: string): Promise<Array<DocsSearchResult>> {
   const rawResponse = await doWithRetries(() =>
     ai.autorag('docs-mcp-rag').search({
       query
@@ -170,7 +170,7 @@ export async function queryCloudflareDocs(ai: Ai, query: string): Promise<DocsSe
   }))
 }
 
-export function formatDocsResults(results: DocsSearchResult[]): string {
+export function formatDocsResults(results: Array<DocsSearchResult>): string {
   return results
     .map(
       (result) => `<result>

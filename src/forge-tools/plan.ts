@@ -37,7 +37,7 @@ export type CallPlan =
       /** The tool's path template, such as `/accounts/{account_id}/d1/database`. */
       readonly template: string
       /** The API token permissions the method accepts. */
-      readonly permissions?: readonly string[]
+      readonly permissions?: ReadonlyArray<string>
       /** The account the request names, if any, for explaining a refusal. */
       readonly accountId?: string
     })
@@ -110,7 +110,7 @@ async function invalidArguments(tool: Tool, args: Args): Promise<string | undefi
  * Where each top-level argument the tool doesn't take goes, when it is a
  * parameter of `path`, `query` or `headers`: `per_page goes in query`.
  */
-function misplaced(tool: Tool, args: Args): string[] {
+function misplaced(tool: Tool, args: Args): Array<string> {
   const properties = (tool.inputSchema.properties ?? {}) as Readonly<
     Record<string, { properties?: Readonly<Record<string, unknown>> }>
   >

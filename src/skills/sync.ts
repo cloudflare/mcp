@@ -26,7 +26,7 @@ export interface SkillsSyncResult {
   readonly changed: boolean
   readonly commit: string | null
   /** Skills that were added, removed, or had any file change. */
-  readonly changedSkills: string[]
+  readonly changedSkills: Array<string>
   /** File objects written: bytes no stored file already had. */
   readonly filesWritten: number
   /** File objects deleted: bytes neither the new nor the previous manifest names. */
@@ -162,7 +162,10 @@ async function listStoredFiles(bucket: R2Bucket): Promise<Set<string>> {
 }
 
 /** Names of skills whose entry differs between two manifests, including added and removed ones. */
-function diffSkills(before: SkillsManifest['skills'], after: SkillsManifest['skills']): string[] {
+function diffSkills(
+  before: SkillsManifest['skills'],
+  after: SkillsManifest['skills']
+): Array<string> {
   const serialize = (skill: Skill) => JSON.stringify(skill)
   const beforeByUri = new Map(before.map(({ skill }) => [skill.uri, serialize(skill)]))
   const afterByUri = new Map(after.map(({ skill }) => [skill.uri, serialize(skill)]))

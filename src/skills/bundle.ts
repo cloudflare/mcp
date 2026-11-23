@@ -16,7 +16,7 @@ export interface SkillSourceFile {
 /** A built skill: its entry, how to serve each file, and each file's bytes by digest. */
 export interface BuiltSkill {
   readonly skill: Skill
-  readonly files: SkillFile[]
+  readonly files: Array<SkillFile>
   readonly blobs: Map<string, Uint8Array>
 }
 
@@ -119,7 +119,7 @@ export function parseFrontmatter(
  */
 export async function buildSkill(
   name: string,
-  sourceFiles: readonly SkillSourceFile[]
+  sourceFiles: ReadonlyArray<SkillSourceFile>
 ): Promise<SkillBuildResult> {
   const fail = (reason: string): SkillBuildResult => ({ ok: false, name, reason })
 
@@ -162,7 +162,7 @@ export async function buildSkill(
     a.path === 'SKILL.md' ? -1 : b.path === 'SKILL.md' ? 1 : a.path.localeCompare(b.path)
   )
   const resources: Skill['resources'] = []
-  const files: SkillFile[] = []
+  const files: Array<SkillFile> = []
   const blobs = new Map<string, Uint8Array>()
   for (const file of ordered) {
     const uri = skillFileUri(name, file.path)
@@ -200,15 +200,15 @@ function isSafeRelativePath(path: string): boolean {
  * @param archiveFiles - Archive files, paths relative to the repository root.
  */
 export async function buildSkillsManifest(
-  archiveFiles: readonly SkillSourceFile[],
+  archiveFiles: ReadonlyArray<SkillSourceFile>,
   source: SkillsManifest['source'],
   syncedAt: Date
 ): Promise<{
   manifest: SkillsManifest
   blobs: Map<string, Uint8Array>
-  skipped: { name: string; reason: string }[]
+  skipped: Array<{ name: string; reason: string }>
 }> {
-  const byName = new Map<string, SkillSourceFile[]>()
+  const byName = new Map<string, Array<SkillSourceFile>>()
   for (const file of archiveFiles) {
     const match = /^skills\/([^/]+)\/(.+)$/.exec(file.path)
     if (!match || !isSafeRelativePath(file.path)) {
@@ -222,7 +222,7 @@ export async function buildSkillsManifest(
 
   const skills: SkillsManifest['skills'] = []
   const blobs = new Map<string, Uint8Array>()
-  const skipped: { name: string; reason: string }[] = []
+  const skipped: Array<{ name: string; reason: string }> = []
   for (const name of [...byName.keys()].sort()) {
     const result = await buildSkill(name, byName.get(name) ?? [])
     if (!result.ok) {

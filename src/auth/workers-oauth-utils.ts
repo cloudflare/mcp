@@ -81,8 +81,8 @@ export interface ApprovalDialogOptions {
   headers: Headers
   scopeTemplates: Record<string, ScopeTemplate>
   scopeDefinitions: Readonly<Record<string, ScopeDefinition>>
-  requiredScopes: readonly string[]
-  initialScopes: readonly string[]
+  requiredScopes: ReadonlyArray<string>
+  initialScopes: ReadonlyArray<string>
 }
 
 /**
@@ -380,8 +380,8 @@ const MAX_LISTED_SCOPES = 12
  */
 function matchingTemplate(
   templates: Readonly<Record<string, ScopeTemplate>>,
-  scopes: readonly string[],
-  requiredScopes: readonly string[]
+  scopes: ReadonlyArray<string>,
+  requiredScopes: ReadonlyArray<string>
 ): string | undefined {
   const wanted = new Set([...scopes, ...requiredScopes])
   for (const [key, template] of Object.entries(templates)) {
@@ -862,7 +862,7 @@ ${ADVANCED_SCOPES_SCRIPT}
 export interface ParsedApprovalResult {
   handle: string
   decision: 'approve' | 'deny'
-  selectedScopes?: string[]
+  selectedScopes?: Array<string>
 }
 
 /**

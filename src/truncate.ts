@@ -49,7 +49,7 @@ export function formatterFor(
   return (truncate ?? truncateByDefault) ? truncateResponse : stringifyResponse
 }
 
-type Json = string | number | boolean | null | Json[] | { [key: string]: Json }
+type Json = string | number | boolean | null | Array<Json> | { [key: string]: Json }
 
 /**
  * Render a tool result as text with no size cap. Strings pass through; other
@@ -142,7 +142,7 @@ function keyCost(key: string): number {
   return size(key) + 1
 }
 
-function sum(values: number[]): number {
+function sum(values: Array<number>): number {
   return values.reduce((total, value) => total + value, 0)
 }
 
@@ -209,7 +209,7 @@ function shrinkString(value: string, maxChars: number): string {
  * every child either reaches its full size or takes an equal share of what is
  * left. Requires `available >= Σ floors`.
  */
-function allocate(sizes: number[], floors: number[], available: number): number[] {
+function allocate(sizes: Array<number>, floors: Array<number>, available: number): Array<number> {
   const allocation = [...floors]
   const wants = sizes.map((full, i) => full - floors[i])
   const order = wants.map((_, i) => i).sort((a, b) => wants[a] - wants[b])
@@ -224,7 +224,7 @@ function allocate(sizes: number[], floors: number[], available: number): number[
   return allocation
 }
 
-function shrinkArray(items: Json[], maxChars: number): Json[] {
+function shrinkArray(items: Array<Json>, maxChars: number): Array<Json> {
   const marker = (dropped: number) => `${TRUNCATION_MARKER} ${dropped.toLocaleString()} more items`
   // Items keep every key, so a list of records keeps whole records from the
   // start rather than every record cut down to a few fields.
@@ -320,7 +320,7 @@ function shrinkObject(value: { [key: string]: Json }, maxChars: number): { [key:
     const room = maxChars - 2 - keyCost(markerKey)
     return room >= 2 ? { [markerKey]: shrink(note, room) } : {}
   }
-  const all: [string, Json][] = [...kept]
+  const all: Array<[string, Json]> = [...kept]
   if (omitted.length > 0) {
     all.push([markerKey, note])
   }

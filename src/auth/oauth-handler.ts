@@ -63,9 +63,9 @@ function authErrorMessage(prefix: string, e: unknown): string {
  * keep the requested scopes.
  */
 export function grantedScopes(
-  requested: readonly string[],
+  requested: ReadonlyArray<string>,
   upstreamScope: string | undefined
-): string[] {
+): Array<string> {
   if (!upstreamScope) {
     return [...requested]
   }
@@ -130,7 +130,7 @@ async function redirectToCloudflare(
   requestUrl: string,
   stateToken: string,
   codeChallenge: string,
-  scopes: string[],
+  scopes: Array<string>,
   additionalHeaders: Record<string, string> = {}
 ): Promise<Response> {
   const { authUrl } = await getAuthorizationURL({
@@ -216,7 +216,7 @@ export function createAuthHandlers() {
       }
       // Clients request the resource's required scopes (its 401 names them), which says nothing
       // about what else they want: only a request beyond them overrides the default template.
-      const requiredScopes: readonly string[] = REQUIRED_SCOPES
+      const requiredScopes: ReadonlyArray<string> = REQUIRED_SCOPES
       const choseScopes = requestedScopes.some((scope) => !requiredScopes.includes(scope))
       const scopesToRequest = Array.from(
         new Set([...(choseScopes ? requestedScopes : defaultScopes), ...REQUIRED_SCOPES])

@@ -93,7 +93,7 @@ export async function getAuthorizationURL(params: {
   client_id: string
   redirect_uri: string
   stateToken: string
-  scopes: string[]
+  scopes: Array<string>
   codeChallenge: string
   oauthDomain: string
 }): Promise<{ authUrl: string }> {

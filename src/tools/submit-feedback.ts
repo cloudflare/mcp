@@ -265,7 +265,7 @@ export const SUBMIT_FEEDBACK_TOOL: Tool = {
   annotations: ANNOTATIONS
 }
 
-export function feedbackTools(): Tool[] {
+export function feedbackTools(): Array<Tool> {
   return feedbackUrl() ? [SUBMIT_FEEDBACK_TOOL] : []
 }
 

@@ -36,7 +36,7 @@ export function autoResolvedAccountId(props?: AuthProps): string | undefined {
  * The list is a snapshot from when the grant was issued, so it is only used to
  * explain failures, never to reject an account_id up front.
  */
-function knownAccounts(props: AuthProps): AccountSchema[] | undefined {
+function knownAccounts(props: AuthProps): Array<AccountSchema> | undefined {
   if (props.type === 'account_token') {
     return [props.account]
   }
@@ -53,7 +53,7 @@ function formatAccount(account: AccountSchema): string {
   return `${account.id} (${account.name})`
 }
 
-function formatAccounts(accounts: AccountSchema[]): string {
+function formatAccounts(accounts: Array<AccountSchema>): string {
   return accounts.map((account) => `- ${formatAccount(account)}`).join('\n')
 }
 

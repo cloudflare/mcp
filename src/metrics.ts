@@ -136,8 +136,8 @@ export abstract class MetricsEvent {
     return blobsArray
   }
 
-  mapDoubles(doubles: Doubles): number[] {
-    const doublesArray: number[] = Array.from({ length: Object.keys(doubles).length })
+  mapDoubles(doubles: Doubles): Array<number> {
+    const doublesArray: Array<number> = Array.from({ length: Object.keys(doubles).length })
     for (const [key, value] of Object.entries(doubles)) {
       const match = key.match(/^double(\d+)$/)
       if (match === null || match.length < 2) {
@@ -334,10 +334,10 @@ export function attachMetrics(server: McpServer, props?: AuthProps): void {
   }
 
   const originalRegisterTool = server.registerTool.bind(server) as (
-    ...args: unknown[]
+    ...args: Array<unknown>
   ) => ReturnType<McpServer['registerTool']>
 
-  server.registerTool = ((name: string, ...rest: unknown[]) => {
+  server.registerTool = ((name: string, ...rest: Array<unknown>) => {
     const config = rest[0] as { title?: string; annotations?: { title?: string } } | undefined
     // Mirror any tool.title into annotations.title so clients consistently see
     // a display label regardless of which field they prefer.
@@ -346,8 +346,8 @@ export function attachMetrics(server: McpServer, props?: AuthProps): void {
     }
 
     const lastIndex = rest.length - 1
-    const cb = rest[lastIndex] as (...cbArgs: unknown[]) => unknown
-    rest[lastIndex] = (...cbArgs: unknown[]) => {
+    const cb = rest[lastIndex] as (...cbArgs: Array<unknown>) => unknown
+    rest[lastIndex] = (...cbArgs: Array<unknown>) => {
       try {
         const out = cb(...cbArgs)
         if (out instanceof Promise) {

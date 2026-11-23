@@ -502,7 +502,7 @@ export async function forwardAnsWebhook(
   if (!reader) {
     return new Response(null, { status: 400 })
   }
-  const chunks: Uint8Array[] = []
+  const chunks: Array<Uint8Array> = []
   let size = 0
   let part = await reader.read()
   while (!part.done) {

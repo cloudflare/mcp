@@ -83,7 +83,7 @@ const DEFAULT_RETRY_AFTER_SECONDS = 30
  * When `/user` and `/accounts` are both refused, either may be the one with the
  * wait, so every refused response is read, not only the first.
  */
-function retryAfterHeaders(...responses: Response[]): Record<string, string> {
+function retryAfterHeaders(...responses: Array<Response>): Record<string, string> {
   const waits = responses
     .filter((response) => response.status === 429)
     .map((response) => serverRetryDelayMs(response.headers))
@@ -157,7 +157,9 @@ async function rejectsCredential(response: Response): Promise<boolean> {
  * requires 401 for invalid or expired tokens and reserves 403 with
  * `insufficient_scope` for a valid token that lacks scope.
  */
-async function identityProbeError(...responses: [Response, ...Response[]]): Promise<OAuthError> {
+async function identityProbeError(
+  ...responses: [Response, ...Array<Response>]
+): Promise<OAuthError> {
   const statuses = responses.map((response) => response.status)
 
   if (statuses.some((status) => status >= 500)) {

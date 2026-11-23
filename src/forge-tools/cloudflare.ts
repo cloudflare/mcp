@@ -62,10 +62,10 @@ export function cloudflareTool(tool: Tool): Tool {
 }
 
 /** The `path` argument of a generated tool: an object of its path parameters. */
-type PathSchema = JSONObject & { properties?: JSONObject; required?: string[] }
+type PathSchema = JSONObject & { properties?: JSONObject; required?: Array<string> }
 
 /** The API token permissions `tool` accepts, if its method lists them. */
-export function permissionsOf(tool: Tool): string[] | undefined {
+export function permissionsOf(tool: Tool): Array<string> | undefined {
   const value = operation(tool).extensions?.[PERMISSIONS_EXTENSION]
   return Array.isArray(value) &&
     value.length > 0 &&

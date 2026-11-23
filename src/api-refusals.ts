@@ -38,7 +38,7 @@ export const FILTERED_LIST_ERROR =
 /** The Cloudflare-shaped body reported in place of an empty list refused as 403. */
 export function filteredListBody(): {
   success: false
-  errors: { message: string }[]
+  errors: Array<{ message: string }>
   messages: []
   result: null
 } {
@@ -113,7 +113,7 @@ export function refusalFor(
   body: unknown,
   method: string,
   authorization: Authorization,
-  permissions: readonly string[] | undefined
+  permissions: ReadonlyArray<string> | undefined
 ): Refusal | undefined {
   const scope = authorization.kind === 'missing' ? authorization.scope : undefined
   if (isRefusal(status)) {

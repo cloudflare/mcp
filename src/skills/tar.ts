@@ -15,7 +15,7 @@ export interface TarFile {
 }
 
 export interface TarArchive {
-  readonly files: TarFile[]
+  readonly files: Array<TarFile>
   /** The pax global `comment` record. `git archive` writes the commit SHA here. */
   readonly comment: string | undefined
 }
@@ -67,7 +67,7 @@ function readPaxRecords(bytes: Uint8Array): Map<string, string> {
  * @returns The regular files with their full archive paths, and the pax global comment.
  */
 export function readTar(archive: Uint8Array): TarArchive {
-  const files: TarFile[] = []
+  const files: Array<TarFile> = []
   let comment: string | undefined
   let nextPath: string | undefined
   let offset = 0

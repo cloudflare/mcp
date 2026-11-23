@@ -17,7 +17,7 @@ const MAX_BODY_BYTES = 4096
  * building and encoding a 3.7 MB string per response costs about as much as
  * the stringify this replaces.
  */
-const toolsJson = isolate.derived((tools: readonly Tool[]) =>
+const toolsJson = isolate.derived((tools: ReadonlyArray<Tool>) =>
   new TextEncoder().encode(JSON.stringify([DOCS_TOOL, WHOAMI_TOOL, ...feedbackTools(), ...tools]))
 )
 
@@ -97,7 +97,7 @@ async function plainToolListRequestId(request: Request): Promise<string | number
  */
 export async function cachedToolListResponse(
   request: Request,
-  listTools: () => Promise<readonly Tool[]>
+  listTools: () => Promise<ReadonlyArray<Tool>>
 ): Promise<Response | undefined> {
   const id = await plainToolListRequestId(request)
   if (id === undefined) {

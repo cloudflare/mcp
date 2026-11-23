@@ -164,7 +164,7 @@ export function handleMcpPreflight(request: Request): Response {
 }
 
 /** Reads a registered OAuth client's redirect URIs. */
-export type LookupRedirectUris = (clientId: string) => Promise<readonly string[]>
+export type LookupRedirectUris = (clientId: string) => Promise<ReadonlyArray<string>>
 
 /**
  * How this request's client takes a step-up challenge: the URL override, else

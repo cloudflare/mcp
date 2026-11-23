@@ -107,7 +107,7 @@ export function resolveRefs(
 interface OperationObject {
   summary?: string
   description?: string
-  tags?: string[]
+  tags?: Array<string>
   parameters?: unknown
   requestBody?: unknown
   responses?: unknown
@@ -115,7 +115,7 @@ interface OperationObject {
 }
 
 /** Keep `x-api-token-group` only when it is a list of permission names. */
-function permissionLabels(value: unknown): string[] | undefined {
+function permissionLabels(value: unknown): Array<string> | undefined {
   return Array.isArray(value) &&
     value.length > 0 &&
     value.every((item) => typeof item === 'string' && item.length > 0)
@@ -173,7 +173,7 @@ export function processSpec(spec: Record<string, unknown>): {
 /**
  * Extract sorted product list from the spec paths.
  */
-export function extractProducts(spec: Record<string, unknown>): string[] {
+export function extractProducts(spec: Record<string, unknown>): Array<string> {
   const rawPaths = spec.paths as Record<string, unknown> | undefined
   if (!rawPaths) {
     return []

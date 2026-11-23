@@ -20,7 +20,7 @@ export type ScopeName = keyof typeof CORE_SCOPE_DEFINITIONS | keyof typeof DERIV
 /** A preset set of scopes offered on the consent page. */
 export interface ScopeTemplate {
   name: string
-  scopes: readonly ScopeName[]
+  scopes: ReadonlyArray<ScopeName>
 }
 
 /** Scopes required for identity, account discovery, and refresh tokens. */
@@ -28,7 +28,7 @@ export const REQUIRED_SCOPES = [
   'user:read',
   'offline_access',
   'account:read'
-] as const satisfies readonly ScopeName[]
+] as const satisfies ReadonlyArray<ScopeName>
 
 /** The built-in permission presets. */
 export type TemplateName = 'minimal' | 'read-only' | 'full-access'
@@ -55,14 +55,14 @@ export const SCOPE_DEFINITIONS: Record<string, ScopeDefinition> = {
   ...DERIVED_OAUTH_SCOPES
 }
 
-const scopeNames = Object.keys(SCOPE_DEFINITIONS) as ScopeName[]
+const scopeNames = Object.keys(SCOPE_DEFINITIONS) as Array<ScopeName>
 
 /**
  * Every scope this server can grant: advertised as the authorization server's
  * `scopes_supported` and enforced at /authorize. The MCP resource advertises no
  * up-front baseline of its own; the consent page picks the scopes.
  */
-export const ALL_SCOPES: readonly ScopeName[] = scopeNames
+export const ALL_SCOPES: ReadonlyArray<ScopeName> = scopeNames
 const readOnlyScopes = Array.from(
   new Set<ScopeName>([...REQUIRED_SCOPES, ...scopeNames.filter(isReadOnlyScope)])
 )

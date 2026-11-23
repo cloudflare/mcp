@@ -135,9 +135,9 @@ function items(header: string | null): Map<string, Record<string, number>> {
 }
 
 /** The limits a response states in `Ratelimit`, with their `Ratelimit-Policy`. */
-export function limitsOf(headers: Headers): Limit[] {
+export function limitsOf(headers: Headers): Array<Limit> {
   const policies = items(headers.get('Ratelimit-Policy'))
-  const limits: Limit[] = []
+  const limits: Array<Limit> = []
   for (const [name, { r, t }] of items(headers.get('Ratelimit'))) {
     if (r === undefined || t === undefined) {
       continue

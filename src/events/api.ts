@@ -94,8 +94,8 @@ export class EventApi {
    * Find every resource with this exact name. Used for destinations, which can
    * briefly share a name while a signing secret rotates.
    */
-  async findAll(path: string, name: string): Promise<string[]> {
-    const ids: string[] = []
+  async findAll(path: string, name: string): Promise<Array<string>> {
+    const ids: Array<string> = []
     for (let page = 1; page <= 100; page++) {
       const envelope = await this.request(`${path}?page=${page}&per_page=100`)
       const resources = z.array(Resource).parse(envelope.result)

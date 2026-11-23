@@ -61,7 +61,10 @@ export function setSpecArtifacts(artifacts?: SpecArtifacts): void {
  * is enough. Operations without permissions are listed too, so a request
  * still finds its template.
  */
-export type PermissionPaths = Record<string, Record<string, { 'x-api-token-group'?: string[] }>>
+export type PermissionPaths = Record<
+  string,
+  Record<string, { 'x-api-token-group'?: Array<string> }>
+>
 
 const permissionPaths = isolate.lazy(
   (): PermissionPaths => JSON.parse(specArtifacts.permissions) as PermissionPaths
@@ -73,12 +76,12 @@ export function getPermissionPaths(): PermissionPaths {
 }
 
 const forgeToolList = artifact(
-  async (): Promise<Tool[]> => JSON.parse(await env.FORGE_TOOLS.listJson()) as Tool[]
+  async (): Promise<Array<Tool>> => JSON.parse(await env.FORGE_TOOLS.listJson()) as Array<Tool>
 )
 
 const forgeToolListWithOutput = artifact(
-  async (): Promise<Tool[]> =>
-    JSON.parse(await env.FORGE_TOOLS.listJson({ outputSchema: true })) as Tool[]
+  async (): Promise<Array<Tool>> =>
+    JSON.parse(await env.FORGE_TOOLS.listJson({ outputSchema: true })) as Array<Tool>
 )
 
 /**
@@ -90,20 +93,22 @@ const forgeToolListWithOutput = artifact(
  * @param outputSchema - Include each tool's generated output schema, a
  *   separate listing that is loaded only when asked for.
  */
-export function getForgeToolList({ outputSchema = false } = {}): Promise<Tool[]> {
+export function getForgeToolList({ outputSchema = false } = {}): Promise<Array<Tool>> {
   return outputSchema ? forgeToolListWithOutput.get() : forgeToolList.get()
 }
 
-const products = isolate.lazy((): string[] => JSON.parse(specArtifacts.products) as string[])
+const products = isolate.lazy(
+  (): Array<string> => JSON.parse(specArtifacts.products) as Array<string>
+)
 
 /** The product list backing the `search` tool description. */
-export function getProducts(): string[] {
+export function getProducts(): Array<string> {
   return products()
 }
 
 /** The synced skills, indexed for `skills/get` and `resources/read`. */
 export interface SkillsIndex {
-  readonly skills: readonly Skill[]
+  readonly skills: ReadonlyArray<Skill>
   readonly skillsByUri: ReadonlyMap<string, Skill>
   readonly filesByUri: ReadonlyMap<string, SkillFile>
 }
