@@ -105,7 +105,7 @@ function parseJsonContainer(text: string): Json | undefined {
     return undefined
   }
   try {
-    return JSON.parse(text)
+    return JSON.parse(text) as Json
   } catch {
     return undefined
   }

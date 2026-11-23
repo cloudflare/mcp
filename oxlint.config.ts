@@ -13,7 +13,6 @@ export default defineConfig({
     'quality/no-known-value-widening': 'off',
     'quality/no-unknown-returns': 'off',
     'quality/no-unsafe-dictionary-type': 'off',
-    'typescript/no-unsafe-return': 'off',
     'typescript/no-unsafe-type-assertion': 'off',
   },
 })

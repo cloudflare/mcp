@@ -353,7 +353,7 @@ export function attachMetrics(server: McpServer, props?: AuthProps): void {
         const out = cb(...cbArgs)
         if (out instanceof Promise) {
           return out
-            .then((r) => {
+            .then((r: unknown) => {
               logResult(name, r)
               return r
             })
