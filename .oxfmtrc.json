@@ -4,6 +4,7 @@
   "semi": false,
   "trailingComma": "none",
   "ignorePatterns": [
-    "src/generated/**"
+    "src/generated/**",
+    "src/*/app-html.generated.ts"
   ]
 }
