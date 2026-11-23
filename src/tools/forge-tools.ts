@@ -16,7 +16,7 @@ import {
   missingAccountMessage,
   unknownAccountHint
 } from '../auth/account-access'
-import { recordToolCall } from '../metrics'
+import { recordToolCall, toolCallClient, type RequestClient } from '../metrics'
 import { checkResponse } from '../response-validation'
 import { DOCS_TOOL, runDocsTool } from './docs-search'
 import { WHOAMI_TOOL, WhoamiInputSchema, runWhoamiTool } from './whoami'
@@ -63,7 +63,7 @@ export function registerForgeTools(
   formatResult: FormatToolResult,
   connection: Connection,
   scopeChallenge: ScopeChallenge,
-  { outputSchema = false }: { outputSchema?: boolean } = {}
+  { outputSchema = false, client }: { outputSchema?: boolean; client?: RequestClient } = {}
 ): void {
   server.server.setRequestHandler('tools/list', async (_request, ctx) => ({
     tools: [
@@ -108,7 +108,12 @@ export function registerForgeTools(
       result = toolError(error instanceof Error ? error.message : String(error))
     }
 
-    recordToolCall(props, name, 'isError' in result && result.isError === true)
+    recordToolCall(
+      props,
+      name,
+      'isError' in result && result.isError === true,
+      client && toolCallClient(client, ctx)
+    )
     return result
   })
 }

@@ -7,12 +7,20 @@ import {
   MetricsError,
   MetricsTracker,
   ResponseSchemaMismatch,
-  ToolCall
+  ToolCall,
+  toolCallClient,
+  userAgentProduct
 } from '../src/metrics'
 import { API_BASE, cfSuccess, mockIdentityProbe } from './helpers/cloudflare-api'
 import { clearKv } from './helpers/kv'
 import { clearSpec, seedSpec } from './helpers/spec'
-import { MCP_URL, callTool, mcpToolCallRequest, parseMcpResult } from './helpers/mcp'
+import {
+  MCP_URL,
+  callTool,
+  mcpToolCallRequest,
+  modernMcpRequest,
+  parseMcpResult
+} from './helpers/mcp'
 import { server } from './setup/msw'
 
 const SERVER_INFO = { name: 'cloudflare-api', version: '0.1.0' }
@@ -36,6 +44,127 @@ describe('ToolCall', () => {
     const dp = event.toDataPoint()
 
     expect(dp.doubles).toEqual([-32602])
+  })
+
+  it('puts the client in blob5-blob11, keeping the shared slots in place', () => {
+    const event = new ToolCall({
+      userId: 'user-1',
+      toolName: 'execute',
+      client: {
+        name: 'claude-code',
+        version: '2.1.0',
+        userAgent: 'claude-code/2.1.0',
+        protocol: '2026-07-28',
+        mode: 'codemode',
+        connection: 'oauth',
+        oauthClientId: 'https://claude.ai/oauth/client.json'
+      }
+    })
+    event.serverInfo = SERVER_INFO
+
+    expect(event.toDataPoint().blobs).toEqual([
+      'cloudflare-api',
+      '0.1.0',
+      'user-1',
+      'execute',
+      'claude-code', // blob5 client name
+      '2.1.0', // blob6 client version
+      'claude-code/2.1.0', // blob7 User-Agent product
+      '2026-07-28', // blob8 protocol
+      'codemode', // blob9 tool mode
+      'oauth', // blob10 connection kind
+      'https://claude.ai/oauth/client.json' // blob11 OAuth client ID
+    ])
+  })
+
+  it('writes null for client fields it does not know', () => {
+    const event = new ToolCall({
+      toolName: 'execute',
+      client: { protocol: '2025', mode: 'direct', connection: 'direct' }
+    })
+    event.serverInfo = SERVER_INFO
+
+    expect(event.toDataPoint().blobs).toEqual([
+      'cloudflare-api',
+      '0.1.0',
+      null,
+      'execute',
+      null,
+      null,
+      null,
+      '2025',
+      'direct',
+      'direct',
+      null
+    ])
+  })
+})
+
+describe('userAgentProduct', () => {
+  it('keeps only the first product token', () => {
+    expect(userAgentProduct('claude-code/2.1.0 (darwin; arm64) node/22')).toBe('claude-code/2.1.0')
+    expect(userAgentProduct('  Cursor/1.2  ')).toBe('Cursor/1.2')
+  })
+
+  it('returns undefined for a missing or blank User-Agent', () => {
+    expect(userAgentProduct(null)).toBeUndefined()
+    expect(userAgentProduct('   ')).toBeUndefined()
+  })
+
+  it('caps the token at 128 characters', () => {
+    expect(userAgentProduct('x'.repeat(500))).toHaveLength(128)
+  })
+})
+
+describe('toolCallClient', () => {
+  const request = {
+    mode: 'codemode',
+    connection: 'oauth',
+    userAgent: 'node/22.1.0',
+    oauthClientId: 'abc'
+  } as const
+
+  function contextWith(envelope: Record<string, unknown> | undefined) {
+    return { mcpReq: { envelope } } as unknown as Parameters<typeof toolCallClient>[1]
+  }
+
+  it('prefers the 2026-07-28 envelope clientInfo and protocol version', () => {
+    const ctx = contextWith({
+      'io.modelcontextprotocol/protocolVersion': '2026-07-28',
+      'io.modelcontextprotocol/clientInfo': { name: 'Claude Code', version: '2.1.0' }
+    })
+
+    expect(toolCallClient(request, ctx)).toEqual({
+      name: 'Claude Code',
+      version: '2.1.0',
+      userAgent: 'node/22.1.0',
+      protocol: '2026-07-28',
+      mode: 'codemode',
+      connection: 'oauth',
+      oauthClientId: 'abc'
+    })
+  })
+
+  it('falls back to the User-Agent for a 2025-era call', () => {
+    expect(toolCallClient(request, contextWith(undefined))).toMatchObject({
+      name: 'node',
+      version: '22.1.0',
+      protocol: '2025'
+    })
+  })
+
+  it('tolerates a missing context and a non-string clientInfo', () => {
+    expect(toolCallClient({ mode: 'direct', connection: 'direct' })).toEqual({
+      name: undefined,
+      version: undefined,
+      userAgent: undefined,
+      protocol: '2025',
+      mode: 'direct',
+      connection: 'direct',
+      oauthClientId: undefined
+    })
+    const ctx = contextWith({ 'io.modelcontextprotocol/clientInfo': { name: 42 } })
+    expect(toolCallClient(request, ctx).name).toBe('node')
   })
 })
 
@@ -235,6 +364,51 @@ describe('tool_call emission via the real worker', () => {
     expect(dp).toBeTruthy()
     expect(dp!.blobs?.[3]).toBe('accounts_list')
     expect(dp!.doubles?.[0]).toBeUndefined()
+  })
+
+  it('names a 2025-era client by its User-Agent', async () => {
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+    const writeSpy = vi.spyOn(env.MCP_METRICS, 'writeDataPoint')
+    const base = mcpToolCallRequest(API_TOKEN, 'accounts_list', {})
+    base.headers.set('User-Agent', 'opencode/1.4.2 (darwin)')
+    const request = new Request(`${MCP_URL}?codemode=false`, base)
+
+    await parseMcpResult(await exports.default.fetch(request))
+
+    // blob5..blob11: name, version, UA product, protocol, mode, connection, OAuth client
+    expect(findToolCall(writeSpy)!.blobs?.slice(4)).toEqual([
+      'opencode',
+      '1.4.2',
+      'opencode/1.4.2',
+      '2025',
+      'direct',
+      'direct',
+      null
+    ])
+  })
+
+  it('names a 2026-07-28 client by its envelope clientInfo', async () => {
+    mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
+    const writeSpy = vi.spyOn(env.MCP_METRICS, 'writeDataPoint')
+
+    await exports.default.fetch(
+      modernMcpRequest(
+        API_TOKEN,
+        'tools/call',
+        { name: 'execute', arguments: { code: 'async () => 1' } },
+        { headers: { 'User-Agent': 'node' } }
+      )
+    )
+
+    expect(findToolCall(writeSpy)!.blobs?.slice(4)).toEqual([
+      'cloudflare-mcp-tests',
+      '1.0.0',
+      'node',
+      '2026-07-28',
+      'codemode',
+      'direct',
+      null
+    ])
   })
 
   it('records errorCode -1 when the tool returns an isError result', async () => {
