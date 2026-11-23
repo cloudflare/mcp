@@ -25,7 +25,7 @@ const DEFAULT_OPTIONS: Required<Omit<RetryOptions, 'caller'>> = {
   backoffFactor: 2,
   // A user waits on these calls: a few seconds slower beats a failure, but a longer server-given
   // wait is worse than failing fast with the server's Retry-After.
-  maxDelayMs: 5_000,
+  maxDelayMs: 5000,
   jitter: true,
   retryRateLimited: true
 }

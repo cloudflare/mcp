@@ -18,8 +18,8 @@ const utf8 = new TextDecoder()
 
 function toBase64(bytes: Uint8Array): string {
   let binary = ''
-  for (let index = 0; index < bytes.length; index += 0x8000) {
-    binary += String.fromCharCode(...bytes.subarray(index, index + 0x8000))
+  for (let index = 0; index < bytes.length; index += 0x80_00) {
+    binary += String.fromCharCode(...bytes.subarray(index, index + 0x80_00))
   }
   return btoa(binary)
 }

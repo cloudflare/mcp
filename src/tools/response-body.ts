@@ -78,8 +78,8 @@ export function binaryContent(
 function base64(bytes: Uint8Array): string {
   let binary = ''
   // In chunks: one call with every byte as an argument overflows the stack.
-  for (let i = 0; i < bytes.length; i += 0x8000) {
-    binary += String.fromCharCode(...bytes.subarray(i, i + 0x8000))
+  for (let i = 0; i < bytes.length; i += 0x80_00) {
+    binary += String.fromCharCode(...bytes.subarray(i, i + 0x80_00))
   }
   return btoa(binary)
 }

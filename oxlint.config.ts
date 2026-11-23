@@ -25,7 +25,6 @@ export default defineConfig({
     'typescript/no-unsafe-type-assertion': 'off',
     'unicorn/catch-error-name': 'off',
     'unicorn/consistent-function-scoping': 'off',
-    'unicorn/numeric-separators-style': 'off',
     'unicorn/prefer-at': 'off',
     'unicorn/prefer-number-properties': 'off',
     'unicorn/prefer-set-has': 'off',

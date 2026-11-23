@@ -62,7 +62,7 @@ export function isEmptyList(body: unknown): boolean {
  * `10000: Authentication error`, which most products send for a missing
  * permission or scope, and `9109: Unauthorized to access requested resource`.
  */
-const AUTHORIZATION_ERROR_CODES = new Set([10000, 9109])
+const AUTHORIZATION_ERROR_CODES = new Set([10_000, 9109])
 
 /**
  * Whether a 401 or 403 is Cloudflare refusing the credential.

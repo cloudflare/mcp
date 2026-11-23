@@ -58,7 +58,7 @@ const oauthProvider = new OAuthProvider<Env>({
   // The consent page adds the rest; Minimal, the default, adds nothing until step-up asks.
   requiredScopes: [...REQUIRED_SCOPES],
   accessTokenTTL: 3600,
-  refreshTokenTTL: 2592000 // 30 days
+  refreshTokenTTL: 2_592_000 // 30 days
 })
 
 export default {

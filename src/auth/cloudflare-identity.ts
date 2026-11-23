@@ -116,7 +116,7 @@ const CloudflareErrorsSchema = z.object({
  * a working one. About two thirds of the rate-limited probes in production were
  * this: clients calling again and again with a token that had stopped working.
  */
-const TOO_MANY_AUTH_FAILURES_CODE = 10502
+const TOO_MANY_AUTH_FAILURES_CODE = 10_502
 
 /** Whether a 429 refuses the credential for repeated authentication failures. */
 async function rejectsCredentialForFailures(response: Response): Promise<boolean> {

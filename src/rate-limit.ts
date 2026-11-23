@@ -42,7 +42,7 @@ export const NOT_SENT_HEADER = 'X-Cloudflare-MCP-Not-Sent'
  * The longest hold a run waits out, and so the longest pacing wait. Under a
  * longer one the request is not sent: a user is waiting on the tool call.
  */
-export const LONGEST_WAIT_MS = 5_000
+export const LONGEST_WAIT_MS = 5000
 
 /**
  * The longest a run spends waiting out holds in total. The TypeScript MCP SDK
@@ -71,7 +71,7 @@ export function setWaitBudgetMs(ms: number = DEFAULT_WAIT_BUDGET_MS): void {
  * this many the run is stopped; code that catches each error of a long loop
  * and carries on stays under it.
  */
-export const MOST_UNSENT_REQUESTS = 1_000
+export const MOST_UNSENT_REQUESTS = 1000
 
 /**
  * The most requests of one run that wait for Cloudflare's answer at once.
@@ -97,7 +97,7 @@ export const MOST_RETRIES = 3
  * The first wait before sending a request again after a 429 that gives none,
  * as products' own limits do (D1, KV, URL Scanner). It doubles with each retry.
  */
-export const FIRST_BACKOFF_MS = 1_000
+export const FIRST_BACKOFF_MS = 1000
 
 /** The share of a limit's quota kept unused, for the user's other clients and requests in flight. */
 const RESERVE_SHARE = 0.05

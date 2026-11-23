@@ -22,10 +22,10 @@ const SubscribeRequestParams = SubscribeParams.extend({ _meta: Meta })
 const UnsubscribeRequestParams = UnsubscribeParams.extend({ _meta: Meta })
 
 /** Error codes from the MCP Events draft (implementation-defined server range). */
-const NOT_FOUND = -32011
-const FORBIDDEN = -32012
-const CALLBACK_ENDPOINT_ERROR = -32015
-const INTERNAL_ERROR = -32603
+const NOT_FOUND = -32_011
+const FORBIDDEN = -32_012
+const CALLBACK_ENDPOINT_ERROR = -32_015
+const INTERNAL_ERROR = -32_603
 
 /** Project service failures onto the draft's JSON-RPC error codes. */
 async function operation<T>(run: () => Promise<T>) {

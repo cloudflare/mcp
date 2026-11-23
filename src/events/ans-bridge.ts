@@ -50,7 +50,7 @@ export const AlertArguments = z
       .number()
       .int()
       .min(3600)
-      .max(365 * 86400)
+      .max(365 * 86_400)
       .optional()
       .describe(
         'Instead of afterOccurrences: notify when an issue recurs after this many inactive seconds'
