@@ -87,7 +87,7 @@ export function truncateResponse(content: unknown): string {
   }
   // Re-parse so `toJSON` and `undefined` members are seen the way they serialize.
   if (compact.length > MAX_CHARS) {
-    return shrinkToText(JSON.parse(compact))
+    return shrinkToText(JSON.parse(compact) as Json)
   }
 
   const pretty = JSON.stringify(content, null, 2)

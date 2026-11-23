@@ -205,9 +205,12 @@ function declaredPropertyNames(root: unknown): Set<string> {
   while (queue.length > 0) {
     const node = queue.pop()
     if (Array.isArray(node)) {
-      queue.push(...node)
+      for (const child of node) {
+        queue.push(child)
+      }
     } else if (typeof node === 'object' && node !== null) {
-      for (const [keyword, value] of Object.entries(node)) {
+      const entries: Array<[string, unknown]> = Object.entries(node)
+      for (const [keyword, value] of entries) {
         if (keyword === 'enum' || keyword === 'const') {
           continue
         }
