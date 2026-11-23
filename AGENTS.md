@@ -86,7 +86,7 @@ cloudflare-mcp/
 npm install    # Install dependencies
 ```
 
-Node 22+ required.
+Node 22.18+ required for the TypeScript Oxlint config.
 
 ## Cloudflare tooling: Wrangler for the Workers, `cf` for everything else
 
@@ -127,7 +127,7 @@ Node 22+ required.
 ### Formatting & linting
 
 - **oxfmt** for formatting: single quotes, no semicolons, no trailing commas. `format` and `format:check` cover `src/`, `tests/`, `scripts/` and `vitest.config.ts`
-- **oxlint** for linting
+- **oxlint** for linting with the shared `@cloudflare/oxlint-config` preset
 - Run `npm run format` before committing
 
 ### Naming conventions
