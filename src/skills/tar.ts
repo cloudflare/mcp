@@ -33,7 +33,7 @@ function readOctal(block: Uint8Array, offset: number, length: number): number {
   if (!/^[0-7]*$/.test(text)) {
     throw new Error(`Invalid tar size field: ${text}`)
   }
-  return text === '' ? 0 : parseInt(text, 8)
+  return text === '' ? 0 : Number.parseInt(text, 8)
 }
 
 /** Parse pax `"<length> <key>=<value>\n"` records. */

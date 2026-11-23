@@ -125,8 +125,8 @@ export abstract class MetricsEvent {
       if (match === null || match.length < 2) {
         throw new MetricsError('Failed to map blobs, invalid key')
       }
-      const index = parseInt(match[1], 10)
-      if (isNaN(index)) {
+      const index = Number.parseInt(match[1], 10)
+      if (Number.isNaN(index)) {
         throw new MetricsError('Failed to map blobs, invalid index')
       }
       if (index - 1 >= blobsArray.length) {
@@ -144,8 +144,8 @@ export abstract class MetricsEvent {
       if (match === null || match.length < 2) {
         throw new MetricsError('Failed to map doubles, invalid key')
       }
-      const index = parseInt(match[1], 10)
-      if (isNaN(index)) {
+      const index = Number.parseInt(match[1], 10)
+      if (Number.isNaN(index)) {
         throw new MetricsError('Failed to map doubles, invalid index')
       }
       if (index - 1 >= doublesArray.length) {

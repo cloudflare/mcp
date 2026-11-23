@@ -86,7 +86,9 @@ function refusesCredential(status: 401 | 403, body: unknown): boolean {
   }
   return errors.some((error: unknown) => {
     const code =
-      error !== null && typeof error === 'object' && 'code' in error ? Number(error.code) : NaN
+      error !== null && typeof error === 'object' && 'code' in error
+        ? Number(error.code)
+        : Number.NaN
     return !Number.isFinite(code) || AUTHORIZATION_ERROR_CODES.has(code)
   })
 }
