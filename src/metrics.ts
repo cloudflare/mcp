@@ -271,8 +271,8 @@ export class MetricsTracker {
     try {
       event.serverInfo = this.serverInfo
       this.wae.writeDataPoint(event.toDataPoint())
-    } catch (e) {
-      console.error(`Failed to log metrics event, ${e}`)
+    } catch (error) {
+      console.error(`Failed to log metrics event, ${error}`)
     }
   }
 }
@@ -356,16 +356,18 @@ export function attachMetrics(server: McpServer, props?: AuthProps): void {
               logResult(name, r)
               return r
             })
-            .catch((e: unknown) => {
-              metrics.logEvent(new ToolCall({ toolName: name, userId, errorCode: errorCodeOf(e) }))
-              throw e
+            .catch((error: unknown) => {
+              metrics.logEvent(
+                new ToolCall({ toolName: name, userId, errorCode: errorCodeOf(error) })
+              )
+              throw error
             })
         }
         logResult(name, out)
         return out
-      } catch (e) {
-        metrics.logEvent(new ToolCall({ toolName: name, userId, errorCode: errorCodeOf(e) }))
-        throw e
+      } catch (error) {
+        metrics.logEvent(new ToolCall({ toolName: name, userId, errorCode: errorCodeOf(error) }))
+        throw error
       }
     }
     return originalRegisterTool(name, ...rest)

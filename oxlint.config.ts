@@ -23,7 +23,6 @@ export default defineConfig({
     'typescript/no-unsafe-member-access': 'off',
     'typescript/no-unsafe-return': 'off',
     'typescript/no-unsafe-type-assertion': 'off',
-    'unicorn/catch-error-name': 'off',
     'unicorn/consistent-function-scoping': 'off',
     'unicorn/prefer-at': 'off',
     'unicorn/prefer-number-properties': 'off',

@@ -240,16 +240,16 @@ export function createAuthHandlers() {
         requiredScopes: REQUIRED_SCOPES,
         initialScopes: scopesToRequest
       })
-    } catch (e) {
-      if (e instanceof CimdFetchError) {
+    } catch (error) {
+      if (error instanceof CimdFetchError) {
         return cimdUnavailableResponse()
       }
-      metrics.logEvent(new AuthUser({ errorMessage: authErrorMessage('Authorize Error', e) }))
-      if (e instanceof OAuthError) {
-        return e.toHtmlResponse()
+      metrics.logEvent(new AuthUser({ errorMessage: authErrorMessage('Authorize Error', error) }))
+      if (error instanceof OAuthError) {
+        return error.toHtmlResponse()
       }
       const errorId = crypto.randomUUID()
-      console.error(`Authorize error [${errorId}]:`, e)
+      console.error(`Authorize error [${errorId}]:`, error)
       return renderErrorPage(
         'Server Error',
         'An unexpected error occurred. Please try again.',
@@ -297,17 +297,19 @@ export function createAuthHandlers() {
       }
 
       return redirectResponse
-    } catch (e) {
-      metrics.logEvent(new AuthUser({ errorMessage: authErrorMessage('Authorize POST Error', e) }))
+    } catch (error) {
+      metrics.logEvent(
+        new AuthUser({ errorMessage: authErrorMessage('Authorize POST Error', error) })
+      )
       // Consent/upstream transaction expired, used, or opened in another browser: render locally.
-      if (e instanceof AuthorizationError) {
-        return new OAuthError(e.code, e.description).toHtmlResponse()
+      if (error instanceof AuthorizationError) {
+        return new OAuthError(error.code, error.description).toHtmlResponse()
       }
-      if (e instanceof OAuthError) {
-        return e.toHtmlResponse()
+      if (error instanceof OAuthError) {
+        return error.toHtmlResponse()
       }
       const errorId = crypto.randomUUID()
-      console.error(`Authorize POST error [${errorId}]:`, e)
+      console.error(`Authorize POST error [${errorId}]:`, error)
       return renderErrorPage(
         'Server Error',
         'An unexpected error occurred. Please try again.',
@@ -386,20 +388,20 @@ export function createAuthHandlers() {
 
       headers.set('Location', redirectTo)
       return new Response(null, { status: 302, headers })
-    } catch (e) {
-      if (e instanceof CimdFetchError) {
+    } catch (error) {
+      if (error instanceof CimdFetchError) {
         return cimdCallbackFailureResponse()
       }
-      metrics.logEvent(new AuthUser({ errorMessage: authErrorMessage('Callback Error', e) }))
+      metrics.logEvent(new AuthUser({ errorMessage: authErrorMessage('Callback Error', error) }))
       // Consent/upstream transaction expired, used, or opened in another browser: render locally.
-      if (e instanceof AuthorizationError) {
-        return new OAuthError(e.code, e.description).toHtmlResponse()
+      if (error instanceof AuthorizationError) {
+        return new OAuthError(error.code, error.description).toHtmlResponse()
       }
-      if (e instanceof OAuthError) {
-        return e.toHtmlResponse()
+      if (error instanceof OAuthError) {
+        return error.toHtmlResponse()
       }
       const errorId = crypto.randomUUID()
-      console.error(`Callback error [${errorId}]:`, e)
+      console.error(`Callback error [${errorId}]:`, error)
       return renderErrorPage(
         'Server Error',
         'An unexpected error occurred during authorization.',
