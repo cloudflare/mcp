@@ -7,10 +7,14 @@ const HTTP_METHODS = ['get', 'post', 'put', 'patch', 'delete'] as const
  */
 export function extractProduct(path: string): string | undefined {
   const accountMatch = path.match(/\/accounts\/\{[^}]+\}\/([^/]+)/)
-  if (accountMatch) return accountMatch[1]
+  if (accountMatch) {
+    return accountMatch[1]
+  }
 
   const zoneMatch = path.match(/\/zones\/\{[^}]+\}\/([^/]+)/)
-  if (zoneMatch) return zoneMatch[1]
+  if (zoneMatch) {
+    return zoneMatch[1]
+  }
 
   return undefined
 }
@@ -34,18 +38,26 @@ type Scope = (typeof SCOPES)[number]
 
 /** The concrete paths a spec path stands for, with the scope it was split into. */
 export function concretePaths(path: string): Array<{ path: string; scope?: Scope }> {
-  if (!path.startsWith(ACCOUNT_OR_ZONE_PREFIX)) return [{ path }]
+  if (!path.startsWith(ACCOUNT_OR_ZONE_PREFIX)) {
+    return [{ path }]
+  }
   const rest = path.slice(ACCOUNT_OR_ZONE_PREFIX.length)
   return SCOPES.map((scope) => ({ path: `/${scope.segment}/{${scope.idParam}}${rest}`, scope }))
 }
 
 /** Rewrite a split operation's resolved parameters for its scope. */
 function scopeParameters(parameters: unknown, scope: Scope | undefined): unknown {
-  if (!scope || !Array.isArray(parameters)) return parameters
+  if (!scope || !Array.isArray(parameters)) {
+    return parameters
+  }
   return parameters.flatMap((parameter: unknown) => {
     const { name, in: location } = (parameter ?? {}) as { name?: unknown; in?: unknown }
-    if (location !== 'path') return [parameter]
-    if (name === 'account_or_zone') return []
+    if (location !== 'path') {
+      return [parameter]
+    }
+    if (name === 'account_or_zone') {
+      return []
+    }
     if (name === 'account_or_zone_id') {
       return [{ ...(parameter as Record<string, unknown>), name: scope.idParam }]
     }
@@ -58,15 +70,23 @@ export function resolveRefs(
   spec: Record<string, unknown>,
   seen = new Set<string>()
 ): unknown {
-  if (obj === null || obj === undefined) return obj
-  if (typeof obj !== 'object') return obj
-  if (Array.isArray(obj)) return obj.map((item) => resolveRefs(item, spec, seen))
+  if (obj === null || obj === undefined) {
+    return obj
+  }
+  if (typeof obj !== 'object') {
+    return obj
+  }
+  if (Array.isArray(obj)) {
+    return obj.map((item) => resolveRefs(item, spec, seen))
+  }
 
   const record = obj as Record<string, unknown>
 
   if ('$ref' in record && typeof record.$ref === 'string') {
     const ref = record.$ref
-    if (seen.has(ref)) return { $circular: ref }
+    if (seen.has(ref)) {
+      return { $circular: ref }
+    }
     seen.add(ref)
 
     const parts = ref.replace('#/', '').split('/')
@@ -114,11 +134,15 @@ export function processSpec(spec: Record<string, unknown>): {
   const paths: Record<string, Record<string, unknown>> = {}
 
   for (const [rawPath, pathItem] of Object.entries(rawPaths)) {
-    if (!pathItem) continue
+    if (!pathItem) {
+      continue
+    }
 
     for (const { path, scope } of concretePaths(rawPath)) {
       // A concrete path the spec also lists on its own keeps that entry.
-      if (scope && rawPaths[path]) continue
+      if (scope && rawPaths[path]) {
+        continue
+      }
       paths[path] = {}
 
       for (const method of HTTP_METHODS) {
@@ -151,7 +175,9 @@ export function processSpec(spec: Record<string, unknown>): {
  */
 export function extractProducts(spec: Record<string, unknown>): string[] {
   const rawPaths = spec.paths as Record<string, unknown> | undefined
-  if (!rawPaths) return []
+  if (!rawPaths) {
+    return []
+  }
 
   const products = new Map<string, number>()
   const concrete = new Set(

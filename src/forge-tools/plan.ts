@@ -51,12 +51,16 @@ export type CallPlan =
 export async function planCall(tool: Tool, given: Args, options: PlanOptions): Promise<CallPlan> {
   // Before filling in the account, so a misplaced account_id is reported as such.
   const invalid = await invalidArguments(tool, given)
-  if (invalid) return { kind: 'invalid', message: invalid }
+  if (invalid) {
+    return { kind: 'invalid', message: invalid }
+  }
   const template = operation(tool).path
   const key = accountKey(template, given)
   let args = given
   if (key && param(given, key) === undefined) {
-    if (!options.sessionAccountId) return { kind: 'needs_account', argument: `path.${key}` }
+    if (!options.sessionAccountId) {
+      return { kind: 'needs_account', argument: `path.${key}` }
+    }
     args = withPathParam(given, key, options.sessionAccountId)
   }
   let request: HttpRequest
@@ -92,7 +96,9 @@ async function invalidArguments(tool: Tool, args: Args): Promise<string | undefi
     return fromJsonSchema(schema)
   })
   const result = await validator['~standard'].validate(args)
-  if (!result.issues) return undefined
+  if (!result.issues) {
+    return undefined
+  }
   const issues = result.issues.map((issue) => issue.message).join(', ')
   const hints = misplaced(tool, args)
     .map((hint) => ` ${hint}`)
@@ -109,7 +115,9 @@ function misplaced(tool: Tool, args: Args): string[] {
     Record<string, { properties?: Readonly<Record<string, unknown>> }>
   >
   return Object.keys(args).flatMap((name) => {
-    if (Object.hasOwn(properties, name)) return []
+    if (Object.hasOwn(properties, name)) {
+      return []
+    }
     const place = ['path', 'query', 'headers'].find((key) =>
       Object.hasOwn(properties[key]?.properties ?? {}, name)
     )
@@ -124,7 +132,9 @@ function param(args: Args, key: string): unknown {
 
 /** The path parameter that names the account, when the tool takes one for these arguments. */
 function accountKey(template: string, args: Args): string | undefined {
-  if (template.includes('{account_id}')) return 'account_id'
+  if (template.includes('{account_id}')) {
+    return 'account_id'
+  }
   if (
     template.startsWith(ACCOUNT_OR_ZONE_PREFIX) &&
     param(args, 'account_or_zone') === 'accounts'

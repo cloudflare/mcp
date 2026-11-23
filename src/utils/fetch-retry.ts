@@ -42,17 +42,22 @@ const DEFAULT_OPTIONS: Required<Omit<RetryOptions, 'caller'>> = {
 export function serverRetryDelayMs(headers: Headers, now = Date.now()): number | undefined {
   const retryAfter = headers.get('Retry-After')?.trim()
   if (retryAfter) {
-    if (/^\d+$/.test(retryAfter)) return Number(retryAfter) * 1000
+    if (/^\d+$/.test(retryAfter)) {
+      return Number(retryAfter) * 1000
+    }
     // An HTTP date always has letters (`Wed, 21 Oct 2015 07:28:00 GMT`); `-1` would parse as a year.
     const date = /[a-z]/i.test(retryAfter) ? Date.parse(retryAfter) : Number.NaN
-    if (!Number.isNaN(date)) return Math.max(0, date - now)
+    if (!Number.isNaN(date)) {
+      return Math.max(0, date - now)
+    }
   }
   let resetMs: number | undefined
   for (const item of (headers.get('Ratelimit') ?? '').split(',')) {
     const remaining = /;\s*r=(\d+)/.exec(item)?.[1]
     const reset = /;\s*t=(\d+)/.exec(item)?.[1]
-    if (remaining === '0' && reset !== undefined)
+    if (remaining === '0' && reset !== undefined) {
       resetMs = Math.max(resetMs ?? 0, Number(reset) * 1000)
+    }
   }
   return resetMs
 }
@@ -83,7 +88,9 @@ export function computeRetryDelay(
   const exponentialDelay = opts.baseDelayMs * opts.backoffFactor ** attempt
   const capped = Math.min(exponentialDelay, opts.maxDelayMs)
 
-  if (!opts.jitter) return capped
+  if (!opts.jitter) {
+    return capped
+  }
 
   return capped * (0.5 + Math.random() * 0.5)
 }

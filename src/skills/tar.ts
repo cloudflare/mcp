@@ -30,7 +30,9 @@ function readString(block: Uint8Array, offset: number, length: number): string {
 
 function readOctal(block: Uint8Array, offset: number, length: number): number {
   const text = readString(block, offset, length).trim()
-  if (!/^[0-7]*$/.test(text)) throw new Error(`Invalid tar size field: ${text}`)
+  if (!/^[0-7]*$/.test(text)) {
+    throw new Error(`Invalid tar size field: ${text}`)
+  }
   return text === '' ? 0 : parseInt(text, 8)
 }
 
@@ -41,12 +43,18 @@ function readPaxRecords(bytes: Uint8Array): Map<string, string> {
   let position = 0
   while (position < text.length) {
     const space = text.indexOf(' ', position)
-    if (space === -1) break
+    if (space === -1) {
+      break
+    }
     const length = Number(text.slice(position, space))
-    if (!Number.isInteger(length) || length <= 0) break
+    if (!Number.isInteger(length) || length <= 0) {
+      break
+    }
     const record = text.slice(space + 1, position + length - 1)
     const equals = record.indexOf('=')
-    if (equals !== -1) records.set(record.slice(0, equals), record.slice(equals + 1))
+    if (equals !== -1) {
+      records.set(record.slice(0, equals), record.slice(equals + 1))
+    }
     position += length
   }
   return records
@@ -66,13 +74,17 @@ export function readTar(archive: Uint8Array): TarArchive {
 
   while (offset + BLOCK <= archive.length) {
     const header = archive.subarray(offset, offset + BLOCK)
-    if (header.every((byte) => byte === 0)) break
+    if (header.every((byte) => byte === 0)) {
+      break
+    }
 
     const size = readOctal(header, 124, 12)
     const type = String.fromCharCode(header[156] ?? 0)
     const dataStart = offset + BLOCK
     const dataEnd = dataStart + size
-    if (dataEnd > archive.length) throw new Error('Truncated tar archive')
+    if (dataEnd > archive.length) {
+      throw new Error('Truncated tar archive')
+    }
     const data = archive.subarray(dataStart, dataEnd)
     offset = dataStart + Math.ceil(size / BLOCK) * BLOCK
 
@@ -96,7 +108,9 @@ export function readTar(archive: Uint8Array): TarArchive {
 
     // '0' and NUL are regular files. Everything else (directories, links,
     // devices) carries no content we serve.
-    if (type === '0' || type === '\0') files.push({ path, bytes: data.slice() })
+    if (type === '0' || type === '\0') {
+      files.push({ path, bytes: data.slice() })
+    }
   }
 
   return { files, comment }

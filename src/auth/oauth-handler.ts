@@ -66,7 +66,9 @@ export function grantedScopes(
   requested: readonly string[],
   upstreamScope: string | undefined
 ): string[] {
-  if (!upstreamScope) return [...requested]
+  if (!upstreamScope) {
+    return [...requested]
+  }
   const granted = new Set(upstreamScope.split(/\s+/).filter(Boolean))
   return requested.filter((scope) => granted.has(scope))
 }
@@ -85,10 +87,14 @@ export async function handleTokenExchangeCallback(
   clientId: string,
   clientSecret: string
 ): Promise<TokenExchangeCallbackResult | undefined> {
-  if (options.grantType !== 'refresh_token') return undefined
+  if (options.grantType !== 'refresh_token') {
+    return undefined
+  }
 
   const props = AuthPropsSchema.parse(options.props)
-  if (props.type !== 'user_token' || !props.refreshToken) return undefined
+  if (props.type !== 'user_token' || !props.refreshToken) {
+    return undefined
+  }
   if (!options.userId || !options.grantId) {
     throw new Error('Refresh token exchange is missing its grant identity')
   }
@@ -183,8 +189,12 @@ export function createAuthHandlers() {
           const redirect = new URL(error.redirectUri)
           redirect.searchParams.set('error', error.code)
           redirect.searchParams.set('error_description', error.description)
-          if (error.state) redirect.searchParams.set('state', error.state)
-          if (error.issuer) redirect.searchParams.set('iss', error.issuer)
+          if (error.state) {
+            redirect.searchParams.set('state', error.state)
+          }
+          if (error.issuer) {
+            redirect.searchParams.set('iss', error.issuer)
+          }
           return new Response(null, {
             status: 302,
             headers: { Location: redirect.href, 'Cache-Control': 'no-store' }
@@ -231,9 +241,13 @@ export function createAuthHandlers() {
         initialScopes: scopesToRequest
       })
     } catch (e) {
-      if (e instanceof CimdFetchError) return cimdUnavailableResponse()
+      if (e instanceof CimdFetchError) {
+        return cimdUnavailableResponse()
+      }
       metrics.logEvent(new AuthUser({ errorMessage: authErrorMessage('Authorize Error', e) }))
-      if (e instanceof OAuthError) return e.toHtmlResponse()
+      if (e instanceof OAuthError) {
+        return e.toHtmlResponse()
+      }
       const errorId = crypto.randomUUID()
       console.error(`Authorize error [${errorId}]:`, e)
       return renderErrorPage(
@@ -286,9 +300,12 @@ export function createAuthHandlers() {
     } catch (e) {
       metrics.logEvent(new AuthUser({ errorMessage: authErrorMessage('Authorize POST Error', e) }))
       // Consent/upstream transaction expired, used, or opened in another browser: render locally.
-      if (e instanceof AuthorizationError)
+      if (e instanceof AuthorizationError) {
         return new OAuthError(e.code, e.description).toHtmlResponse()
-      if (e instanceof OAuthError) return e.toHtmlResponse()
+      }
+      if (e instanceof OAuthError) {
+        return e.toHtmlResponse()
+      }
       const errorId = crypto.randomUUID()
       console.error(`Authorize POST error [${errorId}]:`, e)
       return renderErrorPage(
@@ -314,8 +331,12 @@ export function createAuthHandlers() {
       if (c.req.query('error')) {
         const redirect = new URL(oauthReqInfo.redirectUri)
         redirect.searchParams.set('error', 'access_denied')
-        if (oauthReqInfo.state) redirect.searchParams.set('state', oauthReqInfo.state)
-        if (oauthReqInfo.issuer) redirect.searchParams.set('iss', oauthReqInfo.issuer)
+        if (oauthReqInfo.state) {
+          redirect.searchParams.set('state', oauthReqInfo.state)
+        }
+        if (oauthReqInfo.issuer) {
+          redirect.searchParams.set('iss', oauthReqInfo.issuer)
+        }
         headers.set('Location', redirect.href)
         return new Response(null, { status: 302, headers })
       }
@@ -366,12 +387,17 @@ export function createAuthHandlers() {
       headers.set('Location', redirectTo)
       return new Response(null, { status: 302, headers })
     } catch (e) {
-      if (e instanceof CimdFetchError) return cimdCallbackFailureResponse()
+      if (e instanceof CimdFetchError) {
+        return cimdCallbackFailureResponse()
+      }
       metrics.logEvent(new AuthUser({ errorMessage: authErrorMessage('Callback Error', e) }))
       // Consent/upstream transaction expired, used, or opened in another browser: render locally.
-      if (e instanceof AuthorizationError)
+      if (e instanceof AuthorizationError) {
         return new OAuthError(e.code, e.description).toHtmlResponse()
-      if (e instanceof OAuthError) return e.toHtmlResponse()
+      }
+      if (e instanceof OAuthError) {
+        return e.toHtmlResponse()
+      }
       const errorId = crypto.randomUUID()
       console.error(`Callback error [${errorId}]:`, e)
       return renderErrorPage(

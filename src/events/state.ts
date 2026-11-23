@@ -168,8 +168,9 @@ export async function credentialInfo(env: EventEnvironment, bearer: string) {
 }
 
 async function key(env: EventEnvironment) {
-  if (env.MCP_COOKIE_ENCRYPTION_KEY.length < 32)
+  if (env.MCP_COOKIE_ENCRYPTION_KEY.length < 32) {
     throw new Error('MCP_COOKIE_ENCRYPTION_KEY must be at least 32 characters')
+  }
   const digest = await crypto.subtle.digest(
     'SHA-256',
     new TextEncoder().encode(`mcp-events:v1:${env.MCP_COOKIE_ENCRYPTION_KEY}`)
@@ -196,7 +197,9 @@ export async function encryptState(
   bytes.set(nonce)
   bytes.set(new Uint8Array(ciphertext), 12)
   const result = `mcp-events-v1:${btoa(String.fromCharCode(...bytes))}`
-  if (result.length > 16_384) throw new Error('Event state exceeds size limit')
+  if (result.length > 16_384) {
+    throw new Error('Event state exceeds size limit')
+  }
   return result
 }
 
@@ -205,8 +208,9 @@ export async function decryptState(
   purpose: string,
   value: string
 ): Promise<unknown> {
-  if (!value.startsWith('mcp-events-v1:') || value.length > 16_384)
+  if (!value.startsWith('mcp-events-v1:') || value.length > 16_384) {
     throw new Error('Invalid event state')
+  }
   const bytes = Uint8Array.from(atob(value.slice('mcp-events-v1:'.length)), (character) =>
     character.charCodeAt(0)
   )

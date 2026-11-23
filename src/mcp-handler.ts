@@ -123,7 +123,9 @@ export function rejectInvalidMcpRequest(request: Request): Response | undefined 
 
 function corsHeaders(request: Request): Headers | undefined {
   const origin = request.headers.get('Origin')
-  if (!origin) return undefined
+  if (!origin) {
+    return undefined
+  }
 
   const requestedHeaders = request.headers.get('Access-Control-Request-Headers')
   const headers = new Headers({
@@ -141,10 +143,14 @@ function corsHeaders(request: Request): Headers | undefined {
 
 function withCors(response: Response, request: Request): Response {
   const cors = corsHeaders(request)
-  if (!cors) return response
+  if (!cors) {
+    return response
+  }
 
   const headers = new Headers(response.headers)
-  for (const [name, value] of cors) headers.set(name, value)
+  for (const [name, value] of cors) {
+    headers.set(name, value)
+  }
   return new Response(response.body, {
     status: response.status,
     statusText: response.statusText,
@@ -171,7 +177,9 @@ async function challengeDelivery(
   lookupRedirectUris: LookupRedirectUris
 ): Promise<ClientBehavior['scopeChallenge']> {
   const override = challengeDeliveryOverride(url)
-  if (override) return override
+  if (override) {
+    return override
+  }
   const { behavior } = await identifyClient({
     clientId,
     redirectUris: () => lookupRedirectUris(clientId)
@@ -206,14 +214,18 @@ export async function handleAuthenticatedMcpRequest(
   }
 
   const rejected = rejectInvalidMcpRequest(request)
-  if (rejected) return rejected
+  if (rejected) {
+    return rejected
+  }
 
   const props = AuthPropsSchema.parse(rawProps)
   const options = serverOptionsFromUrl(request.url)
   if (!options.codemode) {
     // 2025-era listings never carry output schemas.
     const listed = await cachedToolListResponse(request, () => getForgeToolList())
-    if (listed) return withCors(listed, request)
+    if (listed) {
+      return withCors(listed, request)
+    }
   }
   const connection = connectionFromAuth(auth)
   // Only tokens this server issued can step up; their tools can ask for a scope.

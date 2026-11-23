@@ -91,7 +91,9 @@ function value<T>(load: () => Promise<T>, options: IsolateValueOptions = {}): Is
         current.settled = true
       },
       () => {
-        if (entry === current) entry = undefined
+        if (entry === current) {
+          entry = undefined
+        }
       }
     )
     return promise
@@ -100,8 +102,12 @@ function value<T>(load: () => Promise<T>, options: IsolateValueOptions = {}): Is
   return register({
     get(): Promise<T> {
       const at = now()
-      if (!entry || entry.expiresAt <= at) return start(at)
-      if (entry.settled) return entry.promise
+      if (!entry || entry.expiresAt <= at) {
+        return start(at)
+      }
+      if (entry.settled) {
+        return entry.promise
+      }
       // Another request is loading. Wait for it, but take the load over if the
       // wait fails or goes on too long. If a third request already has, share its load.
       const waitedOn = entry
@@ -121,7 +127,9 @@ function value<T>(load: () => Promise<T>, options: IsolateValueOptions = {}): Is
         }
       })()
       return Promise.race([shared, tooLong]).finally(() => {
-        if (timer !== undefined) clearTimeout(timer)
+        if (timer !== undefined) {
+          clearTimeout(timer)
+        }
       })
     },
     reset() {
@@ -197,7 +205,9 @@ function map<K, V>(options: IsolateMapOptions<V> = {}): IsolateMap<K, V> {
     get: (key) => entries.get(key),
     set(key, value) {
       const valueSize = sizeOf(value)
-      if (valueSize > maxSize) return value
+      if (valueSize > maxSize) {
+        return value
+      }
       const previous = entries.get(key)
       if (previous !== undefined) {
         entries.delete(key)
@@ -212,7 +222,9 @@ function map<K, V>(options: IsolateMapOptions<V> = {}): IsolateMap<K, V> {
       return value
     },
     getOrSet(key, compute) {
-      if (entries.has(key)) return entries.get(key) as V
+      if (entries.has(key)) {
+        return entries.get(key) as V
+      }
       return cache.set(key, compute(key))
     },
     get size() {
@@ -262,7 +274,9 @@ function derived<S extends object, T>(compute: (source: S) => T): IsolateDerived
 
 /** Drop every isolate cache, as if the isolate had just started. For tests. */
 function resetAll(): void {
-  for (const cache of registry) cache.reset()
+  for (const cache of registry) {
+    cache.reset()
+  }
 }
 
 /** Isolate-lifetime caches. See the module documentation. */

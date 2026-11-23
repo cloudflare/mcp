@@ -84,7 +84,9 @@ export function registerSkills(server: McpServer): void {
   server.server.setRequestHandler('resources/read', async (request) => {
     const { uri } = request.params
     const file = (await getSkills()).filesByUri.get(uri)
-    if (!file) throw new ResourceNotFoundError(uri, `No resource is served at ${uri}`)
+    if (!file) {
+      throw new ResourceNotFoundError(uri, `No resource is served at ${uri}`)
+    }
     const bytes = await readSkillFile(file)
     const content =
       file.encoding === 'text'

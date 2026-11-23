@@ -54,7 +54,9 @@ async function serialized<T>(id: string, operation: () => Promise<T>): Promise<T
   try {
     return await pending
   } finally {
-    if (mutations.get(id) === pending) mutations.delete(id)
+    if (mutations.get(id) === pending) {
+      mutations.delete(id)
+    }
   }
 }
 
@@ -130,8 +132,9 @@ export class EventService {
   }
 
   private api(accountId: string) {
-    if (this.props.type === 'account_token' && this.props.account.id !== accountId)
+    if (this.props.type === 'account_token' && this.props.account.id !== accountId) {
       throw new EventApiError(403)
+    }
     return new EventApi(this.env.CLOUDFLARE_API_BASE, this.props.accessToken, accountId)
   }
 
@@ -151,7 +154,9 @@ export class EventService {
         },
         { maxRetries: 0, caller: 'mcp_events_account_discovery' }
       )
-      if (!response.ok) throw new EventApiError(response.status)
+      if (!response.ok) {
+        throw new EventApiError(response.status)
+      }
       const value = z
         .object({
           success: z.literal(true),
@@ -160,14 +165,20 @@ export class EventService {
         })
         .parse(await readJson(response))
       accounts = value.result
-      if (page < value.result_info.total_pages) nextCursor = String(page + 1)
+      if (page < value.result_info.total_pages) {
+        nextCursor = String(page + 1)
+      }
     }
     for (const account of accounts) {
       try {
         const events = await this.available(account.id)
-        if (events.length) return { events }
+        if (events.length) {
+          return { events }
+        }
       } catch (error) {
-        if (!(error instanceof EventApiError && [401, 403, 404].includes(error.status))) throw error
+        if (!(error instanceof EventApiError && [401, 403, 404].includes(error.status))) {
+          throw error
+        }
       }
     }
     return { events: [], ...(nextCursor ? { nextCursor } : {}) }
@@ -176,21 +187,26 @@ export class EventService {
   private async available(accountId: string) {
     const api = this.api(accountId)
     const events = alertEventDefinitions(await api.result('/alerting/v3/available_alerts'))
-    if (events.length) await api.result(AUTOMATIONS)
+    if (events.length) {
+      await api.result(AUTOMATIONS)
+    }
     return events
   }
 
   async subscribe(input: unknown) {
     const params = SubscribeParams.parse(input)
-    if (!isSupportedEventName(params.name)) throw new EventNotFound(params.name)
+    if (!isSupportedEventName(params.name)) {
+      throw new EventNotFound(params.name)
+    }
     const id = await subscriptionId(`${this.env.MCP_RESOURCE}:${this.principal}`, params)
     return serialized(id, async () => {
       if (
         !(await this.available(params.arguments.account_id)).some(
           (event) => event.name === params.name
         )
-      )
+      ) {
         throw new EventNotFound(params.name)
+      }
       const api = this.api(params.arguments.account_id)
       const name = managedName(id)
       const policyId = await api.find(POLICIES, name)
@@ -200,14 +216,18 @@ export class EventService {
       const previous = previousPolicy
         ? await readPolicyState(this.env, previousPolicy, id)
         : undefined
-      if (previous && previous.principal !== this.principal) throw new SubscriptionForbidden()
+      if (previous && previous.principal !== this.principal) {
+        throw new SubscriptionForbidden()
+      }
       const credential = await credentialInfo(this.env, this.bearer)
       const now = Date.now()
       const expiresAt = Math.min(
         subscriptionExpiration(now, params.ttlMs),
         credential.expiresAt - 60_000
       )
-      if (expiresAt <= now) throw new Error('Refresh authentication before subscribing')
+      if (expiresAt <= now) {
+        throw new Error('Refresh authentication before subscribing')
+      }
       const signingSecretHash = await hashSecret(params.delivery.secret)
       const { secret: signingSecret, ...delivery } = params.delivery
       const state: PolicyState = {
@@ -236,7 +256,9 @@ export class EventService {
           publicWebhookFetch,
           now
         )
-        if (verification._tag === 'failed') throw new CallbackError(verification.reason)
+        if (verification._tag === 'failed') {
+          throw new CallbackError(verification.reason)
+        }
         state.verifiedUntil = now + 5 * 60_000
       }
       const url = new URL(`/events/ans/${id}`, this.env.MCP_RESOURCE).href
@@ -309,8 +331,9 @@ export class EventService {
         ...automationBody,
         enabled: true
       })
-      for (const stale of destinations.filter((destination) => destination !== state.webhookId))
+      for (const stale of destinations.filter((destination) => destination !== state.webhookId)) {
         await api.remove(`${WEBHOOKS}/${encodeURIComponent(stale)}`)
+      }
       return {
         id,
         refreshBefore: new Date(expiresAt).toISOString(),
@@ -322,7 +345,9 @@ export class EventService {
 
   async unsubscribe(input: unknown) {
     const params = UnsubscribeParams.parse(input)
-    if (!isSupportedEventName(params.name)) throw new EventNotFound(params.name)
+    if (!isSupportedEventName(params.name)) {
+      throw new EventNotFound(params.name)
+    }
     const id = await subscriptionId(`${this.env.MCP_RESOURCE}:${this.principal}`, params)
     return serialized(id, async () => {
       const api = this.api(params.arguments.account_id)
@@ -333,7 +358,9 @@ export class EventService {
           await api.result(`${POLICIES}/${encodeURIComponent(policyId)}`)
         )
         const state = await readPolicyState(this.env, policy, id)
-        if (state.principal !== this.principal) throw new SubscriptionForbidden()
+        if (state.principal !== this.principal) {
+          throw new SubscriptionForbidden()
+        }
         const { id: _policyId, ...body } = policy
         await api.result(`${POLICIES}/${encodeURIComponent(policyId)}`, 'PUT', {
           ...body,
@@ -347,10 +374,15 @@ export class EventService {
         await deleteSubscriptionRecord(this.env, id)
       }
       const automationId = await api.find(AUTOMATIONS, name, AUTOMATIONS_LISTING)
-      if (automationId) await api.remove(`${AUTOMATIONS}/${encodeURIComponent(automationId)}`)
-      if (policyId) await api.remove(`${POLICIES}/${encodeURIComponent(policyId)}`)
-      for (const webhookId of await api.findAll(WEBHOOKS, name))
+      if (automationId) {
+        await api.remove(`${AUTOMATIONS}/${encodeURIComponent(automationId)}`)
+      }
+      if (policyId) {
+        await api.remove(`${POLICIES}/${encodeURIComponent(policyId)}`)
+      }
+      for (const webhookId of await api.findAll(WEBHOOKS, name)) {
         await api.remove(`${WEBHOOKS}/${encodeURIComponent(webhookId)}`)
+      }
       return {}
     })
   }

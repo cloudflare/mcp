@@ -42,8 +42,12 @@ export async function readResponse(response: Response): Promise<ResponseBody> {
 
 /** The body as a tool result's text shows it: a binary one by its size and type. */
 export function bodyValue(body: ResponseBody): unknown {
-  if (body.kind === 'json') return body.value
-  if (body.kind === 'text') return body.text
+  if (body.kind === 'json') {
+    return body.value
+  }
+  if (body.kind === 'text') {
+    return body.text
+  }
   return `[${body.bytes.byteLength} bytes of ${body.mimeType}]`
 }
 
@@ -62,8 +66,12 @@ export function binaryContent(
 ): ContentBlock {
   const { mimeType } = body
   const data = base64(body.bytes)
-  if (mimeType.startsWith('image/')) return { type: 'image', data, mimeType }
-  if (mimeType.startsWith('audio/')) return { type: 'audio', data, mimeType }
+  if (mimeType.startsWith('image/')) {
+    return { type: 'image', data, mimeType }
+  }
+  if (mimeType.startsWith('audio/')) {
+    return { type: 'audio', data, mimeType }
+  }
   return { type: 'resource', resource: { uri, mimeType, blob: data } }
 }
 

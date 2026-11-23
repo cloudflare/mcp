@@ -8,7 +8,6 @@ export default defineConfig({
     ...cloudflare.rules,
     // Temporarily disabled during preset migration.
     '@nkzw/no-instanceof': 'off',
-    'curly': 'off',
     'import/consistent-type-specifier-style': 'off',
     'no-console': 'off',
     'no-promise-executor-return': 'off',

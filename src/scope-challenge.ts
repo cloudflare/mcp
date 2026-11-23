@@ -41,7 +41,9 @@ export class ScopeChallenge {
    *   `undefined` when the credential can't step up.
    */
   require(scope: string): string | undefined {
-    if (!this.#auth) return undefined
+    if (!this.#auth) {
+      return undefined
+    }
     const held = this.#auth.scope.filter((granted) => granted !== 'offline_access')
     const response = insufficientScope(
       this.#auth,

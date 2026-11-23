@@ -32,18 +32,23 @@ async function operation<T>(run: () => Promise<T>) {
   try {
     return await run()
   } catch (error) {
-    if (error instanceof CallbackError)
+    if (error instanceof CallbackError) {
       throw new ProtocolError(CALLBACK_ENDPOINT_ERROR, 'CallbackEndpointError', {
         reason: error.reason
       })
-    if (error instanceof EventNotFound)
+    }
+    if (error instanceof EventNotFound) {
       throw new ProtocolError(NOT_FOUND, 'NotFound', { kind: 'event' })
-    if (error instanceof SubscriptionForbidden)
+    }
+    if (error instanceof SubscriptionForbidden) {
       throw new ProtocolError(FORBIDDEN, 'Forbidden', { reason: error.message })
-    if (error instanceof EventApiError && (error.status === 401 || error.status === 403))
+    }
+    if (error instanceof EventApiError && (error.status === 401 || error.status === 403)) {
       throw new ProtocolError(FORBIDDEN, 'Forbidden', { reason: error.message })
-    if (error instanceof EventApiError)
+    }
+    if (error instanceof EventApiError) {
       throw new ProtocolError(INTERNAL_ERROR, error.message, { status: error.status })
+    }
     throw new ProtocolError(
       INTERNAL_ERROR,
       'Subscription operation failed. Retry with current credentials; partially created resources will be reused.'

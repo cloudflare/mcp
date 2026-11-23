@@ -221,9 +221,13 @@ export interface BridgeDependencies {
 }
 
 function decodeSecret(secret: string): Uint8Array {
-  if (!secret.startsWith('whsec_')) throw new Error('Invalid signing key prefix')
+  if (!secret.startsWith('whsec_')) {
+    throw new Error('Invalid signing key prefix')
+  }
   const encoded = secret.slice(6)
-  if (!/^[A-Za-z0-9+/]+={0,2}$/.test(encoded)) throw new Error('Invalid base64 signing key')
+  if (!/^[A-Za-z0-9+/]+={0,2}$/.test(encoded)) {
+    throw new Error('Invalid base64 signing key')
+  }
   const decoded = atob(encoded)
   if (btoa(decoded).replace(/=+$/, '') !== encoded.replace(/=+$/, '')) {
     throw new Error('Noncanonical base64 signing key')
@@ -237,7 +241,9 @@ async function digest(value: string): Promise<string> {
 }
 
 function canonicalJson(value: unknown): string {
-  if (Array.isArray(value)) return `[${value.map(canonicalJson).join(',')}]`
+  if (Array.isArray(value)) {
+    return `[${value.map(canonicalJson).join(',')}]`
+  }
   if (value !== null && typeof value === 'object') {
     return `{${Object.entries(value)
       .sort(([left], [right]) => left.localeCompare(right))
@@ -302,7 +308,9 @@ export async function signedHeaders(
   const signatures = await Promise.all(
     secrets.map(async (secret) => {
       const bytes = decodeSecret(secret)
-      if (bytes.length < 24 || bytes.length > 64) throw new Error('Invalid signing key length')
+      if (bytes.length < 24 || bytes.length > 64) {
+        throw new Error('Invalid signing key length')
+      }
       const key = await crypto.subtle.importKey(
         'raw',
         bytes.buffer as ArrayBuffer,
@@ -348,10 +356,13 @@ function transportFailureReason(error: unknown): CallbackFailureReason {
   if (
     error instanceof DOMException &&
     (error.name === 'TimeoutError' || error.name === 'AbortError')
-  )
+  ) {
     return 'timeout'
+  }
   const message = error instanceof Error ? error.message.toLowerCase() : ''
-  if (/tls|ssl|certificate/.test(message)) return 'tls_error'
+  if (/tls|ssl|certificate/.test(message)) {
+    return 'tls_error'
+  }
   return 'connection_refused'
 }
 
@@ -370,8 +381,9 @@ export async function verifyCallback(
   webhookFetch: typeof fetch,
   now: number
 ): Promise<CallbackVerification> {
-  if (!CallbackUrl.safeParse(subscription.callbackUrl).success)
+  if (!CallbackUrl.safeParse(subscription.callbackUrl).success) {
     return { _tag: 'failed', reason: 'connection_refused' }
+  }
   const challenge = crypto.randomUUID()
   const body = JSON.stringify({ type: 'verification', challenge })
   let response: Response
@@ -393,8 +405,12 @@ export async function verifyCallback(
   }
   if (!response.ok) {
     await response.body?.cancel().catch(() => {})
-    if (response.status >= 500) return { _tag: 'failed', reason: 'http_5xx' }
-    if (response.status >= 400) return { _tag: 'failed', reason: 'http_4xx' }
+    if (response.status >= 500) {
+      return { _tag: 'failed', reason: 'http_5xx' }
+    }
+    if (response.status >= 400) {
+      return { _tag: 'failed', reason: 'http_4xx' }
+    }
     // A 3xx under manual redirects: the endpoint did not accept the challenge.
     return { _tag: 'failed', reason: 'challenge_failed' }
   }
@@ -405,8 +421,9 @@ export async function verifyCallback(
     return { _tag: 'failed', reason: 'challenge_failed' }
   }
   const result = z.object({ challenge: z.string() }).safeParse(echoed)
-  if (!result.success || !(await constantTimeEqual(challenge, result.data.challenge)))
+  if (!result.success || !(await constantTimeEqual(challenge, result.data.challenge))) {
     return { _tag: 'failed', reason: 'challenge_failed' }
+  }
   return { _tag: 'verified' }
 }
 
@@ -415,16 +432,22 @@ export async function readJson(
   limit = MAX_EVENT_BYTES
 ): Promise<unknown> {
   const reader = message.body?.getReader()
-  if (!reader) throw new Error('Missing JSON body')
+  if (!reader) {
+    throw new Error('Missing JSON body')
+  }
   const decoder = new TextDecoder()
   let text = ''
   let size = 0
   try {
     while (true) {
       const part = await reader.read()
-      if (part.done) break
+      if (part.done) {
+        break
+      }
       size += part.value.length
-      if (size > limit) throw new Error('JSON body too large')
+      if (size > limit) {
+        throw new Error('JSON body too large')
+      }
       text += decoder.decode(part.value, { stream: true })
     }
     return JSON.parse(text + decoder.decode())
@@ -435,12 +458,17 @@ export async function readJson(
 
 /** Key names and value types of a JSON value, without the values themselves. */
 function payloadShape(value: unknown, depth = 0): unknown {
-  if (depth > 4) return '…'
-  if (Array.isArray(value)) return value.length ? [payloadShape(value[0], depth + 1)] : []
-  if (value !== null && typeof value === 'object')
+  if (depth > 4) {
+    return '…'
+  }
+  if (Array.isArray(value)) {
+    return value.length ? [payloadShape(value[0], depth + 1)] : []
+  }
+  if (value !== null && typeof value === 'object') {
     return Object.fromEntries(
       Object.entries(value).map(([key, entry]) => [key, payloadShape(entry, depth + 1)])
     )
+  }
   return value === null ? 'null' : typeof value
 }
 
@@ -449,7 +477,9 @@ export async function forwardAnsWebhook(
   id: string,
   dependencies: BridgeDependencies
 ): Promise<Response> {
-  if (request.method !== 'POST') return new Response(null, { status: 405 })
+  if (request.method !== 'POST') {
+    return new Response(null, { status: 405 })
+  }
   const subscription = await dependencies.loadSubscription(id)
   if (
     !subscription ||
@@ -469,7 +499,9 @@ export async function forwardAnsWebhook(
     return new Response(null, { status: 204 })
   }
   const reader = request.body?.getReader()
-  if (!reader) return new Response(null, { status: 400 })
+  if (!reader) {
+    return new Response(null, { status: 400 })
+  }
   const chunks: Uint8Array[] = []
   let size = 0
   let part = await reader.read()
@@ -521,9 +553,13 @@ export async function forwardAnsWebhook(
     return new Response(null, { status: 403 })
   }
   const occurrenceTime = new Date(alert.ts * 1000)
-  if (!Number.isFinite(occurrenceTime.getTime())) return new Response(null, { status: 400 })
+  if (!Number.isFinite(occurrenceTime.getTime())) {
+    return new Response(null, { status: 400 })
+  }
   const identity = await dependencies.eventIdentity(subscription, alert)
-  if (!identity) return new Response(null, { status: 503 })
+  if (!identity) {
+    return new Response(null, { status: 503 })
+  }
   const eventId = `evt_${await digest(JSON.stringify([subscription.id, identity]))}`
   const body = JSON.stringify({
     eventId,
@@ -545,7 +581,9 @@ export async function forwardAnsWebhook(
       body
     })
     await response.body?.cancel().catch(() => {})
-    if (response.ok) return new Response(null, { status: 204 })
+    if (response.ok) {
+      return new Response(null, { status: 204 })
+    }
     // The draft makes 410 and 413 non-retryable for this delivery only; the
     // subscription itself stays active. Acknowledge so ANS does not retry.
     if (response.status === 410 || response.status === 413) {

@@ -548,7 +548,9 @@ export default class CodeExecutor extends WorkerEntrypoint {
 
   const entrypoint = worker.getEntrypoint() as unknown as CodeExecutorEntrypoint
   const evaluation = Evaluation.safeParse(await entrypoint.evaluate())
-  if (!evaluation.success) throw new Error('The code sandbox returned an unreadable result')
+  if (!evaluation.success) {
+    throw new Error('The code sandbox returned an unreadable result')
+  }
   logRateLimits(evaluation.data.rateLimits)
   return evaluation.data
 }
@@ -559,7 +561,9 @@ export default class CodeExecutor extends WorkerEntrypoint {
  * Cloudflare refused, `not_sent` ones the hold saved, and the time spent pacing.
  */
 function logRateLimits(stats: z.infer<typeof RateLimitStats>): void {
-  if (!stats || (!stats.limited && !stats.notSent && !stats.waitedMs)) return
+  if (!stats || (!stats.limited && !stats.notSent && !stats.waitedMs)) {
+    return
+  }
   console.log(
     `execute rate limits: limited=${stats.limited} not_sent=${stats.notSent} waited_ms=${Math.round(stats.waitedMs)}`
   )
@@ -580,7 +584,9 @@ function challengeableScope(
   execution: Execution,
   connection: Connection
 ): string | undefined {
-  if (execution.ok || connection.kind !== 'oauth' || !scope) return undefined
+  if (execution.ok || connection.kind !== 'oauth' || !scope) {
+    return undefined
+  }
   return isCatalogScope(scope) && !connection.scopes.includes(scope) ? scope : undefined
 }
 
@@ -704,17 +710,23 @@ export function registerExecuteTool(
           : pathAccount
             ? unknownPathAccountHint(props, pathAccount)
             : ''
-        if (hint) failure.content[0].text += `\n\n${hint}`
+        if (hint) {
+          failure.content[0].text += `\n\n${hint}`
+        }
         const graphql = execution.graphqlRefusal
           ? authorize(connection, GRAPHQL_REQUEST, GRAPHQL_PERMISSIONS[execution.graphqlRefusal])
           : undefined
-        if (graphql) failure.content[0].text += `\n\n${explainRefusal(403, graphql)}`
+        if (graphql) {
+          failure.content[0].text += `\n\n${explainRefusal(403, graphql)}`
+        }
         const scope = challengeableScope(
           execution.missingScope ?? (graphql?.kind === 'missing' ? graphql.scope : undefined),
           execution,
           connection
         )
-        if (!scope) return failure
+        if (!scope) {
+          return failure
+        }
         if (!execution.replaySafe) {
           failure.content[0].text += `\n\n${UNSAFE_TO_REPLAY}`
           return failure
@@ -726,7 +738,9 @@ export function registerExecuteTool(
       } catch (error) {
         const failure = formatError(error)
         const hint = account_id ? unknownAccountHint(props, account_id) : ''
-        if (hint) failure.content[0].text += `\n\n${hint}`
+        if (hint) {
+          failure.content[0].text += `\n\n${hint}`
+        }
         return failure
       }
     }

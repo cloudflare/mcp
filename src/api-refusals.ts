@@ -75,12 +75,16 @@ const AUTHORIZATION_ERROR_CODES = new Set([10000, 9109])
  * (Workers' `No access to the specified resource.`), counts as a refusal.
  */
 function refusesCredential(status: 401 | 403, body: unknown): boolean {
-  if (status === 401) return true
+  if (status === 401) {
+    return true
+  }
   const errors =
     body !== null && typeof body === 'object' && 'errors' in body && Array.isArray(body.errors)
       ? body.errors
       : []
-  if (errors.length === 0) return true
+  if (errors.length === 0) {
+    return true
+  }
   return errors.some((error: unknown) => {
     const code =
       error !== null && typeof error === 'object' && 'code' in error ? Number(error.code) : NaN
@@ -113,7 +117,9 @@ export function refusalFor(
 ): Refusal | undefined {
   const scope = authorization.kind === 'missing' ? authorization.scope : undefined
   if (isRefusal(status)) {
-    if (!refusesCredential(status, body)) return undefined
+    if (!refusesCredential(status, body)) {
+      return undefined
+    }
     return { status, hint: explainRefusal(status, authorization), scope, filtered: false }
   }
   if (
@@ -181,11 +187,15 @@ export async function reviewResponse(
   path: string
 ): Promise<Response> {
   const refused = isRefusal(response.status)
-  if (!refused && !mayBeFilteredList(response, connection, method)) return response
+  if (!refused && !mayBeFilteredList(response, connection, method)) {
+    return response
+  }
 
   const match = findOperation(getPermissionPaths(), method, path)
   // A refusal on a path the spec doesn't list is still explained, from the status alone.
-  if (!match && !refused) return response
+  if (!match && !refused) {
+    return response
+  }
   const permissions = acceptedPermissions(match?.operation)
   const authorization = authorize(
     connection,
@@ -206,11 +216,15 @@ export async function reviewResponse(
     )
     return refusal ? withRefusalHeaders(response, body, refusal) : withBody(response, body)
   }
-  if (!emptyListProvesNothing(method, authorization, permissions)) return response
+  if (!emptyListProvesNothing(method, authorization, permissions)) {
+    return response
+  }
 
   const text = await response.text()
   const refusal = refusalFor(response.status, parseJson(text), method, authorization, permissions)
-  if (!refusal) return withBody(response, text)
+  if (!refusal) {
+    return withBody(response, text)
+  }
   const refused403 = new Response(null, {
     status: refusal.status,
     headers: { 'Content-Type': 'application/json' }
@@ -230,7 +244,9 @@ function withBody(response: Response, body: BodyInit | null): Response {
 function withRefusalHeaders(response: Response, body: BodyInit | null, refusal: Refusal): Response {
   const headers = new Headers(response.headers)
   headers.set(REFUSAL_HINT_HEADER, encodeURIComponent(refusal.hint))
-  if (refusal.scope) headers.set(MISSING_SCOPE_HEADER, refusal.scope)
+  if (refusal.scope) {
+    headers.set(MISSING_SCOPE_HEADER, refusal.scope)
+  }
   return new Response(body, {
     status: response.status,
     statusText: response.statusText,

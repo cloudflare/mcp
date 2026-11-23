@@ -48,7 +48,9 @@ export class EventApi {
       throw new EventApiError(response.status)
     }
     const envelope = Envelope.parse(await readJson(response, 2 * 1024 * 1024))
-    if (!envelope.success) throw new EventApiError(502)
+    if (!envelope.success) {
+      throw new EventApiError(502)
+    }
     return envelope
   }
 
@@ -72,11 +74,18 @@ export class EventApi {
         : envelope.result
       const resources = z.array(Resource).parse(value)
       const found = resources.find((resource) => resource.name === name)
-      if (resources.filter((resource) => resource.name === name).length > 1)
+      if (resources.filter((resource) => resource.name === name).length > 1) {
         throw new EventApiError(409)
-      if (found) return found.id
-      if (listing.pagination === 'unpaged') return
-      if (!envelope.result_info?.total_pages || page >= envelope.result_info.total_pages) return
+      }
+      if (found) {
+        return found.id
+      }
+      if (listing.pagination === 'unpaged') {
+        return
+      }
+      if (!envelope.result_info?.total_pages || page >= envelope.result_info.total_pages) {
+        return
+      }
     }
     throw new EventApiError(503)
   }
@@ -91,7 +100,9 @@ export class EventApi {
       const envelope = await this.request(`${path}?page=${page}&per_page=100`)
       const resources = z.array(Resource).parse(envelope.result)
       ids.push(...resources.filter((resource) => resource.name === name).map(({ id }) => id))
-      if (!envelope.result_info?.total_pages || page >= envelope.result_info.total_pages) return ids
+      if (!envelope.result_info?.total_pages || page >= envelope.result_info.total_pages) {
+        return ids
+      }
     }
     throw new EventApiError(503)
   }
@@ -107,7 +118,9 @@ export class EventApi {
     try {
       await this.result(path, 'DELETE')
     } catch (error) {
-      if (!(error instanceof EventApiError && error.status === 404)) throw error
+      if (!(error instanceof EventApiError && error.status === 404)) {
+        throw error
+      }
     }
   }
 }

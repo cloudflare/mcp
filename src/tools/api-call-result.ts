@@ -47,7 +47,9 @@ export function apiCallResult(
   const authorization = authorize(connection, call, call.permissions)
   const refusal = refusalFor(call.status, call.body, call.method, authorization, call.permissions)
   const ok = call.status >= 200 && call.status < 300
-  if (ok && !refusal) return { content: [{ type: 'text', text: formatResult(call.body) }] }
+  if (ok && !refusal) {
+    return { content: [{ type: 'text', text: formatResult(call.body) }] }
+  }
 
   const text = [
     `Cloudflare API error: ${call.method} ${call.path} returned HTTP ${refusal?.status ?? call.status}.`,

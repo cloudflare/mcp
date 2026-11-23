@@ -65,7 +65,9 @@ export function isCatalogScope(scope: string): boolean {
 /** OAuth scope IDs by permission name. OAuth scopes share API token permission names. */
 const SCOPES_BY_PERMISSION: ReadonlyMap<string, readonly string[]> = (() => {
   const scopes = new Map<string, string[]>()
-  for (const [scope, name] of SCOPE_NAMES) scopes.set(name, [...(scopes.get(name) ?? []), scope])
+  for (const [scope, name] of SCOPE_NAMES) {
+    scopes.set(name, [...(scopes.get(name) ?? []), scope])
+  }
   return scopes
 })()
 
@@ -141,11 +143,17 @@ export function findOperation<Operation>(
     let literals = 0
     let matches = true
     for (let index = 0; index < entry.parts.length && matches; index++) {
-      if (entry.params[index]) matches = segments[index] !== ''
-      else if (entry.parts[index] === segments[index]) literals++
-      else matches = false
+      if (entry.params[index]) {
+        matches = segments[index] !== ''
+      } else if (entry.parts[index] === segments[index]) {
+        literals++
+      } else {
+        matches = false
+      }
     }
-    if (matches && (!best || literals > best.literals)) best = { entry, literals }
+    if (matches && (!best || literals > best.literals)) {
+      best = { entry, literals }
+    }
   }
   return best && { template: best.entry.template, operation: best.entry.operation as Operation }
 }
@@ -214,7 +222,9 @@ function acceptedScopes(path: string, permissions: readonly string[]): string[] 
     const scopes = scopesForPermission(permission)
     const prefixed = scopes.filter((scope) => scope.startsWith(own))
     const variant = prefixed.length > 0 ? prefixed : scopes.filter((s) => !s.startsWith(other))
-    for (const scope of variant.length === 1 ? variant : scopes) accepted.add(scope)
+    for (const scope of variant.length === 1 ? variant : scopes) {
+      accepted.add(scope)
+    }
   }
   return [...accepted].sort()
 }
@@ -233,7 +243,9 @@ function scopeToAskFor(
   const reads = SAFE_METHODS.has(method.toUpperCase())
   const preferred = options.filter((scope) => scope.endsWith('.read') === reads)
   const pool = preferred.length > 0 ? preferred : [...options]
-  if (pool.length <= 1) return pool[0]
+  if (pool.length <= 1) {
+    return pool[0]
+  }
 
   const pathWords = words(path.replace(/\{[^}]+\}/g, ''))
   const ranked = pool
@@ -271,12 +283,20 @@ export function authorize(
   { method, path, template = path }: EndpointRequest,
   permissions: readonly string[] | undefined
 ): Authorization {
-  if (!permissions) return { kind: 'unlisted', connection: connection.kind }
-  if (connection.kind === 'direct') return { kind: 'direct', permissions }
+  if (!permissions) {
+    return { kind: 'unlisted', connection: connection.kind }
+  }
+  if (connection.kind === 'direct') {
+    return { kind: 'direct', permissions }
+  }
   const options = acceptedScopes(path, permissions)
-  if (options.length === 0) return { kind: 'unreachable', permissions }
+  if (options.length === 0) {
+    return { kind: 'unreachable', permissions }
+  }
   const held = options.filter((scope) => connection.scopes.includes(scope))
-  if (held.length > 0) return { kind: 'granted', held }
+  if (held.length > 0) {
+    return { kind: 'granted', held }
+  }
   return { kind: 'missing', options, scope: scopeToAskFor(method, template, options) }
 }
 

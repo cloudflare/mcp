@@ -57,7 +57,9 @@ type Json = string | number | boolean | null | Json[] | { [key: string]: Json }
  * `undefined` from code that returns nothing, becomes its `String()` form.
  */
 export function stringifyResponse(content: unknown): string {
-  if (typeof content === 'string') return content
+  if (typeof content === 'string') {
+    return content
+  }
   return JSON.stringify(content, null, 2) ?? String(content)
 }
 
@@ -72,15 +74,21 @@ export function stringifyResponse(content: unknown): string {
  */
 export function truncateResponse(content: unknown): string {
   if (typeof content === 'string') {
-    if (content.length <= MAX_CHARS) return content
+    if (content.length <= MAX_CHARS) {
+      return content
+    }
     const json = parseJsonContainer(content)
     return json === undefined ? truncateText(content) : shrinkToText(json)
   }
 
   const compact: string | undefined = JSON.stringify(content)
-  if (compact === undefined) return String(content)
+  if (compact === undefined) {
+    return String(content)
+  }
   // Re-parse so `toJSON` and `undefined` members are seen the way they serialize.
-  if (compact.length > MAX_CHARS) return shrinkToText(JSON.parse(compact))
+  if (compact.length > MAX_CHARS) {
+    return shrinkToText(JSON.parse(compact))
+  }
 
   const pretty = JSON.stringify(content, null, 2)
   return pretty.length <= MAX_CHARS ? pretty : compact
@@ -93,7 +101,9 @@ function truncateText(text: string): string {
 
 /** Parse text holding a JSON object or array. Anything else is plain text. */
 function parseJsonContainer(text: string): Json | undefined {
-  if (!/^\s*[[{]/.test(text)) return undefined
+  if (!/^\s*[[{]/.test(text)) {
+    return undefined
+  }
   try {
     return JSON.parse(text)
   } catch {
@@ -165,10 +175,18 @@ function keyFloor(value: Json, maxChars: number): number {
 }
 
 function shrink(value: Json, maxChars: number): Json {
-  if (size(value) <= maxChars) return value
-  if (typeof value === 'string') return shrinkString(value, maxChars)
-  if (Array.isArray(value)) return shrinkArray(value, maxChars)
-  if (typeof value === 'object' && value !== null) return shrinkObject(value, maxChars)
+  if (size(value) <= maxChars) {
+    return value
+  }
+  if (typeof value === 'string') {
+    return shrinkString(value, maxChars)
+  }
+  if (Array.isArray(value)) {
+    return shrinkArray(value, maxChars)
+  }
+  if (typeof value === 'object' && value !== null) {
+    return shrinkObject(value, maxChars)
+  }
   return value
 }
 
@@ -262,7 +280,9 @@ function shrinkObject(value: { [key: string]: Json }, maxChars: number): { [key:
 
   // The marker entry must not shadow a real key.
   let markerKey = TRUNCATION_MARKER
-  while (Object.hasOwn(value, markerKey)) markerKey += ' '
+  while (Object.hasOwn(value, markerKey)) {
+    markerKey += ' '
+  }
   const floors = entries.map(([k, v]) => keyCost(k) + floorSize(v, maxChars))
   const noteFloor = (chars: number) =>
     Math.min(chars, MIN_SLOT, Math.max(2, Math.floor(maxChars / 2)))
@@ -282,7 +302,9 @@ function shrinkObject(value: { [key: string]: Json }, maxChars: number): { [key:
     return skeleton(present + (dropped.size > 0 ? 1 : 0)) + floorsSum + marker
   }
   for (const i of byValueSize) {
-    if (cost() <= maxChars) break
+    if (cost() <= maxChars) {
+      break
+    }
     dropped.add(i)
     present--
     floorsSum -= floors[i]
@@ -299,7 +321,9 @@ function shrinkObject(value: { [key: string]: Json }, maxChars: number): { [key:
     return room >= 2 ? { [markerKey]: shrink(note, room) } : {}
   }
   const all: [string, Json][] = [...kept]
-  if (omitted.length > 0) all.push([markerKey, note])
+  if (omitted.length > 0) {
+    all.push([markerKey, note])
+  }
   const values = all.map(([, v]) => v)
   // The note is shrunk like any other value, so it can never overshoot.
   const allocation = allocate(

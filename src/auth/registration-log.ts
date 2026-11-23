@@ -20,7 +20,9 @@ function isRecord(value: unknown): value is Record<string, unknown> {
  * or userinfo is dropped.
  */
 export function describeRedirectUri(value: unknown): string {
-  if (typeof value !== 'string') return '(not a string)'
+  if (typeof value !== 'string') {
+    return '(not a string)'
+  }
   try {
     const url = new URL(value)
     return truncate(`${url.protocol}//${url.host}${url.pathname}`)

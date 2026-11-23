@@ -265,7 +265,9 @@ export class MetricsTracker {
   ) {}
 
   logEvent(event: MetricsEvent): void {
-    if (!this.wae) return
+    if (!this.wae) {
+      return
+    }
     try {
       event.serverInfo = this.serverInfo
       this.wae.writeDataPoint(event.toDataPoint())

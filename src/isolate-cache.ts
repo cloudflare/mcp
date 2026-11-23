@@ -145,7 +145,9 @@ const skillFileBytes = isolate.map<string, Uint8Array>({
 export async function readSkillFile(file: SkillFile): Promise<Uint8Array> {
   const key = skillFileKey(file.digest)
   const hit = skillFileBytes.get(key)
-  if (hit) return hit
+  if (hit) {
+    return hit
+  }
 
   const object = await env.SPEC_BUCKET.get(key)
   if (!object) {

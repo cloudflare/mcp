@@ -90,7 +90,9 @@ function whoamiFor(props: AuthProps): Whoami | undefined {
   const subject = SubjectIdSchema.safeParse(
     props.type === 'user_token' ? props.user.id : props.account.id
   )
-  if (!subject.success) return undefined
+  if (!subject.success) {
+    return undefined
+  }
   return props.type === 'user_token'
     ? { id: `user:${subject.data}`, ...(props.user.email && { email: props.user.email }) }
     : { id: `account:${subject.data}`, ...(props.account.name && { name: props.account.name }) }

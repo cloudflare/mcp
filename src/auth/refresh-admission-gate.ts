@@ -49,7 +49,9 @@ async function readAdmission(kv: KVNamespace, key: string): Promise<AdmissionRec
 async function releaseAdmission(kv: KVNamespace, key: string, owner: string): Promise<void> {
   localBlocks.delete(key)
   const current = await readAdmission(kv, key)
-  if (current?.owner !== owner) return
+  if (current?.owner !== owner) {
+    return
+  }
   try {
     await kv.delete(key)
   } catch (error) {
@@ -74,8 +76,12 @@ export async function withRefreshAdmission<T>(
   const key = admissionKey(grant.userId, grant.grantId)
   const now = Date.now()
   const localBlockedUntil = localBlocks.get(key)
-  if (localBlockedUntil && localBlockedUntil > now) rejectAdmission(localBlockedUntil)
-  if (localBlockedUntil) localBlocks.delete(key)
+  if (localBlockedUntil && localBlockedUntil > now) {
+    rejectAdmission(localBlockedUntil)
+  }
+  if (localBlockedUntil) {
+    localBlocks.delete(key)
+  }
 
   // Claim locally before the first await so concurrent requests in this isolate
   // cannot all pass the initial KV read.

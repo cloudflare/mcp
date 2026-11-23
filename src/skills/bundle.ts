@@ -87,7 +87,9 @@ export function parseFrontmatter(
   markdown: string
 ): { ok: true; frontmatter: Skill['frontmatter'] } | { ok: false; reason: string } {
   const match = /^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/.exec(markdown)
-  if (!match) return { ok: false, reason: 'SKILL.md has no YAML frontmatter' }
+  if (!match) {
+    return { ok: false, reason: 'SKILL.md has no YAML frontmatter' }
+  }
 
   let parsed: unknown
   try {
@@ -128,20 +130,30 @@ export async function buildSkill(
     return fail(`More than ${MAX_RESOURCES_PER_SKILL} files`)
   }
   const totalBytes = sourceFiles.reduce((sum, file) => sum + file.bytes.byteLength, 0)
-  if (totalBytes > MAX_BYTES_PER_SKILL) return fail(`More than ${MAX_BYTES_PER_SKILL} bytes`)
+  if (totalBytes > MAX_BYTES_PER_SKILL) {
+    return fail(`More than ${MAX_BYTES_PER_SKILL} bytes`)
+  }
 
   const skillMd = sourceFiles.find((file) => file.path === 'SKILL.md')
-  if (!skillMd) return fail('No SKILL.md at the skill root')
+  if (!skillMd) {
+    return fail('No SKILL.md at the skill root')
+  }
   const skillMdText = decodeUtf8(skillMd.bytes)
-  if (skillMdText === undefined) return fail('SKILL.md is not UTF-8')
+  if (skillMdText === undefined) {
+    return fail('SKILL.md is not UTF-8')
+  }
 
   const parsed = parseFrontmatter(skillMdText)
-  if (!parsed.ok) return fail(parsed.reason)
+  if (!parsed.ok) {
+    return fail(parsed.reason)
+  }
   const { frontmatter } = parsed
   if (frontmatter.name !== name) {
     return fail(`Frontmatter name "${frontmatter.name}" does not match the directory`)
   }
-  if (frontmatter.description.length === 0) return fail('Empty description')
+  if (frontmatter.description.length === 0) {
+    return fail('Empty description')
+  }
   if (frontmatter.description.length > MAX_DESCRIPTION_LENGTH) {
     return fail(`Description longer than ${MAX_DESCRIPTION_LENGTH} characters`)
   }
@@ -199,7 +211,9 @@ export async function buildSkillsManifest(
   const byName = new Map<string, SkillSourceFile[]>()
   for (const file of archiveFiles) {
     const match = /^skills\/([^/]+)\/(.+)$/.exec(file.path)
-    if (!match || !isSafeRelativePath(file.path)) continue
+    if (!match || !isSafeRelativePath(file.path)) {
+      continue
+    }
     const [, name = '', path = ''] = match
     const files = byName.get(name) ?? []
     files.push({ path, bytes: file.bytes })
@@ -216,7 +230,9 @@ export async function buildSkillsManifest(
       continue
     }
     skills.push({ skill: result.skill, files: result.files })
-    for (const [digest, bytes] of result.blobs) blobs.set(digest, bytes)
+    for (const [digest, bytes] of result.blobs) {
+      blobs.set(digest, bytes)
+    }
   }
 
   return {

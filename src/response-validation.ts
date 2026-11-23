@@ -48,8 +48,12 @@ export interface ResponseCheck {
 export function checkResponse(check: ResponseCheck): void {
   try {
     const sampleRate = sampleRateFrom(env.RESPONSE_VALIDATION_SAMPLE_RATE)
-    if (sampleRate <= 0 || Math.random() >= sampleRate) return
-    if (check.bodyChars > MAX_BODY_CHARS) return
+    if (sampleRate <= 0 || Math.random() >= sampleRate) {
+      return
+    }
+    if (check.bodyChars > MAX_BODY_CHARS) {
+      return
+    }
     waitUntil(run(check, sampleRate))
   } catch (error) {
     logFailure(check, error)
@@ -66,7 +70,9 @@ async function run(check: ResponseCheck, sampleRate: number): Promise<void> {
       pathTemplate: check.pathTemplate,
       ...trimForCheck(check.status, check.body, MAX_CHECKED_ITEMS)
     })
-    if (!mismatch) return
+    if (!mismatch) {
+      return
+    }
     const { errors, ...summary } = mismatch
     const event = {
       toolName: check.toolName,
@@ -88,9 +94,13 @@ async function run(check: ResponseCheck, sampleRate: number): Promise<void> {
 
 /** `RESPONSE_VALIDATION_SAMPLE_RATE` as a fraction in [0, 1]. Unset or invalid means 1. */
 export function sampleRateFrom(value: string | undefined): number {
-  if (value === undefined || value.trim() === '') return 1
+  if (value === undefined || value.trim() === '') {
+    return 1
+  }
   const rate = Number(value)
-  if (!Number.isFinite(rate)) return 1
+  if (!Number.isFinite(rate)) {
+    return 1
+  }
   return Math.min(1, Math.max(0, rate))
 }
 

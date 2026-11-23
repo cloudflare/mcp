@@ -81,16 +81,22 @@ export function findMismatch(
   cacheKey: string
 ): Mismatch | undefined {
   const responseKey = responseKeyFor(responses.schemas, response.status)
-  if (!responseKey) return undefined
+  if (!responseKey) {
+    return undefined
+  }
   const schema = compile(responses, `${cacheKey} ${responseKey}`, responseKey)
-  if (!schema) return undefined
+  if (!schema) {
+    return undefined
+  }
   const { root, lookup, propertyNames } = schema
   const trimmed = new Set(response.trimmed)
 
   // Stopping at the first violation costs the same as a full pass for a valid
   // body and almost nothing for an invalid one.
   const first = validate(response.body, root, '2020-12', lookup, true)
-  if (first.valid) return undefined
+  if (first.valid) {
+    return undefined
+  }
 
   let leaves = leafErrors(root, first.errors, trimmed)
   let counted = false
@@ -107,7 +113,9 @@ export function findMismatch(
     }
   }
   // Every violation was an artefact of trimming.
-  if (leaves.length === 0) return undefined
+  if (leaves.length === 0) {
+    return undefined
+  }
 
   return {
     responseKey,
@@ -149,7 +157,9 @@ export function trimForCheck(status: number, body: unknown, maxItems: number): T
   const copy = (value: unknown, location: string): unknown => {
     values++
     if (Array.isArray(value)) {
-      if (value.length > maxItems) trimmed.push(location)
+      if (value.length > maxItems) {
+        trimmed.push(location)
+      }
       return value.slice(0, maxItems).map((item, index) => copy(item, `${location}/${index}`))
     }
     if (typeof value === 'object' && value !== null) {
@@ -170,7 +180,9 @@ function compile(
   responseKey: string
 ): CompiledSchema | null {
   const hit = compiled.get(cacheKey)
-  if (hit !== undefined) return hit
+  if (hit !== undefined) {
+    return hit
+  }
 
   let result: CompiledSchema | null = null
   try {
@@ -195,9 +207,13 @@ function declaredPropertyNames(root: unknown): Set<string> {
       queue.push(...node)
     } else if (typeof node === 'object' && node !== null) {
       for (const [keyword, value] of Object.entries(node)) {
-        if (keyword === 'enum' || keyword === 'const') continue
+        if (keyword === 'enum' || keyword === 'const') {
+          continue
+        }
         if (keyword === 'properties' && typeof value === 'object' && value !== null) {
-          for (const name of Object.keys(value)) names.add(name)
+          for (const name of Object.keys(value)) {
+            names.add(name)
+          }
         }
         queue.push(value)
       }
@@ -212,7 +228,9 @@ function declaredPropertyNames(root: unknown): Set<string> {
  * only if the schema's `required` list holds it, so it is never response data.
  */
 function missingProperty(root: Schema, error: OutputUnit): string {
-  if (error.keyword !== 'required') return ''
+  if (error.keyword !== 'required') {
+    return ''
+  }
   const name = /required property "(.*)"\.$/.exec(error.error)?.[1]
   const required = walkSchema(root, error.keywordLocation).node
   return name !== undefined && Array.isArray(required) && required.includes(name)
@@ -255,7 +273,9 @@ function withoutRecheckedProperties(root: Schema, errors: OutputUnit[]): OutputU
       (unit.instanceLocation === propertyLocation ||
         unit.instanceLocation.startsWith(`${propertyLocation}/`)) &&
       (unit.keyword === 'false' || unit.keywordLocation.startsWith(`${error.keywordLocation}/`))
-    while (i + 1 < errors.length && inSubtree(errors[i + 1])) i++
+    while (i + 1 < errors.length && inSubtree(errors[i + 1])) {
+      i++
+    }
   }
   return kept
 }
@@ -284,7 +304,9 @@ function leafErrors(root: Schema, errors: OutputUnit[], trimmed: Set<string>): O
       unit.instanceLocation.startsWith(error.instanceLocation)
     if (error.keyword === 'anyOf' || error.keyword === 'oneOf') {
       leaves.push(error)
-      while (isChild(units[i + 1])) i++
+      while (isChild(units[i + 1])) {
+        i++
+      }
     } else if (!isChild(units[i + 1])) {
       leaves.push(error)
     }
@@ -323,7 +345,9 @@ function walkSchema(
   let rest: string[] = []
   let node: unknown = root
   for (const token of keywordLocation.replace(/^#\/?/, '').split('/')) {
-    if (token === '') continue
+    if (token === '') {
+      continue
+    }
     const current = typeof node === 'object' && node !== null ? (node as Schema) : undefined
     if (token === '$ref' && current?.$ref?.startsWith(DEFS_PREFIX)) {
       defName = decodePointerToken(current.$ref.slice(DEFS_PREFIX.length))

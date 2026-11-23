@@ -14,7 +14,9 @@ import { formatError } from '../utils/errors'
  */
 async function runSearch(code: string): Promise<unknown> {
   const outcome = await env.FORGE_TOOLS.search(code)
-  if (outcome.error !== undefined) throw new Error(outcome.error)
+  if (outcome.error !== undefined) {
+    throw new Error(outcome.error)
+  }
   return outcome.result
 }
 

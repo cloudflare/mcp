@@ -80,7 +80,9 @@ export function createServer(
   server.server.registerCapabilities({ tools: { listChanged: false } })
   // Skills (io.modelcontextprotocol/skills) are served in both tool modes.
   registerSkills(server)
-  if (events) registerEventMethods(server, events.env, props, events.bearer)
+  if (events) {
+    registerEventMethods(server, events.env, props, events.bearer)
+  }
   if (!codemode) {
     const formatResult = truncateToolResult ? truncateResponse : stringifyResponse
     registerForgeTools(server, props, formatResult, connection, scopeChallenge, {

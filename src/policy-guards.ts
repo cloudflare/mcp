@@ -51,17 +51,27 @@ async function modelInBody(request: Request): Promise<string> {
  * the API call it: `execute`'s `GlobalOutbound` and the generated tools.
  */
 export async function policyRefusalHint(request: Request): Promise<string | undefined> {
-  if (request.method === 'GET' || request.method === 'HEAD') return undefined
+  if (request.method === 'GET' || request.method === 'HEAD') {
+    return undefined
+  }
   const path = plainPath(new URL(request.url).pathname)
-  if (path === undefined) return UNREADABLE_PATH_HINT
-  if (CHARGEABLE_WRITE.test(path)) return CHARGEABLE_HINT
-  if (!ACCOUNT_AI_PATH.test(path)) return undefined
+  if (path === undefined) {
+    return UNREADABLE_PATH_HINT
+  }
+  if (CHARGEABLE_WRITE.test(path)) {
+    return CHARGEABLE_HINT
+  }
+  if (!ACCOUNT_AI_PATH.test(path)) {
+    return undefined
+  }
   const models = [path.match(MODEL_IN_RUN_PATH)?.[1] ?? '', await modelInBody(request)].filter(
     (model) => model !== ''
   )
   if (models.some((model) => !model.startsWith(WORKERS_AI_MODEL_PREFIX))) {
     return THIRD_PARTY_MODEL_HINT
   }
-  if (models.some((model) => MEDIA_MODEL.test(model))) return MEDIA_GENERATION_HINT
+  if (models.some((model) => MEDIA_MODEL.test(model))) {
+    return MEDIA_GENERATION_HINT
+  }
   return undefined
 }

@@ -82,7 +82,9 @@ export async function identifyClient(
 }
 
 async function matchRegisteredClient(identity: ClientIdentity): Promise<KnownClient | undefined> {
-  if (!KNOWN_CLIENTS.some((client) => client.redirectUriHosts)) return undefined
+  if (!KNOWN_CLIENTS.some((client) => client.redirectUriHosts)) {
+    return undefined
+  }
   const hosts = (await identity.redirectUris().catch(() => [])).map(hostname)
   return KNOWN_CLIENTS.find((client) =>
     (client.redirectUriHosts ?? []).some((host) => hosts.includes(host))

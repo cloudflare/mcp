@@ -122,9 +122,13 @@ function items(header: string | null): Map<string, Record<string, number>> {
   const byName = new Map<string, Record<string, number>>()
   for (const item of (header ?? '').split(',')) {
     const name = /^\s*"([^"]*)"/.exec(item)?.[1]
-    if (name === undefined) continue
+    if (name === undefined) {
+      continue
+    }
     const values: Record<string, number> = {}
-    for (const [, key, value] of item.matchAll(/;\s*([a-z]+)=(\d+)/g)) values[key!] = Number(value)
+    for (const [, key, value] of item.matchAll(/;\s*([a-z]+)=(\d+)/g)) {
+      values[key!] = Number(value)
+    }
     byName.set(name, values)
   }
   return byName
@@ -135,7 +139,9 @@ export function limitsOf(headers: Headers): Limit[] {
   const policies = items(headers.get('Ratelimit-Policy'))
   const limits: Limit[] = []
   for (const [name, { r, t }] of items(headers.get('Ratelimit'))) {
-    if (r === undefined || t === undefined) continue
+    if (r === undefined || t === undefined) {
+      continue
+    }
     const { q, w } = policies.get(name) ?? {}
     const policy = q && w ? { quota: q, windowSeconds: w } : undefined
     limits.push({ name, remaining: r, refillSeconds: t, policy })
@@ -152,7 +158,9 @@ export interface Hold {
 
 /** How long until `limit`'s bucket is back at its reserve, or 0 when it holds more. */
 function pacingWaitMs({ remaining, policy }: Limit): number {
-  if (!policy) return 0
+  if (!policy) {
+    return 0
+  }
   const reserve = Math.max(1, Math.ceil(policy.quota * RESERVE_SHARE))
   const secondsPerRequest = policy.windowSeconds / policy.quota
   return Math.max(0, reserve - remaining) * secondsPerRequest * 1000
@@ -173,7 +181,9 @@ export function holdOf(status: number, headers: Headers, now = Date.now()): Hold
   const limits = limitsOf(headers)
   if (status === 429) {
     const waitMs = serverRetryDelayMs(headers, now)
-    if (!waitMs) return undefined
+    if (!waitMs) {
+      return undefined
+    }
     const exhausted = limits
       .filter((limit) => limit.remaining === 0)
       .sort((a, b) => b.refillSeconds - a.refillSeconds)
@@ -185,7 +195,9 @@ export function holdOf(status: number, headers: Headers, now = Date.now()): Hold
   let hold: Hold | undefined
   for (const limit of limits) {
     const waitMs = Math.min(pacingWaitMs(limit), LONGEST_WAIT_MS)
-    if (waitMs > (hold?.waitMs ?? 0)) hold = { limit: limit.name, waitMs }
+    if (waitMs > (hold?.waitMs ?? 0)) {
+      hold = { limit: limit.name, waitMs }
+    }
   }
   return hold
 }
@@ -200,7 +212,9 @@ export function rateLimitHint(
   headers: Headers,
   now = Date.now()
 ): string | undefined {
-  if (status !== 429) return undefined
+  if (status !== 429) {
+    return undefined
+  }
   const hold = holdOf(status, headers, now)
   const named = hold?.limit ? ` (limit "${hold.limit}")` : ''
   return hold
@@ -246,17 +260,25 @@ export function holdScope(
   method: string,
   path: string
 ): HoldScope {
-  if (limit === SHARED_LIMIT) return {}
+  if (limit === SHARED_LIMIT) {
+    return {}
+  }
   const segments = path.replace(/\/+$/, '').split('/')
   const scoped = segments[1] === 'accounts' || segments[1] === 'zones'
   for (let length = segments.length; paths && length >= 2; length--) {
     const whole = length === segments.length
     const template = findOperation(paths, method, segments.slice(0, length).join('/'))?.template
-    if (!template || (!whole && !template.endsWith('}'))) continue
+    if (!template || (!whole && !template.endsWith('}'))) {
+      continue
+    }
     const parts = template.split('/').map((part, index) => {
       // The account or zone is the request's; every other parameter is any value.
-      if (scoped && index <= 2) return escapeRegExp(segments[index]!)
-      if (!/^\{[^}]+\}$/.test(part)) return escapeRegExp(part)
+      if (scoped && index <= 2) {
+        return escapeRegExp(segments[index]!)
+      }
+      if (!/^\{[^}]+\}$/.test(part)) {
+        return escapeRegExp(part)
+      }
       return index === length - 1 ? '.+' : '[^/]+'
     })
     return { method: method.toUpperCase(), pattern: `^${parts.join('\\/')}\\/?$` }
@@ -287,7 +309,9 @@ export async function withRateLimitNotice(
 ): Promise<Response> {
   const hold = holdOf(response.status, response.headers)
   const hint = rateLimitHint(response.status, response.headers)
-  if (!hold && !hint) return response
+  if (!hold && !hint) {
+    return response
+  }
   const paths = hold?.limit === SHARED_LIMIT ? undefined : getPermissionPaths()
   const notice: RateLimitNotice = { ...holdScope(hold?.limit, paths, method, path), hold, hint }
   const headers = new Headers(response.headers)

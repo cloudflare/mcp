@@ -23,37 +23,60 @@ const toolsJson = isolate.derived((tools: readonly Tool[]) =>
 
 /** A lone 2025-era `tools/list` request for the first page, or `undefined` for anything else. */
 async function plainToolListRequestId(request: Request): Promise<string | number | undefined> {
-  if (request.method !== 'POST') return undefined
-  if (!request.headers.get('Content-Type')?.includes('application/json')) return undefined
+  if (request.method !== 'POST') {
+    return undefined
+  }
+  if (!request.headers.get('Content-Type')?.includes('application/json')) {
+    return undefined
+  }
   // The SDK answers 406 without both; leave that to it.
   const accept = request.headers.get('Accept') ?? ''
-  if (!accept.includes('application/json') || !accept.includes('text/event-stream'))
+  if (!accept.includes('application/json') || !accept.includes('text/event-stream')) {
     return undefined
+  }
   // The SDK answers an unsupported version header with an error; leave that to it.
   const version = request.headers.get('MCP-Protocol-Version')
-  if (version !== null && !SUPPORTED_PROTOCOL_VERSIONS.includes(version)) return undefined
+  if (version !== null && !SUPPORTED_PROTOCOL_VERSIONS.includes(version)) {
+    return undefined
+  }
   const length = Number(request.headers.get('Content-Length') ?? 0)
-  if (!(length <= MAX_BODY_BYTES)) return undefined
+  if (!(length <= MAX_BODY_BYTES)) {
+    return undefined
+  }
 
   const text = await request.clone().text()
-  if (text.length > MAX_BODY_BYTES) return undefined
+  if (text.length > MAX_BODY_BYTES) {
+    return undefined
+  }
   let body: unknown
   try {
     body = JSON.parse(text)
   } catch {
     return undefined
   }
-  if (typeof body !== 'object' || body === null || Array.isArray(body)) return undefined
+  if (typeof body !== 'object' || body === null || Array.isArray(body)) {
+    return undefined
+  }
   const { jsonrpc, id, method, params } = body as Record<string, unknown>
-  if (jsonrpc !== '2.0' || method !== 'tools/list') return undefined
-  if (typeof id !== 'string' && typeof id !== 'number') return undefined
+  if (jsonrpc !== '2.0' || method !== 'tools/list') {
+    return undefined
+  }
+  if (typeof id !== 'string' && typeof id !== 'number') {
+    return undefined
+  }
   // Only the first page: a cursor, or anything but `_meta`, goes to the SDK.
   if (params !== undefined) {
-    if (typeof params !== 'object' || params === null || Array.isArray(params)) return undefined
-    if (Object.keys(params).some((key) => key !== '_meta')) return undefined
+    if (typeof params !== 'object' || params === null || Array.isArray(params)) {
+      return undefined
+    }
+    if (Object.keys(params).some((key) => key !== '_meta')) {
+      return undefined
+    }
   }
   // A 2026-07-28 request carries its protocol version in `_meta`; the SDK serves those.
-  if (!(await isLegacyRequest(request, body))) return undefined
+  if (!(await isLegacyRequest(request, body))) {
+    return undefined
+  }
   return id
 }
 
@@ -77,7 +100,9 @@ export async function cachedToolListResponse(
   listTools: () => Promise<readonly Tool[]>
 ): Promise<Response | undefined> {
   const id = await plainToolListRequestId(request)
-  if (id === undefined) return undefined
+  if (id === undefined) {
+    return undefined
+  }
   const tools = toolsJson(await listTools())
   const body = new Blob([
     '{"result":{"tools":',

@@ -37,7 +37,9 @@ export function cloudflareTool(tool: Tool): Tool {
 
   const changed: JSONObject = { ...params }
   for (const [key, description] of Object.entries(OPTIONAL_PATH_PARAMS)) {
-    if (key in changed) changed[key] = { type: 'string', description }
+    if (key in changed) {
+      changed[key] = { type: 'string', description }
+    }
   }
   const pathRequired = (path.required ?? []).filter((key) => !(key in OPTIONAL_PATH_PARAMS))
   const { required: _pathRequired, ...pathRest } = path

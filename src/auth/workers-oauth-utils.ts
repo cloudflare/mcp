@@ -54,7 +54,9 @@ export class OAuthError extends ProviderOAuthError {
       this.statusCode
     )
     const headers = new Headers(response.headers)
-    for (const [name, value] of Object.entries(this.headers ?? {})) headers.set(name, value)
+    for (const [name, value] of Object.entries(this.headers ?? {})) {
+      headers.set(name, value)
+    }
     return new Response(response.body, { status: response.status, headers })
   }
 }
@@ -106,8 +108,12 @@ function renderDisplayUrl(
 ): string | undefined {
   try {
     const url = new URL(value)
-    if (!url.hostname) return undefined
-    if (options.requireHttps && url.protocol !== 'https:') return undefined
+    if (!url.hostname) {
+      return undefined
+    }
+    if (options.requireHttps && url.protocol !== 'https:') {
+      return undefined
+    }
     // Let long URLs wrap after a slash rather than mid-word on narrow screens.
     const rest = sanitizeHtml(url.pathname + url.search).replace(/\//g, '/<wbr>')
     return `<span class="client-detail-url"><span class="url-dim">${sanitizeHtml(url.protocol)}//</span>${sanitizeHtml(url.host)}<span class="url-dim">${rest}</span></span>`
