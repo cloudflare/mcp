@@ -6,6 +6,7 @@ import { z } from 'zod'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import type { AuthProps } from '../src/auth/types'
 import {
+  MAX_MESSAGE_LENGTH,
   SUBMIT_FEEDBACK_TOOL,
   feedbackCallerKey,
   feedbackSubmission,
@@ -262,6 +263,27 @@ describe('submit_feedback report', () => {
       isError: true,
       content: [{ type: 'text', text: expect.stringContaining('Could not reach') }]
     })
+  })
+
+  it('sends a message up to 32,000 characters and refuses a longer one without sending', async () => {
+    const received = acceptFeedback()
+
+    const longest = 'a'.repeat(MAX_MESSAGE_LENGTH)
+    const accepted = await runSubmitFeedbackTool(
+      { ...REPORT, message: longest },
+      'direct',
+      freshUser()
+    )
+    const refused = await runSubmitFeedbackTool(
+      { ...REPORT, message: `${longest}a` },
+      'direct',
+      freshUser()
+    )
+
+    expect(MAX_MESSAGE_LENGTH).toBe(32_000)
+    expect(accepted.isError).toBeUndefined()
+    expect(refused).toMatchObject({ isError: true })
+    expect(received.map(({ body }) => body.message)).toEqual([longest])
   })
 
   it('refuses arguments outside the schema without sending', async () => {
