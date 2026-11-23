@@ -39,6 +39,7 @@ interface AuthEnv extends Env {
   OAUTH_PROVIDER: OAuthHelpers
 }
 
+// oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The OAuth provider attaches this helper binding at runtime.
 const env = cloudflareEnv as AuthEnv
 const ALLOWED_SCOPES = new Set<string>(ALL_SCOPES)
 const metrics = new MetricsTracker(env.MCP_METRICS, SERVER_INFO)

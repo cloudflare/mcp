@@ -113,6 +113,7 @@ async function invalidArguments(tool: Tool, args: Args): Promise<string | undefi
  * parameter of `path`, `query` or `headers`: `per_page goes in query`.
  */
 function misplaced(tool: Tool, args: Args): Array<string> {
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- These fields follow the generated tool schema.
   const properties = (tool.inputSchema.properties ?? {}) as Readonly<
     Record<string, { properties?: Readonly<Record<string, unknown>> }>
   >
@@ -129,6 +130,7 @@ function misplaced(tool: Tool, args: Args): Array<string> {
 
 /** The path parameter `key` in `args`, if any. */
 function param(args: Args, key: string): unknown {
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- These fields follow the generated tool schema.
   return (args.path as Readonly<Record<string, unknown>> | undefined)?.[key]
 }
 
@@ -148,6 +150,7 @@ function accountKey(template: string, args: Args): string | undefined {
 
 /** Returns `args` with the path parameter `key` set to `value`. */
 function withPathParam(args: Args, key: string, value: string): Args {
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- These fields follow the generated tool schema.
   const path = (args.path ?? {}) as Readonly<Record<string, unknown>>
   return { ...args, path: { ...path, [key]: value } }
 }

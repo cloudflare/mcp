@@ -62,6 +62,7 @@ export type PermissionPaths = Record<
 >
 
 const permissionPaths = isolate.lazy(
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The pinned release ships this generated JSON shape.
   (): PermissionPaths => JSON.parse(specArtifacts.permissions) as PermissionPaths
 )
 
@@ -71,11 +72,13 @@ export function getPermissionPaths(): PermissionPaths {
 }
 
 const forgeToolList = artifact(
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The pinned release ships this generated JSON shape.
   async (): Promise<Array<Tool>> => JSON.parse(await env.FORGE_TOOLS.listJson()) as Array<Tool>
 )
 
 const forgeToolListWithOutput = artifact(
   async (): Promise<Array<Tool>> =>
+    // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The pinned release ships this generated JSON shape.
     JSON.parse(await env.FORGE_TOOLS.listJson({ outputSchema: true })) as Array<Tool>
 )
 
@@ -93,6 +96,7 @@ export function getForgeToolList({ outputSchema = false } = {}): Promise<Array<T
 }
 
 const products = isolate.lazy(
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The pinned release ships this generated JSON shape.
   (): Array<string> => JSON.parse(specArtifacts.products) as Array<string>
 )
 

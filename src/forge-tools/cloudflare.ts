@@ -29,6 +29,7 @@ const OPTIONAL_PATH_PARAMS: Readonly<Record<string, string>> = {
  * The tool's operation is kept, so calls build the same requests.
  */
 export function cloudflareTool(tool: Tool): Tool {
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- Forge emits this shape for the generated path schema.
   const path = tool.inputSchema.properties?.path as PathSchema | undefined
   const params = path?.properties
   if (!path || !params || !Object.keys(params).some((key) => key in OPTIONAL_PATH_PARAMS)) {

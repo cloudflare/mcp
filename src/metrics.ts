@@ -309,6 +309,7 @@ export function recordResponseSchemaMismatch(
 }
 
 const errorCodeOf = (e: unknown): number =>
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The metrics wrapper preserves the SDK's runtime registration contract.
   typeof (e as { code?: unknown })?.code === 'number' ? (e as { code: number }).code : -1
 
 /**
@@ -330,15 +331,18 @@ export function attachMetrics(server: McpServer, props?: AuthProps): void {
   // Our tool callbacks signal failure by returning `{ isError: true }` rather
   // than throwing, so inspect the resolved result as well as the thrown path.
   const logResult = (name: string, result: unknown) => {
+    // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The metrics wrapper preserves the SDK's runtime registration contract.
     const errorCode = (result as { isError?: boolean })?.isError ? -1 : undefined
     metrics.logEvent(new ToolCall({ toolName: name, userId, errorCode }))
   }
 
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The metrics wrapper preserves the SDK's runtime registration contract.
   const originalRegisterTool = server.registerTool.bind(server) as (
     ...args: Array<unknown>
   ) => ReturnType<McpServer['registerTool']>
 
   server.registerTool = (name: string, ...rest: Array<unknown>) => {
+    // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The metrics wrapper preserves the SDK's runtime registration contract.
     const config = rest[0] as { title?: string; annotations?: { title?: string } } | undefined
     // Mirror any tool.title into annotations.title so clients consistently see
     // a display label regardless of which field they prefer.
@@ -347,6 +351,7 @@ export function attachMetrics(server: McpServer, props?: AuthProps): void {
     }
 
     const lastIndex = rest.length - 1
+    // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The metrics wrapper preserves the SDK's runtime registration contract.
     const cb = rest[lastIndex] as (...cbArgs: Array<unknown>) => unknown
     rest[lastIndex] = (...cbArgs: Array<unknown>) => {
       try {

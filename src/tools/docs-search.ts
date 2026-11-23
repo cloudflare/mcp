@@ -236,6 +236,7 @@ async function doWithRetries<T>(action: () => Promise<T>): Promise<T> {
 
 function isRetryableError(error: unknown): boolean {
   if (error && typeof error === 'object' && 'status' in error) {
+    // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The upstream HTTP error carries the status used by the retry policy.
     const status = (error as { status: number }).status
     return status >= 500 || status === 429
   }

@@ -10,7 +10,6 @@ export default defineConfig({
     'no-console': ['error', { allow: ['error', 'log', 'warn'] }],
     // Temporarily disabled during preset migration.
     '@nkzw/no-instanceof': 'off',
-    'typescript/no-unsafe-type-assertion': 'off',
   },
   overrides: [
     ...(cloudflare.overrides ?? []),

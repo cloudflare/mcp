@@ -155,6 +155,7 @@ export function findOperation<Operation>(
       best = { entry, literals }
     }
   }
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The cached operation comes from the caller's typed paths.
   return best && { template: best.entry.template, operation: best.entry.operation as Operation }
 }
 

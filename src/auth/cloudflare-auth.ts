@@ -10,9 +10,10 @@ function upstreamOAuthErrorCode(body: string): string | undefined {
     if (
       parsed &&
       typeof parsed === 'object' &&
-      typeof (parsed as { error?: unknown }).error === 'string'
+      'error' in parsed &&
+      typeof parsed.error === 'string'
     ) {
-      return (parsed as { error: string }).error
+      return parsed.error
     }
   } catch {
     // Not JSON; try form encoding below.

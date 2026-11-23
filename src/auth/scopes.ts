@@ -56,6 +56,7 @@ export const SCOPE_DEFINITIONS: Record<string, ScopeDefinition> = {
   ...DERIVED_OAUTH_SCOPES
 }
 
+// oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The keys come from the scope table declared immediately above.
 const scopeNames = Object.keys(SCOPE_DEFINITIONS) as Array<ScopeName>
 
 /**

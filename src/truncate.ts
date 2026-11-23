@@ -87,6 +87,7 @@ export function truncateResponse(content: unknown): string {
   }
   // Re-parse so `toJSON` and `undefined` members are seen the way they serialize.
   if (compact.length > MAX_CHARS) {
+    // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- JSON.parse returns a JSON value or throws.
     return shrinkToText(JSON.parse(compact) as Json)
   }
 
@@ -105,6 +106,7 @@ function parseJsonContainer(text: string): Json | undefined {
     return undefined
   }
   try {
+    // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- JSON.parse returns a JSON value or throws.
     return JSON.parse(text) as Json
   } catch {
     return undefined

@@ -267,6 +267,7 @@ function withoutRecheckedProperties(root: Schema, errors: Array<OutputUnit>): Ar
     }
     const key = decodeValidatorToken(child.instanceLocation.slice(prefix.length).split('/')[0])
     const parent = walkSchema(root, error.keywordLocation.replace(/\/additionalProperties$/, ''))
+    // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The walker follows the generated schema's object structure.
     const properties = (parent.node as Schema | undefined)?.properties
     if (!properties || !Object.hasOwn(properties, key)) {
       kept.push(error)
@@ -360,6 +361,7 @@ function walkSchema(
     if (token === '$ref' && current?.$ref?.startsWith(DEFS_PREFIX)) {
       defName = decodePointerToken(current.$ref.slice(DEFS_PREFIX.length))
       rest = []
+      // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The walker follows the generated schema's object structure.
       node = (root.$defs as Record<string, unknown>)[defName]
       continue
     }

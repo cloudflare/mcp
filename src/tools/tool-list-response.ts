@@ -57,6 +57,7 @@ async function plainToolListRequestId(request: Request): Promise<string | number
   if (typeof body !== 'object' || body === null || Array.isArray(body)) {
     return undefined
   }
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The decoded object is narrowed field by field below.
   const { jsonrpc, id, method, params } = body as Record<string, unknown>
   if (jsonrpc !== '2.0' || method !== 'tools/list') {
     return undefined

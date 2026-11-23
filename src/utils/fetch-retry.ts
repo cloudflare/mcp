@@ -124,7 +124,8 @@ export async function fetchWithRetry(
     const existingHeaders =
       init?.headers instanceof Headers
         ? Object.fromEntries(init.headers)
-        : ((init?.headers as Record<string, string> | undefined) ?? {})
+        : // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The non-Headers case copies the caller's existing header properties.
+          ((init?.headers as Record<string, string> | undefined) ?? {})
     fetchInit = {
       ...init,
       headers: { ...existingHeaders, 'User-Agent': USER_AGENT }

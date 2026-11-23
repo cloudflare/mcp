@@ -156,6 +156,7 @@ export interface IsolateLazy<T> {
  */
 function lazy<T>(build: () => T): IsolateLazy<T> {
   let built: { value: T } | undefined
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The registry preserves the type of the handle inserted under this key.
   const get = (() => {
     built ??= { value: build() }
     return built.value
@@ -225,6 +226,7 @@ function map<K, V>(options: IsolateMapOptions<V> = {}): IsolateMap<K, V> {
     },
     getOrSet(key, compute) {
       if (entries.has(key)) {
+        // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The registry preserves the type of the handle inserted under this key.
         return entries.get(key) as V
       }
       return cache.set(key, compute(key))
@@ -260,6 +262,7 @@ export interface IsolateDerived<S extends object, T> {
  */
 function derived<S extends object, T>(compute: (source: S) => T): IsolateDerived<S, T> {
   let computed = new WeakMap<S, { value: T }>()
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The registry preserves the type of the handle inserted under this key.
   const get = ((source: S) => {
     let hit = computed.get(source)
     if (!hit) {

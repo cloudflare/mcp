@@ -59,6 +59,7 @@ function scopeParameters(parameters: unknown, scope: Scope | undefined): unknown
       return []
     }
     if (name === 'account_or_zone_id') {
+      // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The raw OpenAPI document is traversed one schema node at a time.
       return [{ ...(parameter as Record<string, unknown>), name: scope.idParam }]
     }
     return [parameter]
@@ -80,6 +81,7 @@ export function resolveRefs(
     return obj.map((item) => resolveRefs(item, spec, seen))
   }
 
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The raw OpenAPI document is traversed one schema node at a time.
   const record = obj as Record<string, unknown>
 
   if ('$ref' in record && typeof record.$ref === 'string') {
@@ -92,6 +94,7 @@ export function resolveRefs(
     const parts = ref.replace('#/', '').split('/')
     let resolved: unknown = spec
     for (const part of parts) {
+      // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The raw OpenAPI document is traversed one schema node at a time.
       resolved = (resolved as Record<string, unknown>)?.[part]
     }
     return resolveRefs(resolved, spec, seen)
@@ -130,6 +133,7 @@ function permissionLabels(value: unknown): Array<string> | undefined {
 export function processSpec(spec: Record<string, unknown>): {
   paths: Record<string, Record<string, unknown>>
 } {
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The raw OpenAPI document is traversed one schema node at a time.
   const rawPaths = (spec.paths || {}) as Record<string, Record<string, OperationObject>>
   const paths: Record<string, Record<string, unknown>> = {}
 
@@ -174,6 +178,7 @@ export function processSpec(spec: Record<string, unknown>): {
  * Extract sorted product list from the spec paths.
  */
 export function extractProducts(spec: Record<string, unknown>): Array<string> {
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The raw OpenAPI document is traversed one schema node at a time.
   const rawPaths = spec.paths as Record<string, unknown> | undefined
   if (!rawPaths) {
     return []

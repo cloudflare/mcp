@@ -220,7 +220,7 @@ export interface BridgeDependencies {
   now(): number
 }
 
-function decodeSecret(secret: string): Uint8Array {
+function decodeSecret(secret: string): Uint8Array<ArrayBuffer> {
   if (!secret.startsWith('whsec_')) {
     throw new Error('Invalid signing key prefix')
   }
@@ -313,7 +313,7 @@ export async function signedHeaders(
       }
       const key = await crypto.subtle.importKey(
         'raw',
-        bytes.buffer as ArrayBuffer,
+        bytes.buffer,
         { name: 'HMAC', hash: 'SHA-256' },
         false,
         ['sign']
