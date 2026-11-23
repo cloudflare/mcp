@@ -33,8 +33,8 @@ import {
   withRateLimitNotice
 } from '../rate-limit'
 
-interface CodeExecutorEntrypoint {
-  evaluate(): Promise<unknown>
+declare class CodeExecutorEntrypoint extends WorkerEntrypoint {
+  evaluate(): Promise<Execution>
 }
 
 /** What a run's rate limits did to it: requests refused, not sent, and time spent waiting. */
@@ -547,7 +547,7 @@ export default class CodeExecutor extends WorkerEntrypoint {
     }
   }))
 
-  const entrypoint = worker.getEntrypoint() as unknown as CodeExecutorEntrypoint
+  const entrypoint = worker.getEntrypoint<CodeExecutorEntrypoint>()
   const evaluation = Evaluation.safeParse(await entrypoint.evaluate())
   if (!evaluation.success) {
     throw new Error('The code sandbox returned an unreadable result')
