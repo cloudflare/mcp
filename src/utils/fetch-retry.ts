@@ -176,7 +176,7 @@ export async function fetchWithRetry(
         const delay = computeRetryDelay(attempt, opts)
         console.warn(
           `fetchWithRetry: network error${caller} url=${url} on attempt ${attempt + 1}/${opts.maxRetries + 1}, ` +
-            `retrying in ${Math.round(delay)}ms: ${error instanceof Error ? error.message : error}`
+            `retrying in ${Math.round(delay)}ms: ${error instanceof Error ? error.message : String(error)}`
         )
         await sleep(delay)
       }
