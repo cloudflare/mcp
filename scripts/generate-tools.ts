@@ -5,8 +5,8 @@
  *   npm run generate:tools [-- --spec openapi.forge.json --release <tag>] [-- --summary summary.md]
  *
  * The forge that generates them is the `@cloudflare/forge` package in
- * `package.json`, a pkg.pr.new build of a forge commit; bumping that pin picks
- * up generator changes. `.github/workflows/forge-tools.yml` runs this every six
+ * `package.json`, a published npm release; bumping that pin picks up
+ * generator changes. `.github/workflows/forge-tools.yml` runs this every six
  * hours and opens a pull request when the generated code changes. Without `--spec`, the latest `openapi.forge.json`
  * Forge release is downloaded. `source.json` records the release, so a
  * response that breaks a generated response schema names the spec it came
