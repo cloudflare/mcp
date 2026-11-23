@@ -204,10 +204,10 @@ export function extractTitle(filename: string): string {
     .replace(/\/$/, '')
     .replace(/\.mdx?$/, '')
     .split('/')
-  const lastPart = parts[parts.length - 1]
+  const lastPart = parts.at(-1)
 
   if (lastPart === 'index') {
-    return titleCase(parts[parts.length - 2] || 'Documentation')
+    return titleCase(parts.at(-2) || 'Documentation')
   }
 
   return titleCase(lastPart || 'Documentation')
