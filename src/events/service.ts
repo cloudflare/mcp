@@ -19,9 +19,9 @@ import {
   readJson,
   subscriptionExpiration,
   subscriptionId,
-  verifyCallback,
-  type CallbackFailureReason
+  verifyCallback
 } from './ans-bridge'
+import type { CallbackFailureReason } from './ans-bridge'
 import {
   credentialInfo,
   decryptState,
@@ -31,10 +31,9 @@ import {
   parsePolicyState,
   readSubscriptionRecord,
   sealDeliverySecret,
-  writeSubscriptionRecord,
-  type EventEnvironment,
-  type PolicyState
+  writeSubscriptionRecord
 } from './state'
+import type { EventEnvironment, PolicyState } from './state'
 
 export const ManagedPolicy = z.object({
   id: z.string().min(1),

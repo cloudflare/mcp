@@ -1,11 +1,7 @@
 import { forwardAnsWebhook } from './ans-bridge'
 import { publicWebhookFetch } from './service'
-import {
-  hashSecret,
-  openDeliverySecret,
-  readSubscriptionRecord,
-  type EventEnvironment
-} from './state'
+import { hashSecret, openDeliverySecret, readSubscriptionRecord } from './state'
+import type { EventEnvironment } from './state'
 
 /**
  * Why a callback from ANS was acknowledged, dropped or bounced. Logged once

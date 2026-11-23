@@ -12,7 +12,8 @@ import { stringifyResponse, truncateResponse } from './truncate'
 import type { AuthProps } from './auth/types'
 import { registerEventMethods } from './events/methods'
 import type { EventEnvironment } from './events/state'
-import { DIRECT_CONNECTION, type Connection } from './api-permissions'
+import { DIRECT_CONNECTION } from './api-permissions'
+import type { Connection } from './api-permissions'
 import { ScopeChallenge } from './scope-challenge'
 
 /** Per-request options the client picks through the MCP URL query string. */

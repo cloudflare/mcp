@@ -2,9 +2,9 @@ import { z } from 'zod'
 import {
   ProtocolError,
   ProtocolErrorCode,
-  ResourceNotFoundError,
-  type McpServer
+  ResourceNotFoundError
 } from '@modelcontextprotocol/server'
+import type { McpServer } from '@modelcontextprotocol/server'
 import { getSkills, readSkillFile } from '../isolate-cache'
 import { SKILLS_EXTENSION_ID } from './types'
 

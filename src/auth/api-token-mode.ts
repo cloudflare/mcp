@@ -1,16 +1,13 @@
-import {
-  ExternalTokenError,
-  type ResolveExternalTokenInput,
-  type ResolveExternalTokenResult
+import { ExternalTokenError } from '@cloudflare/workers-oauth-provider'
+import type {
+  ResolveExternalTokenInput,
+  ResolveExternalTokenResult
 } from '@cloudflare/workers-oauth-provider'
 
-import {
-  CloudflareIdentitySchema,
-  resolveCloudflareCredential,
-  type CloudflareIdentity,
-  type CloudflareTokenOwner
-} from './cloudflare-identity'
-import { AUTH_PROPS_VERSION, type AuthProps } from './types'
+import { CloudflareIdentitySchema, resolveCloudflareCredential } from './cloudflare-identity'
+import type { CloudflareIdentity, CloudflareTokenOwner } from './cloudflare-identity'
+import { AUTH_PROPS_VERSION } from './types'
+import type { AuthProps } from './types'
 import { OAuthError } from './workers-oauth-utils'
 import { z } from 'zod'
 

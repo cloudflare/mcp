@@ -1,5 +1,7 @@
-import { fromJsonSchema, type CallToolRequestParams } from '@modelcontextprotocol/server'
-import { buildRequest, operation, type Tool } from '../generated/forge-mcp/_/tool'
+import { fromJsonSchema } from '@modelcontextprotocol/server'
+import type { CallToolRequestParams } from '@modelcontextprotocol/server'
+import { buildRequest, operation } from '../generated/forge-mcp/_/tool'
+import type { Tool } from '../generated/forge-mcp/_/tool'
 import { permissionsOf } from './cloudflare'
 import { isolate } from '../lib/isolate'
 

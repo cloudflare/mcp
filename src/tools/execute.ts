@@ -19,7 +19,8 @@ import type { Connection } from '../api-permissions'
 import { authorize, explainRefusal, isCatalogScope } from '../api-permissions'
 import { MISSING_SCOPE_HEADER, REFUSAL_HINT_HEADER, reviewResponse } from '../api-refusals'
 import { policyRefusalHint } from '../policy-guards'
-import { WWW_AUTHENTICATE_META_KEY, type ScopeChallenge } from '../scope-challenge'
+import { WWW_AUTHENTICATE_META_KEY } from '../scope-challenge'
+import type { ScopeChallenge } from '../scope-challenge'
 import {
   getWaitBudgetMs,
   FIRST_BACKOFF_MS,

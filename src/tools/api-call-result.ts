@@ -1,7 +1,9 @@
 import type { CallToolResult } from '@modelcontextprotocol/server'
-import { authorize, type Connection } from '../api-permissions'
+import { authorize } from '../api-permissions'
+import type { Connection } from '../api-permissions'
 import { filteredListBody, refusalFor } from '../api-refusals'
-import { WWW_AUTHENTICATE_META_KEY, type ScopeChallenge } from '../scope-challenge'
+import { WWW_AUTHENTICATE_META_KEY } from '../scope-challenge'
+import type { ScopeChallenge } from '../scope-challenge'
 import type { FormatToolResult } from '../truncate'
 
 /** One Cloudflare API request a direct tool sent, and Cloudflare's answer. */

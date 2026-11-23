@@ -14,7 +14,8 @@ import {
   SCOPE_DEFINITIONS,
   SCOPE_TEMPLATES
 } from './scopes'
-import { AuthProps as AuthPropsSchema, AUTH_PROPS_VERSION, type AuthProps } from './types'
+import { AuthProps as AuthPropsSchema, AUTH_PROPS_VERSION } from './types'
+import type { AuthProps } from './types'
 import {
   parseRedirectApproval,
   renderApprovalDialog,
@@ -26,13 +27,12 @@ import { withRefreshAdmission } from './refresh-admission-gate'
 import { MetricsTracker, AuthUser } from '../metrics'
 import { SERVER_INFO } from '../constants'
 
-import {
-  AuthorizationError,
-  CimdFetchError,
-  type AuthRequest,
-  type OAuthHelpers,
-  type TokenExchangeCallbackOptions,
-  type TokenExchangeCallbackResult
+import { AuthorizationError, CimdFetchError } from '@cloudflare/workers-oauth-provider'
+import type {
+  AuthRequest,
+  OAuthHelpers,
+  TokenExchangeCallbackOptions,
+  TokenExchangeCallbackResult
 } from '@cloudflare/workers-oauth-provider'
 
 interface AuthEnv extends Env {

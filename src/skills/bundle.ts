@@ -1,11 +1,6 @@
 import { parse as parseYaml } from 'yaml'
-import {
-  MAX_BYTES_PER_SKILL,
-  MAX_RESOURCES_PER_SKILL,
-  type Skill,
-  type SkillFile,
-  type SkillsManifest
-} from './types'
+import { MAX_BYTES_PER_SKILL, MAX_RESOURCES_PER_SKILL } from './types'
+import type { Skill, SkillFile, SkillsManifest } from './types'
 
 /** A file inside one skill directory, with its path relative to the skill root. */
 export interface SkillSourceFile {

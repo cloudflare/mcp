@@ -3,13 +3,8 @@ import { isolate } from './lib/isolate'
 import type { Tool } from '@modelcontextprotocol/server'
 import bundledPermissions from './generated/spec/permissions.json.txt'
 import bundledProducts from './generated/spec/products.json.txt'
-import {
-  SKILLS_MANIFEST_KEY,
-  SkillsManifest,
-  skillFileKey,
-  type Skill,
-  type SkillFile
-} from './skills/types'
+import { SKILLS_MANIFEST_KEY, SkillsManifest, skillFileKey } from './skills/types'
+import type { Skill, SkillFile } from './skills/types'
 
 /**
  * In-isolate cache for the two spec artifacts this Worker reads,

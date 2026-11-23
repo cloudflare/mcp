@@ -1,4 +1,5 @@
-import { DERIVED_OAUTH_SCOPES, type ScopeDefinition } from './derived-oauth-scopes'
+import { DERIVED_OAUTH_SCOPES } from './derived-oauth-scopes'
+import type { ScopeDefinition } from './derived-oauth-scopes'
 
 const CORE_SCOPE_DEFINITIONS = {
   offline_access: {

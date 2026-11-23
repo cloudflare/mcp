@@ -1,4 +1,5 @@
-import { dereference, validate, type OutputUnit, type Schema } from '@cfworker/json-schema'
+import { dereference, validate } from '@cfworker/json-schema'
+import type { OutputUnit, Schema } from '@cfworker/json-schema'
 import type { operation } from './generated/forge-mcp'
 import { isolate } from './lib/isolate'
 

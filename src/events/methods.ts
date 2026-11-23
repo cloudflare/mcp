@@ -1,4 +1,5 @@
-import { ProtocolError, type McpServer } from '@modelcontextprotocol/server'
+import { ProtocolError } from '@modelcontextprotocol/server'
+import type { McpServer } from '@modelcontextprotocol/server'
 import { z } from 'zod'
 import type { AuthProps } from '../auth/types'
 import { EventApiError } from './api'

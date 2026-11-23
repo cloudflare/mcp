@@ -1,4 +1,5 @@
-import { insufficientScope, type OAuthResourceAuth } from '@cloudflare/workers-oauth-provider'
+import { insufficientScope } from '@cloudflare/workers-oauth-provider'
+import type { OAuthResourceAuth } from '@cloudflare/workers-oauth-provider'
 import { REQUIRED_SCOPES } from './auth/scopes'
 
 /** Scopes every connection needs. A challenge names them too; `offline_access` isn't a resource scope. */

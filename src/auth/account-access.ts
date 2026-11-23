@@ -1,4 +1,5 @@
-import { LEGACY_ACCOUNTS_PAGE_SIZE, type AccountSchema, type AuthProps } from './types'
+import { LEGACY_ACCOUNTS_PAGE_SIZE } from './types'
+import type { AccountSchema, AuthProps } from './types'
 
 /** Concise Code-Mode guidance for unresolved multi-account execution errors. */
 export const ACCOUNT_DISCOVERY_GUIDANCE = 'Call GET /accounts to discover available accounts.'

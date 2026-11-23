@@ -2,7 +2,8 @@ import { env, waitUntil } from 'cloudflare:workers'
 import type { AuthProps } from './auth/types'
 import { SPEC_RELEASE } from './spec-release'
 import { recordResponseSchemaMismatch } from './metrics'
-import { trimForCheck, type MismatchError } from './response-schema-check'
+import { trimForCheck } from './response-schema-check'
+import type { MismatchError } from './response-schema-check'
 import { concretePaths, extractProduct } from './spec-processor'
 
 /**

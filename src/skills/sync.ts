@@ -1,13 +1,8 @@
 import { USER_AGENT } from '../constants'
 import { buildSkillsManifest } from './bundle'
 import { readTar } from './tar'
-import {
-  SKILL_FILES_PREFIX,
-  SKILLS_MANIFEST_KEY,
-  SkillsManifest,
-  skillFileKey,
-  type Skill
-} from './types'
+import { SKILL_FILES_PREFIX, SKILLS_MANIFEST_KEY, SkillsManifest, skillFileKey } from './types'
+import type { Skill } from './types'
 
 export const SKILLS_REPOSITORY = 'cloudflare/skills'
 

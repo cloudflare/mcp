@@ -4,10 +4,9 @@ import {
   emptyListProvesNothing,
   explainRefusal,
   findOperation,
-  isRefusal,
-  type Authorization,
-  type Connection
+  isRefusal
 } from './api-permissions'
+import type { Authorization, Connection } from './api-permissions'
 import { getPermissionPaths } from './isolate-cache'
 
 /**

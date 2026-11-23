@@ -1,7 +1,5 @@
-import {
-  OAuthError as ProviderOAuthError,
-  type ConsentDescription
-} from '@cloudflare/workers-oauth-provider'
+import { OAuthError as ProviderOAuthError } from '@cloudflare/workers-oauth-provider'
+import type { ConsentDescription } from '@cloudflare/workers-oauth-provider'
 
 import type { ScopeDefinition } from './derived-oauth-scopes'
 import type { ScopeTemplate } from './scopes'

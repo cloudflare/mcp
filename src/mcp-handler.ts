@@ -13,11 +13,14 @@ import {
   originValidationResponse
 } from '@modelcontextprotocol/server'
 import type { McpServer } from '@modelcontextprotocol/server'
-import { createServer, type RequestContext, type ServerOptions } from './server'
+import { createServer } from './server'
+import type { RequestContext, ServerOptions } from './server'
 import { connectionFromAuth } from './api-permissions'
 import { ScopeChallenge } from './scope-challenge'
-import { identifyClient, type ClientBehavior } from './clients'
-import { AuthProps as AuthPropsSchema, type AuthProps } from './auth/types'
+import { identifyClient } from './clients'
+import type { ClientBehavior } from './clients'
+import { AuthProps as AuthPropsSchema } from './auth/types'
+import type { AuthProps } from './auth/types'
 import { cachedToolListResponse } from './tools/tool-list-response'
 import { getForgeToolList } from './isolate-cache'
 

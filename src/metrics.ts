@@ -45,7 +45,8 @@
 import { env } from 'cloudflare:workers'
 import type { McpServer } from '@modelcontextprotocol/server'
 import type { AuthProps } from './auth/types'
-import { SERVER_INFO, type ServerInfo } from './constants'
+import { SERVER_INFO } from './constants'
+import type { ServerInfo } from './constants'
 
 export enum MetricsEventIndexId {
   AUTH_USER = 'auth_user',
