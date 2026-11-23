@@ -1,3 +1,5 @@
+import { z } from 'zod'
+
 const CHARGEABLE_WRITE =
   /\/(accounts\/[^/]+\/(registrar\/registrations|ai-gateway\/billing\/topup|payment-methods|billing\/profile\/payment-method|subscriptions|bulk\/subscriptions|pay-invoice)|user\/subscriptions|zones\/[^/]+\/subscriptions?)(\/|$)/i
 
@@ -52,6 +54,23 @@ export interface SubscriptionCreate {
   readonly accountId: string
   /** The body's `rate_plan.id`, such as `r2_paid`. */
   readonly ratePlan: string
+  /** The body's `frequency`, such as `monthly`, if it sets one. */
+  readonly frequency?: string
+  /** The body's `component_values`, as component name to value. */
+  readonly quantities: Readonly<Record<string, number>>
+  /** SHA-256 of the body, so a confirmation covers this exact request and nothing else. */
+  readonly digest: string
+}
+
+const SubscriptionBody = z.object({
+  rate_plan: z.object({ id: z.string().regex(RATE_PLAN_ID) }),
+  frequency: z.enum(['weekly', 'monthly', 'quarterly', 'yearly']).optional(),
+  component_values: z.array(z.object({ name: z.string(), value: z.number().optional() })).optional()
+})
+
+async function sha256(text: string): Promise<string> {
+  const bytes = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text))
+  return [...new Uint8Array(bytes)].map((byte) => byte.toString(16).padStart(2, '0')).join('')
 }
 
 /**
@@ -67,22 +86,44 @@ export async function subscriptionCreate(
   const accountId = path === undefined ? undefined : ACCOUNT_SUBSCRIPTIONS_PATH.exec(path)?.[1]
   if (!accountId) return undefined
   try {
-    const body: unknown = await request.clone().json()
-    const ratePlan = (body as { rate_plan?: { id?: unknown } } | null)?.rate_plan?.id
-    return typeof ratePlan === 'string' && RATE_PLAN_ID.test(ratePlan)
-      ? { accountId: accountId.toLowerCase(), ratePlan }
-      : undefined
+    return await subscriptionFromBody(accountId, await request.clone().text())
   } catch {
     return undefined
   }
 }
 
-/** Whether two subscriptions are the same account and rate plan. */
-export function sameSubscription(
-  a: SubscriptionCreate,
-  b: SubscriptionCreate | undefined
-): boolean {
-  return a.accountId === b?.accountId && a.ratePlan === b.ratePlan
+/**
+ * The account subscription a create request with body `text` would make on
+ * `accountId`, or `undefined` if the body names no valid rate plan.
+ */
+export async function subscriptionFromBody(
+  accountId: string,
+  text: string
+): Promise<SubscriptionCreate | undefined> {
+  try {
+    const body = SubscriptionBody.safeParse(JSON.parse(text))
+    if (!body.success) return undefined
+    const quantities = Object.fromEntries(
+      (body.data.component_values ?? []).map((component) => [component.name, component.value ?? 0])
+    )
+    return {
+      accountId: accountId.toLowerCase(),
+      ratePlan: body.data.rate_plan.id,
+      ...(body.data.frequency && { frequency: body.data.frequency }),
+      quantities,
+      digest: await sha256(text)
+    }
+  } catch {
+    return undefined
+  }
+}
+
+/** What identifies a confirmed subscription: its account, rate plan and request body digest. */
+export type SubscriptionKey = Pick<SubscriptionCreate, 'accountId' | 'ratePlan' | 'digest'>
+
+/** Whether two subscriptions are the same account, rate plan and request body. */
+export function sameSubscription(a: SubscriptionKey, b: SubscriptionKey | undefined): boolean {
+  return a.accountId === b?.accountId && a.ratePlan === b.ratePlan && a.digest === b.digest
 }
 
 /**
@@ -93,11 +134,12 @@ export function sameSubscription(
  * the API call it: `execute`'s `GlobalOutbound` and the generated tools.
  *
  * The one write that spends money and is sent is the account subscription the
- * user `confirmed` (`src/charge-confirmation.ts`): the same account and rate plan.
+ * user `confirmed` (`src/charge-confirmation.ts`): the same account, rate plan
+ * and request body.
  */
 export async function policyRefusalHint(
   request: Request,
-  confirmed?: SubscriptionCreate
+  confirmed?: SubscriptionKey
 ): Promise<string | undefined> {
   if (request.method === 'GET' || request.method === 'HEAD') return undefined
   const path = plainPath(new URL(request.url).pathname)

@@ -6,7 +6,10 @@ import {
   inputResponse
 } from '@modelcontextprotocol/server'
 import type { InputRequiredResult, ServerContext } from '@modelcontextprotocol/server'
-import type { SubscriptionCreate } from './policy-guards'
+import { env } from 'cloudflare:workers'
+import { subscriptionFromBody } from './policy-guards'
+import type { SubscriptionCreate, SubscriptionKey } from './policy-guards'
+import { describePrice, priceSubscription } from './subscription-price'
 
 /**
  * Asking the user to confirm the one request that spends money and is still
@@ -15,18 +18,22 @@ import type { SubscriptionCreate } from './policy-guards'
  *
  * The question is an elicitation embedded in an `input_required` result, so it
  * needs no session: the client shows it and retries the call with the answer.
- * The answer is keyed by the account and rate plan, so it only ever confirms
- * the subscription the user was shown. Clients that can't be asked keep the
+ * The question states the price the catalog gives for the request, and the
+ * answer is keyed by the account, rate plan and a digest of the request body,
+ * so it only ever confirms the exact subscription and price the user was shown. Clients that can't be asked keep the
  * block.
  */
 
 const KEY_PREFIX = 'subscription:'
 
+const MAX_REPORTED_BODY = 4096
+
 const Answer = z.object({ confirm: z.boolean().describe('Create this subscription') })
 
-const Subscription = z.object({
+const SubscriptionKeyShape = z.object({
   accountId: z.string().regex(/^[0-9a-f]{32}$/),
-  ratePlan: z.string().regex(/^[\w.-]{1,64}$/)
+  ratePlan: z.string().regex(/^[\w.-]{1,64}$/),
+  digest: z.string().regex(/^[0-9a-f]{64}$/)
 })
 
 const ElicitationCapability = z.object({
@@ -47,8 +54,8 @@ export const DECLINED_HINT =
 export const UNSAFE_TO_CONFIRM =
   'Creating a subscription needs the user to confirm it, which reruns this program. Earlier requests in it may already have changed resources, so it was not rerun. Send the subscription request in a call of its own.'
 
-function key({ accountId, ratePlan }: SubscriptionCreate): string {
-  return `${KEY_PREFIX}${accountId}:${ratePlan}`
+function key({ accountId, ratePlan, digest }: SubscriptionKey): string {
+  return `${KEY_PREFIX}${accountId}:${ratePlan}:${digest}`
 }
 
 /**
@@ -65,7 +72,7 @@ export function canConfirm(ctx: ServerContext): boolean {
 }
 
 /** What this call's retry says the user answered about `subscription`. */
-export function confirmationOf(ctx: ServerContext, subscription: SubscriptionCreate): Confirmation {
+export function confirmationOf(ctx: ServerContext, subscription: SubscriptionKey): Confirmation {
   const answer = inputResponse(ctx.mcpReq.inputResponses, key(subscription))
   if (answer.kind !== 'elicit') return 'unasked'
   if (answer.action !== 'accept') return 'declined'
@@ -78,11 +85,11 @@ export function confirmationOf(ctx: ServerContext, subscription: SubscriptionCre
  */
 export function answeredSubscription(
   ctx: ServerContext
-): { subscription: SubscriptionCreate; confirmation: Confirmation } | undefined {
+): { subscription: SubscriptionKey; confirmation: Confirmation } | undefined {
   for (const name of Object.keys(ctx.mcpReq.inputResponses ?? {})) {
     if (!name.startsWith(KEY_PREFIX)) continue
-    const [accountId, ratePlan] = name.slice(KEY_PREFIX.length).split(':')
-    const subscription = Subscription.safeParse({ accountId, ratePlan })
+    const [accountId, ratePlan, digest] = name.slice(KEY_PREFIX.length).split(':')
+    const subscription = SubscriptionKeyShape.safeParse({ accountId, ratePlan, digest })
     if (!subscription.success) continue
     return {
       subscription: subscription.data,
@@ -92,26 +99,45 @@ export function answeredSubscription(
   return undefined
 }
 
+const Reported = z.object({
+  accountId: z.string().regex(/^[0-9a-f]{32}$/),
+  body: z.string().max(MAX_REPORTED_BODY)
+})
+
+/** The header value `GlobalOutbound` sends for a refused `subscription` with request body `body`. */
+export function reportSubscription(accountId: string, body: string): string {
+  return encodeURIComponent(JSON.stringify({ accountId, body }))
+}
+
 /**
  * The subscription the sandbox says a refused request would create. The
- * sandbox is untrusted: a wrong value only asks the user about a subscription
- * `GlobalOutbound` then holds the code to.
+ * sandbox is untrusted, so it reports the request body, and the price, the
+ * quantities and the digest are all read from that one body: a wrong body
+ * only asks the user about a request `GlobalOutbound` then holds the code to.
  */
-export function reportedSubscription(header: string | undefined): SubscriptionCreate | undefined {
+export async function reportedSubscription(
+  header: string | undefined
+): Promise<SubscriptionCreate | undefined> {
   if (!header) return undefined
   try {
-    return Subscription.safeParse(JSON.parse(decodeURIComponent(header))).data
+    const reported = Reported.safeParse(JSON.parse(decodeURIComponent(header)))
+    if (!reported.success) return undefined
+    return await subscriptionFromBody(reported.data.accountId, reported.data.body)
   } catch {
     return undefined
   }
 }
 
-/** The `input_required` result that asks the user to confirm `subscription`. */
-export function askToConfirm(subscription: SubscriptionCreate): InputRequiredResult {
+/**
+ * The `input_required` result that asks the user to confirm `subscription`,
+ * with the price Cloudflare's rate plan catalog gives for it.
+ */
+export async function askToConfirm(subscription: SubscriptionCreate): Promise<InputRequiredResult> {
+  const price = await priceSubscription(subscription, env.CLOUDFLARE_API_BASE)
   return inputRequired({
     inputRequests: {
       [key(subscription)]: inputRequired.elicit({
-        message: `Create the "${subscription.ratePlan}" subscription on Cloudflare account ${subscription.accountId}? This is a purchase: it can add charges to the account, billed to its default payment method.`,
+        message: `Create the "${subscription.ratePlan}" subscription on Cloudflare account ${subscription.accountId}? This is a purchase: it can add charges to the account, billed to its default payment method.\n\n${describePrice(subscription, price)}`,
         requestedSchema: Answer
       })
     }

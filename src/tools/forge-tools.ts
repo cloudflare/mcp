@@ -142,7 +142,7 @@ async function callForgeTool(
   const subscription = canConfirm(ctx) ? await subscriptionCreate(request) : undefined
   if (subscription) {
     const confirmation = confirmationOf(ctx, subscription)
-    if (confirmation === 'unasked') return askToConfirm(subscription)
+    if (confirmation === 'unasked') return await askToConfirm(subscription)
     if (confirmation === 'declined') return toolError(DECLINED_HINT)
   }
   const refusal = await policyRefusalHint(request, subscription)

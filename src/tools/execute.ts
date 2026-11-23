@@ -22,7 +22,7 @@ import {
   policyRefusalHint,
   sameSubscription,
   subscriptionCreate,
-  type SubscriptionCreate
+  type SubscriptionKey
 } from '../policy-guards'
 import {
   DECLINED_HINT,
@@ -31,6 +31,7 @@ import {
   answeredSubscription,
   askToConfirm,
   canConfirm,
+  reportSubscription,
   reportedSubscription
 } from '../charge-confirmation'
 import { WWW_AUTHENTICATE_META_KEY, type ScopeChallenge } from '../scope-challenge'
@@ -87,7 +88,7 @@ type GlobalOutboundProps = {
   fetchWithRetryCaller: string
   connection: Connection
   /** The subscription the user confirmed for this run, the one chargeable write it may send. */
-  confirmedSubscription?: SubscriptionCreate
+  confirmedSubscription?: SubscriptionKey
 }
 
 /**
@@ -110,6 +111,7 @@ export class GlobalOutbound extends WorkerEntrypoint<Env, GlobalOutboundProps> {
     if (policyHint) {
       // A subscription is sent once the user confirms it: name it, so the host can ask.
       const subscription = await subscriptionCreate(request)
+      const body = subscription ? await request.clone().text() : ''
       return Response.json(
         { success: false, errors: [{ message: policyHint }], messages: [], result: null },
         {
@@ -117,7 +119,7 @@ export class GlobalOutbound extends WorkerEntrypoint<Env, GlobalOutboundProps> {
           headers: {
             [NOT_SENT_HEADER]: '1',
             ...(subscription && {
-              [NEEDS_CONFIRMATION_HEADER]: encodeURIComponent(JSON.stringify(subscription))
+              [NEEDS_CONFIRMATION_HEADER]: reportSubscription(subscription.accountId, body)
             })
           }
         }
@@ -167,7 +169,7 @@ async function runExecute(
   apiToken: string,
   unresolvedAccountMessage: string,
   connection: Connection,
-  confirmedSubscription?: SubscriptionCreate
+  confirmedSubscription?: SubscriptionKey
 ): Promise<Execution> {
   const apiBase = env.CLOUDFLARE_API_BASE
   const workerId = `cloudflare-api-${crypto.randomUUID()}`
@@ -753,14 +755,14 @@ export function registerExecuteTool(
         )
         const caughtSubscription =
           execution.ok && canConfirm(ctx)
-            ? reportedSubscription(execution.needsConfirmation)
+            ? await reportedSubscription(execution.needsConfirmation)
             : undefined
         if (
           caughtSubscription &&
           execution.replaySafe &&
           !sameSubscription(caughtSubscription, confirmed)
         ) {
-          return askToConfirm(caughtSubscription)
+          return await askToConfirm(caughtSubscription)
         }
         if (execution.ok) {
           const text = formatterFor(truncate, truncateByDefault)(execution.result)
@@ -777,10 +779,10 @@ export function registerExecuteTool(
         if (hint) failure.content[0].text += `\n\n${hint}`
         // Creating a subscription spends money: ask the user, then rerun with their answer.
         const subscription = canConfirm(ctx)
-          ? reportedSubscription(execution.needsConfirmation)
+          ? await reportedSubscription(execution.needsConfirmation)
           : undefined
         if (subscription && !sameSubscription(subscription, confirmed)) {
-          if (execution.replaySafe) return askToConfirm(subscription)
+          if (execution.replaySafe) return await askToConfirm(subscription)
           failure.content[0].text += `\n\n${UNSAFE_TO_CONFIRM}`
           return failure
         }
