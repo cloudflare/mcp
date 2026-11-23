@@ -73,6 +73,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/iam_single_oauth_client_create_response",
       $defs: {
+        "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-single": iam_api$$response$$single,
         "iam_messages": iam_messages,
         "iam_oauth_client": iam_oauth_client,
@@ -122,6 +123,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "iam_api-response-common": iam_api$$response$$common,
           "iam_api-response-common-failure": iam_api$$response$$common$$failure,
           "iam_api-response-single": iam_api$$response$$single,
           "iam_messages": iam_messages,
@@ -338,6 +340,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/iam_single_oauth_client_response",
       $defs: {
+        "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-single": iam_api$$response$$single,
         "iam_messages": iam_messages,
         "iam_oauth_client": iam_oauth_client,
@@ -385,6 +388,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "iam_api-response-common": iam_api$$response$$common,
           "iam_api-response-common-failure": iam_api$$response$$common$$failure,
           "iam_api-response-single": iam_api$$response$$single,
           "iam_messages": iam_messages,
@@ -525,6 +529,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/iam_oauth_client_rotate_secret_response",
       $defs: {
+        "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-single": iam_api$$response$$single,
         "iam_messages": iam_messages,
         "iam_oauth_client_rotate_secret_response": iam_oauth_client_rotate_secret_response,
@@ -567,6 +572,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "iam_api-response-common": iam_api$$response$$common,
           "iam_api-response-common-failure": iam_api$$response$$common$$failure,
           "iam_api-response-single": iam_api$$response$$single,
           "iam_messages": iam_messages,
@@ -619,6 +625,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/iam_single_oauth_client_response",
       $defs: {
+        "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-single": iam_api$$response$$single,
         "iam_messages": iam_messages,
         "iam_oauth_client": iam_oauth_client,
@@ -667,6 +674,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "iam_api-response-common": iam_api$$response$$common,
           "iam_api-response-common-failure": iam_api$$response$$common$$failure,
           "iam_api-response-single": iam_api$$response$$single,
           "iam_messages": iam_messages,

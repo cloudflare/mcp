@@ -101,6 +101,7 @@ export const tools: readonly Tool[] = [
         "infra_IPInfo": infra_IPInfo,
         "infra_Target": infra_Target,
         "infra_TargetArray": infra_TargetArray,
+        "infra_api-response-common": infra_api$$response$$common,
         "infra_api-response-single": infra_api$$response$$single,
         "infra_messages": infra_messages,
       },
@@ -118,6 +119,12 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/infrastructure/targets/batch`,
       body: { mediaTypes: ["application/json"] },
       extensions: {
+        "x-api-token-group": [
+          "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.write"
+        ],
         "x-stainless-skip": [
           "terraform"
         ]
@@ -147,6 +154,7 @@ export const tools: readonly Tool[] = [
           "infra_IPInfo": infra_IPInfo,
           "infra_Target": infra_Target,
           "infra_TargetArray": infra_TargetArray,
+          "infra_api-response-common": infra_api$$response$$common,
           "infra_api-response-common-failure": infra_api$$response$$common$$failure,
           "infra_api-response-single": infra_api$$response$$single,
           "infra_messages": infra_messages,
@@ -210,6 +218,14 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/infrastructure/targets/batch_delete",
       pathOf: encodePath`/accounts/${"account_id"}/infrastructure/targets/batch_delete`,
       body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-api-token-group": [
+          "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.write"
+        ]
+      },
       responses: {
         schemas: {
           "200": null,
@@ -286,6 +302,7 @@ export const tools: readonly Tool[] = [
         "infra_IPInfo": infra_IPInfo,
         "infra_Target": infra_Target,
         "infra_TargetArray": infra_TargetArray,
+        "infra_api-response-common": infra_api$$response$$common,
         "infra_api-response-single": infra_api$$response$$single,
         "infra_messages": infra_messages,
       },
@@ -332,6 +349,7 @@ export const tools: readonly Tool[] = [
           "infra_IPInfo": infra_IPInfo,
           "infra_Target": infra_Target,
           "infra_TargetArray": infra_TargetArray,
+          "infra_api-response-common": infra_api$$response$$common,
           "infra_api-response-common-failure": infra_api$$response$$common$$failure,
           "infra_api-response-single": infra_api$$response$$single,
           "infra_messages": infra_messages,
@@ -417,6 +435,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "infra_IPInfo": infra_IPInfo,
         "infra_Target": infra_Target,
+        "infra_api-response-common": infra_api$$response$$common,
         "infra_api-response-single": infra_api$$response$$single,
         "infra_messages": infra_messages,
       },
@@ -433,6 +452,14 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/infrastructure/targets",
       pathOf: encodePath`/accounts/${"account_id"}/infrastructure/targets`,
       body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-api-token-group": [
+          "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.write"
+        ]
+      },
       responses: {
         schemas: {
           "200": {
@@ -457,6 +484,7 @@ export const tools: readonly Tool[] = [
         $defs: {
           "infra_IPInfo": infra_IPInfo,
           "infra_Target": infra_Target,
+          "infra_api-response-common": infra_api$$response$$common,
           "infra_api-response-common-failure": infra_api$$response$$common$$failure,
           "infra_api-response-single": infra_api$$response$$single,
           "infra_messages": infra_messages,
@@ -507,6 +535,14 @@ export const tools: readonly Tool[] = [
       method: "DELETE",
       path: "/accounts/{account_id}/infrastructure/targets/{target_id}",
       pathOf: encodePath`/accounts/${"account_id"}/infrastructure/targets/${"target_id"}`,
+      extensions: {
+        "x-api-token-group": [
+          "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.write"
+        ]
+      },
       responses: {
         schemas: {
           "200": null,
@@ -570,6 +606,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "infra_IPInfo": infra_IPInfo,
         "infra_Target": infra_Target,
+        "infra_api-response-common": infra_api$$response$$common,
         "infra_api-response-single": infra_api$$response$$single,
         "infra_messages": infra_messages,
       },
@@ -585,6 +622,16 @@ export const tools: readonly Tool[] = [
       method: "GET",
       path: "/accounts/{account_id}/infrastructure/targets/{target_id}",
       pathOf: encodePath`/accounts/${"account_id"}/infrastructure/targets/${"target_id"}`,
+      extensions: {
+        "x-api-token-group": [
+          "Zero Trust Read",
+          "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.read",
+          "teams.write"
+        ]
+      },
       responses: {
         schemas: {
           "200": {
@@ -609,6 +656,7 @@ export const tools: readonly Tool[] = [
         $defs: {
           "infra_IPInfo": infra_IPInfo,
           "infra_Target": infra_Target,
+          "infra_api-response-common": infra_api$$response$$common,
           "infra_api-response-common-failure": infra_api$$response$$common$$failure,
           "infra_api-response-single": infra_api$$response$$single,
           "infra_messages": infra_messages,
@@ -912,6 +960,16 @@ export const tools: readonly Tool[] = [
         { name: "order", explode: true },
         { name: "direction", explode: true },
       ],
+      extensions: {
+        "x-api-token-group": [
+          "Zero Trust Read",
+          "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.read",
+          "teams.write"
+        ]
+      },
       responses: {
         schemas: {
           "200": {
@@ -1029,6 +1087,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "infra_IPInfo": infra_IPInfo,
         "infra_Target": infra_Target,
+        "infra_api-response-common": infra_api$$response$$common,
         "infra_api-response-single": infra_api$$response$$single,
         "infra_messages": infra_messages,
       },
@@ -1045,6 +1104,14 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/infrastructure/targets/{target_id}",
       pathOf: encodePath`/accounts/${"account_id"}/infrastructure/targets/${"target_id"}`,
       body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-api-token-group": [
+          "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.write"
+        ]
+      },
       responses: {
         schemas: {
           "200": {
@@ -1069,6 +1136,7 @@ export const tools: readonly Tool[] = [
         $defs: {
           "infra_IPInfo": infra_IPInfo,
           "infra_Target": infra_Target,
+          "infra_api-response-common": infra_api$$response$$common,
           "infra_api-response-common-failure": infra_api$$response$$common$$failure,
           "infra_api-response-single": infra_api$$response$$single,
           "infra_messages": infra_messages,

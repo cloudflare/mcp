@@ -848,26 +848,7 @@ export const email$$security_api$$response$$common$$failure: JSONObject = {
  * The schema of `email-security_api-response-single` in responses.
  */
 export const email$$security_api$$response$$single: JSONObject = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/email-security_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/email-security_messages"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  "$ref": "#/$defs/email-security_api-response-common"
 };
 
 /**

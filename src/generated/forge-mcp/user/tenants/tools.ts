@@ -90,6 +90,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "User Details Write",
           "User Details Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "user-details.read",
+          "user-details.write"
         ]
       },
       responses: {

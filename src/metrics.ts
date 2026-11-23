@@ -25,7 +25,9 @@
  *   blob11  = first violation's schema location
  *             (`#/components/schemas/<name>/…` or `#/responses/<key>/schema/…`)
  *   blob12  = first violation's instance path, indices and undeclared keys as `*`
- *   blob13  = OpenAPI release the generated schemas came from (`openapi@<forge commit>`)
+ *   blob13  = OpenAPI revision the generated schemas came from
+ *             (`cloudflare/api-schemas@<commit>`; `openapi@<commit>` before, the
+ *             Forge release of the same api-schemas commit)
  *   double2 = HTTP status
  *   double3 = number of violations
  *   double4 = sample interval (1 / RESPONSE_VALIDATION_SAMPLE_RATE); weight counts by it
@@ -211,8 +213,8 @@ export interface ResponseSchemaMismatchFields {
   /** The generated forge tool whose response schema was used. */
   forgeTool: string
   responseKey: string
-  /** The OpenAPI release tag the schema came from, or `null` when unknown. */
-  specRelease: string | null
+  /** The OpenAPI revision the schema came from, or `null` when unknown. */
+  specRevision: string | null
   status: number
   errorCount: number
   /** Whether `errorCount` is every violation rather than a lower bound. */
@@ -241,7 +243,7 @@ export class ResponseSchemaMismatch extends MetricsEvent {
         blob10: mismatch.first.keyword,
         blob11: mismatch.first.schemaLocation,
         blob12: mismatch.first.instancePath,
-        blob13: mismatch.specRelease
+        blob13: mismatch.specRevision
       }),
       doubles: this.mapDoubles({
         double1: 0,

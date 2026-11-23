@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../../../_/tool.js";
 import {
+  dlp_api$$response$$common,
   dlp_api$$response$$common$$failure,
   dlp_api$$response$$single,
   dlp_messages,
@@ -73,6 +74,7 @@ export const tools: readonly Tool[] = [
         "dlp_DatasetColumn": dlp_DatasetColumn,
         "dlp_DatasetCreation": dlp_DatasetCreation,
         "dlp_DatasetUpload": dlp_DatasetUpload,
+        "dlp_api-response-common": dlp_api$$response$$common,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
       },
@@ -92,6 +94,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.write"
         ]
       },
       responses: {
@@ -120,6 +125,7 @@ export const tools: readonly Tool[] = [
           "dlp_DatasetColumn": dlp_DatasetColumn,
           "dlp_DatasetCreation": dlp_DatasetCreation,
           "dlp_DatasetUpload": dlp_DatasetUpload,
+          "dlp_api-response-common": dlp_api$$response$$common,
           "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
           "dlp_api-response-single": dlp_api$$response$$single,
           "dlp_messages": dlp_messages,
@@ -171,6 +177,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.write"
         ]
       },
       responses: {
@@ -235,6 +244,7 @@ export const tools: readonly Tool[] = [
         "dlp_Dataset": dlp_Dataset,
         "dlp_DatasetColumn": dlp_DatasetColumn,
         "dlp_DatasetUpload": dlp_DatasetUpload,
+        "dlp_api-response-common": dlp_api$$response$$common,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
       },
@@ -254,6 +264,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Zero Trust Read",
           "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.read",
+          "teams.write"
         ]
       },
       responses: {
@@ -281,6 +295,7 @@ export const tools: readonly Tool[] = [
           "dlp_Dataset": dlp_Dataset,
           "dlp_DatasetColumn": dlp_DatasetColumn,
           "dlp_DatasetUpload": dlp_DatasetUpload,
+          "dlp_api-response-common": dlp_api$$response$$common,
           "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
           "dlp_api-response-single": dlp_api$$response$$single,
           "dlp_messages": dlp_messages,
@@ -332,6 +347,7 @@ export const tools: readonly Tool[] = [
         "dlp_DatasetArray": dlp_DatasetArray,
         "dlp_DatasetColumn": dlp_DatasetColumn,
         "dlp_DatasetUpload": dlp_DatasetUpload,
+        "dlp_api-response-common": dlp_api$$response$$common,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
       },
@@ -351,6 +367,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Zero Trust Read",
           "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.read",
+          "teams.write"
         ]
       },
       responses: {
@@ -379,6 +399,7 @@ export const tools: readonly Tool[] = [
           "dlp_DatasetArray": dlp_DatasetArray,
           "dlp_DatasetColumn": dlp_DatasetColumn,
           "dlp_DatasetUpload": dlp_DatasetUpload,
+          "dlp_api-response-common": dlp_api$$response$$common,
           "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
           "dlp_api-response-single": dlp_api$$response$$single,
           "dlp_messages": dlp_messages,
@@ -433,6 +454,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dlp_DatasetColumn": dlp_DatasetColumn,
         "dlp_DatasetNewVersion": dlp_DatasetNewVersion,
+        "dlp_api-response-common": dlp_api$$response$$common,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
       },
@@ -451,6 +473,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.write"
         ]
       },
       responses: {
@@ -477,6 +502,7 @@ export const tools: readonly Tool[] = [
         $defs: {
           "dlp_DatasetColumn": dlp_DatasetColumn,
           "dlp_DatasetNewVersion": dlp_DatasetNewVersion,
+          "dlp_api-response-common": dlp_api$$response$$common,
           "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
           "dlp_api-response-single": dlp_api$$response$$single,
           "dlp_messages": dlp_messages,
@@ -540,6 +566,7 @@ export const tools: readonly Tool[] = [
         "dlp_Dataset": dlp_Dataset,
         "dlp_DatasetColumn": dlp_DatasetColumn,
         "dlp_DatasetUpload": dlp_DatasetUpload,
+        "dlp_api-response-common": dlp_api$$response$$common,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
       },
@@ -559,6 +586,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.write"
         ]
       },
       responses: {
@@ -586,6 +616,7 @@ export const tools: readonly Tool[] = [
           "dlp_Dataset": dlp_Dataset,
           "dlp_DatasetColumn": dlp_DatasetColumn,
           "dlp_DatasetUpload": dlp_DatasetUpload,
+          "dlp_api-response-common": dlp_api$$response$$common,
           "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
           "dlp_api-response-single": dlp_api$$response$$single,
           "dlp_messages": dlp_messages,
@@ -672,6 +703,7 @@ export const tools: readonly Tool[] = [
         "dlp_Dataset": dlp_Dataset,
         "dlp_DatasetColumn": dlp_DatasetColumn,
         "dlp_DatasetUpload": dlp_DatasetUpload,
+        "dlp_api-response-common": dlp_api$$response$$common,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
       },
@@ -691,6 +723,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.write"
         ]
       },
       responses: {
@@ -718,6 +753,7 @@ export const tools: readonly Tool[] = [
           "dlp_Dataset": dlp_Dataset,
           "dlp_DatasetColumn": dlp_DatasetColumn,
           "dlp_DatasetUpload": dlp_DatasetUpload,
+          "dlp_api-response-common": dlp_api$$response$$common,
           "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
           "dlp_api-response-single": dlp_api$$response$$single,
           "dlp_messages": dlp_messages,

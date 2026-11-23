@@ -80,6 +80,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Notifications Write",
           "Account Settings Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "notifications.write",
+          "account-settings.write"
         ]
       },
       responses: {
@@ -161,6 +165,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Notifications Write",
           "Account Settings Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "notifications.write",
+          "account-settings.write"
         ]
       },
       responses: {
@@ -247,6 +255,13 @@ export const tools: readonly Tool[] = [
           "Notifications Read",
           "Account Settings Write",
           "Account Settings Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "notifications.read",
+          "notifications.write",
+          "teams-pii.read",
+          "account-settings.read",
+          "account-settings.write"
         ]
       },
       responses: {
@@ -328,6 +343,13 @@ export const tools: readonly Tool[] = [
           "Notifications Read",
           "Account Settings Write",
           "Account Settings Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "notifications.read",
+          "notifications.write",
+          "teams-pii.read",
+          "account-settings.read",
+          "account-settings.write"
         ]
       },
       responses: {
@@ -417,6 +439,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Notifications Write",
           "Account Settings Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "notifications.write",
+          "account-settings.write"
         ]
       },
       responses: {

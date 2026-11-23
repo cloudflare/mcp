@@ -6,6 +6,7 @@ import {
   intel_api$$response$$common$$failure,
   intel_api$$response$$single,
   intel_messages,
+  intel_schemas$$api$$response$$common,
   intel_schemas$$messages,
 } from "../outputs.js";
 import { intel_miscategorization } from "./schemas.js";
@@ -51,6 +52,7 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/intel_api-response-single",
       $defs: {
         "intel_api-response-single": intel_api$$response$$single,
+        "intel_schemas-api-response-common": intel_schemas$$api$$response$$common,
         "intel_schemas-messages": intel_schemas$$messages,
       },
     },
@@ -66,6 +68,14 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/intel/miscategorization",
       pathOf: encodePath`/accounts/${"account_id"}/intel/miscategorization`,
       body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-api-token-group": [
+          "Intel Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "intel.write"
+        ]
+      },
       responses: {
         schemas: {
           "200": {
@@ -86,6 +96,7 @@ export const tools: readonly Tool[] = [
           "intel_api-response-common-failure": intel_api$$response$$common$$failure,
           "intel_api-response-single": intel_api$$response$$single,
           "intel_messages": intel_messages,
+          "intel_schemas-api-response-common": intel_schemas$$api$$response$$common,
           "intel_schemas-messages": intel_schemas$$messages,
         },
       },

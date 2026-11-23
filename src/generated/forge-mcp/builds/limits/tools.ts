@@ -74,8 +74,14 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/builds/account/limits`,
       extensions: {
         "x-api-token-group": [
+          "Workers Metadata Read-Only",
           "Workers CI Write",
           "Workers CI Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-ci.read",
+          "workers-ci.write",
+          "workers-scripts.metadata_read"
         ]
       },
       responses: {

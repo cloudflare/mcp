@@ -91,7 +91,6 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/shares/${"share_id"}/resources`,
       body: { mediaTypes: ["application/json"] },
       extensions: {
-        "x-api-token-group": null,
         "x-cfPlanAvailability": {
           "business": false,
           "enterprise": true,
@@ -184,7 +183,6 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/shares/{share_id}/resources/{share_resource_id}",
       pathOf: encodePath`/accounts/${"account_id"}/shares/${"share_id"}/resources/${"share_resource_id"}`,
       extensions: {
-        "x-api-token-group": null,
         "x-cfPlanAvailability": {
           "business": false,
           "enterprise": true,
@@ -277,7 +275,6 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/shares/{share_id}/resources/{share_resource_id}",
       pathOf: encodePath`/accounts/${"account_id"}/shares/${"share_id"}/resources/${"share_resource_id"}`,
       extensions: {
-        "x-api-token-group": null,
         "x-cfPlanAvailability": {
           "business": false,
           "enterprise": true,
@@ -412,7 +409,6 @@ export const tools: readonly Tool[] = [
         { name: "per_page", explode: true },
       ],
       extensions: {
-        "x-api-token-group": null,
         "x-cfPlanAvailability": {
           "business": false,
           "enterprise": true,

@@ -6,6 +6,7 @@ import {
   intel_api$$response$$common$$failure,
   intel_api$$response$$single,
   intel_messages,
+  intel_schemas$$api$$response$$common,
   intel_schemas$$messages,
 } from "../outputs.js";
 import {
@@ -62,6 +63,7 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/intel_url_intelligence_single_response",
       $defs: {
         "intel_api-response-single": intel_api$$response$$single,
+        "intel_schemas-api-response-common": intel_schemas$$api$$response$$common,
         "intel_schemas-messages": intel_schemas$$messages,
         "intel_url_intelligence": intel_url_intelligence,
         "intel_url_intelligence_category_with_source": intel_url_intelligence_category_with_source,
@@ -86,6 +88,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Intel Write",
           "Intel Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "intel.read",
+          "intel.write"
         ]
       },
       responses: {
@@ -108,6 +114,7 @@ export const tools: readonly Tool[] = [
           "intel_api-response-common-failure": intel_api$$response$$common$$failure,
           "intel_api-response-single": intel_api$$response$$single,
           "intel_messages": intel_messages,
+          "intel_schemas-api-response-common": intel_schemas$$api$$response$$common,
           "intel_schemas-messages": intel_schemas$$messages,
           "intel_url_intelligence": intel_url_intelligence,
           "intel_url_intelligence_category_with_source": intel_url_intelligence_category_with_source,

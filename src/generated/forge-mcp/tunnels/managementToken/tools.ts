@@ -89,6 +89,11 @@ export const tools: readonly Tool[] = [
           "Cloudflare One Connectors Write",
           "Cloudflare One Connector: cloudflared Write",
           "Cloudflare Tunnel Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-connector-cloudflared.write",
+          "teams-connectors.write",
+          "argotunnel.write"
         ]
       },
       responses: {

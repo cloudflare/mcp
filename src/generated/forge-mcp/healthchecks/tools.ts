@@ -98,7 +98,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "healthcheck.write"
+        ]
       },
       responses: {
         schemas: {
@@ -183,7 +186,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "healthcheck.write"
+        ]
       },
       responses: {
         schemas: {
@@ -279,7 +285,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "healthcheck.write"
+        ]
       },
       responses: {
         schemas: {
@@ -369,7 +378,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "healthcheck.read",
+          "healthcheck.write"
+        ]
       },
       responses: {
         schemas: {
@@ -475,7 +488,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "healthcheck.read",
+          "healthcheck.write"
+        ]
       },
       responses: {
         schemas: {
@@ -576,7 +593,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "healthcheck.write"
+        ]
       },
       responses: {
         schemas: {

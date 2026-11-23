@@ -51,6 +51,8 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/urlscanner/v2/responses/${"response_id"}`,
       extensions: {
         "x-api-token-group": [
+          "Cloudforce One Write",
+          "Cloudforce One Read",
           "URL Scanner Write",
           "URL Scanner Read"
         ],
@@ -59,7 +61,13 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "url-scanner.read",
+          "url-scanner.write",
+          "cloudforce-one.read",
+          "cloudforce-one.write"
+        ]
       },
       responses: {
         schemas: {

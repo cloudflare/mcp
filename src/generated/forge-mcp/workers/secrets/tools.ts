@@ -243,6 +243,10 @@ export const tools: readonly Tool[] = [
           "Workers Editor",
           "Individual Workers Admin",
           "Individual Workers Editor"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-scripts.write",
+          "workers-scripts.admin"
         ]
       },
       responses: {
@@ -472,6 +476,15 @@ export const tools: readonly Tool[] = [
           "Individual Workers Editor",
           "Individual Workers Content Read-Only",
           "Individual Workers Metadata Read-Only"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-tail.read",
+          "workers-scripts.read",
+          "workers-scripts.write",
+          "workers-scripts.content_read",
+          "workers-scripts.metadata_read",
+          "workers-scripts.edit",
+          "workers-scripts.admin"
         ]
       },
       responses: {
@@ -590,6 +603,10 @@ export const tools: readonly Tool[] = [
           "Workers Editor",
           "Individual Workers Admin",
           "Individual Workers Editor"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-scripts.write",
+          "workers-scripts.admin"
         ]
       },
       responses: {

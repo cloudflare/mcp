@@ -40,7 +40,7 @@ export const cloudforce$$one$$events_FieldDefinition: JSONObject = {
           "type": "object"
         },
         {
-          "type": "object"
+          "$ref": "#/$defs/cloudforce-one-events_FieldDefinition"
         }
       ]
     },
@@ -97,7 +97,7 @@ export const cloudforce$$one$$events_FieldDefinition: JSONObject = {
     },
     "properties": {
       "additionalProperties": {
-        "type": "object"
+        "$ref": "#/$defs/cloudforce-one-events_FieldDefinition"
       },
       "type": "object"
     },

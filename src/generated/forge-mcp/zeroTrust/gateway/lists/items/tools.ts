@@ -3,12 +3,12 @@
 
 import { OPERATION, type Tool, encodePath } from "../../../../_/tool.js";
 import {
+  zero$$trust$$gateway_api$$response$$common,
   zero$$trust$$gateway_api$$response$$common$$failure,
   zero$$trust$$gateway_messages,
 } from "../../../outputs.js";
 import {
   zero$$trust$$gateway_api$$response$$collection,
-  zero$$trust$$gateway_api$$response$$common,
   zero$$trust$$gateway_result_info,
 } from "../../outputs.js";
 import { zero$$trust$$gateway_items } from "../outputs.js";
@@ -91,6 +91,16 @@ export const tools: readonly Tool[] = [
         { name: "page", explode: true },
         { name: "per_page", explode: true },
       ],
+      extensions: {
+        "x-api-token-group": [
+          "Zero Trust Read",
+          "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.read",
+          "teams.write"
+        ]
+      },
       responses: {
         schemas: {
           "200": {

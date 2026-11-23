@@ -90,6 +90,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Images Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "images.write"
         ]
       },
       responses: {
@@ -175,6 +178,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Images Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "images.write"
         ]
       },
       responses: {
@@ -260,6 +266,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Images Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "images.write"
         ]
       },
       responses: {
@@ -353,6 +362,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Images Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "images.write"
         ]
       },
       responses: {
@@ -440,8 +452,14 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/images/v1/${"image_id"}`,
       extensions: {
         "x-api-token-group": [
+          "Images Metadata Read",
           "Images Read",
           "Images Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "images.metadata_read",
+          "images.read",
+          "images.write"
         ]
       },
       responses: {
@@ -517,8 +535,14 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/images/v1/${"image_id"}/blob`,
       extensions: {
         "x-api-token-group": [
+          "Images Metadata Read",
           "Images Read",
           "Images Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "images.metadata_read",
+          "images.read",
+          "images.write"
         ]
       },
       responses: {
@@ -647,8 +671,14 @@ export const tools: readonly Tool[] = [
       ],
       extensions: {
         "x-api-token-group": [
+          "Images Metadata Read",
           "Images Read",
           "Images Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "images.metadata_read",
+          "images.read",
+          "images.write"
         ]
       },
       responses: {
@@ -726,8 +756,14 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/images/v1/stats`,
       extensions: {
         "x-api-token-group": [
+          "Images Metadata Read",
           "Images Read",
           "Images Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "images.metadata_read",
+          "images.read",
+          "images.write"
         ]
       },
       responses: {

@@ -4,9 +4,9 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
- * The schema of `bill-subs-api_available-rate-plan` in responses.
+ * The schema of `bill-subs_available-rate-plan` in responses.
  */
-export const bill$$subs$$api_available$$rate$$plan: JSONObject = {
+export const bill$$subs_available$$rate$$plan: JSONObject = {
   "properties": {
     "can_subscribe": {
       "type": "boolean"

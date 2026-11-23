@@ -12,17 +12,6 @@ export const pay$$per$$crawl_PPUProposal: JSONObject = {
       "format": "date-time",
       "type": "string"
     },
-    "non_billable_since": {
-      "oneOf": [
-        {
-          "format": "date-time",
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
     "price_id": {
       "type": "integer"
     },
@@ -42,7 +31,6 @@ export const pay$$per$$crawl_PPUProposal: JSONObject = {
   },
   "required": [
     "created_at",
-    "non_billable_since",
     "price_id",
     "price_usd_microcents"
   ],

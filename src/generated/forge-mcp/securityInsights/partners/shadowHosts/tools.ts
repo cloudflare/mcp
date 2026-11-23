@@ -95,6 +95,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Zone Settings Write",
           "Zone Settings Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "zone-settings.read",
+          "zone-settings.write"
         ]
       },
       responses: {

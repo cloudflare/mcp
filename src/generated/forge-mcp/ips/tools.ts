@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../_/tool.js";
 import {
+  public$$ip_api$$response$$common,
   public$$ip_api$$response$$common$$failure,
   public$$ip_api$$response$$single,
   public$$ip_ips,
@@ -59,6 +60,7 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
+        "public-ip_api-response-common": public$$ip_api$$response$$common,
         "public-ip_api-response-single": public$$ip_api$$response$$single,
         "public-ip_ips": public$$ip_ips,
         "public-ip_ips_jdcloud": public$$ip_ips_jdcloud,
@@ -133,6 +135,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "public-ip_api-response-common": public$$ip_api$$response$$common,
           "public-ip_api-response-common-failure": public$$ip_api$$response$$common$$failure,
           "public-ip_api-response-single": public$$ip_api$$response$$single,
           "public-ip_ips": public$$ip_ips,

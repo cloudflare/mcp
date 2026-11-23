@@ -243,6 +243,7 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "Workers Admin",
           "Workers Scripts Write"
         ],
         "x-cfPermissionsRequired": {
@@ -256,7 +257,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "workers-scripts.write",
+          "workers-scripts.admin"
+        ]
       },
       responses: {
         schemas: {
@@ -670,6 +675,7 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "Workers Admin",
           "Workers Scripts Write"
         ],
         "x-cfPermissionsRequired": {
@@ -683,7 +689,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "workers-scripts.write",
+          "workers-scripts.admin"
+        ]
       },
       responses: {
         schemas: {

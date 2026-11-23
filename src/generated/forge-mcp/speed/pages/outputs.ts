@@ -7,23 +7,7 @@ import type { JSONObject } from "@modelcontextprotocol/server";
  * The schema of `observatory_api-response-collection` in responses.
  */
 export const observatory_api$$response$$collection: JSONObject = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/observatory_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/observatory_messages"
-    },
-    "success": {
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  "$ref": "#/$defs/observatory_api-response-common"
 };
 
 /**

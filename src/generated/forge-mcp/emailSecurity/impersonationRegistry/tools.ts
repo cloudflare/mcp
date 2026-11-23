@@ -16,6 +16,7 @@ import {
 } from "./outputs.js";
 import {
   email$$security_CreateImpersonationRegistry,
+  email$$security_ImpersonationRegistry as email$$security_ImpersonationRegistry$,
   email$$security_UpdateImpersonationRegistry,
 } from "./schemas.js";
 
@@ -54,6 +55,7 @@ export const tools: readonly Tool[] = [
       additionalProperties: false,
       $defs: {
         "email-security_CreateImpersonationRegistry": email$$security_CreateImpersonationRegistry,
+        "email-security_ImpersonationRegistry": email$$security_ImpersonationRegistry$,
       },
     },
     outputSchema: {
@@ -72,6 +74,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_ImpersonationRegistry": email$$security_ImpersonationRegistry,
+        "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
       },
@@ -91,6 +94,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Cloud Email Security: Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "cloud-email-security.write"
         ],
         "x-stability": "beta"
       },
@@ -117,6 +123,7 @@ export const tools: readonly Tool[] = [
         },
         $defs: {
           "email-security_ImpersonationRegistry": email$$security_ImpersonationRegistry,
+          "email-security_api-response-common": email$$security_api$$response$$common,
           "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
           "email-security_api-response-single": email$$security_api$$response$$single,
           "email-security_messages": email$$security_messages,
@@ -172,6 +179,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_DeletedImpersonationRegistry": email$$security_DeletedImpersonationRegistry,
+        "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
       },
@@ -190,6 +198,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Cloud Email Security: Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "cloud-email-security.write"
         ],
         "x-stability": "beta"
       },
@@ -216,6 +227,7 @@ export const tools: readonly Tool[] = [
         },
         $defs: {
           "email-security_DeletedImpersonationRegistry": email$$security_DeletedImpersonationRegistry,
+          "email-security_api-response-common": email$$security_api$$response$$common,
           "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
           "email-security_api-response-single": email$$security_api$$response$$single,
           "email-security_messages": email$$security_messages,
@@ -259,6 +271,7 @@ export const tools: readonly Tool[] = [
       ],
       additionalProperties: false,
       $defs: {
+        "email-security_ImpersonationRegistry": email$$security_ImpersonationRegistry$,
         "email-security_UpdateImpersonationRegistry": email$$security_UpdateImpersonationRegistry,
       },
     },
@@ -278,6 +291,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_ImpersonationRegistry": email$$security_ImpersonationRegistry,
+        "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
       },
@@ -297,6 +311,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Cloud Email Security: Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "cloud-email-security.write"
         ],
         "x-stability": "beta"
       },
@@ -323,6 +340,7 @@ export const tools: readonly Tool[] = [
         },
         $defs: {
           "email-security_ImpersonationRegistry": email$$security_ImpersonationRegistry,
+          "email-security_api-response-common": email$$security_api$$response$$common,
           "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
           "email-security_api-response-single": email$$security_api$$response$$single,
           "email-security_messages": email$$security_messages,
@@ -378,6 +396,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_ImpersonationRegistry": email$$security_ImpersonationRegistry,
+        "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
       },
@@ -397,6 +416,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Cloud Email Security: Write",
           "Cloud Email Security: Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "cloud-email-security.read",
+          "cloud-email-security.write"
         ],
         "x-stability": "beta"
       },
@@ -423,6 +446,7 @@ export const tools: readonly Tool[] = [
         },
         $defs: {
           "email-security_ImpersonationRegistry": email$$security_ImpersonationRegistry,
+          "email-security_api-response-common": email$$security_api$$response$$common,
           "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
           "email-security_api-response-single": email$$security_api$$response$$single,
           "email-security_messages": email$$security_messages,
@@ -547,6 +571,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Cloud Email Security: Write",
           "Cloud Email Security: Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "cloud-email-security.read",
+          "cloud-email-security.write"
         ],
         "x-stability": "beta"
       },

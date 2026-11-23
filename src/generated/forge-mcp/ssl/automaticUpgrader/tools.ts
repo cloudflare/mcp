@@ -60,8 +60,14 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/zones/${"zone_id"}/settings/ssl_automatic_mode`,
       extensions: {
         "x-api-token-group": [
+          "Workers Metadata Read-Only",
+          "Workers Editor",
+          "Workers Content Read-Only",
+          "Workers Admin",
           "Zone Settings Write",
           "Zone Settings Read",
+          "Workers Routes Write",
+          "Workers Routes Read",
           "SSL and Certificates Write",
           "SSL and Certificates Read"
         ],
@@ -75,7 +81,19 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "ssl-and-certificates.read",
+          "workers-routes.read",
+          "zone-settings.read",
+          "ssl-and-certificates.write",
+          "workers-scripts.content_read",
+          "workers-scripts.metadata_read",
+          "workers-routes.write",
+          "workers-scripts.edit",
+          "workers-scripts.admin",
+          "zone-settings.write"
+        ]
       },
       responses: {
         schemas: {
@@ -150,6 +168,7 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Zone Settings Write",
+          "Workers Routes Write",
           "SSL and Certificates Write"
         ],
         "x-cfPermissionsRequired": {
@@ -163,7 +182,12 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "ssl-and-certificates.write",
+          "workers-routes.write",
+          "zone-settings.write"
+        ]
       },
       responses: {
         schemas: {

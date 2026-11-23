@@ -67,7 +67,20 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/access/users/${"user_id"}/failed_logins`,
       extensions: {
         "x-api-token-group": [
-          "Access: Audit Logs Read"
+          "Access: Users Write",
+          "Access: Users Read",
+          "Access: Audit Logs Read",
+          "Zero Trust Read",
+          "Zero Trust Write",
+          "Access: Organizations, Identity Providers, and Groups Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "access-users.read",
+          "access-audit-log.read",
+          "access-users.write",
+          "access-acct.write",
+          "teams.read",
+          "teams.write"
         ]
       },
       responses: {

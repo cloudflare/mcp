@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../../../_/tool.js";
 import {
+  access_api$$response$$common,
   access_api$$response$$common$$failure,
   access_api$$response$$single,
   access_messages,
@@ -52,6 +53,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_delete_authenticator_response",
       $defs: {
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_delete_authenticator_response": access_delete_authenticator_response,
         "access_messages": access_messages,
@@ -69,7 +71,16 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/access/users/{user_id}/passkeys/{authenticator_id}",
       pathOf: encodePath`/accounts/${"account_id"}/access/users/${"user_id"}/passkeys/${"authenticator_id"}`,
       extensions: {
-        "x-api-token-group": null
+        "x-api-token-group": [
+          "Access: Users Write",
+          "Zero Trust Write",
+          "Access: Organizations, Identity Providers, and Groups Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "access-users.write",
+          "access-acct.write",
+          "teams.write"
+        ]
       },
       responses: {
         schemas: {
@@ -81,6 +92,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_delete_authenticator_response": access_delete_authenticator_response,

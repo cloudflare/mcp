@@ -57,6 +57,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/calls_turn_key_single_with_secret",
       $defs: {
+        "calls_api-response-common": calls_api$$response$$common,
         "calls_api-response-single": calls_api$$response$$single,
         "calls_messages": calls_messages,
         "calls_turn_key_single_with_secret": calls_turn_key_single_with_secret,
@@ -77,7 +78,14 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "Realtime Admin",
+          "Realtime",
           "Calls Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "calls.write",
+          "realtime.write",
+          "realtime.admin"
         ]
       },
       responses: {
@@ -90,6 +98,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "calls_api-response-common": calls_api$$response$$common,
           "calls_api-response-common-failure": calls_api$$response$$common$$failure,
           "calls_api-response-single": calls_api$$response$$single,
           "calls_messages": calls_messages,
@@ -133,6 +142,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/calls_turn_key_response_single",
       $defs: {
+        "calls_api-response-common": calls_api$$response$$common,
         "calls_api-response-single": calls_api$$response$$single,
         "calls_messages": calls_messages,
         "calls_turn_key_object": calls_turn_key_object,
@@ -152,7 +162,14 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/calls/turn_keys/${"key_id"}`,
       extensions: {
         "x-api-token-group": [
+          "Realtime Admin",
+          "Realtime",
           "Calls Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "calls.write",
+          "realtime.write",
+          "realtime.admin"
         ]
       },
       responses: {
@@ -163,6 +180,7 @@ export const tools: readonly Tool[] = [
           "4XX": {}
         },
         $defs: {
+          "calls_api-response-common": calls_api$$response$$common,
           "calls_api-response-single": calls_api$$response$$single,
           "calls_messages": calls_messages,
           "calls_turn_key_object": calls_turn_key_object,
@@ -205,6 +223,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/calls_turn_key_response_single",
       $defs: {
+        "calls_api-response-common": calls_api$$response$$common,
         "calls_api-response-single": calls_api$$response$$single,
         "calls_messages": calls_messages,
         "calls_turn_key_object": calls_turn_key_object,
@@ -224,8 +243,18 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/calls/turn_keys/${"key_id"}`,
       extensions: {
         "x-api-token-group": [
+          "Realtime Read",
+          "Realtime Admin",
+          "Realtime",
           "Calls Write",
           "Calls Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "calls.read",
+          "realtime.read",
+          "calls.write",
+          "realtime.write",
+          "realtime.admin"
         ]
       },
       responses: {
@@ -238,6 +267,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "calls_api-response-common": calls_api$$response$$common,
           "calls_api-response-common-failure": calls_api$$response$$common$$failure,
           "calls_api-response-single": calls_api$$response$$single,
           "calls_messages": calls_messages,
@@ -295,8 +325,18 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/calls/turn_keys`,
       extensions: {
         "x-api-token-group": [
+          "Realtime Read",
+          "Realtime Admin",
+          "Realtime",
           "Calls Write",
           "Calls Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "calls.read",
+          "realtime.read",
+          "calls.write",
+          "realtime.write",
+          "realtime.admin"
         ]
       },
       responses: {
@@ -359,6 +399,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/calls_turn_key_response_single",
       $defs: {
+        "calls_api-response-common": calls_api$$response$$common,
         "calls_api-response-single": calls_api$$response$$single,
         "calls_messages": calls_messages,
         "calls_turn_key_object": calls_turn_key_object,
@@ -379,7 +420,14 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "Realtime Admin",
+          "Realtime",
           "Calls Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "calls.write",
+          "realtime.write",
+          "realtime.admin"
         ]
       },
       responses: {
@@ -392,6 +440,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "calls_api-response-common": calls_api$$response$$common,
           "calls_api-response-common-failure": calls_api$$response$$common$$failure,
           "calls_api-response-single": calls_api$$response$$single,
           "calls_messages": calls_messages,

@@ -104,6 +104,7 @@ export const tools: readonly Tool[] = [
         "addressing_address-maps": addressing_address$$maps,
         "addressing_address-maps-ip": addressing_address$$maps$$ip,
         "addressing_address-maps-membership": addressing_address$$maps$$membership,
+        "addressing_api-response-common": addressing_api$$response$$common,
         "addressing_api-response-single": addressing_api$$response$$single,
         "addressing_full_response": addressing_full_response,
         "addressing_ips": addressing_ips,
@@ -126,6 +127,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Address Maps Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "address-maps.write"
         ]
       },
       responses: {
@@ -148,6 +152,7 @@ export const tools: readonly Tool[] = [
           "addressing_address-maps": addressing_address$$maps,
           "addressing_address-maps-ip": addressing_address$$maps$$ip,
           "addressing_address-maps-membership": addressing_address$$maps$$membership,
+          "addressing_api-response-common": addressing_api$$response$$common,
           "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
           "addressing_api-response-single": addressing_api$$response$$single,
           "addressing_full_response": addressing_full_response,
@@ -211,6 +216,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Address Maps Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "address-maps.write"
         ]
       },
       responses: {
@@ -313,6 +321,7 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/addressing_single_response-3",
       $defs: {
         "addressing_address-maps": addressing_address$$maps,
+        "addressing_api-response-common": addressing_api$$response$$common,
         "addressing_api-response-single": addressing_api$$response$$single,
         "addressing_messages": addressing_messages,
         "addressing_single_response-3": addressing_single_response$$3,
@@ -333,6 +342,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Address Maps Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "address-maps.write"
         ]
       },
       responses: {
@@ -353,6 +365,7 @@ export const tools: readonly Tool[] = [
         },
         $defs: {
           "addressing_address-maps": addressing_address$$maps,
+          "addressing_api-response-common": addressing_api$$response$$common,
           "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
           "addressing_api-response-single": addressing_api$$response$$single,
           "addressing_messages": addressing_messages,
@@ -398,6 +411,7 @@ export const tools: readonly Tool[] = [
         "addressing_address-maps": addressing_address$$maps,
         "addressing_address-maps-ip": addressing_address$$maps$$ip,
         "addressing_address-maps-membership": addressing_address$$maps$$membership,
+        "addressing_api-response-common": addressing_api$$response$$common,
         "addressing_api-response-single": addressing_api$$response$$single,
         "addressing_full_response": addressing_full_response,
         "addressing_ips": addressing_ips,
@@ -420,6 +434,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Address Maps Write",
           "Address Maps Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "address-maps.read",
+          "address-maps.write"
         ]
       },
       responses: {
@@ -442,6 +460,7 @@ export const tools: readonly Tool[] = [
           "addressing_address-maps": addressing_address$$maps,
           "addressing_address-maps-ip": addressing_address$$maps$$ip,
           "addressing_address-maps-membership": addressing_address$$maps$$membership,
+          "addressing_api-response-common": addressing_api$$response$$common,
           "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
           "addressing_api-response-single": addressing_api$$response$$single,
           "addressing_full_response": addressing_full_response,
@@ -503,6 +522,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Address Maps Write",
           "Address Maps Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "address-maps.read",
+          "address-maps.write"
         ]
       },
       responses: {

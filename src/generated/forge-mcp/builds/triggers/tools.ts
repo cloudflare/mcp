@@ -115,6 +115,9 @@ export const tools: readonly Tool[] = [
         ],
         "x-fern-audiences": [
           "sdk"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-ci.write"
         ]
       },
       responses: {
@@ -239,6 +242,9 @@ export const tools: readonly Tool[] = [
         ],
         "x-fern-audiences": [
           "sdk"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-ci.write"
         ]
       },
       responses: {
@@ -335,6 +341,9 @@ export const tools: readonly Tool[] = [
         ],
         "x-fern-audiences": [
           "sdk"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-ci.write"
         ]
       },
       responses: {
@@ -445,6 +454,9 @@ export const tools: readonly Tool[] = [
         ],
         "x-fern-audiences": [
           "sdk"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-ci.write"
         ]
       },
       responses: {
@@ -559,11 +571,17 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/builds/workers/${"external_script_id"}/triggers`,
       extensions: {
         "x-api-token-group": [
+          "Workers Metadata Read-Only",
           "Workers CI Write",
           "Workers CI Read"
         ],
         "x-fern-audiences": [
           "sdk"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-ci.read",
+          "workers-ci.write",
+          "workers-scripts.metadata_read"
         ]
       },
       responses: {

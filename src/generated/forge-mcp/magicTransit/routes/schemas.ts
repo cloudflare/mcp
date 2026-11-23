@@ -150,38 +150,7 @@ export const magic_route_update_many_request: JSONObject = {
  * The schema of `magic_route_update_request`.
  */
 export const magic_route_update_request: JSONObject = {
-  "properties": {
-    "description": {
-      "description": "An optional human provided description of the static route.",
-      "type": "string"
-    },
-    "nexthop": {
-      "description": "The next-hop IP Address for the static route.",
-      "type": "string"
-    },
-    "prefix": {
-      "description": "IP Prefix in Classless Inter-Domain Routing format.",
-      "type": "string"
-    },
-    "priority": {
-      "description": "Priority of the static route.",
-      "type": "integer"
-    },
-    "scope": {
-      "$ref": "#/$defs/magic_scope",
-      "description": "Used only for ECMP routes."
-    },
-    "weight": {
-      "description": "Optional weight of the ECMP scope - if provided.",
-      "type": "integer"
-    }
-  },
-  "required": [
-    "nexthop",
-    "prefix",
-    "priority"
-  ],
-  "type": "object"
+  "$ref": "#/$defs/magic_route_add_single_request"
 };
 
 /**

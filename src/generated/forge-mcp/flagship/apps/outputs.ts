@@ -301,13 +301,13 @@ export const flagship_JsonValue: JSONObject = {
     },
     {
       "additionalProperties": {
-        "type": "object"
+        "$ref": "#/$defs/flagship_JsonValue"
       },
       "type": "object"
     },
     {
       "items": {
-        "type": "object"
+        "$ref": "#/$defs/flagship_JsonValue"
       },
       "type": "array"
     },

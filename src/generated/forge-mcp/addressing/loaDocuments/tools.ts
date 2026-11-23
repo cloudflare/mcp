@@ -61,6 +61,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/addressing_loa_upload_response",
       $defs: {
+        "addressing_api-response-common": addressing_api$$response$$common,
         "addressing_api-response-single": addressing_api$$response$$single,
         "addressing_loa_upload_response": addressing_loa_upload_response,
         "addressing_messages": addressing_messages,
@@ -80,7 +81,12 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["multipart/form-data"] },
       extensions: {
         "x-api-token-group": [
-          "Magic Transit Write"
+          "Magic Transit Write",
+          "IP Prefixes: Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "ip-prefix.write",
+          "magic-transit.write"
         ]
       },
       responses: {
@@ -100,6 +106,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "addressing_api-response-common": addressing_api$$response$$common,
           "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
           "addressing_api-response-single": addressing_api$$response$$single,
           "addressing_loa_upload_response": addressing_loa_upload_response,
@@ -160,7 +167,13 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Magic Transit Read",
-          "Magic Transit Write"
+          "Magic Transit Write",
+          "IP Prefixes: Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "ip-prefix.write",
+          "magic-transit.read",
+          "magic-transit.write"
         ]
       },
       responses: {
@@ -227,7 +240,13 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Magic Transit Read",
-          "Magic Transit Write"
+          "Magic Transit Write",
+          "IP Prefixes: Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "ip-prefix.write",
+          "magic-transit.read",
+          "magic-transit.write"
         ]
       },
       responses: {

@@ -22,7 +22,7 @@ import { custom$$indicator$$feeds_permissions_request } from "./schemas.js";
  */
 export const tools: readonly Tool[] = [
   {
-    name: "intel_indicatorFeeds_permissions_create",
+    name: "intel_indicatorFeeds_permissions_grant",
     title: "Grant permission to indicator feed",
     description: "Grants access permissions for a custom threat indicator feed to other accounts.\n\nPUT /accounts/{account_id}/intel/indicator-feeds/permissions/add",
     inputSchema: {
@@ -57,6 +57,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/custom-indicator-feeds_permissions_response",
       $defs: {
+        "custom-indicator-feeds_api-response-common": custom$$indicator$$feeds_api$$response$$common,
         "custom-indicator-feeds_api-response-single": custom$$indicator$$feeds_api$$response$$single,
         "custom-indicator-feeds_messages-2": custom$$indicator$$feeds_messages$$2,
         "custom-indicator-feeds_permissions_response": custom$$indicator$$feeds_permissions_response,
@@ -92,87 +93,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
-          "custom-indicator-feeds_api-response-single": custom$$indicator$$feeds_api$$response$$single,
-          "custom-indicator-feeds_api_response_common_failure": custom$$indicator$$feeds_api_response_common_failure,
-          "custom-indicator-feeds_messages": custom$$indicator$$feeds_messages,
-          "custom-indicator-feeds_messages-2": custom$$indicator$$feeds_messages$$2,
-          "custom-indicator-feeds_permissions_response": custom$$indicator$$feeds_permissions_response,
-          "custom-indicator-feeds_permissions_update": custom$$indicator$$feeds_permissions_update,
-        },
-      },
-    },
-  },
-  {
-    name: "intel_indicatorFeeds_permissions_delete",
-    title: "Revoke permission to indicator feed",
-    description: "Revokes access permissions for a custom threat indicator feed.\n\nConfirm with the user before calling this tool. This operation destructively removes a permission entry.\n\nPUT /accounts/{account_id}/intel/indicator-feeds/permissions/remove",
-    inputSchema: {
-      type: "object",
-      properties: {
-        "body": {
-          "$ref": "#/$defs/custom-indicator-feeds_permissions_request"
-        },
-        "path": {
-          "additionalProperties": false,
-          "properties": {
-            "account_id": {
-              "description": "Identifier",
-              "type": "string"
-            }
-          },
-          "required": [
-            "account_id"
-          ],
-          "type": "object"
-        }
-      },
-      required: [
-        "path",
-        "body"
-      ],
-      additionalProperties: false,
-      $defs: {
-        "custom-indicator-feeds_permissions_request": custom$$indicator$$feeds_permissions_request,
-      },
-    },
-    outputSchema: {
-      "$ref": "#/$defs/custom-indicator-feeds_permissions_response",
-      $defs: {
-        "custom-indicator-feeds_api-response-single": custom$$indicator$$feeds_api$$response$$single,
-        "custom-indicator-feeds_messages-2": custom$$indicator$$feeds_messages$$2,
-        "custom-indicator-feeds_permissions_response": custom$$indicator$$feeds_permissions_response,
-        "custom-indicator-feeds_permissions_update": custom$$indicator$$feeds_permissions_update,
-      },
-    },
-    annotations: {
-      "destructiveHint": true,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Revoke permission to indicator feed"
-    },
-    [OPERATION]: {
-      method: "PUT",
-      path: "/accounts/{account_id}/intel/indicator-feeds/permissions/remove",
-      pathOf: encodePath`/accounts/${"account_id"}/intel/indicator-feeds/permissions/remove`,
-      body: { mediaTypes: ["application/json"] },
-      responses: {
-        schemas: {
-          "200": {
-            "$ref": "#/$defs/custom-indicator-feeds_permissions_response"
-          },
-          "4XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/custom-indicator-feeds_permissions_response"
-              },
-              {
-                "$ref": "#/$defs/custom-indicator-feeds_api_response_common_failure"
-              }
-            ]
-          }
-        },
-        $defs: {
+          "custom-indicator-feeds_api-response-common": custom$$indicator$$feeds_api$$response$$common,
           "custom-indicator-feeds_api-response-single": custom$$indicator$$feeds_api$$response$$single,
           "custom-indicator-feeds_api_response_common_failure": custom$$indicator$$feeds_api_response_common_failure,
           "custom-indicator-feeds_messages": custom$$indicator$$feeds_messages,
@@ -233,6 +154,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Intel Write",
           "Intel Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "intel.read",
+          "intel.write"
         ]
       },
       responses: {
@@ -258,6 +183,89 @@ export const tools: readonly Tool[] = [
           "custom-indicator-feeds_messages-2": custom$$indicator$$feeds_messages$$2,
           "custom-indicator-feeds_permission_list_item": custom$$indicator$$feeds_permission_list_item,
           "custom-indicator-feeds_permission_list_item_response": custom$$indicator$$feeds_permission_list_item_response,
+        },
+      },
+    },
+  },
+  {
+    name: "intel_indicatorFeeds_permissions_revoke",
+    title: "Revoke permission to indicator feed",
+    description: "Revokes access permissions for a custom threat indicator feed.\n\nConfirm with the user before calling this tool. This operation destructively removes a permission entry.\n\nPUT /accounts/{account_id}/intel/indicator-feeds/permissions/remove",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "body": {
+          "$ref": "#/$defs/custom-indicator-feeds_permissions_request"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "Identifier",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path",
+        "body"
+      ],
+      additionalProperties: false,
+      $defs: {
+        "custom-indicator-feeds_permissions_request": custom$$indicator$$feeds_permissions_request,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/custom-indicator-feeds_permissions_response",
+      $defs: {
+        "custom-indicator-feeds_api-response-common": custom$$indicator$$feeds_api$$response$$common,
+        "custom-indicator-feeds_api-response-single": custom$$indicator$$feeds_api$$response$$single,
+        "custom-indicator-feeds_messages-2": custom$$indicator$$feeds_messages$$2,
+        "custom-indicator-feeds_permissions_response": custom$$indicator$$feeds_permissions_response,
+        "custom-indicator-feeds_permissions_update": custom$$indicator$$feeds_permissions_update,
+      },
+    },
+    annotations: {
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Revoke permission to indicator feed"
+    },
+    [OPERATION]: {
+      method: "PUT",
+      path: "/accounts/{account_id}/intel/indicator-feeds/permissions/remove",
+      pathOf: encodePath`/accounts/${"account_id"}/intel/indicator-feeds/permissions/remove`,
+      body: { mediaTypes: ["application/json"] },
+      responses: {
+        schemas: {
+          "200": {
+            "$ref": "#/$defs/custom-indicator-feeds_permissions_response"
+          },
+          "4XX": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/custom-indicator-feeds_permissions_response"
+              },
+              {
+                "$ref": "#/$defs/custom-indicator-feeds_api_response_common_failure"
+              }
+            ]
+          }
+        },
+        $defs: {
+          "custom-indicator-feeds_api-response-common": custom$$indicator$$feeds_api$$response$$common,
+          "custom-indicator-feeds_api-response-single": custom$$indicator$$feeds_api$$response$$single,
+          "custom-indicator-feeds_api_response_common_failure": custom$$indicator$$feeds_api_response_common_failure,
+          "custom-indicator-feeds_messages": custom$$indicator$$feeds_messages,
+          "custom-indicator-feeds_messages-2": custom$$indicator$$feeds_messages$$2,
+          "custom-indicator-feeds_permissions_response": custom$$indicator$$feeds_permissions_response,
+          "custom-indicator-feeds_permissions_update": custom$$indicator$$feeds_permissions_update,
         },
       },
     },

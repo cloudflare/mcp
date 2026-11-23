@@ -87,7 +87,6 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/shares/${"share_id"}/excluded-recipients`,
       body: { mediaTypes: ["application/json"] },
       extensions: {
-        "x-api-token-group": null,
         "x-cfPlanAvailability": {
           "business": false,
           "enterprise": true,
@@ -178,7 +177,6 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/shares/{share_id}/excluded-recipients/{excluded_recipient_id}",
       pathOf: encodePath`/accounts/${"account_id"}/shares/${"share_id"}/excluded-recipients/${"excluded_recipient_id"}`,
       extensions: {
-        "x-api-token-group": null,
         "x-cfPlanAvailability": {
           "business": false,
           "enterprise": true,
@@ -269,13 +267,18 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/shares/{share_id}/excluded-recipients/{excluded_recipient_id}",
       pathOf: encodePath`/accounts/${"account_id"}/shares/${"share_id"}/excluded-recipients/${"excluded_recipient_id"}`,
       extensions: {
-        "x-api-token-group": null,
+        "x-api-token-group": [
+          "Resource Sharing Read"
+        ],
         "x-cfPlanAvailability": {
           "business": false,
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "resource-sharing.read"
+        ]
       },
       responses: {
         schemas: {
@@ -378,13 +381,18 @@ export const tools: readonly Tool[] = [
         { name: "per_page", explode: true },
       ],
       extensions: {
-        "x-api-token-group": null,
+        "x-api-token-group": [
+          "Resource Sharing Read"
+        ],
         "x-cfPlanAvailability": {
           "business": false,
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "resource-sharing.read"
+        ]
       },
       responses: {
         schemas: {
@@ -414,7 +422,7 @@ export const tools: readonly Tool[] = [
     },
   },
   {
-    name: "resourceSharing_excludedRecipients_update",
+    name: "resourceSharing_excludedRecipients_replace",
     title: "Trigger excluded-account reconciliation on a share",
     description: "Reconciles a share's excluded recipients to match the given list. Only valid for shares with `target_type=organization`.\n\nConfirm with the user before calling this tool. Accounts omitted from the list are no longer excluded and will receive the share.\n\nPUT /accounts/{account_id}/shares/{share_id}/excluded-recipients",
     inputSchema: {

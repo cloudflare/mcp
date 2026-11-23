@@ -4,6 +4,32 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
+ * The schema of `dns-records_api-response-common` in responses.
+ */
+export const dns$$records_api$$response$$common: JSONObject = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/dns-records_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/dns-records_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `dns-records_api-response-common-failure` in responses.
  */
 export const dns$$records_api$$response$$common$$failure: JSONObject = {
@@ -37,12 +63,88 @@ export const dns$$records_api$$response$$common$$failure: JSONObject = {
  * The schema of `dns-records_api-response-single` in responses.
  */
 export const dns$$records_api$$response$$single: JSONObject = {
+  "$ref": "#/$defs/dns-records_api-response-common"
+};
+
+/**
+ * The schema of `dns-records_messages` in responses.
+ */
+export const dns$$records_messages: JSONObject = {
+  "items": {
+    "properties": {
+      "code": {
+        "type": "integer"
+      },
+      "documentation_url": {
+        "type": "string"
+      },
+      "message": {
+        "type": "string"
+      },
+      "source": {
+        "properties": {
+          "pointer": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    },
+    "required": [
+      "code",
+      "message"
+    ],
+    "type": "object"
+  },
+  "type": "array"
+};
+
+/**
+ * The schema of `dns-settings_api-response-collection` in responses.
+ */
+export const dns$$settings_api$$response$$collection: JSONObject = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-settings_api-response-common"
+    },
+    {
+      "properties": {
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `dns-settings_api-response-common` in responses.
+ */
+export const dns$$settings_api$$response$$common: JSONObject = {
   "properties": {
     "errors": {
-      "$ref": "#/$defs/dns-records_messages"
+      "$ref": "#/$defs/dns-settings_messages"
     },
     "messages": {
-      "$ref": "#/$defs/dns-records_messages"
+      "$ref": "#/$defs/dns-settings_messages"
     },
     "success": {
       "enum": [
@@ -60,9 +162,46 @@ export const dns$$records_api$$response$$single: JSONObject = {
 };
 
 /**
- * The schema of `dns-records_messages` in responses.
+ * The schema of `dns-settings_api-response-common-failure` in responses.
  */
-export const dns$$records_messages: JSONObject = {
+export const dns$$settings_api$$response$$common$$failure: JSONObject = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/dns-settings_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/dns-settings_messages"
+    },
+    "result": {
+      "type": "null"
+    },
+    "success": {
+      "enum": [
+        false
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `dns-settings_api-response-single` in responses.
+ */
+export const dns$$settings_api$$response$$single: JSONObject = {
+  "$ref": "#/$defs/dns-settings_api-response-common"
+};
+
+/**
+ * The schema of `dns-settings_messages` in responses.
+ */
+export const dns$$settings_messages: JSONObject = {
   "items": {
     "properties": {
       "code": {

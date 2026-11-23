@@ -15,6 +15,7 @@ import {
 import {
   r2$$data$$catalog_catalog$$maintenance$$update$$request,
   r2$$data$$catalog_compaction$$update$$params,
+  r2$$data$$catalog_maintenance$$update$$params,
   r2$$data$$catalog_snapshot$$expiration$$update$$params,
 } from "../../schemas.js";
 
@@ -90,8 +91,14 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/basin-catalog/${"bucket_name"}/maintenance-configs`,
       extensions: {
         "x-api-token-group": [
+          "Workers R2 SQL Read",
           "Workers R2 Data Catalog Write",
           "Workers R2 Data Catalog Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "r2-catalog-sql.read",
+          "r2-catalog.read",
+          "r2-catalog.write"
         ]
       },
       responses: {
@@ -177,6 +184,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "r2-data-catalog_catalog-maintenance-update-request": r2$$data$$catalog_catalog$$maintenance$$update$$request,
         "r2-data-catalog_compaction-update-params": r2$$data$$catalog_compaction$$update$$params,
+        "r2-data-catalog_maintenance-update-params": r2$$data$$catalog_maintenance$$update$$params,
         "r2-data-catalog_snapshot-expiration-update-params": r2$$data$$catalog_snapshot$$expiration$$update$$params,
       },
     },
@@ -218,6 +226,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Workers R2 Data Catalog Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "r2-catalog.write"
         ]
       },
       responses: {

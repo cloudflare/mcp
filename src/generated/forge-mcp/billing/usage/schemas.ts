@@ -10,7 +10,7 @@ export const billable$$usage$$api_v2_filter_by: JSONObject = {
   "description": "Usage filters. Filters of different kinds are combined with AND, so a record must match every filter present to be returned.",
   "properties": {
     "BillableMetricIds": {
-      "description": "Restrict results to rows whose `x_BillableMetricId` matches one of these billable metric ids (e.g. `workers_standard_requests`). Values must be unique.",
+      "description": "Restrict results to rows whose `x_BillableMetricId` matches one of these billable metric ids (e.g. `workers_standard_requests`). Values must be unique. Cost billed under an archived billable metric carries that metric's catalog public id as `x_BillableMetricId` and is never matched by this filter; omit the filter to include it.",
       "items": {
         "type": "string"
       },

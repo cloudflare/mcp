@@ -39,13 +39,13 @@ export const cws_JSONValue: JSONObject = {
   "anyOf": [
     {
       "additionalProperties": {
-        "type": "object"
+        "$ref": "#/$defs/cws_JSONValue"
       },
       "type": "object"
     },
     {
       "items": {
-        "type": "object"
+        "$ref": "#/$defs/cws_JSONValue"
       },
       "type": "array"
     },

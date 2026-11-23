@@ -183,6 +183,7 @@ export const tools: readonly Tool[] = [
         "access_allowed_clipboard_local_to_remote_formats": access_allowed_clipboard_local_to_remote_formats,
         "access_allowed_clipboard_remote_to_local_formats": access_allowed_clipboard_remote_to_local_formats,
         "access_any_valid_service_token_rule": access_any_valid_service_token_rule,
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_approval_group": access_approval_group,
         "access_approval_groups": access_approval_groups,
@@ -239,7 +240,15 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "Individual Access Policy Admin",
+          "Access: Policies Write",
+          "Zero Trust Write",
           "Access: Apps and Policies Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "access-policy.write",
+          "access.write",
+          "teams.write"
         ]
       },
       responses: {
@@ -256,6 +265,7 @@ export const tools: readonly Tool[] = [
           "access_allowed_clipboard_local_to_remote_formats": access_allowed_clipboard_local_to_remote_formats,
           "access_allowed_clipboard_remote_to_local_formats": access_allowed_clipboard_remote_to_local_formats,
           "access_any_valid_service_token_rule": access_any_valid_service_token_rule,
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_approval_group": access_approval_group,
@@ -335,6 +345,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_id_response-4",
       $defs: {
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_id_response-4": access_id_response$$4,
         "access_messages": access_messages,
@@ -353,7 +364,15 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/access/policies/${"policy_id"}`,
       extensions: {
         "x-api-token-group": [
+          "Individual Access Policy Admin",
+          "Access: Policies Write",
+          "Zero Trust Write",
           "Access: Apps and Policies Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "access-policy.write",
+          "access.write",
+          "teams.write"
         ]
       },
       responses: {
@@ -366,6 +385,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_id_response-4": access_id_response$$4,
@@ -412,6 +432,7 @@ export const tools: readonly Tool[] = [
         "access_allowed_clipboard_local_to_remote_formats": access_allowed_clipboard_local_to_remote_formats,
         "access_allowed_clipboard_remote_to_local_formats": access_allowed_clipboard_remote_to_local_formats,
         "access_any_valid_service_token_rule": access_any_valid_service_token_rule,
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_approval_group": access_approval_group,
         "access_approval_groups": access_approval_groups,
@@ -467,8 +488,22 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/access/policies/${"policy_id"}`,
       extensions: {
         "x-api-token-group": [
+          "Individual Access Policy Read",
+          "Individual Access Policy Admin",
+          "Access: Policies Write",
+          "Access: Policies Read",
+          "Zero Trust Read",
+          "Zero Trust Write",
           "Access: Apps and Policies Write",
           "Access: Apps and Policies Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "access-policy.read",
+          "access.read",
+          "access-policy.write",
+          "access.write",
+          "teams.read",
+          "teams.write"
         ]
       },
       responses: {
@@ -485,6 +520,7 @@ export const tools: readonly Tool[] = [
           "access_allowed_clipboard_local_to_remote_formats": access_allowed_clipboard_local_to_remote_formats,
           "access_allowed_clipboard_remote_to_local_formats": access_allowed_clipboard_remote_to_local_formats,
           "access_any_valid_service_token_rule": access_any_valid_service_token_rule,
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_approval_group": access_approval_group,
@@ -639,8 +675,22 @@ export const tools: readonly Tool[] = [
       ],
       extensions: {
         "x-api-token-group": [
+          "Individual Access Policy Read",
+          "Individual Access Policy Admin",
+          "Access: Policies Write",
+          "Access: Policies Read",
+          "Zero Trust Read",
+          "Zero Trust Write",
           "Access: Apps and Policies Write",
           "Access: Apps and Policies Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "access-policy.read",
+          "access.read",
+          "access-policy.write",
+          "access.write",
+          "teams.read",
+          "teams.write"
         ]
       },
       responses: {
@@ -787,6 +837,7 @@ export const tools: readonly Tool[] = [
         "access_allowed_clipboard_local_to_remote_formats": access_allowed_clipboard_local_to_remote_formats,
         "access_allowed_clipboard_remote_to_local_formats": access_allowed_clipboard_remote_to_local_formats,
         "access_any_valid_service_token_rule": access_any_valid_service_token_rule,
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_approval_group": access_approval_group,
         "access_approval_groups": access_approval_groups,
@@ -843,7 +894,15 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "Individual Access Policy Admin",
+          "Access: Policies Write",
+          "Zero Trust Write",
           "Access: Apps and Policies Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "access-policy.write",
+          "access.write",
+          "teams.write"
         ]
       },
       responses: {
@@ -860,6 +919,7 @@ export const tools: readonly Tool[] = [
           "access_allowed_clipboard_local_to_remote_formats": access_allowed_clipboard_local_to_remote_formats,
           "access_allowed_clipboard_remote_to_local_formats": access_allowed_clipboard_remote_to_local_formats,
           "access_any_valid_service_token_rule": access_any_valid_service_token_rule,
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_approval_group": access_approval_group,

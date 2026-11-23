@@ -227,7 +227,14 @@ export const tools: readonly Tool[] = [
       ],
       extensions: {
         "x-api-token-group": [
-          "Access: Audit Logs Read"
+          "Access: Audit Logs Read",
+          "Zero Trust Read",
+          "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "access-audit-log.read",
+          "teams.read",
+          "teams.write"
         ]
       },
       responses: {

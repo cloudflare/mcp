@@ -352,6 +352,16 @@ export const tools: readonly Tool[] = [
       method: "GET",
       path: "/accounts/{account_id}/devices/deployment-groups/{group_id}",
       pathOf: encodePath`/accounts/${"account_id"}/devices/deployment-groups/${"group_id"}`,
+      extensions: {
+        "x-api-token-group": [
+          "Zero Trust Read",
+          "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.read",
+          "teams.write"
+        ]
+      },
       responses: {
         schemas: {
           "200": {
@@ -496,6 +506,16 @@ export const tools: readonly Tool[] = [
         { name: "page", explode: true },
         { name: "per_page", explode: true },
       ],
+      extensions: {
+        "x-api-token-group": [
+          "Zero Trust Read",
+          "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.read",
+          "teams.write"
+        ]
+      },
       responses: {
         schemas: {
           "200": {

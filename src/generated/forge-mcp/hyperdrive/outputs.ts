@@ -82,26 +82,7 @@ export const hyperdrive_api$$response$$common$$failure: JSONObject = {
  * The schema of `hyperdrive_api-response-single` in responses.
  */
 export const hyperdrive_api$$response$$single: JSONObject = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/hyperdrive_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/hyperdrive_messages"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  "$ref": "#/$defs/hyperdrive_api-response-common"
 };
 
 /**
@@ -181,9 +162,9 @@ export const hyperdrive_hyperdrive$$config$$response: JSONObject = {
 };
 
 /**
- * The schema of `hyperdrive_hyperdrive-database-full` in responses.
+ * The schema of `hyperdrive_hyperdrive-database` in responses.
  */
-export const hyperdrive_hyperdrive$$database$$full: JSONObject = {
+export const hyperdrive_hyperdrive$$database: JSONObject = {
   "properties": {
     "database": {
       "type": "string"
@@ -203,13 +184,14 @@ export const hyperdrive_hyperdrive$$database$$full: JSONObject = {
       "type": "string"
     }
   },
-  "required": [
-    "database",
-    "password",
-    "scheme",
-    "user"
-  ],
   "type": "object"
+};
+
+/**
+ * The schema of `hyperdrive_hyperdrive-database-full` in responses.
+ */
+export const hyperdrive_hyperdrive$$database$$full: JSONObject = {
+  "$ref": "#/$defs/hyperdrive_hyperdrive-database"
 };
 
 /**

@@ -122,6 +122,9 @@ export const tools: readonly Tool[] = [
       ],
       extensions: {
         "x-api-token-group": [
+          "Workers AI Metadata Read",
+          "AI Search Index Engine",
+          "Auto Rag Write Run Engine",
           "Workers AI Write",
           "Workers AI Read"
         ],
@@ -135,7 +138,14 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "workers_ai.metadata_read",
+          "ai.read",
+          "ai.write",
+          "ai-search.index",
+          "rag.run"
+        ]
       },
       responses: {
         schemas: {
@@ -301,6 +311,9 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/ai/tomarkdown/supported`,
       extensions: {
         "x-api-token-group": [
+          "Workers AI Metadata Read",
+          "AI Search Index Engine",
+          "Auto Rag Write Run Engine",
           "Workers AI Write",
           "Workers AI Read"
         ],
@@ -314,7 +327,14 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "workers_ai.metadata_read",
+          "ai.read",
+          "ai.write",
+          "ai-search.index",
+          "rag.run"
+        ]
       },
       responses: {
         schemas: {
@@ -497,6 +517,8 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "AI Search Index Engine",
+          "Auto Rag Write Run Engine",
           "Workers AI Write",
           "Workers AI Read"
         ],
@@ -510,7 +532,13 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "ai.read",
+          "ai.write",
+          "ai-search.index",
+          "rag.run"
+        ]
       },
       responses: {
         schemas: {
@@ -1679,6 +1707,8 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "AI Search Index Engine",
+          "Auto Rag Write Run Engine",
           "Workers AI Write",
           "Workers AI Read"
         ],
@@ -1695,6 +1725,12 @@ export const tools: readonly Tool[] = [
         },
         "x-fern-audiences": [
           "sdk"
+        ],
+        "x-forge-oauth-scopes": [
+          "ai.read",
+          "ai.write",
+          "ai-search.index",
+          "rag.run"
         ]
       },
       responses: {
@@ -2077,6 +2113,8 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["multipart/form-data"] },
       extensions: {
         "x-api-token-group": [
+          "AI Search Index Engine",
+          "Auto Rag Write Run Engine",
           "Workers AI Write",
           "Workers AI Read"
         ],
@@ -2090,7 +2128,13 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "ai.read",
+          "ai.write",
+          "ai-search.index",
+          "rag.run"
+        ]
       },
       responses: {
         schemas: {

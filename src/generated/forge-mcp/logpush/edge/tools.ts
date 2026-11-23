@@ -65,6 +65,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/logpush_instant_logs_job_response_single",
       $defs: {
+        "logpush_api-response-common": logpush_api$$response$$common,
         "logpush_api-response-single": logpush_api$$response$$single,
         "logpush_instant_logs_job": logpush_instant_logs_job,
         "logpush_instant_logs_job_response_single": logpush_instant_logs_job_response_single,
@@ -97,7 +98,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "logs.read",
+          "logs.write"
+        ]
       },
       responses: {
         schemas: {
@@ -116,6 +121,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "logpush_api-response-common": logpush_api$$response$$common,
           "logpush_api-response-common-failure": logpush_api$$response$$common$$failure,
           "logpush_api-response-single": logpush_api$$response$$single,
           "logpush_instant_logs_job": logpush_instant_logs_job,
@@ -185,7 +191,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "logs.read",
+          "logs.write"
+        ]
       },
       responses: {
         schemas: {

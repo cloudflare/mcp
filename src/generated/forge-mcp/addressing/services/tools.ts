@@ -83,6 +83,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "IP Prefixes: Write",
           "IP Prefixes: Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "ip-prefix.read",
+          "ip-prefix.write"
         ]
       },
       responses: {

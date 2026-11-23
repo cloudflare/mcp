@@ -76,8 +76,24 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/zones/${"zone_id"}/pay-per-crawl/can_be_enabled`,
       extensions: {
         "x-api-token-group": [
+          "Workers Metadata Read-Only",
+          "Workers Editor",
+          "Workers Content Read-Only",
+          "Workers Admin",
           "Zone Settings Write",
-          "Zone Settings Read"
+          "Zone Settings Read",
+          "Workers Routes Write",
+          "Workers Routes Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-routes.read",
+          "zone-settings.read",
+          "workers-scripts.content_read",
+          "workers-scripts.metadata_read",
+          "workers-routes.write",
+          "workers-scripts.edit",
+          "workers-scripts.admin",
+          "zone-settings.write"
         ]
       },
       responses: {
@@ -161,6 +177,18 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "Account Security Insights Partner Integrations Write",
+          "Account Security Insights Partner Integrations Read",
+          "Workers Metadata Read-Only",
+          "Workers Editor",
+          "Workers Content Read-Only",
+          "Workers Admin",
+          "Account Abuse Protection PII Read",
+          "Workers R2 Storage Metadata Read",
+          "AI Search Index Engine",
+          "Account Security Center Insights Write",
+          "Account Security Center Insights Read",
+          "Auto Rag Write Run Engine",
           "Trust and Safety Write",
           "Trust and Safety Read",
           "DNS View Write",
@@ -190,6 +218,47 @@ export const tools: readonly Tool[] = [
           "Billing Read",
           "Account Settings Write",
           "Account Settings Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-r2.metadata_read",
+          "account-firewall-access-rules.read",
+          "account-security-center-partner-integrations.read",
+          "dns-view.read",
+          "load-balancers-account.read",
+          "workers-r2.read",
+          "ddos-botnet-feed.read",
+          "account-security-center-partner-integrations.write",
+          "dns-firewall.read",
+          "fraud-detection-pii.read",
+          "account-firewall-access-rules.write",
+          "ddos-botnet-feed.write",
+          "dns-view.write",
+          "load-balancers-account.write",
+          "ddos-protection.read",
+          "workers-kv-storage.read",
+          "workers-r2.write",
+          "dns-firewall.write",
+          "teams-pii.read",
+          "account-security-center-insights.read",
+          "scim-provisioning.write",
+          "load-balancing-monitors-and-pools.read",
+          "trust-and-safety.read",
+          "workers-tail.read",
+          "workers-kv-storage.write",
+          "ddos-protection.write",
+          "account-security-center-insights.write",
+          "trust-and-safety.write",
+          "account-settings.read",
+          "load-balancing-monitors-and-pools.write",
+          "workers-scripts.read",
+          "ai-search.index",
+          "rag.run",
+          "account-settings.write",
+          "workers-scripts.write",
+          "workers-scripts.content_read",
+          "workers-scripts.metadata_read",
+          "workers-scripts.edit",
+          "workers-scripts.admin"
         ]
       },
       responses: {
@@ -274,6 +343,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Account Settings Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "account-settings.write"
         ]
       },
       responses: {

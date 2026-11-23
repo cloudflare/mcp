@@ -90,6 +90,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Workers KV Storage Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-kv-storage.write"
         ]
       },
       responses: {
@@ -175,6 +178,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Workers KV Storage Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-kv-storage.write"
         ]
       },
       responses: {
@@ -259,8 +265,14 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/storage/kv/namespaces/${"namespace_id"}`,
       extensions: {
         "x-api-token-group": [
+          "Workers KV Storage Metadata Read",
           "Workers KV Storage Write",
           "Workers KV Storage Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-kv-storage.metadata_read",
+          "workers-kv-storage.read",
+          "workers-kv-storage.write"
         ]
       },
       responses: {
@@ -395,8 +407,14 @@ export const tools: readonly Tool[] = [
       ],
       extensions: {
         "x-api-token-group": [
+          "Workers KV Storage Metadata Read",
           "Workers KV Storage Write",
           "Workers KV Storage Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-kv-storage.metadata_read",
+          "workers-kv-storage.read",
+          "workers-kv-storage.write"
         ]
       },
       responses: {
@@ -510,6 +528,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Workers KV Storage Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-kv-storage.write"
         ]
       },
       responses: {

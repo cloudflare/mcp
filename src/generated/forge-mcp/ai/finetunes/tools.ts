@@ -117,6 +117,8 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "AI Search Index Engine",
+          "Auto Rag Write Run Engine",
           "Workers AI Write"
         ],
         "x-cfPermissionsRequired": {
@@ -129,7 +131,12 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "ai.write",
+          "ai-search.index",
+          "rag.run"
+        ]
       },
       responses: {
         schemas: {
@@ -420,6 +427,9 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/ai/finetunes`,
       extensions: {
         "x-api-token-group": [
+          "Workers AI Metadata Read",
+          "AI Search Index Engine",
+          "Auto Rag Write Run Engine",
           "Workers AI Write",
           "Workers AI Read"
         ],
@@ -433,7 +443,14 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "workers_ai.metadata_read",
+          "ai.read",
+          "ai.write",
+          "ai-search.index",
+          "rag.run"
+        ]
       },
       responses: {
         schemas: {

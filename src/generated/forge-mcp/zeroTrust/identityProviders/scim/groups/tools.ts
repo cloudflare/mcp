@@ -71,7 +71,15 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/access/identity_providers/${"identity_provider_id"}/scim/groups/${"group_id"}`,
       extensions: {
         "x-api-token-group": [
+          "Individual Access Identity Provider Admin",
+          "Access: Identity Providers Write",
+          "Zero Trust Write",
           "Access: Organizations, Identity Providers, and Groups Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "access-idp.write",
+          "access-acct.write",
+          "teams.write"
         ]
       },
       responses: {
@@ -127,6 +135,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_scim_group_response",
       $defs: {
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_group_details": access_group_details,
         "access_messages": access_messages,
@@ -147,8 +156,22 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/access/identity_providers/${"identity_provider_id"}/scim/groups/${"group_id"}`,
       extensions: {
         "x-api-token-group": [
+          "Individual Access Identity Provider Read",
+          "Individual Access Identity Provider Admin",
+          "Access: Identity Providers Write",
+          "Access: Identity Providers Read",
+          "Zero Trust Read",
+          "Zero Trust Write",
           "Access: Organizations, Identity Providers, and Groups Write",
           "Access: Organizations, Identity Providers, and Groups Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "access-idp.read",
+          "access-idp.write",
+          "access-acct.read",
+          "access-acct.write",
+          "teams.read",
+          "teams.write"
         ]
       },
       responses: {
@@ -161,6 +184,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_group_details": access_group_details,
@@ -265,8 +289,22 @@ export const tools: readonly Tool[] = [
       ],
       extensions: {
         "x-api-token-group": [
+          "Individual Access Identity Provider Read",
+          "Individual Access Identity Provider Admin",
+          "Access: Identity Providers Write",
+          "Access: Identity Providers Read",
+          "Zero Trust Read",
+          "Zero Trust Write",
           "Access: Organizations, Identity Providers, and Groups Write",
           "Access: Organizations, Identity Providers, and Groups Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "access-idp.read",
+          "access-idp.write",
+          "access-acct.read",
+          "access-acct.write",
+          "teams.read",
+          "teams.write"
         ]
       },
       responses: {

@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../../../_/tool.js";
 import {
+  access_api$$response$$common,
   access_api$$response$$common$$failure,
   access_api$$response$$single,
   access_messages,
@@ -61,6 +62,7 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_messages": access_messages,
         "access_service-tokens": access_service$$tokens,
@@ -81,9 +83,24 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/access/organizations/doh`,
       extensions: {
         "x-api-token-group": [
+          "Access: Organizations Write",
+          "Access: Organizations Revoke",
+          "Access: Organizations Read",
           "Access: Organizations, Identity Providers, and Groups Revoke",
+          "Zero Trust Read",
+          "Zero Trust Write",
           "Access: Organizations, Identity Providers, and Groups Write",
           "Access: Organizations, Identity Providers, and Groups Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "access-org.read",
+          "access-acct.revoke",
+          "access-org.revoke",
+          "access-org.write",
+          "access-acct.read",
+          "access-acct.write",
+          "teams.read",
+          "teams.write"
         ]
       },
       responses: {
@@ -113,6 +130,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_messages": access_messages,
@@ -182,6 +200,7 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_messages": access_messages,
         "access_service-tokens": access_service$$tokens,
@@ -203,7 +222,14 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "Access: Organizations Write",
+          "Zero Trust Write",
           "Access: Organizations, Identity Providers, and Groups Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "access-org.write",
+          "access-acct.write",
+          "teams.write"
         ]
       },
       responses: {
@@ -233,6 +259,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_messages": access_messages,

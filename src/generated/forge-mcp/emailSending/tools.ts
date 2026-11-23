@@ -59,17 +59,20 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/email/sending/messages/{message_id}",
       pathOf: encodePath`/accounts/${"account_id"}/email/sending/messages/${"message_id"}`,
       extensions: {
-        "x-cfPermissionsRequired": {
-          "enum": [
-            "com.cloudflare.api.account.email.sending.read"
-          ]
-        },
+        "x-api-token-group": [
+          "Email Sending Write",
+          "Email Sending Read"
+        ],
         "x-cfPlanAvailability": {
           "business": true,
           "enterprise": true,
           "free": false,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "email-sending.read",
+          "email-sending.write"
+        ]
       },
       responses: {
         schemas: {
@@ -220,17 +223,18 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/email/sending/send`,
       body: { mediaTypes: ["application/json"] },
       extensions: {
-        "x-cfPermissionsRequired": {
-          "enum": [
-            "com.cloudflare.api.account.email.sending.create"
-          ]
-        },
+        "x-api-token-group": [
+          "Email Sending Write"
+        ],
         "x-cfPlanAvailability": {
           "business": true,
           "enterprise": true,
           "free": false,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "email-sending.write"
+        ]
       },
       responses: {
         schemas: {
@@ -729,17 +733,18 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/email/sending/send_raw`,
       body: { mediaTypes: ["application/json"] },
       extensions: {
-        "x-cfPermissionsRequired": {
-          "enum": [
-            "com.cloudflare.api.account.email.sending.create"
-          ]
-        },
+        "x-api-token-group": [
+          "Email Sending Write"
+        ],
         "x-cfPlanAvailability": {
           "business": true,
           "enterprise": true,
           "free": false,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "email-sending.write"
+        ]
       },
       responses: {
         schemas: {

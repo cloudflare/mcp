@@ -85,6 +85,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/stream_live_input_response_single",
       $defs: {
+        "stream_api-response-common": stream_api$$response$$common,
         "stream_api-response-single": stream_api$$response$$single,
         "stream_input_rtmps": stream_input_rtmps,
         "stream_input_srt": stream_input_srt,
@@ -117,6 +118,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Stream Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "stream.write"
         ]
       },
       responses: {
@@ -129,6 +133,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "stream_api-response-common": stream_api$$response$$common,
           "stream_api-response-common-failure": stream_api$$response$$common$$failure,
           "stream_api-response-single": stream_api$$response$$single,
           "stream_input_rtmps": stream_input_rtmps,
@@ -195,6 +200,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Stream Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "stream.write"
         ]
       },
       responses: {
@@ -239,6 +247,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/stream_live_input_response_single",
       $defs: {
+        "stream_api-response-common": stream_api$$response$$common,
         "stream_api-response-single": stream_api$$response$$single,
         "stream_input_rtmps": stream_input_rtmps,
         "stream_input_srt": stream_input_srt,
@@ -276,6 +285,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "stream_api-response-common": stream_api$$response$$common,
           "stream_api-response-common-failure": stream_api$$response$$common$$failure,
           "stream_api-response-single": stream_api$$response$$single,
           "stream_input_rtmps": stream_input_rtmps,
@@ -329,6 +339,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/stream_live_input_response_single",
       $defs: {
+        "stream_api-response-common": stream_api$$response$$common,
         "stream_api-response-single": stream_api$$response$$single,
         "stream_input_rtmps": stream_input_rtmps,
         "stream_input_srt": stream_input_srt,
@@ -366,6 +377,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "stream_api-response-common": stream_api$$response$$common,
           "stream_api-response-common-failure": stream_api$$response$$common$$failure,
           "stream_api-response-single": stream_api$$response$$single,
           "stream_input_rtmps": stream_input_rtmps,
@@ -419,6 +431,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/stream_live_input_response_single",
       $defs: {
+        "stream_api-response-common": stream_api$$response$$common,
         "stream_api-response-single": stream_api$$response$$single,
         "stream_input_rtmps": stream_input_rtmps,
         "stream_input_srt": stream_input_srt,
@@ -448,8 +461,14 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/stream/live_inputs/${"live_input_identifier"}`,
       extensions: {
         "x-api-token-group": [
+          "Stream Metadata Read",
           "Stream Write",
           "Stream Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "stream.metadata_read",
+          "stream.read",
+          "stream.write"
         ]
       },
       responses: {
@@ -462,6 +481,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "stream_api-response-common": stream_api$$response$$common,
           "stream_api-response-common-failure": stream_api$$response$$common$$failure,
           "stream_api-response-single": stream_api$$response$$single,
           "stream_input_rtmps": stream_input_rtmps,
@@ -544,8 +564,14 @@ export const tools: readonly Tool[] = [
       ],
       extensions: {
         "x-api-token-group": [
+          "Stream Metadata Read",
           "Stream Write",
           "Stream Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "stream.metadata_read",
+          "stream.read",
+          "stream.write"
         ]
       },
       responses: {
@@ -602,6 +628,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/stream_live_input_response_single",
       $defs: {
+        "stream_api-response-common": stream_api$$response$$common,
         "stream_api-response-single": stream_api$$response$$single,
         "stream_input_rtmps": stream_input_rtmps,
         "stream_input_srt": stream_input_srt,
@@ -639,6 +666,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "stream_api-response-common": stream_api$$response$$common,
           "stream_api-response-common-failure": stream_api$$response$$common$$failure,
           "stream_api-response-single": stream_api$$response$$single,
           "stream_input_rtmps": stream_input_rtmps,
@@ -702,6 +730,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/stream_live_input_response_single",
       $defs: {
+        "stream_api-response-common": stream_api$$response$$common,
         "stream_api-response-single": stream_api$$response$$single,
         "stream_input_rtmps": stream_input_rtmps,
         "stream_input_srt": stream_input_srt,
@@ -733,6 +762,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Stream Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "stream.write"
         ]
       },
       responses: {
@@ -745,6 +777,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "stream_api-response-common": stream_api$$response$$common,
           "stream_api-response-common-failure": stream_api$$response$$common$$failure,
           "stream_api-response-single": stream_api$$response$$single,
           "stream_input_rtmps": stream_input_rtmps,

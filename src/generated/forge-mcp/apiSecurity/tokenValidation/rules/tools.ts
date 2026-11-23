@@ -125,6 +125,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Account API Gateway",
           "Domain API Gateway"
+        ],
+        "x-forge-oauth-scopes": [
+          "api-gateway.write",
+          "account-api-gateway.write"
         ]
       },
       responses: {
@@ -281,6 +285,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Account API Gateway",
           "Domain API Gateway"
+        ],
+        "x-forge-oauth-scopes": [
+          "api-gateway.write",
+          "account-api-gateway.write"
         ]
       },
       responses: {
@@ -385,6 +393,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "api-shield_Rule": api$$shield_Rule,
+        "api-shield_api-response-common": api$$shield_api$$response$$common,
         "api-shield_api-response-single": api$$shield_api$$response$$single,
         "api-shield_messages": api$$shield_messages,
         "api-shield_selector": api$$shield_selector,
@@ -408,6 +417,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Account API Gateway",
           "Domain API Gateway"
+        ],
+        "x-forge-oauth-scopes": [
+          "api-gateway.write",
+          "account-api-gateway.write"
         ]
       },
       responses: {
@@ -436,6 +449,7 @@ export const tools: readonly Tool[] = [
         },
         $defs: {
           "api-shield_Rule": api$$shield_Rule,
+          "api-shield_api-response-common": api$$shield_api$$response$$common,
           "api-shield_api-response-common-failure": api$$shield_api$$response$$common$$failure,
           "api-shield_api-response-single": api$$shield_api$$response$$single,
           "api-shield_messages": api$$shield_messages,
@@ -515,6 +529,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Account API Gateway",
           "Domain API Gateway"
+        ],
+        "x-forge-oauth-scopes": [
+          "api-gateway.write",
+          "account-api-gateway.write"
         ]
       },
       responses: {
@@ -615,6 +633,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "api-shield_Rule": api$$shield_Rule,
+        "api-shield_api-response-common": api$$shield_api$$response$$common,
         "api-shield_api-response-single": api$$shield_api$$response$$single,
         "api-shield_messages": api$$shield_messages,
         "api-shield_selector": api$$shield_selector,
@@ -638,6 +657,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Account API Gateway",
           "Domain API Gateway"
+        ],
+        "x-forge-oauth-scopes": [
+          "api-gateway.write",
+          "account-api-gateway.write"
         ]
       },
       responses: {
@@ -666,6 +689,7 @@ export const tools: readonly Tool[] = [
         },
         $defs: {
           "api-shield_Rule": api$$shield_Rule,
+          "api-shield_api-response-common": api$$shield_api$$response$$common,
           "api-shield_api-response-common-failure": api$$shield_api$$response$$common$$failure,
           "api-shield_api-response-single": api$$shield_api$$response$$single,
           "api-shield_messages": api$$shield_messages,
@@ -765,6 +789,12 @@ export const tools: readonly Tool[] = [
           "Account API Gateway Read",
           "Domain API Gateway",
           "Domain API Gateway Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "api-gateway.read",
+          "api-gateway.write",
+          "account-api-gateway.read",
+          "account-api-gateway.write"
         ]
       },
       responses: {
@@ -969,6 +999,12 @@ export const tools: readonly Tool[] = [
           "Account API Gateway Read",
           "Domain API Gateway",
           "Domain API Gateway Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "api-gateway.read",
+          "api-gateway.write",
+          "account-api-gateway.read",
+          "account-api-gateway.write"
         ]
       },
       responses: {

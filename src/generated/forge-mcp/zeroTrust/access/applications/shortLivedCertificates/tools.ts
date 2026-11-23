@@ -31,7 +31,7 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "account_or_zone": {
-              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "description": "Whether ${account_or_zone} is an account ID (`accounts`) or a zone ID (`zones`).",
               "enum": [
                 "accounts",
                 "zones"
@@ -39,7 +39,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "description": "The account ID or zone ID, as selected by ${account_or_zone}.",
               "type": "string"
             },
             "app_id": {
@@ -63,6 +63,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_single_response-6",
       $defs: {
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_ca": access_ca,
         "access_messages": access_messages,
@@ -82,8 +83,12 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/${"account_or_zone"}/${"account_or_zone_id"}/access/apps/${"app_id"}/ca`,
       extensions: {
         "x-api-token-group": [
+          "Individual Access App Admin",
+          "Access: Apps Write",
+          "Zero Trust Write",
           "Access: Apps and Policies Write"
-        ]
+        ],
+        "x-stainless-skip": true
       },
       responses: {
         schemas: {
@@ -95,6 +100,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_ca": access_ca,
@@ -115,7 +121,7 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "account_or_zone": {
-              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "description": "Whether ${account_or_zone} is an account ID (`accounts`) or a zone ID (`zones`).",
               "enum": [
                 "accounts",
                 "zones"
@@ -123,7 +129,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "description": "The account ID or zone ID, as selected by ${account_or_zone}.",
               "type": "string"
             },
             "app_id": {
@@ -147,6 +153,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_id_response-2",
       $defs: {
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_id_response-2": access_id_response$$2,
         "access_messages": access_messages,
@@ -165,8 +172,12 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/${"account_or_zone"}/${"account_or_zone_id"}/access/apps/${"app_id"}/ca`,
       extensions: {
         "x-api-token-group": [
+          "Individual Access App Admin",
+          "Access: Apps Write",
+          "Zero Trust Write",
           "Access: Apps and Policies Write"
-        ]
+        ],
+        "x-stainless-skip": true
       },
       responses: {
         schemas: {
@@ -178,6 +189,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_id_response-2": access_id_response$$2,
@@ -197,7 +209,7 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "account_or_zone": {
-              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "description": "Whether ${account_or_zone} is an account ID (`accounts`) or a zone ID (`zones`).",
               "enum": [
                 "accounts",
                 "zones"
@@ -205,7 +217,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "description": "The account ID or zone ID, as selected by ${account_or_zone}.",
               "type": "string"
             },
             "app_id": {
@@ -229,6 +241,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_single_response-6",
       $defs: {
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_ca": access_ca,
         "access_messages": access_messages,
@@ -248,9 +261,16 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/${"account_or_zone"}/${"account_or_zone_id"}/access/apps/${"app_id"}/ca`,
       extensions: {
         "x-api-token-group": [
+          "Individual Access App Read",
+          "Individual Access App Admin",
+          "Access: Apps Write",
+          "Access: Apps Read",
+          "Zero Trust Read",
+          "Zero Trust Write",
           "Access: Apps and Policies Write",
           "Access: Apps and Policies Read"
-        ]
+        ],
+        "x-stainless-skip": true
       },
       responses: {
         schemas: {
@@ -262,6 +282,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_ca": access_ca,
@@ -282,7 +303,7 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "account_or_zone": {
-              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "description": "Whether ${account_or_zone} is an account ID (`accounts`) or a zone ID (`zones`).",
               "enum": [
                 "accounts",
                 "zones"
@@ -290,7 +311,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "description": "The account ID or zone ID, as selected by ${account_or_zone}.",
               "type": "string"
             }
           },
@@ -349,9 +370,16 @@ export const tools: readonly Tool[] = [
       ],
       extensions: {
         "x-api-token-group": [
+          "Individual Access App Read",
+          "Individual Access App Admin",
+          "Access: Apps Write",
+          "Access: Apps Read",
+          "Zero Trust Read",
+          "Zero Trust Write",
           "Access: Apps and Policies Write",
           "Access: Apps and Policies Read"
-        ]
+        ],
+        "x-stainless-skip": true
       },
       responses: {
         schemas: {

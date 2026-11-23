@@ -4,9 +4,9 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
- * The schema of `rulesets_UrlNormalization`.
+ * The schema of `url-normalization_UrlNormalization`.
  */
-export const rulesets_UrlNormalization: JSONObject = {
+export const url$$normalization_UrlNormalization: JSONObject = {
   "description": "A URL Normalization object.",
   "properties": {
     "scope": {

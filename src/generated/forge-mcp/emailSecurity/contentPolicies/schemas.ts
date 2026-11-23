@@ -4,10 +4,10 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
- * The schema of `email-security_CreateContentPolicy`.
+ * The schema of `email-security_ContentPolicy`.
  */
-export const email$$security_CreateContentPolicy: JSONObject = {
-  "description": "Create a content policy.",
+export const email$$security_ContentPolicy: JSONObject = {
+  "description": "A content policy pattern that matches against the subject or body of an email.",
   "properties": {
     "enabled": {
       "description": "Whether the policy is active.",
@@ -58,69 +58,21 @@ export const email$$security_CreateContentPolicy: JSONObject = {
       "type": "array"
     }
   },
-  "required": [
-    "enabled",
-    "name",
-    "pattern",
-    "targets"
-  ],
   "type": "object"
+};
+
+/**
+ * The schema of `email-security_CreateContentPolicy`.
+ */
+export const email$$security_CreateContentPolicy: JSONObject = {
+  "$ref": "#/$defs/email-security_ContentPolicy",
+  "description": "Create a content policy."
 };
 
 /**
  * The schema of `email-security_UpdateContentPolicy`.
  */
 export const email$$security_UpdateContentPolicy: JSONObject = {
-  "description": "Update a content policy.",
-  "properties": {
-    "enabled": {
-      "description": "Whether the policy is active.",
-      "type": "boolean"
-    },
-    "expires_at": {
-      "description": "Timestamp at which the policy expires. After this time, Email Security ignores the policy. The value must lie in the future. Send `null` to clear the expiration.",
-      "oneOf": [
-        {
-          "format": "date-time",
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "name": {
-      "description": "Human-readable name of the policy.",
-      "type": "string"
-    },
-    "notes": {
-      "description": "Optional note describing the purpose of the policy.",
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "pattern": {
-      "description": "Regular expression the policy matches against.",
-      "type": "string"
-    },
-    "targets": {
-      "description": "Parts of the email the pattern is matched against.",
-      "items": {
-        "description": "The part of the email to match the pattern against.",
-        "enum": [
-          "SUBJECT",
-          "BODY"
-        ],
-        "type": "string"
-      },
-      "minItems": 1,
-      "type": "array"
-    }
-  },
-  "type": "object"
+  "$ref": "#/$defs/email-security_ContentPolicy",
+  "description": "Update a content policy."
 };

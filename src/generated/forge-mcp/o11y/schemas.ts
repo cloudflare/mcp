@@ -106,7 +106,7 @@ export const workers$$observability_filter_node: JSONObject = {
         },
         "filters": {
           "items": {
-            "type": "object"
+            "$ref": "#/$defs/workers-observability_filter_node"
           },
           "minItems": 1,
           "type": "array"

@@ -88,6 +88,9 @@ export const tools: readonly Tool[] = [
         ],
         "x-fern-audiences": [
           "sdk"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-routes.write"
         ]
       },
       responses: {
@@ -198,6 +201,9 @@ export const tools: readonly Tool[] = [
         ],
         "x-fern-audiences": [
           "sdk"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-routes.write"
         ]
       },
       responses: {
@@ -304,11 +310,17 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/zones/${"zone_id"}/workers/routes/${"route_id"}`,
       extensions: {
         "x-api-token-group": [
+          "Workers Metadata Read-Only",
           "Workers Routes Write",
           "Workers Routes Read"
         ],
         "x-fern-audiences": [
           "sdk"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-routes.read",
+          "workers-scripts.metadata_read",
+          "workers-routes.write"
         ]
       },
       responses: {
@@ -409,11 +421,17 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/zones/${"zone_id"}/workers/routes`,
       extensions: {
         "x-api-token-group": [
+          "Workers Metadata Read-Only",
           "Workers Routes Write",
           "Workers Routes Read"
         ],
         "x-fern-audiences": [
           "sdk"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-routes.read",
+          "workers-scripts.metadata_read",
+          "workers-routes.write"
         ]
       },
       responses: {
@@ -531,6 +549,9 @@ export const tools: readonly Tool[] = [
         ],
         "x-fern-audiences": [
           "sdk"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-routes.write"
         ]
       },
       responses: {

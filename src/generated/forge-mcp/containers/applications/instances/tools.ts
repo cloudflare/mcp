@@ -99,6 +99,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Workers Containers Write",
           "Workers Containers Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "containers.read",
+          "containers.write"
         ]
       },
       responses: {
@@ -263,7 +267,11 @@ export const tools: readonly Tool[] = [
           "cursor": "$request.page_token",
           "next_cursor": "$response.result_info.next_page_token",
           "results": "$response.result"
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "containers.read",
+          "containers.write"
+        ]
       },
       responses: {
         schemas: {

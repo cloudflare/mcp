@@ -80,6 +80,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "DDoS Protection Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "ddos-protection.write"
         ]
       },
       responses: {

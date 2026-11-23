@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../_/tool.js";
 import {
+  iam_account,
   iam_api$$response$$collection,
   iam_api$$response$$common,
   iam_api$$response$$common$$failure,
@@ -13,8 +14,8 @@ import {
   organizations$$api_V4ErrorResponse,
   organizations$$api_V4Message,
 } from "../outputs.js";
+import { iam_account as iam_account$ } from "../schemas.js";
 import {
-  iam_account,
   iam_response_collection_accounts,
   iam_response_single_account,
   organizations$$api_MoveAccountResult,
@@ -62,6 +63,7 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/iam_response_single_account",
       $defs: {
         "iam_account": iam_account,
+        "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-single": iam_api$$response$$single,
         "iam_messages": iam_messages,
         "iam_response_single_account": iam_response_single_account,
@@ -99,6 +101,7 @@ export const tools: readonly Tool[] = [
         },
         $defs: {
           "iam_account": iam_account,
+          "iam_api-response-common": iam_api$$response$$common,
           "iam_api-response-common-failure": iam_api$$response$$common$$failure,
           "iam_api-response-single": iam_api$$response$$single,
           "iam_messages": iam_messages,
@@ -166,7 +169,10 @@ export const tools: readonly Tool[] = [
           "enterprise": false,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "account-settings.write"
+        ]
       },
       responses: {
         schemas: {
@@ -216,6 +222,7 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/iam_response_single_account",
       $defs: {
         "iam_account": iam_account,
+        "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-single": iam_api$$response$$single,
         "iam_messages": iam_messages,
         "iam_response_single_account": iam_response_single_account,
@@ -234,6 +241,18 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}`,
       extensions: {
         "x-api-token-group": [
+          "Account Security Insights Partner Integrations Write",
+          "Account Security Insights Partner Integrations Read",
+          "Workers Metadata Read-Only",
+          "Workers Editor",
+          "Workers Content Read-Only",
+          "Workers Admin",
+          "Account Abuse Protection PII Read",
+          "Workers R2 Storage Metadata Read",
+          "AI Search Index Engine",
+          "Account Security Center Insights Write",
+          "Account Security Center Insights Read",
+          "Auto Rag Write Run Engine",
           "Trust and Safety Write",
           "Trust and Safety Read",
           "DNS View Write",
@@ -274,7 +293,48 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "workers-r2.metadata_read",
+          "account-firewall-access-rules.read",
+          "account-security-center-partner-integrations.read",
+          "dns-view.read",
+          "load-balancers-account.read",
+          "workers-r2.read",
+          "ddos-botnet-feed.read",
+          "account-security-center-partner-integrations.write",
+          "dns-firewall.read",
+          "fraud-detection-pii.read",
+          "account-firewall-access-rules.write",
+          "ddos-botnet-feed.write",
+          "dns-view.write",
+          "load-balancers-account.write",
+          "ddos-protection.read",
+          "workers-kv-storage.read",
+          "workers-r2.write",
+          "dns-firewall.write",
+          "teams-pii.read",
+          "account-security-center-insights.read",
+          "scim-provisioning.write",
+          "load-balancing-monitors-and-pools.read",
+          "trust-and-safety.read",
+          "workers-tail.read",
+          "workers-kv-storage.write",
+          "ddos-protection.write",
+          "account-security-center-insights.write",
+          "trust-and-safety.write",
+          "account-settings.read",
+          "load-balancing-monitors-and-pools.write",
+          "workers-scripts.read",
+          "ai-search.index",
+          "rag.run",
+          "account-settings.write",
+          "workers-scripts.write",
+          "workers-scripts.content_read",
+          "workers-scripts.metadata_read",
+          "workers-scripts.edit",
+          "workers-scripts.admin"
+        ]
       },
       responses: {
         schemas: {
@@ -287,6 +347,7 @@ export const tools: readonly Tool[] = [
         },
         $defs: {
           "iam_account": iam_account,
+          "iam_api-response-common": iam_api$$response$$common,
           "iam_api-response-common-failure": iam_api$$response$$common$$failure,
           "iam_api-response-single": iam_api$$response$$single,
           "iam_messages": iam_messages,
@@ -479,9 +540,6 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/move",
       pathOf: encodePath`/accounts/${"account_id"}/move`,
       body: { mediaTypes: ["application/json"] },
-      extensions: {
-        "x-api-token-group": null
-      },
       responses: {
         schemas: {
           "200": {
@@ -562,6 +620,7 @@ export const tools: readonly Tool[] = [
       ],
       additionalProperties: false,
       $defs: {
+        "iam_account": iam_account$,
         "iam_components-schemas-account": iam_components$$schemas$$account,
       },
     },
@@ -569,6 +628,7 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/iam_response_single_account",
       $defs: {
         "iam_account": iam_account,
+        "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-single": iam_api$$response$$single,
         "iam_messages": iam_messages,
         "iam_response_single_account": iam_response_single_account,
@@ -600,7 +660,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "account-settings.write"
+        ]
       },
       responses: {
         schemas: {
@@ -613,6 +676,7 @@ export const tools: readonly Tool[] = [
         },
         $defs: {
           "iam_account": iam_account,
+          "iam_api-response-common": iam_api$$response$$common,
           "iam_api-response-common-failure": iam_api$$response$$common$$failure,
           "iam_api-response-single": iam_api$$response$$single,
           "iam_messages": iam_messages,

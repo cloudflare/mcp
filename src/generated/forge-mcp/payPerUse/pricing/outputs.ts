@@ -17,17 +17,6 @@ export const pay$$per$$crawl_PPUOperatorPrice: JSONObject = {
     "name": {
       "type": "string"
     },
-    "non_billable_since": {
-      "oneOf": [
-        {
-          "format": "date-time",
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
     "operator_id": {
       "type": "string"
     },
@@ -41,7 +30,6 @@ export const pay$$per$$crawl_PPUOperatorPrice: JSONObject = {
   "required": [
     "default_price_usd_microcents",
     "name",
-    "non_billable_since",
     "operator_id"
   ],
   "type": "object"

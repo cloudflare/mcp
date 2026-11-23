@@ -3,14 +3,14 @@
 
 import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
 import {
-  bill$$subs$$api_api$$response$$collection,
-  bill$$subs$$api_api$$response$$common,
-  bill$$subs$$api_api$$response$$common$$failure,
-  bill$$subs$$api_api$$response$$single,
-  bill$$subs$$api_messages,
-  bill$$subs$$api_result_info,
+  bill$$subs_api$$response$$collection,
+  bill$$subs_api$$response$$common,
+  bill$$subs_api$$response$$common$$failure,
+  bill$$subs_api$$response$$single,
+  bill$$subs_messages,
+  bill$$subs_result_info,
 } from "../../outputs.js";
-import { bill$$subs$$api_available$$rate$$plan } from "./outputs.js";
+import { bill$$subs_available$$rate$$plan } from "./outputs.js";
 
 /**
  * The tools of `zones.plans`.
@@ -50,22 +50,22 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "allOf": [
         {
-          "$ref": "#/$defs/bill-subs-api_api-response-single"
+          "$ref": "#/$defs/bill-subs_api-response-single"
         },
         {
           "properties": {
             "result": {
-              "$ref": "#/$defs/bill-subs-api_available-rate-plan"
+              "$ref": "#/$defs/bill-subs_available-rate-plan"
             }
           },
           "type": "object"
         }
       ],
       $defs: {
-        "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
-        "bill-subs-api_api-response-single": bill$$subs$$api_api$$response$$single,
-        "bill-subs-api_available-rate-plan": bill$$subs$$api_available$$rate$$plan,
-        "bill-subs-api_messages": bill$$subs$$api_messages,
+        "bill-subs_api-response-common": bill$$subs_api$$response$$common,
+        "bill-subs_api-response-single": bill$$subs_api$$response$$single,
+        "bill-subs_available-rate-plan": bill$$subs_available$$rate$$plan,
+        "bill-subs_messages": bill$$subs_messages,
       },
     },
     annotations: {
@@ -101,12 +101,12 @@ export const tools: readonly Tool[] = [
           "200": {
             "allOf": [
               {
-                "$ref": "#/$defs/bill-subs-api_api-response-single"
+                "$ref": "#/$defs/bill-subs_api-response-single"
               },
               {
                 "properties": {
                   "result": {
-                    "$ref": "#/$defs/bill-subs-api_available-rate-plan"
+                    "$ref": "#/$defs/bill-subs_available-rate-plan"
                   }
                 },
                 "type": "object"
@@ -114,15 +114,15 @@ export const tools: readonly Tool[] = [
             ]
           },
           "4XX": {
-            "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
+            "$ref": "#/$defs/bill-subs_api-response-common-failure"
           }
         },
         $defs: {
-          "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
-          "bill-subs-api_api-response-common-failure": bill$$subs$$api_api$$response$$common$$failure,
-          "bill-subs-api_api-response-single": bill$$subs$$api_api$$response$$single,
-          "bill-subs-api_available-rate-plan": bill$$subs$$api_available$$rate$$plan,
-          "bill-subs-api_messages": bill$$subs$$api_messages,
+          "bill-subs_api-response-common": bill$$subs_api$$response$$common,
+          "bill-subs_api-response-common-failure": bill$$subs_api$$response$$common$$failure,
+          "bill-subs_api-response-single": bill$$subs_api$$response$$single,
+          "bill-subs_available-rate-plan": bill$$subs_available$$rate$$plan,
+          "bill-subs_messages": bill$$subs_messages,
         },
       },
     },
@@ -156,13 +156,13 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "allOf": [
         {
-          "$ref": "#/$defs/bill-subs-api_api-response-collection"
+          "$ref": "#/$defs/bill-subs_api-response-collection"
         },
         {
           "properties": {
             "result": {
               "items": {
-                "$ref": "#/$defs/bill-subs-api_available-rate-plan"
+                "$ref": "#/$defs/bill-subs_available-rate-plan"
               },
               "type": "array"
             }
@@ -171,11 +171,11 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "bill-subs-api_api-response-collection": bill$$subs$$api_api$$response$$collection,
-        "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
-        "bill-subs-api_available-rate-plan": bill$$subs$$api_available$$rate$$plan,
-        "bill-subs-api_messages": bill$$subs$$api_messages,
-        "bill-subs-api_result_info": bill$$subs$$api_result_info,
+        "bill-subs_api-response-collection": bill$$subs_api$$response$$collection,
+        "bill-subs_api-response-common": bill$$subs_api$$response$$common,
+        "bill-subs_available-rate-plan": bill$$subs_available$$rate$$plan,
+        "bill-subs_messages": bill$$subs_messages,
+        "bill-subs_result_info": bill$$subs_result_info,
       },
     },
     annotations: {
@@ -211,13 +211,13 @@ export const tools: readonly Tool[] = [
           "200": {
             "allOf": [
               {
-                "$ref": "#/$defs/bill-subs-api_api-response-collection"
+                "$ref": "#/$defs/bill-subs_api-response-collection"
               },
               {
                 "properties": {
                   "result": {
                     "items": {
-                      "$ref": "#/$defs/bill-subs-api_available-rate-plan"
+                      "$ref": "#/$defs/bill-subs_available-rate-plan"
                     },
                     "type": "array"
                   }
@@ -227,16 +227,16 @@ export const tools: readonly Tool[] = [
             ]
           },
           "4XX": {
-            "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
+            "$ref": "#/$defs/bill-subs_api-response-common-failure"
           }
         },
         $defs: {
-          "bill-subs-api_api-response-collection": bill$$subs$$api_api$$response$$collection,
-          "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
-          "bill-subs-api_api-response-common-failure": bill$$subs$$api_api$$response$$common$$failure,
-          "bill-subs-api_available-rate-plan": bill$$subs$$api_available$$rate$$plan,
-          "bill-subs-api_messages": bill$$subs$$api_messages,
-          "bill-subs-api_result_info": bill$$subs$$api_result_info,
+          "bill-subs_api-response-collection": bill$$subs_api$$response$$collection,
+          "bill-subs_api-response-common": bill$$subs_api$$response$$common,
+          "bill-subs_api-response-common-failure": bill$$subs_api$$response$$common$$failure,
+          "bill-subs_available-rate-plan": bill$$subs_available$$rate$$plan,
+          "bill-subs_messages": bill$$subs_messages,
+          "bill-subs_result_info": bill$$subs_result_info,
         },
       },
     },

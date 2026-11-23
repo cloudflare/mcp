@@ -159,9 +159,9 @@ export const api$$shield_basic_operation: JSONObject = {
 };
 
 /**
- * The schema of `bill-subs-api_component_value`.
+ * The schema of `bill-subs_component_value`.
  */
-export const bill$$subs$$api_component_value: JSONObject = {
+export const bill$$subs_component_value: JSONObject = {
   "description": "A component value for a subscription.",
   "properties": {
     "default": {
@@ -198,20 +198,20 @@ export const bill$$subs$$api_component_value: JSONObject = {
 };
 
 /**
- * The schema of `bill-subs-api_component_values`.
+ * The schema of `bill-subs_component_values`.
  */
-export const bill$$subs$$api_component_values: JSONObject = {
+export const bill$$subs_component_values: JSONObject = {
   "description": "Configurable component values for the subscription.",
   "items": {
-    "$ref": "#/$defs/bill-subs-api_component_value"
+    "$ref": "#/$defs/bill-subs_component_value"
   },
   "type": "array"
 };
 
 /**
- * The schema of `bill-subs-api_rate_plan`.
+ * The schema of `bill-subs_rate_plan`.
  */
-export const bill$$subs$$api_rate_plan: JSONObject = {
+export const bill$$subs_rate_plan: JSONObject = {
   "description": "The rate plan applied to the subscription.",
   "properties": {
     "currency": {
@@ -250,9 +250,9 @@ export const bill$$subs$$api_rate_plan: JSONObject = {
 };
 
 /**
- * The schema of `bill-subs-api_subscription-v2`.
+ * The schema of `bill-subs_subscription-v2`.
  */
-export const bill$$subs$$api_subscription$$v2: JSONObject = {
+export const bill$$subs_subscription$$v2: JSONObject = {
   "properties": {
     "app": {
       "deprecated": true,
@@ -267,7 +267,7 @@ export const bill$$subs$$api_subscription$$v2: JSONObject = {
       "type": "object"
     },
     "component_values": {
-      "$ref": "#/$defs/bill-subs-api_component_values",
+      "$ref": "#/$defs/bill-subs_component_values",
       "description": "Configurable component values for the subscription."
     },
     "frequency": {
@@ -281,20 +281,20 @@ export const bill$$subs$$api_subscription$$v2: JSONObject = {
       "type": "string"
     },
     "rate_plan": {
-      "$ref": "#/$defs/bill-subs-api_rate_plan",
+      "$ref": "#/$defs/bill-subs_rate_plan",
       "description": "The rate plan applied to the subscription."
     },
     "zone": {
-      "$ref": "#/$defs/bill-subs-api_zone"
+      "$ref": "#/$defs/bill-subs_zone"
     }
   },
   "type": "object"
 };
 
 /**
- * The schema of `bill-subs-api_zone`.
+ * The schema of `bill-subs_zone`.
  */
-export const bill$$subs$$api_zone: JSONObject = {
+export const bill$$subs_zone: JSONObject = {
   "description": "A simple zone object. May have null properties if not a zone subscription.",
   "type": "object"
 };
@@ -478,6 +478,46 @@ export const firewall_rule: JSONObject = {
   "required": [
     "configuration",
     "mode"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `iam_account`.
+ */
+export const iam_account: JSONObject = {
+  "properties": {
+    "id": {
+      "description": "Identifier",
+      "type": "string"
+    },
+    "managed_by": {
+      "description": "Parent container details",
+      "type": "object"
+    },
+    "name": {
+      "description": "Account name. When creating or updating an account, the name is limited to 65 UTF-8 bytes.",
+      "type": "string"
+    },
+    "settings": {
+      "description": "Account settings",
+      "properties": {
+        "abuse_contact_email": {
+          "description": "Sets an abuse contact email to notify for abuse reports.",
+          "type": "string"
+        },
+        "enforce_twofactor": {
+          "default": false,
+          "description": "Indicates whether membership in this account requires that\nTwo-Factor Authentication is enabled",
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "required": [
+    "id",
+    "name"
   ],
   "type": "object"
 };
@@ -1279,18 +1319,8 @@ export const r2$$data$$catalog_catalog$$credential$$request: JSONObject = {
  * The schema of `r2-data-catalog_catalog-maintenance-update-request`.
  */
 export const r2$$data$$catalog_catalog$$maintenance$$update$$request: JSONObject = {
-  "description": "Contains request to update catalog maintenance configuration.",
-  "properties": {
-    "compaction": {
-      "$ref": "#/$defs/r2-data-catalog_compaction-update-params",
-      "description": "Updates compaction configuration (all fields optional)."
-    },
-    "snapshot_expiration": {
-      "$ref": "#/$defs/r2-data-catalog_snapshot-expiration-update-params",
-      "description": "Updates snapshot expiration configuration (all fields optional)."
-    }
-  },
-  "type": "object"
+  "$ref": "#/$defs/r2-data-catalog_maintenance-update-params",
+  "description": "Contains request to update catalog maintenance configuration."
 };
 
 /**
@@ -1316,6 +1346,24 @@ export const r2$$data$$catalog_compaction$$update$$params: JSONObject = {
         "512"
       ],
       "type": "string"
+    }
+  },
+  "type": "object"
+};
+
+/**
+ * The schema of `r2-data-catalog_maintenance-update-params`.
+ */
+export const r2$$data$$catalog_maintenance$$update$$params: JSONObject = {
+  "description": "Contains maintenance update parameters.",
+  "properties": {
+    "compaction": {
+      "$ref": "#/$defs/r2-data-catalog_compaction-update-params",
+      "description": "Updates compaction configuration (all fields optional)."
+    },
+    "snapshot_expiration": {
+      "$ref": "#/$defs/r2-data-catalog_snapshot-expiration-update-params",
+      "description": "Updates snapshot expiration configuration (all fields optional)."
     }
   },
   "type": "object"

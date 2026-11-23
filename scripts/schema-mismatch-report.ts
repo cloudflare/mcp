@@ -20,10 +20,8 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { parseArgs, promisify } from 'node:util'
 import { cfEnv } from './cloudflare-account'
+import { specUrl } from '../src/spec-release'
 import { z } from 'zod'
-
-/** The repository whose releases publish the OpenAPI document (`SPEC_RELEASE` in `src/spec-release.ts`). */
-const SPEC_REPOSITORY = 'cloudflare/forge'
 
 const DATASETS = {
   production: 'mcp-metrics-production',
@@ -63,7 +61,7 @@ const SQL = `SELECT
   blob10 AS keyword,
   blob11 AS schema_location,
   blob12 AS instance_path,
-  blob13 AS spec_release,
+  blob13 AS spec_revision,
   SUM(_sample_interval * double4) AS responses,
   SUM(_sample_interval * double4 * double3) AS violations,
   MIN(double5) AS fully_counted,
@@ -72,7 +70,7 @@ FROM '${dataset}'
 WHERE index1 = 'response_schema_mismatch'
   AND blob1 = '${args.server}'
   AND timestamp > NOW() - INTERVAL '${days}' DAY
-GROUP BY product, forge_tool, method, path, response, keyword, schema_location, instance_path, spec_release
+GROUP BY product, forge_tool, method, path, response, keyword, schema_location, instance_path, spec_revision
 ORDER BY product ASC, responses DESC
 LIMIT 10000
 FORMAT JSON`
@@ -91,8 +89,8 @@ const Row = z.object({
   keyword: z.string(),
   schema_location: z.string(),
   instance_path: z.string(),
-  // Empty when the spec came from a URL that isn't a release download.
-  spec_release: z.string().nullable().optional(),
+  // Empty when the spec came from a local file with no commit.
+  spec_revision: z.string().nullable().optional(),
   responses: z.coerce.number(),
   violations: z.coerce.number(),
   fully_counted: z.coerce.number(),
@@ -142,7 +140,7 @@ function markdown(rows: Row[]): string {
       'response broke its OpenAPI schema: the keyword that failed, where it is in the spec, and ' +
       'where in the response (`*` is an array index or a map key). "Responses" counts responses ' +
       'with this as their first violation; "violations" counts every violation in them (`≥` when ' +
-      'large responses were only partly checked). "Spec release" links the OpenAPI document the ' +
+      'large responses were only partly checked). "Spec revision" links the OpenAPI document the ' +
       'schema location refers to.',
     ''
   ]
@@ -160,13 +158,13 @@ function markdown(rows: Row[]): string {
       const forgeTools = [...new Set(operationRows.map((row) => `\`${row.forge_tool}\``))]
       lines.push(`### \`${operation}\` (${forgeTools.join(', ')})`, '')
       lines.push(
-        '| response | keyword | schema location | instance path | spec release | responses | violations | last seen |'
+        '| response | keyword | schema location | instance path | spec revision | responses | violations | last seen |'
       )
       lines.push('|---|---|---|---|---|---|---|---|')
       for (const row of operationRows) {
         const violations = `${row.fully_counted < 1 ? '≥' : ''}${round(row.violations)}`
         lines.push(
-          `| ${row.response} | ${row.keyword} | \`${row.schema_location}\` | \`${row.instance_path}\` | ${release(row.spec_release)} | ${round(row.responses)} | ${violations} | ${row.last_seen} |`
+          `| ${row.response} | ${row.keyword} | \`${row.schema_location}\` | \`${row.instance_path}\` | ${revision(row.spec_revision)} | ${round(row.responses)} | ${violations} | ${row.last_seen} |`
         )
       }
       lines.push('')
@@ -176,13 +174,19 @@ function markdown(rows: Row[]): string {
 }
 
 /**
- * A spec release as a link to the document the schema came from, so the
- * schema location can be read as it was when the mismatch was recorded.
+ * A spec revision as a link to the document the schema came from, so the
+ * schema location can be read as it was when the mismatch was recorded:
+ * `cloudflare/api-schemas@<commit>`, or `openapi@<commit>` for mismatches
+ * recorded while the spec came from that tag's Forge release.
  */
-function release(tag: string | null | undefined): string {
-  if (!tag) return 'unknown'
-  const url = `https://github.com/${SPEC_REPOSITORY}/releases/download/${encodeURIComponent(tag)}/openapi.forge.json`
-  return `[\`${tag}\`](${url})`
+function revision(name: string | null | undefined): string {
+  if (!name) return 'unknown'
+  const [source, commit] = name.split('@')
+  const url =
+    source === 'openapi'
+      ? `https://github.com/cloudflare/forge/releases/download/${encodeURIComponent(name)}/openapi.forge.json`
+      : specUrl(encodeURIComponent(commit ?? ''))
+  return `[\`${name}\`](${url})`
 }
 
 /** Group rows, keeping the query's order (busiest first within a product). */

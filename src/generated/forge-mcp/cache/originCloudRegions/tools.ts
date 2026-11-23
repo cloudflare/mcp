@@ -8,6 +8,8 @@ import {
   cache$$settings_messages,
 } from "../../outputs.js";
 import {
+  cache$$settings_origin_cloud_region_v2_batch_item_result,
+  cache$$settings_origin_cloud_region_v2_batch_result,
   cache$$settings_origin_cloud_region_v2_delete_result,
   cache$$settings_origin_cloud_region_v2_entry,
   cache$$settings_origin_cloud_region_v2_result_info,
@@ -18,6 +20,221 @@ import { cache$$settings_origin_cloud_region_v2_request } from "./schemas.js";
  * The tools of `cache.originCloudRegions`.
  */
 export const tools: readonly Tool[] = [
+  {
+    name: "cache_originCloudRegions_bulkDelete",
+    title: "Batch delete origin cloud region mappings",
+    description: "Removes up to 100 IP-to-cloud-region mappings in a single request. Each IP is validated independently — successfully deleted items are returned in the `succeeded` array and IPs that could not be found or are invalid are returned in the `failed` array.\n\nConfirm with the user before calling this tool. Are you sure you want to delete these Origin Cloud Region configurations?\n\nDELETE /zones/{zone_id}/origin/cloud_regions/batch",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "body": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 100,
+          "type": "array"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path",
+        "body"
+      ],
+      additionalProperties: false,
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/cache-settings_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/cache-settings_origin_cloud_region_v2_batch_result"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "cache-settings_api-response-common": cache$$settings_api$$response$$common,
+        "cache-settings_messages": cache$$settings_messages,
+        "cache-settings_origin_cloud_region_v2_batch_item_result": cache$$settings_origin_cloud_region_v2_batch_item_result,
+        "cache-settings_origin_cloud_region_v2_batch_result": cache$$settings_origin_cloud_region_v2_batch_result,
+      },
+    },
+    annotations: {
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Batch delete origin cloud region mappings"
+    },
+    [OPERATION]: {
+      method: "DELETE",
+      path: "/zones/{zone_id}/origin/cloud_regions/batch",
+      pathOf: encodePath`/zones/${"zone_id"}/origin/cloud_regions/batch`,
+      body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-cfPlanAvailability": {
+          "business": true,
+          "enterprise": true,
+          "free": true,
+          "pro": true
+        }
+      },
+      responses: {
+        schemas: {
+          "200": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/cache-settings_api-response-common"
+              },
+              {
+                "properties": {
+                  "result": {
+                    "$ref": "#/$defs/cache-settings_origin_cloud_region_v2_batch_result"
+                  }
+                },
+                "type": "object"
+              }
+            ]
+          },
+          "4XX": {
+            "$ref": "#/$defs/cache-settings_api-response-common-failure"
+          }
+        },
+        $defs: {
+          "cache-settings_api-response-common": cache$$settings_api$$response$$common,
+          "cache-settings_api-response-common-failure": cache$$settings_api$$response$$common$$failure,
+          "cache-settings_messages": cache$$settings_messages,
+          "cache-settings_origin_cloud_region_v2_batch_item_result": cache$$settings_origin_cloud_region_v2_batch_item_result,
+          "cache-settings_origin_cloud_region_v2_batch_result": cache$$settings_origin_cloud_region_v2_batch_result,
+        },
+      },
+    },
+  },
+  {
+    name: "cache_originCloudRegions_bulkReplace",
+    title: "Batch create or replace origin cloud region mappings",
+    description: "Upserts up to 100 IP-to-cloud-region mappings in a single request. Items in the request body are created or replaced; mappings not included in the request body are preserved unchanged (this is a merge operation, not a full collection replacement). Each item is validated independently — valid items are applied and invalid items are returned in the `failed` array. The vendor and region for every item are validated against the list from `GET /zones/{zone_id}/origin/cloud_regions/supported_regions`.\n\nPUT /zones/{zone_id}/origin/cloud_regions/batch",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "body": {
+          "items": {
+            "$ref": "#/$defs/cache-settings_origin_cloud_region_v2_request"
+          },
+          "maxItems": 100,
+          "type": "array"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "zone_id": {
+              "description": "Identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path",
+        "body"
+      ],
+      additionalProperties: false,
+      $defs: {
+        "cache-settings_origin_cloud_region_v2_request": cache$$settings_origin_cloud_region_v2_request,
+      },
+    },
+    outputSchema: {
+      "allOf": [
+        {
+          "$ref": "#/$defs/cache-settings_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/cache-settings_origin_cloud_region_v2_batch_result"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "cache-settings_api-response-common": cache$$settings_api$$response$$common,
+        "cache-settings_messages": cache$$settings_messages,
+        "cache-settings_origin_cloud_region_v2_batch_item_result": cache$$settings_origin_cloud_region_v2_batch_item_result,
+        "cache-settings_origin_cloud_region_v2_batch_result": cache$$settings_origin_cloud_region_v2_batch_result,
+      },
+    },
+    annotations: {
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Batch create or replace origin cloud region mappings"
+    },
+    [OPERATION]: {
+      method: "PUT",
+      path: "/zones/{zone_id}/origin/cloud_regions/batch",
+      pathOf: encodePath`/zones/${"zone_id"}/origin/cloud_regions/batch`,
+      body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-cfPlanAvailability": {
+          "business": true,
+          "enterprise": true,
+          "free": true,
+          "pro": true
+        }
+      },
+      responses: {
+        schemas: {
+          "200": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/cache-settings_api-response-common"
+              },
+              {
+                "properties": {
+                  "result": {
+                    "$ref": "#/$defs/cache-settings_origin_cloud_region_v2_batch_result"
+                  }
+                },
+                "type": "object"
+              }
+            ]
+          },
+          "4XX": {
+            "$ref": "#/$defs/cache-settings_api-response-common-failure"
+          }
+        },
+        $defs: {
+          "cache-settings_api-response-common": cache$$settings_api$$response$$common,
+          "cache-settings_api-response-common-failure": cache$$settings_api$$response$$common$$failure,
+          "cache-settings_messages": cache$$settings_messages,
+          "cache-settings_origin_cloud_region_v2_batch_item_result": cache$$settings_origin_cloud_region_v2_batch_item_result,
+          "cache-settings_origin_cloud_region_v2_batch_result": cache$$settings_origin_cloud_region_v2_batch_result,
+        },
+      },
+    },
+  },
   {
     name: "cache_originCloudRegions_delete",
     title: "Delete an origin cloud region mapping",

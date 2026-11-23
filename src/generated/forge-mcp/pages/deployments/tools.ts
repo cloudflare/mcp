@@ -291,6 +291,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Pages Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "page.write"
         ]
       },
       responses: {
@@ -426,6 +429,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Pages Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "page.write"
         ]
       },
       responses: {
@@ -547,8 +553,14 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/pages/projects/${"project_name"}/deployments/${"deployment_id"}`,
       extensions: {
         "x-api-token-group": [
+          "Pages Metadata Read",
           "Pages Read",
           "Pages Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "pages.metadata_read",
+          "page.read",
+          "page.write"
         ]
       },
       responses: {
@@ -696,8 +708,14 @@ export const tools: readonly Tool[] = [
       ],
       extensions: {
         "x-api-token-group": [
+          "Pages Metadata Read",
           "Pages Read",
           "Pages Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "pages.metadata_read",
+          "page.read",
+          "page.write"
         ]
       },
       responses: {
@@ -825,6 +843,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Pages Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "page.write"
         ]
       },
       responses: {
@@ -948,6 +969,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Pages Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "page.write"
         ]
       },
       responses: {

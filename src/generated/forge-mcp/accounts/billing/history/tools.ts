@@ -3,14 +3,14 @@
 
 import { OPERATION, type Tool, encodePath } from "../../../_/tool.js";
 import {
-  bill$$subs$$api_api$$response$$collection,
-  bill$$subs$$api_api$$response$$common,
-  bill$$subs$$api_api$$response$$common$$failure,
-  bill$$subs$$api_messages,
-  bill$$subs$$api_result_info,
+  bill$$subs_api$$response$$collection,
+  bill$$subs_api$$response$$common,
+  bill$$subs_api$$response$$common$$failure,
+  bill$$subs_messages,
+  bill$$subs_result_info,
 } from "../../../outputs.js";
-import { bill$$subs$$api_account_billing_history } from "../outputs.js";
-import { bill$$subs$$api_account_billing_history_collection } from "./outputs.js";
+import { bill$$subs_account_billing_history } from "../outputs.js";
+import { bill$$subs_account_billing_history_collection } from "./outputs.js";
 
 /**
  * The tools of `accounts.billing.history`.
@@ -63,14 +63,14 @@ export const tools: readonly Tool[] = [
       additionalProperties: false,
     },
     outputSchema: {
-      "$ref": "#/$defs/bill-subs-api_account_billing_history_collection",
+      "$ref": "#/$defs/bill-subs_account_billing_history_collection",
       $defs: {
-        "bill-subs-api_account_billing_history": bill$$subs$$api_account_billing_history,
-        "bill-subs-api_account_billing_history_collection": bill$$subs$$api_account_billing_history_collection,
-        "bill-subs-api_api-response-collection": bill$$subs$$api_api$$response$$collection,
-        "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
-        "bill-subs-api_messages": bill$$subs$$api_messages,
-        "bill-subs-api_result_info": bill$$subs$$api_result_info,
+        "bill-subs_account_billing_history": bill$$subs_account_billing_history,
+        "bill-subs_account_billing_history_collection": bill$$subs_account_billing_history_collection,
+        "bill-subs_api-response-collection": bill$$subs_api$$response$$collection,
+        "bill-subs_api-response-common": bill$$subs_api$$response$$common,
+        "bill-subs_messages": bill$$subs_messages,
+        "bill-subs_result_info": bill$$subs_result_info,
       },
     },
     annotations: {
@@ -109,20 +109,20 @@ export const tools: readonly Tool[] = [
       responses: {
         schemas: {
           "200": {
-            "$ref": "#/$defs/bill-subs-api_account_billing_history_collection"
+            "$ref": "#/$defs/bill-subs_account_billing_history_collection"
           },
           "4XX": {
-            "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
+            "$ref": "#/$defs/bill-subs_api-response-common-failure"
           }
         },
         $defs: {
-          "bill-subs-api_account_billing_history": bill$$subs$$api_account_billing_history,
-          "bill-subs-api_account_billing_history_collection": bill$$subs$$api_account_billing_history_collection,
-          "bill-subs-api_api-response-collection": bill$$subs$$api_api$$response$$collection,
-          "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
-          "bill-subs-api_api-response-common-failure": bill$$subs$$api_api$$response$$common$$failure,
-          "bill-subs-api_messages": bill$$subs$$api_messages,
-          "bill-subs-api_result_info": bill$$subs$$api_result_info,
+          "bill-subs_account_billing_history": bill$$subs_account_billing_history,
+          "bill-subs_account_billing_history_collection": bill$$subs_account_billing_history_collection,
+          "bill-subs_api-response-collection": bill$$subs_api$$response$$collection,
+          "bill-subs_api-response-common": bill$$subs_api$$response$$common,
+          "bill-subs_api-response-common-failure": bill$$subs_api$$response$$common$$failure,
+          "bill-subs_messages": bill$$subs_messages,
+          "bill-subs_result_info": bill$$subs_result_info,
         },
       },
     },

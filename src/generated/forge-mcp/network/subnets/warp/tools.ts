@@ -97,6 +97,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Cloudflare One Networks Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-networks.write"
         ]
       },
       responses: {
@@ -181,6 +184,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Cloudflare One Networks Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-networks.write"
         ]
       },
       responses: {
@@ -286,6 +292,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Cloudflare One Networks Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-networks.write"
         ]
       },
       responses: {
@@ -372,6 +381,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Cloudflare One Networks Write",
           "Cloudflare One Networks Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-networks.read",
+          "teams-networks.write"
         ]
       },
       responses: {

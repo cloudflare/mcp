@@ -51,6 +51,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/email_sending_subdomain_dns_status_response",
       $defs: {
+        "email_api-response-common": email_api$$response$$common,
         "email_api-response-single": email_api$$response$$single,
         "email_dns_record": email_dns_record,
         "email_messages": email_messages,
@@ -70,17 +71,18 @@ export const tools: readonly Tool[] = [
       path: "/zones/{zone_id}/email/sending/subdomains/{subdomain_id}/dns",
       pathOf: encodePath`/zones/${"zone_id"}/email/sending/subdomains/${"subdomain_id"}/dns`,
       extensions: {
-        "x-cfPermissionsRequired": {
-          "enum": [
-            "com.cloudflare.api.account.email.sending.create"
-          ]
-        },
+        "x-api-token-group": [
+          "Email Sending Write"
+        ],
         "x-cfPlanAvailability": {
           "business": true,
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "email-sending.write"
+        ]
       },
       responses: {
         schemas: {
@@ -93,6 +95,7 @@ export const tools: readonly Tool[] = [
           "409": null
         },
         $defs: {
+          "email_api-response-common": email_api$$response$$common,
           "email_api-response-single": email_api$$response$$single,
           "email_dns_record": email_dns_record,
           "email_messages": email_messages,
@@ -155,17 +158,20 @@ export const tools: readonly Tool[] = [
       path: "/zones/{zone_id}/email/sending/subdomains/{subdomain_id}/dns",
       pathOf: encodePath`/zones/${"zone_id"}/email/sending/subdomains/${"subdomain_id"}/dns`,
       extensions: {
-        "x-cfPermissionsRequired": {
-          "enum": [
-            "com.cloudflare.api.account.email.sending.read"
-          ]
-        },
+        "x-api-token-group": [
+          "Email Sending Write",
+          "Email Sending Read"
+        ],
         "x-cfPlanAvailability": {
           "business": true,
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "email-sending.read",
+          "email-sending.write"
+        ]
       },
       responses: {
         schemas: {
@@ -218,6 +224,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/email_sending_subdomain_dns_status_response",
       $defs: {
+        "email_api-response-common": email_api$$response$$common,
         "email_api-response-single": email_api$$response$$single,
         "email_dns_record": email_dns_record,
         "email_messages": email_messages,
@@ -237,17 +244,20 @@ export const tools: readonly Tool[] = [
       path: "/zones/{zone_id}/email/sending/subdomains/{subdomain_id}/dns/status",
       pathOf: encodePath`/zones/${"zone_id"}/email/sending/subdomains/${"subdomain_id"}/dns/status`,
       extensions: {
-        "x-cfPermissionsRequired": {
-          "enum": [
-            "com.cloudflare.api.account.email.sending.read"
-          ]
-        },
+        "x-api-token-group": [
+          "Email Sending Write",
+          "Email Sending Read"
+        ],
         "x-cfPlanAvailability": {
           "business": true,
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "email-sending.read",
+          "email-sending.write"
+        ]
       },
       responses: {
         schemas: {
@@ -258,6 +268,7 @@ export const tools: readonly Tool[] = [
           "404": null
         },
         $defs: {
+          "email_api-response-common": email_api$$response$$common,
           "email_api-response-single": email_api$$response$$single,
           "email_dns_record": email_dns_record,
           "email_messages": email_messages,

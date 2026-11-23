@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
 import {
+  secondary$$dns_api$$response$$common,
   secondary$$dns_api$$response$$common$$failure,
   secondary$$dns_api$$response$$single,
   secondary$$dns_force_response,
@@ -41,6 +42,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/secondary-dns_force_response",
       $defs: {
+        "secondary-dns_api-response-common": secondary$$dns_api$$response$$common,
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
         "secondary-dns_force_response": secondary$$dns_force_response,
         "secondary-dns_messages": secondary$$dns_messages,
@@ -68,7 +70,12 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "zone.write",
+          "dns.write",
+          "zone-settings.write"
+        ]
       },
       responses: {
         schemas: {
@@ -87,6 +94,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "secondary-dns_api-response-common": secondary$$dns_api$$response$$common,
           "secondary-dns_api-response-common-failure": secondary$$dns_api$$response$$common$$failure,
           "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
           "secondary-dns_force_response": secondary$$dns_force_response,

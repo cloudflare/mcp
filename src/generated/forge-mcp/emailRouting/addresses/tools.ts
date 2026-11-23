@@ -10,6 +10,7 @@ import {
 } from "../../outputs.js";
 import {
   email_addresses,
+  email_destination_address_properties,
   email_destination_address_response_single,
   email_destination_addresses_response_collection,
 } from "./outputs.js";
@@ -59,7 +60,9 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/email_destination_address_response_single",
       $defs: {
         "email_addresses": email_addresses,
+        "email_api-response-common": email_api$$response$$common,
         "email_api-response-single": email_api$$response$$single,
+        "email_destination_address_properties": email_destination_address_properties,
         "email_destination_address_response_single": email_destination_address_response_single,
         "email_messages": email_messages,
       },
@@ -90,7 +93,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "email-routing-address.write"
+        ]
       },
       responses: {
         schemas: {
@@ -101,7 +107,9 @@ export const tools: readonly Tool[] = [
         },
         $defs: {
           "email_addresses": email_addresses,
+          "email_api-response-common": email_api$$response$$common,
           "email_api-response-single": email_api$$response$$single,
+          "email_destination_address_properties": email_destination_address_properties,
           "email_destination_address_response_single": email_destination_address_response_single,
           "email_messages": email_messages,
         },
@@ -143,7 +151,9 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/email_destination_address_response_single",
       $defs: {
         "email_addresses": email_addresses,
+        "email_api-response-common": email_api$$response$$common,
         "email_api-response-single": email_api$$response$$single,
+        "email_destination_address_properties": email_destination_address_properties,
         "email_destination_address_response_single": email_destination_address_response_single,
         "email_messages": email_messages,
       },
@@ -173,7 +183,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "email-routing-address.write"
+        ]
       },
       responses: {
         schemas: {
@@ -184,7 +197,9 @@ export const tools: readonly Tool[] = [
         },
         $defs: {
           "email_addresses": email_addresses,
+          "email_api-response-common": email_api$$response$$common,
           "email_api-response-single": email_api$$response$$single,
+          "email_destination_address_properties": email_destination_address_properties,
           "email_destination_address_response_single": email_destination_address_response_single,
           "email_messages": email_messages,
         },
@@ -233,7 +248,9 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/email_destination_address_response_single",
       $defs: {
         "email_addresses": email_addresses,
+        "email_api-response-common": email_api$$response$$common,
         "email_api-response-single": email_api$$response$$single,
+        "email_destination_address_properties": email_destination_address_properties,
         "email_destination_address_response_single": email_destination_address_response_single,
         "email_messages": email_messages,
       },
@@ -264,7 +281,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "email-routing-address.write"
+        ]
       },
       responses: {
         schemas: {
@@ -275,7 +295,9 @@ export const tools: readonly Tool[] = [
         },
         $defs: {
           "email_addresses": email_addresses,
+          "email_api-response-common": email_api$$response$$common,
           "email_api-response-single": email_api$$response$$single,
+          "email_destination_address_properties": email_destination_address_properties,
           "email_destination_address_response_single": email_destination_address_response_single,
           "email_messages": email_messages,
         },
@@ -317,7 +339,9 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/email_destination_address_response_single",
       $defs: {
         "email_addresses": email_addresses,
+        "email_api-response-common": email_api$$response$$common,
         "email_api-response-single": email_api$$response$$single,
+        "email_destination_address_properties": email_destination_address_properties,
         "email_destination_address_response_single": email_destination_address_response_single,
         "email_messages": email_messages,
       },
@@ -348,7 +372,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "email-routing-address.read",
+          "email-routing-address.write"
+        ]
       },
       responses: {
         schemas: {
@@ -359,7 +387,9 @@ export const tools: readonly Tool[] = [
         },
         $defs: {
           "email_addresses": email_addresses,
+          "email_api-response-common": email_api$$response$$common,
           "email_api-response-single": email_api$$response$$single,
+          "email_destination_address_properties": email_destination_address_properties,
           "email_destination_address_response_single": email_destination_address_response_single,
           "email_messages": email_messages,
         },
@@ -432,6 +462,7 @@ export const tools: readonly Tool[] = [
         "email_addresses": email_addresses,
         "email_api-response-collection": email_api$$response$$collection,
         "email_api-response-common": email_api$$response$$common,
+        "email_destination_address_properties": email_destination_address_properties,
         "email_destination_addresses_response_collection": email_destination_addresses_response_collection,
         "email_messages": email_messages,
       },
@@ -468,7 +499,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "email-routing-address.read",
+          "email-routing-address.write"
+        ]
       },
       responses: {
         schemas: {
@@ -481,6 +516,7 @@ export const tools: readonly Tool[] = [
           "email_addresses": email_addresses,
           "email_api-response-collection": email_api$$response$$collection,
           "email_api-response-common": email_api$$response$$common,
+          "email_destination_address_properties": email_destination_address_properties,
           "email_destination_addresses_response_collection": email_destination_addresses_response_collection,
           "email_messages": email_messages,
         },

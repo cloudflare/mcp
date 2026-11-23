@@ -71,6 +71,13 @@ export const tools: readonly Tool[] = [
           "Notifications Read",
           "Account Settings Write",
           "Account Settings Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "notifications.read",
+          "notifications.write",
+          "teams-pii.read",
+          "account-settings.read",
+          "account-settings.write"
         ]
       },
       responses: {

@@ -80,7 +80,10 @@ export const tools: readonly Tool[] = [
           "enum": [
             "#zaraz:publish"
           ]
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "zaraz.write"
+        ]
       },
       responses: {
         schemas: {

@@ -84,7 +84,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "account-ssl-and-certificates.read",
+          "account-ssl-and-certificates.write"
+        ]
       },
       responses: {
         schemas: {

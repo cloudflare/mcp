@@ -7,7 +7,15 @@ import type { JSONObject } from "@modelcontextprotocol/server";
  * The schema of `email-security_CreateSendingDomainRestriction`.
  */
 export const email$$security_CreateSendingDomainRestriction: JSONObject = {
-  "description": "Create a sending domain restriction.",
+  "$ref": "#/$defs/email-security_SendingDomainRestriction",
+  "description": "Create a sending domain restriction."
+};
+
+/**
+ * The schema of `email-security_SendingDomainRestriction`.
+ */
+export const email$$security_SendingDomainRestriction: JSONObject = {
+  "description": "A sending domain restriction that enforces TLS (Transport Layer Security) requirements for emails from specific domains. If TLS is required, the system drops mail without TLS from the specified domain.",
   "properties": {
     "comments": {
       "oneOf": [
@@ -31,10 +39,6 @@ export const email$$security_CreateSendingDomainRestriction: JSONObject = {
       "type": "array"
     }
   },
-  "required": [
-    "domain",
-    "exclude"
-  ],
   "type": "object"
 };
 
@@ -42,29 +46,6 @@ export const email$$security_CreateSendingDomainRestriction: JSONObject = {
  * The schema of `email-security_UpdateSendingDomainRestriction`.
  */
 export const email$$security_UpdateSendingDomainRestriction: JSONObject = {
-  "description": "Update a sending domain restriction.",
-  "properties": {
-    "comments": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "domain": {
-      "description": "Domain that requires TLS enforcement.",
-      "type": "string"
-    },
-    "exclude": {
-      "description": "Subdomains to exempt from TLS requirements.",
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    }
-  },
-  "type": "object"
+  "$ref": "#/$defs/email-security_SendingDomainRestriction",
+  "description": "Update a sending domain restriction."
 };

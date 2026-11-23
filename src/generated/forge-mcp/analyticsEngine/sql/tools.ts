@@ -59,6 +59,19 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Account Analytics Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "account-analytics.read",
+          "dns-firewall.read",
+          "dns-firewall.write",
+          "teams.report",
+          "workers-scripts.read",
+          "workers-scripts.write",
+          "workers-scripts.content_read",
+          "workers-scripts.metadata_read",
+          "teams.read",
+          "workers-scripts.edit",
+          "workers-scripts.admin"
         ]
       },
       responses: {

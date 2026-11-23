@@ -4,6 +4,29 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
+ * The schema of `observatory_api-response-common` in responses.
+ */
+export const observatory_api$$response$$common: JSONObject = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/observatory_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/observatory_messages"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `observatory_api-response-common-failure` in responses.
  */
 export const observatory_api$$response$$common$$failure: JSONObject = {
@@ -37,23 +60,7 @@ export const observatory_api$$response$$common$$failure: JSONObject = {
  * The schema of `observatory_api-response-single` in responses.
  */
 export const observatory_api$$response$$single: JSONObject = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/observatory_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/observatory_messages"
-    },
-    "success": {
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  "$ref": "#/$defs/observatory_api-response-common"
 };
 
 /**

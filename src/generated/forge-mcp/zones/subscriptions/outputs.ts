@@ -4,12 +4,12 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
- * The schema of `bill-subs-api_subscription_response` in responses.
+ * The schema of `bill-subs_subscription_response` in responses.
  */
-export const bill$$subs$$api_subscription_response: JSONObject = {
+export const bill$$subs_subscription_response: JSONObject = {
   "allOf": [
     {
-      "$ref": "#/$defs/bill-subs-api_subscription-v2"
+      "$ref": "#/$defs/bill-subs_subscription-v2"
     },
     {
       "properties": {
@@ -43,17 +43,17 @@ export const bill$$subs$$api_subscription_response: JSONObject = {
 };
 
 /**
- * The schema of `bill-subs-api_zone_subscription_response_single` in responses.
+ * The schema of `bill-subs_zone_subscription_response_single` in responses.
  */
-export const bill$$subs$$api_zone_subscription_response_single: JSONObject = {
+export const bill$$subs_zone_subscription_response_single: JSONObject = {
   "allOf": [
     {
-      "$ref": "#/$defs/bill-subs-api_api-response-single"
+      "$ref": "#/$defs/bill-subs_api-response-single"
     },
     {
       "properties": {
         "result": {
-          "$ref": "#/$defs/bill-subs-api_subscription_response"
+          "$ref": "#/$defs/bill-subs_subscription_response"
         }
       },
       "type": "object"

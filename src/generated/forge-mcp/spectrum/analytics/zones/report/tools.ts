@@ -3,12 +3,12 @@
 
 import { OPERATION, type Tool, encodePath } from "../../../../_/tool.js";
 import {
+  spectrum$$analytics_api$$response$$common,
   spectrum$$analytics_api$$response$$common$$failure,
   spectrum$$analytics_messages,
 } from "../../outputs.js";
 import {
   spectrum$$analytics_api$$response$$collection,
-  spectrum$$analytics_api$$response$$common,
   spectrum$$analytics_zone_report,
   spectrum$$analytics_zones_report_response,
 } from "./outputs.js";
@@ -90,6 +90,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "User Details Write",
           "User Details Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "user-details.read",
+          "user-details.write"
         ]
       },
       responses: {

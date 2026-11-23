@@ -1,13 +1,12 @@
 name: Forge tools
 
-# Every six hours, regenerates src/generated/forge-mcp from the latest
-# openapi.forge.json Forge release with the @cloudflare/forge package that
-# package.json pins, a pkg.pr.new build of a forge commit.
-# Its source.json pins the release the whole deployment serves: the forge
-# tools, and the spec artifacts in src/generated/spec that the forge tools
-# service serves to Code Mode and the endpoint tools. When the
-# generated code changes, it opens or updates one pull request; merging it
-# deploys through Workers Builds, and the ten-minute cron syncs R2 to the pin.
+# Every six hours, regenerates src/generated/forge-mcp from openapi.json at the
+# latest commit of cloudflare/api-schemas that changed it, with the
+# @cloudflare/forge package that package.json pins, a pkg.pr.new build of a
+# forge commit. Its source.json pins the commit the whole deployment serves:
+# the forge tools, and the spec artifacts in src/generated/spec that Code Mode
+# and the endpoint tools read. When the generated code changes, it opens or
+# updates one pull request; merging it deploys through Workers Builds.
 #
 # Pull requests opened with GITHUB_TOKEN don't start other workflows, so this
 # job runs the type check and tests itself before opening one.
@@ -83,8 +82,9 @@ jobs:
           git add src/generated
           git commit -q -m "$TITLE"
           git push -q --force origin "$BRANCH"
+          commit="$(jq -r .commit src/generated/forge-mcp/source.json)"
           {
-            echo "Pins the latest \`openapi.forge.json\` and regenerates the forge MCP tools with forge \`${FORGE_REF:0:12}\`. Merging deploys the new tools to \`/mcp?codemode=false\`, and within ten minutes Code Mode serves this spec too."
+            echo "Pins [\`cloudflare/api-schemas@${commit:0:12}\`](https://github.com/cloudflare/api-schemas/commit/${commit}) and regenerates the forge MCP tools with forge \`${FORGE_REF:0:12}\`. Merging deploys the new tools to \`/mcp?codemode=false\` and this spec to Code Mode."
             echo
             cat "$RUNNER_TEMP/summary.md"
           } > "$RUNNER_TEMP/body.md"

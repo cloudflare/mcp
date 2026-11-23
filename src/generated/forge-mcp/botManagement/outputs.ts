@@ -53,6 +53,32 @@ export const bot$$management_ai_agents: JSONObject = {
 };
 
 /**
+ * The schema of `bot-management_api-response-common` in responses.
+ */
+export const bot$$management_api$$response$$common: JSONObject = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/bot-management_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/bot-management_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `bot-management_api-response-common-failure` in responses.
  */
 export const bot$$management_api$$response$$common$$failure: JSONObject = {
@@ -86,26 +112,7 @@ export const bot$$management_api$$response$$common$$failure: JSONObject = {
  * The schema of `bot-management_api-response-single` in responses.
  */
 export const bot$$management_api$$response$$single: JSONObject = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/bot-management_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/bot-management_messages"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  "$ref": "#/$defs/bot-management_api-response-common"
 };
 
 /**

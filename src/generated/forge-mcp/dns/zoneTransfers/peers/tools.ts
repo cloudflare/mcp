@@ -62,6 +62,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/secondary-dns_single_response-2",
       $defs: {
+        "secondary-dns_api-response-common": secondary$$dns_api$$response$$common,
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
         "secondary-dns_messages": secondary$$dns_messages,
         "secondary-dns_peer": secondary$$dns_peer,
@@ -89,7 +90,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "account-settings.write"
+        ]
       },
       responses: {
         schemas: {
@@ -108,6 +112,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "secondary-dns_api-response-common": secondary$$dns_api$$response$$common,
           "secondary-dns_api-response-common-failure": secondary$$dns_api$$response$$common$$failure,
           "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
           "secondary-dns_messages": secondary$$dns_messages,
@@ -149,6 +154,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/secondary-dns_id_response-3",
       $defs: {
+        "secondary-dns_api-response-common": secondary$$dns_api$$response$$common,
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
         "secondary-dns_id_response-3": secondary$$dns_id_response$$3,
         "secondary-dns_messages": secondary$$dns_messages,
@@ -174,7 +180,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "account-settings.write"
+        ]
       },
       responses: {
         schemas: {
@@ -193,6 +202,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "secondary-dns_api-response-common": secondary$$dns_api$$response$$common,
           "secondary-dns_api-response-common-failure": secondary$$dns_api$$response$$common$$failure,
           "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
           "secondary-dns_id_response-3": secondary$$dns_id_response$$3,
@@ -233,6 +243,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/secondary-dns_single_response-2",
       $defs: {
+        "secondary-dns_api-response-common": secondary$$dns_api$$response$$common,
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
         "secondary-dns_messages": secondary$$dns_messages,
         "secondary-dns_peer": secondary$$dns_peer,
@@ -260,7 +271,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "account-settings.read",
+          "account-settings.write"
+        ]
       },
       responses: {
         schemas: {
@@ -279,6 +294,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "secondary-dns_api-response-common": secondary$$dns_api$$response$$common,
           "secondary-dns_api-response-common-failure": secondary$$dns_api$$response$$common$$failure,
           "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
           "secondary-dns_messages": secondary$$dns_messages,
@@ -344,7 +360,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "account-settings.read",
+          "account-settings.write"
+        ]
       },
       responses: {
         schemas: {
@@ -412,6 +432,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/secondary-dns_single_response-2",
       $defs: {
+        "secondary-dns_api-response-common": secondary$$dns_api$$response$$common,
         "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
         "secondary-dns_messages": secondary$$dns_messages,
         "secondary-dns_peer": secondary$$dns_peer,
@@ -439,7 +460,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "account-settings.write"
+        ]
       },
       responses: {
         schemas: {
@@ -458,6 +482,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "secondary-dns_api-response-common": secondary$$dns_api$$response$$common,
           "secondary-dns_api-response-common-failure": secondary$$dns_api$$response$$common$$failure,
           "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
           "secondary-dns_messages": secondary$$dns_messages,

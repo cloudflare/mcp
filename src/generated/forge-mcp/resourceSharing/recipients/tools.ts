@@ -91,7 +91,6 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/shares/${"share_id"}/recipients`,
       body: { mediaTypes: ["application/json"] },
       extensions: {
-        "x-api-token-group": null,
         "x-cfPlanAvailability": {
           "business": false,
           "enterprise": true,
@@ -184,7 +183,6 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/shares/{share_id}/recipients/{recipient_id}",
       pathOf: encodePath`/accounts/${"account_id"}/shares/${"share_id"}/recipients/${"recipient_id"}`,
       extensions: {
-        "x-api-token-group": null,
         "x-cfPlanAvailability": {
           "business": false,
           "enterprise": true,
@@ -290,7 +288,6 @@ export const tools: readonly Tool[] = [
         { name: "include_resources", explode: true },
       ],
       extensions: {
-        "x-api-token-group": null,
         "x-cfPlanAvailability": {
           "business": false,
           "enterprise": true,
@@ -406,7 +403,6 @@ export const tools: readonly Tool[] = [
         { name: "per_page", explode: true },
       ],
       extensions: {
-        "x-api-token-group": null,
         "x-cfPlanAvailability": {
           "business": false,
           "enterprise": true,
@@ -443,7 +439,7 @@ export const tools: readonly Tool[] = [
     },
   },
   {
-    name: "resourceSharing_recipients_update",
+    name: "resourceSharing_recipients_replace",
     title: "Trigger recipient reconciliation on a share",
     description: "Replaces the full recipient list for an account-targeted share. The\nserver computes the diff between the current and desired recipients:\nnew accounts are added, accounts no longer in the list are marked for\ndisassociation, and unchanged accounts are left as-is.\n\nReturns an error if the share targets an organization\n(`target_type=organization`) and the list is non-empty; org-targeted\nshares derive their recipients dynamically from org membership and\ncannot be modified through this endpoint.\n\nConfirm with the user before calling this tool. Accounts omitted from the list are disassociated from the share.\n\nPUT /accounts/{account_id}/shares/{share_id}/recipients",
     inputSchema: {

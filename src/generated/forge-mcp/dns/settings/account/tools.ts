@@ -3,22 +3,26 @@
 
 import { OPERATION, type Tool, encodePath } from "../../../_/tool.js";
 import {
-  dns$$settings_account_settings,
+  dns$$settings_api$$response$$common,
   dns$$settings_api$$response$$common$$failure,
   dns$$settings_api$$response$$single,
+  dns$$settings_messages,
+} from "../../outputs.js";
+import {
+  dns$$settings_account_settings,
   dns$$settings_dns$$settings$$account$$response,
   dns$$settings_dns$$settings$$base,
   dns$$settings_dns$$settings$$response,
   dns$$settings_dns_response_single,
   dns$$settings_internal_dns_base,
   dns$$settings_internal_dns_response,
-  dns$$settings_messages,
   dns$$settings_soa$$base,
   dns$$settings_soa$$response,
 } from "./outputs.js";
 import {
   dns$$settings_account_settings_patch,
   dns$$settings_dns$$settings$$account$$patch,
+  dns$$settings_dns$$settings$$base as dns$$settings_dns$$settings$$base$,
   dns$$settings_dns$$settings$$patch,
   dns$$settings_internal_dns_base as dns$$settings_internal_dns_base$,
   dns$$settings_soa$$base as dns$$settings_soa$$base$,
@@ -42,7 +46,7 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "account_or_zone": {
-              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "description": "Whether ${account_or_zone} is an account ID (`accounts`) or a zone ID (`zones`).",
               "enum": [
                 "accounts",
                 "zones"
@@ -50,7 +54,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "description": "The account ID or zone ID, as selected by ${account_or_zone}.",
               "type": "string"
             }
           },
@@ -69,6 +73,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dns-settings_account_settings_patch": dns$$settings_account_settings_patch,
         "dns-settings_dns-settings-account-patch": dns$$settings_dns$$settings$$account$$patch,
+        "dns-settings_dns-settings-base": dns$$settings_dns$$settings$$base$,
         "dns-settings_dns-settings-patch": dns$$settings_dns$$settings$$patch,
         "dns-settings_internal_dns_base": dns$$settings_internal_dns_base$,
         "dns-settings_soa-base": dns$$settings_soa$$base$,
@@ -78,6 +83,7 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/dns-settings_dns_response_single",
       $defs: {
         "dns-settings_account_settings": dns$$settings_account_settings,
+        "dns-settings_api-response-common": dns$$settings_api$$response$$common,
         "dns-settings_api-response-single": dns$$settings_api$$response$$single,
         "dns-settings_dns-settings-account-response": dns$$settings_dns$$settings$$account$$response,
         "dns-settings_dns-settings-base": dns$$settings_dns$$settings$$base,
@@ -104,19 +110,17 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
-          "Account DNS Settings Write"
+          "Account DNS Settings Write",
+          "Zone DNS Settings Write",
+          "DNS Write"
         ],
-        "x-cfPermissionsRequired": {
-          "enum": [
-            "#dns_records:edit"
-          ]
-        },
         "x-cfPlanAvailability": {
           "business": true,
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-stainless-skip": true
       },
       responses: {
         schemas: {
@@ -136,6 +140,7 @@ export const tools: readonly Tool[] = [
         },
         $defs: {
           "dns-settings_account_settings": dns$$settings_account_settings,
+          "dns-settings_api-response-common": dns$$settings_api$$response$$common,
           "dns-settings_api-response-common-failure": dns$$settings_api$$response$$common$$failure,
           "dns-settings_api-response-single": dns$$settings_api$$response$$single,
           "dns-settings_dns-settings-account-response": dns$$settings_dns$$settings$$account$$response,
@@ -162,7 +167,7 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "account_or_zone": {
-              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "description": "Whether ${account_or_zone} is an account ID (`accounts`) or a zone ID (`zones`).",
               "enum": [
                 "accounts",
                 "zones"
@@ -170,7 +175,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "description": "The account ID or zone ID, as selected by ${account_or_zone}.",
               "type": "string"
             }
           },
@@ -190,6 +195,7 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/dns-settings_dns_response_single",
       $defs: {
         "dns-settings_account_settings": dns$$settings_account_settings,
+        "dns-settings_api-response-common": dns$$settings_api$$response$$common,
         "dns-settings_api-response-single": dns$$settings_api$$response$$single,
         "dns-settings_dns-settings-account-response": dns$$settings_dns$$settings$$account$$response,
         "dns-settings_dns-settings-base": dns$$settings_dns$$settings$$base,
@@ -216,19 +222,19 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Account DNS Settings Write",
-          "Account DNS Settings Read"
+          "Account DNS Settings Read",
+          "Zone DNS Settings Write",
+          "Zone DNS Settings Read",
+          "DNS Read",
+          "DNS Write"
         ],
-        "x-cfPermissionsRequired": {
-          "enum": [
-            "#dns_records:read"
-          ]
-        },
         "x-cfPlanAvailability": {
           "business": true,
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-stainless-skip": true
       },
       responses: {
         schemas: {
@@ -248,6 +254,7 @@ export const tools: readonly Tool[] = [
         },
         $defs: {
           "dns-settings_account_settings": dns$$settings_account_settings,
+          "dns-settings_api-response-common": dns$$settings_api$$response$$common,
           "dns-settings_api-response-common-failure": dns$$settings_api$$response$$common$$failure,
           "dns-settings_api-response-single": dns$$settings_api$$response$$single,
           "dns-settings_dns-settings-account-response": dns$$settings_dns$$settings$$account$$response,

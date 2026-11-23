@@ -83,7 +83,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "cloud-connector.read",
+          "cloud-connector.write"
+        ]
       },
       responses: {
         schemas: {
@@ -197,7 +201,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "cloud-connector.write"
+        ]
       },
       responses: {
         schemas: {

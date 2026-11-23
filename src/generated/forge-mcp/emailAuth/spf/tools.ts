@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
 import {
+  email$$auth_api$$response$$common,
   email$$auth_api$$response$$common$$failure,
   email$$auth_api$$response$$single,
   email$$auth_messages,
@@ -75,6 +76,7 @@ export const tools: readonly Tool[] = [
         "email-auth_InspectError": email$$auth_InspectError,
         "email-auth_SpfComponent": email$$auth_SpfComponent,
         "email-auth_SpfTree": email$$auth_SpfTree,
+        "email-auth_api-response-common": email$$auth_api$$response$$common,
         "email-auth_api-response-single": email$$auth_api$$response$$single,
         "email-auth_messages": email$$auth_messages,
       },
@@ -118,6 +120,7 @@ export const tools: readonly Tool[] = [
           "email-auth_InspectError": email$$auth_InspectError,
           "email-auth_SpfComponent": email$$auth_SpfComponent,
           "email-auth_SpfTree": email$$auth_SpfTree,
+          "email-auth_api-response-common": email$$auth_api$$response$$common,
           "email-auth_api-response-common-failure": email$$auth_api$$response$$common$$failure,
           "email-auth_api-response-single": email$$auth_api$$response$$single,
           "email-auth_messages": email$$auth_messages,

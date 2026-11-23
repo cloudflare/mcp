@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../../../_/tool.js";
 import {
+  zero$$trust$$gateway_api$$response$$common,
   zero$$trust$$gateway_api$$response$$common$$failure,
   zero$$trust$$gateway_api$$response$$single,
   zero$$trust$$gateway_messages,
@@ -51,6 +52,7 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/zero-trust-gateway_gateway-account-logging-settings-response",
       $defs: {
         "zero-trust-gateway_account-log-options": zero$$trust$$gateway_account$$log$$options,
+        "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
         "zero-trust-gateway_gateway-account-logging-settings": zero$$trust$$gateway_gateway$$account$$logging$$settings,
         "zero-trust-gateway_gateway-account-logging-settings-response": zero$$trust$$gateway_gateway$$account$$logging$$settings$$response,
@@ -68,6 +70,16 @@ export const tools: readonly Tool[] = [
       method: "GET",
       path: "/accounts/{account_id}/gateway/logging",
       pathOf: encodePath`/accounts/${"account_id"}/gateway/logging`,
+      extensions: {
+        "x-api-token-group": [
+          "Zero Trust Read",
+          "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.read",
+          "teams.write"
+        ]
+      },
       responses: {
         schemas: {
           "200": {
@@ -86,6 +98,7 @@ export const tools: readonly Tool[] = [
         },
         $defs: {
           "zero-trust-gateway_account-log-options": zero$$trust$$gateway_account$$log$$options,
+          "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
           "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
           "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
           "zero-trust-gateway_gateway-account-logging-settings": zero$$trust$$gateway_gateway$$account$$logging$$settings,
@@ -133,6 +146,7 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/zero-trust-gateway_gateway-account-logging-settings-response",
       $defs: {
         "zero-trust-gateway_account-log-options": zero$$trust$$gateway_account$$log$$options,
+        "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
         "zero-trust-gateway_gateway-account-logging-settings": zero$$trust$$gateway_gateway$$account$$logging$$settings,
         "zero-trust-gateway_gateway-account-logging-settings-response": zero$$trust$$gateway_gateway$$account$$logging$$settings$$response,
@@ -151,6 +165,14 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/gateway/logging",
       pathOf: encodePath`/accounts/${"account_id"}/gateway/logging`,
       body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-api-token-group": [
+          "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.write"
+        ]
+      },
       responses: {
         schemas: {
           "200": {
@@ -169,6 +191,7 @@ export const tools: readonly Tool[] = [
         },
         $defs: {
           "zero-trust-gateway_account-log-options": zero$$trust$$gateway_account$$log$$options,
+          "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
           "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
           "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
           "zero-trust-gateway_gateway-account-logging-settings": zero$$trust$$gateway_gateway$$account$$logging$$settings,

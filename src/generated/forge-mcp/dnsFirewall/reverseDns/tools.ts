@@ -3,15 +3,20 @@
 
 import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
 import {
+  dns$$firewall_api$$response$$common,
   dns$$firewall_api$$response$$common$$failure,
   dns$$firewall_api$$response$$single,
   dns$$firewall_messages,
 } from "../outputs.js";
 import {
+  dns$$firewall_dns$$firewall$$reverse$$dns,
   dns$$firewall_dns$$firewall$$reverse$$dns$$response$$with$$ptr,
   dns$$firewall_dns_firewall_reverse_dns_response,
 } from "./outputs.js";
-import { dns$$firewall_dns$$firewall$$reverse$$dns$$patch } from "./schemas.js";
+import {
+  dns$$firewall_dns$$firewall$$reverse$$dns as dns$$firewall_dns$$firewall$$reverse$$dns$,
+  dns$$firewall_dns$$firewall$$reverse$$dns$$patch,
+} from "./schemas.js";
 
 /**
  * The tools of `dnsFirewall.reverseDns`.
@@ -52,13 +57,16 @@ export const tools: readonly Tool[] = [
       ],
       additionalProperties: false,
       $defs: {
+        "dns-firewall_dns-firewall-reverse-dns": dns$$firewall_dns$$firewall$$reverse$$dns$,
         "dns-firewall_dns-firewall-reverse-dns-patch": dns$$firewall_dns$$firewall$$reverse$$dns$$patch,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/dns-firewall_dns_firewall_reverse_dns_response",
       $defs: {
+        "dns-firewall_api-response-common": dns$$firewall_api$$response$$common,
         "dns-firewall_api-response-single": dns$$firewall_api$$response$$single,
+        "dns-firewall_dns-firewall-reverse-dns": dns$$firewall_dns$$firewall$$reverse$$dns,
         "dns-firewall_dns-firewall-reverse-dns-response-with-ptr": dns$$firewall_dns$$firewall$$reverse$$dns$$response$$with$$ptr,
         "dns-firewall_dns_firewall_reverse_dns_response": dns$$firewall_dns_firewall_reverse_dns_response,
         "dns-firewall_messages": dns$$firewall_messages,
@@ -90,7 +98,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "dns-firewall.write"
+        ]
       },
       responses: {
         schemas: {
@@ -102,8 +113,10 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "dns-firewall_api-response-common": dns$$firewall_api$$response$$common,
           "dns-firewall_api-response-common-failure": dns$$firewall_api$$response$$common$$failure,
           "dns-firewall_api-response-single": dns$$firewall_api$$response$$single,
+          "dns-firewall_dns-firewall-reverse-dns": dns$$firewall_dns$$firewall$$reverse$$dns,
           "dns-firewall_dns-firewall-reverse-dns-response-with-ptr": dns$$firewall_dns$$firewall$$reverse$$dns$$response$$with$$ptr,
           "dns-firewall_dns_firewall_reverse_dns_response": dns$$firewall_dns_firewall_reverse_dns_response,
           "dns-firewall_messages": dns$$firewall_messages,
@@ -145,7 +158,9 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/dns-firewall_dns_firewall_reverse_dns_response",
       $defs: {
+        "dns-firewall_api-response-common": dns$$firewall_api$$response$$common,
         "dns-firewall_api-response-single": dns$$firewall_api$$response$$single,
+        "dns-firewall_dns-firewall-reverse-dns": dns$$firewall_dns$$firewall$$reverse$$dns,
         "dns-firewall_dns-firewall-reverse-dns-response-with-ptr": dns$$firewall_dns$$firewall$$reverse$$dns$$response$$with$$ptr,
         "dns-firewall_dns_firewall_reverse_dns_response": dns$$firewall_dns_firewall_reverse_dns_response,
         "dns-firewall_messages": dns$$firewall_messages,
@@ -177,7 +192,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "dns-firewall.read",
+          "dns-firewall.write"
+        ]
       },
       responses: {
         schemas: {
@@ -189,8 +208,10 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "dns-firewall_api-response-common": dns$$firewall_api$$response$$common,
           "dns-firewall_api-response-common-failure": dns$$firewall_api$$response$$common$$failure,
           "dns-firewall_api-response-single": dns$$firewall_api$$response$$single,
+          "dns-firewall_dns-firewall-reverse-dns": dns$$firewall_dns$$firewall$$reverse$$dns,
           "dns-firewall_dns-firewall-reverse-dns-response-with-ptr": dns$$firewall_dns$$firewall$$reverse$$dns$$response$$with$$ptr,
           "dns-firewall_dns_firewall_reverse_dns_response": dns$$firewall_dns_firewall_reverse_dns_response,
           "dns-firewall_messages": dns$$firewall_messages,

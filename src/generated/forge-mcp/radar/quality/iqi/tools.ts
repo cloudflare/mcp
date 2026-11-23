@@ -328,7 +328,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "user-details.read",
+          "user-details.write"
+        ]
       },
       responses: {
         schemas: {
@@ -922,7 +926,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "user-details.read",
+          "user-details.write"
+        ]
       },
       responses: {
         schemas: {

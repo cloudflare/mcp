@@ -9,6 +9,7 @@ import {
   hyperdrive_api$$response$$single,
   hyperdrive_hyperdrive$$caching$$response,
   hyperdrive_hyperdrive$$config$$response,
+  hyperdrive_hyperdrive$$database,
   hyperdrive_hyperdrive$$database$$full,
   hyperdrive_hyperdrive$$mtls,
   hyperdrive_hyperdrive$$origin$$full,
@@ -33,7 +34,7 @@ import {
   hyperdrive_hyperdrive$$config$$create$$with$$integration,
   hyperdrive_hyperdrive$$config$$create$$with$$origin,
   hyperdrive_hyperdrive$$config$$patch,
-  hyperdrive_hyperdrive$$database,
+  hyperdrive_hyperdrive$$database as hyperdrive_hyperdrive$$database$,
   hyperdrive_hyperdrive$$database$$full as hyperdrive_hyperdrive$$database$$full$,
   hyperdrive_hyperdrive$$mtls as hyperdrive_hyperdrive$$mtls$,
   hyperdrive_hyperdrive$$origin$$full as hyperdrive_hyperdrive$$origin$$full$,
@@ -84,6 +85,7 @@ export const tools: readonly Tool[] = [
         "hyperdrive_hyperdrive-config-create-common": hyperdrive_hyperdrive$$config$$create$$common,
         "hyperdrive_hyperdrive-config-create-with-integration": hyperdrive_hyperdrive$$config$$create$$with$$integration,
         "hyperdrive_hyperdrive-config-create-with-origin": hyperdrive_hyperdrive$$config$$create$$with$$origin,
+        "hyperdrive_hyperdrive-database": hyperdrive_hyperdrive$$database$,
         "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive$$database$$full$,
         "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive$$mtls$,
         "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive$$origin$$full$,
@@ -108,9 +110,11 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
+        "hyperdrive_api-response-common": hyperdrive_api$$response$$common,
         "hyperdrive_api-response-single": hyperdrive_api$$response$$single,
         "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive$$caching$$response,
         "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive$$config$$response,
+        "hyperdrive_hyperdrive-database": hyperdrive_hyperdrive$$database,
         "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive$$database$$full,
         "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive$$mtls,
         "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive$$origin$$full,
@@ -142,6 +146,9 @@ export const tools: readonly Tool[] = [
             "com.cloudflare.edge.hyperdrive.database.create"
           ]
         },
+        "x-forge-oauth-scopes": [
+          "query-cache.write"
+        ],
         "x-forge-params": {
           "mtls.sslmode": {
             "choices": [
@@ -177,10 +184,12 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "hyperdrive_api-response-common": hyperdrive_api$$response$$common,
           "hyperdrive_api-response-common-failure": hyperdrive_api$$response$$common$$failure,
           "hyperdrive_api-response-single": hyperdrive_api$$response$$single,
           "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive$$caching$$response,
           "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive$$config$$response,
+          "hyperdrive_hyperdrive-database": hyperdrive_hyperdrive$$database,
           "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive$$database$$full,
           "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive$$mtls,
           "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive$$origin$$full,
@@ -246,6 +255,7 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
+        "hyperdrive_api-response-common": hyperdrive_api$$response$$common,
         "hyperdrive_api-response-single": hyperdrive_api$$response$$single,
         "hyperdrive_messages": hyperdrive_messages,
       },
@@ -269,7 +279,10 @@ export const tools: readonly Tool[] = [
           "enum": [
             "com.cloudflare.edge.hyperdrive.database.delete"
           ]
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "query-cache.write"
+        ]
       },
       responses: {
         schemas: {
@@ -300,6 +313,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "hyperdrive_api-response-common": hyperdrive_api$$response$$common,
           "hyperdrive_api-response-common-failure": hyperdrive_api$$response$$common$$failure,
           "hyperdrive_api-response-single": hyperdrive_api$$response$$single,
           "hyperdrive_messages": hyperdrive_messages,
@@ -347,7 +361,7 @@ export const tools: readonly Tool[] = [
         "hyperdrive_hyperdrive-caching-disabled": hyperdrive_hyperdrive$$caching$$disabled,
         "hyperdrive_hyperdrive-caching-enabled": hyperdrive_hyperdrive$$caching$$enabled,
         "hyperdrive_hyperdrive-config-patch": hyperdrive_hyperdrive$$config$$patch,
-        "hyperdrive_hyperdrive-database": hyperdrive_hyperdrive$$database,
+        "hyperdrive_hyperdrive-database": hyperdrive_hyperdrive$$database$,
         "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive$$mtls$,
         "hyperdrive_internet-origin": hyperdrive_internet$$origin$,
         "hyperdrive_over-access-origin": hyperdrive_over$$access$$origin$,
@@ -372,6 +386,7 @@ export const tools: readonly Tool[] = [
         "hyperdrive_api-response-common": hyperdrive_api$$response$$common,
         "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive$$caching$$response,
         "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive$$config$$response,
+        "hyperdrive_hyperdrive-database": hyperdrive_hyperdrive$$database,
         "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive$$database$$full,
         "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive$$mtls,
         "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive$$origin$$full,
@@ -403,6 +418,9 @@ export const tools: readonly Tool[] = [
             "com.cloudflare.edge.hyperdrive.database.update"
           ]
         },
+        "x-forge-oauth-scopes": [
+          "query-cache.write"
+        ],
         "x-forge-params": {
           "mtls.sslmode": {
             "choices": [
@@ -442,6 +460,7 @@ export const tools: readonly Tool[] = [
           "hyperdrive_api-response-common-failure": hyperdrive_api$$response$$common$$failure,
           "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive$$caching$$response,
           "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive$$config$$response,
+          "hyperdrive_hyperdrive-database": hyperdrive_hyperdrive$$database,
           "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive$$database$$full,
           "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive$$mtls,
           "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive$$origin$$full,
@@ -500,9 +519,11 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
+        "hyperdrive_api-response-common": hyperdrive_api$$response$$common,
         "hyperdrive_api-response-single": hyperdrive_api$$response$$single,
         "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive$$caching$$response,
         "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive$$config$$response,
+        "hyperdrive_hyperdrive-database": hyperdrive_hyperdrive$$database,
         "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive$$database$$full,
         "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive$$mtls,
         "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive$$origin$$full,
@@ -533,7 +554,11 @@ export const tools: readonly Tool[] = [
           "enum": [
             "com.cloudflare.edge.hyperdrive.database.read"
           ]
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "query-cache.read",
+          "query-cache.write"
+        ]
       },
       responses: {
         schemas: {
@@ -557,10 +582,12 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "hyperdrive_api-response-common": hyperdrive_api$$response$$common,
           "hyperdrive_api-response-common-failure": hyperdrive_api$$response$$common$$failure,
           "hyperdrive_api-response-single": hyperdrive_api$$response$$single,
           "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive$$caching$$response,
           "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive$$config$$response,
+          "hyperdrive_hyperdrive-database": hyperdrive_hyperdrive$$database,
           "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive$$database$$full,
           "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive$$mtls,
           "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive$$origin$$full,
@@ -637,6 +664,7 @@ export const tools: readonly Tool[] = [
         "hyperdrive_api-response-common": hyperdrive_api$$response$$common,
         "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive$$caching$$response,
         "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive$$config$$response,
+        "hyperdrive_hyperdrive-database": hyperdrive_hyperdrive$$database,
         "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive$$database$$full,
         "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive$$mtls,
         "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive$$origin$$full,
@@ -672,7 +700,11 @@ export const tools: readonly Tool[] = [
           "enum": [
             "com.cloudflare.edge.hyperdrive.database.list"
           ]
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "query-cache.read",
+          "query-cache.write"
+        ]
       },
       responses: {
         schemas: {
@@ -704,6 +736,7 @@ export const tools: readonly Tool[] = [
           "hyperdrive_api-response-common-failure": hyperdrive_api$$response$$common$$failure,
           "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive$$caching$$response,
           "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive$$config$$response,
+          "hyperdrive_hyperdrive-database": hyperdrive_hyperdrive$$database,
           "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive$$database$$full,
           "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive$$mtls,
           "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive$$origin$$full,
@@ -757,6 +790,7 @@ export const tools: readonly Tool[] = [
         "hyperdrive_hyperdrive-caching-disabled": hyperdrive_hyperdrive$$caching$$disabled,
         "hyperdrive_hyperdrive-caching-enabled": hyperdrive_hyperdrive$$caching$$enabled,
         "hyperdrive_hyperdrive-config": hyperdrive_hyperdrive$$config,
+        "hyperdrive_hyperdrive-database": hyperdrive_hyperdrive$$database$,
         "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive$$database$$full$,
         "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive$$mtls$,
         "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive$$origin$$full$,
@@ -780,9 +814,11 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
+        "hyperdrive_api-response-common": hyperdrive_api$$response$$common,
         "hyperdrive_api-response-single": hyperdrive_api$$response$$single,
         "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive$$caching$$response,
         "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive$$config$$response,
+        "hyperdrive_hyperdrive-database": hyperdrive_hyperdrive$$database,
         "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive$$database$$full,
         "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive$$mtls,
         "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive$$origin$$full,
@@ -814,6 +850,9 @@ export const tools: readonly Tool[] = [
             "com.cloudflare.edge.hyperdrive.database.update"
           ]
         },
+        "x-forge-oauth-scopes": [
+          "query-cache.write"
+        ],
         "x-forge-params": {
           "mtls.sslmode": {
             "choices": [
@@ -849,10 +888,12 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "hyperdrive_api-response-common": hyperdrive_api$$response$$common,
           "hyperdrive_api-response-common-failure": hyperdrive_api$$response$$common$$failure,
           "hyperdrive_api-response-single": hyperdrive_api$$response$$single,
           "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive$$caching$$response,
           "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive$$config$$response,
+          "hyperdrive_hyperdrive-database": hyperdrive_hyperdrive$$database,
           "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive$$database$$full,
           "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive$$mtls,
           "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive$$origin$$full,
@@ -911,9 +952,11 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
+        "hyperdrive_api-response-common": hyperdrive_api$$response$$common,
         "hyperdrive_api-response-single": hyperdrive_api$$response$$single,
         "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive$$caching$$response,
         "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive$$config$$response,
+        "hyperdrive_hyperdrive-database": hyperdrive_hyperdrive$$database,
         "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive$$database$$full,
         "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive$$mtls,
         "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive$$origin$$full,
@@ -938,6 +981,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Hyperdrive Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "query-cache.write"
         ]
       },
       responses: {
@@ -962,10 +1008,12 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "hyperdrive_api-response-common": hyperdrive_api$$response$$common,
           "hyperdrive_api-response-common-failure": hyperdrive_api$$response$$common$$failure,
           "hyperdrive_api-response-single": hyperdrive_api$$response$$single,
           "hyperdrive_hyperdrive-caching-response": hyperdrive_hyperdrive$$caching$$response,
           "hyperdrive_hyperdrive-config-response": hyperdrive_hyperdrive$$config$$response,
+          "hyperdrive_hyperdrive-database": hyperdrive_hyperdrive$$database,
           "hyperdrive_hyperdrive-database-full": hyperdrive_hyperdrive$$database$$full,
           "hyperdrive_hyperdrive-mtls": hyperdrive_hyperdrive$$mtls,
           "hyperdrive_hyperdrive-origin-full": hyperdrive_hyperdrive$$origin$$full,

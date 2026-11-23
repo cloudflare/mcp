@@ -65,6 +65,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/addressing_single_response_bgp",
       $defs: {
+        "addressing_api-response-common": addressing_api$$response$$common,
         "addressing_api-response-single": addressing_api$$response$$single,
         "addressing_bgp_on_demand": addressing_bgp_on_demand,
         "addressing_bgp_signal_opts": addressing_bgp_signal_opts,
@@ -85,6 +86,14 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/addressing/prefixes/{prefix_id}/bgp/prefixes",
       pathOf: encodePath`/accounts/${"account_id"}/addressing/prefixes/${"prefix_id"}/bgp/prefixes`,
       body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-api-token-group": [
+          "IP Prefixes: Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "ip-prefix.write"
+        ]
+      },
       responses: {
         schemas: {
           "201": {
@@ -102,6 +111,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "addressing_api-response-common": addressing_api$$response$$common,
           "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
           "addressing_api-response-single": addressing_api$$response$$single,
           "addressing_bgp_on_demand": addressing_bgp_on_demand,
@@ -167,6 +177,14 @@ export const tools: readonly Tool[] = [
       method: "DELETE",
       path: "/accounts/{account_id}/addressing/prefixes/{prefix_id}/bgp/prefixes/{bgp_prefix_id}",
       pathOf: encodePath`/accounts/${"account_id"}/addressing/prefixes/${"prefix_id"}/bgp/prefixes/${"bgp_prefix_id"}`,
+      extensions: {
+        "x-api-token-group": [
+          "IP Prefixes: Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "ip-prefix.write"
+        ]
+      },
       responses: {
         schemas: {
           "200": {
@@ -230,6 +248,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/addressing_single_response_bgp",
       $defs: {
+        "addressing_api-response-common": addressing_api$$response$$common,
         "addressing_api-response-single": addressing_api$$response$$single,
         "addressing_bgp_on_demand": addressing_bgp_on_demand,
         "addressing_bgp_signal_opts": addressing_bgp_signal_opts,
@@ -255,6 +274,11 @@ export const tools: readonly Tool[] = [
           "Magic Transit Write",
           "IP Prefixes: Write",
           "IP Prefixes: BGP On Demand Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "ip-prefix-bgp-on-demand.write",
+          "ip-prefix.write",
+          "magic-transit.write"
         ]
       },
       responses: {
@@ -274,6 +298,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "addressing_api-response-common": addressing_api$$response$$common,
           "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
           "addressing_api-response-single": addressing_api$$response$$single,
           "addressing_bgp_on_demand": addressing_bgp_on_demand,
@@ -324,6 +349,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/addressing_single_response_bgp",
       $defs: {
+        "addressing_api-response-common": addressing_api$$response$$common,
         "addressing_api-response-single": addressing_api$$response$$single,
         "addressing_bgp_on_demand": addressing_bgp_on_demand,
         "addressing_bgp_signal_opts": addressing_bgp_signal_opts,
@@ -351,6 +377,14 @@ export const tools: readonly Tool[] = [
           "IP Prefixes: Read",
           "IP Prefixes: BGP On Demand Write",
           "IP Prefixes: BGP On Demand Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "ip-prefix-bgp-on-demand.read",
+          "ip-prefix-bgp-on-demand.write",
+          "ip-prefix.read",
+          "ip-prefix.write",
+          "magic-transit.read",
+          "magic-transit.write"
         ]
       },
       responses: {
@@ -370,6 +404,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "addressing_api-response-common": addressing_api$$response$$common,
           "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
           "addressing_api-response-single": addressing_api$$response$$single,
           "addressing_bgp_on_demand": addressing_bgp_on_demand,
@@ -415,6 +450,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/addressing_response_collection_bgp",
       $defs: {
+        "addressing_api-response-common": addressing_api$$response$$common,
         "addressing_api-response-single": addressing_api$$response$$single,
         "addressing_bgp_on_demand": addressing_bgp_on_demand,
         "addressing_bgp_signal_opts": addressing_bgp_signal_opts,
@@ -442,6 +478,14 @@ export const tools: readonly Tool[] = [
           "IP Prefixes: Read",
           "IP Prefixes: BGP On Demand Write",
           "IP Prefixes: BGP On Demand Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "ip-prefix-bgp-on-demand.read",
+          "ip-prefix-bgp-on-demand.write",
+          "ip-prefix.read",
+          "ip-prefix.write",
+          "magic-transit.read",
+          "magic-transit.write"
         ]
       },
       responses: {
@@ -461,6 +505,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "addressing_api-response-common": addressing_api$$response$$common,
           "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
           "addressing_api-response-single": addressing_api$$response$$single,
           "addressing_bgp_on_demand": addressing_bgp_on_demand,

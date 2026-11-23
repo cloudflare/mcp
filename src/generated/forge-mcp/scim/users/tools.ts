@@ -92,7 +92,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "scim-provisioning.write",
+          "account-settings.write"
+        ]
       },
       responses: {
         schemas: {
@@ -169,7 +173,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "scim-provisioning.write",
+          "account-settings.write"
+        ]
       },
       responses: {
         schemas: {
@@ -258,7 +266,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "scim-provisioning.write",
+          "account-settings.write"
+        ]
       },
       responses: {
         schemas: {
@@ -344,7 +356,12 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "scim-provisioning.write",
+          "account-settings.read",
+          "account-settings.write"
+        ]
       },
       responses: {
         schemas: {
@@ -450,7 +467,12 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "scim-provisioning.write",
+          "account-settings.read",
+          "account-settings.write"
+        ]
       },
       responses: {
         schemas: {
@@ -546,7 +568,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "scim-provisioning.write",
+          "account-settings.write"
+        ]
       },
       responses: {
         schemas: {

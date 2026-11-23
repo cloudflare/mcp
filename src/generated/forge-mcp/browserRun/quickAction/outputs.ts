@@ -26,7 +26,7 @@ export const brapi_SerializedAXNode: JSONObject = {
     },
     "children": {
       "items": {
-        "type": "object"
+        "$ref": "#/$defs/brapi_SerializedAXNode"
       },
       "type": "array"
     },

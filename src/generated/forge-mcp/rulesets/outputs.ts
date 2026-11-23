@@ -156,6 +156,16 @@ export const rulesets_DDoSDynamicRule: JSONObject = {
 };
 
 /**
+ * The schema of `rulesets_Errors` in responses.
+ */
+export const rulesets_Errors: JSONObject = {
+  "items": {
+    "$ref": "#/$defs/rulesets_Message"
+  },
+  "type": "array"
+};
+
+/**
  * The schema of `rulesets_ExecuteCategoryOverrides` in responses.
  */
 export const rulesets_ExecuteCategoryOverrides: JSONObject = {
@@ -644,6 +654,45 @@ export const rulesets_ManagedChallengeRule: JSONObject = {
 };
 
 /**
+ * The schema of `rulesets_Message` in responses.
+ */
+export const rulesets_Message: JSONObject = {
+  "properties": {
+    "code": {
+      "type": "integer"
+    },
+    "message": {
+      "type": "string"
+    },
+    "source": {
+      "properties": {
+        "pointer": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "pointer"
+      ],
+      "type": "object"
+    }
+  },
+  "required": [
+    "message"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `rulesets_Messages` in responses.
+ */
+export const rulesets_Messages: JSONObject = {
+  "items": {
+    "$ref": "#/$defs/rulesets_Message"
+  },
+  "type": "array"
+};
+
+/**
  * The schema of `rulesets_RedirectFromList` in responses.
  */
 export const rulesets_RedirectFromList: JSONObject = {
@@ -803,6 +852,55 @@ export const rulesets_RequestRule: JSONObject = {
       "$ref": "#/$defs/rulesets_TransformResponseHTMLRule"
     }
   ]
+};
+
+/**
+ * The schema of `rulesets_Response` in responses.
+ */
+export const rulesets_Response: JSONObject = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/rulesets_Errors"
+    },
+    "messages": {
+      "$ref": "#/$defs/rulesets_Messages"
+    },
+    "result": {
+      "oneOf": [
+        {
+          "type": "object"
+        },
+        {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
+  ],
+  "type": "object"
 };
 
 /**

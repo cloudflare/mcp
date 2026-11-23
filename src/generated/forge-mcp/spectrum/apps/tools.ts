@@ -79,6 +79,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/spectrum-config_app_config_single",
       $defs: {
+        "spectrum-config_api-response-common": spectrum$$config_api$$response$$common,
         "spectrum-config_api-response-single": spectrum$$config_api$$response$$single,
         "spectrum-config_app_config": spectrum$$config_app_config,
         "spectrum-config_app_config_single": spectrum$$config_app_config_single,
@@ -106,6 +107,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Zone Settings Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "zone-settings.write"
         ]
       },
       responses: {
@@ -118,6 +122,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "spectrum-config_api-response-common": spectrum$$config_api$$response$$common,
           "spectrum-config_api-response-common-failure": spectrum$$config_api$$response$$common$$failure,
           "spectrum-config_api-response-single": spectrum$$config_api$$response$$single,
           "spectrum-config_app_config": spectrum$$config_app_config,
@@ -186,6 +191,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Zone Settings Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "zone-settings.write"
         ]
       },
       responses: {
@@ -240,6 +248,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/spectrum-config_app_config_single",
       $defs: {
+        "spectrum-config_api-response-common": spectrum$$config_api$$response$$common,
         "spectrum-config_api-response-single": spectrum$$config_api$$response$$single,
         "spectrum-config_app_config": spectrum$$config_app_config,
         "spectrum-config_app_config_single": spectrum$$config_app_config_single,
@@ -267,6 +276,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Zone Settings Write",
           "Zone Settings Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "zone-settings.read",
+          "zone-settings.write"
         ]
       },
       responses: {
@@ -279,6 +292,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "spectrum-config_api-response-common": spectrum$$config_api$$response$$common,
           "spectrum-config_api-response-common-failure": spectrum$$config_api$$response$$common$$failure,
           "spectrum-config_api-response-single": spectrum$$config_api$$response$$single,
           "spectrum-config_app_config": spectrum$$config_app_config,
@@ -393,6 +407,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Zone Settings Write",
           "Zone Settings Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "zone-settings.read",
+          "zone-settings.write"
         ]
       },
       responses: {
@@ -469,6 +487,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/spectrum-config_app_config_single",
       $defs: {
+        "spectrum-config_api-response-common": spectrum$$config_api$$response$$common,
         "spectrum-config_api-response-single": spectrum$$config_api$$response$$single,
         "spectrum-config_app_config": spectrum$$config_app_config,
         "spectrum-config_app_config_single": spectrum$$config_app_config_single,
@@ -496,6 +515,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Zone Settings Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "zone-settings.write"
         ]
       },
       responses: {
@@ -508,6 +530,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "spectrum-config_api-response-common": spectrum$$config_api$$response$$common,
           "spectrum-config_api-response-common-failure": spectrum$$config_api$$response$$common$$failure,
           "spectrum-config_api-response-single": spectrum$$config_api$$response$$single,
           "spectrum-config_app_config": spectrum$$config_app_config,

@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../../../_/tool.js";
 import {
+  custom$$indicator$$feeds_api$$response$$common,
   custom$$indicator$$feeds_api$$response$$single,
   custom$$indicator$$feeds_api_response_common_failure,
   custom$$indicator$$feeds_messages,
@@ -83,6 +84,7 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
+        "custom-indicator-feeds_api-response-common": custom$$indicator$$feeds_api$$response$$common,
         "custom-indicator-feeds_api-response-single": custom$$indicator$$feeds_api$$response$$single,
         "custom-indicator-feeds_enqueue_upload": custom$$indicator$$feeds_enqueue_upload,
         "custom-indicator-feeds_enqueue_upload_response": custom$$indicator$$feeds_enqueue_upload_response,
@@ -120,6 +122,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "custom-indicator-feeds_api-response-common": custom$$indicator$$feeds_api$$response$$common,
           "custom-indicator-feeds_api-response-single": custom$$indicator$$feeds_api$$response$$single,
           "custom-indicator-feeds_api_response_common_failure": custom$$indicator$$feeds_api_response_common_failure,
           "custom-indicator-feeds_enqueue_upload": custom$$indicator$$feeds_enqueue_upload,

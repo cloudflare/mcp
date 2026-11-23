@@ -4,9 +4,9 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
- * The schema of `bill-subs-api_billing_profile_request`.
+ * The schema of `bill-subs_billing_profile_request`.
  */
-export const bill$$subs$$api_billing_profile_request: JSONObject = {
+export const bill$$subs_billing_profile_request: JSONObject = {
   "description": "Request body for creating or updating a billing profile.",
   "properties": {
     "address": {

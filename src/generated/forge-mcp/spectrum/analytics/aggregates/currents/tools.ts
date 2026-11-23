@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../../../../_/tool.js";
 import {
+  spectrum$$analytics_api$$response$$common,
   spectrum$$analytics_api$$response$$common$$failure,
   spectrum$$analytics_api$$response$$single,
   spectrum$$analytics_messages,
@@ -56,6 +57,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/spectrum-analytics_query-response-aggregate",
       $defs: {
+        "spectrum-analytics_api-response-common": spectrum$$analytics_api$$response$$common,
         "spectrum-analytics_api-response-single": spectrum$$analytics_api$$response$$single,
         "spectrum-analytics_messages": spectrum$$analytics_messages,
         "spectrum-analytics_query-response-aggregate": spectrum$$analytics_query$$response$$aggregate,
@@ -79,6 +81,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Analytics Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "analytics.read"
         ]
       },
       responses: {
@@ -91,6 +96,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "spectrum-analytics_api-response-common": spectrum$$analytics_api$$response$$common,
           "spectrum-analytics_api-response-common-failure": spectrum$$analytics_api$$response$$common$$failure,
           "spectrum-analytics_api-response-single": spectrum$$analytics_api$$response$$single,
           "spectrum-analytics_messages": spectrum$$analytics_messages,

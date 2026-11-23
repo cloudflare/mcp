@@ -4,9 +4,9 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
- * The schema of `bill-subs-api_plan_component_value` in responses.
+ * The schema of `bill-subs_plan_component_value` in responses.
  */
-export const bill$$subs$$api_plan_component_value: JSONObject = {
+export const bill$$subs_plan_component_value: JSONObject = {
   "properties": {
     "default": {
       "type": "number"
@@ -28,44 +28,12 @@ export const bill$$subs$$api_plan_component_value: JSONObject = {
 };
 
 /**
- * The schema of `bill-subs-api_plan_response_collection` in responses.
+ * The schema of `bill-subs_plan_rate_plan` in responses.
  */
-export const bill$$subs$$api_plan_response_collection: JSONObject = {
-  "allOf": [
-    {
-      "$ref": "#/$defs/bill-subs-api_api-response-collection"
-    },
-    {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/bill-subs-api_schemas-rate-plan"
-          },
-          "type": "array"
-        }
-      },
-      "type": "object"
-    }
-  ]
-};
-
-/**
- * The schema of `bill-subs-api_schemas-component_values` in responses.
- */
-export const bill$$subs$$api_schemas$$component_values: JSONObject = {
-  "items": {
-    "$ref": "#/$defs/bill-subs-api_plan_component_value"
-  },
-  "type": "array"
-};
-
-/**
- * The schema of `bill-subs-api_schemas-rate-plan` in responses.
- */
-export const bill$$subs$$api_schemas$$rate$$plan: JSONObject = {
+export const bill$$subs_plan_rate_plan: JSONObject = {
   "properties": {
     "components": {
-      "$ref": "#/$defs/bill-subs-api_schemas-component_values"
+      "$ref": "#/$defs/bill-subs_schemas-component_values"
     },
     "currency": {
       "type": "string"
@@ -90,4 +58,43 @@ export const bill$$subs$$api_schemas$$rate$$plan: JSONObject = {
     }
   },
   "type": "object"
+};
+
+/**
+ * The schema of `bill-subs_plan_response_collection` in responses.
+ */
+export const bill$$subs_plan_response_collection: JSONObject = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/bill-subs_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/bill-subs_schemas-rate-plan"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `bill-subs_schemas-component_values` in responses.
+ */
+export const bill$$subs_schemas$$component_values: JSONObject = {
+  "items": {
+    "$ref": "#/$defs/bill-subs_plan_component_value"
+  },
+  "type": "array"
+};
+
+/**
+ * The schema of `bill-subs_schemas-rate-plan` in responses.
+ */
+export const bill$$subs_schemas$$rate$$plan: JSONObject = {
+  "$ref": "#/$defs/bill-subs_plan_rate_plan"
 };

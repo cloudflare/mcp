@@ -154,6 +154,7 @@ export const tools: readonly Tool[] = [
       ],
       extensions: {
         "x-api-token-group": [
+          "Audit Logs Read",
           "Account Settings Write",
           "Account Settings Read"
         ],
@@ -162,7 +163,12 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "audit-logs.read",
+          "account-settings.read",
+          "account-settings.write"
+        ]
       },
       responses: {
         schemas: {

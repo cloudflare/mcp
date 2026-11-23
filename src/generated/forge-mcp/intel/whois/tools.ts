@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
 import {
+  cloudforce$$one$$whois_api$$response$$common,
   cloudforce$$one$$whois_api$$response$$common$$failure,
   cloudforce$$one$$whois_api$$response$$single,
   cloudforce$$one$$whois_messages,
@@ -53,6 +54,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/cloudforce-one-whois_schemas-single_response",
       $defs: {
+        "cloudforce-one-whois_api-response-common": cloudforce$$one$$whois_api$$response$$common,
         "cloudforce-one-whois_api-response-single": cloudforce$$one$$whois_api$$response$$single,
         "cloudforce-one-whois_schemas-messages": cloudforce$$one$$whois_schemas$$messages,
         "cloudforce-one-whois_schemas-single_response": cloudforce$$one$$whois_schemas$$single_response,
@@ -77,6 +79,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Intel Write",
           "Intel Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "intel.read",
+          "intel.write"
         ]
       },
       responses: {
@@ -89,6 +95,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "cloudforce-one-whois_api-response-common": cloudforce$$one$$whois_api$$response$$common,
           "cloudforce-one-whois_api-response-common-failure": cloudforce$$one$$whois_api$$response$$common$$failure,
           "cloudforce-one-whois_api-response-single": cloudforce$$one$$whois_api$$response$$single,
           "cloudforce-one-whois_messages": cloudforce$$one$$whois_messages,

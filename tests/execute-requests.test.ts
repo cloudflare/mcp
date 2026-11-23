@@ -10,8 +10,8 @@ import { server } from './setup/msw'
 /**
  * What `cloudflare.request()` puts on the wire, for every kind of request the
  * OpenAPI spec declares: each header parameter and each request media type.
- * The paths, headers and media types are the pinned spec's (`openapi@…` in
- * `src/generated/forge-mcp/source.json`).
+ * The paths, headers and media types are the pinned spec's (the
+ * `cloudflare/api-schemas` commit in `src/generated/forge-mcp/source.json`).
  *
  * Run through the real worker: `execute` loads the code into a Worker Loader
  * isolate and the real GlobalOutbound forwards it. MSW stands in for the

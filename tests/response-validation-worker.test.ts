@@ -6,7 +6,7 @@ import { clearKv } from './helpers/kv'
 import { MCP_URL, mcpToolCallRequest, parseMcpResult, toolText } from './helpers/mcp'
 import { clearSpec, seedSpec } from './helpers/spec'
 import { server } from './setup/msw'
-import source from '../src/generated/forge-mcp/source.json'
+import { SPEC_REVISION } from '../src/spec-release'
 import { stringifyResponse } from '../src/truncate'
 
 /**
@@ -85,7 +85,7 @@ describe('direct-tool response schema checks', () => {
         'type',
         '#/components/schemas/d1_database-response/properties/uuid/type',
         '/result/*/uuid',
-        source.release
+        SPEC_REVISION
       ],
       doubles: [0, 200, 2, 1, 1]
     })

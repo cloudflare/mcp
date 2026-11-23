@@ -14,12 +14,27 @@ import {
  */
 export const tools: readonly Tool[] = [
   {
-    name: "addressing_addressMaps_zones_delete",
-    title: "Remove a zone membership from an Address Map",
-    description: "Remove a zone as a member of a particular address map.\n\nDELETE /accounts/{account_id}/addressing/address_maps/{address_map_id}/zones/{member_zone_id}",
+    name: "addressing_addressMaps_zones_bulkCreate",
+    title: "Add Multiple Zones to an Address Map",
+    description: "Add multiple zones as members of a particular address map.\n\nPOST /accounts/{account_id}/addressing/address_maps/{address_map_id}/zones",
     inputSchema: {
       type: "object",
       properties: {
+        "body": {
+          "properties": {
+            "zones": {
+              "items": {
+                "description": "Identifier of a zone.",
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "zones"
+          ],
+          "type": "object"
+        },
         "path": {
           "additionalProperties": false,
           "properties": {
@@ -30,22 +45,18 @@ export const tools: readonly Tool[] = [
             "address_map_id": {
               "description": "Identifier of an Address Map.",
               "type": "string"
-            },
-            "member_zone_id": {
-              "description": "Identifier of a zone.",
-              "type": "string"
             }
           },
           "required": [
             "account_id",
-            "address_map_id",
-            "member_zone_id"
+            "address_map_id"
           ],
           "type": "object"
         }
       },
       required: [
-        "path"
+        "path",
+        "body"
       ],
       additionalProperties: false,
     },
@@ -58,24 +69,20 @@ export const tools: readonly Tool[] = [
       },
     },
     annotations: {
-      "destructiveHint": true,
-      "idempotentHint": true,
+      "destructiveHint": false,
+      "idempotentHint": false,
       "openWorldHint": true,
       "readOnlyHint": false,
-      "title": "Remove a zone membership from an Address Map"
+      "title": "Add Multiple Zones to an Address Map"
     },
     [OPERATION]: {
-      method: "DELETE",
-      path: "/accounts/{account_id}/addressing/address_maps/{address_map_id}/zones/{member_zone_id}",
-      pathOf: encodePath`/accounts/${"account_id"}/addressing/address_maps/${"address_map_id"}/zones/${"member_zone_id"}`,
-      extensions: {
-        "x-api-token-group": [
-          "Address Maps Write"
-        ]
-      },
+      method: "POST",
+      path: "/accounts/{account_id}/addressing/address_maps/{address_map_id}/zones",
+      pathOf: encodePath`/accounts/${"account_id"}/addressing/address_maps/${"address_map_id"}/zones`,
+      body: { mediaTypes: ["application/json"] },
       responses: {
         schemas: {
-          "200": {
+          "201": {
             "$ref": "#/$defs/addressing_api-response-collection"
           },
           "4XX": {
@@ -99,7 +106,7 @@ export const tools: readonly Tool[] = [
     },
   },
   {
-    name: "addressing_addressMaps_zones_deleteBulk",
+    name: "addressing_addressMaps_zones_bulkDelete",
     title: "Remove Multiple Zones from an Address Map",
     description: "Remove multiple zones as members of a particular address map.\n\nDELETE /accounts/{account_id}/addressing/address_maps/{address_map_id}/zones",
     inputSchema: {
@@ -168,6 +175,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Address Maps Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "address-maps.write"
         ]
       },
       responses: {
@@ -196,7 +206,7 @@ export const tools: readonly Tool[] = [
     },
   },
   {
-    name: "addressing_addressMaps_zones_update",
+    name: "addressing_addressMaps_zones_create",
     title: "Add a zone membership to an Address Map",
     description: "Add a zone as a member of a particular address map.\n\nPUT /accounts/{account_id}/addressing/address_maps/{address_map_id}/zones/{member_zone_id}",
     inputSchema: {
@@ -276,27 +286,12 @@ export const tools: readonly Tool[] = [
     },
   },
   {
-    name: "addressing_addressMaps_zones_updateBulk",
-    title: "Add Multiple Zones to an Address Map",
-    description: "Add multiple zones as members of a particular address map.\n\nPOST /accounts/{account_id}/addressing/address_maps/{address_map_id}/zones",
+    name: "addressing_addressMaps_zones_delete",
+    title: "Remove a zone membership from an Address Map",
+    description: "Remove a zone as a member of a particular address map.\n\nDELETE /accounts/{account_id}/addressing/address_maps/{address_map_id}/zones/{member_zone_id}",
     inputSchema: {
       type: "object",
       properties: {
-        "body": {
-          "properties": {
-            "zones": {
-              "items": {
-                "description": "Identifier of a zone.",
-                "type": "string"
-              },
-              "type": "array"
-            }
-          },
-          "required": [
-            "zones"
-          ],
-          "type": "object"
-        },
         "path": {
           "additionalProperties": false,
           "properties": {
@@ -307,18 +302,22 @@ export const tools: readonly Tool[] = [
             "address_map_id": {
               "description": "Identifier of an Address Map.",
               "type": "string"
+            },
+            "member_zone_id": {
+              "description": "Identifier of a zone.",
+              "type": "string"
             }
           },
           "required": [
             "account_id",
-            "address_map_id"
+            "address_map_id",
+            "member_zone_id"
           ],
           "type": "object"
         }
       },
       required: [
-        "path",
-        "body"
+        "path"
       ],
       additionalProperties: false,
     },
@@ -331,20 +330,27 @@ export const tools: readonly Tool[] = [
       },
     },
     annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
+      "destructiveHint": true,
+      "idempotentHint": true,
       "openWorldHint": true,
       "readOnlyHint": false,
-      "title": "Add Multiple Zones to an Address Map"
+      "title": "Remove a zone membership from an Address Map"
     },
     [OPERATION]: {
-      method: "POST",
-      path: "/accounts/{account_id}/addressing/address_maps/{address_map_id}/zones",
-      pathOf: encodePath`/accounts/${"account_id"}/addressing/address_maps/${"address_map_id"}/zones`,
-      body: { mediaTypes: ["application/json"] },
+      method: "DELETE",
+      path: "/accounts/{account_id}/addressing/address_maps/{address_map_id}/zones/{member_zone_id}",
+      pathOf: encodePath`/accounts/${"account_id"}/addressing/address_maps/${"address_map_id"}/zones/${"member_zone_id"}`,
+      extensions: {
+        "x-api-token-group": [
+          "Address Maps Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "address-maps.write"
+        ]
+      },
       responses: {
         schemas: {
-          "201": {
+          "200": {
             "$ref": "#/$defs/addressing_api-response-collection"
           },
           "4XX": {

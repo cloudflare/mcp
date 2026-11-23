@@ -125,14 +125,8 @@ export const hyperdrive_hyperdrive$$caching$$create$$enabled: JSONObject = {
  * The schema of `hyperdrive_hyperdrive-caching-disabled`.
  */
 export const hyperdrive_hyperdrive$$caching$$disabled: JSONObject = {
-  "description": "Caching disabled",
-  "properties": {
-    "disabled": {
-      "description": "Set to true to disable caching of SQL responses. Default is false.",
-      "type": "boolean"
-    }
-  },
-  "type": "object"
+  "$ref": "#/$defs/hyperdrive_hyperdrive-caching-common",
+  "description": "Caching disabled"
 };
 
 /**
@@ -377,36 +371,7 @@ export const hyperdrive_hyperdrive$$database: JSONObject = {
  * The schema of `hyperdrive_hyperdrive-database-full`.
  */
 export const hyperdrive_hyperdrive$$database$$full: JSONObject = {
-  "properties": {
-    "database": {
-      "description": "Set the name of your origin database.",
-      "type": "string"
-    },
-    "password": {
-      "description": "Set the password needed to access your origin database. The API never returns this write-only value.",
-      "type": "string"
-    },
-    "scheme": {
-      "description": "Specifies the URL scheme used to connect to your origin database.",
-      "enum": [
-        "postgres",
-        "postgresql",
-        "mysql"
-      ],
-      "type": "string"
-    },
-    "user": {
-      "description": "Set the user of your origin database.",
-      "type": "string"
-    }
-  },
-  "required": [
-    "database",
-    "password",
-    "scheme",
-    "user"
-  ],
-  "type": "object"
+  "$ref": "#/$defs/hyperdrive_hyperdrive-database"
 };
 
 /**

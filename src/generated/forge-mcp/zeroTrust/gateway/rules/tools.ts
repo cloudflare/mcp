@@ -3,13 +3,13 @@
 
 import { OPERATION, type Tool, encodePath } from "../../../_/tool.js";
 import {
+  zero$$trust$$gateway_api$$response$$common,
   zero$$trust$$gateway_api$$response$$common$$failure,
   zero$$trust$$gateway_api$$response$$single,
   zero$$trust$$gateway_messages,
 } from "../../outputs.js";
 import {
   zero$$trust$$gateway_api$$response$$collection,
-  zero$$trust$$gateway_api$$response$$common,
   zero$$trust$$gateway_empty_response,
   zero$$trust$$gateway_result_info,
 } from "../outputs.js";
@@ -86,7 +86,7 @@ export const tools: readonly Tool[] = [
             },
             "expiration": {
               "$ref": "#/$defs/zero-trust-gateway_expiration",
-              "description": "Defines the expiration time stamp and default duration of a DNS policy. Takes precedence over the policy's `schedule` configuration, if any. This  does not apply to HTTP or network policies. Settable only for `dns` rules."
+              "description": "Defines the expiration time stamp and default duration of a DNS policy. Takes precedence over the policy's `schedule` configuration, if any. This does not apply to HTTP or network policies. Settable only for `dns` rules."
             },
             "filters": {
               "$ref": "#/$defs/zero-trust-gateway_filters",
@@ -156,6 +156,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_single_response-4",
       $defs: {
+        "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
         "zero-trust-gateway_dns_resolver_settings_v4": zero$$trust$$gateway_dns_resolver_settings_v4,
         "zero-trust-gateway_dns_resolver_settings_v6": zero$$trust$$gateway_dns_resolver_settings_v6,
@@ -180,6 +181,14 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/gateway/rules",
       pathOf: encodePath`/accounts/${"account_id"}/gateway/rules`,
       body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-api-token-group": [
+          "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.write"
+        ]
+      },
       responses: {
         schemas: {
           "200": {
@@ -197,6 +206,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
           "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
           "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
           "zero-trust-gateway_dns_resolver_settings_v4": zero$$trust$$gateway_dns_resolver_settings_v4,
@@ -247,6 +257,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_empty_response",
       $defs: {
+        "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
         "zero-trust-gateway_empty_response": zero$$trust$$gateway_empty_response,
         "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
@@ -263,6 +274,14 @@ export const tools: readonly Tool[] = [
       method: "DELETE",
       path: "/accounts/{account_id}/gateway/rules/{rule_id}",
       pathOf: encodePath`/accounts/${"account_id"}/gateway/rules/${"rule_id"}`,
+      extensions: {
+        "x-api-token-group": [
+          "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.write"
+        ]
+      },
       responses: {
         schemas: {
           "200": {
@@ -280,6 +299,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
           "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
           "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
           "zero-trust-gateway_empty_response": zero$$trust$$gateway_empty_response,
@@ -323,6 +343,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_single_response-4",
       $defs: {
+        "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
         "zero-trust-gateway_dns_resolver_settings_v4": zero$$trust$$gateway_dns_resolver_settings_v4,
         "zero-trust-gateway_dns_resolver_settings_v6": zero$$trust$$gateway_dns_resolver_settings_v6,
@@ -346,6 +367,16 @@ export const tools: readonly Tool[] = [
       method: "GET",
       path: "/accounts/{account_id}/gateway/rules/{rule_id}",
       pathOf: encodePath`/accounts/${"account_id"}/gateway/rules/${"rule_id"}`,
+      extensions: {
+        "x-api-token-group": [
+          "Zero Trust Read",
+          "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.read",
+          "teams.write"
+        ]
+      },
       responses: {
         schemas: {
           "200": {
@@ -363,6 +394,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
           "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
           "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
           "zero-trust-gateway_dns_resolver_settings_v4": zero$$trust$$gateway_dns_resolver_settings_v4,
@@ -473,6 +505,16 @@ export const tools: readonly Tool[] = [
         { name: "order_by", explode: true },
         { name: "direction", explode: true },
       ],
+      extensions: {
+        "x-api-token-group": [
+          "Zero Trust Read",
+          "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.read",
+          "teams.write"
+        ]
+      },
       responses: {
         schemas: {
           "200": {
@@ -561,6 +603,16 @@ export const tools: readonly Tool[] = [
       method: "GET",
       path: "/accounts/{account_id}/gateway/rules/tenant",
       pathOf: encodePath`/accounts/${"account_id"}/gateway/rules/tenant`,
+      extensions: {
+        "x-api-token-group": [
+          "Zero Trust Read",
+          "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.read",
+          "teams.write"
+        ]
+      },
       responses: {
         schemas: {
           "200": {
@@ -598,7 +650,7 @@ export const tools: readonly Tool[] = [
   {
     name: "zeroTrust_gateway_rules_resetExpiration",
     title: "Reset the expiration of a Zero Trust Gateway Rule",
-    description: "Resets the expiration of a Zero Trust Gateway Rule if its duration elapsed and it has a default duration. The Zero Trust Gateway Rule must have values  for both `expiration.expires_at` and `expiration.duration`.\n\nPOST /accounts/{account_id}/gateway/rules/{rule_id}/reset_expiration",
+    description: "Resets the expiration of a Zero Trust Gateway Rule if its duration elapsed and it has a default duration. The Zero Trust Gateway Rule must have values for both `expiration.expires_at` and `expiration.duration`.\n\nPOST /accounts/{account_id}/gateway/rules/{rule_id}/reset_expiration",
     inputSchema: {
       type: "object",
       properties: {
@@ -630,6 +682,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_single_response-4",
       $defs: {
+        "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
         "zero-trust-gateway_dns_resolver_settings_v4": zero$$trust$$gateway_dns_resolver_settings_v4,
         "zero-trust-gateway_dns_resolver_settings_v6": zero$$trust$$gateway_dns_resolver_settings_v6,
@@ -653,6 +706,14 @@ export const tools: readonly Tool[] = [
       method: "POST",
       path: "/accounts/{account_id}/gateway/rules/{rule_id}/reset_expiration",
       pathOf: encodePath`/accounts/${"account_id"}/gateway/rules/${"rule_id"}/reset_expiration`,
+      extensions: {
+        "x-api-token-group": [
+          "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.write"
+        ]
+      },
       responses: {
         schemas: {
           "200": {
@@ -670,6 +731,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
           "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
           "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
           "zero-trust-gateway_dns_resolver_settings_v4": zero$$trust$$gateway_dns_resolver_settings_v4,
@@ -734,7 +796,7 @@ export const tools: readonly Tool[] = [
             },
             "expiration": {
               "$ref": "#/$defs/zero-trust-gateway_expiration",
-              "description": "Defines the expiration time stamp and default duration of a DNS policy. Takes precedence over the policy's `schedule` configuration, if any. This  does not apply to HTTP or network policies. Settable only for `dns` rules."
+              "description": "Defines the expiration time stamp and default duration of a DNS policy. Takes precedence over the policy's `schedule` configuration, if any. This does not apply to HTTP or network policies. Settable only for `dns` rules."
             },
             "filters": {
               "$ref": "#/$defs/zero-trust-gateway_filters",
@@ -810,6 +872,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_single_response-4",
       $defs: {
+        "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
         "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
         "zero-trust-gateway_dns_resolver_settings_v4": zero$$trust$$gateway_dns_resolver_settings_v4,
         "zero-trust-gateway_dns_resolver_settings_v6": zero$$trust$$gateway_dns_resolver_settings_v6,
@@ -834,6 +897,14 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/gateway/rules/{rule_id}",
       pathOf: encodePath`/accounts/${"account_id"}/gateway/rules/${"rule_id"}`,
       body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-api-token-group": [
+          "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.write"
+        ]
+      },
       responses: {
         schemas: {
           "200": {
@@ -851,6 +922,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
           "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
           "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
           "zero-trust-gateway_dns_resolver_settings_v4": zero$$trust$$gateway_dns_resolver_settings_v4,

@@ -100,6 +100,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Zone Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "zone.write"
         ]
       },
       responses: {
@@ -228,6 +231,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Zone Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "zone.write"
         ]
       },
       responses: {
@@ -368,6 +374,9 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Zone Write"
         ],
+        "x-forge-oauth-scopes": [
+          "zone.write"
+        ],
         "x-forge-params": {
           "hold_after": {
             "default": null
@@ -489,6 +498,25 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/zones/${"zone_id"}/hold`,
       extensions: {
         "x-api-token-group": [
+          "Zone Security Insights Partner Assets Read",
+          "Workers Metadata Read-Only",
+          "Workers Editor",
+          "Workers Content Read-Only",
+          "Workers Admin",
+          "Registrar Sandbox Domains Read",
+          "Registrar Sandbox Domains Admin",
+          "Precursor Write",
+          "Precursor Read",
+          "Account Abuse Protection PII Read",
+          "Registrar Domains Admin",
+          "Zone Security Center Insights Write",
+          "Zone Security Center Insights Read",
+          "Access: Policies Write",
+          "Access: Policies Read",
+          "Access: Apps Write",
+          "Access: Apps Revoke",
+          "Access: Apps Read",
+          "Registrar Domains Read",
           "Trust and Safety Write",
           "Trust and Safety Read",
           "Zero Trust: PII Read",
@@ -528,6 +556,66 @@ export const tools: readonly Tool[] = [
           "Analytics Read",
           "Access: Apps and Policies Write",
           "Access: Apps and Policies Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "precursor.read",
+          "zaraz.read",
+          "apps.write",
+          "load-balancers.read",
+          "page-rules.read",
+          "registrar-domains.read",
+          "registrar-sandbox-domains.read",
+          "zone-security-center-partner-assets.read",
+          "precursor.write",
+          "zaraz.edit",
+          "zone-access.revoke",
+          "zaraz.write",
+          "access-app.read",
+          "fraud-detection-pii.read",
+          "zone-access.read",
+          "zone.read",
+          "access-app.revoke",
+          "access.revoke",
+          "cache.purge",
+          "load-balancers.write",
+          "page-rules.write",
+          "access-policy.read",
+          "analytics.read",
+          "logs.read",
+          "registrar-sandbox-domains.admin",
+          "teams-pii.read",
+          "registrar-domains.admin",
+          "dns.read",
+          "zone-access.write",
+          "access.read",
+          "trust-and-safety.read",
+          "zone-security-center-insights.read",
+          "access-app.write",
+          "access-certificate.write",
+          "stream.read",
+          "access-policy.write",
+          "trust-and-safety.write",
+          "zone.write",
+          "logs.write",
+          "dns.write",
+          "zone-security-center-insights.write",
+          "firewall-services.read",
+          "access-acct.write",
+          "workers-scripts.read",
+          "ssl-and-certificates.read",
+          "stream.write",
+          "access.write",
+          "workers-routes.read",
+          "firewall-services.write",
+          "zone-settings.read",
+          "ssl-and-certificates.write",
+          "workers-scripts.write",
+          "workers-scripts.content_read",
+          "workers-scripts.metadata_read",
+          "workers-routes.write",
+          "workers-scripts.edit",
+          "workers-scripts.admin",
+          "zone-settings.write"
         ]
       },
       responses: {

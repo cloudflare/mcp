@@ -95,6 +95,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Realtime Admin",
           "Realtime"
+        ],
+        "x-forge-oauth-scopes": [
+          "realtime.write",
+          "realtime.admin"
         ]
       },
       responses: {
@@ -135,6 +139,166 @@ export const tools: readonly Tool[] = [
         $defs: {
           "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse,
           "realtimekit_ValidationIssue": realtimekit_ValidationIssue,
+        },
+      },
+    },
+  },
+  {
+    name: "realtime_kit_apps_edit",
+    title: "Update an app",
+    description: "Update the name of an app in your account.\n\nThis method is beta.\n\nPATCH /accounts/{account_id}/realtime/kit/apps/{app_id}",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "body": {
+          "properties": {
+            "name": {
+              "description": "The app name. Leading and trailing whitespace is removed, and the name must contain at least one non-whitespace character.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "type": "object"
+        },
+        "path": {
+          "additionalProperties": false,
+          "properties": {
+            "account_id": {
+              "description": "The account identifier tag.",
+              "type": "string"
+            },
+            "app_id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "app_id"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "path",
+        "body"
+      ],
+      additionalProperties: false,
+    },
+    outputSchema: {
+      "properties": {
+        "data": {
+          "properties": {
+            "created_at": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "name": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "data",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Update an app"
+    },
+    [OPERATION]: {
+      method: "PATCH",
+      path: "/accounts/{account_id}/realtime/kit/apps/{app_id}",
+      pathOf: encodePath`/accounts/${"account_id"}/realtime/kit/apps/${"app_id"}`,
+      body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-api-token-group": [
+          "Realtime Admin",
+          "Realtime"
+        ],
+        "x-forge-oauth-scopes": [
+          "realtime.write",
+          "realtime.admin"
+        ]
+      },
+      responses: {
+        schemas: {
+          "200": {
+            "properties": {
+              "data": {
+                "properties": {
+                  "created_at": {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "id": {
+                    "format": "uuid",
+                    "type": "string"
+                  },
+                  "name": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "type": "object"
+              },
+              "success": {
+                "enum": [
+                  true
+                ],
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "data",
+              "success"
+            ],
+            "type": "object"
+          },
+          "400": {
+            "$ref": "#/$defs/realtimekit_ErrorResponse"
+          },
+          "401": {
+            "$ref": "#/$defs/realtimekit_ErrorResponse"
+          },
+          "404": {
+            "$ref": "#/$defs/realtimekit_ErrorResponse"
+          }
+        },
+        $defs: {
+          "realtimekit_ErrorResponse": realtimekit_ErrorResponse,
         },
       },
     },
@@ -214,8 +378,14 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/realtime/kit/apps/${"app_id"}`,
       extensions: {
         "x-api-token-group": [
+          "Realtime Read",
           "Realtime Admin",
           "Realtime"
+        ],
+        "x-forge-oauth-scopes": [
+          "realtime.read",
+          "realtime.write",
+          "realtime.admin"
         ]
       },
       responses: {
@@ -377,8 +547,14 @@ export const tools: readonly Tool[] = [
       ],
       extensions: {
         "x-api-token-group": [
+          "Realtime Read",
           "Realtime Admin",
           "Realtime"
+        ],
+        "x-forge-oauth-scopes": [
+          "realtime.read",
+          "realtime.write",
+          "realtime.admin"
         ]
       },
       responses: {
@@ -431,162 +607,6 @@ export const tools: readonly Tool[] = [
         $defs: {
           "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse,
           "realtimekit_ValidationIssue": realtimekit_ValidationIssue,
-        },
-      },
-    },
-  },
-  {
-    name: "realtime_kit_apps_update",
-    title: "Update an app",
-    description: "Update the name of an app in your account.\n\nThis method is beta.\n\nPATCH /accounts/{account_id}/realtime/kit/apps/{app_id}",
-    inputSchema: {
-      type: "object",
-      properties: {
-        "body": {
-          "properties": {
-            "name": {
-              "description": "The app name. Leading and trailing whitespace is removed, and the name must contain at least one non-whitespace character.",
-              "type": "string"
-            }
-          },
-          "required": [
-            "name"
-          ],
-          "type": "object"
-        },
-        "path": {
-          "additionalProperties": false,
-          "properties": {
-            "account_id": {
-              "description": "The account identifier tag.",
-              "type": "string"
-            },
-            "app_id": {
-              "format": "uuid",
-              "type": "string"
-            }
-          },
-          "required": [
-            "account_id",
-            "app_id"
-          ],
-          "type": "object"
-        }
-      },
-      required: [
-        "path",
-        "body"
-      ],
-      additionalProperties: false,
-    },
-    outputSchema: {
-      "properties": {
-        "data": {
-          "properties": {
-            "created_at": {
-              "format": "date-time",
-              "type": "string"
-            },
-            "id": {
-              "format": "uuid",
-              "type": "string"
-            },
-            "name": {
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            }
-          },
-          "type": "object"
-        },
-        "success": {
-          "enum": [
-            true
-          ],
-          "type": "boolean"
-        }
-      },
-      "required": [
-        "data",
-        "success"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Update an app"
-    },
-    [OPERATION]: {
-      method: "PATCH",
-      path: "/accounts/{account_id}/realtime/kit/apps/{app_id}",
-      pathOf: encodePath`/accounts/${"account_id"}/realtime/kit/apps/${"app_id"}`,
-      body: { mediaTypes: ["application/json"] },
-      extensions: {
-        "x-api-token-group": [
-          "Realtime Admin",
-          "Realtime"
-        ]
-      },
-      responses: {
-        schemas: {
-          "200": {
-            "properties": {
-              "data": {
-                "properties": {
-                  "created_at": {
-                    "format": "date-time",
-                    "type": "string"
-                  },
-                  "id": {
-                    "format": "uuid",
-                    "type": "string"
-                  },
-                  "name": {
-                    "oneOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "null"
-                      }
-                    ]
-                  }
-                },
-                "type": "object"
-              },
-              "success": {
-                "enum": [
-                  true
-                ],
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "data",
-              "success"
-            ],
-            "type": "object"
-          },
-          "400": {
-            "$ref": "#/$defs/realtimekit_ErrorResponse"
-          },
-          "401": {
-            "$ref": "#/$defs/realtimekit_ErrorResponse"
-          },
-          "404": {
-            "$ref": "#/$defs/realtimekit_ErrorResponse"
-          }
-        },
-        $defs: {
-          "realtimekit_ErrorResponse": realtimekit_ErrorResponse,
         },
       },
     },

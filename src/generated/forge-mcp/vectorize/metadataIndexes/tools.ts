@@ -19,11 +19,11 @@ import {
 } from "./schemas.js";
 
 /**
- * The tools of `vectorize.metadataIndex`.
+ * The tools of `vectorize.metadataIndexes`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "vectorize_metadataIndex_create",
+    name: "vectorize_metadataIndexes_create",
     title: "Create Metadata Index",
     description: "Enable metadata filtering based on metadata property. Limited to 10 properties.\n\nPOST /accounts/{account_id}/vectorize/v2/indexes/{index_name}/metadata_index/create",
     inputSchema: {
@@ -94,13 +94,18 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "Auto Rag Write Run Engine",
           "Vectorize Write"
         ],
         "x-cfPermissionsRequired": {
           "enum": [
             "com.cloudflare.edge.vectorize.index.create"
           ]
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "vectorize.write",
+          "rag.run"
+        ]
       },
       responses: {
         schemas: {
@@ -134,7 +139,7 @@ export const tools: readonly Tool[] = [
     },
   },
   {
-    name: "vectorize_metadataIndex_delete",
+    name: "vectorize_metadataIndexes_delete",
     title: "Delete Metadata Index",
     description: "Allow Vectorize to delete the specified metadata index.\n\nConfirm with the user before calling this tool. This operation deletes a metadata index destructively.\n\nPOST /accounts/{account_id}/vectorize/v2/indexes/{index_name}/metadata_index/delete",
     inputSchema: {
@@ -205,13 +210,18 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "Auto Rag Write Run Engine",
           "Vectorize Write"
         ],
         "x-cfPermissionsRequired": {
           "enum": [
             "com.cloudflare.edge.vectorize.index.delete"
           ]
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "vectorize.write",
+          "rag.run"
+        ]
       },
       responses: {
         schemas: {
@@ -245,7 +255,7 @@ export const tools: readonly Tool[] = [
     },
   },
   {
-    name: "vectorize_metadataIndex_list",
+    name: "vectorize_metadataIndexes_list",
     title: "List Metadata Indexes",
     description: "List Metadata Indexes for the specified Vectorize Index.\n\nGET /accounts/{account_id}/vectorize/v2/indexes/{index_name}/metadata_index/list",
     inputSchema: {
@@ -308,8 +318,14 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/vectorize/v2/indexes/${"index_name"}/metadata_index/list`,
       extensions: {
         "x-api-token-group": [
+          "Auto Rag Write Run Engine",
           "Vectorize Write",
           "Vectorize Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "vectorize.read",
+          "vectorize.write",
+          "rag.run"
         ]
       },
       responses: {

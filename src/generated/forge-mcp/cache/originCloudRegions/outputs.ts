@@ -4,6 +4,57 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
+ * The schema of `cache-settings_origin_cloud_region_v2_batch_item_result` in
+ * responses.
+ */
+export const cache$$settings_origin_cloud_region_v2_batch_item_result: JSONObject = {
+  "properties": {
+    "error": {
+      "type": "string"
+    },
+    "origin_ip": {
+      "type": "string"
+    },
+    "region": {
+      "type": "string"
+    },
+    "vendor": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "origin_ip"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `cache-settings_origin_cloud_region_v2_batch_result` in
+ * responses.
+ */
+export const cache$$settings_origin_cloud_region_v2_batch_result: JSONObject = {
+  "properties": {
+    "failed": {
+      "items": {
+        "$ref": "#/$defs/cache-settings_origin_cloud_region_v2_batch_item_result"
+      },
+      "type": "array"
+    },
+    "succeeded": {
+      "items": {
+        "$ref": "#/$defs/cache-settings_origin_cloud_region_v2_batch_item_result"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "failed",
+    "succeeded"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `cache-settings_origin_cloud_region_v2_delete_result` in
  * responses.
  */

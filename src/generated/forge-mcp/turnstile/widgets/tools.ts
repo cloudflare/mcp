@@ -93,45 +93,6 @@ export const tools: readonly Tool[] = [
             "account_id"
           ],
           "type": "object"
-        },
-        "query": {
-          "additionalProperties": false,
-          "properties": {
-            "direction": {
-              "description": "Direction to order widgets.",
-              "enum": [
-                "asc",
-                "desc"
-              ],
-              "type": "string"
-            },
-            "filter": {
-              "description": "Filter widgets by field. The `name` field uses case-insensitive\nsubstring matching; `sitekey` uses exact matching.\nFormat: `field:value`\n\nSupported fields:\n- `name` - Filter by widget name (e.g., `filter=name:login-form`)\n- `sitekey` - Filter by sitekey (e.g., `filter=sitekey:0x4AAA`)\n\nReturns 400 Bad Request if the field is unsupported or format is invalid.\nAn empty filter value returns all results.",
-              "type": "string"
-            },
-            "order": {
-              "description": "Field to order widgets by.",
-              "enum": [
-                "id",
-                "sitekey",
-                "name",
-                "created_on",
-                "modified_on"
-              ],
-              "type": "string"
-            },
-            "page": {
-              "default": 1,
-              "description": "Page number of paginated results.",
-              "type": "number"
-            },
-            "per_page": {
-              "default": 25,
-              "description": "Number of items per page.",
-              "type": "number"
-            }
-          },
-          "type": "object"
         }
       },
       required: [
@@ -184,18 +145,15 @@ export const tools: readonly Tool[] = [
       method: "POST",
       path: "/accounts/{account_id}/challenges/widgets",
       pathOf: encodePath`/accounts/${"account_id"}/challenges/widgets`,
-      query: [
-        { name: "page", explode: true },
-        { name: "per_page", explode: true },
-        { name: "order", explode: true },
-        { name: "direction", explode: true },
-        { name: "filter", explode: true },
-      ],
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
           "Turnstile Sites Write",
           "Account Settings Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "challenge-widgets.write",
+          "account-settings.write"
         ],
         "x-forge-params": {
           "mode": {
@@ -310,6 +268,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Turnstile Sites Write",
           "Account Settings Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "challenge-widgets.write",
+          "account-settings.write"
         ]
       },
       responses: {
@@ -412,6 +374,12 @@ export const tools: readonly Tool[] = [
           "Turnstile Sites Read",
           "Account Settings Write",
           "Account Settings Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "challenge-widgets.read",
+          "challenge-widgets.write",
+          "account-settings.read",
+          "account-settings.write"
         ]
       },
       responses: {
@@ -567,6 +535,12 @@ export const tools: readonly Tool[] = [
           "Turnstile Sites Read",
           "Account Settings Write",
           "Account Settings Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "challenge-widgets.read",
+          "challenge-widgets.write",
+          "account-settings.read",
+          "account-settings.write"
         ]
       },
       responses: {
@@ -691,6 +665,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Turnstile Sites Write",
           "Account Settings Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "challenge-widgets.write",
+          "account-settings.write"
         ]
       },
       responses: {
@@ -770,15 +748,6 @@ export const tools: readonly Tool[] = [
             "offlabel": {
               "description": "Do not show any Cloudflare branding on the widget (ENT only).",
               "type": "boolean"
-            },
-            "region": {
-              "default": "world",
-              "description": "Region where this widget can be used. This cannot be changed after creation.",
-              "enum": [
-                "world",
-                "china"
-              ],
-              "type": "string"
             }
           },
           "required": [
@@ -853,6 +822,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Turnstile Sites Write",
           "Account Settings Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "challenge-widgets.write",
+          "account-settings.write"
         ],
         "x-forge-params": {
           "mode": {

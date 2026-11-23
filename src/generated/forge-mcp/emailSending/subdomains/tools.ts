@@ -13,6 +13,7 @@ import {
   email_sending_subdomain,
   email_sending_subdomain_config_error,
   email_sending_subdomain_preview_response,
+  email_sending_subdomain_properties,
   email_sending_subdomain_response_single,
   email_sending_subdomains_response_collection,
 } from "./outputs.js";
@@ -61,9 +62,11 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/email_sending_subdomain_response_single",
       $defs: {
+        "email_api-response-common": email_api$$response$$common,
         "email_api-response-single": email_api$$response$$single,
         "email_messages": email_messages,
         "email_sending_subdomain": email_sending_subdomain,
+        "email_sending_subdomain_properties": email_sending_subdomain_properties,
         "email_sending_subdomain_response_single": email_sending_subdomain_response_single,
       },
     },
@@ -80,17 +83,18 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/zones/${"zone_id"}/email/sending/subdomains`,
       body: { mediaTypes: ["application/json"] },
       extensions: {
-        "x-cfPermissionsRequired": {
-          "enum": [
-            "com.cloudflare.api.account.email.sending.create"
-          ]
-        },
+        "x-api-token-group": [
+          "Email Sending Write"
+        ],
         "x-cfPlanAvailability": {
           "business": true,
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "email-sending.write"
+        ]
       },
       responses: {
         schemas: {
@@ -100,9 +104,11 @@ export const tools: readonly Tool[] = [
           "403": null
         },
         $defs: {
+          "email_api-response-common": email_api$$response$$common,
           "email_api-response-single": email_api$$response$$single,
           "email_messages": email_messages,
           "email_sending_subdomain": email_sending_subdomain,
+          "email_sending_subdomain_properties": email_sending_subdomain_properties,
           "email_sending_subdomain_response_single": email_sending_subdomain_response_single,
         },
       },
@@ -142,6 +148,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/email_api-response-single",
       $defs: {
+        "email_api-response-common": email_api$$response$$common,
         "email_api-response-single": email_api$$response$$single,
         "email_messages": email_messages,
       },
@@ -158,17 +165,18 @@ export const tools: readonly Tool[] = [
       path: "/zones/{zone_id}/email/sending/subdomains/{subdomain_id}",
       pathOf: encodePath`/zones/${"zone_id"}/email/sending/subdomains/${"subdomain_id"}`,
       extensions: {
-        "x-cfPermissionsRequired": {
-          "enum": [
-            "com.cloudflare.api.account.email.sending.delete"
-          ]
-        },
+        "x-api-token-group": [
+          "Email Sending Write"
+        ],
         "x-cfPlanAvailability": {
           "business": true,
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "email-sending.write"
+        ]
       },
       responses: {
         schemas: {
@@ -178,6 +186,7 @@ export const tools: readonly Tool[] = [
           "404": null
         },
         $defs: {
+          "email_api-response-common": email_api$$response$$common,
           "email_api-response-single": email_api$$response$$single,
           "email_messages": email_messages,
         },
@@ -218,9 +227,11 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/email_sending_subdomain_response_single",
       $defs: {
+        "email_api-response-common": email_api$$response$$common,
         "email_api-response-single": email_api$$response$$single,
         "email_messages": email_messages,
         "email_sending_subdomain": email_sending_subdomain,
+        "email_sending_subdomain_properties": email_sending_subdomain_properties,
         "email_sending_subdomain_response_single": email_sending_subdomain_response_single,
       },
     },
@@ -236,17 +247,20 @@ export const tools: readonly Tool[] = [
       path: "/zones/{zone_id}/email/sending/subdomains/{subdomain_id}",
       pathOf: encodePath`/zones/${"zone_id"}/email/sending/subdomains/${"subdomain_id"}`,
       extensions: {
-        "x-cfPermissionsRequired": {
-          "enum": [
-            "com.cloudflare.api.account.email.sending.read"
-          ]
-        },
+        "x-api-token-group": [
+          "Email Sending Write",
+          "Email Sending Read"
+        ],
         "x-cfPlanAvailability": {
           "business": true,
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "email-sending.read",
+          "email-sending.write"
+        ]
       },
       responses: {
         schemas: {
@@ -256,9 +270,11 @@ export const tools: readonly Tool[] = [
           "404": null
         },
         $defs: {
+          "email_api-response-common": email_api$$response$$common,
           "email_api-response-single": email_api$$response$$single,
           "email_messages": email_messages,
           "email_sending_subdomain": email_sending_subdomain,
+          "email_sending_subdomain_properties": email_sending_subdomain_properties,
           "email_sending_subdomain_response_single": email_sending_subdomain_response_single,
         },
       },
@@ -297,6 +313,7 @@ export const tools: readonly Tool[] = [
         "email_api-response-common": email_api$$response$$common,
         "email_messages": email_messages,
         "email_sending_subdomain": email_sending_subdomain,
+        "email_sending_subdomain_properties": email_sending_subdomain_properties,
         "email_sending_subdomains_response_collection": email_sending_subdomains_response_collection,
       },
     },
@@ -312,17 +329,20 @@ export const tools: readonly Tool[] = [
       path: "/zones/{zone_id}/email/sending/subdomains",
       pathOf: encodePath`/zones/${"zone_id"}/email/sending/subdomains`,
       extensions: {
-        "x-cfPermissionsRequired": {
-          "enum": [
-            "com.cloudflare.api.account.email.sending.read"
-          ]
-        },
+        "x-api-token-group": [
+          "Email Sending Write",
+          "Email Sending Read"
+        ],
         "x-cfPlanAvailability": {
           "business": true,
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "email-sending.read",
+          "email-sending.write"
+        ]
       },
       responses: {
         schemas: {
@@ -336,6 +356,7 @@ export const tools: readonly Tool[] = [
           "email_api-response-common": email_api$$response$$common,
           "email_messages": email_messages,
           "email_sending_subdomain": email_sending_subdomain,
+          "email_sending_subdomain_properties": email_sending_subdomain_properties,
           "email_sending_subdomains_response_collection": email_sending_subdomains_response_collection,
         },
       },
@@ -377,6 +398,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/email_sending_subdomain_preview_response",
       $defs: {
+        "email_api-response-common": email_api$$response$$common,
         "email_api-response-single": email_api$$response$$single,
         "email_dns_record": email_dns_record,
         "email_messages": email_messages,
@@ -397,17 +419,20 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/zones/${"zone_id"}/email/sending/subdomains/preview`,
       body: { mediaTypes: ["application/json"] },
       extensions: {
-        "x-cfPermissionsRequired": {
-          "enum": [
-            "com.cloudflare.api.account.email.sending.read"
-          ]
-        },
+        "x-api-token-group": [
+          "Email Sending Write",
+          "Email Sending Read"
+        ],
         "x-cfPlanAvailability": {
           "business": true,
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "email-sending.read",
+          "email-sending.write"
+        ]
       },
       responses: {
         schemas: {
@@ -417,6 +442,7 @@ export const tools: readonly Tool[] = [
           "403": null
         },
         $defs: {
+          "email_api-response-common": email_api$$response$$common,
           "email_api-response-single": email_api$$response$$single,
           "email_dns_record": email_dns_record,
           "email_messages": email_messages,
@@ -467,9 +493,11 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/email_sending_subdomain_response_single",
       $defs: {
+        "email_api-response-common": email_api$$response$$common,
         "email_api-response-single": email_api$$response$$single,
         "email_messages": email_messages,
         "email_sending_subdomain": email_sending_subdomain,
+        "email_sending_subdomain_properties": email_sending_subdomain_properties,
         "email_sending_subdomain_response_single": email_sending_subdomain_response_single,
       },
     },
@@ -486,17 +514,18 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/zones/${"zone_id"}/email/sending/subdomains/${"subdomain_id"}`,
       body: { mediaTypes: ["application/json"] },
       extensions: {
-        "x-cfPermissionsRequired": {
-          "enum": [
-            "com.cloudflare.api.account.email.sending.update"
-          ]
-        },
+        "x-api-token-group": [
+          "Email Sending Write"
+        ],
         "x-cfPlanAvailability": {
           "business": true,
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "email-sending.write"
+        ]
       },
       responses: {
         schemas: {
@@ -506,9 +535,11 @@ export const tools: readonly Tool[] = [
           "404": null
         },
         $defs: {
+          "email_api-response-common": email_api$$response$$common,
           "email_api-response-single": email_api$$response$$single,
           "email_messages": email_messages,
           "email_sending_subdomain": email_sending_subdomain,
+          "email_sending_subdomain_properties": email_sending_subdomain_properties,
           "email_sending_subdomain_response_single": email_sending_subdomain_response_single,
         },
       },

@@ -101,7 +101,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "account-rule-lists.write"
+        ]
       },
       responses: {
         schemas: {
@@ -181,7 +184,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "account-rule-lists.write"
+        ]
       },
       responses: {
         schemas: {
@@ -261,7 +267,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "account-rule-lists.read",
+          "account-rule-lists.write"
+        ]
       },
       responses: {
         schemas: {
@@ -339,7 +349,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "account-rule-lists.read",
+          "account-rule-lists.write"
+        ]
       },
       responses: {
         schemas: {
@@ -432,7 +446,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "account-rule-lists.write"
+        ]
       },
       responses: {
         schemas: {

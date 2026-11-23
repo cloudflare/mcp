@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
 import {
+  dns$$records_api$$response$$common,
   dns$$records_api$$response$$common$$failure,
   dns$$records_api$$response$$single,
   dns$$records_messages,
@@ -30,7 +31,6 @@ import {
   dns$$records_TXTRecord,
   dns$$records_URIRecord,
   dns$$records_api$$response$$collection,
-  dns$$records_api$$response$$common,
   dns$$records_dns$$record$$response,
   dns$$records_dns$$record$$shared$$fields,
   dns$$records_dns$$record$$with$$data,
@@ -190,6 +190,7 @@ export const tools: readonly Tool[] = [
         "dns-records_TLSARecord": dns$$records_TLSARecord,
         "dns-records_TXTRecord": dns$$records_TXTRecord,
         "dns-records_URIRecord": dns$$records_URIRecord,
+        "dns-records_api-response-common": dns$$records_api$$response$$common,
         "dns-records_api-response-single": dns$$records_api$$response$$single,
         "dns-records_dns-record-response": dns$$records_dns$$record$$response,
         "dns-records_dns-record-shared-fields": dns$$records_dns$$record$$shared$$fields,
@@ -231,7 +232,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "dns.write"
+        ]
       },
       responses: {
         schemas: {
@@ -264,6 +268,7 @@ export const tools: readonly Tool[] = [
           "dns-records_TLSARecord": dns$$records_TLSARecord,
           "dns-records_TXTRecord": dns$$records_TXTRecord,
           "dns-records_URIRecord": dns$$records_URIRecord,
+          "dns-records_api-response-common": dns$$records_api$$response$$common,
           "dns-records_api-response-common-failure": dns$$records_api$$response$$common$$failure,
           "dns-records_api-response-single": dns$$records_api$$response$$single,
           "dns-records_dns-record-response": dns$$records_dns$$record$$response,
@@ -373,6 +378,7 @@ export const tools: readonly Tool[] = [
         "dns-records_TLSARecord": dns$$records_TLSARecord,
         "dns-records_TXTRecord": dns$$records_TXTRecord,
         "dns-records_URIRecord": dns$$records_URIRecord,
+        "dns-records_api-response-common": dns$$records_api$$response$$common,
         "dns-records_api-response-single": dns$$records_api$$response$$single,
         "dns-records_dns-record-response": dns$$records_dns$$record$$response,
         "dns-records_dns-record-shared-fields": dns$$records_dns$$record$$shared$$fields,
@@ -413,7 +419,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "dns.write"
+        ]
       },
       responses: {
         schemas: {
@@ -446,6 +455,7 @@ export const tools: readonly Tool[] = [
           "dns-records_TLSARecord": dns$$records_TLSARecord,
           "dns-records_TXTRecord": dns$$records_TXTRecord,
           "dns-records_URIRecord": dns$$records_URIRecord,
+          "dns-records_api-response-common": dns$$records_api$$response$$common,
           "dns-records_api-response-common-failure": dns$$records_api$$response$$common$$failure,
           "dns-records_api-response-single": dns$$records_api$$response$$single,
           "dns-records_dns-record-response": dns$$records_dns$$record$$response,
@@ -529,7 +539,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "dns.write"
+        ]
       },
       responses: {
         schemas: {
@@ -673,6 +686,7 @@ export const tools: readonly Tool[] = [
         "dns-records_TLSARecord": dns$$records_TLSARecord,
         "dns-records_TXTRecord": dns$$records_TXTRecord,
         "dns-records_URIRecord": dns$$records_URIRecord,
+        "dns-records_api-response-common": dns$$records_api$$response$$common,
         "dns-records_api-response-single": dns$$records_api$$response$$single,
         "dns-records_dns-record-response": dns$$records_dns$$record$$response,
         "dns-records_dns-record-shared-fields": dns$$records_dns$$record$$shared$$fields,
@@ -713,7 +727,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "dns.write"
+        ]
       },
       responses: {
         schemas: {
@@ -746,6 +763,7 @@ export const tools: readonly Tool[] = [
           "dns-records_TLSARecord": dns$$records_TLSARecord,
           "dns-records_TXTRecord": dns$$records_TXTRecord,
           "dns-records_URIRecord": dns$$records_URIRecord,
+          "dns-records_api-response-common": dns$$records_api$$response$$common,
           "dns-records_api-response-common-failure": dns$$records_api$$response$$common$$failure,
           "dns-records_api-response-single": dns$$records_api$$response$$single,
           "dns-records_dns-record-response": dns$$records_dns$$record$$response,
@@ -1021,7 +1039,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "dns.read",
+          "dns.write"
+        ]
       },
       responses: {
         schemas: {
@@ -1103,6 +1125,7 @@ export const tools: readonly Tool[] = [
         "dns-records_TLSARecord": dns$$records_TLSARecord,
         "dns-records_TXTRecord": dns$$records_TXTRecord,
         "dns-records_URIRecord": dns$$records_URIRecord,
+        "dns-records_api-response-common": dns$$records_api$$response$$common,
         "dns-records_api-response-single": dns$$records_api$$response$$single,
         "dns-records_dns-record-response": dns$$records_dns$$record$$response,
         "dns-records_dns-record-shared-fields": dns$$records_dns$$record$$shared$$fields,
@@ -1143,7 +1166,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "dns.read",
+          "dns.write"
+        ]
       },
       responses: {
         schemas: {
@@ -1176,6 +1203,7 @@ export const tools: readonly Tool[] = [
           "dns-records_TLSARecord": dns$$records_TLSARecord,
           "dns-records_TXTRecord": dns$$records_TXTRecord,
           "dns-records_URIRecord": dns$$records_URIRecord,
+          "dns-records_api-response-common": dns$$records_api$$response$$common,
           "dns-records_api-response-common-failure": dns$$records_api$$response$$common$$failure,
           "dns-records_api-response-single": dns$$records_api$$response$$single,
           "dns-records_dns-record-response": dns$$records_dns$$record$$response,
@@ -1237,6 +1265,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/dns-records_dns_response_import_scan",
       $defs: {
+        "dns-records_api-response-common": dns$$records_api$$response$$common,
         "dns-records_api-response-single": dns$$records_api$$response$$single,
         "dns-records_dns_response_import_scan": dns$$records_dns_response_import_scan,
         "dns-records_messages": dns$$records_messages,
@@ -1268,7 +1297,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "dns.write"
+        ]
       },
       responses: {
         schemas: {
@@ -1280,6 +1312,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "dns-records_api-response-common": dns$$records_api$$response$$common,
           "dns-records_api-response-common-failure": dns$$records_api$$response$$common$$failure,
           "dns-records_api-response-single": dns$$records_api$$response$$single,
           "dns-records_dns_response_import_scan": dns$$records_dns_response_import_scan,
@@ -1624,6 +1657,10 @@ export const tools: readonly Tool[] = [
           "free": true,
           "pro": true
         },
+        "x-forge-oauth-scopes": [
+          "dns.read",
+          "dns.write"
+        ],
         "x-forge-params": {
           "zone_id": {
             "description": "Zone ID"
@@ -1764,7 +1801,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "dns.read",
+          "dns.write"
+        ]
       },
       responses: {
         schemas: {
@@ -1898,6 +1939,7 @@ export const tools: readonly Tool[] = [
         "dns-records_TLSARecord": dns$$records_TLSARecord,
         "dns-records_TXTRecord": dns$$records_TXTRecord,
         "dns-records_URIRecord": dns$$records_URIRecord,
+        "dns-records_api-response-common": dns$$records_api$$response$$common,
         "dns-records_api-response-single": dns$$records_api$$response$$single,
         "dns-records_dns-record-response": dns$$records_dns$$record$$response,
         "dns-records_dns-record-shared-fields": dns$$records_dns$$record$$shared$$fields,
@@ -1936,7 +1978,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "dns.write"
+        ]
       },
       responses: {
         schemas: {
@@ -1969,6 +2014,7 @@ export const tools: readonly Tool[] = [
           "dns-records_TLSARecord": dns$$records_TLSARecord,
           "dns-records_TXTRecord": dns$$records_TXTRecord,
           "dns-records_URIRecord": dns$$records_URIRecord,
+          "dns-records_api-response-common": dns$$records_api$$response$$common,
           "dns-records_api-response-common-failure": dns$$records_api$$response$$common$$failure,
           "dns-records_api-response-single": dns$$records_api$$response$$single,
           "dns-records_dns-record-response": dns$$records_dns$$record$$response,
@@ -2013,6 +2059,8 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/dns-records_dns_response_trigger_scan",
       $defs: {
+        "dns-records_api-response-common": dns$$records_api$$response$$common,
+        "dns-records_api-response-single": dns$$records_api$$response$$single,
         "dns-records_dns_response_trigger_scan": dns$$records_dns_response_trigger_scan,
         "dns-records_messages": dns$$records_messages,
       },
@@ -2042,7 +2090,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "dns.write"
+        ]
       },
       responses: {
         schemas: {
@@ -2054,7 +2105,9 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "dns-records_api-response-common": dns$$records_api$$response$$common,
           "dns-records_api-response-common-failure": dns$$records_api$$response$$common$$failure,
+          "dns-records_api-response-single": dns$$records_api$$response$$single,
           "dns-records_dns_response_trigger_scan": dns$$records_dns_response_trigger_scan,
           "dns-records_messages": dns$$records_messages,
         },
@@ -2160,6 +2213,7 @@ export const tools: readonly Tool[] = [
         "dns-records_TLSARecord": dns$$records_TLSARecord,
         "dns-records_TXTRecord": dns$$records_TXTRecord,
         "dns-records_URIRecord": dns$$records_URIRecord,
+        "dns-records_api-response-common": dns$$records_api$$response$$common,
         "dns-records_api-response-single": dns$$records_api$$response$$single,
         "dns-records_dns-record-response": dns$$records_dns$$record$$response,
         "dns-records_dns-record-shared-fields": dns$$records_dns$$record$$shared$$fields,
@@ -2200,7 +2254,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "dns.write"
+        ]
       },
       responses: {
         schemas: {
@@ -2233,6 +2290,7 @@ export const tools: readonly Tool[] = [
           "dns-records_TLSARecord": dns$$records_TLSARecord,
           "dns-records_TXTRecord": dns$$records_TXTRecord,
           "dns-records_URIRecord": dns$$records_URIRecord,
+          "dns-records_api-response-common": dns$$records_api$$response$$common,
           "dns-records_api-response-common-failure": dns$$records_api$$response$$common$$failure,
           "dns-records_api-response-single": dns$$records_api$$response$$single,
           "dns-records_dns-record-response": dns$$records_dns$$record$$response,

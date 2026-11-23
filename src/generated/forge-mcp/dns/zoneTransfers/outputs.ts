@@ -99,26 +99,7 @@ export const secondary$$dns_api$$response$$common$$failure: JSONObject = {
  * The schema of `secondary-dns_api-response-single` in responses.
  */
 export const secondary$$dns_api$$response$$single: JSONObject = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/secondary-dns_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/secondary-dns_messages"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  "$ref": "#/$defs/secondary-dns_api-response-common"
 };
 
 /**

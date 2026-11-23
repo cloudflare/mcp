@@ -4,6 +4,7 @@
 import { OPERATION, type Tool, encodePath } from "../../../../_/tool.js";
 import {
   dlp_Empty,
+  dlp_api$$response$$common,
   dlp_api$$response$$common$$failure,
   dlp_api$$response$$single,
   dlp_messages,
@@ -71,6 +72,7 @@ export const tools: readonly Tool[] = [
         "dlp_AttachedEntry": dlp_AttachedEntry,
         "dlp_ValidatorReferences": dlp_ValidatorReferences,
         "dlp_WorkerValidator": dlp_WorkerValidator,
+        "dlp_api-response-common": dlp_api$$response$$common,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
       },
@@ -90,6 +92,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.write"
         ]
       },
       responses: {
@@ -117,6 +122,7 @@ export const tools: readonly Tool[] = [
           "dlp_AttachedEntry": dlp_AttachedEntry,
           "dlp_ValidatorReferences": dlp_ValidatorReferences,
           "dlp_WorkerValidator": dlp_WorkerValidator,
+          "dlp_api-response-common": dlp_api$$response$$common,
           "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
           "dlp_api-response-single": dlp_api$$response$$single,
           "dlp_messages": dlp_messages,
@@ -170,6 +176,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "dlp_Empty": dlp_Empty,
+        "dlp_api-response-common": dlp_api$$response$$common,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
       },
@@ -188,6 +195,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.write"
         ]
       },
       responses: {
@@ -213,6 +223,7 @@ export const tools: readonly Tool[] = [
         },
         $defs: {
           "dlp_Empty": dlp_Empty,
+          "dlp_api-response-common": dlp_api$$response$$common,
           "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
           "dlp_api-response-single": dlp_api$$response$$single,
           "dlp_messages": dlp_messages,
@@ -268,6 +279,7 @@ export const tools: readonly Tool[] = [
         "dlp_AttachedEntry": dlp_AttachedEntry,
         "dlp_ValidatorReferences": dlp_ValidatorReferences,
         "dlp_WorkerValidator": dlp_WorkerValidator,
+        "dlp_api-response-common": dlp_api$$response$$common,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
       },
@@ -287,6 +299,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Zero Trust Read",
           "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.read",
+          "teams.write"
         ]
       },
       responses: {
@@ -314,6 +330,7 @@ export const tools: readonly Tool[] = [
           "dlp_AttachedEntry": dlp_AttachedEntry,
           "dlp_ValidatorReferences": dlp_ValidatorReferences,
           "dlp_WorkerValidator": dlp_WorkerValidator,
+          "dlp_api-response-common": dlp_api$$response$$common,
           "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
           "dlp_api-response-single": dlp_api$$response$$single,
           "dlp_messages": dlp_messages,
@@ -365,6 +382,7 @@ export const tools: readonly Tool[] = [
         "dlp_ValidatorReferences": dlp_ValidatorReferences,
         "dlp_WorkerValidator": dlp_WorkerValidator,
         "dlp_WorkerValidatorArray": dlp_WorkerValidatorArray,
+        "dlp_api-response-common": dlp_api$$response$$common,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
       },
@@ -384,6 +402,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Zero Trust Read",
           "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.read",
+          "teams.write"
         ]
       },
       responses: {
@@ -412,6 +434,7 @@ export const tools: readonly Tool[] = [
           "dlp_ValidatorReferences": dlp_ValidatorReferences,
           "dlp_WorkerValidator": dlp_WorkerValidator,
           "dlp_WorkerValidatorArray": dlp_WorkerValidatorArray,
+          "dlp_api-response-common": dlp_api$$response$$common,
           "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
           "dlp_api-response-single": dlp_api$$response$$single,
           "dlp_messages": dlp_messages,
@@ -475,6 +498,7 @@ export const tools: readonly Tool[] = [
         "dlp_AttachedEntry": dlp_AttachedEntry,
         "dlp_ValidatorReferences": dlp_ValidatorReferences,
         "dlp_WorkerValidator": dlp_WorkerValidator,
+        "dlp_api-response-common": dlp_api$$response$$common,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
       },
@@ -494,6 +518,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.write"
         ]
       },
       responses: {
@@ -521,6 +548,7 @@ export const tools: readonly Tool[] = [
           "dlp_AttachedEntry": dlp_AttachedEntry,
           "dlp_ValidatorReferences": dlp_ValidatorReferences,
           "dlp_WorkerValidator": dlp_WorkerValidator,
+          "dlp_api-response-common": dlp_api$$response$$common,
           "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
           "dlp_api-response-single": dlp_api$$response$$single,
           "dlp_messages": dlp_messages,

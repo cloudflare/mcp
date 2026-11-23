@@ -7,6 +7,13 @@ import type { JSONObject } from "@modelcontextprotocol/server";
  * The schema of `email_addresses` in responses.
  */
 export const email_addresses: JSONObject = {
+  "$ref": "#/$defs/email_destination_address_properties"
+};
+
+/**
+ * The schema of `email_destination_address_properties` in responses.
+ */
+export const email_destination_address_properties: JSONObject = {
   "properties": {
     "created": {
       "format": "date-time",

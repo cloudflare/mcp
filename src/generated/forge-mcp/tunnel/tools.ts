@@ -141,6 +141,9 @@ export const tools: readonly Tool[] = [
       ],
       extensions: {
         "x-api-token-group": [
+          "Connectivity Directory Read",
+          "Connectivity Directory Bind",
+          "Connectivity Directory Admin",
           "Cloudflare One Connectors Write",
           "Cloudflare One Connectors Read",
           "Cloudflare One Connector: cloudflared Write",
@@ -150,6 +153,17 @@ export const tools: readonly Tool[] = [
         ],
         "x-fern-audiences": [
           "sdk"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-connector-cloudflared.read",
+          "teams-connectors.read",
+          "connectivity-directory.read",
+          "argotunnel.read",
+          "connectivity-directory.bind",
+          "teams-connector-cloudflared.write",
+          "connectivity-directory.admin",
+          "teams-connectors.write",
+          "argotunnel.write"
         ]
       },
       responses: {

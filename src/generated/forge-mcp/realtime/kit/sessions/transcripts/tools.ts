@@ -15,7 +15,7 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_sessions_transcripts_export",
     title: "Fetch the complete transcript for a session",
-    description: "Returns a URL to download the transcript for the session ID in CSV format.\n\nThis method is beta.\n\nGET /accounts/{account_id}/realtime/kit/{app_id}/sessions/{session_id}/transcript",
+    description: "Returns a URL to download the transcript for the session ID in the requested format.\n\nThis method is beta.\n\nGET /accounts/{account_id}/realtime/kit/{app_id}/sessions/{session_id}/transcript",
     inputSchema: {
       type: "object",
       properties: {
@@ -96,8 +96,14 @@ export const tools: readonly Tool[] = [
       ],
       extensions: {
         "x-api-token-group": [
+          "Realtime Read",
           "Realtime Admin",
           "Realtime"
+        ],
+        "x-forge-oauth-scopes": [
+          "realtime.read",
+          "realtime.write",
+          "realtime.admin"
         ]
       },
       responses: {

@@ -42,7 +42,7 @@ export const cloudforce$$one$$events_FieldDefinition: JSONObject = {
           "type": "object"
         },
         {
-          "type": "object"
+          "$ref": "#/$defs/cloudforce-one-events_FieldDefinition"
         }
       ],
       "description": "Nested FieldDefinition describing the element type of an array field. Required when kind is 'array'. See FieldDefinition (recursive)."
@@ -100,7 +100,7 @@ export const cloudforce$$one$$events_FieldDefinition: JSONObject = {
     },
     "properties": {
       "additionalProperties": {
-        "type": "object"
+        "$ref": "#/$defs/cloudforce-one-events_FieldDefinition"
       },
       "description": "Map of property key to FieldDefinition for object fields. Required when kind is 'object'. See FieldDefinition (recursive).",
       "type": "object"

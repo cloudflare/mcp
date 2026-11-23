@@ -124,7 +124,9 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
-          "Browser Rendering Write"
+          "AI Search Index Engine",
+          "Auto Rag Write Run Engine",
+          "Browser Run Write"
         ],
         "x-cfPermissionsRequired": {
           "enum": [
@@ -137,7 +139,12 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "browser-rendering.write",
+          "ai-search.index",
+          "rag.run"
+        ]
       },
       responses: {
         schemas: {
@@ -421,8 +428,11 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/browser-rendering/devtools/browser/${"session_id"}/json/protocol`,
       extensions: {
         "x-api-token-group": [
-          "Browser Rendering Write",
-          "Browser Rendering Read"
+          "Browser Run Metadata Read",
+          "AI Search Index Engine",
+          "Auto Rag Write Run Engine",
+          "Browser Run Write",
+          "Browser Run Read"
         ],
         "x-cfPermissionsRequired": {
           "enum": [
@@ -435,7 +445,13 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "browser-rendering.read",
+          "browser-rendering.write",
+          "ai-search.index",
+          "rag.run"
+        ]
       },
       responses: {
         schemas: {
@@ -671,8 +687,11 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/browser-rendering/devtools/browser/${"session_id"}/json/version`,
       extensions: {
         "x-api-token-group": [
-          "Browser Rendering Write",
-          "Browser Rendering Read"
+          "Browser Run Metadata Read",
+          "AI Search Index Engine",
+          "Auto Rag Write Run Engine",
+          "Browser Run Write",
+          "Browser Run Read"
         ],
         "x-cfPermissionsRequired": {
           "enum": [
@@ -685,7 +704,13 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "browser-rendering.read",
+          "browser-rendering.write",
+          "ai-search.index",
+          "rag.run"
+        ]
       },
       responses: {
         schemas: {

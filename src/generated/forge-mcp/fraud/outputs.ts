@@ -4,6 +4,32 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
+ * The schema of `fraud_api-response-common` in responses.
+ */
+export const fraud_api$$response$$common: JSONObject = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/fraud_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/fraud_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `fraud_api-response-common-failure` in responses.
  */
 export const fraud_api$$response$$common$$failure: JSONObject = {
@@ -37,26 +63,7 @@ export const fraud_api$$response$$common$$failure: JSONObject = {
  * The schema of `fraud_api-response-single` in responses.
  */
 export const fraud_api$$response$$single: JSONObject = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/fraud_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/fraud_messages"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  "$ref": "#/$defs/fraud_api-response-common"
 };
 
 /**

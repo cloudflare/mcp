@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../../../_/tool.js";
 import {
+  logcontrol_api$$response$$common,
   logcontrol_api$$response$$common$$failure,
   logcontrol_api$$response$$single,
   logcontrol_messages,
@@ -53,6 +54,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/logcontrol_retention_flag_response_single",
       $defs: {
+        "logcontrol_api-response-common": logcontrol_api$$response$$common,
         "logcontrol_api-response-single": logcontrol_api$$response$$single,
         "logcontrol_messages": logcontrol_messages,
         "logcontrol_retention_flag": logcontrol_retention_flag,
@@ -85,7 +87,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "logs.write"
+        ]
       },
       responses: {
         schemas: {
@@ -97,6 +102,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "logcontrol_api-response-common": logcontrol_api$$response$$common,
           "logcontrol_api-response-common-failure": logcontrol_api$$response$$common$$failure,
           "logcontrol_api-response-single": logcontrol_api$$response$$single,
           "logcontrol_messages": logcontrol_messages,
@@ -135,6 +141,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/logcontrol_retention_flag_response_single",
       $defs: {
+        "logcontrol_api-response-common": logcontrol_api$$response$$common,
         "logcontrol_api-response-single": logcontrol_api$$response$$single,
         "logcontrol_messages": logcontrol_messages,
         "logcontrol_retention_flag": logcontrol_retention_flag,
@@ -168,7 +175,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "logs.read",
+          "logs.write"
+        ]
       },
       responses: {
         schemas: {
@@ -180,6 +191,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "logcontrol_api-response-common": logcontrol_api$$response$$common,
           "logcontrol_api-response-common-failure": logcontrol_api$$response$$common$$failure,
           "logcontrol_api-response-single": logcontrol_api$$response$$single,
           "logcontrol_messages": logcontrol_messages,

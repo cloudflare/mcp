@@ -69,6 +69,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Workers CI Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-ci.write"
         ]
       },
       responses: {
@@ -161,6 +164,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Workers CI Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-ci.write"
         ]
       },
       responses: {

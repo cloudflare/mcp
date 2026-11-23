@@ -64,6 +64,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_single_response_without_html",
       $defs: {
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_custom_page_without_html": access_custom_page_without_html,
         "access_messages": access_messages,
@@ -85,7 +86,12 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
-          "Access: Custom Pages Write"
+          "Access: Custom Pages Write",
+          "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "access-custom-page.write",
+          "teams.write"
         ]
       },
       responses: {
@@ -101,6 +107,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_custom_page_without_html": access_custom_page_without_html,
@@ -165,7 +172,12 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/access/custom_pages/${"custom_page_id"}`,
       extensions: {
         "x-api-token-group": [
-          "Access: Custom Pages Write"
+          "Access: Custom Pages Write",
+          "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "access-custom-page.write",
+          "teams.write"
         ]
       },
       responses: {
@@ -220,6 +232,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_single_response-12",
       $defs: {
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_custom_page": access_custom_page,
         "access_messages": access_messages,
@@ -240,7 +253,15 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Access: Custom Pages Write",
-          "Access: Custom Pages Read"
+          "Access: Custom Pages Read",
+          "Zero Trust Read",
+          "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "access-custom-page.read",
+          "access-custom-page.write",
+          "teams.read",
+          "teams.write"
         ]
       },
       responses: {
@@ -253,6 +274,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_custom_page": access_custom_page,
@@ -333,7 +355,15 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Access: Custom Pages Write",
-          "Access: Custom Pages Read"
+          "Access: Custom Pages Read",
+          "Zero Trust Read",
+          "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "access-custom-page.read",
+          "access-custom-page.write",
+          "teams.read",
+          "teams.write"
         ]
       },
       responses: {
@@ -397,6 +427,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_single_response_without_html",
       $defs: {
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_custom_page_without_html": access_custom_page_without_html,
         "access_messages": access_messages,
@@ -418,7 +449,12 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
-          "Access: Custom Pages Write"
+          "Access: Custom Pages Write",
+          "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "access-custom-page.write",
+          "teams.write"
         ]
       },
       responses: {
@@ -434,6 +470,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_custom_page_without_html": access_custom_page_without_html,
@@ -481,6 +518,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_validate_response",
       $defs: {
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_messages": access_messages,
         "access_template_violation": access_template_violation,
@@ -502,7 +540,12 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
-          "Access: Custom Pages Write"
+          "Access: Custom Pages Write",
+          "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "access-custom-page.write",
+          "teams.write"
         ]
       },
       responses: {
@@ -515,6 +558,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_messages": access_messages,

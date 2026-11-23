@@ -99,26 +99,7 @@ export const access_api$$response$$common$$failure: JSONObject = {
  * The schema of `access_api-response-single` in responses.
  */
 export const access_api$$response$$single: JSONObject = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/access_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/access_messages"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  "$ref": "#/$defs/access_api-response-common"
 };
 
 /**
@@ -310,6 +291,32 @@ export const dlp_Empty: JSONObject = {
 };
 
 /**
+ * The schema of `dlp_api-response-common` in responses.
+ */
+export const dlp_api$$response$$common: JSONObject = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/dlp_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/dlp_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `dlp_api-response-common-failure` in responses.
  */
 export const dlp_api$$response$$common$$failure: JSONObject = {
@@ -343,26 +350,7 @@ export const dlp_api$$response$$common$$failure: JSONObject = {
  * The schema of `dlp_api-response-single` in responses.
  */
 export const dlp_api$$response$$single: JSONObject = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/dlp_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/dlp_messages"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  "$ref": "#/$defs/dlp_api-response-common"
 };
 
 /**
@@ -399,6 +387,32 @@ export const dlp_messages: JSONObject = {
 };
 
 /**
+ * The schema of `zero-trust-gateway_api-response-common` in responses.
+ */
+export const zero$$trust$$gateway_api$$response$$common: JSONObject = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/zero-trust-gateway_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/zero-trust-gateway_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `zero-trust-gateway_api-response-common-failure` in responses.
  */
 export const zero$$trust$$gateway_api$$response$$common$$failure: JSONObject = {
@@ -432,26 +446,7 @@ export const zero$$trust$$gateway_api$$response$$common$$failure: JSONObject = {
  * The schema of `zero-trust-gateway_api-response-single` in responses.
  */
 export const zero$$trust$$gateway_api$$response$$single: JSONObject = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/zero-trust-gateway_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/zero-trust-gateway_messages"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  "$ref": "#/$defs/zero-trust-gateway_api-response-common"
 };
 
 /**

@@ -112,6 +112,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Realtime Admin",
           "Realtime"
+        ],
+        "x-forge-oauth-scopes": [
+          "realtime.write",
+          "realtime.admin"
         ]
       },
       responses: {

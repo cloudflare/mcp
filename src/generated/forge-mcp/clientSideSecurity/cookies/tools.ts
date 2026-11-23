@@ -86,7 +86,15 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "domain-page-shield.read",
+          "page-shield.read",
+          "domain-page.shield",
+          "page.shield",
+          "zone-settings.read",
+          "zone-settings.write"
+        ]
       },
       responses: {
         schemas: {
@@ -268,7 +276,15 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "domain-page-shield.read",
+          "page-shield.read",
+          "domain-page.shield",
+          "page.shield",
+          "zone-settings.read",
+          "zone-settings.write"
+        ]
       },
       responses: {
         schemas: {

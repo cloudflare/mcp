@@ -16,7 +16,9 @@ export const magic$$visibility$$mnm_api$$response$$collection: JSONObject = {
         "result": {
           "oneOf": [
             {
-              "items": {},
+              "items": {
+                "type": "object"
+              },
               "type": "array"
             },
             {

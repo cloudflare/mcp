@@ -94,7 +94,7 @@ export const iam_scim_schema_attr: JSONObject = {
     },
     "subAttributes": {
       "items": {
-        "type": "object"
+        "$ref": "#/$defs/iam_scim_schema_attr"
       },
       "type": "array"
     },

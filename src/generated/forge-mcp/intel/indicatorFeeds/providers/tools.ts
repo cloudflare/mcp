@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../../../_/tool.js";
 import {
+  custom$$indicator$$feeds_api$$response$$common,
   custom$$indicator$$feeds_api$$response$$single,
   custom$$indicator$$feeds_api_response_common_failure,
   custom$$indicator$$feeds_messages,
@@ -54,6 +55,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/custom-indicator-feeds_create_provider_response",
       $defs: {
+        "custom-indicator-feeds_api-response-common": custom$$indicator$$feeds_api$$response$$common,
         "custom-indicator-feeds_api-response-single": custom$$indicator$$feeds_api$$response$$single,
         "custom-indicator-feeds_create_provider_response": custom$$indicator$$feeds_create_provider_response,
         "custom-indicator-feeds_create_provider_result": custom$$indicator$$feeds_create_provider_result,
@@ -89,6 +91,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "custom-indicator-feeds_api-response-common": custom$$indicator$$feeds_api$$response$$common,
           "custom-indicator-feeds_api-response-single": custom$$indicator$$feeds_api$$response$$single,
           "custom-indicator-feeds_api_response_common_failure": custom$$indicator$$feeds_api_response_common_failure,
           "custom-indicator-feeds_create_provider_response": custom$$indicator$$feeds_create_provider_response,

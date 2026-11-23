@@ -6,6 +6,7 @@ import {
   intel_api$$response$$common$$failure,
   intel_api$$response$$single,
   intel_messages,
+  intel_schemas$$api$$response$$common,
   intel_schemas$$messages,
 } from "../outputs.js";
 import { intel_asn_components$$schemas$$response } from "./outputs.js";
@@ -49,6 +50,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "intel_api-response-single": intel_api$$response$$single,
         "intel_asn_components-schemas-response": intel_asn_components$$schemas$$response,
+        "intel_schemas-api-response-common": intel_schemas$$api$$response$$common,
         "intel_schemas-messages": intel_schemas$$messages,
       },
     },
@@ -67,6 +69,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Intel Write",
           "Intel Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "intel.read",
+          "intel.write"
         ]
       },
       responses: {
@@ -90,6 +96,7 @@ export const tools: readonly Tool[] = [
           "intel_api-response-single": intel_api$$response$$single,
           "intel_asn_components-schemas-response": intel_asn_components$$schemas$$response,
           "intel_messages": intel_messages,
+          "intel_schemas-api-response-common": intel_schemas$$api$$response$$common,
           "intel_schemas-messages": intel_schemas$$messages,
         },
       },

@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../_/tool.js";
 import {
+  precursor_api$$response$$common,
   precursor_api$$response$$common$$failure,
   precursor_api$$response$$single,
   precursor_messages,
@@ -68,6 +69,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/precursor_precursor_config_response_body",
       $defs: {
+        "precursor_api-response-common": precursor_api$$response$$common,
         "precursor_api-response-single": precursor_api$$response$$single,
         "precursor_messages": precursor_messages,
         "precursor_precursor_config": precursor_precursor_config,
@@ -89,18 +91,20 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/zones/${"zone_id"}/precursor`,
       headers: ["cloudflare-version"],
       extensions: {
-        "x-cfPermissionsRequired": {
-          "enum": [
-            "com.cloudflare.api.account.zone.precursor.update",
-            "com.cloudflare.api.account.zone.precursor.read"
-          ]
-        },
+        "x-api-token-group": [
+          "Precursor Write",
+          "Precursor Read"
+        ],
         "x-cfPlanAvailability": {
           "business": true,
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "precursor.read",
+          "precursor.write"
+        ]
       },
       responses: {
         schemas: {
@@ -112,6 +116,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "precursor_api-response-common": precursor_api$$response$$common,
           "precursor_api-response-common-failure": precursor_api$$response$$common$$failure,
           "precursor_api-response-single": precursor_api$$response$$single,
           "precursor_messages": precursor_messages,
@@ -179,6 +184,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/precursor_precursor_config_response_body",
       $defs: {
+        "precursor_api-response-common": precursor_api$$response$$common,
         "precursor_api-response-single": precursor_api$$response$$single,
         "precursor_messages": precursor_messages,
         "precursor_precursor_config": precursor_precursor_config,
@@ -201,17 +207,18 @@ export const tools: readonly Tool[] = [
       headers: ["cloudflare-version"],
       body: { mediaTypes: ["application/json"] },
       extensions: {
-        "x-cfPermissionsRequired": {
-          "enum": [
-            "com.cloudflare.api.account.zone.precursor.update"
-          ]
-        },
+        "x-api-token-group": [
+          "Precursor Write"
+        ],
         "x-cfPlanAvailability": {
           "business": true,
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "precursor.write"
+        ]
       },
       responses: {
         schemas: {
@@ -223,6 +230,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "precursor_api-response-common": precursor_api$$response$$common,
           "precursor_api-response-common-failure": precursor_api$$response$$common$$failure,
           "precursor_api-response-single": precursor_api$$response$$single,
           "precursor_messages": precursor_messages,

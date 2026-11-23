@@ -7,40 +7,7 @@ import type { JSONObject } from "@modelcontextprotocol/server";
  * The schema of `iam_components-schemas-account`.
  */
 export const iam_components$$schemas$$account: JSONObject = {
-  "properties": {
-    "id": {
-      "description": "Identifier",
-      "type": "string"
-    },
-    "managed_by": {
-      "description": "Parent container details",
-      "type": "object"
-    },
-    "name": {
-      "description": "Account name. When creating or updating an account, the name is limited to 65 UTF-8 bytes.",
-      "type": "string"
-    },
-    "settings": {
-      "description": "Account settings",
-      "properties": {
-        "abuse_contact_email": {
-          "description": "Sets an abuse contact email to notify for abuse reports.",
-          "type": "string"
-        },
-        "enforce_twofactor": {
-          "default": false,
-          "description": "Indicates whether membership in this account requires that\nTwo-Factor Authentication is enabled",
-          "type": "boolean"
-        }
-      },
-      "type": "object"
-    }
-  },
-  "required": [
-    "id",
-    "name"
-  ],
-  "type": "object"
+  "$ref": "#/$defs/iam_account"
 };
 
 /**

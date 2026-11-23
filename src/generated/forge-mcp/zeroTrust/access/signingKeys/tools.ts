@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../../../_/tool.js";
 import {
+  access_api$$response$$common,
   access_api$$response$$common$$failure,
   access_api$$response$$single,
   access_messages,
@@ -42,6 +43,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_single_response-13",
       $defs: {
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_key_config": access_key_config,
         "access_messages": access_messages,
@@ -61,8 +63,20 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/access/keys`,
       extensions: {
         "x-api-token-group": [
+          "Access: Keys Write",
+          "Access: Keys Read",
+          "Zero Trust Read",
+          "Zero Trust Write",
           "Access: Organizations, Identity Providers, and Groups Write",
           "Access: Organizations, Identity Providers, and Groups Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "access-key.read",
+          "access-key.write",
+          "access-acct.read",
+          "access-acct.write",
+          "teams.read",
+          "teams.write"
         ]
       },
       responses: {
@@ -75,6 +89,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_key_config": access_key_config,
@@ -113,6 +128,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_single_response-13",
       $defs: {
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_key_config": access_key_config,
         "access_messages": access_messages,
@@ -132,7 +148,14 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/access/keys/rotate`,
       extensions: {
         "x-api-token-group": [
+          "Access: Keys Write",
+          "Zero Trust Write",
           "Access: Organizations, Identity Providers, and Groups Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "access-key.write",
+          "access-acct.write",
+          "teams.write"
         ]
       },
       responses: {
@@ -145,6 +168,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_key_config": access_key_config,
@@ -196,6 +220,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_single_response-13",
       $defs: {
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_key_config": access_key_config,
         "access_messages": access_messages,
@@ -216,7 +241,14 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "Access: Keys Write",
+          "Zero Trust Write",
           "Access: Organizations, Identity Providers, and Groups Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "access-key.write",
+          "access-acct.write",
+          "teams.write"
         ]
       },
       responses: {
@@ -229,6 +261,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_key_config": access_key_config,

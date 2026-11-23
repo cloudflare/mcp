@@ -194,6 +194,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/aaa_id_response",
       $defs: {
+        "aaa_api-response-common-2": aaa_api$$response$$common$$2,
         "aaa_api-response-single": aaa_api$$response$$single,
         "aaa_id_response": aaa_id_response,
         "aaa_messages-3": aaa_messages$$3,
@@ -215,6 +216,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Notifications Write",
           "Account Settings Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "notifications.write",
+          "account-settings.write"
         ]
       },
       responses: {
@@ -234,6 +239,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "aaa_api-response-common-2": aaa_api$$response$$common$$2,
           "aaa_api-response-common-failure-3": aaa_api$$response$$common$$failure$$3,
           "aaa_api-response-single": aaa_api$$response$$single,
           "aaa_id_response": aaa_id_response,
@@ -297,6 +303,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Notifications Write",
           "Account Settings Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "notifications.write",
+          "account-settings.write"
         ]
       },
       responses: {
@@ -359,6 +369,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/aaa_single_response",
       $defs: {
+        "aaa_api-response-common-2": aaa_api$$response$$common$$2,
         "aaa_api-response-single": aaa_api$$response$$single,
         "aaa_filters": aaa_filters,
         "aaa_mechanisms": aaa_mechanisms,
@@ -385,6 +396,13 @@ export const tools: readonly Tool[] = [
           "Notifications Read",
           "Account Settings Write",
           "Account Settings Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "notifications.read",
+          "notifications.write",
+          "teams-pii.read",
+          "account-settings.read",
+          "account-settings.write"
         ]
       },
       responses: {
@@ -404,6 +422,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "aaa_api-response-common-2": aaa_api$$response$$common$$2,
           "aaa_api-response-common-failure-3": aaa_api$$response$$common$$failure$$3,
           "aaa_api-response-single": aaa_api$$response$$single,
           "aaa_filters": aaa_filters,
@@ -470,6 +489,13 @@ export const tools: readonly Tool[] = [
           "Notifications Read",
           "Account Settings Write",
           "Account Settings Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "notifications.read",
+          "notifications.write",
+          "teams-pii.read",
+          "account-settings.read",
+          "account-settings.write"
         ]
       },
       responses: {
@@ -581,6 +607,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Notifications Write",
           "Account Settings Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "notifications.write",
+          "account-settings.write"
         ]
       },
       responses: {
@@ -766,6 +796,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/aaa_id_response",
       $defs: {
+        "aaa_api-response-common-2": aaa_api$$response$$common$$2,
         "aaa_api-response-single": aaa_api$$response$$single,
         "aaa_id_response": aaa_id_response,
         "aaa_messages-3": aaa_messages$$3,
@@ -787,6 +818,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Notifications Write",
           "Account Settings Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "notifications.write",
+          "account-settings.write"
         ]
       },
       responses: {
@@ -806,6 +841,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "aaa_api-response-common-2": aaa_api$$response$$common$$2,
           "aaa_api-response-common-failure-3": aaa_api$$response$$common$$failure$$3,
           "aaa_api-response-single": aaa_api$$response$$single,
           "aaa_id_response": aaa_id_response,

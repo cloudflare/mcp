@@ -7,43 +7,7 @@ import type { JSONObject } from "@modelcontextprotocol/server";
  * The schema of `email_sending_subdomain` in responses.
  */
 export const email_sending_subdomain: JSONObject = {
-  "properties": {
-    "created": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "dkim_selector": {
-      "type": "string"
-    },
-    "drop_suppressed_recipients": {
-      "type": "boolean"
-    },
-    "enabled": {
-      "type": "boolean"
-    },
-    "modified": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "name": {
-      "type": "string"
-    },
-    "preview_enabled": {
-      "type": "boolean"
-    },
-    "return_path_domain": {
-      "type": "string"
-    },
-    "tag": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "enabled",
-    "name",
-    "tag"
-  ],
-  "type": "object"
+  "$ref": "#/$defs/email_sending_subdomain_properties"
 };
 
 /**
@@ -121,6 +85,49 @@ export const email_sending_subdomain_preview_response: JSONObject = {
       "type": "object"
     }
   ]
+};
+
+/**
+ * The schema of `email_sending_subdomain_properties` in responses.
+ */
+export const email_sending_subdomain_properties: JSONObject = {
+  "properties": {
+    "created": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "dkim_selector": {
+      "type": "string"
+    },
+    "drop_suppressed_recipients": {
+      "type": "boolean"
+    },
+    "enabled": {
+      "type": "boolean"
+    },
+    "modified": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "preview_enabled": {
+      "type": "boolean"
+    },
+    "return_path_domain": {
+      "type": "string"
+    },
+    "tag": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "enabled",
+    "name",
+    "tag"
+  ],
+  "type": "object"
 };
 
 /**

@@ -101,6 +101,9 @@ export const tools: readonly Tool[] = [
         { name: "page", explode: true },
         { name: "per_page", explode: true },
       ],
+      extensions: {
+        "x-stability": "beta"
+      },
       responses: {
         schemas: {
           "200": {
@@ -182,6 +185,9 @@ export const tools: readonly Tool[] = [
       method: "DELETE",
       path: "/zones/{zone_id}/pay-per-use/operators/{operator_id}/price",
       pathOf: encodePath`/zones/${"zone_id"}/pay-per-use/operators/${"operator_id"}/price`,
+      extensions: {
+        "x-stability": "beta"
+      },
       responses: {
         schemas: {
           "200": {
@@ -274,6 +280,9 @@ export const tools: readonly Tool[] = [
       path: "/zones/{zone_id}/pay-per-use/operators/{operator_id}/price",
       pathOf: encodePath`/zones/${"zone_id"}/pay-per-use/operators/${"operator_id"}/price`,
       body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-stability": "beta"
+      },
       responses: {
         schemas: {
           "200": {

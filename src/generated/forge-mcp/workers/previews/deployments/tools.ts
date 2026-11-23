@@ -622,10 +622,16 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/workers/workers/${"worker_id"}/previews/${"preview_id"}/deployments/${"deployment_id"}`,
       extensions: {
         "x-api-token-group": [
+          "Workers Admin",
+          "Individual Workers Admin",
           "Workers Scripts Write"
         ],
         "x-fern-audiences": [
           "sdk"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-scripts.write",
+          "workers-scripts.admin"
         ]
       },
       responses: {
@@ -1169,12 +1175,31 @@ export const tools: readonly Tool[] = [
       ],
       extensions: {
         "x-api-token-group": [
+          "Workers Metadata Read-Only",
+          "Workers Editor",
+          "Workers Content Read-Only",
+          "Workers Admin",
+          "Individual Workers Metadata Read-Only",
+          "Individual Workers Editor",
+          "Individual Workers Content Read-Only",
+          "Individual Workers Admin",
+          "Granular Workers Scripts Read",
+          "IAM Test - Granular Workers Read",
           "Workers Tail Read",
           "Workers Scripts Write",
           "Workers Scripts Read"
         ],
         "x-fern-audiences": [
           "sdk"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-tail.read",
+          "workers-scripts.read",
+          "workers-scripts.write",
+          "workers-scripts.content_read",
+          "workers-scripts.metadata_read",
+          "workers-scripts.edit",
+          "workers-scripts.admin"
         ]
       },
       responses: {
@@ -1450,12 +1475,31 @@ export const tools: readonly Tool[] = [
       ],
       extensions: {
         "x-api-token-group": [
+          "Workers Metadata Read-Only",
+          "Workers Editor",
+          "Workers Content Read-Only",
+          "Workers Admin",
+          "Individual Workers Metadata Read-Only",
+          "Individual Workers Editor",
+          "Individual Workers Content Read-Only",
+          "Individual Workers Admin",
+          "Granular Workers Scripts Read",
+          "IAM Test - Granular Workers Read",
           "Workers Tail Read",
           "Workers Scripts Write",
           "Workers Scripts Read"
         ],
         "x-fern-audiences": [
           "sdk"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-tail.read",
+          "workers-scripts.read",
+          "workers-scripts.write",
+          "workers-scripts.content_read",
+          "workers-scripts.metadata_read",
+          "workers-scripts.edit",
+          "workers-scripts.admin"
         ]
       },
       responses: {

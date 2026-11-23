@@ -4,13 +4,12 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
- * The schema of `bill-subs-api_address_validation_response_single` in
- * responses.
+ * The schema of `bill-subs_address_validation_response_single` in responses.
  */
-export const bill$$subs$$api_address_validation_response_single: JSONObject = {
+export const bill$$subs_address_validation_response_single: JSONObject = {
   "allOf": [
     {
-      "$ref": "#/$defs/bill-subs-api_api-response-single"
+      "$ref": "#/$defs/bill-subs_api-response-single"
     },
     {
       "properties": {
@@ -18,7 +17,7 @@ export const bill$$subs$$api_address_validation_response_single: JSONObject = {
           "properties": {
             "validated_addresses": {
               "items": {
-                "$ref": "#/$defs/bill-subs-api_validated_address"
+                "$ref": "#/$defs/bill-subs_validated_address"
               },
               "type": "array"
             }
@@ -32,9 +31,9 @@ export const bill$$subs$$api_address_validation_response_single: JSONObject = {
 };
 
 /**
- * The schema of `bill-subs-api_validated_address` in responses.
+ * The schema of `bill-subs_validated_address` in responses.
  */
-export const bill$$subs$$api_validated_address: JSONObject = {
+export const bill$$subs_validated_address: JSONObject = {
   "properties": {
     "address": {
       "type": "string"

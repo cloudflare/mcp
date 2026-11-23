@@ -7,9 +7,6 @@ import {
   billable$$usage$$api_cost_and_usage_data,
   billable$$usage$$api_message,
   billable$$usage$$api_v2_usage_response,
-  usage$$analytics_api_error,
-  usage$$analytics_api_message,
-  usage$$analytics_error_response,
 } from "../../outputs.js";
 import {
   billable$$usage$$api_usage_info_response,
@@ -19,8 +16,6 @@ import {
   billable$$usage$$api_v2_account_billable_metrics_response,
   billable$$usage$$api_v2_product_category,
   billable$$usage$$api_v2_product_family,
-  usage$$analytics_billing_usage_data_point,
-  usage$$analytics_billing_usage_response,
 } from "./outputs.js";
 import {
   billable$$usage$$api_v2_filter_by,
@@ -34,132 +29,6 @@ import {
  * The tools of `billing.usage`.
  */
 export const tools: readonly Tool[] = [
-  {
-    name: "billing_usage_get",
-    title: "Get account billing usage",
-    description: "Retrieve billing usage analytics for an account. Returns time-series data for all billable product metrics including Stream, Media (Images), Rate Limiting, Load Balancing, Argo, Workers, Workers KV, Image Resizing, and Spectrum.\n\nThis method is deprecated.\n\nGET /accounts/{account_id}/billing/usage",
-    inputSchema: {
-      type: "object",
-      properties: {
-        "path": {
-          "additionalProperties": false,
-          "properties": {
-            "account_id": {
-              "description": "Standard Cloudflare hex account identifier. The API gateway translates this to an internal numeric ID before forwarding to the backend service.",
-              "type": "string"
-            }
-          },
-          "required": [
-            "account_id"
-          ],
-          "type": "object"
-        },
-        "query": {
-          "additionalProperties": false,
-          "properties": {
-            "filters": {
-              "description": "Filter expressions to apply to the query. Format: field==value. Multiple filters can be combined.",
-              "type": "string"
-            },
-            "limit": {
-              "default": 100,
-              "description": "Maximum number of data points to return. The actual number of results depends on the interaction between the time range (since/until) and time_delta granularity. Results are truncated to this limit without error if the time range produces more data points than the limit allows.",
-              "type": "integer"
-            },
-            "metrics": {
-              "description": "Comma-separated list of metrics to include in the response. Available metrics depend on the endpoint. Billing usage supports: streamMinutesViewed, rateLimitingRequestsAllowed, loadBalancingQueries, argoAcceleratedBytes, workersRequests, workersKVReads, imageResizingRequests, spectrumBytesTransferred, mediaUniqueTransformations. Stream/media usage supports: streamMinutesViewed.",
-              "type": "string"
-            },
-            "since": {
-              "description": "Start of the time range for the query (inclusive). ISO 8601 timestamp. Defaults to 6 hours before the current time.",
-              "format": "date-time",
-              "type": "string"
-            },
-            "time_delta": {
-              "default": "hour",
-              "description": "Time unit to aggregate usage observations into. Data retention is approximately 18 months. The effective number of data points returned depends on the time range and granularity selected. For example, requesting hourly granularity over 18 months could produce up to ~13,000 data points; use the limit parameter to cap results and be aware that responses may be truncated.",
-              "enum": [
-                "hour",
-                "day",
-                "week",
-                "month",
-                "quarter",
-                "year"
-              ],
-              "type": "string"
-            },
-            "until": {
-              "description": "End of the time range for the query (inclusive). ISO 8601 timestamp. Defaults to the current time.",
-              "format": "date-time",
-              "type": "string"
-            }
-          },
-          "type": "object"
-        }
-      },
-      required: [
-        "path"
-      ],
-      additionalProperties: false,
-    },
-    outputSchema: {
-      "$ref": "#/$defs/usage-analytics_billing_usage_response",
-      $defs: {
-        "usage-analytics_api_error": usage$$analytics_api_error,
-        "usage-analytics_api_message": usage$$analytics_api_message,
-        "usage-analytics_billing_usage_data_point": usage$$analytics_billing_usage_data_point,
-        "usage-analytics_billing_usage_response": usage$$analytics_billing_usage_response,
-      },
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get account billing usage"
-    },
-    [OPERATION]: {
-      method: "GET",
-      path: "/accounts/{account_id}/billing/usage",
-      pathOf: encodePath`/accounts/${"account_id"}/billing/usage`,
-      query: [
-        { name: "metrics", explode: true },
-        { name: "since", explode: true },
-        { name: "until", explode: true },
-        { name: "time_delta", explode: true },
-        { name: "limit", explode: true },
-        { name: "filters", explode: true },
-      ],
-      extensions: {
-        "x-api-token-group": [
-          "Billing Read"
-        ]
-      },
-      responses: {
-        schemas: {
-          "200": {
-            "$ref": "#/$defs/usage-analytics_billing_usage_response"
-          },
-          "400": {
-            "$ref": "#/$defs/usage-analytics_error_response"
-          },
-          "401": {
-            "$ref": "#/$defs/usage-analytics_error_response"
-          },
-          "403": {
-            "$ref": "#/$defs/usage-analytics_error_response"
-          }
-        },
-        $defs: {
-          "usage-analytics_api_error": usage$$analytics_api_error,
-          "usage-analytics_api_message": usage$$analytics_api_message,
-          "usage-analytics_billing_usage_data_point": usage$$analytics_billing_usage_data_point,
-          "usage-analytics_billing_usage_response": usage$$analytics_billing_usage_response,
-          "usage-analytics_error_response": usage$$analytics_error_response,
-        },
-      },
-    },
-  },
   {
     name: "billing_usage_getAccountBillableMetrics",
     title: "List Account Billable Metrics (Version 2, Alpha, Restricted)",

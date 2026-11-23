@@ -99,26 +99,7 @@ export const custom$$pages_api$$response$$common$$failure: JSONObject = {
  * The schema of `custom-pages_api-response-single` in responses.
  */
 export const custom$$pages_api$$response$$single: JSONObject = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/custom-pages_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/custom-pages_messages"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  "$ref": "#/$defs/custom-pages_api-response-common"
 };
 
 /**

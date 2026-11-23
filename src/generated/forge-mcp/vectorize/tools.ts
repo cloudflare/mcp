@@ -7,25 +7,15 @@ import {
   vectorize_api$$response$$common$$failure,
   vectorize_api$$response$$single,
   vectorize_create$$index$$response,
-  vectorize_index$$delete$$vectors$$by$$id$$v2$$response,
   vectorize_index$$dimension$$configuration,
-  vectorize_index$$get$$vectors$$by$$id$$response,
   vectorize_index$$info$$response,
-  vectorize_index$$insert$$v2$$response,
-  vectorize_index$$list$$vectors$$response,
-  vectorize_index$$query$$v2$$response,
-  vectorize_index$$upsert$$v2$$response,
   vectorize_messages,
-  vectorize_vector$$list$$item,
 } from "./outputs.js";
 import {
   vectorize_create$$index$$request,
   vectorize_index$$configuration,
-  vectorize_index$$delete$$vectors$$by$$id$$request,
   vectorize_index$$dimension$$configuration as vectorize_index$$dimension$$configuration$,
-  vectorize_index$$get$$vectors$$by$$id$$request,
   vectorize_index$$preset$$configuration,
-  vectorize_index$$query$$v2$$request,
 } from "./schemas.js";
 
 /**
@@ -104,13 +94,18 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "Auto Rag Write Run Engine",
           "Vectorize Write"
         ],
         "x-cfPermissionsRequired": {
           "enum": [
             "com.cloudflare.edge.vectorize.index.create"
           ]
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "vectorize.write",
+          "rag.run"
+        ]
       },
       responses: {
         schemas: {
@@ -214,13 +209,18 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/vectorize/v2/indexes/${"index_name"}`,
       extensions: {
         "x-api-token-group": [
+          "Auto Rag Write Run Engine",
           "Vectorize Write"
         ],
         "x-cfPermissionsRequired": {
           "enum": [
             "com.cloudflare.edge.vectorize.index.delete"
           ]
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "vectorize.write",
+          "rag.run"
+        ]
       },
       responses: {
         schemas: {
@@ -254,117 +254,6 @@ export const tools: readonly Tool[] = [
           "vectorize_api-response-common": vectorize_api$$response$$common,
           "vectorize_api-response-common-failure": vectorize_api$$response$$common$$failure,
           "vectorize_api-response-single": vectorize_api$$response$$single,
-          "vectorize_messages": vectorize_messages,
-        },
-      },
-    },
-  },
-  {
-    name: "vectorize_deleteByIds",
-    title: "Delete Vectors By Identifier",
-    description: "Delete a set of vectors from an index by their vector identifiers.\n\nPOST /accounts/{account_id}/vectorize/v2/indexes/{index_name}/delete_by_ids",
-    inputSchema: {
-      type: "object",
-      properties: {
-        "body": {
-          "$ref": "#/$defs/vectorize_index-delete-vectors-by-id-request"
-        },
-        "path": {
-          "additionalProperties": false,
-          "properties": {
-            "account_id": {
-              "description": "Identifier",
-              "type": "string"
-            },
-            "index_name": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "account_id",
-            "index_name"
-          ],
-          "type": "object"
-        }
-      },
-      required: [
-        "path",
-        "body"
-      ],
-      additionalProperties: false,
-      $defs: {
-        "vectorize_index-delete-vectors-by-id-request": vectorize_index$$delete$$vectors$$by$$id$$request,
-      },
-    },
-    outputSchema: {
-      "allOf": [
-        {
-          "$ref": "#/$defs/vectorize_api-response-single"
-        },
-        {
-          "properties": {
-            "result": {
-              "$ref": "#/$defs/vectorize_index-delete-vectors-by-id-v2-response"
-            }
-          },
-          "type": "object"
-        }
-      ],
-      $defs: {
-        "vectorize_api-response-common": vectorize_api$$response$$common,
-        "vectorize_api-response-single": vectorize_api$$response$$single,
-        "vectorize_index-delete-vectors-by-id-v2-response": vectorize_index$$delete$$vectors$$by$$id$$v2$$response,
-        "vectorize_messages": vectorize_messages,
-      },
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Delete Vectors By Identifier"
-    },
-    [OPERATION]: {
-      method: "POST",
-      path: "/accounts/{account_id}/vectorize/v2/indexes/{index_name}/delete_by_ids",
-      pathOf: encodePath`/accounts/${"account_id"}/vectorize/v2/indexes/${"index_name"}/delete_by_ids`,
-      body: { mediaTypes: ["application/json"] },
-      extensions: {
-        "x-api-token-group": [
-          "Vectorize Write"
-        ],
-        "x-cfPermissionsRequired": {
-          "enum": [
-            "com.cloudflare.edge.vectorize.index.delete"
-          ]
-        }
-      },
-      responses: {
-        schemas: {
-          "200": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/vectorize_api-response-single"
-              },
-              {
-                "properties": {
-                  "result": {
-                    "$ref": "#/$defs/vectorize_index-delete-vectors-by-id-v2-response"
-                  }
-                },
-                "type": "object"
-              }
-            ]
-          },
-          "4XX": {
-            "$ref": "#/$defs/vectorize_api-response-common-failure"
-          }
-        },
-        $defs: {
-          "vectorize_api-response-common": vectorize_api$$response$$common,
-          "vectorize_api-response-common-failure": vectorize_api$$response$$common$$failure,
-          "vectorize_api-response-single": vectorize_api$$response$$single,
-          "vectorize_index-delete-vectors-by-id-v2-response": vectorize_index$$delete$$vectors$$by$$id$$v2$$response,
           "vectorize_messages": vectorize_messages,
         },
       },
@@ -435,6 +324,7 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/vectorize/v2/indexes/${"index_name"}`,
       extensions: {
         "x-api-token-group": [
+          "Auto Rag Write Run Engine",
           "Vectorize Write",
           "Vectorize Read"
         ],
@@ -442,7 +332,12 @@ export const tools: readonly Tool[] = [
           "enum": [
             "com.cloudflare.edge.vectorize.index.read"
           ]
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "vectorize.read",
+          "vectorize.write",
+          "rag.run"
+        ]
       },
       responses: {
         schemas: {
@@ -471,111 +366,6 @@ export const tools: readonly Tool[] = [
           "vectorize_api-response-single": vectorize_api$$response$$single,
           "vectorize_create-index-response": vectorize_create$$index$$response,
           "vectorize_index-dimension-configuration": vectorize_index$$dimension$$configuration,
-          "vectorize_messages": vectorize_messages,
-        },
-      },
-    },
-  },
-  {
-    name: "vectorize_getByIds",
-    title: "Get Vectors By Identifier",
-    description: "Get a set of vectors from an index by their vector identifiers.\n\nPOST /accounts/{account_id}/vectorize/v2/indexes/{index_name}/get_by_ids",
-    inputSchema: {
-      type: "object",
-      properties: {
-        "body": {
-          "$ref": "#/$defs/vectorize_index-get-vectors-by-id-request"
-        },
-        "path": {
-          "additionalProperties": false,
-          "properties": {
-            "account_id": {
-              "description": "Identifier",
-              "type": "string"
-            },
-            "index_name": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "account_id",
-            "index_name"
-          ],
-          "type": "object"
-        }
-      },
-      required: [
-        "path",
-        "body"
-      ],
-      additionalProperties: false,
-      $defs: {
-        "vectorize_index-get-vectors-by-id-request": vectorize_index$$get$$vectors$$by$$id$$request,
-      },
-    },
-    outputSchema: {
-      "allOf": [
-        {
-          "$ref": "#/$defs/vectorize_api-response-common"
-        },
-        {
-          "properties": {
-            "result": {
-              "$ref": "#/$defs/vectorize_index-get-vectors-by-id-response"
-            }
-          },
-          "type": "object"
-        }
-      ],
-      $defs: {
-        "vectorize_api-response-common": vectorize_api$$response$$common,
-        "vectorize_index-get-vectors-by-id-response": vectorize_index$$get$$vectors$$by$$id$$response,
-        "vectorize_messages": vectorize_messages,
-      },
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Get Vectors By Identifier"
-    },
-    [OPERATION]: {
-      method: "POST",
-      path: "/accounts/{account_id}/vectorize/v2/indexes/{index_name}/get_by_ids",
-      pathOf: encodePath`/accounts/${"account_id"}/vectorize/v2/indexes/${"index_name"}/get_by_ids`,
-      body: { mediaTypes: ["application/json"] },
-      extensions: {
-        "x-api-token-group": [
-          "Vectorize Write",
-          "Vectorize Read"
-        ]
-      },
-      responses: {
-        schemas: {
-          "200": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/vectorize_api-response-common"
-              },
-              {
-                "properties": {
-                  "result": {
-                    "$ref": "#/$defs/vectorize_index-get-vectors-by-id-response"
-                  }
-                },
-                "type": "object"
-              }
-            ]
-          },
-          "4XX": {
-            "$ref": "#/$defs/vectorize_api-response-common-failure"
-          }
-        },
-        $defs: {
-          "vectorize_api-response-common": vectorize_api$$response$$common,
-          "vectorize_api-response-common-failure": vectorize_api$$response$$common$$failure,
-          "vectorize_index-get-vectors-by-id-response": vectorize_index$$get$$vectors$$by$$id$$response,
           "vectorize_messages": vectorize_messages,
         },
       },
@@ -645,6 +435,7 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/vectorize/v2/indexes/${"index_name"}/info`,
       extensions: {
         "x-api-token-group": [
+          "Auto Rag Write Run Engine",
           "Vectorize Write",
           "Vectorize Read"
         ],
@@ -652,7 +443,12 @@ export const tools: readonly Tool[] = [
           "enum": [
             "com.cloudflare.edge.vectorize.index.read"
           ]
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "vectorize.read",
+          "vectorize.write",
+          "rag.run"
+        ]
       },
       responses: {
         schemas: {
@@ -680,148 +476,6 @@ export const tools: readonly Tool[] = [
           "vectorize_api-response-common-failure": vectorize_api$$response$$common$$failure,
           "vectorize_api-response-single": vectorize_api$$response$$single,
           "vectorize_index-info-response": vectorize_index$$info$$response,
-          "vectorize_messages": vectorize_messages,
-        },
-      },
-    },
-  },
-  {
-    name: "vectorize_insert",
-    title: "Insert Vectors",
-    description: "Inserts vectors into the specified index and returns a mutation id corresponding to the vectors enqueued for insertion.\n\nPOST /accounts/{account_id}/vectorize/v2/indexes/{index_name}/insert",
-    inputSchema: {
-      type: "object",
-      properties: {
-        "body": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "additionalProperties": false,
-              "properties": {
-                "content": {
-                  "type": "string"
-                },
-                "contentType": {
-                  "type": "string"
-                },
-                "filename": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "content"
-              ],
-              "type": "object"
-            }
-          ]
-        },
-        "path": {
-          "additionalProperties": false,
-          "properties": {
-            "account_id": {
-              "description": "Identifier",
-              "type": "string"
-            },
-            "index_name": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "account_id",
-            "index_name"
-          ],
-          "type": "object"
-        },
-        "query": {
-          "additionalProperties": false,
-          "properties": {
-            "unparsable-behavior": {
-              "description": "Behavior for ndjson parse failures.",
-              "enum": [
-                "error",
-                "discard"
-              ],
-              "type": "string"
-            }
-          },
-          "type": "object"
-        }
-      },
-      required: [
-        "path",
-        "body"
-      ],
-      additionalProperties: false,
-    },
-    outputSchema: {
-      "allOf": [
-        {
-          "$ref": "#/$defs/vectorize_api-response-single"
-        },
-        {
-          "properties": {
-            "result": {
-              "$ref": "#/$defs/vectorize_index-insert-v2-response"
-            }
-          },
-          "type": "object"
-        }
-      ],
-      $defs: {
-        "vectorize_api-response-common": vectorize_api$$response$$common,
-        "vectorize_api-response-single": vectorize_api$$response$$single,
-        "vectorize_index-insert-v2-response": vectorize_index$$insert$$v2$$response,
-        "vectorize_messages": vectorize_messages,
-      },
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Insert Vectors"
-    },
-    [OPERATION]: {
-      method: "POST",
-      path: "/accounts/{account_id}/vectorize/v2/indexes/{index_name}/insert",
-      pathOf: encodePath`/accounts/${"account_id"}/vectorize/v2/indexes/${"index_name"}/insert`,
-      query: [
-        { name: "unparsable-behavior", explode: true },
-      ],
-      body: { mediaTypes: ["application/x-ndjson"] },
-      extensions: {
-        "x-api-token-group": [
-          "Vectorize Write"
-        ]
-      },
-      responses: {
-        schemas: {
-          "200": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/vectorize_api-response-single"
-              },
-              {
-                "properties": {
-                  "result": {
-                    "$ref": "#/$defs/vectorize_index-insert-v2-response"
-                  }
-                },
-                "type": "object"
-              }
-            ]
-          },
-          "4XX": {
-            "$ref": "#/$defs/vectorize_api-response-common-failure"
-          }
-        },
-        $defs: {
-          "vectorize_api-response-common": vectorize_api$$response$$common,
-          "vectorize_api-response-common-failure": vectorize_api$$response$$common$$failure,
-          "vectorize_api-response-single": vectorize_api$$response$$single,
-          "vectorize_index-insert-v2-response": vectorize_index$$insert$$v2$$response,
           "vectorize_messages": vectorize_messages,
         },
       },
@@ -890,6 +544,7 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/vectorize/v2/indexes`,
       extensions: {
         "x-api-token-group": [
+          "Auto Rag Write Run Engine",
           "Vectorize Write",
           "Vectorize Read"
         ],
@@ -897,7 +552,12 @@ export const tools: readonly Tool[] = [
           "enum": [
             "com.cloudflare.edge.vectorize.index.list"
           ]
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "vectorize.read",
+          "vectorize.write",
+          "rag.run"
+        ]
       },
       responses: {
         schemas: {
@@ -928,380 +588,6 @@ export const tools: readonly Tool[] = [
           "vectorize_api-response-common-failure": vectorize_api$$response$$common$$failure,
           "vectorize_create-index-response": vectorize_create$$index$$response,
           "vectorize_index-dimension-configuration": vectorize_index$$dimension$$configuration,
-          "vectorize_messages": vectorize_messages,
-        },
-      },
-    },
-  },
-  {
-    name: "vectorize_listVectors",
-    title: "List Vectors",
-    description: "Returns a paginated list of vector identifiers from the specified index.\n\nGET /accounts/{account_id}/vectorize/v2/indexes/{index_name}/list",
-    inputSchema: {
-      type: "object",
-      properties: {
-        "path": {
-          "additionalProperties": false,
-          "properties": {
-            "account_id": {
-              "description": "Identifier",
-              "type": "string"
-            },
-            "index_name": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "account_id",
-            "index_name"
-          ],
-          "type": "object"
-        },
-        "query": {
-          "additionalProperties": false,
-          "properties": {
-            "count": {
-              "default": 100,
-              "description": "Maximum number of vectors to return",
-              "type": "integer"
-            },
-            "cursor": {
-              "description": "Cursor for pagination to get the next page of results",
-              "type": "string"
-            }
-          },
-          "type": "object"
-        }
-      },
-      required: [
-        "path"
-      ],
-      additionalProperties: false,
-    },
-    outputSchema: {
-      "allOf": [
-        {
-          "$ref": "#/$defs/vectorize_api-response-single"
-        },
-        {
-          "properties": {
-            "result": {
-              "$ref": "#/$defs/vectorize_index-list-vectors-response"
-            }
-          },
-          "type": "object"
-        }
-      ],
-      $defs: {
-        "vectorize_api-response-common": vectorize_api$$response$$common,
-        "vectorize_api-response-single": vectorize_api$$response$$single,
-        "vectorize_index-list-vectors-response": vectorize_index$$list$$vectors$$response,
-        "vectorize_messages": vectorize_messages,
-        "vectorize_vector-list-item": vectorize_vector$$list$$item,
-      },
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "List Vectors"
-    },
-    [OPERATION]: {
-      method: "GET",
-      path: "/accounts/{account_id}/vectorize/v2/indexes/{index_name}/list",
-      pathOf: encodePath`/accounts/${"account_id"}/vectorize/v2/indexes/${"index_name"}/list`,
-      query: [
-        { name: "count", explode: true },
-        { name: "cursor", explode: true },
-      ],
-      extensions: {
-        "x-api-token-group": [
-          "Vectorize Write",
-          "Vectorize Read"
-        ],
-        "x-cfPermissionsRequired": {
-          "enum": [
-            "com.cloudflare.edge.vectorize.index.read"
-          ]
-        }
-      },
-      responses: {
-        schemas: {
-          "200": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/vectorize_api-response-single"
-              },
-              {
-                "properties": {
-                  "result": {
-                    "$ref": "#/$defs/vectorize_index-list-vectors-response"
-                  }
-                },
-                "type": "object"
-              }
-            ]
-          },
-          "4XX": {
-            "$ref": "#/$defs/vectorize_api-response-common-failure"
-          }
-        },
-        $defs: {
-          "vectorize_api-response-common": vectorize_api$$response$$common,
-          "vectorize_api-response-common-failure": vectorize_api$$response$$common$$failure,
-          "vectorize_api-response-single": vectorize_api$$response$$single,
-          "vectorize_index-list-vectors-response": vectorize_index$$list$$vectors$$response,
-          "vectorize_messages": vectorize_messages,
-          "vectorize_vector-list-item": vectorize_vector$$list$$item,
-        },
-      },
-    },
-  },
-  {
-    name: "vectorize_query",
-    title: "Query Vectors",
-    description: "Finds vectors closest to a given vector in an index.\n\nPOST /accounts/{account_id}/vectorize/v2/indexes/{index_name}/query",
-    inputSchema: {
-      type: "object",
-      properties: {
-        "body": {
-          "$ref": "#/$defs/vectorize_index-query-v2-request"
-        },
-        "path": {
-          "additionalProperties": false,
-          "properties": {
-            "account_id": {
-              "description": "Identifier",
-              "type": "string"
-            },
-            "index_name": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "account_id",
-            "index_name"
-          ],
-          "type": "object"
-        }
-      },
-      required: [
-        "path",
-        "body"
-      ],
-      additionalProperties: false,
-      $defs: {
-        "vectorize_index-query-v2-request": vectorize_index$$query$$v2$$request,
-      },
-    },
-    outputSchema: {
-      "allOf": [
-        {
-          "$ref": "#/$defs/vectorize_api-response-single"
-        },
-        {
-          "properties": {
-            "result": {
-              "$ref": "#/$defs/vectorize_index-query-v2-response"
-            }
-          },
-          "type": "object"
-        }
-      ],
-      $defs: {
-        "vectorize_api-response-common": vectorize_api$$response$$common,
-        "vectorize_api-response-single": vectorize_api$$response$$single,
-        "vectorize_index-query-v2-response": vectorize_index$$query$$v2$$response,
-        "vectorize_messages": vectorize_messages,
-      },
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Query Vectors"
-    },
-    [OPERATION]: {
-      method: "POST",
-      path: "/accounts/{account_id}/vectorize/v2/indexes/{index_name}/query",
-      pathOf: encodePath`/accounts/${"account_id"}/vectorize/v2/indexes/${"index_name"}/query`,
-      body: { mediaTypes: ["application/json"] },
-      extensions: {
-        "x-api-token-group": [
-          "Vectorize Write",
-          "Vectorize Read"
-        ]
-      },
-      responses: {
-        schemas: {
-          "200": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/vectorize_api-response-single"
-              },
-              {
-                "properties": {
-                  "result": {
-                    "$ref": "#/$defs/vectorize_index-query-v2-response"
-                  }
-                },
-                "type": "object"
-              }
-            ]
-          },
-          "4XX": {
-            "$ref": "#/$defs/vectorize_api-response-common-failure"
-          }
-        },
-        $defs: {
-          "vectorize_api-response-common": vectorize_api$$response$$common,
-          "vectorize_api-response-common-failure": vectorize_api$$response$$common$$failure,
-          "vectorize_api-response-single": vectorize_api$$response$$single,
-          "vectorize_index-query-v2-response": vectorize_index$$query$$v2$$response,
-          "vectorize_messages": vectorize_messages,
-        },
-      },
-    },
-  },
-  {
-    name: "vectorize_upsert",
-    title: "Upsert Vectors",
-    description: "Upserts vectors into the specified index, creating them if they do not exist and returns a mutation id corresponding to the vectors enqueued for upsertion.\n\nPOST /accounts/{account_id}/vectorize/v2/indexes/{index_name}/upsert",
-    inputSchema: {
-      type: "object",
-      properties: {
-        "body": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "additionalProperties": false,
-              "properties": {
-                "content": {
-                  "type": "string"
-                },
-                "contentType": {
-                  "type": "string"
-                },
-                "filename": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "content"
-              ],
-              "type": "object"
-            }
-          ]
-        },
-        "path": {
-          "additionalProperties": false,
-          "properties": {
-            "account_id": {
-              "description": "Identifier",
-              "type": "string"
-            },
-            "index_name": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "account_id",
-            "index_name"
-          ],
-          "type": "object"
-        },
-        "query": {
-          "additionalProperties": false,
-          "properties": {
-            "unparsable-behavior": {
-              "description": "Behavior for ndjson parse failures.",
-              "enum": [
-                "error",
-                "discard"
-              ],
-              "type": "string"
-            }
-          },
-          "type": "object"
-        }
-      },
-      required: [
-        "path",
-        "body"
-      ],
-      additionalProperties: false,
-    },
-    outputSchema: {
-      "allOf": [
-        {
-          "$ref": "#/$defs/vectorize_api-response-single"
-        },
-        {
-          "properties": {
-            "result": {
-              "$ref": "#/$defs/vectorize_index-upsert-v2-response"
-            }
-          },
-          "type": "object"
-        }
-      ],
-      $defs: {
-        "vectorize_api-response-common": vectorize_api$$response$$common,
-        "vectorize_api-response-single": vectorize_api$$response$$single,
-        "vectorize_index-upsert-v2-response": vectorize_index$$upsert$$v2$$response,
-        "vectorize_messages": vectorize_messages,
-      },
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Upsert Vectors"
-    },
-    [OPERATION]: {
-      method: "POST",
-      path: "/accounts/{account_id}/vectorize/v2/indexes/{index_name}/upsert",
-      pathOf: encodePath`/accounts/${"account_id"}/vectorize/v2/indexes/${"index_name"}/upsert`,
-      query: [
-        { name: "unparsable-behavior", explode: true },
-      ],
-      body: { mediaTypes: ["application/x-ndjson"] },
-      extensions: {
-        "x-api-token-group": [
-          "Vectorize Write"
-        ]
-      },
-      responses: {
-        schemas: {
-          "200": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/vectorize_api-response-single"
-              },
-              {
-                "properties": {
-                  "result": {
-                    "$ref": "#/$defs/vectorize_index-upsert-v2-response"
-                  }
-                },
-                "type": "object"
-              }
-            ]
-          },
-          "4XX": {
-            "$ref": "#/$defs/vectorize_api-response-common-failure"
-          }
-        },
-        $defs: {
-          "vectorize_api-response-common": vectorize_api$$response$$common,
-          "vectorize_api-response-common-failure": vectorize_api$$response$$common$$failure,
-          "vectorize_api-response-single": vectorize_api$$response$$single,
-          "vectorize_index-upsert-v2-response": vectorize_index$$upsert$$v2$$response,
           "vectorize_messages": vectorize_messages,
         },
       },

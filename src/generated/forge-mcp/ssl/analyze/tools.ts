@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
 import {
+  tls$$certificates$$and$$hostnames_api$$response$$common,
   tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
   tls$$certificates$$and$$hostnames_api$$response$$single,
   tls$$certificates$$and$$hostnames_messages,
@@ -62,6 +63,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_analyze_response",
       $defs: {
+        "tls-certificates-and-hostnames_api-response-common": tls$$certificates$$and$$hostnames_api$$response$$common,
         "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
         "tls-certificates-and-hostnames_certificate_analyze_response": tls$$certificates$$and$$hostnames_certificate_analyze_response,
         "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
@@ -96,7 +98,13 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "access-certificate.read",
+          "access-certificate.write",
+          "ssl-and-certificates.read",
+          "ssl-and-certificates.write"
+        ]
       },
       responses: {
         schemas: {
@@ -115,6 +123,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "tls-certificates-and-hostnames_api-response-common": tls$$certificates$$and$$hostnames_api$$response$$common,
           "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
           "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
           "tls-certificates-and-hostnames_certificate_analyze_response": tls$$certificates$$and$$hostnames_certificate_analyze_response,

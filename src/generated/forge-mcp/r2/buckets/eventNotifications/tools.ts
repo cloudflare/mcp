@@ -104,7 +104,12 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "Auto Rag Write Run Engine",
           "Workers R2 Storage Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-r2.write",
+          "rag.run"
         ]
       },
       responses: {
@@ -215,8 +220,18 @@ export const tools: readonly Tool[] = [
       headers: ["cf-r2-jurisdiction"],
       extensions: {
         "x-api-token-group": [
+          "Workers R2 Storage Metadata Read",
+          "AI Search Index Engine",
+          "Auto Rag Write Run Engine",
           "Workers R2 Storage Write",
           "Workers R2 Storage Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-r2.metadata_read",
+          "workers-r2.read",
+          "workers-r2.write",
+          "ai-search.index",
+          "rag.run"
         ]
       },
       responses: {
@@ -340,8 +355,18 @@ export const tools: readonly Tool[] = [
       headers: ["cf-r2-jurisdiction"],
       extensions: {
         "x-api-token-group": [
+          "Workers R2 Storage Metadata Read",
+          "AI Search Index Engine",
+          "Auto Rag Write Run Engine",
           "Workers R2 Storage Write",
           "Workers R2 Storage Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-r2.metadata_read",
+          "workers-r2.read",
+          "workers-r2.write",
+          "ai-search.index",
+          "rag.run"
         ]
       },
       responses: {
@@ -477,7 +502,12 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "Auto Rag Write Run Engine",
           "Workers R2 Storage Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-r2.write",
+          "rag.run"
         ]
       },
       responses: {

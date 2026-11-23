@@ -7,7 +7,15 @@ import type { JSONObject } from "@modelcontextprotocol/server";
  * The schema of `email-security_CreateTrustedDomain`.
  */
 export const email$$security_CreateTrustedDomain: JSONObject = {
-  "description": "Create a trusted domain.",
+  "$ref": "#/$defs/email-security_TrustedDomain",
+  "description": "Create a trusted domain."
+};
+
+/**
+ * The schema of `email-security_TrustedDomain`.
+ */
+export const email$$security_TrustedDomain: JSONObject = {
+  "description": "A trusted email domain.",
   "properties": {
     "comments": {
       "oneOf": [
@@ -36,12 +44,6 @@ export const email$$security_CreateTrustedDomain: JSONObject = {
       "type": "string"
     }
   },
-  "required": [
-    "is_recent",
-    "is_regex",
-    "is_similarity",
-    "pattern"
-  ],
   "type": "object"
 };
 
@@ -49,34 +51,6 @@ export const email$$security_CreateTrustedDomain: JSONObject = {
  * The schema of `email-security_UpdateTrustedDomain`.
  */
 export const email$$security_UpdateTrustedDomain: JSONObject = {
-  "description": "Update a trusted domain.",
-  "properties": {
-    "comments": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "is_recent": {
-      "description": "Select to prevent recently registered domains from triggering a Suspicious or Malicious disposition.",
-      "type": "boolean"
-    },
-    "is_regex": {
-      "description": "Whether `pattern` is a regular expression instead of a literal domain.",
-      "type": "boolean"
-    },
-    "is_similarity": {
-      "description": "Select for partner or other approved domains that have similar spelling to your connected domains. Prevents listed domains from triggering a Spoof disposition.",
-      "type": "boolean"
-    },
-    "pattern": {
-      "description": "The domain pattern to trust, e.g. `example.com`.",
-      "type": "string"
-    }
-  },
-  "type": "object"
+  "$ref": "#/$defs/email-security_TrustedDomain",
+  "description": "Update a trusted domain."
 };

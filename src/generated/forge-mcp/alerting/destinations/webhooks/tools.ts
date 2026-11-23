@@ -70,6 +70,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/aaa_id_response",
       $defs: {
+        "aaa_api-response-common-2": aaa_api$$response$$common$$2,
         "aaa_api-response-single": aaa_api$$response$$single,
         "aaa_id_response": aaa_id_response,
         "aaa_messages-3": aaa_messages$$3,
@@ -97,7 +98,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "notifications.write",
+          "account-settings.write"
+        ]
       },
       responses: {
         schemas: {
@@ -116,6 +121,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "aaa_api-response-common-2": aaa_api$$response$$common$$2,
           "aaa_api-response-common-failure-3": aaa_api$$response$$common$$failure$$3,
           "aaa_api-response-single": aaa_api$$response$$single,
           "aaa_id_response": aaa_id_response,
@@ -183,7 +189,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "notifications.write",
+          "account-settings.write"
+        ]
       },
       responses: {
         schemas: {
@@ -236,6 +246,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/aaa_schemas-single_response",
       $defs: {
+        "aaa_api-response-common-2": aaa_api$$response$$common$$2,
         "aaa_api-response-single": aaa_api$$response$$single,
         "aaa_messages-3": aaa_messages$$3,
         "aaa_schemas-single_response": aaa_schemas$$single_response,
@@ -266,7 +277,14 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "notifications.read",
+          "notifications.write",
+          "teams-pii.read",
+          "account-settings.read",
+          "account-settings.write"
+        ]
       },
       responses: {
         schemas: {
@@ -285,6 +303,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "aaa_api-response-common-2": aaa_api$$response$$common$$2,
           "aaa_api-response-common-failure-3": aaa_api$$response$$common$$failure$$3,
           "aaa_api-response-single": aaa_api$$response$$single,
           "aaa_messages-3": aaa_messages$$3,
@@ -353,7 +372,14 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "notifications.read",
+          "notifications.write",
+          "teams-pii.read",
+          "account-settings.read",
+          "account-settings.write"
+        ]
       },
       responses: {
         schemas: {
@@ -428,6 +454,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/aaa_id_response",
       $defs: {
+        "aaa_api-response-common-2": aaa_api$$response$$common$$2,
         "aaa_api-response-single": aaa_api$$response$$single,
         "aaa_id_response": aaa_id_response,
         "aaa_messages-3": aaa_messages$$3,
@@ -455,7 +482,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "notifications.write",
+          "account-settings.write"
+        ]
       },
       responses: {
         schemas: {
@@ -474,6 +505,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "aaa_api-response-common-2": aaa_api$$response$$common$$2,
           "aaa_api-response-common-failure-3": aaa_api$$response$$common$$failure$$3,
           "aaa_api-response-single": aaa_api$$response$$single,
           "aaa_id_response": aaa_id_response,

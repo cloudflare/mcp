@@ -7,9 +7,10 @@ import type { JSONObject } from "@modelcontextprotocol/server";
  * The schema of `tls-certificates-and-hostnames_validation_method-3`.
  */
 export const tls$$certificates$$and$$hostnames_validation_method$$3: JSONObject = {
+  "description": "SSL validation settings. Omit validation_method to use the current or default method.",
   "properties": {
     "validation_method": {
-      "description": "Desired validation method.",
+      "description": "SSL validation method.",
       "enum": [
         "http",
         "cname",
@@ -19,8 +20,5 @@ export const tls$$certificates$$and$$hostnames_validation_method$$3: JSONObject 
       "type": "string"
     }
   },
-  "required": [
-    "validation_method"
-  ],
   "type": "object"
 };

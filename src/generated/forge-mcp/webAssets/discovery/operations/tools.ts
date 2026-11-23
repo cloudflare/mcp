@@ -93,6 +93,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Account API Gateway",
           "Domain API Gateway"
+        ],
+        "x-forge-oauth-scopes": [
+          "api-gateway.write",
+          "account-api-gateway.write"
         ]
       },
       responses: {
@@ -199,6 +203,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Account API Gateway",
           "Domain API Gateway"
+        ],
+        "x-forge-oauth-scopes": [
+          "api-gateway.write",
+          "account-api-gateway.write"
         ]
       },
       responses: {
@@ -311,6 +319,12 @@ export const tools: readonly Tool[] = [
           "Account API Gateway Read",
           "Domain API Gateway",
           "Domain API Gateway Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "api-gateway.read",
+          "api-gateway.write",
+          "account-api-gateway.read",
+          "account-api-gateway.write"
         ]
       },
       responses: {
@@ -518,6 +532,12 @@ export const tools: readonly Tool[] = [
           "Account API Gateway Read",
           "Domain API Gateway",
           "Domain API Gateway Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "api-gateway.read",
+          "api-gateway.write",
+          "account-api-gateway.read",
+          "account-api-gateway.write"
         ]
       },
       responses: {

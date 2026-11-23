@@ -90,6 +90,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Cloudflare One Networks Write",
           "Cloudflare Tunnel Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-networks.write",
+          "argotunnel.write"
         ]
       },
       responses: {
@@ -174,6 +178,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Cloudflare One Networks Write",
           "Cloudflare Tunnel Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-networks.write",
+          "argotunnel.write"
         ]
       },
       responses: {
@@ -279,6 +287,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Cloudflare One Networks Write",
           "Cloudflare Tunnel Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-networks.write",
+          "argotunnel.write"
         ]
       },
       responses: {
@@ -365,6 +377,12 @@ export const tools: readonly Tool[] = [
           "Cloudflare One Networks Read",
           "Cloudflare Tunnel Write",
           "Cloudflare Tunnel Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-networks.read",
+          "argotunnel.read",
+          "teams-networks.write",
+          "argotunnel.write"
         ]
       },
       responses: {
@@ -499,6 +517,12 @@ export const tools: readonly Tool[] = [
           "Cloudflare One Networks Read",
           "Cloudflare Tunnel Write",
           "Cloudflare Tunnel Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-networks.read",
+          "argotunnel.read",
+          "teams-networks.write",
+          "argotunnel.write"
         ]
       },
       responses: {

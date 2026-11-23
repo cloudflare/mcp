@@ -120,7 +120,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "pipelines.write"
+        ]
       },
       responses: {
         schemas: {
@@ -329,7 +332,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "pipelines.read",
+          "pipelines.write"
+        ]
       },
       responses: {
         schemas: {
@@ -495,7 +502,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "pipelines.read",
+          "pipelines.write"
+        ]
       },
       responses: {
         schemas: {
@@ -643,7 +654,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "pipelines.write"
+        ]
       },
       responses: {
         schemas: {
@@ -783,7 +797,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "pipelines.write"
+        ]
       },
       responses: {
         schemas: {

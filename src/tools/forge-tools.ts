@@ -32,7 +32,7 @@ function forgeTools() {
 }
 
 /**
- * Serve the direct tools forge generates from `openapi.forge.json`
+ * Serve the direct tools forge generates from the pinned `openapi.json`
  * (`?codemode=false`), alongside `docs` and `whoami`.
  *
  * The generated tools live in the forge tools service, a Worker of their own,

@@ -4,9 +4,9 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
- * The schema of `bill-subs-api_payment_method` in responses.
+ * The schema of `bill-subs_payment_method` in responses.
  */
-export const bill$$subs$$api_payment_method: JSONObject = {
+export const bill$$subs_payment_method: JSONObject = {
   "properties": {
     "address": {
       "type": "string"
@@ -96,19 +96,18 @@ export const bill$$subs$$api_payment_method: JSONObject = {
 };
 
 /**
- * The schema of `bill-subs-api_payment_method_response_collection` in
- * responses.
+ * The schema of `bill-subs_payment_method_response_collection` in responses.
  */
-export const bill$$subs$$api_payment_method_response_collection: JSONObject = {
+export const bill$$subs_payment_method_response_collection: JSONObject = {
   "allOf": [
     {
-      "$ref": "#/$defs/bill-subs-api_api-response-collection"
+      "$ref": "#/$defs/bill-subs_api-response-collection"
     },
     {
       "properties": {
         "result": {
           "items": {
-            "$ref": "#/$defs/bill-subs-api_payment_method"
+            "$ref": "#/$defs/bill-subs_payment_method"
           },
           "type": "array"
         }
@@ -119,17 +118,17 @@ export const bill$$subs$$api_payment_method_response_collection: JSONObject = {
 };
 
 /**
- * The schema of `bill-subs-api_payment_method_response_single` in responses.
+ * The schema of `bill-subs_payment_method_response_single` in responses.
  */
-export const bill$$subs$$api_payment_method_response_single: JSONObject = {
+export const bill$$subs_payment_method_response_single: JSONObject = {
   "allOf": [
     {
-      "$ref": "#/$defs/bill-subs-api_api-response-single"
+      "$ref": "#/$defs/bill-subs_api-response-single"
     },
     {
       "properties": {
         "result": {
-          "$ref": "#/$defs/bill-subs-api_payment_method"
+          "$ref": "#/$defs/bill-subs_payment_method"
         }
       },
       "type": "object"

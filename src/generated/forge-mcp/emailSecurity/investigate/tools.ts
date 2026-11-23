@@ -105,6 +105,10 @@ export const tools: readonly Tool[] = [
           "Cloud Email Security: Write",
           "Cloud Email Security: Read"
         ],
+        "x-forge-oauth-scopes": [
+          "cloud-email-security.read",
+          "cloud-email-security.write"
+        ],
         "x-stability": "beta"
       },
       responses: {
@@ -381,6 +385,10 @@ export const tools: readonly Tool[] = [
           "Cloud Email Security: Write",
           "Cloud Email Security: Read"
         ],
+        "x-forge-oauth-scopes": [
+          "cloud-email-security.read",
+          "cloud-email-security.write"
+        ],
         "x-stability": "beta"
       },
       responses: {
@@ -585,6 +593,9 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Cloud Email Security: Write"
         ],
+        "x-forge-oauth-scopes": [
+          "cloud-email-security.write"
+        ],
         "x-stability": "beta"
       },
       responses: {
@@ -709,6 +720,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Cloud Email Security: Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "cloud-email-security.write"
         ],
         "x-stability": "beta"
       },

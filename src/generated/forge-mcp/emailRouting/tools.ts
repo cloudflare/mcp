@@ -2,8 +2,13 @@
 /* eslint-disable */
 
 import { OPERATION, type Tool, encodePath } from "../_/tool.js";
-import { email_api$$response$$single, email_messages } from "../outputs.js";
 import {
+  email_api$$response$$common,
+  email_api$$response$$single,
+  email_messages,
+} from "../outputs.js";
+import {
+  email_email_settings_properties,
   email_email_settings_response_single,
   email_settings,
 } from "./outputs.js";
@@ -48,7 +53,9 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/email_email_settings_response_single",
       $defs: {
+        "email_api-response-common": email_api$$response$$common,
         "email_api-response-single": email_api$$response$$single,
+        "email_email_settings_properties": email_email_settings_properties,
         "email_email_settings_response_single": email_email_settings_response_single,
         "email_messages": email_messages,
         "email_settings": email_settings,
@@ -70,12 +77,20 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Zone Settings Write"
         ],
+        "x-cfPermissionsRequired": {
+          "enum": [
+            "com.cloudflare.api.account.zone.email.routing.config.update"
+          ]
+        },
         "x-cfPlanAvailability": {
           "business": true,
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "zone-settings.write"
+        ]
       },
       responses: {
         schemas: {
@@ -85,7 +100,9 @@ export const tools: readonly Tool[] = [
           "403": null
         },
         $defs: {
+          "email_api-response-common": email_api$$response$$common,
           "email_api-response-single": email_api$$response$$single,
+          "email_email_settings_properties": email_email_settings_properties,
           "email_email_settings_response_single": email_email_settings_response_single,
           "email_messages": email_messages,
           "email_settings": email_settings,
@@ -128,7 +145,9 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/email_email_settings_response_single",
       $defs: {
+        "email_api-response-common": email_api$$response$$common,
         "email_api-response-single": email_api$$response$$single,
+        "email_email_settings_properties": email_email_settings_properties,
         "email_email_settings_response_single": email_email_settings_response_single,
         "email_messages": email_messages,
         "email_settings": email_settings,
@@ -160,7 +179,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "zone-settings.write"
+        ]
       },
       responses: {
         schemas: {
@@ -170,7 +192,9 @@ export const tools: readonly Tool[] = [
           "403": null
         },
         $defs: {
+          "email_api-response-common": email_api$$response$$common,
           "email_api-response-single": email_api$$response$$single,
+          "email_email_settings_properties": email_email_settings_properties,
           "email_email_settings_response_single": email_email_settings_response_single,
           "email_messages": email_messages,
           "email_settings": email_settings,

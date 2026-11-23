@@ -4,28 +4,9 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
- * The schema of `email_email_settings_response_single` in responses.
+ * The schema of `email_email_settings_properties` in responses.
  */
-export const email_email_settings_response_single: JSONObject = {
-  "allOf": [
-    {
-      "$ref": "#/$defs/email_api-response-single"
-    },
-    {
-      "properties": {
-        "result": {
-          "$ref": "#/$defs/email_settings"
-        }
-      },
-      "type": "object"
-    }
-  ]
-};
-
-/**
- * The schema of `email_settings` in responses.
- */
-export const email_settings: JSONObject = {
+export const email_email_settings_properties: JSONObject = {
   "properties": {
     "created": {
       "format": "date-time",
@@ -82,4 +63,30 @@ export const email_settings: JSONObject = {
     "name"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `email_email_settings_response_single` in responses.
+ */
+export const email_email_settings_response_single: JSONObject = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/email_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/email_settings"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `email_settings` in responses.
+ */
+export const email_settings: JSONObject = {
+  "$ref": "#/$defs/email_email_settings_properties"
 };

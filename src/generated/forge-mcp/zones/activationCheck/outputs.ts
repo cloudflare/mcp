@@ -4,6 +4,32 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
+ * The schema of `zone-activation_api-response-common` in responses.
+ */
+export const zone$$activation_api$$response$$common: JSONObject = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/zone-activation_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/zone-activation_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `zone-activation_api-response-common-failure` in responses.
  */
 export const zone$$activation_api$$response$$common$$failure: JSONObject = {
@@ -37,26 +63,7 @@ export const zone$$activation_api$$response$$common$$failure: JSONObject = {
  * The schema of `zone-activation_api-response-single` in responses.
  */
 export const zone$$activation_api$$response$$single: JSONObject = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/zone-activation_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/zone-activation_messages"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  "$ref": "#/$defs/zone-activation_api-response-common"
 };
 
 /**

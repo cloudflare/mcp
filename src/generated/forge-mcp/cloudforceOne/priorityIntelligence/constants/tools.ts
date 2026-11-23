@@ -48,6 +48,10 @@ export const tools: readonly Tool[] = [
           "Cloudforce One Write",
           "Cloudforce One Read"
         ],
+        "x-forge-oauth-scopes": [
+          "cloudforce-one.read",
+          "cloudforce-one.write"
+        ],
         "x-stability": "beta"
       },
       responses: {

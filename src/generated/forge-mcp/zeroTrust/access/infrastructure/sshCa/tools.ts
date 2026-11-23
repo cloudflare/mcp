@@ -49,6 +49,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_single_response-8",
       $defs: {
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_certificates-2": access_certificates$$2,
         "access_messages": access_messages,
@@ -68,7 +69,12 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/access/gateway_ca`,
       extensions: {
         "x-api-token-group": [
-          "Access: SSH Auditing Write"
+          "Access: SSH Auditing Write",
+          "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "access-ssh-auditing.write",
+          "teams.write"
         ]
       },
       responses: {
@@ -81,6 +87,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_certificates-2": access_certificates$$2,
@@ -124,6 +131,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_id_response",
       $defs: {
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_id_response": access_id_response,
         "access_messages": access_messages,
@@ -142,7 +150,12 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/access/gateway_ca/${"certificate_id"}`,
       extensions: {
         "x-api-token-group": [
-          "Access: SSH Auditing Write"
+          "Access: SSH Auditing Write",
+          "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "access-ssh-auditing.write",
+          "teams.write"
         ]
       },
       responses: {
@@ -155,6 +168,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_id_response": access_id_response,
@@ -213,7 +227,15 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Access: SSH Auditing Write",
-          "Access: SSH Auditing Read"
+          "Access: SSH Auditing Read",
+          "Zero Trust Read",
+          "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "access-ssh-auditing.read",
+          "access-ssh-auditing.write",
+          "teams.read",
+          "teams.write"
         ]
       },
       responses: {

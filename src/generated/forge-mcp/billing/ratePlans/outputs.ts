@@ -4,12 +4,12 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
- * The schema of `bill-subs-api_rate_plan_simple_response` in responses.
+ * The schema of `bill-subs_rate_plan_simple_response` in responses.
  */
-export const bill$$subs$$api_rate_plan_simple_response: JSONObject = {
+export const bill$$subs_rate_plan_simple_response: JSONObject = {
   "allOf": [
     {
-      "$ref": "#/$defs/bill-subs-api_api-response-single"
+      "$ref": "#/$defs/bill-subs_api-response-single"
     },
     {
       "properties": {

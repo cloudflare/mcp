@@ -16,6 +16,7 @@ import {
 } from "./outputs.js";
 import {
   email$$security_CreateTrustedDomain,
+  email$$security_TrustedDomain as email$$security_TrustedDomain$,
   email$$security_UpdateTrustedDomain,
 } from "./schemas.js";
 
@@ -138,6 +139,7 @@ export const tools: readonly Tool[] = [
       additionalProperties: false,
       $defs: {
         "email-security_CreateTrustedDomain": email$$security_CreateTrustedDomain,
+        "email-security_TrustedDomain": email$$security_TrustedDomain$,
         "email-security_UpdateTrustedDomain": email$$security_UpdateTrustedDomain,
       },
     },
@@ -176,6 +178,7 @@ export const tools: readonly Tool[] = [
         "email-security_DeletedTrustedDomain": email$$security_DeletedTrustedDomain,
         "email-security_TrustedDomain": email$$security_TrustedDomain,
         "email-security_TrustedDomainList": email$$security_TrustedDomainList,
+        "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
       },
@@ -195,6 +198,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Cloud Email Security: Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "cloud-email-security.write"
         ],
         "x-stability": "beta"
       },
@@ -240,6 +246,7 @@ export const tools: readonly Tool[] = [
           "email-security_DeletedTrustedDomain": email$$security_DeletedTrustedDomain,
           "email-security_TrustedDomain": email$$security_TrustedDomain,
           "email-security_TrustedDomainList": email$$security_TrustedDomainList,
+          "email-security_api-response-common": email$$security_api$$response$$common,
           "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
           "email-security_api-response-single": email$$security_api$$response$$single,
           "email-security_messages": email$$security_messages,
@@ -278,6 +285,7 @@ export const tools: readonly Tool[] = [
       additionalProperties: false,
       $defs: {
         "email-security_CreateTrustedDomain": email$$security_CreateTrustedDomain,
+        "email-security_TrustedDomain": email$$security_TrustedDomain$,
       },
     },
     outputSchema: {
@@ -296,6 +304,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_TrustedDomain": email$$security_TrustedDomain,
+        "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
       },
@@ -315,6 +324,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Cloud Email Security: Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "cloud-email-security.write"
         ],
         "x-stability": "beta"
       },
@@ -341,6 +353,7 @@ export const tools: readonly Tool[] = [
         },
         $defs: {
           "email-security_TrustedDomain": email$$security_TrustedDomain,
+          "email-security_api-response-common": email$$security_api$$response$$common,
           "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
           "email-security_api-response-single": email$$security_api$$response$$single,
           "email-security_messages": email$$security_messages,
@@ -396,6 +409,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_DeletedTrustedDomain": email$$security_DeletedTrustedDomain,
+        "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
       },
@@ -414,6 +428,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Cloud Email Security: Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "cloud-email-security.write"
         ],
         "x-stability": "beta"
       },
@@ -440,6 +457,7 @@ export const tools: readonly Tool[] = [
         },
         $defs: {
           "email-security_DeletedTrustedDomain": email$$security_DeletedTrustedDomain,
+          "email-security_api-response-common": email$$security_api$$response$$common,
           "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
           "email-security_api-response-single": email$$security_api$$response$$single,
           "email-security_messages": email$$security_messages,
@@ -483,6 +501,7 @@ export const tools: readonly Tool[] = [
       ],
       additionalProperties: false,
       $defs: {
+        "email-security_TrustedDomain": email$$security_TrustedDomain$,
         "email-security_UpdateTrustedDomain": email$$security_UpdateTrustedDomain,
       },
     },
@@ -502,6 +521,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_TrustedDomain": email$$security_TrustedDomain,
+        "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
       },
@@ -521,6 +541,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Cloud Email Security: Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "cloud-email-security.write"
         ],
         "x-stability": "beta"
       },
@@ -547,6 +570,7 @@ export const tools: readonly Tool[] = [
         },
         $defs: {
           "email-security_TrustedDomain": email$$security_TrustedDomain,
+          "email-security_api-response-common": email$$security_api$$response$$common,
           "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
           "email-security_api-response-single": email$$security_api$$response$$single,
           "email-security_messages": email$$security_messages,
@@ -602,6 +626,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_TrustedDomain": email$$security_TrustedDomain,
+        "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
       },
@@ -621,6 +646,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Cloud Email Security: Write",
           "Cloud Email Security: Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "cloud-email-security.read",
+          "cloud-email-security.write"
         ],
         "x-stability": "beta"
       },
@@ -647,6 +676,7 @@ export const tools: readonly Tool[] = [
         },
         $defs: {
           "email-security_TrustedDomain": email$$security_TrustedDomain,
+          "email-security_api-response-common": email$$security_api$$response$$common,
           "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
           "email-security_api-response-single": email$$security_api$$response$$single,
           "email-security_messages": email$$security_messages,
@@ -775,6 +805,10 @@ export const tools: readonly Tool[] = [
           "Cloud Email Security: Write",
           "Cloud Email Security: Read"
         ],
+        "x-forge-oauth-scopes": [
+          "cloud-email-security.read",
+          "cloud-email-security.write"
+        ],
         "x-stability": "beta"
       },
       responses: {
@@ -846,6 +880,7 @@ export const tools: readonly Tool[] = [
       additionalProperties: false,
       $defs: {
         "email-security_CreateTrustedDomain": email$$security_CreateTrustedDomain,
+        "email-security_TrustedDomain": email$$security_TrustedDomain$,
       },
     },
     outputSchema: {
@@ -864,6 +899,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email-security_TrustedDomain": email$$security_TrustedDomain,
+        "email-security_api-response-common": email$$security_api$$response$$common,
         "email-security_api-response-single": email$$security_api$$response$$single,
         "email-security_messages": email$$security_messages,
       },
@@ -906,6 +942,7 @@ export const tools: readonly Tool[] = [
         },
         $defs: {
           "email-security_TrustedDomain": email$$security_TrustedDomain,
+          "email-security_api-response-common": email$$security_api$$response$$common,
           "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
           "email-security_api-response-single": email$$security_api$$response$$single,
           "email-security_messages": email$$security_messages,

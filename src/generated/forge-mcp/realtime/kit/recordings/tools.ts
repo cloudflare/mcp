@@ -38,7 +38,7 @@ export const tools: readonly Tool[] = [
   {
     name: "realtime_kit_recordings_control",
     title: "Pause/Resume/Stop recording",
-    description: "Pause/Resume/Stop a given recording ID.\n\nThis method is beta.\n\nPUT /accounts/{account_id}/realtime/kit/{app_id}/recordings/{recording_id}",
+    description: "Pause/Resume/Stop a given recording ID.\n\n**Note:** A recording can stay paused for a maximum of 12 hours. After that, it automatically resumes and finishes.\n\nThis method is beta.\n\nPUT /accounts/{account_id}/realtime/kit/{app_id}/recordings/{recording_id}",
     inputSchema: {
       type: "object",
       properties: {
@@ -145,6 +145,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Realtime Admin",
           "Realtime"
+        ],
+        "x-forge-oauth-scopes": [
+          "realtime.write",
+          "realtime.admin"
         ],
         "x-stability": "beta"
       },
@@ -289,8 +293,14 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/realtime/kit/${"app_id"}/recordings/${"recording_id"}`,
       extensions: {
         "x-api-token-group": [
+          "Realtime Read",
           "Realtime Admin",
           "Realtime"
+        ],
+        "x-forge-oauth-scopes": [
+          "realtime.read",
+          "realtime.write",
+          "realtime.admin"
         ],
         "x-stability": "beta"
       },
@@ -517,8 +527,14 @@ export const tools: readonly Tool[] = [
       ],
       extensions: {
         "x-api-token-group": [
+          "Realtime Read",
           "Realtime Admin",
           "Realtime"
+        ],
+        "x-forge-oauth-scopes": [
+          "realtime.read",
+          "realtime.write",
+          "realtime.admin"
         ]
       },
       responses: {
@@ -729,6 +745,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Realtime Admin",
           "Realtime"
+        ],
+        "x-forge-oauth-scopes": [
+          "realtime.write",
+          "realtime.admin"
         ],
         "x-stability": "beta"
       },

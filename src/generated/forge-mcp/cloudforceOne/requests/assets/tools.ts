@@ -77,6 +77,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Cloudforce One Write",
           "Cloudforce One Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "cloudforce-one.read",
+          "cloudforce-one.write"
         ]
       },
       responses: {
@@ -423,6 +427,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Cloudforce One Write",
           "Cloudforce One Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "cloudforce-one.read",
+          "cloudforce-one.write"
         ]
       },
       responses: {
@@ -1030,6 +1038,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Cloudforce One Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "cloudforce-one.write"
         ]
       },
       responses: {

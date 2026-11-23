@@ -114,6 +114,7 @@ export const tools: readonly Tool[] = [
         "infra_ServiceConfig": infra_ServiceConfig,
         "infra_ServiceHost": infra_ServiceHost,
         "infra_TcpServiceConfig": infra_TcpServiceConfig,
+        "infra_api-response-common": infra_api$$response$$common,
         "infra_api-response-single": infra_api$$response$$single,
         "infra_messages": infra_messages,
       },
@@ -130,6 +131,14 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/connectivity/directory/services",
       pathOf: encodePath`/accounts/${"account_id"}/connectivity/directory/services`,
       body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-api-token-group": [
+          "Connectivity Directory Admin"
+        ],
+        "x-forge-oauth-scopes": [
+          "connectivity-directory.admin"
+        ]
+      },
       responses: {
         schemas: {
           "200": {
@@ -164,6 +173,7 @@ export const tools: readonly Tool[] = [
           "infra_ServiceConfig": infra_ServiceConfig,
           "infra_ServiceHost": infra_ServiceHost,
           "infra_TcpServiceConfig": infra_TcpServiceConfig,
+          "infra_api-response-common": infra_api$$response$$common,
           "infra_api-response-common-failure": infra_api$$response$$common$$failure,
           "infra_api-response-single": infra_api$$response$$single,
           "infra_messages": infra_messages,
@@ -212,6 +222,14 @@ export const tools: readonly Tool[] = [
       method: "DELETE",
       path: "/accounts/{account_id}/connectivity/directory/services/{service_id}",
       pathOf: encodePath`/accounts/${"account_id"}/connectivity/directory/services/${"service_id"}`,
+      extensions: {
+        "x-api-token-group": [
+          "Connectivity Directory Admin"
+        ],
+        "x-forge-oauth-scopes": [
+          "connectivity-directory.admin"
+        ]
+      },
       responses: {
         schemas: {
           "200": null,
@@ -283,6 +301,7 @@ export const tools: readonly Tool[] = [
         "infra_ServiceConfig": infra_ServiceConfig,
         "infra_ServiceHost": infra_ServiceHost,
         "infra_TcpServiceConfig": infra_TcpServiceConfig,
+        "infra_api-response-common": infra_api$$response$$common,
         "infra_api-response-single": infra_api$$response$$single,
         "infra_messages": infra_messages,
       },
@@ -298,6 +317,18 @@ export const tools: readonly Tool[] = [
       method: "GET",
       path: "/accounts/{account_id}/connectivity/directory/services/{service_id}",
       pathOf: encodePath`/accounts/${"account_id"}/connectivity/directory/services/${"service_id"}`,
+      extensions: {
+        "x-api-token-group": [
+          "Connectivity Directory Read",
+          "Connectivity Directory Bind",
+          "Connectivity Directory Admin"
+        ],
+        "x-forge-oauth-scopes": [
+          "connectivity-directory.read",
+          "connectivity-directory.bind",
+          "connectivity-directory.admin"
+        ]
+      },
       responses: {
         schemas: {
           "200": {
@@ -332,6 +363,7 @@ export const tools: readonly Tool[] = [
           "infra_ServiceConfig": infra_ServiceConfig,
           "infra_ServiceHost": infra_ServiceHost,
           "infra_TcpServiceConfig": infra_TcpServiceConfig,
+          "infra_api-response-common": infra_api$$response$$common,
           "infra_api-response-common-failure": infra_api$$response$$common$$failure,
           "infra_api-response-single": infra_api$$response$$single,
           "infra_messages": infra_messages,
@@ -444,6 +476,18 @@ export const tools: readonly Tool[] = [
         { name: "page", explode: true },
         { name: "per_page", explode: true },
       ],
+      extensions: {
+        "x-api-token-group": [
+          "Connectivity Directory Read",
+          "Connectivity Directory Bind",
+          "Connectivity Directory Admin"
+        ],
+        "x-forge-oauth-scopes": [
+          "connectivity-directory.read",
+          "connectivity-directory.bind",
+          "connectivity-directory.admin"
+        ]
+      },
       responses: {
         schemas: {
           "200": {
@@ -562,6 +606,7 @@ export const tools: readonly Tool[] = [
         "infra_ServiceConfig": infra_ServiceConfig,
         "infra_ServiceHost": infra_ServiceHost,
         "infra_TcpServiceConfig": infra_TcpServiceConfig,
+        "infra_api-response-common": infra_api$$response$$common,
         "infra_api-response-single": infra_api$$response$$single,
         "infra_messages": infra_messages,
       },
@@ -578,6 +623,14 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/connectivity/directory/services/{service_id}",
       pathOf: encodePath`/accounts/${"account_id"}/connectivity/directory/services/${"service_id"}`,
       body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-api-token-group": [
+          "Connectivity Directory Admin"
+        ],
+        "x-forge-oauth-scopes": [
+          "connectivity-directory.admin"
+        ]
+      },
       responses: {
         schemas: {
           "200": {
@@ -612,6 +665,7 @@ export const tools: readonly Tool[] = [
           "infra_ServiceConfig": infra_ServiceConfig,
           "infra_ServiceHost": infra_ServiceHost,
           "infra_TcpServiceConfig": infra_TcpServiceConfig,
+          "infra_api-response-common": infra_api$$response$$common,
           "infra_api-response-common-failure": infra_api$$response$$common$$failure,
           "infra_api-response-single": infra_api$$response$$single,
           "infra_messages": infra_messages,

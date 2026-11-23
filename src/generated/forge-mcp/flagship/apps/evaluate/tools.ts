@@ -101,7 +101,12 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "flagship.evaluate",
+          "flagship.read",
+          "flagship.write"
+        ]
       },
       responses: {
         schemas: {

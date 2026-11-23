@@ -4,9 +4,9 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
- * The schema of `bill-subs-api_cancel_reason_request`.
+ * The schema of `bill-subs_cancel_reason_request`.
  */
-export const bill$$subs$$api_cancel_reason_request: JSONObject = {
+export const bill$$subs_cancel_reason_request: JSONObject = {
   "properties": {
     "other": {
       "description": "Additional cancellation details.",

@@ -3,12 +3,12 @@
 
 import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
 import {
-  bill$$subs$$api_api$$response$$common,
-  bill$$subs$$api_api$$response$$common$$failure,
-  bill$$subs$$api_api$$response$$single,
-  bill$$subs$$api_messages,
+  bill$$subs_api$$response$$common,
+  bill$$subs_api$$response$$common$$failure,
+  bill$$subs_api$$response$$single,
+  bill$$subs_messages,
 } from "../../outputs.js";
-import { bill$$subs$$api_rate_plan_simple_response } from "./outputs.js";
+import { bill$$subs_rate_plan_simple_response } from "./outputs.js";
 
 /**
  * The tools of `billing.ratePlans`.
@@ -41,12 +41,12 @@ export const tools: readonly Tool[] = [
       additionalProperties: false,
     },
     outputSchema: {
-      "$ref": "#/$defs/bill-subs-api_rate_plan_simple_response",
+      "$ref": "#/$defs/bill-subs_rate_plan_simple_response",
       $defs: {
-        "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
-        "bill-subs-api_api-response-single": bill$$subs$$api_api$$response$$single,
-        "bill-subs-api_messages": bill$$subs$$api_messages,
-        "bill-subs-api_rate_plan_simple_response": bill$$subs$$api_rate_plan_simple_response,
+        "bill-subs_api-response-common": bill$$subs_api$$response$$common,
+        "bill-subs_api-response-single": bill$$subs_api$$response$$single,
+        "bill-subs_messages": bill$$subs_messages,
+        "bill-subs_rate_plan_simple_response": bill$$subs_rate_plan_simple_response,
       },
     },
     annotations: {
@@ -71,18 +71,18 @@ export const tools: readonly Tool[] = [
       responses: {
         schemas: {
           "200": {
-            "$ref": "#/$defs/bill-subs-api_rate_plan_simple_response"
+            "$ref": "#/$defs/bill-subs_rate_plan_simple_response"
           },
           "4XX": {
-            "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
+            "$ref": "#/$defs/bill-subs_api-response-common-failure"
           }
         },
         $defs: {
-          "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
-          "bill-subs-api_api-response-common-failure": bill$$subs$$api_api$$response$$common$$failure,
-          "bill-subs-api_api-response-single": bill$$subs$$api_api$$response$$single,
-          "bill-subs-api_messages": bill$$subs$$api_messages,
-          "bill-subs-api_rate_plan_simple_response": bill$$subs$$api_rate_plan_simple_response,
+          "bill-subs_api-response-common": bill$$subs_api$$response$$common,
+          "bill-subs_api-response-common-failure": bill$$subs_api$$response$$common$$failure,
+          "bill-subs_api-response-single": bill$$subs_api$$response$$single,
+          "bill-subs_messages": bill$$subs_messages,
+          "bill-subs_rate_plan_simple_response": bill$$subs_rate_plan_simple_response,
         },
       },
     },

@@ -23,32 +23,6 @@ export const zero$$trust$$gateway_api$$response$$collection: JSONObject = {
 };
 
 /**
- * The schema of `zero-trust-gateway_api-response-common` in responses.
- */
-export const zero$$trust$$gateway_api$$response$$common: JSONObject = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/zero-trust-gateway_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/zero-trust-gateway_messages"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
  * The schema of `zero-trust-gateway_empty_response` in responses.
  */
 export const zero$$trust$$gateway_empty_response: JSONObject = {

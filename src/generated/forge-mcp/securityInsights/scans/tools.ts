@@ -30,7 +30,7 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "account_or_zone": {
-              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "description": "Whether ${account_or_zone} is an account ID (`accounts`) or a zone ID (`zones`).",
               "enum": [
                 "accounts",
                 "zones"
@@ -38,7 +38,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "description": "The account ID or zone ID, as selected by ${account_or_zone}.",
               "type": "string"
             }
           },
@@ -87,6 +87,13 @@ export const tools: readonly Tool[] = [
       method: "GET",
       path: "/{account_or_zone}/{account_or_zone_id}/security-center/insights/scans",
       pathOf: encodePath`/${"account_or_zone"}/${"account_or_zone_id"}/security-center/insights/scans`,
+      extensions: {
+        "x-api-token-group": [
+          "Zone Settings Write",
+          "Zone Settings Read"
+        ],
+        "x-stainless-skip": true
+      },
       responses: {
         schemas: {
           "200": {
@@ -133,7 +140,7 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "account_or_zone": {
-              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "description": "Whether ${account_or_zone} is an account ID (`accounts`) or a zone ID (`zones`).",
               "enum": [
                 "accounts",
                 "zones"
@@ -141,7 +148,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "description": "The account ID or zone ID, as selected by ${account_or_zone}.",
               "type": "string"
             }
           },
@@ -193,6 +200,12 @@ export const tools: readonly Tool[] = [
       path: "/{account_or_zone}/{account_or_zone_id}/security-center/insights/scans",
       pathOf: encodePath`/${"account_or_zone"}/${"account_or_zone_id"}/security-center/insights/scans`,
       body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-api-token-group": [
+          "Zone Settings Write"
+        ],
+        "x-stainless-skip": true
+      },
       responses: {
         schemas: {
           "200": {

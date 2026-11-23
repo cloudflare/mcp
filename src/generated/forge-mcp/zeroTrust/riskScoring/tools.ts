@@ -4,6 +4,7 @@
 import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
 import {
   dlp_Empty,
+  dlp_api$$response$$common,
   dlp_api$$response$$common$$failure,
   dlp_api$$response$$single,
   dlp_messages,
@@ -12,7 +13,6 @@ import {
   dlp_RiskEvent,
   dlp_RiskEvents,
   dlp_api$$response$$collection,
-  dlp_api$$response$$common,
 } from "./outputs.js";
 
 /**
@@ -85,6 +85,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Zero Trust: PII Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-pii.read"
         ]
       },
       responses: {
@@ -165,6 +168,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "dlp_Empty": dlp_Empty,
+        "dlp_api-response-common": dlp_api$$response$$common,
         "dlp_api-response-single": dlp_api$$response$$single,
         "dlp_messages": dlp_messages,
       },
@@ -183,6 +187,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Zero Trust Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams.write"
         ]
       },
       responses: {
@@ -208,6 +215,7 @@ export const tools: readonly Tool[] = [
         },
         $defs: {
           "dlp_Empty": dlp_Empty,
+          "dlp_api-response-common": dlp_api$$response$$common,
           "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
           "dlp_api-response-single": dlp_api$$response$$single,
           "dlp_messages": dlp_messages,

@@ -101,6 +101,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Cloudforce One Write",
           "Cloudforce One Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "cloudforce-one.read",
+          "cloudforce-one.write"
         ]
       },
       responses: {

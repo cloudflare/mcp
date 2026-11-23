@@ -4,6 +4,32 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
+ * The schema of `email-auth_api-response-common` in responses.
+ */
+export const email$$auth_api$$response$$common: JSONObject = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/email-auth_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/email-auth_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `email-auth_api-response-common-failure` in responses.
  */
 export const email$$auth_api$$response$$common$$failure: JSONObject = {
@@ -37,26 +63,7 @@ export const email$$auth_api$$response$$common$$failure: JSONObject = {
  * The schema of `email-auth_api-response-single` in responses.
  */
 export const email$$auth_api$$response$$single: JSONObject = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/email-auth_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/email-auth_messages"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  "$ref": "#/$defs/email-auth_api-response-common"
 };
 
 /**

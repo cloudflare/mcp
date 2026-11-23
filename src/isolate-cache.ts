@@ -38,7 +38,7 @@ export interface SpecArtifacts {
 }
 
 /**
- * The pinned release's artifacts, which `scripts/generate-tools.ts` writes
+ * The pinned spec's artifacts, which `scripts/generate-tools.ts` writes
  * with the generated tools. They are text modules, so bundling them costs a
  * string until something reads them.
  */

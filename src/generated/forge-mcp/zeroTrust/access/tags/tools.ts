@@ -59,6 +59,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_single_response-15",
       $defs: {
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_messages": access_messages,
         "access_single_response-15": access_single_response$$15,
@@ -77,6 +78,18 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/access/tags",
       pathOf: encodePath`/accounts/${"account_id"}/access/tags`,
       body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-api-token-group": [
+          "Access: Tags Write",
+          "Zero Trust Write",
+          "Access: Apps and Policies Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "access-tag.write",
+          "access.write",
+          "teams.write"
+        ]
+      },
       responses: {
         schemas: {
           "201": {
@@ -87,6 +100,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_messages": access_messages,
@@ -130,6 +144,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_name_response",
       $defs: {
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_messages": access_messages,
         "access_name_response": access_name_response,
@@ -146,6 +161,18 @@ export const tools: readonly Tool[] = [
       method: "DELETE",
       path: "/accounts/{account_id}/access/tags/{tag_name}",
       pathOf: encodePath`/accounts/${"account_id"}/access/tags/${"tag_name"}`,
+      extensions: {
+        "x-api-token-group": [
+          "Access: Tags Write",
+          "Zero Trust Write",
+          "Access: Apps and Policies Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "access-tag.write",
+          "access.write",
+          "teams.write"
+        ]
+      },
       responses: {
         schemas: {
           "202": {
@@ -156,6 +183,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_messages": access_messages,
@@ -198,6 +226,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_single_response-15",
       $defs: {
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_messages": access_messages,
         "access_single_response-15": access_single_response$$15,
@@ -215,6 +244,24 @@ export const tools: readonly Tool[] = [
       method: "GET",
       path: "/accounts/{account_id}/access/tags/{tag_name}",
       pathOf: encodePath`/accounts/${"account_id"}/access/tags/${"tag_name"}`,
+      extensions: {
+        "x-api-token-group": [
+          "Access: Tags Write",
+          "Access: Tags Read",
+          "Zero Trust Read",
+          "Zero Trust Write",
+          "Access: Apps and Policies Write",
+          "Access: Apps and Policies Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "access-tag.read",
+          "access-tag.write",
+          "access.read",
+          "access.write",
+          "teams.read",
+          "teams.write"
+        ]
+      },
       responses: {
         schemas: {
           "200": {
@@ -225,6 +272,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_messages": access_messages,
@@ -301,6 +349,24 @@ export const tools: readonly Tool[] = [
         { name: "page", explode: true },
         { name: "per_page", explode: true },
       ],
+      extensions: {
+        "x-api-token-group": [
+          "Access: Tags Write",
+          "Access: Tags Read",
+          "Zero Trust Read",
+          "Zero Trust Write",
+          "Access: Apps and Policies Write",
+          "Access: Apps and Policies Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "access-tag.read",
+          "access-tag.write",
+          "access.read",
+          "access.write",
+          "teams.read",
+          "teams.write"
+        ]
+      },
       responses: {
         schemas: {
           "200": {
@@ -361,6 +427,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_single_response-15",
       $defs: {
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_messages": access_messages,
         "access_single_response-15": access_single_response$$15,
@@ -379,6 +446,18 @@ export const tools: readonly Tool[] = [
       path: "/accounts/{account_id}/access/tags/{tag_name}",
       pathOf: encodePath`/accounts/${"account_id"}/access/tags/${"tag_name"}`,
       body: { mediaTypes: ["application/json"] },
+      extensions: {
+        "x-api-token-group": [
+          "Access: Tags Write",
+          "Zero Trust Write",
+          "Access: Apps and Policies Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "access-tag.write",
+          "access.write",
+          "teams.write"
+        ]
+      },
       responses: {
         schemas: {
           "200": {
@@ -389,6 +468,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_messages": access_messages,

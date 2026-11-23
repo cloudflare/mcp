@@ -4,32 +4,6 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
- * The schema of `logcontrol_api-response-common` in responses.
- */
-export const logcontrol_api$$response$$common: JSONObject = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/logcontrol_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/logcontrol_messages"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
  * The schema of `logcontrol_cmb_config` in responses.
  */
 export const logcontrol_cmb_config: JSONObject = {

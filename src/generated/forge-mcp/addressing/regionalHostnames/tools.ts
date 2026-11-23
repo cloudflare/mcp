@@ -96,7 +96,12 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "DLS: Write",
           "DNS Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "dls.write",
+          "dns.write"
         ]
       },
       responses: {
@@ -180,7 +185,12 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/zones/${"zone_id"}/addressing/regional_hostnames/${"hostname"}`,
       extensions: {
         "x-api-token-group": [
+          "DLS: Write",
           "DNS Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "dls.write",
+          "dns.write"
         ]
       },
       responses: {
@@ -277,7 +287,12 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "DLS: Write",
           "DNS Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "dls.write",
+          "dns.write"
         ]
       },
       responses: {
@@ -374,8 +389,16 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/zones/${"zone_id"}/addressing/regional_hostnames/${"hostname"}`,
       extensions: {
         "x-api-token-group": [
+          "DLS: Write",
+          "DLS: Read",
           "DNS Read",
           "DNS Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "dls.read",
+          "dns.read",
+          "dls.write",
+          "dns.write"
         ]
       },
       responses: {
@@ -471,8 +494,16 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/zones/${"zone_id"}/addressing/regional_hostnames`,
       extensions: {
         "x-api-token-group": [
+          "DLS: Write",
+          "DLS: Read",
           "DNS Read",
           "DNS Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "dls.read",
+          "dns.read",
+          "dls.write",
+          "dns.write"
         ]
       },
       responses: {

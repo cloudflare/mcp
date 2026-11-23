@@ -181,10 +181,16 @@ export const tools: readonly Tool[] = [
       ],
       extensions: {
         "x-api-token-group": [
+          "Workers Admin",
+          "Individual Workers Admin",
           "Workers Scripts Write"
         ],
         "x-fern-audiences": [
           "sdk"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-scripts.write",
+          "workers-scripts.admin"
         ]
       },
       responses: {
@@ -274,7 +280,13 @@ export const tools: readonly Tool[] = [
       ],
       extensions: {
         "x-api-token-group": [
+          "Workers Admin",
+          "Individual Workers Admin",
           "Workers Scripts Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-scripts.write",
+          "workers-scripts.admin"
         ]
       },
       responses: {
@@ -372,9 +384,28 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/workers/dispatch/namespaces/${"dispatch_namespace"}/scripts/${"script_name"}`,
       extensions: {
         "x-api-token-group": [
+          "Workers Metadata Read-Only",
+          "Workers Editor",
+          "Workers Content Read-Only",
+          "Workers Admin",
+          "Individual Workers Metadata Read-Only",
+          "Individual Workers Editor",
+          "Individual Workers Content Read-Only",
+          "Individual Workers Admin",
+          "Granular Workers Scripts Read",
+          "IAM Test - Granular Workers Read",
           "Workers Tail Read",
           "Workers Scripts Write",
           "Workers Scripts Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-tail.read",
+          "workers-scripts.read",
+          "workers-scripts.write",
+          "workers-scripts.content_read",
+          "workers-scripts.metadata_read",
+          "workers-scripts.edit",
+          "workers-scripts.admin"
         ]
       },
       responses: {
@@ -517,9 +548,27 @@ export const tools: readonly Tool[] = [
       ],
       extensions: {
         "x-api-token-group": [
+          "Workers Metadata Read-Only",
+          "Workers Editor",
+          "Workers Content Read-Only",
+          "Workers Admin",
+          "Individual Workers Metadata Read-Only",
+          "Individual Workers Editor",
+          "Individual Workers Content Read-Only",
+          "Individual Workers Admin",
+          "Granular Workers Scripts Read",
           "Workers Tail Read",
           "Workers Scripts Write",
           "Workers Scripts Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-tail.read",
+          "workers-scripts.read",
+          "workers-scripts.write",
+          "workers-scripts.content_read",
+          "workers-scripts.metadata_read",
+          "workers-scripts.edit",
+          "workers-scripts.admin"
         ]
       },
       responses: {
@@ -772,10 +821,15 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/javascript", "multipart/form-data", "text/javascript"] },
       extensions: {
         "x-api-token-group": [
+          "Workers Admin",
           "Workers Scripts Write"
         ],
         "x-fern-audiences": [
           "sdk"
+        ],
+        "x-forge-oauth-scopes": [
+          "workers-scripts.write",
+          "workers-scripts.admin"
         ]
       },
       responses: {

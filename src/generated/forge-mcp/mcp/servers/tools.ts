@@ -424,7 +424,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "mcp-portals.write"
+        ]
       },
       responses: {
         schemas: {
@@ -1025,7 +1028,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "mcp-portals.write"
+        ]
       },
       responses: {
         schemas: {
@@ -1641,7 +1647,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "mcp-portals.read",
+          "mcp-portals.write"
+        ]
       },
       responses: {
         schemas: {
@@ -2236,7 +2246,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "mcp-portals.read",
+          "mcp-portals.write"
+        ]
       },
       responses: {
         schemas: {
@@ -2630,7 +2644,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "mcp-portals.write"
+        ]
       },
       responses: {
         schemas: {
@@ -2899,7 +2916,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "mcp-portals.read",
+          "mcp-portals.write"
+        ]
       },
       responses: {
         schemas: {
@@ -3427,6 +3448,9 @@ export const tools: readonly Tool[] = [
           "free": true,
           "pro": true
         },
+        "x-forge-oauth-scopes": [
+          "mcp-portals.write"
+        ],
         "x-forge-params": {
           "is_shared_oauth_callback_enabled": {
             "default": null

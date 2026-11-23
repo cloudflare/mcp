@@ -85,12 +85,14 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/email_rule_response_single",
       $defs: {
+        "email_api-response-common": email_api$$response$$common,
         "email_api-response-single": email_api$$response$$single,
         "email_messages": email_messages,
         "email_rule_action": email_rule_action,
         "email_rule_actions": email_rule_actions,
         "email_rule_matcher": email_rule_matcher,
         "email_rule_matchers": email_rule_matchers,
+        "email_rule_properties": email_rule_properties,
         "email_rule_response_single": email_rule_response_single,
         "email_rules": email_rules,
       },
@@ -121,7 +123,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "email-routing-rule.write"
+        ]
       },
       responses: {
         schemas: {
@@ -132,12 +137,14 @@ export const tools: readonly Tool[] = [
           "422": null
         },
         $defs: {
+          "email_api-response-common": email_api$$response$$common,
           "email_api-response-single": email_api$$response$$single,
           "email_messages": email_messages,
           "email_rule_action": email_rule_action,
           "email_rule_actions": email_rule_actions,
           "email_rule_matcher": email_rule_matcher,
           "email_rule_matchers": email_rule_matchers,
+          "email_rule_properties": email_rule_properties,
           "email_rule_response_single": email_rule_response_single,
           "email_rules": email_rules,
         },
@@ -178,12 +185,14 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/email_rule_response_single",
       $defs: {
+        "email_api-response-common": email_api$$response$$common,
         "email_api-response-single": email_api$$response$$single,
         "email_messages": email_messages,
         "email_rule_action": email_rule_action,
         "email_rule_actions": email_rule_actions,
         "email_rule_matcher": email_rule_matcher,
         "email_rule_matchers": email_rule_matchers,
+        "email_rule_properties": email_rule_properties,
         "email_rule_response_single": email_rule_response_single,
         "email_rules": email_rules,
       },
@@ -213,7 +222,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "email-routing-rule.write"
+        ]
       },
       responses: {
         schemas: {
@@ -223,12 +235,14 @@ export const tools: readonly Tool[] = [
           "404": null
         },
         $defs: {
+          "email_api-response-common": email_api$$response$$common,
           "email_api-response-single": email_api$$response$$single,
           "email_messages": email_messages,
           "email_rule_action": email_rule_action,
           "email_rule_actions": email_rule_actions,
           "email_rule_matcher": email_rule_matcher,
           "email_rule_matchers": email_rule_matchers,
+          "email_rule_properties": email_rule_properties,
           "email_rule_response_single": email_rule_response_single,
           "email_rules": email_rules,
         },
@@ -269,12 +283,14 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/email_rule_response_single",
       $defs: {
+        "email_api-response-common": email_api$$response$$common,
         "email_api-response-single": email_api$$response$$single,
         "email_messages": email_messages,
         "email_rule_action": email_rule_action,
         "email_rule_actions": email_rule_actions,
         "email_rule_matcher": email_rule_matcher,
         "email_rule_matchers": email_rule_matchers,
+        "email_rule_properties": email_rule_properties,
         "email_rule_response_single": email_rule_response_single,
         "email_rules": email_rules,
       },
@@ -305,7 +321,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "email-routing-rule.read",
+          "email-routing-rule.write"
+        ]
       },
       responses: {
         schemas: {
@@ -315,12 +335,14 @@ export const tools: readonly Tool[] = [
           "404": null
         },
         $defs: {
+          "email_api-response-common": email_api$$response$$common,
           "email_api-response-single": email_api$$response$$single,
           "email_messages": email_messages,
           "email_rule_action": email_rule_action,
           "email_rule_actions": email_rule_actions,
           "email_rule_matcher": email_rule_matcher,
           "email_rule_matchers": email_rule_matchers,
+          "email_rule_properties": email_rule_properties,
           "email_rule_response_single": email_rule_response_single,
           "email_rules": email_rules,
         },
@@ -338,7 +360,7 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "account_or_zone": {
-              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "description": "Whether ${account_or_zone} is an account ID (`accounts`) or a zone ID (`zones`).",
               "enum": [
                 "accounts",
                 "zones"
@@ -346,7 +368,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "description": "The account ID or zone ID, as selected by ${account_or_zone}.",
               "type": "string"
             }
           },
@@ -418,13 +440,19 @@ export const tools: readonly Tool[] = [
         { name: "enabled", explode: true },
       ],
       extensions: {
-        "x-api-token-group": null,
+        "x-api-token-group": [
+          "Email Routing Account Rules Read"
+        ],
         "x-cfPlanAvailability": {
           "business": true,
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "email-routing-account-rule.read"
+        ],
+        "x-stainless-skip": true
       },
       responses: {
         schemas: {
@@ -500,6 +528,7 @@ export const tools: readonly Tool[] = [
         "email_account_rules_plan_remote_rule": email_account_rules_plan_remote_rule,
         "email_account_rules_plan_response_single": email_account_rules_plan_response_single,
         "email_account_rules_plan_zone": email_account_rules_plan_zone,
+        "email_api-response-common": email_api$$response$$common,
         "email_api-response-single": email_api$$response$$single,
         "email_messages": email_messages,
         "email_rule_action": email_rule_action,
@@ -521,13 +550,18 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/email/routing/rules/plan`,
       body: { mediaTypes: ["application/json"] },
       extensions: {
-        "x-api-token-group": null,
+        "x-api-token-group": [
+          "Email Routing Account Rules Read"
+        ],
         "x-cfPlanAvailability": {
           "business": true,
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "email-routing-account-rule.read"
+        ]
       },
       responses: {
         schemas: {
@@ -544,6 +578,7 @@ export const tools: readonly Tool[] = [
           "email_account_rules_plan_remote_rule": email_account_rules_plan_remote_rule,
           "email_account_rules_plan_response_single": email_account_rules_plan_response_single,
           "email_account_rules_plan_zone": email_account_rules_plan_zone,
+          "email_api-response-common": email_api$$response$$common,
           "email_api-response-single": email_api$$response$$single,
           "email_messages": email_messages,
           "email_rule_action": email_rule_action,
@@ -599,12 +634,14 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/email_rule_response_single",
       $defs: {
+        "email_api-response-common": email_api$$response$$common,
         "email_api-response-single": email_api$$response$$single,
         "email_messages": email_messages,
         "email_rule_action": email_rule_action,
         "email_rule_actions": email_rule_actions,
         "email_rule_matcher": email_rule_matcher,
         "email_rule_matchers": email_rule_matchers,
+        "email_rule_properties": email_rule_properties,
         "email_rule_response_single": email_rule_response_single,
         "email_rules": email_rules,
       },
@@ -635,7 +672,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "email-routing-rule.write"
+        ]
       },
       responses: {
         schemas: {
@@ -646,12 +686,14 @@ export const tools: readonly Tool[] = [
           "422": null
         },
         $defs: {
+          "email_api-response-common": email_api$$response$$common,
           "email_api-response-single": email_api$$response$$single,
           "email_messages": email_messages,
           "email_rule_action": email_rule_action,
           "email_rule_actions": email_rule_actions,
           "email_rule_matcher": email_rule_matcher,
           "email_rule_matchers": email_rule_matchers,
+          "email_rule_properties": email_rule_properties,
           "email_rule_response_single": email_rule_response_single,
           "email_rules": email_rules,
         },

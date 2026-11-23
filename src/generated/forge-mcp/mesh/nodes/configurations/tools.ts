@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../../../_/tool.js";
 import {
+  tunnel_api$$response$$common$$2,
   tunnel_api$$response$$common$$failure$$2,
   tunnel_api$$response$$single$$2,
   tunnel_messages$$2,
@@ -60,6 +61,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/tunnel_mesh_configuration_response_single",
       $defs: {
+        "tunnel_api-response-common-2": tunnel_api$$response$$common$$2,
         "tunnel_api-response-single-2": tunnel_api$$response$$single$$2,
         "tunnel_mesh_aws_config": tunnel_mesh_aws_config,
         "tunnel_mesh_configuration_response": tunnel_mesh_configuration_response,
@@ -86,6 +88,12 @@ export const tools: readonly Tool[] = [
           "Cloudflare One Connectors Read",
           "Cloudflare One Connector: WARP Write",
           "Cloudflare One Connector: WARP Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-connector-warp.read",
+          "teams-connector-warp.write",
+          "teams-connectors.read",
+          "teams-connectors.write"
         ]
       },
       responses: {
@@ -98,6 +106,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "tunnel_api-response-common-2": tunnel_api$$response$$common$$2,
           "tunnel_api-response-common-failure-2": tunnel_api$$response$$common$$failure$$2,
           "tunnel_api-response-single-2": tunnel_api$$response$$single$$2,
           "tunnel_mesh_aws_config": tunnel_mesh_aws_config,
@@ -155,6 +164,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/tunnel_mesh_configuration_response_single",
       $defs: {
+        "tunnel_api-response-common-2": tunnel_api$$response$$common$$2,
         "tunnel_api-response-single-2": tunnel_api$$response$$single$$2,
         "tunnel_mesh_aws_config": tunnel_mesh_aws_config,
         "tunnel_mesh_configuration_response": tunnel_mesh_configuration_response,
@@ -180,6 +190,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Cloudflare One Connectors Write",
           "Cloudflare One Connector: WARP Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "teams-connector-warp.write",
+          "teams-connectors.write"
         ]
       },
       responses: {
@@ -192,6 +206,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "tunnel_api-response-common-2": tunnel_api$$response$$common$$2,
           "tunnel_api-response-common-failure-2": tunnel_api$$response$$common$$failure$$2,
           "tunnel_api-response-single-2": tunnel_api$$response$$single$$2,
           "tunnel_mesh_aws_config": tunnel_mesh_aws_config,

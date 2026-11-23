@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
 import {
+  access_api$$response$$common,
   access_api$$response$$common$$failure,
   access_api$$response$$single,
   access_messages,
@@ -128,7 +129,7 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "account_or_zone": {
-              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "description": "Whether ${account_or_zone} is an account ID (`accounts`) or a zone ID (`zones`).",
               "enum": [
                 "accounts",
                 "zones"
@@ -136,7 +137,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "description": "The account ID or zone ID, as selected by ${account_or_zone}.",
               "type": "string"
             }
           },
@@ -163,6 +164,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_single_response",
       $defs: {
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_custom_pages": access_custom_pages,
         "access_deny_unmatched_requests_exempted_zone_names": access_deny_unmatched_requests_exempted_zone_names,
@@ -189,8 +191,11 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "Access: Organizations Write",
+          "Zero Trust Write",
           "Access: Organizations, Identity Providers, and Groups Write"
-        ]
+        ],
+        "x-stainless-skip": true
       },
       responses: {
         schemas: {
@@ -202,6 +207,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_custom_pages": access_custom_pages,
@@ -317,7 +323,7 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "account_or_zone": {
-              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "description": "Whether ${account_or_zone} is an account ID (`accounts`) or a zone ID (`zones`).",
               "enum": [
                 "accounts",
                 "zones"
@@ -325,7 +331,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "description": "The account ID or zone ID, as selected by ${account_or_zone}.",
               "type": "string"
             }
           },
@@ -353,6 +359,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_single_response",
       $defs: {
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_custom_pages": access_custom_pages,
         "access_deny_unmatched_requests_exempted_zone_names": access_deny_unmatched_requests_exempted_zone_names,
@@ -379,8 +386,11 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "Access: Organizations Write",
+          "Zero Trust Write",
           "Access: Organizations, Identity Providers, and Groups Write"
-        ]
+        ],
+        "x-stainless-skip": true
       },
       responses: {
         schemas: {
@@ -392,6 +402,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_custom_pages": access_custom_pages,
@@ -418,7 +429,7 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "account_or_zone": {
-              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "description": "Whether ${account_or_zone} is an account ID (`accounts`) or a zone ID (`zones`).",
               "enum": [
                 "accounts",
                 "zones"
@@ -426,7 +437,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "description": "The account ID or zone ID, as selected by ${account_or_zone}.",
               "type": "string"
             }
           },
@@ -445,6 +456,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_get_response",
       $defs: {
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_custom_pages": access_custom_pages,
         "access_deny_unmatched_requests_exempted_zone_names": access_deny_unmatched_requests_exempted_zone_names,
@@ -470,10 +482,16 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/${"account_or_zone"}/${"account_or_zone_id"}/access/organizations`,
       extensions: {
         "x-api-token-group": [
+          "Access: Organizations Write",
+          "Access: Organizations Revoke",
+          "Access: Organizations Read",
           "Access: Organizations, Identity Providers, and Groups Revoke",
+          "Zero Trust Read",
+          "Zero Trust Write",
           "Access: Organizations, Identity Providers, and Groups Write",
           "Access: Organizations, Identity Providers, and Groups Read"
-        ]
+        ],
+        "x-stainless-skip": true
       },
       responses: {
         schemas: {
@@ -485,6 +503,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_custom_pages": access_custom_pages,
@@ -600,7 +619,7 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "account_or_zone": {
-              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "description": "Whether ${account_or_zone} is an account ID (`accounts`) or a zone ID (`zones`).",
               "enum": [
                 "accounts",
                 "zones"
@@ -608,7 +627,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "description": "The account ID or zone ID, as selected by ${account_or_zone}.",
               "type": "string"
             }
           },
@@ -636,6 +655,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_single_response",
       $defs: {
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_custom_pages": access_custom_pages,
         "access_deny_unmatched_requests_exempted_zone_names": access_deny_unmatched_requests_exempted_zone_names,
@@ -662,8 +682,11 @@ export const tools: readonly Tool[] = [
       body: { mediaTypes: ["application/json"] },
       extensions: {
         "x-api-token-group": [
+          "Access: Organizations Write",
+          "Zero Trust Write",
           "Access: Organizations, Identity Providers, and Groups Write"
-        ]
+        ],
+        "x-stainless-skip": true
       },
       responses: {
         schemas: {
@@ -675,6 +698,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_custom_pages": access_custom_pages,

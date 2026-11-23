@@ -3,17 +3,18 @@
 
 import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
 import {
-  bill$$subs$$api_api$$response$$collection,
-  bill$$subs$$api_api$$response$$common,
-  bill$$subs$$api_api$$response$$common$$failure,
-  bill$$subs$$api_messages,
-  bill$$subs$$api_result_info,
+  bill$$subs_api$$response$$collection,
+  bill$$subs_api$$response$$common,
+  bill$$subs_api$$response$$common$$failure,
+  bill$$subs_messages,
+  bill$$subs_result_info,
 } from "../../outputs.js";
 import {
-  bill$$subs$$api_plan_component_value,
-  bill$$subs$$api_plan_response_collection,
-  bill$$subs$$api_schemas$$component_values,
-  bill$$subs$$api_schemas$$rate$$plan,
+  bill$$subs_plan_component_value,
+  bill$$subs_plan_rate_plan,
+  bill$$subs_plan_response_collection,
+  bill$$subs_schemas$$component_values,
+  bill$$subs_schemas$$rate$$plan,
 } from "./outputs.js";
 
 /**
@@ -47,16 +48,17 @@ export const tools: readonly Tool[] = [
       additionalProperties: false,
     },
     outputSchema: {
-      "$ref": "#/$defs/bill-subs-api_plan_response_collection",
+      "$ref": "#/$defs/bill-subs_plan_response_collection",
       $defs: {
-        "bill-subs-api_api-response-collection": bill$$subs$$api_api$$response$$collection,
-        "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
-        "bill-subs-api_messages": bill$$subs$$api_messages,
-        "bill-subs-api_plan_component_value": bill$$subs$$api_plan_component_value,
-        "bill-subs-api_plan_response_collection": bill$$subs$$api_plan_response_collection,
-        "bill-subs-api_result_info": bill$$subs$$api_result_info,
-        "bill-subs-api_schemas-component_values": bill$$subs$$api_schemas$$component_values,
-        "bill-subs-api_schemas-rate-plan": bill$$subs$$api_schemas$$rate$$plan,
+        "bill-subs_api-response-collection": bill$$subs_api$$response$$collection,
+        "bill-subs_api-response-common": bill$$subs_api$$response$$common,
+        "bill-subs_messages": bill$$subs_messages,
+        "bill-subs_plan_component_value": bill$$subs_plan_component_value,
+        "bill-subs_plan_rate_plan": bill$$subs_plan_rate_plan,
+        "bill-subs_plan_response_collection": bill$$subs_plan_response_collection,
+        "bill-subs_result_info": bill$$subs_result_info,
+        "bill-subs_schemas-component_values": bill$$subs_schemas$$component_values,
+        "bill-subs_schemas-rate-plan": bill$$subs_schemas$$rate$$plan,
       },
     },
     annotations: {
@@ -90,22 +92,23 @@ export const tools: readonly Tool[] = [
       responses: {
         schemas: {
           "200": {
-            "$ref": "#/$defs/bill-subs-api_plan_response_collection"
+            "$ref": "#/$defs/bill-subs_plan_response_collection"
           },
           "4XX": {
-            "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
+            "$ref": "#/$defs/bill-subs_api-response-common-failure"
           }
         },
         $defs: {
-          "bill-subs-api_api-response-collection": bill$$subs$$api_api$$response$$collection,
-          "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
-          "bill-subs-api_api-response-common-failure": bill$$subs$$api_api$$response$$common$$failure,
-          "bill-subs-api_messages": bill$$subs$$api_messages,
-          "bill-subs-api_plan_component_value": bill$$subs$$api_plan_component_value,
-          "bill-subs-api_plan_response_collection": bill$$subs$$api_plan_response_collection,
-          "bill-subs-api_result_info": bill$$subs$$api_result_info,
-          "bill-subs-api_schemas-component_values": bill$$subs$$api_schemas$$component_values,
-          "bill-subs-api_schemas-rate-plan": bill$$subs$$api_schemas$$rate$$plan,
+          "bill-subs_api-response-collection": bill$$subs_api$$response$$collection,
+          "bill-subs_api-response-common": bill$$subs_api$$response$$common,
+          "bill-subs_api-response-common-failure": bill$$subs_api$$response$$common$$failure,
+          "bill-subs_messages": bill$$subs_messages,
+          "bill-subs_plan_component_value": bill$$subs_plan_component_value,
+          "bill-subs_plan_rate_plan": bill$$subs_plan_rate_plan,
+          "bill-subs_plan_response_collection": bill$$subs_plan_response_collection,
+          "bill-subs_result_info": bill$$subs_result_info,
+          "bill-subs_schemas-component_values": bill$$subs_schemas$$component_values,
+          "bill-subs_schemas-rate-plan": bill$$subs_schemas$$rate$$plan,
         },
       },
     },

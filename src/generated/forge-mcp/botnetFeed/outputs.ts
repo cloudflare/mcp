@@ -4,15 +4,15 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
- * The schema of `botnet-feed-api_api-response-common` in responses.
+ * The schema of `botnet-feed_api-response-common` in responses.
  */
-export const botnet$$feed$$api_api$$response$$common: JSONObject = {
+export const botnet$$feed_api$$response$$common: JSONObject = {
   "properties": {
     "errors": {
-      "$ref": "#/$defs/botnet-feed-api_messages"
+      "$ref": "#/$defs/botnet-feed_messages"
     },
     "messages": {
-      "$ref": "#/$defs/botnet-feed-api_messages"
+      "$ref": "#/$defs/botnet-feed_messages"
     },
     "success": {
       "enum": [
@@ -30,15 +30,15 @@ export const botnet$$feed$$api_api$$response$$common: JSONObject = {
 };
 
 /**
- * The schema of `botnet-feed-api_api-response-common-failure` in responses.
+ * The schema of `botnet-feed_api-response-common-failure` in responses.
  */
-export const botnet$$feed$$api_api$$response$$common$$failure: JSONObject = {
+export const botnet$$feed_api$$response$$common$$failure: JSONObject = {
   "properties": {
     "errors": {
-      "$ref": "#/$defs/botnet-feed-api_messages"
+      "$ref": "#/$defs/botnet-feed_messages"
     },
     "messages": {
-      "$ref": "#/$defs/botnet-feed-api_messages"
+      "$ref": "#/$defs/botnet-feed_messages"
     },
     "result": {
       "type": "null"
@@ -60,9 +60,9 @@ export const botnet$$feed$$api_api$$response$$common$$failure: JSONObject = {
 };
 
 /**
- * The schema of `botnet-feed-api_messages` in responses.
+ * The schema of `botnet-feed_messages` in responses.
  */
-export const botnet$$feed$$api_messages: JSONObject = {
+export const botnet$$feed_messages: JSONObject = {
   "items": {
     "properties": {
       "code": {

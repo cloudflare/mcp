@@ -2,18 +2,21 @@
  * Regenerates `src/generated/forge-mcp`, the direct tools served at
  * `/mcp?codemode=false`, with forge's MCP target:
  *
- *   npm run generate:tools [-- --spec openapi.forge.json --release <tag>] [-- --summary summary.md]
+ *   npm run generate:tools [-- --commit <sha>] [-- --spec openapi.json] [-- --summary summary.md]
  *
  * The forge that generates them is the `@cloudflare/forge` package in
  * `package.json`, a pkg.pr.new build of a forge commit; bumping that pin picks
  * up generator changes. `.github/workflows/forge-tools.yml` runs this every six
- * hours and opens a pull request when the generated code changes. Without `--spec`, the latest `openapi.forge.json`
- * Forge release is downloaded. `source.json` records the release, so a
- * response that breaks a generated response schema names the spec it came
- * from (`--release` gives it for a local `--spec`). `--summary` writes the
- * tools added and removed as Markdown, for the pull request.
+ * hours and opens a pull request when the generated code changes.
  *
- * The same release's spec artifacts go to `src/generated/spec` as text
+ * The spec is `openapi.json` from `cloudflare/api-schemas`: at `--commit`, or
+ * at the latest commit on `main` that changed it, or read from a local
+ * `--spec` (`--commit` then names the commit it came from). `source.json`
+ * records the commit, so a response that breaks a generated response schema
+ * names the spec it came from. `--summary` writes the tools added and removed
+ * as Markdown, for the pull request.
+ *
+ * The same commit's spec artifacts go to `src/generated/spec` as text
  * modules: `spec.json` for Code Mode's `search`, `products.json`, and
  * `permissions.json`, each operation's accepted permissions, for explaining a
  * refused `execute` request. The forge tools service serves
@@ -21,7 +24,6 @@
  */
 import { execFileSync } from 'node:child_process'
 import {
-  copyFileSync,
   existsSync,
   mkdirSync,
   mkdtempSync,
@@ -36,8 +38,8 @@ import { tmpdir } from 'node:os'
 import { dirname, join } from 'node:path'
 import { parseArgs } from 'node:util'
 import type { OperationInfo } from '../src/openapi'
-import { extractProducts, processSpec } from '../src/spec-processor'
-import type { SpecArtifactName } from '../src/spec-release'
+import { concretePaths, extractProducts, processSpec } from '../src/spec-processor'
+import { SPEC_FILE, SPEC_REPOSITORY, specUrl, type SpecArtifactName } from '../src/spec-release'
 
 /** Builds the spec artifacts the forge tools service serves from the raw OpenAPI document. */
 function buildSpecArtifacts(rawSpec: Record<string, unknown>): Record<SpecArtifactName, string> {
@@ -68,8 +70,7 @@ function permissionPaths(
   )
 }
 
-const LATEST_RELEASE = 'https://api.github.com/repos/cloudflare/forge/releases/latest'
-const SPEC_ASSET = 'openapi.forge.json'
+const COMMIT = /^[0-9a-f]{40}$/
 const OUT = 'src/generated/forge-mcp'
 const SPEC_OUT = 'src/generated/spec'
 /** A drop in tools with permissions below this share of before warns in the summary. */
@@ -78,7 +79,7 @@ const PERMISSIONS_DROP_WARNING = 0.95
 const { values } = parseArgs({
   options: {
     spec: { type: 'string' },
-    release: { type: 'string' },
+    commit: { type: 'string' },
     summary: { type: 'string' }
   }
 })
@@ -93,21 +94,27 @@ const forge = (args: string[]) =>
 const tmp = mkdtempSync(join(tmpdir(), 'forge-mcp-'))
 
 try {
-  let spec = values.spec
-  let release = values.release ?? null
-  if (!spec) {
-    const latest = await latestRelease()
-    release = latest.tag
-    console.log(`Downloading ${latest.url}`)
-    const response = await fetch(latest.url)
-    if (!response.ok) throw new Error(`Failed to download the spec: HTTP ${response.status}`)
-    spec = join(tmp, SPEC_ASSET)
-    writeFileSync(spec, Buffer.from(await response.arrayBuffer()))
+  if (values.commit !== undefined && !COMMIT.test(values.commit)) {
+    throw new Error(`--commit must be a full commit SHA, not ${values.commit}`)
   }
+  let commit = values.commit ?? null
+  let text: string
+  if (values.spec) {
+    text = readFileSync(values.spec, 'utf8')
+  } else {
+    commit ??= await latestCommit()
+    const url = specUrl(commit)
+    console.log(`Downloading ${url}`)
+    const response = await fetch(url)
+    if (!response.ok) throw new Error(`Failed to download the spec: HTTP ${response.status}`)
+    text = await response.text()
+  }
+  const rawSpec = JSON.parse(text) as Record<string, unknown>
+  inheritAccountOrZonePermissions(rawSpec)
 
-  // Forge reads only its native x-forge-* extensions; the release has the Fern ones.
+  // Forge reads only its native x-forge-* extensions; the spec also has the Fern ones.
   const normalized = join(tmp, 'openapi.normalized.json')
-  copyFileSync(spec, normalized)
+  writeFileSync(normalized, JSON.stringify(rawSpec))
   forge(['normalize', '--write', normalized])
 
   const out = join(tmp, 'out')
@@ -117,12 +124,10 @@ try {
   const permissionsBefore = withPermissions(OUT)
   rmSync(OUT, { recursive: true, force: true })
   renameSync(out, OUT)
-  writeFileSync(join(OUT, 'source.json'), `${JSON.stringify({ release }, null, 2)}\n`)
+  writeFileSync(join(OUT, 'source.json'), `${JSON.stringify({ commit }, null, 2)}\n`)
 
   mkdirSync(SPEC_OUT, { recursive: true })
-  const artifacts = buildSpecArtifacts(
-    JSON.parse(readFileSync(spec, 'utf8')) as Record<string, unknown>
-  )
+  const artifacts = buildSpecArtifacts(rawSpec)
   for (const [name, text] of Object.entries(artifacts)) {
     writeFileSync(join(SPEC_OUT, `${name}.txt`), asciiJson(text))
   }
@@ -156,23 +161,49 @@ function asciiJson(json: string): string {
   )
 }
 
-/** The latest Forge release's tag and the download URL of its `openapi.forge.json`. */
-async function latestRelease(): Promise<{ tag: string; url: string }> {
+/** The latest commit on `main` of `SPEC_REPOSITORY` that changed `SPEC_FILE`. */
+async function latestCommit(): Promise<string> {
   const token = process.env.GITHUB_TOKEN
-  const response = await fetch(LATEST_RELEASE, {
+  const query = new URLSearchParams({ sha: 'main', path: SPEC_FILE, per_page: '1' })
+  const response = await fetch(`https://api.github.com/repos/${SPEC_REPOSITORY}/commits?${query}`, {
     headers: {
       Accept: 'application/vnd.github+json',
       ...(token && { Authorization: `Bearer ${token}` })
     }
   })
-  if (!response.ok) throw new Error(`Failed to read the latest release: HTTP ${response.status}`)
-  const { tag_name: tag, assets } = (await response.json()) as {
-    tag_name: string
-    assets: Array<{ name: string; browser_download_url: string }>
+  if (!response.ok) throw new Error(`Failed to read the latest commit: HTTP ${response.status}`)
+  const [latest] = (await response.json()) as Array<{ sha?: unknown }>
+  if (typeof latest?.sha !== 'string' || !COMMIT.test(latest.sha)) {
+    throw new Error(`${SPEC_REPOSITORY} has no commit that changed ${SPEC_FILE}`)
   }
-  const asset = assets.find((item) => item.name === SPEC_ASSET)
-  if (!asset) throw new Error(`The release ${tag} has no ${SPEC_ASSET}`)
-  return { tag, url: asset.browser_download_url }
+  return latest.sha
+}
+
+/**
+ * Gives each `/{account_or_zone}/{account_or_zone_id}/…` operation that lists
+ * no `x-api-token-group` the permissions of its account and zone routes. The
+ * spec lists those routes too, with their permissions, but forge generates
+ * only the merged operation's tool, and refusal explanations and scope
+ * step-up read the tool's permissions. `authorize()` counts only the variant
+ * that matches the request path, so the tool lists both routes'.
+ */
+function inheritAccountOrZonePermissions(spec: Record<string, unknown>): void {
+  const paths = (spec.paths ?? {}) as Record<string, Record<string, Record<string, unknown>>>
+  for (const [path, item] of Object.entries(paths)) {
+    const routes = concretePaths(path).filter(({ scope }) => scope)
+    if (routes.length === 0) continue
+    for (const [method, operation] of Object.entries(item)) {
+      if (typeof operation !== 'object' || Array.isArray(operation)) continue
+      if (!operation || operation['x-api-token-group']) continue
+      const permissions = new Set(
+        routes.flatMap(({ path: route }) => {
+          const group = paths[route]?.[method]?.['x-api-token-group']
+          return Array.isArray(group) ? group : []
+        })
+      )
+      if (permissions.size > 0) operation['x-api-token-group'] = [...permissions]
+    }
+  }
 }
 
 /** How many generated tools in `dir` list the permissions they accept. */
@@ -209,13 +240,13 @@ function summary(
 ): string {
   const list = (names: string[]) => names.map((name) => `- \`${name}\``).join('\n')
   // Refusal explanations and scope step-up read each tool's permissions, so a
-  // release that drops them breaks both. openapi@67443a2 dropped 90%.
+  // spec that drops them breaks both. The Forge release openapi@67443a2 dropped 90%.
   const dropped = permissions.after < permissions.before * PERMISSIONS_DROP_WARNING
   return [
     `${count} tools: ${added.length} added, ${removed.length} removed.`,
     `Tools with permissions (\`x-api-token-group\`): ${permissions.before} → ${permissions.after}.`,
     dropped
-      ? "\n**Warning:** this release drops the permissions of many tools. Refusal explanations and scope step-up need them, in Code Mode too. Don't merge it until the spec is fixed."
+      ? "\n**Warning:** this commit drops the permissions of many tools. Refusal explanations and scope step-up need them, in Code Mode too. Don't merge it until the spec is fixed."
       : '',
     removed.length > 0
       ? `\n**Removed** (clients calling these will get "not found"):\n\n${list(removed)}`

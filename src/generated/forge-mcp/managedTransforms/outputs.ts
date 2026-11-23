@@ -4,9 +4,19 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
- * The schema of `rulesets_ManagedTransform` in responses.
+ * The schema of `managed-transforms_Errors` in responses.
  */
-export const rulesets_ManagedTransform: JSONObject = {
+export const managed$$transforms_Errors: JSONObject = {
+  "items": {
+    "$ref": "#/$defs/managed-transforms_Message"
+  },
+  "type": "array"
+};
+
+/**
+ * The schema of `managed-transforms_ManagedTransform` in responses.
+ */
+export const managed$$transforms_ManagedTransform: JSONObject = {
   "properties": {
     "conflicts_with": {
       "items": {
@@ -41,15 +51,15 @@ export const rulesets_ManagedTransform: JSONObject = {
 };
 
 /**
- * The schema of `rulesets_ManagedTransforms` in responses.
+ * The schema of `managed-transforms_ManagedTransforms` in responses.
  */
-export const rulesets_ManagedTransforms: JSONObject = {
+export const managed$$transforms_ManagedTransforms: JSONObject = {
   "properties": {
     "managed_request_headers": {
       "items": {
         "allOf": [
           {
-            "$ref": "#/$defs/rulesets_ManagedTransform"
+            "$ref": "#/$defs/managed-transforms_ManagedTransform"
           },
           {
             "properties": {
@@ -67,7 +77,7 @@ export const rulesets_ManagedTransforms: JSONObject = {
       "items": {
         "allOf": [
           {
-            "$ref": "#/$defs/rulesets_ManagedTransform"
+            "$ref": "#/$defs/managed-transforms_ManagedTransform"
           },
           {
             "properties": {
@@ -85,6 +95,94 @@ export const rulesets_ManagedTransforms: JSONObject = {
   "required": [
     "managed_request_headers",
     "managed_response_headers"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `managed-transforms_Message` in responses.
+ */
+export const managed$$transforms_Message: JSONObject = {
+  "properties": {
+    "code": {
+      "type": "integer"
+    },
+    "message": {
+      "type": "string"
+    },
+    "source": {
+      "properties": {
+        "pointer": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "pointer"
+      ],
+      "type": "object"
+    }
+  },
+  "required": [
+    "message"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `managed-transforms_Messages` in responses.
+ */
+export const managed$$transforms_Messages: JSONObject = {
+  "items": {
+    "$ref": "#/$defs/managed-transforms_Message"
+  },
+  "type": "array"
+};
+
+/**
+ * The schema of `managed-transforms_Response` in responses.
+ */
+export const managed$$transforms_Response: JSONObject = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/managed-transforms_Errors"
+    },
+    "messages": {
+      "$ref": "#/$defs/managed-transforms_Messages"
+    },
+    "result": {
+      "oneOf": [
+        {
+          "type": "object"
+        },
+        {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
   ],
   "type": "object"
 };

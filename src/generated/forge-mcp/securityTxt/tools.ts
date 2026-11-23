@@ -47,6 +47,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/security-center_api-response-single",
       $defs: {
+        "security-center_api-response-common": security$$center_api$$response$$common,
         "security-center_api-response-single": security$$center_api$$response$$single,
         "security-center_messages": security$$center_messages,
       },
@@ -65,6 +66,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Zone Settings Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "zone-settings.write"
         ]
       },
       responses: {
@@ -77,6 +81,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "security-center_api-response-common": security$$center_api$$response$$common,
           "security-center_api-response-common-failure": security$$center_api$$response$$common$$failure,
           "security-center_api-response-single": security$$center_api$$response$$single,
           "security-center_messages": security$$center_messages,
@@ -145,6 +150,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Zone Settings Write",
           "Zone Settings Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "zone-settings.read",
+          "zone-settings.write"
         ]
       },
       responses: {
@@ -232,6 +241,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Zone Settings Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "zone-settings.write"
         ]
       },
       responses: {

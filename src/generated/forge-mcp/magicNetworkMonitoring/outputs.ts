@@ -20,7 +20,9 @@ export const magic$$visibility$$mnm_api$$response$$common: JSONObject = {
           "type": "object"
         },
         {
-          "items": {},
+          "items": {
+            "type": "object"
+          },
           "type": "array"
         },
         {

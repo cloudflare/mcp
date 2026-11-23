@@ -80,7 +80,7 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "account_or_zone": {
-              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "description": "Whether ${account_or_zone} is an account ID (`accounts`) or a zone ID (`zones`).",
               "enum": [
                 "accounts",
                 "zones"
@@ -88,7 +88,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "description": "The account ID or zone ID, as selected by ${account_or_zone}.",
               "type": "string"
             },
             "app_id": {
@@ -121,6 +121,7 @@ export const tools: readonly Tool[] = [
         "access_allowed_clipboard_local_to_remote_formats": access_allowed_clipboard_local_to_remote_formats,
         "access_allowed_clipboard_remote_to_local_formats": access_allowed_clipboard_remote_to_local_formats,
         "access_any_valid_service_token_rule": access_any_valid_service_token_rule,
+        "access_api-response-common": access_api$$response$$common,
         "access_api-response-single": access_api$$response$$single,
         "access_app_policy_response": access_app_policy_response,
         "access_app_policy_result": access_app_policy_result,
@@ -182,9 +183,16 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/${"account_or_zone"}/${"account_or_zone_id"}/access/apps/${"app_id"}/policies/${"policy_id"}`,
       extensions: {
         "x-api-token-group": [
+          "Individual Access Policy Read",
+          "Individual Access Policy Admin",
+          "Access: Policies Write",
+          "Access: Policies Read",
+          "Zero Trust Read",
+          "Zero Trust Write",
           "Access: Apps and Policies Write",
           "Access: Apps and Policies Read"
-        ]
+        ],
+        "x-stainless-skip": true
       },
       responses: {
         schemas: {
@@ -200,6 +208,7 @@ export const tools: readonly Tool[] = [
           "access_allowed_clipboard_local_to_remote_formats": access_allowed_clipboard_local_to_remote_formats,
           "access_allowed_clipboard_remote_to_local_formats": access_allowed_clipboard_remote_to_local_formats,
           "access_any_valid_service_token_rule": access_any_valid_service_token_rule,
+          "access_api-response-common": access_api$$response$$common,
           "access_api-response-common-failure": access_api$$response$$common$$failure,
           "access_api-response-single": access_api$$response$$single,
           "access_app_policy_response": access_app_policy_response,
@@ -262,7 +271,7 @@ export const tools: readonly Tool[] = [
           "additionalProperties": false,
           "properties": {
             "account_or_zone": {
-              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "description": "Whether ${account_or_zone} is an account ID (`accounts`) or a zone ID (`zones`).",
               "enum": [
                 "accounts",
                 "zones"
@@ -270,7 +279,7 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "account_or_zone_id": {
-              "description": "The account ID or zone ID, as selected by account_or_zone.",
+              "description": "The account ID or zone ID, as selected by ${account_or_zone}.",
               "type": "string"
             },
             "app_id": {
@@ -380,9 +389,16 @@ export const tools: readonly Tool[] = [
       ],
       extensions: {
         "x-api-token-group": [
+          "Individual Access Policy Read",
+          "Individual Access Policy Admin",
+          "Access: Policies Write",
+          "Access: Policies Read",
+          "Zero Trust Read",
+          "Zero Trust Write",
           "Access: Apps and Policies Write",
           "Access: Apps and Policies Read"
-        ]
+        ],
+        "x-stainless-skip": true
       },
       responses: {
         schemas: {
@@ -555,7 +571,15 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/access/apps/${"app_id"}/policies/${"policy_id"}/make_reusable`,
       extensions: {
         "x-api-token-group": [
+          "Individual Access Policy Admin",
+          "Access: Policies Write",
+          "Zero Trust Write",
           "Access: Apps and Policies Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "access-policy.write",
+          "access.write",
+          "teams.write"
         ]
       },
       responses: {

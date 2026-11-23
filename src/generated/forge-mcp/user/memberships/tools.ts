@@ -3,6 +3,7 @@
 
 import { OPERATION, type Tool, encodePath } from "../../_/tool.js";
 import {
+  iam_account,
   iam_api$$response$$collection,
   iam_api$$response$$common,
   iam_api$$response$$common$$failure,
@@ -79,6 +80,7 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
+        "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-single": iam_api$$response$$single,
         "iam_messages": iam_messages,
       },
@@ -97,6 +99,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Memberships Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "memberships.write"
         ]
       },
       responses: {
@@ -126,6 +131,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "iam_api-response-common": iam_api$$response$$common,
           "iam_api-response-common-failure": iam_api$$response$$common$$failure,
           "iam_api-response-single": iam_api$$response$$single,
           "iam_messages": iam_messages,
@@ -162,6 +168,8 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/iam_single_membership_response_with_policies",
       $defs: {
+        "iam_account": iam_account,
+        "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-single": iam_api$$response$$single,
         "iam_grants": iam_grants,
         "iam_list_member_policy": iam_list_member_policy,
@@ -205,7 +213,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": true,
           "pro": true
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "memberships.read",
+          "memberships.write"
+        ]
       },
       responses: {
         schemas: {
@@ -217,6 +229,8 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "iam_account": iam_account,
+          "iam_api-response-common": iam_api$$response$$common,
           "iam_api-response-common-failure": iam_api$$response$$common$$failure,
           "iam_api-response-single": iam_api$$response$$single,
           "iam_grants": iam_grants,
@@ -307,6 +321,7 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
+        "iam_account": iam_account,
         "iam_api-response-collection": iam_api$$response$$collection,
         "iam_api-response-common": iam_api$$response$$common,
         "iam_collection_membership_response": iam_collection_membership_response,
@@ -352,6 +367,10 @@ export const tools: readonly Tool[] = [
         "x-api-token-group": [
           "Memberships Write",
           "Memberships Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "memberships.read",
+          "memberships.write"
         ]
       },
       responses: {
@@ -371,6 +390,7 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "iam_account": iam_account,
           "iam_api-response-collection": iam_api$$response$$collection,
           "iam_api-response-common": iam_api$$response$$common,
           "iam_api-response-common-failure": iam_api$$response$$common$$failure,
@@ -441,6 +461,8 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/iam_single_membership_response_with_policies",
       $defs: {
+        "iam_account": iam_account,
+        "iam_api-response-common": iam_api$$response$$common,
         "iam_api-response-single": iam_api$$response$$single,
         "iam_grants": iam_grants,
         "iam_list_member_policy": iam_list_member_policy,
@@ -473,6 +495,9 @@ export const tools: readonly Tool[] = [
       extensions: {
         "x-api-token-group": [
           "Memberships Write"
+        ],
+        "x-forge-oauth-scopes": [
+          "memberships.write"
         ]
       },
       responses: {
@@ -485,6 +510,8 @@ export const tools: readonly Tool[] = [
           }
         },
         $defs: {
+          "iam_account": iam_account,
+          "iam_api-response-common": iam_api$$response$$common,
           "iam_api-response-common-failure": iam_api$$response$$common$$failure,
           "iam_api-response-single": iam_api$$response$$single,
           "iam_grants": iam_grants,

@@ -4,9 +4,9 @@
 import type { JSONObject } from "@modelcontextprotocol/server";
 
 /**
- * The schema of `bill-subs-api_payment_method`.
+ * The schema of `bill-subs_payment_method`.
  */
-export const bill$$subs$$api_payment_method: JSONObject = {
+export const bill$$subs_payment_method: JSONObject = {
   "properties": {
     "address": {
       "description": "Billing address line 1.",

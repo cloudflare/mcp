@@ -25,7 +25,7 @@ export const tools: readonly Tool[] = [
   {
     name: "web3_hostnames_ipfsUniversalPaths_contentLists_get",
     title: "IPFS Universal Path Gateway Content List Details",
-    description: "IPFS Universal Path Gateway Content List Details\n\nGET /zones/{zone_id}/web3/hostnames/{identifier}/ipfs_universal_path/content_list",
+    description: "Retrieves the IPFS Universal Path Gateway content list configuration for a Web3 hostname.\n\nGET /zones/{zone_id}/web3/hostnames/{identifier}/ipfs_universal_path/content_list",
     inputSchema: {
       type: "object",
       properties: {
@@ -84,7 +84,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "web3-hostnames.read",
+          "web3-hostnames.write"
+        ]
       },
       responses: {
         schemas: {
@@ -92,24 +96,10 @@ export const tools: readonly Tool[] = [
             "$ref": "#/$defs/web3_content_list_details_response"
           },
           "4XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/web3_content_list_details_response"
-              },
-              {
-                "$ref": "#/$defs/web3_api-response-common-failure"
-              }
-            ]
+            "$ref": "#/$defs/web3_api-response-common-failure"
           },
           "5XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/web3_content_list_details_response"
-              },
-              {
-                "$ref": "#/$defs/web3_api-response-common-failure"
-              }
-            ]
+            "$ref": "#/$defs/web3_api-response-common-failure"
           }
         },
         $defs: {
@@ -126,7 +116,7 @@ export const tools: readonly Tool[] = [
   {
     name: "web3_hostnames_ipfsUniversalPaths_contentLists_update",
     title: "Update IPFS Universal Path Gateway Content List",
-    description: "Update IPFS Universal Path Gateway Content List\n\nPUT /zones/{zone_id}/web3/hostnames/{identifier}/ipfs_universal_path/content_list",
+    description: "Updates the IPFS Universal Path Gateway content list for a Web3 hostname.\n\nPUT /zones/{zone_id}/web3/hostnames/{identifier}/ipfs_universal_path/content_list",
     inputSchema: {
       type: "object",
       properties: {
@@ -194,7 +184,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "web3-hostnames.write"
+        ]
       },
       responses: {
         schemas: {
@@ -202,24 +195,10 @@ export const tools: readonly Tool[] = [
             "$ref": "#/$defs/web3_content_list_details_response"
           },
           "4XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/web3_content_list_details_response"
-              },
-              {
-                "$ref": "#/$defs/web3_api-response-common-failure"
-              }
-            ]
+            "$ref": "#/$defs/web3_api-response-common-failure"
           },
           "5XX": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/web3_content_list_details_response"
-              },
-              {
-                "$ref": "#/$defs/web3_api-response-common-failure"
-              }
-            ]
+            "$ref": "#/$defs/web3_api-response-common-failure"
           }
         },
         $defs: {

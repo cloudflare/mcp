@@ -78,7 +78,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "waiting-rooms.write"
+        ]
       },
       responses: {
         schemas: {
@@ -162,7 +165,11 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "waiting-rooms.read",
+          "waiting-rooms.write"
+        ]
       },
       responses: {
         schemas: {
@@ -253,7 +260,10 @@ export const tools: readonly Tool[] = [
           "enterprise": true,
           "free": false,
           "pro": false
-        }
+        },
+        "x-forge-oauth-scopes": [
+          "waiting-rooms.write"
+        ]
       },
       responses: {
         schemas: {

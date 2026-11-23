@@ -55,9 +55,9 @@ export const dns$$settings_dns$$settings$$account$$patch: JSONObject = {
 };
 
 /**
- * The schema of `dns-settings_dns-settings-patch`.
+ * The schema of `dns-settings_dns-settings-base`.
  */
-export const dns$$settings_dns$$settings$$patch: JSONObject = {
+export const dns$$settings_dns$$settings$$base: JSONObject = {
   "properties": {
     "flatten_all_cnames": {
       "description": "Whether to flatten all CNAME records in the zone. Note that, due to DNS limitations, a CNAME record at the zone apex will always be flattened.",
@@ -94,6 +94,13 @@ export const dns$$settings_dns$$settings$$patch: JSONObject = {
     }
   },
   "type": "object"
+};
+
+/**
+ * The schema of `dns-settings_dns-settings-patch`.
+ */
+export const dns$$settings_dns$$settings$$patch: JSONObject = {
+  "$ref": "#/$defs/dns-settings_dns-settings-base"
 };
 
 /**

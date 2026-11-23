@@ -60,8 +60,16 @@ export const tools: readonly Tool[] = [
       pathOf: encodePath`/accounts/${"account_id"}/stream/${"identifier"}/captions/${"language"}/vtt`,
       extensions: {
         "x-api-token-group": [
+          "Stream Metadata Read",
+          "AI Search Index Engine",
           "Stream Write",
           "Stream Read"
+        ],
+        "x-forge-oauth-scopes": [
+          "stream.metadata_read",
+          "stream.read",
+          "stream.write",
+          "ai-search.index"
         ]
       },
       responses: {
