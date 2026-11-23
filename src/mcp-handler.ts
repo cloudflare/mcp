@@ -219,10 +219,13 @@ export async function handleAuthenticatedMcpRequest(
   // Only tokens this server issued can step up; their tools can ask for a scope.
   const issued = connection.kind === 'oauth' ? auth : undefined
   const scopeChallenge = new ScopeChallenge(issued)
+  const legacy = request.method === 'POST' && (await isLegacyRequest(request))
   // Both serving paths build their server from this one context, so neither drops MCP Events.
   const context: RequestContext = {
     connection,
     scopeChallenge,
+    era: legacy ? 'legacy' : 'modern',
+    clientId: issued?.clientId,
     ...(env && {
       events: {
         env,
@@ -231,10 +234,9 @@ export async function handleAuthenticatedMcpRequest(
     })
   }
 
-  const response =
-    request.method === 'POST' && (await isLegacyRequest(request))
-      ? await serveLegacyAsJson(request, createServer(props, options, context))
-      : await createAuthenticatedHandler(props, context).fetch(request)
+  const response = legacy
+    ? await serveLegacyAsJson(request, createServer(props, options, context))
+    : await createAuthenticatedHandler(props, context).fetch(request)
 
   const challenge = scopeChallenge.response
   if (

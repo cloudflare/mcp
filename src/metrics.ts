@@ -13,6 +13,10 @@
  *   blob3   = userId
  *   blob4   = toolName (tool_call, response_schema_mismatch) | errorMessage (auth_user)
  *   double1 = errorCode (tool_call; always 0 for response_schema_mismatch)
+ *   blob5   = client name from the protocol `clientInfo` (tool_call)
+ *   blob6   = client version from `clientInfo` (tool_call)
+ *   blob7   = protocol era (`legacy` | `modern`) (tool_call)
+ *   blob8   = OAuth client ID of the verified token (tool_call)
  *
  * `response_schema_mismatch` (a direct-tool response that doesn't match its
  * OpenAPI response schema, see `src/response-validation.ts`) adds:
@@ -33,19 +37,28 @@
  *             (arrays past 25 items unchecked, or too large to count)
  * No blob holds a response value: those are customer data.
  *
+ * Client identity: only what the request itself carries is stored &mdash;
+ * `clientInfo` name/version (self-reported, bounded by zod), the protocol
+ * era, and the verified OAuth client ID. No User-Agent is read or stored.
+ * Unconditional per tool_call, like every other tool_call field; no sampling.
+ * Retention follows the dataset default; if the privacy posture tightens,
+ * drop blob6 first, then blob5.
+ *
  * Note: this server is stateless (a fresh McpServer per request) so it does not
  * emit `session_start` events the way the Durable-Object-backed Cloudflare MCP
  * servers do. MCP 2026-07-28 has no protocol session or initialize handshake;
  * the 2025 compatibility path also retains no initialization state between
  * requests. The slots reserved upstream for session client info remain unused,
- * keeping shared-dataset queries compatible. Client identity is available at
- * the HTTP layer via the User-Agent header instead.
+ * keeping shared-dataset queries compatible. Client identity comes from the
+ * protocol's per-request `clientInfo` envelope; legacy requests carry none,
+ * so their client fields are empty.
  */
 
 import { env } from 'cloudflare:workers'
-import type { McpServer } from '@modelcontextprotocol/server'
+import type { McpServer, ServerContext } from '@modelcontextprotocol/server'
 import type { AuthProps } from './auth/types'
 import { SERVER_INFO, type ServerInfo } from './constants'
+import { clientInfoFromContext } from './client-info'
 
 export enum MetricsEventIndexId {
   AUTH_USER = 'auth_user',
@@ -77,6 +90,64 @@ type Range1To20 =
 
 // blob1 and blob2 are reserved for server name and version
 type Blobs = { [key in `blob${Range1To20}`]?: string | null }
+
+/**
+ * The shared positional schema, as data. Positions are the contract: the
+ * dataset columns are positional and shared with the other Cloudflare MCP
+ * servers, so a field's number never changes once assigned. New fields are
+ * appended at the next free index and coordinated upstream; tests assert
+ * these tables, so renumbering fails the build.
+ */
+export const TOOL_CALL_LAYOUT = {
+  userId: 3,
+  toolName: 4,
+  clientName: 5,
+  clientVersion: 6,
+  era: 7,
+  clientId: 8
+} as const
+
+export const AUTH_USER_LAYOUT = { userId: 3, errorMessage: 4 } as const
+
+export const RESPONSE_SCHEMA_MISMATCH_LAYOUT = {
+  userId: 3,
+  toolName: 4,
+  method: 5,
+  pathTemplate: 6,
+  product: 7,
+  forgeTool: 8,
+  responseKey: 9,
+  keyword: 10,
+  schemaLocation: 11,
+  instancePath: 12,
+  specRelease: 13
+} as const
+
+/** Position named fields into a positional blob array, gaps as null. */
+export function layoutBlobs(
+  layout: Record<string, number>,
+  values: Record<string, string | null | undefined>
+): Array<string | null> {
+  const width = Math.max(2, ...Object.values(layout))
+  const blobs: Array<string | null> = Array.from({ length: width }, () => null)
+  for (const [field, position] of Object.entries(layout)) {
+    blobs[position - 1] = values[field] ?? null
+  }
+  return blobs
+}
+
+/** Position named fields into a positional doubles array, gaps as undefined. */
+export function layoutDoubles(
+  layout: Record<string, number>,
+  values: Record<string, number | undefined>
+): number[] {
+  const width = Math.max(1, ...Object.values(layout))
+  const doubles: number[] = Array.from({ length: width }, () => undefined as unknown as number)
+  for (const [field, position] of Object.entries(layout)) {
+    doubles[position - 1] = values[field] as number
+  }
+  return doubles
+}
 type Doubles = { [key in `double${Range1To20}`]?: number }
 
 export class MetricsError extends Error {
@@ -118,7 +189,11 @@ export abstract class MetricsEvent {
     }
     blobs.blob1 = this.serverInfo.name
     blobs.blob2 = this.serverInfo.version
-    const blobsArray: Array<string | null> = Array.from({ length: Object.keys(blobs).length })
+    const width = Math.max(
+      0,
+      ...Object.keys(blobs).map((key) => Number.parseInt(key.slice(4), 10) || 0)
+    )
+    const blobsArray: Array<string | null> = Array.from({ length: width }, () => null)
     for (const [key, value] of Object.entries(blobs)) {
       const match = key.match(/^blob(\d+)$/)
       if (match === null || match.length < 2) {
@@ -127,9 +202,6 @@ export abstract class MetricsEvent {
       const index = parseInt(match[1], 10)
       if (isNaN(index)) {
         throw new MetricsError('Failed to map blobs, invalid index')
-      }
-      if (index - 1 >= blobsArray.length) {
-        throw new MetricsError('Failed to map blobs, missing blob')
       }
       blobsArray[index - 1] = value ?? null
     }
@@ -162,21 +234,30 @@ export class ToolCall extends MetricsEvent {
       userId?: string
       toolName: string
       errorCode?: number
+      clientName?: string
+      clientVersion?: string
+      era?: 'legacy' | 'modern'
+      clientId?: string
     }
   ) {
     super()
   }
 
   toDataPoint(): AnalyticsEngineDataPoint {
+    const blobs = layoutBlobs(TOOL_CALL_LAYOUT, {
+      userId: this.toolCall.userId,
+      toolName: this.toolCall.toolName,
+      clientName: this.toolCall.clientName,
+      clientVersion: this.toolCall.clientVersion,
+      era: this.toolCall.era,
+      clientId: this.toolCall.clientId
+    })
+    blobs[0] = this.serverInfo.name
+    blobs[1] = this.serverInfo.version
     return {
       indexes: [MetricsEventIndexId.TOOL_CALL],
-      blobs: this.mapBlobs({
-        blob3: this.toolCall.userId,
-        blob4: this.toolCall.toolName
-      }),
-      doubles: this.mapDoubles({
-        double1: this.toolCall.errorCode
-      })
+      blobs,
+      doubles: layoutDoubles({ errorCode: 1 }, { errorCode: this.toolCall.errorCode })
     }
   }
 }
@@ -192,12 +273,15 @@ export class AuthUser extends MetricsEvent {
   }
 
   toDataPoint(): AnalyticsEngineDataPoint {
+    const blobs = layoutBlobs(AUTH_USER_LAYOUT, {
+      userId: this.authUser.userId,
+      errorMessage: this.authUser.errorMessage
+    })
+    blobs[0] = this.serverInfo.name
+    blobs[1] = this.serverInfo.version
     return {
       indexes: [MetricsEventIndexId.AUTH_USER],
-      blobs: this.mapBlobs({
-        blob3: this.authUser.userId,
-        blob4: this.authUser.errorMessage
-      })
+      blobs
     }
   }
 }
@@ -228,28 +312,34 @@ export class ResponseSchemaMismatch extends MetricsEvent {
 
   toDataPoint(): AnalyticsEngineDataPoint {
     const { mismatch } = this
+    const blobs = layoutBlobs(RESPONSE_SCHEMA_MISMATCH_LAYOUT, {
+      userId: mismatch.userId,
+      toolName: mismatch.toolName,
+      method: mismatch.method,
+      pathTemplate: mismatch.pathTemplate,
+      product: mismatch.product,
+      forgeTool: mismatch.forgeTool,
+      responseKey: mismatch.responseKey,
+      keyword: mismatch.first.keyword,
+      schemaLocation: mismatch.first.schemaLocation,
+      instancePath: mismatch.first.instancePath,
+      specRelease: mismatch.specRelease
+    })
+    blobs[0] = this.serverInfo.name
+    blobs[1] = this.serverInfo.version
     return {
       indexes: [MetricsEventIndexId.RESPONSE_SCHEMA_MISMATCH],
-      blobs: this.mapBlobs({
-        blob3: mismatch.userId,
-        blob4: mismatch.toolName,
-        blob5: mismatch.method,
-        blob6: mismatch.pathTemplate,
-        blob7: mismatch.product,
-        blob8: mismatch.forgeTool,
-        blob9: mismatch.responseKey,
-        blob10: mismatch.first.keyword,
-        blob11: mismatch.first.schemaLocation,
-        blob12: mismatch.first.instancePath,
-        blob13: mismatch.specRelease
-      }),
-      doubles: this.mapDoubles({
-        double1: 0,
-        double2: mismatch.status,
-        double3: mismatch.errorCount,
-        double4: mismatch.sampleInterval,
-        double5: mismatch.counted ? 1 : 0
-      })
+      blobs,
+      doubles: layoutDoubles(
+        { errorCode: 1, status: 2, errorCount: 3, sampleInterval: 4, counted: 5 },
+        {
+          errorCode: 0,
+          status: mismatch.status,
+          errorCount: mismatch.errorCount,
+          sampleInterval: mismatch.sampleInterval,
+          counted: mismatch.counted ? 1 : 0
+        }
+      )
     }
   }
 }
@@ -258,6 +348,26 @@ export class ResponseSchemaMismatch extends MetricsEvent {
  * Wraps the Analytics Engine binding. Tolerates a missing binding (e.g. in
  * tests or local dev where MCP_METRICS isn't configured) by becoming a no-op.
  */
+/** The one tool-call emission point; both serving paths call this. */
+export interface ToolCallIdentity {
+  readonly clientName?: string
+  readonly clientVersion?: string
+  readonly era?: 'legacy' | 'modern'
+  readonly clientId?: string
+}
+
+/** The one tool-call emission point; both serving paths call this. */
+export function emitToolCall(
+  tracker: MetricsTracker,
+  fields: {
+    userId?: string
+    toolName: string
+    errorCode?: number
+  } & ToolCallIdentity
+): void {
+  tracker.logEvent(new ToolCall(fields))
+}
+
 export class MetricsTracker {
   constructor(
     private wae: AnalyticsEngineDataset | undefined,
@@ -285,15 +395,19 @@ function userIdFromProps(props?: AuthProps): string | undefined {
 }
 
 /** Record one tool call from a low-level protocol handler. */
-export function recordToolCall(props: AuthProps, toolName: string, isError: boolean): void {
+export function recordToolCall(
+  props: AuthProps,
+  toolName: string,
+  isError: boolean,
+  identity?: ToolCallIdentity
+): void {
   const metrics = new MetricsTracker(env.MCP_METRICS, SERVER_INFO)
-  metrics.logEvent(
-    new ToolCall({
-      toolName,
-      userId: userIdFromProps(props),
-      errorCode: isError ? -1 : undefined
-    })
-  )
+  emitToolCall(metrics, {
+    toolName,
+    userId: userIdFromProps(props),
+    errorCode: isError ? -1 : undefined,
+    ...identity
+  })
 }
 
 /** Record one direct-tool response that didn't match its OpenAPI response schema. */
@@ -317,18 +431,32 @@ export function recordResponseSchemaMismatch(
  * stateless 2025 fallback retains no client lifecycle between requests. Client
  * identity is instead available at the HTTP layer via the User-Agent header.
  */
-export function attachMetrics(server: McpServer, props?: AuthProps): void {
+export function attachMetrics(
+  server: McpServer,
+  props?: AuthProps,
+  request?: { readonly era: 'legacy' | 'modern'; readonly clientId?: string }
+): void {
   const metrics = new MetricsTracker(env.MCP_METRICS, SERVER_INFO)
   const userId = userIdFromProps(props)
+
+  const identityForCall = (ctx: ServerContext | undefined): ToolCallIdentity => {
+    const info = clientInfoFromContext(ctx)
+    return {
+      clientName: info?.name,
+      clientVersion: info?.version,
+      era: request?.era,
+      clientId: request?.clientId
+    }
+  }
 
   const errorCodeOf = (e: unknown): number =>
     typeof (e as { code?: unknown })?.code === 'number' ? (e as { code: number }).code : -1
 
   // Our tool callbacks signal failure by returning `{ isError: true }` rather
   // than throwing, so inspect the resolved result as well as the thrown path.
-  const logResult = (name: string, result: unknown) => {
+  const logResult = (name: string, result: unknown, identity: ToolCallIdentity) => {
     const errorCode = (result as { isError?: boolean })?.isError ? -1 : undefined
-    metrics.logEvent(new ToolCall({ toolName: name, userId, errorCode }))
+    emitToolCall(metrics, { toolName: name, userId, errorCode, ...identity })
   }
 
   const originalRegisterTool = server.registerTool.bind(server) as (
@@ -346,23 +474,34 @@ export function attachMetrics(server: McpServer, props?: AuthProps): void {
     const lastIndex = rest.length - 1
     const cb = rest[lastIndex] as (...cbArgs: unknown[]) => unknown
     rest[lastIndex] = (...cbArgs: unknown[]) => {
+      const identity = identityForCall(cbArgs[1] as ServerContext | undefined)
       try {
         const out = cb(...cbArgs)
         if (out instanceof Promise) {
           return out
             .then((r) => {
-              logResult(name, r)
+              logResult(name, r, identity)
               return r
             })
             .catch((e: unknown) => {
-              metrics.logEvent(new ToolCall({ toolName: name, userId, errorCode: errorCodeOf(e) }))
+              emitToolCall(metrics, {
+                toolName: name,
+                userId,
+                errorCode: errorCodeOf(e),
+                ...identity
+              })
               throw e
             })
         }
-        logResult(name, out)
+        logResult(name, out, identity)
         return out
       } catch (e) {
-        metrics.logEvent(new ToolCall({ toolName: name, userId, errorCode: errorCodeOf(e) }))
+        emitToolCall(metrics, {
+          toolName: name,
+          userId,
+          errorCode: errorCodeOf(e),
+          ...identity
+        })
         throw e
       }
     }

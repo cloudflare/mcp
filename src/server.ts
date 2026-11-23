@@ -49,11 +49,19 @@ export interface RequestContext {
   readonly scopeChallenge: ScopeChallenge
   /** MCP Events, served when the Worker environment is available. */
   readonly events?: { readonly env: EventEnvironment; readonly bearer: string }
+  /** Protocol era of this request. */
+  readonly era: 'legacy' | 'modern'
+  /** The OAuth client ID of the verified token, when the connection is OAuth. */
+  readonly clientId?: string
 }
 
 /** A request whose credential can't step up and that serves no events, e.g. in tests. */
 export function directRequestContext(): RequestContext {
-  return { connection: DIRECT_CONNECTION, scopeChallenge: new ScopeChallenge(undefined) }
+  return {
+    connection: DIRECT_CONNECTION,
+    scopeChallenge: new ScopeChallenge(undefined),
+    era: 'modern'
+  }
 }
 
 /**
@@ -71,7 +79,7 @@ export function createServer(
     experimentalOutputSchema = false,
     truncateToolResult = codemode
   }: ServerOptions = {},
-  { connection, scopeChallenge, events }: RequestContext = directRequestContext()
+  { connection, scopeChallenge, events, era, clientId }: RequestContext = directRequestContext()
 ): McpServer {
   const server = new McpServer(SERVER_INFO)
   // The tool set is fixed for the life of each per-request server, so this
@@ -84,14 +92,16 @@ export function createServer(
   if (!codemode) {
     const formatResult = truncateToolResult ? truncateResponse : stringifyResponse
     registerForgeTools(server, props, formatResult, connection, scopeChallenge, {
-      outputSchema: experimentalOutputSchema
+      outputSchema: experimentalOutputSchema,
+      era,
+      clientId
     })
     return server
   }
 
   // Track tool_call metrics for every Code-Mode tool registered below. The
   // metrics wrapper also mirrors tool.title into annotations.title.
-  attachMetrics(server, props)
+  attachMetrics(server, props, { era, clientId })
   registerDocsTool(server)
   registerSearchTool(server, truncateToolResult)
   registerExecuteTool(server, props, truncateToolResult, connection, scopeChallenge)

@@ -12,6 +12,7 @@ import {
   unknownAccountHint
 } from '../auth/account-access'
 import { recordToolCall } from '../metrics'
+import { clientInfoFromContext } from '../client-info'
 import { checkResponse } from '../response-validation'
 import { DOCS_TOOL, runDocsTool } from './docs-search'
 import { WHOAMI_TOOL, WhoamiInputSchema, runWhoamiTool } from './whoami'
@@ -54,7 +55,15 @@ export function registerForgeTools(
   formatResult: FormatToolResult,
   connection: Connection,
   scopeChallenge: ScopeChallenge,
-  { outputSchema = false }: { outputSchema?: boolean } = {}
+  {
+    outputSchema = false,
+    era,
+    clientId
+  }: {
+    outputSchema?: boolean
+    era?: 'legacy' | 'modern'
+    clientId?: string
+  } = {}
 ): void {
   server.server.setRequestHandler('tools/list', async (_request, ctx) => ({
     tools: [
@@ -99,7 +108,13 @@ export function registerForgeTools(
       result = toolError(error instanceof Error ? error.message : String(error))
     }
 
-    recordToolCall(props, name, result.isError === true)
+    const info = clientInfoFromContext(ctx)
+    recordToolCall(props, name, result.isError === true, {
+      clientName: info?.name,
+      clientVersion: info?.version,
+      era,
+      clientId
+    })
     return result
   })
 }
