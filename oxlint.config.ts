@@ -9,7 +9,6 @@ export default defineConfig({
     // Temporarily disabled during preset migration.
     '@nkzw/no-instanceof': 'off',
     'no-console': 'off',
-    'no-promise-executor-return': 'off',
     'quality/no-chained-type-assertions': 'off',
     'quality/no-conditional-empty-object-spread': 'off',
     'quality/no-known-value-widening': 'off',

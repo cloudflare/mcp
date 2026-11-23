@@ -105,7 +105,9 @@ export async function withRefreshAdmission<T>(
     rejectAdmission(Date.now() + 30_000)
   }
 
-  await new Promise((resolve) => setTimeout(resolve, CLAIM_SETTLE_MS))
+  await new Promise((resolve) => {
+    setTimeout(resolve, CLAIM_SETTLE_MS)
+  })
   const settled = await readAdmission(kv, key)
   if (settled?.owner !== owner || settled.blockedUntil <= Date.now()) {
     localBlocks.set(key, settled?.blockedUntil ?? blockedUntil)

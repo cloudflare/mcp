@@ -64,7 +64,9 @@ export function checkResponse(check: ResponseCheck): void {
 async function run(check: ResponseCheck, sampleRate: number): Promise<void> {
   try {
     // Yield a macrotask so the tool result is serialized and sent first.
-    await new Promise((resolve) => setTimeout(resolve, 0))
+    await new Promise((resolve) => {
+      setTimeout(resolve, 0)
+    })
     const method = check.method.toUpperCase()
     const mismatch = await env.FORGE_TOOLS.checkResponse({
       method,
