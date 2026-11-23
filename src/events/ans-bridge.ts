@@ -179,7 +179,7 @@ const EventPayloadSchemas: Readonly<Record<string, z.ZodType<NotificationPayload
  * `oneOf`/`anyOf`/`not`. ChatGPT drops events whose schema it cannot use.
  * The "at most one trigger" rule is enforced by `AlertArguments` instead.
  */
-function descriptorSchema(schema: z.ZodType): Record<string, unknown> {
+function descriptorSchema(schema: z.ZodType) {
   const { $schema: _dialect, ...rest } = z.toJSONSchema(schema)
   return rest
 }
