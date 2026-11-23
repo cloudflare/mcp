@@ -431,7 +431,7 @@ export async function readJson(
   message: Request | Response,
   limit = MAX_EVENT_BYTES
 ): Promise<unknown> {
-  const reader = message.body?.getReader()
+  const reader = (message.body as ReadableStream<Uint8Array> | null)?.getReader()
   if (!reader) {
     throw new Error('Missing JSON body')
   }
@@ -498,7 +498,7 @@ export async function forwardAnsWebhook(
   if (subscription.expiresAt <= now) {
     return new Response(null, { status: 204 })
   }
-  const reader = request.body?.getReader()
+  const reader = (request.body as ReadableStream<Uint8Array> | null)?.getReader()
   if (!reader) {
     return new Response(null, { status: 400 })
   }
