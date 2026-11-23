@@ -273,7 +273,7 @@ export class MetricsTracker {
       event.serverInfo = this.serverInfo
       this.wae.writeDataPoint(event.toDataPoint())
     } catch (error) {
-      console.error(`Failed to log metrics event, ${error}`)
+      console.error(`Failed to log metrics event, ${String(error)}`)
     }
   }
 }
