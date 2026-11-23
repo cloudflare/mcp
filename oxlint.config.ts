@@ -20,7 +20,6 @@ export default defineConfig({
     'typescript/no-unsafe-return': 'off',
     'typescript/no-unsafe-type-assertion': 'off',
     'unicorn/consistent-function-scoping': 'off',
-    'unicorn/prefer-set-has': 'off',
     'unicorn/prefer-structured-clone': 'off',
   },
 })
