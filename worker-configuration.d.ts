@@ -5,6 +5,7 @@ interface __BaseEnv_Env {
 	OAUTH_KV: KVNamespace;
 	SPEC_BUCKET: R2Bucket;
 	MCP_METRICS: AnalyticsEngineDataset;
+	FEEDBACK_LIMITER: RateLimit;
 	LOADER: WorkerLoader;
 	AI?: Ai;
 	CLOUDFLARE_API_BASE: "https://api.staging.cloudflare.com/client/v4" | "https://api.cloudflare.com/client/v4";
@@ -25,6 +26,7 @@ declare namespace Cloudflare {
 		OAUTH_KV: KVNamespace;
 		SPEC_BUCKET: R2Bucket;
 		MCP_METRICS: AnalyticsEngineDataset;
+		FEEDBACK_LIMITER: RateLimit;
 		LOADER: WorkerLoader;
 		AI: Ai;
 		CLOUDFLARE_API_BASE: "https://api.staging.cloudflare.com/client/v4";
@@ -41,6 +43,7 @@ declare namespace Cloudflare {
 		OAUTH_KV: KVNamespace;
 		SPEC_BUCKET: R2Bucket;
 		MCP_METRICS: AnalyticsEngineDataset;
+		FEEDBACK_LIMITER: RateLimit;
 		LOADER: WorkerLoader;
 		AI: Ai;
 		CLOUDFLARE_API_BASE: "https://api.cloudflare.com/client/v4";

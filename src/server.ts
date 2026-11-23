@@ -4,6 +4,7 @@ import { registerForgeTools } from './tools/forge-tools'
 import { registerSearchTool } from './tools/search'
 import { registerExecuteTool } from './tools/execute'
 import { registerWhoamiTool } from './tools/whoami'
+import { registerSubmitFeedbackTool } from './tools/submit-feedback'
 import { registerSkills } from './skills/handlers'
 import { attachMetrics } from './metrics'
 import { SERVER_INFO } from './constants'
@@ -95,6 +96,7 @@ export function createServer(
   registerSearchTool(server, truncateToolResult)
   registerExecuteTool(server, props, truncateToolResult, connection, scopeChallenge)
   registerWhoamiTool(server, props)
+  registerSubmitFeedbackTool(server, props)
 
   return server
 }

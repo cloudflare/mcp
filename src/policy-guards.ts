@@ -1,5 +1,5 @@
 const CHARGEABLE_WRITE =
-  /\/(accounts\/[^/]+\/(registrar\/registrations|ai-gateway\/billing\/topup|payment-methods|billing\/profile\/payment-method|subscriptions)|user\/subscriptions|zones\/[^/]+\/subscriptions?)(\/|$)/i
+  /\/(accounts\/[^/]+\/(registrar\/registrations|ai-gateway\/billing\/topup|payment-methods|billing\/profile\/payment-method|subscriptions|bulk\/subscriptions|pay-invoice)|user\/subscriptions|zones\/[^/]+\/subscriptions?)(\/|$)/i
 
 const ACCOUNT_SUBSCRIPTIONS_PATH = /^\/client\/v4\/accounts\/([0-9a-f]{32})\/subscriptions\/?$/i
 
@@ -16,7 +16,7 @@ const MEDIA_MODEL =
 
 /** Why a request that spends money was not sent (Software Directory Policy §4.A). */
 export const CHARGEABLE_HINT =
-  'This server does not send requests that spend money (domain registration or transfer, credit top-ups, subscriptions, payment methods). Ask the user to do it in the Cloudflare dashboard.'
+  'This server does not send requests that spend money (domain registration or transfer, credit top-ups, subscriptions, invoice payments, payment methods). Ask the user to do it in the Cloudflare dashboard.'
 
 /** Why a run of a model that is not a Workers AI model was not sent: it is paid from Unified Billing credits and may generate media. */
 export const THIRD_PARTY_MODEL_HINT =
