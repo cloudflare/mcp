@@ -9,6 +9,8 @@
     "deploy:forge-tools": "wrangler deploy -c wrangler.forge-tools.jsonc --env staging",
     "deploy:forge-tools:prod": "wrangler deploy -c wrangler.forge-tools.jsonc --env production",
     "deploy:prod": "wrangler deploy --env production",
+    "dev:admin": "wrangler dev -c wrangler.admin.jsonc",
+    "deploy:admin": "wrangler deploy -c wrangler.admin.jsonc --env production",
     "types": "wrangler types --env-file .env_example -c wrangler.jsonc -c wrangler.forge-tools.jsonc",
     "typecheck": "tsc --noEmit",
     "lint": "oxlint src/ --ignore-pattern 'src/generated/**'",

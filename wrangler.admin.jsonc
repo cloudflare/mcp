@@ -1,0 +1,44 @@
+{
+	// The admin dashboard (src/admin/worker.ts): tool usage by harness, users,
+	// sign-ins and response schema mismatches from the mcp-metrics-* Analytics
+	// Engine datasets. One deployment reads every environment's dataset, so it
+	// has only a local configuration and production.
+	//
+	// It refuses every request without a valid Cloudflare Access JWT for
+	// ACCESS_TEAM_DOMAIN and ACCESS_AUD, so put an Access application in front
+	// of its route before setting them. Secrets:
+	//   wrangler secret put ANALYTICS_API_TOKEN -c wrangler.admin.jsonc --env production
+	// (an API token with Account Analytics Read on this account).
+	"$schema": "./node_modules/wrangler/config-schema.json",
+	"name": "cloudflare-api-mcp-admin-dev",
+	"account_id": "6702657b6aa048cf3081ff3ff3c9c52f",
+	"main": "src/admin/worker.ts",
+	"compatibility_date": "2026-06-17",
+	"workers_dev": false,
+	"preview_urls": false,
+	"observability": {
+		"logs": {
+			"enabled": true
+		}
+	},
+	"vars": {
+		"CLOUDFLARE_API_BASE": "https://api.cloudflare.com/client/v4",
+		"CLOUDFLARE_ACCOUNT_ID": "6702657b6aa048cf3081ff3ff3c9c52f"
+	},
+	"dev": {
+		"port": 2530
+	},
+	"env": {
+		"production": {
+			"name": "cloudflare-api-mcp-admin",
+			// TODO: the hostname behind the Access application, e.g.
+			// "routes": [{ "pattern": "<admin hostname>", "custom_domain": true }],
+			"vars": {
+				"CLOUDFLARE_API_BASE": "https://api.cloudflare.com/client/v4",
+				"CLOUDFLARE_ACCOUNT_ID": "6702657b6aa048cf3081ff3ff3c9c52f",
+				"ACCESS_TEAM_DOMAIN": "",
+				"ACCESS_AUD": ""
+			}
+		}
+	}
+}
