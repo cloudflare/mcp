@@ -233,7 +233,7 @@ export interface HoldScope {
 }
 
 function escapeRegExp(text: string): string {
-  return text.replaceAll(/[.*+?^${}()|[\]\\/]/g, '\\$&')
+  return text.replaceAll(/[.*+?^${}()|[\]\\/]/g, String.raw`\$&`)
 }
 
 /**
@@ -281,7 +281,7 @@ export function holdScope(
       }
       return index === length - 1 ? '.+' : '[^/]+'
     })
-    return { method: method.toUpperCase(), pattern: `^${parts.join('\\/')}\\/?$` }
+    return { method: method.toUpperCase(), pattern: `^${parts.join(String.raw`\/`)}\\/?$` }
   }
   return { method: method.toUpperCase(), pattern: `^${escapeRegExp(segments.join('/'))}\\/?$` }
 }

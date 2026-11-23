@@ -708,7 +708,7 @@ ${ADVANCED_SCOPES_CSS}
       // The server preselects the matching template, or REQUESTED when the
       // client's scopes match none. Only then is "Requested scopes" offered.
       const INITIAL_TEMPLATE = ${JSON.stringify(initialTemplate)};
-      const SCOPE_NAMES = ${JSON.stringify(Object.fromEntries(Object.entries(scopeDefinitions).map(([k, v]) => [k, v.name]))).replaceAll('<', '\\u003c')};
+      const SCOPE_NAMES = ${JSON.stringify(Object.fromEntries(Object.entries(scopeDefinitions).map(([k, v]) => [k, v.name]))).replaceAll('<', String.raw`\u003c`)};
 
       const selected = new Set();
       let activeTemplate = null;

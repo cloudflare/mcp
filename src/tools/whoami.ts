@@ -66,7 +66,7 @@ export const WHOAMI_TOOL: Tool = {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     type: 'object',
     properties: {
-      id: { type: 'string', minLength: 1, pattern: '\\S', description: ID_DESCRIPTION },
+      id: { type: 'string', minLength: 1, pattern: String.raw`\S`, description: ID_DESCRIPTION },
       name: { type: 'string', description: NAME_DESCRIPTION },
       email: { type: 'string', description: EMAIL_DESCRIPTION }
     },

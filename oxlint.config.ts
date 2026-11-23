@@ -26,7 +26,6 @@ export default defineConfig({
     'unicorn/prefer-at': 'off',
     'unicorn/prefer-number-properties': 'off',
     'unicorn/prefer-set-has': 'off',
-    'unicorn/prefer-string-raw': 'off',
     'unicorn/prefer-structured-clone': 'off',
   },
 })
