@@ -180,7 +180,7 @@ export class EventService {
         }
       }
     }
-    return { events: [], ...(nextCursor ? { nextCursor } : {}) }
+    return nextCursor ? { events: [], nextCursor } : { events: [] }
   }
 
   private async available(accountId: string) {

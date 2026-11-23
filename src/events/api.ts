@@ -30,19 +30,21 @@ export class EventApi {
   ) {}
 
   async request(path: string, method = 'GET', body?: unknown) {
-    const response = await fetchWithRetry(
-      `${this.base}/accounts/${this.accountId}${path}`,
-      {
-        method,
-        redirect: 'manual',
-        signal: this.signal
-          ? AbortSignal.any([this.signal, AbortSignal.timeout(10_000)])
-          : AbortSignal.timeout(10_000),
-        headers: { Authorization: `Bearer ${this.token}`, 'Content-Type': 'application/json' },
-        ...(body === undefined ? {} : { body: JSON.stringify(body) })
-      },
-      { maxRetries: 0, caller: 'mcp_events_api' }
-    )
+    const init: RequestInit = {
+      method,
+      redirect: 'manual',
+      signal: this.signal
+        ? AbortSignal.any([this.signal, AbortSignal.timeout(10_000)])
+        : AbortSignal.timeout(10_000),
+      headers: { Authorization: `Bearer ${this.token}`, 'Content-Type': 'application/json' }
+    }
+    if (body !== undefined) {
+      init.body = JSON.stringify(body)
+    }
+    const response = await fetchWithRetry(`${this.base}/accounts/${this.accountId}${path}`, init, {
+      maxRetries: 0,
+      caller: 'mcp_events_api'
+    })
     if (!response.ok) {
       await response.body?.cancel()
       throw new EventApiError(response.status)

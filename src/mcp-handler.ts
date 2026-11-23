@@ -52,11 +52,11 @@ const ALLOWED_MCP_ORIGIN_HOSTNAMES = [
 function serverOptionsFromUrl(url: string): ServerOptions {
   const params = new URL(url).searchParams
   const truncate = params.get('truncateToolResult')
-  return {
+  const options = {
     codemode: params.get('codemode') !== 'false',
-    experimentalOutputSchema: params.get('experimentalOutputSchema') === 'true',
-    ...(truncate === null ? {} : { truncateToolResult: truncate !== 'false' })
+    experimentalOutputSchema: params.get('experimentalOutputSchema') === 'true'
   }
+  return truncate === null ? options : { ...options, truncateToolResult: truncate !== 'false' }
 }
 
 /** `/mcp?scopeChallenge=http|tool` overrides the client's challenge delivery, for testing a client. */

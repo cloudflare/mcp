@@ -10,7 +10,6 @@ export default defineConfig({
     'no-console': ['error', { allow: ['error', 'log', 'warn'] }],
     // Temporarily disabled during preset migration.
     '@nkzw/no-instanceof': 'off',
-    'quality/no-conditional-empty-object-spread': 'off',
     'quality/no-known-value-widening': 'off',
     'quality/no-unknown-returns': 'off',
     'quality/no-unsafe-dictionary-type': 'off',
