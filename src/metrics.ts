@@ -23,9 +23,9 @@
  *   blob8   = protocol: the 2026-07-28 envelope's protocol version, else `2025`
  *   blob9   = tool mode (`codemode` | `direct`)
  *   blob10  = connection kind (`oauth` | `direct`)
- *   blob11  = OAuth client ID of a token this server issued (a Client ID
- *             Metadata Document URL or a registered ID)
- * Events written before these fields existed leave them empty.
+ * Events written before these fields existed leave them empty. The OAuth
+ * client ID is left out: a registered one is a stable per-installation ID,
+ * and blob5–blob7 already name the client.
  *
  * `response_schema_mismatch` (a direct-tool response that doesn't match its
  * OpenAPI response schema, see `src/response-validation.ts`) adds:
@@ -51,7 +51,7 @@
  * servers do. MCP 2026-07-28 has no protocol session or initialize handshake;
  * the 2025 compatibility path also retains no initialization state between
  * requests. There is no `session_start` to carry client info, so each
- * `tool_call` carries it instead (blob5–blob11).
+ * `tool_call` carries it instead (blob5–blob10).
  */
 
 import { env } from 'cloudflare:workers'
@@ -178,7 +178,6 @@ export interface ToolCallClient {
   readonly protocol: string
   readonly mode: 'codemode' | 'direct'
   readonly connection: 'oauth' | 'direct'
-  readonly oauthClientId?: string
 }
 
 export class ToolCall extends MetricsEvent {
@@ -206,8 +205,7 @@ export class ToolCall extends MetricsEvent {
           blob7: client.userAgent,
           blob8: client.protocol,
           blob9: client.mode,
-          blob10: client.connection,
-          blob11: client.oauthClientId
+          blob10: client.connection
         })
       }),
       doubles: this.mapDoubles({
@@ -331,7 +329,6 @@ export interface RequestClient {
   readonly connection: ToolCallClient['connection']
   /** The User-Agent's first product token, from {@link userAgentProduct}. */
   readonly userAgent?: string
-  readonly oauthClientId?: string
 }
 
 const MAX_CLIENT_FIELD = 128
@@ -367,8 +364,7 @@ export function toolCallClient(request: RequestClient, ctx?: ServerContext): Too
     userAgent: request.userAgent,
     protocol,
     mode: request.mode,
-    connection: request.connection,
-    oauthClientId: clientField(request.oauthClientId)
+    connection: request.connection
   }
 }
 

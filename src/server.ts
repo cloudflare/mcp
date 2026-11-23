@@ -51,7 +51,7 @@ export interface RequestContext {
   /** MCP Events, served when the Worker environment is available. */
   readonly events?: { readonly env: EventEnvironment; readonly bearer: string }
   /** What the HTTP request says about its client, for `tool_call` metrics. */
-  readonly client?: { readonly userAgent?: string; readonly oauthClientId?: string }
+  readonly client?: { readonly userAgent?: string }
 }
 
 /** A request whose credential can't step up and that serves no events, e.g. in tests. */
