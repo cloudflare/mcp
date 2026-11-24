@@ -106,6 +106,7 @@ interface IndexedOperation {
  * the proxy cost several milliseconds of CPU per request.
  */
 const operationIndex = isolate.derived(
+  // oxlint-disable-next-line quality/no-unsafe-dictionary-type -- The operation index accepts path tables from multiple generated specs.
   (paths: Record<string, Record<string, unknown>>): Map<string, Array<IndexedOperation>> => {
     const index = new Map<string, Array<IndexedOperation>>()
     for (const [template, item] of Object.entries(paths)) {

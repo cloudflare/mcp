@@ -12,6 +12,7 @@ import { formatError } from '../utils/errors'
  * The forge tools service runs it, next to the spec it ships, so this Worker
  * never holds the 27 MB spec.
  */
+// oxlint-disable-next-line quality/no-unknown-returns -- Sandbox results are supplied by the caller's code and forwarded as data.
 async function runSearch(code: string): Promise<unknown> {
   const outcome = await env.FORGE_TOOLS.search(code)
   if (outcome.error !== undefined) {

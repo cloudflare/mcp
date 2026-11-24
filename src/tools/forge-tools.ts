@@ -196,6 +196,7 @@ async function callForgeTool(
  * per-request `_meta` envelope, which names the protocol version.
  */
 function isModern(ctx: ServerContext): boolean {
+  // oxlint-disable-next-line quality/no-unsafe-dictionary-type -- The SDK envelope is narrowed at the field used here.
   const envelope: Record<string, unknown> | undefined = ctx.mcpReq.envelope
   return typeof envelope?.[PROTOCOL_VERSION_META_KEY] === 'string'
 }

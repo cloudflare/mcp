@@ -13,6 +13,7 @@ function logOutcome(
   subscription: string,
   outcome: CallbackOutcome,
   status: number,
+  // oxlint-disable-next-line quality/no-unsafe-dictionary-type -- Callback log fields vary by outcome.
   detail: Record<string, unknown> = {}
 ): void {
   console.log(

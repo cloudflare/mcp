@@ -11,6 +11,7 @@ function truncate(value: string, length = MAX_FIELD_LENGTH): string {
   return value.length > length ? `${value.slice(0, length)}…` : value
 }
 
+// oxlint-disable-next-line quality/no-unsafe-dictionary-type -- The guard verifies an object shape before callers narrow individual log fields.
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value)
 }
@@ -32,6 +33,7 @@ export function describeRedirectUri(value: unknown): string {
   }
 }
 
+// oxlint-disable-next-line quality/no-unknown-returns -- The caller reads only whitelisted fields after narrowing this response JSON.
 async function readJson(message: Request | Response): Promise<unknown> {
   try {
     return await message.json()

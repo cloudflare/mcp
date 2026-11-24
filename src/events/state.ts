@@ -207,6 +207,7 @@ export async function decryptState(
   env: EventEnvironment,
   purpose: string,
   value: string
+  // oxlint-disable-next-line quality/no-unknown-returns -- Callers validate decrypted state against the schema for its purpose.
 ): Promise<unknown> {
   if (!value.startsWith('mcp-events-v1:') || value.length > 16_384) {
     throw new Error('Invalid event state')

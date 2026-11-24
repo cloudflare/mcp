@@ -41,6 +41,7 @@ export async function readResponse(response: Response): Promise<ResponseBody> {
 }
 
 /** The body as a tool result's text shows it: a binary one by its size and type. */
+// oxlint-disable-next-line quality/no-unknown-returns -- A JSON body can represent any payload supported by the upstream API.
 export function bodyValue(body: ResponseBody): unknown {
   if (body.kind === 'json') {
     return body.value
@@ -48,6 +49,7 @@ export function bodyValue(body: ResponseBody): unknown {
   if (body.kind === 'text') {
     return body.text
   }
+  // oxlint-disable-next-line quality/no-known-value-widening -- The binary description is one case of the shared body value contract.
   return `[${body.bytes.byteLength} bytes of ${body.mimeType}]`
 }
 

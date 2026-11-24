@@ -91,7 +91,7 @@ export class SubscriptionForbidden extends Error {
  * and identifies this server with the shared `User-Agent`.
  */
 export const publicWebhookFetch: typeof fetch = async (input, init) => {
-  // oxlint-disable-next-line @nkzw/no-instanceof -- The event API error class identifies recoverable failures.
+  // oxlint-disable-next-line @nkzw/no-instanceof -- A Request input supplies its URL through the url property.
   const url = input instanceof Request ? input.url : String(input)
   CallbackUrl.parse(url)
   const headers = new Headers(init?.headers)

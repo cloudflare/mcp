@@ -31,6 +31,7 @@ export class OAuthError extends ProviderOAuthError {
   }
 
   toHtmlResponse(): Response {
+    // oxlint-disable-next-line quality/no-known-value-widening -- An OAuth error code can come from upstream and miss this table.
     const titles: Record<string, string> = {
       invalid_request: 'Invalid Request',
       invalid_grant: 'Invalid Grant',

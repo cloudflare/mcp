@@ -46,6 +46,7 @@ export function concretePaths(path: string): Array<{ path: string; scope?: Scope
 }
 
 /** Rewrite a split operation's resolved parameters for its scope. */
+// oxlint-disable-next-line quality/no-unknown-returns -- Inputs without a split scope retain their original OpenAPI parameter shape.
 function scopeParameters(parameters: unknown, scope: Scope | undefined): unknown {
   if (!scope || !Array.isArray(parameters)) {
     return parameters
@@ -59,7 +60,7 @@ function scopeParameters(parameters: unknown, scope: Scope | undefined): unknown
       return []
     }
     if (name === 'account_or_zone_id') {
-      // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The raw OpenAPI document is traversed one schema node at a time.
+      // oxlint-disable-next-line quality/no-unsafe-dictionary-type, typescript/no-unsafe-type-assertion -- Renaming a path parameter preserves all of its other OpenAPI fields.
       return [{ ...(parameter as Record<string, unknown>), name: scope.idParam }]
     }
     return [parameter]
@@ -68,8 +69,10 @@ function scopeParameters(parameters: unknown, scope: Scope | undefined): unknown
 
 export function resolveRefs(
   obj: unknown,
+  // oxlint-disable-next-line quality/no-unsafe-dictionary-type -- A reference can target an arbitrary component of the OpenAPI document.
   spec: Record<string, unknown>,
   seen = new Set<string>()
+  // oxlint-disable-next-line quality/no-unknown-returns -- A resolved reference can contain any OpenAPI value.
 ): unknown {
   if (obj === null || obj === undefined) {
     return obj
@@ -81,12 +84,13 @@ export function resolveRefs(
     return obj.map((item) => resolveRefs(item, spec, seen))
   }
 
-  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The raw OpenAPI document is traversed one schema node at a time.
+  // oxlint-disable-next-line quality/no-unsafe-dictionary-type, typescript/no-unsafe-type-assertion -- At this point the walker has narrowed the node to a non-array object.
   const record = obj as Record<string, unknown>
 
   if ('$ref' in record && typeof record.$ref === 'string') {
     const ref = record.$ref
     if (seen.has(ref)) {
+      // oxlint-disable-next-line quality/no-known-value-widening -- The circular marker is one possible value of the resolved schema.
       return { $circular: ref }
     }
     seen.add(ref)
@@ -94,16 +98,18 @@ export function resolveRefs(
     const parts = ref.replace('#/', '').split('/')
     let resolved: unknown = spec
     for (const part of parts) {
-      // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The raw OpenAPI document is traversed one schema node at a time.
+      // oxlint-disable-next-line quality/no-unsafe-dictionary-type, typescript/no-unsafe-type-assertion -- Each JSON pointer segment indexes an arbitrary schema node.
       resolved = (resolved as Record<string, unknown>)?.[part]
     }
     return resolveRefs(resolved, spec, seen)
   }
 
+  // oxlint-disable-next-line quality/no-unsafe-dictionary-type -- Each key and value comes from the OpenAPI node being copied.
   const result: Record<string, unknown> = {}
   for (const [key, value] of Object.entries(record)) {
     result[key] = resolveRefs(value, spec, seen)
   }
+  // oxlint-disable-next-line quality/no-known-value-widening -- The object is one possible value of the resolved schema.
   return result
 }
 
@@ -130,11 +136,14 @@ function permissionLabels(value: unknown): Array<string> | undefined {
  * Process a raw OpenAPI spec into the simplified format used by the search tool.
  * Resolves all $refs inline and extracts only the fields needed for search.
  */
+// oxlint-disable-next-line quality/no-unsafe-dictionary-type -- The input is the raw OpenAPI document, with dynamic component names.
 export function processSpec(spec: Record<string, unknown>): {
+  // oxlint-disable-next-line quality/no-unsafe-dictionary-type -- The output paths keep the arbitrary schema fields used by consumers.
   paths: Record<string, Record<string, unknown>>
 } {
   // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The raw OpenAPI document is traversed one schema node at a time.
   const rawPaths = (spec.paths || {}) as Record<string, Record<string, OperationObject>>
+  // oxlint-disable-next-line quality/no-unsafe-dictionary-type -- Path templates and methods come from the input document.
   const paths: Record<string, Record<string, unknown>> = {}
 
   for (const [rawPath, pathItem] of Object.entries(rawPaths)) {
@@ -171,14 +180,16 @@ export function processSpec(spec: Record<string, unknown>): {
     }
   }
 
+  // oxlint-disable-next-line quality/no-known-value-widening -- This is the processed schema contract used by spec consumers.
   return { paths }
 }
 
 /**
  * Extract sorted product list from the spec paths.
  */
+// oxlint-disable-next-line quality/no-unsafe-dictionary-type -- Only path names are needed from the raw OpenAPI document.
 export function extractProducts(spec: Record<string, unknown>): Array<string> {
-  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The raw OpenAPI document is traversed one schema node at a time.
+  // oxlint-disable-next-line quality/no-unsafe-dictionary-type, typescript/no-unsafe-type-assertion -- Path keys are read from the generated OpenAPI document.
   const rawPaths = spec.paths as Record<string, unknown> | undefined
   if (!rawPaths) {
     return []

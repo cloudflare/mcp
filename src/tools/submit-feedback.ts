@@ -153,6 +153,7 @@ export async function feedbackUserHash(key: string, props: AuthProps): Promise<s
 }
 
 export async function feedbackHeaders(props: AuthProps): Promise<Record<string, string>> {
+  // oxlint-disable-next-line quality/no-known-value-widening -- Authentication mode determines the final header names.
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
     'User-Agent': USER_AGENT,

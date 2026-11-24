@@ -18,6 +18,7 @@ export interface OperationInfo {
     required?: boolean
     content?: Record<string, { schema?: unknown }>
   }
+  // oxlint-disable-next-line quality/no-unsafe-dictionary-type -- Response definitions may contain arbitrary OpenAPI schema content.
   responses?: Record<string, unknown>
 }
 

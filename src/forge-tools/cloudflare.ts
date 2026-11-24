@@ -8,6 +8,7 @@ import {
 } from './policy'
 
 /** The account path parameters the server can fill in, with their descriptions. */
+// oxlint-disable-next-line quality/no-known-value-widening -- The table is indexed by generated path parameter names.
 const OPTIONAL_PATH_PARAMS: Readonly<Record<string, string>> = {
   account_id: FORGE_ACCOUNT_ID_DESCRIPTION,
   account_or_zone_id: ACCOUNT_OR_ZONE_ID_DESCRIPTION

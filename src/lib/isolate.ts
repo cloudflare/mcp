@@ -156,15 +156,17 @@ export interface IsolateLazy<T> {
  */
 function lazy<T>(build: () => T): IsolateLazy<T> {
   let built: { value: T } | undefined
-  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The registry preserves the type of the handle inserted under this key.
-  const get = (() => {
+  const get = () => {
     built ??= { value: build() }
     return built.value
-  }) as IsolateLazy<T>
-  get.reset = () => {
-    built = undefined
   }
-  return register(get)
+  return register(
+    Object.assign(get, {
+      reset() {
+        built = undefined
+      }
+    })
+  )
 }
 
 /** Values by key, kept per isolate. */
@@ -226,7 +228,7 @@ function map<K, V>(options: IsolateMapOptions<V> = {}): IsolateMap<K, V> {
     },
     getOrSet(key, compute) {
       if (entries.has(key)) {
-        // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The registry preserves the type of the handle inserted under this key.
+        // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- Map.has confirms the key is present, even when its cached value is undefined.
         return entries.get(key) as V
       }
       return cache.set(key, compute(key))
@@ -262,19 +264,21 @@ export interface IsolateDerived<S extends object, T> {
  */
 function derived<S extends object, T>(compute: (source: S) => T): IsolateDerived<S, T> {
   let computed = new WeakMap<S, { value: T }>()
-  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The registry preserves the type of the handle inserted under this key.
-  const get = ((source: S) => {
+  const get = (source: S) => {
     let hit = computed.get(source)
     if (!hit) {
       hit = { value: compute(source) }
       computed.set(source, hit)
     }
     return hit.value
-  }) as IsolateDerived<S, T>
-  get.reset = () => {
-    computed = new WeakMap()
   }
-  return register(get)
+  return register(
+    Object.assign(get, {
+      reset() {
+        computed = new WeakMap()
+      }
+    })
+  )
 }
 
 /** Drop every isolate cache, as if the isolate had just started. For tests. */

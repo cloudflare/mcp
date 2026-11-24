@@ -56,6 +56,7 @@ export class EventApi {
     return envelope
   }
 
+  // oxlint-disable-next-line quality/no-unknown-returns -- The result shape varies by endpoint and the caller supplies its schema.
   async result(path: string, method = 'GET', body?: unknown): Promise<unknown> {
     return (await this.request(path, method, body)).result
   }

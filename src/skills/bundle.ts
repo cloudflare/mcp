@@ -23,6 +23,7 @@ const SKILL_NAME = /^[a-z0-9]+(-[a-z0-9]+)*$/
 const MAX_NAME_LENGTH = 64
 const MAX_DESCRIPTION_LENGTH = 1024
 
+// oxlint-disable-next-line quality/no-known-value-widening -- A resource can have any extension, so the lookup may miss.
 const MIME_TYPES: Record<string, string> = {
   md: 'text/markdown',
   markdown: 'text/markdown',
@@ -98,7 +99,7 @@ export function parseFrontmatter(
   }
 
   // Round-trip through JSON so the entry carries exactly what a host's parser sees.
-  // oxlint-disable-next-line unicorn/prefer-structured-clone, typescript/no-unsafe-type-assertion -- Keep the checked mapping's JSON serialization.
+  // oxlint-disable-next-line quality/no-unsafe-dictionary-type, typescript/no-unsafe-type-assertion, unicorn/prefer-structured-clone -- Preserve the frontmatter mapping as serialized JSON with arbitrary metadata fields.
   const frontmatter = JSON.parse(JSON.stringify(parsed)) as Record<string, unknown>
   const { name, description } = frontmatter
   if (typeof name !== 'string' || typeof description !== 'string') {

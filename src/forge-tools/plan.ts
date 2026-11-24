@@ -94,6 +94,7 @@ const validators = isolate.map<string, ReturnType<typeof fromJsonSchema>>()
  */
 async function invalidArguments(tool: Tool, args: Args): Promise<string | undefined> {
   const validator = validators.getOrSet(tool.name, () => {
+    // oxlint-disable-next-line quality/no-unsafe-dictionary-type -- The validator consumes an arbitrary generated JSON Schema.
     const schema: Readonly<Record<string, unknown>> = tool.inputSchema
     return fromJsonSchema(schema)
   })
@@ -115,6 +116,7 @@ async function invalidArguments(tool: Tool, args: Args): Promise<string | undefi
 function misplaced(tool: Tool, args: Args): Array<string> {
   // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- These fields follow the generated tool schema.
   const properties = (tool.inputSchema.properties ?? {}) as Readonly<
+    // oxlint-disable-next-line quality/no-unsafe-dictionary-type -- Generated property schemas may contain arbitrary JSON Schema keywords.
     Record<string, { properties?: Readonly<Record<string, unknown>> }>
   >
   return Object.keys(args).flatMap((name) => {
@@ -129,8 +131,9 @@ function misplaced(tool: Tool, args: Args): Array<string> {
 }
 
 /** The path parameter `key` in `args`, if any. */
+// oxlint-disable-next-line quality/no-unknown-returns -- The caller narrows each path argument after looking it up by name.
 function param(args: Args, key: string): unknown {
-  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- These fields follow the generated tool schema.
+  // oxlint-disable-next-line quality/no-unsafe-dictionary-type, typescript/no-unsafe-type-assertion -- The path argument comes from the generated tool schema and its value is narrowed at the call site.
   return (args.path as Readonly<Record<string, unknown>> | undefined)?.[key]
 }
 
@@ -150,7 +153,7 @@ function accountKey(template: string, args: Args): string | undefined {
 
 /** Returns `args` with the path parameter `key` set to `value`. */
 function withPathParam(args: Args, key: string, value: string): Args {
-  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- These fields follow the generated tool schema.
+  // oxlint-disable-next-line quality/no-unsafe-dictionary-type, typescript/no-unsafe-type-assertion -- The generated tool schema owns the other path arguments copied here.
   const path = (args.path ?? {}) as Readonly<Record<string, unknown>>
   return { ...args, path: { ...path, [key]: value } }
 }

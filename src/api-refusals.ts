@@ -41,6 +41,7 @@ export function filteredListBody(): {
   messages: []
   result: null
 } {
+  // oxlint-disable-next-line quality/no-known-value-widening -- The replacement body keeps the common Cloudflare response envelope.
   return { success: false, errors: [{ message: FILTERED_LIST_ERROR }], messages: [], result: null }
 }
 
@@ -154,6 +155,7 @@ function mayBeFilteredList(response: Response, connection: Connection, method: s
   )
 }
 
+// oxlint-disable-next-line quality/no-unknown-returns -- Callers narrow this arbitrary response JSON before reading it.
 function parseJson(text: string): unknown {
   try {
     return JSON.parse(text)

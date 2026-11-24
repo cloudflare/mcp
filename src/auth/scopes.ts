@@ -51,6 +51,7 @@ function isReadOnlyScope(scope: string): boolean {
 }
 
 /** Canonical production catalog plus required OAuth bootstrap scopes. */
+// oxlint-disable-next-line quality/no-known-value-widening -- Scope definitions are looked up by dynamic scope names.
 export const SCOPE_DEFINITIONS: Record<string, ScopeDefinition> = {
   ...CORE_SCOPE_DEFINITIONS,
   ...DERIVED_OAUTH_SCOPES

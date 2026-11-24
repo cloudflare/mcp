@@ -169,6 +169,7 @@ const IssueNotificationPayload = AlertPayload.extend({
     .passthrough()
 })
 
+// oxlint-disable-next-line quality/no-known-value-widening -- The notification type comes from the alert catalog at runtime.
 const EventPayloadSchemas: Readonly<Record<string, z.ZodType<NotificationPayload>>> = {
   workers_observability_real_time_issue: IssueNotificationPayload
 }
@@ -430,6 +431,7 @@ export async function verifyCallback(
 export async function readJson(
   message: Request | Response,
   limit = MAX_EVENT_BYTES
+  // oxlint-disable-next-line quality/no-unknown-returns -- Callers validate the parsed body against their own event schemas.
 ): Promise<unknown> {
   const reader = (message.body as ReadableStream<Uint8Array> | null)?.getReader()
   if (!reader) {
@@ -457,8 +459,10 @@ export async function readJson(
 }
 
 /** Key names and value types of a JSON value, without the values themselves. */
+// oxlint-disable-next-line quality/no-unknown-returns -- The redacted shape can contain arbitrary nested JSON keys.
 function payloadShape(value: unknown, depth = 0): unknown {
   if (depth > 4) {
+    // oxlint-disable-next-line quality/no-known-value-widening -- The depth marker is one case of the recursive redacted shape.
     return '…'
   }
   if (Array.isArray(value)) {

@@ -155,6 +155,7 @@ export function responseKeyFor(
 export function trimForCheck(status: number, body: unknown, maxItems: number): TrimmedResponse {
   const trimmed: Array<string> = []
   let values = 0
+  // oxlint-disable-next-line quality/no-unknown-returns -- The bounded copy preserves the input's arbitrary JSON shape.
   const copy = (value: unknown, location: string): unknown => {
     values++
     if (Array.isArray(value)) {
@@ -164,10 +165,12 @@ export function trimForCheck(status: number, body: unknown, maxItems: number): T
       return value.slice(0, maxItems).map((item, index) => copy(item, `${location}/${index}`))
     }
     if (typeof value === 'object' && value !== null) {
+      // oxlint-disable-next-line quality/no-unsafe-dictionary-type -- Copied object keys come from the response payload.
       const out: Record<string, unknown> = {}
       for (const [key, item] of Object.entries(value)) {
         out[key] = copy(item, `${location}/${encodeValidatorToken(key)}`)
       }
+      // oxlint-disable-next-line quality/no-known-value-widening -- Object copies are one case of the recursive JSON copy.
       return out
     }
     return value
@@ -361,7 +364,7 @@ function walkSchema(
     if (token === '$ref' && current?.$ref?.startsWith(DEFS_PREFIX)) {
       defName = decodePointerToken(current.$ref.slice(DEFS_PREFIX.length))
       rest = []
-      // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The walker follows the generated schema's object structure.
+      // oxlint-disable-next-line quality/no-unsafe-dictionary-type, typescript/no-unsafe-type-assertion -- Generated definition names index arbitrary schema nodes.
       node = (root.$defs as Record<string, unknown>)[defName]
       continue
     }
@@ -370,8 +373,10 @@ function walkSchema(
     // could only have come from the response, so it is not copied.
     const exists = current !== undefined && Object.hasOwn(current, name)
     rest.push(exists ? encodePointerToken(name) : '*')
+    // oxlint-disable-next-line quality/no-unsafe-dictionary-type -- The schema keyword comes from the validator's location.
     node = exists ? (current as Record<string, unknown>)[name] : undefined
   }
+  // oxlint-disable-next-line quality/no-known-value-widening -- The walker can end at any schema node.
   return { node, defName, rest }
 }
 

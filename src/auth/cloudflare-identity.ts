@@ -21,6 +21,7 @@ const OAUTH_IDENTITY_CALLER = 'oauth_callback_identity_probe'
  * limited. The OAuth callback probes once while a person waits to sign in, so a short
  * retry there still helps.
  */
+// oxlint-disable-next-line quality/no-known-value-widening -- The retry table is keyed by whichever caller string is supplied.
 const PROBE_RETRY_OPTIONS: Record<string, { maxRetries: number }> = {
   [API_TOKEN_IDENTITY_CALLER]: { maxRetries: 0 }
 }

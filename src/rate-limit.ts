@@ -256,6 +256,7 @@ function escapeRegExp(text: string): string {
  */
 export function holdScope(
   limit: string | undefined,
+  // oxlint-disable-next-line quality/no-unsafe-dictionary-type -- Matching a limit uses operation keys without depending on their schema payloads.
   paths: Record<string, Record<string, unknown>> | undefined,
   method: string,
   path: string
