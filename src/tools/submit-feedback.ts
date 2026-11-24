@@ -21,6 +21,8 @@ const DESCRIPTION =
 
 const SEND_TIMEOUT_MS = 5000
 
+export const MAX_MESSAGE_LENGTH = 32_000
+
 const OTHER_TYPE_LABEL = /^\S+(?:\s+\S+){0,2}$/
 
 const PLACEHOLDER_MESSAGES = new Set([
@@ -42,7 +44,7 @@ export function isPlaceholderMessage(text: string): boolean {
 
 const InputSchema = withCachedJsonSchema(
   z.strictObject({
-    message: z.string().min(1).max(4000).describe('The feedback, in plain words.'),
+    message: z.string().min(1).max(MAX_MESSAGE_LENGTH).describe('The feedback, in plain words.'),
     type: z
       .enum(['bug', 'friction', 'feature', 'docs', 'praise', 'other'])
       .describe('What kind of feedback this is.'),
