@@ -37,6 +37,13 @@ beforeEach(async () => {
           'x-api-token-group': ['Billing Write', 'Billing Read'],
           parameters: [{ name: 'account_id', in: 'path', required: true }]
         }
+      },
+      '/accounts/{account_id}/tokens': {
+        get: {
+          summary: 'List Tokens',
+          'x-api-token-group': ['API Tokens Write', 'API Tokens Read'],
+          parameters: [{ name: 'account_id', in: 'path', required: true }]
+        }
       }
     },
     ['dns']
@@ -109,6 +116,25 @@ describe('execute explains a refused request', () => {
       name: 'Acc'
     })
     server.use(
+      http.get(`${API_BASE}/accounts/${ACCOUNT_ID}/tokens`, () =>
+        HttpResponse.json(AUTHENTICATION_ERROR, { status: 403 })
+      )
+    )
+
+    const text = await execute(
+      token,
+      `async () => cloudflare.request({ method: "GET", path: "/accounts/${ACCOUNT_ID}/tokens" })`
+    )
+
+    expect(text).toContain('No OAuth scope covers this endpoint')
+  })
+
+  it('names the internal billing scope a billing endpoint needs', async () => {
+    const token = await connectWithOAuth(['user:read', 'account:read'], {
+      id: ACCOUNT_ID,
+      name: 'Acc'
+    })
+    server.use(
       http.get(`${API_BASE}/accounts/${ACCOUNT_ID}/billing/profile`, () =>
         HttpResponse.json(AUTHENTICATION_ERROR, { status: 403 })
       )
@@ -119,7 +145,8 @@ describe('execute explains a refused request', () => {
       `async () => cloudflare.request({ method: "GET", path: "/accounts/${ACCOUNT_ID}/billing/profile" })`
     )
 
-    expect(text).toContain('No OAuth scope covers this endpoint')
+    expect(text).toContain('was not granted a scope this endpoint accepts')
+    expect(text).toContain('`billing:read` (Billing Read)')
   })
 
   it('lists the permissions an API token needs', async () => {

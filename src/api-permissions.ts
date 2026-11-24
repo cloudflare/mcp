@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { DERIVED_OAUTH_SCOPES } from './auth/derived-oauth-scopes'
+import { DERIVED_OAUTH_SCOPES, INTERNAL_OAUTH_SCOPES } from './auth/derived-oauth-scopes'
 import { isolate } from './lib/isolate'
 
 /**
@@ -49,11 +49,14 @@ export function acceptedPermissions(
 }
 
 const SCOPE_NAMES: ReadonlyMap<string, string> = new Map(
-  Object.entries(DERIVED_OAUTH_SCOPES).map(([scope, { name }]) => [scope, name])
+  Object.entries({ ...DERIVED_OAUTH_SCOPES, ...INTERNAL_OAUTH_SCOPES }).map(([scope, { name }]) => [
+    scope,
+    name
+  ])
 )
 
 /**
- * Whether `scope` is in the production OAuth scope catalog.
+ * Whether `scope` is one this server can ask for: in the production OAuth scope catalog, or internal.
  *
  * @param scope - A scope ID.
  * @returns `true` for a catalog scope.
@@ -243,7 +246,8 @@ function scopeToAskFor(
   options: ReadonlyArray<string>
 ): string | undefined {
   const reads = SAFE_METHODS.has(method.toUpperCase())
-  const preferred = options.filter((scope) => scope.endsWith('.read') === reads)
+  // Catalog scopes end in `.read`; the internal ones in `:read`.
+  const preferred = options.filter((scope) => /[.:]read$/.test(scope) === reads)
   const pool = preferred.length > 0 ? preferred : [...options]
   if (pool.length <= 1) {
     return pool[0]

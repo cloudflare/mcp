@@ -18,7 +18,18 @@ import type { AuthProps } from '../auth/types'
 import type { Connection } from '../api-permissions'
 import { authorize, explainRefusal, isCatalogScope } from '../api-permissions'
 import { MISSING_SCOPE_HEADER, REFUSAL_HINT_HEADER, reviewResponse } from '../api-refusals'
-import { policyRefusalHint } from '../policy-guards'
+import { policyRefusalHint, sameSubscription, subscriptionCreate } from '../policy-guards'
+import type { SubscriptionKey } from '../policy-guards'
+import {
+  DECLINED_HINT,
+  NEEDS_CONFIRMATION_HEADER,
+  UNSAFE_TO_CONFIRM,
+  answeredSubscription,
+  askToConfirm,
+  canConfirm,
+  reportSubscription,
+  reportedSubscription
+} from '../charge-confirmation'
 import { WWW_AUTHENTICATE_META_KEY } from '../scope-challenge'
 import type { ScopeChallenge } from '../scope-challenge'
 import {
@@ -44,13 +55,21 @@ const RateLimitStats = z
 
 /** What the sandbox reports back. It is untrusted, so it is parsed. */
 const Evaluation = z.union([
-  z.object({ ok: z.literal(true), result: z.unknown(), rateLimits: RateLimitStats }),
+  z.object({
+    ok: z.literal(true),
+    result: z.unknown(),
+    rateLimits: RateLimitStats,
+    needsConfirmation: z.string().optional(),
+    replaySafe: z.boolean().optional()
+  }),
   z.object({
     ok: z.literal(false),
     rateLimits: RateLimitStats,
     message: z.string(),
     // The OAuth scope GlobalOutbound said the failing request lacked.
     missingScope: z.string().optional(),
+    // The subscription GlobalOutbound said the failing request would create, once the user confirms it.
+    needsConfirmation: z.string().optional(),
     // The analytics permission a failed GraphQL query lacked, by dataset kind.
     graphqlRefusal: z.enum(['zone', 'account']).optional(),
     // Whether every request the code sent was a read or was refused, so rerunning repeats no change.
@@ -65,6 +84,8 @@ type GlobalOutboundProps = {
   apiToken: string
   fetchWithRetryCaller: string
   connection: Connection
+  /** The subscription the user confirmed for this run, the one chargeable write it may send. */
+  confirmedSubscription?: SubscriptionKey
 }
 
 /**
@@ -83,11 +104,22 @@ export class GlobalOutbound extends WorkerEntrypoint<Env, GlobalOutboundProps> {
     if (requested !== allowed) {
       return new Response(`Forbidden: requests to ${requested} are not allowed`, { status: 403 })
     }
-    const policyHint = await policyRefusalHint(request)
+    const policyHint = await policyRefusalHint(request, this.ctx.props.confirmedSubscription)
     if (policyHint) {
+      // A subscription is sent once the user confirms it: name it, so the host can ask.
+      const subscription = await subscriptionCreate(request)
+      const body = subscription ? await request.clone().text() : ''
       return Response.json(
         { success: false, errors: [{ message: policyHint }], messages: [], result: null },
-        { status: 403, headers: { [NOT_SENT_HEADER]: '1' } }
+        {
+          status: 403,
+          headers: {
+            [NOT_SENT_HEADER]: '1',
+            ...(subscription && {
+              [NEEDS_CONFIRMATION_HEADER]: reportSubscription(subscription.accountId, body)
+            })
+          }
+        }
       )
     }
     // Inject auth header — token comes from props, never enters user code isolate.
@@ -133,7 +165,8 @@ async function runExecute(
   accountId: string | undefined,
   apiToken: string,
   unresolvedAccountMessage: string,
-  connection: Connection
+  connection: Connection,
+  confirmedSubscription?: SubscriptionKey
 ): Promise<Execution> {
   const apiBase = env.CLOUDFLARE_API_BASE
   const workerId = `cloudflare-api-${crypto.randomUUID()}`
@@ -151,7 +184,12 @@ async function runExecute(
   const worker = env.LOADER.get(workerId, () => ({
     compatibilityDate: '2026-01-12',
     globalOutbound: exports.GlobalOutbound({
-      props: { apiToken, fetchWithRetryCaller: 'codemode_execute_tool_call', connection }
+      props: {
+        apiToken,
+        fetchWithRetryCaller: 'codemode_execute_tool_call',
+        connection,
+        ...(confirmedSubscription && { confirmedSubscription })
+      }
     }),
     mainModule: 'worker.js',
     modules: {
@@ -164,6 +202,8 @@ ${accountIdPrelude}
 // Every request the code sends, and the status it got. Replaying the code after a
 // step-up is safe only if each one was a read or was refused.
 const sentRequests = [];
+
+let refusedSubscription;
 
 // The holds Cloudflare's rate limits ask of this run: requests to wait before
 // sending, by the method and path they cover, and until when. The server
@@ -358,6 +398,8 @@ function apiError(method, path, response, body) {
     notice.hint || ""].filter(Boolean).join("\\n\\n"));
   const missingScope = response.headers.get(${JSON.stringify(MISSING_SCOPE_HEADER)});
   if (missingScope) error.missingScope = missingScope;
+  const needsConfirmation = response.headers.get(${JSON.stringify(NEEDS_CONFIRMATION_HEADER)});
+  if (needsConfirmation) error.needsConfirmation = refusedSubscription = needsConfirmation;
   return error;
 }
 
@@ -530,12 +572,19 @@ export default class CodeExecutor extends WorkerEntrypoint {
 
     try {
       const result = await Promise.race([(${code})(), runStopped]);
-      return { ok: true, result: encodeBytes(result), rateLimits: rateLimitStats };
+      return {
+        ok: true,
+        result: encodeBytes(result),
+        rateLimits: rateLimitStats,
+        needsConfirmation: refusedSubscription,
+        replaySafe: sentRequests.every(({ read, status }) => read || status === 401 || status === 403)
+      };
     } catch (err) {
       return {
         ok: false,
         message: err instanceof Error ? err.message : String(err),
         missingScope: typeof err?.missingScope === "string" ? err.missingScope : undefined,
+        needsConfirmation: typeof err?.needsConfirmation === "string" ? err.needsConfirmation : undefined,
         graphqlRefusal: err?.graphqlRefusal === "zone" || err?.graphqlRefusal === "account" ? err.graphqlRefusal : undefined,
         replaySafe: sentRequests.every(({ read, status }) => read || status === 401 || status === 403),
         rateLimits: rateLimitStats
@@ -625,6 +674,8 @@ ${CLOUDFLARE_TYPES}
 
 When the session has access to multiple accounts, pass account_id. ${ACCOUNT_DISCOVERY_DESCRIPTION}
 
+To turn on a product for an account, such as R2, create an account subscription: POST /accounts/{account_id}/subscriptions with body { rate_plan: { id } }. Rate plan IDs include r2_paid (R2 Storage) and teams_free (Zero Trust). Only plans with no base charge can be created. The server asks the user to confirm first.
+
 Your code must be an async arrow function that returns the result.
 A failed request throws an Error naming the method, path, HTTP status and Cloudflare's errors. For HTTP 401/403 it also says which permission the endpoint needs and whether reconnecting will help. Requests slow down by themselves near a rate limit. For HTTP 429 the error says how long Cloudflare asks to wait; until then, requests under the same limit are not sent and throw too, so stop instead of catching and continuing.
 
@@ -685,8 +736,15 @@ export function registerExecuteTool(
         destructiveHint: true
       }
     },
-    async ({ code, account_id, truncate }) => {
+    async ({ code, account_id, truncate }, ctx) => {
       try {
+        // A retry carries the user's answer about the subscription the code creates.
+        const answered = answeredSubscription(ctx)
+        if (answered?.confirmation === 'declined') {
+          return formatError(DECLINED_HINT)
+        }
+        const confirmed = answered?.confirmation === 'confirmed' ? answered.subscription : undefined
+
         // Undefined accountId lets account-independent requests such as
         // GET /accounts run before the caller has selected an account; any
         // code that reads `accountId` then fails fast with a clear message.
@@ -697,8 +755,20 @@ export function registerExecuteTool(
           effectiveAccountId,
           apiToken,
           missingAccountMessage(props, ACCOUNT_DISCOVERY_GUIDANCE),
-          connection
+          connection,
+          confirmed
         )
+        const caughtSubscription =
+          execution.ok && canConfirm(ctx)
+            ? await reportedSubscription(execution.needsConfirmation)
+            : undefined
+        if (
+          caughtSubscription &&
+          execution.replaySafe &&
+          !sameSubscription(caughtSubscription, confirmed)
+        ) {
+          return await askToConfirm(caughtSubscription)
+        }
         if (execution.ok) {
           const text = formatterFor(truncate, truncateByDefault)(execution.result)
           return { content: [{ type: 'text', text }] }
@@ -713,6 +783,17 @@ export function registerExecuteTool(
             : ''
         if (hint) {
           failure.content[0].text += `\n\n${hint}`
+        }
+        // Creating a subscription spends money: ask the user, then rerun with their answer.
+        const subscription = canConfirm(ctx)
+          ? await reportedSubscription(execution.needsConfirmation)
+          : undefined
+        if (subscription && !sameSubscription(subscription, confirmed)) {
+          if (execution.replaySafe) {
+            return await askToConfirm(subscription)
+          }
+          failure.content[0].text += `\n\n${UNSAFE_TO_CONFIRM}`
+          return failure
         }
         const graphql = execution.graphqlRefusal
           ? authorize(connection, GRAPHQL_REQUEST, GRAPHQL_PERMISSIONS[execution.graphqlRefusal])
