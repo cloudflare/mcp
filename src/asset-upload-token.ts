@@ -12,6 +12,8 @@ const JWT_SEGMENT = /^[A-Za-z0-9_-]+$/
 
 const CLOCK_SKEW_SECONDS = 60
 
+const WORKERS_UPLOAD_TOKEN_PREFIX = 'cfwau_'
+
 export function isAssetUploadPath(path: string): boolean {
   return ASSET_UPLOAD_PATHS.has(path) || WORKERS_ASSET_UPLOAD_PATH.test(path)
 }
@@ -26,7 +28,10 @@ function decodeSegment(segment: string): string {
 }
 
 function isUnexpiredJwt(token: string, nowSeconds: number): boolean {
-  const segments = token.split('.')
+  const jwt = token.startsWith(WORKERS_UPLOAD_TOKEN_PREFIX)
+    ? token.slice(WORKERS_UPLOAD_TOKEN_PREFIX.length)
+    : token
+  const segments = jwt.split('.')
   if (segments.length !== 3 || !segments.every((segment) => JWT_SEGMENT.test(segment))) {
     return false
   }

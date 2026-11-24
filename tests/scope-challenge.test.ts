@@ -32,7 +32,7 @@ const GET_DNS = `async () => cloudflare.request({ method: "GET", path: "${DNS_PA
 const ACCOUNT_ID = 'acc-1'
 const KV_PATH = `/accounts/${ACCOUNT_ID}/storage/kv/namespaces`
 const CREATE_KV = `async () => cloudflare.request({ method: "POST", path: "${KV_PATH}", body: { title: "t" } })`
-const WORKERS_UPLOAD_PATH = `/accounts/${ZONE_ID}/workers/assets/upload`
+const WORKERS_UPLOAD_PATH = '/accounts/0123456789abcdef0123456789abcdef/workers/assets/upload'
 const CHATGPT_REDIRECT = 'https://chatgpt.com/connector_platform_oauth_redirect'
 
 beforeEach(async () => {

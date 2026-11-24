@@ -344,7 +344,7 @@ describe('execute: how headers are sent', () => {
   })
 
   it('uses the Workers upload JWT for multipart assets and the completion JWT in version metadata', async () => {
-    const uploadJwt = uploadToken()
+    const uploadJwt = `cfwau_${uploadToken()}`
     const completionJwt = uploadToken('complete')
     const script = `/accounts/${ACCOUNT}/workers/scripts/site`
     const upload = `/accounts/${ACCOUNT}/workers/assets/upload`

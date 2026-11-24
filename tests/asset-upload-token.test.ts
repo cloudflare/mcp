@@ -51,6 +51,29 @@ describe('assetUploadAuthorization', () => {
     })
   })
 
+  it('keeps a cfwau_ Workers upload JWT with its prefix', () => {
+    const workers = `cfwau_${valid}`
+    expect(
+      assetUploadAuthorization(
+        post(workers),
+        `/accounts/${ACCOUNT}/workers/assets/upload`,
+        SESSION,
+        NOW
+      )
+    ).toEqual({ token: workers })
+  })
+
+  it('ignores an expired cfwau_ JWT', () => {
+    expect(
+      assetUploadAuthorization(
+        post(`cfwau_${jwt({ exp: NOW - 120 })}`),
+        '/pages/assets/upload',
+        SESSION,
+        NOW
+      )
+    ).toEqual({})
+  })
+
   it('ignores the bearer on any other path', () => {
     expect(
       assetUploadAuthorization(post(valid), `/accounts/${ACCOUNT}/workers/scripts`, SESSION, NOW)
