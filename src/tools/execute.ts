@@ -18,12 +18,8 @@ import type { AuthProps } from '../auth/types'
 import type { Connection } from '../api-permissions'
 import { authorize, explainRefusal, isCatalogScope } from '../api-permissions'
 import { MISSING_SCOPE_HEADER, REFUSAL_HINT_HEADER, reviewResponse } from '../api-refusals'
-import {
-  policyRefusalHint,
-  sameSubscription,
-  subscriptionCreate,
-  type SubscriptionKey
-} from '../policy-guards'
+import { policyRefusalHint, sameSubscription, subscriptionCreate } from '../policy-guards'
+import type { SubscriptionKey } from '../policy-guards'
 import {
   DECLINED_HINT,
   NEEDS_CONFIRMATION_HEADER,
@@ -34,7 +30,8 @@ import {
   reportSubscription,
   reportedSubscription
 } from '../charge-confirmation'
-import { WWW_AUTHENTICATE_META_KEY, type ScopeChallenge } from '../scope-challenge'
+import { WWW_AUTHENTICATE_META_KEY } from '../scope-challenge'
+import type { ScopeChallenge } from '../scope-challenge'
 import {
   getWaitBudgetMs,
   FIRST_BACKOFF_MS,
@@ -47,8 +44,8 @@ import {
   withRateLimitNotice
 } from '../rate-limit'
 
-interface CodeExecutorEntrypoint {
-  evaluate(): Promise<unknown>
+declare class CodeExecutorEntrypoint extends WorkerEntrypoint {
+  evaluate(): Promise<Execution>
 }
 
 /** What a run's rate limits did to it: requests refused, not sent, and time spent waiting. */
@@ -599,9 +596,11 @@ export default class CodeExecutor extends WorkerEntrypoint {
     }
   }))
 
-  const entrypoint = worker.getEntrypoint() as unknown as CodeExecutorEntrypoint
+  const entrypoint = worker.getEntrypoint<CodeExecutorEntrypoint>()
   const evaluation = Evaluation.safeParse(await entrypoint.evaluate())
-  if (!evaluation.success) throw new Error('The code sandbox returned an unreadable result')
+  if (!evaluation.success) {
+    throw new Error('The code sandbox returned an unreadable result')
+  }
   logRateLimits(evaluation.data.rateLimits)
   return evaluation.data
 }
@@ -612,7 +611,9 @@ export default class CodeExecutor extends WorkerEntrypoint {
  * Cloudflare refused, `not_sent` ones the hold saved, and the time spent pacing.
  */
 function logRateLimits(stats: z.infer<typeof RateLimitStats>): void {
-  if (!stats || (!stats.limited && !stats.notSent && !stats.waitedMs)) return
+  if (!stats || (!stats.limited && !stats.notSent && !stats.waitedMs)) {
+    return
+  }
   console.log(
     `execute rate limits: limited=${stats.limited} not_sent=${stats.notSent} waited_ms=${Math.round(stats.waitedMs)}`
   )
@@ -633,7 +634,9 @@ function challengeableScope(
   execution: Execution,
   connection: Connection
 ): string | undefined {
-  if (execution.ok || connection.kind !== 'oauth' || !scope) return undefined
+  if (execution.ok || connection.kind !== 'oauth' || !scope) {
+    return undefined
+  }
   return isCatalogScope(scope) && !connection.scopes.includes(scope) ? scope : undefined
 }
 
@@ -737,7 +740,9 @@ export function registerExecuteTool(
       try {
         // A retry carries the user's answer about the subscription the code creates.
         const answered = answeredSubscription(ctx)
-        if (answered?.confirmation === 'declined') return formatError(DECLINED_HINT)
+        if (answered?.confirmation === 'declined') {
+          return formatError(DECLINED_HINT)
+        }
         const confirmed = answered?.confirmation === 'confirmed' ? answered.subscription : undefined
 
         // Undefined accountId lets account-independent requests such as
@@ -776,26 +781,34 @@ export function registerExecuteTool(
           : pathAccount
             ? unknownPathAccountHint(props, pathAccount)
             : ''
-        if (hint) failure.content[0].text += `\n\n${hint}`
+        if (hint) {
+          failure.content[0].text += `\n\n${hint}`
+        }
         // Creating a subscription spends money: ask the user, then rerun with their answer.
         const subscription = canConfirm(ctx)
           ? await reportedSubscription(execution.needsConfirmation)
           : undefined
         if (subscription && !sameSubscription(subscription, confirmed)) {
-          if (execution.replaySafe) return await askToConfirm(subscription)
+          if (execution.replaySafe) {
+            return await askToConfirm(subscription)
+          }
           failure.content[0].text += `\n\n${UNSAFE_TO_CONFIRM}`
           return failure
         }
         const graphql = execution.graphqlRefusal
           ? authorize(connection, GRAPHQL_REQUEST, GRAPHQL_PERMISSIONS[execution.graphqlRefusal])
           : undefined
-        if (graphql) failure.content[0].text += `\n\n${explainRefusal(403, graphql)}`
+        if (graphql) {
+          failure.content[0].text += `\n\n${explainRefusal(403, graphql)}`
+        }
         const scope = challengeableScope(
           execution.missingScope ?? (graphql?.kind === 'missing' ? graphql.scope : undefined),
           execution,
           connection
         )
-        if (!scope) return failure
+        if (!scope) {
+          return failure
+        }
         if (!execution.replaySafe) {
           failure.content[0].text += `\n\n${UNSAFE_TO_REPLAY}`
           return failure
@@ -807,7 +820,9 @@ export function registerExecuteTool(
       } catch (error) {
         const failure = formatError(error)
         const hint = account_id ? unknownAccountHint(props, account_id) : ''
-        if (hint) failure.content[0].text += `\n\n${hint}`
+        if (hint) {
+          failure.content[0].text += `\n\n${hint}`
+        }
         return failure
       }
     }

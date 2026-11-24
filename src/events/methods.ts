@@ -1,4 +1,5 @@
-import { ProtocolError, type McpServer } from '@modelcontextprotocol/server'
+import { ProtocolError } from '@modelcontextprotocol/server'
+import type { McpServer } from '@modelcontextprotocol/server'
 import { z } from 'zod'
 import type { AuthProps } from '../auth/types'
 import { EventApiError } from './api'
@@ -22,28 +23,35 @@ const SubscribeRequestParams = SubscribeParams.extend({ _meta: Meta })
 const UnsubscribeRequestParams = UnsubscribeParams.extend({ _meta: Meta })
 
 /** Error codes from the MCP Events draft (implementation-defined server range). */
-const NOT_FOUND = -32011
-const FORBIDDEN = -32012
-const CALLBACK_ENDPOINT_ERROR = -32015
-const INTERNAL_ERROR = -32603
+const NOT_FOUND = -32_011
+const FORBIDDEN = -32_012
+const CALLBACK_ENDPOINT_ERROR = -32_015
+const INTERNAL_ERROR = -32_603
 
 /** Project service failures onto the draft's JSON-RPC error codes. */
 async function operation<T>(run: () => Promise<T>) {
   try {
     return await run()
   } catch (error) {
-    if (error instanceof CallbackError)
+    if (error instanceof CallbackError) {
       throw new ProtocolError(CALLBACK_ENDPOINT_ERROR, 'CallbackEndpointError', {
         reason: error.reason
       })
-    if (error instanceof EventNotFound)
+    }
+    // oxlint-disable-next-line @nkzw/no-instanceof -- The event service reports these failures through its error classes.
+    if (error instanceof EventNotFound) {
       throw new ProtocolError(NOT_FOUND, 'NotFound', { kind: 'event' })
-    if (error instanceof SubscriptionForbidden)
+    }
+    // oxlint-disable-next-line @nkzw/no-instanceof -- The event service reports these failures through its error classes.
+    if (error instanceof SubscriptionForbidden) {
       throw new ProtocolError(FORBIDDEN, 'Forbidden', { reason: error.message })
-    if (error instanceof EventApiError && (error.status === 401 || error.status === 403))
+    }
+    if (error instanceof EventApiError && (error.status === 401 || error.status === 403)) {
       throw new ProtocolError(FORBIDDEN, 'Forbidden', { reason: error.message })
-    if (error instanceof EventApiError)
+    }
+    if (error instanceof EventApiError) {
       throw new ProtocolError(INTERNAL_ERROR, error.message, { status: error.status })
+    }
     throw new ProtocolError(
       INTERNAL_ERROR,
       'Subscription operation failed. Retry with current credentials; partially created resources will be reused.'

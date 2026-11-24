@@ -37,7 +37,7 @@ const PLACEHOLDER_MESSAGES = new Set([
 ])
 
 export function isPlaceholderMessage(text: string): boolean {
-  return PLACEHOLDER_MESSAGES.has(text.toLowerCase().replace(/[^\p{L}\p{N}]/gu, ''))
+  return PLACEHOLDER_MESSAGES.has(text.toLowerCase().replaceAll(/[^\p{L}\p{N}]/gu, ''))
 }
 
 const InputSchema = withCachedJsonSchema(
@@ -100,7 +100,7 @@ export function feedbackSubmission(
   { tool, other_type: otherType, ...report }: FeedbackInput,
   mode: ToolMode,
   submissionId: string
-): Record<string, unknown> {
+) {
   return {
     schema_version: 1,
     submission_id: submissionId,
@@ -153,13 +153,16 @@ export async function feedbackUserHash(key: string, props: AuthProps): Promise<s
 }
 
 export async function feedbackHeaders(props: AuthProps): Promise<Record<string, string>> {
+  // oxlint-disable-next-line quality/no-known-value-widening -- Authentication mode determines the final header names.
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
     'User-Agent': USER_AGENT,
     Authorization: `Bearer ${props.accessToken}`
   }
   const key = feedbackServerKey()
-  if (!key) return headers
+  if (!key) {
+    return headers
+  }
   return {
     ...headers,
     'X-Feedback-MCP-Key': key,
@@ -168,10 +171,16 @@ export async function feedbackHeaders(props: AuthProps): Promise<Record<string, 
 }
 
 export function retryAfterSeconds(value: string | null, now: number): number | undefined {
-  if (!value) return undefined
-  if (/^\d+$/.test(value.trim())) return Number(value.trim())
+  if (!value) {
+    return undefined
+  }
+  if (/^\d+$/.test(value.trim())) {
+    return Number(value.trim())
+  }
   const date = Date.parse(value)
-  if (Number.isNaN(date)) return undefined
+  if (Number.isNaN(date)) {
+    return undefined
+  }
   return Math.max(0, Math.ceil((date - now) / 1000))
 }
 
@@ -195,7 +204,9 @@ async function send(
       '`message` is a placeholder. Describe what was attempted and what went wrong, or skip this tool if there is nothing to report.'
     )
   }
-  if (!(await withinCallerLimit(props))) return toolError(PER_CALLER_LIMIT_TEXT)
+  if (!(await withinCallerLimit(props))) {
+    return toolError(PER_CALLER_LIMIT_TEXT)
+  }
   const submissionId = crypto.randomUUID()
   let response: Response
   try {
@@ -209,7 +220,9 @@ async function send(
   } catch {
     return toolError('Could not reach the Cloudflare feedback service.')
   }
-  if (response.status !== 202) return refusal(response)
+  if (response.status !== 202) {
+    return refusal(response)
+  }
   const accepted = AcceptedSchema.safeParse(await response.json().catch(() => undefined))
   const id = accepted.success ? accepted.data.submission_id : submissionId
   return {
@@ -229,7 +242,9 @@ export async function runSubmitFeedbackTool(
   props: AuthProps
 ): Promise<CallToolResult> {
   const url = feedbackUrl()
-  if (!url) return toolError(`Unknown tool: ${NAME}`)
+  if (!url) {
+    return toolError(`Unknown tool: ${NAME}`)
+  }
   const parsed = InputSchema.safeParse(args)
   if (!parsed.success) {
     return toolError(`Invalid arguments for tool ${NAME}: ${parsed.error.message}`)
@@ -251,13 +266,15 @@ export const SUBMIT_FEEDBACK_TOOL: Tool = {
   annotations: ANNOTATIONS
 }
 
-export function feedbackTools(): Tool[] {
+export function feedbackTools(): Array<Tool> {
   return feedbackUrl() ? [SUBMIT_FEEDBACK_TOOL] : []
 }
 
 export function registerSubmitFeedbackTool(server: McpServer, props: AuthProps): void {
   const url = feedbackUrl()
-  if (!url) return
+  if (!url) {
+    return
+  }
   server.registerTool(
     NAME,
     {

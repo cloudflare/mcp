@@ -1,7 +1,9 @@
 import type { CallToolResult } from '@modelcontextprotocol/server'
-import { authorize, type Connection } from '../api-permissions'
+import { authorize } from '../api-permissions'
+import type { Connection } from '../api-permissions'
 import { filteredListBody, refusalFor } from '../api-refusals'
-import { WWW_AUTHENTICATE_META_KEY, type ScopeChallenge } from '../scope-challenge'
+import { WWW_AUTHENTICATE_META_KEY } from '../scope-challenge'
+import type { ScopeChallenge } from '../scope-challenge'
 import type { FormatToolResult } from '../truncate'
 
 /** One Cloudflare API request a direct tool sent, and Cloudflare's answer. */
@@ -13,7 +15,7 @@ export interface ApiCall {
   /** The endpoint's path template, such as `/zones/{zone_id}/dns_records`. */
   readonly template: string
   /** The permissions the endpoint accepts, from its tool entry. */
-  readonly permissions: readonly string[] | undefined
+  readonly permissions: ReadonlyArray<string> | undefined
   /** The HTTP status Cloudflare returned. */
   readonly status: number
   /** The parsed JSON body, or the text of any other body. */
@@ -37,7 +39,7 @@ export interface ApiCall {
  */
 export function apiCallResult(
   call: ApiCall,
-  notes: readonly string[],
+  notes: ReadonlyArray<string>,
   {
     connection,
     scopeChallenge,
@@ -47,7 +49,9 @@ export function apiCallResult(
   const authorization = authorize(connection, call, call.permissions)
   const refusal = refusalFor(call.status, call.body, call.method, authorization, call.permissions)
   const ok = call.status >= 200 && call.status < 300
-  if (ok && !refusal) return { content: [{ type: 'text', text: formatResult(call.body) }] }
+  if (ok && !refusal) {
+    return { content: [{ type: 'text', text: formatResult(call.body) }] }
+  }
 
   const text = [
     `Cloudflare API error: ${call.method} ${call.path} returned HTTP ${refusal?.status ?? call.status}.`,

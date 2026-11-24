@@ -10,9 +10,10 @@ function upstreamOAuthErrorCode(body: string): string | undefined {
     if (
       parsed &&
       typeof parsed === 'object' &&
-      typeof (parsed as { error?: unknown }).error === 'string'
+      'error' in parsed &&
+      typeof parsed.error === 'string'
     ) {
-      return (parsed as { error: string }).error
+      return parsed.error
     }
   } catch {
     // Not JSON; try form encoding below.
@@ -54,7 +55,7 @@ const PKCE_CHARSET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz012345
 const CODE_VERIFIER_LENGTH = 96
 
 function base64urlEncode(value: string): string {
-  return btoa(value).replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '')
+  return btoa(value).replaceAll('+', '-').replaceAll('/', '_').replaceAll('=', '')
 }
 
 export interface PKCECodes {
@@ -93,7 +94,7 @@ export async function getAuthorizationURL(params: {
   client_id: string
   redirect_uri: string
   stateToken: string
-  scopes: string[]
+  scopes: Array<string>
   codeChallenge: string
   oauthDomain: string
 }): Promise<{ authUrl: string }> {

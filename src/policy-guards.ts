@@ -34,7 +34,7 @@ export const MEDIA_GENERATION_HINT =
 
 function plainPath(pathname: string): string | undefined {
   try {
-    return decodeURIComponent(pathname).replace(/\/{2,}/g, '/')
+    return decodeURIComponent(pathname).replaceAll(/\/{2,}/g, '/')
   } catch {
     return undefined
   }
@@ -81,10 +81,14 @@ async function sha256(text: string): Promise<string> {
 export async function subscriptionCreate(
   request: Request
 ): Promise<SubscriptionCreate | undefined> {
-  if (request.method !== 'POST') return undefined
+  if (request.method !== 'POST') {
+    return undefined
+  }
   const path = plainPath(new URL(request.url).pathname)
   const accountId = path === undefined ? undefined : ACCOUNT_SUBSCRIPTIONS_PATH.exec(path)?.[1]
-  if (!accountId) return undefined
+  if (!accountId) {
+    return undefined
+  }
   try {
     return await subscriptionFromBody(accountId, await request.clone().text())
   } catch {
@@ -102,7 +106,9 @@ export async function subscriptionFromBody(
 ): Promise<SubscriptionCreate | undefined> {
   try {
     const body = SubscriptionBody.safeParse(JSON.parse(text))
-    if (!body.success) return undefined
+    if (!body.success) {
+      return undefined
+    }
     const quantities = Object.fromEntries(
       (body.data.component_values ?? []).map((component) => [component.name, component.value ?? 0])
     )
@@ -141,20 +147,28 @@ export async function policyRefusalHint(
   request: Request,
   confirmed?: SubscriptionKey
 ): Promise<string | undefined> {
-  if (request.method === 'GET' || request.method === 'HEAD') return undefined
+  if (request.method === 'GET' || request.method === 'HEAD') {
+    return undefined
+  }
   const path = plainPath(new URL(request.url).pathname)
-  if (path === undefined) return UNREADABLE_PATH_HINT
+  if (path === undefined) {
+    return UNREADABLE_PATH_HINT
+  }
   if (CHARGEABLE_WRITE.test(path)) {
     const subscription = confirmed && (await subscriptionCreate(request))
     return subscription && sameSubscription(subscription, confirmed) ? undefined : CHARGEABLE_HINT
   }
-  if (!ACCOUNT_AI_PATH.test(path)) return undefined
+  if (!ACCOUNT_AI_PATH.test(path)) {
+    return undefined
+  }
   const models = [path.match(MODEL_IN_RUN_PATH)?.[1] ?? '', await modelInBody(request)].filter(
     (model) => model !== ''
   )
   if (models.some((model) => !model.startsWith(WORKERS_AI_MODEL_PREFIX))) {
     return THIRD_PARTY_MODEL_HINT
   }
-  if (models.some((model) => MEDIA_MODEL.test(model))) return MEDIA_GENERATION_HINT
+  if (models.some((model) => MEDIA_MODEL.test(model))) {
+    return MEDIA_GENERATION_HINT
+  }
   return undefined
 }

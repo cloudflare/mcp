@@ -1,11 +1,6 @@
 import { parse as parseYaml } from 'yaml'
-import {
-  MAX_BYTES_PER_SKILL,
-  MAX_RESOURCES_PER_SKILL,
-  type Skill,
-  type SkillFile,
-  type SkillsManifest
-} from './types'
+import { MAX_BYTES_PER_SKILL, MAX_RESOURCES_PER_SKILL } from './types'
+import type { Skill, SkillFile, SkillsManifest } from './types'
 
 /** A file inside one skill directory, with its path relative to the skill root. */
 export interface SkillSourceFile {
@@ -16,7 +11,7 @@ export interface SkillSourceFile {
 /** A built skill: its entry, how to serve each file, and each file's bytes by digest. */
 export interface BuiltSkill {
   readonly skill: Skill
-  readonly files: SkillFile[]
+  readonly files: Array<SkillFile>
   readonly blobs: Map<string, Uint8Array>
 }
 
@@ -28,6 +23,7 @@ const SKILL_NAME = /^[a-z0-9]+(-[a-z0-9]+)*$/
 const MAX_NAME_LENGTH = 64
 const MAX_DESCRIPTION_LENGTH = 1024
 
+// oxlint-disable-next-line quality/no-known-value-widening -- A resource can have any extension, so the lookup may miss.
 const MIME_TYPES: Record<string, string> = {
   md: 'text/markdown',
   markdown: 'text/markdown',
@@ -87,7 +83,9 @@ export function parseFrontmatter(
   markdown: string
 ): { ok: true; frontmatter: Skill['frontmatter'] } | { ok: false; reason: string } {
   const match = /^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/.exec(markdown)
-  if (!match) return { ok: false, reason: 'SKILL.md has no YAML frontmatter' }
+  if (!match) {
+    return { ok: false, reason: 'SKILL.md has no YAML frontmatter' }
+  }
 
   let parsed: unknown
   try {
@@ -101,6 +99,7 @@ export function parseFrontmatter(
   }
 
   // Round-trip through JSON so the entry carries exactly what a host's parser sees.
+  // oxlint-disable-next-line quality/no-unsafe-dictionary-type, typescript/no-unsafe-type-assertion, unicorn/prefer-structured-clone -- Preserve the frontmatter mapping as serialized JSON with arbitrary metadata fields.
   const frontmatter = JSON.parse(JSON.stringify(parsed)) as Record<string, unknown>
   const { name, description } = frontmatter
   if (typeof name !== 'string' || typeof description !== 'string') {
@@ -117,7 +116,7 @@ export function parseFrontmatter(
  */
 export async function buildSkill(
   name: string,
-  sourceFiles: readonly SkillSourceFile[]
+  sourceFiles: ReadonlyArray<SkillSourceFile>
 ): Promise<SkillBuildResult> {
   const fail = (reason: string): SkillBuildResult => ({ ok: false, name, reason })
 
@@ -128,20 +127,30 @@ export async function buildSkill(
     return fail(`More than ${MAX_RESOURCES_PER_SKILL} files`)
   }
   const totalBytes = sourceFiles.reduce((sum, file) => sum + file.bytes.byteLength, 0)
-  if (totalBytes > MAX_BYTES_PER_SKILL) return fail(`More than ${MAX_BYTES_PER_SKILL} bytes`)
+  if (totalBytes > MAX_BYTES_PER_SKILL) {
+    return fail(`More than ${MAX_BYTES_PER_SKILL} bytes`)
+  }
 
   const skillMd = sourceFiles.find((file) => file.path === 'SKILL.md')
-  if (!skillMd) return fail('No SKILL.md at the skill root')
+  if (!skillMd) {
+    return fail('No SKILL.md at the skill root')
+  }
   const skillMdText = decodeUtf8(skillMd.bytes)
-  if (skillMdText === undefined) return fail('SKILL.md is not UTF-8')
+  if (skillMdText === undefined) {
+    return fail('SKILL.md is not UTF-8')
+  }
 
   const parsed = parseFrontmatter(skillMdText)
-  if (!parsed.ok) return fail(parsed.reason)
+  if (!parsed.ok) {
+    return fail(parsed.reason)
+  }
   const { frontmatter } = parsed
   if (frontmatter.name !== name) {
     return fail(`Frontmatter name "${frontmatter.name}" does not match the directory`)
   }
-  if (frontmatter.description.length === 0) return fail('Empty description')
+  if (frontmatter.description.length === 0) {
+    return fail('Empty description')
+  }
   if (frontmatter.description.length > MAX_DESCRIPTION_LENGTH) {
     return fail(`Description longer than ${MAX_DESCRIPTION_LENGTH} characters`)
   }
@@ -150,7 +159,7 @@ export async function buildSkill(
     a.path === 'SKILL.md' ? -1 : b.path === 'SKILL.md' ? 1 : a.path.localeCompare(b.path)
   )
   const resources: Skill['resources'] = []
-  const files: SkillFile[] = []
+  const files: Array<SkillFile> = []
   const blobs = new Map<string, Uint8Array>()
   for (const file of ordered) {
     const uri = skillFileUri(name, file.path)
@@ -188,18 +197,20 @@ function isSafeRelativePath(path: string): boolean {
  * @param archiveFiles - Archive files, paths relative to the repository root.
  */
 export async function buildSkillsManifest(
-  archiveFiles: readonly SkillSourceFile[],
+  archiveFiles: ReadonlyArray<SkillSourceFile>,
   source: SkillsManifest['source'],
   syncedAt: Date
 ): Promise<{
   manifest: SkillsManifest
   blobs: Map<string, Uint8Array>
-  skipped: { name: string; reason: string }[]
+  skipped: Array<{ name: string; reason: string }>
 }> {
-  const byName = new Map<string, SkillSourceFile[]>()
+  const byName = new Map<string, Array<SkillSourceFile>>()
   for (const file of archiveFiles) {
     const match = /^skills\/([^/]+)\/(.+)$/.exec(file.path)
-    if (!match || !isSafeRelativePath(file.path)) continue
+    if (!match || !isSafeRelativePath(file.path)) {
+      continue
+    }
     const [, name = '', path = ''] = match
     const files = byName.get(name) ?? []
     files.push({ path, bytes: file.bytes })
@@ -208,7 +219,7 @@ export async function buildSkillsManifest(
 
   const skills: SkillsManifest['skills'] = []
   const blobs = new Map<string, Uint8Array>()
-  const skipped: { name: string; reason: string }[] = []
+  const skipped: Array<{ name: string; reason: string }> = []
   for (const name of [...byName.keys()].sort()) {
     const result = await buildSkill(name, byName.get(name) ?? [])
     if (!result.ok) {
@@ -216,7 +227,9 @@ export async function buildSkillsManifest(
       continue
     }
     skills.push({ skill: result.skill, files: result.files })
-    for (const [digest, bytes] of result.blobs) blobs.set(digest, bytes)
+    for (const [digest, bytes] of result.blobs) {
+      blobs.set(digest, bytes)
+    }
   }
 
   return {

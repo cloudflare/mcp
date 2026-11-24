@@ -45,10 +45,10 @@ export type SubscriptionPrice =
       readonly kind: 'priced'
       readonly planName: string
       readonly currency: string
-      readonly fixed: readonly FixedCharge[]
+      readonly fixed: ReadonlyArray<FixedCharge>
       readonly total: number
-      readonly usage: readonly string[]
-      readonly unpriced: readonly string[]
+      readonly usage: ReadonlyArray<string>
+      readonly unpriced: ReadonlyArray<string>
     }
   | { readonly kind: 'unknown' }
 
@@ -62,7 +62,9 @@ function tierFor(tiers: CatalogComponent['tiers'], quantity: number) {
 
 function fixedCharge(component: CatalogComponent, quantity: number): FixedCharge | undefined {
   const tier = tierFor(component.tiers, quantity)
-  if (!tier) return undefined
+  if (!tier) {
+    return undefined
+  }
   const amount = tier.pricingType === 'fixed' ? tier.price : tier.price * quantity
   return { name: component.publicName ?? component.name, quantity, amount }
 }
@@ -73,17 +75,26 @@ export function priceFromCatalog(
   catalog: unknown
 ): SubscriptionPrice {
   const plan = RatePlan.safeParse(catalog)
-  if (!plan.success) return { kind: 'unknown' }
+  if (!plan.success) {
+    return { kind: 'unknown' }
+  }
   const { components } = plan.data.result
   const known = new Set(components.map((component) => component.name))
-  const fixed: FixedCharge[] = []
-  const unpriced: string[] = Object.keys(subscription.quantities).filter((name) => !known.has(name))
+  const fixed: Array<FixedCharge> = []
+  const unpriced: Array<string> = Object.keys(subscription.quantities).filter(
+    (name) => !known.has(name)
+  )
   for (const component of components) {
-    if (component.chargeType !== 'subscription') continue
+    if (component.chargeType !== 'subscription') {
+      continue
+    }
     const quantity = subscription.quantities[component.name] ?? component.defaultQuantity ?? 0
     const charge = fixedCharge(component, quantity)
-    if (charge) fixed.push(charge)
-    else unpriced.push(component.publicName ?? component.name)
+    if (charge) {
+      fixed.push(charge)
+    } else {
+      unpriced.push(component.publicName ?? component.name)
+    }
   }
   return {
     kind: 'priced',
@@ -106,7 +117,9 @@ export async function priceSubscription(
   try {
     const url = `${apiBase.replace(/\/$/, '')}/billing/rate_plans/${encodeURIComponent(subscription.ratePlan)}`
     const response = await fetch(url, { headers: { accept: 'application/json' } })
-    if (!response.ok) return { kind: 'unknown' }
+    if (!response.ok) {
+      return { kind: 'unknown' }
+    }
     return priceFromCatalog(subscription, await response.json())
   } catch {
     return { kind: 'unknown' }
@@ -131,8 +144,11 @@ export function describePrice(subscription: SubscriptionCreate, price: Subscript
       (charge) => `- ${charge.name}: ${charge.quantity} = ${money(charge.amount, price.currency)}`
     )
   ]
-  if (price.usage.length > 0) lines.push(`Usage charges apply: ${price.usage.join(', ')}.`)
-  else lines.push('Usage charges: none.')
+  if (price.usage.length > 0) {
+    lines.push(`Usage charges apply: ${price.usage.join(', ')}.`)
+  } else {
+    lines.push('Usage charges: none.')
+  }
   if (price.unpriced.length > 0) {
     lines.push(`Not priced by the catalog: ${price.unpriced.join(', ')}.`)
   }

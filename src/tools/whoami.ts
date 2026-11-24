@@ -66,7 +66,7 @@ export const WHOAMI_TOOL: Tool = {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     type: 'object',
     properties: {
-      id: { type: 'string', minLength: 1, pattern: '\\S', description: ID_DESCRIPTION },
+      id: { type: 'string', minLength: 1, pattern: String.raw`\S`, description: ID_DESCRIPTION },
       name: { type: 'string', description: NAME_DESCRIPTION },
       email: { type: 'string', description: EMAIL_DESCRIPTION }
     },
@@ -90,7 +90,9 @@ function whoamiFor(props: AuthProps): Whoami | undefined {
   const subject = SubjectIdSchema.safeParse(
     props.type === 'user_token' ? props.user.id : props.account.id
   )
-  if (!subject.success) return undefined
+  if (!subject.success) {
+    return undefined
+  }
   return props.type === 'user_token'
     ? { id: `user:${subject.data}`, ...(props.user.email && { email: props.user.email }) }
     : { id: `account:${subject.data}`, ...(props.account.name && { name: props.account.name }) }

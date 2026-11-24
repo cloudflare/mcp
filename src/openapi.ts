@@ -4,9 +4,9 @@
 export interface OperationInfo {
   summary?: string
   /** API token permissions the operation accepts; any one is enough. OAuth scopes share these names. */
-  'x-api-token-group'?: string[]
+  'x-api-token-group'?: Array<string>
   description?: string
-  tags?: string[]
+  tags?: Array<string>
   parameters?: Array<{
     name: string
     in: string
@@ -18,6 +18,7 @@ export interface OperationInfo {
     required?: boolean
     content?: Record<string, { schema?: unknown }>
   }
+  // oxlint-disable-next-line quality/no-unsafe-dictionary-type -- Response definitions may contain arbitrary OpenAPI schema content.
   responses?: Record<string, unknown>
 }
 

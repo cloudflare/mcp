@@ -3,13 +3,8 @@ import { isolate } from './lib/isolate'
 import type { Tool } from '@modelcontextprotocol/server'
 import bundledPermissions from './generated/spec/permissions.json.txt'
 import bundledProducts from './generated/spec/products.json.txt'
-import {
-  SKILLS_MANIFEST_KEY,
-  SkillsManifest,
-  skillFileKey,
-  type Skill,
-  type SkillFile
-} from './skills/types'
+import { SKILLS_MANIFEST_KEY, SkillsManifest, skillFileKey } from './skills/types'
+import type { Skill, SkillFile } from './skills/types'
 
 /**
  * In-isolate cache for the two spec artifacts this Worker reads,
@@ -61,9 +56,13 @@ export function setSpecArtifacts(artifacts?: SpecArtifacts): void {
  * is enough. Operations without permissions are listed too, so a request
  * still finds its template.
  */
-export type PermissionPaths = Record<string, Record<string, { 'x-api-token-group'?: string[] }>>
+export type PermissionPaths = Record<
+  string,
+  Record<string, { 'x-api-token-group'?: Array<string> }>
+>
 
 const permissionPaths = isolate.lazy(
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The pinned release ships this generated JSON shape.
   (): PermissionPaths => JSON.parse(specArtifacts.permissions) as PermissionPaths
 )
 
@@ -73,12 +72,14 @@ export function getPermissionPaths(): PermissionPaths {
 }
 
 const forgeToolList = artifact(
-  async (): Promise<Tool[]> => JSON.parse(await env.FORGE_TOOLS.listJson()) as Tool[]
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The pinned release ships this generated JSON shape.
+  async (): Promise<Array<Tool>> => JSON.parse(await env.FORGE_TOOLS.listJson()) as Array<Tool>
 )
 
 const forgeToolListWithOutput = artifact(
-  async (): Promise<Tool[]> =>
-    JSON.parse(await env.FORGE_TOOLS.listJson({ outputSchema: true })) as Tool[]
+  async (): Promise<Array<Tool>> =>
+    // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The pinned release ships this generated JSON shape.
+    JSON.parse(await env.FORGE_TOOLS.listJson({ outputSchema: true })) as Array<Tool>
 )
 
 /**
@@ -90,20 +91,23 @@ const forgeToolListWithOutput = artifact(
  * @param outputSchema - Include each tool's generated output schema, a
  *   separate listing that is loaded only when asked for.
  */
-export function getForgeToolList({ outputSchema = false } = {}): Promise<Tool[]> {
+export function getForgeToolList({ outputSchema = false } = {}): Promise<Array<Tool>> {
   return outputSchema ? forgeToolListWithOutput.get() : forgeToolList.get()
 }
 
-const products = isolate.lazy((): string[] => JSON.parse(specArtifacts.products) as string[])
+const products = isolate.lazy(
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The pinned release ships this generated JSON shape.
+  (): Array<string> => JSON.parse(specArtifacts.products) as Array<string>
+)
 
 /** The product list backing the `search` tool description. */
-export function getProducts(): string[] {
+export function getProducts(): Array<string> {
   return products()
 }
 
 /** The synced skills, indexed for `skills/get` and `resources/read`. */
 export interface SkillsIndex {
-  readonly skills: readonly Skill[]
+  readonly skills: ReadonlyArray<Skill>
   readonly skillsByUri: ReadonlyMap<string, Skill>
   readonly filesByUri: ReadonlyMap<string, SkillFile>
 }
@@ -145,7 +149,9 @@ const skillFileBytes = isolate.map<string, Uint8Array>({
 export async function readSkillFile(file: SkillFile): Promise<Uint8Array> {
   const key = skillFileKey(file.digest)
   const hit = skillFileBytes.get(key)
-  if (hit) return hit
+  if (hit) {
+    return hit
+  }
 
   const object = await env.SPEC_BUCKET.get(key)
   if (!object) {

@@ -1,13 +1,8 @@
 import { USER_AGENT } from '../constants'
 import { buildSkillsManifest } from './bundle'
 import { readTar } from './tar'
-import {
-  SKILL_FILES_PREFIX,
-  SKILLS_MANIFEST_KEY,
-  SkillsManifest,
-  skillFileKey,
-  type Skill
-} from './types'
+import { SKILL_FILES_PREFIX, SKILLS_MANIFEST_KEY, SkillsManifest, skillFileKey } from './types'
+import type { Skill } from './types'
 
 export const SKILLS_REPOSITORY = 'cloudflare/skills'
 
@@ -26,7 +21,7 @@ export interface SkillsSyncResult {
   readonly changed: boolean
   readonly commit: string | null
   /** Skills that were added, removed, or had any file change. */
-  readonly changedSkills: string[]
+  readonly changedSkills: Array<string>
   /** File objects written: bytes no stored file already had. */
   readonly filesWritten: number
   /** File objects deleted: bytes neither the new nor the previous manifest names. */
@@ -65,7 +60,9 @@ export async function fetchSkills(
     now
   )
 
-  for (const { name, reason } of skipped) console.warn(`Skipping skill ${name}: ${reason}`)
+  for (const { name, reason } of skipped) {
+    console.warn(`Skipping skill ${name}: ${reason}`)
+  }
   if (manifest.skills.length === 0) {
     throw new Error('The skills archive contained no valid skills; keeping the previous skills')
   }
@@ -136,9 +133,13 @@ export async function syncSkills(bucket: R2Bucket, now = new Date()): Promise<Sk
 
 async function readManifest(bucket: R2Bucket): Promise<SkillsManifest | undefined> {
   const object = await bucket.get(SKILLS_MANIFEST_KEY)
-  if (!object) return undefined
+  if (!object) {
+    return undefined
+  }
   const parsed = SkillsManifest.safeParse(await object.json())
-  if (!parsed.success) console.warn('Ignoring an unreadable skills manifest:', parsed.error.message)
+  if (!parsed.success) {
+    console.warn('Ignoring an unreadable skills manifest:', parsed.error.message)
+  }
   return parsed.success ? parsed.data : undefined
 }
 
@@ -147,20 +148,28 @@ async function listStoredFiles(bucket: R2Bucket): Promise<Set<string>> {
   let cursor: string | undefined
   do {
     const page = await bucket.list({ prefix: SKILL_FILES_PREFIX, cursor })
-    for (const object of page.objects) keys.add(object.key)
+    for (const object of page.objects) {
+      keys.add(object.key)
+    }
     cursor = page.truncated ? page.cursor : undefined
   } while (cursor)
   return keys
 }
 
 /** Names of skills whose entry differs between two manifests, including added and removed ones. */
-function diffSkills(before: SkillsManifest['skills'], after: SkillsManifest['skills']): string[] {
-  const serialize = (skill: Skill) => JSON.stringify(skill)
+const serialize = (skill: Skill) => JSON.stringify(skill)
+
+function diffSkills(
+  before: SkillsManifest['skills'],
+  after: SkillsManifest['skills']
+): Array<string> {
   const beforeByUri = new Map(before.map(({ skill }) => [skill.uri, serialize(skill)]))
   const afterByUri = new Map(after.map(({ skill }) => [skill.uri, serialize(skill)]))
   const names = new Set<string>()
   for (const { skill } of [...before, ...after]) {
-    if (beforeByUri.get(skill.uri) !== afterByUri.get(skill.uri)) names.add(skill.frontmatter.name)
+    if (beforeByUri.get(skill.uri) !== afterByUri.get(skill.uri)) {
+      names.add(skill.frontmatter.name)
+    }
   }
   return [...names].sort()
 }

@@ -63,10 +63,15 @@ function key({ accountId, ratePlan, digest }: SubscriptionKey): string {
  * envelope declares form elicitation. `elicitation: {}` counts as form support.
  */
 export function canConfirm(ctx: ServerContext): boolean {
+  // oxlint-disable-next-line quality/no-unsafe-dictionary-type -- The SDK envelope type omits the extension keys checked below.
   const envelope: Record<string, unknown> | undefined = ctx.mcpReq.envelope
-  if (typeof envelope?.[PROTOCOL_VERSION_META_KEY] !== 'string') return false
+  if (typeof envelope?.[PROTOCOL_VERSION_META_KEY] !== 'string') {
+    return false
+  }
   const capabilities = ElicitationCapability.safeParse(envelope[CLIENT_CAPABILITIES_META_KEY])
-  if (!capabilities.success) return false
+  if (!capabilities.success) {
+    return false
+  }
   const { form, url } = capabilities.data.elicitation
   return form !== undefined || url === undefined
 }
@@ -74,8 +79,12 @@ export function canConfirm(ctx: ServerContext): boolean {
 /** What this call's retry says the user answered about `subscription`. */
 export function confirmationOf(ctx: ServerContext, subscription: SubscriptionKey): Confirmation {
   const answer = inputResponse(ctx.mcpReq.inputResponses, key(subscription))
-  if (answer.kind !== 'elicit') return 'unasked'
-  if (answer.action !== 'accept') return 'declined'
+  if (answer.kind !== 'elicit') {
+    return 'unasked'
+  }
+  if (answer.action !== 'accept') {
+    return 'declined'
+  }
   return Answer.safeParse(answer.content).data?.confirm === true ? 'confirmed' : 'declined'
 }
 
@@ -87,10 +96,14 @@ export function answeredSubscription(
   ctx: ServerContext
 ): { subscription: SubscriptionKey; confirmation: Confirmation } | undefined {
   for (const name of Object.keys(ctx.mcpReq.inputResponses ?? {})) {
-    if (!name.startsWith(KEY_PREFIX)) continue
+    if (!name.startsWith(KEY_PREFIX)) {
+      continue
+    }
     const [accountId, ratePlan, digest] = name.slice(KEY_PREFIX.length).split(':')
     const subscription = SubscriptionKeyShape.safeParse({ accountId, ratePlan, digest })
-    if (!subscription.success) continue
+    if (!subscription.success) {
+      continue
+    }
     return {
       subscription: subscription.data,
       confirmation: confirmationOf(ctx, subscription.data)
@@ -118,10 +131,14 @@ export function reportSubscription(accountId: string, body: string): string {
 export async function reportedSubscription(
   header: string | undefined
 ): Promise<SubscriptionCreate | undefined> {
-  if (!header) return undefined
+  if (!header) {
+    return undefined
+  }
   try {
     const reported = Reported.safeParse(JSON.parse(decodeURIComponent(header)))
-    if (!reported.success) return undefined
+    if (!reported.success) {
+      return undefined
+    }
     return await subscriptionFromBody(reported.data.accountId, reported.data.body)
   } catch {
     return undefined
