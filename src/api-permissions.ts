@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { DERIVED_OAUTH_SCOPES } from './auth/derived-oauth-scopes'
+import { DERIVED_OAUTH_SCOPES, INTERNAL_OAUTH_SCOPES } from './auth/derived-oauth-scopes'
 import { isolate } from './lib/isolate'
 
 /**
@@ -11,7 +11,7 @@ import { isolate } from './lib/isolate'
  *   Its permissions are unknown here.
  */
 export type Connection =
-  | { readonly kind: 'oauth'; readonly scopes: readonly string[] }
+  | { readonly kind: 'oauth'; readonly scopes: ReadonlyArray<string> }
   | { readonly kind: 'direct' }
 
 /** A credential whose permissions this server doesn't know. */
@@ -43,17 +43,20 @@ const PermissionLabels = z.array(z.string().min(1)).min(1)
  */
 export function acceptedPermissions(
   operation: { readonly 'x-api-token-group'?: unknown } | undefined
-): string[] | undefined {
+): Array<string> | undefined {
   const labels = PermissionLabels.safeParse(operation?.['x-api-token-group'])
   return labels.success ? [...new Set(labels.data)] : undefined
 }
 
 const SCOPE_NAMES: ReadonlyMap<string, string> = new Map(
-  Object.entries(DERIVED_OAUTH_SCOPES).map(([scope, { name }]) => [scope, name])
+  Object.entries({ ...DERIVED_OAUTH_SCOPES, ...INTERNAL_OAUTH_SCOPES }).map(([scope, { name }]) => [
+    scope,
+    name
+  ])
 )
 
 /**
- * Whether `scope` is in the production OAuth scope catalog.
+ * Whether `scope` is one this server can ask for: in the production OAuth scope catalog, or internal.
  *
  * @param scope - A scope ID.
  * @returns `true` for a catalog scope.
@@ -63,9 +66,11 @@ export function isCatalogScope(scope: string): boolean {
 }
 
 /** OAuth scope IDs by permission name. OAuth scopes share API token permission names. */
-const SCOPES_BY_PERMISSION: ReadonlyMap<string, readonly string[]> = (() => {
-  const scopes = new Map<string, string[]>()
-  for (const [scope, name] of SCOPE_NAMES) scopes.set(name, [...(scopes.get(name) ?? []), scope])
+const SCOPES_BY_PERMISSION: ReadonlyMap<string, ReadonlyArray<string>> = (() => {
+  const scopes = new Map<string, Array<string>>()
+  for (const [scope, name] of SCOPE_NAMES) {
+    scopes.set(name, [...(scopes.get(name) ?? []), scope])
+  }
   return scopes
 })()
 
@@ -84,16 +89,16 @@ const PERMISSION_ALIASES: ReadonlyMap<string, string> = new Map([
 ])
 
 /** The catalog scopes named after a spec permission. */
-function scopesForPermission(permission: string): readonly string[] {
+function scopesForPermission(permission: string): ReadonlyArray<string> {
   return SCOPES_BY_PERMISSION.get(PERMISSION_ALIASES.get(permission) ?? permission) ?? []
 }
 
 /** One operation in {@link operationIndex}, its template split once. */
 interface IndexedOperation {
   readonly template: string
-  readonly parts: readonly string[]
+  readonly parts: ReadonlyArray<string>
   /** Whether each part is a `{param}`. */
-  readonly params: readonly boolean[]
+  readonly params: ReadonlyArray<boolean>
   readonly operation: unknown
 }
 
@@ -104,8 +109,9 @@ interface IndexedOperation {
  * the proxy cost several milliseconds of CPU per request.
  */
 const operationIndex = isolate.derived(
-  (paths: Record<string, Record<string, unknown>>): Map<string, IndexedOperation[]> => {
-    const index = new Map<string, IndexedOperation[]>()
+  // oxlint-disable-next-line quality/no-unsafe-dictionary-type -- The operation index accepts path tables from multiple generated specs.
+  (paths: Record<string, Record<string, unknown>>): Map<string, Array<IndexedOperation>> => {
+    const index = new Map<string, Array<IndexedOperation>>()
     for (const [template, item] of Object.entries(paths)) {
       const parts = template.split('/')
       const params = parts.map((part) => /^\{[^}]+\}$/.test(part))
@@ -141,18 +147,25 @@ export function findOperation<Operation>(
     let literals = 0
     let matches = true
     for (let index = 0; index < entry.parts.length && matches; index++) {
-      if (entry.params[index]) matches = segments[index] !== ''
-      else if (entry.parts[index] === segments[index]) literals++
-      else matches = false
+      if (entry.params[index]) {
+        matches = segments[index] !== ''
+      } else if (entry.parts[index] === segments[index]) {
+        literals++
+      } else {
+        matches = false
+      }
     }
-    if (matches && (!best || literals > best.literals)) best = { entry, literals }
+    if (matches && (!best || literals > best.literals)) {
+      best = { entry, literals }
+    }
   }
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The cached operation comes from the caller's typed paths.
   return best && { template: best.entry.template, operation: best.entry.operation as Operation }
 }
 
 const MAX_LISTED = 8
 
-function list(items: readonly string[]): string {
+function list(items: ReadonlyArray<string>): string {
   const shown = items.slice(0, MAX_LISTED).join(', ')
   return items.length > MAX_LISTED ? `${shown} and ${items.length - MAX_LISTED} more` : shown
 }
@@ -175,12 +188,12 @@ function scopeLabel(scope: string): string {
  */
 export type Authorization =
   | { readonly kind: 'unlisted'; readonly connection: Connection['kind'] }
-  | { readonly kind: 'direct'; readonly permissions: readonly string[] }
-  | { readonly kind: 'unreachable'; readonly permissions: readonly string[] }
-  | { readonly kind: 'granted'; readonly held: readonly string[] }
+  | { readonly kind: 'direct'; readonly permissions: ReadonlyArray<string> }
+  | { readonly kind: 'unreachable'; readonly permissions: ReadonlyArray<string> }
+  | { readonly kind: 'granted'; readonly held: ReadonlyArray<string> }
   | {
       readonly kind: 'missing'
-      readonly options: readonly string[]
+      readonly options: ReadonlyArray<string>
       readonly scope: string | undefined
     }
 
@@ -206,7 +219,7 @@ function words(text: string): Set<string> {
  * and `src/forge-tools/plan.ts` split those back, but reading the request keeps
  * this correct without relying on them.
  */
-function acceptedScopes(path: string, permissions: readonly string[]): string[] {
+function acceptedScopes(path: string, permissions: ReadonlyArray<string>): Array<string> {
   const [own, other] =
     path.split('/')[1] === 'zones' ? ['zone-', 'account-'] : ['account-', 'zone-']
   const accepted = new Set<string>()
@@ -214,7 +227,9 @@ function acceptedScopes(path: string, permissions: readonly string[]): string[] 
     const scopes = scopesForPermission(permission)
     const prefixed = scopes.filter((scope) => scope.startsWith(own))
     const variant = prefixed.length > 0 ? prefixed : scopes.filter((s) => !s.startsWith(other))
-    for (const scope of variant.length === 1 ? variant : scopes) accepted.add(scope)
+    for (const scope of variant.length === 1 ? variant : scopes) {
+      accepted.add(scope)
+    }
   }
   return [...accepted].sort()
 }
@@ -228,14 +243,17 @@ function acceptedScopes(path: string, permissions: readonly string[]): string[] 
 function scopeToAskFor(
   method: string,
   path: string,
-  options: readonly string[]
+  options: ReadonlyArray<string>
 ): string | undefined {
   const reads = SAFE_METHODS.has(method.toUpperCase())
-  const preferred = options.filter((scope) => scope.endsWith('.read') === reads)
+  // Catalog scopes end in `.read`; the internal ones in `:read`.
+  const preferred = options.filter((scope) => /[.:]read$/.test(scope) === reads)
   const pool = preferred.length > 0 ? preferred : [...options]
-  if (pool.length <= 1) return pool[0]
+  if (pool.length <= 1) {
+    return pool[0]
+  }
 
-  const pathWords = words(path.replace(/\{[^}]+\}/g, ''))
+  const pathWords = words(path.replaceAll(/\{[^}]+\}/g, ''))
   const ranked = pool
     .map((scope) => ({ scope, overlap: [...words(scope)].filter((w) => pathWords.has(w)).length }))
     .sort((a, b) => b.overlap - a.overlap)
@@ -269,14 +287,22 @@ export interface EndpointRequest {
 export function authorize(
   connection: Connection,
   { method, path, template = path }: EndpointRequest,
-  permissions: readonly string[] | undefined
+  permissions: ReadonlyArray<string> | undefined
 ): Authorization {
-  if (!permissions) return { kind: 'unlisted', connection: connection.kind }
-  if (connection.kind === 'direct') return { kind: 'direct', permissions }
+  if (!permissions) {
+    return { kind: 'unlisted', connection: connection.kind }
+  }
+  if (connection.kind === 'direct') {
+    return { kind: 'direct', permissions }
+  }
   const options = acceptedScopes(path, permissions)
-  if (options.length === 0) return { kind: 'unreachable', permissions }
+  if (options.length === 0) {
+    return { kind: 'unreachable', permissions }
+  }
   const held = options.filter((scope) => connection.scopes.includes(scope))
-  if (held.length > 0) return { kind: 'granted', held }
+  if (held.length > 0) {
+    return { kind: 'granted', held }
+  }
   return { kind: 'missing', options, scope: scopeToAskFor(method, template, options) }
 }
 
@@ -377,7 +403,7 @@ const SOMETIMES_BASELINE_PERMISSIONS: ReadonlySet<string> = new Set([
 export function emptyListProvesNothing(
   method: string,
   authorization: Authorization,
-  permissions: readonly string[] | undefined
+  permissions: ReadonlyArray<string> | undefined
 ): boolean {
   return (
     method.toUpperCase() === 'GET' &&

@@ -8,6 +8,7 @@ import {
 } from './policy'
 
 /** The account path parameters the server can fill in, with their descriptions. */
+// oxlint-disable-next-line quality/no-known-value-widening -- The table is indexed by generated path parameter names.
 const OPTIONAL_PATH_PARAMS: Readonly<Record<string, string>> = {
   account_id: FORGE_ACCOUNT_ID_DESCRIPTION,
   account_or_zone_id: ACCOUNT_OR_ZONE_ID_DESCRIPTION
@@ -29,6 +30,7 @@ const OPTIONAL_PATH_PARAMS: Readonly<Record<string, string>> = {
  * The tool's operation is kept, so calls build the same requests.
  */
 export function cloudflareTool(tool: Tool): Tool {
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- Forge emits this shape for the generated path schema.
   const path = tool.inputSchema.properties?.path as PathSchema | undefined
   const params = path?.properties
   if (!path || !params || !Object.keys(params).some((key) => key in OPTIONAL_PATH_PARAMS)) {
@@ -37,7 +39,9 @@ export function cloudflareTool(tool: Tool): Tool {
 
   const changed: JSONObject = { ...params }
   for (const [key, description] of Object.entries(OPTIONAL_PATH_PARAMS)) {
-    if (key in changed) changed[key] = { type: 'string', description }
+    if (key in changed) {
+      changed[key] = { type: 'string', description }
+    }
   }
   const pathRequired = (path.required ?? []).filter((key) => !(key in OPTIONAL_PATH_PARAMS))
   const { required: _pathRequired, ...pathRest } = path
@@ -60,10 +64,10 @@ export function cloudflareTool(tool: Tool): Tool {
 }
 
 /** The `path` argument of a generated tool: an object of its path parameters. */
-type PathSchema = JSONObject & { properties?: JSONObject; required?: string[] }
+type PathSchema = JSONObject & { properties?: JSONObject; required?: Array<string> }
 
 /** The API token permissions `tool` accepts, if its method lists them. */
-export function permissionsOf(tool: Tool): string[] | undefined {
+export function permissionsOf(tool: Tool): Array<string> | undefined {
   const value = operation(tool).extensions?.[PERMISSIONS_EXTENSION]
   return Array.isArray(value) &&
     value.length > 0 &&

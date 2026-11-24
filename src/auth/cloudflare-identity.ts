@@ -11,7 +11,7 @@ import {
 } from './types'
 import { OAuthError } from './workers-oauth-utils'
 
-const env = cloudflareEnv as Env
+const env = cloudflareEnv
 const API_TOKEN_IDENTITY_CALLER = 'api_token_identity_probe'
 const OAUTH_IDENTITY_CALLER = 'oauth_callback_identity_probe'
 /**
@@ -21,6 +21,7 @@ const OAUTH_IDENTITY_CALLER = 'oauth_callback_identity_probe'
  * limited. The OAuth callback probes once while a person waits to sign in, so a short
  * retry there still helps.
  */
+// oxlint-disable-next-line quality/no-known-value-widening -- The retry table is keyed by whichever caller string is supplied.
 const PROBE_RETRY_OPTIONS: Record<string, { maxRetries: number }> = {
   [API_TOKEN_IDENTITY_CALLER]: { maxRetries: 0 }
 }
@@ -83,7 +84,7 @@ const DEFAULT_RETRY_AFTER_SECONDS = 30
  * When `/user` and `/accounts` are both refused, either may be the one with the
  * wait, so every refused response is read, not only the first.
  */
-function retryAfterHeaders(...responses: Response[]): Record<string, string> {
+function retryAfterHeaders(...responses: Array<Response>) {
   const waits = responses
     .filter((response) => response.status === 429)
     .map((response) => serverRetryDelayMs(response.headers))
@@ -116,11 +117,13 @@ const CloudflareErrorsSchema = z.object({
  * a working one. About two thirds of the rate-limited probes in production were
  * this: clients calling again and again with a token that had stopped working.
  */
-const TOO_MANY_AUTH_FAILURES_CODE = 10502
+const TOO_MANY_AUTH_FAILURES_CODE = 10_502
 
 /** Whether a 429 refuses the credential for repeated authentication failures. */
 async function rejectsCredentialForFailures(response: Response): Promise<boolean> {
-  if (response.status !== 429) return false
+  if (response.status !== 429) {
+    return false
+  }
   try {
     const parsed = CloudflareErrorsSchema.safeParse(await response.clone().json())
     return (
@@ -134,7 +137,9 @@ async function rejectsCredentialForFailures(response: Response): Promise<boolean
 
 /** Whether Cloudflare refused the credential itself, rather than a permission it lacks. */
 async function rejectsCredential(response: Response): Promise<boolean> {
-  if (response.status !== 401 && response.status !== 403) return false
+  if (response.status !== 401 && response.status !== 403) {
+    return false
+  }
   try {
     const parsed = CloudflareErrorsSchema.safeParse(await response.clone().json())
     return (
@@ -153,7 +158,9 @@ async function rejectsCredential(response: Response): Promise<boolean> {
  * requires 401 for invalid or expired tokens and reserves 403 with
  * `insufficient_scope` for a valid token that lacks scope.
  */
-async function identityProbeError(...responses: [Response, ...Response[]]): Promise<OAuthError> {
+async function identityProbeError(
+  ...responses: [Response, ...Array<Response>]
+): Promise<OAuthError> {
   const statuses = responses.map((response) => response.status)
 
   if (statuses.some((status) => status >= 500)) {
@@ -223,7 +230,9 @@ function fetchAccounts(
 async function parseUser(response: Response): Promise<CloudflareUserIdentity['user'] | null> {
   try {
     const parsed = UserResponseSchema.safeParse(await response.json())
-    if (parsed.success && parsed.data.success && parsed.data.result) return parsed.data.result
+    if (parsed.success && parsed.data.success && parsed.data.result) {
+      return parsed.data.result
+    }
     if (!parsed.success) {
       console.error('Cloudflare API /user payload did not match expected shape', parsed.error)
     }
@@ -240,7 +249,9 @@ async function parseAccounts(response: Response): Promise<AccountPage> {
       console.error('Cloudflare API /accounts payload did not match expected shape', parsed.error)
       return { accounts: [] }
     }
-    if (!parsed.data.success || !parsed.data.result) return { accounts: [] }
+    if (!parsed.data.success || !parsed.data.result) {
+      return { accounts: [] }
+    }
 
     const accounts = parsed.data.result
     const reported = parsed.data.result_info?.total_count
@@ -292,7 +303,9 @@ async function resolveAccountCredential(
   // One minimum-size page is enough to prove whether an account-owned token
   // resolves to exactly one account without fetching the larger user page.
   const accountsResponse = await fetchAccounts(accessToken, caller, ACCOUNT_TOKEN_PROBE_PAGE_SIZE)
-  if (!accountsResponse.ok) throw await identityProbeError(accountsResponse)
+  if (!accountsResponse.ok) {
+    throw await identityProbeError(accountsResponse)
+  }
   return accountIdentity(await parseAccounts(accountsResponse))
 }
 
@@ -328,7 +341,9 @@ async function resolveLegacyCredential(
     fetchAccounts(accessToken, caller)
   ])
   if (!accountsResponse.ok) {
-    if (!userResponse.ok) throw await identityProbeError(userResponse, accountsResponse)
+    if (!userResponse.ok) {
+      throw await identityProbeError(userResponse, accountsResponse)
+    }
     throw await identityProbeError(accountsResponse)
   }
 
@@ -336,10 +351,14 @@ async function resolveLegacyCredential(
     userResponse.ok ? parseUser(userResponse) : Promise.resolve(null),
     accountsResponse.ok ? parseAccounts(accountsResponse) : Promise.resolve({ accounts: [] })
   ])
-  if (user) return userIdentity(user, accounts)
+  if (user) {
+    return userIdentity(user, accounts)
+  }
 
   // A transient /user failure cannot prove account ownership.
-  if (!userResponse.ok && userResponse.status >= 429) throw await identityProbeError(userResponse)
+  if (!userResponse.ok && userResponse.status >= 429) {
+    throw await identityProbeError(userResponse)
+  }
   return accountIdentity(accounts)
 }
 

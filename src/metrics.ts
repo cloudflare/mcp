@@ -45,7 +45,8 @@
 import { env } from 'cloudflare:workers'
 import type { McpServer } from '@modelcontextprotocol/server'
 import type { AuthProps } from './auth/types'
-import { SERVER_INFO, type ServerInfo } from './constants'
+import { SERVER_INFO } from './constants'
+import type { ServerInfo } from './constants'
 
 export enum MetricsEventIndexId {
   AUTH_USER = 'auth_user',
@@ -124,8 +125,8 @@ export abstract class MetricsEvent {
       if (match === null || match.length < 2) {
         throw new MetricsError('Failed to map blobs, invalid key')
       }
-      const index = parseInt(match[1], 10)
-      if (isNaN(index)) {
+      const index = Number.parseInt(match[1], 10)
+      if (Number.isNaN(index)) {
         throw new MetricsError('Failed to map blobs, invalid index')
       }
       if (index - 1 >= blobsArray.length) {
@@ -136,21 +137,21 @@ export abstract class MetricsEvent {
     return blobsArray
   }
 
-  mapDoubles(doubles: Doubles): number[] {
-    const doublesArray: number[] = Array.from({ length: Object.keys(doubles).length })
+  mapDoubles(doubles: Doubles): Array<number> {
+    const doublesArray: Array<number> = Array.from({ length: Object.keys(doubles).length })
     for (const [key, value] of Object.entries(doubles)) {
       const match = key.match(/^double(\d+)$/)
       if (match === null || match.length < 2) {
         throw new MetricsError('Failed to map doubles, invalid key')
       }
-      const index = parseInt(match[1], 10)
-      if (isNaN(index)) {
+      const index = Number.parseInt(match[1], 10)
+      if (Number.isNaN(index)) {
         throw new MetricsError('Failed to map doubles, invalid index')
       }
       if (index - 1 >= doublesArray.length) {
         throw new MetricsError('Failed to map doubles, missing double')
       }
-      doublesArray[index - 1] = value as number
+      doublesArray[index - 1] = value
     }
     return doublesArray
   }
@@ -265,12 +266,14 @@ export class MetricsTracker {
   ) {}
 
   logEvent(event: MetricsEvent): void {
-    if (!this.wae) return
+    if (!this.wae) {
+      return
+    }
     try {
       event.serverInfo = this.serverInfo
       this.wae.writeDataPoint(event.toDataPoint())
-    } catch (e) {
-      console.error(`Failed to log metrics event, ${e}`)
+    } catch (error) {
+      console.error(`Failed to log metrics event, ${String(error)}`)
     }
   }
 }
@@ -305,6 +308,16 @@ export function recordResponseSchemaMismatch(
   metrics.logEvent(new ResponseSchemaMismatch({ ...mismatch, userId: userIdFromProps(props) }))
 }
 
+function errorCodeOf(error: unknown): number {
+  if (error !== null && typeof error === 'object' && 'code' in error) {
+    const code = error.code
+    if (typeof code === 'number') {
+      return code
+    }
+  }
+  return -1
+}
+
 /**
  * Wire Analytics Engine metrics into a server instance: log a `tool_call` for
  * every tool invocation (with an `errorCode` on failure). Monkey-patches
@@ -321,21 +334,22 @@ export function attachMetrics(server: McpServer, props?: AuthProps): void {
   const metrics = new MetricsTracker(env.MCP_METRICS, SERVER_INFO)
   const userId = userIdFromProps(props)
 
-  const errorCodeOf = (e: unknown): number =>
-    typeof (e as { code?: unknown })?.code === 'number' ? (e as { code: number }).code : -1
-
   // Our tool callbacks signal failure by returning `{ isError: true }` rather
   // than throwing, so inspect the resolved result as well as the thrown path.
   const logResult = (name: string, result: unknown) => {
-    const errorCode = (result as { isError?: boolean })?.isError ? -1 : undefined
+    const failed =
+      result !== null && typeof result === 'object' && 'isError' in result && result.isError
+    const errorCode = failed ? -1 : undefined
     metrics.logEvent(new ToolCall({ toolName: name, userId, errorCode }))
   }
 
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The metrics wrapper preserves the SDK's runtime registration contract.
   const originalRegisterTool = server.registerTool.bind(server) as (
-    ...args: unknown[]
+    ...args: Array<unknown>
   ) => ReturnType<McpServer['registerTool']>
 
-  server.registerTool = ((name: string, ...rest: unknown[]) => {
+  server.registerTool = (name: string, ...rest: Array<unknown>) => {
+    // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The metrics wrapper preserves the SDK's runtime registration contract.
     const config = rest[0] as { title?: string; annotations?: { title?: string } } | undefined
     // Mirror any tool.title into annotations.title so clients consistently see
     // a display label regardless of which field they prefer.
@@ -344,28 +358,32 @@ export function attachMetrics(server: McpServer, props?: AuthProps): void {
     }
 
     const lastIndex = rest.length - 1
-    const cb = rest[lastIndex] as (...cbArgs: unknown[]) => unknown
-    rest[lastIndex] = (...cbArgs: unknown[]) => {
+    // oxlint-disable-next-line quality/no-unknown-returns, typescript/no-unsafe-type-assertion -- The metrics wrapper forwards the SDK callback result unchanged.
+    const cb = rest[lastIndex] as (...cbArgs: Array<unknown>) => unknown
+    rest[lastIndex] = (...cbArgs: Array<unknown>) => {
       try {
         const out = cb(...cbArgs)
+        // oxlint-disable-next-line @nkzw/no-instanceof -- Preserve the SDK callback's synchronous and promise results.
         if (out instanceof Promise) {
           return out
-            .then((r) => {
+            .then((r: unknown) => {
               logResult(name, r)
               return r
             })
-            .catch((e: unknown) => {
-              metrics.logEvent(new ToolCall({ toolName: name, userId, errorCode: errorCodeOf(e) }))
-              throw e
+            .catch((error: unknown) => {
+              metrics.logEvent(
+                new ToolCall({ toolName: name, userId, errorCode: errorCodeOf(error) })
+              )
+              throw error
             })
         }
         logResult(name, out)
         return out
-      } catch (e) {
-        metrics.logEvent(new ToolCall({ toolName: name, userId, errorCode: errorCodeOf(e) }))
-        throw e
+      } catch (error) {
+        metrics.logEvent(new ToolCall({ toolName: name, userId, errorCode: errorCodeOf(error) }))
+        throw error
       }
     }
     return originalRegisterTool(name, ...rest)
-  }) as McpServer['registerTool']
+  }
 }

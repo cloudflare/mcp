@@ -1,4 +1,5 @@
-import { DERIVED_OAUTH_SCOPES, type ScopeDefinition } from './derived-oauth-scopes'
+import { DERIVED_OAUTH_SCOPES, INTERNAL_OAUTH_SCOPES } from './derived-oauth-scopes'
+import type { ScopeDefinition } from './derived-oauth-scopes'
 
 const CORE_SCOPE_DEFINITIONS = {
   offline_access: {
@@ -15,12 +16,15 @@ const CORE_SCOPE_DEFINITIONS = {
   }
 } as const satisfies Record<string, ScopeDefinition>
 
-export type ScopeName = keyof typeof CORE_SCOPE_DEFINITIONS | keyof typeof DERIVED_OAUTH_SCOPES
+export type ScopeName =
+  | keyof typeof CORE_SCOPE_DEFINITIONS
+  | keyof typeof DERIVED_OAUTH_SCOPES
+  | keyof typeof INTERNAL_OAUTH_SCOPES
 
 /** A preset set of scopes offered on the consent page. */
 export interface ScopeTemplate {
   name: string
-  scopes: readonly ScopeName[]
+  scopes: ReadonlyArray<ScopeName>
 }
 
 /** Scopes required for identity, account discovery, and refresh tokens. */
@@ -28,7 +32,7 @@ export const REQUIRED_SCOPES = [
   'user:read',
   'offline_access',
   'account:read'
-] as const satisfies readonly ScopeName[]
+] as const satisfies ReadonlyArray<ScopeName>
 
 /** The built-in permission presets. */
 export type TemplateName = 'minimal' | 'read-only' | 'full-access'
@@ -49,22 +53,31 @@ function isReadOnlyScope(scope: string): boolean {
   )
 }
 
-/** Canonical production catalog plus required OAuth bootstrap scopes. */
+/** Canonical production catalog plus required OAuth bootstrap scopes and the internal scopes. */
+// oxlint-disable-next-line quality/no-known-value-widening -- Scope definitions are looked up by dynamic scope names.
 export const SCOPE_DEFINITIONS: Record<string, ScopeDefinition> = {
   ...CORE_SCOPE_DEFINITIONS,
-  ...DERIVED_OAUTH_SCOPES
+  ...DERIVED_OAUTH_SCOPES,
+  ...INTERNAL_OAUTH_SCOPES
 }
 
-const scopeNames = Object.keys(SCOPE_DEFINITIONS) as ScopeName[]
+// oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The keys come from the scope table declared immediately above.
+const scopeNames = Object.keys(SCOPE_DEFINITIONS) as Array<ScopeName>
+
+/**
+ * The scopes a template may ask for. The internal scopes cover billing, so no
+ * template includes them: a connection gets one by stepping up when a call needs it.
+ */
+const templateScopeNames = scopeNames.filter((scope) => !(scope in INTERNAL_OAUTH_SCOPES))
 
 /**
  * Every scope this server can grant: advertised as the authorization server's
  * `scopes_supported` and enforced at /authorize. The MCP resource advertises no
  * up-front baseline of its own; the consent page picks the scopes.
  */
-export const ALL_SCOPES: readonly ScopeName[] = scopeNames
+export const ALL_SCOPES: ReadonlyArray<ScopeName> = scopeNames
 const readOnlyScopes = Array.from(
-  new Set<ScopeName>([...REQUIRED_SCOPES, ...scopeNames.filter(isReadOnlyScope)])
+  new Set<ScopeName>([...REQUIRED_SCOPES, ...templateScopeNames.filter(isReadOnlyScope)])
 )
 export const SCOPE_TEMPLATES: Record<TemplateName, ScopeTemplate> = {
   // Identity and accounts only. A client that supports step-up asks for more when a
@@ -79,6 +92,6 @@ export const SCOPE_TEMPLATES: Record<TemplateName, ScopeTemplate> = {
   },
   'full-access': {
     name: 'Full access',
-    scopes: scopeNames
+    scopes: templateScopeNames
   }
 }

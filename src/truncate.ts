@@ -49,7 +49,7 @@ export function formatterFor(
   return (truncate ?? truncateByDefault) ? truncateResponse : stringifyResponse
 }
 
-type Json = string | number | boolean | null | Json[] | { [key: string]: Json }
+type Json = string | number | boolean | null | Array<Json> | { [key: string]: Json }
 
 /**
  * Render a tool result as text with no size cap. Strings pass through; other
@@ -57,7 +57,9 @@ type Json = string | number | boolean | null | Json[] | { [key: string]: Json }
  * `undefined` from code that returns nothing, becomes its `String()` form.
  */
 export function stringifyResponse(content: unknown): string {
-  if (typeof content === 'string') return content
+  if (typeof content === 'string') {
+    return content
+  }
   return JSON.stringify(content, null, 2) ?? String(content)
 }
 
@@ -72,15 +74,22 @@ export function stringifyResponse(content: unknown): string {
  */
 export function truncateResponse(content: unknown): string {
   if (typeof content === 'string') {
-    if (content.length <= MAX_CHARS) return content
+    if (content.length <= MAX_CHARS) {
+      return content
+    }
     const json = parseJsonContainer(content)
     return json === undefined ? truncateText(content) : shrinkToText(json)
   }
 
   const compact: string | undefined = JSON.stringify(content)
-  if (compact === undefined) return String(content)
+  if (compact === undefined) {
+    return String(content)
+  }
   // Re-parse so `toJSON` and `undefined` members are seen the way they serialize.
-  if (compact.length > MAX_CHARS) return shrinkToText(JSON.parse(compact))
+  if (compact.length > MAX_CHARS) {
+    // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- JSON.parse returns a JSON value or throws.
+    return shrinkToText(JSON.parse(compact) as Json)
+  }
 
   const pretty = JSON.stringify(content, null, 2)
   return pretty.length <= MAX_CHARS ? pretty : compact
@@ -93,9 +102,12 @@ function truncateText(text: string): string {
 
 /** Parse text holding a JSON object or array. Anything else is plain text. */
 function parseJsonContainer(text: string): Json | undefined {
-  if (!/^\s*[[{]/.test(text)) return undefined
+  if (!/^\s*[[{]/.test(text)) {
+    return undefined
+  }
   try {
-    return JSON.parse(text)
+    // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- JSON.parse returns a JSON value or throws.
+    return JSON.parse(text) as Json
   } catch {
     return undefined
   }
@@ -132,7 +144,7 @@ function keyCost(key: string): number {
   return size(key) + 1
 }
 
-function sum(values: number[]): number {
+function sum(values: Array<number>): number {
   return values.reduce((total, value) => total + value, 0)
 }
 
@@ -165,10 +177,18 @@ function keyFloor(value: Json, maxChars: number): number {
 }
 
 function shrink(value: Json, maxChars: number): Json {
-  if (size(value) <= maxChars) return value
-  if (typeof value === 'string') return shrinkString(value, maxChars)
-  if (Array.isArray(value)) return shrinkArray(value, maxChars)
-  if (typeof value === 'object' && value !== null) return shrinkObject(value, maxChars)
+  if (size(value) <= maxChars) {
+    return value
+  }
+  if (typeof value === 'string') {
+    return shrinkString(value, maxChars)
+  }
+  if (Array.isArray(value)) {
+    return shrinkArray(value, maxChars)
+  }
+  if (typeof value === 'object' && value !== null) {
+    return shrinkObject(value, maxChars)
+  }
   return value
 }
 
@@ -191,7 +211,7 @@ function shrinkString(value: string, maxChars: number): string {
  * every child either reaches its full size or takes an equal share of what is
  * left. Requires `available >= Σ floors`.
  */
-function allocate(sizes: number[], floors: number[], available: number): number[] {
+function allocate(sizes: Array<number>, floors: Array<number>, available: number): Array<number> {
   const allocation = [...floors]
   const wants = sizes.map((full, i) => full - floors[i])
   const order = wants.map((_, i) => i).sort((a, b) => wants[a] - wants[b])
@@ -206,8 +226,9 @@ function allocate(sizes: number[], floors: number[], available: number): number[
   return allocation
 }
 
-function shrinkArray(items: Json[], maxChars: number): Json[] {
-  const marker = (dropped: number) => `${TRUNCATION_MARKER} ${dropped.toLocaleString()} more items`
+const marker = (dropped: number) => `${TRUNCATION_MARKER} ${dropped.toLocaleString()} more items`
+
+function shrinkArray(items: Array<Json>, maxChars: number): Array<Json> {
   // Items keep every key, so a list of records keeps whole records from the
   // start rather than every record cut down to a few fields.
   const floors = items.map((item) => keyFloor(item, maxChars))
@@ -262,7 +283,9 @@ function shrinkObject(value: { [key: string]: Json }, maxChars: number): { [key:
 
   // The marker entry must not shadow a real key.
   let markerKey = TRUNCATION_MARKER
-  while (Object.hasOwn(value, markerKey)) markerKey += ' '
+  while (Object.hasOwn(value, markerKey)) {
+    markerKey += ' '
+  }
   const floors = entries.map(([k, v]) => keyCost(k) + floorSize(v, maxChars))
   const noteFloor = (chars: number) =>
     Math.min(chars, MIN_SLOT, Math.max(2, Math.floor(maxChars / 2)))
@@ -282,7 +305,9 @@ function shrinkObject(value: { [key: string]: Json }, maxChars: number): { [key:
     return skeleton(present + (dropped.size > 0 ? 1 : 0)) + floorsSum + marker
   }
   for (const i of byValueSize) {
-    if (cost() <= maxChars) break
+    if (cost() <= maxChars) {
+      break
+    }
     dropped.add(i)
     present--
     floorsSum -= floors[i]
@@ -298,8 +323,10 @@ function shrinkObject(value: { [key: string]: Json }, maxChars: number): { [key:
     const room = maxChars - 2 - keyCost(markerKey)
     return room >= 2 ? { [markerKey]: shrink(note, room) } : {}
   }
-  const all: [string, Json][] = [...kept]
-  if (omitted.length > 0) all.push([markerKey, note])
+  const all: Array<[string, Json]> = [...kept]
+  if (omitted.length > 0) {
+    all.push([markerKey, note])
+  }
   const values = all.map(([, v]) => v)
   // The note is shrunk like any other value, so it can never overshoot.
   const allocation = allocate(

@@ -2,7 +2,7 @@ name: Forge tools
 
 # Every six hours, regenerates src/generated/forge-mcp from the latest
 # openapi.forge.json Forge release with the @cloudflare/forge package that
-# package.json pins, a pkg.pr.new build of a forge commit.
+# package.json pins, a published npm release.
 # Its source.json pins the release the whole deployment serves: the forge
 # tools, and the spec artifacts in src/generated/spec that the forge tools
 # service serves to Code Mode and the endpoint tools. When the
@@ -36,12 +36,12 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      # The forge commit whose @cloudflare/forge build package.json pins, for the pull request.
+      # The @cloudflare/forge version package.json pins, for the pull request.
       - name: Read the forge pin
         id: forge
         run: |
-          pin="$(jq -r '.devDependencies["@cloudflare/forge"]' package.json)"
-          echo "ref=${pin##*@}" >> "$GITHUB_OUTPUT"
+          version="$(jq -r '.devDependencies["@cloudflare/forge"]' package.json)"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
 
       - uses: actions/setup-node@v6
         with:
@@ -75,7 +75,7 @@ jobs:
         if: steps.changes.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
-          FORGE_REF: ${{ steps.forge.outputs.ref }}
+          FORGE_VERSION: ${{ steps.forge.outputs.version }}
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
@@ -84,7 +84,7 @@ jobs:
           git commit -q -m "$TITLE"
           git push -q --force origin "$BRANCH"
           {
-            echo "Pins the latest \`openapi.forge.json\` and regenerates the forge MCP tools with forge \`${FORGE_REF:0:12}\`. Merging deploys the new tools to \`/mcp?codemode=false\`, and within ten minutes Code Mode serves this spec too."
+            echo "Pins the latest \`openapi.forge.json\` and regenerates the forge MCP tools with forge \`$FORGE_VERSION\`. Merging deploys the new tools to \`/mcp?codemode=false\`, and within ten minutes Code Mode serves this spec too."
             echo
             cat "$RUNNER_TEMP/summary.md"
           } > "$RUNNER_TEMP/body.md"
