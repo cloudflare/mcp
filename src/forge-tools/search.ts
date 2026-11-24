@@ -1,6 +1,7 @@
 // The pinned release's spec (`src/generated/forge-mcp/source.json`), which
 // `scripts/generate-tools.ts` writes with the generated tools. A text module,
 // so loading it costs a string, not a parse.
+import type { WorkerEntrypoint } from 'cloudflare:workers'
 import specText from '../generated/spec/spec.json.txt'
 
 /** A value search code returns, as RPC carries it from the sandbox. */
@@ -12,7 +13,7 @@ export interface SearchOutcome {
   error?: string
 }
 
-interface SearchSandbox {
+declare class SearchSandbox extends WorkerEntrypoint {
   evaluate(): Promise<SearchOutcome>
 }
 
@@ -52,5 +53,5 @@ export default class SearchSandbox extends WorkerEntrypoint {
     }
   }))
 
-  return (worker.getEntrypoint() as unknown as SearchSandbox).evaluate()
+  return worker.getEntrypoint<SearchSandbox>().evaluate()
 }

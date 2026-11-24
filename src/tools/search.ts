@@ -12,9 +12,12 @@ import { formatError } from '../utils/errors'
  * The forge tools service runs it, next to the spec it ships, so this Worker
  * never holds the 27 MB spec.
  */
+// oxlint-disable-next-line quality/no-unknown-returns -- Sandbox results are supplied by the caller's code and forwarded as data.
 async function runSearch(code: string): Promise<unknown> {
   const outcome = await env.FORGE_TOOLS.search(code)
-  if (outcome.error !== undefined) throw new Error(outcome.error)
+  if (outcome.error !== undefined) {
+    throw new Error(outcome.error)
+  }
   return outcome.result
 }
 
@@ -22,7 +25,7 @@ async function runSearch(code: string): Promise<unknown> {
  * Description for the `search` tool, listing a sample of available products and
  * the `spec` types the sandboxed search code can use.
  */
-function searchToolDescription(products: string[]): string {
+function searchToolDescription(products: Array<string>): string {
   return `Search the Cloudflare OpenAPI spec. All $refs are pre-resolved inline. Response schemas describe the body as the API sends it, usually Cloudflare's envelope: \`{ success, errors, messages, result }\`, plus \`result_info\` on paginated lists.
 
 Products: ${products.slice(0, 30).join(', ')}... (${products.length} total)

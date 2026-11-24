@@ -41,9 +41,15 @@ export async function readResponse(response: Response): Promise<ResponseBody> {
 }
 
 /** The body as a tool result's text shows it: a binary one by its size and type. */
+// oxlint-disable-next-line quality/no-unknown-returns -- A JSON body can represent any payload supported by the upstream API.
 export function bodyValue(body: ResponseBody): unknown {
-  if (body.kind === 'json') return body.value
-  if (body.kind === 'text') return body.text
+  if (body.kind === 'json') {
+    return body.value
+  }
+  if (body.kind === 'text') {
+    return body.text
+  }
+  // oxlint-disable-next-line quality/no-known-value-widening -- The binary description is one case of the shared body value contract.
   return `[${body.bytes.byteLength} bytes of ${body.mimeType}]`
 }
 
@@ -62,16 +68,20 @@ export function binaryContent(
 ): ContentBlock {
   const { mimeType } = body
   const data = base64(body.bytes)
-  if (mimeType.startsWith('image/')) return { type: 'image', data, mimeType }
-  if (mimeType.startsWith('audio/')) return { type: 'audio', data, mimeType }
+  if (mimeType.startsWith('image/')) {
+    return { type: 'image', data, mimeType }
+  }
+  if (mimeType.startsWith('audio/')) {
+    return { type: 'audio', data, mimeType }
+  }
   return { type: 'resource', resource: { uri, mimeType, blob: data } }
 }
 
 function base64(bytes: Uint8Array): string {
   let binary = ''
   // In chunks: one call with every byte as an argument overflows the stack.
-  for (let i = 0; i < bytes.length; i += 0x8000) {
-    binary += String.fromCharCode(...bytes.subarray(i, i + 0x8000))
+  for (let i = 0; i < bytes.length; i += 0x80_00) {
+    binary += String.fromCharCode(...bytes.subarray(i, i + 0x80_00))
   }
   return btoa(binary)
 }

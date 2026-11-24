@@ -2,7 +2,8 @@ import { env, waitUntil } from 'cloudflare:workers'
 import type { AuthProps } from './auth/types'
 import { SPEC_RELEASE } from './spec-release'
 import { recordResponseSchemaMismatch } from './metrics'
-import { trimForCheck, type MismatchError } from './response-schema-check'
+import { trimForCheck } from './response-schema-check'
+import type { MismatchError } from './response-schema-check'
 import { concretePaths, extractProduct } from './spec-processor'
 
 /**
@@ -48,8 +49,12 @@ export interface ResponseCheck {
 export function checkResponse(check: ResponseCheck): void {
   try {
     const sampleRate = sampleRateFrom(env.RESPONSE_VALIDATION_SAMPLE_RATE)
-    if (sampleRate <= 0 || Math.random() >= sampleRate) return
-    if (check.bodyChars > MAX_BODY_CHARS) return
+    if (sampleRate <= 0 || Math.random() >= sampleRate) {
+      return
+    }
+    if (check.bodyChars > MAX_BODY_CHARS) {
+      return
+    }
     waitUntil(run(check, sampleRate))
   } catch (error) {
     logFailure(check, error)
@@ -59,14 +64,18 @@ export function checkResponse(check: ResponseCheck): void {
 async function run(check: ResponseCheck, sampleRate: number): Promise<void> {
   try {
     // Yield a macrotask so the tool result is serialized and sent first.
-    await new Promise((resolve) => setTimeout(resolve, 0))
+    await new Promise((resolve) => {
+      setTimeout(resolve, 0)
+    })
     const method = check.method.toUpperCase()
     const mismatch = await env.FORGE_TOOLS.checkResponse({
       method,
       pathTemplate: check.pathTemplate,
       ...trimForCheck(check.status, check.body, MAX_CHECKED_ITEMS)
     })
-    if (!mismatch) return
+    if (!mismatch) {
+      return
+    }
     const { errors, ...summary } = mismatch
     const event = {
       toolName: check.toolName,
@@ -88,9 +97,13 @@ async function run(check: ResponseCheck, sampleRate: number): Promise<void> {
 
 /** `RESPONSE_VALIDATION_SAMPLE_RATE` as a fraction in [0, 1]. Unset or invalid means 1. */
 export function sampleRateFrom(value: string | undefined): number {
-  if (value === undefined || value.trim() === '') return 1
+  if (value === undefined || value.trim() === '') {
+    return 1
+  }
   const rate = Number(value)
-  if (!Number.isFinite(rate)) return 1
+  if (!Number.isFinite(rate)) {
+    return 1
+  }
   return Math.min(1, Math.max(0, rate))
 }
 

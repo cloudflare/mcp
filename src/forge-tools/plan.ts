@@ -1,5 +1,7 @@
-import { fromJsonSchema, type CallToolRequestParams } from '@modelcontextprotocol/server'
-import { buildRequest, operation, type Tool } from '../generated/forge-mcp/_/tool'
+import { fromJsonSchema } from '@modelcontextprotocol/server'
+import type { CallToolRequestParams } from '@modelcontextprotocol/server'
+import { buildRequest, operation } from '../generated/forge-mcp/_/tool'
+import type { Tool } from '../generated/forge-mcp/_/tool'
 import { permissionsOf } from './cloudflare'
 import { isolate } from '../lib/isolate'
 
@@ -37,7 +39,7 @@ export type CallPlan =
       /** The tool's path template, such as `/accounts/{account_id}/d1/database`. */
       readonly template: string
       /** The API token permissions the method accepts. */
-      readonly permissions?: readonly string[]
+      readonly permissions?: ReadonlyArray<string>
       /** The account the request names, if any, for explaining a refusal. */
       readonly accountId?: string
     })
@@ -51,12 +53,16 @@ export type CallPlan =
 export async function planCall(tool: Tool, given: Args, options: PlanOptions): Promise<CallPlan> {
   // Before filling in the account, so a misplaced account_id is reported as such.
   const invalid = await invalidArguments(tool, given)
-  if (invalid) return { kind: 'invalid', message: invalid }
+  if (invalid) {
+    return { kind: 'invalid', message: invalid }
+  }
   const template = operation(tool).path
   const key = accountKey(template, given)
   let args = given
   if (key && param(given, key) === undefined) {
-    if (!options.sessionAccountId) return { kind: 'needs_account', argument: `path.${key}` }
+    if (!options.sessionAccountId) {
+      return { kind: 'needs_account', argument: `path.${key}` }
+    }
     args = withPathParam(given, key, options.sessionAccountId)
   }
   let request: HttpRequest
@@ -88,11 +94,14 @@ const validators = isolate.map<string, ReturnType<typeof fromJsonSchema>>()
  */
 async function invalidArguments(tool: Tool, args: Args): Promise<string | undefined> {
   const validator = validators.getOrSet(tool.name, () => {
+    // oxlint-disable-next-line quality/no-unsafe-dictionary-type -- The validator consumes an arbitrary generated JSON Schema.
     const schema: Readonly<Record<string, unknown>> = tool.inputSchema
     return fromJsonSchema(schema)
   })
   const result = await validator['~standard'].validate(args)
-  if (!result.issues) return undefined
+  if (!result.issues) {
+    return undefined
+  }
   const issues = result.issues.map((issue) => issue.message).join(', ')
   const hints = misplaced(tool, args)
     .map((hint) => ` ${hint}`)
@@ -104,12 +113,16 @@ async function invalidArguments(tool: Tool, args: Args): Promise<string | undefi
  * Where each top-level argument the tool doesn't take goes, when it is a
  * parameter of `path`, `query` or `headers`: `per_page goes in query`.
  */
-function misplaced(tool: Tool, args: Args): string[] {
+function misplaced(tool: Tool, args: Args): Array<string> {
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- These fields follow the generated tool schema.
   const properties = (tool.inputSchema.properties ?? {}) as Readonly<
+    // oxlint-disable-next-line quality/no-unsafe-dictionary-type -- Generated property schemas may contain arbitrary JSON Schema keywords.
     Record<string, { properties?: Readonly<Record<string, unknown>> }>
   >
   return Object.keys(args).flatMap((name) => {
-    if (Object.hasOwn(properties, name)) return []
+    if (Object.hasOwn(properties, name)) {
+      return []
+    }
     const place = ['path', 'query', 'headers'].find((key) =>
       Object.hasOwn(properties[key]?.properties ?? {}, name)
     )
@@ -118,13 +131,17 @@ function misplaced(tool: Tool, args: Args): string[] {
 }
 
 /** The path parameter `key` in `args`, if any. */
+// oxlint-disable-next-line quality/no-unknown-returns -- The caller narrows each path argument after looking it up by name.
 function param(args: Args, key: string): unknown {
+  // oxlint-disable-next-line quality/no-unsafe-dictionary-type, typescript/no-unsafe-type-assertion -- The path argument comes from the generated tool schema and its value is narrowed at the call site.
   return (args.path as Readonly<Record<string, unknown>> | undefined)?.[key]
 }
 
 /** The path parameter that names the account, when the tool takes one for these arguments. */
 function accountKey(template: string, args: Args): string | undefined {
-  if (template.includes('{account_id}')) return 'account_id'
+  if (template.includes('{account_id}')) {
+    return 'account_id'
+  }
   if (
     template.startsWith(ACCOUNT_OR_ZONE_PREFIX) &&
     param(args, 'account_or_zone') === 'accounts'
@@ -136,6 +153,7 @@ function accountKey(template: string, args: Args): string | undefined {
 
 /** Returns `args` with the path parameter `key` set to `value`. */
 function withPathParam(args: Args, key: string, value: string): Args {
+  // oxlint-disable-next-line quality/no-unsafe-dictionary-type, typescript/no-unsafe-type-assertion -- The generated tool schema owns the other path arguments copied here.
   const path = (args.path ?? {}) as Readonly<Record<string, unknown>>
   return { ...args, path: { ...path, [key]: value } }
 }

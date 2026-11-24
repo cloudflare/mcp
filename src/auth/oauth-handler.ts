@@ -14,7 +14,8 @@ import {
   SCOPE_DEFINITIONS,
   SCOPE_TEMPLATES
 } from './scopes'
-import { AuthProps as AuthPropsSchema, AUTH_PROPS_VERSION, type AuthProps } from './types'
+import { AuthProps as AuthPropsSchema, AUTH_PROPS_VERSION } from './types'
+import type { AuthProps } from './types'
 import {
   parseRedirectApproval,
   renderApprovalDialog,
@@ -26,19 +27,19 @@ import { withRefreshAdmission } from './refresh-admission-gate'
 import { MetricsTracker, AuthUser } from '../metrics'
 import { SERVER_INFO } from '../constants'
 
-import {
-  AuthorizationError,
-  CimdFetchError,
-  type AuthRequest,
-  type OAuthHelpers,
-  type TokenExchangeCallbackOptions,
-  type TokenExchangeCallbackResult
+import { AuthorizationError, CimdFetchError } from '@cloudflare/workers-oauth-provider'
+import type {
+  AuthRequest,
+  OAuthHelpers,
+  TokenExchangeCallbackOptions,
+  TokenExchangeCallbackResult
 } from '@cloudflare/workers-oauth-provider'
 
 interface AuthEnv extends Env {
   OAUTH_PROVIDER: OAuthHelpers
 }
 
+// oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The OAuth provider attaches this helper binding at runtime.
 const env = cloudflareEnv as AuthEnv
 const ALLOWED_SCOPES = new Set<string>(ALL_SCOPES)
 const metrics = new MetricsTracker(env.MCP_METRICS, SERVER_INFO)
@@ -63,10 +64,12 @@ function authErrorMessage(prefix: string, e: unknown): string {
  * keep the requested scopes.
  */
 export function grantedScopes(
-  requested: readonly string[],
+  requested: ReadonlyArray<string>,
   upstreamScope: string | undefined
-): string[] {
-  if (!upstreamScope) return [...requested]
+): Array<string> {
+  if (!upstreamScope) {
+    return [...requested]
+  }
   const granted = new Set(upstreamScope.split(/\s+/).filter(Boolean))
   return requested.filter((scope) => granted.has(scope))
 }
@@ -85,10 +88,14 @@ export async function handleTokenExchangeCallback(
   clientId: string,
   clientSecret: string
 ): Promise<TokenExchangeCallbackResult | undefined> {
-  if (options.grantType !== 'refresh_token') return undefined
+  if (options.grantType !== 'refresh_token') {
+    return undefined
+  }
 
   const props = AuthPropsSchema.parse(options.props)
-  if (props.type !== 'user_token' || !props.refreshToken) return undefined
+  if (props.type !== 'user_token' || !props.refreshToken) {
+    return undefined
+  }
   if (!options.userId || !options.grantId) {
     throw new Error('Refresh token exchange is missing its grant identity')
   }
@@ -124,7 +131,7 @@ async function redirectToCloudflare(
   requestUrl: string,
   stateToken: string,
   codeChallenge: string,
-  scopes: string[],
+  scopes: Array<string>,
   additionalHeaders: Record<string, string> = {}
 ): Promise<Response> {
   const { authUrl } = await getAuthorizationURL({
@@ -183,8 +190,12 @@ export function createAuthHandlers() {
           const redirect = new URL(error.redirectUri)
           redirect.searchParams.set('error', error.code)
           redirect.searchParams.set('error_description', error.description)
-          if (error.state) redirect.searchParams.set('state', error.state)
-          if (error.issuer) redirect.searchParams.set('iss', error.issuer)
+          if (error.state) {
+            redirect.searchParams.set('state', error.state)
+          }
+          if (error.issuer) {
+            redirect.searchParams.set('iss', error.issuer)
+          }
           return new Response(null, {
             status: 302,
             headers: { Location: redirect.href, 'Cache-Control': 'no-store' }
@@ -206,7 +217,7 @@ export function createAuthHandlers() {
       }
       // Clients request the resource's required scopes (its 401 names them), which says nothing
       // about what else they want: only a request beyond them overrides the default template.
-      const requiredScopes: readonly string[] = REQUIRED_SCOPES
+      const requiredScopes: ReadonlyArray<string> = REQUIRED_SCOPES
       const choseScopes = requestedScopes.some((scope) => !requiredScopes.includes(scope))
       const scopesToRequest = Array.from(
         new Set([...(choseScopes ? requestedScopes : defaultScopes), ...REQUIRED_SCOPES])
@@ -230,12 +241,16 @@ export function createAuthHandlers() {
         requiredScopes: REQUIRED_SCOPES,
         initialScopes: scopesToRequest
       })
-    } catch (e) {
-      if (e instanceof CimdFetchError) return cimdUnavailableResponse()
-      metrics.logEvent(new AuthUser({ errorMessage: authErrorMessage('Authorize Error', e) }))
-      if (e instanceof OAuthError) return e.toHtmlResponse()
+    } catch (error) {
+      if (error instanceof CimdFetchError) {
+        return cimdUnavailableResponse()
+      }
+      metrics.logEvent(new AuthUser({ errorMessage: authErrorMessage('Authorize Error', error) }))
+      if (error instanceof OAuthError) {
+        return error.toHtmlResponse()
+      }
       const errorId = crypto.randomUUID()
-      console.error(`Authorize error [${errorId}]:`, e)
+      console.error(`Authorize error [${errorId}]:`, error)
       return renderErrorPage(
         'Server Error',
         'An unexpected error occurred. Please try again.',
@@ -283,14 +298,19 @@ export function createAuthHandlers() {
       }
 
       return redirectResponse
-    } catch (e) {
-      metrics.logEvent(new AuthUser({ errorMessage: authErrorMessage('Authorize POST Error', e) }))
+    } catch (error) {
+      metrics.logEvent(
+        new AuthUser({ errorMessage: authErrorMessage('Authorize POST Error', error) })
+      )
       // Consent/upstream transaction expired, used, or opened in another browser: render locally.
-      if (e instanceof AuthorizationError)
-        return new OAuthError(e.code, e.description).toHtmlResponse()
-      if (e instanceof OAuthError) return e.toHtmlResponse()
+      if (error instanceof AuthorizationError) {
+        return new OAuthError(error.code, error.description).toHtmlResponse()
+      }
+      if (error instanceof OAuthError) {
+        return error.toHtmlResponse()
+      }
       const errorId = crypto.randomUUID()
-      console.error(`Authorize POST error [${errorId}]:`, e)
+      console.error(`Authorize POST error [${errorId}]:`, error)
       return renderErrorPage(
         'Server Error',
         'An unexpected error occurred. Please try again.',
@@ -314,8 +334,12 @@ export function createAuthHandlers() {
       if (c.req.query('error')) {
         const redirect = new URL(oauthReqInfo.redirectUri)
         redirect.searchParams.set('error', 'access_denied')
-        if (oauthReqInfo.state) redirect.searchParams.set('state', oauthReqInfo.state)
-        if (oauthReqInfo.issuer) redirect.searchParams.set('iss', oauthReqInfo.issuer)
+        if (oauthReqInfo.state) {
+          redirect.searchParams.set('state', oauthReqInfo.state)
+        }
+        if (oauthReqInfo.issuer) {
+          redirect.searchParams.set('iss', oauthReqInfo.issuer)
+        }
         headers.set('Location', redirect.href)
         return new Response(null, { status: 302, headers })
       }
@@ -365,15 +389,20 @@ export function createAuthHandlers() {
 
       headers.set('Location', redirectTo)
       return new Response(null, { status: 302, headers })
-    } catch (e) {
-      if (e instanceof CimdFetchError) return cimdCallbackFailureResponse()
-      metrics.logEvent(new AuthUser({ errorMessage: authErrorMessage('Callback Error', e) }))
+    } catch (error) {
+      if (error instanceof CimdFetchError) {
+        return cimdCallbackFailureResponse()
+      }
+      metrics.logEvent(new AuthUser({ errorMessage: authErrorMessage('Callback Error', error) }))
       // Consent/upstream transaction expired, used, or opened in another browser: render locally.
-      if (e instanceof AuthorizationError)
-        return new OAuthError(e.code, e.description).toHtmlResponse()
-      if (e instanceof OAuthError) return e.toHtmlResponse()
+      if (error instanceof AuthorizationError) {
+        return new OAuthError(error.code, error.description).toHtmlResponse()
+      }
+      if (error instanceof OAuthError) {
+        return error.toHtmlResponse()
+      }
       const errorId = crypto.randomUUID()
-      console.error(`Callback error [${errorId}]:`, e)
+      console.error(`Callback error [${errorId}]:`, error)
       return renderErrorPage(
         'Server Error',
         'An unexpected error occurred during authorization.',

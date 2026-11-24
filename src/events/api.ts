@@ -30,28 +30,33 @@ export class EventApi {
   ) {}
 
   async request(path: string, method = 'GET', body?: unknown) {
-    const response = await fetchWithRetry(
-      `${this.base}/accounts/${this.accountId}${path}`,
-      {
-        method,
-        redirect: 'manual',
-        signal: this.signal
-          ? AbortSignal.any([this.signal, AbortSignal.timeout(10_000)])
-          : AbortSignal.timeout(10_000),
-        headers: { Authorization: `Bearer ${this.token}`, 'Content-Type': 'application/json' },
-        ...(body === undefined ? {} : { body: JSON.stringify(body) })
-      },
-      { maxRetries: 0, caller: 'mcp_events_api' }
-    )
+    const init: RequestInit = {
+      method,
+      redirect: 'manual',
+      signal: this.signal
+        ? AbortSignal.any([this.signal, AbortSignal.timeout(10_000)])
+        : AbortSignal.timeout(10_000),
+      headers: { Authorization: `Bearer ${this.token}`, 'Content-Type': 'application/json' }
+    }
+    if (body !== undefined) {
+      init.body = JSON.stringify(body)
+    }
+    const response = await fetchWithRetry(`${this.base}/accounts/${this.accountId}${path}`, init, {
+      maxRetries: 0,
+      caller: 'mcp_events_api'
+    })
     if (!response.ok) {
       await response.body?.cancel()
       throw new EventApiError(response.status)
     }
     const envelope = Envelope.parse(await readJson(response, 2 * 1024 * 1024))
-    if (!envelope.success) throw new EventApiError(502)
+    if (!envelope.success) {
+      throw new EventApiError(502)
+    }
     return envelope
   }
 
+  // oxlint-disable-next-line quality/no-unknown-returns -- The result shape varies by endpoint and the caller supplies its schema.
   async result(path: string, method = 'GET', body?: unknown): Promise<unknown> {
     return (await this.request(path, method, body)).result
   }
@@ -72,11 +77,18 @@ export class EventApi {
         : envelope.result
       const resources = z.array(Resource).parse(value)
       const found = resources.find((resource) => resource.name === name)
-      if (resources.filter((resource) => resource.name === name).length > 1)
+      if (resources.filter((resource) => resource.name === name).length > 1) {
         throw new EventApiError(409)
-      if (found) return found.id
-      if (listing.pagination === 'unpaged') return
-      if (!envelope.result_info?.total_pages || page >= envelope.result_info.total_pages) return
+      }
+      if (found) {
+        return found.id
+      }
+      if (listing.pagination === 'unpaged') {
+        return
+      }
+      if (!envelope.result_info?.total_pages || page >= envelope.result_info.total_pages) {
+        return
+      }
     }
     throw new EventApiError(503)
   }
@@ -85,13 +97,15 @@ export class EventApi {
    * Find every resource with this exact name. Used for destinations, which can
    * briefly share a name while a signing secret rotates.
    */
-  async findAll(path: string, name: string): Promise<string[]> {
-    const ids: string[] = []
+  async findAll(path: string, name: string): Promise<Array<string>> {
+    const ids: Array<string> = []
     for (let page = 1; page <= 100; page++) {
       const envelope = await this.request(`${path}?page=${page}&per_page=100`)
       const resources = z.array(Resource).parse(envelope.result)
       ids.push(...resources.filter((resource) => resource.name === name).map(({ id }) => id))
-      if (!envelope.result_info?.total_pages || page >= envelope.result_info.total_pages) return ids
+      if (!envelope.result_info?.total_pages || page >= envelope.result_info.total_pages) {
+        return ids
+      }
     }
     throw new EventApiError(503)
   }
@@ -107,7 +121,9 @@ export class EventApi {
     try {
       await this.result(path, 'DELETE')
     } catch (error) {
-      if (!(error instanceof EventApiError && error.status === 404)) throw error
+      if (!(error instanceof EventApiError && error.status === 404)) {
+        throw error
+      }
     }
   }
 }

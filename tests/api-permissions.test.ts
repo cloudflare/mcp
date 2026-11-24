@@ -223,10 +223,27 @@ describe('authorize', () => {
       kind: 'unlisted',
       connection: 'oauth'
     })
-    expect(authorize(BASELINE, { method: 'GET', path: DNS_PATH }, ['Billing Read'])).toEqual({
+    expect(authorize(BASELINE, { method: 'GET', path: DNS_PATH }, ['API Tokens Read'])).toEqual({
       kind: 'unreachable',
-      permissions: ['Billing Read']
+      permissions: ['API Tokens Read']
     })
+  })
+
+  it('asks for the internal billing scope that matches the request', () => {
+    const SUBSCRIPTIONS = '/accounts/{account_id}/subscriptions'
+    expect(authorize(BASELINE, { method: 'POST', path: SUBSCRIPTIONS }, ['Billing Write'])).toEqual(
+      { kind: 'missing', options: ['billing:write'], scope: 'billing:write' }
+    )
+    expect(
+      authorize(BASELINE, { method: 'GET', path: SUBSCRIPTIONS }, ['Billing Write', 'Billing Read'])
+    ).toEqual({
+      kind: 'missing',
+      options: ['billing:read', 'billing:write'],
+      scope: 'billing:read'
+    })
+    expect(
+      authorize(oauth('billing:write'), { method: 'POST', path: SUBSCRIPTIONS }, ['Billing Write'])
+    ).toEqual({ kind: 'granted', held: ['billing:write'] })
   })
 })
 
@@ -246,14 +263,14 @@ describe('explainRefusal', () => {
   })
 
   it('points OAuth connections to an API token when no OAuth scope covers the endpoint', () => {
-    const text = explain(403, oauth('user:read'), ['Billing Read', 'Billing Write'])
+    const text = explain(403, oauth('user:read'), ['API Tokens Read', 'API Tokens Write'])
     expect(text).toContain('No OAuth scope covers this endpoint')
-    expect(text).toContain('Billing Read, Billing Write')
+    expect(text).toContain('API Tokens Read, API Tokens Write')
   })
 
   it('lists the permissions, with their OAuth scope IDs, for a direct credential', () => {
-    expect(explain(403, DIRECT_CONNECTION, ['DNS Read', 'Billing Read'])).toBe(
-      'This endpoint needs one of these permissions: DNS Read (`dns.read`), Billing Read. Add one to the token.'
+    expect(explain(403, DIRECT_CONNECTION, ['DNS Read', 'API Tokens Read'])).toBe(
+      'This endpoint needs one of these permissions: DNS Read (`dns.read`), API Tokens Read. Add one to the token.'
     )
   })
 
@@ -311,7 +328,7 @@ describe('emptyListProvesNothing', () => {
     expect(doubts(BASELINE, DNS, 'POST')).toBe(false)
     expect(doubts(DIRECT_CONNECTION, DNS)).toBe(false)
     expect(doubts(BASELINE, undefined)).toBe(false)
-    expect(doubts(BASELINE, ['Billing Read'])).toBe(false)
+    expect(doubts(BASELINE, ['API Tokens Read'])).toBe(false)
   })
 
   it('trusts endpoints the baseline scopes may grant', () => {

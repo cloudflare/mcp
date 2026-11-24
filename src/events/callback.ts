@@ -1,11 +1,7 @@
 import { forwardAnsWebhook } from './ans-bridge'
 import { publicWebhookFetch } from './service'
-import {
-  hashSecret,
-  openDeliverySecret,
-  readSubscriptionRecord,
-  type EventEnvironment
-} from './state'
+import { hashSecret, openDeliverySecret, readSubscriptionRecord } from './state'
+import type { EventEnvironment } from './state'
 
 /**
  * Why a callback from ANS was acknowledged, dropped or bounced. Logged once
@@ -17,6 +13,7 @@ function logOutcome(
   subscription: string,
   outcome: CallbackOutcome,
   status: number,
+  // oxlint-disable-next-line quality/no-unsafe-dictionary-type -- Callback log fields vary by outcome.
   detail: Record<string, unknown> = {}
 ): void {
   console.log(
@@ -39,13 +36,19 @@ export async function handleAnsCallback(
   env: EventEnvironment
 ): Promise<Response> {
   const deadline = AbortSignal.timeout(4000)
-  if (request.method !== 'POST') return new Response(null, { status: 405 })
+  if (request.method !== 'POST') {
+    return new Response(null, { status: 405 })
+  }
   const match = /^\/events\/ans\/(sub_[a-f0-9]{64})$/.exec(new URL(request.url).pathname)
-  if (!match) return new Response(null, { status: 404 })
+  if (!match) {
+    return new Response(null, { status: 404 })
+  }
   const id = match[1]
   const presented = request.headers.get('cf-webhook-auth') ?? ''
   const seal = await openDeliverySecret(env, id, presented)
-  if (!seal) return new Response(null, { status: 401 })
+  if (!seal) {
+    return new Response(null, { status: 401 })
+  }
   const record = await readSubscriptionRecord(env, id)
   // No record: ANS probing a new subscription's destination, or the
   // subscription expired or ended.
