@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { assetUploadToken, isAssetUploadPath } from '../src/asset-upload-token'
+import { assetUploadAuthorization, isAssetUploadPath } from '../src/asset-upload-token'
 
 const NOW = 1_800_000_000
 const SESSION = 'session-token'
@@ -42,50 +42,58 @@ describe('isAssetUploadPath', () => {
   })
 })
 
-describe('assetUploadToken', () => {
+describe('assetUploadAuthorization', () => {
   const valid = jwt({ exp: NOW + 300 })
 
   it('keeps an unexpired upload JWT on an asset upload path', () => {
-    expect(assetUploadToken(post(valid), '/pages/assets/upload', SESSION, NOW)).toBe(valid)
+    expect(assetUploadAuthorization(post(valid), '/pages/assets/upload', SESSION, NOW)).toEqual({
+      token: valid
+    })
   })
 
   it('ignores the bearer on any other path', () => {
     expect(
-      assetUploadToken(post(valid), `/accounts/${ACCOUNT}/workers/scripts`, SESSION, NOW)
+      assetUploadAuthorization(post(valid), `/accounts/${ACCOUNT}/workers/scripts`, SESSION, NOW)
     ).toBeUndefined()
   })
 
   it('ignores the bearer on a GET', () => {
     expect(
-      assetUploadToken(post(valid, 'GET'), '/pages/assets/upload', SESSION, NOW)
+      assetUploadAuthorization(post(valid, 'GET'), '/pages/assets/upload', SESSION, NOW)
     ).toBeUndefined()
   })
 
   it('ignores an expired JWT', () => {
     expect(
-      assetUploadToken(post(jwt({ exp: NOW - 120 })), '/pages/assets/upload', SESSION, NOW)
-    ).toBeUndefined()
+      assetUploadAuthorization(post(jwt({ exp: NOW - 120 })), '/pages/assets/upload', SESSION, NOW)
+    ).toEqual({})
   })
 
   it('ignores a JWT without an expiry', () => {
     expect(
-      assetUploadToken(post(jwt({ sub: 'x' })), '/pages/assets/upload', SESSION, NOW)
-    ).toBeUndefined()
+      assetUploadAuthorization(post(jwt({ sub: 'x' })), '/pages/assets/upload', SESSION, NOW)
+    ).toEqual({})
   })
 
   it('ignores a bearer that is not a JWT', () => {
     expect(
-      assetUploadToken(post('someone-else'), '/pages/assets/upload', SESSION, NOW)
-    ).toBeUndefined()
-    expect(assetUploadToken(post('a.b.c'), '/pages/assets/upload', SESSION, NOW)).toBeUndefined()
+      assetUploadAuthorization(post('someone-else'), '/pages/assets/upload', SESSION, NOW)
+    ).toEqual({})
+    expect(assetUploadAuthorization(post('a.b.c'), '/pages/assets/upload', SESSION, NOW)).toEqual(
+      {}
+    )
   })
 
   it('ignores the session token itself', () => {
     const session = jwt({ exp: NOW + 300 })
-    expect(assetUploadToken(post(session), '/pages/assets/upload', session, NOW)).toBeUndefined()
+    expect(assetUploadAuthorization(post(session), '/pages/assets/upload', session, NOW)).toEqual(
+      {}
+    )
   })
 
   it('ignores a request without Authorization', () => {
-    expect(assetUploadToken(post(undefined), '/pages/assets/upload', SESSION, NOW)).toBeUndefined()
+    expect(assetUploadAuthorization(post(undefined), '/pages/assets/upload', SESSION, NOW)).toEqual(
+      {}
+    )
   })
 })

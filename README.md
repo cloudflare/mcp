@@ -175,6 +175,17 @@ execute({
 });
 ```
 
+### Static asset uploads
+
+In Code Mode, mint the upload JWT with the MCP connection's credentials, then pass it as `Authorization: Bearer <jwt>` only on the asset POSTs. The outbound proxy applies the same authentication rules to `cloudflare.request()` and `fetch()`.
+
+| Product | Get an upload JWT | Send assets with the JWT | Finish with MCP connection credentials |
+| --- | --- | --- | --- |
+| Pages | `GET /accounts/{id}/pages/projects/{project}/upload-token` | `POST /pages/assets/check-missing`, `/pages/assets/upload`, and `/pages/assets/upsert-hashes` | Create the Pages deployment with the multipart manifest. |
+| Workers | `POST /accounts/{id}/workers/scripts/{script}/assets-upload-session` | `POST /accounts/{id}/workers/assets/upload?base64=true` with base64 file bytes in multipart `FormData` | Create the Worker version with the completion JWT in multipart metadata at `assets.jwt`. |
+
+The proxy does not substitute the MCP credential for a missing or unusable upload JWT, follow upload redirects, or retry ambiguous network failures. Cloudflare validates the JWT and its upload scope. An upload authentication error does not prompt an MCP OAuth reconnect; use a fresh JWT for the intended project or Worker instead. Do not return JWTs in tool output or logs.
+
 ### GraphQL Analytics API
 
 The server automatically detects and handles Cloudflare's GraphQL Analytics API endpoints. GraphQL queries work seamlessly through the same `execute` tool:

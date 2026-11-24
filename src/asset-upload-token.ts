@@ -42,19 +42,16 @@ function isUnexpiredJwt(token: string, nowSeconds: number): boolean {
   }
 }
 
-export function assetUploadToken(
+export function assetUploadAuthorization(
   request: Request,
   path: string,
   sessionToken: string,
   nowSeconds: number = Date.now() / 1000
-): string | undefined {
+): { token?: string } | undefined {
   if (request.method !== 'POST' || !isAssetUploadPath(path)) {
     return undefined
   }
   const match = /^Bearer (\S+)$/.exec(request.headers.get('authorization') ?? '')
   const token = match?.[1]
-  if (!token || token === sessionToken) {
-    return undefined
-  }
-  return isUnexpiredJwt(token, nowSeconds) ? token : undefined
+  return token && token !== sessionToken && isUnexpiredJwt(token, nowSeconds) ? { token } : {}
 }

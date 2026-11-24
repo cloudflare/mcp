@@ -20,7 +20,7 @@ import { authorize, explainRefusal, isCatalogScope } from '../api-permissions'
 import { MISSING_SCOPE_HEADER, REFUSAL_HINT_HEADER, reviewResponse } from '../api-refusals'
 import { policyRefusalHint, sameSubscription, subscriptionCreate } from '../policy-guards'
 import type { SubscriptionKey } from '../policy-guards'
-import { assetUploadToken } from '../asset-upload-token'
+import { assetUploadAuthorization } from '../asset-upload-token'
 import {
   DECLINED_HINT,
   NEEDS_CONFIRMATION_HEADER,
@@ -100,10 +100,17 @@ type GlobalOutboundProps = {
  */
 export class GlobalOutbound extends WorkerEntrypoint<Env, GlobalOutboundProps> {
   async fetch(request: Request): Promise<Response> {
-    const allowed = new URL(this.env.CLOUDFLARE_API_BASE).hostname
-    const requested = new URL(request.url).hostname
-    if (requested !== allowed) {
-      return new Response(`Forbidden: requests to ${requested} are not allowed`, { status: 403 })
+    const apiBase = new URL(this.env.CLOUDFLARE_API_BASE)
+    const requested = new URL(request.url)
+    const basePath = apiBase.pathname.replace(/\/$/, '')
+    if (
+      requested.origin !== apiBase.origin ||
+      (requested.pathname !== basePath && !requested.pathname.startsWith(`${basePath}/`))
+    ) {
+      return new Response('Forbidden: request is outside the Cloudflare API base URL.', {
+        status: 403,
+        headers: { [NOT_SENT_HEADER]: '1' }
+      })
     }
     const policyHint = await policyRefusalHint(request, this.ctx.props.confirmedSubscription)
     if (policyHint) {
@@ -123,30 +130,44 @@ export class GlobalOutbound extends WorkerEntrypoint<Env, GlobalOutboundProps> {
         }
       )
     }
-    // Inject auth header — token comes from props, never enters user code isolate.
-    // It replaces any Authorization the code sent: appended, the two would be
-    // joined into one value the API can't read. The headers are rebuilt from
-    // their entries: in workerd, a copy made with new Headers(request.headers)
+    const path = requested.pathname.slice(basePath.length)
+    const { apiToken } = this.ctx.props
+    const upload = assetUploadAuthorization(request, path, apiToken)
+    if (upload && !upload.token) {
+      return new Response(
+        'This endpoint requires an upload JWT. Get one from the Pages upload-token or Workers assets-upload-session endpoint, then pass it as Authorization: Bearer <upload JWT>.',
+        { status: 401, headers: { [NOT_SENT_HEADER]: '1' } }
+      )
+    }
+
+    // Appending Authorization would join two bearers into one unusable value.
+    // Rebuild from entries: in workerd, a copy made with new Headers(request.headers)
     // lost every header but Authorization when fetchWithRetry copied it again.
-    const basePath = new URL(this.env.CLOUDFLARE_API_BASE).pathname.replace(/\/$/, '')
-    const path = new URL(request.url).pathname.slice(basePath.length)
-    const uploadToken = assetUploadToken(request, path, this.ctx.props.apiToken)
     const headers = new Headers([
       ...[...request.headers].filter(([name]) => name.toLowerCase() !== 'authorization'),
-      ['Authorization', `Bearer ${uploadToken ?? this.ctx.props.apiToken}`]
+      ['Authorization', `Bearer ${upload?.token ?? apiToken}`]
     ])
-    const authedRequest = new Request(request, { headers })
+    const authedRequest = new Request(request, {
+      headers,
+      redirect: upload ? 'manual' : request.redirect
+    })
     // No 429 is retried here: the sandbox waits out rate limits, where the wait
     // holds back the run's other requests and counts against its wait budget.
     const response = await fetchWithRetry(authedRequest, undefined, {
       caller: this.ctx.props.fetchWithRetryCaller,
-      retryRateLimited: false
+      retryRateLimited: false,
+      ...(upload && { maxRetries: 0 })
     })
+    if (upload && [301, 302, 303, 307, 308].includes(response.status)) {
+      const redirectHeaders = new Headers(response.headers)
+      redirectHeaders.delete('Location')
+      return new Response(response.body, { status: response.status, headers: redirectHeaders })
+    }
 
     // What the response's rate limits ask of the run: the sandbox holds its
     // next requests back for it, and tells the agent about a 429.
     const noticed = await withRateLimitNotice(response, request.method, path)
-    if (uploadToken) {
+    if (upload) {
       return noticed
     }
 
@@ -682,7 +703,9 @@ When the session has access to multiple accounts, pass account_id. ${ACCOUNT_DIS
 To turn on a product for an account, such as R2, create an account subscription: POST /accounts/{account_id}/subscriptions with body { rate_plan: { id } }. Rate plan IDs include r2_paid (R2 Storage) and teams_free (Zero Trust). Only plans with no base charge can be created. The server asks the user to confirm first.
 
 Your code must be an async arrow function that returns the result.
-A failed request throws an Error naming the method, path, HTTP status and Cloudflare's errors. For HTTP 401/403 it also says which permission the endpoint needs and whether reconnecting will help. Requests slow down by themselves near a rate limit. For HTTP 429 the error says how long Cloudflare asks to wait; until then, requests under the same limit are not sent and throw too, so stop instead of catching and continuing.
+A failed request throws an Error naming the method, path, HTTP status and Cloudflare's errors. For HTTP 401/403 on a request using the MCP connection, it also says which permission the endpoint needs and whether reconnecting will help. Requests slow down by themselves near a rate limit. For HTTP 429 the error says how long Cloudflare asks to wait; until then, requests under the same limit are not sent and throw too, so stop instead of catching and continuing.
+
+For static assets, first get a JWT using the Pages project's GET upload-token or the Worker's POST assets-upload-session endpoint. Pass that JWT as Authorization: Bearer <upload JWT> only to the Pages asset POSTs (check-missing, upload, upsert-hashes) or the Workers assets/upload POST (multipart FormData with query: { base64: true }). Do not pass the JWT as authorization when creating a deployment or Worker version; the Workers upload completion JWT goes in version metadata at assets.jwt. An upload JWT refusal is not an MCP OAuth scope challenge.
 
 Example: Worker with bindings (a multipart/form-data upload):
 async () => {
